@@ -1,0 +1,14 @@
+
+test/
+.project
+/nbproject/private/
+/nbproject
+_DS*
+._*
+*-e
+.*-e
+docs.txt
+todo.txt
+
+/screenSharing/nbproject/private/
+/desktopSelector

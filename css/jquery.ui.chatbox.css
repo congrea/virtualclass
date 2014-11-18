@@ -1,0 +1,488 @@
+/* style sheets */
+/*css for chatbox*/
+.ui-chatbox {
+    position: relative;
+    bottom:286px;
+    padding: 0px 0px 2px 0px;
+    border-bottom: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.ui-chatbox-titlebar {
+    padding: 3px 3px 3px 3px;
+    height:20px;
+}
+.ui-chatbox-titlebar span{
+    position: relative;
+    font-weight: normal;
+    text-transform: capitalize;
+
+}
+.ui-chatbox-content {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+.ui-chatbox-log {
+    padding: 3px 3px 3px 3px;
+    height: 175px;
+   overflow-y: auto;
+}
+
+.ui-chatbox-input {
+    border-top: 1px solid grey;
+    border-bottom: none;
+    overflow: hidden;
+    clear: both;
+}
+
+.ui-chatbox-input-box {
+    margin: 5px 5px 5px 5px;
+   /* border: 2px solid lightgrey;*//* #6699FF */
+    height: 32px;
+    resize: none;
+}
+
+.ui-chatbox-icon {
+    float: right!important;
+}
+
+.ui-chatbox-input-focus {
+    border-color: #6699FF;
+}
+
+.ui-chatbox-msg {
+    clear: both;
+    font-size: 12px;
+    line-height: 21px;
+}
+
+
+/*css for userlist*/
+
+ui-memblist-usr
+{
+    float: left;
+    clear: both;
+}
+
+.ui-memblist {
+    position: fixed;
+    bottom:32px;
+    background:  #CCCCCC;
+    z-index: 2;
+}
+.ui-memblist-titlebar {
+    padding: 3px 3px 3px 3px;
+    height: 20px;
+}
+
+.ui-memblist-icon {
+    float: right;
+}
+
+.ui-memblist-content {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+.ui-memblist-log {
+    padding: 3px 3px 3px 3px;
+    height: 220px;
+    overflow-y: auto;
+    background: #FFFFFF;
+}
+
+/*css for sticky footer bar*/
+#stickybar {
+
+    /*background:#EBEEF4;*/
+    font-size:14px;
+    font-weight:bold;
+    color:#151715;
+    position:fixed;
+    bottom:0;
+    z-index:2000;
+}
+
+#stickybar a {
+    color:#000;
+    text-decoration:none;
+    padding-left: 4px;
+    border: none;
+    font-size:13px;
+     text-transform: capitalize;
+}
+#closebtn {
+    /* background:url('../images/close.png') top no-repeat;*/
+    border:0;
+    width: 25px;
+    cursor: pointer;
+    height: 25px;
+    margin: 0; /* override moodle button css*/
+    padding: 0;/* override moodle button css*/
+    white-space: pre-wrap;/* some theme require*/
+    outline: 0;/* moodle override*/
+}
+#hide_bar input.close{
+    background:url('../images/close.png') top no-repeat;
+    opacity: 1;
+}
+
+#hide_bar input.expand{
+    background:url('../images/open.png') top no-repeat;
+}
+.vmchat_close_bt{
+    /*background: #EBEEF4;*/
+    /*border-right: 1px solid transparent;
+    border-left: 1px solid #bac0cd;*/
+    color: #333;
+    cursor: pointer;
+    height: 29px;
+    padding: 3px 6px;
+    position: relative;
+    padding-top: 2px;
+    z-index: 1026;
+    float: right;
+}
+.vmchat_bar_button {
+    /*background: #EBEEF4;*/
+    border-right: 1px solid #bac0cd;
+    border-left: 1px solid #bac0cd;
+    color: #333;
+    cursor: pointer;
+    height: 29px;
+    padding: 0px 12px;
+    position: relative;
+    padding-top: 2px;
+    z-index: 1026;
+    float: right;
+    width: 212px;
+}
+
+/*#hide_bar{
+    border:none;
+}*/
+#chatroom_bt {
+    padding-right: 5px;
+    white-space: nowrap;
+}
+.vmchat_room_bt {
+    /*background: #EBEEF4;*/
+    border-right: 1px solid #BAC0CD;
+    border-left: 1px solid transparent;
+    color: #333;
+    cursor: pointer;
+    height: 29px;
+    padding: 0px 6px;
+    position: relative;
+    left: 36px;
+    padding-top: 2px;
+    z-index: 1026;
+    float: left;
+    /*text-align: center;*/
+     width: 203px;
+}
+.inner_bt {
+    padding: 4px 0px;
+    line-height: 15px;
+}
+
+#usertab_icon {
+    background: url('../images/offline.png') no-repeat top left;
+    float: left;
+    height: 16px;
+    margin: 1px 2px 0px 0px;
+    width: 16px;
+}
+/*css for sticky footer bar*/
+
+
+/* css for chat romm */
+.ui-chatroom {
+    position: fixed;
+    bottom:30px;
+    padding: 2px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
+    z-index: 10000;
+}
+#chatroom_icon {
+    background-position: -154px -90px;
+    background: url('../images/chroom.png') no-repeat top left;
+    float: left;
+    height: 16px;
+    margin: 1px 2px 0px 0px;
+    width: 16px;
+}
+.ui-chatroom-titlebar {
+    padding: 3px 3px 3px 3px;
+    height: 20px;
+}
+
+.ui-chatroom-content {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+}
+
+.ui-chatroom-log {
+    padding: 7px 3px 3px 5px;
+    height: 150px;
+    overflow-y: auto;
+    background: #FFFFFF;
+}
+
+.ui-chatroom-input {
+    padding: 3px 3px 3px 3px;
+    border-top: 1px solid grey;
+    overflow: hidden;
+}
+
+.ui-chatroom-input-box {
+    margin: 5px 5px 5px 5px;
+    border: 2px solid lightgrey;/* #6699FF */
+    height: 35px;
+}
+
+
+.ui-chatroom-input-focus {
+    border-color: #6699FF;
+}
+
+.ui-chatroom-msg {
+    float: left;
+    clear: both;
+}
+.minimize{
+    left: 97.2%;
+     height: 32px;
+     right:0;
+     width: 34px;
+}
+.maximize{
+    left: 0;
+    width:100%;
+     height: 32px;
+}
+
+
+/*custom css for chatroom*/
+.allUser{
+    border-left:1px solid #000;
+    width:300px;
+    height:40px;
+    float:right;
+    width: 188px;
+    height:160px;
+    background-color:#fff;
+}
+.mainContainer{
+    width:500px;
+    background:none;
+}
+.mainContainer textarea{
+    background-color:#ffffd;
+}
+.mainContainer .ui-widget-header{
+    width:500px;
+}
+.msgContainer{
+    clear:both;
+    width:100%;
+}
+#onlineUsers .usrImg{
+    width:25px;
+    height:25px;
+    margin:2px 5px 5px 5px;
+    float:left;
+    clear:both;
+}
+#onlineUsers  a{
+    text-decoration:none;
+    font-size:16px;
+    float:left;
+}
+
+/* tab css */
+.ui-tabs,.ui-tabs .ui-tabs-nav{
+    padding: 0;
+   }
+.ui-tabs .ui-tabs-nav li {
+    float:right;
+    white-space:normal;
+}
+.ui-tabs-panel {
+    padding: 0;
+}
+
+.tabs-bottom .ui-tabs-nav li {
+    top: auto;
+    bottom: 0;
+    margin: 0 .2em 1px 0;
+    border-top: 0;
+    width:229px;
+}
+
+/*
+.ui-tabs-paging-next {
+   float: right !important;
+}
+.ui-tabs-paging-prev a,
+.ui-tabs-paging-next a {
+   display: block;
+   position: relative;
+   top: 1px;
+   border: 0;
+   z-index: 2;
+   padding: 0px;
+   color: #444;
+   text-decoration: none;
+   background: #eee;
+   cursor: pointer;
+}
+.ui-tabs-paging-next a:hover,
+.ui-tabs-paging-next a:focus,
+.ui-tabs-paging-next a:active,
+.ui-tabs-paging-prev a:hover,
+.ui-tabs-paging-prev a:focus,
+.ui-tabs-paging-prev a:active {
+   background: #eee;
+}
+.ui-tabs-paging-disabled {
+   visibility: hidden;
+}
+*/
+
+
+/*message notification*/
+
+.notify:before{
+  border-top: 6px solid rgba(0, 0, 0, 0.2);
+    border-left: 6px solid rgba(0, 0, 0, 0);
+    border-right: 6px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left: 2px;
+    position: absolute;
+    top: 16px;
+}
+.notify:after{
+ border-top: 5px solid #ff0000;
+    border-left: 5px solid rgba(0, 0, 0, 0);
+    border-right: 5px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: inline-block;
+    left:3px;
+    position: absolute;
+    top: 16px;
+}
+.notify{
+    background-color:#ff0000;
+    position:absolute;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding:2px 5px;
+    color:#fff;
+    font-size:12px;
+    top: -16px;
+
+}
+
+
+
+
+/*----------------Susmita----------------*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+    /* background: #e2e2e2; */ /* Old browsers */
+        /* background: -moz-linear-gradient(top,  #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); */ /* FF3.6+ */
+    /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e2e2e2), color-stop(50%,#dbdbdb), color-stop(51%,#d1d1d1), color-stop(100%,#fefefe)); */ /* Chrome,Safari4+ */
+    /* background: -webkit-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); */ /* Chrome10+,Safari5.1+ */
+    /* background: -o-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); */ /* Opera 11.10+ */
+    /* background: -ms-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); */ /* IE10+ */
+    /* background: linear-gradient(to bottom,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+     height: 28px;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0;
+    /*   border-left: 1px solid #BAC0CD; */
+    -webkit-border-bottom-right-radius: 6px;
+    -webkit-border-bottom-left-radius: 6px;
+    -moz-border-radius-bottomright: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.ui-chatbox-input textarea{
+    font-size: 14px;
+    border: 1px solid #ccc !important;
+    padding: 0; /* override moodle textarea css*/
+}
+.ui-widget-header .ui-corner-all{
+    border-radius: 4px;
+    border:none;
+}
+.ui-widget-content .ui-corner-all{
+    border: none;
+    /* border-radius: 0;*/
+}
+/*.ui-widget-header{
+  font-weight: normal;
+  text-transform: capitalize;
+}*/
+
+/*.ui-tabs .ui-tabs-nav li.ui-tabs-active{
+   background-color: #fff;
+   background-image: none;
+   margin-top: 0;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br, .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-bl{
+  border-radius: 0;
+}*/
+
+.ui-memblist-usr a{
+    text-decoration: none;
+}
+.ui-memblist-usr a img{
+    margin-top: 5px;
+}
+.ui-memblist-usr a span{
+    font-size: 13px;
+    position: relative;
+    top: -6px;
+    text-transform: capitalize;
+    margin-left: 4px;
+}
+.ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
+    top: -1px !important;}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active{
+    border: 1px solid #aaa;
+    border-top: none;
+    position: relative;
+    top: 0px;
+    cursor: pointer;
+}
+.ui-icon-close{
+    margin-top: 4px;
+}
+a.ui-tabs-anchor{
+        width: 160px;
+        cursor: pointer !important;
+}
+
+/* page bottom height*/
+#stickycontainer{
+    height: 40px;
+}
+
+/*.ui-widget *,
+.ui-widget *:before,
+.ui-widget *:after {
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    box-sizing: content-box !important;
+}*/

@@ -48,82 +48,85 @@ var io = {
         this.sock.onmessage = function(e) {
             try{
                 if(e.data instanceof ArrayBuffer){
-                    console.log(e.data);                                     
-                }
-                var r1 = JSON.parse(e.data);
-
-                if (r1.type == "joinroom"){
-                    console.log("New user join room " + r1.users);
-                    /* identifying new user from list*/
-                    var newuser = null;
-                    if(scope.uniquesids != null){
-                        $.each(r1.clientids, function(i,v) {
-                            if(scope.uniquesids[i] == undefined){
-                                newuser = i;
-                            }
+                    $.event.trigger({
+                        type: "newaudio",
+                        message: e.data
+                    });                                     
+                }else{
+                    var r1 = JSON.parse(e.data);
+    
+                    if (r1.type == "joinroom"){
+                        console.log("New user join room " + r1.users);
+                        /* identifying new user from list*/
+                        var newuser = null;
+                        if(scope.uniquesids != null){
+                            $.each(r1.clientids, function(i,v) {
+                                if(scope.uniquesids[i] == undefined){
+                                    newuser = i;
+                                }
+                            });
+                        }
+    
+                        scope.uniquesids = r1.clientids;
+                        //update users
+                        $.event.trigger({
+                            type: "member_added",
+                            message: r1.users,
+                            newuser:newuser
                         });
                     }
-
-                    scope.uniquesids = r1.clientids;
-                    //update users
-                    $.event.trigger({
-                        type: "member_added",
-                        message: r1.users,
-                        newuser:newuser
-                    });
-                }
-
-                if (r1.type == "broadcastToAll"){
-                    console.log("json  : display msg");
-                    var userto = '';
-                    if(r1.userto != undefined){ userto = r1.userto; }
-                    $.event.trigger({
-                        type: "newmessage",
-                        message: r1.m,
-                        fromUser: r1.user,
-                        toUser: userto
-                    });
-                }
-
-                if (r1.type == "userleft"){
-                    console.log("user logout");
-                    var userto = '';
-                    if(r1.userto != undefined){ userto = r1.userto; }
-                    if(scope.uniquesids != null){
-                        delete scope.uniquesids[r1.user.userid];
+    
+                    if (r1.type == "broadcastToAll"){
+                        console.log("json  : display msg");
+                        var userto = '';
+                        if(r1.userto != undefined){ userto = r1.userto; }
+                        $.event.trigger({
+                            type: "newmessage",
+                            message: r1.m,
+                            fromUser: r1.user,
+                            toUser: userto
+                        });
                     }
-
-                    $.event.trigger({
-                        type: "user_logout",
-                        fromUser: r1.user,
-                        message: 'offline',
-                        toUser: userto
-                    });
+    
+                    if (r1.type == "userleft"){
+                        console.log("user logout");
+                        var userto = '';
+                        if(r1.userto != undefined){ userto = r1.userto; }
+                        if(scope.uniquesids != null){
+                            delete scope.uniquesids[r1.user.userid];
+                        }
+    
+                        $.event.trigger({
+                            type: "user_logout",
+                            fromUser: r1.user,
+                            message: 'offline',
+                            toUser: userto
+                        });
+                    }
+    
+                    if (r1.type == "leftroom"){
+                        console.log("member removed");
+                        $.event.trigger({
+                            type: "member_removed",
+                            message: r1.users
+                        });
+                    }
+    
+                    if (r1.type == "Unauthenticated"){
+                        console.log("Unauthenticated user");
+                        $.event.trigger({
+                            type: "authentication_failed",
+                            message: 'Authentication failed'
+                        });
+                    }
+    
+                    if (r1.type == "Multiple_login"){
+                        console.log("Multiple_login");
+                        $.event.trigger({
+                            type: "Multiple_login"
+                        });
+                    }
                 }
-
-                if (r1.type == "leftroom"){
-                    console.log("member removed");
-                    $.event.trigger({
-                        type: "member_removed",
-                        message: r1.users
-                    });
-                }
-
-                if (r1.type == "Unauthenticated"){
-                    console.log("Unauthenticated user");
-                    $.event.trigger({
-                        type: "authentication_failed",
-                        message: 'Authentication failed'
-                    });
-                }
-
-                if (r1.type == "Multiple_login"){
-                    console.log("Multiple_login");
-                    $.event.trigger({
-                        type: "Multiple_login"
-                    });
-                }
-
             }catch(e){
                 console.log("Error catched   : " + e);
                 $.event.trigger({
@@ -188,12 +191,7 @@ var io = {
     },
     sendBinary : function(msg){
         //this.sock.binaryType = 'arraybuffer';
-        var myArray = new ArrayBuffer(8);
-	    var longInt8View = new Uint8Array(myArray);
-	    for (var i=0; i<longInt8View.length; i++) {
-		  longInt8View[i] = i;
-	    }
-        this.sock.send(longInt8View);
+        this.sock.send(msg.buffer);
     },
 
     disconnect:function(){

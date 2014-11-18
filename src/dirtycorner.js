@@ -165,7 +165,7 @@
                         }
                     }
                     return true;
-                },
+                }
 /*
                 matchIShade : function(oldImageArr,newImageArr,p) {
                     return true;

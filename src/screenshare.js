@@ -520,7 +520,7 @@
                             height: container.width * aspectRatio
                         };
                     }*/
-               },
+               }
                
             },
             

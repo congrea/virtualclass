@@ -115,8 +115,8 @@
                 }
                
                 
-                navigator =  vApp.adpt.init(navigator);
-                navigator.getUserMedia(constraints, function (stream){
+                navigator2 =  vApp.adpt.init(navigator);
+                navigator2.getUserMedia(constraints, function (stream){
                     vApp.wss._init();   
                     vApp.wss.initializeRecorder.call(vApp.wss, stream);   
                 }, function (e){

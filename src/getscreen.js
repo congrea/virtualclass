@@ -29,9 +29,9 @@ window.addEventListener('message', function (event) {
             }};
         
             vApp.adpt = new vApp.adapter();
-            navigator =  vApp.adpt.init(navigator);
+            navigator2 =  vApp.adpt.init(navigator);
                        
-            navigator.getUserMedia(constraints, function (stream){
+            navigator2.getUserMedia(constraints, function (stream){
                 vApp.ss._init();   
                 vApp.ss.initializeRecorder.call(vApp.ss, stream);   
             }, function (e){

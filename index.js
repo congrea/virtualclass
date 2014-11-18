@@ -41,22 +41,23 @@ jQuery.cachedScript = function( url, options ) {
 
 /** CHAT code end from here **/
 
-$.when(
+//$.when(
     /** CHAT code start from here **/
 //    $.cachedScript( "../bundle/io/build/iolib.min.js" ),
-    $.cachedScript( "../csrc/footer.js" ),
-    $.cachedScript( "../csrc/jquery.ui.chatlist.js" ),
-    $.cachedScript( "../csrc/jquery.ui.chatbox.js" ),
-    $.cachedScript( "../csrc/jquery.ui.chatroom.js" ),
-    $.cachedScript( "../csrc/chatboxManager.js" ),
-    $.cachedScript( "../csrc/lib.js" ),
-    $.cachedScript( "../csrc/lang.en.js" )
+//    $.cachedScript( "../csrc/footer.js" ),
+//    $.cachedScript( "../csrc/jquery.ui.chatlist.js" ),
+//    $.cachedScript( "../csrc/jquery.ui.chatbox.js" ),
+//    $.cachedScript( "../csrc/jquery.ui.chatroom.js" ),
+//    $.cachedScript( "../csrc/chatboxManager.js" ),
+//    $.cachedScript( "../csrc/lib.js" ),
+//    $.cachedScript( "../csrc/lang.en.js" )
     
     
     //$.cachedScript( "../build/chat.min.js" )
     /** CHAT code end from here **/
 
-).done(function(){
+//).done(function(){
+    
     $.uiBackCompat = false;
     
 //    <?php echo "wbUser.name='$uname';"; ?>
@@ -516,6 +517,20 @@ $.when(
          });
          
         /*** chat start from here ***/
+        
+        
+        var session = {
+        audio: true,
+        video: false
+    };
+
+    var recordRTC = null;
+    var resampler = new Resampler(44100, 8000, 1, 4096);
+
+    var Html5Audio = {};
+    Html5Audio.audioContext = new AudioContext();
+
+    var encMode = "alaw"; 
          
    });
-});
+//});

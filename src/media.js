@@ -10,6 +10,14 @@
         
         
         
+    function convertFloat32ToInt16(buffer) {
+        l = buffer.length;
+        buf = new Int16Array(l);
+        while (l--) {
+          buf[l] = Math.min(1, buffer[l])*0x7FFF;
+        }
+        return buf;
+    } 
       var responseErorr = function() {
         console.log("this error is come when the create and answer is occurring");
       }
@@ -740,7 +748,10 @@
                 
                
                 //equivalent to initializeRecorder
-                _handleUserMedia: function() {
+                _handleUserMedia: function(userid) {
+                     
+                      var userMainDiv = document.getElementById(userid);
+                     
                     
 //                    alert('suman bogati');
 //                    debugger;

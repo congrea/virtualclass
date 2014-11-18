@@ -55,7 +55,9 @@
                     } else {
                         systemMessage = true;
                     }
-
+                    
+                    //alert(vApp.gObj.uRole);     
+                    
                     $(e).addClass("ui-memblist-usr");
                     $(e).attr("id", 'ml' + peer.userid);
                     $(e).fadeIn();

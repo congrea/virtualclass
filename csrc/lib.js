@@ -48,8 +48,9 @@ function memberUpdate(e){
                 $("#chat_div").memberlist("option").userSent(usr);
 //            }
             //added by suman    
+            
             if (usr.userid == io.cfg.userid) {
-                vApp.gObj.video._handleUserMedia()
+                vApp.gObj.video._handleUserMedia(usr.userid);
                 //alert('chat user is created');
             }
         });

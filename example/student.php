@@ -38,9 +38,9 @@ include('auth.php');
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://192.168.1.114/whiteboard/";
-include('js.debug.php');
-//include('js.php');
+$whiteboard_path = "https://192.168.1.114/virtualclass/";
+//include('js.debug.php');
+include('js.php');
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/c190214.js'));
 
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/min.js'));
@@ -70,30 +70,30 @@ $uname = "Student";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://192.168.1.114/whiteboard/';
+    window.whiteboardPath =  'https://192.168.1.114/virtualclass/';
     
-     function convertFloat32ToInt16(buffer) {
-        l = buffer.length;
-        buf = new Int16Array(l);
-        while (l--) {
-          buf[l] = Math.min(1, buffer[l])*0x7FFF;
-        }
-        return buf;
-    }
-    
-    var session = {
-        audio: true,
-        video: false
-    };
-
-    var recordRTC = null;
-    var resampler = new Resampler(44100, 8000, 1, 4096);
-
-    var Html5Audio = {};
-    
-    Html5Audio.audioContext = new AudioContext();
-    
-    var encMode = "alaw"; 
+//     function convertFloat32ToInt16(buffer) {
+//        l = buffer.length;
+//        buf = new Int16Array(l);
+//        while (l--) {
+//          buf[l] = Math.min(1, buffer[l])*0x7FFF;
+//        }
+//        return buf;
+//    }
+//    
+//    var session = {
+//        audio: true,
+//        video: false
+//    };
+//
+//    var recordRTC = null;
+//    var resampler = new Resampler(44100, 8000, 1, 4096);
+//
+//    var Html5Audio = {};
+//    
+//    Html5Audio.audioContext = new AudioContext();
+//    
+//    var encMode = "alaw"; 
 </script>
 
 

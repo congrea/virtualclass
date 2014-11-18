@@ -39,9 +39,16 @@ include('auth.php');
 
 //the www path for whiteboard
 $whiteboard_path = "https://192.168.1.114/virtualclass/";
-//include('js.debug.php');
+include('js.debug.php');
+//include('js.php');
 
-include('js.php');
+?>
+
+
+
+
+<?php
+
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/c190214.js'));
 
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/min.js'));
@@ -78,28 +85,28 @@ $lname = "Sharma";
     window.whiteboardPath =  'https://192.168.1.114/virtualclass/';
     
     //these below script should be into audio object
+//    
+//    function convertFloat32ToInt16(buffer) {
+//        l = buffer.length;
+//        buf = new Int16Array(l);
+//        while (l--) {
+//          buf[l] = Math.min(1, buffer[l])*0x7FFF;
+//        }
+//        return buf;
+//    }
     
-    function convertFloat32ToInt16(buffer) {
-        l = buffer.length;
-        buf = new Int16Array(l);
-        while (l--) {
-          buf[l] = Math.min(1, buffer[l])*0x7FFF;
-        }
-        return buf;
-    }
-    
-    var session = {
-        audio: true,
-        video: false
-    };
-
-    var recordRTC = null;
-    var resampler = new Resampler(44100, 8000, 1, 4096);
-
-    var Html5Audio = {};
-    Html5Audio.audioContext = new AudioContext();
-
-    var encMode = "alaw"; 
+//    var session = {
+//        audio: true,
+//        video: false
+//    };
+//
+//    var recordRTC = null;
+//    var resampler = new Resampler(44100, 8000, 1, 4096);
+//
+//    var Html5Audio = {};
+//    Html5Audio.audioContext = new AudioContext();
+//
+//    var encMode = "alaw"; 
 </script>
 
 
@@ -130,22 +137,6 @@ $lname = "Sharma";
       </div>
 
     </div>
-    
-<!--<div id="widgetRightSide">
-    <div id="allVideosCont">
-        <canvas id="tempVideo"> </canvas> 
-        
-             <div class="videoWrapper" >
-            <div class="videoSubWrapper" data-uname = "<?php //echo $uname; ?>" id="<?php //echo 'user'.$uid; ?>">
-                <video id="video<?php //echo $uid?>"  autoplay>    </video>
-            </div>
-        </div>
-    </div>
-
-    <div id="chatContainer">
-    </div>
-    
-</div> -->
 
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>

@@ -205,12 +205,26 @@
             
             wbData : {
                 handleResult : function (event, cb){
+                    //alert('suman bogati is there');
+//                    var cursor = event.target.result;  
+//                    if (cursor) {
+//                        if(cursor.value.hasOwnProperty('repObjs')){
+//                            vApp.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+//                        }
+//                        cursor.continue();    
+//                    }
+                    
                     var cursor = event.target.result;  
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('repObjs')){
                             vApp.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                            storeFirstObj = true;
                         }
-                        cursor.continue();    
+                        cursor.continue();  
+                    }else{
+                        if(typeof storeFirstObj == 'undefined'){
+                            vApp.wb.utility.makeUserAvailable(); //at very first
+                        }
                     }
                  }
             },
@@ -261,11 +275,13 @@
             
             config : {
                 handleResult : function (event, cb){
+                    
                     var cursor = event.target.result;  
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('myconfig')){
                             var config = JSON.parse(cursor.value.myconfig);
                             if(typeof cb != 'undefined'){
+                                //TODO mc should be store into object
                                 mc = true;
                                 cb(config); 
                             }
@@ -276,6 +292,7 @@
                             cb(); 
                         }
                     }
+                    
                 },
                 
                 createNewSession : function(){

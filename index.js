@@ -99,9 +99,8 @@ jQuery.cachedScript = function( url, options ) {
 
             //if (e.fromUser.userid == id ){
         vApp.wb.utility.initDefaultInfo(wbUser.role);
-        vApp.wb.utility.makeUserAvailable();
         
-       
+        //vApp.wb.utility.makeUserAvailable();
         
         $(document).on("user_logout", function(e){
             removedMemberId = e.fromUser.userid;

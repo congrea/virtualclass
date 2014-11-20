@@ -735,13 +735,25 @@
                     if(userDiv != null){
                         var vidTag = userDiv.getElementsByTagName('video');
                         if(vidTag != null){
-                            cthis._handleUserMedia();
+                            cthis._handleUserMedia(vApp.gObj.uid);
                         }
                     }
                     
                //     var usrList = cthis.createDemoUserList();
-                    
                     //memberUpdate({message : usrList});
+                    
+                },
+                
+                addUserRole : function (id, role){
+                    var userDiv = document.getElementById("ml" + id);
+                    userDiv.setAttribute("data-role", role);
+                    var earlierClass = userDiv.className;
+                    if(role == 's'){
+                        
+                        userDiv.setAttribute('class', earlierClass +' student');
+                    }else{
+                        userDiv.setAttribute('class', earlierClass +' teacher');
+                    }
                     
                 },
                 
@@ -749,6 +761,10 @@
                
                 //equivalent to initializeRecorder
                 _handleUserMedia: function(userid) {
+//                     if(typeof userid != 'undefined'){
+//                         var userDiv = document.getElementById("ml" + userid);
+//                         userDiv.setAttribute("data-role", vApp.gObj.uRole);
+//                     }
                      
                       var userMainDiv = document.getElementById(userid);
                      

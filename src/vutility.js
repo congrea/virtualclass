@@ -105,7 +105,7 @@
                     leftSideBarWidth = 0;
                 }
                 
-                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5);
+                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) - 40;
                 appCont.style.width = res.width + 'px';
                 
                 if(appId != 'vAppWhiteboard'){

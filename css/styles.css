@@ -1120,3 +1120,13 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos{
 #vAppOptionsCont .active a {
     border : 1px solid red;
 }
+
+
+.ui-memblist-usr.teacher{
+    border : 2px solid green;
+}
+
+
+.ui-memblist-usr.student{
+    border : 2px solid yellow;
+}

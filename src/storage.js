@@ -7,13 +7,21 @@
         var adData = [];
         var wbDataArr = [];
         var that;
+        
+        function getDetail(){
+            
+        }
+        
         var storage = {
             init : function (){
                 that = this;
-                //this.tables = ["wbData", "allData", "audioData"];
-                this.tables = ["wbData"];
                 
-                var openRequest = window.indexedDB.open("vidya_app", 2);
+                //TODO these are not using because audio and video is not using
+                this.tables = ["wbData", "allData", "audioData", "config"];
+                
+                //this.tables = ["wbData", "config"];
+                
+                var openRequest = window.indexedDB.open("vidya_app", 3);
                 
                 openRequest.onerror = function(e) {
                     console.log("Error opening db");
@@ -38,14 +46,61 @@
                      //   thisDb.createObjectStore("allData", {autoIncrement:true});
                     }
                     
+                    if(!thisDb.objectStoreNames.contains("config")) {
+                       thisDb.createObjectStore("config", { keyPath : 'timeStamp', autoIncrement:true});
+                    }
                 };
                 
                 openRequest.onsuccess = function(e) {
                     that.db = e.target.result;
+                    //var result = getDetail(t);
+                    var currTime = new Date().getTime();
+                    
+//                    function myFunction (result){
+//                        if(typeof result == 'undefined'){
+//                            var t = that.db.transaction(["config"], "readwrite");  
+//                            var objectStore = t.objectStore("config");
+//                            var config = JSON.stringify({createdDate : currTime,  room : wbUser.room});
+//                            objectStore.add({myconfig : config, timeStamp : new Date().getTime()});
+//                        }else{ 
+//                            alert(result.room);
+//                        }
+//                    }
+                    
+                    that.getAllObjs(that.tables, function (result){
+                         if(typeof result == 'undefined'){
+                              that.config.createNewSession();
+                        }else{
+                            
+                            var roomCreatedTime = result.createdDate;
+                            var baseDate = new Date().getTime();
+                            var totalTime =  baseDate - roomCreatedTime;
+                            //////////////////////1sec-1min--1hr--48hr///////// 
+                            if(totalTime > (1000 * 60 * 60 * 60 * 48) || result.room != wbUser.room){
+                           // if(totalTime > (200) || result.room != wbUser.room){
+                                that.config.endSession();
+                            }
+                        }
+                    });
+                    
+//                    that.getAllObjs(that.tables, function (result){
+//                        
+//                        if(typeof result == 'undefined'){
+//                            alert('ss');
+//                            debugger;
+//                            var config = JSON.stringify({createdDate : currTime,  room : wbUser.room});
+//                            objectStore.add({myconfig : config, timeStamp : new Date().getTime()});
+//                        }else{ 
+//                            alert(result.room);
+//                        }
+//                    });
+                    
+                    
                     that.db.onerror = function(event) {
-                      console.dir(event.target);
+                        console.dir(event.target);
                     };
-                    that.getAllObjs(that.tables);
+                
+                    //that.getAllObjs(that.tables);
                 };
             },
             
@@ -128,10 +183,7 @@
             },
             
             getAllObjs : function (tables, callback){
-                
-                
                 var cb =  typeof callback != 'undefined' ? callback : "";
-                
                 for(var i=0; i<tables.length; i++){
                     var transaction = that.db.transaction(tables[i], "readonly"); 
                     var objectStore = transaction.objectStore(tables[i]);
@@ -140,7 +192,6 @@
                         function (val, cb){
                             return function (event){
                                 if(typeof cb == 'function'){
-                                    
                                     that[tables[val]].handleResult(event, cb);
                                 }else{
                                     that[tables[val]].handleResult(event);
@@ -153,7 +204,7 @@
             
             
             wbData : {
-                handleResult : function (event){
+                handleResult : function (event, cb){
                     var cursor = event.target.result;  
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('repObjs')){
@@ -205,6 +256,41 @@
                             cb();
                         }
                     }
+                }
+            },
+            
+            config : {
+                handleResult : function (event, cb){
+                    var cursor = event.target.result;  
+                    if (cursor) {
+                        if(cursor.value.hasOwnProperty('myconfig')){
+                            var config = JSON.parse(cursor.value.myconfig);
+                            if(typeof cb != 'undefined'){
+                                mc = true;
+                                cb(config); 
+                            }
+                        }
+                        cursor.continue();  
+                    }else{
+                        if(typeof cb != 'undefined' && typeof mc == 'undefined'){
+                            cb(); 
+                        }
+                    }
+                },
+                
+                createNewSession : function(){
+                    var currTime = new Date().getTime();
+                    var t = that.db.transaction(["config"], "readwrite");  
+                    var objectStore = t.objectStore("config");
+                    var config = JSON.stringify({createdDate : currTime,  room : wbUser.room});
+                    objectStore.add({myconfig : config, timeStamp : new Date().getTime()});
+                },
+                
+                endSession : function (){
+                    vApp.wb.utility.t_clearallInit();
+                    vApp.wb.utility.makeDefaultValue();
+                    vApp.storage.clearStorageData();
+                    that.config.createNewSession();
                 }
             },
             

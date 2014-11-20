@@ -550,16 +550,22 @@
 //                },
                 //initDefaultInfo: function(e, role) {
                 initDefaultInfo: function(role) {
+//                    alert('ss');
+//                    debugger;
+                    
 //                    var clientNum = e.message.checkUser.e.clientLen;
 //                    var newuser = e.message.checkUser.e.newUser;
                     if (role == 't') {
+                        
+                       
+                        
                         if (localStorage.getItem('orginalTeacherId') == null) {
                             //vApp.wb.utility.setOrginalTeacherContent(e);
                             vApp.wb.utility.setOrginalTeacherContent();
                             window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                         }
                         //} else if (role == 's' && newuser == null) {
-                        } else if (role == 's') {
+                    }else if (role == 's') {
                         vcan.studentId = wbUser.id;
                         if (localStorage.getItem('studentId') == null) {
                             localStorage.setItem('studentId', wbUser.id);
@@ -763,7 +769,16 @@
                     //}
                 },
                 displayCanvas: function() {
-                    window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv);
+                    //alert('create canvas');
+//                    alert('suman bogati attach tool function');
+//                    debugger;
+                    //20
+                    //window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv);
+                    vcan.canvasWrapperId = 'canvasWrapper';
+                    if (document.getElementById('canvas') == null) {
+                        vApp.wb.createCanvas();
+                    }
+                    
                     window.vApp.wb.init();
                     
                     vApp.wb.utility.makeCanvasDisable();

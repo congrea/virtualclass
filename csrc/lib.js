@@ -4,7 +4,7 @@ counter = 0;
 idList = new Array();
 chatroombox = null;
 
-function memberUpdate(e){
+function memberUpdate(e, addType){
     
     var userlist = e.message;
     if(typeof wwwroot === 'undefined'){
@@ -43,17 +43,33 @@ function memberUpdate(e){
             }
         });
         $("#chat_div .ui-memblist-usr").remove();
+        
         $.each(userlist, function(key, usr) {
-//            if (usr.userid != io.cfg.userid) {
-                $("#chat_div").memberlist("option").userSent(usr);
-//            }
-            //added by suman    
+            //alert('userId ' +  usr.userid);
+            
+            $("#chat_div").memberlist("option").userSent(usr);
             
             if (usr.userid == io.cfg.userid) {
                 vApp.gObj.video._handleUserMedia(usr.userid);
-                //alert('chat user is created');
             }
+            
+//            if(vApp.user.teacherIsAlreadyExist()){
+//                usr.role = 's';
+//                vApp.gObj.uRole = 's';
+//                wbUser.role = 's';
+//            }else{
+//                if (usr.userid == io.cfg.userid){
+//                    if(document.getElementById('commandToolsWrapper') ==  null){
+//                        vApp.user.assignRole(vApp.gObj.uRole, 'Whiteboard');
+//                        vcan.utility.canvasCalcOffset(vcan.main.canid);
+//
+//                    }
+//                }
+//            }
+            
+            vApp.gObj.video.addUserRole(usr.userid, usr.role);
         });
+        
     }else{
         /* when there is one user and left the chat
             remove userlist box

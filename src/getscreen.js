@@ -14,7 +14,7 @@ window.addEventListener('message', function (event) {
                 mandatory: {
                     chromeMediaSource: 'desktop',
                     chromeMediaSourceId: event.data.sourceId,
-                    maxWidth : 9999,
+                    maxWidth : 1440,
                     maxHeight : 9999
                 },
                 

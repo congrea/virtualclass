@@ -121,7 +121,8 @@
                     
                     this.stHasTeacher = vApp.vutil.chkValueInLocalStorage('teacherId');
                     
-                    vApp.wb.utility.setUserStatus(this.stHasTeacher, storageHasReclaim);
+                    // 24
+//                    vApp.wb.utility.setUserStatus(this.stHasTeacher, storageHasReclaim);
 
                     if(vApp.vutil.chkValueInLocalStorage('reclaim')){
                         var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
@@ -286,13 +287,15 @@
                  */
                 attachToolFunction: function(id, alreadyCreated) {
                     //console.log('suman bogati my name');
-                    vcan.canvasWrapperId = 'canvasWrapper';
+//                    vcan.canvasWrapperId = 'canvasWrapper';
 
                     vApp.wb.createCommand(alreadyCreated);
                     if (typeof alreadyCreated == 'undefined') {
-                        if (document.getElementById('canvas') == null) {
-                            vApp.wb.createCanvas();
-                        }
+                        
+//                        if (document.getElementById('canvas') == null) {
+//                            vApp.wb.createCanvas();
+//                        }
+                        
                         var orginalTeacherId = vApp.vutil.chkValueInLocalStorage('orginalTeacherId');
                         vApp.wb.dataInfo = parseInt(wbUser.dataInfo);
                         if (orginalTeacherId && vApp.wb.dataInfo == 1) {

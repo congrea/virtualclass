@@ -96,7 +96,7 @@
                 var  constraints = constraints || {audio: false, video: {
                     mandatory: {
                         chromeMediaSource: 'screen',
-                        maxWidth: 9999,
+                        maxWidth: 1440,
                         maxHeight: 9999
                     },
 

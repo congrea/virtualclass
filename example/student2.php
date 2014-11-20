@@ -38,7 +38,7 @@ include('auth.php');
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://192.168.1.114/whiteboard/";
+$whiteboard_path = "https://192.168.1.114/virtualclass/";
 include('js.debug.php');
 //include('js.php');
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/c190214.js'));
@@ -70,12 +70,35 @@ $uname = "Student2";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://192.168.1.114/whiteboard/';
-    var encMode = "alaw"; 
+    window.whiteboardPath =  'https://192.168.1.114/virtualclass/';
+    
+//     function convertFloat32ToInt16(buffer) {
+//        l = buffer.length;
+//        buf = new Int16Array(l);
+//        while (l--) {
+//          buf[l] = Math.min(1, buffer[l])*0x7FFF;
+//        }
+//        return buf;
+//    }
+//    
+//    var session = {
+//        audio: true,
+//        video: false
+//    };
+//
+//    var recordRTC = null;
+//    var resampler = new Resampler(44100, 8000, 1, 4096);
+//
+//    var Html5Audio = {};
+//    
+//    Html5Audio.audioContext = new AudioContext();
+//    
+//    var encMode = "alaw"; 
 </script>
 
 
-<div id="vAppCont">
+<!--<div id="vAppCont">-->
+<div id="vAppCont" class="student">
 
  
 <div id="vAppWhiteboard" class="vmApp">
@@ -103,24 +126,49 @@ $uname = "Student2";
     
 </div>
     
-<div id="widgetRightSide">
+<!--<div id="widgetRightSide">
     <div id="allVideosCont">
-<!--        <canvas id="tempVideo"> </canvas> 
-        <div class="videoWrapper">
-            <div class="videoSubWrapper" data-uname = "<?php //echo $uname; ?>" id="<?php //echo 'user'.$uid; ?>">
-                <video id="video<?php //echo $uid?>"  autoplay>    </video>
-            </div>
-        </div>-->
-        
         
     </div>
 
     <div id="chatContainer">
     </div>
     
-</div> 
+</div> -->
 
+<?php
+    if($r == 's'){
+    ?>
+<div id="speakerStudent">  
+    
+<!--    <input type="image" src="<?php // echo $whiteboard_path; ?>images/speaker.svg" />-->
+    
+ <canvas id="speeakerStudentImage" width="40" height="40"></canvas>
+    <script>
+        
+//      var canvas = document.getElementById('speeakerStudentImage');
+//      var context = canvas.getContext('2d');
+//      var imageObj = new Image();
+//
+//      imageObj.onload = function() {
+//        context.drawImage(imageObj, 0, 0);
+//      };
+//      imageObj.src = window.whiteboardPath + "images/speaker2.svg";
+    </script>
+    
+</div>
+    <?php
+    }
+?>
+ 
 <div id="chatWidget"> 
+<?php
+//    if($r == 's'){
+//    ?>
+<!--    <div id="speakerStudent"> <img  src="//<?php //echo $whiteboard_path; ?>images/speaker.png" /> </div>-->
+    <?php
+//    }
+?>
     <div id = "stickycontainer"> </div>
 </div>   
     

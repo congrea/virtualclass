@@ -1056,6 +1056,8 @@
                        currentTag.style.padding = "0";
                    }
                },
+               
+               //TODO lockCanvas should be lockWhiteboard
                lockCanvas : function (){
                     if(window.earlierWidth != window.innerWidth){
                         vApp.wb.canvasDisable = true;

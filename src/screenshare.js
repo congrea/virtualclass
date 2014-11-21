@@ -89,9 +89,12 @@
             },
 
             getScreen : function (){
+                //calling the webworker
                 window.postMessage({ type: 'getScreen'}, '*');
-            },
-            
+                
+                //vApp.getSceenFirefox();
+            },    
+               
             wholeScreen : function (){
                 var  constraints = constraints || {audio: false, video: {
                     mandatory: {

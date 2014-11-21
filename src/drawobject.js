@@ -33,7 +33,7 @@
              */
             tool.mousedown = function(ev, cobj) {
                 var ct = new Date().getTime();
-                console.log("sumanbogati" + (ct - vApp.wb.pageEnteredTime));
+              //  console.log("sumanbogati" + (ct - vApp.wb.pageEnteredTime));
                 if (ev.detail.hasOwnProperty('cevent')) {
                     ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                     ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);

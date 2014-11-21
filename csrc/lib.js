@@ -50,7 +50,9 @@ function memberUpdate(e, addType){
             $("#chat_div").memberlist("option").userSent(usr);
             
             if (usr.userid == io.cfg.userid) {
+                //alert('hi merry');
                 vApp.gObj.video._handleUserMedia(usr.userid);
+                //vApp.gObj.video._handleUserMedia(usr.userid);
             }
             
 //            if(vApp.user.teacherIsAlreadyExist()){

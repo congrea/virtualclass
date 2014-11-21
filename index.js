@@ -151,6 +151,12 @@ jQuery.cachedScript = function( url, options ) {
             vApp.wb.clientLen = e.message.length;
             var joinId = e.message[e.message.length - 1].userid;
             vApp.jId = joinId;
+            
+//            if(joinId ==  vApp.gObj.uid){
+//                vApp.gObj.video._handleUserMedia(joinId);
+//            }
+            
+            
             memberUpdate(e, 'added');
             if(typeof vApp.gObj.hasOwnProperty('updateHeight')){
                 vApp.gObj.video.updateVidContHeight();

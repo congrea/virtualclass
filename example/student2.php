@@ -38,9 +38,10 @@ include('auth.php');
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://192.168.1.114/virtualclass/";
+$whiteboard_path = "https://192.168.1.101/virtualclass/";
 include('js.debug.php');
 //include('js.php');
+
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/c190214.js'));
 
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/min.js'));
@@ -70,7 +71,7 @@ $uname = "Student2";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://192.168.1.114/virtualclass/';
+    window.whiteboardPath =  'https://192.168.1.101/virtualclass/';
     
 //     function convertFloat32ToInt16(buffer) {
 //        l = buffer.length;

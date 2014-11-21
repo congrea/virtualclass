@@ -107,10 +107,19 @@
                         vApp.wb.gObj.rcvdPackId = 0;
                     }
 
-                   // vApp.wb.utility.displayCanvas();
-
-                    window.addEventListener('resize', vApp.wb.utility.lockCanvas);
-
+                    // vApp.wb.utility.displayCanvas();
+                    
+                    if(vApp.gObj.uRole == 't'){
+                        window.addEventListener('resize', 
+                            function (){
+                                if(vApp.currApp == 'Whiteboard'){
+                                    //alert(vApp.currApp);
+                                    vApp.wb.utility.lockCanvas();
+                                }
+                            }
+                        );
+                    }
+                    
                     window.addEventListener('click', function (){
                         vApp.wb.view.disappearBox('WebRtc')
                         vApp.wb.view.disappearBox('Canvas');

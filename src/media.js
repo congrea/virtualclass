@@ -522,11 +522,16 @@
                     },
                     
                     send : function (){
+//                        alert('sss');
+//                        debugger;
 //                        alert("send function");
                         var cvideo = this;
                         var frame;
                         randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
                         
+//                        if(typeof vApp.gObj.video.smallVid != 'undefined'){
+//                            clearInterval(vApp.gObj.video.smallVid);
+//                        }
                       //  intervalTime = (5000 * vApp.gObj.totalUser) + randomTime;	
                         
                         function myFunction (){
@@ -552,7 +557,31 @@
                                 }
 
                                 cvideo.tempVidCont.clearRect(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
-                                cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
+                                
+                                if(window.navigator.userAgent.match('Firefox')){
+                                    drawVideoForFireFox();
+                                }else{
+                                    cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
+                                }
+                                
+                                 //Firefox issue, the video is not available for image at early stage
+                                function drawVideoForFireFox() {
+                                    try {
+                                        cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
+                                    } catch (e) {
+                                      if (e.name == "NS_ERROR_NOT_AVAILABLE") {
+                                        // Wait a bit before trying again; you may wish to change the
+                                        // length of this delay.
+                                            setTimeout(drawVideoForFireFox, 100);
+                                       } else {
+                                            throw e;
+                                       }
+                                    }
+                                }
+                                  
+                                  
+
+                               // cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
 
 
                               //cthis.audio.audioInGraph();
@@ -573,10 +602,15 @@
                              vApp.wb.utility.beforeSend({user : user, 'videoByImage': frame});
                              
                              vApp.gObj.video.smallVid =  setInterval(myFunction, (5000 * vApp.gObj.totalUser) + randomTime);
+                             //vApp.gObj.video.smallVid =  setInterval(myFunction, 300);
+                             
                         }
-                        vApp.gObj.video.smallVid =  setInterval(myFunction,
-                            (5000 * vApp.gObj.totalUser) + randomTime
-                         );
+//                        vApp.gObj.video.smallVid =  setInterval(myFunction,
+//                            (5000 * vApp.gObj.totalUser) + randomTime
+//                        );
+
+                            vApp.gObj.video.smallVid =  setInterval(myFunction, 50);
+
                      },
                      
                      startToStream : function (){
@@ -761,62 +795,54 @@
                
                 //equivalent to initializeRecorder
                 _handleUserMedia: function(userid) {
-//                     if(typeof userid != 'undefined'){
-//                         var userDiv = document.getElementById("ml" + userid);
-//                         userDiv.setAttribute("data-role", vApp.gObj.uRole);
-//                     }
-                     
-                      var userMainDiv = document.getElementById(userid);
-                     
-                    
-//                    alert('suman bogati');
-//                    debugger;
-                    
-//                    alert('suman bogati');
-//                    debugger;
-//                    cthis.video.tempStream = stream;
-//                    cthis.audio.init();
-                    var  stream = cthis.video.tempStream ;
-                    
-                    var userDiv = document.getElementById("ml" + vApp.gObj.uid);
-                    if(userDiv !=  null){
-                       userDiv.style.pointerEvents = "none";
-                    }
-                    
-                    
-                    if(typeof stream != 'undefined'){
-                        var vidContainer = cthis.video.createVideoElement();
-                    
-                        cthis.video.imageReplaceWithVideo(id, vidContainer);
-                        cthis.video.insertTempVideo(vidContainer);
-                        cthis.video.tempVideoInit();
+                    //if(typeof userMedia == 'undefined'){
+                        var userMainDiv = document.getElementById(userid);
+    //                    cthis.video.tempStream = stream;
+    //                    cthis.audio.init();
+                        var  stream = cthis.video.tempStream ;
 
-                        cthis.video.myVideo = document.getElementById("video"+ vApp.gObj.uid);
-        //                    alert(vApp.gObj.uid + 'bogati');
-                        vApp.adpt.attachMediaStream(cthis.video.myVideo, stream);
-                        cthis.video.myVideo.muted = true;
-                        //cthis.video.myVideo.play();
-
-                        stream.ontimeupdate = function () {
-                            console.log("raja" + stream.currentTime);
-                        };
-
-                      //  if(vApp.gObj.uRole == 't'){
-                            cthis.stream = stream;
-                            cthis.audio.manuPulateStream();
-                            cthis.audio.graph.canvasForVideo();
-                       // }
-
-                        cthis.video.myVideo.onloadedmetadata = function (){
-                            cthis.video.startToStream();
-                            //rightsidebar
-
-        //                        cthis.video.updateHightInSideBar(cthis.video.myVideo.offsetHeight);
-        //                        cthis.video.justForDemo();
+                        var userDiv = document.getElementById("ml" + vApp.gObj.uid);
+                        if(userDiv !=  null){
+                           userDiv.style.pointerEvents = "none";
                         }
-                    }
-                    
-                    
+
+                        if(typeof stream != 'undefined'){
+                            var vidContainer = cthis.video.createVideoElement();
+
+                            cthis.video.imageReplaceWithVideo(id, vidContainer);
+                            cthis.video.insertTempVideo(vidContainer);
+                            cthis.video.tempVideoInit();
+
+                            cthis.video.myVideo = document.getElementById("video"+ vApp.gObj.uid);
+            //                    alert(vApp.gObj.uid + 'bogati');
+                            vApp.adpt.attachMediaStream(cthis.video.myVideo, stream);
+                            cthis.video.myVideo.muted = true;
+                            //cthis.video.myVideo.play();
+
+                            stream.ontimeupdate = function () {
+                                console.log("raja" + stream.currentTime);
+                            };
+
+                          //  if(vApp.gObj.uRole == 't'){
+                            
+                            //Audio contet reaches at maxmimum level
+                            if(vApp.jId == vApp.gObj.uid){
+                           //     alert('hi brother');
+                                cthis.stream = stream;
+                                cthis.audio.manuPulateStream();
+                                cthis.audio.graph.canvasForVideo();
+                            }
+                                
+                                
+                           // }
+
+                            cthis.video.myVideo.onloadedmetadata = function (){
+                                cthis.video.startToStream();
+                            }
+                        }
+                        
+                        userMedia = true;
+                    //}
                 },
                 
                 updateVidContHeight : function (){

@@ -140,8 +140,8 @@
         })();
         
         view.window.resize = function() {
+            
             var res = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-   
             vApp.vutil.setContainerWidth(res);
             vcan.renderAll();
         },

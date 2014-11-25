@@ -39,8 +39,8 @@ include('auth.php');
 
 //the www path for whiteboard
 $whiteboard_path = "https://192.168.1.101/virtualclass/";
-include('js.debug.php');
-//include('js.php');
+//include('js.debug.php');
+include('js.php');
 
 ?>
 

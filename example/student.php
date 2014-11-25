@@ -30,16 +30,15 @@
 
 include('auth.php');
 
-?>
-
-
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
-
-<?php
-
 //the www path for whiteboard
 $whiteboard_path = "https://192.168.1.101/virtualclass/";
-//include('js.debug.php');
+?>
+
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."bundle/jquery/css/base/jquery-ui.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/jquery.ui.chatbox.css" ?> />
+
+<?php
 include('js.php');
 
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/c190214.js'));

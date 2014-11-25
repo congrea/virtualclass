@@ -4,7 +4,7 @@
   */
 
 /** CHAT code start from here **/
-var cssId = 'myCss';
+/*var cssId = 'myCss';
 if (!document.getElementById(cssId))
 {
     var head  = document.getElementsByTagName('head')[0];
@@ -12,7 +12,7 @@ if (!document.getElementById(cssId))
     link.id   = cssId;
     link.rel  = 'stylesheet';
     link.type = 'text/css';
-    link.href = '../bundle/jquery/css/base/jquery-ui.css';
+    link.href = window.whiteboardPath+'../bundle/jquery/css/base/jquery-ui.css';
     link.media = 'all';
     head.appendChild(link);
 }
@@ -38,6 +38,7 @@ jQuery.cachedScript = function( url, options ) {
     // Return the jqXHR object so we can chain callbacks
     return jQuery.ajax( options );
 };
+*/
 
 /** CHAT code end from here **/
 

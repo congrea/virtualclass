@@ -56,5 +56,6 @@
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/lang.en.js"></script>
 
-<script type="text/javascript" src="../index.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboard_path;?>index.js"></script>
+
       

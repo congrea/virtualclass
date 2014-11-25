@@ -46,6 +46,7 @@
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>src/screenshare.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>src/recorder.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>src/storage.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboard_path;?>src/user.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/footer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/jquery.ui.chatlist.js"></script>
@@ -54,8 +55,6 @@
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboard_path;?>csrc/lang.en.js"></script>
-
-<script type="text/javascript" src="<?php echo $whiteboard_path;?>src/user.js"></script>
 
 <script type="text/javascript" src="../index.js"></script>
       

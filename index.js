@@ -4,7 +4,6 @@
   */
 
 /** CHAT code start from here **/
-//alert(window.whiteboardPath);
 var cssId = 'myCss';
 if (!document.getElementById(cssId))
 {
@@ -13,7 +12,7 @@ if (!document.getElementById(cssId))
     link.id   = cssId;
     link.rel  = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.whiteboardPath + 'bundle/jquery/css/base/jquery-ui.css';
+    link.href = '../bundle/jquery/css/base/jquery-ui.css';
     link.media = 'all';
     head.appendChild(link);
 }
@@ -24,7 +23,7 @@ if (!document.getElementById(cssId)){
     link.id   = cssId;
     link.rel  = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.whiteboardPath + 'css/jquery.ui.chatbox.css';
+    link.href = '../css/jquery.ui.chatbox.css';
     link.media = 'all';
     head.appendChild(link);
 }
@@ -160,7 +159,7 @@ jQuery.cachedScript = function( url, options ) {
             
             memberUpdate(e, 'added');
             if(typeof vApp.gObj.hasOwnProperty('updateHeight')){
-          //      vApp.gObj.video.updateVidContHeight();
+                vApp.gObj.video.updateVidContHeight();
                 vApp.gObj.updateHeight = true;
             }
             
@@ -530,7 +529,7 @@ jQuery.cachedScript = function( url, options ) {
 //         });
 
          $(document).on("connectionclose", function(e){
-             $("#user_list .inner_bt #usertab_icon").css({'background': 'url('+window.whiteboardPath+'/images/offline.png)no-repeat top left'});
+             $("#user_list .inner_bt #usertab_icon").css({'background': 'url(/images/offline.png)no-repeat top left'});
              $("#user_list .inner_bt #usertab_text").text(lang.whos + " (0)");
              $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (0)");
              $('div#memlist').css('display','none');

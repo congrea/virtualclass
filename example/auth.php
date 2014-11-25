@@ -52,19 +52,11 @@ $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'lice
 ?>
 
 <script type="text/javascript">
-<?php //echo "var wbUser = {};";?>
-<?php //echo " wbUser.auth_user='".$authusername."';"; ?>
-<?php //echo " wbUser.auth_pass='".$authpassword."';"; ?>
-<?php //echo " wbUser.path='".$rid."';";?>
-    
- <?php echo "wbUser = {auth_user : ".$authusername.", auth_pass : ".$authpassword.", path : ".$rid."}" ?>
-     
+<?php echo "var wbUser = {};";?>
+<?php echo " wbUser.auth_user='".$authusername."';"; ?>
+<?php echo " wbUser.auth_pass='".$authpassword."';"; ?>
+<?php echo " wbUser.path='".$rid."';";?>
 </script>
-
-
-
-
-
 
 
 <script type="text/javascript">

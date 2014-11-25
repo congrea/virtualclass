@@ -23,50 +23,54 @@ function my_curl_request($url, $post_data)
         return $result;
 }
 
-$licen = get_config('local_getkey', 'keyvalue');
-//$licen = '10-30-82c1c09515ae50a73e3e6e';
 //send auth detail to python script 
-$authusername = substr(str_shuffle(MD5(microtime())), 0, 12);
-$authpassword = substr(str_shuffle(MD5(microtime())), 0, 12);
-
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => $licen);
-$post_data = json_encode($post_data);
+ $authusername = substr(str_shuffle(MD5(microtime())), 0, 12);
+ $authpassword = substr(str_shuffle(MD5(microtime())), 0, 12);
+ $licen = '';
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '10-30-82c1c09515ae50a73e3e6e');
+// $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-5454676903fc3060e4849a');
+ 
+ $post_data = json_encode($post_data);
  
      
-$rid = my_curl_request("https://c.vidya.io", $post_data); // REMOVE HTTP
+ $rid = my_curl_request("https://c.vidya.io", $post_data); // REMOVE HTTP
 //print_r( $rid);exit;//8000.vidya.io
  
-if(empty($rid) or strlen($rid) > 32){
+ //$rid = "8002.vidya.io";
+// $rid = "8002.vidya.io";
+ 
+ if(empty($rid) or strlen($rid) > 32){
   	echo "Chat server is unavailable!";
   	exit;
-}
-//use if required  
+  }
+  
 //setcookie('auth_user', $authusername, 0, '/');
 //setcookie('auth_pass', $authpassword, 0, '/');
 //setcookie('path', $rid, 0, '/');
-
-if ($USER->id) {
-    $userpicture = moodle_url::make_pluginfile_url(context_user::instance($USER->id)->id, 'user', 'icon', null, '/', 'f2');
-    $src = $userpicture->out(false);
-}else{
-    $src = 'bundle/virtualclass/images/quality-support.png';
-}
+ 
+  //$rid='8000.vidya.io';
 ?>
-<script type="text/javascript">
-    <?php 
-    echo "var wbUser = {};";
-    echo "wbUser.auth_user='".$authusername."';"; 
-    echo "wbUser.auth_pass='".$authpassword."';"; 
-    echo "wbUser.path='".$rid."';";
-    echo "auth_user='".$authusername."';"; 
-    echo "auth_pass='".$authpassword."';"; 
-    echo "path='".$rid."';";
 
-//use if required     
-//    echo "auth_user='".$_COOKIE['auth_user']."';"; 
-//    echo "auth_pass='".$_COOKIE['auth_pass']."';"; 
-//    echo "path='".$_COOKIE['path']."';";
+<script type="text/javascript">
+<?php //echo "var wbUser = {};";?>
+<?php //echo " wbUser.auth_user='".$authusername."';"; ?>
+<?php //echo " wbUser.auth_pass='".$authpassword."';"; ?>
+<?php //echo " wbUser.path='".$rid."';";?>
     
-    echo "imageurl='".$src."';";
-    ?>
+ <?php echo "wbUser = {auth_user : ".$authusername.", auth_pass : ".$authpassword.", path : ".$rid."}" ?>
+     
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	//earlier cookie is using
+    <?php echo "auth_user='".$authusername."';"; ?>
+    <?php echo "auth_pass='".$authpassword."';"; ?>
+    <?php echo "path='".$rid."';";?>
+    <?php echo "imageurl='./images/quality-support.png';";?>
 </script>

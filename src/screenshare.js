@@ -89,10 +89,15 @@
             },
 
             getScreen : function (){
-                //calling the webworker
-                window.postMessage({ type: 'getScreen'}, '*');
-                
-                //vApp.getSceenFirefox();
+                //this set timeout is triggered
+                //only when the extension is not available
+                var pending = window.setTimeout(function () {
+                    error = new Error('NavigatorUserMediaError');
+                    error.name = 'EXTENSION_UNAVAILABLE';
+                    vApp.vutil.initInstallChromeExt(error);
+                }, 1000);
+
+                window.postMessage({ type: 'getScreen', id: pending }, '*');
             },    
                
             wholeScreen : function (){
@@ -112,11 +117,9 @@
                     }
                 };
                 
-                
                 if(typeof vApp.adpt != 'object'){
                     vApp.adpt = new vApp.adapter();
                 }
-               
                 
                 navigator2 =  vApp.adpt.init(navigator);
                 navigator2.getUserMedia(constraints, function (stream){
@@ -242,8 +245,6 @@
                     that.sharing();
                     vApp.vutil.setContainerWidth(res);
                     
-//                    alert('sss');
-//                    debugger;
                     if(vApp.gObj.uRole == 't'){
 						vApp.vutil.makeActiveApp(that.id, vApp.prevApp);
 					}

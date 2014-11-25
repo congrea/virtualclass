@@ -142,9 +142,23 @@
                  
                 document.getElementById(app + "Tool").className += ' active';
                  
+            },
+            
+            
+            initInstallChromeExt : function(error){
+                if(error.name == 'EXTENSION_UNAVAILABLE'){
+                    var reloadId = "screenShareReload";
+                    var cmdToolsWrapper = document.getElementById("vAppOptionsCont");
+                    vApp.html.createDiv("screenShareReloadTool", "reload_ss", cmdToolsWrapper, "appOptions", "vAppScreenShareTool");
+                    var reloadTool = document.getElementById("screenShareReloadTool").getElementsByTagName('a')[0];
+                    reloadTool.onclick = function (){
+                        window.location.reload();
+                    }
+                    
+                    window.open('https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl', '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1200,height=600, top=250, left = 100');
+                }
             }
         }
-        
         window.vutil = vutil;
     }
 )(window);

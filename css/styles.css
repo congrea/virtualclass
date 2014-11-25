@@ -1116,3 +1116,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos{
 .ui-memblist-usr a, .ui-memblist-usr img{
     clear : both;
 }
+
+#commandToolsWrapper .active a{
+   border : 2px solid green;
+}

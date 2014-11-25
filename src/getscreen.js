@@ -36,6 +36,7 @@ window.addEventListener('message', function (event) {
                     vApp.ss._init();   
                     vApp.ss.initializeRecorder.call(vApp.ss, stream);   
                 }, function (e){
+                    debugger;
                     vApp.ss.onError.call(vApp.ss, e);   
                 });
 

@@ -125,7 +125,7 @@
                     this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                 },  
                 
-                createDiv: function(toolId, text, cmdToolsWrapper, cmdClass) {
+                createDiv: function(toolId, text, cmdToolsWrapper, cmdClass, toBeReplace) {
                     var ancTag = document.createElement('a');
                     ancTag.href = '#';
 
@@ -149,8 +149,14 @@
                     ancTag.className = 'tooltip';
 
                     lDiv.appendChild(ancTag);
-
-                    cmdToolsWrapper.appendChild(lDiv);
+                    
+                    if(typeof toBeReplace != 'undefined'){
+                        var toBeReplace = document.getElementById('vAppScreenShareTool');
+                        cmdToolsWrapper.replaceChild(lDiv, toBeReplace);
+                    }else{
+                        cmdToolsWrapper.appendChild(lDiv);
+                    }
+                    
                 },
                 
                 
@@ -174,15 +180,6 @@
               
               
               makeAppReady : function (app, cusEvent){
-                 // alert("this should be at last")
-//                    if(app == 'Whiteboard' && vApp.gObj.uRole == 't'){
-//                        if(vApp.hasOwnProperty('prevApp')){
-//                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
-//                        } else{
-//                            vApp.vutil.makeActiveApp("vApp" + app);
-//                        }
-//                    }
-                    
                   if(app == this.apps[0]){
                       
                       if(typeof this.ss == 'object'){
@@ -217,9 +214,6 @@
                             this.wb._replay = _replay;
                             this.wb.readyTextObj = window.readyTextObj;
 
-    //                        this.adapter = window.adapter;
-
-//                            this.wb.media = window.media; 
                             this.wb.bridge = window.bridge;
                             this.wb.response = window.response;
                             
@@ -231,8 +225,6 @@
                             this.wb.utility.initUpdateInfo(olddata);
                             
                         }
-                        
-                        
                         
                         if(typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')){
                             this.prevScreen.unShareScreen();    
@@ -252,14 +244,8 @@
                       if(typeof this.wss != 'object'){
                             this.wss = new window.screenShare(vApp.wssConfig);
                       }
-                        
-                   // this.wss.init(app);
-                    
-                    this.wss.init({type: 'wss', app : app});
+                      this.wss.init({type: 'wss', app : app});
                   }
-//                  alert(cusEvent);
-//                  debugger;
-//                  vApp.user.assignRole("t", app); 
               },
               
               attachFunction :function (){
@@ -269,6 +255,7 @@
                       var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
                       //anchTag.addEventListener('click', this.initlizer);
                       var that = this;
+                      clickedAnchor = anchTag;
                       anchTag.onclick = function (){
                           that.initlizer(this)
                       };
@@ -276,6 +263,9 @@
               },
               
               initlizer : function (elem){
+                  
+               // alert(elem.getAttribute('data-title'));
+                
                 var appName = elem.parentNode.id.split("vApp")[1];
                 if(appName == 'SessionEndTool'){
                     vApp.storage.config.endSession();

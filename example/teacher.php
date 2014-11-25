@@ -111,7 +111,8 @@ $lname = "Sharma";
 
 
 <div id="vAppCont" class="teacher">
-
+    
+<!--    <button id="installScreenShare">Install Screen Share </button>-->
  
     <div id="vAppWhiteboard" class="vmApp">
 
@@ -143,3 +144,4 @@ $lname = "Sharma";
 </div>   
     
 </div>
+

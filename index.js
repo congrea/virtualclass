@@ -542,19 +542,18 @@ jQuery.cachedScript = function( url, options ) {
          
         /*** chat start from here ***/
         
-   //this file have to be convert into function   
-    var session = {
-        audio: true,
-        video: false
-    };
+        //this file have to be convert into function   
+         var session = {
+             audio: true,
+             video: false
+         };
 
-    var recordRTC = null;
-    var resampler = new Resampler(44100, 8000, 1, 4096);
+         var recordRTC = null;
+         var resampler = new Resampler(44100, 8000, 1, 4096);
 
-    var Html5Audio = {};
-    Html5Audio.audioContext = new AudioContext();
+         var Html5Audio = {};
+         Html5Audio.audioContext = new AudioContext();
 
-    var encMode = "alaw"; 
-         
+        var encMode = "alaw"; 
    });
 //});

@@ -7,10 +7,10 @@ chatroombox = null;
 function memberUpdate(e, addType){
     
     var userlist = e.message;
-    if(typeof wwwroot === 'undefined'){
-        var imgpath = "./images/online.png";
+    if(typeof whiteboardPath === 'undefined'){
+        var imgpath = "../images/online.png";
     }else{
-        var imgpath = wwwroot+"local/vmchat/bundle/chat/images/online.png"; //image folder path
+        var imgpath = window.whiteboardPath+"images/online.png"; //image folder path
     }
     if(userlist.length > 0){
         //changed by suman

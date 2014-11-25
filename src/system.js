@@ -136,7 +136,7 @@
         window.addEventListener('resize',
             function (){
                 //vApp.gObj.updateVidContHeight();
-                vApp.gObj.video.updateVidContHeight();
+                //vApp.gObj.video.updateVidContHeight();
                 
                 if(window.earlierWidth != window.innerWidth){
                     system.setCanvasDimension();

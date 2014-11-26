@@ -276,12 +276,14 @@
                    
                     vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
                     vApp.storage.config.endSession();
-                    if(vApp.prevScreen.hasOwnProperty('unShareScreen')){
+                    vApp.wb.utility.beforeSend({sEnd : true});
+                    
+                    if(vApp.hasOwnProperty('prevScreen')){
                         vApp.prevScreen.unShareScreen();
                     }
                     
 //                    this.makeAppReady(appName, vApp.previous);
-                    vApp.wb.utility.beforeSend({sEnd : true});
+                    
                     vApp.prevApp = "vApp" + appName;
                 }else{
                     appName = appName.substring(0, appName.indexOf("Tool"));

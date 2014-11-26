@@ -48,8 +48,8 @@ $whiteboard_path = "https://192.168.1.101/virtualclass/";
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/jquery.ui.chatbox.css" ?> />
 
 <?php
-include('js.debug.php');
-//include('js.php');
+//include('js.debug.php');
+include('js.php');
 
 ?>
 

@@ -304,6 +304,8 @@
                 },
                 
                 endSession : function (){
+                    
+                    
                     vApp.wb.utility.t_clearallInit();
                     vApp.wb.utility.makeDefaultValue();
                     vApp.storage.clearStorageData();

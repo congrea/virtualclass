@@ -1104,9 +1104,6 @@
                 removeClassFromElement : function (prvTool, className){
 //                    alert('sss');
 //                    debugger;
-
-
-                    
                     var prvTool = document.getElementById(prvTool).className;
                     var classes = prvTool.split(" ");
                     var retClass = [];

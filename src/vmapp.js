@@ -14,7 +14,7 @@
 //              ssConfig : { id : "vApp" + appName[1], classes : "appOptions"},
 //              wssConfig :{ id : "vApp" + appName[2], classes : "appOptions"}, 
               apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-              appSessionEnd : ' "vAppSessionEnd',
+              appSessionEnd : "vAppSessionEnd",
               rWidgetConfig : {id: 'chatWidget' },
               wb : "", 
               ss : "",
@@ -94,7 +94,7 @@
                         'authuser':wbUser.auth_user,
                         'authpass':wbUser.auth_pass,
                         'userobj': {'userid':wbUser.id,'name':wbUser.name, 'img' : window.imageurl, role :  wbUser.role},
-                        'fastchatroom_name':wbUser.room
+                        'room':wbUser.room
                         };
                         io.init(vApp.uInfo);
                         window.userdata = vApp.uInfo;
@@ -178,8 +178,9 @@
               
               
               makeAppReady : function (app, cusEvent){
+                  
                   if(app == this.apps[0]){
-                      
+                    //vApp.vutil.makeActiveApp("vApp" + app);
                       if(typeof this.ss == 'object'){
                             this.ss.prevStream = false;   
                        } 
@@ -227,6 +228,9 @@
                         if(typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')){
                             this.prevScreen.unShareScreen();    
                         }
+                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
+                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);    
+                        }
                         
                         this.previous = this.wbConfig.id;
                         this.prevApp = this.wbConfig.id;
@@ -266,8 +270,19 @@
                 
                 var appName = elem.parentNode.id.split("vApp")[1];
                 if(appName == 'SessionEndTool'){
+               //     alert('sss');
+                 //   debugger;
+                    appName = appName.substring(0, appName.indexOf("Tool"));
+                   
+                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
                     vApp.storage.config.endSession();
+                    if(vApp.prevScreen.hasOwnProperty('unShareScreen')){
+                        vApp.prevScreen.unShareScreen();
+                    }
+                    
+//                    this.makeAppReady(appName, vApp.previous);
                     vApp.wb.utility.beforeSend({sEnd : true});
+                    vApp.prevApp = "vApp" + appName;
                 }else{
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     this.currApp = appName;
@@ -318,6 +333,7 @@
                 }
                 
                 vApp.previous =  vApp[app].id;
+                //alert(vApp.previous);
                 vApp[app].drawImages(msg.si);
                 
               }

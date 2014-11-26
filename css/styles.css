@@ -1540,4 +1540,6 @@ div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper video{
 }
 
 
-
+#vAppScreenShare, #vAppWholeScreenShare {
+    margin-left : 55px;
+}

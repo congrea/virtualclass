@@ -136,7 +136,6 @@
             }, 
             
             makeActiveApp : function (app, prvTool){
-
                 if(typeof prvTool != 'undefined'){
                      var prvTool = prvTool+'Tool';
                      var classes = vApp.wb.utility.removeClassFromElement(prvTool, 'active');

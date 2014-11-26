@@ -526,11 +526,11 @@ jQuery.cachedScript = function( url, options ) {
 //         $(document).on("error", function(e){
 //            if(typeof e.message != 'object'){
 //                display_error(e.message);
-//            }
+//            
 //         });
 
          $(document).on("connectionclose", function(e){
-             $("#user_list .inner_bt #usertab_icon").css({'background': 'url(/images/offline.png)no-repeat top left'});
+             $("#user_list .inner_bt #usertab_icon").css({'background':  'url('+window.whiteboardPath+'images/offline.png)no-repeat top left'});
              $("#user_list .inner_bt #usertab_text").text(lang.whos + " (0)");
              $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (0)");
              $('div#memlist').css('display','none');

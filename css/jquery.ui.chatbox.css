@@ -26,13 +26,15 @@
 }
 
 .ui-chatbox-log {
-    padding: 3px 3px 3px 3px;
-    height: 175px;
+	border-top:none;
+	border-bottom: :none;
+    padding: 10px 3px;
+    height: 165px;
    overflow-y: auto;
 }
 
 .ui-chatbox-input {
-    border-top: 1px solid grey;
+	border-top:none;
     border-bottom: none;
     overflow: hidden;
     clear: both;
@@ -41,7 +43,7 @@
 .ui-chatbox-input-box {
     margin: 5px 5px 5px 5px;
    /* border: 2px solid lightgrey;*//* #6699FF */
-    height: 32px;
+    height: 27px;
     resize: none;
 }
 
@@ -75,7 +77,7 @@ ui-memblist-usr
     z-index: 2;
 }
 .ui-memblist-titlebar {
-    padding: 3px 3px 3px 3px;
+    padding: 10px 3px 3px;
     height: 20px;
 }
 
@@ -89,7 +91,7 @@ ui-memblist-usr
     border: 0px;
 }
 .ui-memblist-log {
-    padding: 3px 3px 3px 3px;
+    padding: 15px 3px 3px 3px;
     height: 220px;
     overflow-y: auto;
     background: #FFFFFF;
@@ -110,7 +112,7 @@ ui-memblist-usr
 #stickybar a {
     color:#000;
     text-decoration:none;
-    padding-left: 4px;
+    padding-left: 10px;
     border: none;
     font-size:13px;
      text-transform: capitalize;
@@ -118,9 +120,9 @@ ui-memblist-usr
 #closebtn {
     /* background:url('../images/close.png') top no-repeat;*/
     border:0;
-    width: 25px;
+    width: 40px;
     cursor: pointer;
-    height: 25px;
+    height: 40px;
     margin: 0; /* override moodle button css*/
     padding: 0;/* override moodle button css*/
     white-space: pre-wrap;/* some theme require*/
@@ -129,9 +131,11 @@ ui-memblist-usr
 #hide_bar input.close{
     background:url('../images/close.png') top no-repeat;
     opacity: 1;
+    margin-top: 2px;
 }
 
 #hide_bar input.expand{
+	margin-top: 5px;
     background:url('../images/open.png') top no-repeat;
 }
 .vmchat_close_bt{
@@ -151,7 +155,7 @@ ui-memblist-usr
     /*background: #EBEEF4;*/
     border-right: 1px solid #bac0cd;
     border-left: 1px solid #bac0cd;
-    color: #333;
+    color: #000;
     cursor: pointer;
     height: 29px;
     padding: 0px 12px;
@@ -173,7 +177,7 @@ ui-memblist-usr
     /*background: #EBEEF4;*/
     border-right: 1px solid #BAC0CD;
     border-left: 1px solid transparent;
-    color: #333;
+    color: #000;
     cursor: pointer;
     height: 29px;
     padding: 0px 6px;
@@ -186,7 +190,7 @@ ui-memblist-usr
      width: 203px;
 }
 .inner_bt {
-    padding: 4px 0px;
+    padding: 8px 0px;
     line-height: 15px;
 }
 
@@ -216,9 +220,12 @@ ui-memblist-usr
     margin: 1px 2px 0px 0px;
     width: 16px;
 }
-.ui-chatroom-titlebar {
-    padding: 3px 3px 3px 3px;
-    height: 20px;
+
+
+.ui-chatroom-titlebar, .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header{
+	font-weight: normal;
+	padding: 8px 3px;
+	height: 18px;
 }
 
 .ui-chatroom-content {
@@ -256,10 +263,10 @@ ui-memblist-usr
     clear: both;
 }
 .minimize{
-    left: 97.2%;
-     height: 32px;
+    left: 96.2%;
+     height: 40px;
      right:0;
-     width: 34px;
+     width: 40px;
 }
 .maximize{
     left: 0;
@@ -391,6 +398,7 @@ ui-memblist-usr
 
 }
 
+.vmchat_bar_button .inner_bt #usertab_text, .vmchat_room_bt .inner_bt #chatroom_text{font-weight: normal;}
 
 
 
@@ -416,8 +424,10 @@ ui-memblist-usr
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
 }
+#chat_div.ui-widget-content{border-top:none;}
 .ui-chatbox-input textarea{
-    font-size: 14px;
+	
+    font-size: 15px;
     border: 1px solid #ccc !important;
     padding: 0; /* override moodle textarea css*/
 }
@@ -450,11 +460,13 @@ ui-memblist-usr
     margin-top: 5px;
 }
 .ui-memblist-usr a span{
-    font-size: 13px;
+    font-size: 12px;
     position: relative;
     top: -6px;
     text-transform: capitalize;
-    margin-left: 4px;
+    margin-left: 12px;
+    padding-left: 25px;
+    padding-top: 8px;
 }
 .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
     top: -1px !important;}

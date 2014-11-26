@@ -27,7 +27,13 @@ function my_curl_request($url, $post_data)
  $authusername = substr(str_shuffle(MD5(microtime())), 0, 12);
  $authpassword = substr(str_shuffle(MD5(microtime())), 0, 12);
  $licen = '';
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '10-30-82c1c09515ae50a73e3e6e');
+ 
+//license key
+// 100-77087b83dcd4c4f7779587
+// 100-1139e6899fdeda0db594a5
+// 100-193dbd7a54da898a52f969
+
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-77087b83dcd4c4f7779587');
 // $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-5454676903fc3060e4849a');
  
  $post_data = json_encode($post_data);

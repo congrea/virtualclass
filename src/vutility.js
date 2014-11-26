@@ -92,10 +92,12 @@
                 
                 //rightsidebar
                 //var rightOffSet = document.getElementById(vApp.rWidgetConfig.id).offsetWidth;
-                var rightOffSet = 20;
+               // var rightOffSet = 20;
+                 var rightOffSet = 20;
                 //alert(vApp.wb.utility.getElementRightOffSet);
                 
-                var extraWidth = 25;
+               // var extraWidth = 25;
+                var extraWidth = 0;
                 var leftSideBar = document.getElementById("vAppOptionsCont");
                 
                 if(leftSideBar != null){
@@ -105,7 +107,8 @@
                     leftSideBarWidth = 0;
                 }
                 
-                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) - 40;
+                //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
+                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth) ;
                 appCont.style.width = res.width + 'px';
                 
                 if(appId != 'vAppWhiteboard'){

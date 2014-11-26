@@ -94,12 +94,10 @@
                         'authuser':wbUser.auth_user,
                         'authpass':wbUser.auth_pass,
                         'userobj': {'userid':wbUser.id,'name':wbUser.name, 'img' : window.imageurl, role :  wbUser.role},
-                        'fastchat_lasttime':'0',
-                        'fastchatroom_title':'fastchat',
                         'fastchatroom_name':wbUser.room
                         };
                         io.init(vApp.uInfo);
-                    window.userdata = vApp.uInfo;
+                        window.userdata = vApp.uInfo;
                     }
         
               },

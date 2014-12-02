@@ -91,7 +91,8 @@
                                 if(vApp.gObj.uRole == 't'){
                                     var avg = this.height - (this.height*this.average)/100;   
                                     this._display(cvideo.tempVidCont, avg);
-                                    this._display(cthis.audio.graph.cvCont, avg);
+                                    
+                                    //this._display(cthis.audio.graph.cvCont, avg);
                                 }
                             },
                             
@@ -121,8 +122,9 @@
                         };
                         
                         if(vApp.gObj.uRole == 's'){
-                            this.attachSpeakToStudent();
-                             this.makeIconNotDraggable();
+                              //can be critical
+//                            this.attachSpeakToStudent();
+//                            this.makeIconNotDraggable();
                         }
                     },
                     
@@ -228,7 +230,7 @@
                             }
                             
                             if (thdiff >= 2 && vol>=minthreshold*th) {
-                                console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
+                         //       console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                                 if (audioWasSent==0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
                                     vApp.wb.utility.audioSend(preAudioSamp);
                                 }
@@ -238,10 +240,10 @@
                                 vApp.wb.utility.audioSend(send);  // Send next sound sample to avoid clicking noise
                                 audioWasSent=0;
                             }else if (thdiff < 2) {
-                                console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                           //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                                 vApp.wb.utility.audioSend(send);
                             }else {
-                                console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            //    console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                                 preAudioSamp = send;;
                             }
                         }   
@@ -725,6 +727,8 @@
                     }, 
                     
                     tempVideoInit : function (){
+//                        alert('sss');
+//                        debugger;
                         cthis.video.tempVid = document.getElementById('tempVideo');
                         cthis.video.tempVid.width = cthis.video.width;
                         cthis.video.tempVid.height = cthis.video.height;

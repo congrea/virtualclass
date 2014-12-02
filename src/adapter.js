@@ -44,6 +44,7 @@
                             };
 
                         } else if (navigator.webkitGetUserMedia) {
+//                            alert('this is for chrome');
                             console.log("This appears to be Chrome");
                             window.webrtcDetectedBrowser = "chrome";
                             this.RTCPeerConnection = webkitRTCPeerConnection;

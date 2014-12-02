@@ -74,6 +74,8 @@
                   
                   //To teacher
                 if(vApp.gObj.uRole == 't'){
+//                    alert('should be first');
+                    //alert("second");
                     vApp.user.assignRole(vApp.gObj.uRole, app);
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                 }
@@ -231,7 +233,18 @@
                         if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
                             vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);    
                         }
-                        
+                      
+
+                        //important
+                        //this need only if user draw the whiteboard
+                        // after received image with teacher role.
+                        //offset problem have to think about this
+                        if(document.getElementById('canvas') != null){
+                            //alert('whiteboard exist');
+                            vcan.utility.canvasCalcOffset(vcan.main.canid);
+                            vApp.wb.utility.makeCanvasEnable();
+
+                        }
                         this.previous = this.wbConfig.id;
                         this.prevApp = this.wbConfig.id;
                         
@@ -278,7 +291,9 @@
                     vApp.storage.config.endSession();
                     vApp.wb.utility.beforeSend({sEnd : true});
                     
-                    if(vApp.hasOwnProperty('prevScreen')){
+                    //this.prevScreen.hasOwnProperty('currentStream')
+                   
+                    if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
                         vApp.prevScreen.unShareScreen();
                     }
                     
@@ -301,8 +316,27 @@
               },
               
               initStudentScreen : function (msg, vtype){
+//                alert('ss');
+//                debugger;
                 app = msg.st; 
                 var stool = (msg.st == 'ss') ? stool = vApp.apps[1] : stool = vApp.apps[2];
+                
+//                //var localVideo = document.getElementById(vApp[app].local+"Video");
+//                
+//                vApp.vutil.videoTeacher2Student("vApp" + vApp.currApp+"LocalVideo");
+//                
+//                var localVideo = document.getElementById("vApp" + vApp.currApp+"LocalVideo");
+//                if(localVideo !=  null && localVideo.tagName == "VIDEO"){
+//                    var stCanvas = document.createElement('canvas');
+//                    stCanvas.id =  localVideo.id;
+//                    stCanvas.width = localVideo.offsetWidth;
+//                    stCanvas.height = localVideo.offsetHeight;
+//                    localVideo.parentNode.replaceChild(stCanvas, localVideo);
+//                    vApp.vutil.removeTempVideo("vApp" + vApp.currApp+"LocalTemp");
+//                }
+        
+        
+                
                 if(typeof vApp[app] != 'object' ){
                     if(typeof vtype != 'undefined'){
                         vApp.recorder.recImgPlay = true;

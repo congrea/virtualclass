@@ -461,12 +461,14 @@ ui-memblist-usr
 }
 .ui-memblist-usr a span{
     font-size: 12px;
-    position: relative;
-    top: -6px;
     text-transform: capitalize;
+    
+/*    position: relative;
+    top: -6px;
     margin-left: 12px;
     padding-left: 25px;
-    padding-top: 8px;
+    padding-top: 8px;*/
+    margin-left : 5px; 
 }
 .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
     top: -1px !important;}

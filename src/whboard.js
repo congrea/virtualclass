@@ -134,14 +134,23 @@
 //                    vApp.wb.utility.setUserStatus(this.stHasTeacher, storageHasReclaim);
 
                     if(vApp.vutil.chkValueInLocalStorage('reclaim')){
-                        var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
-                        if(cmdToolsWrapper != null){
-                            while(cmdToolsWrapper.hasChildNodes()){
-                                cmdToolsWrapper.removeChild(cmdToolsWrapper.lastChild);
-                            }
-                        }
+//
+//                        var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
+//                        if(cmdToolsWrapper != null){
+//                            while(cmdToolsWrapper.hasChildNodes()){
+//                                cmdToolsWrapper.removeChild(cmdToolsWrapper.lastChild);
+//                            }
+//                        }
+//                        
+                        var cmdToolsWrapper = vApp.wb.createCommandWrapper();
                         vApp.wb.utility.createReclaimButton(cmdToolsWrapper);
+                        vApp.gObj.uRole = 's';
+                        
                     }
+                    if(this.stHasTeacher){
+                        vApp.gObj.uRole = 't';
+                    }
+                    
                     vApp.wb.utility.crateCanvasDrawMesssage();
                 },
                 
@@ -169,14 +178,16 @@
                         return true;
                     }
 
-                    var cmdToolsWrapper = document.createElement('div');
-                    cmdToolsWrapper.id = vApp.wb.commandToolsWrapperId;
-                    var canvasElem = document.getElementById(vcan.canvasWrapperId);
-                    if (canvasElem != null) {
-                        document.getElementById('containerWb').insertBefore(cmdToolsWrapper, canvasElem);
-                    } else {
-                        document.getElementById('containerWb').appendChild(cmdToolsWrapper);
-                    }
+//                    var cmdToolsWrapper = document.createElement('div');
+//                    cmdToolsWrapper.id = vApp.wb.commandToolsWrapperId;
+//                    var canvasElem = document.getElementById(vcan.canvasWrapperId);
+//                    if (canvasElem != null) {
+//                        document.getElementById('containerWb').insertBefore(cmdToolsWrapper, canvasElem);
+//                    } else {
+//                        document.getElementById('containerWb').appendChild(cmdToolsWrapper);
+//                    }
+                    
+                    var cmdToolsWrapper = this.createCommandWrapper();
                     vApp.wb.createDiv('t_rectangle', 'rectangle', cmdToolsWrapper, 'tool');
                     vApp.wb.createDiv('t_line', 'line', cmdToolsWrapper, 'tool');
                     vApp.wb.createDiv('t_freeDrawing', 'freeDrawing', cmdToolsWrapper, 'tool');
@@ -193,6 +204,19 @@
                         vApp.wb.utility.setClass('vcanvas', 'socketon');
                     }
                 },
+                
+                createCommandWrapper : function (){
+                    var cmdToolsWrapper = document.createElement('div');
+                    cmdToolsWrapper.id = vApp.wb.commandToolsWrapperId;
+                    var canvasElem = document.getElementById(vcan.canvasWrapperId);
+                    if (canvasElem != null) {
+                        document.getElementById('containerWb').insertBefore(cmdToolsWrapper, canvasElem);
+                    } else {
+                        document.getElementById('containerWb').appendChild(cmdToolsWrapper);
+                    }
+                    return cmdToolsWrapper;
+                },
+                
                 /**
                  * this function does create the div
                  * toolId expect id for command
@@ -221,10 +245,16 @@
                     ancTag.className = 'tooltip';
 
                     lDiv.appendChild(ancTag);
-
-                    cmdToolsWrapper.appendChild(lDiv);
-
-                    var canvasElem = document.getElementById(vcan.canvasWrapperId);
+                    
+                    if(toolId == 't_reclaim'){
+                        var vAppCont = document.getElementById(vApp.html.id);
+                        cmdToolsWrapper.appendChild(lDiv);
+                        vAppCont.insertBefore(cmdToolsWrapper, vAppCont.firstChild);
+                        
+                    }else{
+                        cmdToolsWrapper.appendChild(lDiv);
+                    }
+                    //var canvasElem = document.getElementById(vcan.canvasWrapperId);
 
                 },
                 /**
@@ -256,8 +286,9 @@
 //                    }
 //                    this.parentNode.className = classes + " active";
                     
-                    
-                    vApp.wb.utility.makeActiveTool(this.parentNode.id);
+                    if(vApp.gObj.uRole == 't'){
+                        vApp.wb.utility.makeActiveTool(this.parentNode.id);
+                    }
                     
                     var anchorNode = this;
                     /**important **/
@@ -382,7 +413,8 @@
                     }
 
                     if (cmd == 't_assign') {
-                        vApp.wb.utility.assignRole();
+                   //     vApp.wb.utility.assignRole();
+                        
                         var toolHeight = localStorage.getItem('toolHeight');
                         if (toolHeight != null) {
                               vApp.wb.utility.beforeSend({'assignRole': true, 'toolHeight': toolHeight, 'socket': vApp.wb.socketOn});

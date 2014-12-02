@@ -49,9 +49,28 @@
 
                         $(usrElement).text(peer.name + " " + peer.lname);
                         peerlink.appendChild(usrElement);
-
+                        
                         e.appendChild(peerlink);
-
+                        
+                        //if(vApp.gObj.uRole == 't'){
+                        
+                        if(localStorage.getItem('orginalTeacherId') != null){
+                            var controls = ['assign', 'audio', 'chat'];
+                            var controlDiv = vApp.user.createControl(peer.userid, controls);
+                            e.appendChild(controlDiv);
+                        }
+                        
+                        if(localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null){
+                            if(peer.userid ==  localStorage.getItem('aId')){
+                                var controls = ['assign'];    
+                                var controlDiv = vApp.user.createControl(peer.userid, controls);
+                                e.appendChild(controlDiv);
+                                localStorage.removeItem('aId');
+                            }
+                        }
+                          
+                        //}
+                        
                     } else {
                         systemMessage = true;
                     }
@@ -66,7 +85,6 @@
 
                 },
                 highlightBox: function() {
-
                     var self = this;
                     self.elem.uiChatboxTitlebar.effect("highlight", {}, 300);
                     self.elem.uiChatbox.effect("bounce", {times:3}, 300, function(){

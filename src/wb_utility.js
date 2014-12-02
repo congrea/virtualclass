@@ -320,7 +320,6 @@
                     if (vcan.main.action == 'move') {
                         vApp.wb.utility.deActiveFrmDragDrop();
                     }
-
                     if (typeof studentId != 'undefined') {
                         if (localStorage.getItem('reclaim') != null) {
                             var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
@@ -328,14 +327,26 @@
                             localStorage.removeItem('reclaim');
                         }
 
-                        window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-                        if(vApp.wb.hasOwnProperty('canvasDisable') || vApp.wb.canvasDisable){
-                            vApp.wb.utility.toolWrapperDisable();
-                        }
+//                        window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+//                        if(vApp.wb.hasOwnProperty('canvasDisable') || vApp.wb.canvasDisable){
+//                            vApp.wb.utility.toolWrapperDisable();
+//                        }
+                        localStorage.removeItem('studentId');
                         localStorage.setItem('teacherId', studentId);
-                        vApp.wb.utility.makeCanvasEnable();
-                    } else {
+                        //vApp.wb.utility.makeCanvasEnable();
+                        
+                        vApp.gObj.uRole = 't';
+                        
+//                        alert('hi brother');
+//                        debugger;
 
+                        //vApp.user.assignRole(vApp.gObj.uRole, "Whiteboard");
+                        //alert(vApp.currApp);
+                        vApp.user.assignRole(vApp.gObj.uRole, vApp.currApp);
+                        vcan.utility.canvasCalcOffset(vcan.main.canid);
+                        
+                    } else {
+                        vApp.gObj.uRole  = 's';
                         var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
                         if (cmdToolsWrapper != null) {
                             while (cmdToolsWrapper.hasChildNodes()) {
@@ -354,22 +365,56 @@
                                 cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
                             }
                         }
+                        
+                        var tid = localStorage.getItem('teacherId');
                         localStorage.removeItem('teacherId');
+                        localStorage.setItem('studentId', tid);
+                         
+//                        vApp.wb.utility.uniqueArrOfObjsToStudent();
+//                        if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+//                            var canvasWrapper = document.getElementById("vcanvas");
+//                            canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
+//                            canvasWrapper.className = 'student';
+//                        }
+//                        if (localStorage.getItem('orginialTeacherId') == null) {
+//                            vApp.wb.utility.setCommandToolHeights(toolHeight, 'decrement');
+//                        }
+//
+//                        localStorage.setItem('canvasDrwMsg', true);
+
                     }
                 },
-                reclaimRole: function() {
+                reclaimRoleOld: function() {
                     vApp.wb.tool = "";
                     if (vcan.main.action == 'move') {
                         vApp.wb.utility.deActiveFrmDragDrop();
                     }
                     vApp.wb.utility.removeToolBox();
-                    window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                    
+                    //window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     localStorage.teacherId = localStorage.orginalTeacherId;
                     if (typeof localStorage.reclaim != 'undefined') {
                         localStorage.removeItem('reclaim');
                     }
-                    vApp.wb.utility.makeCanvasEnable();
+                    //vApp.wb.utility.makeCanvasEnable();
+                    vApp.gObj.uRole = 't';
+                    vApp.user.assignRole(vApp.gObj.uRole, "Whiteboard");
+                    vcan.utility.canvasCalcOffset(vcan.main.canid);
+                    
+                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
+                    var canvasWrapper = document.getElementById("vcanvas");
+                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
+                    canvasWrapper.className = 'teacher';
+                    localStorage.canvasDrwMsg = true;
                 },
+                
+                
+                reclaimRole : function (){
+                    vApp.wb.response.assignRole(vApp.gObj.uid , vApp.gObj.uid, true);
+                },
+                
+
+                
 //                connectionOff: function() {
 //                    cthis.isInitiator = false;
 //                    cthis.pc = [];
@@ -423,7 +468,6 @@
                     //canvasElement.style.pointerEvents = "visible";
                 },
                 makeCanvasEnable: function() {
-                    
                     if (localStorage.getItem('teacherId') != null) {
                         if(!vApp.wb.hasOwnProperty('canvasDisable') || !vApp.wb.canvasDisable){
                             var canvasElement = vcan.main.canvas;
@@ -450,6 +494,7 @@
                 // The uniqueArrOfObjsToStudent and.
                 // uniqueArrOfObjsToTeacher can be into sign.
                 uniqueArrOfObjsToStudent: function() {
+                  //  alert('toStudent');
                     var tempRepObjs = "";
                     vApp.wb.gObj.replayObjs = [];
                     for (var i = 0; i < vcan.main.replayObjs.length; i++) {
@@ -458,6 +503,7 @@
                     }
                 },
                 uniqueArrOfObjsToTeacher: function() {
+                //    alert('toTEacher');
                     vcan.main.replayObjs = [];
                     var tempRepObjs = "";
                     for (var i = 0; i < vApp.wb.gObj.replayObjs.length; i++) {
@@ -1018,8 +1064,8 @@
                  * @returns {undefined}
                  */
                 beforeSend : function (msg){
-                    var jobj = JSON.stringify(msg);
                     if (msg.hasOwnProperty('createArrow')) {
+                          var jobj = JSON.stringify(msg);
                         
 //                        if (typeof optimizObj == 'undefined') {
 //                            optimizObj = optimization(); //new operand should be attached with optimization()
@@ -1029,6 +1075,13 @@
                         
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                     } else {
+                        
+                        if(msg.hasOwnProperty('repObj')){
+                            vApp.wb.gObj.rcvdPackId =  msg.repObj[msg.repObj.length -1].uid;
+                            vApp.wb.gObj.displayedObjId = vApp.wb.gObj.rcvdPackId;
+                        }
+                        var jobj = JSON.stringify(msg);
+                        
                         vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                         if (io.sock.readyState == 1) {
                             io.send(msg);
@@ -1104,19 +1157,23 @@
                 removeClassFromElement : function (prvTool, className){
 //                    alert('sss');
 //                    debugger;
-                    var prvTool = document.getElementById(prvTool).className;
-                    var classes = prvTool.split(" ");
-                    var retClass = [];
-                    for(var i=0; i<classes.length; i++){
-                        if(classes[i] != className){
-                            retClass.push(classes[i]);
+                    if(prvTool != "t_reclaim"){
+                        var prvTool = document.getElementById(prvTool).className;    
+                        var classes = prvTool.split(" ");
+                        var retClass = [];
+                        for(var i=0; i<classes.length; i++){
+                            if(classes[i] != className){
+                                retClass.push(classes[i]);
+                            }
+                        }
+                        if(retClass.length > 1){
+                            return retClass.join(" ");
+                        }else{
+                            return retClass[0];
                         }
                     }
-                    if(retClass.length > 1){
-                        return retClass.join(" ");
-                    }else{
-                        return retClass[0];
-                    }
+                    
+                    
                     
                     
                     
@@ -1147,7 +1204,7 @@
                 makeActiveTool : function (byReload){
                  var tag = document.getElementById(byReload);
                     var classes;
-                    if(vApp.wb.hasOwnProperty('prvTool')){
+                    if(vApp.wb.hasOwnProperty('prvTool') && vApp.wb.prvTool != "t_reclaim"){
                         classes = vApp.wb.utility.removeClassFromElement(vApp.wb.prvTool,  "active");
                         document.getElementById(vApp.wb.prvTool).className = classes;
                     }else{

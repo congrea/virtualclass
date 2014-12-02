@@ -7,79 +7,112 @@
         var response = {
             reclaimRole: function(formUserId, id) {
                 if (formUserId != id) {
-                    vApp.wb.utility.removeToolBox();
-                    vApp.wb.utility.makeCanvasDisable();
-                    if (typeof localStorage.teacherId != 'undefined') {
-                        localStorage.removeItem('teacherId');
-                    }
+                  //  alert('student window');
+//                    
+//                    vApp.wb.utility.removeToolBox();
+//                    vApp.wb.utility.makeCanvasDisable();
+//                    if (typeof localStorage.teacherId != 'undefined') {
+//                        localStorage.removeItem('teacherId');
+//                    }
+//
+//                    vApp.wb.utility.uniqueArrOfObjsToStudent();
+//
+//                    vApp.wb.view.disappearBox('Canvas');
+//                    vApp.wb.view.disappearBox('drawArea');
+//
+//                    var canvasWrapper = document.getElementById("vcanvas");
+//                    canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
+//
+//                    canvasWrapper.className = 'student';
+//                    localStorage.setItem('canvasDrwMsg', true);
+//                    
+//                    // should be enable
+//                    // if (!vApp.vutil.chkValueInLocalStorage('orginialTeacherId')) {
+//                    //      vApp.wb.utility.setCommandToolHeights(toolHeight, 'decrement');
+//                    // }
+//                    
+//                    vApp.vutil.removeAppPanel();
+                    
+                    vApp.user.control._assign(id, 'notsent');
 
-                    vApp.wb.utility.uniqueArrOfObjsToStudent();
-
-                    vApp.wb.view.disappearBox('Canvas');
-                    vApp.wb.view.disappearBox('drawArea');
-
-                    var canvasWrapper = document.getElementById("vcanvas");
-                    canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
-
-                    canvasWrapper.className = 'student';
-                    localStorage.setItem('canvasDrwMsg', true);
-
-                    if (!vApp.vutil.chkValueInLocalStorage('orginialTeacherId')) {
-                        vApp.wb.utility.setCommandToolHeights(toolHeight, 'decrement');
-                    }
-
-                } else {
-                    if (vApp.vutil.chkValueInLocalStorage('orginialTeacherId')) {
-                        var toolHeight = localStorage.getItem('toolHeight');
-                        vApp.wb.utility.setCommandToolHeights(toolHeight, 'increment');
-                    }
-
-                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
-                    var canvasWrapper = document.getElementById("vcanvas");
-                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
-                    canvasWrapper.className = 'teacher';
-                    localStorage.canvasDrwMsg = true;
+                }
+                
+                //else {
+                    
+                    //alert('teacher window');
+                    
+//                    if (vApp.vutil.chkValueInLocalStorage('orginialTeacherId')) {
+//                        var toolHeight = localStorage.getItem('toolHeight');
+//                        vApp.wb.utility.setCommandToolHeights(toolHeight, 'increment');
+//                    }
+//
+//                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
+//                    var canvasWrapper = document.getElementById("vcanvas");
+//                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
+//                    canvasWrapper.className = 'teacher';
+//                    localStorage.canvasDrwMsg = true;
                     
                     //vApp.wb.utility.setStyleUserConnetion('coff', 'con');
                     
-                }
+             //   }
             },
-            assignRole: function(fromUserId, id, socket, toolHeight) {
-                if (fromUserId != id) {
-                    vApp.wb.socketOn = parseInt(socket);
-                    vApp.wb.utility.setClass('vcanvas', 'socketon');
+            assignRole: function(fromUserId, id, reclaim) {
+                //alert('hello brother');
+                //here would be reclaim label
+//                alert('sss');
+//                debugger;
+                if (fromUserId != id || typeof reclaim != 'undefined') {
+                    
+//                    vApp.wb.socketOn = parseInt(socket);
+//                    vApp.wb.utility.setClass('vcanvas', 'socketon');
+//                    vApp.wb.utility.assignRole(id);
+//                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
+//
+//                    if (!vApp.vutil.chkValueInLocalStorage('canvasDrwMsg')) {
+//                        window.vApp.wb.view.canvasDrawMsg('Canvas');
+//                        window.vApp.wb.view.drawLabel('drawArea');
+//                        localStorage.setItem('canvasDrwMsg', true);
+//                    }
+//
+//                    var canvasWrapper = document.getElementById("vcanvas");
+//                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
+//                    canvasWrapper.className = 'teacher';
+//
+//                  //  vApp.wb.user.connected = true;
+//
+//                    var toolHeight = localStorage.getItem('toolHeight');
+//                    vApp.wb.utility.setCommandToolHeights(toolHeight, 'increment');
+//                    
+//                    vApp.gObj.uRole = 't';
+//                    vApp.user.assignRole(vApp.gObj.uRole, app);
+//                    vcan.utility.canvasCalcOffset(vcan.main.canid);
+//                    
+                    //vApp.wb.utility.setStyleUserConnetion('coff', 'con', 'fromAssign');
                     vApp.wb.utility.assignRole(id);
                     vApp.wb.utility.uniqueArrOfObjsToTeacher();
-
-                    if (!vApp.vutil.chkValueInLocalStorage('canvasDrwMsg')) {
-                        window.vApp.wb.view.canvasDrawMsg('Canvas');
-                        window.vApp.wb.view.drawLabel('drawArea');
-                        localStorage.setItem('canvasDrwMsg', true);
-                    }
-
-                    var canvasWrapper = document.getElementById("vcanvas");
-                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
-                    canvasWrapper.className = 'teacher';
-
-                  //  vApp.wb.user.connected = true;
-
-                    var toolHeight = localStorage.getItem('toolHeight');
-                    vApp.wb.utility.setCommandToolHeights(toolHeight, 'increment');
                     
-                    //vApp.wb.utility.setStyleUserConnetion('coff', 'con', 'fromAssign');
-
+                    //create assing button only to student 
+                    if(localStorage.getItem('orginalTeacherId') == null){
+                        var divContainer =   document.getElementById("ml" + fromUserId);
+                        var controls = ['assign'];
+                        var divControl = vApp.user.createControl(fromUserId, controls);
+                        divContainer.appendChild(divControl);
+                        localStorage.setItem('aId', fromUserId);
+                    }
+                
                 } else {
-                    vApp.wb.utility.uniqueArrOfObjsToStudent();
-                    if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-                        var canvasWrapper = document.getElementById("vcanvas");
-                        canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
-                        canvasWrapper.className = 'student';
-                    }
-                    if (localStorage.getItem('orginialTeacherId') == null) {
-                        vApp.wb.utility.setCommandToolHeights(toolHeight, 'decrement');
-                    }
-
-                    localStorage.setItem('canvasDrwMsg', true);
+//                    
+//                    vApp.wb.utility.uniqueArrOfObjsToStudent();
+//                    if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+//                        var canvasWrapper = document.getElementById("vcanvas");
+//                        canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
+//                        canvasWrapper.className = 'student';
+//                    }
+//                    if (localStorage.getItem('orginialTeacherId') == null) {
+//                        vApp.wb.utility.setCommandToolHeights(toolHeight, 'decrement');
+//                    }
+//
+//                    localStorage.setItem('canvasDrwMsg', true);
                 }
             },
             

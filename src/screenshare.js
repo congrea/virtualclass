@@ -24,8 +24,9 @@
                 }
             },
             
-            //called when user select the screen
+            //called when user select the screencall
             _init : function (){
+//                alert('screen share init');
                 if(vApp.previous != config.id){
                     document.getElementById(vApp.previous).style.display = 'none';    
                     vApp.previous = config.id;
@@ -37,6 +38,7 @@
                 }
                 
                 if(!this.hasOwnProperty('id')){
+                    
                     this.dc = window.dirtyCorner;
                     //this.sutil = window.sutil;
                     
@@ -51,12 +53,20 @@
                     this.classes =  config.hasOwnProperty('class') ? config.classes : "";
 
                     this.prevImageSlices = [];
+                    
+                    var ssUI = document.getElementById(this.id);
+                    
+//                    if(ssUI == null){
+//                        ssUI = this.html.UI.call(this, vApp.gObj.uRole);
+//                    }
 
-                    var ssUI = this.html.UI.call(this, vApp.gObj.uRole);
+                      if(ssUI != null){
+                          ssUI.parentNode.removeChild(ssUI);
+                      }
+                      ssUI = this.html.UI.call(this, vApp.gObj.uRole);
                     
-//                    alert(vApp.rWidgetConfig.id);
-//                    debugger;
-                    
+                     //ssUI = this.html.UI.call(this, vApp.gObj.uRole);
+                     //alert(ssUI.id);
                     //critical
                     if(vApp.gObj.uRole == 't'){
                         var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
@@ -65,13 +75,13 @@
                     }
                     
                     
-                    
                     document.getElementById(vApp.html.id).insertBefore(ssUI, beforeAppend);
                     
                    // if(vApp.gObj.uRole == 't' && !vApp.hasOwnProperty('repType')){
                     if(vApp.gObj.uRole == 't' && !vApp.recorder.recImgPlay){
-                        this.localtempCanvas = document.getElementById(this.localTemp+"Video");
-                        this.localtempCont =  this.localtempCanvas.getContext('2d');
+//                        this.localtempCanvas = document.getElementById(this.localTemp+"Video");
+//                        this.localtempCont =  this.localtempCanvas.getContext('2d');
+                          vApp.vutil.initLocCanvasCont(this.localTemp+"Video");
                     }
                 }
             },
@@ -150,12 +160,6 @@
             },
 
             initializeRecorder : function (stream){
-              //  vApp.vutil.makeActiveApp(this.id);
-                
-                //alert(this.id);
-                 //if(app == 'Whiteboard'){
-//                      document.getElementById(this.id + "Tool").className += ' active';
-                //  }
                 changeonresize = 1;
 
                 if(this.prevStream){
@@ -169,6 +173,24 @@
                 }
                 
                 this.video = document.getElementById(this.local+"Video");
+                
+                if(this.video.tagName != "VIDEO"){
+                    var earlierVideo = this.video;
+                    var video = document.createElement('video');
+                    video.id = earlierVideo.id;
+                    this.video.parentNode.replaceChild(video,  this.video);
+                    
+                    this.video = document.getElementById(this.local+"Video");
+                    this.video.autoplay = true;
+                    vApp.vutil.createLocalTempVideo("vAppScreenShare", this.local + "Temp");
+                    vApp.vutil.initLocCanvasCont(this.local + "Temp" + "Video");
+                }
+                
+                
+                
+//                if(this.video.tagName !=  "VIDEO"){
+//                    
+//                } 
 
                 this.currentStream = stream;
                 var that = this;
@@ -191,7 +213,6 @@
                         that.ssByClick = true;
                     }
                 }
-                
                 
                 var container = {};
                 container.width = window.innerWidth;
@@ -411,11 +432,10 @@
 
             drawImages : function (rec, local){
                 
-                if(typeof local != 'undefined'){
-                    this.localCanvas = document.getElementById('canvas3');
-                    this.localCont = this.localCanvas.getContext('2d');
-                    
-                }
+//                if(typeof local != 'undefined'){
+//                    this.localCanvas = document.getElementById('canvas3');
+//                    this.localCont = this.localCanvas.getContext('2d');
+//                }
                 
                 //var imgDataArr = LZString.decompressFromBase64(rec);
                 var imgDataArr = rec;
@@ -431,7 +451,9 @@
             },
             
             dimensionStudentScreen : function (msg, vtype){
-                if(typeof this.vac == 'undefined'){
+                    // alert(this.vac);
+                  //  if(typeof this.vac == 'undefined'){
+                if(!this.hasOwnProperty('vac')){
                     this.vac = true;
                     this.localCanvas = document.getElementById(vApp[app].local+"Video");
                     this.localCont = vApp[app].localCanvas.getContext('2d');
@@ -489,10 +511,13 @@
 
                 //   if(user == 't' && !vApp.hasOwnProperty('repType')){
                    if(user == 't' && !vApp.recorder.recImgPlay){ 
-                       var locVidContTemp =  vApp.vutil.createDOM("div", this.localTemp);
-                       var vidContTemp =  vApp.vutil.createDOM("canvas", this.localTemp+"Video");
-                       locVidContTemp.appendChild(vidContTemp);
-                       mainCont.appendChild(locVidContTemp);
+                        //alert(mainCont.id);
+                        vApp.vutil.createLocalTempVideo(mainCont, this.localTemp);
+                       
+//                       var locVidContTemp =  vApp.vutil.createDOM("div", this.localTemp);
+//                       var vidContTemp =  vApp.vutil.createDOM("canvas", this.localTemp+"Video");
+//                       locVidContTemp.appendChild(vidContTemp);
+//                       mainCont.appendChild(locVidContTemp);
                    }
                    
                    function css(element, styles){
@@ -502,6 +527,8 @@
                    }
                    return mainCont;
                },
+               
+              
                
                getDimension : function (container, aspectRatio){
                    var aspectRatio = aspectRatio || (3 / 4),

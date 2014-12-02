@@ -5,6 +5,7 @@ window.addEventListener('message', function (event) {
     
     //if (window.navigator.userAgent.match('Chrome')) {
         if (event.data.type == 'gotScreen') {
+            
             var constraints;
             if (event.data.sourceId === '') { // user canceled
                 var error = new Error('NavigatorUserMediaError');
@@ -31,7 +32,9 @@ window.addEventListener('message', function (event) {
 
                 vApp.adpt = new vApp.adapter();
                 navigator2 =  vApp.adpt.init(navigator);
-
+//                alert('suman bogati');
+//                debugger;
+                
                 navigator2.getUserMedia(constraints, function (stream){
                     vApp.ss._init();   
                     vApp.ss.initializeRecorder.call(vApp.ss, stream);   

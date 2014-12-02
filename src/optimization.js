@@ -23,7 +23,7 @@
             if ((this.presentarrowtime - this.lastarrowtime) >= time) {
                 vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                 if(readyState == 1){
-                    //vApp.wb.utility.beforeSend(JSON.parse(jobj));
+                   // vApp.wb.utility.beforeSend(JSON.parse(jobj));
                     io.send(JSON.parse(jobj));
                 }
                 vApp.wb.utility.updateSentInformation(jobj, true);

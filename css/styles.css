@@ -1464,9 +1464,9 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	
 }
 
-div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper video{
-	outline: #cc1111 1px solid;
-	border-radius: 3px;
+div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper .userVideos, div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper video{
+    outline: #cc1111 1px solid;
+    border-radius: 3px;
 }
 
 #chat_div .ui-memblist-usr span {
@@ -1528,11 +1528,11 @@ div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper video{
 }
 
 #chat_div .ui-memblist-usr.teacher a span{
-	background : url('../images/teacher.png') left center no-repeat;
+/*    background : url('../images/teacher.png') left center no-repeat;*/
 }
 
 #chat_div .ui-memblist-usr.student a span{
-	background : url('../images/student.png') left center no-repeat;
+/*    background : url('../images/student.png') left center no-repeat;*/
 }
 	
 .ui-memblist-usr a, .ui-memblist-usr img{
@@ -1543,3 +1543,26 @@ div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper video{
 #vAppScreenShare, #vAppWholeScreenShare {
     margin-left : 55px;
 }
+
+
+.ui-widget-content .controls{
+    clear : both;
+}
+
+.ui-widget-content .controls img {
+    margin-left : 5px;
+}
+
+
+.ui-widget-content .controls{
+    width : 150px;
+    position: relative;
+    top: -42;
+    left: 72;
+}
+
+.ui-widget-content .controls img{
+    pointer-events: true;
+}
+
+

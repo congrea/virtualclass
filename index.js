@@ -219,12 +219,15 @@ jQuery.cachedScript = function( url, options ) {
                // }
             } else if(e.message.hasOwnProperty('si')){ //screen share start
                 if(vApp.gObj.uRole == 's'){
-					
+//                    if(e.message.st == 'ss'){
+//                        vApp.currApp == 'ScreenShare';
+//                    }else if(e.message.st == 'wss') {
+//                        vApp.currApp == 'WholeScreenShare';
+//                    }
                    if(!e.message.hasOwnProperty('resimg')){
                       vApp.initStudentScreen(e.message);
                    }else{
-					   						 //  alert('requested image is received');
-
+                        //  alert('requested image is received');
                        if(e.message.byRequest == vApp.gObj.uid){
 						 //  alert('requested image is received');
                             vApp.initStudentScreen(e.message);
@@ -250,8 +253,11 @@ jQuery.cachedScript = function( url, options ) {
             }else if(e.message.hasOwnProperty('unshareScreen')){ //screen share end
                 var app  =  e.message.st;
                // if(e.fromUser.userid != wbUser.id){
-                    vApp[app].prevImageSlices = [];
-                    vApp[app].removeStream();
+                    if(typeof vApp[app] == 'object'){
+                        vApp[app].prevImageSlices = [];
+                        vApp[app].removeStream();
+                    }
+                   
                // }
                 return;
            }else if(e.message.hasOwnProperty('audioSamp')){
@@ -306,8 +312,10 @@ jQuery.cachedScript = function( url, options ) {
                     return;
                 }
                 if(e.message.hasOwnProperty('assignRole')){
-                    vApp.wb.response.assignRole(e.fromUser.userid , wbUser.id, e.message.socket, e.message.toolHeight);
-                    return;
+                    if(e.message.toUser == vApp.gObj.uid){
+                        vApp.wb.response.assignRole(e.fromUser.userid , wbUser.id);
+                    }
+                     return;
                 }
                 vApp.wb.gObj.myrepObj = vApp.wb.vcan.getStates('replayObjs');
                 if(e.message.hasOwnProperty('clearAll')){

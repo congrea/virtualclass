@@ -159,6 +159,83 @@
                     
                     window.open('https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl', '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1200,height=600, top=250, left = 100');
                 }
+            },
+            
+            removeAppPanel : function (){
+                var appPanel = document.getElementById('vAppOptionsCont');
+                if(appPanel != null){
+                    appPanel.parentNode.removeChild(appPanel);
+                }
+            },
+            
+            
+            removeTempVideo : function (id){
+                var toBeRemove = document.getElementById(id);
+                toBeRemove.parentNode.removeChild(toBeRemove)
+            },
+            
+//            addTempVideo : function (id, width, height){
+//                var tempVid = document.createElement('canvas');
+//                tempVid.id = id;
+//                tempVid.style.width = width;
+//                tempVid.style.height = height;
+//                toBeRemove.parentNode.removeChild(toBeRemove)
+//            },
+            
+            
+             createLocalTempVideo : function (mainCont, localTemp){
+                if(typeof mainCont == "string" || typeof mainCont == "String"){
+                    mainCont = document.getElementById(mainCont);
+                }
+                //var mainCont = document.getElementById(mcId);
+                
+                var locVidContTemp =  vApp.vutil.createDOM("div", localTemp);
+                var vidContTemp =  vApp.vutil.createDOM("canvas", localTemp+"Video");
+                locVidContTemp.appendChild(vidContTemp);
+                mainCont.appendChild(locVidContTemp);
+            },
+            
+            initLocCanvasCont : function (tempVideoId){
+                if(vApp.currApp == "ScreenShare"){
+                    var app = 'ss';
+                }else{
+                    var app = 'wss';
+                }
+                
+                vApp[app].localtempCanvas = document.getElementById(tempVideoId);
+                vApp[app].localtempCont =  vApp[app].localtempCanvas.getContext('2d');
+            },
+            
+            videoTeacher2Student : function (id){
+                
+                var localVideo = document.getElementById(id);
+                if(localVideo !=  null && localVideo.tagName == "VIDEO"){
+                //    alert('this would not performed');
+                    var stCanvas = document.createElement('canvas');
+                    stCanvas.id =  localVideo.id;
+                    stCanvas.width = localVideo.offsetWidth;
+                    stCanvas.height = localVideo.offsetHeight;
+                    
+                    var tempVid = localVideo;
+                    localVideo.parentNode.replaceChild(stCanvas, localVideo);
+                    var app;
+                    if(vApp.currApp  == 'ScreenShare'){
+                        app = "ss";
+                    }else if(vApp.currApp  == 'WholeScreenShare'){
+                        app = "wss";
+                    }
+                    
+                    if(typeof app != 'undefined' && (app == 'ss' || app == 'wss')){
+                        vApp[app].localCanvas = stCanvas;
+                        vApp[app].localCont =  vApp[app].localCanvas.getContext('2d');
+
+                        var imgData = vApp[app].localtempCont.getImageData(0, 0, vApp[app].localtempCanvas.width, vApp[app].localtempCanvas.height);
+                        vApp[app].localCont.putImageData(imgData, 0, 0);
+                    }
+                    
+                    //vApp.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
+                    vApp.vutil.removeTempVideo("vApp" + vApp.currApp+"LocalTemp");
+                }
             }
         }
         window.vutil = vutil;

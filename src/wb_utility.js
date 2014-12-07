@@ -1044,15 +1044,18 @@
                  * @returns {undefined}
                  */
                 audioSend : function (msg){
+                    var scode = new Int8Array( [ 101 ] ); // Audio
+                    var sendmsg = new Int8Array(msg.length + scode.length);
+                    sendmsg.set(msg);
+                    sendmsg.set(scode, msg.length); // Last element is status code (101)
 //                    var jobj = JSON.stringify(msg);
-
 //                        vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                         if (io.sock.readyState == 1) {
                             if (vApp.gObj.uRole == 't') {
-                                io.sendBinary(msg);
+                                io.sendBinary(sendmsg);
                             }else{
                                 if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
-                                    io.sendBinary(msg);
+                                    io.sendBinary(sendmsg);
                                 } 
                             }
                         

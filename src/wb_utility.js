@@ -1043,18 +1043,23 @@
                  * @param {type} msg
                  * @returns {undefined}
                  */
-                audioSend : function (msg){
-                    if (io.sock.readyState == 1) {
-                        if (vApp.gObj.uRole == 't') {
-                            io.sendBinary(msg);
-                            //audioSend
-                        }else{
-                            if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
-                                io.sendBinary(msg);
-                            } 
+                  audioSend : function (msg){
+                    var scode = new Int8Array( [ 101 ] ); // Status Code Audio
+                    var sendmsg = new Int8Array(msg.length + scode.length);
+                    sendmsg.set(scode);
+                    sendmsg.set(msg, scode.length); // First element is status code (101)
+//                    var jobj = JSON.stringify(msg);
+//                        vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
+                        if (io.sock.readyState == 1) {
+                            if (vApp.gObj.uRole == 't') {
+                                io.sendBinary(sendmsg);
+                            }else{
+                                if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
+                                    io.sendBinary(sendmsg);
+                                } 
+                            }
+                        
                         }
-
-                    }
                 },
                 /**
                  * the operation before send infor to server

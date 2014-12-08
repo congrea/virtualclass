@@ -197,13 +197,17 @@ jQuery.cachedScript = function( url, options ) {
              //demoVideoTest(e); //for video demo
         });
 
-        $(document).on("newaudio", function(e){
-//            alert(e.message.fromUser);
-//            debugger;
+        $(document).on("binrec", function(e){
             //var data_pack = e.message;
             var data_pack = new Uint8Array(e.message);
-            vApp.gObj.video.audio.play(data_pack, 0 , 0);
-            return;
+            
+            var recmsg = new Int8Array(data_pack.length-1);
+            recmsg = data_pack.subarray(1,data_pack.length);
+            
+            if (data_pack[0] == 101) { // Audio
+                vApp.gObj.video.audio.play(recmsg, 0 , 0);
+                return;
+            }
         });
             
             

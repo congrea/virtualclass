@@ -195,9 +195,9 @@ jQuery.cachedScript = function( url, options ) {
             var data_pack = new Uint8Array(e.message);
             
             var recmsg = new Int8Array(data_pack.length-1);
-            recmsg = data_pack.subarray(0,data_pack.length-1);
+            recmsg = data_pack.subarray(1,data_pack.length);
             
-            if (data_pack[data_pack.length-1] == 101) { // Audio
+            if (data_pack[0] == 101) { // Audio
                 vApp.gObj.video.audio.play(recmsg, 0 , 0);
                 return;
             }

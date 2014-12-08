@@ -418,30 +418,35 @@ body {
 
 
 #chat_div .ui-memblist-usr {
-	height : 65px !important ;
+    /*
+    height : 65px !important ;
+    
+    */
+    clear : both;
+    
 }
 
 div.ui-memblist-usr video {
-	width : 60px;
-	height : 50px;
-	margin : 0;
-	outline : 1px solid #5A5757;
-	margin-left : 2px;
+    width : 60px;
+    height : 50px;
+    margin : 0;
+    outline : 1px solid #5A5757;
+    margin-left : 2px;
 }
 
 div.ui-memblist-usr .userVideos {
-	width : 60px;
-	height : 45px;
-	margin : 3px 0 0 2px;
-	outline : 1px solid #5A5757;
+    width : 60px;
+    height : 45px;
+    margin : 3px 0 0 2px;
+    outline : 1px solid #5A5757;
 }
 
 #graphCanvas {
-		top : -5px !important ;
+    top : -5px !important ;
 }
 
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-	margin-top : 6px;
+    margin-top : 6px;
 }
 
 #chat_div .ui-memblist-usr:first-child {
@@ -1338,7 +1343,9 @@ canvas {
 /*** footer chat start from here **/
 
 #chat_div .ui-memblist-usr{
-    height : 45px !important;
+    
+    /* height : 45px !important; */
+    
 }
 
 div.ui-memblist-usr video{
@@ -1411,7 +1418,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos{
 	float : right;
 	height : auto;
 	right : 10px;
-	padding-left : 10px;
+	padding-left : 5px;
 }
 
 .student #vcanvas {
@@ -1423,11 +1430,13 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos{
 	background-color : #eee;
 }
 
-#speeakerStudentImage {
-	padding-top : 10px;
+/*#speakerStudentImage {
+    padding-top : 10px;
+}*/
+
+#speakerPressingImg{
+    padding-top : 10px;
 }
-
-
 
 #vcanvas.student #containerWb {
 	background-image : url('../images/nav_bg.png') !important ;
@@ -1562,7 +1571,49 @@ div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper .userVideos, div.ui
 }
 
 .ui-widget-content .controls img{
-    pointer-events: true;
+    pointer-events: visible;
+}
+
+#speakerPressing{
+    width : 100%;
+    height : 45px;
+    border-bottom : 1px solid #000;
+}
+
+#speakerPressOnce{
+    width : 100%;
+    height : 100%;
 }
 
 
+#speakerStudent.active .active{
+    border : 1px solid green;
+}
+
+#speakerStudent.deactive .deactive{
+    border : 1px solid red;
+}
+
+#speakerStudent #speakerPressOnce {
+    padding-left : -5px;
+    height : 40px;
+}
+
+#chat_div .controleCont {
+    float : left;
+}
+
+.audioTransmit{
+    border : 15px solid green;
+    float:left;
+    width : 15px;
+    height : 15px;
+}
+
+.audEnableSign{
+    width : 12px;
+    height : 12px;
+    border : 2px solid green;
+    float : left;
+    margin-left :4px;
+}

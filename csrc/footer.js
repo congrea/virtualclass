@@ -99,12 +99,14 @@
             .text('Chatroom')
             .click(function(){
                 if(chatroombox){
+                    
 				    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
                        sessionStorage.removeItem('chatroom_status');
 
                    }else{
                        sessionStorage.setItem("chatroom_status", "hidden");
                    }
+                   
                    chatroombox.chatroom("option", "boxManager").toggleBox();
                 }else{
 
@@ -120,8 +122,20 @@
                                                 messageSent : function(user, msg) {
                                                     $("#chat_room").chatroom("option", "boxManager").addMsg(user.name,msg);
                                                 }});
+                        
+                        //added by suman
+                        if(vApp.gObj.hasOwnProperty('chatEnable')){
+                            if(!vApp.gObj.chatEnable){
+                                var chatCont = document.getElementById('chatrm');
+                                if(chatCont != null){
+                                   vApp.user.control.makeElemDisable(chatCont);
+                                }
+                            }
+                        }
                     }  // if end
                 }//else end
+                
+                
             }) //click end
 
             //userlist tab

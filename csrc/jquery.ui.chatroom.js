@@ -86,6 +86,8 @@
         },
 
         _create: function(){
+//            alert("hey ram");
+//            debugger;
 	        var self = this,
             options = self.options,
             offset = options.offset,

@@ -54,10 +54,18 @@
                         
                         //if(vApp.gObj.uRole == 't'){
                         
+                        //added by suman
                         if(localStorage.getItem('orginalTeacherId') != null){
                             var controls = ['assign', 'audio', 'chat'];
                             var controlDiv = vApp.user.createControl(peer.userid, controls);
                             e.appendChild(controlDiv);
+                            
+                            
+                            vApp.user.control.shouldApply.call(vApp.user, peer.userid);
+                            
+                            
+                            
+                            //vApp.user.control.audioSign({id:peer.userid}, "create");
                         }
                         
                         if(localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null){
@@ -66,8 +74,10 @@
                                 var controlDiv = vApp.user.createControl(peer.userid, controls);
                                 e.appendChild(controlDiv);
                                 localStorage.removeItem('aId');
+                                
                             }
                         }
+                        
                           
                         //}
                         
@@ -82,7 +92,10 @@
                     $(e).fadeIn();
                     
                     self._scrollToBottom();
-
+                    var chatEnable = localStorage.getItem('chatEnable');
+                    if(chatEnable != null && chatEnable ==  "false"){
+                        vApp.user.control.disableOnLineUser();
+                    }
                 },
                 highlightBox: function() {
                     var self = this;

@@ -101,7 +101,13 @@ jQuery.cachedScript = function( url, options ) {
             //if (e.fromUser.userid == id ){
         vApp.wb.utility.initDefaultInfo(wbUser.role);
         
-        //vApp.wb.utility.makeUserAvailable();
+        if(wbUser.role == 's'){
+            var audioEnable = localStorage.getItem('audEnable');
+            if(audioEnable != null && audioEnable == 'false'){
+                vApp.user.control.audioDisable();
+                vApp.gObj.audioEnable = false;
+            }
+        }
         
         $(document).on("user_logout", function(e){
             removedMemberId = e.fromUser.userid;
@@ -149,6 +155,7 @@ jQuery.cachedScript = function( url, options ) {
         }
         
         $(document).on("member_added", function(e){
+            
             vApp.wb.clientLen = e.message.length;
             var joinId = e.message[e.message.length - 1].userid;
             vApp.jId = joinId;
@@ -190,17 +197,13 @@ jQuery.cachedScript = function( url, options ) {
              //demoVideoTest(e); //for video demo
         });
 
-        $(document).on("binrec", function(e){
+        $(document).on("newaudio", function(e){
+//            alert(e.message.fromUser);
+//            debugger;
             //var data_pack = e.message;
             var data_pack = new Uint8Array(e.message);
-            
-            var recmsg = new Int8Array(data_pack.length-1);
-            recmsg = data_pack.subarray(0,data_pack.length-1);
-            
-            if (data_pack[data_pack.length-1] == 101) { // Audio
-                vApp.gObj.video.audio.play(recmsg, 0 , 0);
-                return;
-            }
+            vApp.gObj.video.audio.play(data_pack, 0 , 0);
+            return;
         });
             
             
@@ -211,7 +214,43 @@ jQuery.cachedScript = function( url, options ) {
 //                alert('sss');
 //                debugger;
 //            }
-
+            if(e.message.hasOwnProperty('sad')){
+                if(vApp.gObj.uRole == 't'){
+                    if(e.message.sad){
+                        var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);
+                        vApp.user.control.audioSign(user, "create");
+                    }else{
+                        var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', false);
+                        vApp.user.control.audioSign(user, 'remove');
+                    }
+                }
+               return true;
+            } else if(e.message.hasOwnProperty('enc')){
+                if(e.message.toUser == vApp.gObj.uid){
+                    vApp.user.control.allChatEnable();
+                    vApp.gObj.chatEnable = true;
+                }
+                return;
+            }else if(e.message.hasOwnProperty('dic')){
+                if(e.message.toUser == vApp.gObj.uid){
+                    vApp.user.control.allChatDisable();
+                    vApp.gObj.chatEnable = false;
+                }
+                return;
+            }else if (e.message.hasOwnProperty('ena')){
+                if(e.message.toUser == vApp.gObj.uid){
+                    vApp.user.control.audioEnable();
+                    vApp.gObj.audioEnable = true;
+                }
+                return;
+            }else if (e.message.hasOwnProperty('dia')){
+                if(e.message.toUser == vApp.gObj.uid){
+                    vApp.user.control.audioDisable();
+                    vApp.gObj.audioEnable = false;
+                }
+                return;
+            }
+            
             if(typeof e.message == 'string' || e.message.hasOwnProperty('msg')){
                 messageUpdate(e);
                 return;
@@ -466,14 +505,28 @@ jQuery.cachedScript = function( url, options ) {
          // Data stored in session key inside localStorage variable
          // sid is the session id
          if (localStorage.getItem(sid) != null)  {
-             displayChatHistory();
-             vmstorage = JSON.parse(localStorage.getItem(sid));
+                displayChatHistory();
+                
+                chatEnable = localStorage.getItem('chatEnable');
+                if(chatEnable != null && chatEnable ==  "false"){
+                    vApp.user.control.disbaleAllChatBox();
+                }
+                
+//                var div = document.getElementById("chatrm");
+//                if(div != null){
+//                     vApp.user.control.makeElemDisable(div);
+//                }
+                
+                vmstorage = JSON.parse(localStorage.getItem(sid));
          }
 
          //checking common chat local storage
          //Data stored inside sessionStorage variable
          if(sessionStorage.length > 0){
              displaycomChatHistory();
+             if(typeof chatEnable != 'undefined' && chatEnable == "false"){
+                 vApp.user.control.disableCommonChat();
+             }
          }
 
          /* Remove user tab and chatbox when click on tab close icon */

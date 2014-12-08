@@ -145,7 +145,9 @@
             vApp.vutil.setContainerWidth(res);
             vcan.renderAll();
         },
-                
+        
+        //TODO
+        // this code is not using should be removed
         view.virtualWindow.manupulation = function(e) {
             var message = e.message.virtualWindow;
             if (message.hasOwnProperty('removeVirtualWindow')) {

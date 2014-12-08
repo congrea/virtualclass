@@ -384,29 +384,29 @@
 
                     }
                 },
-                reclaimRoleOld: function() {
-                    vApp.wb.tool = "";
-                    if (vcan.main.action == 'move') {
-                        vApp.wb.utility.deActiveFrmDragDrop();
-                    }
-                    vApp.wb.utility.removeToolBox();
-                    
-                    //window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-                    localStorage.teacherId = localStorage.orginalTeacherId;
-                    if (typeof localStorage.reclaim != 'undefined') {
-                        localStorage.removeItem('reclaim');
-                    }
-                    //vApp.wb.utility.makeCanvasEnable();
-                    vApp.gObj.uRole = 't';
-                    vApp.user.assignRole(vApp.gObj.uRole, "Whiteboard");
-                    vcan.utility.canvasCalcOffset(vcan.main.canid);
-                    
-                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
-                    var canvasWrapper = document.getElementById("vcanvas");
-                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
-                    canvasWrapper.className = 'teacher';
-                    localStorage.canvasDrwMsg = true;
-                },
+//                reclaimRoleOld: function() {
+//                    vApp.wb.tool = "";
+//                    if (vcan.main.action == 'move') {
+//                        vApp.wb.utility.deActiveFrmDragDrop();
+//                    }
+//                    vApp.wb.utility.removeToolBox();
+//                    
+//                    //window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+//                    localStorage.teacherId = localStorage.orginalTeacherId;
+//                    if (typeof localStorage.reclaim != 'undefined') {
+//                        localStorage.removeItem('reclaim');
+//                    }
+//                    //vApp.wb.utility.makeCanvasEnable();
+//                    vApp.gObj.uRole = 't';
+//                    vApp.user.assignRole(vApp.gObj.uRole, "Whiteboard");
+//                    vcan.utility.canvasCalcOffset(vcan.main.canid);
+//                    
+//                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
+//                    var canvasWrapper = document.getElementById("vcanvas");
+//                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
+//                    canvasWrapper.className = 'teacher';
+//                    localStorage.canvasDrwMsg = true;
+//                },
                 
                 
                 reclaimRole : function (){
@@ -1044,22 +1044,17 @@
                  * @returns {undefined}
                  */
                 audioSend : function (msg){
-                    var scode = new Int8Array( [ 101 ] ); // Audio
-                    var sendmsg = new Int8Array(msg.length + scode.length);
-                    sendmsg.set(msg);
-                    sendmsg.set(scode, msg.length); // Last element is status code (101)
-//                    var jobj = JSON.stringify(msg);
-//                        vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
-                        if (io.sock.readyState == 1) {
-                            if (vApp.gObj.uRole == 't') {
-                                io.sendBinary(sendmsg);
-                            }else{
-                                if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
-                                    io.sendBinary(sendmsg);
-                                } 
-                            }
-                        
+                    if (io.sock.readyState == 1) {
+                        if (vApp.gObj.uRole == 't') {
+                            io.sendBinary(msg);
+                            //audioSend
+                        }else{
+                            if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
+                                io.sendBinary(msg);
+                            } 
                         }
+
+                    }
                 },
                 /**
                  * the operation before send infor to server
@@ -1216,6 +1211,15 @@
                     }
                     tag.className = classes + " active";
                     localStorage.activeTool = tag.id;
+                },
+                
+                createAudioTransmitIcon : function (userId){
+                    var iconElem = document.cteateElement('div');
+                    iconElem.id = "audioTransmit" + uuserId;
+                    iconElem.className = 'audioTransmit';
+                    var controlCont = document.getElementById(userId + "ControlContainer");
+                    
+                    
                 }
             };
         }

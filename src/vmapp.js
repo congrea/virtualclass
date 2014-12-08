@@ -15,6 +15,8 @@
 //              wssConfig :{ id : "vApp" + appName[2], classes : "appOptions"}, 
               apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
               appSessionEnd : "vAppSessionEnd",
+              appAudioTest : "vAppAudioTest",
+              //appAudioTestPlay : "vAppAudioTestPlay",
               rWidgetConfig : {id: 'chatWidget' },
               wb : "", 
               ss : "",
@@ -73,10 +75,9 @@
                 }
                   
                   //To teacher
+                vApp.user.assignRole(vApp.gObj.uRole, app);
+                
                 if(vApp.gObj.uRole == 't'){
-//                    alert('should be first');
-                    //alert("second");
-                    vApp.user.assignRole(vApp.gObj.uRole, app);
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                 }
                   
@@ -120,9 +121,11 @@
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
-//                    alert(vApp.wssConfig.id);
-//                    alert(vApp.sessionEnd);
+                    
                     this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    this.createDiv(vApp.appAudioTest + "Tool", "audiotest", appOptCont, 'appOptions');
+                    
+                    //this.createDiv(vApp.appAudioTestPlay + "Tool", "audiotestplay", appOptCont, 'appOptions');
                 },  
                 
                 createDiv: function(toolId, text, cmdToolsWrapper, cmdClass, toBeReplace) {
@@ -278,26 +281,30 @@
               },
               
               initlizer : function (elem){
-                  
                // alert(elem.getAttribute('data-title'));
-                
                 var appName = elem.parentNode.id.split("vApp")[1];
-                if(appName == 'SessionEndTool'){
-               //     alert('sss');
-                 //   debugger;
+                
+                if(appName == 'AudioTestTool'){
+                    var playSound = confirm ("Please say some words for recording the Audio");
+                    if(playSound){
+                        vApp.gObj.video.audio.testInit();
+                    }  
+                }
+//                else if(appName == 'AudioTestPlayTool'){
+//                    vApp.gObj.video.audio.playRecordedAudio();
+//                    
+//                }
+                
+                  else if(appName == 'SessionEndTool'){
                     appName = appName.substring(0, appName.indexOf("Tool"));
                    
                     vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
                     vApp.storage.config.endSession();
                     vApp.wb.utility.beforeSend({sEnd : true});
                     
-                    //this.prevScreen.hasOwnProperty('currentStream')
-                   
                     if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
                         vApp.prevScreen.unShareScreen();
                     }
-                    
-//                    this.makeAppReady(appName, vApp.previous);
                     
                     vApp.prevApp = "vApp" + appName;
                 }else{

@@ -98,6 +98,7 @@
         },
 
         _create: function(){
+            
             createTab(this.options.id,this.options.title);
             var self = this,
             options = self.options,

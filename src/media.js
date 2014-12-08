@@ -78,9 +78,6 @@
 //                        this.audioNodes = [];
 //                        this.tempAudArr = [];
 
-                        
-                        
-                        
                         this.graph = {
                             height : 56, 
                             width : 4, 
@@ -123,39 +120,61 @@
                         
                         if(vApp.gObj.uRole == 's'){
                               //can be critical
-//                            this.attachSpeakToStudent();
-//                            this.makeIconNotDraggable();
+                            this.attachSpeakToStudent();
+                            this.makeIconNotDraggable('speakerPressingImg', "speaker2.svg");
+                            this.makeIconNotDraggable('speakerPressOnceImg', "speaker.png");
                         }
                     },
                     
                     
-                    makeIconNotDraggable : function (){
-                        var canvas = document.getElementById('speeakerStudentImage');
+                    makeIconNotDraggable : function (id, imgName){
+                        var canvas = document.getElementById(id, imgName);
                         var context = canvas.getContext('2d');
                         var imageObj = new Image();
 
                         imageObj.onload = function() {
-                          context.drawImage(imageObj, 0, 0);
+                            context.drawImage(imageObj, 0, 0);
                         };
-                        imageObj.src = window.whiteboardPath + "images/speaker2.svg";
+                        imageObj.src = window.whiteboardPath + "images/" + imgName;
                     },
                     
                     attachSpeakToStudent : function (){
-                        var speakerStudent  = document.getElementById("speakerStudent");
+                        var speakerStudent  = document.getElementById('speakerPressing');
                         speakerStudent.addEventListener('mousedown', this.studentSpeak);
                         speakerStudent.addEventListener('mouseup', this.studentNotSpeak);
                         
                         document.body.addEventListener('mouseup', this.studentNotSpeak);
                         window.addEventListener('mouseup', this.studentNotSpeak);
+                        speakerPressOnce  = document.getElementById('speakerPressOnce');
+                        speakerPressOnce.setAttribute('data-audio-playing', "false");
+                        var that = this;
+                        speakerPressOnce.addEventListener('click', function (){ that.clickOnceSpeaker.call(that, speakerPressOnce)});
+                    },
+                    
+                    clickOnceSpeaker : function (tag, alwaysDisable){
+                        if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
+                            this.studentSpeak();
+                            tag.setAttribute('data-audio-playing', "true");
+                            tag.className = "active";
+                            vApp.wb.utility.beforeSend({'sad': true});
+
+                        }else {
+//                            vApp.wb.utility.beforeSend({'sad': false});
+                            this.studentNotSpeak();
+                            tag.setAttribute('data-audio-playing', "false");
+                            tag.className = "deactive";
+                        }
                     },
                     
                     studentSpeak : function (){
                         vApp.gObj.audMouseDown = true;
+                        vApp.wb.utility.beforeSend({'sad': true});
                     },
                     
                     studentNotSpeak : function (){
-                        if(vApp.gObj.hasOwnProperty('audMouseDown')){
+                        if(vApp.gObj.hasOwnProperty('audMouseDown') &&  vApp.gObj.audMouseDown){
                             vApp.gObj.audMouseDown = false;
+                            vApp.wb.utility.beforeSend({'sad': false});
                         }
                     },
                     
@@ -190,7 +209,14 @@
                             }
                             
                             var leftSix = convertFloat32ToInt16(samples);
+                            
                             var send = this.audioInLocalStorage(leftSix);
+                            
+                            if(this.hasOwnProperty('storeAudio') && this.storeAudio){
+                                this.audioForTesting(leftSix);
+                                
+                            }
+                            
                             
                             // Detect Volume and send if required
                             var vol = 0;
@@ -253,7 +279,75 @@
                         var encoded = G711.encode(leftSix, {
                             alaw: this.encMode == "alaw" ? true : false
                         });  
+                        
+                        //localStorage.audioStream = JSON.stringify(encoded);
+                        
+//                        if(){
+//                            
+//                        }
+                        //vApp.storage.audioStore(JSON.stringify(encoded));
                         return encoded;
+                    },
+                    
+                    testInit : function (){
+                         vApp.gObj.audioForTest = [];
+                         this.storeAudio = true;
+                          var that = this;  
+                          setTimeout(function (){
+                            console.log("set time out is invoking");
+                            that.playRecordedAudio();
+                            //that.playRecordedAudio();
+                        }, 5000);
+                    },
+                    
+                    audioForTesting : function (leftSix){
+                        var encoded = G711.encode(leftSix, {
+                            alaw: this.encMode == "alaw" ? true : false
+                        });  
+                        
+                        // vApp.gObj.video.audio.play(encoded, 0 , 0)
+                        vApp.gObj.audioForTest.push(encoded);
+                        
+                        
+                       
+                        //vApp.gObj.video.audio.playTestAudio(encoded, 0 , 0)
+                    },
+                    
+                    playRecordedAudio : function (){
+                        this.myaudioNodes = [];
+                        this.recordingLength = 0;
+                        for(var i=0; i<vApp.gObj.audioForTest.length; i++){
+                            clip = vApp.gObj.audioForTest[i];
+                            samples = G711.decode(clip, {
+                                alaw: this.encMode == "alaw" ? true : false,
+                                floating_point : true,
+                                Eight : true
+                             });
+                             
+                             this.myaudioNodes.push(new Float32Array(samples));
+                             this.recordingLength += 16384;
+                        }
+                        
+                        var samples = this.mergeBuffers(this.myaudioNodes);
+                        vApp.gObj.video.audio.playTestAudio(samples, 0 , 0);
+                       
+                    },
+                    
+                    playTestAudio : function (receivedAudio, inHowLong, offset){
+                        var samples = receivedAudio;   
+                        
+                        //var samples =     receivedAudio;
+                        var when = this.Html5Audio.audioContext.currentTime + inHowLong;
+
+                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000);
+                        newBuffer.getChannelData(0).set(samples);
+
+                        var newSource = this.Html5Audio.audioContext.createBufferSource();
+                        newSource.buffer = newBuffer;
+
+                        newSource.connect(this.Html5Audio.audioContext.destination);
+                        newSource.start(when, offset);
+                        
                     },
                     
                     calcAverage : function (){

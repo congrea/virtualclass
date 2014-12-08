@@ -140,24 +140,11 @@ $uname = "Student";
 <?php
     if($r == 's'){
     ?>
-<div id="speakerStudent">  
-    
-<!--    <input type="image" src="<?php // echo $whiteboard_path; ?>images/speaker.svg" />-->
-    
- <canvas id="speeakerStudentImage" width="40" height="40"></canvas>
-    <script>
-        
-//      var canvas = document.getElementById('speeakerStudentImage');
-//      var context = canvas.getContext('2d');
-//      var imageObj = new Image();
-//
-//      imageObj.onload = function() {
-//        context.drawImage(imageObj, 0, 0);
-//      };
-//      imageObj.src = window.whiteboardPath + "images/speaker2.svg";
-    </script>
-    
-</div>
+<div id="speakerStudent" class="active">
+	<div id="speakerPressing">
+		<canvas id="speakerPressingImg" width="40" height="40"></canvas></div>
+		<div id="speakerPressOnce" data-audio-playing="false">
+			<canvas id="speakerPressOnceImg" width="40" height="40"></canvas></div></div>
     <?php
     }
 ?>

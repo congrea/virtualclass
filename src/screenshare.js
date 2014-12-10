@@ -39,8 +39,12 @@
                 
                 if(!this.hasOwnProperty('id')){
                     
-                    this.dc = window.dirtyCorner;
+                    
+                    //this.dc = window.dirtyCorner;
+                    //
                     //this.sutil = window.sutil;
+                    
+                    this.dc = vApp.dirtyCorner;
                     
                     this.postFix = "Cont";
                     this.id =  config.hasOwnProperty('id') ? config.id  : "vAppScreenShare";
@@ -160,7 +164,7 @@
             },
 
             initializeRecorder : function (stream){
-                changeonresize = 1;
+                changeonresize = 0;
 
                 if(this.prevStream){
                     this.ssByClick = false;
@@ -185,7 +189,6 @@
                     vApp.vutil.createLocalTempVideo("vAppScreenShare", this.local + "Temp");
                     vApp.vutil.initLocCanvasCont(this.local + "Temp" + "Video");
                 }
-                
                 
                 
 //                if(this.video.tagName !=  "VIDEO"){
@@ -278,6 +281,10 @@
             },
             
             sharing : function (){
+//                alert('hi brother');
+//                debugger;
+                
+                //alert('it should be share everytime');
                 var tempObj, encodedData, stringData, d, matched, imgData;
                 this.latestScreen = [];
                 //this.localtempCanvas = [];
@@ -319,109 +326,350 @@
                 
                 var screenIntervalTime=1000;
                 var pscreenIntervalTime=1000;
-                function myFunction2 (){
-                    clearInterval(vApp.clear);
-                    vresize = false;
-                    if (changeonresize == 1) {
-                        if(typeof that.localtempCont.width != 'undefined'){ //todo check if required
-                            that.localtempCont.clearRect(0, 0, that.localtempCont.width, that.localtempCont.height);
-                        }
-                        vresize = true;
-                        that.prevImageSlices = [];
-                        resA = Math.round(that.localtempCanvas.height/12);
-                        resB = Math.round(that.localtempCanvas.width/12);
-                        that.imageSlices = that.dc.getImageSlices(resA, resB, that);
-//                            changeonresize = 0;
-                    }
-
+                
+                //function getDataFullScreen(type){
+                vApp.getDataFullScreen = function (type){
+                    //clearInterval(vApp.clear);
+                    
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
                     that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
+                    
+                    //if(typeof firstTimeDisp == 'undefined'){
+                    var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
+                    
+                    var encodedData = that.dc.encodeRGB(imgData.data);
+                    var h = breakintobytes(that.localtempCanvas.height,4);
+                    var w = breakintobytes(that.localtempCanvas.width,4);
+                    
+                    if(type == 'ss'){
+                        var statusCode = 102;
+                    }else{
+                        var statusCode = 202;
+                    }
+                    
+                    
+                    var scode = new Uint8ClampedArray( [statusCode, w[0], w[1], h[0], h[1] ] );
+                        
+                    var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+                    sendmsg.set(scode);
+                    sendmsg.set(encodedData, scode.length); 
+                   // io.sendBinary(sendmsg); 
+                   
+                   return sendmsg;
+                }
 
-                    sendobj = [];
+                function getDataFullScreenResize(stype){
+                    //clearInterval(vApp.clear);
+                    
+                    that.localtempCanvas.width = that.video.offsetWidth;
+                    that.localtempCanvas.height = that.video.offsetHeight;
+                    that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
+                    
+                    //if(typeof firstTimeDisp == 'undefined'){
+                    var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
+                    
+                    var encodedData = that.dc.encodeRGB(imgData.data);
+                    
+                    var contDimension = that.getContainerDimension();
+                    if(typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined'){
+                        var dw =  breakintobytes(prvVWidth,4); 
+                        var dh =  breakintobytes(prvVHeight,4);
+
+                        var vcw =  breakintobytes(contDimension.width,4); 
+                        var vch =  breakintobytes(2000,4);
+
+                    }else{
+                        var dw =  breakintobytes(that.video.offsetWidth,4); 
+                        var dh =  breakintobytes(that.video.offsetHeight,4);
+
+                        var vcw =  breakintobytes(contDimension.width,4); 
+                        var vch =  breakintobytes(contDimension.height,4);
+                    }         
+                    
+                    var appCode = (stype == 'ss' ) ? 104 : 204;
+                    
+                    var scode = new Uint8ClampedArray( [appCode, dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
+                    var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+                    sendmsg.set(scode);
+                    sendmsg.set(encodedData, scode.length); 
+                    
+                    return sendmsg;
+                }
+                
+                function sendSliceData(encodedData, d, stype){
+                    var x = breakintobytes(d.x,4);
+                    var y = breakintobytes(d.y,4);
+                    
+                    var appCode = (stype == 'ss') ? 103 : 203;
+                    
+                    var scode = new Uint8ClampedArray( [ appCode, x[0], x[1], y[0], y[1] , d.h, d.w ] );
+                        
+                    var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+                    sendmsg.set(scode);
+                    sendmsg.set(encodedData, scode.length); 
+                   
+                   return sendmsg;
+                }
+                
+                function sendScreen(){
+                    clearInterval(vApp.clear);
+                    
+//                    clearInterval(vApp.clear);
+//                    
+//                    that.localtempCanvas.width = that.video.offsetWidth;
+//                    that.localtempCanvas.height = that.video.offsetHeight;
+//                    that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
+//                    
+//                    //if(typeof firstTimeDisp == 'undefined'){
+//                    var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
+//                    var encodedData = that.dc.encodeRGB(imgData.data);
+//                    var h = breakintobytes(that.localtempCanvas.height);
+//                    var w = breakintobytes(that.localtempCanvas.width);
+//                    var scode = new Uint8ClampedArray( [ 102, w[0], w[1], h[0], h[1] ] );
+//                        
+//                    var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+//                    sendmsg.set(scode);
+//                    sendmsg.set(encodedData, scode.length); 
+                        
+                    //var createdImg =  getDataFullScreen();
+                    //io.sendBinary(createdImg);
+                    
+                       // firstTimeDisp = true;
+                    //}
+                   
+                    if (changeonresize == 1) {
+                        
+//                        resA = Math.round(that.localtempCanvas.height/12);
+//                        resB = Math.round(that.localtempCanvas.width/12);
+//                        that.imageSlices = that.dc.getImageSlices(resA, resB, that);
+//                        var createdImg =  getDataFullScreenResize(that.type);
+//                        io.sendBinary(createdImg);
+//                        changeonresize = 0;
+                        
+                        vApp.sendResizeWindow();
+                        
+                    } else {
+                        sendDataImageSlices(that.type);
+                    }
+                   vApp.clear = setInterval(sendScreen, screenIntervalTime);
+
+                    
+                }
+                
+                vApp.sendResizeWindow = function(){
+                    resA = Math.round(that.localtempCanvas.height/12);
+                    resB = Math.round(that.localtempCanvas.width/12);
+                    that.imageSlices = that.dc.getImageSlices(resA, resB, that);
+                    var createdImg =  getDataFullScreenResize(that.type);
+                    io.sendBinary(createdImg);
+                    changeonresize = 0;
+                }
+                
+                function breakintobytes (val,l) {
+                    var numstring = val.toString();
+                    for (var i=numstring.length; i < l; i++) {
+                        numstring = '0'+numstring;
+                    }
+                    var parts = numstring.match(/[\S]{1,2}/g) || [];
+                    return parts;
+                }
+                
+            function addSliceToSingle (encodedData) {
+                if (typeof maserSlice == 'undefined') {
+                    maserSlice = encodedData;
+                } else {
+                    var tempslice = new Uint8ClampedArray(maserSlice.length + encodedData.length);
+                    tempslice.set(maserSlice);
+                    tempslice.set(encodedData, maserSlice.length); 
+                    maserSlice = tempslice;
+                }
+
+               //return maserSlice;
+
+            }
+            function sendDataImageSlices (type){
+                    var localBandwidth = 0;
+                    that.localtempCanvas.width = that.video.offsetWidth;
+                    that.localtempCanvas.height = that.video.offsetHeight;
+                    that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
+                    var needFullScreen = 0;
                     for (sl=0; sl<(resA * resB); sl++) {
                         d = that.imageSlices[sl];
-
                         imgData = that.localtempCont.getImageData(d.x,d.y,d.w,d.h);
-
+                        
                         if(typeof that.prevImageSlices[sl] != 'undefined'){
-                             matched = that.dc.matchWithPrevious(imgData.data, that.prevImageSlices[sl], d.w);
-//                                if(!matched || ( sl >= ((uniqcount*5)-4) && sl <= (uniqcount*5) )){
+                            matched = that.dc.matchWithPrevious(imgData.data, that.prevImageSlices[sl], d.w);
                             if(!matched){
-                                //console.log("second");
                                 that.prevImageSlices[sl] = imgData.data;
-                                //conslice.putImageData(imgData, d.x, d.y);
                                 encodedData = that.dc.encodeRGB(imgData.data);
-                                stringData = vApp.vutil.ab2str(encodedData);
-
+                                
+                                //stringData = vApp.vutil.ab2str(encodedData);
                                 tempObj = {'si' : stringData, 'd' : d};
-                                sendobj.push(tempObj);    
+//                              sendobj.push(tempObj);   
+                                //io.sendBinary(sendSliceData(encodedData, d));
+                                addSliceToSingle(sendSliceData(encodedData, d, that.type));
                                 that.latestScreen[sl] = tempObj; 
                             }
+                            
                         }else{
                             that.prevImageSlices[sl] = imgData.data;
                             encodedData = that.dc.encodeRGB(imgData.data);
-                            stringData = vApp.vutil.ab2str(encodedData);
+                            needFullScreen= 1;
+                            
+//                            stringData = vApp.vutil.ab2str(encodedData);
                             tempObj = {'si' : stringData, 'd' : d};
-                            sendobj.push(tempObj);    
+//                            sendobj.push(tempObj); 
+
+                           // io.sendBinary(encodedData);
                             that.latestScreen[sl] = tempObj; 
                         }
                     }
-
-                    uniqcount++;
-                    if (uniqmax == uniqcount) {
-                        uniqcount=0;
-                    }
-
-                    if(sl ==  resA * resB){
-                        if(sendobj.length > 0){
-                            //var encodedString = LZString.compressToBase64(JSON.stringify(sendobj));
-                            var encodedString = JSON.stringify(sendobj);
-                            var contDimension = that.getContainerDimension();
-                            var madeTime = new Date().getTime();
-                            if (changeonresize == 1) {
-                                if(typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined'){
-                                    var imgObj = {'si' : encodedString, 'st' : that.type, d : {w:prvVWidth, h:prvVHeight}, vc : {w:contDimension.width, h:2000}};
-                                }else{
-                                    var imgObj = {'si' : encodedString, 'st' : that.type, d : {w:that.video.offsetWidth, h:that.video.offsetHeight}, vc : {w:contDimension.width, h:contDimension.height}};
-                                }
-                                changeonresize=0;
-                            } else {
-                                var imgObj = {'si' : encodedString, 'st' : that.type};
-                            }
-                            // Calculate Bandwidth in Kbps
-                            var localBandwidth = ((encodedString.length/128) / (screenIntervalTime/1000))
-                            // Shape Bandwidth
-                            if (localBandwidth <= 300) {
-                                screenIntervalTime = 300;
-                            }else if (localBandwidth >= 10000) {
-                                screenIntervalTime=localBandwidth/2;
-                            } 
-                            else{
-                                screenIntervalTime=localBandwidth;
-                            }
-                            // Avoid Sharp Curve
-                            if ((pscreenIntervalTime * 4) < screenIntervalTime ) {
-                                screenIntervalTime = pscreenIntervalTime * 4;
-                            }
-                            pscreenIntervalTime = screenIntervalTime;
-//                            console.log('Bandwidth '+localBandwidth+ ' Interval '+screenIntervalTime);
-                            vApp.storage.wholeStore(imgObj);
-                            vApp.wb.utility.beforeSend(imgObj);                 
-                            sendobj=[];
-                        }
-                    }
                     
-                    vApp.clear = setInterval(myFunction2, screenIntervalTime);
-//                   vApp.clear = setInterval(myFunction2, 300);
-                   console.log('image is sending');
+                    if (needFullScreen == 1) { //sending full screen here
+                        //alert(that.type);
+                        var createdImg =  vApp.getDataFullScreen(that.type);
+                        io.sendBinary(createdImg);
+                        
+                        var localBandwidth = (createdImg.length/128); // In Kbps
+                        needFullScreen = 0;
+                    } else if (typeof maserSlice != 'undefined') {
+                        io.sendBinary(maserSlice);
+                        var localBandwidth = (maserSlice.length/128); // In Kbps
+                        delete maserSlice;
+                        
+                    }
+                    // Calculate Bandwidth in Kbps
+                    // Shape Bandwidth
+                    if (localBandwidth <= 300) {
+                        screenIntervalTime = 300;
+                    }else if (localBandwidth >= 10000) {
+                        screenIntervalTime=localBandwidth/2;
+                    } 
+                    else{
+                        screenIntervalTime=localBandwidth;
+                    }
+                    // Avoid Sharp Curve
+                    if ((pscreenIntervalTime * 4) < screenIntervalTime ) {
+                        screenIntervalTime = pscreenIntervalTime * 4;
+                    }
+                    //console.log ('Bandwidth '+ localBandwidth+'Kbps' + 'New Time ' + localBandwidth)
+                    pscreenIntervalTime = screenIntervalTime;
+
+//                    vApp.storage.wholeStore(imgObj);
+//                    vApp.wb.utility.beforeSend(imgObj);                 
                 }
+                
+//                function oldMyFunction2(){
+//                    clearInterval(vApp.clear);
+//                    
+//                    vresize = false;
+//                    if (changeonresize == 1) {
+//                        if(typeof that.localtempCont.width != 'undefined'){ //todo check if required
+//                          //  that.localtempCont.clearRect(0, 0, that.localtempCont.width, that.localtempCont.height);
+//                            that.localtempCont.clearRect(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
+//                        }
+//                        
+//                        vresize = true;
+//                        that.prevImageSlices = [];
+//                        resA = Math.round(that.localtempCanvas.height/12);
+//                        resB = Math.round(that.localtempCanvas.width/12);
+//                        that.imageSlices = that.dc.getImageSlices(resA, resB, that);
+////                            changeonresize = 0;
+//                    }
+//
+//                    that.localtempCanvas.width = that.video.offsetWidth;
+//                    that.localtempCanvas.height = that.video.offsetHeight;
+//                    that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
+//
+//                    sendobj = [];
+//                    
+//                    for (sl=0; sl<(resA * resB); sl++) {
+//                        d = that.imageSlices[sl];
+//
+//                        imgData = that.localtempCont.getImageData(d.x,d.y,d.w,d.h);
+//
+//                        if(typeof that.prevImageSlices[sl] != 'undefined'){
+//                             matched = that.dc.matchWithPrevious(imgData.data, that.prevImageSlices[sl], d.w);
+////                                if(!matched || ( sl >= ((uniqcount*5)-4) && sl <= (uniqcount*5) )){
+//                            if(!matched){
+//                                that.prevImageSlices[sl] = imgData.data;
+//                                encodedData = that.dc.encodeRGB(imgData.data);
+//                                stringData = vApp.vutil.ab2str(encodedData);
+//                                tempObj = {'si' : stringData, 'd' : d};
+//                                sendobj.push(tempObj);    
+//                                that.latestScreen[sl] = tempObj; 
+//                            }
+//                        }else{
+//                            that.prevImageSlices[sl] = imgData.data;
+//                            encodedData = that.dc.encodeRGB(imgData.data);
+//                            stringData = vApp.vutil.ab2str(encodedData);
+//                            tempObj = {'si' : stringData, 'd' : d};
+//                            sendobj.push(tempObj);    
+//                            that.latestScreen[sl] = tempObj; 
+//                        }
+//                    }
+//
+//                    uniqcount++;
+//                    if (uniqmax == uniqcount) {
+//                        uniqcount=0;
+//                    }
+//
+//                    if(sl ==  resA * resB){
+//                        if(sendobj.length > 0){
+//                            //var encodedString = LZString.compressToBase64(JSON.stringify(sendobj));
+//                            var encodedString = JSON.stringify(sendobj);
+//                            
+//                            console.log('sent images '  + sendobj.length);
+//                            var contDimension = that.getContainerDimension();
+//                            var madeTime = new Date().getTime();
+//                            if (changeonresize == 1) {
+//                                
+//                                if(typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined'){
+//                                    var imgObj = {'si' : encodedString, 'st' : that.type, d : {w:prvVWidth, h:prvVHeight}, vc : {w:contDimension.width, h:2000}};
+//                                }else{
+//                                    var imgObj = {'si' : encodedString, 'st' : that.type, d : {w:that.video.offsetWidth, h:that.video.offsetHeight}, vc : {w:contDimension.width, h:contDimension.height}};
+//                                }
+//                                
+//                                changeonresize=0;
+//                                console.log("resize is performing");
+//                            } else {
+//                                var imgObj = {'si' : encodedString, 'st' : that.type};
+//                                console.log("simple action");
+//                            }
+//                            
+//                            // Calculate Bandwidth in Kbps
+//                            var localBandwidth = ((encodedString.length/128) / (screenIntervalTime/1000))
+//                            // Shape Bandwidth
+//                            if (localBandwidth <= 300) {
+//                                screenIntervalTime = 300;
+//                            }else if (localBandwidth >= 10000) {
+//                                screenIntervalTime=localBandwidth/2;
+//                            } 
+//                            else{
+//                                screenIntervalTime=localBandwidth;
+//                            }
+//                            // Avoid Sharp Curve
+//                            if ((pscreenIntervalTime * 4) < screenIntervalTime ) {
+//                                screenIntervalTime = pscreenIntervalTime * 4;
+//                            }
+//                            pscreenIntervalTime = screenIntervalTime;
+////                            console.log('Bandwidth '+localBandwidth+ ' Interval '+screenIntervalTime);
+//                            vApp.storage.wholeStore(imgObj);
+//                            vApp.wb.utility.beforeSend(imgObj);                 
+//                            sendobj=[];
+//                        }
+//                    }
+//                    
+//                   vApp.clear = setInterval(sendScreen, screenIntervalTime);
+//                   console.log('image is sending');
+//                }
                 
               //  alert('ssss')
                 
 			  // vApp.clear = setInterval(myFunction2, 300);
 
-                vApp.clear = setInterval(myFunction2, screenIntervalTime);
+                vApp.clear = setInterval(sendScreen, screenIntervalTime);
                 
             },
             
@@ -429,8 +677,26 @@
                 var vidCont = document.getElementById(this.id + "Local");
                 return {width : vidCont.offsetWidth, height:vidCont.offsetHeight};
             },
-
-            drawImages : function (rec, local){
+            
+            drawImages : function (rec, d){
+//                this.drawSingleImage(rec);
+                if(typeof d != 'undefined'){
+                    var imgData = this.dc.decodeRGBSlice(rec, this.localCont,  d);
+                    this.localCont.putImageData(imgData, d.x, d.y);
+                }else{
+                    var imgData = this.dc.decodeRGB(rec, this.localCont,  this.localCanvas);
+                    this.localCont.putImageData(imgData, 0, 0);
+                }
+                
+            },
+            
+            drawSingleImage : function(rec){
+                var imgData = this.dc.decodeRGB(rec, this.localCont,  this.localCanvas);
+                this.localCont.putImageData(imgData, 0, 0);
+            },
+            
+            
+            old_drawImages : function (rec, local){
                 
 //                if(typeof local != 'undefined'){
 //                    this.localCanvas = document.getElementById('canvas3');
@@ -444,13 +710,56 @@
                      this.drawSingleImage(imgDataArr[i].si, imgDataArr[i].d);
                 }
             },
+            
 
-            drawSingleImage : function(imgDataArr, d){
+            old_drawSingleImage : function(imgDataArr, d){
                 var imgData = this.dc.decodeRGB(vApp.vutil.str2ab(imgDataArr), this.localCont, d);
                 this.localCont.putImageData(imgData, d.x, d.y);
             },
             
-            dimensionStudentScreen : function (msg, vtype){
+            dimensionStudentScreen : function (cWidth, cHeight){
+                if(!this.hasOwnProperty('vac')){
+                    this.vac = true;
+                    this.localCanvas = document.getElementById(vApp[app].local+"Video");
+                    this.localCont = vApp[app].localCanvas.getContext('2d');
+                }
+                
+              //  this.localCont.clearRect(0, 0, cWidth, cHeight);
+                    
+                this.localCanvas.width = cWidth;
+                this.localCanvas.height = cHeight;
+            },
+            
+            dimensionStudentScreenResize : function (msg, vtype){
+                    // alert(this.vac);
+                  //  if(typeof this.vac == 'undefined'){
+                if(!this.hasOwnProperty('vac')){
+                    this.vac = true;
+                    this.localCanvas = document.getElementById(vApp[app].local+"Video");
+                    this.localCont = vApp[app].localCanvas.getContext('2d');
+                }
+                
+                if (msg.hasOwnProperty('d')) {
+                    this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
+                    
+                    this.localCanvas.width = msg.d.w;
+                    this.localCanvas.height = msg.d.h;
+                }
+                
+                
+                if(msg.hasOwnProperty('vc')){
+                    var vc  = document.getElementById(vApp[app].local);
+                    vc.style.width = msg.vc.w + "px";
+                    vc.style.height = msg.vc.h + "px";
+                }
+                
+                if(vApp.previous != 'vAppWhiteboard'){
+                    vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
+                }
+            },
+
+            
+            old_dimensionStudentScreen : function (msg, vtype){
                     // alert(this.vac);
                   //  if(typeof this.vac == 'undefined'){
                 if(!this.hasOwnProperty('vac')){
@@ -489,7 +798,6 @@
                        if(vApp.recorder.recImgPlay){
                            var vidCont =  vApp.vutil.createDOM("canvas", this.local+"Video");
                            //vidCont.setAttribute("autoplay", true);
-                           
                        }else{
                            var vidCont =  vApp.vutil.createDOM("video", this.local+"Video");
                            vidCont.setAttribute("autoplay", true);
@@ -528,37 +836,26 @@
                    return mainCont;
                },
                
-              
-               
                getDimension : function (container, aspectRatio){
                    var aspectRatio = aspectRatio || (3 / 4),
                         height = (container.width * aspectRatio),
                         res = {};
                 
                     return {
-                            height: container.height,
-                            width: container.width
-                        };
-/*
-                    if (height > container.height) {
-                        return {
-                            height: container.height,
-                            width: container.height / aspectRatio
-                        };
-                    } else {
-                        return {
-                            width: container.width,
-                            height: container.width * aspectRatio
-                        };
-                    }*/
-               }
-               
+                        height: container.height,
+                        width: container.width
+                    };
+                }
             },
             
+            
+            //send the latest packet on request of user
             sendPackets : function (user){
             //    var encodedString = LZString.compressToBase64(JSON.stringify(this.latestScreen));
                 var encodedString =JSON.stringify(this.latestScreen);
                 var contDimension = this.getContainerDimension();
+                
+                
                 vApp.wb.utility.beforeSend({'resimg' : true, 'si' : encodedString, 'st' : this.type, d : {w:this.width, h:this.height}, vc : {w:contDimension.width, h:contDimension.height}, 'byRequest' : user });                                      
             }
         }

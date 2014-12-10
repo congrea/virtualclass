@@ -113,6 +113,8 @@
                         window.addEventListener('resize', 
                             function (){
                                 if(vApp.currApp == 'Whiteboard'){
+                                    alert('sss');
+                                    debugger;
                                     //alert(vApp.currApp);
                                     vApp.wb.utility.lockCanvas();
                                 }

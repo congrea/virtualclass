@@ -57,14 +57,13 @@
                         //added by suman
                         if(localStorage.getItem('orginalTeacherId') != null){
                             var controls = ['assign', 'audio', 'chat'];
-                            var controlDiv = vApp.user.createControl(peer.userid, controls);
-                            e.appendChild(controlDiv);
                             
-                            
-                            vApp.user.control.shouldApply.call(vApp.user, peer.userid);
-                            
-                            
-                            
+                            if(peer.userid != wbUser.id){
+                                //alert(peer.userid + ' ' + wbUser.id);
+                                var controlDiv = vApp.user.createControl(peer.userid, controls);
+                                e.appendChild(controlDiv);
+                                vApp.user.control.shouldApply.call(vApp.user, peer.userid); //checking audio    
+                            }
                             //vApp.user.control.audioSign({id:peer.userid}, "create");
                         }
                         
@@ -77,9 +76,8 @@
                                 
                             }
                         }
-                        
                           
-                        //}
+                     //}
                         
                     } else {
                         systemMessage = true;

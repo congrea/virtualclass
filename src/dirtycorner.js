@@ -38,7 +38,19 @@
                     return encodeDataArr;
                 },*/
             
-                decodeRGB : function(encodeDataArr, ctx, d){
+                decodeRGB : function(encodeDataArr, ctx, canvas){
+                    var imageData = ctx.createImageData(canvas.width, canvas.height); // TODO - Create empty Array
+                    var red, green, blue;    
+                    for(var i=0; i<encodeDataArr.length * 4; i++){
+                        imageData.data[(i * 4)+ 0] = (encodeDataArr[i] >> 5) * 36.5; //red
+                        imageData.data[(i * 4)+ 1] = ((encodeDataArr[i] & 28) >> 2) * 36.5;
+                        imageData.data[(i * 4)+ 2] = (encodeDataArr[i] & 3) * 85;
+                        imageData.data[(i * 4)+ 3] = 255;
+                    }
+                    return imageData;
+                },
+                
+                decodeRGBSlice : function(encodeDataArr, ctx, d){
                     var imageData = ctx.createImageData(d.w, d.h); // TODO - Create empty Array
                     var red, green, blue;    
                     for(var i=0; i<encodeDataArr.length * 4; i++){

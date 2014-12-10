@@ -16,7 +16,18 @@ function memberUpdate(e, addType){
         //changed by suman
         var count = userlist.length - 1;
         //var count = userlist.length;
-        vApp.gObj.totalUser = count;
+        
+        
+        ///vApp.gObj.totalUser = count;
+        vApp.gObj.totalUser = [];
+        for(var i=0; i<userlist.length; i++){
+            vApp.gObj.totalUser.push(userlist[i].id);
+        }
+        vApp.gObj.totalUser.sort();
+        
+        
+        
+        
         
         $("#user_list .inner_bt #usertab_icon").css({'background': 'url(' + imgpath + ')no-repeat top left'});
     }

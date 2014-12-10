@@ -47,6 +47,9 @@
                 this.currApp = app;
 
                 this.storage = window.storage;
+                
+                
+                this.dirtyCorner = window.dirtyCorner;
 
                 this.storage.init();
 
@@ -322,10 +325,60 @@
                   return (previous == 'vAppWholeScreenShare' && appName == this.apps[2]) ? true : false;
               },
               
-              initStudentScreen : function (msg, vtype){
-//                alert('ss');
-//                debugger;
+              
+              initStudentScreen : function (imgData, d, stype, stool){
+                  app = stype;
+//                  alert(app);
+//                  alert(stool);
+//                    app = 'ss';
+//                    var stool = 'ScreenShare';
+                    
+                    
+                    
+                    if(typeof vApp[app] != 'object' ){
+                         if(typeof vtype != 'undefined'){
+                             vApp.recorder.recImgPlay = true;
+                         }
+                         vApp.makeAppReady(stool);
+
+                    }else{
+                         var prvScreen = document.getElementById(vApp.previous);
+                         if(prvScreen != null){
+                             prvScreen.style.display = 'none';
+                             document.getElementById(vApp[app].id).style.display = 'block';
+                         }
+                    }
+                    
+                    if(d.hasOwnProperty('d')){
+                        vApp[app].dimensionStudentScreenResize(d);
+                        vApp[app].drawImages(imgData);
+                    }else{
+                        if(typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))){
+                            dim = true
+                            vApp[app].dimensionStudentScreen(d.w, d.h);
+                            prvWidth = d.w;
+                            prvHeight = d.h;
+                        }
+                        
+                        if(d.hasOwnProperty('x')){
+                            vApp[app].drawImages(imgData, d);
+                        }else{
+                            vApp[app].drawImages(imgData);
+                        }
+                    }
+                    
+                    vApp.previous =  vApp[app].id;
+                    
+                    
+                    
+                    
+                
+              }, 
+              
+              old_initStudentScreen : function (msg, vtype){
+                  
                 app = msg.st; 
+                
                 var stool = (msg.st == 'ss') ? stool = vApp.apps[1] : stool = vApp.apps[2];
                 
 //                //var localVideo = document.getElementById(vApp[app].local+"Video");
@@ -341,9 +394,8 @@
 //                    localVideo.parentNode.replaceChild(stCanvas, localVideo);
 //                    vApp.vutil.removeTempVideo("vApp" + vApp.currApp+"LocalTemp");
 //                }
-        
-        
-                
+
+                  
                 if(typeof vApp[app] != 'object' ){
                     if(typeof vtype != 'undefined'){
                         vApp.recorder.recImgPlay = true;

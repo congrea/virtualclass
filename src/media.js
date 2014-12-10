@@ -618,26 +618,30 @@
                     },
                     
                     send : function (){
+                        if(vApp.gObj.video.hasOwnProperty('smallVid')){
+                            clearInterval(vApp.gObj.video.smallVid);
+                        }
+                        
 //                        alert('sss');
 //                        debugger;
 //                        alert("send function");
                         var cvideo = this;
                         var frame;
                         randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
-                        
+                        var TotalMembers = -1;
 //                        if(typeof vApp.gObj.video.smallVid != 'undefined'){
 //                            clearInterval(vApp.gObj.video.smallVid);
 //                        }
-                      //  intervalTime = (5000 * vApp.gObj.totalUser) + randomTime;	
-                        
-                        function myFunction (){
-                                console.log("send time " + ((5000 * parseInt(vApp.gObj.totalUser, 10)) + randomTime));
+                      //  intervalTime = (5000 * vApp.gObj.totalUser.length) + randomTime;	
+                        //TODO this name should be change
+                        function sendSmallVideo (){
+                                
                                 
                                //clearInterval(vApp.gObj.video.smallVid)
-                                clearInterval(vApp.gObj.video.smallVid);
+                                //clearInterval(vApp.gObj.video.smallVid);
                                  
                                     //canvasContext.clearRect(0, 0, canvas.width, canvas.height);	
-                                // intervalTime = (5000 * vApp.gObj.totalUser) + randomTime;
+                                // intervalTime = (5000 * vApp.gObj.totalUser.length) + randomTime;
                                 
                                 
                                 if(vApp.gObj.uRole == 't'){
@@ -686,7 +690,8 @@
                               }
 
 
-                             frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
+                             //frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
+                             
                              var user = {
                                  name : vApp.gObj.uName,
                                  id : vApp.gObj.uid
@@ -695,38 +700,77 @@
                              if(vApp.gObj.uRole == 't'){
                                  user.role = vApp.gObj.uRole;
                              }
-                             vApp.wb.utility.beforeSend({user : user, 'videoByImage': frame});
-                             
-                             vApp.gObj.video.smallVid =  setInterval(myFunction, (5000 * vApp.gObj.totalUser) + randomTime);
-                             //vApp.gObj.video.smallVid =  setInterval(myFunction, 300);
-                             
+                            
+                            vApp.wb.utility.beforeSend({videoByImage : user});
+                            var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
+
+                            var encodedframe = vApp.dirtyCorner.encodeRGB(frame.data)
+                    
+                            var uid = breakintobytes(vApp.gObj.uid,8);
+                            var scode = new Uint8ClampedArray( [11, uid[0], uid[1], uid[2], uid[3] ] );
+
+                            var sendmsg = new Uint8ClampedArray(encodedframe.length + scode.length);
+                            sendmsg.set(scode);
+                            sendmsg.set(encodedframe, scode.length); 
+                            io.sendBinary(sendmsg);
+                            
+                            clearInterval(vApp.gObj.video.smallVid);
+                            
+                            
+                            
+                            var d = 1000+ (vApp.gObj.totalUser.length * 1500);
+                            if (TotalMembers != vApp.gObj.totalUser) {
+                                TotalMembers = vApp.gObj.totalUser.length;
+                                var p = vApp.gObj.totalUser.indexOf(vApp.gObj.uId);
+                                var td = d/TotalMembers;
+                                var md =  p*td;
+                                vApp.gObj.video.smallVid =  setInterval(sendSmallVideo, (d + md));
+                                console.log("send time " + (d + md) + new Date().getSeconds());
+                            } else {
+                                vApp.gObj.video.smallVid =  setInterval(sendSmallVideo, d);
+                                console.log("send time " + d + new Date().getSeconds());
+                            }
+                            
+
                         }
-//                        vApp.gObj.video.smallVid =  setInterval(myFunction,
-//                            (5000 * vApp.gObj.totalUser) + randomTime
-//                        );
 
-                            vApp.gObj.video.smallVid =  setInterval(myFunction, 50);
 
+                
+                        vApp.gObj.video.smallVid =  setInterval(sendSmallVideo, 300);
+
+                        function breakintobytes (val,l) {
+                            var numstring = val.toString();
+                            for (var i=numstring.length; i < l; i++) {
+                                numstring = '0'+numstring;
+                            }
+                            var parts = numstring.match(/[\S]{1,2}/g) || [];
+                            return parts;
+                        }
                      },
-                     
+
                      startToStream : function (){
                         cthis.video.calcDimension();
                         cthis.video.send();
                      },
 
-                     playWithoutSlice : function(msg){
-                        var frames = msg.videoByImage;
-                        var img = new Image();
-                        img.src = frames;
+                     playWithoutSlice : function(uid,msg){
+                    
+//                        var frames = msg.videoByImage;
+//                        var img = new Image();
+//                        img.src = frames;
 
-                        this.remoteVid = document.getElementById("video" + msg.user.id);
+                        this.remoteVid = document.getElementById("video" + uid);
                         //canvas2 = document.getElementById("video" + msg.videoId);
                         this.remoteVidCont =  this.remoteVid.getContext('2d');
-                        var vthis = this;
-                        
-                        img.onload = function (){
-                            vthis.remoteVidCont.drawImage(this, 0, 0);
-                        }
+
+                        var imgData = vApp.dirtyCorner.decodeRGB(msg, this.remoteVidCont,  this.remoteVid);
+                        this.remoteVidCont.putImageData(imgData, 0, 0);
+                    
+//                        var vthis = this;
+//                        
+//                        img.onload = function (){
+//                            vthis.remoteVidCont.drawImage(this, 0, 0);
+//                        }
                       },
                     
                     justForDemo : function (){

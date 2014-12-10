@@ -191,22 +191,124 @@ jQuery.cachedScript = function( url, options ) {
 				
        //         var sp = (vApp.gObj.chat.userChatList.length == 0 ) ? 0 : vApp.gObj.chat.userChatList.length;
          //       vApp.wb.utility.beforeSend({'requestPacketBy' : joinId, sp: sp});
-                vApp.wb.utility.beforeSend({'requestImagesBy' : joinId});
+         
+                //vApp.wb.utility.beforeSend({'requestImagesBy' : joinId});
+            }
+            
+            if(vApp.gObj.uRole == 't'){
+                //alert(vApp.currApp);
+                
+                if(vApp.currApp == 'ScreenShare'){
+                    var sType = 'ss';
+                }else if (vApp.currApp == 'WholeScreenShare'){
+                    var sType = 'wss';
+                }
+                
+                if(typeof sType != 'undefined'){
+                    //TODO this should be into function
+                    var sType = vApp.getDataFullScreen(sType)
+                    var createdImg =  vApp.getDataFullScreen('ss');
+                    io.sendBinary(createdImg);
+                    delete sType;
+                }
+                
+//			    var sp = (vApp.gObj.chat.userChatList.length == 0 ) ? 0 : vApp.gObj.chat.userChatList.length;
+//                vApp.wb.utility.beforeSend({'requestPacketBy' : joinId, sp: sp});
             }
             
              //demoVideoTest(e); //for video demo
         });
 
         $(document).on("binrec", function(e){
-            //var data_pack = e.message;
             var data_pack = new Uint8Array(e.message);
             
-            var recmsg = new Int8Array(data_pack.length-1);
-            recmsg = data_pack.subarray(1,data_pack.length);
+            if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
+                var stype = 'ss';
+                var sTool = 'ScreenShare';
+            }else if (data_pack[0] == 201 || data_pack[0] == 202 || data_pack[0] == 203 || data_pack[0] == 204){
+                var stype = 'wss';
+                var sTool = 'WholeScreenShare';
+            }
             
             if (data_pack[0] == 101) { // Audio
+                var recmsg = data_pack.subarray(1,data_pack.length);
                 vApp.gObj.video.audio.play(recmsg, 0 , 0);
                 return;
+                
+            //this may not need that we can achieve this by protocol 104    
+            }else if(data_pack[0] == 102 || data_pack[0] == 202) { //full image
+                
+//                if(data_pack[0] == 102){
+//                    var stype = 'ss';
+//                    var sTool = 'ScreenShare';
+//                }else{
+//                    var stype = 'wss';
+//                    var sTool = 'WholeScreenShare';
+//                }
+                
+                
+                var data_pack = new Uint8ClampedArray(e.message);
+                var w = numValidateTwo(data_pack[1],data_pack[2]);
+                var h = numValidateTwo(data_pack[3],data_pack[4]);
+                var recmsg = data_pack.subarray(5,data_pack.length);
+                vApp.initStudentScreen(recmsg, {w:w, h:h}, stype, sTool);
+                
+                return;
+            }else if(data_pack[0] == 103 || data_pack[0] == 203) { //slice image
+                var data_pack = new Uint8ClampedArray(e.message);
+                var s = 7;
+                for (var i = 0; (i+7) <= data_pack.length;i=l+1) {
+                    var x = numValidateTwo(data_pack[i+1],data_pack[i+2]);
+                    var y = numValidateTwo(data_pack[i+3],data_pack[i+4]);
+                    var h = parseInt(data_pack[i+5]);
+                    var w = parseInt(data_pack[i+6]);
+                    var l = s+(h*w)-1;
+                    var recmsg = data_pack.subarray(s,l+1);
+                    var d = { x:x, y : y, w :w, h : h };
+                    vApp.initStudentScreen(recmsg, d, stype, sTool);
+                    s=l+7+1;
+                }
+                
+            }else if (data_pack[0] == 104 || data_pack[0] == 204){ //full image with resize
+                var data_pack = new Uint8ClampedArray(e.message);
+                var dw = numValidateTwo(data_pack[1],data_pack[2]);
+                var dh = numValidateTwo(data_pack[3],data_pack[4]);
+                var vcw = numValidateTwo(data_pack[5],data_pack[6]);
+                var vch = numValidateTwo(data_pack[7],data_pack[8]);
+                var recmsg = data_pack.subarray(9,data_pack.length);
+                var dimObj = { d : {w : dw, h : dh},  vc : {w : vcw, h : vch}};
+                vApp.initStudentScreen(recmsg, dimObj, stype, sTool);
+            } else if (data_pack[0] == 11) {
+                
+                var data_pack = new Uint8ClampedArray(e.message);
+                var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+                var recmsg = data_pack.subarray(5,data_pack.length);
+                vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
+                
+            }
+            function numValidateFour (n1,n2,n3,n4) {
+                n1 = preNumValidateTwo(n1);
+                n2 = preNumValidateTwo(n2);
+                n3 = preNumValidateTwo(n3);
+                n4 = preNumValidateTwo(n4);
+                var nres = n1+n2+n3+n4;
+                return parseInt(nres);
+                
+            }
+            function numValidateTwo (n1,n2) {
+                n1 = preNumValidateTwo(n1);
+                n2 = preNumValidateTwo(n2);
+                var nres = n1+n2;
+                return parseInt(nres);
+                
+            }
+            function preNumValidateTwo (n) {
+                var numstring = n.toString();
+                if (numstring.length == 1) {
+                    return '0'+numstring;
+                } else if (numstring.length == 2) {
+                    return numstring;
+                }
             }
         });
             
@@ -321,10 +423,10 @@ jQuery.cachedScript = function( url, options ) {
                 return;
             } else if(e.message.hasOwnProperty('videoByImage')){ //video end start
 //                if(e.fromUser.userid != wbUser.id){ 
-                    if(!vApp.gObj.video.existVideoContainer(e.message.user)){
-                        vApp.gObj.video.video.createElement(e.message.user);
+                    if(!vApp.gObj.video.existVideoContainer(e.message.videoByImage)){
+                        vApp.gObj.video.video.createElement(e.message.videoByImage);
                     }
-                    vApp.gObj.video.video.playWithoutSlice(e.message);
+                    //vApp.gObj.video.video.playWithoutSlice(e.message);
                 //}
                 return;
             } else if(e.message.hasOwnProperty('userMsg')){ //chat start

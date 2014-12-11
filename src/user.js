@@ -59,6 +59,25 @@
                 // TODO this function should be normalize
                 createControlDivs : function (controlCont, userId, controls){
                     var that  = this;
+                    
+                    //var userObj = localStorage.getItem(userId);
+                    var uObj = false;
+                    var userObj = localStorage.getItem(userId);
+                    
+                    if(userObj != null){
+                        uObj =  true;
+                        userObj = JSON.parse(userObj);
+                    }
+                    
+                    var assignDisable = localStorage.getItem('reclaim');
+
+                    if(assignDisable != null && assignDisable){
+                        var aRoleEnable =  false;
+                    }else{
+                        var aRoleEnable =  true;
+                    }
+
+                            
                     for(var i=0; i<controls.length; i++){
                         if(controls[i] == 'assign'){
                             var assignImg = document.createElement('img');
@@ -74,9 +93,19 @@
                             
                             //assignImg.addEventListener('click', vApp.user.control.init);
                             assignImg.className = 'contrAssign';
+//                            
+//                            if(uObj && userObj.hasOwnProperty('aRole')){
+//                                var aRoleEnable = (userObj.aRole) ? true : false;
+//                            } else {
+//                                var aRoleEnable = true;
+//                            }
+                            
+                            
+                            vApp.user.control.changeAttrbute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
+                            
                             assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
-
-                        } else if(controls[i] == 'audio'){
+                        
+                        } else if(controls[i] == 'audio'){  
                             var audBlock = document.createElement('img');
                             imgName = "contrAud";
                             audBlock.id = userId + imgName + "Img";
@@ -89,11 +118,19 @@
                             controlCont.appendChild(imgCont);
                             
                           //  audBlock.addEventListener('click', vApp.user.control.init);
-                            audBlock.className = 'contrAudBlock';
-                            audBlock.setAttribute('data-audio-disable', "false");
-                            audBlock.className = 'enable';
+                            
+                            if(uObj && userObj.hasOwnProperty('aud')){
+                                var audEnable = (userObj.aud) ? true : false;
+                            } else {
+                                var audEnable = true;
+                            }
+                            vApp.user.control.changeAttrbute(userId, audBlock, audEnable, 'audio', 'aud');
+//                            audBlock.className = 'contrAudBlock';
+//                            audBlock.setAttribute('data-audio-disable', "false");
+//                            audBlock.className = 'enable';
                             
                             audBlock.addEventListener('click', function (){ that.control.init.call(that, audBlock);});
+                            
                         }else if (controls[i] == 'chat'){
                             var chatBlock = document.createElement('img');
                             imgName = "contrChat";
@@ -111,36 +148,40 @@
                             //that.control.changAttrbute(chatBlock.id, true);
                             chatBlock.addEventListener('click', function (){ that.control.init.call(that, chatBlock);});
                             
-                            var userObj = localStorage.getItem(userId);
-                             
-                            if(userObj != null){
-                                userObj = JSON.parse(userObj);
-                                if(userObj.hasOwnProperty('ch')){
-                                  if(userObj.ch){
-                                       vApp.user.control.changeAttrbute(userObj.id, chatBlock, true);
-                                   }else{
-                                       vApp.user.control.changeAttrbute(userObj.id, chatBlock, false);
-                                   }
-                                }
-                            }else {
-                                vApp.user.control.changeAttrbute(userId, chatBlock, true);  // third param true means chat enable
+//                            if(uObj){
+//                                if(userObj.hasOwnProperty('ch')){
+//                                  
+//                                  if(userObj.ch){
+//                                       vApp.user.control.changeAttrbute(userObj.id, chatBlock, true);
+//                                   }else{
+//                                       vApp.user.control.changeAttrbute(userObj.id, chatBlock, false);
+//                                   }
+//                                }
+//                            }else {
+//                                vApp.user.control.changeAttrbute(userId, chatBlock, true);  // third param true means chat enable
+//                            }
+                            
+                            
+                            if(uObj && userObj.hasOwnProperty('ch')){
+                                var chEnable = (userObj.ch) ? true : false;
+                            } else {
+                                var chEnable = true;
                             }
+                            vApp.user.control.changeAttrbute(userId, chatBlock, chEnable, 'chat', 'ch');
                         }
                     }
                 },
                 control : {
-                    changeAttrbute : function (userId, elem, chEnable){
-                        var chatBlock = elem;
-                        if(chEnable){
-                            chatBlock.className = 'contrChatBlock';  
-                            chatBlock.setAttribute('data-chat-disable', "false");
-                            chatBlock.className = 'enable';
-                            var user =  vApp.user.control.updateUser(userId, 'ch', true);
+                    changeAttrbute : function (userId, elem, elemEnable, control, label){
+                        if(elemEnable){
+                            elem.setAttribute('data-'+control+'-disable', "false");
+                            
+                            elem.className =  control+"Img  enable";
+                            vApp.user.control.updateUser(userId, label, true);
                         }else{
-                            chatBlock.setAttribute('data-chat-disable', 'true');
-                            chatBlock.className = 'block';
-//                            action = 'block';
-                            var user =  vApp.user.control.updateUser(userId, 'ch', false);
+                            elem.setAttribute('data-'+control+'-disable', 'true');
+                            elem.className = control+"Img  block";
+                            vApp.user.control.updateUser(userId, label, false);
                         }
                     },
 
@@ -154,29 +195,76 @@
                         var control = restString.substring(0, imgPos);
                         
                         if(control == 'Assign'){
-                           vApp.user.control._assign(userId);
+                            var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
+                            
+//                            if(tag.getAttribute('data-assign-disable') == 'true'){
+//                                this.control.changeAttrbute(userId, tag, true, 'assign', 'aRole');
+//                            }else{
+//                                this.control.changeAttrbute(userId, tag, false, 'assign', 'aRole');
+//                            }
+//                            
+//                            
+                           //this.control.changeAttrbute(userId, tag, assignDisable, 'assign', 'aRole');
+                           
+                           if(!assignDisable){
+                               this.control.changeAttrbute(userId, tag, assignDisable, 'assign', 'aRole');
+                              
+                               vApp.user.control._assign(userId);
+                               
+//                               var allUserElem = document.getElementsByClassName("assignImg");
+//                               for(var i=0; i<allUserElem.length; i++){
+//                                   allUserElem[i].className = "assignImg block";
+//                               }
+
+                             vApp.user.control.addClassToAssign('block');
+                               
+                           }
+                           
+//                           addClassToAssign(action){
+//                               var allUserElem = document.getElementsByClassName("assignImg");
+//                               for(var i=0; i<allUserElem.length; i++){
+//                                   allUserElem[i].className = "assignImg " + action;
+//                               }
+//                           }
+                           
+                           
+                           
                         }else if (control == 'Chat'){
                             var action;
-                            if(tag.getAttribute('data-chat-disable') == 'false'){
-                                this.control.changeAttrbute(userId, tag, false);
-								action = 'block';
+                            if(tag.getAttribute('data-chat-disable') == 'true'){
+                                tag.className = 'contrChatBlock';  
+                                action = 'enable';
+                              	this.control.changeAttrbute(userId, tag, true, 'chat', 'ch');
                             }else{
-								action = 'enable';
-								this.control.changeAttrbute(userId, tag, true);  
-                            }
+                                action = 'block';
+                                this.control.changeAttrbute(userId, tag, false, 'chat', 'ch');
+					        }
                             
                             this.control._chat(userId, action); 
-                        } else if (control == 'Aud'){
                             
-                            if(tag.getAttribute('data-audio-disable') == 'false'){
-                                tag.setAttribute('data-audio-disable', 'true');
-                                tag.className = 'block';
-                                action = 'block';
-                            }else{
-                                tag.setAttribute('data-audio-disable', 'false');
-                                tag.className = 'enable';
+                        } else if (control == 'Aud'){
+                            var action;
+                            
+                            if(tag.getAttribute('data-audio-disable') == 'true'){
                                 action = 'enable';
+                                this.control.changeAttrbute(userId, tag, true, 'audio', 'aud');
+
+//                                tag.setAttribute('data-audio-disable', 'false');
+//                                tag.className = 'enable';
+//                                vApp.user.control.updateUser(userId, 'aud', true);
+                                
+                                
+                            }else{
+                                action = 'block';
+                                this.control.changeAttrbute(userId, tag, false, 'audio', 'aud');
+                                
+                                
+//                                tag.setAttribute('data-audio-disable', 'true');
+//                                tag.className = 'block';
+//                                vApp.user.control.updateUser(userId, 'aud', false);
                             }
+                            
+                            
                             
                             this.control._audio(userId, action);
                         }
@@ -379,6 +467,20 @@
 //                                    this.control.changeAttrbute(userObj.id, elem, true);
 //                                }
 //                           }
+                        }
+                    },
+                    
+                    addClassToAssign : function(action){
+                        var allUserElem = document.getElementsByClassName("assignImg");
+                        for(var i=0; i<allUserElem.length; i++){
+                            allUserElem[i].className = "assignImg " + action;
+                            
+                            if(action == 'enable'){
+                                 allUserElem[i].setAttribute('data-assign-disable', 'false');
+                            }else{
+                                  allUserElem[i].setAttribute('data-assign-disable', 'true');
+                            }
+                             
                         }
                     }
                 }

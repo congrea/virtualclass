@@ -118,7 +118,7 @@
                             }
                         };
                         
-                        if(vApp.gObj.uRole == 's'){
+                        if(vApp.gObj.uRole == 's'  && localStorage.getItem('orginalTeacherId') == null){
                               //can be critical
                             this.attachSpeakToStudent();
                             this.makeIconNotDraggable('speakerPressingImg', "speaker2.svg");

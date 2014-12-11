@@ -91,8 +91,6 @@ jQuery.cachedScript = function( url, options ) {
             return;
         }
         
-        
-
        //     if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher) && (e.fromUser.userid == id) && (e.fromUser.userid == joinId)) {
         if ((typeof vcan.teacher == 'undefined') && (!vApp.wb.stHasTeacher)) {
             vApp.wb.utility.makeCanvasDisable();
@@ -187,13 +185,13 @@ jQuery.cachedScript = function( url, options ) {
 //                }
 //            }
             
-            if(joinId == vApp.gObj.uid && vApp.gObj.uRole != 't'){
+           // if(joinId == vApp.gObj.uid && vApp.gObj.uRole != 't'){
 				
        //         var sp = (vApp.gObj.chat.userChatList.length == 0 ) ? 0 : vApp.gObj.chat.userChatList.length;
          //       vApp.wb.utility.beforeSend({'requestPacketBy' : joinId, sp: sp});
          
                 //vApp.wb.utility.beforeSend({'requestImagesBy' : joinId});
-            }
+            //}
             
             if(vApp.gObj.uRole == 't'){
                 //alert(vApp.currApp);

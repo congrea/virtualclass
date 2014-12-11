@@ -113,8 +113,8 @@
                         window.addEventListener('resize', 
                             function (){
                                 if(vApp.currApp == 'Whiteboard'){
-                                    alert('sss');
-                                    debugger;
+//                                    alert('sss');
+//                                    debugger;
                                     //alert(vApp.currApp);
                                     vApp.wb.utility.lockCanvas();
                                 }
@@ -233,6 +233,16 @@
                     if (typeof cmdClass != 'undefined') {
                         lDiv.className = cmdClass;
                     }
+                    
+//                    if(localStorage.getItem('activeTool') !=  null){
+                        
+//                        var activeTool = localStorage.getItem('activeTool')
+//                        if(activeTool == toolId){
+//                            lDiv.className = lDiv.className + " active";
+//                        }
+//                    }
+                    
+                    
 
                     var imgTag = document.createElement('img');
                     imgTag.alt = vApp.lang.getString(text);
@@ -426,9 +436,13 @@
                     }
 
                     if (cmd == 't_reclaim') {
-                        vApp.wb.utility.reclaimRole();
-                        vApp.wb.utility.sendRequest('reclaimRole', true);
+                        vApp.wb.utility._reclaimRole();
+                        
+//                        vApp.wb.utility.reclaimRole();
+//                        vApp.wb.utility.sendRequest('reclaimRole', true);
                     }
+                    
+                    
 
                     if (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
                             && cmd != 't_reclaim') {

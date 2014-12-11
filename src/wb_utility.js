@@ -438,6 +438,7 @@
                     vApp.wb.drawMode = false;
                     //if (localStorage.getItem('teacherId') != null && vApp.wb.user.connected) {
                     if (localStorage.getItem('teacherId') != null) {
+                        //alert('hello brother');
                         vApp.wb.utility.makeCanvasEnable();
                     }
                     if (vApp.wb.gObj.packQueue.length > 0) {
@@ -917,6 +918,12 @@
                             vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(allRepObjs);
                             
                             if (allRepObjs.length > 0) {
+                                //vApp.wb.utility.makeCanvasDisable();
+                                //vApp.wb.utility.lockCanvas();
+                                
+                                vApp.wb.utility.makeCanvasDisable()
+                                vApp.wb.utility.toolWrapperDisable();
+                                
                                 vApp.wb.uid = allRepObjs[allRepObjs.length - 1].uid;
                                 vApp.wb.gObj.rcvdPackId = vApp.wb.uid;
                                 vApp.wb.toolInit('t_replay', 'fromBrowser', true, vApp.wb.utility.dispQueuePacket);
@@ -928,27 +935,6 @@
 //                        }
                     }
                 },
-                
-//                shareVideoInformation: function(e, storageHasTeacher) {
-//                    vApp.wb.utility.isUserConnected(e.message.length);
-//                    //if (vApp.wb.user.connected) {
-//                        vApp.wb.utility.setStyleUserConnetion('coff', 'con');
-//                    //}
-//
-//                    if (typeof vcan.teacher == 'undefined' && !storageHasTeacher) {
-//                        vApp.wb.utility.makeCanvasDisable();
-//                    }
-//
-//                    vApp.wb.utility.initDefaultInfo(e, wbUser.role);
-//                    var res = vApp.system.measureResoultion({'width': window.outerWidth, 'height': window.innerHeight});
-//
-//                    var toolHeight = vApp.wb.utility.getWideValueAppliedByCss('commandToolsWrapper');
-//                    if (toolHeight != false) {
-//                        vApp.wb.utility.beforeSend({'virtualWindow': {'shareBrowserWidth': true, 'browserRes': res, 'toolHeight': toolHeight}});
-//                    } else {
-//                        vApp.wb.utility.beforeSend({'virtualWindow': {'shareBrowserWidth': true, 'browserRes': res}});
-//                    }
-//                },
                 
                 setUserStatus: function(storageHasTeacher, storageHasReclaim) {
                     //TODO storageHasTeacher check with null rather than style of now.
@@ -1225,7 +1211,14 @@
                     var controlCont = document.getElementById(userId + "ControlContainer");
                     
                     
+                },
+                
+                _reclaimRole : function (){
+                    vApp.wb.utility.reclaimRole();
+                    vApp.wb.utility.sendRequest('reclaimRole', true);
+                    vApp.user.control.addClassToAssign('enable');
                 }
+                
             };
         }
         window.utility = utility;    

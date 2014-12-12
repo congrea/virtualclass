@@ -483,7 +483,23 @@
                              
                         }
                     }
-                }
+                },
+                
+                
+                displayStudentSpeaker : function(display){
+                    var speakerStudent = document.getElementById('speakerStudent');
+                    if(speakerStudent != null){
+                        if(display){
+                            speakerStudent.style.display = 'block';
+                        }else {
+                            speakerStudent.style.display = 'none';
+                        }
+                        
+                        //speakerStudent.parentNode.removeChild(speakerStudent);
+                    }
+                },
+                
+                
             }
         };
     window.user = user;

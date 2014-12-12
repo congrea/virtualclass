@@ -30,6 +30,7 @@
       var minthreshold=65535;
       var maxthreshold=0;
       var audiotime=0;
+      
       var  media = function() {
             return {
                 isChannelReady: '',
@@ -49,6 +50,7 @@
                 videoContainerId: "videos",
                 
                 audio : {
+                    
                   audioStreamArr : [],
                   tempAudioStreamArr :  [],
                   recordingLength : 0,
@@ -57,14 +59,23 @@
                   recordAudio : false,
                   resampler : new Resampler(44100, 8000, 1, 4096),
                   rec : '',
+                  otherSound : false,
 //                  an : - 1,
                   audioNodes : [],
+                  sd : false,
                 //  tempAudArr : [],
                    
                    Html5Audio : {audioContext : new AudioContext()},
-                   
-                   
                    init : function (){
+                          if(vApp.gObj.uRole == 't'){
+                               vApp.gObj.audMouseDown = true;    
+                               var tag = document.getElementById('speakerPressOnce');
+                               this.clickOnceSpeaker(tag);
+                               
+                               //vApp.gObj.video.audio.audioToolInit.call(tag);
+                               
+                          }  
+                          
                         
 //                        this.audioStreamArr = [];
 //                        this.tempAudioStreamArr =  [];
@@ -118,15 +129,78 @@
                             }
                         };
                         
+                        this.attachFunctionsToAudioWidget();
+                        
                         if(vApp.gObj.uRole == 's'  && localStorage.getItem('orginalTeacherId') == null){
                               //can be critical
-                            this.attachSpeakToStudent();
-                            this.makeIconNotDraggable('speakerPressingImg', "speaker2.svg");
-                            this.makeIconNotDraggable('speakerPressOnceImg', "speaker.png");
+                        //    this.attachSpeakToStudent();
+                            //this.makeIconNotDraggable('speakerPressingImg', "speaker2.svg");
                         }
+                        
+                       // this.attachAudioPressOnce();
+                        //this.makeIconNotDraggable('speakerPressOnceImg', "speaker.png");
                     },
                     
                     
+                    
+                    slienceDetection : function (send, leftSix){
+                        var vol = 0;
+                        var sum=0;
+                        var rate=0;
+
+                        for (i=0;i<leftSix.length;i++) {
+//                                alert(leftSix[i]);
+                            var a = Math.abs(leftSix[i]);
+                            if (vol < a) { vol = a; }
+                            sum=sum+a;
+                        }
+
+                        curAvg=sum/leftSix.length;
+                        rate= Math.abs(curAvg^2 - preAvg^2);
+                        preAvg=curAvg;
+
+                        if (minthreshold>vol) { minthreshold=vol; }
+                        if (maxthreshold<vol) { maxthreshold=vol; }
+                        if (minthreshold*10 < maxthreshold)  { minthreshold=minthreshold*2; }
+                        if (maxthreshold/10 > minthreshold) { maxthreshold=vol; }
+                        if (rate < 5) { minthreshold=vol; } // If rate is close to zero, it is likely to be noise.
+                        var thdiff = maxthreshold/minthreshold;
+
+                        switch(true) {
+                            case (thdiff>8):
+                                var th = 2.5;
+                                break;
+                            case (thdiff>5):
+                                var th = 2.0;
+                                break;
+                            case (thdiff>3):
+                                var th = 1.2;
+                                break;
+                            default:
+                                th=1;
+                        }
+
+                        if (thdiff >= 2 && vol>=minthreshold*th) {
+                     //       console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
+                            if (audioWasSent==0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
+                                vApp.wb.utility.audioSend(preAudioSamp);
+                            }
+                            vApp.wb.utility.audioSend(send);
+                            audioWasSent=1;
+                        }else if ( audioWasSent == 1){
+                            vApp.wb.utility.audioSend(send);  // Send next sound sample to avoid clicking noise
+                            audioWasSent=0;
+                        }else if (thdiff < 2) {
+                       //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            vApp.wb.utility.audioSend(send);
+                        }else {
+                        //    console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            preAudioSamp = send;;
+                        }
+                        
+                        return send;
+                    },
+                            
                     makeIconNotDraggable : function (id, imgName){
                         var canvas = document.getElementById(id, imgName);
                         var context = canvas.getContext('2d');
@@ -138,31 +212,85 @@
                         imageObj.src = window.whiteboardPath + "images/" + imgName;
                     },
                     
-                    attachSpeakToStudent : function (){
-                        var speakerStudent  = document.getElementById('speakerPressing');
+                    
+                    attachFunctionsToAudioWidget : function (){
+                        var audioWiget = document.getElementById('audioWidget');  
+                        var allAudTools = audioWiget.getElementsByClassName('audioTool');
+                        var that = this;
+                        for(var i=0; i<allAudTools.length; i++){
+                            //allAudTools[i].addEventListener('click', function (){ that.audioToolInit.call(that,  allAudTools[i])});
+                            
+                            if(allAudTools[i].id == 'speakerPressOnce'){
+                                //allAudTools[i].setAttribute('data-audio-playing', "false");
+                            }else if (allAudTools[i].id == 'speakerPressing'){
+                                this.attachSpeakToStudent(allAudTools[i].id);
+                            }
+                            
+                            if (allAudTools[i].id != 'speakerPressing'){
+                                //alert('suman bogati');
+                                allAudTools[i].addEventListener('click', that.audioToolInit);
+                            }
+                                
+                        }
+                    },
+                    
+                    
+                    audioToolInit : function (){
+                        var that = vApp.gObj.video.audio;
+                        if(this.id == 'speakerPressOnce'){
+                            //vApp.gObj.video.audio.attachAudioPressOnce();
+                            that.clickOnceSpeaker(this);
+                        }else if(this.id == 'audioTest'){
+                            var playSound = confirm ("Please say some words for recording the Audio");
+                                if(playSound){
+                                  that.testInit();
+                                }
+                        }else if(this.id == 'silenceDetect'){
+                            if(that.sd){
+                               that.sd = false; 
+                               this.className = this.className + " sdDisable";
+                            }else{
+                               that.sd = true;
+                               this.className = this.className + " sdEnable";
+                            }
+                        }
+                    },
+                    
+                    attachSpeakToStudent : function (id){
+                        var speakerStudent  = document.getElementById(id);
                         speakerStudent.addEventListener('mousedown', this.studentSpeak);
                         speakerStudent.addEventListener('mouseup', this.studentNotSpeak);
+                        //document.body.addEventListener('mouseup', this.studentNotSpeak);
+                        //window.addEventListener('mouseup', this.studentNotSpeak);
                         
-                        document.body.addEventListener('mouseup', this.studentNotSpeak);
-                        window.addEventListener('mouseup', this.studentNotSpeak);
-                        speakerPressOnce  = document.getElementById('speakerPressOnce');
+//                        var speakerPressOnce  = document.getElementById('speakerPressOnce');
+//                        speakerPressOnce.setAttribute('data-audio-playing', "false");
+//                        var that = this;
+//                        speakerPressOnce.addEventListener('click', function (){ that.clickOnceSpeaker.call(that, speakerPressOnce)});
+                    },
+                    
+                    attachAudioPressOnce : function (){
+                        var speakerPressOnce  = document.getElementById('speakerPressOnce');
                         speakerPressOnce.setAttribute('data-audio-playing', "false");
                         var that = this;
                         speakerPressOnce.addEventListener('click', function (){ that.clickOnceSpeaker.call(that, speakerPressOnce)});
                     },
                     
                     clickOnceSpeaker : function (tag, alwaysDisable){
+//                        alert('sss');
+//                        debugger;
                         if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
                             this.studentSpeak();
                             tag.setAttribute('data-audio-playing', "true");
-                            tag.className = "active";
-                            vApp.wb.utility.beforeSend({'sad': true});
+                            
+                            tag.className =   "audioTool active";
+//                            vApp.wb.utility.beforeSend({'sad': true});
 
                         }else {
 //                            vApp.wb.utility.beforeSend({'sad': false});
                             this.studentNotSpeak();
                             tag.setAttribute('data-audio-playing', "false");
-                            tag.className = "deactive";
+                            tag.className = "audioTool dective";
                         }
                     },
                     
@@ -172,6 +300,8 @@
                     },
                     
                     studentNotSpeak : function (){
+//                        alert('suman bogati');
+//                        debugger;
                         if(vApp.gObj.hasOwnProperty('audMouseDown') &&  vApp.gObj.audMouseDown){
                             vApp.gObj.audMouseDown = false;
                             vApp.wb.utility.beforeSend({'sad': false});
@@ -214,64 +344,18 @@
                             
                             if(this.hasOwnProperty('storeAudio') && this.storeAudio){
                                 this.audioForTesting(leftSix);
+                            }
+                            
+                            if(this.sd){
+                                this.slienceDetection(send, leftSix);
+                                console.log('with silence detection');
+                            }else{
+                                console.log('without silence detection');
+                                vApp.wb.utility.audioSend(send);
                                 
+                                //this.slienceDetection(send);
                             }
-                            
-                            
                             // Detect Volume and send if required
-                            var vol = 0;
-                            var sum=0;
-                            var rate=0;
-
-                            for (i=0;i<leftSix.length;i++) {
-//                                alert(leftSix[i]);
-                                var a = Math.abs(leftSix[i]);
-                                if (vol < a) { vol = a; }
-                                sum=sum+a;
-                            }
-                            
-                            curAvg=sum/leftSix.length;
-                            rate= Math.abs(curAvg^2 - preAvg^2);
-                            preAvg=curAvg;
-                            
-                            if (minthreshold>vol) { minthreshold=vol; }
-                            if (maxthreshold<vol) { maxthreshold=vol; }
-                            if (minthreshold*10 < maxthreshold)  { minthreshold=minthreshold*2; }
-                            if (maxthreshold/10 > minthreshold) { maxthreshold=vol; }
-                            if (rate < 5) { minthreshold=vol; } // If rate is close to zero, it is likely to be noise.
-                            var thdiff = maxthreshold/minthreshold;
-                            
-                            switch(true) {
-                                case (thdiff>8):
-                                    var th = 2.5;
-                                    break;
-                                case (thdiff>5):
-                                    var th = 2.0;
-                                    break;
-                                case (thdiff>3):
-                                    var th = 1.2;
-                                    break;
-                                default:
-                                    th=1;
-                            }
-                            
-                            if (thdiff >= 2 && vol>=minthreshold*th) {
-                         //       console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
-                                if (audioWasSent==0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
-                                    vApp.wb.utility.audioSend(preAudioSamp);
-                                }
-                                vApp.wb.utility.audioSend(send);
-                                audioWasSent=1;
-                            }else if ( audioWasSent == 1){
-                                vApp.wb.utility.audioSend(send);  // Send next sound sample to avoid clicking noise
-                                audioWasSent=0;
-                            }else if (thdiff < 2) {
-                           //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                                vApp.wb.utility.audioSend(send);
-                            }else {
-                            //    console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                                preAudioSamp = send;;
-                            }
                         }   
                     },
                     
@@ -290,14 +374,27 @@
                     },
                     
                     testInit : function (){
-                         vApp.gObj.audioForTest = [];
-                         this.storeAudio = true;
-                          var that = this;  
-                          setTimeout(function (){
+                        vApp.gObj.audioForTest = [];
+                        this.storeAudio = true;
+                         var that = this;  
+
+                         that.otherSound = true;
+                         if(that.hasOwnProperty('testAudio')){
+                             clearTimeout(that.testAudio);
+                         }
+                         var totTestTime = 5000;
+                          
+                        that.testAudio = setTimeout(function (){
                             console.log("set time out is invoking");
                             that.playRecordedAudio();
-                            //that.playRecordedAudio();
-                        }, 5000);
+                        }, totTestTime);
+                        
+                        setTimeout (
+                            function (){
+                                 that.otherSound = false;
+                            }, ((totTestTime * 2)  + 1000  )
+                        )
+                        
                     },
                     
                     audioForTesting : function (leftSix){
@@ -329,6 +426,8 @@
                         }
                         
                         var samples = this.mergeBuffers(this.myaudioNodes);
+                        
+                        
                         vApp.gObj.video.audio.playTestAudio(samples, 0 , 0);
                        
                     },
@@ -346,6 +445,7 @@
                         newSource.buffer = newBuffer;
 
                         newSource.connect(this.Html5Audio.audioContext.destination);
+                        
                         newSource.start(when, offset);
                         
                     },

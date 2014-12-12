@@ -1037,13 +1037,17 @@
 //                    var jobj = JSON.stringify(msg);
 //                        vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                         if (io.sock.readyState == 1) {
-                            if (vApp.gObj.uRole == 't') {
+                            if(vApp.gObj.audMouseDown){
                                 io.sendBinary(sendmsg);
-                            }else{
-                                if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
-                                    io.sendBinary(sendmsg);
-                                } 
                             }
+                            
+//                            if (vApp.gObj.uRole == 't') {
+//                                io.sendBinary(sendmsg);
+//                            }else{
+//                                if(vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown == true){
+//                                    io.sendBinary(sendmsg);
+//                                } 
+//                            }
                         
                         }
                 },

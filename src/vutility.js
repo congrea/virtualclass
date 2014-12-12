@@ -207,7 +207,6 @@
             },
             
             videoTeacher2Student : function (id){
-                
                 var localVideo = document.getElementById(id);
                 if(localVideo !=  null && localVideo.tagName == "VIDEO"){
                 //    alert('this would not performed');
@@ -236,7 +235,14 @@
                     //vApp.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
                     vApp.vutil.removeTempVideo("vApp" + vApp.currApp+"LocalTemp");
                 }
-            }
+            },
+            
+            createSlienceDetect : function (){
+                var appOptCont = document.getElementById('vAppOptionsCont');
+                vApp.html.createDiv("vAppSlienceDetectTool", "silencedetect", appOptCont, 'appOptions');
+                //vAppWholeScreenShareTool()
+                //vApp.html.createDiv()
+            },
         }
         window.vutil = vutil;
     }

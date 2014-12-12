@@ -126,7 +126,9 @@
                     this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
                     
                     this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    this.createDiv(vApp.appAudioTest + "Tool", "audiotest", appOptCont, 'appOptions');
+                    //this.createDiv(vApp.appAudioTest + "Tool", "audiotest", appOptCont, 'appOptions');
+                    
+                    //vApp.vutil.createSlienceDetect();
                     
                     //this.createDiv(vApp.appAudioTestPlay + "Tool", "audiotestplay", appOptCont, 'appOptions');
                 },  
@@ -286,16 +288,19 @@
               
               initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
-                if(appName == 'AudioTestTool'){
-                    appName = appName.substring(0, appName.indexOf("Tool"));
-                    var playSound = confirm ("Please say some words for recording the Audio");
-                    if(playSound){
-                        vApp.gObj.video.audio.testInit();
-                    }
+//                if(appName == 'AudioTestTool'){
+//                    appName = appName.substring(0, appName.indexOf("Tool"));
+//                   
+//                    var playSound = confirm ("Please say some words for recording the Audio");
+//                    if(playSound){
+//                        vApp.gObj.video.audio.testInit();
+//                    }
+//                    
+//                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
+//                    vApp.prevApp = "vApp" + appName;
+//                } else 
                     
-                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
-                    vApp.prevApp = "vApp" + appName;
-                } else if(appName == 'SessionEndTool'){
+                if(appName == 'SessionEndTool'){
                     appName = appName.substring(0, appName.indexOf("Tool"));
                    
                     vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
@@ -307,15 +312,17 @@
                     }
                     
                     vApp.prevApp = "vApp" + appName;
-                }else{
-                    appName = appName.substring(0, appName.indexOf("Tool"));
-                    this.currApp = appName;
-                    if(!this.PrvAndCurrIsWss(this.previous, appName)){
-                        this.makeAppReady(appName, "byclick");
-                    }else{
-                        alert("Already the whole screen is being shared.");
-                    }
                 }
+                
+//                else{
+//                    appName = appName.substring(0, appName.indexOf("Tool"));
+//                    this.currApp = appName;
+//                    if(!this.PrvAndCurrIsWss(this.previous, appName)){
+//                        this.makeAppReady(appName, "byclick");
+//                    }else{
+//                        alert("Already the whole screen is being shared.");
+//                    }
+//                }
               },
               
               PrvAndCurrIsWss : function (previous, appName){
@@ -358,9 +365,11 @@
                 }
 
                 vApp.previous =  vApp[app].id;
-             }, 
+            }, 
               
-              old_initStudentScreen : function (msg, vtype){
+             
+              
+            old_initStudentScreen : function (msg, vtype){
                   
                 app = msg.st; 
                 

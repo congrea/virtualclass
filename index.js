@@ -86,6 +86,14 @@ jQuery.cachedScript = function( url, options ) {
         
         vApp.init(wbUser.role, appIs);
         
+        
+        if(localStorage.getItem('teacherId') != null){
+            if(document.getElementById('speakerStudent') != null){
+                vApp.user.displayStudentSpeaker(false);
+            }
+            
+        }
+        
         if(window.vApp.error.length > 2){
             window.vApp.error = [];
             return;
@@ -230,7 +238,11 @@ jQuery.cachedScript = function( url, options ) {
             
             if (data_pack[0] == 101) { // Audio
                 var recmsg = data_pack.subarray(1,data_pack.length);
-                vApp.gObj.video.audio.play(recmsg, 0 , 0);
+                
+                if(!vApp.gObj.video.audio.otherSound){
+                    vApp.gObj.video.audio.play(recmsg, 0 , 0);
+                }
+                
                 return;
                 
             //this may not need that we can achieve this by protocol 104    
@@ -457,7 +469,10 @@ jQuery.cachedScript = function( url, options ) {
                 
             }else{
                 if(e.message.hasOwnProperty('reclaimRole')){
-                    vApp.wb.response.reclaimRole(e.fromUser.userid, wbUser.id);
+                    //from that user only
+                    if(localStorage.getItem('teacherId') !=  null){
+                        vApp.wb.response.reclaimRole(e.fromUser.userid, wbUser.id);
+                    }
                     return;
                 }
                 if(e.message.hasOwnProperty('assignRole')){

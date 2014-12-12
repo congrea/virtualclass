@@ -34,7 +34,7 @@
 //                    vApp.vutil.removeAppPanel();
                     
                     vApp.user.control._assign(id, 'notsent');
-
+                    vApp.user.displayStudentSpeaker(true);
                 }
                 
                 //else {
@@ -57,6 +57,7 @@
              //   }
             },
             assignRole: function(fromUserId, id, reclaim) {
+                //alert('sss');
                 //alert('hello brother');
                 //here would be reclaim label
 //                alert('sss');
@@ -99,8 +100,18 @@
                         divContainer.appendChild(divControl);
                         localStorage.setItem('aId', fromUserId);
                     }
+                    
+                   //alert('sss uman');
+                    vApp.user.displayStudentSpeaker(false);
                 
                 } else {
+                    
+//                    alert('sss');
+//                    vApp.user.removeStudentSpeaker();
+                    
+                    
+                    
+//                    
 //                    
 //                    vApp.wb.utility.uniqueArrOfObjsToStudent();
 //                    if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {

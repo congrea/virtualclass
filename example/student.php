@@ -137,16 +137,7 @@ $uname = "Student";
     
 </div> -->
 
-<?php
-    if($r == 's'){
-    ?>
-<div id="speakerStudent" class="active">
-	<div id="speakerPressing">
-		<canvas id="speakerPressingImg" width="40" height="40"></canvas></div>
-		<div id="speakerPressOnce" data-audio-playing="false">
-			<canvas id="speakerPressOnceImg" width="40" height="40"></canvas></div></div>
-    <?php
-    }
+<div id="audioWidget"><div id="speakerStudent" class="active"><div id="speakerPressing" class="audioTool"><a id="speakerPressingAnch"><img id="speakerPressingImg" src="https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/speakerpressing.png" width="40" height="40"></a></div></div><div id="speakerPressOnce" class="audioTool" data-audio-playing="false"><a id="speakerPressonceAnch"><img id="speakerPressonceImg" src="https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/speakerpressonce.png" width="40" height="40"></a></div><div id="audioTest" class="audioTool"><a id="audiotestAnch"><img id="audiotestImg" src="https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/audiotest.png" width="40" height="40"></a></div><div id="silenceDetect" class="audioTool"><a id="silenceDetectAnch"><img id="silencedetectImg" src="https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/silencedetect.png" width="40" height="40"></a></div></div>
 ?>
  
 <div id="chatWidget"> 

@@ -1409,8 +1409,9 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos{
 }
 */
 
-#speakerStudent {
-	background-color : #d6d6d6;
+/*#speakerStudent { */
+#audioWidget {
+        background-color : #d6d6d6;
 	border : 1px solid #aaaaaa;
 	position : absolute;
 	width : 42px;
@@ -1586,15 +1587,15 @@ div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper .userVideos, div.ui
 }
 
 
-#speakerStudent.active .active{
+#speakerPressOnce.active{
     border : 1px solid green;
 }
 
-#speakerStudent.deactive .deactive{
+#speakerPressOnce.deactive{
     border : 1px solid red;
 }
 
-#speakerStudent #speakerPressOnce {
+ #speakerPressOnce {
     padding-left : -5px;
     height : 40px;
 }

@@ -121,7 +121,7 @@ $lname = "Sharma";
 
 <div id="vAppCont" class="teacher">
     
-<!--    <button id="installScreenShare">Install Screen Share </button>-->
+
  
     <div id="vAppWhiteboard" class="vmApp">
 
@@ -147,6 +147,29 @@ $lname = "Sharma";
       </div>
 
     </div>
+
+
+<div id="audioWidget">
+    <div id="speakerPressOnce" class="audioTool active" data-audio-playing="true">
+      <a id="speakerPressonceAnch" name="speakerPressonceAnch"><img id=
+      "speakerPressonceImg" src=
+      "https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/speakerpressonce.png"
+      width="40" height="40" /></a>
+    </div>
+
+    <div id="audioTest" class="audioTool">
+      <a id="audiotestAnch" name="audiotestAnch"><img id="audiotestImg" src=
+      "https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/audiotest.png"
+      width="40" height="40" /></a>
+    </div>
+
+    <div id="silenceDetect" class="audioTool">
+      <a id="silenceDetectAnch" name="silenceDetectAnch"><img id="silencedetectImg" src=
+      "https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/silencedetect.png"
+      width="40" height="40" /></a>
+    </div>
+</div>
+  
 
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>

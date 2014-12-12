@@ -117,7 +117,7 @@
               var vcanvas = document.getElementById('vcanvas');
               vcanvas.parentNode.insertBefore(div, vcanvas);
           },
-
+          
           removeElement : function (id){
               var errorDiv = document.getElementById(id);
               if(errorDiv != null){

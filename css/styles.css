@@ -205,7 +205,7 @@ body {
 */
 
 
-#commandToolsWrapper #t_line a img[title]:hover:after {
+#commandToolsWrapper #t_line a img[title]:hover:after{
 	content : attr(title);
 	padding : 4px 8px;
 	color : #333;

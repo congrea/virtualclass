@@ -150,7 +150,7 @@ $lname = "Sharma";
 
 
 <div id="audioWidget">
-    <div id="speakerPressOnce" class="audioTool active" data-audio-playing="true">
+    <div id="speakerPressOnce" class="audioTool active" data-audio-playing="false">
       <a id="speakerPressonceAnch" name="speakerPressonceAnch"><img id=
       "speakerPressonceImg" src=
       "https://192.168.1.101/moodle28/mod/virtualclass/bundle/virtualclass/images/speakerpressonce.png"

@@ -17,7 +17,7 @@
               appSessionEnd : "vAppSessionEnd",
               appAudioTest : "vAppAudioTest",
               //appAudioTestPlay : "vAppAudioTestPlay",
-              rWidgetConfig : {id: 'chatWidget' },
+              rWidgetConfig : {id: 'audioWidget' },
               wb : "", 
               ss : "",
               wss: "",
@@ -251,7 +251,14 @@
                             //alert('whiteboard exist');
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
                             
-                            //vApp.wb.utility.makeCanvasEnable();
+                            
+                            if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
+                                vApp.wb.utility.makeCanvasEnable();  
+                            }
+                            
+                          //alert(cusEvent);
+                          
+                            vApp.wb.utility.makeCanvasEnable();
 
                         }
                         this.previous = this.wbConfig.id;
@@ -272,21 +279,25 @@
                   }
               },
               
+     
+              
               attachFunction :function (){
                   var allAppOptions = document.getElementsByClassName("appOptions");
                   for(var i=0; i<allAppOptions.length; i++){
                       //allAppOptions[i].onclick = this.initlizer.bind(this, allAppOptions[i]);
                       var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
-                      //anchTag.addEventListener('click', this.initlizer);
+//                      anchTag.addEventListener('click', this.initlizer);
+                      
                       var that = this;
                       clickedAnchor = anchTag;
                       anchTag.onclick = function (){
-                          that.initlizer(this)
+                          that.initlizer(this);
                       };
                   }
               },
               
               initlizer : function (elem){
+                 
                 var appName = elem.parentNode.id.split("vApp")[1];
 //                if(appName == 'AudioTestTool'){
 //                    appName = appName.substring(0, appName.indexOf("Tool"));
@@ -312,17 +323,15 @@
                     }
                     
                     vApp.prevApp = "vApp" + appName;
+                } else{
+                    appName = appName.substring(0, appName.indexOf("Tool"));
+                    this.currApp = appName;
+                    if(!this.PrvAndCurrIsWss(this.previous, appName)){
+                        this.makeAppReady(appName, "byclick");
+                    }else{
+                        alert("Already the whole screen is being shared.");
+                    }
                 }
-                
-//                else{
-//                    appName = appName.substring(0, appName.indexOf("Tool"));
-//                    this.currApp = appName;
-//                    if(!this.PrvAndCurrIsWss(this.previous, appName)){
-//                        this.makeAppReady(appName, "byclick");
-//                    }else{
-//                        alert("Already the whole screen is being shared.");
-//                    }
-//                }
               },
               
               PrvAndCurrIsWss : function (previous, appName){

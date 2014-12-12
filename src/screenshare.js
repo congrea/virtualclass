@@ -72,11 +72,14 @@
                      //ssUI = this.html.UI.call(this, vApp.gObj.uRole);
                      //alert(ssUI.id);
                     //critical
-                    if(vApp.gObj.uRole == 't'){
-                        var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
-                    }else{
-                        var beforeAppend = document.getElementById("speakerStudent");
-                    }
+                    
+                    var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
+                    
+//                    if(vApp.gObj.uRole == 't'){
+//                        var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
+//                    }else{
+//                        var beforeAppend = document.getElementById("speakerStudent");
+//                    }
                     
                     
                     document.getElementById(vApp.html.id).insertBefore(ssUI, beforeAppend);

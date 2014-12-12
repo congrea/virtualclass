@@ -242,7 +242,7 @@
                 vApp.html.createDiv("vAppSlienceDetectTool", "silencedetect", appOptCont, 'appOptions');
                 //vAppWholeScreenShareTool()
                 //vApp.html.createDiv()
-            },
+            }
         }
         window.vutil = vutil;
     }

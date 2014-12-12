@@ -497,7 +497,7 @@
                         
                         //speakerStudent.parentNode.removeChild(speakerStudent);
                     }
-                },
+                }
                 
                 
             }

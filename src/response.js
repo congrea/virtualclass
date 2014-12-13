@@ -102,7 +102,7 @@
                     }
                     
                    //alert('sss uman');
-                    vApp.user.displayStudentSpeaker(false);
+                  //  vApp.user.displayStudentSpeaker(false);
                 
                 } else {
                     

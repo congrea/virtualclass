@@ -432,6 +432,7 @@
                     if ((localStorage.getItem('teacherId') != null) ||
                             (localStorage.getItem('orginalTeacherId') != null && vApp.vutil.chkValueInLocalStorage('reclaim'))) {
                         vApp.wb.utility.toolWrapperEnable();
+							
                     }
                     //vApp.wb.utility.isUserConnected(vApp.wb.clientLen);
                     
@@ -440,6 +441,7 @@
                     if (localStorage.getItem('teacherId') != null) {
                         //alert('hello brother');
                         vApp.wb.utility.makeCanvasEnable();
+						vApp.wb.utility.enableAppsBar();
                     }
                     if (vApp.wb.gObj.packQueue.length > 0) {
                         window.vApp.wb.vcan.main.replayObjs = vApp.wb.gObj.packQueue;
@@ -878,41 +880,9 @@
                 },
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
-                        
-                        //if (localStorage.repObjs) {
-                       // if (localStorage.getItem('repObjs') != null) {
-                            
-                            
-                            //var allRepObjs = JSON.parse(localStorage.repObjs);
-                            
-                           //var allRepObjs = vApp.storage.getAllObjs(callback);
-                            
-//                            vApp.storage.getAllObjs(callback);
-//                            
-//                            vApp.wb.vcan.main.replayObjs = allRepObjs;
-//                            vApp.wb.utility.clearAll(false, 'dontClear');
-//
-//                            vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(allRepObjs);
-//                            if (allRepObjs.length > 0) {
-//                                vApp.wb.uid = allRepObjs[allRepObjs.length - 1].uid;
-//                                vApp.wb.gObj.rcvdPackId = vApp.wb.uid;
-//                                vApp.wb.toolInit('t_replay', 'fromBrowser', true, vApp.wb.utility.dispQueuePacket);
-//                            }
-//                            vApp.storage.getAllObjs(callback, 'repObjs');
-//                            
-//                            function callback(allRepObjs){
-//                                vApp.wb.vcan.main.replayObjs = allRepObjs;
-//                                vApp.wb.utility.clearAll(false, 'dontClear');
-//
-//                                vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(allRepObjs);
-//                                if (allRepObjs.length > 0) {
-//                                    vApp.wb.uid = allRepObjs[allRepObjs.length - 1].uid;
-//                                    vApp.wb.gObj.rcvdPackId = vApp.wb.uid;
-//                                    vApp.wb.toolInit('t_replay', 'fromBrowser', true, vApp.wb.utility.dispQueuePacket);
-//                                }
-//                            }
-                            
-                            vApp.wb.vcan.main.replayObjs = allRepObjs;
+							vApp.wb.utility.disableAppsBar();
+							
+							vApp.wb.vcan.main.replayObjs = allRepObjs;
                             vApp.wb.utility.clearAll(false, 'dontClear');
 
                             vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(allRepObjs);
@@ -928,11 +898,7 @@
                                 vApp.wb.gObj.rcvdPackId = vApp.wb.uid;
                                 vApp.wb.toolInit('t_replay', 'fromBrowser', true, vApp.wb.utility.dispQueuePacket);
                             }
-                            
-                            
-//                        }else{
-//                            vApp.wb.utility.toolWrapperEnable();
-//                        }
+                          
                     }
                 },
                 
@@ -1221,7 +1187,19 @@
                     vApp.wb.utility.reclaimRole();
                     vApp.wb.utility.sendRequest('reclaimRole', true);
                     vApp.user.control.addClassToAssign('enable');
-                }
+                },
+				
+				disableAppsBar : function (){
+					var appBarCont = document.getElementById('vAppOptionsCont');
+					appBarCont.style.pointerEvents = "none";
+				},
+				
+				enableAppsBar : function (){
+					var appBarCont = document.getElementById('vAppOptionsCont');
+					appBarCont.style.pointerEvents = "visible";
+				},
+				
+				
                 
             };
         }

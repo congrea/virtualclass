@@ -1197,7 +1197,7 @@
 				enableAppsBar : function (){
 					var appBarCont = document.getElementById('vAppOptionsCont');
 					appBarCont.style.pointerEvents = "visible";
-				},
+				}
 				
 				
                 

@@ -2,45 +2,30 @@
 	margin : 0;
 	padding : 0;
 }
-
 html, body {
 	width : 100%;
 	height : 100%;
 	font-family : "Verdana", sans-serif;
 }
-
 a, canvas {
 	outline : none;
 }
-
 .clear {
 	clear : both;
 }
-
 body {
-    margin:0;
-    padding:0;
+	margin : 0;
+	padding : 0;
 }
-
-#conControler{
-    clear:both;
+#conControler {
+	clear : both;
 }
-
-
-/*
-	Teacher css top
-*/
-
-
-#vAppCont{
-    height : 100%;
+#vAppCont {
+	height : 100%;
 }
-
-
 #page-mod-onetoone-whiteboard #divForReloadMsgAnchor {
 	margin-left : 10px;
 }
-
 #divForReloadMsg {
 	border : #8eb9ce solid 1px;
 	width : auto;
@@ -52,7 +37,6 @@ body {
 	letter-spacing : 0.3px;
 	margin : 15px 0;
 }
-
 #serverErrorCont, #divForReloadMsg {
 	padding : 10px;
 	width : auto;
@@ -65,29 +49,18 @@ body {
 	width : auto;
 	font-size : 12px;
 }
-
-
-
-/*
-	Left Main Whiteboard
-*/
-
-
 #vAppOptionsCont {
 	width : 35px;
 	float : left;
 }
-
 #vAppOptionsCont .appOptions {
 	padding-bottom : 17px;
 }
-
 #vAppOptionsCont .appOptions.active a img {
-	border : #db0909 solid 1px;
+	border : #000 solid 1px;
 	padding : 2px;
 	border-radius : 3px;
 }
-
 #vAppOptionsCont:first-child, #vAppOptionsCont {
 	background-color : #dfdfdf;
 	position : absolute;
@@ -99,61 +72,36 @@ body {
 	box-shadow : 0 0 5px #666;
 	z-index : 100;
 }
-
 #vAppOptionsCont {
 	clear : both;
 }
-
-
-
-/*
-	vAppWhiteboard
-*/
-
-
-
 #vAppWhiteboardCont {
 	height : 100%;
 	width : 100%;
 }
-
 #vAppWhiteboard, #vAppCont {
 	float : left;
 }
-
-
-
-
-/*
-	vcanvas
-*/
-
-
 #vcanvas {
 	float : left;
 	border : #ccc solid 1px;
 }
-
 #vcanvas.student #videoContainer {
 	top : -237px;
 }
-
 #videoMinMize, #videoMaxMize {
 	position : absolute;
 }
-
 #vcanvas.student #videoMinMize, #videoMinMize {
-	background-image : url('../images/min.png') !important ;
+	background-image : url('../images/min.png') !important;
 	background-position : left top;
 	background-repeat : no-repeat;
 }
-
 #vcanvas.student #videoMaxMize, #videoMaxMize {
-	background-image : url('../images/max.png') !important ;
+	background-image : url('../images/max.png') !important;
 	background-position : left top;
 	background-repeat : no-repeat;
 }
-
 #vcanvas.student #videos #videoMinMize, #vcanvas.student #videos #videoMaxMize {
 	height : 16px;
 	position : absolute;
@@ -161,7 +109,6 @@ body {
 	width : 16px;
 	right : -1px;
 }
-
 #vcanvas.student #videos #videoMinMize, #videoMinMize {
 	border-left : none;
 	border-bottom : none;
@@ -170,7 +117,6 @@ body {
 	right : -1px;
 	width : 16px;
 }
-
 #vcanvas.student #videos #videoMaxMize, #videoMaxMize {
 	border-left : 1px solid #CCCCCC;
 	border-top : 1px solid #ccc;
@@ -180,31 +126,16 @@ body {
 	top : -33px;
 	width : 16px;
 }
-
 #vcanvas.student #videos {
 	border-bottom : 1px solid #ccc;
 }
-
 #vcanvas.student #informationCont {
 	display : none;
 }
-
-/*
-	containerWb
-*/
-
-
 #containerWb {
 	margin : 0;
 	padding : 0;
 }
-
-
-/*
-	commandToolsWrapper
-*/
-
-
 #commandToolsWrapper #t_line a img[title]:hover:after {
 	content : attr(title);
 	padding : 4px 8px;
@@ -216,11 +147,9 @@ body {
 	border-radius : 5px;
 	box-shadow : 0 0 4px #222;
 }
-
-
 #commandToolsWrapper {
 	background : #f3f3f3;
-	background-image : url('../images/nav_bg.png') !important ;
+	background-image : url('../images/nav_bg.png') !important;
 	background-position : left 5%;
 	background-repeat : repeat-x;
 	padding-bottom : 0;
@@ -229,143 +158,85 @@ body {
 	height : 44px;
 	box-shadow : 0 0 5px #aaa;
 }
-
-
 #commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a {
 	background-image : url(../images/border-img.png);
 	background-position : right top;
 	background-repeat : no-repeat;
 }
-
-
 #commandToolsWrapper #t_assign.controlCmd a {
 	background-image : none;
 	padding-right : 15px;
 }
-
 .socketon.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
 	background-image : url(../images/border-img.png);
 	background-position : left center;
 	background-repeat : no-repeat;
 }
-
-
 #commandToolsWrapper, #dataInfoHeading {
 	padding-left : 1%;
 	width : 99%;
 }
-
-
-/*
-	Top tool
-*/
-
-.tooltip {
-    display: inline;
-    position: relative;
-}
-
-
 #commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a {
 	background-image : url(../images/border-img.png);
 	background-position : right top;
 	background-repeat : no-repeat;
 }
-
 #canvasWrapper {
 	float : left;
 	margin : 0;
 	padding : 0;
 	margin-top : 0;
 }
-
 #canvasWrapper #canvas {
 	outline : none;
 }
-
-
-
 #commandToolsWrapper a {
-    float: left;
-    padding: 9px 15px;
+	float : left;
+	padding : 9px 15px;
 }
-
-
-
-
-/*
-	canvasWrapper
-*/
-
-
 #canvasWrapper #canvas {
 	outline : none;
 }
-
 #canvasWrapper {
 	float : left;
 	margin : 0;
 	padding : 0;
 	margin-top : 0;
 }
-
 #canvasWrapper #canvas {
 	outline : none;
 }
-
-
-
-/*
-	canvasDrawMsgContFirefox
-*/
-
-
-
 #canvasDrawMsgContFirefox {
 	left : 510px;
 	position : absolute;
 	z-index : 100;
 }
-
-
 .msgBoxCanvasimg {
-    clear: both;
+	clear : both;
 }
-
-
-
 #canvasDrawMsgContFirefox {
 	left : 510px;
 	position : absolute;
 	z-index : 100;
 }
-
-
-
-
-#commandToolsWrapper a{
-	padding: 9px 15px;
-    float:left;
+#commandToolsWrapper a {
+	padding : 9px 15px;
+	float : left;
 }
-
-
 #canvasWrapper {
 	float : left;
 	margin : 0;
 	padding : 0;
 	margin-top : 0;
 }
-
 #canvas {
 	border : black solid 1px;
 	display : block;
 	border : none;
 }
-
 .numbers {
 	float : right;
 }
-
 #sentMsgInfo {
 	border : #ccc solid 1px;
 	margin-top : 10px;
@@ -375,7 +246,6 @@ body {
 	min-height : 62px;
 	text-align : left;
 }
-
 #rcvdMsgInfo {
 	margin-top : 10px;
 	border : #ccc solid 1px;
@@ -384,75 +254,60 @@ body {
 	min-height : 62px;
 	text-align : left;
 }
-
 #videos {
 	width : 930px;
 	margin-top : 20px;
 	padding : 15px;
 	clear : both;
 }
-
 #localVideo {
 	border : #CCCCCC solid 1px;
 	width : 30%;
 }
-#remoteVideo{
-    border:1px solid #CCCCCC;
-    width:100%;
+#remoteVideo {
+	border : #CCCCCC solid 1px;
+	width : 100%;
 }
-
-#remoteVideo2{
-    border:3px solid green;
-    width:30%;
+#remoteVideo2 {
+	border : green solid 3px;
+	width : 30%;
 }
-
-
-
-
-/*
-	memlist
-*/
-
-
-
-
-
-#chat_div .ui-memblist-usr {
-    /*
-    height : 65px !important ;
-    
-    */
-    clear : both;
-    
+#chat_div .ui-memblist-usr:after {
+	content : ".";
+	display : block;
+	height : 0;
+	clear : both;
+	visibility : hidden;
 }
-
+#chat_div .ui-memblist-usr.teacher {
+	padding-top : 0;
+	background-color : #f1f1f1;
+	border-top: 1px solid #d5d5d5;
+	border-bottom: 1px solid #d5d5d5;
+	padding-left : 5px;
+}
 div.ui-memblist-usr video {
-    width : 60px;
-    height : 50px;
-    margin : 0;
-    outline : 1px solid #5A5757;
-    margin-left : 2px;
+	width : 60px;
+	height : 50px;
+	margin : 0;
+	outline : 1px solid #5A5757;
+	margin-left : 2px;
 }
-
 div.ui-memblist-usr .userVideos {
-    width : 60px;
-    height : 45px;
-    margin : 3px 0 0 2px;
-    outline : 1px solid #5A5757;
+	width : 60px;
+	height : 45px;
+	margin : 3px 0 0 2px;
+	outline : 1px solid #5A5757;
 }
-
 #graphCanvas {
-    top : -5px !important ;
+	top : -5px !important;
 }
-
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-    margin-top : 6px;
+	margin-top : 6px;
 }
-
 #chat_div .ui-memblist-usr:first-child {
-	margin-top : -4px;
+	margin-top : 0;
 }
-
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	border : #eee solid 3px;
 	box-shadow : 0 0 1px #333;
@@ -460,1192 +315,903 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	outline : none;
 	margin-bottom : 5px;
 }
-
 #chat_div .ui-memblist-usr span {
-	top : 30px !important ;
+	top : 7px;
 	text-transform : uppercase;
 	font-weight : bold;
+	position : relative;
 }
-
 #chat_div.ui-memblist-log {
-	height : auto !important ;
+	height : auto !important;
 }
-
-
-
-/*
-	MSG BOX
-*/
-
-
-.msgBoxWebRtc p, .msgBoxCanvas p{
-	position: relative; 
-	background: #ffffff; 
-	border: 1px solid #ccc; 
-} 
-
-.msgBoxWebRtc p:after, .msgBoxCanvas p:after, .msgBoxWebRtc p:before, .msgBoxCanvas p:before {
-	bottom: 100%;
-	left: 24%; 
-	border: solid transparent; 
-	content: " "; 
-	height: 0; 
-	width: 0; 
-	position: absolute; 
-	pointer-events: none; 
-} 
-
-.msgBoxWebRtc p:after, .msgBoxCanvas p:after {
-	border-color: rgba(255, 255, 255, 0); 
-	border-bottom-color: #ffffff; 
-	border-width: 11px; margin-left: -10px;
-} 
-
-.msgBoxWebRtc p:before, .msgBoxCanvas p:before { 
-	border-color: rgba(170, 170, 170, 0); 
-	border-bottom-color: #aaaaaa; 
-	border-width: 12px; 
-	margin-left: -11px;
-}
-
-#chormeWebrtcCont p:after, #chormeWebrtcCont p:before{
-	left: 93%;
-}
-
-.msgBoxWebRtc{
-    width : 350px;
-}
-
 .msgBoxWebRtc p, .msgBoxCanvas p {
-    border:2px solid #ddd;
-    padding:5px;
+	position : relative;
+	background : #ffffff;
+	border : #ccc solid 1px;
 }
-
+.msgBoxWebRtc p:after, .msgBoxCanvas p:after, .msgBoxWebRtc p:before, .msgBoxCanvas p:before {
+	bottom : 100%;
+	left : 24%;
+	border : transparent solid;
+	content : " ";
+	height : 0;
+	width : 0;
+	position : absolute;
+}
+.msgBoxWebRtc p:after, .msgBoxCanvas p:after {
+	border-color : rgba(255, 255, 255, 0);
+	border-bottom-color : #ffffff;
+	border-width : 11px;
+	margin-left : -10px;
+}
+.msgBoxWebRtc p:before, .msgBoxCanvas p:before {
+	border-color : rgba(170, 170, 170, 0);
+	border-bottom-color : #aaaaaa;
+	border-width : 12px;
+	margin-left : -11px;
+}
+#chormeWebrtcCont p:after, #chormeWebrtcCont p:before {
+	left : 93%;
+}
+.msgBoxWebRtc {
+	width : 350px;
+}
+.msgBoxWebRtc p, .msgBoxCanvas p {
+	border : #ddd solid 2px;
+	padding : 5px;
+}
 .msgBoxCanvas p {
-    margin-top: 25px;
+	margin-top : 25px;
 }
-
-#chormeWebrtcCont{
-    position : absolute;
-    right: 2%;
-    top : 0%;
+#chormeWebrtcCont {
+	position : absolute;
+	right : 2%;
+	top : 0%;
 }
-
 #chormeWebrtcContimg {
-    height: 15px;	
+	height : 15px;
 }
-
-#chormeWebrtcCont p{
-    padding:12px;	
-    z-index: 100;
+#chormeWebrtcCont p {
+	padding : 12px;
+	z-index : 100;
 }
-
-#fireFoxWebrtcCont{
-    position : absolute;
-    left: 160px;
-    top : 173px;
-    z-index: 100;
+#fireFoxWebrtcCont {
+	position : absolute;
+	left : 160px;
+	top : 173px;
+	z-index : 100;
 }
-
-.msgBoxCanvas{
-    width : 350px;
+.msgBoxCanvas {
+	width : 350px;
 }
-
-.msgBoxCanvasimg{
-    clear:both;
-	
+.msgBoxCanvasimg {
+	clear : both;
 }
-
-/*
-	Canvas Firefox
-*/
-
-
-#canvasDrawMsgContFirefox{
-    left: 510px;
-    position: absolute;
-    z-index: 100;
+#canvasDrawMsgContFirefox {
+	left : 510px;
+	position : absolute;
+	z-index : 100;
 }
-
-
-#canvasDrawMsgContChrome{
-    position : absolute;
-    left : 270px;
+#canvasDrawMsgContChrome {
+	position : absolute;
+	left : 270px;
 }
-
-#canvasDrawArea{
-    clear:both;
-    position:relative;
-    left : 40%;
-    bottom :400px;
-    font-size:50px;
-    color:#ddd;
+#canvasDrawArea {
+	clear : both;
+	position : relative;
+	left : 40%;
+	bottom : 400px;
+	font-size : 50px;
+	color : #ddd;
 }
-
-#canvasDrawArea p{
-    color : rgb(197, 161, 161);
+#canvasDrawArea p {
+	color : rgb(197, 161, 161);
 }
-
 a[title]:hover:after {
-    content: attr(title);
-    padding: 4px 8px;
-    color: rgba(0,0,0,0.5);
-    position: absolute;
-    left: 0;
-    top: 100%;
-    white-space: nowrap;
-    z-index: 2;
-    border-radius: 5px ;
-    background: rgba(0,0,0,0.5);
+	content : attr(title);
+	padding : 4px 8px;
+	color : rgba(0, 0, 0, 0.5);
+	position : absolute;
+	left : 0;
+	top : 100%;
+	white-space : nowrap;
+	z-index : 2;
+	border-radius : 5px;
+	background : rgba(0, 0, 0, 0.5);
 }
-
-.error{
-    border:2px solid #ddd;
-    width: 50%;
-    padding:10px;
-    margin-left:10%;
-    margin-top:2%;
+.error {
+	border : #ddd solid 2px;
+	width : 50%;
+	padding : 10px;
+	margin-left : 10%;
+	margin-top : 2%;
 }
-
 #commandToolsWrapper #t_line a img[title]:hover:after {
-    content: attr(title);
-    padding: 4px 8px;
-    color: #333;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    white-space: nowrap;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow: 0px 0px 4px #222;
-    -webkit-box-shadow: 0px 0px 4px #222;
-    box-shadow: 0px 0px 4px #222;
-    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
-    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+	content : attr(title);
+	padding : 4px 8px;
+	color : #333;
+	position : absolute;
+	left : 0;
+	top : 100%;
+	white-space : nowrap;
+	border-radius : 5px;
+	box-shadow : 0 0 4px #222;
 }
-		
-#vcanvas{
-    float:left; 
-    border:#ccc 1px solid;
- }
- 
- 
-
-/*
-	commandToolsWrapper
-*/
-
-
-#commandToolsWrapper{
-    background: #f3f3f3; /* Old browsers */
-    background-image:url('../images/nav_bg.png') !important;
-    background-position: left 5%;
-    background-repeat: repeat-x;	
-    padding-bottom: 0;
-    border-bottom: #aaa 1px solid;
-    padding-left: 1%;
-    height: 44px;
-    box-shadow: #aaa 0px 0px 5px;
+#vcanvas {
+	float : left;
+	border : #ccc solid 1px;
 }
-
-
-#commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a{
-    background-image: url(../images/border-img.png);
-    background-position: right top;
-    background-repeat: no-repeat;
+#commandToolsWrapper {
+	background : #f3f3f3;
+	background-image : url('../images/nav_bg.png') !important;
+	background-position : left 5%;
+	background-repeat : repeat-x;
+	padding-bottom : 0;
+	border-bottom : 1px solid #aaa;
+	padding-left : 1%;
+	height : 44px;
+	box-shadow : 0 0 5px #aaa;
 }
-
-#commandToolsWrapper .tool.active a{
-	border-bottom: #db0909 1px solid;
+#commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a {
+	background-image : url(../images/border-img.png);
+	background-position : right top;
+	background-repeat : no-repeat;
 }
-
-#commandToolsWrapper #t_assign.controlCmd a{
-    background-image: none;
-    padding-right: 15px;
+#commandToolsWrapper .tool.active a {
+	border-bottom : 1px solid #000;
 }
-
-.socketon.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff{
-    background-image: url(../images/border-img.png);
-    background-position: left center;
-    background-repeat: no-repeat;
+#commandToolsWrapper #t_assign.controlCmd a {
+	background-image : none;
+	padding-right : 15px;
 }
-
-#commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_connectionon a{
-    padding-top: 5px;
+.socketon.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
+	background-image : url(../images/border-img.png);
+	background-position : left center;
+	background-repeat : no-repeat;
 }
-
-#commandToolsWrapper #t_assign a{
-    padding-top: 2px;
+#commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_connectionon a {
+	padding-top : 5px;
 }
-
-#canvasWrapper #canvas{
-    outline: none;
+#commandToolsWrapper #t_assign a {
+	padding-top : 2px;
 }
-
-/* Video css */
-
-#mainContainer h4{
-    background: #f9f9f9; /* Old browsers */
-    background: -moz-linear-gradient(top,  #f9f9f9 0%, #f0f0f0 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#f0f0f0)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #f9f9f9 0%,#f0f0f0 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #f9f9f9 0%,#f0f0f0 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #f9f9f9 0%,#f0f0f0 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #f9f9f9 0%,#f0f0f0 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#f0f0f0',GradientType=0 ); /* IE6-9 */
-    padding-left: 1%;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    border-top:#ccc 1px solid;
-    border-bottom: #ccc 1px solid;
-    font-family: Verdana;
-    color:#595a5d;
-    font-weight: 500;
-    font-size: 15px;
+#canvasWrapper #canvas {
+	outline : none;
 }
-
-
-#packetContainer h4, #informationCont h4{
-    margin-top: 5px;
+#informationCont h4 {
+	margin-top : 5px;
 }
-
-#videos{
-    margin: 0px;
-    padding: 0px;	
+#videos {
+	margin : 0;
+	padding : 0;
 }
-
-#videos #remoteVideo{
-    margin-top: 10px; 
-    margin-left: 25px;
-    margin-bottom: 5px;
-    height: 180px;
+#videos #remoteVideo {
+	margin-top : 10px;
+	margin-left : 25px;
+	margin-bottom : 5px;
+	height : 180px;
 }
-
-#videos #localVideo{
-    margin-left: 198px;
-    margin-top: 8px;
-    height: 180px;
-    margin-bottom: 5px;
-    padding: 2px;
+#videos #localVideo {
+	margin-left : 198px;
+	margin-top : 8px;
+	height : 180px;
+	margin-bottom : 5px;
+	padding : 2px;
 }
-
 .selfClear:after {
-    content: ".";
-    display: block;
-    height: 0px;
-    clear: both;
-    visibility: hidden;
-}	
-
+	content : ".";
+	display : block;
+	height : 0;
+	clear : both;
+	visibility : hidden;
+}
 .selfClear {
-    display: inline-block;
+	display : inline-block;
 }
-
-
-.msgBoxWebRtc p, .msgBoxCanvas p{
-    background-color: #fff !important;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2)  !important;	
-    border:#ccc 1px solid !important;
-    font-size: 12px;
-    padding: 15px;
-    border-radius: 5px;
-    font-weight: 500;
+.msgBoxWebRtc p, .msgBoxCanvas p {
+	background-color : #fff !important;
+	box-shadow : 0 0 6px rgba(0, 0, 0, 0.2) !important;
+	border : #ccc solid 1px !important;
+	font-size : 12px;
+	padding : 15px;
+	border-radius : 5px;
+	font-weight : 500;
 }
-
-/* Msg css */
-
-
-
-/*Tool Tip */
-
-
-.tooltip{
-    display: inline;
-    position: relative;
+.tooltip {
+	display : inline;
+	position : relative;
 }
-
-	
-.tooltip:hover:after{
-    background-color: #fff !important;
-    border-radius: 0px !important;
-    bottom: 26px;
-    content: attr(data-title)  !important;
-    padding: 5px 15px;
-    position: absolute  !important;
-    z-index: 1;
-    left:20% !important;
-    width: auto !important;
-    height: 18px !important;
-    color:#333 !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,.2)  !important;	
-    border:#ccc 1px solid !important;
-    font-size: 12px;
-    font-family: "Verdana", sans-serif;
-    border-radius: 3px !important;
+.tooltip:hover {
+	color : #c00;
+	text-decoration : none;
 }
-
-#videoMinMize .tooltip, #videoMaxMize .tooltip{
-    left: 5px;
-    position: relative;
-    top: -10px;
-    color:#ddd;
+.tooltip:hover:after {
+	background : #fff;
+	border : #ccc solid 1px;
+	border-radius : 0.5em;
+	bottom : 1.35em;
+	color : #fff;
+	content : attr(data-title);
+	display : block;
+	left : 1em;
+	padding : 0.3em 1em;
+	position : absolute;
+	white-space : nowrap;
+	z-index : 98;
+	color : #000;
+	box-shadow : 0 1px 2px rgba(0, 0, 0, 0.2);
+	font-size : 12px;
 }
-
-
-#virtualWindow{
-    border:1px dashed #ED6B83;
-    border-left:none;
-    position:absolute;
+#audioWidget .Tool .tooltip:hover:after, #audioWidget .audioTool .tooltip:hover:after {
+	padding : 0.7em 1em;
+	right : 30px;
+	left : auto;
+	bottom : -1em;
 }
-
-
-#packetContainer{
-	width: 50%; 
-	float: left;
-	box-sizing:border-box; 
-	-moz-box-sizing:border-box; /* Firefox */
+#vAppOptionsCont .appOptions .tooltip:hover:after {
+	padding : 0.7em 1em;
+	right : auto;
+	left : 35px;
+	bottom : -1em;
 }
-
-#packetContainer #dataInformation, #packetContainer #sendPackCont, #packetContainer #receivePackCont{
-	float: left; 
-	width: 32%; 
-	border:#ccc 1px solid;
-	margin-top: 15px; 
-	margin-bottom: 15px;
+#containerWb #commandToolsWrapper .tool .tooltip:hover:after {
+	bottom : -1.8em;
+	padding : 0.6em 1em;
 }
-
-#packetContainer #dataInformation, #packetContainer #sendPackCont{
-	border-right: none;
+#virtualWindow {
+	border : #ED6B83 dashed 1px;
+	border-left : none;
+	position : absolute;
 }
-
-#sentPacketsLabel, #sendPackPsCont, #totSendPackCont, #receivedPacketsLabel, #receivePackPsCont, #totReceivedPackCont, #blankDiv, #perSecData, #totalDataLabel{
-	padding: 7px;
+#packetContainer {
+	width : 50%;
+	float : left;
+	box-sizing : border-box;
 }
-
-#receivedPacketsLabel, #receivePackPsCont, #sentPacketsLabel, #sentPacketsLabel, #sendPackPsCont, #blankDiv, #perSecData{
-	border-bottom:#ccc 1px solid; 
-	color:#595A5D;
+#packetContainer #dataInformation, #packetContainer #sendPackCont, #packetContainer #receivePackCont {
+	float : left;
+	width : 32%;
+	border : #ccc solid 1px;
+	margin-top : 15px;
+	margin-bottom : 15px;
 }
-
-#errorWebSocket, #errorWebRtc, #errorCanvas, #errorPeerConnect{
-	background-color: #F2DEDE; 
-	border-color: #FDB9C3; 
-	color: #B94A48; 
-	font-size: 14px; 
-	border-radius: 5px; 
-	border-width:1px;
+#packetContainer #dataInformation, #packetContainer #sendPackCont {
+	border-right : none;
 }
-
-#errorWebSocketPara a, #errorWebRtcPara a, #errorCanvasPara a{
-	color:#B94A48; 
-	font-weight: 600; 
-	font-size: 13px; 
-	text-decoration:none;
+#sentPacketsLabel, #sendPackPsCont, #totSendPackCont, #receivedPacketsLabel, #receivePackPsCont, #totReceivedPackCont, #blankDiv, #perSecData, #totalDataLabel {
+	padding : 7px;
 }
-
-#sentPacketsLabel span, #receivedPacketsLabel span{
-    margin-left: 15px;
+#receivedPacketsLabel, #receivePackPsCont, #sentPacketsLabel, #sentPacketsLabel, #sendPackPsCont, #blankDiv, #perSecData {
+	border-bottom : 1px solid #ccc;
+	color : #595A5D;
 }
-
-#totalDataLabel, #sentPacket,  #informationCont{
-    color:#595A5D;
+#errorWebSocket, #errorWebRtc, #errorCanvas, #errorPeerConnect {
+	background-color : #F2DEDE;
+	border-color : #FDB9C3;
+	color : #B94A48;
+	font-size : 14px;
+	border-radius : 5px;
+	border-width : 1px;
 }
-
-#informationCont #sentMsgInfoContainer{
-    width: 50%;
-    float: left;
-    text-align: center;
+#errorWebSocketPara a, #errorWebRtcPara a, #errorCanvasPara a {
+	color : #B94A48;
+	font-weight : 600;
+	font-size : 13px;
+	text-decoration : none;
 }
-
-#informationCont #receivedMsgInfoContainer{
-    width: 50%;
-    float: left;
-    text-align: center;
+#sentPacketsLabel span, #receivedPacketsLabel span {
+	margin-left : 15px;
 }
-
-#dataInformation{
-    margin-left: 10px;
-
+#totalDataLabel, #sentPacket, #informationCont {
+	color : #595A5D;
 }
-
-#topContainer{
-    height:200px;
+#informationCont #sentMsgInfoContainer {
+	width : 50%;
+	float : left;
+	text-align : center;
 }
-
-#leftContainer{
-    width:200px;
-    float:left;
+#informationCont #receivedMsgInfoContainer {
+	width : 50%;
+	float : left;
+	text-align : center;
 }
-
-#packetContainer, #informationCont{
-    font-size: 13px;
+#dataInformation {
+	margin-left : 10px;
 }
-
-#informationCont{
-    float:left;
-    width: 50%;
+#topContainer {
+	height : 200px;
 }
-
-#dataInfoHeading{
-    width:915px;
-    text-align:center;
+#leftContainer {
+	width : 200px;
+	float : left;
 }
-
-#informationCont{
-    margin-top:11px;
+#packetContainer, #informationCont {
+	font-size : 13px;
 }
-
-#containerWb{
-    margin:0;
-    padding:0;
-    display:none\9 !important;
+#informationCont {
+	float : left;
+	width : 50%;
 }
-
-#vcanvas{
-    border-bottom: #ccc 1px solid\9 !important;
+#dataInfoHeading {
+	width : 915px;
+	text-align : center;
 }
-
-#t_assign.controlCmd a{
-    padding-left: 0px;
-    padding-right: 0px;
+#informationCont {
+	margin-top : 11px;
 }
-
-.socketon #t_assign.controlCmd a{
-    padding-left: 12px;
-    padding-right: 14px;
+#containerWb {
+	margin : 0;
+	padding : 0;
 }
-
-
-#vcanvas{
-    margin-left: 0px;
-
+#t_assign.controlCmd a {
+	padding-left : 0;
+	padding-right : 0;
 }
-
-#commandToolsWrapper, #dataInfoHeading{
-    padding-left: 1%;
-    width:99%;
-
+.socketon #t_assign.controlCmd a {
+	padding-left : 12px;
+	padding-right : 14px;
 }
-
-#videos{
-    width: auto;
-    position: relative;
+#vcanvas {
+	margin-left : 0;
 }
-
-#videos #localVideo{
-    height: auto;
-    margin: 0;
-    position: absolute;
-    right: 3px;
-    margin-top: 48%;
-    width: 35%;
-    z-index: 100;
+#commandToolsWrapper, #dataInfoHeading {
+	padding-left : 1%;
+	width : 99%;
 }
-
-#videos #remoteVideo{
-    margin-left: 0px;
-    margin-top:0px;
-    right: -9px;
-    padding: 2px;
+#videos {
+	width : auto;
+	position : relative;
 }
-	
-	
-#videos{
-    position: relative;
-    top: 0px;
+#videos #localVideo {
+	height : auto;
+	margin : 0;
+	position : absolute;
+	right : 3px;
+	margin-top : 48%;
+	width : 35%;
+	z-index : 100;
 }
-		
-#videos #remoteVideo{
-    height:auto;
-    position: absolute;
-    min-height: auto;
+#videos #remoteVideo {
+	margin-left : 0;
+	margin-top : 0;
+	right : -9px;
+	padding : 2px;
 }
-	
-#remoteVideo{
-    width: 100%;
+#videos {
+	position : relative;
+	top : 0;
 }
-	
-#vcanvas.student #videos{
-    top: 16px;
+#videos #remoteVideo {
+	height : auto;
+	position : absolute;
+	min-height : auto;
 }
-		
-.dynDiv_resizeDiv_tl{
-    padding-bottom: 5px;
-    padding-right: 5px;
+#remoteVideo {
+	width : 100%;
 }
-	
-#vcanvas.student #videoMinMize, #videoMinMize{
-    height: 16px;
-    right: 2px;
-    width: 16px;
-    z-index: 100;
+#vcanvas.student #videos {
+	top : 16px;
 }
-
-
-.dynDiv_resizeDiv_tl,.dynDiv_resizeDiv_tr,.dynDiv_resizeDiv_bl,.dynDiv_resizeDiv_br {
-    background-color: #fff !important;
-    background-image:url('../images/resize.png') !important;
-    background-position: left top;
-    background-repeat: no-repeat;
-    width: 10px;
-    height: 10px;
-    background: #faa;
-    border: 1px solid #000;
-    position: absolute;
-}
-
 .dynDiv_resizeDiv_tl {
-    border: medium none;
-    left: 6px;
-    top: 3px;
-    z-index: 100;
+	padding-bottom : 5px;
+	padding-right : 5px;
 }
-
+#vcanvas.student #videoMinMize, #videoMinMize {
+	height : 16px;
+	right : 2px;
+	width : 16px;
+	z-index : 100;
+}
+.dynDiv_resizeDiv_tl, .dynDiv_resizeDiv_tr, .dynDiv_resizeDiv_bl, .dynDiv_resizeDiv_br {
+	background-color : #fff !important;
+	background-image : url('../images/resize.png') !important;
+	background-position : left top;
+	background-repeat : no-repeat;
+	width : 10px;
+	height : 10px;
+	background : #faa;
+	border : #000 solid 1px;
+	position : absolute;
+}
+.dynDiv_resizeDiv_tl {
+	border : none medium;
+	left : 6px;
+	top : 3px;
+	z-index : 100;
+}
 #videoContainer {
-    background: transparent;
-    width: 285px;
-    height : 220px;
-    position: absolute;
-    right:0;
-    bottom:0;
-    overflow: hidden;	
+	background : transparent;
+	width : 285px;
+	height : 220px;
+	position : absolute;
+	right : 0;
+	bottom : 0;
+	overflow : hidden;
 }
-
-
-#videoMinMize, #videoMaxMize{
-    position: absolute;
+#videoMinMize, #videoMaxMize {
+	position : absolute;
 }
-
-#vcanvas.student #videoContainer{
-    top:-237px;
+#vcanvas.student #videoContainer {
+	top : -237px;
 }
-
-#videoMinMize, #videoMaxMize{
-    position: absolute;
+#videoMinMize, #videoMaxMize {
+	position : absolute;
 }
-
-#vcanvas.student #videoMinMize, #videoMinMize{
-    background-image:url('../images/min.png') !important;
-    background-position: left top;
-    background-repeat: no-repeat;
-
+#vcanvas.student #videoMinMize, #videoMinMize {
+	background-image : url('../images/min.png') !important;
+	background-position : left top;
+	background-repeat : no-repeat;
 }
-
-#vcanvas.student #videoMaxMize, #videoMaxMize{
-    background-image:url('../images/max.png') !important;
-    background-position: left top;
-    background-repeat: no-repeat;
-
+#vcanvas.student #videoMaxMize, #videoMaxMize {
+	background-image : url('../images/max.png') !important;
+	background-position : left top;
+	background-repeat : no-repeat;
 }
- 
 #vcanvas.student #videos #videoMinMize, #vcanvas.student #videos #videoMaxMize {
-    height: 16px;
-    position: absolute;
-    top: 2px;
-    width: 16px;
-    right: -1px;
+	height : 16px;
+	position : absolute;
+	top : 2px;
+	width : 16px;
+	right : -1px;
 }
-	
-#vcanvas.student #videos #videoMinMize, #videoMinMize{
-    border-left: none;
-    border-bottom: none;
-    height: 16px;
-    position: absolute;
-    right: -1px;
-    top: -2;
-    width: 16px;
+#vcanvas.student #videos #videoMinMize, #videoMinMize {
+	border-left : none;
+	border-bottom : none;
+	height : 16px;
+	position : absolute;
+	right : -1px;
+	width : 16px;
 }
-	
-
-#vcanvas.student #videos #videoMaxMize, #videoMaxMize{
-    border-left: 1px solid #CCCCCC;
-    border-top:#ccc 1px solid;
-    border-right: none;
-    height: 16px;
-    right: 0px;
-    top: -33px;
-    width: 16px;
+#vcanvas.student #videos #videoMaxMize, #videoMaxMize {
+	border-left : 1px solid #CCCCCC;
+	border-top : 1px solid #ccc;
+	border-right : none;
+	height : 16px;
+	right : 0;
+	top : -33px;
+	width : 16px;
 }
-
-.socketon.teacher #videoMaxMize{
-	top: -17px;
+.socketon.teacher #videoMaxMize {
+	top : -17px;
 }
-
-.controlCmd{
-    float: right;
+.controlCmd {
+	float : right;
 }
-
-#videoContainer{
-    bottom:45px;
+#videoContainer {
+	bottom : 45px;
 }
-
-.controlCmd.coff, .con.controlCmd{
-	padding-left: 20px;
+.controlCmd.coff, .con.controlCmd {
+	padding-left : 20px;
 }
-
 .con.controlCmd a {
-	border:#79aa26 1px solid; 
-	padding-left: 4px !important; 
-	padding-right: 4px!important; 
-	border-radius: 2px;
+	border : #79aa26 solid 1px;
+	padding-left : 4px !important;
+	padding-right : 4px !important;
+	border-radius : 2px;
 }
-
-.con{
-	margin-right: 20px; 
-	float: right;
+.con {
+	margin-right : 20px;
+	float : right;
 }
-
-.controlCmd.coff{
-    margin-right : 10px;
+.controlCmd.coff {
+	margin-right : 10px;
 }
-
-#serverErrorCont{
-    border: 1px solid #9E1333;
-    background: #F2DFE3;
+#serverErrorCont {
+	border : #9E1333 solid 1px;
+	background : #F2DFE3;
 }
-
-#vAppWhiteboardCont{
-    height : 100%;
-    width : 100%;
+#vAppWhiteboardCont {
+	height : 100%;
+	width : 100%;
 }
-
-#widgetRightSide{
-    float:left; 
-    width : 260px;
-    border : 1px solid #ccc; 
-    border-left :none; 
+#widgetRightSide {
+	float : left;
+	width : 260px;
+	border : #ccc solid 1px;
+	border-left : none;
 }
-
-.userVideo{
-    width : 75px;
-    height : 56px; 
+.userVideo {
+	width : 75px;
+	height : 56px;
 }
-
-#tempVideo{
-    display : none; 
+#tempVideo {
+	display : none;
 }
-
 video, canvas, #allVideosCont {
-   float:left;
+	float : left;
 }
-
-video, canvas{
-    margin:3px;
-    margin-bottom : 2px
+video, canvas {
+	margin : 3px;
+	margin-bottom : 2px;
 }
-
-video:hover,  canvas:hover{
-    content : attr('uname');
+.videoWrapper {
+	z-index : 50;
+	position : relative;
+	clear : both;
 }
-
-.videoWrapper{
-	 z-index : 50;
-    position : relative;
-    clear :both;
+.videoSubWrapper {
+	z-index : 1000;
 }
-
-.videoSubWrapper{
-    z-index : 1000;
+.videoSubWrapper[data-uname]:hover:after {
+	content : attr(data-uname);
+	padding : 2px 5px 2px 5px;
+	color : rgba(48, 39, 2, 1);
+	position : absolute;
+	margin-left : -40px;
+	top : 60%;
+	white-space : nowrap;
+	border-radius : 15px;
+	background : rgba(240, 245, 240, 0.6);
+	font-size : 80%;
 }
-
-.videoSubWrapper[data-uname]:hover:after{
-    content: attr(data-uname);
-    padding: 2px 5px 2px 5px;
-    color: rgba(48,39,2, 1);
-    position: absolute;
-    margin-left:-40px;
-    left: 40;
-    top : 60%;
-    white-space: nowrap;
-    border-radius: 15px ;
-    background: rgba(240,245,240,0.6);
-    font-size:80%;
-    letter-spacing: 110%;
+#allVideosCont {
+	position : relative;
 }
-
-#allVideosCont{
-    position : relative;
-}
-
 #commonChatBoard {
-    clear : both;
-    width : 100%;
-    height :92%;
+	clear : both;
+	width : 100%;
+	height : 92%;
 }
-
 #textInputBox {
-    width : 100%;
-    height : 5%;
-    padding : 5px 3px 5px 3px;
-    resize:none;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+	width : 100%;
+	height : 5%;
+	padding : 5px 3px 5px 3px;
+	resize : none;
+	border : #ccc solid 1px;
+	border-radius : 3px;
 }
-
-
-/****** Chat ****/
-
-
-.userName{
-    font-weight : bold;
+.userName {
+	font-weight : bold;
 }
-
-#chatBox{
-    font-size : 80%;
-    border-top:1px solid #ccc;
-
+#chatBox {
+	font-size : 80%;
+	border-top : 1px solid #ccc;
 }
-
-#chatBox .userMsg{
-    letter-spacing: 0.03em;
-    word-break : break-all;
-    /* For Firefox */
-    white-space: pre-wrap;
-    word-break: break-all;
-    /* For Chrome and IE */
-    word-wrap: break-word;
+#chatBox .userMsg {
+	letter-spacing : 0.03em;
+	word-break : break-all;
+	white-space : pre-wrap;
+	word-break : break-all;
+	overflow-wrap : break-word;
 }
-
-#chatBox{
-    padding : 5px;
+#chatBox {
+	padding : 5px;
 }
-
 #chatBox #commonChatBoard {
-    overflow-y : auto;
+	overflow-y : auto;
 }
-
-
-#chatContainer{
-    width : 100%;
-    margin-top : 10px;
-    clear : both;
-    margin-top : 5px;
+#chatContainer {
+	width : 100%;
+	margin-top : 10px;
+	clear : both;
+	margin-top : 5px;
 }
-
-#mainContainer{
-    clear : both;
+#mainContainer {
+	clear : both;
 }
-
-
-#vAppOptionsCont{
-    width : 35px;
-    float :left;
-    
+#vAppOptionsCont {
+	width : 35px;
+	float : left;
 }
-
-#vAppOptionsCont .appOptions{
-    padding-bottom:17px;
+#vAppOptionsCont .appOptions {
+	padding-bottom : 17px;
 }
-
-#vAppOptionsCont:first-child, #vAppOptionsCont{
-	background-color: #dfdfdf;
-	position: absolute;
-	top:120px;
-    border: 1px solid #aaa;
-    padding: 10px 4px 0px 9px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: #666 0px 0px 5px;
-    z-index: 100;
+#vAppOptionsCont:first-child, #vAppOptionsCont {
+	background-color : #dfdfdf;
+	position : absolute;
+	top : 120px;
+	border : #aaa solid 1px;
+	padding : 10px 4px 0 9px;
+	border-bottom-right-radius : 10px;
+	border-top-right-radius : 10px;
+	box-shadow : 0 0 5px #666;
+	z-index : 100;
 }
-
-
 #vAppScreenShare, #vAppWholeScreenShare {
-    float : left;
-    border : 1px solid #ccc;
-    height : 100%;
+	float : left;
+	border : #ccc solid 1px;
+	height : 100%;
 }
-
-.vmApp{
-    border-right : none;
+.vmApp {
+	border-right : none;
 }
-
 .Local {
-    margin: 4px 7px 0 7px;
+	margin : 4px 7px 0 7px;
 }
-
-#vAppScreenShareLocalTempVideo, #vAppwholescreenShareLocalTempVideo  {
-    display:none;
+#vAppScreenShareLocalTempVideo, #vAppwholescreenShareLocalTempVideo {
+	display : none;
 }
-
-#commonChatBoardLabel{
-    position: relative;
-    width: 140px;
-    color: #ccc;
-    font-size: 24px;
-    opacity: 0.8;
-    left: 50px;
-    top: -55%;
+#commonChatBoardLabel {
+	position : relative;
+	width : 140px;
+	color : #ccc;
+	font-size : 24px;
+	opacity : 0.800000011920928955078125;
+	left : 50px;
+	top : -55%;
 }
-
-
-#commonChatBoardLabel #firstWord{
-    margin-left: 8%;
-    font-size: 20px;
-    
+#commonChatBoardLabel #firstWord {
+	margin-left : 8%;
+	font-size : 20px;
 }
-
-::-webkit-input-placeholder, :-moz-placeholder  {
-   opacity: 0.8 !important;
+::-webkit-input-placeholder, :-moz-placeholder {
+opacity : 0.800000011920928955078125 !important;
 }
-
-#textInputBox{
-    padding-top: 11px;
-    padding-left: 8px;
+#textInputBox {
+	padding-top : 11px;
+	padding-left : 8px;
 }
-
-
-#toggleContainer{
-   font-weight: bold;
-    color: #686464;
-    width: 7px;
-    border:1px solid #ccc;
-    padding-left:4px;
-    padding-right : 4px;
-    cursor : pointer;
+#toggleContainer {
+	font-weight : bold;
+	color : #686464;
+	width : 7px;
+	border : #ccc solid 1px;
+	padding-left : 4px;
+	padding-right : 4px;
+	cursor : pointer;
 }
-
-#toggleContainer.display{
-    position: relative;
-    top: 25px;
-    left: 10px;
+#toggleContainer.display {
+	position : relative;
+	top : 25px;
+	left : 10px;
 }
-#toggleContainer.hide{
-    margin-left : 4px;
-    padding-right : 6px;
+#toggleContainer.hide {
+	margin-left : 4px;
+	padding-right : 6px;
 }
-
-
-#vAppWhiteboard, #vAppCont{
-    float : left;
+#vAppWhiteboard, #vAppCont {
+	float : left;
 }
-
-
 canvas {
-    padding : 0;
-    margin : 0;
+	padding : 0;
+	margin : 0;
 }
-
-#vAppOptionsCont{
-    clear : both;
+#vAppOptionsCont {
+	clear : both;
 }
-
-#commonChatBoard span{
-    line-height : 125%;
+#commonChatBoard span {
+	line-height : 125%;
 }
-
-
-/*** footer chat start from here **/
-
-#chat_div .ui-memblist-usr{
-    
-    /* height : 45px !important; */
-    
+#chat_div .ui-memblist-usr {
+	margin-top : 3px;
+	margin-bottom : 3px;
 }
-
-div.ui-memblist-usr video{
-    width: 60px;
-    height: 50px;
-    margin:0;
-    outline : 1px solid #5A5757;
-    margin-left :2px;
-    
+div.ui-memblist-usr video {
+	width : 60px;
+	height : 50px;
+	margin : 0;
+	outline : 1px solid #5A5757;
+	margin-left : 2px;
 }
-
-div.ui-memblist-usr .userVideos{
-    width : 60px;
-    height : 45px;
-    margin : 3px 0 0 2px;
-    outline : 1px solid #5A5757;
-    
+div.ui-memblist-usr .userVideos {
+	width : 60px;
+	height : 45px;
+	margin : 3px 0 0 2px;
+	outline : 1px solid #5A5757;
 }
-
-#graphCanvas{
-    top : -5px !important;
+#graphCanvas {
+	top : -5px !important;
 }
-
-
-
-div.ui-memblist-usr video, div.ui-memblist-usr .userVideos{
-    margin-top:6px;
+div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
+	margin-top : 5px;
 }
-
-
-#chat_div .ui-memblist-usr:first-child{
-    margin-top:-4px;
-}
-
-
-
 #chat_div {
-    padding-bottom : 5px;
-    min-height : 180px;
+	padding-bottom : 5px;
+	min-height : 150px;
 }
-
-
-#chatWidget{
-    clear : both;
+#chatWidget {
+	clear : both;
 }
-
-
-
-/*
-	Student canvas
-
-*/
-
-/*
-#speakerStudent {
-
+#audioWidget {
+	background-color : #dfdfdf;
+	border : #aaaaaa solid 1px;
+	border-bottom-left-radius : 10px;
+	border-top-left-radius : 10px;
+	box-shadow : 0 0 5px #666;
+	position : absolute;
 	width : 35px;
 	cursor : pointer;
 	float : right;
-	height : 100%;
+	height : auto;
+	right : 18px;
+	padding-left : 15px;
+	top : 65px;
+	padding-top : 13px;
+	padding-bottom : 13px;
+	padding-right : 5px;
 }
-*/
-
-/*#speakerStudent { */
-#audioWidget {
-	background-color: #dfdfdf;
-	border: 1px solid #aaaaaa;
-	border-bottom-left-radius: 10px;
-	border-top-left-radius: 10px;
-	box-shadow: #666 0px 0px 5px;
-	position: absolute;
-	width: 35px;
-	cursor: pointer;
-	float: right;
-	height: auto;
-	right: 18px;
-	padding-left: 10px;
-	top: 65px;
-	padding-top: 13px;
-	padding-bottom: 13px;
-	padding-right: 0px;
+#audioWidget .Tool .tooltip img {
+	border : green solid 1px;
+	padding : 2px;
+	padding-right : 0;
+	border-radius : 5px;
+	margin-left : -4px;
 }
-
-#audioWidget #speakerPressOnce .speakerPressonceAnch img{margin-bottom: 10px;}
-
+#audioWidget #speakerPressOnce .speakerPressonceAnch img {
+	margin-bottom : 10px;
+}
+#audioWidget #speakerPressOnce .speakerPressonceAnch a img {
+	margin-left : -2px;
+}
 .student #vcanvas {
 	border-top-width : 5px;
 	border-top-color : #aaa;
 }
-
-/*
-#speakerStudent:hover {
-	background-color : #eee;
+#speakerStudent #speakerPressing a:hover img {
+	opacity : 0.5;
 }
-*/
-
-/*#speakerStudentImage {
-    padding-top : 10px;
-}*/
-
-/*
-#speakerPressingImg{
-    padding-top : 10px;
-}
-*/
-
-
-#speakerStudent #speakerPressing a:hover img{opacity: 0.5;}
-
 #vcanvas.student #containerWb {
-	background-image : url('../images/nav_bg.png') !important ;
+	background-image : url('../images/nav_bg.png') !important;
 }
-
-#closebtn{width: 35px;}
-
-
-
-
-/*
-	Student canvas
-
-*/
-
+#closebtn {
+	width : 35px;
+}
 #vAppOptionsCont {
 	top : 200px;
 }
-
 .ui-dialog-header span:first-child {
 	background : url('../images/user.png') 6% center no-repeat;
 	font-size : 14px;
 	padding-left : 30px;
 }
-
 .ui-widget-header .ui-icon {
 	background-image : url(images/ui-icons_222222_256x240.png);
 }
-
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-	border : 3px solid #eee;
+	border : #eee solid 3px;
 	outline : none;
 	margin-bottom : 5px;
-	
 }
-
-div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper .userVideos, div.ui-memblist-usr.teacher a .videoWrapper .videoSubWrapper video{
-    outline: #cc1111 1px solid;
-    border-radius: 3px;
-}
-
 #chat_div .ui-memblist-usr span {
 	text-transform : uppercase;
 	font-weight : bold;
 }
-
 #chat_div.ui-memblist-log {
-	height : auto !important ;
+	height : auto !important;
 }
-
 .vmchat_bar_button .inner_bt #usertab_text, .vmchat_room_bt .inner_bt #chatroom_text {
 	font-weight : normal;
 }
-
 .vmchat_room_bt .inner_bt #chatroom_text {
 	padding-left : 25px;
 }
-
 .maximize {
 	height : 38px;
 }
-
 #stickybar.minimize {
 	width : 50px;
 }
-
 .ui-icon-closethick {
-	background-position : -96px -128px !important ;
+	background-position : -96px -128px !important;
 }
-
 .ui-chatbox {
-	width : 231px !important ;
+	width : 231px !important;
 	margin-left : -1px;
 }
-
 .ui-tabs .ui-tabs-nav li.ui-state-active {
 	background-image : none;
-	background-color : #eee;
-	border-top : 1px solid #aaa !important ;
+	background-color : transparent;
+	border-top : 1px solid #aaa !important;
 }
-
 #stickycontainer #user_list .inner_bt #usertab_text, .vmchat_room_bt .inner_bt #chatroom_text {
 	background : url('../images/arrow-up.png') 75% 43% no-repeat;
 }
 .ui-corner-all.ui-chatbox-icon .ui-icon-close {
 	margin-top : 7px;
-	margin-right: 8px;
-} 
-
-.ui-memblist-usr a img{
-	margin-top: 5px;
-	float: left;
-	background-color: #eee;
-	padding: 10px 19px;
-	border-radius: 5px;
-	border: #ddd 1px solid;
-	margin-bottom: 10px;
+	margin-right : 8px;
+}
+.ui-memblist-usr a img {
+	margin-top : 4px;
+	float : left;
+	background-color : #eee;
+	padding : 8px 12px;
+	border-radius : 3px;
+	border : #ddd solid 1px;
+	margin-bottom : 4px;
+	margin-left : 2px;
+}
+.ui-memblist-usr a, .ui-memblist-usr img {
+	clear : both;
 }
 
-#chat_div .ui-memblist-usr.teacher a span{
-/*    background : url('../images/teacher.png') left center no-repeat;*/
-}
-
-#chat_div .ui-memblist-usr.student a span{
-/*    background : url('../images/student.png') left center no-repeat;*/
-}
-	
-.ui-memblist-usr a, .ui-memblist-usr img{
-    clear : both;
-}
 
 
 #vAppScreenShare, #vAppWholeScreenShare {
-    margin-left : 55px;
+	margin-left : 55px;
 }
-
-
-.ui-widget-content .controls{
-    clear : both;
-}
-
+/*.ui-widget-content .controls {
+	clear : both;
+}*/
 .ui-widget-content .controls img {
-    margin-left : 4px;
-    margin-right: 4px;
+	margin-left : 4px;
+	margin-right : 4px;
+	height : 16px !important;
+	width : 16px !important;
+	min-height : 0 !important;
 }
-
-
-.ui-widget-content .controls{
-    width : 150px;
-    position: relative;
-    top: -42;
-    left: 72;
+.ui-widget-content .controls {
+	width : 165px;
+	position : relative;
 }
-
-.ui-widget-content .controls img{
-    pointer-events: visible;
+#speakerPressing {
+	width : 100%;
+	margin-bottom : 15px;
 }
-
-#speakerPressing{
-    width : 100%;
-    margin-bottom: 15px;
+#speakerPressOnce {
+	width : 100%;
+	height : 100%;
 }
-
-#speakerPressOnce{
-    width : 100%;
-    height : 100%;
+#speakerPressOnce.deactive {
+	border : red solid 1px;
 }
-
-
-/*
-#speakerPressOnce.active{
-    border : 1px solid green;
-}
-*/
-
-#speakerPressOnce.deactive{
-    border : 1px solid red;
-}
-
- #speakerPressOnce {
-    padding-left : -5px;
- /*    height : 50px; */
-}
-
 #chat_div .controleCont {
-    float : left;
+	margin-top : 7px;
+	float : left;
+}
+.audioTransmit {
+	border : green solid 15px;
+	float : left;
+	width : 15px;
+	height : 15px;
+}
+.audEnableSign {
+	width : 12px;
+	height : 12px;
+	background-image : url('../images/online.png');
+	float : left;
+	margin-left : 4px;
+}
+#audioWidget #speakerPressOnce, #audioWidget #audioTest, #audioWidget #audioTest {
+	margin-bottom : 15px;
+}
+#vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img{margin-left: -5px;padding : 1px;padding-left : 2px; border : transparent solid 1px;}
+#vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.dective a img {
+	border : #669d49 solid 1px !important;
+	padding : 1px;
+	border-radius : 4px;
+	padding-right : 0;
+	padding-left : 2px;
+	margin-left: -3px;
+}
+#vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.dective a img {
+	border : #ec1109 solid 1px !important;
+	margin-left: -3px;
 }
 
-.audioTransmit{
-    border : 15px solid green;
-    float:left;
-    width : 15px;
-    height : 15px;
+
+
+
+.ui-memblist-usr.student .controls .controleCont img.assignImg.block, .ui-memblist-usr.student .controls .controleCont img.audioImg.block, .ui-memblist-usr.student .controls .controleCont img.chatImg.block {
+	opacity : 0.4000000059604644775390625;
+	background-color : transparent;
+	border : none;
+	padding : 0;
+	margin-bottom : 0;
 }
-
-.audEnableSign{
-    width : 12px;
-    height : 12px;
-    border : 2px solid green;
-    float : left;
-    margin-left :4px;
+.controls .controleCont img.audioImg.block {
+	margin-bottom : 0;
 }
-
-#audioWidget #speakerPressOnce, #audioWidget #audioTest, #audioWidget #audioTest{margin-bottom: 15px;}
-
-#vAppCont.teacher #audioWidget .active a img{
-	border: red 1px solid;
-	padding: 1px;
-	border-radius: 4px;
-	padding-right: 0px;
-	padding-left: 2px;
+#chat_div .ui-memblist-usr.teacher a span:first-letter {
+	color : green !important;
+}
+.ui-memblist-usr a span {
+	margin-left : 10px;
 }
 
 
-.ui-memblist-usr.student .controls .controleCont img.assignImg.block, .ui-memblist-usr.student .controls .controleCont img.audioImg.block, .ui-memblist-usr.student .controls .controleCont img.chatImg.block {opacity: 0.4; background-color: transparent; border:none; padding: 0;}
+
+/* added by suman */
+
+#vAppScreenShare{
+    width : 100%;
+}
+
+#vAppCont{
+    width : 95%;
+}
+
+#commandToolsWrapper{
+    width : 105%;
+}
+
+

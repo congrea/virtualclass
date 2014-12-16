@@ -873,6 +873,15 @@
                 },
                 //change the name with toolBoxEnable
                 toolWrapperEnable: function() {
+                    
+//                    var reclaimButton = vApp.vutil.chkValueInLocalStorage('reclaim');
+//                    if(reclaimButton){
+//                        
+//                    }else{
+//                        var commandToolWrapper = document.getElementById('commandToolsWrapper');
+//
+//                    }
+                    //alert('suman bgoati');
                     var commandToolWrapper = document.getElementById('commandToolsWrapper');
                     if (commandToolWrapper != null) {
                         commandToolWrapper.style.pointerEvents = "visible";
@@ -880,8 +889,10 @@
                 },
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
-							vApp.wb.utility.disableAppsBar();
-							
+                            if(vApp.storage.reclaim === null){
+                                vApp.wb.utility.disableAppsBar();
+                            }
+                        	
 							vApp.wb.vcan.main.replayObjs = allRepObjs;
                             vApp.wb.utility.clearAll(false, 'dontClear');
 

@@ -101,6 +101,7 @@ function memberUpdate(e, addType){
 */
 
 function messageUpdate(e){
+    
     if($.isPlainObject(e.message)){
         var msg = e.message.msg;
     }else{
@@ -169,7 +170,15 @@ function messageUpdate(e){
                 messageSent : function(did,user,msg){
                     $("#" + did).chatbox("option", "boxManager").addMsg(user.name, msg);
                 }});
+            
+            var chEnable = localStorage.getItem('chatEnable');
+            //bad way to check chatEnable
+            if(chEnable != null && chEnable == 'false'){
+                vApp.user.control.allChatDisable();
 
+//                vApp.user.allChatDisable();
+            }
+            
             $("#" + from.userid).chatbox("option").messageSent(from.userid,from, msg);
             $("li[aria-controls='tabcb" + from.userid + "']").addClass("ui-state-highlight");
             //createNotification(from.userid);// tab scrolling notification for hidden tab

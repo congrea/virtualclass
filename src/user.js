@@ -13,8 +13,10 @@
                 //TODO function name should be change
                 assignRole : function (role, app){
                      if(role == 't'){
+                         
                           vApp.html.optionsWithWrapper();
                           vApp.attachFunction();
+                          
                           var vAppOptionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
                           window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
 
@@ -55,6 +57,10 @@
                     return controlCont;
                 },
                 
+                createConroller : function (){
+                    
+                },
+                
                 // important
                 // TODO this function should be normalize
                 createControlDivs : function (controlCont, userId, controls){
@@ -77,32 +83,35 @@
                         var aRoleEnable =  true;
                     }
 
-                            
+
+                    //var this should be in normalize in function 
                     for(var i=0; i<controls.length; i++){
                         if(controls[i] == 'assign'){
                             var assignImg = document.createElement('img');
                             var imgName = "contrAssign";
                             assignImg.id = userId + imgName + "Img";
                             assignImg.src = window.whiteboardPath +  "images/" + imgName + ".png";
+                            assignImg.className = "toolTip";
+                            
+                            assignImg.setAttribute('data-title', "assignRole");
+                            
+                            
+//                            var assignAnch = document.createElement('a');
+//                            assignAnch.id = userId + imgName + "Anch";
+//                            assignAnch.className = "tooltip";
+//                            
+//                            assignAnch.appendChild(assignImg);
+//                            
+                            
                             
                             var imgCont = document.createElement('div');
                             imgCont.id = userId + imgName + "Cont";
                             imgCont.className = "controleCont";
                             imgCont.appendChild(assignImg);        
+                            
                             controlCont.appendChild(imgCont);
-                            
-                            //assignImg.addEventListener('click', vApp.user.control.init);
                             assignImg.className = 'contrAssign';
-//                            
-//                            if(uObj && userObj.hasOwnProperty('aRole')){
-//                                var aRoleEnable = (userObj.aRole) ? true : false;
-//                            } else {
-//                                var aRoleEnable = true;
-//                            }
-                            
-                            
                             vApp.user.control.changeAttrbute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
-                            
                             assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
                         
                         } else if(controls[i] == 'audio'){  
@@ -111,13 +120,14 @@
                             audBlock.id = userId + imgName + "Img";
                             audBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
                             
+                            audBlock.className = "toolTip";
+                            audBlock.setAttribute('data-title', "audioDisable");
+                            
                             var imgCont = document.createElement('div');
                             imgCont.id = userId + imgName + "Cont";
                             imgCont.className = "controleCont";
                             imgCont.appendChild(audBlock);        
                             controlCont.appendChild(imgCont);
-                            
-                          //  audBlock.addEventListener('click', vApp.user.control.init);
                             
                             if(uObj && userObj.hasOwnProperty('aud')){
                                 var audEnable = (userObj.aud) ? true : false;
@@ -125,9 +135,7 @@
                                 var audEnable = true;
                             }
                             vApp.user.control.changeAttrbute(userId, audBlock, audEnable, 'audio', 'aud');
-//                            audBlock.className = 'contrAudBlock';
-//                            audBlock.setAttribute('data-audio-disable', "false");
-//                            audBlock.className = 'enable';
+
                             
                             audBlock.addEventListener('click', function (){ that.control.init.call(that, audBlock);});
                             
@@ -136,6 +144,9 @@
                             imgName = "contrChat";
                             chatBlock.id = userId + imgName + "Img";
                             chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
+                            chatBlock.className = "toolTip";
+                            chatBlock.setAttribute('data-title', "chatDisable"); 
+                            
                             
                             var imgCont = document.createElement('div');
                             imgCont.id = userId + imgName + "Cont";
@@ -143,23 +154,8 @@
                             imgCont.appendChild(chatBlock);        
                             controlCont.appendChild(imgCont);
                             
-                            //  var that = this;
-                            //chatBlock.addEventListener('click', function (){ that.control.init.call(that, chatBlock);});
-                            //that.control.changAttrbute(chatBlock.id, true);
                             chatBlock.addEventListener('click', function (){ that.control.init.call(that, chatBlock);});
                             
-//                            if(uObj){
-//                                if(userObj.hasOwnProperty('ch')){
-//                                  
-//                                  if(userObj.ch){
-//                                       vApp.user.control.changeAttrbute(userObj.id, chatBlock, true);
-//                                   }else{
-//                                       vApp.user.control.changeAttrbute(userObj.id, chatBlock, false);
-//                                   }
-//                                }
-//                            }else {
-//                                vApp.user.control.changeAttrbute(userId, chatBlock, true);  // third param true means chat enable
-//                            }
                             
                             
                             if(uObj && userObj.hasOwnProperty('ch')){
@@ -279,15 +275,63 @@
                             canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
                             canvasWrapper.className = 'student';
                         }
-
+                        
+                        
                         localStorage.setItem('canvasDrwMsg', true);
                         
-                        if(vApp.hasOwnProperty('prevScreen')){
-                            //alert(vApp.prevScreen.id);
-                            vApp.vutil.videoTeacher2Student(vApp.prevScreen.id + "LocalVideo");
-                        }else{
-                            vApp.vutil.videoTeacher2Student("vApp" + vApp.currApp+"LocalVideo");
+                        var ssVideo = document.getElementById('vAppScreenShareLocalVideo');
+                        if(ssVideo != null && ssVideo.tagName == "VIDEO"){
+                            vApp.vutil.videoTeacher2Student('ScreenShare', true);
                         }
+
+
+                        var wssVideo = document.getElementById('vAppWholeScreenShareLocalVideo');
+                        if(wssVideo != null && wssVideo.tagName == "VIDEO"){
+                            vApp.vutil.videoTeacher2Student('WholeScreenShare', true);
+                        }
+
+                        
+//                        if(vApp.hasOwnProperty('prevScreen')){
+//                            
+//                            //alert(vApp.prevScreen.id);
+//                            //vApp.vutil.videoTeacher2Student(vApp.prevScreen.id + "LocalVideo", vApp.currApp);
+//                            
+//                            var ssVideo = document.getElementById('vAppScreenShareLocalVideo');
+//                            if(ssVideo != null && ssVideo.tagName){
+//                                vApp.vutil.videoTeacher2Student('ScreenShare', true);
+//                            }
+//                            
+//                            
+//                            var wssVideo = document.getElementById('vAppWholeScreenShareLocalVideo');
+//                            if(wssVideo != null && wssVideo.tagName){
+//                                vApp.vutil.videoTeacher2Student('WholeScreenShare', true);
+//                            }
+// 
+//                            
+//                            
+//                            
+//                            if(vApp.currApp == 'WholeScreenShare'){
+//                               //vApp.vutil.videoTeacher2Student("vAppScreenShareLocalVideo", "ScreenShare");
+//                               vApp.vutil.videoTeacher2Student("ScreenShare", true);
+//                            }else{
+//                                vApp.vutil.videoTeacher2Student("WholeScreenShare", true);
+//                            }
+//                            
+//                            
+//                        } else{
+//                            
+//                            if(typeof vApp.ss == 'object' || typeof vApp.wss == 'object'){
+//                                 //vApp.vutil.videoTeacher2Student("vApp" + vApp.currApp+"LocalVideo", vApp.currApp);
+//                                vApp.vutil.videoTeacher2Student(vApp.currApp);
+//
+//                                if(vApp.currApp == 'WholeScreenShare'){
+//                                   vApp.vutil.videoTeacher2Student("ScreenShare", true);
+//                                }else{
+//                                    vApp.vutil.videoTeacher2Student("WholeScreenShare", true);
+//                                }
+//                            }
+//                           
+//                        }
                         
                         var app;
                         if(vApp.currApp == "ScreenShare"){
@@ -334,17 +378,17 @@
                         }
                     },
                     
-                    audioEnable : function (){
+                    audioWidgetEnable : function (){
                         localStorage.setItem('audEnable', "true");
-                        var studentSpeaker = document.getElementById('speakerStudent');
+                        var studentSpeaker = document.getElementById('audioWidget');
                         studentSpeaker.className = 'active';
                         studentSpeaker.style.opacity = "1";
                         studentSpeaker.style.pointerEvents = "visible";
                     },
                     
-                    audioDisable : function (){
+                    audioWidgetDisable : function (){
                         localStorage.setItem('audEnable', "false");
-                        var studentSpeaker = document.getElementById('speakerStudent');
+                        var studentSpeaker = document.getElementById('audioWidget');
                         studentSpeaker.style.opacity = "0.5";
                         studentSpeaker.style.pointerEvents = "none";
                         studentSpeaker.className = 'deactive';

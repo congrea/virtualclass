@@ -38,8 +38,6 @@
                 }
                 
                 if(!this.hasOwnProperty('id')){
-                    
-                    
                     //this.dc = window.dirtyCorner;
                     //
                     //this.sutil = window.sutil;
@@ -143,6 +141,8 @@
                     vApp.wss._init();   
                     vApp.wss.initializeRecorder.call(vApp.wss, stream);   
                 }, function (e){
+                    alert(e);
+                    debugger;
                     vApp.wss.onError.call(vApp.ss, e);   
                 });
             
@@ -380,7 +380,7 @@
                         var dh =  breakintobytes(prvVHeight,4);
 
                         var vcw =  breakintobytes(contDimension.width,4); 
-                        var vch =  breakintobytes(2000,4);
+                        var vch =  breakintobytes(contDimension.height,4);
 
                     }else{
                         var dw =  breakintobytes(that.video.offsetWidth,4); 
@@ -721,11 +721,14 @@
             },
             
             dimensionStudentScreen : function (cWidth, cHeight){
-                if(!this.hasOwnProperty('vac')){
-                    this.vac = true;
-                    this.localCanvas = document.getElementById(vApp[app].local+"Video");
-                    this.localCont = vApp[app].localCanvas.getContext('2d');
-                }
+//                if(!this.hasOwnProperty('vac')){
+//                    this.vac = true;
+//                    this.localCanvas = document.getElementById(vApp[app].local+"Video");
+//                    this.localCont = vApp[app].localCanvas.getContext('2d');
+//                }
+                
+                this.localCanvas = document.getElementById(vApp[app].local+"Video");
+                this.localCont = vApp[app].localCanvas.getContext('2d');
                 
               //  this.localCont.clearRect(0, 0, cWidth, cHeight);
                     

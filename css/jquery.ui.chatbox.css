@@ -43,7 +43,7 @@
 .ui-chatbox-input-box {
     margin: 5px 5px 5px 5px;
    /* border: 2px solid lightgrey;*//* #6699FF */
-    height: 27px;
+    height: 24px;
     resize: none;
 }
 
@@ -91,7 +91,7 @@ ui-memblist-usr
     border: 0px;
 }
 .ui-memblist-log {
-    padding: 15px 3px 3px 3px;
+    padding: 4px 0px 3px 0px;
     height: 220px;
     overflow-y: auto;
     background: #FFFFFF;
@@ -224,7 +224,7 @@ ui-memblist-usr
 
 .ui-chatroom-titlebar, .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header{
 	font-weight: normal;
-	padding: 8px 3px;
+	padding: 8px 0px;
 	height: 18px;
 }
 
@@ -332,36 +332,6 @@ ui-memblist-usr
     width:229px;
 }
 
-/*
-.ui-tabs-paging-next {
-   float: right !important;
-}
-.ui-tabs-paging-prev a,
-.ui-tabs-paging-next a {
-   display: block;
-   position: relative;
-   top: 1px;
-   border: 0;
-   z-index: 2;
-   padding: 0px;
-   color: #444;
-   text-decoration: none;
-   background: #eee;
-   cursor: pointer;
-}
-.ui-tabs-paging-next a:hover,
-.ui-tabs-paging-next a:focus,
-.ui-tabs-paging-next a:active,
-.ui-tabs-paging-prev a:hover,
-.ui-tabs-paging-prev a:focus,
-.ui-tabs-paging-prev a:active {
-   background: #eee;
-}
-.ui-tabs-paging-disabled {
-   visibility: hidden;
-}
-*/
-
 
 /*message notification*/
 
@@ -432,42 +402,22 @@ ui-memblist-usr
     padding: 0; /* override moodle textarea css*/
 }
 .ui-widget-header .ui-corner-all{
-    border-radius: 4px;
+    border-radius: 2px;
     border:none;
 }
 .ui-widget-content .ui-corner-all{
     border: none;
-    /* border-radius: 0;*/
+ 
 }
-/*.ui-widget-header{
-  font-weight: normal;
-  text-transform: capitalize;
-}*/
 
-/*.ui-tabs .ui-tabs-nav li.ui-tabs-active{
-   background-color: #fff;
-   background-image: none;
-   margin-top: 0;
-}
-.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br, .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-bl{
-  border-radius: 0;
-}*/
 
 .ui-memblist-usr a{
     text-decoration: none;
 }
-.ui-memblist-usr a img{
-    margin-top: 5px;
-}
+
 .ui-memblist-usr a span{
     font-size: 12px;
     text-transform: capitalize;
-    
-/*    position: relative;
-    top: -6px;
-    margin-left: 12px;
-    padding-left: 25px;
-    padding-top: 8px;*/
     margin-left : 5px; 
 }
 .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
@@ -479,6 +429,7 @@ ui-memblist-usr
     position: relative;
     top: 0px;
     cursor: pointer;
+    border-radius: 0;
 }
 .ui-icon-close{
     margin-top: 4px;
@@ -493,10 +444,4 @@ a.ui-tabs-anchor{
     height: 40px;
 }
 
-/*.ui-widget *,
-.ui-widget *:before,
-.ui-widget *:after {
-    -webkit-box-sizing: content-box !important;
-    -moz-box-sizing: content-box !important;
-    box-sizing: content-box !important;
-}*/
+

@@ -99,6 +99,8 @@
                         var divControl = vApp.user.createControl(fromUserId, controls);
                         divContainer.appendChild(divControl);
                         localStorage.setItem('aId', fromUserId);
+                    }else{
+                        vApp.user.control.addClassToAssign('enable');
                     }
                     
                    //alert('sss uman');

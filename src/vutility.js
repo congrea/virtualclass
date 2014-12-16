@@ -206,8 +206,14 @@
                 vApp[app].localtempCont =  vApp[app].localtempCanvas.getContext('2d');
             },
             
-            videoTeacher2Student : function (id){
+            videoTeacher2Student : function (sid, notPutImage){
+                //vAppScreenShareLocalVideo
+                var app = sid;
+                var id = "vApp" + sid + "LocalVideo";
+                
+                
                 var localVideo = document.getElementById(id);
+                
                 if(localVideo !=  null && localVideo.tagName == "VIDEO"){
                 //    alert('this would not performed');
                     var stCanvas = document.createElement('canvas');
@@ -218,13 +224,13 @@
                     var tempVid = localVideo;
                     localVideo.parentNode.replaceChild(stCanvas, localVideo);
                     var app;
-                    if(vApp.currApp  == 'ScreenShare'){
+                    if(app  == 'ScreenShare'){
                         app = "ss";
-                    }else if(vApp.currApp  == 'WholeScreenShare'){
+                    }else if(app  == 'WholeScreenShare'){
                         app = "wss";
                     }
                     
-                    if(typeof app != 'undefined' && (app == 'ss' || app == 'wss')){
+                    if(typeof notPutImage == 'undefined' && (typeof app != 'undefined' && (app == 'ss' || app == 'wss'))){
                         vApp[app].localCanvas = stCanvas;
                         vApp[app].localCont =  vApp[app].localCanvas.getContext('2d');
 
@@ -233,7 +239,7 @@
                     }
                     
                     //vApp.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
-                    vApp.vutil.removeTempVideo("vApp" + vApp.currApp+"LocalTemp");
+                    vApp.vutil.removeTempVideo("vApp" + sid+"LocalTemp");
                 }
             },
             

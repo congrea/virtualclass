@@ -123,9 +123,14 @@
                         
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
-                    this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
                     
-                    this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    //this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
+                    
+                    if(localStorage.getItem('orginalTeacherId') != null){
+                         this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    }
+                    
+                    
                     //this.createDiv(vApp.appAudioTest + "Tool", "audiotest", appOptCont, 'appOptions');
                     
                     //vApp.vutil.createSlienceDetect();
@@ -152,7 +157,7 @@
                         imgTag.src = '/images/' + text + ".png";
                     }
                     ancTag.appendChild(imgTag);
-                    ancTag.title = '';
+                    //ancTag.title = '';
                     ancTag.dataset.title = text;
                     ancTag.className = 'tooltip';
 

@@ -86,13 +86,12 @@ jQuery.cachedScript = function( url, options ) {
         
         vApp.init(wbUser.role, appIs);
         
-        
-        if(localStorage.getItem('teacherId') != null){
-            if(document.getElementById('speakerStudent') != null){
-                vApp.user.displayStudentSpeaker(false);
-            }
-            
-        }
+// important
+//        if(localStorage.getItem('teacherId') != null){
+//            if(document.getElementById('speakerStudent') != null){
+//                vApp.user.displayStudentSpeaker(false);
+//            }
+//        }
         
         if(window.vApp.error.length > 2){
             window.vApp.error = [];
@@ -110,7 +109,7 @@ jQuery.cachedScript = function( url, options ) {
         if(wbUser.role == 's'){
             var audioEnable = localStorage.getItem('audEnable');
             if(audioEnable != null && audioEnable == 'false'){
-                vApp.user.control.audioDisable();
+                vApp.user.control.audioWidgetDisable();
                 vApp.gObj.audioEnable = false;
             }
         }
@@ -355,13 +354,13 @@ jQuery.cachedScript = function( url, options ) {
                 return;
             }else if (e.message.hasOwnProperty('ena')){
                 if(e.message.toUser == vApp.gObj.uid){
-                    vApp.user.control.audioEnable();
+                    vApp.user.control.audioWidgetEnable();
                     vApp.gObj.audioEnable = true;
                 }
                 return;
             }else if (e.message.hasOwnProperty('dia')){
                 if(e.message.toUser == vApp.gObj.uid){
-                    vApp.user.control.audioDisable();
+                    vApp.user.control.audioWidgetDisable();
                     vApp.gObj.audioEnable = false;
                 }
                 return;
@@ -411,8 +410,9 @@ jQuery.cachedScript = function( url, options ) {
                     vApp.initStudentScreen(e.message);
                 }
                 return;
-            }else if(e.message.hasOwnProperty('unshareScreen')){ //screen share end
-                var app  =  e.message.st;
+            //}else if(e.message.hasOwnProperty('unShareScreen')){ //screen share end
+                }else if(e.message.hasOwnProperty('unshareScreen')){ //screen share end
+                     var app  =  e.message.st;
                // if(e.fromUser.userid != wbUser.id){
                     if(typeof vApp[app] == 'object'){
                         vApp[app].prevImageSlices = [];

@@ -13,7 +13,10 @@
         }
         
         var storage = {
+            
             init : function (){
+                this.reclaim = JSON.parse(vApp.vutil.chkValueInLocalStorage('reclaim'));
+                
                 that = this;
                 
                 //TODO these are not using because audio and video is not using

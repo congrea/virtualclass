@@ -1114,10 +1114,8 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	clear : both;
 }
 
-
-
 #vAppScreenShare, #vAppWholeScreenShare {
-	margin-left : 55px;
+    margin-left : 55px;
 }
 /*.ui-widget-content .controls {
 	clear : both;
@@ -1157,7 +1155,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .audEnableSign {
 	width : 12px;
 	height : 12px;
-	background-image : url('../images/online.png');
+/*	background-image : url('../images/online.png');*/
 	float : left;
 	margin-left : 4px;
 }
@@ -1203,15 +1201,36 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 /* added by suman */
 
 #vAppScreenShare{
-    width : 100%;
+    width : 99%;
 }
 
 #vAppCont{
-    width : 95%;
+    width : 100%;
 }
 
-#commandToolsWrapper{
-    width : 105%;
+#t_reclaim{
+/*    width : 104%;*/
+}
+
+/* this should be write above */
+.student #vAppScreenShare, .student #vAppWholeScreenShare {
+    margin-left : 5px;
+}
+
+.teacher #vAppScreenShare, .teacher #vAppWholeScreenShare{
+    margin-left : 55px;
 }
 
 
+#vAppScreenShare{
+/*    height : auto;*/
+}
+
+
+#vAppCont {
+    height : 99%;
+}
+
+.student #vAppScreenShare{
+    
+}

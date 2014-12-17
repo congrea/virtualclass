@@ -195,6 +195,7 @@
               makeAppReady : function (app, cusEvent){
                   
                   if(app == this.apps[0]){
+                      
                     //vApp.vutil.makeActiveApp("vApp" + app);
                       if(typeof this.ss == 'object'){
                             this.ss.prevStream = false;   

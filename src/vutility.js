@@ -93,8 +93,10 @@
                 //rightsidebar
                 //var rightOffSet = document.getElementById(vApp.rWidgetConfig.id).offsetWidth;
                // var rightOffSet = 20;
-                 var rightOffSet = 20;
+                
+                //var rightOffSet = 20;
                 //alert(vApp.wb.utility.getElementRightOffSet);
+                var rightOffSet = 5;
                 
                // var extraWidth = 25;
                 var extraWidth = 0;
@@ -113,7 +115,9 @@
                 
                 if(appId != 'vAppWhiteboard'){
                     var ssType = document.getElementById(appId + 'Local');
-                    ssType.style.width = res.width + "px";
+                    res.width = res.width - 10;
+                    appCont.style.width = res.width;
+                    ssType.style.width = res.width  + "px";
                     vApp.vutil.setScreenInnerTagsWidth(appId);
                 }
             },

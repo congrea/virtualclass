@@ -480,12 +480,19 @@
                     audioSign : function (user, action){
                         if(action == 'create'){
                             if(document.getElementById(user.id + "AudEnableSign") == null){
+                                //important
                                 var audEnableSign = document.createElement('div');
                                 audEnableSign.id = user.id + "AudEnableSign";
-                                audEnableSign.className = "audEnableSign";
+                                audEnableSign.className = "audEnableSign controleCont";
+                                
+                                var audEnableImg = document.createElement('img');
+                                imgName = "audioenable";
+                                audEnableImg.id = user.id + imgName + "Img";
+                                audEnableImg.src = window.whiteboardPath + "images/" + imgName + ".png";
+                                
+                                audEnableSign.appendChild(audEnableImg);
                                 document.getElementById(user.id + "ControlContainer").appendChild(audEnableSign);
                             }
-                            
                         }else {
                             var audioSign =  document.getElementById(user.id + "AudEnableSign");
                             audioSign.parentNode.removeChild(audioSign);

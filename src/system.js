@@ -69,7 +69,7 @@
                 var element = document.getElementById('vAppCont');
                 var offset = vcan.utility.getElementOffset(element);
                 var offsetLeft = offset.x;
-                
+//                alert(offsetLeft);
                 if (resolution.width < 1024) {
                     var width = 1024 - offsetLeft;
                 } else {
@@ -88,15 +88,26 @@
                 if (typeof vcan.main.canvas != 'undefined') {
                     var canvas = vcan.main.canvas;
                     ctx = vcan.main.canvas.getContext('2d');
-                    canvas.width = measureRes.width;
-                    canvas.height = measureRes.height;
+                    
+                   canvas.width = measureRes.width; 
+                   
+                   //command tools wrapper height
+                   
+                   //to know about 14
+                   var toolWrapperHeight = 45 + 20;
+                   canvas.height = measureRes.height - toolWrapperHeight;
+                   
+//                   alert(window.innerHeight + ' ' +  measureRes.height + ' ' +  canvas.height);
                     
                     //this would be added for moodle clean theme.
                     // as first offset of canvas is different afte put the canvas element.
                     console.log("canvas width " + canvas.width);
                     var element = document.getElementById('canvas');
+                    
                     var offset = vcan.utility.getElementOffset(element);
                     vcan.main.offset.x = offset.x;
+                    
+//                    debugger;
                 }
             },
 

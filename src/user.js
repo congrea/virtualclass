@@ -506,11 +506,13 @@
                                 var enAudAnch = document.createElement('a');
                                 enAudAnch.id = user.id + imgName + "Anch";
                              
-                                enAudAnch.className = "audEnableSign toolTip controleCont";
+                                enAudAnch.className = "audEnableSign tooltip controleCont";
                                 enAudAnch.setAttribute('data-title', "student audio enable");
                                 enAudAnch.appendChild(audEnableImg);
                                 //audEnableSign.appendChild(audEnableImg);
-                                document.getElementById(user.id + "ControlContainer").appendChild(enAudAnch);
+                                
+                                audEnableSign.appendChild(enAudAnch);
+                                document.getElementById(user.id + "ControlContainer").appendChild(audEnableSign);
                             }
                         }else {
                             var audioSign =  document.getElementById(user.id + "AudEnableSign");

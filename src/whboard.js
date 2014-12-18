@@ -190,16 +190,16 @@
 //                    }
                     
                     var cmdToolsWrapper = this.createCommandWrapper();
-                    vApp.wb.createDiv('t_rectangle', 'Rectangle', 'rectangle', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_line', 'Line', 'line', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_freeDrawing', 'Free Drawing', 'freeDrawing', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_oval', 'Oval', 'oval', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_triangle', 'Triangle', 'triangle', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_text', 'Text', 'text', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_activeall', 'Active All', 'activeAll', cmdToolsWrapper, 'tool');
-                    vApp.wb.createDiv('t_clearall', 'Clear All', 'clearAll',  cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_rectangle',  'rectangle', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_line', 'line', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_freeDrawing',  'freeDrawing', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_oval',  'oval', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_triangle', 'triangle', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_text',  'text', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_activeall', 'activeAll', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_clearall', 'clearAll',  cmdToolsWrapper, 'tool');
 
-                    vApp.wb.createDiv('t_replay', 'Replay', 'Replay', cmdToolsWrapper, 'tool');
+                    vApp.wb.createDiv('t_replay', 'replay', cmdToolsWrapper, 'tool');
 
                     vApp.wb.socketOn = parseInt(wbUser.socketOn);
                     if (vApp.wb.socketOn == 1) {
@@ -224,7 +224,9 @@
                  * toolId expect id for command
                  * text expects the text used for particular command
                  */
-                createDiv: function(toolId, text, imgName, cmdToolsWrapper, cmdClass) {
+                createDiv: function(toolId, text, cmdToolsWrapper, cmdClass) {
+                    var imgName = text;
+                    var text =  vApp.lang.getString(text);
                     var ancTag = document.createElement('a');
                     ancTag.href = '#';
 
@@ -245,7 +247,7 @@
                     
 
                     var imgTag = document.createElement('img');
-                    imgTag.alt = vApp.lang.getString(text);
+                    imgTag.alt = text;
                     if(typeof window.whiteboardPath != 'undefined'){
                         imgTag.src = window.whiteboardPath + '/images/' + imgName + ".png";
                     }else{

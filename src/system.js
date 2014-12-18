@@ -29,6 +29,7 @@
 
             isWebRtcSupport : function(navigator, browser, version) {
                 if (browser == 'Firefox') {
+                    
                     if (navigator.mozGetUserMedia) {
                         this.wbRtc.userMedia = true;
                         if (!window.mozRTCPeerConnection) {

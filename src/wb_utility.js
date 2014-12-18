@@ -483,7 +483,7 @@
                     cmdWrapper.parentNode.removeChild(cmdWrapper);
                 },
                 createReclaimButton: function(cmdToolsWrapper) {
-                    vApp.wb.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
+                    vApp.wb.createDiv('t_reclaim', 'reclaim',  cmdToolsWrapper);
                     var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
                     aTags[0].addEventListener('click', vApp.wb.objInit);
                 },
@@ -1202,19 +1202,22 @@
 				
 				disableAppsBar : function (){
 					var appBarCont = document.getElementById('vAppOptionsCont');
-					appBarCont.style.pointerEvents = "none";
+                    if(appBarCont !=  null){
+                        appBarCont.style.pointerEvents = "none";
+                    }
 				},
 				
 				enableAppsBar : function (){
-					var appBarCont = document.getElementById('vAppOptionsCont');
-					appBarCont.style.pointerEvents = "visible";
+                    var appBarCont = document.getElementById('vAppOptionsCont');
+                    if(appBarCont != null){
+                        appBarCont.style.pointerEvents = "visible";
+                    }
 				}
-				
-				
-                
-            };
+	        };
         }
-        window.utility = utility;    
+        window.utility = utility;  
+        
+        
     }
     
 )(window);

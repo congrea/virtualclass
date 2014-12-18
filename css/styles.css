@@ -57,7 +57,7 @@ body {
 	padding-bottom : 17px;
 }
 #vAppOptionsCont .appOptions.active a img {
-	border : #000 solid 1px;
+	border : #006CA6 solid 1px;
 	padding : 2px;
 	border-radius : 3px;
 }
@@ -457,9 +457,10 @@ a[title]:hover:after {
 	background-position : right top;
 	background-repeat : no-repeat;
 }
-#commandToolsWrapper .tool.active a {
-	border-bottom : 1px solid #000;
-}
+
+
+
+
 #commandToolsWrapper #t_assign.controlCmd a {
 	background-image : none;
 	padding-right : 15px;
@@ -1013,7 +1014,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	cursor : pointer;
 	float : right;
 	height : auto;
-	right : 18px;
+	right : 3px;
 	padding-left : 15px;
 	top : 65px;
 	padding-top : 13px;
@@ -1110,9 +1111,38 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-bottom : 4px;
 	margin-left : 2px;
 }
-.ui-memblist-usr a, .ui-memblist-usr img {
-	clear : both;
+
+#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.toolTip img, .controls a.audEnableSign img{
+	background-color: transparent;
+	margin-left: 1px;
+	margin-right: 0px;
+	height: 16px !important;
+	width: 16px !important;
+	min-height: 0 !important;
+	margin-top: 4px;
+	float: left;
+	padding: 2px 2px;
+	border-radius: 3px;
+	border: #ddd solid 1px;
+	margin-bottom: 4px;
+	border: none;
 }
+
+
+#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
+	bottom: -45px;
+	left: -15px;
+}
+ #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls  a.tooltip:hover:after{
+	 bottom: 10px;
+	 left: -50px;
+	 font-size: 11px;
+	 padding-left: 4px;
+	 padding-right: 4px;
+	 
+ }
+
+
 
 #vAppScreenShare, #vAppWholeScreenShare {
     margin-left : 55px;
@@ -1164,13 +1194,19 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 #vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img{margin-left: -5px;padding : 1px;padding-left : 2px; border : transparent solid 1px;}
 #vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.dective a img {
-	border : #669d49 solid 1px !important;
+	border : #006CA6 solid 1px !important;
 	padding : 1px;
 	border-radius : 4px;
 	padding-right : 0;
 	padding-left : 2px;
 	margin-left: -3px;
 }
+
+#vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.dective a img {
+    border : #41AA45 solid 1px !important;
+
+}
+ 
 #vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.dective a img {
 	border : #ec1109 solid 1px !important;
 	margin-left: -3px;
@@ -1231,6 +1267,12 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
     height : 99%;
 }
 
-.student #vAppScreenShare{
-    
+#commandToolsWrapper .tool.active a {
+	border-bottom : 1.5px solid #006CA6;
+	background-image: url(../images/border-img.png), url(../images/arrow-top.png) !important;
+	background-position: right top, center bottom !important;
+	
+}
+.controls a.audEnableSign img{
+	margin-left: -2px;
 }

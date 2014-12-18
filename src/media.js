@@ -1174,18 +1174,5 @@
         };
   
     window.media = media;
-    window.onbeforeunload = function() {
-        //if(typeof window.wholeStoreData != 'undefined'){
-        if(typeof vApp.storage.wholeStoreData != 'undefined'){
-            var obj = JSON.parse(vApp.storage.wholeStoreData);
-            obj.beforeRefresh = true;
-            //vApp.storage.wholeStore(JSON.stringify(obj), "put");
-            vApp.storage.wholeStore(obj, "put");
-        }
-        
-        localStorage.removeItem('otherRole');
-        vApp.wb.utility.userIds = [];
-        cthis.sendMessage('bye');
-        io.disconnect();
-    }
+    
 })(window);

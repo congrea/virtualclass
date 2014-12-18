@@ -52,7 +52,10 @@
             'askForConnect': 'You will be able to perform this action only when other user get connected',
             'msgForReload' : "You will be unable to draw the objects after resizing the window. <br />  So, please reload the page for drawing. ",
             'msgStudentForReload' : "After resizing the window, there can be a problem over the drawn objects, <br />  So, please realod the page for better results ",
-            'reload' : "Reload"
+            'reload' : "Reload",
+            'whiteboard' : 'Whiteboard',
+            'screenshare' : 'Screen Share', 
+            'sessionend' : "Session End"
         };
         window.message = message;
     }

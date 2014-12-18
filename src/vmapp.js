@@ -122,7 +122,11 @@
                     appCont.insertBefore(appOptCont, appCont.firstChild);
                         
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
-                    this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
+                    
+                    if(vApp.system.mybrowser.name == 'Chrome'){
+                        this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
+                    }
+                    
                     
                     //this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
                     
@@ -158,7 +162,8 @@
                     }
                     ancTag.appendChild(imgTag);
                     //ancTag.title = '';
-                    ancTag.dataset.title = text;
+                    
+                    ancTag.dataset.title = vApp.lang.getString(text);;
                     ancTag.className = 'tooltip';
 
                     lDiv.appendChild(ancTag);
@@ -376,6 +381,16 @@
                         vApp[app].drawImages(imgData, d);
                     }else{
                         if(d.hasOwnProperty('w')){
+//                           if(!vApp[app].haswOwnProperty('localCanvas') ){
+//                               vApp[app].localCanvas = document.getElementById(vApp[app].local);
+//                             //  vApp[app].localCont = vApp[app].localCanvas.getContext('2d'); 
+//                           }
+//                           
+//                           if(!vApp[app].haswOwnProperty('localTemp') ){
+//                               vApp[app].localTemp = document.getElementById(vApp[app].localTemp);
+//                               //vApp[app].localTempCont = vApp[app].localTemp.getContext('2d'); 
+//                           }
+                           
                            vApp[app].localCanvas.width = d.w;
                            vApp[app].localCanvas.height = d.h;
                         }

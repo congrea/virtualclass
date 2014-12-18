@@ -94,7 +94,8 @@
                    //command tools wrapper height
                    
                    //to know about 14
-                   var toolWrapperHeight = 45 + 20;
+                   var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
+                   //var toolWrapperHeight = 45 + 20;
                    canvas.height = measureRes.height - toolWrapperHeight;
                    
 //                   alert(window.innerHeight + ' ' +  measureRes.height + ' ' +  canvas.height);

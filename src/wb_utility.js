@@ -889,13 +889,13 @@
                 },
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
-                            if(vApp.storage.reclaim === null){
+                        //    alert(vApp.storage.reclaim);
+                            if(vApp.storage.reclaim === false){
                                 vApp.wb.utility.disableAppsBar();
                             }
                         	
 							vApp.wb.vcan.main.replayObjs = allRepObjs;
                             vApp.wb.utility.clearAll(false, 'dontClear');
-
                             vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(allRepObjs);
                             
                             if (allRepObjs.length > 0) {

@@ -348,9 +348,9 @@
                             
                             if(this.sd){
                                 this.slienceDetection(send, leftSix);
-                                console.log('with silence detection');
+                                //console.log('with silence detection');
                             }else{
-                                console.log('without silence detection');
+                                //console.log('without silence detection');
                                 vApp.wb.utility.audioSend(send);
                                 
                                 //this.slienceDetection(send);

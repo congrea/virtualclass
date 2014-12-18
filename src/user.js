@@ -62,13 +62,13 @@
                 },
                 
                 // important
-                // TODO this function should be normalize
+                // TODO this function should be normalize with other
                 createControlDivs : function (controlCont, userId, controls){
                     var that  = this;
                     
                     //var userObj = localStorage.getItem(userId);
                     var uObj = false;
-                    var userObj = localStorage.getItem(userId);
+                    var userObj = localStorage.getItem('vApp'+userId);
                     
                     if(userObj != null){
                         uObj =  true;
@@ -91,42 +91,45 @@
                             var imgName = "contrAssign";
                             assignImg.id = userId + imgName + "Img";
                             assignImg.src = window.whiteboardPath +  "images/" + imgName + ".png";
-                            assignImg.className = "toolTip";
                             
-                            assignImg.setAttribute('data-title', "assignRole");
+                            var assignAnch = document.createElement('a');
+                            assignAnch.id = userId + imgName + "Anch";
+                            assignAnch.className = "toolTip";
+                            assignAnch.setAttribute('data-title', "Assign Role");
                             
-                            
-//                            var assignAnch = document.createElement('a');
-//                            assignAnch.id = userId + imgName + "Anch";
-//                            assignAnch.className = "tooltip";
-//                            
-//                            assignAnch.appendChild(assignImg);
-//                            
-                            
+                            assignAnch.appendChild(assignImg);
                             
                             var imgCont = document.createElement('div');
                             imgCont.id = userId + imgName + "Cont";
                             imgCont.className = "controleCont";
-                            imgCont.appendChild(assignImg);        
+                            imgCont.appendChild(assignAnch);        
                             
                             controlCont.appendChild(imgCont);
-                            assignImg.className = 'contrAssign';
+                            //assignImg.className = 'contrAssign';
                             vApp.user.control.changeAttrbute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
                             assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
                         
-                        } else if(controls[i] == 'audio'){  
+                        } else if(controls[i] == 'audio'){
                             var audBlock = document.createElement('img');
                             imgName = "contrAud";
                             audBlock.id = userId + imgName + "Img";
                             audBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
                             
-                            audBlock.className = "toolTip";
-                            audBlock.setAttribute('data-title', "audioDisable");
+                            
+                            var audAnch = document.createElement('a');
+                            audAnch.id = userId + imgName + "Anch";
+                            audAnch.className = "toolTip";
+                            audAnch.setAttribute('data-title', "Block Audio");
+                            audAnch.appendChild(audBlock);
+                            
+//                            audBlock.className = "toolTip";
+//                            audBlock.setAttribute('data-title', "audioDisable");
                             
                             var imgCont = document.createElement('div');
                             imgCont.id = userId + imgName + "Cont";
                             imgCont.className = "controleCont";
-                            imgCont.appendChild(audBlock);        
+                            imgCont.appendChild(audAnch);      
+                            
                             controlCont.appendChild(imgCont);
                             
                             if(uObj && userObj.hasOwnProperty('aud')){
@@ -144,14 +147,22 @@
                             imgName = "contrChat";
                             chatBlock.id = userId + imgName + "Img";
                             chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
-                            chatBlock.className = "toolTip";
-                            chatBlock.setAttribute('data-title', "chatDisable"); 
+                          
+//                            chatBlock.className = "toolTip";
+//                            chatBlock.setAttribute('data-title', "chatDisable"); 
+                            
+                            
+                            var chatAnch = document.createElement('a');
+                            chatAnch.id = userId + imgName + "Anch";
+                            chatAnch.className = "toolTip";
+                            chatAnch.setAttribute('data-title', "Block Chat");
+                            chatAnch.appendChild(chatBlock);
                             
                             
                             var imgCont = document.createElement('div');
                             imgCont.id = userId + imgName + "Cont";
                             imgCont.className = "controleCont";
-                            imgCont.appendChild(chatBlock);        
+                            imgCont.appendChild(chatAnch);        
                             controlCont.appendChild(imgCont);
                             
                             chatBlock.addEventListener('click', function (){ that.control.init.call(that, chatBlock);});
@@ -172,11 +183,11 @@
                         if(elemEnable){
                             elem.setAttribute('data-'+control+'-disable', "false");
                             
-                            elem.className =  control+"Img  enable";
+                            elem.className =  control+"Img toolTip enable";
                             vApp.user.control.updateUser(userId, label, true);
                         }else{
                             elem.setAttribute('data-'+control+'-disable', 'true');
-                            elem.className = control+"Img  block";
+                            elem.className = control+"Img toolTip block";
                             vApp.user.control.updateUser(userId, label, false);
                         }
                     },
@@ -463,17 +474,18 @@
                     },
                     
                     updateUser : function (uid, key, val){
-                        var userId =  localStorage.getItem(uid);   
+                        //var userId =  localStorage.getItem(uid);   
+                        var userId =  localStorage.getItem('vApp' + uid);   
                         var uObj = {};
                         if(userId == null){
-                            userId = uid;
-                            uObj.id = userId;
+                            //userId = uid;
+                            uObj.id = uid;
                         }else {
                             uObj = JSON.parse(userId);
                         }
                         uObj[key] = val;
                         
-                        localStorage[uObj.id] = JSON.stringify(uObj);
+                        localStorage['vApp'+uObj.id] = JSON.stringify(uObj);
                         return uObj;
                     },
                     
@@ -483,15 +495,22 @@
                                 //important
                                 var audEnableSign = document.createElement('div');
                                 audEnableSign.id = user.id + "AudEnableSign";
-                                audEnableSign.className = "audEnableSign controleCont";
+                                
+                                
                                 
                                 var audEnableImg = document.createElement('img');
                                 imgName = "audioenable";
                                 audEnableImg.id = user.id + imgName + "Img";
                                 audEnableImg.src = window.whiteboardPath + "images/" + imgName + ".png";
                                 
-                                audEnableSign.appendChild(audEnableImg);
-                                document.getElementById(user.id + "ControlContainer").appendChild(audEnableSign);
+                                var enAudAnch = document.createElement('a');
+                                enAudAnch.id = user.id + imgName + "Anch";
+                             
+                                enAudAnch.className = "audEnableSign toolTip controleCont";
+                                enAudAnch.setAttribute('data-title', "student audio enable");
+                                enAudAnch.appendChild(audEnableImg);
+                                //audEnableSign.appendChild(audEnableImg);
+                                document.getElementById(user.id + "ControlContainer").appendChild(enAudAnch);
                             }
                         }else {
                             var audioSign =  document.getElementById(user.id + "AudEnableSign");
@@ -501,7 +520,7 @@
                     
                     
                     shouldApply : function (uid){
-                        var userObj = localStorage.getItem(uid);
+                        var userObj = localStorage.getItem('vApp'+uid);
                         if(userObj != null){
                            userObj = JSON.parse(userObj);
                            if(userObj.ad){
@@ -524,7 +543,7 @@
                     addClassToAssign : function(action){
                         var allUserElem = document.getElementsByClassName("assignImg");
                         for(var i=0; i<allUserElem.length; i++){
-                            allUserElem[i].className = "assignImg " + action;
+                            allUserElem[i].className = "assignImg toolTip " + action;
                             
                             if(action == 'enable'){
                                  allUserElem[i].setAttribute('data-assign-disable', 'false');

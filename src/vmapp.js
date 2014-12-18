@@ -375,6 +375,10 @@
                     if(d.hasOwnProperty('x')){
                         vApp[app].drawImages(imgData, d);
                     }else{
+                        if(d.hasOwnProperty('w')){
+                           vApp[app].localCanvas.width = d.w;
+                           vApp[app].localCanvas.height = d.h;
+                        }
                         vApp[app].drawImages(imgData);
                     }
                 }

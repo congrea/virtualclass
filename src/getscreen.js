@@ -6,6 +6,7 @@ window.addEventListener('message', function (event) {
     //if (window.navigator.userAgent.match('Chrome')) {
         if (event.data.type == 'gotScreen') {
             
+            delete window.shouldChromExtInstall;
             var constraints;
             if (event.data.sourceId === '') { // user canceled
                 var error = new Error('NavigatorUserMediaError');
@@ -47,56 +48,15 @@ window.addEventListener('message', function (event) {
             }
         } else if (event.data.type == 'getScreenPending') {
             window.clearTimeout(event.data.id);
+        }else if(event.data.type == 'yes') {
+            //alert("suman");
+             vApp.gObj.ext = true;
+           //  window.postMessage({ type: 'getScreen', id: 1 }, '*');
         }
     //}
     
-     vApp.getSceenFirefox = function (){
-               
-        if(window.navigator.userAgent.match('Firefox')){
-
-            var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
-            if (ffver >= 33) {
-                //constraints = (hasConstraints && constraints) || {
-                constraints = {
-                    video: {
-                        mozMediaSource: 'window',
-                        mediaSource: 'window'
-                    }
-                }
-
-                vApp.adpt = new vApp.adapter();
-                navigator2 =  vApp.adpt.init(navigator)
-
-                navigator2.getUserMedia(constraints, function (err, stream) {
-                    //callback(err, stream);
-                    vApp.ss._init();   
-                    vApp.ss.initializeRecorder.call(vApp.ss, stream); 
-
-                    // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810
-                    if (!err) {
-                        var lastTime = stream.currentTime;
-                        var polly = window.setInterval(function () {
-                            if (!stream) window.clearInterval(polly);
-                            if (stream.currentTime == lastTime) {
-                                window.clearInterval(polly);
-                                if (stream.onended) {
-                                    stream.onended();
-                                }
-                            }
-                            lastTime = stream.currentTime;
-                        }, 500);
-                    }
-                },
-                function (error){
-                    alert('there is some ' + error);
-                }
-                );
-            } else {
-                error = new Error('NavigatorUserMediaError');
-                error.name = 'EXTENSION_UNAVAILABLE'; // does not make much sense but...
-            }
-
-        }
-     }
+    
             
-})
+});
+
+        

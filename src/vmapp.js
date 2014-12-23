@@ -122,10 +122,11 @@
                     appCont.insertBefore(appOptCont, appCont.firstChild);
                         
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
+                    this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     
-                    if(vApp.system.mybrowser.name == 'Chrome'){
-                        this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
-                    }
+//                    if(vApp.system.mybrowser.name == 'Chrome'){
+//                        this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
+//                    }
                     
                     
                     //this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
@@ -308,7 +309,7 @@
               },
               
               initlizer : function (elem){
-                 
+//                alert('suman bogati');
                 var appName = elem.parentNode.id.split("vApp")[1];
 //                if(appName == 'AudioTestTool'){
 //                    appName = appName.substring(0, appName.indexOf("Tool"));

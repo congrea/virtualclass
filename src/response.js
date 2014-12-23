@@ -57,6 +57,7 @@
              //   }
             },
             assignRole: function(fromUserId, id, reclaim) {
+				//alert('suman bogati');
                 //alert('sss');
                 //alert('hello brother');
                 //here would be reclaim label

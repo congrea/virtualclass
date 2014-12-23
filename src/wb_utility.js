@@ -370,7 +370,7 @@
                         localStorage.removeItem('teacherId');
                         localStorage.setItem('studentId', tid);
                          
-//                        vApp.wb.utility.uniqueArrOfObjsToStudent();
+                        vApp.wb.utility.uniqueArrOfObjsToStudent();
 //                        if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
 //                            var canvasWrapper = document.getElementById("vcanvas");
 //                            canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');

@@ -742,5 +742,21 @@ jQuery.cachedScript = function( url, options ) {
          Html5Audio.audioContext = new AudioContext();
 
         var encMode = "alaw"; 
+//        setTimeout(
+//            function (){
+//                window.postMessage({ type: 'isInstalled', id: 1 }, '*');
+//            },
+//            500
+//        );
+        
+        //window.postMessage({ type: 'isInstalled', id: 1 }, '*');
+        setTimeout(
+            function (){
+                window.postMessage({ type: 'isInstalled', id: 1 }, '*');
+            },
+            500
+        );
+        
+        //window.postMessage({ type: 'getScreen', id: pending }, '*');
    });
 //});

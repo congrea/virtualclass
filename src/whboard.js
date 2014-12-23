@@ -199,7 +199,7 @@
                     vApp.wb.createDiv('t_activeall', 'activeAll', cmdToolsWrapper, 'tool');
                     vApp.wb.createDiv('t_clearall', 'clearAll',  cmdToolsWrapper, 'tool');
 
-                    vApp.wb.createDiv('t_replay', 'replay', cmdToolsWrapper, 'tool');
+                  //  vApp.wb.createDiv('t_replay', 'replay', cmdToolsWrapper, 'tool');
 
                     vApp.wb.socketOn = parseInt(wbUser.socketOn);
                     if (vApp.wb.socketOn == 1) {

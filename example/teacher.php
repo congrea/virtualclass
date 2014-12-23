@@ -1,3 +1,4 @@
+<head>
 <?php
 
 // This file is part of Moodle - http://moodle.org/
@@ -46,6 +47,8 @@ $whiteboard_path = "https://192.168.1.101/virtualclass/";
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."bundle/jquery/css/base/jquery-ui.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/jquery.ui.chatbox.css" ?> />
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+
 
 <?php
 include('js.debug.php');
@@ -93,32 +96,9 @@ $lname = "Sharma";
 	window.io = io;
     window.whiteboardPath =  'https://192.168.1.101/virtualclass/';
     
-    //these below script should be into audio object
-//    
-//    function convertFloat32ToInt16(buffer) {
-//        l = buffer.length;
-//        buf = new Int16Array(l);
-//        while (l--) {
-//          buf[l] = Math.min(1, buffer[l])*0x7FFF;
-//        }
-//        return buf;
-//    }
-    
-//    var session = {
-//        audio: true,
-//        video: false
-//    };
-//
-//    var recordRTC = null;
-//    var resampler = new Resampler(44100, 8000, 1, 4096);
-//
-//    var Html5Audio = {};
-//    Html5Audio.audioContext = new AudioContext();
-//
-//    var encMode = "alaw"; 
 </script>
 
-
+</head>
 <div id="vAppCont" class="teacher">
     
 

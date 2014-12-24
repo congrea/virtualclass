@@ -613,7 +613,7 @@
                         x = 0;
                         y = 0;
                     }else{
-                        cx = sl  % resA; // for x
+                        cx = sl  % resB; // for x
                         cy = Math.floor(sl / resB); // for y
                         x = cx * dw;
                         y = cy * dh;

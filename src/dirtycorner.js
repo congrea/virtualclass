@@ -145,37 +145,31 @@
 
                 matchWithPrevious : function(newI, oldI, width){
                     var l = oldI.length;
-                    var w = width * 4;
-                    for(var i=0; i<l; i=i+4){ // Quickly Check Forward Diagnal
-                       if ( (! this.matchI (oldI,newI,i))  ) {
+                    var w = width;
+                    for(var i=0; i<l; i=i+1){ // Quickly Check Forward Diagnal
+                       if ( (! this.matchI (oldI[i],newI[i]))  ) {
                            return false;
                        }
                        i = i + w;
                     }
-                    for(var i=0; i<l; i=i-4){ // Quickly Check Backword Diagnal
+                    for(var i=0; i<l; i=i-1){ // Quickly Check Backword Diagnal
                        i = i + w;
-                       if ( (! this.matchI (oldI,newI,i))  ) {
+                       if ( (! this.matchI (oldI[i],newI[i]))  ) {
                            return false;
                        }
                     }
-                    var jump = 22;
+                    var jump = 7;
                     for(var i=0; i<l; i=i+jump){ // Check (all/jump) pixals 
-                        if ( (! this.matchI (oldI,newI,i)) ) {
+                        if ( (! this.matchI (oldI[i],newI[i])) ) {
                             return false;
                         }
                     }
                     return true;
                 },
 
-                matchI : function(oldImageArr,newImageArr,p) {
-                    var quality = 10; // Lower is better but will create more false positive
-                    for (var c=0; c<=2; c++) {
-                        var color = oldImageArr[p + c]; 
-                        var pcolor = newImageArr[p + c];
-                        if( ( Math.abs(color - pcolor) ) > quality ){
-                    //    if( color != pcolor){
-                            return false;
-                        }
+                matchI : function(oldPixel,newPixel) {
+                    if (oldPixel != newPixel) {
+                        return false;
                     }
                     return true;
                 }

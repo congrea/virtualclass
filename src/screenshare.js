@@ -377,6 +377,7 @@
                 //this.localtempCanvas = [];
                 var resA = Math.round(this.localtempCanvas.height/12);
                 var resB = Math.round(this.localtempCanvas.width/12);
+		var masterSlice = null;
 
                 this.imageSlices = this.dc.getImageSlices(resA, resB, this);
                 var that = this;
@@ -563,13 +564,14 @@
                 }
                 
             function addSliceToSingle (encodedData) {
-                if (typeof maserSlice == 'undefined') {
-                    maserSlice = encodedData;
+                if (masterSlice == null) {
+                    masterSlice = encodedData;
                 } else {
-                    var tempslice = new Uint8ClampedArray(maserSlice.length + encodedData.length);
-                    tempslice.set(maserSlice);
-                    tempslice.set(encodedData, maserSlice.length); 
-                    maserSlice = tempslice;
+                    var tempslice = new Uint8ClampedArray(masterSlice.length + encodedData.length);
+                    tempslice.set(masterSlice);
+                    tempslice.set(encodedData, masterSlice.length); 
+                    masterSlice = tempslice;
+                    tempslice = null;
                 }
 
                //return maserSlice;
@@ -591,6 +593,7 @@
             };
 
             function sendDataImageSlices (type){
+		//return true;
                 var localBandwidth = 0;
                 that.localtempCanvas.width = that.video.offsetWidth;
                 that.localtempCanvas.height = that.video.offsetHeight;
@@ -633,10 +636,10 @@
 
                     var localBandwidth = (createdImg.length/128); // In Kbps
                     needFullScreen = 0;
-                } else if (typeof maserSlice != 'undefined') {
-                    io.sendBinary(maserSlice);
-                    var localBandwidth = (maserSlice.length/128); // In Kbps
-                    delete maserSlice;
+                } else if (masterSlice != null) {
+                    io.sendBinary(masterSlice);
+                    var localBandwidth = (masterSlice.length/128); // In Kbps
+                    masterSlice=null;
 
                 }
                 // Calculate Bandwidth in Kbps

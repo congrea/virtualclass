@@ -379,7 +379,7 @@
                 var resB = Math.round(this.localtempCanvas.width/12);
 		var masterSlice = null;
 
-                this.imageSlices = this.dc.getImageSlices(resA, resB, this);
+//                this.imageSlices = this.dc.getImageSlices(resA, resB, this);
                 var that = this;
                 var uniqcount = 0;
                 var uniqmax = (resA * resB)/5;
@@ -548,7 +548,7 @@
                 vApp.sendResizeWindow = function(){
                     resA = Math.round(that.localtempCanvas.height/12);
                     resB = Math.round(that.localtempCanvas.width/12);
-                    that.imageSlices = that.dc.getImageSlices(resA, resB, that);
+//                    that.imageSlices = that.dc.getImageSlices(resA, resB, that);
                     var createdImg =  getDataFullScreenResize(that.type);
                     io.sendBinary(createdImg);
                     changeonresize = 0;
@@ -595,6 +595,10 @@
             function sendDataImageSlices (type){
 		//return true;
                 var localBandwidth = 0;
+                var dw =  Math.round( (that.localtempCanvas.width) / resB);
+                var dh = Math.round( (that.localtempCanvas.height) / resA);
+                var x, y, cx, cy = 0;
+                
                 that.localtempCanvas.width = that.video.offsetWidth;
                 that.localtempCanvas.height = that.video.offsetHeight;
                 that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
@@ -605,7 +609,17 @@
 
                 
                 for (sl=0; sl<(resA * resB); sl++) {
-                    d = that.imageSlices[sl];
+                    if(sl==0){
+                        x = 0;
+                        y = 0;
+                    }else{
+                        cx = sl  % resA; // for x
+                        cy = Math.floor(sl / resB); // for y
+                        x = cx * dw;
+                        y = cy * dh;
+                    }
+                    var d = {'x' : x, 'y' : y, 'w' : dw, 'h' : dh};
+                    
                     
                     imgData = getImageDataCache(d.x, d.y, d.w, d.h, that.video.offsetWidth, that.video.offsetHeight, masterImgData);
                     

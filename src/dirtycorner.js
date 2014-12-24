@@ -109,38 +109,39 @@
                 doClearCanvas : function(){
                     context2.clearRect(0, 0, canvas2.width, canvas2.height)
                 },
-                getImageSlices : function(resA, resB, cApp){
-                    //resB ==  y
-                    //resA ==  x
-                    var imgSlicesArr = [];
-                    var totLen = resA * resB;
-                    
-                    var width =  Math.round( (cApp.localtempCanvas.width) / resB);
-                    var height = Math.round( (cApp.localtempCanvas.height) / resA);
-
-                    for(var i=0; i<totLen; i++){
-                        var eachSlice  = this._getSingleSliceImg(i, width, height, resA, resB);
-                        imgSlicesArr.push(eachSlice);
-                    }
-                    return imgSlicesArr;
-                },
-
-                _getSingleSliceImg : function(i, width, height, resA, resB){
-                    var imgSlice = {};
-                    var cwidth, cheight, cx, cy, ci =  0;
-
-                    if(i==0){
-                        x = 0;
-                        y = 0;
-                    }else{
-                        cx = i  % resB; // for x
-                        cy = Math.floor(i / resB); // for y
-
-                        x = cx * width;
-                        y = cy * height;;
-                    }
-                    return {'x' : x, 'y' : y, 'w' : width, 'h' : height}
-                },
+//                getImageSlices : function(resA, resB, cApp){
+//                    //resB ==  y
+//                    //resA ==  x
+//                    var imgSlicesArr = [];
+//                    var totLen = resA * resB;
+//                    
+//                    var width =  Math.round( (cApp.localtempCanvas.width) / resB);
+//                    var height = Math.round( (cApp.localtempCanvas.height) / resA);
+//                    imgSlicesArr.push = {'w' : width, 'h' : height}
+//
+//                    for(var i=0; i<totLen; i++){
+//                        var eachSlice  = this._getSingleSliceImg(i, width, height, resA, resB);
+//                        imgSlicesArr.push(eachSlice);
+//                    }
+//                    return imgSlicesArr;
+//                },
+//
+//                _getSingleSliceImg : function(i, width, height, resA, resB){
+//                    var imgSlice = {};
+//                    var cwidth, cheight, cx, cy, ci =  0;
+//
+//                    if(i==0){
+//                        x = 0;
+//                        y = 0;
+//                    }else{
+//                        cx = i  % resA; // for x
+//                        cy = Math.floor(i / resB); // for y
+//
+//                        x = cx * width;
+//                        y = cy * height;;
+//                    }
+//                    return {'x' : x, 'y' : y, 'w' : width, 'h' : height}
+//                },
 
                 matchWithPrevious : function(newI, oldI, width){
                     var l = oldI.length;

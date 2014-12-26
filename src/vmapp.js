@@ -78,7 +78,7 @@
                 }
                   
                   //To teacher
-                vApp.user.assignRole(vApp.gObj.uRole, app);
+                    vApp.user.assignRole(vApp.gObj.uRole, app);
                 
                 if(vApp.gObj.uRole == 't'){
                     vcan.utility.canvasCalcOffset(vcan.main.canid);

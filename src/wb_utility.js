@@ -64,6 +64,9 @@
                 clickOutSidebox: function(num) {
                     return (num % 2 != 1) ? true : false;
                 },
+                
+                
+                
                 /**
                  * Through this function the selected object would be deleted
                  * when user press on delete button after selected particular object
@@ -71,19 +74,49 @@
                  */
                 keyOperation: function(evt) {
                     // This is used for removed the selected object.
-                    var currTime = new Date().getTime();
-                    if (evt.keyCode == 8) {
+                    //var currTime = new Date().getTime();
+                    //8 is used for delete on mac 
+                    if (evt.keyCode == 8 || evt.keyCode == 46) {
                         var vcan = vApp.wb.vcan;
                         if (vcan.main.currObj != "") {
-                            vApp.wb.canvas.removeObject(vcan.main.currObj);
-                            var obj = vcan.main.currObj;
-                            var tempObj = vcan.extend({}, obj);
-                            //tempObj = vcan.extend(tempObj, {mdTime:currTime, func:'remove', usrCurrAction : 'delete', lastElement :true});
-                            tempObj = vcan.extend(tempObj, {mt: currTime, func: 'remove', usrCurrAction: 'delete', lastElement: true});
-                            vcan.main.replayObjs.push(tempObj);
-                            vcan.main.currObj = "";
+                            
+                            //vApp.wb.utility.beforeSend({'delItem': true});
+                            var obj = vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
+                            vApp.wb.utility.beforeSend({'repObj': [obj]});
+//                            
+//                            vApp.wb.canvas.removeObject(vcan.main.currObj);
+//                            var obj = vcan.main.currObj;
+//                            var tempObj = vcan.extend({}, obj);
+//                            //tempObj = vcan.extend(tempObj, {mdTime:currTime, func:'remove', usrCurrAction : 'delete', lastElement :true});
+//                            tempObj = vcan.extend(tempObj, {mt: currTime, func: 'remove', usrCurrAction: 'delete', lastElement: true});
+//                            vcan.main.replayObjs.push(tempObj);
+//                            vcan.main.currObj = "";
                         }
                     }
+                },
+                
+                removeSelectedItem : function (obj){
+                    
+//                    var obj = {'mt': currTime, 'ac': 'd', 'x': this.startPosX, 'y': this.startPosY, 'mtext': textObj.text};
+//                    vApp.wb.uid++;
+//                    obj.uid = vApp.wb.uid;
+                    
+                    //{'mt': time, 'ac': action, 'x': x, 'y': y};
+                    vApp.wb.canvas.removeObject(vcan.main.currObj);
+                    var currTime = new Date().getTime();
+                    
+                    var obj = {'mt': currTime, 'ac': 'del'};
+                    vApp.wb.uid++;
+                    obj.uid = vApp.wb.uid;
+                    
+                    //var obj = vcan.main.currObj;
+                    //var tempObj = vcan.extend({}, obj);
+                    //tempObj = vcan.extend(tempObj, {mdTime:currTime, func:'remove', usrCurrAction : 'delete', lastElement :true});
+                  //  tempObj = vcan.extend(tempObj, {mt: currTime, ac: 'del'});
+                    
+                    vcan.main.replayObjs.push(obj);
+                    vcan.main.currObj = "";
+                    return obj;
                 },
                 /**
                  *  Through this function the event handlers attaching  
@@ -414,19 +447,6 @@
                 },
                 
 
-                
-//                connectionOff: function() {
-//                    cthis.isInitiator = false;
-//                    cthis.pc = [];
-//                    cthis.cn = 0;
-//                    cthis.isStarted = false;
-//                    cthis.byCommand = true;
-//                    io.disconnect();
-//                },
-                
-//                connectionOn: function() {
-//                    io.wsconnect();
-//                },
                 
                 dispQueuePacket: function(result) {
                     if ((localStorage.getItem('teacherId') != null) ||
@@ -1034,6 +1054,7 @@
                  * @returns {undefined}
                  */
                 beforeSend : function (msg){
+                    
                     if (msg.hasOwnProperty('createArrow')) {
                           var jobj = JSON.stringify(msg);
                         

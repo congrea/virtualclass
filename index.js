@@ -329,7 +329,16 @@ jQuery.cachedScript = function( url, options ) {
 //                alert('sss');
 //                debugger;
 //            }
-            if(e.message.hasOwnProperty('sad')){
+
+            if(e.message.hasOwnProperty('delItem')){
+                if(vcan.main.currObj != ""){
+                     vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
+                     console.log("remove select Item");
+                }
+               
+
+                return;
+            }else if(e.message.hasOwnProperty('sad')){
                 if(vApp.gObj.uRole == 't'){
                     if(e.message.sad){
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);
@@ -741,7 +750,8 @@ jQuery.cachedScript = function( url, options ) {
          var Html5Audio = {};
          Html5Audio.audioContext = new AudioContext();
 
-        var encMode = "alaw"; 
+         var encMode = "alaw"; 
+         
 //        setTimeout(
 //            function (){
 //                window.postMessage({ type: 'isInstalled', id: 1 }, '*');

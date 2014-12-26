@@ -324,21 +324,16 @@ jQuery.cachedScript = function( url, options ) {
             
         $(document).on("newmessage", function(e){
             vApp.wb.view.removeElement('serverErrorCont');
-                        
-//            if(!e.message.hasOwnProperty('audioSamp') && !e.message.hasOwnProperty('videoByImage')){
-//                alert('sss');
-//                debugger;
-//            }
-
-            if(e.message.hasOwnProperty('delItem')){
-                if(vcan.main.currObj != ""){
-                     vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
-                     console.log("remove select Item");
-                }
-               
-
-                return;
-            }else if(e.message.hasOwnProperty('sad')){
+//            if(e.message.hasOwnProperty('delItem')){
+//                if(vcan.main.currObj != ""){
+//                     vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
+//                     console.log("remove select Item");
+//                }
+//               
+//
+//                return;
+//            }else
+            if(e.message.hasOwnProperty('sad')){
                 if(vApp.gObj.uRole == 't'){
                     if(e.message.sad){
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);

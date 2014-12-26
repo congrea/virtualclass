@@ -323,6 +323,7 @@
                         vcan.main.replayObjs.push(obj);
                         //recorder.items.push(obj);
                         
+                        vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
                         vApp.storage.wholeStore(obj);
                         
                         vApp.wb.utility.beforeSend({'repObj': [obj]}); //after optimized
@@ -380,14 +381,20 @@
 
                     var allChilds = vApp.wb.vcan.getStates('children');
 
-                    if (allChilds.length > 0 && cmd != 't_clearall') {
-                        if (typeof multiuser == 'undefined' || cmd != 't_replay') {
-                            vApp.wb.utility.deActiveFrmDragDrop(); //after optimization NOTE:- this should have to be enable
+
+                    if (allChilds.length > 0 ) {
+                        if(cmd != 't_clearall'){
+                            if (typeof multiuser == 'undefined' || cmd != 't_replay') {
+                                vApp.wb.utility.deActiveFrmDragDrop(); //after optimization NOTE:- this should have to be enable
+                            }
+                            if (multiuser != true && cmd != 't_replay') {
+                                vApp.wb.vcan.renderAll();
+                            }  
                         }
-                        if (multiuser != true && cmd != 't_replay') {
-                            vApp.wb.vcan.renderAll();
-                        }
+                    }else{
+                        vApp.wb.vcan.main.action = "create";
                     }
+                    
                     if (!vApp.wb.utility.IsObjEmpty(vApp.wb.obj.freeDrawObj && multiuser == false)) {
                         vApp.wb.obj.freeDrawObj.freesvg = false;
                     }

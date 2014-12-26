@@ -86,6 +86,7 @@
                         }
 
                         if (!e.detail.hasOwnProperty('cevent')) {
+                            //alert('suman bogati');
                             var currTime = new Date().getTime();
                             var obj = vcan.makeStackObj(currTime, 'd', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                             vApp.wb.uid++;

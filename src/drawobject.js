@@ -47,9 +47,9 @@
 
                 var vcan = wb.vcan;
                 lastmousemovetime = null;
-                if (typeof (Storage) !== "undefined") {
-                    //localStorage.repObjs = "";
-                }
+//                if (typeof (Storage) !== "undefined") {
+//                    //localStorage.repObjs = "";
+//                }
                 tool.startPosX = ev.currX;
                 tool.startPosY = ev.currY;
 
@@ -114,6 +114,7 @@
                 }
                 if (tool.started && wb.tool.cmd != 't_clearall') { //command code inserted after found the problem
                     //this function should be conveted into appended with freedrawing module.
+                    console.log("draw is performing");
                     if (wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true) {
                         if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
                             wb.obj.freeDrawObj.wb_draw(ev);

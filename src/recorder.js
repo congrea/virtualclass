@@ -113,6 +113,7 @@
                         }
                         
                         if(this.objs[this.objNo].hasOwnProperty('uid')){
+                            alert('suman bogati');
                             vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                             var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
                             vcan.main.canvas.dispatchEvent(eventConstruct);

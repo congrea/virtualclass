@@ -108,6 +108,7 @@
             },
             
             store : function (data){
+                //console.log("whiteboard data store");
                 var t = that.db.transaction(["wbData"], "readwrite");  
                 var objectStore = t.objectStore("wbData");
                 objectStore.clear();

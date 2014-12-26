@@ -43,7 +43,7 @@
                         var event = "";
                         if(this.objs[this.objNo].ac == 'del'){
                             if(vcan.main.currObj != ""){
-                                vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
+                                vApp.wb.utility.removeSelectedItem(vcan.main.currObj, true);
                             }
                         }else{
                             if (this.objs[this.objNo].ac == 'd') { 
@@ -66,7 +66,7 @@
                             vcan.main.canvas.dispatchEvent(eventConstruct);
                             
                         }
-                        
+                        //alert(this.objs[this.objNo].uid);
                         vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                     }
 

@@ -95,26 +95,34 @@
                     }
                 },
                 
-                removeSelectedItem : function (obj){
+                removeSelectedItem : function (obj, notIncrement){
+                    //alert("sss");
+                    
                     
 //                    var obj = {'mt': currTime, 'ac': 'd', 'x': this.startPosX, 'y': this.startPosY, 'mtext': textObj.text};
 //                    vApp.wb.uid++;
 //                    obj.uid = vApp.wb.uid;
                     
                     //{'mt': time, 'ac': action, 'x': x, 'y': y};
+                    
                     vApp.wb.canvas.removeObject(vcan.main.currObj);
                     var currTime = new Date().getTime();
                     
                     var obj = {'mt': currTime, 'ac': 'del'};
-                    vApp.wb.uid++;
+                    if(typeof notIncrement == 'undefined'){
+                        vApp.wb.uid++;
+                    }
+                    
                     obj.uid = vApp.wb.uid;
                     
-                    //var obj = vcan.main.currObj;
-                    //var tempObj = vcan.extend({}, obj);
-                    //tempObj = vcan.extend(tempObj, {mdTime:currTime, func:'remove', usrCurrAction : 'delete', lastElement :true});
-                  //  tempObj = vcan.extend(tempObj, {mt: currTime, ac: 'del'});
+                    if(vApp.gObj.uRole == 's'){
+                        vApp.storage.store(JSON.stringify(vApp.wb.gObj.replayObjs));
+                    }else{
+                        vcan.main.replayObjs.push(obj);
+                        vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
+                    }
                     
-                    vcan.main.replayObjs.push(obj);
+                    //vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
                     vcan.main.currObj = "";
                     return obj;
                 },
@@ -1139,6 +1147,8 @@
                     }, 1000);
                 },
                 
+                // important todo
+                // this should be remove not used any where
                 objPutInContainer : function (obj){
                     vcan.main.replayObjs.push(obj);
                     //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);

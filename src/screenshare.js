@@ -234,6 +234,8 @@
                     vApp.wss._init();   
                     vApp.wss.initializeRecorder.call(vApp.wss, stream);   
                 }, function (e){
+                    alert(e);
+                    debugger;
                     vApp.wss.onError.call(vApp.ss, e);   
                 });
             
@@ -380,15 +382,13 @@
                 
                 //alert('it should be share everytime');
                 var tempObj, encodedData, stringData, d, matched, imgData;
+                this.latestScreen = [];
                 //this.localtempCanvas = [];
                 var resA = Math.round(this.localtempCanvas.height/12);
                 var resB = Math.round(this.localtempCanvas.width/12);
-                if (!!window.Worker) {
-                    var sworker = new Worker("https://dev.local.vidya.io/virtualclass/src/screenworker.js"); //TODO Correct Path, especially for min file.
-                }
+		var masterSlice = null;
 
-
-                    //this.imageSlices = this.dc.getImageSlices(resA, resB, this);
+//                this.imageSlices = this.dc.getImageSlices(resA, resB, this);
                 var that = this;
                 var uniqcount = 0;
                 var uniqmax = (resA * resB)/5;
@@ -493,16 +493,22 @@
                     
                     return sendmsg;
                 }
-
-                function breakintobytes (val,l) {
-                    var numstring = val.toString();
-                    for (var i=numstring.length; i < l; i++) {
-                        numstring = '0'+numstring;
-                    }
-                    var parts = numstring.match(/[\S]{1,2}/g) || [];
-                    return parts;
+                
+                function sendSliceData(encodedData, d, stype){
+                    var x = breakintobytes(d.x,4);
+                    var y = breakintobytes(d.y,4);
+                    
+                    var appCode = (stype == 'ss') ? 103 : 203;
+                    
+                    var scode = new Uint8ClampedArray( [ appCode, x[0], x[1], y[0], y[1] , d.h, d.w ] );
+                        
+                    var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+                    sendmsg.set(scode);
+                    sendmsg.set(encodedData, scode.length); 
+                   
+                   return sendmsg;
                 }
-
+                
                 function sendScreen(){
                     clearInterval(vApp.clear);
                     
@@ -551,13 +557,13 @@
                 vApp.sendResizeWindow = function(){
                     resA = Math.round(that.localtempCanvas.height/12);
                     resB = Math.round(that.localtempCanvas.width/12);
-                    //that.imageSlices = that.dc.getImageSlices(resA, resB, that);
+//                    that.imageSlices = that.dc.getImageSlices(resA, resB, that);
                     var createdImg =  getDataFullScreenResize(that.type);
                     io.sendBinary(createdImg);
                     changeonresize = 0;
                 }
                 
-                function w (val,l) {
+                function breakintobytes (val,l) {
                     var numstring = val.toString();
                     for (var i=numstring.length; i < l; i++) {
                         numstring = '0'+numstring;
@@ -566,69 +572,118 @@
                     return parts;
                 }
                 
+            function addSliceToSingle (encodedData) {
+                if (masterSlice == null) {
+                    masterSlice = encodedData;
+                } else {
+                    var tempslice = new Uint8ClampedArray(masterSlice.length + encodedData.length);
+                    tempslice.set(masterSlice);
+                    tempslice.set(encodedData, masterSlice.length); 
+                    masterSlice = tempslice;
+                    tempslice = null;
+                }
 
+               //return maserSlice;
+
+            }
+            /*
+             * https://github.com/youbastard/getImageData
+             */
+
+            var getImageDataCache = function (x, y, w, h, W, H, d) {
+                var arr = new Uint8ClampedArray(w*h), i=0;
+                for (var r=y; r<(h)+y; r+=1) {
+                    for (var c=x; c<(w)+x; c+=1) {
+                        var O = ((r*W) + c); 
+                            arr[i++] = d[O];
+                    }
+                }
+                return arr;
+            };
 
             function sendDataImageSlices (type){
+		//return true;
                 var localBandwidth = 0;
-                that.localtempCanvas.width = that.video.offsetWidth;
-                that.localtempCanvas.height = that.video.offsetHeight;
-                //can be problem for crash
-                that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
-                var needFullScreen = 0;
                 var dw =  Math.round( (that.localtempCanvas.width) / resB);
                 var dh = Math.round( (that.localtempCanvas.height) / resA);
                 var x, y, cx, cy = 0;
+                
+                that.localtempCanvas.width = that.video.offsetWidth;
+                that.localtempCanvas.height = that.video.offsetHeight;
+                that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
+                var needFullScreen = 0;
+                
+                masterImgData = that.localtempCont.getImageData(0,0, that.video.offsetWidth, that.video.offsetHeight);
+                masterImgData = that.dc.encodeRGB(masterImgData.data);
 
-                var masterImgData = that.localtempCont.getImageData(0,0, that.video.offsetWidth, that.video.offsetHeight);
-                //masterImgData = that.dc.encodeRGB(masterImgData.data);
-
-                if (!!window.Worker) {
-                    sworker.postMessage({
-                        img:masterImgData.data,
-                        resA:resA,
-                        resB:resB,
-                        dw:dw,
-                        dh:dh,
-                        offsetWidth:that.video.offsetWidth,
-                        offsetHeight:that.video.offsetHeight,
-                        type:that.type
-                    }, [masterImgData.data.buffer]);
-
-                    sworker.onmessage = function(e) {
-
-                        if (e.data.needFullScreen == 1) { //sending full screen here
-                            var createdImg =  vApp.getDataFullScreen(that.type);
-                            io.sendBinary(createdImg);
-                            var localBandwidth = (createdImg.length/128); // In Kbps
-                        } else if (e.data.masterSlice != null) {
-                            io.sendBinary(e.data.masterSlice);
-                            var localBandwidth = (e.data.masterSlice.length/128); // In Kbps
-                        }
-
-                        // Calculate Bandwidth in Kbps
-                        // Shape Bandwidth
-                        if (localBandwidth <= 300 || typeof localBandwidth == 'undefined') {
-                            screenIntervalTime = 300;
-                        }else if (localBandwidth >= 10000) {
-                            screenIntervalTime=localBandwidth/2;
-                        }
-                        else{
-                            screenIntervalTime=localBandwidth;
-                        }
-                        // Avoid Sharp Curve
-                        if ((pscreenIntervalTime * 4) < screenIntervalTime ) {
-                            screenIntervalTime = pscreenIntervalTime * 4;
-                        }
-                        //console.log ('Bandwidth '+ localBandwidth+'Kbps' + 'New Time ' + screenIntervalTime)
-                        pscreenIntervalTime = screenIntervalTime;
+                
+                for (sl=0; sl<(resA * resB); sl++) {
+                    if(sl==0){
+                        x = 0;
+                        y = 0;
+                    }else{
+                        cx = sl  % resB; // for x
+                        cy = Math.floor(sl / resB); // for y
+                        x = cx * dw;
+                        y = cy * dh;
                     }
+                    var d = {'x' : x, 'y' : y, 'w' : dw, 'h' : dh};
+                    
+                    
+                    imgData = getImageDataCache(d.x, d.y, d.w, d.h, that.video.offsetWidth, that.video.offsetHeight, masterImgData);
+                    
 
+                    if(typeof that.prevImageSlices[sl] != 'undefined'){
+                        matched = that.dc.matchWithPrevious(imgData, that.prevImageSlices[sl], d.w);
+                        if(!matched){
+                            that.prevImageSlices[sl] = imgData;
+                              encodedData = imgData;
+                            tempObj = {'si' : stringData, 'd' : d};
+                            addSliceToSingle(sendSliceData(encodedData, d, that.type));
+                            that.latestScreen[sl] = tempObj; 
+                        }
+
+                    }else{
+                        that.prevImageSlices[sl] = imgData;
+                        encodedData = imgData;
+                        needFullScreen= 1;
+                        tempObj = {'si' : stringData, 'd' : d};
+                        that.latestScreen[sl] = tempObj; 
+                    }
                 }
 
+                if (needFullScreen == 1) { //sending full screen here
+                    //alert(that.type);
+                    var createdImg =  vApp.getDataFullScreen(that.type);
+                    io.sendBinary(createdImg);
+
+                    var localBandwidth = (createdImg.length/128); // In Kbps
+                    needFullScreen = 0;
+                } else if (masterSlice != null) {
+                    io.sendBinary(masterSlice);
+                    var localBandwidth = (masterSlice.length/128); // In Kbps
+                    masterSlice=null;
+
+                }
+                // Calculate Bandwidth in Kbps
+                // Shape Bandwidth
+                if (localBandwidth <= 300) {
+                    screenIntervalTime = 300;
+                }else if (localBandwidth >= 10000) {
+                    screenIntervalTime=localBandwidth/2;
+                } 
+                else{
+                    screenIntervalTime=localBandwidth;
+                }
+                // Avoid Sharp Curve
+                if ((pscreenIntervalTime * 4) < screenIntervalTime ) {
+                    screenIntervalTime = pscreenIntervalTime * 4;
+                }
+                //console.log ('Bandwidth '+ localBandwidth+'Kbps' + 'New Time ' + localBandwidth)
+                pscreenIntervalTime = screenIntervalTime;
             }
-
                 vApp.clear = setInterval(sendScreen, screenIntervalTime);
-
+                
             },
             
             getContainerDimension : function (){
@@ -807,6 +862,17 @@
                         width: container.width
                     };
                 }
+            },
+            
+            
+            //send the latest packet on request of user
+            sendPackets : function (user){
+            //    var encodedString = LZString.compressToBase64(JSON.stringify(this.latestScreen));
+                var encodedString =JSON.stringify(this.latestScreen);
+                var contDimension = this.getContainerDimension();
+                
+                
+                vApp.wb.utility.beforeSend({'resimg' : true, 'si' : encodedString, 'st' : this.type, d : {w:this.width, h:this.height}, vc : {w:contDimension.width, h:contDimension.height}, 'byRequest' : user });                                      
             }
         }
         

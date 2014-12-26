@@ -79,32 +79,13 @@
                     if (evt.keyCode == 8 || evt.keyCode == 46) {
                         var vcan = vApp.wb.vcan;
                         if (vcan.main.currObj != "") {
-                            
-                            //vApp.wb.utility.beforeSend({'delItem': true});
                             var obj = vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
                             vApp.wb.utility.beforeSend({'repObj': [obj]});
-//                            
-//                            vApp.wb.canvas.removeObject(vcan.main.currObj);
-//                            var obj = vcan.main.currObj;
-//                            var tempObj = vcan.extend({}, obj);
-//                            //tempObj = vcan.extend(tempObj, {mdTime:currTime, func:'remove', usrCurrAction : 'delete', lastElement :true});
-//                            tempObj = vcan.extend(tempObj, {mt: currTime, func: 'remove', usrCurrAction: 'delete', lastElement: true});
-//                            vcan.main.replayObjs.push(tempObj);
-//                            vcan.main.currObj = "";
                         }
                     }
                 },
                 
                 removeSelectedItem : function (obj, notIncrement){
-                    //alert("sss");
-                    
-                    
-//                    var obj = {'mt': currTime, 'ac': 'd', 'x': this.startPosX, 'y': this.startPosY, 'mtext': textObj.text};
-//                    vApp.wb.uid++;
-//                    obj.uid = vApp.wb.uid;
-                    
-                    //{'mt': time, 'ac': action, 'x': x, 'y': y};
-                    
                     vApp.wb.canvas.removeObject(vcan.main.currObj);
                     var currTime = new Date().getTime();
                     
@@ -121,8 +102,7 @@
                         vcan.main.replayObjs.push(obj);
                         vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
                     }
-                    
-                    //vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
+
                     vcan.main.currObj = "";
                     return obj;
                 },

@@ -55,7 +55,8 @@
             'reload' : "Reload",
             'whiteboard' : 'Whiteboard',
             'screenshare' : 'Screen Share', 
-            'sessionend' : "Session End"
+            'sessionend' : "Session End",
+            'audioTest' : "Kindly speak some word for audio testing"
         };
         window.message = message;
     }

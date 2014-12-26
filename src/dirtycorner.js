@@ -143,36 +143,7 @@
 //                    return {'x' : x, 'y' : y, 'w' : width, 'h' : height}
 //                },
 
-                matchWithPrevious : function(newI, oldI, width){
-                    var l = oldI.length;
-                    var w = width;
-                    for(var i=0; i<l; i=i+1){ // Quickly Check Forward Diagnal
-                       if ( (! this.matchI (oldI[i],newI[i]))  ) {
-                           return false;
-                       }
-                       i = i + w;
-                    }
-                    for(var i=0; i<l; i=i-1){ // Quickly Check Backword Diagnal
-                       i = i + w;
-                       if ( (! this.matchI (oldI[i],newI[i]))  ) {
-                           return false;
-                       }
-                    }
-                    var jump = 7;
-                    for(var i=0; i<l; i=i+jump){ // Check (all/jump) pixals 
-                        if ( (! this.matchI (oldI[i],newI[i])) ) {
-                            return false;
-                        }
-                    }
-                    return true;
-                },
 
-                matchI : function(oldPixel,newPixel) {
-                    if (oldPixel != newPixel) {
-                        return false;
-                    }
-                    return true;
-                }
 /*
                 matchIShade : function(oldImageArr,newImageArr,p) {
                     return true;

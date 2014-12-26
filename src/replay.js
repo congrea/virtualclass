@@ -41,26 +41,33 @@
 //                        console.log('replay first object ' + this.objs[this.objNo].mt - vApp.wb.pageEnteredTime);
 
                         var event = "";
+                        if(this.objs[this.objNo].ac == 'del'){
+                            if(vcan.main.currObj != ""){
+                                vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
+                            }
+                        }else{
+                            if (this.objs[this.objNo].ac == 'd') { 
+                                event = 'mousedown';
+                            } else if ((this.objs[this.objNo].ac == 'm')) {
+                                event = 'mousemove';
+                            } else if (this.objs[this.objNo].ac == 'u') {
+                                event = 'mouseup';
+                            }
+                            
+                            var currObj = this.objs[this.objNo];
+
+                            if (currObj.hasOwnProperty('mtext')) {
+                                var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
+                            } else {
+                                var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
+                            }
+                            
+                            var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
+                            vcan.main.canvas.dispatchEvent(eventConstruct);
+                            
+                        }
                         
-                        if (this.objs[this.objNo].ac == 'd') {
-                            event = 'mousedown';
-                        } else if ((this.objs[this.objNo].ac == 'm')) {
-                            event = 'mousemove';
-                        } else if (this.objs[this.objNo].ac == 'u') {
-                            event = 'mouseup';
-                        }
-
-                        var currObj = this.objs[this.objNo];
-
-                        if (currObj.hasOwnProperty('mtext')) {
-                            var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
-                        } else {
-                            var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
-                        }
-
                         vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
-                        var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
-                        vcan.main.canvas.dispatchEvent(eventConstruct);
                     }
 
                     if (typeof this.callBkfunc == 'function') {

@@ -41,7 +41,7 @@ include('auth.php');
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://192.168.1.101/virtualclass/";
+$whiteboard_path = "https://dev.local.vidya.io/virtualclass/";
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
@@ -94,7 +94,7 @@ $lname = "Sharma";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://192.168.1.101/virtualclass/';
+    window.whiteboardPath =  'https://dev.local.vidya.io/virtualclass/';
     
 </script>
 
@@ -133,19 +133,19 @@ $lname = "Sharma";
     <div id="speakerPressOnce" class="audioTool active" data-audio-playing="false">
       <a id="speakerPressonceAnch" name="speakerPressonceAnch"><img id=
       "speakerPressonceImg" src=
-      "https://192.168.1.101/virtualclass/images/speakerpressonce.png"
+      "https://dev.local.vidya.io/virtualclass/images/speakerpressonce.png"
       /></a>
     </div>
 
     <div id="audioTest" class="audioTool">
       <a id="audiotestAnch" name="audiotestAnch"><img id="audiotestImg" src=
-      "https://192.168.1.101/virtualclass/images/audiotest.png"
+      "https://dev.local.vidya.io/virtualclass/images/audiotest.png"
       /></a>
     </div>
 
     <div id="silenceDetect" class="audioTool">
       <a id="silenceDetectAnch" name="silenceDetectAnch"><img id="silencedetectImg" src=
-      "https://192.168.1.101/virtualclass/images/silencedetect.png"
+      "https://dev.local.vidya.io/virtualclass/images/silencedetect.png"
       /></a>
     </div>
 </div>

@@ -77,6 +77,9 @@ $lname = "Sharma";
 
 ?>
 <script type="text/javascript">	
+    if (!!window.Worker) {
+        var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
+    }
     <?php echo "name='".$uname."';"; ?>
     <?php echo "id='".$uid."';"; ?>
     <?php echo "sid='".$sid."';";?>

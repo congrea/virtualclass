@@ -383,10 +383,6 @@
                 //this.localtempCanvas = [];
                 var resA = Math.round(this.localtempCanvas.height/12);
                 var resB = Math.round(this.localtempCanvas.width/12);
-                if (!!window.Worker) {
-                    var sworker = new Worker("https://dev.local.vidya.io/virtualclass/src/screenworker.js"); //TODO Correct Path, especially for min file.
-                }
-
 
                     //this.imageSlices = this.dc.getImageSlices(resA, resB, this);
                 var that = this;

@@ -4,12 +4,12 @@
   */
 (
     function(window) {
- 
+
      repMode = false;
      var io = window.io;
-        
-        
-        
+
+
+
     function convertFloat32ToInt16(buffer) {
         l = buffer.length;
         buf = new Int16Array(l);
@@ -17,7 +17,7 @@
           buf[l] = Math.min(1, buffer[l])*0x7FFF;
         }
         return buf;
-    } 
+    }
       var responseErorr = function() {
         console.log("this error is come when the create and answer is occurring");
       }
@@ -30,7 +30,7 @@
       var minthreshold=65535;
       var maxthreshold=0;
       var audiotime=0;
-      
+
       var  media = function() {
             return {
                 isChannelReady: '',
@@ -241,8 +241,6 @@
                             //vApp.gObj.video.audio.attachAudioPressOnce();
                             that.clickOnceSpeaker(this);
                         }else if(this.id == 'audioTest'){
-                            vApp.lang.getString(msg);
-                            
                             var playSound = confirm ("Please say some words for recording the Audio");
                                 if(playSound){
                                   that.testInit();
@@ -336,29 +334,29 @@
                             var samples = this.resampler.resampler(left);
 
                             if(!this.recordAudio){
-                                //this.audioNodes.push(new Float32Array(samples)); 
+                                //this.audioNodes.push(new Float32Array(samples));
                                 this.recordingLength += this.bufferSize;
                             }
-                            
+
                             var leftSix = convertFloat32ToInt16(samples);
-                            
+
                             var send = this.audioInLocalStorage(leftSix);
-                            
+
                             if(this.hasOwnProperty('storeAudio') && this.storeAudio){
                                 this.audioForTesting(leftSix);
                             }
-                            
+
                             if(this.sd){
                                 this.slienceDetection(send, leftSix);
                                 //console.log('with silence detection');
                             }else{
                                 //console.log('without silence detection');
                                 vApp.wb.utility.audioSend(send);
-                                
+
                                 //this.slienceDetection(send);
                             }
                             // Detect Volume and send if required
-                        }   
+                        }
                     },
                     
                     audioInLocalStorage : function (leftSix){
@@ -820,17 +818,17 @@
                             
                             
                             
-                            var d = 1000+ (vApp.gObj.totalUser.length * 1500);
+                            var d = 2000+ (vApp.gObj.totalUser.length * 2500);
                             if (TotalMembers != vApp.gObj.totalUser) {
                                 TotalMembers = vApp.gObj.totalUser.length;
                                 var p = vApp.gObj.totalUser.indexOf(vApp.gObj.uId);
                                 var td = d/TotalMembers;
                                 var md =  p*td;
                                 vApp.gObj.video.smallVid =  setInterval(sendSmallVideo, (d + md));
-                                console.log("send time " + (d + md) + new Date().getSeconds());
+                                //console.log("send time " + (d + md) + new Date().getSeconds());
                             } else {
                                 vApp.gObj.video.smallVid =  setInterval(sendSmallVideo, d);
-                                console.log("send time " + d + new Date().getSeconds());
+                                //console.log("send time " + d + new Date().getSeconds());
                             }
                             
 

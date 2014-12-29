@@ -108,7 +108,7 @@
 
                 doClearCanvas : function(){
                     context2.clearRect(0, 0, canvas2.width, canvas2.height)
-                },
+                }
 //                getImageSlices : function(resA, resB, cApp){
 //                    //resB ==  y
 //                    //resA ==  x

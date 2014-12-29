@@ -405,7 +405,8 @@
                         studentSpeaker.className = 'deactive';
                         vApp.gObj.video.audio.studentNotSpeak();
                         
-                        vApp.gObj.video.audio.clickOnceSpeaker(document.getElementById('speakerPressOnce'), "alwaysDisable");
+                        //vApp.gObj.video.audio.clickOnceSpeaker(document.getElementById('speakerPressOnce'), "alwaysDisable");
+                        vApp.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                  //       document.getElementById('speakerPressOnce').className = 'deactive';
                     },
                     
@@ -431,6 +432,8 @@
                     },
                     
                     disableOnLineUser : function (){
+//                        alert("ram");
+//                        debugger;
                         var allChatDivCont  = document.getElementsByClassName('ui-memblist-usr');  
                         for(var i=0; i<allChatDivCont.length; i++){
                             allChatDivCont[i].style.pointerEvents = "none";

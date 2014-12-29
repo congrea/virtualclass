@@ -69,8 +69,8 @@
                    init : function (){
                           if(vApp.gObj.uRole == 't'){
                                vApp.gObj.audMouseDown = true;    
-                               var tag = document.getElementById('speakerPressOnce');
-                               this.clickOnceSpeaker(tag);
+                              // var tag = document.getElementById('speakerPressOnce');
+                               this.clickOnceSpeaker('speakerPressOnce');
                                
                                //vApp.gObj.video.audio.audioToolInit.call(tag);
                                
@@ -131,11 +131,11 @@
                         
                         this.attachFunctionsToAudioWidget();
                         
-                        if(vApp.gObj.uRole == 's'  && localStorage.getItem('orginalTeacherId') == null){
-                              //can be critical
-                        //    this.attachSpeakToStudent();
-                            //this.makeIconNotDraggable('speakerPressingImg', "speaker2.svg");
-                        }
+//                        if(vApp.gObj.uRole == 's'  && localStorage.getItem('orginalTeacherId') == null){
+//                              //can be critical
+//                        //    this.attachSpeakToStudent();
+//                            //this.makeIconNotDraggable('speakerPressingImg', "speaker2.svg");
+//                        }
                         
                        // this.attachAudioPressOnce();
                         //this.makeIconNotDraggable('speakerPressOnceImg', "speaker.png");
@@ -239,50 +239,55 @@
                         var that = vApp.gObj.video.audio;
                         if(this.id == 'speakerPressOnce'){
                             //vApp.gObj.video.audio.attachAudioPressOnce();
-                            that.clickOnceSpeaker(this);
+                            that.clickOnceSpeaker(this.id);
                         }else if(this.id == 'audioTest'){
-                            var playSound = confirm ("Please say some words for recording the Audio");
-                                if(playSound){
-                                  that.testInit();
-                                }
+//                            vApp.lang.getString('audioTest');
+//                            var playSound = confirm (vApp.lang.getString('audioTest'));
+                            
+                            if(confirm (vApp.lang.getString('audioTest'))){
+                              that.testInit(this.id);
+                            }
                         }else if(this.id == 'silenceDetect'){
+                            var a = this.getElementsByTagName('a')[0];
+                            var img = this.getElementsByTagName('img')[0];
+                            
                             if(that.sd){
                                that.sd = false; 
                                this.className = this.className + " sdDisable";
+//                               a.setAttribute('data-title', vApp.lang.getString('silenceDetectDisable'));
+                               img.src = window.whiteboardPath+"images/silencedetectdisable.png";
+                               
                             }else{
                                that.sd = true;
                                this.className = this.className + " sdEnable";
+                               //this.setAttribute('data-title', vApp.lang.getString('silenceDetectEnable'));
+//                               a.setAttribute('data-title', vApp.lang.getString('silenceDetectEnable'));
+                               var img = this.getElementsByTagName('img')[0];
+                               img.src = window.whiteboardPath+"images/silencedetectenable.png";
+                               
                             }
                         }
                     },
                     
                     attachSpeakToStudent : function (id){
+                        var that = this;
                         var speakerStudent  = document.getElementById(id);
-                        speakerStudent.addEventListener('mousedown', this.studentSpeak);
-                        speakerStudent.addEventListener('mouseup', this.studentNotSpeak);
-                        //document.body.addEventListener('mouseup', this.studentNotSpeak);
-                        //window.addEventListener('mouseup', this.studentNotSpeak);
-                        
-//                        var speakerPressOnce  = document.getElementById('speakerPressOnce');
-//                        speakerPressOnce.setAttribute('data-audio-playing', "false");
-//                        var that = this;
-//                        speakerPressOnce.addEventListener('click', function (){ that.clickOnceSpeaker.call(that, speakerPressOnce)});
+                        speakerStudent.addEventListener('mousedown', this.studentSpeak.bind(that,speakerStudent));
+                        speakerStudent.addEventListener('mouseup', this.studentNotSpeak.bind(that, speakerStudent));
                     },
                     
                     attachAudioPressOnce : function (){
                         var speakerPressOnce  = document.getElementById('speakerPressOnce');
                         speakerPressOnce.setAttribute('data-audio-playing', "false");
                         var that = this;
-                        speakerPressOnce.addEventListener('click', function (){ that.clickOnceSpeaker.call(that, speakerPressOnce)});
+                        speakerPressOnce.addEventListener('click', function (){ that.clickOnceSpeaker.call(that, speakerPressOnce.id)});
                     },
                     
-                    clickOnceSpeaker : function (tag, alwaysDisable){
-//                        alert('sss');
-//                        debugger;
+                    clickOnceSpeaker : function (id, alwaysDisable){
+                        var tag = document.getElementById(id);
                         if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
                             this.studentSpeak();
                             tag.setAttribute('data-audio-playing', "true");
-                            
                             tag.className =   "audioTool active";
 //                            vApp.wb.utility.beforeSend({'sad': true});
 
@@ -290,19 +295,38 @@
 //                            vApp.wb.utility.beforeSend({'sad': false});
                             this.studentNotSpeak();
                             tag.setAttribute('data-audio-playing', "false");
-                            tag.className = "audioTool dective";
+                            tag.className = "audioTool deactive";
                         }
                     },
                     
-                    studentSpeak : function (){
+                    studentSpeak : function (elem){
+                        if(typeof elem != 'undefined'){
+                            elem.classList.remove('deactive');
+                            elem.classList.add('active');
+              
+                        }
+                        
                         vApp.gObj.audMouseDown = true;
                         vApp.wb.utility.beforeSend({'sad': true});
                     },
                     
-                    studentNotSpeak : function (){
+                    studentNotSpeak : function (elem){
 //                        alert('suman bogati');
 //                        debugger;
                         if(vApp.gObj.hasOwnProperty('audMouseDown') &&  vApp.gObj.audMouseDown){
+                            if(typeof elem != 'undefined'){
+                                elem.classList.remove('active');
+                                elem.classList.add('deactive');
+                                
+//                                elem.parentNode.remove('active');
+//                                elem.parentNode.remove('deactive');
+                            }
+                            
+//                            this.clickOnceSpeaker("speakerPressOnce");
+                            var tag = document.getElementById("speakerPressOnce");
+                            tag.setAttribute('data-audio-playing', "false");
+                            tag.className = "audioTool deactive";
+
                             vApp.gObj.audMouseDown = false;
                             vApp.wb.utility.beforeSend({'sad': false});
                         }
@@ -373,16 +397,19 @@
                         return encoded;
                     },
                     
-                    testInit : function (){
+                    testInit : function (id){
+                        var audioTestElem = document.getElementById(id);
+                            audioTestElem.classList.add("audioIsTesting");
+                        
                         vApp.gObj.audioForTest = [];
                         this.storeAudio = true;
-                         var that = this;  
+                        var that = this;  
 
-                         that.otherSound = true;
-                         if(that.hasOwnProperty('testAudio')){
-                             clearTimeout(that.testAudio);
-                         }
-                         var totTestTime = 5000;
+                        that.otherSound = true;
+                        if(that.hasOwnProperty('testAudio')){
+                            clearTimeout(that.testAudio);
+                        }
+                        var totTestTime = 5000;
                           
                         that.testAudio = setTimeout(function (){
                             console.log("set time out is invoking");
@@ -391,7 +418,8 @@
                         
                         setTimeout (
                             function (){
-                                 that.otherSound = false;
+                                audioTestElem.classList.remove("audioIsTesting");
+                                that.otherSound = false;
                             }, ((totTestTime * 2)  + 1000  )
                         )
                         
@@ -1023,14 +1051,17 @@
                 addUserRole : function (id, role){
                     var userDiv = document.getElementById("ml" + id);
                     userDiv.setAttribute("data-role", role);
-                    var earlierClass = userDiv.className;
-                    if(role == 's'){
-                        
-                        userDiv.setAttribute('class', earlierClass +' student');
-                    }else{
-                        userDiv.setAttribute('class', earlierClass +' teacher');
-                    }
-                    
+                   
+//                    var earlierClass = userDiv.className;
+//                    if(role == 's'){
+//                        
+//                        userDiv.setAttribute('class', earlierClass +' student');
+//                    }else{
+//                        userDiv.setAttribute('class', earlierClass +' teacher');
+//                    }
+                    var userType = (role == 's') ? 'student' : 'teacher';
+                    userDiv.classList.add(userType);
+
                 },
                 
                 
@@ -1045,7 +1076,11 @@
 
                         var userDiv = document.getElementById("ml" + vApp.gObj.uid);
                         if(userDiv !=  null){
-                           userDiv.style.pointerEvents = "none";
+                           userDiv.classList.add("mySelf");
+                           
+                           //userDiv.className = userDiv.className;
+                           //userDiv.classList.add("me");
+                           //userDiv.style.pointerEvents = "none";
                         }
 
                         if(typeof stream != 'undefined'){

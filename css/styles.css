@@ -1169,9 +1169,9 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	width : 100%;
 	height : 100%;
 }
-#speakerPressOnce.deactive {
+/*#speakerPressOnce.deactive {
 	border : red solid 1px;
-}
+}*/
 #chat_div .controleCont {
 	margin-top : 7px;
 	float : left;
@@ -1193,7 +1193,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-bottom : 15px;
 }
 #vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img{margin-left: -5px;padding : 1px;padding-left : 2px; border : transparent solid 1px;}
-#vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.dective a img {
+#vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
 	border : #006CA6 solid 1px !important;
 	padding : 1px;
 	border-radius : 4px;
@@ -1202,12 +1202,12 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-left: -3px;
 }
 
-#vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.dective a img {
+#vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
     border : #41AA45 solid 1px !important;
 
 }
  
-#vAppCont.teacher #audioWidget .dective a img, #vAppCont.student #audioWidget .audioTool.dective a img {
+#vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
 	border : #ec1109 solid 1px !important;
 	margin-left: -3px;
 }
@@ -1276,3 +1276,10 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .controls a.audEnableSign img{
 	margin-left: -2px;
 }
+
+
+#chat_div .mySelf, #audioTest.audioIsTesting{
+    pointer-events : none !important;
+    opacity : 0.6;
+}
+

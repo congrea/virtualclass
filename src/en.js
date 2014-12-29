@@ -56,7 +56,9 @@
             'whiteboard' : 'Whiteboard',
             'screenshare' : 'Screen Share', 
             'sessionend' : "Session End",
-            'audioTest' : "Kindly speak some word for audio testing"
+            'audioTest' : "Kindly speak some words for audio testing"
+//            'silenceDetectEnable' : "Silence detect enable",
+//            'silenceDetectDisable' : "Silence detect disable"
         };
         window.message = message;
     }

@@ -1,11 +1,11 @@
 
 var x, y, cx, cy, sl, needFullScreen = 0;
-var tempObj, matched, masterSlice, d, imgData = null;
+var tempObj, matched, masterSlice, d, imgData, encodeDataArr = null;
 var prevImageSlices = [];
 
 onmessage = function(e) {
 
-    e.data.img = encodeRGB(e.data.img);
+    encodeRGB(e.data.img);
 
     for (sl=0; sl<( e.data.resA *  e.data.resB); sl++) {
         if(sl==0){
@@ -19,12 +19,18 @@ onmessage = function(e) {
         }
         d = {'x' : x, 'y' : y, 'w' : e.data.dw, 'h' : e.data.dh};
 
-        imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, e.data.img);
+        imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, encodeDataArr);
 
         if(typeof prevImageSlices[sl] != 'undefined'){
             matched = matchWithPrevious(imgData, prevImageSlices[sl], d.w);
             if(!matched){
-                prevImageSlices[sl] = imgData;
+                if (prevImageSlices[sl].length != imgData.length) {
+                    prevImageSlices[sl] = imgData;
+                }else {
+                    for (var l=0; l<imgData.length; l++) {
+                        prevImageSlices[sl][l] = imgData[l];
+                    }
+                }
                 addSliceToSingle(sendSliceData(imgData, d, e.data.type));
             }
 
@@ -51,7 +57,9 @@ onmessage = function(e) {
 
 var encodeRGB = function(imgData){
     var length = imgData.length/4;
-    var encodeDataArr = new Uint8ClampedArray(length);
+    if (encodeDataArr == null || encodeDataArr.length != length) {
+        encodeDataArr = new Uint8ClampedArray(length);
+    }
     //   int packed = (red / 32 << 5) + (green / 32 << 2) + (blue / 64)
     //(r*6/256)*36 + (g*6/256)*6 + (b*6/256)
     var red, green, blue, encodedData;
@@ -68,7 +76,7 @@ var encodeRGB = function(imgData){
         //        encodeDataArr.push(encodedData);
     }
 
-    return encodeDataArr;
+    //return encodeDataArr;
 };
 
 var sendSliceData = function (encodedData, d, stype){

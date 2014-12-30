@@ -47,7 +47,7 @@ var io = {
             try{
                 if(e.data instanceof ArrayBuffer){
                     $.event.trigger({
-                        type: "newaudio",
+                        type: "binrec",
                         message: e.data
                     });                                     
                 }else{
@@ -198,3 +198,4 @@ var io = {
         console.log("i am closing this connection");
     }
 };
+

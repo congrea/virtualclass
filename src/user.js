@@ -95,7 +95,7 @@
                             var assignAnch = document.createElement('a');
                             assignAnch.id = userId + imgName + "Anch";
                             assignAnch.className = "toolTip";
-                            assignAnch.setAttribute('data-title', "Assign Role");
+                           // assignAnch.setAttribute('data-title', "Assign Role");
                             
                             assignAnch.appendChild(assignImg);
                             
@@ -106,7 +106,7 @@
                             
                             controlCont.appendChild(imgCont);
                             //assignImg.className = 'contrAssign';
-                            vApp.user.control.changeAttrbute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
+                            vApp.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
                             assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
                         
                         } else if(controls[i] == 'audio'){
@@ -119,7 +119,8 @@
                             var audAnch = document.createElement('a');
                             audAnch.id = userId + imgName + "Anch";
                             audAnch.className = "toolTip";
-                            audAnch.setAttribute('data-title', "Block Audio");
+                            
+                         //   audAnch.setAttribute('data-title', "Block Audio");
                             audAnch.appendChild(audBlock);
                             
 //                            audBlock.className = "toolTip";
@@ -137,7 +138,7 @@
                             } else {
                                 var audEnable = true;
                             }
-                            vApp.user.control.changeAttrbute(userId, audBlock, audEnable, 'audio', 'aud');
+                            vApp.user.control.changeAttribute(userId, audBlock, audEnable, 'audio', 'aud');
 
                             
                             audBlock.addEventListener('click', function (){ that.control.init.call(that, audBlock);});
@@ -155,7 +156,7 @@
                             var chatAnch = document.createElement('a');
                             chatAnch.id = userId + imgName + "Anch";
                             chatAnch.className = "toolTip";
-                            chatAnch.setAttribute('data-title', "Block Chat");
+                       //     chatAnch.setAttribute('data-title', "Block Chat");
                             chatAnch.appendChild(chatBlock);
                             
                             
@@ -174,18 +175,26 @@
                             } else {
                                 var chEnable = true;
                             }
-                            vApp.user.control.changeAttrbute(userId, chatBlock, chEnable, 'chat', 'ch');
+                            vApp.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
                         }
                     }
                 },
                 control : {
-                    changeAttrbute : function (userId, elem, elemEnable, control, label){
+                    changeAttribute : function (userId, elem, elemEnable, control, label){
                         if(elemEnable){
+//                            alert('suman');
+//                            debugger;
+                            //var acMsg = vApp.lang.getString(control + "enable");
+                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                             elem.setAttribute('data-'+control+'-disable', "false");
                             
                             elem.className =  control+"Img toolTip enable";
                             vApp.user.control.updateUser(userId, label, true);
+                            
+                            
                         }else{
+                            
+                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                             elem.setAttribute('data-'+control+'-disable', 'true');
                             elem.className = control+"Img toolTip block";
                             vApp.user.control.updateUser(userId, label, false);
@@ -205,16 +214,16 @@
                             var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
                             
 //                            if(tag.getAttribute('data-assign-disable') == 'true'){
-//                                this.control.changeAttrbute(userId, tag, true, 'assign', 'aRole');
+//                                this.control.changeAttribute(userId, tag, true, 'assign', 'aRole');
 //                            }else{
-//                                this.control.changeAttrbute(userId, tag, false, 'assign', 'aRole');
+//                                this.control.changeAttribute(userId, tag, false, 'assign', 'aRole');
 //                            }
 //                            
 //                            
-                           //this.control.changeAttrbute(userId, tag, assignDisable, 'assign', 'aRole');
+                           //this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
                            
                            if(!assignDisable){
-                               this.control.changeAttrbute(userId, tag, assignDisable, 'assign', 'aRole');
+                               this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
                               
                                vApp.user.control._assign(userId);
                                
@@ -241,10 +250,10 @@
                             if(tag.getAttribute('data-chat-disable') == 'true'){
                                 tag.className = 'contrChatBlock';  
                                 action = 'enable';
-                              	this.control.changeAttrbute(userId, tag, true, 'chat', 'ch');
+                              	this.control.changeAttribute(userId, tag, true, 'chat', 'ch');
                             }else{
                                 action = 'block';
-                                this.control.changeAttrbute(userId, tag, false, 'chat', 'ch');
+                                this.control.changeAttribute(userId, tag, false, 'chat', 'ch');
 					        }
                             
                             this.control._chat(userId, action); 
@@ -254,7 +263,7 @@
                             
                             if(tag.getAttribute('data-audio-disable') == 'true'){
                                 action = 'enable';
-                                this.control.changeAttrbute(userId, tag, true, 'audio', 'aud');
+                                this.control.changeAttribute(userId, tag, true, 'audio', 'aud');
 
 //                                tag.setAttribute('data-audio-disable', 'false');
 //                                tag.className = 'enable';
@@ -263,7 +272,7 @@
                                 
                             }else{
                                 action = 'block';
-                                this.control.changeAttrbute(userId, tag, false, 'audio', 'aud');
+                                this.control.changeAttribute(userId, tag, false, 'audio', 'aud');
                                 
                                 
 //                                tag.setAttribute('data-audio-disable', 'true');
@@ -537,9 +546,9 @@
 //                           if(userObj.hasOwnProperty('ch')){
 //                               if(userObj.ch){
 //                               //vApp.user.control.audioSign(elem, "create");
-//                                    this.control.changeAttrbute(userObj.id, elem, false);
+//                                    this.control.changeAttribute(userObj.id, elem, false);
 //                                }else{
-//                                    this.control.changeAttrbute(userObj.id, elem, true);
+//                                    this.control.changeAttribute(userObj.id, elem, true);
 //                                }
 //                           }
                         }

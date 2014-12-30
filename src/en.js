@@ -45,8 +45,7 @@
                     'or click on allow button to share your microphone and camera with other users.',
             'canvasDrawMsg': 'You can click on any tool to draw object ' +
                     'with a mouse click, mouse move and mouse up in the Draw Area',
-            'clearAllWarnMessage': "Would you like to clear all what you have drawn on the whiteboard, " +
-                    "Once you clear the whiteboard, you will never get those drawn objects back.",
+            'clearAllWarnMessage': "Do you want to clear the Whiteboard?",
           //  'con': 'connection on',
             'cof': 'connection off',
             'askForConnect': 'You will be able to perform this action only when other user get connected',
@@ -56,7 +55,13 @@
             'whiteboard' : 'Whiteboard',
             'screenshare' : 'Screen Share', 
             'sessionend' : "Session End",
-            'audioTest' : "Kindly speak some words for audio testing"
+            'audioTest' : "Kindly speak some words for audio testing",
+            'chatEnable' : "Enable the chat", 
+            'chatDisable' : "Disable the chat",
+            'assignEnable' : "Assign role as teacher", 
+            'assignDisable' : "Reclaim teacher role",
+            'audioEnable' : "Enable the audio", 
+            'audioDisable' : "Disable the audio"
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

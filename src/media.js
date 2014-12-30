@@ -332,9 +332,6 @@
                         }
                     },
                     
-                    studentNotSpeak2 : function (){
-                        alert("hi");
-                    },
                     ab2str : function (buf) {
                         return String.fromCharCode.apply(null, new Int8Array(buf));
                     },
@@ -401,10 +398,13 @@
                         var audioTestElem = document.getElementById(id);
                             audioTestElem.classList.add("audioIsTesting");
                         
+                        this.studentNotSpeak();
+                        
                         vApp.gObj.audioForTest = [];
                         this.storeAudio = true;
                         var that = this;  
-
+                        
+                        
                         that.otherSound = true;
                         if(that.hasOwnProperty('testAudio')){
                             clearTimeout(that.testAudio);
@@ -412,6 +412,7 @@
                         var totTestTime = 5000;
                           
                         that.testAudio = setTimeout(function (){
+                            
                             console.log("set time out is invoking");
                             that.playRecordedAudio();
                         }, totTestTime);

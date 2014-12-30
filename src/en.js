@@ -58,8 +58,8 @@
             'audioTest' : "Kindly speak some words for audio testing",
             'chatEnable' : "Enable the chat", 
             'chatDisable' : "Disable the chat",
-            'assignEnable' : "Assign role as teacher", 
-            'assignDisable' : "Reclaim teacher role",
+            'assignEnable' : "Reclaim role", 
+            'assignDisable' : "Assign role as teacher",
             'audioEnable' : "Enable the audio", 
             'audioDisable' : "Disable the audio"
 //            'silenceDetectEnable' : "Silence detect enable",

@@ -182,18 +182,16 @@
                 control : {
                     changeAttribute : function (userId, elem, elemEnable, control, label){
                         if(elemEnable){
-//                            alert('suman');
-//                            debugger;
-                            //var acMsg = vApp.lang.getString(control + "enable");
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                             elem.setAttribute('data-'+control+'-disable', "false");
                             
                             elem.className =  control+"Img toolTip enable";
                             vApp.user.control.updateUser(userId, label, true);
                             
-                            
                         }else{
-                            
+                            if(control == 'assign'){
+                                elem.parentNode.classList.remove('toolTip');
+                            }
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                             elem.setAttribute('data-'+control+'-disable', 'true');
                             elem.className = control+"Img toolTip block";
@@ -211,38 +209,12 @@
                         var control = restString.substring(0, imgPos);
                         
                         if(control == 'Assign'){
-                            var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
-                            
-//                            if(tag.getAttribute('data-assign-disable') == 'true'){
-//                                this.control.changeAttribute(userId, tag, true, 'assign', 'aRole');
-//                            }else{
-//                                this.control.changeAttribute(userId, tag, false, 'assign', 'aRole');
-//                            }
-//                            
-//                            
-                           //this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
-                           
+                           var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
                            if(!assignDisable){
                                this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
-                              
                                vApp.user.control._assign(userId);
-                               
-//                               var allUserElem = document.getElementsByClassName("assignImg");
-//                               for(var i=0; i<allUserElem.length; i++){
-//                                   allUserElem[i].className = "assignImg block";
-//                               }
-
-                             vApp.user.control.addClassToAssign('block');
-                               
+                               vApp.user.control.changeAttrToAssign('block');
                            }
-                           
-//                           addClassToAssign(action){
-//                               var allUserElem = document.getElementsByClassName("assignImg");
-//                               for(var i=0; i<allUserElem.length; i++){
-//                                   allUserElem[i].className = "assignImg " + action;
-//                               }
-//                           }
-                           
                            
                            
                         }else if (control == 'Chat'){
@@ -264,20 +236,9 @@
                             if(tag.getAttribute('data-audio-disable') == 'true'){
                                 action = 'enable';
                                 this.control.changeAttribute(userId, tag, true, 'audio', 'aud');
-
-//                                tag.setAttribute('data-audio-disable', 'false');
-//                                tag.className = 'enable';
-//                                vApp.user.control.updateUser(userId, 'aud', true);
-                                
-                                
                             }else{
                                 action = 'block';
                                 this.control.changeAttribute(userId, tag, false, 'audio', 'aud');
-                                
-                                
-//                                tag.setAttribute('data-audio-disable', 'true');
-//                                tag.className = 'block';
-//                                vApp.user.control.updateUser(userId, 'aud', false);
                             }
                             
                             
@@ -554,17 +515,24 @@
                         }
                     },
                     
-                    addClassToAssign : function(action){
+                    changeAttrToAssign : function(action){
                         var allUserElem = document.getElementsByClassName("assignImg");
+                        
                         for(var i=0; i<allUserElem.length; i++){
-                            allUserElem[i].className = "assignImg toolTip " + action;
                             
                             if(action == 'enable'){
-                                 allUserElem[i].setAttribute('data-assign-disable', 'false');
+                                allUserElem[i].classList.remove('block');
+                                allUserElem[i].classList.add('enable');
+                                allUserElem[i].parentNode.classList.add('toolTip');    
+                                allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignDisable'));
+                                allUserElem[i].setAttribute('data-assign-disable', 'false');
                             }else{
-                                  allUserElem[i].setAttribute('data-assign-disable', 'true');
+                                allUserElem[i].classList.remove('enable');
+                                allUserElem[i].classList.add('block');
+                                allUserElem[i].parentNode.classList.remove('toolTip')
+                                
+                                allUserElem[i].setAttribute('data-assign-disable', 'true');
                             }
-                             
                         }
                     }
                 },

@@ -1,3 +1,4 @@
+<head>
 <?php
 
 // This file is part of Moodle - http://moodle.org/
@@ -30,6 +31,15 @@
 
 include('auth.php');
 
+?>
+
+
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+
+
+<?php
+
 //the www path for whiteboard
 $whiteboard_path = "https://dev.local.vidya.io/virtualclass/";
 ?>
@@ -37,10 +47,19 @@ $whiteboard_path = "https://dev.local.vidya.io/virtualclass/";
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."bundle/jquery/css/base/jquery-ui.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/jquery.ui.chatbox.css" ?> />
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+
 
 <?php
 include('js.debug.php');
 //include('js.php');
+
+?>
+
+
+
+
+<?php
 
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/c190214.js'));
 
@@ -52,16 +71,21 @@ $sid = 101;
 $uid = 101;
 //$r = 's';
 
-$uname = "Student";
+$uname = "studnet";
+$fname = "Student";
+$lname = "Student";
 
 ?>
 <script type="text/javascript">	
+    if (!!window.Worker) {
+        var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
+    }
     <?php echo "name='".$uname."';"; ?>
     <?php echo "id='".$uid."';"; ?>
     <?php echo "sid='".$sid."';";?>
-</script>
+    <?php echo "fname='".$fname."';"; ?>
+    <?php echo "lname='".$lname."';"; ?>
 
-<script type="text/javascript">
 	<?php echo "wbUser.name='$uname';"; ?>
 	<?php echo "wbUser.id='".$uid."';"; ?>
 	<?php echo "wbUser.socketOn='0';"; ?>
@@ -73,82 +97,74 @@ $uname = "Student";
 	window.io = io;
     window.whiteboardPath =  'https://dev.local.vidya.io/virtualclass/';
     
-//     function convertFloat32ToInt16(buffer) {
-//        l = buffer.length;
-//        buf = new Int16Array(l);
-//        while (l--) {
-//          buf[l] = Math.min(1, buffer[l])*0x7FFF;
-//        }
-//        return buf;
-//    }
-//    
-//    var session = {
-//        audio: true,
-//        video: false
-//    };
-//
-//    var recordRTC = null;
-//    var resampler = new Resampler(44100, 8000, 1, 4096);
-//
-//    var Html5Audio = {};
-//    
-//    Html5Audio.audioContext = new AudioContext();
-//    
-//    var encMode = "alaw"; 
 </script>
 
-
-<!--<div id="vAppCont">-->
-<div id="vAppCont" class="student">
+</head>
+<div id="vAppCont" class="teacher">
+    
 
  
-<div id="vAppWhiteboard" class="vmApp">
-    
-   <div id="vcanvas" class="socketon teacher">
-       
-    <div id="containerWb">
-     
+    <div id="vAppWhiteboard" class="vmApp">
+
+       <div id="vcanvas" class="socketon teacher">
+
+        <div id="containerWb">
+
+        </div>
+
+
+        <div id="mainContainer">
+
+          <div id="packetContainer">
+
+          </div>
+
+          <div id="informationCont">
+
+          </div>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+
     </div>
 
 
-    <div id="mainContainer">
-
-      <div id="packetContainer">
-       
-      </div>
-
-      <div id="informationCont">
-        
+<div id="audioWidget">
+    <div id="speakerStudent">
+      <div class="audioTool deactive" id="speakerPressing">
+        <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
+        name="speakerPressingAnch"><img src=
+        "https://dev.local.vidya.io/virtualclass/images/speakerpressing.png"
+        id="speakerPressingImg" /></a>
       </div>
     </div>
 
-    <div class="clear"></div>
+    <div data-audio-playing="false" class="audioTool deactive" id="speakerPressOnce">
+      <a data-title="Press once to speak" class="tooltip" id="speakerPressonceAnch" name=
+      "speakerPressonceAnch"><img src=
+      "https://dev.local.vidya.io/virtualclass/images/speakerpressonce.png"
+      id="speakerPressonceImg" /></a>
+    </div>
+
+    <div class="audioTool" id="audioTest">
+      <a data-title="Audio Testing" class="tooltip" id="audiotestAnch" name=
+      "audiotestAnch"><img src=
+      "https://dev.local.vidya.io/virtualclass/images/audiotest.png"
+      id="audiotestImg" /></a>
+    </div>
+
+    <div class="audioTool" id="silenceDetect">
+      <a data-title="Silence Detection" class="tooltip sdDisable" id="silenceDetectAnch"
+      name="silenceDetectAnch"><img src=
+      "https://dev.local.vidya.io/virtualclass/images/silencedetectdisable.png"
+      id="silencedetectImg" /></a>
+    </div>
   </div>
-    
-</div>
-    
-<!--<div id="widgetRightSide">
-    <div id="allVideosCont">
-        
-    </div>
 
-    <div id="chatContainer">
-    </div>
-    
-</div> -->
-
-<div id="audioWidget"><div id="speakerStudent" class="active"><div id="speakerPressing" class="audioTool"><a id="speakerPressingAnch"><img id="speakerPressingImg" src="https://dev.local.vidya.io/virtualclass/images/speakerpressing.png"></a></div></div><div id="speakerPressOnce" class="audioTool" data-audio-playing="false"><a id="speakerPressonceAnch"><img id="speakerPressonceImg" src="https://dev.local.vidya.io/virtualclass/images/speakerpressonce.png" ></a></div><div id="audioTest" class="audioTool"><a id="audiotestAnch"><img id="audiotestImg" src="https://dev.local.vidya.io/virtualclass/images/audiotest.png" ></a></div><div id="silenceDetect" class="audioTool"><a id="silenceDetectAnch"><img id="silencedetectImg" src="https://dev.local.vidya.io/virtualclass/images/silencedetect.png" ></a></div></div>
-?>
- 
 <div id="chatWidget"> 
-<?php
-//    if($r == 's'){
-//    ?>
-<!--    <div id="speakerStudent"> <img  src="//<?php //echo $whiteboard_path; ?>images/speaker.png" /> </div>-->
-    <?php
-//    }
-?>
     <div id = "stickycontainer"> </div>
 </div>   
     
 </div>
+

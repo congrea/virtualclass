@@ -1204,11 +1204,11 @@
                     
                     
                 },
-                
+                //todo, this shoudl be into user file
                 _reclaimRole : function (){
                     vApp.wb.utility.reclaimRole();
                     vApp.wb.utility.sendRequest('reclaimRole', true);
-                    vApp.user.control.addClassToAssign('enable');
+                    vApp.user.control.changeAttrToAssign('enable');
                 },
 				
 				disableAppsBar : function (){

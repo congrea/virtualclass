@@ -270,10 +270,14 @@
                     },
                     
                     attachSpeakToStudent : function (id){
+//                        alert('suman bogati');
                         var that = this;
                         var speakerStudent  = document.getElementById(id);
-                        speakerStudent.addEventListener('mousedown', this.studentSpeak.bind(that,speakerStudent));
-                        speakerStudent.addEventListener('mouseup', this.studentNotSpeak.bind(that, speakerStudent));
+                        speakerStudent.addEventListener('mousedown', function (){ that.studentSpeak(speakerStudent)});
+                        speakerStudent.addEventListener('mouseup', function (){  that.studentNotSpeak(speakerStudent)});
+                        
+//                        speakerStudent.addEventListener('mousedown', this.studentSpeak.bind(that, speakerStudent));
+//                        speakerStudent.addEventListener('mouseup', this.studentNotSpeak.bind(that, speakerStudent));
                     },
                     
                     attachAudioPressOnce : function (){

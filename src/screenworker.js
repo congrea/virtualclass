@@ -5,54 +5,70 @@ var prevImageSlices = [];
 
 onmessage = function(e) {
 
-    encodeRGB(e.data.img);
+    if (typeof e.data.resize == 'undefined'){
+        encodeRGB(e.data.img);
 
-    for (sl=0; sl<( e.data.resA *  e.data.resB); sl++) {
-        if(sl==0){
-            x = 0;
-            y = 0;
-        }else{
-            cx = sl  % e.data.resB; // for x
-            cy = Math.floor(sl / e.data.resB); // for y
-            x = cx * e.data.dw;
-            y = cy * e.data.dh;
-        }
-        d = {'x' : x, 'y' : y, 'w' : e.data.dw, 'h' : e.data.dh};
-
-        imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, encodeDataArr);
-
-        if(typeof prevImageSlices[sl] != 'undefined'){
-            matched = matchWithPrevious(imgData, prevImageSlices[sl], d.w);
-            if(!matched){
-                if (prevImageSlices[sl].length != imgData.length) {
-                    prevImageSlices[sl] = imgData;
-                }else {
-                    for (var l=0; l<imgData.length; l++) {
-                        prevImageSlices[sl][l] = imgData[l];
-                    }
-                }
-                addSliceToSingle(sendSliceData(imgData, d, e.data.type));
+        for (sl=0; sl<( e.data.resA *  e.data.resB); sl++) {
+            if(sl==0){
+                x = 0;
+                y = 0;
+            }else{
+                cx = sl  % e.data.resB; // for x
+                cy = Math.floor(sl / e.data.resB); // for y
+                x = cx * e.data.dw;
+                y = cy * e.data.dh;
             }
+            d = {'x' : x, 'y' : y, 'w' : e.data.dw, 'h' : e.data.dh};
 
-        }else{
-            prevImageSlices[sl] = imgData;
-            needFullScreen=1;
+            imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, encodeDataArr);
+
+            if(typeof prevImageSlices[sl] != 'undefined'){
+                matched = matchWithPrevious(imgData, prevImageSlices[sl], d.w);
+                if(!matched){
+                    if (prevImageSlices[sl].length != imgData.length) {
+                        prevImageSlices[sl] = imgData;
+                    }else {
+                        for (var l=0; l<imgData.length; l++) {
+                            prevImageSlices[sl][l] = imgData[l];
+                        }
+                    }
+                    addSliceToSingle(sendSliceData(imgData, d, e.data.type));
+                }
+
+            }else{
+                prevImageSlices[sl] = imgData;
+                needFullScreen=1;
+            }
+        }
+        if (masterSlice) {
+            postMessage({
+                masterSlice:masterSlice,
+                needFullScreen:needFullScreen
+            }, [masterSlice.buffer]);
+        } else {
+            postMessage({
+                masterSlice:null,
+                needFullScreen:needFullScreen
+            });
+        }
+
+        needFullScreen=0;
+        masterSlice=null;
+    } else {
+        for (sl=0; sl<( e.data.resA *  e.data.resB); sl++) {
+            if(sl==0){
+                x = 0;
+                y = 0;
+            }else{
+                cx = sl  % e.data.resB; // for x
+                cy = Math.floor(sl / e.data.resB); // for y
+                x = cx * e.data.dw;
+                y = cy * e.data.dh;
+            }
+            d = {'x' : x, 'y' : y, 'w' : e.data.dw, 'h' : e.data.dh};
+            prevImageSlices[sl] = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, e.data.img);
         }
     }
-    if (masterSlice) {
-        postMessage({
-            masterSlice:masterSlice,
-            needFullScreen:needFullScreen
-        }, [masterSlice.buffer]);
-    } else {
-        postMessage({
-            masterSlice:null,
-            needFullScreen:needFullScreen
-        });
-    }
-
-    needFullScreen=0;
-    masterSlice=null;
 };
 
 var encodeRGB = function(imgData){
@@ -121,6 +137,9 @@ var getImageDataCache = function (x, y, w, h, W, H, d) {
 };
 
 var matchWithPrevious = function(newI, oldI, width){
+    if (oldI.length != newI.length) {
+        return false;
+    }
     var l = oldI.length;
     var w = width;
     for(var i=0; i<l; i=i+1){ // Quickly Check Forward Diagnal

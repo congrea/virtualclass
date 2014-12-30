@@ -136,19 +136,19 @@ $lname = "Sharma";
     <div id="speakerPressOnce" class="audioTool active" data-audio-playing="true">
       <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
       "speakerPressonceAnch"><img id="speakerPressonceImg" src=
-      "https://l.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
+      "https://dev.local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
     </div>
 
     <div id="audioTest" class="audioTool">
       <a id="audiotestAnch" class="tooltip" data-title="Audio Testing" name=
       "audiotestAnch"><img id="audiotestImg" src=
-      "https://l.vidya.io/virtualclass/images/audiotest.png" /></a>
+      "https://dev.local.vidya.io/virtualclass/images/audiotest.png" /></a>
     </div>
 
     <div id="silenceDetect" class="audioTool">
       <a id="silenceDetectAnch" class="tooltip sdDisable" data-title="Silence Detection"
       name="silenceDetectAnch"><img id="silencedetectImg" src=
-      "https://l.vidya.io/virtualclass/images/silencedetectdisable.png" /></a>
+      "https://dev.local.vidya.io/virtualclass/images/silencedetectdisable.png" /></a>
     </div>
 </div>
 

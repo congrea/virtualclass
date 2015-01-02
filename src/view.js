@@ -4,9 +4,6 @@
   */
 (
     function(window) {
-//        vApp.wb = window.vApp.wb;
-        
-        //this.init();
         var view = {
             
           init : function (){

@@ -7,54 +7,9 @@
         var response = {
             reclaimRole: function(formUserId, id) {
                 if (formUserId != id) {
-                  //  alert('student window');
-//                    
-//                    vApp.wb.utility.removeToolBox();
-//                    vApp.wb.utility.makeCanvasDisable();
-//                    if (typeof localStorage.teacherId != 'undefined') {
-//                        localStorage.removeItem('teacherId');
-//                    }
-//
-//                    vApp.wb.utility.uniqueArrOfObjsToStudent();
-//
-//                    vApp.wb.view.disappearBox('Canvas');
-//                    vApp.wb.view.disappearBox('drawArea');
-//
-//                    var canvasWrapper = document.getElementById("vcanvas");
-//                    canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
-//
-//                    canvasWrapper.className = 'student';
-//                    localStorage.setItem('canvasDrwMsg', true);
-//                    
-//                    // should be enable
-//                    // if (!vApp.vutil.chkValueInLocalStorage('orginialTeacherId')) {
-//                    //      vApp.wb.utility.setCommandToolHeights(toolHeight, 'decrement');
-//                    // }
-//                    
-//                    vApp.vutil.removeAppPanel();
-                    
                     vApp.user.control._assign(id, 'notsent');
                     vApp.user.displayStudentSpeaker(true);
                 }
-                
-                //else {
-                    
-                    //alert('teacher window');
-                    
-//                    if (vApp.vutil.chkValueInLocalStorage('orginialTeacherId')) {
-//                        var toolHeight = localStorage.getItem('toolHeight');
-//                        vApp.wb.utility.setCommandToolHeights(toolHeight, 'increment');
-//                    }
-//
-//                    vApp.wb.utility.uniqueArrOfObjsToTeacher();
-//                    var canvasWrapper = document.getElementById("vcanvas");
-//                    canvasWrapper.className = canvasWrapper.className.replace(/\bstudent\b/, ' ');
-//                    canvasWrapper.className = 'teacher';
-//                    localStorage.canvasDrwMsg = true;
-                    
-                    //vApp.wb.utility.setStyleUserConnetion('coff', 'con');
-                    
-             //   }
             },
             assignRole: function(fromUserId, id, reclaim) {
                  
@@ -81,18 +36,12 @@
             },
             
             checkUser: function(e, id, storageHasTeacher) {
-//                alert('ss');
-//                debugger;
                 var joinId = e.message.joinId;
-           //     if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher) && (e.fromUser.userid == id) && (e.fromUser.userid == joinId)) {
                 if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher)) {
                     vApp.wb.utility.makeCanvasDisable();
                 }
-                
-                //if (e.fromUser.userid == id ){
-                    vApp.wb.utility.initDefaultInfo(e, wbUser.role);
-                    vApp.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
-                //}
+                vApp.wb.utility.initDefaultInfo(e, wbUser.role);
+                vApp.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
             },
             
             clearAll: function(formUserId, id, eMessage, orginalTeacherId) {

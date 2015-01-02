@@ -3,60 +3,47 @@ window.addEventListener('message', function (event) {
         return;
     }
     
-    //if (window.navigator.userAgent.match('Chrome')) {
-        if (event.data.type == 'gotScreen') {
-            
-            delete window.shouldChromExtInstall;
-            var constraints;
-            if (event.data.sourceId === '') { // user canceled
-                var error = new Error('NavigatorUserMediaError');
-                error.name = 'PERMISSION_DENIED';
-                vApp.ss.onError(error);
-            } else {
-                constraints = constraints || {audio: false, video: {
-                    mandatory: {
-                        chromeMediaSource: 'desktop',
-                        chromeMediaSourceId: event.data.sourceId,
-                        maxWidth : 1440,
-                        maxHeight : 9999
-                    },
+    if (event.data.type == 'gotScreen') {
+        //delete window.shouldChromExtInstall;
+        var constraints;
+        if (event.data.sourceId === '') { // user canceled
+            var error = new Error('NavigatorUserMediaError');
+            error.name = 'PERMISSION_DENIED';
+            vApp.ss.onError(error);
+        } else {
+            constraints = constraints || {audio: false, video: {
+                mandatory: {
+                    chromeMediaSource: 'desktop',
+                    chromeMediaSourceId: event.data.sourceId,
+                    maxWidth : 1440,
+                    maxHeight : 9999
+                },
 
-                    optional: [
-    //                    {maxWidth: window.screen.width},
-    //                    {maxHeight: window.screen.height},
+                optional: [
+                    {maxFrameRate: 3},
+                    {googLeakyBucket: true},
+                    {googTemporalLayeredScreencast: true}
+                ]
+            }};
 
-                        {maxFrameRate: 3},
-                        {googLeakyBucket: true},
-                        {googTemporalLayeredScreencast: true}
-                    ]
-                }};
+            vApp.adpt = new vApp.adapter();
+            navigator2 =  vApp.adpt.init(navigator);
 
-                vApp.adpt = new vApp.adapter();
-                navigator2 =  vApp.adpt.init(navigator);
-//                alert('suman bogati');
-//                debugger;
-                
-                navigator2.getUserMedia(constraints, function (stream){
-                    vApp.ss._init();   
-                    vApp.ss.initializeRecorder.call(vApp.ss, stream);   
-                }, function (e){
-                    debugger;
-                    vApp.ss.onError.call(vApp.ss, e);   
-                });
+            navigator2.getUserMedia(constraints, function (stream){
+                vApp.ss._init();   
+                vApp.ss.initializeRecorder.call(vApp.ss, stream);   
+            }, function (e){
+                debugger;
+                vApp.ss.onError.call(vApp.ss, e);   
+            });
 
-                //the stream we can get here with initalizeRecorder() 
-            }
-        } else if (event.data.type == 'getScreenPending') {
-            window.clearTimeout(event.data.id);
-        }else if(event.data.type == 'yes') {
-            //alert("suman");
-             vApp.gObj.ext = true;
-           //  window.postMessage({ type: 'getScreen', id: 1 }, '*');
+            //the stream we can get here with initalizeRecorder() 
         }
-    //}
-    
-    
-            
+    } else if (event.data.type == 'getScreenPending') {
+        window.clearTimeout(event.data.id);
+    }else if(event.data.type == 'yes') {
+         vApp.gObj.ext = true;
+    }          
 });
 
         

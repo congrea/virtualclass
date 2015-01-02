@@ -8,22 +8,13 @@
         var wbDataArr = [];
         var that;
         
-        function getDetail(){
-            
-        }
-        
         var storage = {
-            
             init : function (){
                 this.reclaim = JSON.parse(vApp.vutil.chkValueInLocalStorage('reclaim'));
-                
                 that = this;
                 
                 //TODO these are not using because audio and video is not using
                 this.tables = ["wbData", "allData", "audioData", "config"];
-                
-                //this.tables = ["wbData", "config"];
-                
                 var openRequest = window.indexedDB.open("vidya_app", 3);
                 
                 openRequest.onerror = function(e) {
@@ -56,19 +47,7 @@
                 
                 openRequest.onsuccess = function(e) {
                     that.db = e.target.result;
-                    //var result = getDetail(t);
                     var currTime = new Date().getTime();
-                    
-//                    function myFunction (result){
-//                        if(typeof result == 'undefined'){
-//                            var t = that.db.transaction(["config"], "readwrite");  
-//                            var objectStore = t.objectStore("config");
-//                            var config = JSON.stringify({createdDate : currTime,  room : wbUser.room});
-//                            objectStore.add({myconfig : config, timeStamp : new Date().getTime()});
-//                        }else{ 
-//                            alert(result.room);
-//                        }
-//                    }
                     
                     that.getAllObjs(that.tables, function (result){
                          if(typeof result == 'undefined'){
@@ -80,30 +59,13 @@
                             var totalTime =  baseDate - roomCreatedTime;
                             //////////////////////1sec-1min--1hr--48hr///////// 
                             if(totalTime > (1000 * 60 * 60 * 60 * 48) || result.room != wbUser.room){
-                           // if(totalTime > (200) || result.room != wbUser.room){
                                 that.config.endSession();
                             }
                         }
                     });
-                    
-//                    that.getAllObjs(that.tables, function (result){
-//                        
-//                        if(typeof result == 'undefined'){
-//                            alert('ss');
-//                            debugger;
-//                            var config = JSON.stringify({createdDate : currTime,  room : wbUser.room});
-//                            objectStore.add({myconfig : config, timeStamp : new Date().getTime()});
-//                        }else{ 
-//                            alert(result.room);
-//                        }
-//                    });
-                    
-                    
                     that.db.onerror = function(event) {
                         console.dir(event.target);
                     };
-                
-                    //that.getAllObjs(that.tables);
                 };
             },
             
@@ -209,15 +171,6 @@
             
             wbData : {
                 handleResult : function (event, cb){
-                    //alert('suman bogati is there');
-//                    var cursor = event.target.result;  
-//                    if (cursor) {
-//                        if(cursor.value.hasOwnProperty('repObjs')){
-//                            vApp.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
-//                        }
-//                        cursor.continue();    
-//                    }
-                    
                     var cursor = event.target.result;  
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('repObjs')){
@@ -249,13 +202,6 @@
                             }else{
                                 vApp.gObj.video.audio.assignFromLocal(adData);
                             }
-                            
-                            
-//                            if(typeof myAudRep != 'undefined'){
-//                                vApp.gObj.video.audio.assignFromLocal(adData, myAudRep);
-//                            }else{
-//                                vApp.gObj.video.audio.assignFromLocal(adData);
-//                            }
                         }
                     }
                  }

@@ -89,27 +89,14 @@
                 if (typeof vcan.main.canvas != 'undefined') {
                     var canvas = vcan.main.canvas;
                     ctx = vcan.main.canvas.getContext('2d');
-                    
-                   canvas.width = measureRes.width; 
-                   
-                   //command tools wrapper height
-                   
-                   //to know about 14
-                   var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
-                   //var toolWrapperHeight = 45 + 20;
-                   canvas.height = measureRes.height - toolWrapperHeight;
-                   
-//                   alert(window.innerHeight + ' ' +  measureRes.height + ' ' +  canvas.height);
-                    
-                    //this would be added for moodle clean theme.
-                    // as first offset of canvas is different afte put the canvas element.
+
+                    canvas.width = measureRes.width; 
+                    var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
+                    canvas.height = measureRes.height - toolWrapperHeight;
                     console.log("canvas width " + canvas.width);
                     var element = document.getElementById('canvas');
-                    
                     var offset = vcan.utility.getElementOffset(element);
                     vcan.main.offset.x = offset.x;
-                    
-//                    debugger;
                 }
             },
 
@@ -148,9 +135,6 @@
          // There could be the problem
         window.addEventListener('resize',
             function (){
-                //vApp.gObj.updateVidContHeight();
-                //vApp.gObj.video.updateVidContHeight();
-                
                 if(window.earlierWidth != window.innerWidth){
                     system.setCanvasDimension();
                 }

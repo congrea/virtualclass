@@ -1,4 +1,3 @@
-
 var x, y, cx, cy, sl, needFullScreen = 0;
 var tempObj, matched, masterSlice, d, imgData, encodeDataArr = null;
 var prevImageSlices = [];

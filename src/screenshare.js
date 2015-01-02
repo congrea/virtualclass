@@ -148,16 +148,13 @@
 
             getScreen: function (callback) {
                 if (vApp.system.mybrowser.name == 'Chrome') {
-//                    alert(vApp.gObj.ext);
                     if (vApp.gObj.hasOwnProperty('ext') && vApp.gObj.ext) {
                         window.postMessage({type: 'getScreen', id: 1}, '*');
                     } else {
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
-                            // window.postMessage({ type: 'getScreen', id: 1 }, '*');
-
-                            //window.location.reload();
-                        });
+                            window.location.reload();
+                            });
                     }
                 } else if (vApp.system.mybrowser.name == 'Firefox') {
                     vApp.getSceenFirefox();
@@ -174,11 +171,8 @@
                             },
 
                             optional: [
-//                        {maxWidth: window.screen.width},
-//                        {maxHeight: window.screen.height},
                                 {maxFrameRate: 3}
                             ]
-
                         }
                     };
 
@@ -288,10 +282,8 @@
                     that.localtempCanvas.height = that.video.offsetHeight;
 
                     vApp.prevScreen = that;
-
                     var res = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
 
-                    //that.initAfterImg();
                     that.sharing();
                     vApp.vutil.setContainerWidth(res);
 
@@ -307,9 +299,6 @@
             },
 
             sharing: function () {
-//                alert('hi brother');
-//                debugger;
-
                 //alert('it should be share everytime');
                 var tempObj, encodedData, stringData, d, matched, imgData;
                 //this.localtempCanvas = [];
@@ -560,24 +549,13 @@
             },
 
             dimensionStudentScreen: function (cWidth, cHeight) {
-//                if(!this.hasOwnProperty('vac')){
-//                    this.vac = true;
-//                    this.localCanvas = document.getElementById(vApp[app].local+"Video");
-//                    this.localCont = vApp[app].localCanvas.getContext('2d');
-//                }
-
                 this.localCanvas = document.getElementById(vApp[app].local + "Video");
                 this.localCont = vApp[app].localCanvas.getContext('2d');
-
-                //  this.localCont.clearRect(0, 0, cWidth, cHeight);
-
                 this.localCanvas.width = cWidth;
                 this.localCanvas.height = cHeight;
             },
 
             dimensionStudentScreenResize: function (msg, vtype) {
-                // alert(this.vac);
-                //  if(typeof this.vac == 'undefined'){
                 if (!this.hasOwnProperty('vac')) {
                     this.vac = true;
                     this.localCanvas = document.getElementById(vApp[app].local + "Video");
@@ -622,21 +600,14 @@
 
                         css(locVidCont, "position:relative");
 
-                        //css(vidCont, "position : absolute; height : 99%");
-                        //css(vidCont, "position : absolute; height : 99%");
-
                     } else {
                         var vidCont = vApp.vutil.createDOM("canvas", this.local + "Video");
                     }
 
-                    //var vidCont =  vApp.vutil.createDOM("canvas", this.id+label+"Video");
-
                     locVidCont.appendChild(vidCont);
                     mainCont.appendChild(locVidCont);
 
-                    //   if(user == 't' && !vApp.hasOwnProperty('repType')){
                     if (user == 't' && !vApp.recorder.recImgPlay) {
-                        //alert(mainCont.id);
                         vApp.vutil.createLocalTempVideo(mainCont, this.localTemp);
                     }
 

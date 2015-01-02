@@ -7,8 +7,6 @@
     function(window) {
         //var rObjs = localStorage.getItem('recObjs');
         var recorder = {
-            
-          //  items :  (rObjs != null) ? JSON.parse(rObjs) : [],
             items : [],
             recImgPlay : false,
             

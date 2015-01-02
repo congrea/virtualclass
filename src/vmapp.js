@@ -5,33 +5,27 @@
  */
 
 (
-  function (window){
-      window.vmApp = function (){
-          //var appName = ["Whiteboard", "ScreenShare", "WholeScreenShare"];
-          
-          return {
-//              wbConfig : { id : "vApp" + appName[0], classes : "appOptions"},
-//              ssConfig : { id : "vApp" + appName[1], classes : "appOptions"},
-//              wssConfig :{ id : "vApp" + appName[2], classes : "appOptions"}, 
-              apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-              appSessionEnd : "vAppSessionEnd",
-              appAudioTest : "vAppAudioTest",
-              //appAudioTestPlay : "vAppAudioTestPlay",
-              rWidgetConfig : {id: 'audioWidget' },
-              wb : "", 
-              ss : "",
-              wss: "",
-              rw : "",
-              lang : {},
-              error: [],
-              gObj : {
-                uid : window.wbUser.id,
-                uRole : window.wbUser.role,
-                uName : window.wbUser.name
-              },
+function (window){
+    window.vmApp = function (){
+        return {
+            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
+            appSessionEnd : "vAppSessionEnd",
+            appAudioTest : "vAppAudioTest",
+            //appAudioTestPlay : "vAppAudioTestPlay",
+            rWidgetConfig : {id: 'audioWidget' },
+            wb : "", 
+            ss : "",
+            wss: "",
+            rw : "",
+            lang : {},
+            error: [],
+            gObj : {
+              uid : window.wbUser.id,
+              uRole : window.wbUser.role,
+              uName : window.wbUser.name
+            },
               
             init : function (urole, app){
-
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
                 this.ssConfig = { id : "vApp" + this.apps[1], classes : "appOptions"};
                 this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
@@ -47,68 +41,57 @@
                 this.currApp = app;
 
                 this.storage = window.storage;
-                
-                
+
+
                 this.dirtyCorner = window.dirtyCorner;
 
                 this.storage.init();
 
                 this.html.init(this);
+                this.adapter = window.adapter;
+                this.makeAppReady(app, "byclick");
 
-//                  alert("LeftOptions");
-//                  //19
-//                  if(urole == 't'){
-//                      this.html.optionsWithWrapper();
-//                      this.attachFunction();
-//                  }
-                  
-                  this.adapter = window.adapter;
-                  this.makeAppReady(app, "byclick");
-                  
-                  //this should be at top
-                  this.system.check();
-                  this.vutil.isSystemCompatible();
-                  
-//                  vApp.user.assignRole(vApp.gObj.uRole, app); 
-                  
-                  //todo convert into function
+                //this should be at top
+                this.system.check();
+                this.vutil.isSystemCompatible();
+
                 vApp.wb.utility.displayCanvas();
                 if(app == this.apps[1]){
                     this.system.setCanvasDimension();
                 }
-                  
+
                   //To teacher
-                    vApp.user.assignRole(vApp.gObj.uRole, app);
-                
+                vApp.user.assignRole(vApp.gObj.uRole, app);
+
                 if(vApp.gObj.uRole == 't'){
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                 }
-                  
+
                 this.gObj.video = new window.vApp.media();
                 this.initSocketConn();                  
                 
-              },
+            },
               
-              initSocketConn : function (){
-                  //window.imageurl = "http://localhost/whiteboard/images/quality-support.png";
-                  if(this.system.webSocket){
-                    var wbUser = window.wbUser;
-                    vApp.uInfo = {
-                        'userid':wbUser.id, 
-                        'sid':wbUser.sid,
-                        'rid': wbUser.path,
-                        'authuser':wbUser.auth_user,
-                        'authpass':wbUser.auth_pass,
-                        'userobj': {'userid':wbUser.id,'name':wbUser.name, 'img' : window.imageurl, role :  wbUser.role},
-                        'room':wbUser.room
-                        };
-                        io.init(vApp.uInfo);
-                        window.userdata = vApp.uInfo;
-                    }
+            initSocketConn : function (){
+                //window.imageurl = "http://localhost/whiteboard/images/quality-support.png";
+                if(this.system.webSocket){
+                  var wbUser = window.wbUser;
+                  vApp.uInfo = {
+                      'userid':wbUser.id, 
+                      'sid':wbUser.sid,
+                      'rid': wbUser.path,
+                      'authuser':wbUser.auth_user,
+                      'authpass':wbUser.auth_pass,
+                      'userobj': {'userid':wbUser.id,'name':wbUser.name, 'img' : window.imageurl, role :  wbUser.role},
+                      'room':wbUser.room
+                      };
+                      io.init(vApp.uInfo);
+                      window.userdata = vApp.uInfo;
+                  }
         
-              },
+            },
               
-              html : {
+            html : {
                 id : "vAppCont",
                 optionsClass : "appOptions",
                 init : function (cthis){
@@ -116,7 +99,6 @@
                 },
                 
                 optionsWithWrapper : function (){
-//                    alert('suman bogati');
                     var appCont = document.getElementById(this.id);
                     var appOptCont =  this.createElement('div', 'vAppOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
@@ -124,23 +106,10 @@
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     
-//                    if(vApp.system.mybrowser.name == 'Chrome'){
-//                        this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
-//                    }
-                    
-                    
-                    //this.createDiv(vApp.wssConfig.id + "Tool", "wholescreenshare", appOptCont, vApp.wssConfig.classes);
-                    
                     if(localStorage.getItem('orginalTeacherId') != null){
                          this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                     
-                    
-                    //this.createDiv(vApp.appAudioTest + "Tool", "audiotest", appOptCont, 'appOptions');
-                    
-                    //vApp.vutil.createSlienceDetect();
-                    
-                    //this.createDiv(vApp.appAudioTestPlay + "Tool", "audiotestplay", appOptCont, 'appOptions');
                 },  
                 
                 createDiv: function(toolId, text, cmdToolsWrapper, cmdClass, toBeReplace) {
@@ -175,9 +144,7 @@
                     }else{
                         cmdToolsWrapper.appendChild(lDiv);
                     }
-                    
                 },
-                
                 
                 //todo transfered into vutility
                 createElement : function (tag, id, _class){
@@ -199,13 +166,10 @@
               
               
               makeAppReady : function (app, cusEvent){
-                  
                   if(app == this.apps[0]){
-                      
-                    //vApp.vutil.makeActiveApp("vApp" + app);
-                      if(typeof this.ss == 'object'){
-                            this.ss.prevStream = false;   
-                       } 
+                        if(typeof this.ss == 'object'){
+                              this.ss.prevStream = false;   
+                        } 
                       
                         if(typeof this.previous != 'undefined'){
                             if(typeof cusEvent != 'undefined' && cusEvent == "byclick"){
@@ -237,11 +201,6 @@
 
                             this.wb.bridge = window.bridge;
                             this.wb.response = window.response;
-                            
-                            
-                           // this.wb.utility.displayCanvas();
-                            
-                            //this.wb.utility.replayFromLocalStroage();
                             var olddata = "";
                             this.wb.utility.initUpdateInfo(olddata);
                             
@@ -260,18 +219,11 @@
                         // after received image with teacher role.
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){
-                            //alert('whiteboard exist');
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
-                            
-                            
                             if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
                                 vApp.wb.utility.makeCanvasEnable();  
                             }
-                            
-                          //alert(cusEvent);
-                          
                             vApp.wb.utility.makeCanvasEnable();
-
                         }
                         this.previous = this.wbConfig.id;
                         this.prevApp = this.wbConfig.id;
@@ -281,11 +233,9 @@
                             this.ss = new window.screenShare(vApp.ssConfig);
                         }
                         this.ss.init({type: 'ss', app : app});
-                        
-                        //this.previous = vApp.ssConfig.id;
                   }else if(app == this.apps[2]){
                       if(typeof this.wss != 'object'){
-                            this.wss = new window.screenShare(vApp.wssConfig);
+                        this.wss = new window.screenShare(vApp.wssConfig);
                       }
                       this.wss.init({type: 'wss', app : app});
                   }
@@ -296,10 +246,7 @@
               attachFunction :function (){
                   var allAppOptions = document.getElementsByClassName("appOptions");
                   for(var i=0; i<allAppOptions.length; i++){
-                      //allAppOptions[i].onclick = this.initlizer.bind(this, allAppOptions[i]);
                       var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
-//                      anchTag.addEventListener('click', this.initlizer);
-                      
                       var that = this;
                       clickedAnchor = anchTag;
                       anchTag.onclick = function (){
@@ -308,21 +255,8 @@
                   }
               },
               
-              initlizer : function (elem){
-//                alert('suman bogati');
+            initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
-//                if(appName == 'AudioTestTool'){
-//                    appName = appName.substring(0, appName.indexOf("Tool"));
-//                   
-//                    var playSound = confirm ("Please say some words for recording the Audio");
-//                    if(playSound){
-//                        vApp.gObj.video.audio.testInit();
-//                    }
-//                    
-//                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
-//                    vApp.prevApp = "vApp" + appName;
-//                } else 
-                    
                 if(appName == 'SessionEndTool'){
                     appName = appName.substring(0, appName.indexOf("Tool"));
                    
@@ -333,7 +267,6 @@
                     if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
                         vApp.prevScreen.unShareScreen();
                     }
-                    
                     vApp.prevApp = "vApp" + appName;
                 } else{
                     appName = appName.substring(0, appName.indexOf("Tool"));
@@ -346,9 +279,9 @@
                 }
               },
               
-              PrvAndCurrIsWss : function (previous, appName){
-                  return (previous == 'vAppWholeScreenShare' && appName == this.apps[2]) ? true : false;
-              },
+            PrvAndCurrIsWss : function (previous, appName){
+                return (previous == 'vAppWholeScreenShare' && appName == this.apps[2]) ? true : false;
+            },
               
               
             initStudentScreen : function (imgData, d, stype, stool){
@@ -382,16 +315,6 @@
                         vApp[app].drawImages(imgData, d);
                     }else{
                         if(d.hasOwnProperty('w')){
-//                           if(!vApp[app].haswOwnProperty('localCanvas') ){
-//                               vApp[app].localCanvas = document.getElementById(vApp[app].local);
-//                             //  vApp[app].localCont = vApp[app].localCanvas.getContext('2d'); 
-//                           }
-//                           
-//                           if(!vApp[app].haswOwnProperty('localTemp') ){
-//                               vApp[app].localTemp = document.getElementById(vApp[app].localTemp);
-//                               //vApp[app].localTempCont = vApp[app].localTemp.getContext('2d'); 
-//                           }
-                           
                            vApp[app].localCanvas.width = d.w;
                            vApp[app].localCanvas.height = d.h;
                         }
@@ -400,71 +323,10 @@
                 }
 
                 vApp.previous =  vApp[app].id;
-            }, 
-              
-             
-              
-            old_initStudentScreen : function (msg, vtype){
-                  
-                app = msg.st; 
-                
-                var stool = (msg.st == 'ss') ? stool = vApp.apps[1] : stool = vApp.apps[2];
-                
-//                //var localVideo = document.getElementById(vApp[app].local+"Video");
-//                
-//                vApp.vutil.videoTeacher2Student("vApp" + vApp.currApp+"LocalVideo");
-//                
-//                var localVideo = document.getElementById("vApp" + vApp.currApp+"LocalVideo");
-//                if(localVideo !=  null && localVideo.tagName == "VIDEO"){
-//                    var stCanvas = document.createElement('canvas');
-//                    stCanvas.id =  localVideo.id;
-//                    stCanvas.width = localVideo.offsetWidth;
-//                    stCanvas.height = localVideo.offsetHeight;
-//                    localVideo.parentNode.replaceChild(stCanvas, localVideo);
-//                    vApp.vutil.removeTempVideo("vApp" + vApp.currApp+"LocalTemp");
-//                }
-
-                  
-                if(typeof vApp[app] != 'object' ){
-                    if(typeof vtype != 'undefined'){
-                        vApp.recorder.recImgPlay = true;
-                    }
-
-                    vApp.makeAppReady(stool);
-                    vApp[app].dimensionStudentScreen(msg);
-
-                }else{
-                    var prvScreen = document.getElementById(vApp.previous);
-                    if(prvScreen != null){
-                        prvScreen.style.display = 'none';
-                        document.getElementById(vApp[app].id).style.display = 'block';
-                    }
-                }
-                if (msg.hasOwnProperty('d')) {
-                    if(typeof prvWidth != 'undefined' && msg.d.w != prvWidth){
-                        //vApp[app].dimensionStudentScreen(msg);
-                        if(typeof vtype == 'undefined'){
-                            vApp[app].dimensionStudentScreen(msg);
-                        }else{
-                            vApp[app].dimensionStudentScreen(msg, vtype);
-                        }
-                    }
-                 }
-                
-                if (msg.hasOwnProperty('d')) {
-                    prvWidth = msg.d.w;
-                    prvHeight = msg.d.h;
-                }
-                
-                vApp.previous =  vApp[app].id;
-                //alert(vApp.previous);
-                vApp[app].drawImages(msg.si);
-                
-              }
+            }
                
-              //TODO remove this function
-              //the same function is defining at script.js
-               
+            //TODO remove this function
+            //the same function is defining at script.js
           }
       }
   }

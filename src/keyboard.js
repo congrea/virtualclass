@@ -40,17 +40,5 @@ function(window) {
             }
         }
     }
-
-    // this is used for demo only.
-    // todo should be into seprate file.
-//    var io = window.io;
-//    function connectionOpen() {
-//        io.wsconnect();
-//    }
-//
-//    function connectionOff() {
-//        io.disconnect();
-//    }
-
     window.keyBoard = keyBoard;
 })(window);

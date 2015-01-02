@@ -41,7 +41,7 @@ include('auth.php');
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://dev.local.vidya.io/virtualclass/";
+$whiteboard_path = "https://local.vidya.io/virtualclass/";
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
@@ -97,7 +97,7 @@ $lname = "Sharma";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://dev.local.vidya.io/virtualclass/';
+    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
     
 </script>
 
@@ -136,19 +136,19 @@ $lname = "Sharma";
     <div id="speakerPressOnce" class="audioTool active" data-audio-playing="true">
       <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
       "speakerPressonceAnch"><img id="speakerPressonceImg" src=
-      "https://dev.local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
+      "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
     </div>
 
     <div id="audioTest" class="audioTool">
       <a id="audiotestAnch" class="tooltip" data-title="Audio Testing" name=
       "audiotestAnch"><img id="audiotestImg" src=
-      "https://dev.local.vidya.io/virtualclass/images/audiotest.png" /></a>
+      "https://local.vidya.io/virtualclass/images/audiotest.png" /></a>
     </div>
 
     <div id="silenceDetect" class="audioTool">
       <a id="silenceDetectAnch" class="tooltip sdDisable" data-title="Silence Detection"
       name="silenceDetectAnch"><img id="silencedetectImg" src=
-      "https://dev.local.vidya.io/virtualclass/images/silencedetectdisable.png" /></a>
+      "https://local.vidya.io/virtualclass/images/silencedetectdisable.png" /></a>
     </div>
 </div>
 

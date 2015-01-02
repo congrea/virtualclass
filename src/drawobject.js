@@ -52,7 +52,10 @@
 //                }
                 tool.startPosX = ev.currX;
                 tool.startPosY = ev.currY;
-
+                
+                vApp.wb.gObj.spx = tool.startPosX;
+                vApp.wb.gObj.spy = tool.startPosY;
+                
                 var currState = vcan.getStates('action');
                 if (currState == 'create') {
                     var currTime = new Date().getTime();

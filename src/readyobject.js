@@ -77,6 +77,7 @@
                     vcan.objTri = new vcan.triangle();
                     vcan.objTri.init(obj);
                 } else if (obj.type == 'text') {
+                    //alert("I dont know");
                     vcan.objTxt = new vcan.text();
                     vcan.objTxt.init(obj);
                 }

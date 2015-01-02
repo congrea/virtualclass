@@ -71,7 +71,9 @@ jQuery.cachedScript = function( url, options ) {
     
     
     $(document).ready(function(){
-       
+        
+        
+        
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
@@ -733,6 +735,7 @@ jQuery.cachedScript = function( url, options ) {
          
         /*** chat start from here ***/
         
+        //TODO this should be into relative place
         //this file have to be convert into function   
          var session = {
              audio: true,
@@ -747,21 +750,42 @@ jQuery.cachedScript = function( url, options ) {
 
          var encMode = "alaw"; 
          
-//        setTimeout(
-//            function (){
-//                window.postMessage({ type: 'isInstalled', id: 1 }, '*');
-//            },
-//            500
-//        );
-        
-        //window.postMessage({ type: 'isInstalled', id: 1 }, '*');
         setTimeout(
             function (){
                 window.postMessage({ type: 'isInstalled', id: 1 }, '*');
             },
             500
         );
+
+//        document.getElementById('commandToolsWrapper').addEventListener('click', function (){
+//            vApp.vutil.clickOutSideCanvas();
+//        });
+
         
-        //window.postMessage({ type: 'getScreen', id: pending }, '*');
+        /* document.getElementById('commandToolsWrapper').addEventListener('click', function (){
+             vApp.vutil.clickOutSideCanvas();
+        }); */
+        
+       
+//        var toolWrapper = document.getElementById('commandToolsWrapper');
+//        toolWrapper.onclick = function (){vApp.vutil.clickOutSideCanvas();};
+//
+//        var vAppOptions = document.getElementById('vAppOptionsCont');
+//        vAppOptions.onclick = function (){vApp.vutil.clickOutSideCanvas();};
+        
+//        function attachClickOutSideCanvas(){
+//            _attachClickOutSideCanvas('commandToolsWrapper');
+//            _attachClickOutSideCanvas('vAppOptionsCont');
+//            _attachClickOutSideCanvas('audioWidget');
+//            _attachClickOutSideCanvas('chatWidget');
+//            
+//            function _attachClickOutSideCanvas(id){
+//                var elem = document.getElementById(id);
+//                elem.onclick = function (){vApp.vutil.clickOutSideCanvas();};
+//            }
+//        }
+
+        vApp.vutil.attachClickOutSideCanvas();
+        
    });
 //});

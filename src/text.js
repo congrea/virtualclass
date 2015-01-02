@@ -5,13 +5,18 @@
 (
     function(window) {
         var vcan = window.vcan;
-
+        
+    
+            
         /**
          * @Class defined text for drawing text
          *  methods initilized for creating line object
          *  in future there can be more properties than now
          */
         vcan.text = function() {
+        //    var that = this;
+            
+            
             return  {
                 type: 'text',
                 /**
@@ -19,6 +24,11 @@
                  * @param obj the properties would initates on it
                  */
                 init: function(obj) {
+               //     alert("suman bogati ss");
+//                    var that = this;
+//                    document.getElementById('commandToolsWrapper').addEventListener('click', function (){alert('s'); that.clickOutSideCanvas});
+//                    document.getElementById('vAppOptionsCont').addEventListener('click', function (){alert('u'); that.clickOutSideCanvas});
+                    
                     obj.lineHeight = 1.3 //earlier 1.3 it was
 
                     if (obj.fontSize == undefined) {

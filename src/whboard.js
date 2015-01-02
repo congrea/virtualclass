@@ -113,9 +113,6 @@
                         window.addEventListener('resize', 
                             function (){
                                 if(vApp.currApp == 'Whiteboard'){
-//                                    alert('sss');
-//                                    debugger;
-                                    //alert(vApp.currApp);
                                     vApp.wb.utility.lockCanvas();
                                 }
                             }
@@ -290,16 +287,6 @@
                  * @param expects the mouse down event.
                  */
                 objInit: function(evt) {
-                    
-//                    var classes;
-//                    if(vApp.wb.hasOwnProperty('prvTool')){
-//                        classes = vApp.wb.utility.removeClassFromElement(vApp.wb.prvTool,  "active");
-//                        document.getElementById(vApp.wb.prvTool).className = classes;
-//                    }else{
-//                        classes =  this.parentNode.className; 
-//                    }
-//                    this.parentNode.className = classes + " active";
-                    
                     if(vApp.gObj.uRole == 't'){
                         vApp.wb.utility.makeActiveTool(this.parentNode.id);
                     }
@@ -410,7 +397,7 @@
                             vcan.setValInMain('id', 0);
                         }
                         if (typeof myfunc != 'undefined') {
-                            //alert('via socket');
+                            
                             
                             vApp.wb.t_replayInit(repMode, myfunc);
                         } else {
@@ -471,8 +458,8 @@
                     if (cmd != 't_freeDrawing') {
                         vApp.wb.obj.freeDrawObj = "";
                     }
-
-                    if (cmd != 't_text') {
+ 
+                    if (cmd != 't_text' && !vApp.vutil.exitTextWrapper()){
                         vApp.wb.obj.drawTextObj = "";
                     }
 
@@ -487,6 +474,7 @@
                         //vApp.wb.vcan.main.mcanvas = vApp.wb.canvas; //TODO this should be control because it is used inside the
 
                     } else if (cmd == 't_text') {
+                     //   vApp.vutil.attachClickOutSideCanvas();
                         vApp.wb.obj.drawTextObj = new vApp.wb.readyTextObj();
                         vApp.wb.obj.drawTextObj.init("canvasWrapper");
                     }

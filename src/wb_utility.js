@@ -873,28 +873,43 @@
                         return false;
                     }
                 },
-                toolWrapperDisable: function() {
-                    var commandToolWrapper = document.getElementById('commandToolsWrapper');
-                    if (commandToolWrapper != null) {
-                        commandToolWrapper.style.pointerEvents = "none";
+               
+                //toolWrapperDisable and toolWrapperEnable should be merged into one function
+                toolWrapperDisable: function(innerAnchors) {
+                    //TODO commandToolsWrapper should be come as parameter
+                    var commandToolWrapper = document.getElementById('commandToolsWrapper');  
+                    if(commandToolWrapper != null){
+                        if(typeof innerAnchors != 'undefined'){
+                            var allAnchors = commandToolWrapper.getElementsByTagName('a');
+                            for(var i=0; i<allAnchors.length; i++){
+                                allAnchors[i].style.pointerEvents = "none";
+                            }
+                        }else{
+                            var commandToolWrapper = document.getElementById('commandToolsWrapper');
+                            if (commandToolWrapper != null) {
+                                commandToolWrapper.style.pointerEvents = "none";
+                            }
+                        }
                     }
                 },
+                
                 //change the name with toolBoxEnable
-                toolWrapperEnable: function() {
-                    
-//                    var reclaimButton = vApp.vutil.chkValueInLocalStorage('reclaim');
-//                    if(reclaimButton){
-//                        
-//                    }else{
-//                        var commandToolWrapper = document.getElementById('commandToolsWrapper');
-//
-//                    }
-                    //alert('suman bgoati');
+                toolWrapperEnable: function(innerAnchors) {
                     var commandToolWrapper = document.getElementById('commandToolsWrapper');
-                    if (commandToolWrapper != null) {
-                        commandToolWrapper.style.pointerEvents = "visible";
+                    if(commandToolWrapper != null){
+                        if(typeof innerAnchors != 'undefined'){
+                            var allAnchors = commandToolWrapper.getElementsByTagName('a');
+                            for(var i=0; i<allAnchors.length; i++){
+                                allAnchors[i].style.pointerEvents = "visible";
+                            }
+                        }else{
+                            if (commandToolWrapper != null) {
+                                commandToolWrapper.style.pointerEvents = "visible";
+                            }
+                        }
                     }
                 },
+                
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
                         //    alert(vApp.storage.reclaim);

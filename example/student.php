@@ -41,7 +41,7 @@ include('auth.php');
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://dev.local.vidya.io/virtualclass/";
+$whiteboard_path = "https://local.vidya.io/virtualclass/";
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
@@ -95,7 +95,7 @@ $lname = "Student";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://dev.local.vidya.io/virtualclass/';
+    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
     
 </script>
 
@@ -135,7 +135,7 @@ $lname = "Student";
       <div class="audioTool deactive" id="speakerPressing">
         <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
         name="speakerPressingAnch"><img src=
-        "https://dev.local.vidya.io/virtualclass/images/speakerpressing.png"
+        "https://local.vidya.io/virtualclass/images/speakerpressing.png"
         id="speakerPressingImg" /></a>
       </div>
     </div>
@@ -143,21 +143,21 @@ $lname = "Student";
     <div data-audio-playing="false" class="audioTool deactive" id="speakerPressOnce">
       <a data-title="Press once to speak" class="tooltip" id="speakerPressonceAnch" name=
       "speakerPressonceAnch"><img src=
-      "https://dev.local.vidya.io/virtualclass/images/speakerpressonce.png"
+      "https://local.vidya.io/virtualclass/images/speakerpressonce.png"
       id="speakerPressonceImg" /></a>
     </div>
 
     <div class="audioTool" id="audioTest">
       <a data-title="Audio Testing" class="tooltip" id="audiotestAnch" name=
       "audiotestAnch"><img src=
-      "https://dev.local.vidya.io/virtualclass/images/audiotest.png"
+      "https://local.vidya.io/virtualclass/images/audiotest.png"
       id="audiotestImg" /></a>
     </div>
 
     <div class="audioTool" id="silenceDetect">
       <a data-title="Silence Detection" class="tooltip sdDisable" id="silenceDetectAnch"
       name="silenceDetectAnch"><img src=
-      "https://dev.local.vidya.io/virtualclass/images/silencedetectdisable.png"
+      "https://local.vidya.io/virtualclass/images/silencedetectdisable.png"
       id="silencedetectImg" /></a>
     </div>
   </div>

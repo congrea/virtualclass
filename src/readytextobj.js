@@ -115,6 +115,9 @@
                     this.prevTextObj = divNode;
                     this.currTextObjWrapper = obj;
                     this.prevTextObj.measure = obj
+                    
+                    vApp.wb.utility.toolWrapperDisable(true);
+                    
                 },
                 /**
                  * The function renders the text after typed by user into textarea
@@ -145,7 +148,7 @@
                             }
                         } else {
                             if (typeof mtext != 'undefined') {
-                                this.finalizeText(ctx, this.prevTextObj, undefined, mtext);
+                                this.finalizeText(ctx, this.prevTextObj, "undefined", mtext);
                             } else {
                                 this.finalizeText(ctx, this.prevTextObj);
                             }
@@ -238,6 +241,8 @@
                             document.getElementById(vApp.wb.sentPackDiv).innerHTML = vApp.wb.sentPackets;
                         }
                     }
+                    
+                    vApp.wb.utility.toolWrapperEnable(true);
                 }
             }
         }

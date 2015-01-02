@@ -267,8 +267,35 @@
                 vApp.html.createDiv("vAppSlienceDetectTool", "silencedetect", appOptCont, 'appOptions');
                 //vAppWholeScreenShareTool()
                 //vApp.html.createDiv()
+            },
+            
+            clickOutSideCanvas : function (){
+                if(this.exitTextWrapper()){
+                    vApp.wb.obj.drawTextObj.textUtility(vApp.wb.gObj.spx, vApp.wb.gObj.spy);
+                }
+            },
+            
+            exitTextWrapper : function (){
+                var textBoxContainer = document.getElementsByClassName('textBoxContainer');
+                return textBoxContainer.length > 0 ? true : false;
+            },
+            
+            attachClickOutSideCanvas :function(){
+                _attachClickOutSideCanvas('commandToolsWrapper');
+                _attachClickOutSideCanvas('vAppOptionsCont');
+                _attachClickOutSideCanvas('audioWidget');
+                _attachClickOutSideCanvas('chatWidget');
+
+                function _attachClickOutSideCanvas(id){
+                    var elem = document.getElementById(id);
+                    if(elem != null){
+                        elem.onclick = function (){vApp.vutil.clickOutSideCanvas();};
+                    }
+                  
+                }
             }
         }
+        
         window.vutil = vutil;
         window.onbeforeunload = function() {
             //if(typeof window.wholeStoreData != 'undefined'){
@@ -283,9 +310,12 @@
             vApp.wb.utility.userIds = [];
             
             vApp.gObj.video.audio.studentNotSpeak();
-            
+            vApp.vutil.clickOutSideCanvas();
+             
             cthis.sendMessage('bye');
             io.disconnect();
         }
+        
+
     }
 )(window);

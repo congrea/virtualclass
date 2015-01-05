@@ -671,13 +671,14 @@ jQuery.cachedScript = function( url, options ) {
 
          /* Hide box when click on user tab */
          $("#tabs").on("click", "li a", function(){
-             var tabid = $( this ).closest( "li" ).attr( "id").substring(5);
-             $("#" + tabid).chatbox('toggleContentbox');
-             if(localStorage.getItem(tabid) == 'hidden'){
-                 localStorage.removeItem(tabid);
-             }else{
-                 localStorage.setItem(tabid, 'hidden');
-             }
+            var tabid = $( this ).closest( "li" ).attr( "id").substring(5);
+            $("#" + tabid).chatbox('toggleContentbox');
+            if(localStorage.getItem(tabid) == 'hidden'){
+               localStorage.removeItem(tabid);
+            }else{
+               localStorage.setItem(tabid, 'hidden');
+            }
+             
          });
 
          // new message alert
@@ -756,34 +757,6 @@ jQuery.cachedScript = function( url, options ) {
             },
             500
         );
-
-//        document.getElementById('commandToolsWrapper').addEventListener('click', function (){
-//            vApp.vutil.clickOutSideCanvas();
-//        });
-
-        
-        /* document.getElementById('commandToolsWrapper').addEventListener('click', function (){
-             vApp.vutil.clickOutSideCanvas();
-        }); */
-        
-       
-//        var toolWrapper = document.getElementById('commandToolsWrapper');
-//        toolWrapper.onclick = function (){vApp.vutil.clickOutSideCanvas();};
-//
-//        var vAppOptions = document.getElementById('vAppOptionsCont');
-//        vAppOptions.onclick = function (){vApp.vutil.clickOutSideCanvas();};
-        
-//        function attachClickOutSideCanvas(){
-//            _attachClickOutSideCanvas('commandToolsWrapper');
-//            _attachClickOutSideCanvas('vAppOptionsCont');
-//            _attachClickOutSideCanvas('audioWidget');
-//            _attachClickOutSideCanvas('chatWidget');
-//            
-//            function _attachClickOutSideCanvas(id){
-//                var elem = document.getElementById(id);
-//                elem.onclick = function (){vApp.vutil.clickOutSideCanvas();};
-//            }
-//        }
 
         vApp.vutil.attachClickOutSideCanvas();
         

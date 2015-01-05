@@ -519,13 +519,18 @@ a[title]:hover:after {
 	font-weight : 500;
 }
 .tooltip {
-	display : inline;
-	position : relative;
+    display : inline;
+    position : relative;
 }
+
+#usertab_text.tooltip{
+    display : block;
+}
+
 .tooltip:hover {
-	color : #c00;
+/*	color : #c00;*/
 	text-decoration : none;
-}
+} 
 .tooltip:hover:after {
 	background : #fff;
 	border : #ccc solid 1px;

@@ -42,7 +42,7 @@ function memberUpdate(e, addType){
         $("#chat_div").memberlist({
             id:"chat_div",
             user:userlist,
-            offset:'37px',
+            offset:'7px',
             title : lang.online,
             userSent : function(user) {
                 $("#chat_div").memberlist("option", "boxManager").addUsr(user);

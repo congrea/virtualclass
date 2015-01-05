@@ -83,9 +83,11 @@
 
             //chatroom tab
             uiFooterbarchatroomtab = (self.uiFooterbarchatroomtab = $('<div></div>'))
-                .addClass('vmchat_room_bt'
-             )
-            .prop('id', 'chatroom_bt')
+            .addClass('vmchat_room_bt toolTip')
+            //.data('data-title', 'Expand for common chat'), is not working 
+            .attr('data-title', vApp.lang.getString('maxCommonChat'))
+            .prop('id', 'chatroom_bt2')
+            
             .appendTo(uiFooterbar),
 
             uiFooterbarchatroomContent = (self.uiFooterbarchatroomContent = $('<div class = "inner_bt"></div>'))
@@ -98,14 +100,14 @@
             .text('Chatroom')
             .click(function(){
                 if(chatroombox){
-                    
 				    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
                        sessionStorage.removeItem('chatroom_status');
-
+                       uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('minCommonChat'));
+                      
                    }else{
                        sessionStorage.setItem("chatroom_status", "hidden");
+                       uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('maxCommonChat'));
                    }
-                   
                    chatroombox.chatroom("option", "boxManager").toggleBox();
                 }else{
 
@@ -148,16 +150,24 @@
 
             uiFooterbarUserlistIcon = (self.uiFooterbarUserlistIcon = $('<div id="usertab_icon"></div>'))
             .appendTo(uiFooterbarUserlistContent)
-             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text"></div>'))
+             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="toolTip close" data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
             .appendTo(uiFooterbarUserlistContent)
             .text('Private Chat')
             .click(function(){ 
                vApp.gObj.video.dispAllVideo("chat_div");
-
                 if(Object.keys(io.uniquesids).length > 0){
+                    if($(this).hasClass('close')){
+                        $(this).addClass('open');
+                        $(this).removeClass('close');
+                        $(this).attr('data-title', vApp.lang.getString('miniUserList'));
+                    }else{
+                        $(this).addClass('close');
+                        $(this).removeClass('open');
+                        $(this).attr('data-title', vApp.lang.getString('maxUserList'));
+                    }
+                    
                     $("#chat_div").memberlist("option", "boxManager").toggleBox();
                 }
-                    
             })
 
             // tab contain multiple open chatbox

@@ -61,7 +61,16 @@
             'assignEnable' : "Reclaim role", 
             'assignDisable' : "Assign role as teacher",
             'audioEnable' : "Enable the audio", 
-            'audioDisable' : "Disable the audio"
+            'audioDisable' : "Disable the audio",
+            'minCommonChat' : "Minimize the Common Chat",
+            'maxCommonChat' : "Maximize the Common Chat",
+            'miniuserbox' : "Minimize User Box",
+            'maxuserbox' : "Expand User Box",
+            'miniUserList' : "Minimize User List",
+            'maxUserList' : "Maxmize User List"
+           
+            
+            
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

@@ -64,8 +64,9 @@
                    Html5Audio : {audioContext : new AudioContext()},
                    init : function (){
                         if(vApp.gObj.uRole == 't'){
-                            vApp.gObj.audMouseDown = true;    
-                            this.clickOnceSpeaker('speakerPressOnce');
+                            vApp.gObj.audMouseDown = true; 
+                            //can be critical
+                            //this.clickOnceSpeaker('speakerPressOnce');
                         }  
 
                         this.graph = {
@@ -239,6 +240,8 @@
                     },
                     
                     clickOnceSpeaker : function (id, alwaysDisable){
+//                        alert('suman bogati');
+//                        debugger;
                         var tag = document.getElementById(id);
                         if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
                             this.studentSpeak();

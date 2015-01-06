@@ -48,9 +48,9 @@
                 openRequest.onsuccess = function(e) {
                     that.db = e.target.result;
                     var currTime = new Date().getTime();
-                    //alert("hi brother what");
-//                    debugger;
-                    if(vApp.sessionClear){
+                    
+                    //meet condition when current and previous user are different
+                    if(vApp.gObj.sessionClear){
                         that.config.endSession(true);
                     }else{
                         that.getAllObjs(that.tables, function (result){

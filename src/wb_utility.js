@@ -481,7 +481,8 @@
                     var wbrtcMsg = vApp.vutil.chkValueInLocalStorage('wbrtcMsg');
                     var canvasDrwMsg = vApp.vutil.chkValueInLocalStorage('canvasDrwMsg');
                     var toolHeight = vApp.vutil.chkValueInLocalStorage('toolHeight');
-
+                    var prvUser = JSON.parse(vApp.vutil.chkValueInLocalStorage('prvUser'));
+        
                     localStorage.clear();
                     vApp.recorder.items = [];
                     
@@ -492,6 +493,10 @@
 //                    vApp.gObj.video.audio.an = -1;
                     vApp.gObj.video.audio.rec = '';
                     vApp.gObj.video.audio.audioNodes = [];
+                    
+                    if(typeof prvUser == 'object'){
+                        localStorage.setItem('prvUser', JSON.stringify(prvUser))
+                    }
                     if (teacherId) {
                         localStorage.setItem('teacherId', teacherId);
                     }
@@ -537,7 +542,7 @@
                     localStorage.setItem('orginalTeacherId', vApp.gObj.uid);
                 },
                 initDefaultInfo: function(role) {
-//                    if(vApp.sessionClear){
+//                    if(vApp.gObj.sessionClear){
 //                       localStorage.clear();
 //                    }
                     

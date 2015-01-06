@@ -82,25 +82,10 @@ jQuery.cachedScript = function( url, options ) {
         window.vApp = vApp; //make available to vApp object to each file
         
         var appIs = "Whiteboard";
-        
-        vApp.sessionClear = false;
-        var prvUser = localStorage.getItem('prvUser');
-        if(prvUser == null){
-           localStorage.clear();
-           var prvUser = {id:wbUser.id, room : wbUser.room};
-           localStorage.setItem('prvUser', JSON.stringify(prvUser));
-        }else{
-           prvUser = JSON.parse(prvUser);
-           if(prvUser.id != wbUser.id || prvUser.room != wbUser.room){
-               //localStorage.clear();
-              //vApp.storage.config.endSession();
-                //sessIonClear = true;
-                vApp.sessionClear = true;
-           }
-        }
-        
+        vApp.gObj.sessionClear = false;
+        vApp.prvCurrUsersSame();
         vApp.init(wbUser.role, appIs);
-//         if(vApp.sessionClear){
+//         if(vApp.gObj.sessionClear){
 //            localStorage.clear(); //clear all when user/room is changed
 //         }
         

@@ -27,6 +27,7 @@ function (window){
               uRole : window.wbUser.role,
               uName : window.wbUser.name
             },
+            
               
             //init : function (urole, app, sessionClear){
             init : function (urole, app){
@@ -61,14 +62,15 @@ function (window){
                 this.html.init(this);
                 this.adapter = window.adapter;
                 
-                if(this.sessionClear){
-                    localStorage.clear(); //clear all when user/room is changed
-                    var prvUser = {id:wbUser.id, room : wbUser.room};
-                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
-                    if(this.gObj.uRole == 't'){
-                        localStorage.setItem('teacherId', wbUser.id);
-                    }
-                }
+//                if(this.sessionClear){
+//                  //   localStorage.clear(); //clear all when user/room is changed
+////                    var prvUser = {id:wbUser.id, room : wbUser.room};
+////                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
+//                    vApp.setPrvUser();
+//                    if(this.gObj.uRole == 't'){
+//                        localStorage.setItem('teacherId', wbUser.id);
+//                    }
+//                }
                 
                 this.makeAppReady(app, "byclick");
                 
@@ -77,7 +79,7 @@ function (window){
                 this.vutil.isSystemCompatible();
                 
                 
-//                if(vApp.sessionClear){
+//                if(vApp.gObj.sessionClear){
 //                    localStorage.clear(); //clear all when user/room is changed
 //                    var prvUser = {id:wbUser.id, room : wbUser.room};
 //                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
@@ -313,7 +315,7 @@ function (window){
                         alert("Already the whole screen is being shared.");
                     }
                 }
-              },
+            },
               
             PrvAndCurrIsWss : function (previous, appName){
                 return (previous == 'vAppWholeScreenShare' && appName == this.apps[2]) ? true : false;
@@ -359,6 +361,32 @@ function (window){
                 }
 
                 vApp.previous =  vApp[app].id;
+            },
+            
+            prvCurrUsersSame : function (){
+                var prvUser = localStorage.getItem('prvUser');
+                if(prvUser == null){
+                    //alert("suman bogati");
+                    //localStorage.clear();
+//                    var prvUser = {id:wbUser.id, room : wbUser.room};
+//                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
+                   vApp.setPrvUser();
+                }else{
+                    prvUser = JSON.parse(prvUser);
+                    if(prvUser.id != wbUser.id || prvUser.room != wbUser.room){
+                        vApp.gObj.sessionClear = true;
+                        vApp.setPrvUser();
+                        if(this.gObj.uRole == 't'){
+                             localStorage.setItem('teacherId', wbUser.id);
+                        }
+                    }
+                }
+            },
+            
+            setPrvUser : function (){
+                localStorage.clear();
+                var prvUser = {id:wbUser.id, room : wbUser.room};
+                localStorage.setItem('prvUser', JSON.stringify(prvUser));
             }
                
             //TODO remove this function

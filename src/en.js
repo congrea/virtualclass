@@ -59,7 +59,7 @@
             'chatEnable' : "Enable chat", 
             'chatDisable' : "Disable chat",
             'assignEnable' : "Reclaim role", 
-            'assignDisable' : "Assign role as teacher",
+            'assignDisable' : "Assign teacher role",
             'audioEnable' : "Enable audio", 
             'audioDisable' : "Disable audio",
             'minCommonChat' : "Minimize the Common Chat",

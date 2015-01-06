@@ -66,14 +66,14 @@ include('js.debug.php');
 //$PAGE->requires->js(new moodle_url($CFG->wwwroot .'/mod/onetoone/whiteboard/js/min.js'));
 // Output starts here
 
-$r = 's';
-$sid = 103;
-$uid = 103;
+$r = 't';
+$sid = 1000;
+$uid = 1000;
 //$r = 's';
 
-$uname = "studnet3";
-$fname = "Student3";
-$lname = "Student3";
+$uname = "Teacher2";
+$fname = "Teacher2";
+$lname = "Sharma2";
 
 ?>
 <script type="text/javascript">	
@@ -85,7 +85,9 @@ $lname = "Student3";
     <?php echo "sid='".$sid."';";?>
     <?php echo "fname='".$fname."';"; ?>
     <?php echo "lname='".$lname."';"; ?>
+</script>
 
+<script type="text/javascript">
 	<?php echo "wbUser.name='$uname';"; ?>
 	<?php echo "wbUser.id='".$uid."';"; ?>
 	<?php echo "wbUser.socketOn='0';"; ?>
@@ -131,36 +133,24 @@ $lname = "Student3";
 
 
 <div id="audioWidget">
-    <div id="speakerStudent">
-      <div class="audioTool deactive" id="speakerPressing">
-        <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
-        name="speakerPressingAnch"><img src=
-        "https://local.vidya.io/virtualclass/images/speakerpressing.png"
-        id="speakerPressingImg" /></a>
-      </div>
+    <div id="speakerPressOnce" class="audioTool active" data-audio-playing="true">
+      <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
+      "speakerPressonceAnch"><img id="speakerPressonceImg" src=
+      "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
     </div>
 
-    <div data-audio-playing="false" class="audioTool deactive" id="speakerPressOnce">
-      <a data-title="Press once to speak" class="tooltip" id="speakerPressonceAnch" name=
-      "speakerPressonceAnch"><img src=
-      "https://local.vidya.io/virtualclass/images/speakerpressonce.png"
-      id="speakerPressonceImg" /></a>
+    <div id="audioTest" class="audioTool">
+      <a id="audiotestAnch" class="tooltip" data-title="Audio Testing" name=
+      "audiotestAnch"><img id="audiotestImg" src=
+      "https://local.vidya.io/virtualclass/images/audiotest.png" /></a>
     </div>
 
-    <div class="audioTool" id="audioTest">
-      <a data-title="Audio Testing" class="tooltip" id="audiotestAnch" name=
-      "audiotestAnch"><img src=
-      "https://local.vidya.io/virtualclass/images/audiotest.png"
-      id="audiotestImg" /></a>
+    <div id="silenceDetect" class="audioTool">
+      <a id="silenceDetectAnch" class="tooltip sdDisable" data-title="Silence Detection"
+      name="silenceDetectAnch"><img id="silencedetectImg" src=
+      "https://local.vidya.io/virtualclass/images/silencedetectdisable.png" /></a>
     </div>
-
-    <div class="audioTool" id="silenceDetect">
-      <a data-title="Silence Detection" class="tooltip sdDisable" id="silenceDetectAnch"
-      name="silenceDetectAnch"><img src=
-      "https://local.vidya.io/virtualclass/images/silencedetectdisable.png"
-      id="silencedetectImg" /></a>
-    </div>
-  </div>
+</div>
 
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>

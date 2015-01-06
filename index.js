@@ -71,9 +71,6 @@ jQuery.cachedScript = function( url, options ) {
     
     
     $(document).ready(function(){
-        
-        
-        
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
@@ -86,8 +83,31 @@ jQuery.cachedScript = function( url, options ) {
         
         var appIs = "Whiteboard";
         
-        vApp.init(wbUser.role, appIs);
+        vApp.sessionClear = false;
+        var prvUser = localStorage.getItem('prvUser');
+        if(prvUser == null){
+           localStorage.clear();
+           var prvUser = {id:wbUser.id, room : wbUser.room};
+           localStorage.setItem('prvUser', JSON.stringify(prvUser));
+        }else{
+           prvUser = JSON.parse(prvUser);
+           if(prvUser.id != wbUser.id || prvUser.room != wbUser.room){
+               //localStorage.clear();
+              //vApp.storage.config.endSession();
+                //sessIonClear = true;
+                vApp.sessionClear = true;
+           }
+        }
         
+        vApp.init(wbUser.role, appIs);
+//         if(vApp.sessionClear){
+//            localStorage.clear(); //clear all when user/room is changed
+//         }
+        
+//        if(typeof sessionClear != 'undefined' && sessionClear){
+//            vApp.storage.config.endSession();
+//        }
+//        
 // important
 //        if(localStorage.getItem('teacherId') != null){
 //            if(document.getElementById('speakerStudent') != null){
@@ -131,7 +151,7 @@ jQuery.cachedScript = function( url, options ) {
             window.vApp.wb.view.displayServerError('serverErrorCont', e.message);
             
             if(typeof e.message != 'object'){
-                display_error(e.message);
+                display_error(e.message.stack);
             }
             
         });

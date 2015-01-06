@@ -216,31 +216,37 @@
             // switch focus to input box when whatever clicked
             $(document).on("click", '#chat_div .ui-memblist-usr a', function(event){
                 var str = $(this);
-                var id = str.attr('href').replace('#', '');
-                var name = str.find('span').html();
-
-                if($.inArray(id, idList) == -1){
-                    counter++;
-                    idList.push(id);
-                    vmstorage[id] = [];
-                    vmstorage[id].push( { userid:id, name:name});
-                }
-
-                chatboxManager.addBox(id,
-                                  {dest:"dest" + counter, // not used in demo
-                                   title:"box" + counter,
-                                   first_name:name
-                                   //you can add your own options too
-                                  });
-
-                chatboxManager.init({
-                    user:{'name' : name},
-                    messageSent : function(id,user,msg){
-                        $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
+                var ahref = str.attr('href'); 
+                if(typeof ahref != 'undefined'){
+                     var id =  ahref.replace('#', '');
+                    //var id = str.attr('href').replace('#', '');
+                    //can be critical
+                    var name = str.find('span').html();
+                    if($.inArray(id, idList) == -1){
+                        counter++;
+                        idList.push(id);
+                        vmstorage[id] = [];
+                        vmstorage[id].push( { userid:id, name:name});
                     }
-                });
-                id = null;
-                name = null;
+
+                    chatboxManager.addBox(id,
+                                      {dest:"dest" + counter, // not used in demo
+                                       title:"box" + counter,
+                                       first_name:name
+                                       //you can add your own options too
+                                      });
+
+                    chatboxManager.init({
+                        user:{'name' : name},
+                        messageSent : function(id,user,msg){
+                            $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
+                        }
+                    });
+                    id = null;
+                    name = null;
+                }
+                
+                
 
             });
 

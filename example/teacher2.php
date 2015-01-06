@@ -1,3 +1,4 @@
+<head>
 <?php
 
 // This file is part of Moodle - http://moodle.org/
@@ -35,10 +36,21 @@ include('auth.php');
 
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
+
+
 <?php
 
 //the www path for whiteboard
-$whiteboard_path = "https://192.168.1.101/virtualclass/";
+$whiteboard_path = "https://local.vidya.io/virtualclass/";
+?>
+
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."bundle/jquery/css/base/jquery-ui.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/jquery.ui.chatbox.css" ?> />
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+
+
+<?php
 include('js.debug.php');
 //include('js.php');
 
@@ -55,16 +67,19 @@ include('js.debug.php');
 // Output starts here
 
 $r = 't';
-$sid = 1000;
-$uid = 1000;
+$sid = 1090;
+$uid = 1090;
 //$r = 's';
 
 $uname = "Teacher2";
 $fname = "Teacher2";
-$lname = "Sharma2";
+$lname = "Sharma";
 
 ?>
 <script type="text/javascript">	
+    if (!!window.Worker) {
+        var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
+    }
     <?php echo "name='".$uname."';"; ?>
     <?php echo "id='".$uid."';"; ?>
     <?php echo "sid='".$sid."';";?>
@@ -82,35 +97,13 @@ $lname = "Sharma2";
 	<?php echo "wbUser.role='".$r."';"; ?>
 	
 	window.io = io;
-    window.whiteboardPath =  'https://192.168.1.101/virtualclass/';
+    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
     
-    //these below script should be into audio object
-//    
-//    function convertFloat32ToInt16(buffer) {
-//        l = buffer.length;
-//        buf = new Int16Array(l);
-//        while (l--) {
-//          buf[l] = Math.min(1, buffer[l])*0x7FFF;
-//        }
-//        return buf;
-//    }
-    
-//    var session = {
-//        audio: true,
-//        video: false
-//    };
-//
-//    var recordRTC = null;
-//    var resampler = new Resampler(44100, 8000, 1, 4096);
-//
-//    var Html5Audio = {};
-//    Html5Audio.audioContext = new AudioContext();
-//
-//    var encMode = "alaw"; 
 </script>
 
-
+</head>
 <div id="vAppCont" class="teacher">
+    
 
  
     <div id="vAppWhiteboard" class="vmApp">
@@ -138,8 +131,30 @@ $lname = "Sharma2";
 
     </div>
 
+
+<div id="audioWidget">
+    <div id="speakerPressOnce" class="audioTool active" data-audio-playing="true">
+      <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
+      "speakerPressonceAnch"><img id="speakerPressonceImg" src=
+      "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
+    </div>
+
+    <div id="audioTest" class="audioTool">
+      <a id="audiotestAnch" class="tooltip" data-title="Audio Testing" name=
+      "audiotestAnch"><img id="audiotestImg" src=
+      "https://local.vidya.io/virtualclass/images/audiotest.png" /></a>
+    </div>
+
+    <div id="silenceDetect" class="audioTool">
+      <a id="silenceDetectAnch" class="tooltip sdDisable" data-title="Silence Detection"
+      name="silenceDetectAnch"><img id="silencedetectImg" src=
+      "https://local.vidya.io/virtualclass/images/silencedetectdisable.png" /></a>
+    </div>
+</div>
+
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>
 </div>   
     
 </div>
+

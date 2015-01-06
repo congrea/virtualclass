@@ -7,6 +7,9 @@
 (
 function (window){
     window.vmApp = function (){
+//        vmApp.storage = window.storage;
+//        vmApp.storage.init();
+
         return {
             apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
             appSessionEnd : "vAppSessionEnd",
@@ -25,7 +28,15 @@ function (window){
               uName : window.wbUser.name
             },
               
+            //init : function (urole, app, sessionClear){
             init : function (urole, app){
+//                if(urole == 't'){
+//                    if(localStorage.getItem('orginalTeacherId') == null){
+//                        localStorage.setItem('orginalTeacherId', this.gObj.uid);
+//                    }
+//                }
+                
+                
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
                 this.ssConfig = { id : "vApp" + this.apps[1], classes : "appOptions"};
                 this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
@@ -41,21 +52,40 @@ function (window){
                 this.currApp = app;
 
                 this.storage = window.storage;
-
-
-                this.dirtyCorner = window.dirtyCorner;
-
                 this.storage.init();
+                //this.sessionClear = sessionClear;
+               
+                this.dirtyCorner = window.dirtyCorner;
+                
 
                 this.html.init(this);
                 this.adapter = window.adapter;
+                
+                if(this.sessionClear){
+                    localStorage.clear(); //clear all when user/room is changed
+                    var prvUser = {id:wbUser.id, room : wbUser.room};
+                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
+                    if(this.gObj.uRole == 't'){
+                        localStorage.setItem('teacherId', wbUser.id);
+                    }
+                }
+                
                 this.makeAppReady(app, "byclick");
-
+                
                 //this should be at top
                 this.system.check();
                 this.vutil.isSystemCompatible();
-
+                
+                
+//                if(vApp.sessionClear){
+//                    localStorage.clear(); //clear all when user/room is changed
+//                    var prvUser = {id:wbUser.id, room : wbUser.room};
+//                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
+//                }
+                
                 vApp.wb.utility.displayCanvas();
+                
+                
                 if(app == this.apps[1]){
                     this.system.setCanvasDimension();
                 }
@@ -98,6 +128,8 @@ function (window){
                     this.vapp = cthis;   
                 },
                 
+                //TODO this should be created throught the simple html
+                
                 optionsWithWrapper : function (){
                     var appCont = document.getElementById(this.id);
                     var appOptCont =  this.createElement('div', 'vAppOptionsCont');
@@ -106,9 +138,12 @@ function (window){
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     
-                    if(localStorage.getItem('orginalTeacherId') != null){
-                         this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    }
+//                    if(localStorage.getItem('orginalTeacherId') != null){
+//                         this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+//                    }
+                    if(vApp.gObj.uRole == 't'){
+                        this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    }    
                     
                 },  
                 
@@ -221,7 +256,8 @@ function (window){
                         if(document.getElementById('canvas') != null){
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
                             if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
-                                vApp.wb.utility.makeCanvasEnable();  
+                              //important can be crtical
+                              //vApp.wb.utility.makeCanvasEnable();  
                             }
                             vApp.wb.utility.makeCanvasEnable();
                         }

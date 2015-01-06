@@ -48,12 +48,15 @@
                 openRequest.onsuccess = function(e) {
                     that.db = e.target.result;
                     var currTime = new Date().getTime();
-                    
-                    that.getAllObjs(that.tables, function (result){
-                         if(typeof result == 'undefined'){
+                    //alert("hi brother what");
+//                    debugger;
+                    if(vApp.sessionClear){
+                        that.config.endSession(true);
+                    }else{
+                        that.getAllObjs(that.tables, function (result){
+                        if(typeof result == 'undefined'){
                               that.config.createNewSession();
                         }else{
-                            
                             var roomCreatedTime = result.createdDate;
                             var baseDate = new Date().getTime();
                             var totalTime =  baseDate - roomCreatedTime;
@@ -62,7 +65,11 @@
                                 that.config.endSession();
                             }
                         }
-                    });
+                        });
+                    }
+                    
+                    
+                    
                     that.db.onerror = function(event) {
                         console.dir(event.target);
                     };
@@ -253,11 +260,14 @@
                     objectStore.add({myconfig : config, timeStamp : new Date().getTime()});
                 },
                 
-                endSession : function (){
+                endSession : function (onlyStoredData){
+                    
+                    if(typeof onlyStoredData == 'undefined'){
+                        vApp.wb.utility.t_clearallInit();
+                        vApp.wb.utility.makeDefaultValue();
+                    }
                     
                     
-                    vApp.wb.utility.t_clearallInit();
-                    vApp.wb.utility.makeDefaultValue();
                     vApp.storage.clearStorageData();
                     that.config.createNewSession();
                 }

@@ -425,6 +425,7 @@
                     canvasElement.style.pointerEvents = "none";
                 },
                 makeCanvasEnable: function() {
+                    
                     if (localStorage.getItem('teacherId') != null) {
                         if(!vApp.wb.hasOwnProperty('canvasDisable') || !vApp.wb.canvasDisable){
                             var canvasElement = vcan.main.canvas;
@@ -460,7 +461,6 @@
                     }
                 },
                 uniqueArrOfObjsToTeacher: function() {
-                //    alert('toTEacher');
                     vcan.main.replayObjs = [];
                     var tempRepObjs = "";
                     for (var i = 0; i < vApp.wb.gObj.replayObjs.length; i++) {
@@ -537,6 +537,10 @@
                     localStorage.setItem('orginalTeacherId', vApp.gObj.uid);
                 },
                 initDefaultInfo: function(role) {
+//                    if(vApp.sessionClear){
+//                       localStorage.clear();
+//                    }
+                    
                     if (role == 't') {
                         if (localStorage.getItem('orginalTeacherId') == null) {
                             //vApp.wb.utility.setOrginalTeacherContent(e);
@@ -546,7 +550,11 @@
                         //} else if (role == 's' && newuser == null) {
                     }else if (role == 's') {
                         vcan.studentId = wbUser.id;
-                        if (localStorage.getItem('studentId') == null) {
+                        
+//                        alert('suman bogati');
+//                        debugger;
+                        
+                        if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
                             localStorage.setItem('studentId', wbUser.id);
                         }
                     }
@@ -708,6 +716,8 @@
                         }
                     }
                 },
+                
+                //important TODO have to think tabout this function
                 //makeUserAvailable: function(browerLength) {
                 makeUserAvailable: function() {
                     if (localStorage.getItem('repObjs') == null) {
@@ -791,7 +801,6 @@
                 
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
-                        //    alert(vApp.storage.reclaim);
                         if(vApp.storage.reclaim === false){
                             vApp.wb.utility.disableAppsBar();
                         }
@@ -847,11 +856,12 @@
                         }
                     }
                 },
-                canvasEnabelWhenRefresh: function() {
-                    if (localStorage.getItem('teacherId') != null) {
-                        vApp.wb.utility.makeCanvasEnable();
-                    }
-                },
+//important can be critical
+//                canvasEnabelWhenRefresh: function() {
+//                    if (localStorage.getItem('teacherId') != null) {
+//                        vApp.wb.utility.makeCanvasEnable();
+//                    }
+//                },
                 arrayContainsSameValue: function(val, ids) {
                     for (var i = 0; i < ids.length; i++) {
                         if (ids[i] !== val) {

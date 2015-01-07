@@ -262,7 +262,7 @@
                 if(appBarCont !=  null){
                     appBarCont.style.pointerEvents = "none";
                 }
-            },
+            }
         }
         
         window.vutil = vutil;

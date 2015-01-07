@@ -281,8 +281,8 @@ function displaycomChatHistory(){
 */
 function displayChatHistory(){
     //Private chat data populated on page referesh
-    if (localStorage.getItem(sid) != null){
-        var data = JSON.parse(localStorage.getItem(sid));
+    if (localStorage.getItem(wbUser.sid) != null){
+        var data = JSON.parse(localStorage.getItem(wbUser.sid));
         $.each(data, function(id, msgarr) {
             counter++;
             idList.push(id);

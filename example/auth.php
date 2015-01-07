@@ -62,13 +62,14 @@ $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'lice
 <?php echo " wbUser.auth_user='".$authusername."';"; ?>
 <?php echo " wbUser.auth_pass='".$authpassword."';"; ?>
 <?php echo " wbUser.path='".$rid."';";?>
+<?php //echo "imageurl='./images/quality-support.png';"; ?>
 </script>
 
 
 <script type="text/javascript">
 	//earlier cookie is using
-    <?php echo "auth_user='".$authusername."';"; ?>
-    <?php echo "auth_pass='".$authpassword."';"; ?>
-    <?php echo "path='".$rid."';";?>
-    <?php echo "imageurl='./images/quality-support.png';";?>
+    <?php //echo "auth_user='".$authusername."';"; ?>
+    <?php //echo "auth_pass='".$authpassword."';"; ?>
+    <?php //echo "path='".$rid."';";?>
+    <?php //echo "imageurl='./images/quality-support.png';";?>
 </script>

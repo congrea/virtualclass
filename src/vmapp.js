@@ -106,15 +106,17 @@ function (window){
               
             initSocketConn : function (){
                 //window.imageurl = "http://localhost/whiteboard/images/quality-support.png";
+                
                 if(this.system.webSocket){
                   var wbUser = window.wbUser;
+                  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
                   vApp.uInfo = {
                       'userid':wbUser.id, 
                       'sid':wbUser.sid,
                       'rid': wbUser.path,
                       'authuser':wbUser.auth_user,
                       'authpass':wbUser.auth_pass,
-                      'userobj': {'userid':wbUser.id,'name':wbUser.name, 'img' : window.imageurl, role :  wbUser.role},
+                      'userobj': {'userid':wbUser.id,'name':wbUser.name, 'img' : wbUser.imageurl, role :  wbUser.role},
                       'room':wbUser.room
                       };
                       io.init(vApp.uInfo);

@@ -80,11 +80,11 @@ $lname = "Sharma";
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
     }
-    <?php echo "name='".$uname."';"; ?>
-    <?php echo "id='".$uid."';"; ?>
-    <?php echo "sid='".$sid."';";?>
-    <?php echo "fname='".$fname."';"; ?>
-    <?php echo "lname='".$lname."';"; ?>
+    <?php //echo "name='".$uname."';"; ?>
+    <?php //echo "id='".$uid."';"; ?>
+    <?php //echo "sid='".$sid."';";?>
+    <?php //echo "fname='".$fname."';"; ?>
+    <?php //echo "lname='".$lname."';"; ?>
 </script>
 
 <script type="text/javascript">
@@ -95,7 +95,8 @@ $lname = "Sharma";
 	<?php echo "wbUser.room='215';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
-	
+	<?php echo "wbUser.fname='".$fname."';"; ?>
+    <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
     

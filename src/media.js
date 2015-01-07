@@ -893,7 +893,7 @@
                     if(typeof stream != 'undefined'){
                         var vidContainer = cthis.video.createVideoElement();
 
-                        cthis.video.imageReplaceWithVideo(id, vidContainer);
+                        cthis.video.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
                         cthis.video.insertTempVideo(vidContainer);
                         cthis.video.tempVideoInit();
 
@@ -926,20 +926,21 @@
                     document.getElementById("chat_div").style.maxHeight = mh + "px";
                 },
                 
-                createDemoUserList : function (){
-                    var dumUserArr = [];
-                    var dummyUser;
-                    for(var i=5; i<15; i++){
-                         dummyUser = {
-                            img : "./images/quality-support.png",
-                            name : "Student " + i,
-                            userid : 100 + i
-                        }
-                        memberUpdate({message : [dummyUser]});
-                    }
-                    return dumUserArr;
-                },
-                
+//                //Todo this funciton should be removed  
+//                createDemoUserList : function (){
+//                    var dumUserArr = [];
+//                    var dummyUser;
+//                    for(var i=5; i<15; i++){
+//                         dummyUser = {
+//                            img : "./images/quality-support.png",
+//                            name : "Student " + i,
+//                            userid : 100 + i
+//                        }
+//                        memberUpdate({message : [dummyUser]});
+//                    }
+//                    return dumUserArr;
+//                },
+//                
                 close : function (){
                     if(vApp.gObj.video.hasOwnProperty('smallVid')){
                         clearInterval(vApp.gObj.video.smallVid);

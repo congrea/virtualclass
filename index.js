@@ -159,30 +159,30 @@ jQuery.cachedScript = function( url, options ) {
             
         });
         
-        var dn = 5;
-        function createDemoUserList(){
-            var dummyUser = {
-                img : "./images/quality-support.png",
-                name : "Student " + dn,
-                userid : 100 + dn
-            }
-
-            duser.push(dummyUser);   
-            memberUpdate({message : duser});
-            
-            dn++;
-            if(dn <=30){
-                myTimeout = setTimeout(createDemoUserList, 1000);
-            }else{
-                clearTimeout(myTimeout);
-            }
-        }
-        
-        function demoVideoTest(e){
-            duser = [];
-            duser.push(e.message);
-            createDemoUserList();
-        }
+//        var dn = 5;
+//        function createDemoUserList(){
+//            var dummyUser = {
+//                img : "./images/quality-support.png",
+//                name : "Student " + dn,
+//                userid : 100 + dn
+//            }
+//
+//            duser.push(dummyUser);   
+//            memberUpdate({message : duser});
+//            
+//            dn++;
+//            if(dn <=30){
+//                myTimeout = setTimeout(createDemoUserList, 1000);
+//            }else{
+//                clearTimeout(myTimeout);
+//            }
+//        }
+//        
+//        function demoVideoTest(e){
+//            duser = [];
+//            duser.push(e.message);
+//            createDemoUserList();
+//        }
         
         $(document).on("member_added", function(e){
             vApp.wb.clientLen = e.message.length;
@@ -615,7 +615,7 @@ jQuery.cachedScript = function( url, options ) {
          // checking private chat local storage
          // Data stored in session key inside localStorage variable
          // sid is the session id
-         if (localStorage.getItem(sid) != null)  {
+         if (localStorage.getItem(wbUser.sid) != null)  {
                 displayChatHistory();
                 
                 chatEnable = localStorage.getItem('chatEnable');
@@ -628,7 +628,7 @@ jQuery.cachedScript = function( url, options ) {
 //                     vApp.user.control.makeElemDisable(div);
 //                }
                 
-                vmstorage = JSON.parse(localStorage.getItem(sid));
+                vmstorage = JSON.parse(localStorage.getItem(wbUser.sid));
          }
 
          //checking common chat local storage
@@ -717,7 +717,7 @@ jQuery.cachedScript = function( url, options ) {
 
          $(window).bind('beforeunload',function(){
                 var data = JSON.stringify(vmstorage);
-                localStorage.setItem(sid, data);
+                localStorage.setItem(wbUser.sid, data);
          });
          
         /*** chat start from here ***/

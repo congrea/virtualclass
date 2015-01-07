@@ -262,6 +262,17 @@
                 if(appBarCont !=  null){
                     appBarCont.style.pointerEvents = "none";
                 }
+            },
+            
+            isMiniFileIncluded :  function (src){
+                var filePatt = new RegExp(src+".js$");
+                var scripts = document.getElementsByTagName("script");
+                for(var i = 0; i < scripts.length; i++) {
+                    if(filePatt.test(scripts[i].src)){
+                        return true;
+                    }
+                }
+                return false;
             }
         }
         

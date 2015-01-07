@@ -71,20 +71,36 @@ jQuery.cachedScript = function( url, options ) {
     
     
     $(document).ready(function(){
+//        function isMinFileIncluded(src){
+//            var filePatt = new RegExp(src+".js$");
+//            var scripts = document.getElementsByTagName("script");
+//            for(var i = 0; i < scripts.length; i++) {
+//                if(filePatt.test(scripts[i].src)){
+//                    return true;
+//                }
+//            }
+//            return false;
+//        }
+        
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
-        
-        
         
         window.pageEnter = new Date().getTime();
         var vApp = new window.vmApp();
         window.vApp = vApp; //make available to vApp object to each file
         
+        vApp.gObj.displayError = 1;
+        
         var appIs = "Whiteboard";
         vApp.gObj.sessionClear = false;
         vApp.prvCurrUsersSame();
         vApp.init(wbUser.role, appIs);
+        
+        if(vApp.vutil.isMiniFileIncluded('wb.min')){
+            vApp.gObj.displayError = 0;
+        }
+        
 //         if(vApp.gObj.sessionClear){
 //            localStorage.clear(); //clear all when user/room is changed
 //         }
@@ -132,11 +148,13 @@ jQuery.cachedScript = function( url, options ) {
         });
 
         $(document).on("error", function(e){
-            vApp.wb.view.removeElement('serverErrorCont');
-            window.vApp.wb.view.displayServerError('serverErrorCont', e.message.stack);
-            
-            if(typeof e.message != 'object'){
-                display_error(e.message.stack);
+            if(vApp.gObj.displayError){
+                vApp.wb.view.removeElement('serverErrorCont');
+                vApp.wb.view.displayServerError('serverErrorCont', e.message.stack);
+
+                if(typeof e.message != 'object'){
+                    display_error(e.message.stack);
+                }
             }
             
         });
@@ -167,15 +185,9 @@ jQuery.cachedScript = function( url, options ) {
         }
         
         $(document).on("member_added", function(e){
-            
             vApp.wb.clientLen = e.message.length;
             var joinId = e.message[e.message.length - 1].userid;
             vApp.jId = joinId;
-            
-//            if(joinId ==  vApp.gObj.uid){
-//                vApp.gObj.video._handleUserMedia(joinId);
-//            }
-            
             
             memberUpdate(e, 'added');
             if(typeof vApp.gObj.hasOwnProperty('updateHeight')){
@@ -183,33 +195,7 @@ jQuery.cachedScript = function( url, options ) {
                 vApp.gObj.updateHeight = true;
             }
             
-//            if(joinId == vApp.gObj.uid && vApp.gObj.uRole == 't'){
-//                alert('suman bogati');
-//                if(vApp.user.teacherIsAlreadyExist()){
-//                    
-//                   //  alert('exist');
-//                  //  usr.role = 's';
-//                    vApp.gObj.uRole = 's';
-//                }else{
-//                    alert('SSS');
-//                    if(document.getElementById('commandToolsWrapper') ==  null){
-//                        vApp.user.assignRole(vApp.gObj.uRole, 'Whiteboard');
-//                        vcan.utility.canvasCalcOffset(vcan.main.canid);
-//                    }
-//                }
-//            }
-            
-           // if(joinId == vApp.gObj.uid && vApp.gObj.uRole != 't'){
-				
-       //         var sp = (vApp.gObj.chat.userChatList.length == 0 ) ? 0 : vApp.gObj.chat.userChatList.length;
-         //       vApp.wb.utility.beforeSend({'requestPacketBy' : joinId, sp: sp});
-         
-                //vApp.wb.utility.beforeSend({'requestImagesBy' : joinId});
-            //}
-            
             if(vApp.gObj.uRole == 't'){
-                //alert(vApp.currApp);
-                
                 if(vApp.currApp == 'ScreenShare'){
                     var sType = 'ss';
                 }else if (vApp.currApp == 'WholeScreenShare'){
@@ -223,12 +209,7 @@ jQuery.cachedScript = function( url, options ) {
                     io.sendBinary(createdImg);
                     delete sType;
                 }
-                
-//			    var sp = (vApp.gObj.chat.userChatList.length == 0 ) ? 0 : vApp.gObj.chat.userChatList.length;
-//                vApp.wb.utility.beforeSend({'requestPacketBy' : joinId, sp: sp});
             }
-            
-             //demoVideoTest(e); //for video demo
         });
 
         $(document).on("binrec", function(e){

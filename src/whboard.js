@@ -68,7 +68,7 @@
                     //onkeydown event is working into all browser.
                     canvasObj.onkeydown = vApp.wb.utility.keyOperation;
 
-                    vApp.system.setCanvasDimension();
+                    vApp.system.setAppDimension();
                     if (typeof (Storage) !== "undefined") {
                         if (localStorage.repObjs) {
                            // var replayObjs = JSON.parse(localStorage.repObjs);
@@ -113,7 +113,7 @@
                         window.addEventListener('resize', 
                             function (){
                                 if(vApp.currApp == 'Whiteboard'){
-                                    vApp.wb.utility.lockCanvas();
+                                    vApp.wb.utility.lockVapp();
                                 }
                             }
                         );

@@ -79,11 +79,15 @@
                 var rightOffSet = 5;
                 
                 var extraWidth = 0;
-                var leftSideBar = document.getElementById("vAppOptionsCont");
                 
-                if(leftSideBar != null){
-                    var offset = vcan.utility.getElementOffset(leftSideBar);
-                    leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
+                if(vApp.currApp == 'ScreenShare'){
+                    var leftSideBar = document.getElementById("vAppOptionsCont");
+                    if(leftSideBar != null){
+                        var offset = vcan.utility.getElementOffset(leftSideBar);
+                        leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
+                    }else{
+                        leftSideBarWidth = 0;
+                    }
                 }else{
                     leftSideBarWidth = 0;
                 }
@@ -243,9 +247,22 @@
                     if(elem != null){
                         elem.onclick = function (){vApp.vutil.clickOutSideCanvas();};
                     }
-                  
                 }
-            }
+            },
+            
+            dimensionMatch : function (wbc, ssc){
+                var wbcWidth  = document.getElementById(wbc).offsetWidth;
+                var optionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
+                var sscWidth = document.getElementById(ssc).offsetWidth + optionsContWidth;
+                return (sscWidth == wbcWidth) ? true : false;
+            },
+            
+             disableAppsBar : function (){
+                var appBarCont = document.getElementById('vAppOptionsCont');
+                if(appBarCont !=  null){
+                    appBarCont.style.pointerEvents = "none";
+                }
+            },
         }
         
         window.vutil = vutil;

@@ -807,7 +807,8 @@
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
                         if(vApp.storage.reclaim === false){
-                            vApp.wb.utility.disableAppsBar();
+                            //vApp.wb.utility.disableAppsBar();
+                            vApp.vutil.disableAppsBar();
                         }
                         vApp.wb.vcan.main.replayObjs = allRepObjs;
                         vApp.wb.utility.clearAll(false, 'dontClear');
@@ -975,12 +976,13 @@
                    }
                },
                
-               //TODO lockCanvas should be lockWhiteboard
-               lockCanvas : function (){
+               //TODO lockVapp should be lockWhiteboard
+               lockVapp : function (){
                     if(window.earlierWidth != window.innerWidth){
                         vApp.wb.canvasDisable = true;
                         vApp.wb.utility.makeCanvasDisable();
                         vApp.wb.utility.toolWrapperDisable();
+                        vApp.vutil.disableAppsBar();
                         if(document.getElementById('divForReloadMsg') == null){
                             var label = (localStorage.getItem('teacherId') != null) ? 'msgForReload' : 'msgStudentForReload';
                             window.vApp.wb.view.displayMsgBox('divForReloadMsg', label);
@@ -1066,13 +1068,6 @@
                     vApp.wb.utility.reclaimRole();
                     vApp.wb.utility.sendRequest('reclaimRole', true);
                     vApp.user.control.changeAttrToAssign('enable');
-                },
-				
-                disableAppsBar : function (){
-                    var appBarCont = document.getElementById('vAppOptionsCont');
-                    if(appBarCont !=  null){
-                        appBarCont.style.pointerEvents = "none";
-                    }
                 },
 				
                 enableAppsBar : function (){

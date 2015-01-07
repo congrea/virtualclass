@@ -70,22 +70,45 @@
                 var element = document.getElementById('vAppCont');
                 var offset = vcan.utility.getElementOffset(element);
                 var offsetLeft = offset.x;
-//                alert(offsetLeft);
+                
+                console.log('ox ' + offsetLeft);
+                
                 if (resolution.width < 1024) {
                     var width = 1024 - offsetLeft;
                 } else {
                     var width = resolution.width - offsetLeft;
                 }
-                var height = resolution.height - offset.y;
                 
+              //  var width = 0;
+                var height = resolution.height - offset.y;
                 return {'width': (width), 'height': (height)};
             },
 
-            setCanvasDimension : function() {
+            setAppDimension : function() {
                 var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-                var mainWrapper =  document.getElementById('vAppCont');
+                //var mainWrapper =  document.getElementById('vAppCont');
                 vApp.vutil.setContainerWidth(measureRes);
+                if(vApp.currApp == 'Whiteboard'){
+//                    alert('sss');
+                    system.setCanvasDimension(measureRes);
+                }
                 
+//                if (typeof vcan.main.canvas != 'undefined') {
+//                    var canvas = vcan.main.canvas;
+//                    ctx = vcan.main.canvas.getContext('2d');
+//
+//                    canvas.width = measureRes.width; 
+//                    var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
+//                    canvas.height = measureRes.height - toolWrapperHeight;
+//                    console.log("canvas width " + canvas.width);
+//                    
+//                    //var element = document.getElementById('canvas');
+//                    var offset = vcan.utility.getElementOffset(document.getElementById('canvas'));
+//                    vcan.main.offset.x = offset.x;
+//                }
+            },
+            
+            setCanvasDimension : function (measureRes){
                 if (typeof vcan.main.canvas != 'undefined') {
                     var canvas = vcan.main.canvas;
                     ctx = vcan.main.canvas.getContext('2d');
@@ -94,8 +117,9 @@
                     var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
                     canvas.height = measureRes.height - toolWrapperHeight;
                     console.log("canvas width " + canvas.width);
-                    var element = document.getElementById('canvas');
-                    var offset = vcan.utility.getElementOffset(element);
+                    
+                    //var element = document.getElementById('canvas');
+                    var offset = vcan.utility.getElementOffset(document.getElementById('canvas'));
                     vcan.main.offset.x = offset.x;
                 }
             },
@@ -136,7 +160,7 @@
         window.addEventListener('resize',
             function (){
                 if(window.earlierWidth != window.innerWidth){
-                    system.setCanvasDimension();
+                    system.setAppDimension();
                 }
             }
         );

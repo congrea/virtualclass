@@ -89,7 +89,7 @@ function (window){
                 
                 
                 if(app == this.apps[1]){
-                    this.system.setCanvasDimension();
+                    this.system.setAppDimension();
                 }
 
                   //To teacher
@@ -207,7 +207,7 @@ function (window){
                         if(typeof this.ss == 'object'){
                               this.ss.prevStream = false;   
                         } 
-                      
+                        
                         if(typeof this.previous != 'undefined'){
                             if(typeof cusEvent != 'undefined' && cusEvent == "byclick"){
                                 vApp.wb.utility.beforeSend({'dispWhiteboard' : true});
@@ -257,14 +257,25 @@ function (window){
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
-                            if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
+                              
                               //important can be crtical
-                              //vApp.wb.utility.makeCanvasEnable();  
-                            }
+//                            if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
+//                              //vApp.wb.utility.makeCanvasEnable();  
+//                            }
                             vApp.wb.utility.makeCanvasEnable();
                         }
+                        
+                        if(this.previous == 'vAppScreenShare' && vApp.gObj.uRole == 't'){
+                            if(!vApp.vutil.dimensionMatch("vAppWhiteboard", "vAppScreenShare")){
+                                vApp.wb.utility.lockVapp();
+                            }
+                        }
+                        
+                        //TODO this should be into same varible
                         this.previous = this.wbConfig.id;
                         this.prevApp = this.wbConfig.id;
+                        
+                        
                         
                   }else if(app == this.apps[1]){
                         if(typeof this.ss != 'object'){

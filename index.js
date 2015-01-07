@@ -133,7 +133,7 @@ jQuery.cachedScript = function( url, options ) {
 
         $(document).on("error", function(e){
             vApp.wb.view.removeElement('serverErrorCont');
-            window.vApp.wb.view.displayServerError('serverErrorCont', e.message);
+            window.vApp.wb.view.displayServerError('serverErrorCont', e.message.stack);
             
             if(typeof e.message != 'object'){
                 display_error(e.message.stack);

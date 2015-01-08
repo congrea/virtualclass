@@ -261,12 +261,11 @@
                 },
                 
                 endSession : function (onlyStoredData){
-                    
-                    if(typeof onlyStoredData == 'undefined'){
+                    if(!onlyStoredData){
                         vApp.wb.utility.t_clearallInit();
                         vApp.wb.utility.makeDefaultValue();
+                        vApp.vutil.clearAllChat();
                     }
-                    
                     
                     vApp.storage.clearStorageData();
                     that.config.createNewSession();

@@ -3,84 +3,8 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
 
-/** CHAT code start from here **/
-/*var cssId = 'myCss';
-if (!document.getElementById(cssId))
-{
-    var head  = document.getElementsByTagName('head')[0];
-    var link  = document.createElement('link');
-    link.id   = cssId;
-    link.rel  = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.whiteboardPath+'../bundle/jquery/css/base/jquery-ui.css';
-    link.media = 'all';
-    head.appendChild(link);
-}
-var cssId = 'myCss1';
-if (!document.getElementById(cssId)){
-    var head  = document.getElementsByTagName('head')[0];
-    var link  = document.createElement('link');
-    link.id   = cssId;
-    link.rel  = 'stylesheet';
-    link.type = 'text/css';
-    link.href = '../css/jquery.ui.chatbox.css';
-    link.media = 'all';
-    head.appendChild(link);
-}
-jQuery.cachedScript = function( url, options ) {
-    // Allow user to set any option except for dataType, cache, and url
-    options = $.extend( options || {}, {
-        dataType: "script",
-        cache: true,
-        url: url
-    });
-    // Use $.ajax() since it is more flexible than $.getScript
-    // Return the jqXHR object so we can chain callbacks
-    return jQuery.ajax( options );
-};
-*/
-
-/** CHAT code end from here **/
-
-//$.when(
-    /** CHAT code start from here **/
-//    $.cachedScript( "../bundle/io/build/iolib.min.js" ),
-//    $.cachedScript( "../csrc/footer.js" ),
-//    $.cachedScript( "../csrc/jquery.ui.chatlist.js" ),
-//    $.cachedScript( "../csrc/jquery.ui.chatbox.js" ),
-//    $.cachedScript( "../csrc/jquery.ui.chatroom.js" ),
-//    $.cachedScript( "../csrc/chatboxManager.js" ),
-//    $.cachedScript( "../csrc/lib.js" ),
-//    $.cachedScript( "../csrc/lang.en.js" )
-    
-    
-    //$.cachedScript( "../build/chat.min.js" )
-    /** CHAT code end from here **/
-
-//).done(function(){
-    
-    $.uiBackCompat = false;
-    
-//    <?php echo "wbUser.name='$uname';"; ?>
-//	<?php echo "wbUser.id='".$uid."';"; ?>
-//	<?php echo "wbUser.socketOn='0';"; ?>
-//	<?php echo "wbUser.dataInfo='1';"; ?>
-//	<?php echo "wbUser.room='215';"; ?>
-//	<?php echo "wbUser.sid='".$sid."';"; ?>
-//	<?php echo "wbUser.role='".$r."';"; ?>
-    
-    
+$.uiBackCompat = false;
     $(document).ready(function(){
-//        function isMinFileIncluded(src){
-//            var filePatt = new RegExp(src+".js$");
-//            var scripts = document.getElementsByTagName("script");
-//            for(var i = 0; i < scripts.length; i++) {
-//                if(filePatt.test(scripts[i].src)){
-//                    return true;
-//                }
-//            }
-//            return false;
-//        }
         
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
@@ -100,21 +24,6 @@ jQuery.cachedScript = function( url, options ) {
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
             vApp.gObj.displayError = 0;
         }
-        
-//         if(vApp.gObj.sessionClear){
-//            localStorage.clear(); //clear all when user/room is changed
-//         }
-        
-//        if(typeof sessionClear != 'undefined' && sessionClear){
-//            vApp.storage.config.endSession();
-//        }
-//        
-// important
-//        if(localStorage.getItem('teacherId') != null){
-//            if(document.getElementById('speakerStudent') != null){
-//                vApp.user.displayStudentSpeaker(false);
-//            }
-//        }
         
         if(window.vApp.error.length > 2){
             window.vApp.error = [];
@@ -158,31 +67,6 @@ jQuery.cachedScript = function( url, options ) {
             }
             
         });
-        
-//        var dn = 5;
-//        function createDemoUserList(){
-//            var dummyUser = {
-//                img : "./images/quality-support.png",
-//                name : "Student " + dn,
-//                userid : 100 + dn
-//            }
-//
-//            duser.push(dummyUser);   
-//            memberUpdate({message : duser});
-//            
-//            dn++;
-//            if(dn <=30){
-//                myTimeout = setTimeout(createDemoUserList, 1000);
-//            }else{
-//                clearTimeout(myTimeout);
-//            }
-//        }
-//        
-//        function demoVideoTest(e){
-//            duser = [];
-//            duser.push(e.message);
-//            createDemoUserList();
-//        }
         
         $(document).on("member_added", function(e){
             vApp.wb.clientLen = e.message.length;
@@ -593,11 +477,12 @@ jQuery.cachedScript = function( url, options ) {
         
         /** Chat code start from here **/
         
-        counter = 0;
+         counter = 0;
          idList = new Array();
          var box = null;
          $.htab = [];
          $.htabIndex = [];
+         //vmstorage = {};
          vmstorage = {};
 
          $('body').footerbar();
@@ -715,10 +600,10 @@ jQuery.cachedScript = function( url, options ) {
              $('div#memlist').css('display','none');
          });
 
-         $(window).bind('beforeunload',function(){
-                var data = JSON.stringify(vmstorage);
-                localStorage.setItem(wbUser.sid, data);
-         });
+//         $(window).bind('beforeunload',function(){
+//            var data = JSON.stringify(vmstorage);
+//            localStorage.setItem(wbUser.sid, data);
+//         });
          
         /*** chat start from here ***/
         

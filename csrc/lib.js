@@ -321,3 +321,10 @@ function display_error(msg){
     $("#dialog").html(msg);
     $('#dialog').dialog();
 }
+
+
+function clearAllChatBox(){
+    $(".ui-icon-closethick").trigger("click");
+    $("#chatrm .ui-icon-minusthick").trigger("click");
+    //  alert("suman bogati chat lib.js");
+}

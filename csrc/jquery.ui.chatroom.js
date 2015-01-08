@@ -92,9 +92,9 @@
             options = self.options,
             offset = options.offset,
             title = options.title || "No Title",
-            // chatbox
+            // chatbox, commonchat box
             uiChatbox = (self.uiChatbox = $('<div></div>'))
-            .appendTo(document.body)
+            .appendTo(document.getElementById('chatWidget'))
             .addClass('ui-widget ' +
                 'ui-corner-top ' +
                 'ui-chatroom'

@@ -132,7 +132,7 @@
             title = options.title || "No Title",
             // chatbox
             uiChatbox = (self.uiChatbox = $('<div></div>'))
-            .appendTo(document.body)
+            .appendTo(document.getElementById('chatWidget'))
             .addClass('ui-widget ' +
                 'ui-corner-top ' +
                 'ui-memblist'

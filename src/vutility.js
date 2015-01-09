@@ -296,6 +296,16 @@
                 }
 
                 return true;
+            },
+            
+            removeSessionTool : function (){
+                if(localStorage.getItem('orginalTeacherId') ==  null){
+                    
+                    var SessionEndTool = document.getElementById("vAppSessionEndTool");
+                    if(SessionEndTool != null){
+                        SessionEndTool.parentNode.removeChild(SessionEndTool);
+                    } 
+                }
             }
         }
         

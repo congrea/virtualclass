@@ -8,24 +8,23 @@
             return {
                 //TODO function name should be change
                 assignRole : function (role, app){
-                     if(role == 't'){
-                          vApp.html.optionsWithWrapper();
-                          vApp.attachFunction();
-                          
-                          var vAppOptionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
-                          window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                    if(role == 't'){
+                        vApp.html.optionsWithWrapper();
+                        vApp.attachFunction();
 
-                          if(app == 'Whiteboard' && vApp.gObj.uRole == 't'){
-                              if(vApp.hasOwnProperty('prevApp')){
-                                  vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
-                              } else{
-                                  vApp.vutil.makeActiveApp("vApp" + app);
-                              }
+                        var vAppOptionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
+                        window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
 
-                              vApp.wb.utility.makeCanvasEnable();
-                          }
+                        if(app == 'Whiteboard' && vApp.gObj.uRole == 't'){
+                            if(vApp.hasOwnProperty('prevApp')){
+                                vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
+                            } else{
+                                vApp.vutil.makeActiveApp("vApp" + app);
+                            }
 
-                     }
+                            vApp.wb.utility.makeCanvasEnable();
+                        }
+                    }
                 },
 
                 teacherIsAlreadyExist : function (){
@@ -264,7 +263,9 @@
                         
                         if(localStorage.getItem('orginalTeacherId') == null){
                             var controlContainer = document.getElementById('chat_div').getElementsByClassName('controls')[0];
-                            controlContainer.parentNode.removeChild(controlContainer);
+                            //if(controlContainer != null){
+                                controlContainer.parentNode.removeChild(controlContainer);
+                            //}
                         }
                     },
                     

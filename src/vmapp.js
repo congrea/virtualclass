@@ -120,7 +120,7 @@ function (window){
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     
-                    if(localStorage.getItem('orginalTeacherId') != null){
+                    if(vApp.gObj.uRole == 't'){
                          this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                 },  
@@ -357,10 +357,6 @@ function (window){
             prvCurrUsersSame : function (){
                 var prvUser = localStorage.getItem('prvUser');
                 if(prvUser == null){
-                    //alert("suman bogati");
-                    //localStorage.clear();
-//                    var prvUser = {id:wbUser.id, room : wbUser.room};
-//                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
                    vApp.setPrvUser();
                 }else{
                     prvUser = JSON.parse(prvUser);

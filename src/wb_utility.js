@@ -192,6 +192,11 @@
                     for (var i = 0; i < allTextBoxContainer.length; i++) {
                         allTextBoxContainer[i].parentNode.removeChild(allTextBoxContainer[i]);
                     }
+                    
+                    var error = document.getElementById('serverErrorCont');
+                    if(error != null){
+                        error.parentNode.removeChild();
+                    }
 
                 },
                 /**
@@ -542,16 +547,14 @@
                     localStorage.setItem('orginalTeacherId', vApp.gObj.uid);
                 },
                 initDefaultInfo: function(role) {
-//                    if(vApp.gObj.sessionClear){
-//                       localStorage.clear();
-//                    }
-                    
                     if (role == 't') {
                         if (localStorage.getItem('orginalTeacherId') == null) {
                             //vApp.wb.utility.setOrginalTeacherContent(e);
                             vApp.wb.utility.setOrginalTeacherContent();
                             window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                            
                         }
+                        
                         //} else if (role == 's' && newuser == null) {
                     }else if (role == 's') {
                         vcan.studentId = wbUser.id;
@@ -562,7 +565,11 @@
                         if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
                             localStorage.setItem('studentId', wbUser.id);
                         }
+                        vApp.vutil.removeSessionTool();
                     }
+                    
+                    //bad way
+                    
 
                     vApp.gObj.video.init();
                     vApp.gObj.video.isInitiator = true;

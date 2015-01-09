@@ -19,7 +19,7 @@
                     
                     //create assing button only to student 
                     if(localStorage.getItem('orginalTeacherId') == null){
-                       
+                        vApp.vutil.removeSessionTool();   //
                         var divContainer =   document.getElementById("ml" + fromUserId);
                         var controls = ['assign'];
                         var divControl = vApp.user.createControl(fromUserId, controls);

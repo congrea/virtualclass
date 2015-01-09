@@ -63,7 +63,8 @@
                    
                    Html5Audio : {audioContext : new AudioContext()},
                    init : function (){
-                        if(vApp.gObj.uRole == 't'){
+                        //if(vApp.gObj.uRole == 't'){
+                        if(localStorage.getItem('orginalTeacherId') != null){    
                             vApp.gObj.audMouseDown = true; 
                             //can be critical
                             //this.clickOnceSpeaker('speakerPressOnce');

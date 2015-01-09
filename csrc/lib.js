@@ -252,28 +252,32 @@ function browserSupportsLocalStorage()  {
  preserve public chat on page refersh
 */
 function displaycomChatHistory(){
-
     //common room chat data populated on referesh
-    if(sessionStorage.length > 0){
-        var d = document.createElement('div');
-        d.id = 'chat_room';
-        document.body.appendChild(d);
-        var data = JSON.parse(sessionStorage.getItem('chatroom'));
-        $.each(data, function(id, msgobj) {
-            if(id < 1){
-                chatroombox = $("#chat_room").chatroom({id:"chat_room",
-                                            user : msgobj,
-                                            title : "Common chat",
-                                            messageSent : function(user, msg) {
-                                                $("#chat_room").chatroom("option", "boxManager").addMsg(user.name,msg);
-                                            }});
-            }
-            $("#chat_room").chatroom("option").messageSent(msgobj, msgobj.msg);
-        });
+    
+    //if msglength == 1 and  sessionStorage.getItem('chatroom_status') == 'hidden'
+    if(sessionStorage.length > 1 || (sessionStorage.length == 1 && sessionStorage.getItem('chatroom_status') == null) ){
+        
+            var d = document.createElement('div');
+            d.id = 'chat_room';
+            document.body.appendChild(d);
+            var data = JSON.parse(sessionStorage.getItem('chatroom'));
+            $.each(data, function(id, msgobj) {
+                if(id < 1){
+                    chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                                                user : msgobj,
+                                                title : "Common chat",
+                                                messageSent : function(user, msg) {
+                                                    $("#chat_room").chatroom("option", "boxManager").addMsg(user.name,msg);
+                                                }});
+                }
+                $("#chat_room").chatroom("option").messageSent(msgobj, msgobj.msg);
+            });
+        
     }
-     if(sessionStorage.getItem('chatroom_status') == 'hidden'){
+    
+    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
         $("#chatrm" ).hide(); //hide box on page refresh
-     }
+    }
 }
 
 /*
@@ -325,6 +329,6 @@ function display_error(msg){
 
 function clearAllChatBox(){
     $(".ui-icon-closethick").trigger("click");
-    $("#chatrm .ui-icon-minusthick").trigger("click");
+    //$("#chatrm .ui-icon-minusthick").trigger("click");
     //  alert("suman bogati chat lib.js");
 }

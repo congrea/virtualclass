@@ -13,7 +13,7 @@
             },
             assignRole: function(fromUserId, id, reclaim) {
                  
-	        if (fromUserId != id || typeof reclaim != 'undefined') {
+                if (fromUserId != id || typeof reclaim != 'undefined') {
                     vApp.wb.utility.assignRole(id);
                     vApp.wb.utility.uniqueArrOfObjsToTeacher();
                     

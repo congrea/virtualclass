@@ -60,7 +60,6 @@ $.uiBackCompat = false;
             if(vApp.gObj.displayError){
                 vApp.wb.view.removeElement('serverErrorCont');
                 vApp.wb.view.displayServerError('serverErrorCont', e.message.stack);
-
                 if(typeof e.message != 'object'){
                     display_error(e.message.stack);
                 }
@@ -195,7 +194,7 @@ $.uiBackCompat = false;
             
             
         $(document).on("newmessage", function(e){
-            vApp.wb.view.removeElement('serverErrorCont');
+            //vApp.wb.view.removeElement('serverErrorCont');
 //            if(e.message.hasOwnProperty('delItem')){
 //                if(vcan.main.currObj != ""){
 //                     vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
@@ -211,6 +210,8 @@ $.uiBackCompat = false;
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);
                         vApp.user.control.audioSign(user, "create");
                     }else{
+                        alert('suman bogati');
+                        debugger;
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', false);
                         vApp.user.control.audioSign(user, 'remove');
                     }

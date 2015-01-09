@@ -67,7 +67,8 @@
             'miniuserbox' : "Minimize User Box",
             'maxuserbox' : "Expand User Box",
             'miniUserList' : "Minimize User List",
-            'maxUserList' : "Maxmize User List"
+            'maxUserList' : "Maxmize User List",
+            'startnewsession' : "Do you want start new session with ending current session?"
            
             
             

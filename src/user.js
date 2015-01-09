@@ -9,7 +9,6 @@
                 //TODO function name should be change
                 assignRole : function (role, app){
                      if(role == 't'){
-                         
                           vApp.html.optionsWithWrapper();
                           vApp.attachFunction();
                           
@@ -391,9 +390,6 @@
                                 //important
                                 var audEnableSign = document.createElement('div');
                                 audEnableSign.id = user.id + "AudEnableSign";
-                                
-                                
-                                
                                 var audEnableImg = document.createElement('img');
                                 imgName = "audioenable";
                                 audEnableImg.id = user.id + imgName + "Img";
@@ -411,8 +407,8 @@
                                 document.getElementById(user.id + "ControlContainer").appendChild(audEnableSign);
                             }
                         }else {
-                            var audioSign =  document.getElementById(user.id + "AudEnableSign");
-                            audioSign.parentNode.removeChild(audioSign);
+                            var audioEnableTag =  document.getElementById(user.id + "AudEnableSign");
+                            audioEnableTag.parentNode.removeChild(audioEnableTag);
                         }
                     },
                     

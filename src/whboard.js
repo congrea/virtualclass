@@ -325,7 +325,6 @@
 
                     var allChilds = vApp.wb.vcan.getStates('children');
 
-
                     if (allChilds.length > 0 ) {
                         if(cmd != 't_clearall'){
                             if (typeof multiuser == 'undefined' || cmd != 't_replay') {
@@ -347,9 +346,7 @@
 
                     if (cmd == 't_activeall') {
                         vApp.wb.utility.t_activeallInit();
-                    }
-
-                    if (cmd == 't_replay') {
+                    } else if (cmd == 't_replay') {
                         if (typeof multiuser == 'undefined') {
                             vcan.setValInMain('id', 0);
                         }
@@ -358,11 +355,8 @@
                         } else {
                             vApp.wb.t_replayInit(repMode);
                         }
-                    }
-
-                    if (cmd == 't_clearall') {
-                        var userInput = confirm(vApp.lang.getString('clearAllWarnMessage'));
-                        if (!userInput) {
+                    } else if (cmd == 't_clearall') {
+                        if (!confirm(vApp.lang.getString('clearAllWarnMessage'))) {
                             return;
                         }
 
@@ -372,20 +366,17 @@
                         vApp.storage.clearStorageData();
                         
                         vApp.wb.utility.beforeSend({'clearAll': true});
-                    }
-
-                    if (cmd == 't_assign') {
+                    } else if (cmd == 't_assign') {
                         var toolHeight = localStorage.getItem('toolHeight');
                         if (toolHeight != null) {
                               vApp.wb.utility.beforeSend({'assignRole': true, 'toolHeight': toolHeight, 'socket': vApp.wb.socketOn});
                         } else {
                             vApp.wb.utility.beforeSend({'assignRole': true, 'socket': vApp.wb.socketOn});
                         }
-                    }
-
-                    if (cmd == 't_reclaim') {
+                    } else if (cmd == 't_reclaim') {
                         vApp.wb.utility._reclaimRole();
                     }
+                    
                     if (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
                             && cmd != 't_reclaim') {
                         vApp.wb.tool = new vApp.wb.tool_obj(cmd)

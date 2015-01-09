@@ -104,6 +104,8 @@ if(isset($_GET['name'])){
 <div id="audioWidget">
     <?php 
     if($r == 's'){
+        $dap = "false";
+        $classes = "audioTool deactive";
     ?>
         <div id="speakerStudent">
           <div class="audioTool deactive" id="speakerPressing">
@@ -113,14 +115,16 @@ if(isset($_GET['name'])){
             id="speakerPressingImg" /></a>
           </div>
         </div>
-    
-    <?php } ?>
+        
+<?php }else{
+          $classes = "audioTool active";
+          $dap = "true";
+      }?>
 
-    <div data-audio-playing="false" class="audioTool deactive" id="speakerPressOnce">
-      <a data-title="Press once to speak" class="tooltip" id="speakerPressonceAnch" name=
-      "speakerPressonceAnch"><img src=
-      "https://local.vidya.io/virtualclass/images/speakerpressonce.png"
-      id="speakerPressonceImg" /></a>
+    <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
+      <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
+      "speakerPressonceAnch"><img id="speakerPressonceImg" src=
+      "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
     </div>
 
     <div class="audioTool" id="audioTest">

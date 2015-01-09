@@ -31,12 +31,6 @@ function (window){
               
             //init : function (urole, app, sessionClear){
             init : function (urole, app){
-//                if(urole == 't'){
-//                    if(localStorage.getItem('orginalTeacherId') == null){
-//                        localStorage.setItem('orginalTeacherId', this.gObj.uid);
-//                    }
-//                }
-                
                 
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
                 this.ssConfig = { id : "vApp" + this.apps[1], classes : "appOptions"};
@@ -62,16 +56,6 @@ function (window){
                 this.html.init(this);
                 this.adapter = window.adapter;
                 
-//                if(this.sessionClear){
-//                  //   localStorage.clear(); //clear all when user/room is changed
-////                    var prvUser = {id:wbUser.id, room : wbUser.room};
-////                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
-//                    vApp.setPrvUser();
-//                    if(this.gObj.uRole == 't'){
-//                        localStorage.setItem('teacherId', wbUser.id);
-//                    }
-//                }
-                
                 this.makeAppReady(app, "byclick");
                 
                 //this should be at top
@@ -79,11 +63,6 @@ function (window){
                 this.vutil.isSystemCompatible();
                 
                 
-//                if(vApp.gObj.sessionClear){
-//                    localStorage.clear(); //clear all when user/room is changed
-//                    var prvUser = {id:wbUser.id, room : wbUser.room};
-//                    localStorage.setItem('prvUser', JSON.stringify(prvUser));
-//                }
                 
                 vApp.wb.utility.displayCanvas();
                 
@@ -133,7 +112,6 @@ function (window){
                 },
                 
                 //TODO this should be created throught the simple html
-                
                 optionsWithWrapper : function (){
                     var appCont = document.getElementById(this.id);
                     var appOptCont =  this.createElement('div', 'vAppOptionsCont');
@@ -142,13 +120,9 @@ function (window){
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     
-//                    if(localStorage.getItem('orginalTeacherId') != null){
-//                         this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-//                    }
-                    if(vApp.gObj.uRole == 't'){
-                        this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    }    
-                    
+                    if(localStorage.getItem('orginalTeacherId') != null){
+                         this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    }
                 },  
                 
                 createDiv: function(toolId, text, cmdToolsWrapper, cmdClass, toBeReplace) {
@@ -309,6 +283,10 @@ function (window){
             initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
                 if(appName == 'SessionEndTool'){
+                    if (!confirm(vApp.lang.getString('startnewsession'))) {
+                        return;
+                    }
+
                     appName = appName.substring(0, appName.indexOf("Tool"));
                    
                     vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);

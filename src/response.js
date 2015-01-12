@@ -9,6 +9,9 @@
                 if (formUserId != id) {
                     vApp.user.control._assign(id, 'notsent');
                     vApp.user.displayStudentSpeaker(true);
+                    if(localStorage.getItem('aId') != null){
+                        localStorage.removeItem('aId');
+                    }
                 }
             },
             assignRole: function(fromUserId, id, reclaim) {

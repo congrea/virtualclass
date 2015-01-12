@@ -195,15 +195,7 @@ $.uiBackCompat = false;
             
         $(document).on("newmessage", function(e){
             vApp.wb.view.removeElement('serverErrorCont');
-//            if(e.message.hasOwnProperty('delItem')){
-//                if(vcan.main.currObj != ""){
-//                     vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
-//                     console.log("remove select Item");
-//                }
-//               
-//
-//                return;
-//            }else
+
             if(e.message.hasOwnProperty('sad')){
                 
 //                if(vApp.gObj.uRole == 't'){

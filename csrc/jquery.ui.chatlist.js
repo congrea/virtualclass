@@ -74,7 +74,7 @@
                                 var controls = ['assign'];    
                                 var controlDiv = vApp.user.createControl(peer.userid, controls);
                                 e.appendChild(controlDiv);
-                                localStorage.removeItem('aId');
+                                //localStorage.removeItem('aId');
                                 
                             }
                         }

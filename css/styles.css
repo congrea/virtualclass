@@ -1119,7 +1119,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-left : 2px;
 }
 
-#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.toolTip img, .controls a.audEnableSign img{
+#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip img, .controls a.audEnableSign img{
 	background-color: transparent;
 	margin-left: 1px;
 	margin-right: 0px;
@@ -1300,7 +1300,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	padding: 0;
 }
 
-.toolTip.close{
+.tooltip.close{
 	float: none;
 }
 

@@ -83,7 +83,7 @@
 
             //chatroom tab
             uiFooterbarchatroomtab = (self.uiFooterbarchatroomtab = $('<div></div>'))
-            .addClass('vmchat_room_bt toolTip')
+            .addClass('vmchat_room_bt tooltip')
             //.data('data-title', 'Expand for common chat'), is not working 
             .attr('data-title', vApp.lang.getString('maxCommonChat'))
             .prop('id', 'chatroom_bt2')
@@ -150,7 +150,7 @@
 
             uiFooterbarUserlistIcon = (self.uiFooterbarUserlistIcon = $('<div id="usertab_icon"></div>'))
             .appendTo(uiFooterbarUserlistContent)
-             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="toolTip close" data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
+             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close" data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
             .appendTo(uiFooterbarUserlistContent)
             .text('Private Chat')
             .click(function(){ 

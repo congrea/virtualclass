@@ -81,7 +81,7 @@
                             
                             var assignAnch = document.createElement('a');
                             assignAnch.id = userId + imgName + "Anch";
-                            assignAnch.className = "toolTip";
+                            assignAnch.className = "tooltip";
                            // assignAnch.setAttribute('data-title', "Assign Role");
                             
                             assignAnch.appendChild(assignImg);
@@ -105,7 +105,7 @@
                             
                             var audAnch = document.createElement('a');
                             audAnch.id = userId + imgName + "Anch";
-                            audAnch.className = "toolTip";
+                            audAnch.className = "tooltip";
                             
                          //   audAnch.setAttribute('data-title', "Block Audio");
                             audAnch.appendChild(audBlock);
@@ -135,7 +135,7 @@
                           
                             var chatAnch = document.createElement('a');
                             chatAnch.id = userId + imgName + "Anch";
-                            chatAnch.className = "toolTip";
+                            chatAnch.className = "tooltip";
                        //     chatAnch.setAttribute('data-title', "Block Chat");
                             chatAnch.appendChild(chatBlock);
                             
@@ -163,16 +163,16 @@
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                             elem.setAttribute('data-'+control+'-disable', "false");
                             
-                            elem.className =  control+"Img toolTip enable";
+                            elem.className =  control+"Img tooltip enable";
                             vApp.user.control.updateUser(userId, label, true);
                             
                         }else{
                             if(control == 'assign'){
-                                elem.parentNode.classList.remove('toolTip');
+                                elem.parentNode.classList.remove('tooltip');
                             }
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                             elem.setAttribute('data-'+control+'-disable', 'true');
-                            elem.className = control+"Img toolTip block";
+                            elem.className = control+"Img tooltip block";
                             vApp.user.control.updateUser(userId, label, false);
                         }
                     },
@@ -430,13 +430,13 @@
                             if(action == 'enable'){
                                 allUserElem[i].classList.remove('block');
                                 allUserElem[i].classList.add('enable');
-                                allUserElem[i].parentNode.classList.add('toolTip');    
+                                allUserElem[i].parentNode.classList.add('tooltip');    
                                 allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignDisable'));
                                 allUserElem[i].setAttribute('data-assign-disable', 'false');
                             }else{
                                 allUserElem[i].classList.remove('enable');
                                 allUserElem[i].classList.add('block');
-                                allUserElem[i].parentNode.classList.remove('toolTip')
+                                allUserElem[i].parentNode.classList.remove('tooltip')
                                 
                                 allUserElem[i].setAttribute('data-assign-disable', 'true');
                             }

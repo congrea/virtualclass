@@ -39,7 +39,7 @@
                     if (peer) {
                         var peerlink = document.createElement("a");
                         peerlink.href = '#' + peer.userid;
-                        peerlink.classList.add('toolTip');
+                        peerlink.classList.add('tooltip');
                         peerlink.setAttribute('data-title', 'Click to chat');
 
                         var peerName = document.createElement("img");

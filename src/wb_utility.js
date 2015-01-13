@@ -123,11 +123,6 @@
                 t_clearallInit: function() {
                     var delRpNode = true;
                     vApp.wb.utility.clearAll(delRpNode);
-                   // if (localStorage.repObjs) {
-                        //localStorage.clear();
-                        //alert('suman bogati');
-                        //debugger;
-                    //}
                 },
                 /**
                  * By this function  all drawn object over the canvas would be erased   
@@ -346,6 +341,7 @@
                     if (vcan.main.action == 'move') {
                         vApp.wb.utility.deActiveFrmDragDrop();
                     }
+                    
                     if (typeof studentId != 'undefined') {
                         if (localStorage.getItem('reclaim') != null) {
                             var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
@@ -379,6 +375,7 @@
                         } else {
                             if (cmdToolsWrapper != null) {
                                 cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
+                                
                             }
                         }
                         
@@ -388,6 +385,10 @@
                          
                         vApp.wb.utility.uniqueArrOfObjsToStudent();
 
+                    }
+                    
+                     if(localStorage.getItem('orginalTeacherId') == null){
+                        vApp.vutil.toggleRoleClass(true);
                     }
                 },
                 
@@ -474,6 +475,7 @@
                     }
                 },
                 makeDefaultValue: function() {
+                    vApp.wb.utility.makeDeActiveTool();
                     vApp.wb.gObj.myrepObj = [];
                     vApp.wb.gObj.replayObjs = [];
                     vApp.wb.gObj.rcvdPackId = 0;
@@ -532,6 +534,15 @@
 
                     vApp.gObj.video.audio.updateInfo();
                 },
+                
+                clearCurrentTool : function (){
+                    if(vApp.wb.hasOwnProperty("tool")){
+                        vApp.wb.tool =  ""
+                        
+                        
+                    }
+                },
+                
                 //setOrginalTeacherContent: function(e) {
                 setOrginalTeacherContent: function() {
                     localStorage.setItem('teacherId', vApp.gObj.uid);
@@ -1060,6 +1071,18 @@
                     }
                     tag.className = classes + " active";
                     localStorage.activeTool = tag.id;
+                },
+                
+                makeDeActiveTool : function (){
+                    vApp.wb.tool = ""; //unselect any selected tool
+                    
+                    var toolsWrapper =  document.getElementById("commandToolsWrapper");
+                    var activeTool = document.getElementsByClassName('tool active');
+                    //alert(activeTool.length);
+                    if(activeTool.length > 0){
+                        activeTool[0].classList.remove('active');
+                    }
+                    
                 },
                 
                 createAudioTransmitIcon : function (userId){

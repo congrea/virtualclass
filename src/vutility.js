@@ -300,11 +300,17 @@
             
             removeSessionTool : function (){
                 if(localStorage.getItem('orginalTeacherId') ==  null){
-                    
                     var SessionEndTool = document.getElementById("vAppSessionEndTool");
                     if(SessionEndTool != null){
                         SessionEndTool.parentNode.removeChild(SessionEndTool);
                     } 
+                }
+            },
+            
+            toggleRoleClass : function (reclaim){
+                if((localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null) || reclaim){
+                    document.getElementById("vAppCont").classList.toggle('teacher');
+                    document.getElementById("vAppCont").classList.toggle('student');
                 }
             }
         }

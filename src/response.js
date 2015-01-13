@@ -12,6 +12,7 @@
                     if(localStorage.getItem('aId') != null){
                         localStorage.removeItem('aId');
                     }
+                    //vApp.vutil.toggleRoleClass(true);
                 }
             },
             assignRole: function(fromUserId, id, reclaim) {
@@ -28,6 +29,7 @@
                         var divControl = vApp.user.createControl(fromUserId, controls);
                         divContainer.appendChild(divControl);
                         localStorage.setItem('aId', fromUserId);
+                        //vApp.vutil.toggleRoleClass();
                     }else{
                         vApp.user.control.changeAttrToAssign('enable');
                     }

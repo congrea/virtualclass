@@ -86,30 +86,30 @@ body {
 	float : left;
 	border : #ccc solid 1px;
 }
-#vcanvas.student #videoContainer {
+#vAppCont.student #videoContainer {
 	top : -237px;
 }
 #videoMinMize, #videoMaxMize {
 	position : absolute;
 }
-#vcanvas.student #videoMinMize, #videoMinMize {
+#vAppCont.student #videoMinMize, #videoMinMize {
 	background-image : url('../images/min.png') !important;
 	background-position : left top;
 	background-repeat : no-repeat;
 }
-#vcanvas.student #videoMaxMize, #videoMaxMize {
+#vAppCont.student #videoMaxMize, #videoMaxMize {
 	background-image : url('../images/max.png') !important;
 	background-position : left top;
 	background-repeat : no-repeat;
 }
-#vcanvas.student #videos #videoMinMize, #vcanvas.student #videos #videoMaxMize {
+#vAppCont.student #videos #videoMinMize, #vAppCont.student #videos #videoMaxMize {
 	height : 16px;
 	position : absolute;
 	top : 2px;
 	width : 16px;
 	right : -1px;
 }
-#vcanvas.student #videos #videoMinMize, #videoMinMize {
+#vAppCont.student #videos #videoMinMize, #videoMinMize {
 	border-left : none;
 	border-bottom : none;
 	height : 16px;
@@ -117,7 +117,7 @@ body {
 	right : -1px;
 	width : 16px;
 }
-#vcanvas.student #videos #videoMaxMize, #videoMaxMize {
+#vAppCont.student #videos #videoMaxMize, #videoMaxMize {
 	border-left : 1px solid #CCCCCC;
 	border-top : 1px solid #ccc;
 	border-right : none;
@@ -126,10 +126,10 @@ body {
 	top : -33px;
 	width : 16px;
 }
-#vcanvas.student #videos {
+#vAppCont.student #videos {
 	border-bottom : 1px solid #ccc;
 }
-#vcanvas.student #informationCont {
+#vAppCont.student #informationCont {
 	display : none;
 }
 #containerWb {
@@ -167,7 +167,7 @@ body {
 	background-image : none;
 	padding-right : 15px;
 }
-.socketon.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
+.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
 	background-image : url(../images/border-img.png);
 	background-position : left center;
 	background-repeat : no-repeat;
@@ -373,7 +373,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 #chormeWebrtcCont p {
 	padding : 12px;
-	z-index : 100;
+	z-index : 10000;
 }
 #fireFoxWebrtcCont {
 	position : absolute;
@@ -465,7 +465,7 @@ a[title]:hover:after {
 	background-image : none;
 	padding-right : 15px;
 }
-.socketon.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
+.teacher #commandToolsWrapper #t_assign.controlCmd a, #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
 	background-image : url(../images/border-img.png);
 	background-position : left center;
 	background-repeat : no-repeat;
@@ -521,6 +521,7 @@ a[title]:hover:after {
 .tooltip {
     display : inline;
     position : relative;
+    font-size: 14px;
 }
 
 #usertab_text.tooltip{
@@ -543,10 +544,11 @@ a[title]:hover:after {
 	padding : 0.3em 1em;
 	position : absolute;
 	white-space : nowrap;
-	z-index : 98;
+	z-index : 100;
 	color : #000;
 	box-shadow : 0 1px 2px rgba(0, 0, 0, 0.2);
 	font-size : 12px;
+	font-weight: normal !important;
 }
 #audioWidget .Tool .tooltip:hover:after, #audioWidget .audioTool .tooltip:hover:after {
 	padding : 0.7em 1em;
@@ -653,7 +655,7 @@ a[title]:hover:after {
 	padding-left : 0;
 	padding-right : 0;
 }
-.socketon #t_assign.controlCmd a {
+ #t_assign.controlCmd a {
 	padding-left : 12px;
 	padding-right : 14px;
 }
@@ -695,14 +697,14 @@ a[title]:hover:after {
 #remoteVideo {
 	width : 100%;
 }
-#vcanvas.student #videos {
+#vAppCont.student #videos {
 	top : 16px;
 }
 .dynDiv_resizeDiv_tl {
 	padding-bottom : 5px;
 	padding-right : 5px;
 }
-#vcanvas.student #videoMinMize, #videoMinMize {
+#vAppCont.student #videoMinMize, #videoMinMize {
 	height : 16px;
 	right : 2px;
 	width : 16px;
@@ -737,30 +739,30 @@ a[title]:hover:after {
 #videoMinMize, #videoMaxMize {
 	position : absolute;
 }
-#vcanvas.student #videoContainer {
+#vAppCont.student #videoContainer {
 	top : -237px;
 }
 #videoMinMize, #videoMaxMize {
 	position : absolute;
 }
-#vcanvas.student #videoMinMize, #videoMinMize {
+#vAppCont.student #videoMinMize, #videoMinMize {
 	background-image : url('../images/min.png') !important;
 	background-position : left top;
 	background-repeat : no-repeat;
 }
-#vcanvas.student #videoMaxMize, #videoMaxMize {
+#vAppCont.student #videoMaxMize, #videoMaxMize {
 	background-image : url('../images/max.png') !important;
 	background-position : left top;
 	background-repeat : no-repeat;
 }
-#vcanvas.student #videos #videoMinMize, #vcanvas.student #videos #videoMaxMize {
+#vAppCont.student #videos #videoMinMize, #vAppCont.student #videos #videoMaxMize {
 	height : 16px;
 	position : absolute;
 	top : 2px;
 	width : 16px;
 	right : -1px;
 }
-#vcanvas.student #videos #videoMinMize, #videoMinMize {
+#vAppCont.student #videos #videoMinMize, #videoMinMize {
 	border-left : none;
 	border-bottom : none;
 	height : 16px;
@@ -768,7 +770,7 @@ a[title]:hover:after {
 	right : -1px;
 	width : 16px;
 }
-#vcanvas.student #videos #videoMaxMize, #videoMaxMize {
+#vAppCont.student #videos #videoMaxMize, #videoMaxMize {
 	border-left : 1px solid #CCCCCC;
 	border-top : 1px solid #ccc;
 	border-right : none;
@@ -777,7 +779,7 @@ a[title]:hover:after {
 	top : -33px;
 	width : 16px;
 }
-.socketon.teacher #videoMaxMize {
+.teacher #videoMaxMize {
 	top : -17px;
 }
 .controlCmd {
@@ -1046,7 +1048,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #speakerStudent #speakerPressing a:hover img {
 	opacity : 0.5;
 }
-#vcanvas.student #containerWb {
+#vAppCont.student #containerWb {
 	background-image : url('../images/nav_bg.png') !important;
 }
 #closebtn {
@@ -1145,6 +1147,12 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	 padding-left: 4px;
 	 padding-right: 4px;
 	 
+ }
+ 
+#chat_div .ui-memblist-usr a.tooltip:hover:after{
+	 bottom: 7px;
+	 z-index: 1;
+
  }
 
 
@@ -1287,4 +1295,20 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
     pointer-events : none !important;
     opacity : 0.6;
 }
+
+#page-mod-virtualclass-view #page{
+	padding: 0;
+}
+
+.toolTip.close{
+	float: none;
+}
+
+#usertab_icon{margin: 5px 2px 0 0;}
+
+
+.vmchat_room_bt.tooltip:hover:after{bottom: 2.7em;}
+.close.tooltip:hover:after{bottom: 2.4em;}
+
+
 

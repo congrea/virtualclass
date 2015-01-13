@@ -190,7 +190,7 @@ ui-memblist-usr
      width: 203px;
 }
 .inner_bt {
-    padding: 8px 0px;
+    padding: 5px 0px;
     line-height: 15px;
 }
 
@@ -198,7 +198,7 @@ ui-memblist-usr
     background: url('../images/offline.png') no-repeat top left;
     float: left;
     height: 16px;
-    margin: 1px 2px 0px 0px;
+    margin: 5px 2px 0px 0px;
     width: 16px;
 }
 /*css for sticky footer bar*/

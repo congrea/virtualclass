@@ -16,10 +16,14 @@ $.uiBackCompat = false;
         
         vApp.gObj.displayError = 1;
         
+        
         var appIs = "Whiteboard";
         vApp.gObj.sessionClear = false;
         vApp.prvCurrUsersSame();
         vApp.init(wbUser.role, appIs);
+        
+        vApp.vutil.toggleRoleClass();
+        
         
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
             vApp.gObj.displayError = 0;

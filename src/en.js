@@ -62,13 +62,13 @@
             'assignDisable' : "Assign teacher role",
             'audioEnable' : "Enable audio", 
             'audioDisable' : "Disable audio",
-            'minCommonChat' : "Minimize the Common Chat",
-            'maxCommonChat' : "Maximize the Common Chat",
-            'miniuserbox' : "Minimize User Box",
-            'maxuserbox' : "Expand User Box",
-            'miniUserList' : "Minimize User List",
-            'maxUserList' : "Maxmize User List",
-            'startnewsession' : "Do you want to start new session with ending current session?"
+            'minCommonChat' : "Hide Common Chat",
+            'maxCommonChat' : "Show Common Chat",
+            'miniuserbox' : "Hide User Box",
+            'maxuserbox' : "Show User Box",
+            'miniUserList' : "Show User List",
+            'maxUserList' : "Hide User List",
+            'startnewsession' : "Do you want start a new session with ending current session?"
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

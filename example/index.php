@@ -26,7 +26,7 @@ include('js.debug.php');
 //include('js.php');
 
 // this url should be soemthing like this
-// https://local.vidya.io/virtualclass/example/index.php?id=1&r=t&name=raju
+// https://local.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
     
 if(isset($_GET['id'])){
     $uid = $_GET['id'];
@@ -36,7 +36,15 @@ if(isset($_GET['id'])){
     $sid = 100;
 }
 
-$r = (isset($_GET['r'])) ? $_GET['r'] : 's';
+//$r = (isset($_GET['r'])) ? $_GET['r'] : 's';
+
+if(isset($_GET['r'])){
+    $r = $_GET['r'];
+    $cont_class = $r == 't' ? "teacher" : 'student';
+}else{
+    $r = 's';
+    $cont_class = 'student';
+}
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 //echo $room;
@@ -71,13 +79,12 @@ if(isset($_GET['name'])){
 </script>
 
 </head>
-<div id="vAppCont" class="teacher">
-    
 
- 
+
+<div id="vAppCont" class="<?php echo $cont_class; ?>">
     <div id="vAppWhiteboard" class="vmApp">
 
-       <div id="vcanvas" class="socketon teacher">
+       <div id="vcanvas" class="socketon">
 
         <div id="containerWb">
 

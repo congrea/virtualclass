@@ -864,6 +864,11 @@
                 },
                 
                 handleUserMedia : function(stream){
+                    var audioWiget = document.getElementById('audioWidget');
+                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
+                        vApp.user.control.audioWidgetEnable();
+                    }
+                    
                     cthis.video.tempStream = stream;
                     cthis.audio.init();
                     var userDiv = document.getElementById("ml" + vApp.gObj.uid);
@@ -883,6 +888,8 @@
                 },
                 
                 _handleUserMedia: function(userid) {
+                    
+                    
                     var userMainDiv = document.getElementById(userid);
                     var  stream = cthis.video.tempStream ;
 
@@ -982,6 +989,15 @@
                 },
                 
                 handleUserMediaError: function(error) {
+                    vApp.user.control.audioWidgetDisable();
+                    
+                    if(error.hasOwnProperty('name')){
+                        alert("media error:- " + vApp.lang.getString(error.name));
+                    }else{
+                        alert("media error:- " + vApp.lang.getString(error));
+                    }
+                    
+                    
                     vApp.wb.view.disappearBox('WebRtc');
                     console.log('navigator.getUserMedia error: ', error);
                 }

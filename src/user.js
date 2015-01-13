@@ -294,6 +294,7 @@
                         studentSpeaker.style.pointerEvents = "visible";
                     },
                     
+                    //move into media.js
                     audioWidgetDisable : function (){
                         localStorage.setItem('audEnable', "false");
                         var studentSpeaker = document.getElementById('audioWidget');

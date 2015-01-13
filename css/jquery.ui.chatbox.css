@@ -91,7 +91,7 @@ ui-memblist-usr
     border: 0px;
 }
 .ui-memblist-log {
-    padding: 4px 0px 3px 0px;
+    padding: 15px 0px 3px 0px;
     height: 220px;
     overflow-y: auto;
     background: #FFFFFF;
@@ -210,7 +210,7 @@ ui-memblist-usr
     bottom:30px;
     padding: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
-    z-index: 10000;
+    z-index: 100;
 }
 #chatroom_icon {
     background-position: -154px -90px;

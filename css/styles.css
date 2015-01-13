@@ -378,7 +378,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #fireFoxWebrtcCont {
 	position : absolute;
 	left : 160px;
-	top : 173px;
+	top : 200px;
 	z-index : 100;
 }
 .msgBoxCanvas {
@@ -1109,7 +1109,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-right : 8px;
 }
 .ui-memblist-usr a img {
-	margin-top : 4px;
+	margin-top : 6px;
 	float : left;
 	background-color : #eee;
 	padding : 8px 12px;
@@ -1164,8 +1164,8 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	clear : both;
 }*/
 .ui-widget-content .controls img {
-	margin-left : 4px;
-	margin-right : 4px;
+	margin-left : 3px;
+	margin-right : 2px;
 	height : 16px !important;
 	width : 16px !important;
 	min-height : 0 !important;
@@ -1307,8 +1307,14 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #usertab_icon{margin: 5px 2px 0 0;}
 
 
-.vmchat_room_bt.tooltip:hover:after{bottom: 2.7em;}
+.vmchat_room_bt.tooltip:hover:after{bottom: 2.7em; z-index: 10000;}
 .close.tooltip:hover:after{bottom: 2.4em;}
+
+#page-mod-virtualclass-view #page.container-fluid #page-header{display: none !important; margin: 0 !important;}
+
+#page-mod-virtualclass-view #page.container-fluid{max-width: none !important;}
+
+
 
 
 

@@ -68,7 +68,10 @@
             'maxuserbox' : "Show User Box",
             'miniUserList' : "Show User List",
             'maxUserList' : "Hide User List",
-            'startnewsession' : "Do you want start a new session with ending current session?"
+            'startnewsession' : "Do you want start a new session with ending current session?",
+            'DevicesNotFoundError' :  "You may not have Webcam(camera/microphone).",
+            'PermissionDeniedError' : "You denied to access your Webcam.",
+            'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone)."
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

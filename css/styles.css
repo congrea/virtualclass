@@ -1313,8 +1313,15 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #page-mod-virtualclass-view #page.container-fluid #page-header{display: none !important; margin: 0 !important;}
 
 #page-mod-virtualclass-view #page.container-fluid{max-width: none !important;}
+.close.tooltip:hover:after, .open.tooltip:hover:after{bottom: 2.2em;}
 
+.ui-widget.disable{
+    opacity : 0.4;
+}
 
+.ui-widget.enable{
+    opacity : 1;
+}
 
 
 

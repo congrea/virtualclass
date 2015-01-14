@@ -113,7 +113,8 @@
 
                     this.classes = config.hasOwnProperty('class') ? config.classes : "";
 
-                    this.prevImageSlices = [];
+                    //this.prevImageSlices = [];
+                    this.initPrevImage();
 
                     var ssUI = document.getElementById(this.id);
 
@@ -195,7 +196,8 @@
                 this.video.src = "";
                 this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
                 clearInterval(vApp.clear);
-                this.prevImageSlices = [];
+                //this.prevImageSlices = [];
+                this.initPrevImage();
 
                 if (this.hasOwnProperty('currentStream')) {
                     this.currentStream.stop();
@@ -209,7 +211,7 @@
             },
 
             initializeRecorder: function (stream) {
-                changeonresize = 0;
+                changeonresize = 1;  
                 resizecalled = 0;
 
                 if (this.prevStream) {
@@ -250,7 +252,9 @@
                         that.video.src = "";
                         that.localtempCont.clearRect(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
                         clearInterval(vApp.clear);
-                        that.prevImageSlices = [];
+                        //that.prevImageSlices = [];
+                        that.initPrevImage();
+                        
                         vApp.wb.utility.beforeSend({'unshareScreen': true, st: that.type});
                         that.prevStream = false;
                         that.prevScreen = "";
@@ -325,6 +329,10 @@
 
                 //function getDataFullScreen(type){
                 vApp.getDataFullScreen = function (type) {
+//                    alert("suman bogati");
+//                    debugger;
+                    
+                   // alert("this is not happend");
                     //clearInterval(vApp.clear);
 
                     that.localtempCanvas.width = that.video.offsetWidth;
@@ -338,12 +346,13 @@
                     var h = breakintobytes(that.localtempCanvas.height, 4);
                     var w = breakintobytes(that.localtempCanvas.width, 4);
                     var statusCode = null;
-                    if (type == 'ss') {
-                        statusCode = 102;
-                    } else {
-                        statusCode = 202;
-                    }
-
+//                    if (type == 'ss') {
+//                        statusCode = 102;
+//                    } else {
+//                        statusCode = 202;
+//                    }
+                    var statusCode = (type == 'ss') ? 102 : 202;
+                   
                     var scode = new Uint8ClampedArray([statusCode, w[0], w[1], h[0], h[1]]);
 
                     var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
@@ -356,7 +365,7 @@
 
                 function getDataFullScreenResize(stype) {
                     //clearInterval(vApp.clear);
-
+                    
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
                     that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
@@ -630,10 +639,12 @@
                         width: container.width
                     };
                 }
+            },
+            
+            initPrevImage : function (){
+                sworker.postMessage({'initPrevImg' : true});
             }
         }
-
-
     }
     window.screenShare = screenShare;
 })(window);

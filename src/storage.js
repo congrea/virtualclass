@@ -265,6 +265,9 @@
                         vApp.wb.utility.t_clearallInit();
                         vApp.wb.utility.makeDefaultValue();
                         vApp.vutil.clearAllChat();
+//                        if(vApp.hasOwnProperty('ss')){
+//                            //vApp['ss'].initPrevImage();
+//                        }
                     }
                     
                     vApp.storage.clearStorageData();

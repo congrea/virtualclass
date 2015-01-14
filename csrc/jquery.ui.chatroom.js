@@ -88,6 +88,12 @@
         _create: function(){
 //            alert("hey ram");
 //            debugger;
+            if(localStorage.getItem('chatEnable') != null){
+                var chatStatus = (localStorage.chatEnable == "true") ? "enable" : "disable";
+            }else{
+                var chatStatus = "enable";
+            }
+            
 	        var self = this,
             options = self.options,
             offset = options.offset,
@@ -97,7 +103,8 @@
             .appendTo(document.getElementById('chatWidget'))
             .addClass('ui-widget ' +
                 'ui-corner-top ' +
-                'ui-chatroom'
+                'ui-chatroom ' +
+                 chatStatus
             )
             .prop('id', 'chatrm')
             .prop('outline', 0)
@@ -117,6 +124,7 @@
                 'ui-dialog-header' // take advantage of dialog header style
             )
             .click(function(event) {
+             
                 //self.toggleContent(event);
                 self.uiChatboxTitlebar.removeClass("ui-state-highlight");
             })

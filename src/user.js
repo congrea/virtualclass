@@ -336,7 +336,16 @@
                     
                     makeElemDisable : function (elem){
                //         localStorage.setItem('chatEnable', "true");
-                        elem.style.opacity = "0.4";
+               
+                        if(elem.hasOwnProperty('classList')){
+                            elem.classList.remove('enable');
+                            elem.classList.add('disable');
+                        }else{
+                            elem.className = "disable";
+                        }
+                        
+                        
+                        //elem.style.opacity = "0.4";
                         var inputBox = elem.getElementsByClassName("ui-chatbox-input-box")[0];
                         if(inputBox != null){
                             inputBox.disabled = true;
@@ -363,7 +372,13 @@
                     }, 
                     
                     makeElemEnable : function (elem){
-                        elem.style.opacity = "1";
+                        if(elem.hasOwnProperty('classList')){
+                            elem.classList.remove('disable');
+                            elem.classList.add('enable');
+                        } else{
+                            elem.className = "enable";
+                        }
+                        //elem.style.opacity = "1";
                         var inputBox = elem.getElementsByClassName("ui-chatbox-input-box")[0];
                         if(inputBox != null){
                             inputBox.disabled = false;

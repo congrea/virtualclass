@@ -759,6 +759,7 @@ button.ui-button::-moz-focus-inner {
 	float: left;
 	padding: .5em 1em;
 	text-decoration: none;
+	padding-top: 0.3em;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
@@ -807,7 +808,7 @@ body .ui-tooltip {
 	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
 	font-size: 1em;
 }
-.ui-widget-content{
+.ui-widget-content {
 	border: 1px solid #aaaaaa/*{borderColorContent}*/;
 	background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/;
 	color: #222222/*{fcContent}*/;
@@ -880,15 +881,18 @@ body .ui-tooltip {
 
 /* Interaction Cues
 ----------------------------------*/
-/*
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	border: 1px solid #fcefa1/*{borderColorHighlight}*/;
+	border: 1px solid #fcefa1 !important/*{borderColorHighlight}*/;
 	background: #fbf9ee/*{bgColorHighlight}*/ url(images/ui-bg_glass_55_fbf9ee_1x400.png)/*{bgImgUrlHighlight}*/ 50%/*{bgHighlightXPos}*/ 50%/*{bgHighlightYPos}*/ repeat-x/*{bgHighlightRepeat}*/;
 	color: #363636/*{fcHighlight}*/;
+	-webkit-box-shadow: inset -1px -1px 8px 1px rgba(252,239,161,1);
+	-moz-box-shadow: inset -1px -1px 8px 1px rgba(252,239,161,1);
+	box-shadow: inset -1px -1px 8px 1px rgba(252,239,161,1);
 }
-*/
+
+
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
@@ -959,7 +963,6 @@ body .ui-tooltip {
 }
 .ui-state-active .ui-icon {
 	background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive}*/;
-	
 }
 .ui-state-highlight .ui-icon {
 	background-image: url(images/ui-icons_2e83ff_256x240.png)/*{iconsHighlight}*/;
@@ -1079,7 +1082,7 @@ body .ui-tooltip {
 .ui-icon-plus { background-position: -16px -128px; }
 .ui-icon-plusthick { background-position: -32px -128px; }
 .ui-icon-minus { background-position: -48px -128px; }
-.ui-icon-minusthick { background-position: -64px -128px !important; }
+.ui-icon-minusthick { background-position: -64px -128px; }
 .ui-icon-close { background-position: -80px -128px; }
 .ui-icon-closethick { background-position: -96px -128px; }
 .ui-icon-key { background-position: -112px -128px; }
@@ -1146,6 +1149,9 @@ body .ui-tooltip {
 .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+.ui-icon-minusthick {
+background-position: -64px -128px !important;
+}
 
 
 /* Misc visuals

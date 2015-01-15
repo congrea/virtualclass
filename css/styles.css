@@ -378,7 +378,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #fireFoxWebrtcCont {
 	position : absolute;
 	left : 160px;
-	top : 200px;
+	top : 235px;
 	z-index : 100;
 }
 .msgBoxCanvas {
@@ -1028,6 +1028,10 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	padding-bottom : 13px;
 	padding-right : 5px;
 }
+#audioWidget.fixed{
+	position: fixed;
+}
+
 #audioWidget .Tool .tooltip img {
 	border : green solid 1px;
 	padding : 2px;
@@ -1254,7 +1258,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 
 #vAppCont{
-    width : 100%;
+    width : auto;
 }
 
 #t_reclaim{
@@ -1322,6 +1326,8 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .ui-widget.enable{
     opacity : 1;
 }
+
+
 
 
 

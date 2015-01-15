@@ -312,6 +312,22 @@
                     document.getElementById("vAppCont").classList.toggle('teacher');
                     document.getElementById("vAppCont").classList.toggle('student');
                 }
+            },
+            
+            addClass : function (elemId, className){
+                var elem = document.getElementById(elemId);
+                if(elem.hasOwnProperty('classList')){
+                    elem.classList.add(className);
+                }else{
+                    elem.className = className;
+                }
+            },
+            
+            removeClass : function (id,  className){
+                var elem = document.getElementById(id);
+                if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
+                    elem.classList.remove(className);
+                }
             }
         }
         

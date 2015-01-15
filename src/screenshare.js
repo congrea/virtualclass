@@ -207,10 +207,14 @@
             },
 
             removeStream: function () {
+                vApp.vutil.removeClass('audioWidget', "fixed");
                 this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
             },
 
             initializeRecorder: function (stream) {
+                vApp.vutil.addClass("audioWidget", "fixed");
+                
+                //add class
                 changeonresize = 1;  
                 resizecalled = 0;
 

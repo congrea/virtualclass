@@ -270,6 +270,7 @@
 //                        }
                     }
                     
+                    vApp.vutil.removeClass('audioWidget', "fixed");
                     vApp.storage.clearStorageData();
                     that.config.createNewSession();
                 }

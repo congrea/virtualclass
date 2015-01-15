@@ -88,7 +88,7 @@ function (window){
                 
                 if(this.system.webSocket){
                   var wbUser = window.wbUser;
-                  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
+                //  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
                   vApp.uInfo = {
                       'userid':wbUser.id, 
                       'sid':wbUser.sid,
@@ -180,6 +180,8 @@ function (window){
               
               makeAppReady : function (app, cusEvent){
                   if(app == this.apps[0]){
+                        
+                        
                         if(typeof this.ss == 'object'){
                               this.ss.prevStream = false;   
                         } 
@@ -282,6 +284,7 @@ function (window){
               
             initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
+                //alert(appName);
                 if(appName == 'SessionEndTool'){
                     if (!confirm(vApp.lang.getString('startnewsession'))) {
                         return;
@@ -306,6 +309,15 @@ function (window){
                         alert("Already the whole screen is being shared.");
                     }
                 }
+                if(appName != "ScreenShare"){
+                    vApp.vutil.removeClass('audioWidget', "fixed");
+                    
+                    
+//                    var audioWidget = document.getElementById('audioWidget');
+//                    if(audioWidget.hasOwnProperty('classList') && audioWidget.classList.contains('fixed')){
+//                        audioWidget.classList.remove('fixed');
+//                    }
+                }
             },
               
             PrvAndCurrIsWss : function (previous, appName){
@@ -314,6 +326,7 @@ function (window){
               
               
             initStudentScreen : function (imgData, d, stype, stool){
+                vApp.vutil.addClass('audioWidget', "fixed");
                 app = stype;
                 if(typeof vApp[app] != 'object' ){
                      if(typeof vtype != 'undefined'){

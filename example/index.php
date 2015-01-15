@@ -64,6 +64,7 @@ if(isset($_GET['name'])){
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
     }
+   
 	<?php echo "wbUser.name='$uname';"; ?>
 	<?php echo "wbUser.id='".$uid."';"; ?>
 	<?php echo "wbUser.socketOn='0';"; ?>
@@ -75,7 +76,7 @@ if(isset($_GET['name'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
-    
+    wbUser.image = window.whiteboardPath + "images/quality-support.png"
 </script>
 
 </head>

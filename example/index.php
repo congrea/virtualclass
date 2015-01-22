@@ -76,7 +76,7 @@ if(isset($_GET['name'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
-    wbUser.image = window.whiteboardPath + "images/quality-support.png"
+    wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
 </script>
 
 </head>

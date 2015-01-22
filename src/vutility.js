@@ -33,7 +33,7 @@
             },
             
             ab2str : function(buf) {
-                    return String.fromCharCode.apply(null, new Uint8ClampedArray(buf));
+                return String.fromCharCode.apply(null, new Uint8ClampedArray(buf));
             },
             
             str2ab : function(str) {
@@ -328,6 +328,15 @@
                 if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
                     elem.classList.remove(className);
                 }
+            },
+            
+            breakIntoBytes : function (val,l){
+                var numstring = val.toString();
+                for (var i = numstring.length; i < l; i++) {
+                    numstring = '0' + numstring;
+                }
+                var parts = numstring.match(/[\S]{1,2}/g) || [];
+                return parts;
             }
         }
         

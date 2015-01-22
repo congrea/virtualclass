@@ -5,7 +5,6 @@
 
 $.uiBackCompat = false;
     $(document).ready(function(){
-        
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
@@ -21,8 +20,12 @@ $.uiBackCompat = false;
         vApp.gObj.sessionClear = false;
         vApp.prvCurrUsersSame();
         vApp.init(wbUser.role, appIs);
+        if(localStorage.getItem('tc') != null){
+            vApp.vutil.toggleRoleClass();
+        }else{
+            localStorage.setItem('tc', true);
+        }
         
-        vApp.vutil.toggleRoleClass();
         
         
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
@@ -100,6 +103,7 @@ $.uiBackCompat = false;
         });
 
         $(document).on("binrec", function(e){
+            //vApp.gObj.video.audio []
             var data_pack = new Uint8Array(e.message);
             
             if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
@@ -110,13 +114,34 @@ $.uiBackCompat = false;
                 var sTool = 'WholeScreenShare';
             }
             
+//            var data_pack = new Uint8ClampedArray(e.message);
+//            var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+//            var recmsg = data_pack.subarray(5,data_pack.length);
+//            vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
+            
             if (data_pack[0] == 101) { // Audio
-                var recmsg = data_pack.subarray(1,data_pack.length);
+                var data_pack = new Uint8ClampedArray(e.message);
+                var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+                //console.log('uid ' + uid);
+                var recmsg = data_pack.subarray(5, data_pack.length)
                 
+                //otherSound should be testSound
                 if(!vApp.gObj.video.audio.otherSound){
-                    vApp.gObj.video.audio.play(recmsg, 0 , 0);
+                    vApp.gObj.video.audio.queue(recmsg, uid);
+                   
+                    if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
+                        vApp.gObj[uid] = {};
+                        vApp.gObj[uid].isplaying = true;
+                        setTimeout(
+                            function (){
+                                vApp.gObj.video.audio.extractAudios(uid);
+                            },
+                            100
+                        );
+                    }else if(vApp.gObj[uid].isplaying == false){
+                        vApp.gObj.video.audio.extractAudios(uid);
+                    }
                 }
-                
                 return;
                 
             //this may not need that we can achieve this by protocol 104    
@@ -163,7 +188,6 @@ $.uiBackCompat = false;
                 var dimObj = { d : {w : dw, h : dh},  vc : {w : vcw, h : vch}};
                 vApp.initStudentScreen(recmsg, dimObj, stype, sTool);
             } else if (data_pack[0] == 11) {
-                
                 var data_pack = new Uint8ClampedArray(e.message);
                 var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
                 var recmsg = data_pack.subarray(5,data_pack.length);
@@ -198,7 +222,7 @@ $.uiBackCompat = false;
             
             
         $(document).on("newmessage", function(e){
-            vApp.wb.view.removeElement('serverErrorCont');
+            //vApp.wb.view.removeElement('serverErrorCont');
 
             if(e.message.hasOwnProperty('sad')){
                 
@@ -297,8 +321,8 @@ $.uiBackCompat = false;
                 return;
            }else if(e.message.hasOwnProperty('audioSamp')){
                 //if(e.fromUser.userid != wbUser.id){
-                    var data_pack = e.message.audioSamp;
-                    vApp.gObj.video.audio.play(data_pack, 0 , 0);
+//                    var data_pack = e.message.audioSamp;
+//                    vApp.gObj.video.audio.play(data_pack, 0 , 0);
                     
                 //}
                 return;
@@ -607,16 +631,16 @@ $.uiBackCompat = false;
         
         //TODO this should be into relative place
         //this file have to be convert into function   
-         var session = {
-             audio: true,
-             video: false
-         };
+//         var session = {
+//             audio: true,
+//             video: false
+//         };
+//
+//         var recordRTC = null;
+//         var resampler = new Resampler(44100, 8000, 1, 4096);
 
-         var recordRTC = null;
-         var resampler = new Resampler(44100, 8000, 1, 4096);
-
-         var Html5Audio = {};
-         Html5Audio.audioContext = new AudioContext();
+//         var Html5Audio = {};
+//         Html5Audio.audioContext = new AudioContext();
 
          var encMode = "alaw"; 
          

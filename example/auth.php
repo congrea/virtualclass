@@ -40,6 +40,7 @@ $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'lice
  
      
  $rid = my_curl_request("https://c.vidya.io", $post_data); // REMOVE HTTP
+ //$rid = "8000.vidya.io";
 //print_r( $rid);exit;//8000.vidya.io
  
  //$rid = "8002.vidya.io";

@@ -489,6 +489,7 @@
                     var canvasDrwMsg = vApp.vutil.chkValueInLocalStorage('canvasDrwMsg');
                     var toolHeight = vApp.vutil.chkValueInLocalStorage('toolHeight');
                     var prvUser = JSON.parse(vApp.vutil.chkValueInLocalStorage('prvUser'));
+                    var toggleRole = JSON.parse(vApp.vutil.chkValueInLocalStorage('tc'));
         
                     localStorage.clear();
                     vApp.recorder.items = [];
@@ -522,6 +523,10 @@
 
                     if (toolHeight) {
                         localStorage.setItem('toolHeight', toolHeight);
+                    }
+                    
+                    if(toggleRole){
+                        localStorage.setItem('tc', toggleRole);
                     }
 
                     if (typeof vcan.objTxt != 'undefined') {
@@ -937,16 +942,19 @@
                  * @param {type} msg
                  * @returns {undefined}
                  */
-                  audioSend : function (msg){
-                    var scode = new Int8Array( [ 101 ] ); // Status Code Audio
+                audioSend : function (msg){
+                    var uid = breakintobytes(vApp.gObj.uid, 8);
+                    var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
                     var sendmsg = new Int8Array(msg.length + scode.length);
                     sendmsg.set(scode);
                     sendmsg.set(msg, scode.length); // First element is status code (101)
-                        if (io.sock.readyState == 1) {
-                            if(vApp.gObj.audMouseDown){
-                                io.sendBinary(sendmsg);
-                            }
+
+                    // Temp change
+                    if (io.sock.readyState == 1) {
+                        if(vApp.gObj.audMouseDown){
+                           io.sendBinary(sendmsg);
                         }
+                    }
                 },
                 /**
                  * the operation before send infor to server
@@ -1107,6 +1115,14 @@
                     }
                 }
             };
+        }
+        function breakintobytes (val,l) {
+            var numstring = val.toString();
+            for (var i=numstring.length; i < l; i++) {
+                numstring = '0'+numstring;
+            }
+            var parts = numstring.match(/[\S]{1,2}/g) || [];
+            return parts;
         }
         window.utility = utility;  
     }

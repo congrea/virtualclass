@@ -298,7 +298,7 @@
                         //console.log("out of recording");
                         if(!repMode){
                           //  console.log("Audio recording");
-                            this.calcAverage();
+//                            this.calcAverage();
                             var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
 
@@ -349,7 +349,7 @@
                           
                         that.testAudio = setTimeout(function (){
                             console.log("set time out is invoking");
-                            that.playRecordedAudio();
+                            that.playRecordedAudio(vApp.gObj.audioForTest, vApp.gObj.uid);
                         }, totTestTime);
                         
                         setTimeout (
@@ -365,41 +365,80 @@
                         var encoded = G711.encode(leftSix, {
                             alaw: this.encMode == "alaw" ? true : false
                         });  
-                        
                         vApp.gObj.audioForTest.push(encoded);
                     },
                     
-                    playRecordedAudio : function (){
+//                    playRecordedAudioOld : function (){
+//                        var samples;
+//                        this.myaudioNodes = [];
+//                        this.recordingLength = 0;
+//                        for(var i=0; i<vApp.gObj.audioForTest.length; i++){
+//                            clip = vApp.gObj.audioForTest[i];
+//                            samples = G711.decode(clip, {
+//                                alaw: this.encMode == "alaw" ? true : false,
+//                                floating_point : true,
+//                                Eight : true
+//                            });
+//                             
+//                            this.myaudioNodes.push(new Float32Array(samples));
+//                            this.recordingLength += samples.length;
+//                        }
+//                        
+//                        samples = this.mergeBuffers(this.myaudioNodes);
+//                        vApp.gObj.video.audio.playTestAudio(samples, 0 , 0);
+//                    },
+                    
+                    playRecordedAudio : function (encChuncks, uid){
+                        vApp.gObj[uid].isplaying = true;
+                        var samples, clip;
                         this.myaudioNodes = [];
-                        this.recordingLength = 0;
-                        for(var i=0; i<vApp.gObj.audioForTest.length; i++){
-                            clip = vApp.gObj.audioForTest[i];
+                        var recordingLength = 0;
+                        for(var i=0; i<encChuncks.length; i++){
+                            clip = encChuncks[i];
                             samples = G711.decode(clip, {
                                 alaw: this.encMode == "alaw" ? true : false,
                                 floating_point : true,
                                 Eight : true
-                             });
+                            });
                              
-                             this.myaudioNodes.push(new Float32Array(samples));
-                             this.recordingLength += 16384;
+                            this.myaudioNodes.push(new Float32Array(samples));
+                            recordingLength += samples.length;
                         }
                         
-                        var samples = this.mergeBuffers(this.myaudioNodes);
-                        vApp.gObj.video.audio.playTestAudio(samples, 0 , 0);
-                       
+                        samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
+                        vApp.gObj.video.audio.playTestAudio(samples, 0 , 0, uid);
                     },
                     
-                    playTestAudio : function (receivedAudio, inHowLong, offset){
+                    playTestAudio : function (receivedAudio, inHowLong, offset, uid){
+                        vApp.gObj[uid].isplaying = true;
                         var samples = receivedAudio;   
                         var when = this.Html5Audio.audioContext.currentTime + inHowLong;
+                        
 
                         var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000);
                         newBuffer.getChannelData(0).set(samples);
 
                         var newSource = this.Html5Audio.audioContext.createBufferSource();
                         newSource.buffer = newBuffer;
+                        
                         newSource.connect(this.Html5Audio.audioContext.destination);
-                        newSource.start(when, offset);
+                        newSource.start();
+                        console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
+                        setTimeout(
+                            function (){
+                                console.log("audio false");
+                                vApp.gObj[uid].isplaying = false;
+                                if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
+                                    vApp.gObj.video.audio.extractAudios(uid);
+                                }
+                            },
+                            newSource.buffer.duration * 1000
+                        );
+//                        newSource.onended = function (){
+//                            console.log("audio false");
+//                            vApp.gObj.isplaying = false;
+//                            vApp.gObj.video.audio.extractAudios(vApp.gObj.uid);
+//                        }
                     },
                     
                     calcAverage : function (){
@@ -430,6 +469,8 @@
                         }
                     },
                     
+                    
+                    
                     play : function (receivedAudio, inHowLong, offset){
                         var clip = receivedAudio;
                         var samples = G711.decode(clip, {
@@ -449,6 +490,57 @@
                         newSource.connect(this.Html5Audio.audioContext.destination);
                         newSource.start(when, offset);
                     }, 
+                    
+                    queue : function (packets, uid){
+                        if(!this.hasOwnProperty('audioToBePlay')){
+                            this.audioToBePlay = {};
+                        }
+                        
+                        if(!this.audioToBePlay.hasOwnProperty(uid)){
+                            this.audioToBePlay[uid] = [];
+                        }
+                        
+                        this.audioToBePlay[uid].push(packets);
+                        
+                    },
+                    
+                    extractAudios : function  (uid){
+                        console.log('Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
+                        if(this.audioToBePlay[uid].length > 5){
+                            this.audioToBePlay[uid].length = 0;
+                            vApp.gObj[uid].isplaying = false;
+                        }else if(this.audioToBePlay[uid].length > 0){
+                            vApp.gObj[uid].isplaying = true;
+                            this.playRecordedAudio(this.audioToBePlay[uid], uid);
+                            this.audioToBePlay[uid].length = 0;
+                        }else{
+                            vApp.gObj[uid].isplaying = false;
+                        }
+                    },
+                    
+//                    playNew : function (receivedAudio, inHowLong, offset){
+//                        var clip = receivedAudio;
+//                        var samples = G711.decode(clip, {
+//                            alaw: this.encMode == "alaw" ? true : false,
+//                            floating_point : true,
+//                            Eight : true
+//                        });
+//                        
+//                        if(typeof audioContext == 'undefined'){
+//                            audioContext = new AudioContext();
+//                        }
+//
+//                        var when = audioContext.currentTime + inHowLong;
+//
+//                        var newBuffer = audioContext.createBuffer(1, samples.length, 8000);
+//                        newBuffer.getChannelData(0).set(samples);
+//
+//                        var newSource = audioContext.createBufferSource();
+//                        newSource.buffer = newBuffer;
+//
+//                        newSource.connect(audioContext.destination);
+//                        newSource.start(when, offset);
+//                    },
                     
                     replayInit : function (){
                         vApp.storage.getAllObjs(["audioData"], repCallback); 
@@ -475,16 +567,19 @@
                             }
                     },
                     
-                    mergeBuffers : function(channelBuffer){
-                        var result = new Float32Array(this.recordingLength);
+                    mergeBuffers : function(channelBuffer, recordingLength){
+                        var result = new Float32Array(recordingLength);
+                        var checklength = 0;
                         var offset = 0;
                         var lng = channelBuffer.length;
                         for (var i = 0; i < lng; i++){
                           var buffer = channelBuffer[i];
-                          console.log("bf Length " + buffer.length);
+//                          console.log("bf Length " + buffer.length);
+                          checklength += buffer.length;
                           result.set(buffer, offset);
                           offset += buffer.length;
                         }
+                        console.log (checklength + '   ' + recordingLength);
                         return result;
                     },
                     
@@ -509,6 +604,39 @@
                         }
                     }, 
                     
+//                    manuPulateStreamOrginal : function (){
+//                        var stream = cthis.stream;
+//                        if(!vApp.vutil.chkValueInLocalStorage('recordStart')){
+//                            vApp.wb.recordStarted = new Date().getTime();
+//                            localStorage.setItem('recordStart', vApp.wb.recordStarted);
+//                        }else{
+//                            vApp.wb.recordStarted = localStorage.getItem('recordStart');
+//                        }
+//                        
+//                        
+//
+//                        var audioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+//                        var context = new audioContext();
+//                        
+//                        
+//                        analyser = context.createAnalyser();
+//
+//                        var audioInput = context.createMediaStreamSource(stream);
+//                        cthis.audio.bufferSize = 16384;
+//                            
+//                        cthis.audio.rec = context.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
+//              
+//                     //   cthis.audio.initAudioNode();
+//                        // NOTE, WARNING
+//                        // THIS SHOULD BE DISPLAY
+//                        // below code should be enable
+//                        cthis.audio.rec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
+//                        
+//                        audioInput.connect(analyser);
+//                        analyser.connect(cthis.audio.rec);
+//                        cthis.audio.rec.connect(context.destination);
+//                    },
+//                    
                     manuPulateStream : function (){
                         var stream = cthis.stream;
                         if(!vApp.vutil.chkValueInLocalStorage('recordStart')){
@@ -517,26 +645,22 @@
                         }else{
                             vApp.wb.recordStarted = localStorage.getItem('recordStart');
                         }
+                        
+                        //this should not be global
+                        var analyser = cthis.audio.Html5Audio.audioContext.createAnalyser();
 
-                        var audioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
-                        var context = new audioContext();
-                         analyser = context.createAnalyser();
-
-                        var audioInput = context.createMediaStreamSource(stream);
+                        var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                         cthis.audio.bufferSize = 16384;
-                            
-                        cthis.audio.rec = context.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-              
-                     //   cthis.audio.initAudioNode();
-                        // NOTE, WARNING
-                        // THIS SHOULD BE DISPLAY
-                        // below code should be enable
+                        cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
+
                         cthis.audio.rec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
                         
                         audioInput.connect(analyser);
                         analyser.connect(cthis.audio.rec);
-                        cthis.audio.rec.connect(context.destination);
+                        cthis.audio.rec.connect(cthis.audio.Html5Audio.audioContext.destination);
                     },
+                    
+                    
                     
 //                    initAudioNode : function (){
 //                        var ctTime = new Date().getTime();
@@ -675,11 +799,6 @@
                                     }
                                 }
                                   
-                                  
-
-                               // cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
-
-
                               //cthis.audio.audioInGraph();
                               if(vApp.gObj.uRole == 't'){
                                   cthis.audio.graph.display();
@@ -709,6 +828,21 @@
                             sendmsg.set(scode);
                             sendmsg.set(encodedframe, scode.length); 
                             io.sendBinary(sendmsg);
+//                            
+//                            audioSend = function (msg){
+//                                var uid = breakintobytes(vApp.gObj.uid,8);
+//                                var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
+//                                var sendmsg = new Int8Array(msg.length + scode.length);
+//                                sendmsg.set(scode);
+//                                sendmsg.set(msg, scode.length); // First element is status code (101)
+//
+//                                // Temp change
+//                                if (io.sock.readyState == 1) {
+//                                    if(vApp.gObj.audMouseDown){
+//                                       io.sendBinary(sendmsg);
+//                                    }
+//                                }
+//                            }
                             
                             clearInterval(vApp.gObj.video.smallVid);
                             
@@ -760,9 +894,7 @@
                         setInterval(
                             function (){
                                 if(++num <= 20){
-                                    
                                     videoCont = document.getElementById("allVideosCont");
-                                    
                                     var videoWrapper = document.createElement('div');
                                         videoWrapper.className = "videoWrapper";
 //                                        videoWrapper.setAttribute("data-uname", "suman" + num);

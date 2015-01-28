@@ -33,7 +33,7 @@ function my_curl_request($url, $post_data)
 // 100-1139e6899fdeda0db594a5
 // 100-193dbd7a54da898a52f969
 
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-1139e6899fdeda0db594a5');
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-193dbd7a54da898a52f969');
 // $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-5454676903fc3060e4849a');
  
  $post_data = json_encode($post_data);

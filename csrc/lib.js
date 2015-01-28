@@ -4,6 +4,8 @@ counter = 0;
 idList = new Array();
 chatroombox = null;
 
+
+
 function memberUpdate(e, addType){
     
     var userlist = e.message;
@@ -13,7 +15,7 @@ function memberUpdate(e, addType){
         var imgpath = window.whiteboardPath+"images/online.png"; //image folder path
     }
     if(userlist.length > 0){
-        //changed by suman
+                //changed by suman
         var count = userlist.length - 1;
         //var count = userlist.length;
         
@@ -31,6 +33,12 @@ function memberUpdate(e, addType){
     $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (" + count + ")");
     //if (userlist.length > 1) {
     //changed by suman
+//    if(typeof addType != 'undefined'){
+//        if(addType == 'removed'){
+//            return true;
+//        }
+//
+//    }    
     if (userlist.length > 0) {
         if (!document.getElementById('chat_div')) { // prevent creating div on each update
             var cd = document.createElement('div');
@@ -48,33 +56,33 @@ function memberUpdate(e, addType){
                 $("#chat_div").memberlist("option", "boxManager").addUsr(user);
             }
         });
-        $("#chat_div .ui-memblist-usr").remove();
+        
+//        alert('suman bro');
+//        debugger;
+        $( '#chat_div .ui-memblist-usr:not(.mySelf)').remove();
+        
+//        $("#chat_div .ui-memblist-usr").remove();
         
         $.each(userlist, function(key, usr) {
             //alert('userId ' +  usr.userid);
-            
-            $("#chat_div").memberlist("option").userSent(usr);
-            
-            if (usr.userid == io.cfg.userid) {
-                //alert('hi merry');
-                vApp.gObj.video._handleUserMedia(usr.userid);
-                //vApp.gObj.video._handleUserMedia(usr.userid);
+            if(document.getElementById('video'+usr.userid) == null){
+                $("#chat_div").memberlist("option").userSent(usr);
             }
             
-//            if(vApp.user.teacherIsAlreadyExist()){
-//                usr.role = 's';
-//                vApp.gObj.uRole = 's';
-//                wbUser.role = 's';
-//            }else{
-//                if (usr.userid == io.cfg.userid){
-//                    if(document.getElementById('commandToolsWrapper') ==  null){
-//                        vApp.user.assignRole(vApp.gObj.uRole, 'Whiteboard');
-//                        vcan.utility.canvasCalcOffset(vcan.main.canid);
-//
-//                    }
-//                }
-//            }
             
+            if (usr.userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
+
+                    var vidTag = document.getElementById('video'+usr.userid);
+                    if(vidTag == null ){
+                        vApp.gObj.video._handleUserMedia(usr.userid);
+                    }
+                        
+//                    }
+                    
+//                }
+                
+                //vApp.gObj.video._handleUserMedia(usr.userid);
+            }
             vApp.gObj.video.addUserRole(usr.userid, usr.role);
         });
         

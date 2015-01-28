@@ -26,8 +26,6 @@ $.uiBackCompat = false;
             localStorage.setItem('tc', true);
         }
         
-        
-        
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
             vApp.gObj.displayError = 0;
         }
@@ -60,7 +58,7 @@ $.uiBackCompat = false;
 
         $(document).on("member_removed", function(e){
             vApp.wb.utility.userIds = [];
-             memberUpdate(e);
+             memberUpdate(e, "removed");
         });
 
         $(document).on("error", function(e){
@@ -83,6 +81,7 @@ $.uiBackCompat = false;
             if(typeof vApp.gObj.hasOwnProperty('updateHeight')){
                 vApp.gObj.video.updateVidContHeight();
                 vApp.gObj.updateHeight = true;
+                
             }
             
             if(vApp.gObj.uRole == 't'){
@@ -101,7 +100,35 @@ $.uiBackCompat = false;
                 }
             }
         });
-
+        
+        vApp.gObj.playRecAudio = function (data_pack, uid){
+//            var data_pack = new Uint8ClampedArray(e.message);
+            var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+            var recmsg = data_pack.subarray(5, data_pack.length)
+//            console.log('audioLen ' + recmsg.length);
+//            if(vApp.gObj.hasOwnProperty(uid)){
+//                console.log('isplaying ' + vApp.gObj[uid].isplaying);
+//            }
+            
+//            vApp.gObj[uid].isplaying
+            if(!vApp.gObj.video.audio.otherSound){
+                vApp.gObj.video.audio.queue(recmsg, uid);
+                if(!vApp.gObj.hasOwnProperty(uid)){
+                    vApp.gObj[uid] = {};
+                    vApp.gObj[uid].isplaying = true;
+                    setTimeout(
+                        function (){
+                            vApp.gObj.video.audio.extractAudios(uid, "first  Time");
+                        },
+                        100
+                    );
+//                == false
+                }else if(!vApp.gObj[uid].isplaying){
+                    vApp.gObj.video.audio.extractAudios(uid, "from index");
+                }
+            }
+        }
+        
         $(document).on("binrec", function(e){
             //vApp.gObj.video.audio []
             var data_pack = new Uint8Array(e.message);
@@ -120,28 +147,33 @@ $.uiBackCompat = false;
 //            vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
             
             if (data_pack[0] == 101) { // Audio
+//                var data_pack = new Uint8ClampedArray(e.message);
+//                var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+//                var recmsg = data_pack.subarray(5, data_pack.length)
+
                 var data_pack = new Uint8ClampedArray(e.message);
-                var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
-                //console.log('uid ' + uid);
-                var recmsg = data_pack.subarray(5, data_pack.length)
+                vApp.gObj.playRecAudio(data_pack);
                 
-                //otherSound should be testSound
-                if(!vApp.gObj.video.audio.otherSound){
-                    vApp.gObj.video.audio.queue(recmsg, uid);
-                   
-                    if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
-                        vApp.gObj[uid] = {};
-                        vApp.gObj[uid].isplaying = true;
-                        setTimeout(
-                            function (){
-                                vApp.gObj.video.audio.extractAudios(uid);
-                            },
-                            100
-                        );
-                    }else if(vApp.gObj[uid].isplaying == false){
-                        vApp.gObj.video.audio.extractAudios(uid);
-                    }
-                }
+               
+                
+//                if(!vApp.gObj.video.audio.otherSound){
+//                    
+//                    vApp.gObj.video.audio.queue(recmsg, uid);
+//                   
+//                    if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
+//                        vApp.gObj[uid] = {};
+//                        vApp.gObj[uid].isplaying = true;
+//                        setTimeout(
+//                            function (){
+//                                vApp.gObj.video.audio.extractAudios(uid, "first  Time");
+//                            },
+//                            100
+//                        );
+//                    }else if(vApp.gObj[uid].isplaying == false){
+//                        vApp.gObj.video.audio.extractAudios(uid, "from index");
+//                    }
+//                }
+                
                 return;
                 
             //this may not need that we can achieve this by protocol 104    
@@ -194,32 +226,32 @@ $.uiBackCompat = false;
                 vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
                 
             }
-            function numValidateFour (n1,n2,n3,n4) {
-                n1 = preNumValidateTwo(n1);
-                n2 = preNumValidateTwo(n2);
-                n3 = preNumValidateTwo(n3);
-                n4 = preNumValidateTwo(n4);
-                var nres = n1+n2+n3+n4;
-                return parseInt(nres);
-                
-            }
-            function numValidateTwo (n1,n2) {
-                n1 = preNumValidateTwo(n1);
-                n2 = preNumValidateTwo(n2);
-                var nres = n1+n2;
-                return parseInt(nres);
-                
-            }
-            function preNumValidateTwo (n) {
-                var numstring = n.toString();
-                if (numstring.length == 1) {
-                    return '0'+numstring;
-                } else if (numstring.length == 2) {
-                    return numstring;
-                }
-            }
+          
         });
-            
+        function numValidateFour (n1,n2,n3,n4) {
+             n1 = preNumValidateTwo(n1);
+             n2 = preNumValidateTwo(n2);
+             n3 = preNumValidateTwo(n3);
+             n4 = preNumValidateTwo(n4);
+             var nres = n1+n2+n3+n4;
+             return parseInt(nres);
+
+         }
+         function numValidateTwo (n1,n2) {
+             n1 = preNumValidateTwo(n1);
+             n2 = preNumValidateTwo(n2);
+             var nres = n1+n2;
+             return parseInt(nres);
+
+         }
+         function preNumValidateTwo (n) {
+             var numstring = n.toString();
+             if (numstring.length == 1) {
+                 return '0'+numstring;
+             } else if (numstring.length == 2) {
+                 return numstring;
+             }
+         }   
             
         $(document).on("newmessage", function(e){
             //vApp.wb.view.removeElement('serverErrorCont');

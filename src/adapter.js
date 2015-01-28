@@ -22,9 +22,13 @@
                             navigator.getUserMedia = navigator.mozGetUserMedia;
 
                             this.attachMediaStream = function(element, stream) {
+                                
                                 this.videoAdd = true;
-                                console.log("Attaching media stream");
-                                element.mozSrcObject = stream;
+                                
+                                var url = window.URL || window.webkitURL;
+                                element.src = url ? url.createObjectURL(stream) : stream;
+            
+                                //element.mozSrcObject = stream;
                                 element.play();
                             };
 
@@ -53,7 +57,12 @@
                             navigator.getUserMedia = navigator.webkitGetUserMedia;
 
                             this.attachMediaStream = function(element, stream) {
-                                element.src = window.URL.createObjectURL(stream);
+                                var url = window.URL || window.webkitURL;
+                                element.src = url ? url.createObjectURL(stream) : stream;
+            
+                                //element.mozSrcObject = stream;
+                                element.play();
+                                
                                 this.videoAdd = true;
                             };
 

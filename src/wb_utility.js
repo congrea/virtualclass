@@ -943,6 +943,7 @@
                  * @returns {undefined}
                  */
                 audioSend : function (msg){
+                    
                     var uid = breakintobytes(vApp.gObj.uid, 8);
                     var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
                     var sendmsg = new Int8Array(msg.length + scode.length);
@@ -953,6 +954,7 @@
                     if (io.sock.readyState == 1) {
                         if(vApp.gObj.audMouseDown){
                            io.sendBinary(sendmsg);
+//                           vApp.gObj.playRecAudio(sendmsg);
                         }
                     }
                 },

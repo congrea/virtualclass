@@ -298,7 +298,7 @@
                         //console.log("out of recording");
                         if(!repMode){
                           //  console.log("Audio recording");
-//                            this.calcAverage();
+                            this.calcAverage();
                             var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
 
@@ -366,6 +366,7 @@
                             alaw: this.encMode == "alaw" ? true : false
                         });  
                         vApp.gObj.audioForTest.push(encoded);
+                        vApp.gObj[vApp.gObj.uid] = false;
                     },
                     
 //                    playRecordedAudioOld : function (){
@@ -426,10 +427,11 @@
                         console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
                         setTimeout(
                             function (){
-                                console.log("audio false");
+                             //   console.log("audio false");
                                 vApp.gObj[uid].isplaying = false;
                                 if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
-                                    vApp.gObj.video.audio.extractAudios(uid);
+                                    
+                                    vApp.gObj.video.audio.extractAudios(uid, "video ended");
                                 }
                             },
                             newSource.buffer.duration * 1000
@@ -500,20 +502,26 @@
                             this.audioToBePlay[uid] = [];
                         }
                         
+//                        if(this.audioToBePlay[uid].length > 5){
+//                            this.audioToBePlay[uid].length = 0;
+//                            vApp.gObj[uid].isplaying = false;
+//                        }
                         this.audioToBePlay[uid].push(packets);
                         
                     },
                     
-                    extractAudios : function  (uid){
-                        console.log('Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
+                    extractAudios : function  (uid, label){
+                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
                         if(this.audioToBePlay[uid].length > 5){
                             this.audioToBePlay[uid].length = 0;
                             vApp.gObj[uid].isplaying = false;
                         }else if(this.audioToBePlay[uid].length > 0){
+//                            console.log("play twice time");
                             vApp.gObj[uid].isplaying = true;
                             this.playRecordedAudio(this.audioToBePlay[uid], uid);
                             this.audioToBePlay[uid].length = 0;
                         }else{
+                            
                             vApp.gObj[uid].isplaying = false;
                         }
                     },
@@ -579,7 +587,7 @@
                           result.set(buffer, offset);
                           offset += buffer.length;
                         }
-                        console.log (checklength + '   ' + recordingLength);
+                        //console.log (checklength + '   ' + recordingLength);
                         return result;
                     },
                     
@@ -647,7 +655,7 @@
                         }
                         
                         //this should not be global
-                        var analyser = cthis.audio.Html5Audio.audioContext.createAnalyser();
+                        analyser = cthis.audio.Html5Audio.audioContext.createAnalyser();
 
                         var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                         cthis.audio.bufferSize = 16384;
@@ -1046,7 +1054,8 @@
                         };
 
                         if(vApp.jId == vApp.gObj.uid){
-                            cthis.stream = stream;
+//                            alert("suman bogati brother");
+                            cthis.stream =  cthis.video.tempStream;
                             cthis.audio.manuPulateStream();
                             cthis.audio.graph.canvasForVideo();
                         }

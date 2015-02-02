@@ -102,29 +102,23 @@ $.uiBackCompat = false;
         });
         
         vApp.gObj.playRecAudio = function (data_pack, uid){
-//            var data_pack = new Uint8ClampedArray(e.message);
             var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
             var recmsg = data_pack.subarray(5, data_pack.length)
-//            console.log('audioLen ' + recmsg.length);
-//            if(vApp.gObj.hasOwnProperty(uid)){
-//                console.log('isplaying ' + vApp.gObj[uid].isplaying);
-//            }
             
-//            vApp.gObj[uid].isplaying
             if(!vApp.gObj.video.audio.otherSound){
                 vApp.gObj.video.audio.queue(recmsg, uid);
                 if(!vApp.gObj.hasOwnProperty(uid)){
                     vApp.gObj[uid] = {};
-                    vApp.gObj[uid].isplaying = true;
                     setTimeout(
                         function (){
                             vApp.gObj.video.audio.extractAudios(uid, "first  Time");
                         },
                         100
                     );
-//                == false
-                }else if(!vApp.gObj[uid].isplaying){
-                    vApp.gObj.video.audio.extractAudios(uid, "from index");
+                }else if(vApp.gObj[uid].isplaying == false){
+                    if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
+                        vApp.gObj.video.audio.extractAudios(uid);
+                    }
                 }
             }
         }
@@ -147,35 +141,52 @@ $.uiBackCompat = false;
 //            vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
             
             if (data_pack[0] == 101) { // Audio
-//                var data_pack = new Uint8ClampedArray(e.message);
-//                var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
-//                var recmsg = data_pack.subarray(5, data_pack.length)
-
                 var data_pack = new Uint8ClampedArray(e.message);
-                vApp.gObj.playRecAudio(data_pack);
+                var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+                var recmsg = data_pack.subarray(5, data_pack.length)
                 
-               
+//                var data_pack = new Uint8ClampedArray(e.message);
                 
-//                if(!vApp.gObj.video.audio.otherSound){
-//                    
-//                    vApp.gObj.video.audio.queue(recmsg, uid);
-//                   
-//                    if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
-//                        vApp.gObj[uid] = {};
-//                        vApp.gObj[uid].isplaying = true;
-//                        setTimeout(
-//                            function (){
-//                                vApp.gObj.video.audio.extractAudios(uid, "first  Time");
-//                            },
-//                            100
-//                        );
-//                    }else if(vApp.gObj[uid].isplaying == false){
-//                        vApp.gObj.video.audio.extractAudios(uid, "from index");
+                // Send data to Worker TODO
+                //vApp.gObj.playRecAudio(data_pack);
+                
+//                audWorker.postMessage({ playTime : Math.round(newSource.buffer.duration * 1000), uid: uid});
+                
+//                if (!!window.Worker) {
+//                    if(!vApp.gObj.hasOwnProperty('G711')  || !vApp.gObj.hasOwnProperty('gObjSent')){
+////                        audWorker.postMessage({wrappAudioData: true});
+//                        var packets = {wrappAudioData: data_pack, G711: G711, vAppGObj : vApp.gObj};
+////                        audWorker.postMessage(packets, [packets.bar.buffer]);
+//                        audWorker.postMessage(packets, [packets.G711, packets.vAppGObj]);
+//                        vApp.gObj.G711 = true;
+//                        vApp.gObj.gObjSent = true;
+//                    }else{
+//                        var packets = {wrappAudioData: data_pack};
+//                        audWorker.postMessage({wrappAudioData: data_pack});
 //                    }
+//                    
+////                    audWorker.postMessage(packets, [packets.G711, packets.vAppGObj]);
 //                }
                 
-                return;
+                if(!vApp.gObj.video.audio.otherSound){
+                    
+                    vApp.gObj.video.audio.queue(recmsg, uid);
+                   
+                    if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
+                        vApp.gObj[uid] = {};
+                        vApp.gObj[uid].isplaying = true;
+                        setTimeout(
+                            function (){
+                                vApp.gObj.video.audio.extractAudios(uid, "first  Time");
+                            },
+                            100
+                        );
+                    }else if(vApp.gObj[uid].isplaying == false){
+                        vApp.gObj.video.audio.extractAudios(uid, "from index");
+                    }
+                }
                 
+                return;
             //this may not need that we can achieve this by protocol 104    
             }else if(data_pack[0] == 102 || data_pack[0] == 202) { //full image
                 
@@ -228,6 +239,7 @@ $.uiBackCompat = false;
             }
           
         });
+        
         function numValidateFour (n1,n2,n3,n4) {
              n1 = preNumValidateTwo(n1);
              n2 = preNumValidateTwo(n2);
@@ -654,27 +666,7 @@ $.uiBackCompat = false;
              $('div#memlist').css('display','none');
          });
 
-//         $(window).bind('beforeunload',function(){
-//            var data = JSON.stringify(vmstorage);
-//            localStorage.setItem(wbUser.sid, data);
-//         });
-         
-        /*** chat start from here ***/
-        
-        //TODO this should be into relative place
-        //this file have to be convert into function   
-//         var session = {
-//             audio: true,
-//             video: false
-//         };
-//
-//         var recordRTC = null;
-//         var resampler = new Resampler(44100, 8000, 1, 4096);
-
-//         var Html5Audio = {};
-//         Html5Audio.audioContext = new AudioContext();
-
-         var encMode = "alaw"; 
+        var encMode = "alaw"; 
          
         setTimeout(
             function (){

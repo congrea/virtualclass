@@ -109,6 +109,24 @@
                         };
                         
                         this.attachFunctionsToAudioWidget();
+                        
+//                        audWorker.onmessage = function (e) {
+//                            if(e.data.hasOwnProperty('playAudio')){
+//                                vApp.gObj[e.data.uid].isplaying = false;
+//                                if(vApp.gObj.video.audio.audioToBePlay[e.data.uid].length > 0){
+//                                    vApp.gObj.video.audio.extractAudios(e.data.uid, "video ended");
+//                                }
+//                            }
+//                        }
+                        audWorker.onmessage = function (e) {
+                            if(e.data.hasOwnProperty('playAudio')){
+                                vApp.gObj.video.audio.playTestAudio(e.data.samples, e.data.uid);
+//                                if(vApp.gObj.video.audio.audioToBePlay[e.data.uid].length > 0){
+//                                    vApp.gObj.video.audio.extractAudios(e.data.uid, "video ended");
+//                                }
+                            }
+                        }
+                        
                     },
                     
                     slienceDetection : function (send, leftSix){
@@ -118,7 +136,7 @@
 
                         for (i=0;i<leftSix.length;i++) {
                             var a = Math.abs(leftSix[i]);
-                            if (vol < a) { vol = a; }
+                            if (vol < a) { vol = a; } // Vol is maximum volume in signal packet
                             sum=sum+a;
                         }
 
@@ -126,11 +144,12 @@
                         rate= Math.abs(curAvg^2 - preAvg^2);
                         preAvg=curAvg;
 
-                        if (minthreshold>vol) { minthreshold=vol; }
-                        if (maxthreshold<vol) { maxthreshold=vol; }
-                        if (minthreshold*10 < maxthreshold)  { minthreshold=minthreshold*2; }
-                        if (maxthreshold/10 > minthreshold) { maxthreshold=vol; }
                         if (rate < 5) { minthreshold=vol; } // If rate is close to zero, it is likely to be noise.
+                        if (minthreshold>vol) { minthreshold=vol; } // Minimum volume in historical signal
+                        if (maxthreshold<vol) { maxthreshold=vol; } // Maximum volume in historical signal
+                        if (minthreshold*50 < maxthreshold)  { minthreshold=minthreshold*5; } // In case minimum sound (silance) is too low compared to speaking sound.
+                        if (maxthreshold/50 > minthreshold) { maxthreshold=vol; } // In case Max volume (speaking sound) is too high compared with silance.
+                        
                         var thdiff = maxthreshold/minthreshold;
 
                         switch(true) {
@@ -146,9 +165,11 @@
                             default:
                                 th=1;
                         }
-
-                        if (thdiff >= 2 && vol>=minthreshold*th) {
-                     //       console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
+                        // If rate greater then 20, it is likely to be sound
+                        // if difference between max and min (thdiff) is less than 2, we are not ready for this algo.
+                        // If Volume is greater than min threashold * multiple then it is likely to be sound.
+                        if ((thdiff >= 2 && vol>=minthreshold*th) || rate > 20) {
+                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                             if (audioWasSent==0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
                                 vApp.wb.utility.audioSend(preAudioSamp);
                             }
@@ -158,10 +179,10 @@
                             vApp.wb.utility.audioSend(send);  // Send next sound sample to avoid clicking noise
                             audioWasSent=0;
                         }else if (thdiff < 2) {
-                       //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                             vApp.wb.utility.audioSend(send);
                         }else {
-                        //    console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                             preAudioSamp = send;;
                         }
                         
@@ -298,7 +319,7 @@
                         //console.log("out of recording");
                         if(!repMode){
                           //  console.log("Audio recording");
-                            this.calcAverage();
+//                            this.calcAverage();
                             var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
 
@@ -390,7 +411,7 @@
 //                    },
                     
                     playRecordedAudio : function (encChuncks, uid){
-                        vApp.gObj[uid].isplaying = true;
+//                        vApp.gObj[uid].isplaying = true;
                         var samples, clip;
                         this.myaudioNodes = [];
                         var recordingLength = 0;
@@ -407,40 +428,52 @@
                         }
                         
                         samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
-                        vApp.gObj.video.audio.playTestAudio(samples, 0 , 0, uid);
+                        vApp.gObj.video.audio.playTestAudio(samples, uid);
                     },
                     
-                    playTestAudio : function (receivedAudio, inHowLong, offset, uid){
-                        vApp.gObj[uid].isplaying = true;
+                    playTestAudio : function (receivedAudio, uid){
+//                        console.log("uid " + uid);
+//                        vApp.gObj[uid].isplaying = true;
                         var samples = receivedAudio;   
-                        var when = this.Html5Audio.audioContext.currentTime + inHowLong;
+//                        var when = this.Html5Audio.audioContext.currentTime + inHowLong;
                         
 
-                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000);
+                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8100); // Cheat a little by adding 100 Hz extra to sound
                         newBuffer.getChannelData(0).set(samples);
 
                         var newSource = this.Html5Audio.audioContext.createBufferSource();
                         newSource.buffer = newBuffer;
                         
                         newSource.connect(this.Html5Audio.audioContext.destination);
+                        newSource.onended = function (){
+                            console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+                            console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
+                            clearTimeout(vApp.gObj[uid].out);
+                            vApp.gObj[uid].isplaying = false;
+                            if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
+                                vApp.gObj.video.audio.extractAudios(uid);
+                            }
+                        }
+                        
                         newSource.start();
-                        console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
-                        setTimeout(
+                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+                        vApp.gObj[uid].isplaying = true;
+
+                     //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
+                     
+                        vApp.gObj[uid].out = setTimeout(
                             function (){
-                             //   console.log("audio false");
+                                console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
+//                                console.log("UID " + uid+ " video ended  Duration OUT :"+newSource.buffer.duration);
+                                
                                 vApp.gObj[uid].isplaying = false;
                                 if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
-                                    
-                                    vApp.gObj.video.audio.extractAudios(uid, "video ended");
+                                    vApp.gObj.video.audio.extractAudios(uid);
                                 }
                             },
-                            newSource.buffer.duration * 1000
+                            (newSource.buffer.duration * 1000) + 10
                         );
-//                        newSource.onended = function (){
-//                            console.log("audio false");
-//                            vApp.gObj.isplaying = false;
-//                            vApp.gObj.video.audio.extractAudios(vApp.gObj.uid);
-//                        }
+//                        
                     },
                     
                     calcAverage : function (){
@@ -510,18 +543,17 @@
                         
                     },
                     
-                    extractAudios : function  (uid, label){
-                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
-                        if(this.audioToBePlay[uid].length > 5){
+                     extractAudios : function  (uid, label){
+//                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
+                        if(this.audioToBePlay[uid].length > 8){
                             this.audioToBePlay[uid].length = 0;
                             vApp.gObj[uid].isplaying = false;
                         }else if(this.audioToBePlay[uid].length > 0){
 //                            console.log("play twice time");
-                            vApp.gObj[uid].isplaying = true;
+//                            vApp.gObj[uid].isplaying = true;
                             this.playRecordedAudio(this.audioToBePlay[uid], uid);
                             this.audioToBePlay[uid].length = 0;
                         }else{
-                            
                             vApp.gObj[uid].isplaying = false;
                         }
                     },
@@ -612,39 +644,6 @@
                         }
                     }, 
                     
-//                    manuPulateStreamOrginal : function (){
-//                        var stream = cthis.stream;
-//                        if(!vApp.vutil.chkValueInLocalStorage('recordStart')){
-//                            vApp.wb.recordStarted = new Date().getTime();
-//                            localStorage.setItem('recordStart', vApp.wb.recordStarted);
-//                        }else{
-//                            vApp.wb.recordStarted = localStorage.getItem('recordStart');
-//                        }
-//                        
-//                        
-//
-//                        var audioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
-//                        var context = new audioContext();
-//                        
-//                        
-//                        analyser = context.createAnalyser();
-//
-//                        var audioInput = context.createMediaStreamSource(stream);
-//                        cthis.audio.bufferSize = 16384;
-//                            
-//                        cthis.audio.rec = context.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-//              
-//                     //   cthis.audio.initAudioNode();
-//                        // NOTE, WARNING
-//                        // THIS SHOULD BE DISPLAY
-//                        // below code should be enable
-//                        cthis.audio.rec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
-//                        
-//                        audioInput.connect(analyser);
-//                        analyser.connect(cthis.audio.rec);
-//                        cthis.audio.rec.connect(context.destination);
-//                    },
-//                    
                     manuPulateStream : function (){
                         var stream = cthis.stream;
                         if(!vApp.vutil.chkValueInLocalStorage('recordStart')){
@@ -654,34 +653,17 @@
                             vApp.wb.recordStarted = localStorage.getItem('recordStart');
                         }
                         
-                        //this should not be global
-                        analyser = cthis.audio.Html5Audio.audioContext.createAnalyser();
-
                         var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                         cthis.audio.bufferSize = 16384;
                         cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-
                         cthis.audio.rec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
                         
-                        audioInput.connect(analyser);
-                        analyser.connect(cthis.audio.rec);
+                        var gainNode = cthis.audio.Html5Audio.audioContext.createGain();
+                        gainNode.gain.value = 0.2;
+                        audioInput.connect(gainNode);
+                        gainNode.connect(cthis.audio.rec);                        
                         cthis.audio.rec.connect(cthis.audio.Html5Audio.audioContext.destination);
                     },
-                    
-                    
-                    
-//                    initAudioNode : function (){
-//                        var ctTime = new Date().getTime();
-////                        cthis.audio.an++;
-////                        localStorage.setItem('an', cthis.audio.an);
-//                        
-////                        cthis.audio.audioNodes[cthis.audio.an] = {mt : ctTime, adArr : []};
-////                        cthis.audio.tempAudArr[cthis.audio.an] = {mt : ctTime, adArr : []};
-//                        
-////                        cthis.audio.audioNodes = [];
-////                        cthis.audio.tempAudArr = [];
-//                        
-//                    },
                     
                     updateInfo : function (){
                         this.audioStreamArr = [];
@@ -984,8 +966,15 @@
                     cthis = this; //TODO there should be done work for cthis
                     vcan.oneExecuted = true;
                     var audio =  true;
+                    
                     var session = {
                         audio : audio,
+//                        optional : {
+//                            "googEchoCancellation": false,
+//                            "googAutoGainControl": false,
+//                            "googNoiseSuppression": false,
+//                            "googHighpassFilter": false
+//                        },
                         video: true
                     };
                     

@@ -23,9 +23,7 @@ body {
 #vAppCont {
 	height : 100%;
 }
-#page-mod-onetoone-whiteboard #divForReloadMsgAnchor {
-	margin-left : 10px;
-}
+
 #divForReloadMsg {
 	border : #8eb9ce solid 1px;
 	width : auto;
@@ -1314,10 +1312,12 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .vmchat_room_bt.tooltip:hover:after{bottom: 2.7em; z-index: 10000;}
 .close.tooltip:hover:after{bottom: 2.4em;}
 
+/*
 #page-mod-virtualclass-view #page.container-fluid #page-header{display: none !important; margin: 0 !important;}
 
 #page-mod-virtualclass-view #page.container-fluid{max-width: none !important;}
 .close.tooltip:hover:after, .open.tooltip:hover:after{bottom: 2.2em;}
+*/
 
 .ui-widget.disable{
     opacity : 0.4;

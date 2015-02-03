@@ -63,7 +63,6 @@ if(isset($_GET['name'])){
 <script type="text/javascript">	
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
-        var audWorker = new Worker("<?php echo $whiteboard_path."src/audioworker.js" ?>");
     }
    
 	<?php echo "wbUser.name='$uname';"; ?>

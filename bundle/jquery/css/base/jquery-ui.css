@@ -762,6 +762,7 @@ button.ui-button::-moz-focus-inner {
 	padding-top: 0.3em;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	border:none;
 	margin-bottom: -1px;
 	padding-bottom: 1px;
 }
@@ -885,11 +886,17 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #fcefa1 !important/*{borderColorHighlight}*/;
-	background: #fbf9ee/*{bgColorHighlight}*/ url(images/ui-bg_glass_55_fbf9ee_1x400.png)/*{bgImgUrlHighlight}*/ 50%/*{bgHighlightXPos}*/ 50%/*{bgHighlightYPos}*/ repeat-x/*{bgHighlightRepeat}*/;
-	color: #363636/*{fcHighlight}*/;
-	-webkit-box-shadow: inset -1px -1px 8px 1px rgba(252,239,161,1);
-	-moz-box-shadow: inset -1px -1px 8px 1px rgba(252,239,161,1);
-	box-shadow: inset -1px -1px 8px 1px rgba(252,239,161,1);
+	-webkit-box-shadow: inset 0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	-moz-box-shadow: inset 0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
+	box-shadow: inset 0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	background: #cccccc/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x1001.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/; border: 1px solid #aaaaaa !important;
+}
+
+.ui-chatroom .ui-state-highlight{
+	-webkit-box-shadow: inset 0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	-moz-box-shadow: inset 0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
+	box-shadow: inset 0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	background: #cccccc/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x1001.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/; border: 1px solid #aaaaaa !important;
 }
 
 

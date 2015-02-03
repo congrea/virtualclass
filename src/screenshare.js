@@ -61,9 +61,8 @@
                     }
                 );
             } else {
-                alert("Not supported screen sharing");
+                alert(vApp.lang.getString('notSupportBrowser'));
             }
-
         };
 
 
@@ -262,6 +261,7 @@
                         vApp.wb.utility.beforeSend({'unshareScreen': true, st: that.type});
                         that.prevStream = false;
                         that.prevScreen = "";
+                        vApp.prevScreen = ""; //todo:- that.prevScreen and vApp.prevScreen should be same
                     } else {
                         that.ssByClick = true;
                     }
@@ -566,6 +566,7 @@
                 this.localCont = vApp[app].localCanvas.getContext('2d');
                 this.localCanvas.width = cWidth;
                 this.localCanvas.height = cHeight;
+                console.log("normal width " + this.localCanvas.width);
             },
 
             dimensionStudentScreenResize: function (msg, vtype) {
@@ -577,10 +578,11 @@
 
                 if (msg.hasOwnProperty('d')) {
                     this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
-
                     this.localCanvas.width = msg.d.w;
                     this.localCanvas.height = msg.d.h;
                 }
+                
+                console.log("resize width " + this.localCanvas.width);
 
 
                 if (msg.hasOwnProperty('vc')) {

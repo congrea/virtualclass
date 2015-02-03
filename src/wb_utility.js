@@ -491,8 +491,8 @@
                     var prvUser = JSON.parse(vApp.vutil.chkValueInLocalStorage('prvUser'));
                     var toggleRole = JSON.parse(vApp.vutil.chkValueInLocalStorage('tc'));
         
-                    localStorage.clear();
-                    vApp.recorder.items = [];
+//                    localStorage.clear();
+                     vApp.recorder.items = [];
                     
                     // TODO this should be done by proepr way
                     // it has to be done in function
@@ -502,32 +502,35 @@
                     vApp.gObj.video.audio.rec = '';
                     vApp.gObj.video.audio.audioNodes = [];
                     
-                    if(typeof prvUser == 'object'){
-                        localStorage.setItem('prvUser', JSON.stringify(prvUser))
-                    }
-                    if (teacherId) {
-                        localStorage.setItem('teacherId', teacherId);
-                    }
-
-                    if (orginalTeacherId) {
-                        localStorage.setItem('orginalTeacherId', orginalTeacherId);
-                    }
-
-                    if (wbrtcMsg) {
-                        localStorage.setItem('wbrtcMsg', wbrtcMsg);
-                    }
-
-                    if (canvasDrwMsg) {
-                        localStorage.setItem('canvasDrwMsg', canvasDrwMsg);
-                    }
-
-                    if (toolHeight) {
-                        localStorage.setItem('toolHeight', toolHeight);
-                    }
-                    
-                    if(toggleRole){
-                        localStorage.setItem('tc', toggleRole);
-                    }
+//                     localStorage.removeItem(vApp.gObj.uid) //for remove msg about user
+//                    localStorage.clear();
+//                    
+//                    if(typeof prvUser == 'object'){
+//                        localStorage.setItem('prvUser', JSON.stringify(prvUser))
+//                    }
+//                    if (teacherId) {
+//                        localStorage.setItem('teacherId', teacherId);
+//                    }
+//
+//                    if (orginalTeacherId) {
+//                        localStorage.setItem('orginalTeacherId', orginalTeacherId);
+//                    }
+//
+//                    if (wbrtcMsg) {
+//                        localStorage.setItem('wbrtcMsg', wbrtcMsg);
+//                    }
+//
+//                    if (canvasDrwMsg) {
+//                        localStorage.setItem('canvasDrwMsg', canvasDrwMsg);
+//                    }
+//
+//                    if (toolHeight) {
+//                        localStorage.setItem('toolHeight', toolHeight);
+//                    }
+//                    
+//                    if(toggleRole){
+//                        localStorage.setItem('tc', toggleRole);
+//                    }
 
                     if (typeof vcan.objTxt != 'undefined') {
                         vcan.objTxt.removeTextNode();

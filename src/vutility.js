@@ -276,6 +276,7 @@
             },
             
             clearAllChat : function (){
+                localStorage.removeItem(vApp.gObj.uid) //remove chat about user
                 sessionStorage.clear('chatroom'); //all 
                 //idList = [];
                 idList.length = 0;

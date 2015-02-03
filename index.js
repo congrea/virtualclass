@@ -276,7 +276,7 @@ $.uiBackCompat = false;
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);
                         vApp.user.control.audioSign(user, "create");
                     }else{
-                        
+//                        alert('suman bogati');
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', false);
                         vApp.user.control.audioSign(user, 'remove');
                     }

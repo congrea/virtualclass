@@ -71,7 +71,8 @@
             'startnewsession' : "Do you want start a new session with ending current session?",
             'DevicesNotFoundError' :  "You may not have Webcam(camera/microphone).",
             'PermissionDeniedError' : "You denied to access your Webcam.",
-            'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone)."
+            'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone).",
+            'notSupportBrowser' : "Not supported screen sharing for this version of browser"
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

@@ -344,6 +344,7 @@ function (window){
 
                 if(d.hasOwnProperty('d')){
                     vApp[app].dimensionStudentScreenResize(d);
+                    dim = true
                     vApp[app].drawImages(imgData);
                 }else{
                     if(typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))){

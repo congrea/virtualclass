@@ -433,6 +433,7 @@
                         var userObj = localStorage.getItem('vApp'+uid);
                         if(userObj != null){
                            userObj = JSON.parse(userObj);
+                           console.log('uid ' + uid + " " + userObj.ad);
                            if(userObj.ad){
                                vApp.user.control.audioSign({id:uid}, "create");
                            }

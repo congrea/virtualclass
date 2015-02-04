@@ -359,9 +359,10 @@
             vApp.vutil.clickOutSideCanvas();
             
             //var data = JSON.stringify(vmstorage);
-            if(!vApp.vutil.isObjectEmpty(vmstorage)){
-                localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage));
-            }
+//            if(!vApp.vutil.isObjectEmpty(vmstorage)){
+//                localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage));
+//            }
+            localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage));
           
 //            var data = JSON.stringify(vmstorage);
          //   localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage))

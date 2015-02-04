@@ -22,8 +22,8 @@ $whiteboard_path = "https://local.vidya.io/virtualclass/";
 
 
 <?php
-include('js.debug.php');
-//include('js.php');
+//include('js.debug.php');
+include('js.php');
 
 // this url should be soemthing like this
 // https://local.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#

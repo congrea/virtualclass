@@ -265,7 +265,8 @@
             },
             
             isMiniFileIncluded :  function (src){
-                var filePatt = new RegExp(src+".js$");
+//                var filePatt = new RegExp(src+".js$");
+                var filePatt = new RegExp(src+".js?=\*([0-9]*)"); //matched when src is mid of path, todo find it at end of path 
                 var scripts = document.getElementsByTagName("script");
                 for(var i = 0; i < scripts.length; i++) {
                     if(filePatt.test(scripts[i].src)){

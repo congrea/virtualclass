@@ -15,7 +15,6 @@ $.uiBackCompat = false;
         
         vApp.gObj.displayError = 1;
         
-        
         var appIs = "Whiteboard";
         vApp.gObj.sessionClear = false;
         vApp.prvCurrUsersSame();
@@ -25,7 +24,9 @@ $.uiBackCompat = false;
         }else{
             localStorage.setItem('tc', true);
         }
-        
+//        alert("suman bogati");
+//        debugger;
+
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
             vApp.gObj.displayError = 0;
         }
@@ -67,6 +68,10 @@ $.uiBackCompat = false;
                 vApp.wb.view.displayServerError('serverErrorCont', e.message.stack);
                 if(typeof e.message != 'object'){
                     display_error(e.message.stack);
+                }
+            }else{
+                if(typeof e.message != 'object'){
+                    console.log(e.message.stack);
                 }
             }
             
@@ -267,7 +272,8 @@ $.uiBackCompat = false;
             
         $(document).on("newmessage", function(e){
             //vApp.wb.view.removeElement('serverErrorCont');
-
+//            vApp.gObj.uid = "undefined";
+            
             if(e.message.hasOwnProperty('sad')){
                 
 //                if(vApp.gObj.uRole == 't'){
@@ -645,13 +651,13 @@ $.uiBackCompat = false;
             tabs.tabs( "refresh" );//tabs
          });
 
-         $(document).on("authentication_failed", function(e){
-            //delete cookie
-            document.cookie = "auth_user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-            document.cookie = "auth_pass=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-            document.cookie = "path=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-            display_error(e.message);
-         });
+        $(document).on("authentication_failed", function(e){
+           //delete cookie
+           document.cookie = "auth_user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+           document.cookie = "auth_pass=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+           document.cookie = "path=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+           display_error(e.message);
+        });
 
 //         $(document).on("error", function(e){
 //            if(typeof e.message != 'object'){

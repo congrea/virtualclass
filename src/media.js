@@ -445,7 +445,15 @@
                         var newSource = this.Html5Audio.audioContext.createBufferSource();
                         newSource.buffer = newBuffer;
                         
-                        newSource.connect(this.Html5Audio.audioContext.destination);
+                        newSource.buffer = newBuffer;
+                        
+                        var gainNode = this.Html5Audio.audioContext.createGain();
+                        gainNode.gain.value = 0.9;
+                        newSource.connect(gainNode);
+                        
+                        gainNode.connect(this.Html5Audio.audioContext.destination);
+                        
+//                        newSource.connect(this.Html5Audio.audioContext.destination);
                         newSource.onended = function (){
                             // console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
                             if(typeof testAudio == 'undefined'){
@@ -671,7 +679,7 @@
                         grec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
                         
                         var gainNode = cthis.audio.Html5Audio.audioContext.createGain();
-                        gainNode.gain.value = 0.2;
+                        gainNode.gain.value = 0.9;
                         audioInput.connect(gainNode);
                         gainNode.connect(grec);                        
                         grec.connect(cthis.audio.Html5Audio.audioContext.destination);

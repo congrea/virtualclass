@@ -10,14 +10,14 @@
 include('auth.php');
 
 //the www path for virtualclass
-$whiteboard_path = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 ?>
 
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/styles.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."bundle/jquery/css/base/jquery-ui.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboard_path."css/jquery.ui.chatbox.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/jquery-ui.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 
 
@@ -62,7 +62,7 @@ if(isset($_GET['name'])){
 ?>
 <script type="text/javascript">	
     if (!!window.Worker) {
-        var sworker = new Worker("<?php echo $whiteboard_path."src/screenworker.js" ?>");
+        var sworker = new Worker("<?php echo $whiteboardpath."src/screenworker.js" ?>");
     }
    
 	<?php echo "wbUser.name='$uname';"; ?>

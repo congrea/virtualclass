@@ -5,7 +5,7 @@
 (
     function(window) {
         //vApp.wb = window.vApp.wb;
-        
+
         var utility = function (){
             return {
                 userIds: [],
@@ -39,7 +39,7 @@
                     }
                     return true;
                 },
-                
+
                 /**
                  *  This function converts string to number
                  *  @param expects pmdTime which has to be converted
@@ -64,9 +64,6 @@
                 clickOutSidebox: function(num) {
                     return (num % 2 != 1) ? true : false;
                 },
-                
-                
-                
                 /**
                  * Through this function the selected object would be deleted
                  * when user press on delete button after selected particular object
@@ -75,7 +72,7 @@
                 keyOperation: function(evt) {
                     // This is used for removed the selected object.
                     //var currTime = new Date().getTime();
-                    //8 is used for delete on mac 
+                    //8 is used for delete on mac
                     if (evt.keyCode == 8 || evt.keyCode == 46) {
                         var vcan = vApp.wb.vcan;
                         if (vcan.main.currObj != "") {
@@ -84,18 +81,18 @@
                         }
                     }
                 },
-                
+
                 removeSelectedItem : function (obj, notIncrement){
                     vApp.wb.canvas.removeObject(vcan.main.currObj);
                     var currTime = new Date().getTime();
-                    
+
                     var obj = {'mt': currTime, 'ac': 'del'};
                     if(typeof notIncrement == 'undefined'){
                         vApp.wb.uid++;
                     }
-                    
+
                     obj.uid = vApp.wb.uid;
-                    
+
                     if(vApp.gObj.uRole == 's'){
                         vApp.storage.store(JSON.stringify(vApp.wb.gObj.replayObjs));
                     }else{
@@ -132,7 +129,7 @@
                 clearAll: function(delRpNode, pkMode) {
                     //TODO this should be done in proper way
                     //vApp.recorder.items = [];
-                    
+
                     vApp.wb.uid = 0; //this should be done with proper way
                     vApp.wb.lt = "";
                     var vcan = vApp.wb.vcan;
@@ -187,7 +184,7 @@
                     for (var i = 0; i < allTextBoxContainer.length; i++) {
                         allTextBoxContainer[i].parentNode.removeChild(allTextBoxContainer[i]);
                     }
-                    
+
                     var error = document.getElementById('serverErrorCont');
                     if(error != null){
                         error.parentNode.removeChild();
@@ -341,7 +338,7 @@
                     if (vcan.main.action == 'move') {
                         vApp.wb.utility.deActiveFrmDragDrop();
                     }
-                    
+
                     if (typeof studentId != 'undefined') {
                         if (localStorage.getItem('reclaim') != null) {
                             var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
@@ -351,12 +348,12 @@
 
                         localStorage.removeItem('studentId');
                         localStorage.setItem('teacherId', studentId);
-                        
+
                         vApp.gObj.uRole = 't';
-                        
+
                         vApp.user.assignRole(vApp.gObj.uRole, vApp.currApp);
                         vcan.utility.canvasCalcOffset(vcan.main.canid);
-                        
+
                     } else {
                         vApp.gObj.uRole  = 's';
                         var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
@@ -375,23 +372,23 @@
                         } else {
                             if (cmdToolsWrapper != null) {
                                 cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                                
+
                             }
                         }
-                        
+
                         var tid = localStorage.getItem('teacherId');
                         localStorage.removeItem('teacherId');
                         localStorage.setItem('studentId', tid);
-                         
+
                         vApp.wb.utility.uniqueArrOfObjsToStudent();
 
                     }
-                    
+
                      if(localStorage.getItem('orginalTeacherId') == null){
                         vApp.vutil.toggleRoleClass(true);
                     }
                 },
-                
+
                 reclaimRole : function (){
                     vApp.wb.response.assignRole(vApp.gObj.uid , vApp.gObj.uid, true);
                 },
@@ -399,7 +396,7 @@
                     if ((localStorage.getItem('teacherId') != null) ||
                             (localStorage.getItem('orginalTeacherId') != null && vApp.vutil.chkValueInLocalStorage('reclaim'))) {
                         vApp.wb.utility.toolWrapperEnable();
-							
+
                     }
                     vApp.wb.drawMode = false;
                     //if (localStorage.getItem('teacherId') != null && vApp.wb.user.connected) {
@@ -431,7 +428,7 @@
                     canvasElement.style.pointerEvents = "none";
                 },
                 makeCanvasEnable: function() {
-                    
+
                     if (localStorage.getItem('teacherId') != null) {
                         if(!vApp.wb.hasOwnProperty('canvasDisable') || !vApp.wb.canvasDisable){
                             var canvasElement = vcan.main.canvas;
@@ -490,10 +487,10 @@
                     var toolHeight = vApp.vutil.chkValueInLocalStorage('toolHeight');
                     var prvUser = JSON.parse(vApp.vutil.chkValueInLocalStorage('prvUser'));
                     var toggleRole = JSON.parse(vApp.vutil.chkValueInLocalStorage('tc'));
-        
+
 //                    localStorage.clear();
                      vApp.recorder.items = [];
-                    
+
                     // TODO this should be done by proepr way
                     // it has to be done in function
                     vApp.gObj.video.audio.bufferSize = 0;
@@ -501,36 +498,6 @@
 //                    vApp.gObj.video.audio.an = -1;
                     vApp.gObj.video.audio.rec = '';
                     vApp.gObj.video.audio.audioNodes = [];
-                    
-//                     localStorage.removeItem(vApp.gObj.uid) //for remove msg about user
-//                    localStorage.clear();
-//                    
-//                    if(typeof prvUser == 'object'){
-//                        localStorage.setItem('prvUser', JSON.stringify(prvUser))
-//                    }
-//                    if (teacherId) {
-//                        localStorage.setItem('teacherId', teacherId);
-//                    }
-//
-//                    if (orginalTeacherId) {
-//                        localStorage.setItem('orginalTeacherId', orginalTeacherId);
-//                    }
-//
-//                    if (wbrtcMsg) {
-//                        localStorage.setItem('wbrtcMsg', wbrtcMsg);
-//                    }
-//
-//                    if (canvasDrwMsg) {
-//                        localStorage.setItem('canvasDrwMsg', canvasDrwMsg);
-//                    }
-//
-//                    if (toolHeight) {
-//                        localStorage.setItem('toolHeight', toolHeight);
-//                    }
-//                    
-//                    if(toggleRole){
-//                        localStorage.setItem('tc', toggleRole);
-//                    }
 
                     if (typeof vcan.objTxt != 'undefined') {
                         vcan.objTxt.removeTextNode();
@@ -542,15 +509,13 @@
 
                     vApp.gObj.video.audio.updateInfo();
                 },
-                
+
                 clearCurrentTool : function (){
                     if(vApp.wb.hasOwnProperty("tool")){
-                        vApp.wb.tool =  ""
-                        
-                        
+                        vApp.wb.tool = ""
                     }
                 },
-                
+
                 //setOrginalTeacherContent: function(e) {
                 setOrginalTeacherContent: function() {
                     localStorage.setItem('teacherId', vApp.gObj.uid);
@@ -571,25 +536,22 @@
                             //vApp.wb.utility.setOrginalTeacherContent(e);
                             vApp.wb.utility.setOrginalTeacherContent();
                             window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-                            
                         }
-                        
+
                         //} else if (role == 's' && newuser == null) {
                     }else if (role == 's') {
                         vcan.studentId = wbUser.id;
-                        
+
 //                        alert('suman bogati');
 //                        debugger;
-                        
+
                         if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
                             localStorage.setItem('studentId', wbUser.id);
                         }
                         vApp.vutil.removeSessionTool();
                     }
-                    
-                    //bad way
-                    
 
+                    //bad way
                     vApp.gObj.video.init();
                     vApp.gObj.video.isInitiator = true;
                     vcan.oneExecuted = false;
@@ -643,7 +605,6 @@
                     var element = document.getElementById(id);
                     if (element != null) {
                         var style = window.getComputedStyle(element);
-
                         if (typeof style.marginTop != 'undefined') {
                             var marginTop = parseInt(style.marginTop.match(/\d+/));
                             if (marginTop == null) {
@@ -686,7 +647,7 @@
                     var classes = classes + newClass;
                     elem.setAttribute('class', classes);
                 },
-                
+
                 setStyleUserConnetion: function(currClass, newClass, whoIs) {
                     var cdiv = document.getElementsByClassName(currClass)[0];
                     if (cdiv != null){
@@ -747,7 +708,7 @@
                         }
                     }
                 },
-                
+
                 //important TODO have to think tabout this function
                 //makeUserAvailable: function(browerLength) {
                 makeUserAvailable: function() {
@@ -763,12 +724,12 @@
                     if (document.getElementById('canvas') == null) {
                         vApp.wb.createCanvas();
                     }
-                    
+
                     window.vApp.wb.init();
-                    
+
                     vApp.wb.utility.makeCanvasDisable();
                     vApp.wb.utility.toolWrapperDisable();
-                    
+
                 },
                 initAll: function(e) {
                     if (localStorage.getItem('teacherId') != null) {
@@ -793,15 +754,15 @@
                         return false;
                     }
                 },
-               
+
                 //toolWrapperDisable and toolWrapperEnable should be merged into one function
                 toolWrapperDisable: function(innerAnchors) {
                     //TODO commandToolsWrapper should be come as parameter
-                    var commandToolWrapper = document.getElementById('commandToolsWrapper');  
+                    var commandToolWrapper = document.getElementById('commandToolsWrapper');
                     if(commandToolWrapper != null){
                         if(typeof innerAnchors != 'undefined'){
                             var allAnchors = commandToolWrapper.getElementsByTagName('a');
-                            for(var i=0; i<allAnchors.length; i++){
+                            for(var i = 0; i < allAnchors.length; i++){
                                 allAnchors[i].style.pointerEvents = "none";
                             }
                         }else{
@@ -812,14 +773,14 @@
                         }
                     }
                 },
-                
+
                 //change the name with toolBoxEnable
                 toolWrapperEnable: function(innerAnchors) {
                     var commandToolWrapper = document.getElementById('commandToolsWrapper');
                     if(commandToolWrapper != null){
                         if(typeof innerAnchors != 'undefined'){
                             var allAnchors = commandToolWrapper.getElementsByTagName('a');
-                            for(var i=0; i<allAnchors.length; i++){
+                            for(var i = 0; i < allAnchors.length; i++){
                                 allAnchors[i].style.pointerEvents = "visible";
                             }
                         }else{
@@ -829,7 +790,7 @@
                         }
                     }
                 },
-                
+
                 replayFromLocalStroage : function(allRepObjs) {
                     if (typeof (Storage) !== "undefined") {
                         if(vApp.storage.reclaim === false){
@@ -850,7 +811,7 @@
                         }
                    }
                 },
-                
+
                 setUserStatus: function(storageHasTeacher, storageHasReclaim) {
                     //TODO storageHasTeacher check with null rather than style of now.
                     if (!storageHasTeacher && !storageHasReclaim) {
@@ -902,10 +863,9 @@
                     }
                     return true;
                 },
-                
+
                 actionAfterRemovedUser: function() {
                     vApp.wb.utility.makeCanvasDisable();
-                    
                     vApp.wb.utility.setStyleUserConnetion('con', 'coff');
                     vApp.wb.utility.removeVirtualWindow('virtualWindow');
                     vApp.wb.user.connected = false;
@@ -918,7 +878,7 @@
                         }
                     }
                 },
-                
+
                 sendRequest: function(msg, value) {
                     vApp.wb.utility.beforeSend({'reclaimRole': true});
                 },
@@ -946,7 +906,6 @@
                  * @returns {undefined}
                  */
                 audioSend : function (msg){
-                    
                     var uid = breakintobytes(vApp.gObj.uid, 8);
                     var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
                     var sendmsg = new Int8Array(msg.length + scode.length);
@@ -967,18 +926,17 @@
                  * @returns {undefined}
                  */
                 beforeSend : function (msg){
-                    
                     if (msg.hasOwnProperty('createArrow')) {
                         var jobj = JSON.stringify(msg);
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                     } else {
-                        
+
                         if(msg.hasOwnProperty('repObj')){
-                            vApp.wb.gObj.rcvdPackId =  msg.repObj[msg.repObj.length -1].uid;
+                            vApp.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                             vApp.wb.gObj.displayedObjId = vApp.wb.gObj.rcvdPackId;
                         }
                         var jobj = JSON.stringify(msg);
-                        
+
                         vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                         if (io.sock.readyState == 1) {
                             io.send(msg);
@@ -1006,7 +964,7 @@
                        currentTag.style.padding = "0";
                    }
                },
-               
+
                //TODO lockVapp should be lockWhiteboard
                lockVapp : function (){
                     if(window.earlierWidth != window.innerWidth){
@@ -1035,7 +993,7 @@
                     }
                     return rightOffSet;
                 },
-                
+
                 initUpdateInfo  : function (oldData2){
                     oldData2 = vApp.wb.receivedPackets;
                     setInterval(function (){
@@ -1045,21 +1003,21 @@
                         }
                     }, 1000);
                 },
-                
+
                 // important todo
                 // this should be remove not used any where
                 objPutInContainer : function (obj){
                     vcan.main.replayObjs.push(obj);
                     //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                     vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-                }, 
-                
+                },
+
                 removeClassFromElement : function (prvTool, className){
                     if(prvTool != "t_reclaim"){
-                        var prvTool = document.getElementById(prvTool).className;    
+                        var prvTool = document.getElementById(prvTool).className;
                         var classes = prvTool.split(" ");
                         var retClass = [];
-                        for(var i=0; i<classes.length; i++){
+                        for(var i = 0; i < classes.length; i++){
                             if(classes[i] != className){
                                 retClass.push(classes[i]);
                             }
@@ -1071,7 +1029,7 @@
                         }
                     }
                 },
-                
+
                 makeActiveTool : function (byReload){
                  var tag = document.getElementById(byReload);
                     var classes;
@@ -1079,32 +1037,31 @@
                         classes = vApp.wb.utility.removeClassFromElement(vApp.wb.prvTool,  "active");
                         document.getElementById(vApp.wb.prvTool).className = classes;
                     }else{
-                        classes =  tag.className; 
-                        //classes =  this.parentNode.className; 
+                        classes = tag.className;
+                        //classes =  this.parentNode.className;
                     }
                     tag.className = classes + " active";
                     localStorage.activeTool = tag.id;
                 },
-                
+
                 makeDeActiveTool : function (){
-                    vApp.wb.tool = ""; //unselect any selected tool
-                    
-                    var toolsWrapper =  document.getElementById("commandToolsWrapper");
+                    vApp.wb.tool = "";//unselect any selected tool
+
+                    var toolsWrapper = document.getElementById("commandToolsWrapper");
                     var activeTool = document.getElementsByClassName('tool active');
                     //alert(activeTool.length);
                     if(activeTool.length > 0){
                         activeTool[0].classList.remove('active');
                     }
-                    
+
                 },
-                
+
                 createAudioTransmitIcon : function (userId){
                     var iconElem = document.cteateElement('div');
                     iconElem.id = "audioTransmit" + uuserId;
                     iconElem.className = 'audioTransmit';
                     var controlCont = document.getElementById(userId + "ControlContainer");
-                    
-                    
+
                 },
                 //todo, this shoudl be into user file
                 _reclaimRole : function (){
@@ -1112,7 +1069,7 @@
                     vApp.wb.utility.sendRequest('reclaimRole', true);
                     vApp.user.control.changeAttrToAssign('enable');
                 },
-				
+
                 enableAppsBar : function (){
                     var appBarCont = document.getElementById('vAppOptionsCont');
                     if(appBarCont != null){
@@ -1123,12 +1080,12 @@
         }
         function breakintobytes (val,l) {
             var numstring = val.toString();
-            for (var i=numstring.length; i < l; i++) {
-                numstring = '0'+numstring;
+            for (var i = numstring.length; i < l; i++) {
+                numstring = '0' + numstring;
             }
             var parts = numstring.match(/[\S]{1,2}/g) || [];
             return parts;
         }
-        window.utility = utility;  
+        window.utility = utility;
     }
 )(window);

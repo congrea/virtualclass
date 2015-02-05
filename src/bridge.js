@@ -5,10 +5,8 @@
 
 (
     function(window) {
-        
         var bridge = {
             requestPackets : function(msgRepObj) {
-                
                 //more than one packets comes after connection on
                 if (msgRepObj.length > 1) {
                     vApp.wb.gObj.myArr = msgRepObj;

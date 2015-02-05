@@ -9,20 +9,15 @@
         var recorder = {
             items : [],
             recImgPlay : false,
-            
             init: function(repMode) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
                 if(typeof myfunc != 'undefined'){
-                    this.objs = vcan.getStates('replayObjs'); 
+                    this.objs = vcan.getStates('replayObjs');
                 }else{
-                    //recorder.items;
-//                    this.objs = recorder.items;
                     vApp.storage.getAllObjs(["allData"], repInit);
                 }
-                
                 var that = this;
-                
                 function repInit (){
                     that.objs = vApp.recorder.items;
                     that.objNo = 0;
@@ -33,21 +28,19 @@
                     vApp.wss = "";
 
                     var allChildrens;
-                    var screenShare = document.getElementById('vApp'+ vApp.apps[1]);
+                    var screenShare = document.getElementById('vApp' + vApp.apps[1]);
 
                     if(screenShare != null){
                        screenShare.parentNode.removeChild(screenShare);
                     }
 
-                    var wholeScreenShare = document.getElementById('vApp'+ vApp.apps[2]);
+                    var wholeScreenShare = document.getElementById('vApp' + vApp.apps[2]);
 
                     if(wholeScreenShare != null){
                        wholeScreenShare.parentNode.removeChild(wholeScreenShare);
                     }
-                    
                     var obj = that.objs[0];
                     var repTime = obj.mt - vApp.wb.pageEnteredTime;
-                   
                     setTimeout(
                         function (){
                             vApp.recorder.renderObj();
@@ -55,9 +48,7 @@
                         repTime
                     );
                 }
-                
                 var audioRepTime = vApp.wb.recordStarted - vApp.wb.pageEnteredTime;
-                
                 setTimeout(
                     function (){
                         if(typeof vApp.gObj.video != 'undefined'){
@@ -68,15 +59,12 @@
                     audioRepTime
                 );
              },
-                
             renderObj : function(myfunc) {
                 vApp.wb.drawMode = true;
-                
                 if (typeof this.objs[this.objNo] == 'undefined') {
                     console.log("is this happend");
                     return;
                 }
-                
                 if (this.objs[this.objNo].hasOwnProperty('cmd')) {
                     vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                     vApp.wb.toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
@@ -87,12 +75,11 @@
                         vApp.gObj.chat.userChatList = [];
                         vApp.gObj.chat.display(this.objs[this.objNo].cuser, 'cevent');
                     }else{
-                        if(vApp.previous != "vApp"+vApp.apps[0]){
+                        if(vApp.previous != "vApp" + vApp.apps[0]){
                            document.getElementById('vApp' + vApp.apps[0]).style.display = 'block';
                            document.getElementById(vApp.previous).style.display = 'none';
-                           vApp.previous =  "vApp"+vApp.apps[0] 
+                           vApp.previous = "vApp" + vApp.apps[0];
                         }
-                        
                         var event = "";
                         if (this.objs[this.objNo].ac == 'd') {
                             event = 'mousedown';
@@ -109,7 +96,6 @@
                         } else {
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
                         }
-                        
                         if(this.objs[this.objNo].hasOwnProperty('uid')){
                             alert('suman bogati');
                             vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
@@ -124,7 +110,7 @@
                         vApp.wb.replayTime = 0;
                     }else{
                         if(this.objs[this.objNo].hasOwnProperty('beforeRefresh')){
-                            vApp.wb.replayTime = (this.objs[this.objNo+1].mt - this.objs[this.objNo + 1].peTime)+1000;
+                            vApp.wb.replayTime = (this.objs[this.objNo + 1].mt - this.objs[this.objNo + 1].peTime) + 1000;
                             //vApp.wb.replayTime = 0;
                         }else{
                             vApp.wb.replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;

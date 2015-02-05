@@ -1,18 +1,13 @@
-
 /*!
  * g711
  * Copyright(c) 2011 João Martins <madjackoo@gmail.com>
  * MIT Licensed
  */
 (function (exports) {
-   
 var G711 = {};
-
 G711.BIAS = 0x84;
 G711.CLIP = 32635;
-
 G711.tables = {
-    
     ulaw : {
         compress: [
           0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
@@ -65,7 +60,7 @@ G711.tables = {
           372, 356, 340, 324, 308, 292, 276, 260,
           244, 228, 212, 196, 180, 164, 148, 132,
           120, 112, 104, 96, 88, 80, 72, 64,
-          56, 48, 40, 32, 24, 16, 8, 0    
+          56, 48, 40, 32, 24, 16, 8, 0
         ]
     },
 
@@ -86,8 +81,8 @@ G711.tables = {
             7, 7, 7, 7, 7, 7, 7, 7,
             7, 7, 7, 7, 7, 7, 7, 7,
             7, 7, 7, 7, 7, 7, 7, 7,
-            7, 7, 7, 7, 7, 7, 7, 7  
-        ], 
+            7, 7, 7, 7, 7, 7, 7, 7
+        ],
 
         decompress: [
             -5504, -5248, -6016, -5760, -4480, -4224, -4992, -4736,
@@ -135,35 +130,28 @@ G711.encode = function (samples, options) {
     if (samples.constructor == Array) {
       samples.byteLength = samples.length * 2;
     }
-
-    var buffer = new ArrayBuffer(samples.byteLength/2)
+    var buffer = new ArrayBuffer(samples.byteLength / 2)
       , encoded = new Int8Array(buffer)
       , mode = options.alaw ? 'alaw' : 'ulaw'
       , enc_func = G711[mode];
 
-    for (var i = 0; i < samples.byteLength/2; i++) {  
+    for (var i = 0; i < samples.byteLength / 2; i++) {
     	encoded[i] = enc_func(samples[i]);
-    }    
+    }
 
     return encoded;
 };
 
 G711.decode = function (encoded, options) {
-	
-    options = options || {};
+	options = options || {};
     if(typeof encoded.byteLength == 'undefined'){
         encoded.byteLength  = encoded.length;
     }
     var floating_point = !!options["floating_point"]
       , buffer = new ArrayBuffer(encoded.byteLength * (!floating_point ? 2 : 4))
       , decoded = !floating_point ? new Int16Array(buffer) : new Float32Array(buffer)
-      , dec_func = G711[(options.alaw ? 'alaw' : 'ulaw')+"_dec"]
+      , dec_func = G711[(options.alaw ? 'alaw' : 'ulaw') + "_dec"]
       , tmp;
-//    if(options.hasOwnProperty('Eight')){
-//        decoded  = new Int8Array(buffer)
-//    } 
-
-    
     for (var i = 0; i < encoded.byteLength; i++) {
         tmp = dec_func(encoded[i]);
         decoded[i] = (floating_point ? tmp / 32768 : tmp);
@@ -200,14 +188,12 @@ G711.alaw = function (sample) {
     }
 
     _byte[0] ^= (sign ^ 0x55);
-    return _byte[0];  
+    return _byte[0];
 };
 
 G711.alaw_dec = function (u_val) {
   var buffer = new ArrayBuffer(2)
     , _short = new Int8Array(buffer);
-
-
   var s = G711.tables.alaw.decompress[u_val & 0xff];
   _short[0] = s;
   _short[1] = (s >> 8);
@@ -245,7 +231,7 @@ G711.ulaw = function (pcm_val) {
     if (seg >= 8) /* out of range, return maximum value. */ {
       return (0x7F ^ mask);
     } else {
-      _byte[0] = ((seg << 4) | ((pcm_val >> (seg + 3)) & 0xF));      
+      _byte[0] = ((seg << 4) | ((pcm_val >> (seg + 3)) & 0xF));
       return  (_byte[0] ^ mask);
     }
 }
@@ -253,8 +239,6 @@ G711.ulaw = function (pcm_val) {
 G711.ulaw_dec = function (u_val) {
     var buffer = new ArrayBuffer(2)
     , _short = new Int8Array(buffer);
-
-
     var s = G711.tables.ulaw.decompress[u_val & 0xff];
     _short[0] = s;
     _short[1] = (s >> 8);
@@ -278,7 +262,6 @@ G711.ulaw_dec_slow = function (u_val) {
     t <<= (u_val & 0x70) >> 4;
 
     var s = (u_val & 0x80) == 0x80;
-    
     var buffer = new ArrayBuffer(2)
     , shrt = new Int16Array(buffer);
 
@@ -288,9 +271,7 @@ G711.ulaw_dec_slow = function (u_val) {
 
 /**
   * Library version.
-  */  
+  */
 exports.G711 = G711;
 exports.version = '0.0.1';
-
-
 }(typeof(exports) !== "undefined" ? module.exports : window));

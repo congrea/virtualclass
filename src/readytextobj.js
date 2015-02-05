@@ -115,9 +115,7 @@
                     this.prevTextObj = divNode;
                     this.currTextObjWrapper = obj;
                     this.prevTextObj.measure = obj
-                    
                     vApp.wb.utility.toolWrapperDisable(true);
-                    
                 },
                 /**
                  * The function renders the text after typed by user into textarea
@@ -212,16 +210,11 @@
                         var obj = {'mt': currTime, 'ac': 'd', 'x': this.startPosX, 'y': this.startPosY, 'mtext': textObj.text};
                         vApp.wb.uid++;
                         obj.uid = vApp.wb.uid;
-                        
                         vcan.main.replayObjs.push(obj);
-                        
                         //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                         vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-                        
 //                        vApp.recorder.items.push(obj);
-                        
                         vApp.storage.wholeStore(obj);
-                        
                         // vApp.wb.utility.beforeSend({'repObj': [obj]});
                         vApp.wb.utility.beforeSend({'repObj': [obj]});
                         vApp.wb.utility.updateSentPackets(obj);
@@ -241,12 +234,10 @@
                             document.getElementById(vApp.wb.sentPackDiv).innerHTML = vApp.wb.sentPackets;
                         }
                     }
-                    
                     vApp.wb.utility.toolWrapperEnable(true);
                 }
             }
         }
-        
         window.readyTextObj = readyTextObj;
     }
 )(window);

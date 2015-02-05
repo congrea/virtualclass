@@ -5,7 +5,6 @@
 (
     function(window) {
         var view = {
-            
           init : function (){
               this.msgBoxClass = 'msgBox';
               this.window = {};
@@ -88,8 +87,8 @@
               var msg = vApp.lang.getString('drawArea');
               this.displayMessage(msg, "canvasDrawArea", this.msgBoxClass + className, 'containerWb', false);
           },
-          
-          displayMsgBox : function (id, msg){
+
+            displayMsgBox : function (id, msg){
               var div = this.customCreateElement('div', id);
               var p = this.customCreateElement('p', id + "Para");
               p.innerHTML = vApp.lang.getString(msg);
@@ -101,33 +100,29 @@
                   window.location.reload();
               }
               div.appendChild(a);
-              
-             //var vcanvas = document.getElementById('vAppOptionsCont');
-              
+
               var vAppCont = document.getElementById('vAppCont');
               vAppCont.insertBefore(div, vAppCont.firstChild);
           },
-          
+
           displayServerError : function (id, msg){
               var div = this.customCreateElement('div', id);
               div.innerHTML = msg;
               var vcanvas = document.getElementById('vcanvas');
               vcanvas.parentNode.insertBefore(div, vcanvas);
           },
-          
+
           removeElement : function (id){
               var errorDiv = document.getElementById(id);
               if(errorDiv != null){
                  errorDiv.parentNode.removeChild(errorDiv);
               }
           }
-            
+
         };
         view = view.init();
-        
+
         count = 0;
-        // TODO the resizeFinished and resize function
-        // should be place at vApp.wb.utility function
         view.window.resizeFinished = (function() {
             var timer = 0;
             return function(callback, ms) {
@@ -135,16 +130,16 @@
                 timer = setTimeout(callback, ms);
             };
         })();
-        
+
         view.window.resize = function() {
-            
+
             var res = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             vApp.vutil.setContainerWidth(res);
             vcan.renderAll();
         },
-        
-        //TODO
-        // this code is not using should be removed
+
+//TODO
+// this code is not using should be removed
         view.virtualWindow.manupulation = function(e) {
             var message = e.message.virtualWindow;
             if (message.hasOwnProperty('removeVirtualWindow')) {

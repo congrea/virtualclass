@@ -16,15 +16,13 @@
                 }
             },
             assignRole: function(fromUserId, id, reclaim) {
-                 
                 if (fromUserId != id || typeof reclaim != 'undefined') {
                     vApp.wb.utility.assignRole(id);
                     vApp.wb.utility.uniqueArrOfObjsToTeacher();
-                    
-                    //create assing button only to student 
+                    //create assing button only to student
                     if(localStorage.getItem('orginalTeacherId') == null){
                         vApp.vutil.removeSessionTool();   //
-                        var divContainer =   document.getElementById("ml" + fromUserId);
+                        var divContainer = document.getElementById("ml" + fromUserId);
                         var controls = ['assign'];
                         var divControl = vApp.user.createControl(fromUserId, controls);
                         divContainer.appendChild(divControl);
@@ -33,13 +31,9 @@
                     }else{
                         vApp.user.control.changeAttrToAssign('enable');
                     }
-                
                 }
-                
                 vApp.vutil.attachClickOutSideCanvas();
-
             },
-            
             checkUser: function(e, id, storageHasTeacher) {
                 var joinId = e.message.joinId;
                 if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher)) {
@@ -48,7 +42,6 @@
                 vApp.wb.utility.initDefaultInfo(e, wbUser.role);
                 vApp.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
             },
-            
             clearAll: function(formUserId, id, eMessage, orginalTeacherId) {
                 if (formUserId != id) {
                     vApp.wb.tool = new vApp.wb.tool_obj('t_clearall');
@@ -61,7 +54,6 @@
                     vApp.wb.utility.updateRcvdInformation(eMessage);
                 }
             },
-            
             // TODO this is not used any more
             // should be deleted
             replayAll: function() {
@@ -87,11 +79,9 @@
                     }
                 }
             },
-            
             chunk: function(fromUser, id, repObj) {
                 vApp.wb.bridge.handleMissedPackets(fromUser, id, repObj);
             },
-            
             repObjForMissedPkts: function(msgRepObj) {
                 if (vApp.wb.gObj.rcvdPackId != 0 || (vApp.wb.uid > 0 && vApp.wb.gObj.rcvdPackId == 0)) { //for handle very starting stage
                     if ((typeof msgRepObj == 'object' || msgRepObj instanceof Array)) {
@@ -107,7 +97,6 @@
                 }
             }
         };
-        
         window.response = response;
     }
 )(window);

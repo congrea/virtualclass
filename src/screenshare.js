@@ -1,34 +1,24 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
+/** To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 (function (window) {
-
     function callback(error) {
         vApp.vutil.initInstallChromeExt(error);
     }
-
-//    window.postMessage({ type: 'isInstalled', id: 1 }, '*');
     var screenShare = function (config) {
         vApp.getSceenFirefox = function () {
-
-            //if(window.navigator.userAgent.match('Firefox')){
-
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
             if (ffver >= 33) {
-                //constraints = (hasConstraints && constraints) || {
                 constraints = {
                     video: {
                         mozMediaSource: 'window',
                         mediaSource: 'window'
                     }
                 };
-
                 vApp.adpt = new vApp.adapter();
                 navigator2 = vApp.adpt.init(navigator);
-
                 navigator2.getUserMedia(constraints, function (stream, err) {
                         //callback(err, stream);
                         vApp.ss._init();
@@ -65,9 +55,7 @@
             }
         };
 
-
         return {
-
             prevStream: false,
             init: function (screen) {
 
@@ -82,12 +70,10 @@
                 } else {
                     this._init();
                 }
-
             },
 
             //called when user select the screencall
             _init: function () {
-//                alert('screen share init');
                 if (vApp.previous != config.id) {
                     document.getElementById(vApp.previous).style.display = 'none';
                     vApp.previous = config.id;
@@ -99,33 +85,24 @@
                 }
 
                 if (!this.hasOwnProperty('id')) {
-
                     this.dc = vApp.dirtyCorner;
-
                     this.postFix = "Cont";
                     this.id = config.hasOwnProperty('id') ? config.id : "vAppScreenShare";
                     this.className = "vmApp";
                     this.label = "Local",
-
-                        this.local = this.id + this.label;
+                    this.local = this.id + this.label;
                     this.localTemp = this.id + this.label + "Temp";
-
                     this.classes = config.hasOwnProperty('class') ? config.classes : "";
 
                     //this.prevImageSlices = [];
                     this.initPrevImage();
-
                     var ssUI = document.getElementById(this.id);
-
                     if (ssUI != null) {
                         ssUI.parentNode.removeChild(ssUI);
                     }
                     ssUI = this.html.UI.call(this, vApp.gObj.uRole);
-
                     var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
-
                     document.getElementById(vApp.html.id).insertBefore(ssUI, beforeAppend);
-
                     if (vApp.gObj.uRole == 't' && !vApp.recorder.recImgPlay) {
                         vApp.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
@@ -134,8 +111,6 @@
 
             readyTostart: function (app) {
                 if (app == vApp.apps[1]) {
-                    //this.getScreen(callback);
-
                     this.getScreen();
                 } else if (app == vApp.apps[2]) {
                     this.wholeScreen();
@@ -169,7 +144,6 @@
                                 maxWidth: 1440,
                                 maxHeight: 9999
                             },
-
                             optional: [
                                 {maxFrameRate: 3}
                             ]
@@ -187,9 +161,7 @@
                 }, function (e) {
                     vApp.wss.onError.call(vApp.ss, e);
                 });
-
             },
-
 
             unShareScreen: function () {
                 this.video.src = "";
@@ -212,9 +184,7 @@
 
             initializeRecorder: function (stream) {
                 vApp.vutil.addClass("audioWidget", "fixed");
-                
-                //add class
-                changeonresize = 1;  
+                changeonresize = 1;
                 resizecalled = 0;
 
                 if (this.prevStream) {
@@ -240,8 +210,6 @@
                     vApp.vutil.createLocalTempVideo("vAppScreenShare", this.local + "Temp");
                     vApp.vutil.initLocCanvasCont(this.local + "Temp" + "Video");
                 }
-
-
                 this.currentStream = stream;
                 var that = this;
 
@@ -257,7 +225,6 @@
                         clearInterval(vApp.clear);
                         //that.prevImageSlices = [];
                         that.initPrevImage();
-                        
                         vApp.wb.utility.beforeSend({'unshareScreen': true, st: that.type});
                         that.prevStream = false;
                         that.prevScreen = "";
@@ -273,8 +240,6 @@
 
                 var vidContainer = document.getElementById(this.local);
                 var dimension = this.html.getDimension(container);
-
-
                 vidContainer.style.width = Math.round(dimension.width) + "px";
                 vidContainer.style.height = Math.round(dimension.height) + "px";
 
@@ -298,22 +263,13 @@
                     if (vApp.gObj.uRole == 't') {
                         vApp.vutil.makeActiveApp(that.id, vApp.prevApp);
                     }
-
                     vApp.prevApp = that.id;
-
                 }
-
-
             },
-
             sharing: function () {
-                //alert('it should be share everytime');
                 var tempObj, encodedData, stringData, d, matched, imgData;
-                //this.localtempCanvas = [];
                 var resA = Math.round(this.localtempCanvas.height / 12);
                 var resB = Math.round(this.localtempCanvas.width / 12);
-
-                //this.imageSlices = this.dc.getImageSlices(resA, resB, this);
                 var that = this;
                 var uniqcount = 0;
                 var uniqmax = (resA * resB) / 5;
@@ -331,14 +287,7 @@
                 var screenIntervalTime = 1000;
                 var pscreenIntervalTime = 1000;
 
-                //function getDataFullScreen(type){
                 vApp.getDataFullScreen = function (type) {
-//                    alert("suman bogati");
-//                    debugger;
-                    
-                   // alert("this is not happend");
-                    //clearInterval(vApp.clear);
-
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
                     that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
@@ -350,31 +299,20 @@
                     var h = breakintobytes(that.localtempCanvas.height, 4);
                     var w = breakintobytes(that.localtempCanvas.width, 4);
                     var statusCode = null;
-//                    if (type == 'ss') {
-//                        statusCode = 102;
-//                    } else {
-//                        statusCode = 202;
-//                    }
-                    var statusCode = (type == 'ss') ? 102 : 202;
-                   
+                    statusCode = (type == 'ss') ? 102 : 202;
                     var scode = new Uint8ClampedArray([statusCode, w[0], w[1], h[0], h[1]]);
 
                     var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
                     sendmsg.set(scode);
                     sendmsg.set(encodedData, scode.length);
-                    // io.sendBinary(sendmsg);
-
                     return sendmsg;
                 };
 
                 function getDataFullScreenResize(stype) {
-                    //clearInterval(vApp.clear);
-                    
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
                     that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
 
-                    //if(typeof firstTimeDisp == 'undefined'){
                     var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
                     var encodedData = that.dc.encodeRGB(imgData.data);
 
@@ -385,20 +323,16 @@
                     if (typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined') {
                         var dw = breakintobytes(prvVWidth, 4);
                         var dh = breakintobytes(prvVHeight, 4);
-
                         var vcw = breakintobytes(contDimension.width, 4);
                         var vch = breakintobytes(contDimension.height, 4);
-
                     } else {
                         var dw = breakintobytes(that.video.offsetWidth, 4);
                         var dh = breakintobytes(that.video.offsetHeight, 4);
-
                         var vcw = breakintobytes(contDimension.width, 4);
                         var vch = breakintobytes(contDimension.height, 4);
                     }
 
                     var appCode = (stype == 'ss' ) ? 104 : 204;
-
                     var scode = new Uint8ClampedArray([appCode, dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
                     var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
                     sendmsg.set(scode);
@@ -415,7 +349,6 @@
                             offsetHeight: that.video.offsetHeight
                         }, [encodedData.buffer]);
                     }
-
                     return sendmsg;
                 }
 
@@ -447,8 +380,6 @@
                 }
 
                 function calcBandwidth(localBandwidth) {
-                    // Calculate Bandwidth in Kbps
-                    // Shape Bandwidth
                     if (localBandwidth <= 400 || typeof localBandwidth == 'undefined') {
                         screenIntervalTime = 400;
                     } else if (localBandwidth >= 10000) {
@@ -461,7 +392,7 @@
                     if ((pscreenIntervalTime * 4) < screenIntervalTime) {
                         screenIntervalTime = pscreenIntervalTime * 4;
                     }
-                    console.log ('Bandwidth '+ localBandwidth+'Kbps' + 'New Time ' + screenIntervalTime);
+//                    console.log ('Bandwidth '+ localBandwidth+'Kbps' + 'New Time ' + screenIntervalTime);
                     if (screenIntervalTime > 400) {
                         console.trace();
                     }
@@ -474,13 +405,12 @@
                     prvVHeight = that.video.offsetHeight;
                     resA = Math.round(that.localtempCanvas.height / 12);
                     resB = Math.round(that.localtempCanvas.width / 12);
-                    //that.imageSlices = that.dc.getImageSlices(resA, resB, that);
                     var createdImg = getDataFullScreenResize(that.type);
                     io.sendBinary(createdImg);
                     calcBandwidth(createdImg.length / 128); // In Kbps
                     changeonresize = 0;
                     clearInterval(vApp.clear);
-                    console.log ('RESIZE Bandwidth '+ (createdImg.length / 128)+'Kbps' + 'New Time ' + screenIntervalTime);
+//                    console.log ('RESIZE Bandwidth '+ (createdImg.length / 128)+'Kbps' + 'New Time ' + screenIntervalTime);
                     vApp.clear = setInterval(sendScreen, screenIntervalTime);
                 }
 
@@ -538,14 +468,11 @@
                 clearInterval(vApp.clear);
                 vApp.clear = setInterval(sendScreen, screenIntervalTime);
             },
-
             getContainerDimension: function () {
                 var vidCont = document.getElementById(this.id + "Local");
                 return {width: vidCont.offsetWidth, height: vidCont.offsetHeight};
             },
-
             drawImages: function (rec, d) {
-//                this.drawSingleImage(rec);
                 if (typeof d != 'undefined') {
                     var imgData = this.dc.decodeRGBSlice(rec, this.localCont, d);
                     this.localCont.putImageData(imgData, d.x, d.y);
@@ -555,12 +482,10 @@
                 }
 
             },
-
             drawSingleImage: function (rec) {
                 var imgData = this.dc.decodeRGB(rec, this.localCont, this.localCanvas);
                 this.localCont.putImageData(imgData, 0, 0);
             },
-
             dimensionStudentScreen: function (cWidth, cHeight) {
                 this.localCanvas = document.getElementById(vApp[app].local + "Video");
                 this.localCont = vApp[app].localCanvas.getContext('2d');
@@ -568,7 +493,6 @@
                 this.localCanvas.height = cHeight;
                 console.log("normal width " + this.localCanvas.width);
             },
-
             dimensionStudentScreenResize: function (msg, vtype) {
                 if (!this.hasOwnProperty('vac')) {
                     this.vac = true;
@@ -581,9 +505,6 @@
                     this.localCanvas.width = msg.d.w;
                     this.localCanvas.height = msg.d.h;
                 }
-                
-                console.log("resize width " + this.localCanvas.width);
-
 
                 if (msg.hasOwnProperty('vc')) {
                     var vc = document.getElementById(vApp[app].local);
@@ -595,10 +516,7 @@
                     vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
                 }
             },
-
-
             html: {
-
                 UI: function (user) {
                     var mainCont = vApp.vutil.createDOM("div", this.id, [this.className]);
                     var locVidCont = vApp.vutil.createDOM("div", this.local, [this.label]);
@@ -634,7 +552,6 @@
 
                     return mainCont;
                 },
-
                 getDimension: function (container, aspectRatio) {
                     var aspectRatio = aspectRatio || (3 / 4),
                         height = (container.width * aspectRatio),
@@ -646,7 +563,6 @@
                     };
                 }
             },
-            
             initPrevImage : function (){
                 sworker.postMessage({'initPrevImg' : true});
             }

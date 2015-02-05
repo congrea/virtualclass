@@ -10,11 +10,9 @@
             return {
                 RTCPeerConnection : null,
                 webrtcDetectedBrowser : null,
-                
                 init : function (navigator){
                     if (vApp.system.wbRtc.peerCon == true && vApp.system.wbRtc.userMedia == true) {
                         if (navigator.mozGetUserMedia) {
-                            
                             window.webrtcDetectedBrowser = "firefox";
                             this.RTCPeerConnection = mozRTCPeerConnection;
                             this.RTCSessionDescription = mozRTCSessionDescription;
@@ -22,12 +20,9 @@
                             navigator.getUserMedia = navigator.mozGetUserMedia;
 
                             this.attachMediaStream = function(element, stream) {
-                                
                                 this.videoAdd = true;
-                                
                                 var url = window.URL || window.webkitURL;
                                 element.src = url ? url.createObjectURL(stream) : stream;
-            
                                 //element.mozSrcObject = stream;
                                 element.play();
                             };
@@ -59,10 +54,8 @@
                             this.attachMediaStream = function(element, stream) {
                                 var url = window.URL || window.webkitURL;
                                 element.src = url ? url.createObjectURL(stream) : stream;
-            
                                 //element.mozSrcObject = stream;
                                 element.play();
-                                
                                 this.videoAdd = true;
                             };
 

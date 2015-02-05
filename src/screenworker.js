@@ -10,13 +10,12 @@ onmessage = function(e) {
         //if (typeof e.data.resize == 'undefined'){
         if (!e.data.hasOwnProperty('resize')){
             encodeRGB(e.data.img);
-
-            for (sl=0; sl<( e.data.resA *  e.data.resB); sl++) {
-                if(sl==0){
+            for (sl = 0; sl < ( e.data.resA * e.data.resB); sl++) {
+                if(sl == 0){
                     x = 0;
                     y = 0;
                 }else{
-                    cx = sl  % e.data.resB; // for x
+                    cx = sl % e.data.resB; // for x
                     cy = Math.floor(sl / e.data.resB); // for y
                     x = cx * e.data.dw;
                     y = cy * e.data.dh;
@@ -31,7 +30,7 @@ onmessage = function(e) {
                         if (prevImageSlices[sl].length != imgData.length) {
                             prevImageSlices[sl] = imgData;
                         }else {
-                            for (var l=0; l<imgData.length; l++) {
+                            for (var l = 0; l < imgData.length; l++) {
                                 prevImageSlices[sl][l] = imgData[l];
                             }
                         }
@@ -40,7 +39,7 @@ onmessage = function(e) {
 
                 }else{
                     prevImageSlices[sl] = imgData;
-                    needFullScreen=1;
+                    needFullScreen = 1;
                 }
             }
             if (masterSlice) {
@@ -55,15 +54,15 @@ onmessage = function(e) {
                 });
             }
 
-            needFullScreen=0;
-            masterSlice=null;
+            needFullScreen = 0;
+            masterSlice = null;
         } else {
-            for (sl=0; sl<( e.data.resA *  e.data.resB); sl++) {
-                if(sl==0){
+            for (sl = 0; sl < ( e.data.resA * e.data.resB); sl++) {
+                if(sl == 0){
                     x = 0;
                     y = 0;
                 }else{
-                    cx = sl  % e.data.resB; // for x
+                    cx = sl % e.data.resB; // for x
                     cy = Math.floor(sl / e.data.resB); // for y
                     x = cx * e.data.dw;
                     y = cy * e.data.dh;
@@ -73,12 +72,10 @@ onmessage = function(e) {
             }
         }
     }
-    
-    
 };
 
 var encodeRGB = function(imgData){
-    var length = imgData.length/4;
+    var length = imgData.length / 4;
     if (encodeDataArr == null || encodeDataArr.length != length) {
         encodeDataArr = new Uint8ClampedArray(length);
     }
@@ -86,33 +83,25 @@ var encodeRGB = function(imgData){
     //(r*6/256)*36 + (g*6/256)*6 + (b*6/256)
     var red, green, blue, encodedData;
 
-    for(var i=0; i<length; i++){
-        red = imgData[(i * 4)+ 0];
-        green = imgData[(i * 4)+ 1];
-        blue = imgData[(i * 4)+ 2];
+    for(var i = 0; i < length; i++){
+        red = imgData[(i * 4) + 0];
+        green = imgData[(i * 4) + 1];
+        blue = imgData[(i * 4) + 2];
         //encodedData = (Math.round((red / 32)) << 5) + (Math.round((green / 32)) << 2) + Math.round((blue / 64));
         encodedData = (Math.round((red / 36.5)) << 5) + (Math.round((green / 36.5)) << 2) + Math.round((blue / 85));
         //encodedData = (red*6/256)*36 + (green*6/256)*6 + (blue*6/256)
-
-        encodeDataArr[i]=encodedData;
-        //        encodeDataArr.push(encodedData);
+        encodeDataArr[i] = encodedData;
     }
-
-    //return encodeDataArr;
 };
 
 var sendSliceData = function (encodedData, d, stype){
     var x = breakintobytes(d.x,4);
     var y = breakintobytes(d.y,4);
-
     var appCode = (stype == 'ss') ? 103 : 203;
-
     var scode = new Uint8ClampedArray( [ appCode, x[0], x[1], y[0], y[1] , d.h, d.w ] );
-
     var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
     sendmsg.set(scode);
     sendmsg.set(encodedData, scode.length);
-
     return sendmsg;
 };
 
@@ -132,10 +121,10 @@ var addSliceToSingle = function (encodedData) {
  * https://github.com/youbastard/getImageData
  */
 var getImageDataCache = function (x, y, w, h, W, H, d) {
-    var arr = new Uint8ClampedArray(w*h), i=0;
-    for (var r=y; r<(h)+y; r+=1) {
-        for (var c=x; c<(w)+x; c+=1) {
-            var O = ((r*W) + c);
+    var arr = new Uint8ClampedArray(w * h), i = 0;
+    for (var r = y; r < (h) + y; r += 1) {
+        for (var c = x; c < (w) + x; c += 1) {
+            var O = ((r * W) + c);
             arr[i++] = d[O];
         }
     }
@@ -148,20 +137,20 @@ var matchWithPrevious = function(newI, oldI, width){
     }
     var l = oldI.length;
     var w = width;
-    for(var i=0; i<l; i=i+1){ // Quickly Check Forward Diagnal
+    for(var i = 0; i < l; i = i + 1){ // Quickly Check Forward Diagnal
         if ( (! matchI (oldI[i],newI[i]))  ) {
             return false;
         }
         i = i + w;
     }
-    for(var i=0; i<l; i=i-1){ // Quickly Check Backword Diagnal
+    for(var i = 0; i < l; i = i - 1){// Quickly Check Backword Diagnal
         i = i + w;
         if ( (! matchI (oldI[i],newI[i]))  ) {
             return false;
         }
     }
     var jump = 7;
-    for(var i=0; i<l; i=i+jump){ // Check (all/jump) pixals
+    for(var i = 0; i < l; i = i + jump){ // Check (all/jump) pixals
         if ( (! matchI (oldI[i],newI[i])) ) {
             return false;
         }
@@ -175,10 +164,9 @@ var matchI = function(oldPixel,newPixel) {
 
 function breakintobytes (val,l) {
     var numstring = val.toString();
-    for (var i=numstring.length; i < l; i++) {
-        numstring = '0'+numstring;
+    for(var i = numstring.length; i < l; i++) {
+        numstring = '0' + numstring;
     }
     var parts = numstring.match(/[\S]{1,2}/g) || [];
     return parts;
 }
-

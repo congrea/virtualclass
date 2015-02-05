@@ -5,14 +5,12 @@
 (
     function(window) {
         var system = {
-            
             init : function (){
                 this.wbRtc = {};
                 this.wbRtc.className = 'webrtcCont';
                 this.mybrowser = {};
                 return this;
             },
-            
             isCanvasSupport : function(navigator, browserName, version) {
                 if (browserName == 'MSIE') {
                     if (version != 9) {
@@ -26,10 +24,8 @@
                     }
                 }
             },
-
             isWebRtcSupport : function(navigator, browser, version) {
                 if (browser == 'Firefox') {
-                    
                     if (navigator.mozGetUserMedia) {
                         this.wbRtc.userMedia = true;
                         if (!window.mozRTCPeerConnection) {
@@ -55,75 +51,48 @@
                     vApp.error.push({'msg': vApp.lang.getString('notSupportWebRtc'), 'id': 'errorWebRtc', 'className': 'error'});
                 }
             },
-
             isWebSocketSupport : function(navigator, browser, version) {
                 this.webSocket = {};
                 if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
                     this.webSocket = true;
                 } else {
-                    
                     vApp.error.push({'msg': vApp.lang.getString('notSupportWebSocket'), 'id': 'errorWebSocket', 'className': 'error'});
                 }
             },
-
             measureResoultion : function(resolution) {
                 var element = document.getElementById('vAppCont');
                 var offset = vcan.utility.getElementOffset(element);
                 var offsetLeft = offset.x;
-                
-                console.log('ox ' + offsetLeft);
-                
                 if (resolution.width < 1024) {
                     var width = 1024 - offsetLeft;
                 } else {
                     var width = resolution.width - offsetLeft;
                 }
-                
-              //  var width = 0;
                 var height = resolution.height - offset.y;
                 return {'width': (width), 'height': (height)};
             },
-
             setAppDimension : function() {
                 var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
                 //var mainWrapper =  document.getElementById('vAppCont');
                 vApp.vutil.setContainerWidth(measureRes);
                 if(vApp.currApp == 'Whiteboard'){
-//                    alert('sss');
                     system.setCanvasDimension(measureRes);
                 }
-                
-//                if (typeof vcan.main.canvas != 'undefined') {
-//                    var canvas = vcan.main.canvas;
-//                    ctx = vcan.main.canvas.getContext('2d');
-//
-//                    canvas.width = measureRes.width; 
-//                    var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
-//                    canvas.height = measureRes.height - toolWrapperHeight;
-//                    console.log("canvas width " + canvas.width);
-//                    
-//                    //var element = document.getElementById('canvas');
-//                    var offset = vcan.utility.getElementOffset(document.getElementById('canvas'));
-//                    vcan.main.offset.x = offset.x;
-//                }
             },
-            
             setCanvasDimension : function (measureRes){
                 if (typeof vcan.main.canvas != 'undefined') {
                     var canvas = vcan.main.canvas;
                     ctx = vcan.main.canvas.getContext('2d');
 
-                    canvas.width = measureRes.width; 
+                    canvas.width = measureRes.width;
                     var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10
                     canvas.height = measureRes.height - toolWrapperHeight;
                     console.log("canvas width " + canvas.width);
-                    
                     //var element = document.getElementById('canvas');
                     var offset = vcan.utility.getElementOffset(document.getElementById('canvas'));
                     vcan.main.offset.x = offset.x;
                 }
             },
-
             getResoultion : function(windowWidth) {
                 var resolution = {};
                 if (windowWidth < 1280) {
@@ -141,7 +110,6 @@
                 }
                 return resolution;
             },
-
             check : function (){
                 var browser = this.mybrowser.detection();
                 var browserName = browser[0];
@@ -154,7 +122,6 @@
                 this.isWebSocketSupport(navigator, browserName, browserVersion);
             }
         };
-        
         system = system.init();
          // There could be the problem
         window.addEventListener('resize',
@@ -187,8 +154,6 @@
                 // return M.join(' ');
                 return M;
          },
-                    
         window.system = system;
-        
     }
 )(window);

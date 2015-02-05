@@ -5,14 +5,12 @@
 (
     function(window) {
         var vcan = window.vcan;
-
         vcan.utility = {
             /**
              * Calculates canvas element offset relative to the document
              * @param cid is canvas's id
              * @return {offset} calculated value value
              */
-
             canvasCalcOffset: function(cid) {
                 /*alert('suman');
                  debugger; */
@@ -22,7 +20,6 @@
                 var offset = vcan.utility.getElementOffset(canvasEl);
                 vcanMain.offset = offset;
                 return offset;
-
             },
             /**
              * Returns offset for a given element

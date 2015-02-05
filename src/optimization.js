@@ -5,10 +5,8 @@
 
 (
     function (window){
-   
     var optiomize = {
         sendPacketWithOptimization: function(jobj, readyState, time) {
-        
             if (typeof this.lastarrowtime == 'undefined') {
                 this.lastarrowtime = new Date().getTime();
                 vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
@@ -18,7 +16,6 @@
 
                 vApp.wb.utility.updateSentInformation(jobj, true);
             }
-
             this.presentarrowtime = new Date().getTime();
             if ((this.presentarrowtime - this.lastarrowtime) >= time) {
                 vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
@@ -55,7 +52,6 @@
             var obj = vcan.makeStackObj(time, ac, x, y);
             vApp.wb.uid++;
             obj.uid = vApp.wb.uid;
-            
             vcan.main.replayObjs.push(obj);
             vApp.wb.utility.beforeSend({'repObj': [obj]});
             vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
@@ -64,5 +60,5 @@
         }
     }
     vcan.optimize = optiomize;
-}            
+}
 )(window);

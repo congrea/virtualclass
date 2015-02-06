@@ -1327,7 +1327,6 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
     opacity : 1;
 }
 
-
-
-
-
+#audioWidget {
+     right:0;
+}

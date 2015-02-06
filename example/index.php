@@ -72,7 +72,7 @@ if(isset($_GET['name'])){
 	<?php echo "wbUser.room='".$room."';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
-	<?php //echo "wbUser.fname='".$fname."';"; ?>
+	<?php echo "wbUser.fname='".$fname."';"; ?>
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     window.whiteboardPath =  'https://local.vidya.io/virtualclass/';

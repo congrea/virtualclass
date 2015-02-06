@@ -27,60 +27,6 @@
            // .appendTo(document.getElementById())
             .prop( "id", 'stickybar' )
             .addClass('maximize'),
-            // close button tab
-//            uiFooterbarClosebox = (self.uiFooterbarClosebox = $('<div></div>'))
-//            .addClass('vmchat_close_bt')
-//            .prop('id', 'hide_bar')
-//            .appendTo(uiFooterbar),
-
-//            uiFooterbarClose = (self.uiFooterbarClose = $('<input>'))
-//            .prop('id', 'closebtn')
-//            .prop('type', 'button')
-//            .prop('title', 'Close chat')
-//            .addClass('close')
-//            .appendTo(uiFooterbarClosebox)
-            
-//            .clickToggle(function() {
-//                if($('#stickybar').hasClass('maximize')){
-//                    $('#stickybar').removeClass('maximize').addClass('minimize');
-//                    $('#hide_bar input').removeClass('close').addClass('expand')
-//                    $('#hide_bar input').prop('title', 'Open chat');
-//                    //alert('sss');
-//                    vApp.gObj.video.close();
-//                    io.disconnect();
-//                    $('.ui-memblist').remove();
-//                    $('.ui-chatbox').remove();
-//                    $('div#chatrm').remove();
-//                    chatroombox = null;
-//
-//                    // delete open chat box
-//                    for(key in io.uniquesids){
-//                        if(key != io.cfg.userid){
-//                            chatboxManager.delBox(key);
-//                            $( "li#tabcb" + key ).remove(); //delete tab
-//                        }
-//                    }
-//                    idList = new Array(); // chatbox
-//                    tabs.tabs( "refresh" );//tabs
-//                    localStorage.clear(); //empty local storage
-//                    //TODO:find way to delete object
-//                    vmstorage = {}; //remove variable storage
-//                    localStorage.setItem('init', 'false');
-//                    sessionStorage.removeItem("chatroom");// to remove sessionstorage
-//
-//                    sessionStorage.clear();
-//                }
-//            },
-//            function() {
-//                alert("yeh kab ho rahi hai");
-//                
-//                $('#stickybar').removeClass('minimize').addClass('maximize');
-//                $('#hide_bar input').removeClass('expand').addClass('close');
-//                $('#hide_bar input').prop('title', 'Close chat');
-//                localStorage.clear();
-//                io.init(userdata);
-//            });
-
             //chatroom tab
             uiFooterbarchatroomtab = (self.uiFooterbarchatroomtab = $('<div></div>'))
             .addClass('vmchat_room_bt tooltip')

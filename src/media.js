@@ -137,22 +137,27 @@
                         // If rate greater then 20, it is likely to be sound
                         // if difference between max and min (thdiff) is less than 2, we are not ready for this algo.
                         // If Volume is greater than min threashold * multiple then it is likely to be sound.
-                        if ((thdiff >= 2 && vol >= minthreshold * th) || rate > 20) {
-//                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
+                        if ((thdiff >= 2 && vol >= minthreshold * th)) {
                             if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
+                                console.log('SEND PRE');
                                 vApp.wb.utility.audioSend(preAudioSamp);
                             }
+                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                             vApp.wb.utility.audioSend(send);
-                            audioWasSent = 1;
-                        }else if ( audioWasSent == 1){
-                            vApp.wb.utility.audioSend(send);  // Send next sound sample to avoid clicking noise
-                            audioWasSent = 0;
-                        }else if (thdiff < 2) {
-//                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            audioWasSent = 9;
+                        }else if ( audioWasSent > 0){
+                            console.log('SEND NEXT');
+                            vApp.wb.utility.audioSend(send);  // Continue sending Audio for next X samples
+                            audioWasSent--;
+                        }else if (thdiff < 2) { // We are not ready, send all samples
+                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                             vApp.wb.utility.audioSend(send);
                         }else {
-//                            console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                            preAudioSamp = send;;
+                            console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                            if (thdiff > 10) { // If diff is huge, reduce max volume in historical signal
+                                maxthreshold = maxthreshold * 0.8;
+                            }
+                            preAudioSamp = send;
                         }
                         return send;
                     },

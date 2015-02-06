@@ -141,6 +141,7 @@
                             if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
                                 console.log('SEND PRE');
                                 vApp.wb.utility.audioSend(preAudioSamp);
+                                preAudioSamp=0;
                             }
                             console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                             vApp.wb.utility.audioSend(send);

@@ -142,6 +142,7 @@
                                 console.log('SEND PRE');
                                 vApp.wb.utility.audioSend(preAudioSamp);
                                 preAudioSamp=0;
+								var justforcheck = false; //by suman
                             }
                             console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                             vApp.wb.utility.audioSend(send);

@@ -383,12 +383,12 @@
                     }
                 },
                 displayStudentSpeaker : function(display){
-                    var speakerStudent = document.getElementById('speakerStudent');
-                    if(speakerStudent != null){
+                    var alwaysPress = document.getElementById('alwaysPress');
+                    if(alwaysPress != null){
                         if(display){
-                            speakerStudent.style.display = 'block';
+                            alwaysPress.style.display = 'block';
                         }else {
-                            speakerStudent.style.display = 'none';
+                            alwaysPress.style.display = 'none';
                         }
                     }
                 }

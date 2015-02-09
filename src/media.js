@@ -54,7 +54,8 @@
                   rec : '',
                   otherSound : false,
                   audioNodes : [],
-                  sd : false,
+                  sdElem : 'silenceDetect',
+//                  sd : false,
                    Html5Audio : {audioContext : new AudioContext()},
                    init : function (){
                         if(localStorage.getItem('orginalTeacherId') != null){
@@ -100,12 +101,14 @@
                         this.attachFunctionsToAudioWidget();
                     },
                     slienceDetection : function (send, leftSix){
+                        var audStatus;
                         var vol = 0;
                         var sum = 0;
                         var rate = 0;
-
+                        var a;
                         for (i = 0; i < leftSix.length; i++) {
-                            var a = Math.abs(leftSix[i]);
+//                            var a = Math.abs(leftSix[i]); // a should not be declared here
+                            a = Math.abs(leftSix[i]); // a should not be declared here
                             if (vol < a) { vol = a; } // Vol is maximum volume in signal packet
                             sum = sum + a;
                         }
@@ -137,6 +140,8 @@
                         // If rate greater then 20, it is likely to be sound
                         // if difference between max and min (thdiff) is less than 2, we are not ready for this algo.
                         // If Volume is greater than min threashold * multiple then it is likely to be sound.
+                        
+                        audStatus = "sending";
                         if ((thdiff >= 2 && vol >= minthreshold * th)) {
                             if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
                                 console.log('SEND PRE');
@@ -144,23 +149,36 @@
                                 preAudioSamp=0;
                             }
                             console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
-                            vApp.wb.utility.audioSend(send);
+                            vApp.wb.utility.audioSend(send, audStatus);
                             audioWasSent = 9;
+                            
                         }else if ( audioWasSent > 0){
+                            
                             console.log('SEND NEXT');
-                            vApp.wb.utility.audioSend(send);  // Continue sending Audio for next X samples
+                            vApp.wb.utility.audioSend(send, audStatus);  // Continue sending Audio for next X samples
                             audioWasSent--;
                         }else if (thdiff < 2) { // We are not ready, send all samples
                             console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                            vApp.wb.utility.audioSend(send);
+                            vApp.wb.utility.audioSend(send, audStatus);
                         }else {
+//                            if(vApp.gObj.audMouseDown){
+                              this.setAudioStatus("notSending");
+//                            }
                             console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                             if (thdiff > 10) { // If diff is huge, reduce max volume in historical signal
                                 maxthreshold = maxthreshold * 0.8;
                             }
                             preAudioSamp = send;
                         }
+//                        this.setAudioStatus(audStatus);
                         return send;
+                    },
+                    
+                    setAudioStatus : function (audStatus){
+                        if(typeof silenceDetectElem == 'undefined'){
+                            var silenceDetectElem = document.getElementById(this.sdElem);
+                        }
+                        silenceDetectElem.setAttribute('data-silence-detect',  audStatus);
                     },
                     makeIconNotDraggable : function (id, imgName){
                         var canvas = document.getElementById(id, imgName);
@@ -213,9 +231,21 @@
                     },
                     attachSpeakToStudent : function (id){
                         var that = this;
-                        var speakerStudent  = document.getElementById(id);
-                        speakerStudent.addEventListener('mousedown', function (){ that.studentSpeak(speakerStudent)});
-                        speakerStudent.addEventListener('mouseup', function (){  that.studentNotSpeak(speakerStudent)});
+                        var alwaysPress  = document.getElementById(id);
+                        var beingPress = false;
+                        alwaysPress.addEventListener('mousedown', function (){ 
+                            if(!vApp.gObj.audMouseDown){
+                                that.studentSpeak(alwaysPress);
+                                 beingPress = true
+                            }
+                        });
+                        alwaysPress.addEventListener('mouseup', 
+                            function (){ 
+                                if(beingPress){
+                                    that.studentNotSpeak(alwaysPress);
+                                    beingPress = false;
+                                }
+                            });
                     },
                     attachAudioPressOnce : function (){
                         var speakerPressOnce  = document.getElementById('speakerPressOnce');
@@ -225,12 +255,15 @@
                     },
                     clickOnceSpeaker : function (id, alwaysDisable){
                         var tag = document.getElementById(id);
+                        var alwaysPressElem = document.getElementById('speakerPressing');
+                        
                         if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
-                            this.studentSpeak();
+                            this.studentSpeak(alwaysPressElem);
+//                            this.studentSpeak(alwaysPressElem);
                             tag.setAttribute('data-audio-playing', "true");
                             tag.className = "audioTool active";
                         }else {
-                            this.studentNotSpeak();
+                            this.studentNotSpeak(alwaysPressElem);
                             tag.setAttribute('data-audio-playing', "false");
                             tag.className = "audioTool deactive";
                         }
@@ -253,6 +286,7 @@
                             tag.setAttribute('data-audio-playing', "false");
                             tag.className = "audioTool deactive";
                             vApp.gObj.audMouseDown = false;
+                            vApp.gObj.video.audio.setAudioStatus("stop");
                             vApp.wb.utility.beforeSend({'sad': false});
                         }
                     },
@@ -285,11 +319,14 @@
                                 this.audioForTesting(leftSix);
                             }
 
-                            if(this.sd){
+//                            if(this.sd){
+                            if(vApp.gObj.audMouseDown && (io.sock.readyState == 1)){
                                 this.slienceDetection(send, leftSix);
-                            }else{
-                                vApp.wb.utility.audioSend(send);
                             }
+                                
+//                            }else{
+//                                vApp.wb.utility.audioSend(send);
+//                            }
                         }
                     },
                     audioInLocalStorage : function (leftSix){

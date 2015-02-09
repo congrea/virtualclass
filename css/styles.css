@@ -1047,7 +1047,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	border-top-width : 5px;
 	border-top-color : #aaa;
 }
-#speakerStudent #speakerPressing a:hover img {
+#alwaysPress #speakerPressing a:hover img {
 	opacity : 0.5;
 }
 #vAppCont.student #containerWb {
@@ -1329,4 +1329,22 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 
 #audioWidget {
      right:0;
+}
+
+
+/* added by suman */
+#silenceDetect[data-silence-detect="stop"] {
+    color : red;
+}
+
+#silenceDetect[data-silence-detect="notSending"] {
+    color : orange;
+}
+
+#silenceDetect[data-silence-detect="sending"] {
+    color : green;
+}
+
+#vAppCont #audioWidget .active {
+    border :2px solid green;
 }

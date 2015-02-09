@@ -22,8 +22,9 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 
 <?php
-//include('js.debug.php');
-include('js.php');
+include('js.debug.php');
+
+//include('js.php');
 
 // this url should be soemthing like this
 // https://local.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
@@ -115,26 +116,32 @@ if(isset($_GET['name'])){
         $dap = "false";
         $classes = "audioTool deactive";
     ?>
-        <div id="speakerStudent">
-          <div class="audioTool deactive" id="speakerPressing">
-            <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
-            name="speakerPressingAnch"><img src=
-            "https://local.vidya.io/virtualclass/images/speakerpressing.png"
-            id="speakerPressingImg" /></a>
-          </div>
-        </div>
+        
         
 <?php }else{
           $classes = "audioTool active";
           $dap = "true";
       }?>
+    
+    <div id="mainAudioPanel">
+        <div id="alwaysPress">
+              <div class="<?php echo $classes; ?>" id="speakerPressing">
+                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
+                name="speakerPressingAnch">Push To Talk</a>
+              </div>
+        </div>
 
-    <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
-      <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
-      "speakerPressonceAnch"><img id="speakerPressonceImg" src=
-      "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
+        <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
+          <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
+          "speakerPressonceAnch"><img id="speakerPressonceImg" src=
+          "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
+        </div>
     </div>
-
+    
+    <div class="audioTool" id="silenceDetect" data-silence-detect="stop">
+        sd
+    </div>
+    
     <div class="audioTool" id="audioTest">
       <a data-title="Audio Testing" class="tooltip" id="audiotestAnch" name=
       "audiotestAnch"><img src=
@@ -142,12 +149,9 @@ if(isset($_GET['name'])){
       id="audiotestImg" /></a>
     </div>
 
-    <div class="audioTool" id="silenceDetect">
-      <a data-title="Silence Detection" class="tooltip sdDisable" id="silenceDetectAnch"
-      name="silenceDetectAnch"><img src=
-      "https://local.vidya.io/virtualclass/images/silencedetectdisable.png"
-      id="silencedetectImg" /></a>
-    </div>
+    
+    
+    
 </div>
 
 <div id="chatWidget"> 

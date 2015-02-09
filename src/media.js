@@ -384,7 +384,7 @@
                     },
                     playTestAudio : function (receivedAudio, uid, testAudio){
                         var samples = receivedAudio;
-                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8100); // Cheat a little by adding 100 Hz extra to sound
+                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000); //8100 when sound is being delay
                         newBuffer.getChannelData(0).set(samples);
                         var newSource = this.Html5Audio.audioContext.createBufferSource();
                         newSource.buffer = newBuffer;
@@ -396,7 +396,7 @@
                         newSource.onended = function (){
                             // console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
                             if(typeof testAudio == 'undefined'){
-//                                console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+                                console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                                 clearTimeout(vApp.gObj[uid].out);
                                 vApp.gObj[uid].isplaying = false;
                                 if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
@@ -405,13 +405,13 @@
                             }
                         }
                         newSource.start();
-//                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                         vApp.gObj[uid].isplaying = true;
                      //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
                         if(typeof testAudio == 'undefined'){
                             vApp.gObj[uid].out = setTimeout(
                                 function (){
-    //                                console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
+                                    console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
     //                                console.log("UID " + uid+ " video ended  Duration OUT :"+newSource.buffer.duration);
 
                                     vApp.gObj[uid].isplaying = false;

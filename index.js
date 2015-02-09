@@ -24,8 +24,6 @@ $.uiBackCompat = false;
         }else{
             localStorage.setItem('tc', true);
         }
-//        alert("suman bogati");
-//        debugger;
 
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
             vApp.gObj.displayError = 0;
@@ -149,29 +147,6 @@ $.uiBackCompat = false;
                 var data_pack = new Uint8ClampedArray(e.message);
                 var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
                 var recmsg = data_pack.subarray(5, data_pack.length)
-                
-//                var data_pack = new Uint8ClampedArray(e.message);
-                
-                // Send data to Worker TODO
-                //vApp.gObj.playRecAudio(data_pack);
-                
-//                audWorker.postMessage({ playTime : Math.round(newSource.buffer.duration * 1000), uid: uid});
-                
-//                if (!!window.Worker) {
-//                    if(!vApp.gObj.hasOwnProperty('G711')  || !vApp.gObj.hasOwnProperty('gObjSent')){
-////                        audWorker.postMessage({wrappAudioData: true});
-//                        var packets = {wrappAudioData: data_pack, G711: G711, vAppGObj : vApp.gObj};
-////                        audWorker.postMessage(packets, [packets.bar.buffer]);
-//                        audWorker.postMessage(packets, [packets.G711, packets.vAppGObj]);
-//                        vApp.gObj.G711 = true;
-//                        vApp.gObj.gObjSent = true;
-//                    }else{
-//                        var packets = {wrappAudioData: data_pack};
-//                        audWorker.postMessage({wrappAudioData: data_pack});
-//                    }
-//                    
-////                    audWorker.postMessage(packets, [packets.G711, packets.vAppGObj]);
-//                }
                 
                 if(!vApp.gObj.video.audio.otherSound){
                     

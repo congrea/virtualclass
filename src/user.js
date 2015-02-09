@@ -248,7 +248,8 @@
                         studentSpeaker.style.opacity = "0.5";
                         studentSpeaker.style.pointerEvents = "none";
                         studentSpeaker.className = 'deactive';
-                        vApp.gObj.video.audio.studentNotSpeak();
+                        var alwaysPressElem = document.getElementById('speakerPressing');
+                        vApp.gObj.video.audio.studentNotSpeak(alwaysPressElem);
                         vApp.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     },
                     allChatDisable : function (){

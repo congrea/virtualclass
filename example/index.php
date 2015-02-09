@@ -133,8 +133,10 @@ if(isset($_GET['name'])){
 
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
           <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
-          "speakerPressonceAnch"><img id="speakerPressonceImg" src=
-          "https://local.vidya.io/virtualclass/images/speakerpressonce.png" /></a>
+          "speakerPressonceAnch">
+            <label id="speakerPressonceLabel"><i> Press Once </i></label>
+          </a>
+           
         </div>
     </div>
     

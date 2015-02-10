@@ -124,24 +124,24 @@ if(isset($_GET['lname'])){
     if($r == 's'){
         $dap = "false";
         $classes = "audioTool deactive";
-    ?>
-        
-        
-<?php }else{
-          $classes = "audioTool active";
-          $dap = "true";
-      }?>
+        $speakermsg = "Enable Speaker";
+    } else {
+        $classes = "audioTool active";
+        $speakermsg = "Disable Speaker";
+        $dap = "true";
+    }?>
     
     <div id="mainAudioPanel">
         <div id="alwaysPress">
               <div class="<?php echo $classes; ?>" id="speakerPressing">
-                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
-                name="speakerPressingAnch">Push To Talk</a>
+<!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
+                name="speakerPressingAnch">Push To Talk</a>-->
+                <a   id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk</a>
               </div>
         </div>
 
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
-          <a id="speakerPressonceAnch" class="tooltip" data-title="Press once to speak" name=
+          <a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $speakermsg; ?>" name=
           "speakerPressonceAnch">
             <label id="speakerPressonceLabel"><i> Press Once </i></label>
           </a>
@@ -150,11 +150,11 @@ if(isset($_GET['lname'])){
     </div>
     
     <div class="audioTool" id="silenceDetect" data-silence-detect="stop">
-        sd
+        
     </div>
     
     <div class="audioTool" id="audioTest">
-      <a data-title="Audio Testing" class="tooltip" id="audiotestAnch" name=
+      <a data-title="Test Audio" class="tooltip" id="audiotestAnch" name=
       "audiotestAnch"><img src=
       "https://local.vidya.io/virtualclass/images/audiotest.png"
       id="audiotestImg" /></a>

@@ -57,7 +57,7 @@
             'chatEnable' : "Enable chat",
             'chatDisable' : "Disable chat",
             'assignEnable' : "Reclaim role",
-            'assignDisable' : "Assign teacher role",
+            'assignDisable' : "Assign Presenter Role",
             'audioEnable' : "Enable audio",
             'audioDisable' : "Disable audio",
             'minCommonChat' : "Hide Common Chat",
@@ -70,7 +70,9 @@
             'DevicesNotFoundError' :  "You may not have Webcam(camera/microphone).",
             'PermissionDeniedError' : "You denied to access your Webcam.",
             'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone).",
-            'notSupportBrowser' : "Not supported screen sharing for this version of browser"
+            'notSupportBrowser' : "Not supported screen sharing for this version of browser",
+            'disableSpeaker' : "Disable Speaker",
+            'enableSpeaker' : "Enable Speaker"
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

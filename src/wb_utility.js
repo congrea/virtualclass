@@ -428,7 +428,6 @@
                     canvasElement.style.pointerEvents = "none";
                 },
                 makeCanvasEnable: function() {
-
                     if (localStorage.getItem('teacherId') != null) {
                         if(!vApp.wb.hasOwnProperty('canvasDisable') || !vApp.wb.canvasDisable){
                             var canvasElement = vcan.main.canvas;

@@ -256,15 +256,19 @@
                     clickOnceSpeaker : function (id, alwaysDisable){
                         var tag = document.getElementById(id);
                         var alwaysPressElem = document.getElementById('speakerPressing');
-                        
+                        var anchor = tag.getElementsByClassName('tooltip')[0];
                         if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
                             this.studentSpeak(alwaysPressElem);
 //                            this.studentSpeak(alwaysPressElem);
                             tag.setAttribute('data-audio-playing', "true");
+                            anchor.setAttribute('data-title', vApp.lang.getString('disableSpeaker'));
                             tag.className = "audioTool active";
+                            
+                            
                         }else {
                             this.studentNotSpeak(alwaysPressElem);
                             tag.setAttribute('data-audio-playing', "false");
+                            anchor.setAttribute('data-title', vApp.lang.getString('enableSpeaker'));
                             tag.className = "audioTool deactive";
                         }
                     },

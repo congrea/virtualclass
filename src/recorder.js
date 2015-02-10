@@ -34,11 +34,11 @@
                        screenShare.parentNode.removeChild(screenShare);
                     }
 
-                    var wholeScreenShare = document.getElementById('vApp' + vApp.apps[2]);
-
-                    if(wholeScreenShare != null){
-                       wholeScreenShare.parentNode.removeChild(wholeScreenShare);
-                    }
+//                    var wholeScreenShare = document.getElementById('vApp' + vApp.apps[2]);
+//                    if(wholeScreenShare != null){
+//                       wholeScreenShare.parentNode.removeChild(wholeScreenShare);
+//                    }
+                    
                     var obj = that.objs[0];
                     var repTime = obj.mt - vApp.wb.pageEnteredTime;
                     setTimeout(

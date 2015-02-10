@@ -88,9 +88,11 @@ $.uiBackCompat = false;
             if(vApp.gObj.uRole == 't'){
                 if(vApp.currApp == 'ScreenShare'){
                     var sType = 'ss';
-                }else if (vApp.currApp == 'WholeScreenShare'){
-                    var sType = 'wss';
                 }
+                
+//                else if (vApp.currApp == 'WholeScreenShare'){
+//                    var sType = 'wss';
+//                }
                 
                 if(typeof sType != 'undefined'){
                     //TODO this should be into function
@@ -131,10 +133,11 @@ $.uiBackCompat = false;
             if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
                 var stype = 'ss';
                 var sTool = 'ScreenShare';
-            }else if (data_pack[0] == 201 || data_pack[0] == 202 || data_pack[0] == 203 || data_pack[0] == 204){
-                var stype = 'wss';
-                var sTool = 'WholeScreenShare';
             }
+//            else if (data_pack[0] == 201 || data_pack[0] == 202 || data_pack[0] == 203 || data_pack[0] == 204){
+//                var stype = 'wss';
+//                var sTool = 'WholeScreenShare';
+//            }
             
 //            var data_pack = new Uint8ClampedArray(e.message);
 //            var uid = numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
@@ -292,13 +295,15 @@ $.uiBackCompat = false;
                 }
                return;
            } else if(e.message.hasOwnProperty('requestImagesBy')){
-                if(vApp.gObj.uRole == "t" && (vApp.currApp == vApp.apps[1] || vApp.currApp == vApp.apps[2])){
+//                if(vApp.gObj.uRole == "t" && (vApp.currApp == vApp.apps[1] || vApp.currApp == vApp.apps[2])){
+                if(vApp.gObj.uRole == "t" && (vApp.currApp == vApp.apps[1])){
                     var requestBy = e.message.requestImagesBy; //request user
                     if(vApp.currApp == vApp.apps[1]){
                         vApp.ss.sendPackets(requestBy);
-                    }else if(vApp.currApp == vApp.apps[2]){
-                        vApp.wss.sendPackets(requestBy);
                     }
+//                    else if(vApp.currApp == vApp.apps[2]){
+//                        vApp.wss.sendPackets(requestBy);
+//                    }
                 }
                 return;
             }else if(e.message.hasOwnProperty('imageResponsed')){

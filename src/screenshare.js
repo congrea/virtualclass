@@ -112,9 +112,10 @@
             readyTostart: function (app) {
                 if (app == vApp.apps[1]) {
                     this.getScreen();
-                } else if (app == vApp.apps[2]) {
-                    this.wholeScreen();
-                }
+                } 
+//                else if (app == vApp.apps[2]) {
+//                    this.wholeScreen();
+//                }
             },
 
             onError: function (e) {
@@ -136,32 +137,32 @@
                 }
             },
 
-            wholeScreen: function () {
-                var constraints = constraints || {
-                        audio: false, video: {
-                            mandatory: {
-                                chromeMediaSource: 'screen',
-                                maxWidth: 1440,
-                                maxHeight: 9999
-                            },
-                            optional: [
-                                {maxFrameRate: 3}
-                            ]
-                        }
-                    };
-
-                if (typeof vApp.adpt != 'object') {
-                    vApp.adpt = new vApp.adapter();
-                }
-
-                navigator2 = vApp.adpt.init(navigator);
-                navigator2.getUserMedia(constraints, function (stream) {
-                    vApp.wss._init();
-                    vApp.wss.initializeRecorder.call(vApp.wss, stream);
-                }, function (e) {
-                    vApp.wss.onError.call(vApp.ss, e);
-                });
-            },
+//            wholeScreen: function () {
+//                var constraints = constraints || {
+//                        audio: false, video: {
+//                            mandatory: {
+//                                chromeMediaSource: 'screen',
+//                                maxWidth: 1440,
+//                                maxHeight: 9999
+//                            },
+//                            optional: [
+//                                {maxFrameRate: 3}
+//                            ]
+//                        }
+//                    };
+//
+//                if (typeof vApp.adpt != 'object') {
+//                    vApp.adpt = new vApp.adapter();
+//                }
+//
+//                navigator2 = vApp.adpt.init(navigator);
+//                navigator2.getUserMedia(constraints, function (stream) {
+//                    vApp.wss._init();
+//                    vApp.wss.initializeRecorder.call(vApp.wss, stream);
+//                }, function (e) {
+//                    vApp.wss.onError.call(vApp.ss, e);
+//                });
+//            },
 
             unShareScreen: function () {
                 this.video.src = "";

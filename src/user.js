@@ -195,16 +195,19 @@
                         if(ssVideo != null && ssVideo.tagName == "VIDEO"){
                             vApp.vutil.videoTeacher2Student('ScreenShare', true);
                         }
-                        var wssVideo = document.getElementById('vAppWholeScreenShareLocalVideo');
-                        if(wssVideo != null && wssVideo.tagName == "VIDEO"){
-                            vApp.vutil.videoTeacher2Student('WholeScreenShare', true);
-                        }
+                        
+//                        var wssVideo = document.getElementById('vAppWholeScreenShareLocalVideo');
+//                        if(wssVideo != null && wssVideo.tagName == "VIDEO"){
+//                            vApp.vutil.videoTeacher2Student('WholeScreenShare', true);
+//                        }
+                        
                         var app;
                         if(vApp.currApp == "ScreenShare"){
                             app = 'ss';
-                        }else if(vApp.currApp == "WholeScreenShare"){
-                            app = 'wss';
                         }
+//                        else if(vApp.currApp == "WholeScreenShare"){
+//                            app = 'wss';
+//                        }
                         if(vApp.currApp != "Whiteboard"){
                             if(vApp[app].hasOwnProperty('currentStream')){
                                 vApp[app].currentStream.stop();

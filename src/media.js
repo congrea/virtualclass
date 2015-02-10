@@ -879,13 +879,13 @@
                         1040
                     );
                 },
-                sendMessage: function(message) {
-                    if (arguments.length > 1) {
-                        vApp.wb.utility.beforeSend({'video': message}, arguments[1]);
-                    } else {
-                        vApp.wb.utility.beforeSend({'video': message});
-                    }
-                },
+//                sendMessage: function(message) {
+//                    if (arguments.length > 1) {
+//                        vApp.wb.utility.beforeSend({'video': message}, arguments[1]);
+//                    } else {
+//                        vApp.wb.utility.beforeSend({'video': message});
+//                    }
+//                },
                 existVideoContainer : function(user){
                     var allVideos = document.getElementsByClassName('userVideos');
                     for(var i = 0; i < allVideos.length; i++){

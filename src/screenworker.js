@@ -1,3 +1,7 @@
+/**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
+ * @author  Jai Gupta <http://www.vidyamantra.com>
+  */
+ 
 var x, y, cx, cy, sl, needFullScreen = 0;
     var tempObj, matched, masterSlice, d, imgData, encodeDataArr = null;
 var prevImageSlices = [];

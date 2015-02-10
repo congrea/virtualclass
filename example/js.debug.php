@@ -1,6 +1,4 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
 
 <!--<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/wb.min.js"></script>-->
@@ -34,13 +32,15 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/readytextobj.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/keyboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/adapter.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/com.js"></script>
+<!--<script type="text/javascript" src="<?php //echo $whiteboardpath;?>src/com.js"></script>-->
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/resampler.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bridge.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/response.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>
+
+<!--<script type="text/javascript" src="<?php // echo $whiteboardpath;?>src/lzstring.js"></script>-->
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/g711.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/getscreen.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dirtycorner.js"></script>
@@ -49,7 +49,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/recorder.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>csrc/footer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>csrc/jquery.ui.chatlist.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>csrc/jquery.ui.chatbox.js"></script>

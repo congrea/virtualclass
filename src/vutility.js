@@ -360,7 +360,7 @@
 
 //            var data = JSON.stringify(vmstorage);
          //   localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage))
-            cthis.sendMessage('bye');
+//            cthis.sendMessage('bye'); not using of 'video' label at index.js
             io.disconnect();
         }
     }

@@ -52,18 +52,27 @@ $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 
 if(isset($_GET['name'])){
     $uname = $_GET['name'];
-    $fname = $uname;
-    $lname = $uname + ' lastname';
+//    $fname = $uname;
+//    $lname = $uname + ' lastname';
 }else{
     $uname = 'My name';
-    $fname = $uname;
-    $lname = $uname + ' lastname';
+//    $fname = $uname;
+//    $lname = $uname + ' lastname';
 }
+
+if(isset($_GET['lname'])){
+    $lname = $_GET['lname'];
+}else{
+    $lname = '';
+}
+
+
+
 
 ?>
 <script type="text/javascript">	
     if (!!window.Worker) {
-        var sworker = new Worker("<?php echo $whiteboardpath."src/screenworker.js" ?>");
+        var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
     }
    
 	<?php echo "wbUser.name='$uname';"; ?>
@@ -73,7 +82,7 @@ if(isset($_GET['name'])){
 	<?php echo "wbUser.room='".$room."';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
-	<?php echo "wbUser.fname='".$fname."';"; ?>
+	<?php // echo "wbUser.fname='".$fname."';"; ?>
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
@@ -150,9 +159,6 @@ if(isset($_GET['name'])){
       "https://local.vidya.io/virtualclass/images/audiotest.png"
       id="audiotestImg" /></a>
     </div>
-
-    
-    
     
 </div>
 

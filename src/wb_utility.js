@@ -942,7 +942,6 @@
                         var jobj = JSON.stringify(msg);
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                     } else {
-
                         if(msg.hasOwnProperty('repObj')){
                             vApp.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                             vApp.wb.gObj.displayedObjId = vApp.wb.gObj.rcvdPackId;

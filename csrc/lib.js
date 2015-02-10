@@ -7,7 +7,6 @@ chatroombox = null;
 
 
 function memberUpdate(e, addType){
-    
     var userlist = e.message;
     if(typeof whiteboardPath === 'undefined'){
         var imgpath = "../images/online.png";
@@ -57,12 +56,7 @@ function memberUpdate(e, addType){
             }
         });
         
-//        alert('suman bro');
-//        debugger;
         $( '#chat_div .ui-memblist-usr:not(.mySelf)').remove();
-        
-//        $("#chat_div .ui-memblist-usr").remove();
-        
         $.each(userlist, function(key, usr) {
             //alert('userId ' +  usr.userid);
             if(document.getElementById('video'+usr.userid) == null){
@@ -154,7 +148,10 @@ function messageUpdate(e){
             if($.inArray(from.userid, idList) == -1){
                 counter++;
                 idList.push(from.userid);
-
+                if(typeof from.lname == 'undefined'){
+                    alert("hello guys");
+                    debugger;
+                }
                 vmstorage[from.userid] = [];
                 vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
             }
@@ -292,6 +289,7 @@ function displaycomChatHistory(){
  preserve private chat on page refersh
 */
 function displayChatHistory(){
+    
     //Private chat data populated on page referesh
     if (localStorage.getItem(wbUser.sid) != null){
         var data = JSON.parse(localStorage.getItem(wbUser.sid));

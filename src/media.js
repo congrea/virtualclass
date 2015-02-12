@@ -385,9 +385,9 @@
                             recordingLength += samples.length;
                         }
                         samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
-                        (typeof testAudio != 'undefined') ? vApp.gObj.video.audio.playTestAudio(samples, uid, testAudio) : vApp.gObj.video.audio.playTestAudio(samples, uid);
+                        (typeof testAudio != 'undefined') ? vApp.gObj.video.audio.play(samples, uid, testAudio) : vApp.gObj.video.audio.play(samples, uid);
                     },
-                    playTestAudio : function (receivedAudio, uid, testAudio){
+                    play : function (receivedAudio, uid, testAudio){
                         var samples = receivedAudio;
                         var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000); //8100 when sound is being delay
                         newBuffer.getChannelData(0).set(samples);
@@ -405,7 +405,7 @@
                                 clearTimeout(vApp.gObj[uid].out);
                                 vApp.gObj[uid].isplaying = false;
                                 if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
-                                    vApp.gObj.video.audio.extractAudios(uid);
+                                    vApp.gObj.video.audio.getChunks(uid);
                                 }
                             }
                         }
@@ -421,7 +421,7 @@
 
                                     vApp.gObj[uid].isplaying = false;
                                     if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
-                                        vApp.gObj.video.audio.extractAudios(uid);
+                                        vApp.gObj.video.audio.getChunks(uid);
                                     }
                                 },
                                 (newSource.buffer.duration * 1000) + 10
@@ -452,25 +452,8 @@
                             cvideo.tempVidCont.stroke();
                         }
                     },
-                    play : function (receivedAudio, inHowLong, offset){
-                        var clip = receivedAudio;
-                        var samples = G711.decode(clip, {
-                            alaw: this.encMode == "alaw" ? true : false,
-                            floating_point : true,
-                            Eight : true
-                        });
-
-                        var when = this.Html5Audio.audioContext.currentTime + inHowLong;
-
-                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000);
-                        newBuffer.getChannelData(0).set(samples);
-
-                        var newSource = this.Html5Audio.audioContext.createBufferSource();
-                        newSource.buffer = newBuffer;
-
-                        newSource.connect(this.Html5Audio.audioContext.destination);
-                        newSource.start(when, offset);
-                    },
+                    //this has been removed as of now it has another play
+//                    play : function (receivedAudio, inHowLong, offset){/*..*/},
                     queue : function (packets, uid){
                         if(!this.hasOwnProperty('audioToBePlay')){
                             this.audioToBePlay = {};
@@ -480,7 +463,9 @@
                         }
                         this.audioToBePlay[uid].push(packets);
                     },
-                    extractAudios : function  (uid, label){
+                    
+                    // TODO this(getChunks) should be rename into getAudioChunks()
+                    getChunks : function  (uid, label){
 //                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
                         if(this.audioToBePlay[uid].length > 8){
                             this.audioToBePlay[uid].length = 0;
@@ -559,7 +544,7 @@
                         }
                         var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                         cthis.audio.bufferSize = 16384;
-                        //grec is global recorderProcess with onaudioprocess is not triggered due to Garbage Collector
+                        //grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
                         //https://code.google.com/p/chromium/issues/detail?id=360378
 //                        cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                         grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
@@ -575,7 +560,27 @@
                         vApp.wb.pageEnteredTime = vApp.wb.recordStarted = new Date().getTime();
                         this.recordAudio = false;
                         repMode = false;
+                    },
+                    
+                    receivedAudioProcess : function (msg){
+                        var dataArr = this.extractData(msg); 
+                        var uid = dataArr[0];
+                        vApp.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                        if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
+                            vApp.gObj[uid] = {};
+                            vApp.gObj[uid].isplaying = true;
+                            vApp.gObj.video.audio.getChunks(uid);
+
+                        }else if(vApp.gObj[uid].isplaying == false){
+                            vApp.gObj.video.audio.getChunks(uid);
+                        }
+                    },
+                    extractData : function (msg){
+                        var data_pack = new Uint8ClampedArray(msg);
+                        var uid = vApp.vutil.numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+                        return [uid, data_pack.subarray(5, data_pack.length)];
                     }
+                    
                 },
                 video : {
                     width : 75,
@@ -786,6 +791,12 @@
                         cthis.video.tempVid.width = cthis.video.width;
                         cthis.video.tempVid.height = cthis.video.height;
                         cthis.video.tempVidCont = cthis.video.tempVid.getContext('2d');
+                    }, 
+                    process : function (msg){
+                        var data_pack = new Uint8ClampedArray(msg);
+                        var uid = vApp.vutil.numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
+                        var recmsg = data_pack.subarray(5,data_pack.length);
+                        vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
                     }
                 },
                 init: function(vbool) {

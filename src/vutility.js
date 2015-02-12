@@ -335,7 +335,32 @@
                 }
                 var parts = numstring.match(/[\S]{1,2}/g) || [];
                 return parts;
-            }
+            },
+            
+            numValidateFour : function (n1,n2,n3,n4) {
+                n1 = this.preNumValidateTwo(n1);
+                n2 = this.preNumValidateTwo(n2);
+                n3 = this.preNumValidateTwo(n3);
+                n4 = this.preNumValidateTwo(n4);
+                var nres = n1+n2+n3+n4;
+                return parseInt(nres);
+            },
+            
+            numValidateTwo : function (n1,n2) {
+                n1 = this.preNumValidateTwo(n1);
+                n2 = this.preNumValidateTwo(n2);
+                var nres = n1+n2;
+                return parseInt(nres);
+            }, 
+            
+            preNumValidateTwo : function (n) {
+                var numstring = n.toString();
+                if (numstring.length == 1) {
+                    return '0'+numstring;
+                } else if (numstring.length == 2) {
+                    return numstring;
+                }
+            }   
         }
 
         window.vutil = vutil;

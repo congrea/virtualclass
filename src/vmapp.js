@@ -244,12 +244,14 @@ function (window){
                             this.ss = new window.screenShare(vApp.ssConfig);
                         }
                         this.ss.init({type: 'ss', app : app});
-                  }else if(app == this.apps[2]){
-                      if(typeof this.wss != 'object'){
-                        this.wss = new window.screenShare(vApp.wssConfig);
-                      }
-                      this.wss.init({type: 'wss', app : app});
                   }
+                  
+//                  else if(app == this.apps[2]){
+//                      if(typeof this.wss != 'object'){
+//                        this.wss = new window.screenShare(vApp.wssConfig);
+//                      }
+//                      this.wss.init({type: 'wss', app : app});
+//                  }
               },
 
               attachFunction :function (){
@@ -300,50 +302,50 @@ function (window){
             PrvAndCurrIsWss : function (previous, appName){
                 return (previous == 'vAppWholeScreenShare' && appName == this.apps[2]) ? true : false;
             },
-
-            initStudentScreen : function (imgData, d, stype, stool){
-                vApp.vutil.addClass('audioWidget', "fixed");
-                app = stype;
-                if(typeof vApp[app] != 'object' ){
-                     if(typeof vtype != 'undefined'){
-                         vApp.recorder.recImgPlay = true;
-                     }
-                     vApp.makeAppReady(stool);
-
-                }else{
-                     var prvScreen = document.getElementById(vApp.previous);
-                     if(prvScreen != null){
-                         prvScreen.style.display = 'none';
-                         document.getElementById(vApp[app].id).style.display = 'block';
-                     }
-                }
-
-                if(d.hasOwnProperty('d')){
-                    vApp[app].dimensionStudentScreenResize(d);
-                    dim = true
-                    vApp[app].drawImages(imgData);
-                }else{
-                    if(typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))){
-                        dim = true
-                        vApp[app].dimensionStudentScreen(d.w, d.h);
-                        prvWidth = d.w;
-                        prvHeight = d.h;
-                    }
-
-                    if(d.hasOwnProperty('x')){
-                        vApp[app].drawImages(imgData, d);
-                    }else{
-                        if(d.hasOwnProperty('w')){
-                           vApp[app].localCanvas.width = d.w;
-                           vApp[app].localCanvas.height = d.h;
-                        }
-                        vApp[app].drawImages(imgData);
-                    }
-                }
-
-                vApp.previous = vApp[app].id;
-            },
-
+             
+//            //TODO initStudentScreen and should be into screenshare.js
+//            initStudentScreen : function (imgData, d, stype, stool){
+//                vApp.vutil.addClass('audioWidget', "fixed");
+//                app = stype;
+//                if(typeof vApp[app] != 'object' ){
+//                     if(typeof vtype != 'undefined'){
+//                         vApp.recorder.recImgPlay = true;
+//                     }
+//                     vApp.makeAppReady(stool);
+//                }else{
+//                     var prvScreen = document.getElementById(vApp.previous);
+//                     if(prvScreen != null){
+//                         prvScreen.style.display = 'none';
+//                         document.getElementById(vApp[app].id).style.display = 'block';
+//                     }
+//                }
+//
+//                if(d.hasOwnProperty('d')){
+//                    vApp[app].dimensionStudentScreenResize(d);
+//                    dim = true
+//                    vApp[app].drawImages(imgData);
+//                }else{
+//                    if(typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))){
+//                        dim = true
+//                        vApp[app].dimensionStudentScreen(d.w, d.h);
+//                        prvWidth = d.w;
+//                        prvHeight = d.h;
+//                    }
+//
+//                    if(d.hasOwnProperty('x')){
+//                        vApp[app].drawImages(imgData, d);
+//                    }else{
+//                        if(d.hasOwnProperty('w')){
+//                           vApp[app].localCanvas.width = d.w;
+//                           vApp[app].localCanvas.height = d.h;
+//                        }
+//                        vApp[app].drawImages(imgData);
+//                    }
+//                }
+//
+//                vApp.previous = vApp[app].id;
+//            },
+            
             prvCurrUsersSame : function (){
                 var prvUser = localStorage.getItem('prvUser');
                 if(prvUser == null){

@@ -70,7 +70,10 @@
                     vApp.wb.toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
                 } else {
                     if(this.objs[this.objNo].hasOwnProperty('si')){
-                        vApp.initStudentScreen(this.objs[this.objNo], "recImgPlay");
+                        
+//                        vApp.initStudentScreen(this.objs[this.objNo], "recImgPlay");
+                        vApp.studentScreen.initStudentScreen(this.objs[this.objNo], "recImgPlay");
+                        
                     }else if(this.objs[this.objNo].hasOwnProperty('cuser')){
                         vApp.gObj.chat.userChatList = [];
                         vApp.gObj.chat.display(this.objs[this.objNo].cuser, 'cevent');

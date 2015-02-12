@@ -1,5 +1,6 @@
 /* function library*/
 
+// this should be removed
 //counter = 0;
 //idList = new Array();
 //vApp.chat.chatroombox = null;

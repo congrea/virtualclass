@@ -135,7 +135,9 @@ if(isset($_GET['lname'])){
               <div class="<?php echo $classes; ?>" id="speakerPressing">
 <!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
                 name="speakerPressingAnch">Push To Talk</a>-->
-                <a   id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk</a>
+                <a id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk
+                <img id="speakerPressingButton" src="https://local.vidya.io/virtualclass/images/speakerpressingactive.png" />
+                </a>
               </div>
         </div>
 

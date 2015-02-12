@@ -258,6 +258,8 @@
                         var tag = document.getElementById(id);
                         var alwaysPressElem = document.getElementById('speakerPressing');
                         var anchor = tag.getElementsByClassName('tooltip')[0];
+                        
+                        
                         if(tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined'){
                             this.studentSpeak(alwaysPressElem);
 //                            this.studentSpeak(alwaysPressElem);
@@ -273,8 +275,15 @@
                             tag.className = "audioTool deactive";
                         }
                     },
+                    // TODO
+                    // there should not pass whole elem but id
                     studentSpeak : function (elem){
                         if(typeof elem != 'undefined'){
+                            var button = document.getElementById(elem.id+"Button");
+                            button.src  = window.whiteboardPath + "images/speakerpressingactive.png";
+                            
+//                          alert(elem.id);
+                            
                             elem.classList.remove('deactive');
                             elem.classList.add('active');
                         }
@@ -284,6 +293,8 @@
                     studentNotSpeak : function (elem){
                         if(vApp.gObj.hasOwnProperty('audMouseDown') &&  vApp.gObj.audMouseDown){
                             if(typeof elem != 'undefined'){
+                                var button = document.getElementById(elem.id+"Button");
+                                button.src  = window.whiteboardPath + "images/speakerpressing.png";
                                 elem.classList.remove('active');
                                 elem.classList.add('deactive');
                             }

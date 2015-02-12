@@ -275,7 +275,8 @@
                 localStorage.removeItem(vApp.gObj.uid) //remove chat about user
                 sessionStorage.clear('chatroom'); //all 
                 //idList = [];
-                idList.length = 0;
+//                idList.length = 0;
+                vApp.chat.idList.length = 0;
                 clearAllChatBox();
 
                 var allChat = document.getElementById("chatWidget").getElementsByClassName('ui-chatbox-msg');
@@ -353,14 +354,14 @@
             vApp.gObj.video.audio.studentNotSpeak();
             vApp.vutil.clickOutSideCanvas();
             
-            //var data = JSON.stringify(vmstorage);
-//            if(!vApp.vutil.isObjectEmpty(vmstorage)){
-//                localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage));
+            //var data = JSON.stringify(vApp.chat.vmstorage);
+//            if(!vApp.vutil.isObjectEmpty(vApp.chat.vmstorage)){
+//                localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage));
 //            }
-            localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage));
+            localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage));
 
-//            var data = JSON.stringify(vmstorage);
-         //   localStorage.setItem(wbUser.sid, JSON.stringify(vmstorage))
+//            var data = JSON.stringify(vApp.chat.vmstorage);
+         //   localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage))
 //            cthis.sendMessage('bye'); not using of 'video' label at index.js
             io.disconnect();
         }

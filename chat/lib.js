@@ -1,8 +1,8 @@
 /* function library*/
 
-counter = 0;
-idList = new Array();
-chatroombox = null;
+//counter = 0;
+//idList = new Array();
+//vApp.chat.chatroombox = null;
 
 
 
@@ -114,14 +114,14 @@ function messageUpdate(e){
         if(self == from.userid){
             $("#chat_room").chatroom("option").messageSent(from, msg);
         }else{
-            if(chatroombox) {
+            if(vApp.chat.chatroombox) {
                 $("#chat_room").chatroom("option").messageSent(from, msg);
             }else{
                if($("div#chat_room").length == 0){
                     var d = document.createElement('div');
                     d.id = 'chat_room';
                     document.body.appendChild(d);
-                    chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                    vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
                                             user : from,
                                             title : lang.chatroom_header,
                                             messageSent : function(user, msg) {
@@ -145,19 +145,23 @@ function messageUpdate(e){
     }else if(to != undefined && to != ""){ // private chat
 
         if(self == to.userid && from.userid != self){
-            if($.inArray(from.userid, idList) == -1){
-                counter++;
-                idList.push(from.userid);
+//            if($.inArray(from.userid, idList) == -1){
+//                counter++;
+//                idList.push(from.userid);
+            if($.inArray(from.userid, vApp.chat.idList) == -1){
+                vApp.chat.counter++;
+                vApp.chat.idList.push(from.userid);
+                
                 if(typeof from.lname == 'undefined'){
                     alert("hello guys");
                     debugger;
                 }
-                vmstorage[from.userid] = [];
-                vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
+                vApp.chat.vmstorage[from.userid] = [];
+                vApp.chat.vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
             }
                 chatboxManager.addBox(from.userid,
-                          {dest:"dest" + counter, // not used in demo
-                           title:"box" + counter,
+                          {dest:"dest" + vApp.chat.counter, // not used in demo
+                           title:"box" + vApp.chat.counter,
                            first_name:from.name,
                            last_name:from.lname
                            //you can add your own options too
@@ -192,11 +196,11 @@ function messageUpdate(e){
         }
         // to avoid error of undefined
         var k = to.userid;
-        if (typeof(vmstorage[k]) == 'undefined') {
-            vmstorage[k] = [];
+        if (typeof(vApp.chat.vmstorage[k]) == 'undefined') {
+            vApp.chat.vmstorage[k] = [];
         }
         console.log('vmstograge key = ' + k);*/
-        vmstorage[k].push({ userid:from.userid,name:from.name , msg: msg, time: time });
+        vApp.chat.vmstorage[k].push({ userid:from.userid,name:from.name , msg: msg, time: time });
     }
 }
 
@@ -268,7 +272,7 @@ function displaycomChatHistory(){
             var data = JSON.parse(sessionStorage.getItem('chatroom'));
             $.each(data, function(id, msgobj) {
                 if(id < 1){
-                    chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                    vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
                                                 user : msgobj,
                                                 title : "Common chat",
                                                 messageSent : function(user, msg) {
@@ -288,20 +292,22 @@ function displaycomChatHistory(){
 /*
  preserve private chat on page refersh
 */
-function displayChatHistory(){
+function displayPvtChatHistory(){
     
     //Private chat data populated on page referesh
     if (localStorage.getItem(wbUser.sid) != null){
         var data = JSON.parse(localStorage.getItem(wbUser.sid));
         $.each(data, function(id, msgarr) {
-            counter++;
-            idList.push(id);
+//            counter++;
+//            idList.push(id);
+              vApp.chat.counter++;
+              vApp.chat.idList.push(id);
 
             $.each(msgarr, function(i, msgobj) {
                 if(i < 1){
                     chatboxManager.addBox(id,
-                                  {dest:"dest" + counter, // not used in demo
-                                   title:"box" + counter,
+                                  {dest:"dest" + vApp.chat.counter, // not used in demo
+                                   title:"box" + vApp.chat.counter,
                                    first_name:msgobj.name
                                   });
 

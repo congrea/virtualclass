@@ -222,16 +222,21 @@
                     //var id = str.attr('href').replace('#', '');
                     //can be critical
                     var name = str.find('span').html();
-                    if($.inArray(id, idList) == -1){
-                        counter++;
-                        idList.push(id);
-                        vmstorage[id] = [];
-                        vmstorage[id].push( { userid:id, name:name});
+                    //if($.inArray(id, idList) == -1){
+                    
+//                    if($.inArray(id, idList) == -1){
+                    if($.inArray(id, vApp.chat.idList) == -1){
+//                        counter++;
+                        //idList.push(id);
+                        vApp.chat.counter++;
+                        vApp.chat.idList.push(id);
+                        vApp.chat.vmstorage[id] = [];
+                        vApp.chat.vmstorage[id].push( { userid:id, name:name});
                     }
 
                     chatboxManager.addBox(id,
-                                      {dest:"dest" + counter, // not used in demo
-                                       title:"box" + counter,
+                                      {dest:"dest" + vApp.chat.counter, // not used in demo
+                                       title:"box" + vApp.chat.counter,
                                        first_name:name
                                        //you can add your own options too
                                       });

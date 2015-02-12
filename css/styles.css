@@ -1348,3 +1348,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #vAppCont #audioWidget .active {
     border :2px solid green;
 }
+
+#speakerPressing.active{
+    cursor : default;
+}

@@ -45,7 +45,7 @@
             .appendTo(uiFooterbarchatroomContent)
             .text('Chatroom')
             .click(function(){
-                if(chatroombox){
+                if(vApp.chat.chatroombox){
 				    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
                        sessionStorage.removeItem('chatroom_status');
                        uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('minCommonChat'));
@@ -54,7 +54,7 @@
                        sessionStorage.setItem("chatroom_status", "hidden");
                        uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('maxCommonChat'));
                    }
-                   chatroombox.chatroom("option", "boxManager").toggleBox();
+                   vApp.chat.chatroombox.chatroom("option", "boxManager").toggleBox();
                 }else{
 
                     if($("div#chat_room").length == 0){
@@ -62,7 +62,7 @@
                         d.id = 'chat_room';
                         document.body.appendChild(d);
 
-                        chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                        vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
                                                 user:{'name':'test'},
                                                 title : lang.chatroom_header,
                                                 offset: '20px',

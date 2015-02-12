@@ -1,6 +1,7 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
+ * @author  Jai Gupta
   */
 (
     function(window) {
@@ -144,27 +145,27 @@
                         audStatus = "sending";
                         if ((thdiff >= 2 && vol >= minthreshold * th)) {
                             if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
-                                console.log('SEND PRE');
+                        //        console.log('SEND PRE');
                                 vApp.wb.utility.audioSend(preAudioSamp);
                                 preAudioSamp=0;
                             }
-                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
+                       //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                             vApp.wb.utility.audioSend(send, audStatus);
                             audioWasSent = 9;
                             
                         }else if ( audioWasSent > 0){
                             
-                            console.log('SEND NEXT');
+                        //    console.log('SEND NEXT');
                             vApp.wb.utility.audioSend(send, audStatus);  // Continue sending Audio for next X samples
                             audioWasSent--;
                         }else if (thdiff < 2) { // We are not ready, send all samples
-                            console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                       //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                             vApp.wb.utility.audioSend(send, audStatus);
                         }else {
 //                            if(vApp.gObj.audMouseDown){
                               this.setAudioStatus("notSending");
 //                            }
-                            console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
+                           // console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                             if (thdiff > 10) { // If diff is huge, reduce max volume in historical signal
                                 maxthreshold = maxthreshold * 0.8;
                             }

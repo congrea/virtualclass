@@ -150,7 +150,7 @@
 
                 $( "#tabcb" + self.options.id ).remove();
 
-                delete vmstorage[self.options.id]; //delete variable storage
+                delete vApp.chat.vmstorage[self.options.id]; //delete variable storage
                 localStorage.removeItem(self.options.id);//delete local storage
                 return false;
             })
@@ -208,11 +208,11 @@
                         $("#" + self.options.id).chatbox("option").messageSent(self.options.id, {name:io.cfg.userobj.name}, msg);// sent msg to self
                         // to avoid error of undefined
                         var k = self.options.id;
-                        if (typeof(vmstorage[k]) == 'undefined') {
-                            vmstorage[k] = [];
+                        if (typeof(vApp.chat.vmstorage[k]) == 'undefined') {
+                            vApp.chat.vmstorage[k] = [];
                         }
                         var time = new Date().getTime();
-                        vmstorage[k].push({ userid:io.cfg.userid, name:io.cfg.userobj.name , msg: msg, time: time });
+                        vApp.chat.vmstorage[k].push({ userid:io.cfg.userid, name:io.cfg.userobj.name , msg: msg, time: time });
                     }
                     
                     return false;

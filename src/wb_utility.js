@@ -937,6 +937,11 @@
                  * @returns {undefined}
                  */
                 beforeSend : function (msg){
+//                    if(msg.hasOwnProperty('getMsPcket')){
+//                        alert("sumna bogati");
+//                        debugger;
+//                    }
+//                    
                     if (msg.hasOwnProperty('createArrow')) {
                         var jobj = JSON.stringify(msg);
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);

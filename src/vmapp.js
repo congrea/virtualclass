@@ -75,7 +75,9 @@ function (window){
 
                 this.gObj.video = new window.vApp.media();
                 this.initSocketConn();
-
+                
+                vApp.chat = new Chat();
+                vApp.chat.init();
             },
             initSocketConn : function (){
                 if(this.system.webSocket){

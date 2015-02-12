@@ -33,6 +33,7 @@ You will be able to Interact with everyone in your room.
 - [ ] Compability with Major Browsers
 - [ ] Compability with Ipad (At least for Students, Viewers)
 - [ ] Feedback/Questionnaire at end of session.
+- [ ] Allow Direct Youtube playback
 - [ ] Support Native Basic Editor
 - [ ] Support Native PDF Sharing
 - [ ] Support Native PPT Sharing

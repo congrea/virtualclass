@@ -65,9 +65,6 @@ if(isset($_GET['lname'])){
     $lname = '';
 }
 
-
-
-
 ?>
 <script type="text/javascript">	
     if (!!window.Worker) {
@@ -124,10 +121,12 @@ if(isset($_GET['lname'])){
         $dap = "false";
         $classes = "audioTool deactive";
         $speakermsg = "Enable Speaker";
+        $speakerimg = $whiteboardpath . "images/speakerpressing.png";
     } else {
         $classes = "audioTool active";
         $speakermsg = "Disable Speaker";
         $dap = "true";
+        $speakerimg = $whiteboardpath . "images/speakerpressingactive.png";
     }?>
     
     <div id="mainAudioPanel">
@@ -136,7 +135,7 @@ if(isset($_GET['lname'])){
 <!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
                 name="speakerPressingAnch">Push To Talk</a>-->
                 <a id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk
-                <img id="speakerPressingButton" src="https://local.vidya.io/virtualclass/images/speakerpressingactive.png" />
+                <img id="speakerPressingButton" src="<?php echo $speakerimg; ?>" />
                 </a>
               </div>
         </div>
@@ -156,9 +155,7 @@ if(isset($_GET['lname'])){
     
     <div class="audioTool" id="audioTest">
       <a data-title="Test Audio" class="tooltip" id="audiotestAnch" name=
-      "audiotestAnch"><img src=
-      "https://local.vidya.io/virtualclass/images/audiotest.png"
-      id="audiotestImg" /></a>
+      "audiotestAnch"><img src="<?php echo $whiteboardpath.'images/audiotest.png'; ?>" id="audiotestImg" /></a>
     </div>
     
 </div>
@@ -166,5 +163,4 @@ if(isset($_GET['lname'])){
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>
 </div>   
-    
 </div>

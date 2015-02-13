@@ -130,32 +130,36 @@ if(isset($_GET['lname'])){
     }?>
     
     <div id="mainAudioPanel">
+        <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
+          <a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $speakermsg; ?>" name=
+          "speakerPressonceAnch">
+             <label id="speakerPressonceLabel"><i>  </i></label>
+          </a>
+           
+            <div class="audioTool" id="silenceDetect" data-silence-detect="stop"> </div>
+        </div>
+        
         <div id="alwaysPress">
               <div class="<?php echo $classes; ?>" id="speakerPressing">
 <!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
                 name="speakerPressingAnch">Push To Talk</a>-->
-                <a id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk
+                <a id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk &nbsp; &nbsp;&nbsp;
                 <img id="speakerPressingButton" src="<?php echo $speakerimg; ?>" />
                 </a>
               </div>
         </div>
 
-        <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
-          <a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $speakermsg; ?>" name=
-          "speakerPressonceAnch">
-            <label id="speakerPressonceLabel"><i> Press Once </i></label>
-          </a>
-           
-        </div>
-    </div>
-    
-    <div class="audioTool" id="silenceDetect" data-silence-detect="stop">
         
     </div>
     
+<!--    <div class="audioTool" id="silenceDetect" data-silence-detect="stop">
+        
+    </div>-->
+    <div id="audioTest-box">
     <div class="audioTool" id="audioTest">
       <a data-title="Test Audio" class="tooltip" id="audiotestAnch" name=
-      "audiotestAnch"><img src="<?php echo $whiteboardpath.'images/audiotest.png'; ?>" id="audiotestImg" /></a>
+      "audiotestAnch"><img src="<?php echo $whiteboardpath.'images/audiotest.png'; ?>" id="audiotestImg" /><br />Test</a>
+    </div>
     </div>
     
 </div>

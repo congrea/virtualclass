@@ -75,6 +75,7 @@ ui-memblist-usr
     bottom:32px;
     background:  #CCCCCC;
     z-index: 2;
+    right: 6px;
 }
 .ui-memblist-titlebar {
     padding: 10px 3px 3px;
@@ -158,10 +159,9 @@ ui-memblist-usr
     border-left: 1px solid #bac0cd;
     color: #000;
     cursor: pointer;
-    height: 29px;
+    height: 38px;
     padding: 0px 12px;
     position: relative;
-    padding-top: 2px;
     z-index: 1026;
     float: right;
     width: 212px;
@@ -180,18 +180,18 @@ ui-memblist-usr
     border-left: 1px solid transparent;
     color: #000;
     cursor: pointer;
-    height: 29px;
+    height: 36px;
     padding: 0px 6px;
     position: relative;
     left: 36px;
-    padding-top: 2px;
+    padding-top: 0px;
     z-index: 1026;
     float: left;
     /*text-align: center;*/
      width: 203px;
 }
 .inner_bt {
-    padding: 5px 0px;
+    padding: 12px 0;
     line-height: 15px;
 }
 
@@ -199,7 +199,7 @@ ui-memblist-usr
     background: url('../images/offline.png') no-repeat top left;
     float: left;
     height: 16px;
-    margin: 5px 2px 0px 0px;
+    margin: 0px 2px 0px 0px;
     width: 16px;
 }
 /*css for sticky footer bar*/
@@ -208,10 +208,11 @@ ui-memblist-usr
 /* css for chat romm */
 .ui-chatroom {
     position: fixed;
-    bottom:30px;
+    bottom:38px;
     padding: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
     z-index: 100;
+    left:21px;
 }
 #chatroom_icon {
     background-position: -154px -90px;
@@ -272,7 +273,7 @@ ui-memblist-usr
 .maximize{
     left: 0;
     width:100%;
-     height: 32px;
+     height: 36px;
 }
 
 

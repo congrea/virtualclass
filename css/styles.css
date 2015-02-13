@@ -1,3 +1,6 @@
+@charset "UTF-8";
+/* CSS Document */
+
 * {
 	margin : 0;
 	padding : 0;
@@ -5,7 +8,7 @@
 html, body {
 	width : 100%;
 	height : 100%;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 a, canvas {
 	outline : none;
@@ -23,7 +26,6 @@ body {
 #vAppCont {
 	height : 100%;
 }
-
 #divForReloadMsg {
 	border : #8eb9ce solid 1px;
 	width : auto;
@@ -48,28 +50,71 @@ body {
 	font-size : 12px;
 }
 #vAppOptionsCont {
-	width : 35px;
+	width : 55px;
 	float : left;
 }
-#vAppOptionsCont .appOptions {
-	padding-bottom : 17px;
-}
-#vAppOptionsCont .appOptions.active a img {
-	border : #006CA6 solid 1px;
-	padding : 2px;
-	border-radius : 3px;
-}
+
 #vAppOptionsCont:first-child, #vAppOptionsCont {
-	background-color : #dfdfdf;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #e9e9e9 90%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(90%,#e9e9e9)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#e9e9e9 90%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#e9e9e9 90%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#e9e9e9 90%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#e9e9e9 90%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e9e9e9',GradientType=0 ); /* IE6-9 */
 	position : absolute;
-	top : 90px;
-	border : #aaa solid 1px;
-	padding : 10px 4px 0 9px;
+	top : 120px;
+	border : #e2e2e2 solid 5px;
+	border-left: 0px;
 	border-bottom-right-radius : 10px;
 	border-top-right-radius : 10px;
-	box-shadow : 0 0 5px #666;
-	z-index : 100;
+	z-index : 10;
 }
+
+
+
+#vAppOptionsCont .appOptions a img{
+	padding: 12px;
+	opacity: 0.7;
+}
+#vAppOptionsCont .appOptions a img:hover{opacity: inherit; -o-transition:inherit !important; -moz-transition: inherit !important; -webkit-transition: inherit !important;}
+
+
+#vAppOptionsCont .appOptions.active a img{
+	opacity: inherit;
+}
+
+#vAppOptionsCont .appOptions a img:hover{
+    -webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+#vAppOptionsCont .appOptions:hover{
+	border-top-right-radius: 0px;
+}
+
+#vAppOptionsCont #vAppScreenShareTool{
+	border-top:none;
+	border-bottom: none;
+}
+#vAppOptionsCont .appOptions{
+	border:#a7a7a7 1px solid;
+	border-left: none;
+}
+#vAppOptionsCont #vAppWhiteboardTool.appOptions{
+	border-top-right-radius: 5px;
+	
+}
+
+#vAppOptionsCont #vAppSessionEndTool{
+	border-bottom-right-radius: 5px;
+}
+
+
 #vAppOptionsCont {
 	clear : both;
 }
@@ -130,10 +175,26 @@ body {
 #vAppCont.student #informationCont {
 	display : none;
 }
+
+/* Tool bar Css */
+
 #containerWb {
+	border-bottom: #e1e1e1 5px solid;
 	margin : 0;
 	padding : 0;
 }
+
+#containerWb #commandToolsWrapper .tool .tooltip:hover:after {
+	bottom : -2em;
+	padding : 0.6em 1em;
+}
+
+#vAppCont.student #containerWb {
+	background-image : url('../images/nav_bg.png') !important;
+}
+
+
+
 #commandToolsWrapper #t_line a img[title]:hover:after {
 	content : attr(title);
 	padding : 4px 8px;
@@ -146,21 +207,15 @@ body {
 	box-shadow : 0 0 4px #222;
 }
 #commandToolsWrapper {
-	background : #f3f3f3;
-	background-image : url('../images/nav_bg.png') !important;
-	background-position : left 5%;
-	background-repeat : repeat-x;
 	padding-bottom : 0;
 	border-bottom : 1px solid #aaa;
 	padding-left : 1%;
-	height : 44px;
+	height : 53px;
 	box-shadow : 0 0 5px #aaa;
 }
-#commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a {
-	background-image : url(../images/border-img.png);
-	background-position : right top;
-	background-repeat : no-repeat;
-}
+
+
+
 #commandToolsWrapper #t_assign.controlCmd a {
 	background-image : none;
 	padding-right : 15px;
@@ -174,11 +229,33 @@ body {
 	padding-left : 1%;
 	width : 99%;
 }
-#commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a {
+
+
+#commandToolsWrapper #t_line a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a{
 	background-image : url(../images/border-img.png);
-	background-position : right top;
+	background-position : left center;
 	background-repeat : no-repeat;
 }
+
+#commandToolsWrapper #t_line a img, #commandToolsWrapper #t_rectangle a img, #commandToolsWrapper #t_freeDrawing a img, #commandToolsWrapper #t_oval a img, #commandToolsWrapper #t_triangle a img, #commandToolsWrapper #t_text a img, #commandToolsWrapper #t_replay a img, #commandToolsWrapper #t_activeall a img, #commandToolsWrapper #t_clearall a img, #commandToolsWrapper #t_connectionoff a img, #commandToolsWrapper #t_assign a img {
+	opacity: 0.8;
+}
+#commandToolsWrapper #t_line a img:hover, #commandToolsWrapper #t_rectangle a img:hover, #commandToolsWrapper #t_freeDrawing a img:hover, #commandToolsWrapper #t_oval a img:hover, #commandToolsWrapper #t_triangle a img:hover, #commandToolsWrapper #t_text a img:hover, #commandToolsWrapper #t_replay a img:hover, #commandToolsWrapper #t_activeall a img:hover, #commandToolsWrapper #t_clearall a img:hover, #commandToolsWrapper #t_connectionoff a img:hover, #commandToolsWrapper #t_assign a img:hover {
+	opacity: inherit !important;
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+	opacity: inherit !important;
+}
+
+
+#commandToolsWrapper #t_line.active a img, #commandToolsWrapper #t_rectangle.active a img, #commandToolsWrapper #t_freeDrawing.active a img, #commandToolsWrapper #t_oval.active a img, #commandToolsWrapper #t_triangle.active a img, #commandToolsWrapper #t_text.active a img, #commandToolsWrapper #t_replay.active a img, #commandToolsWrapper #t_activeall.active a img, #commandToolsWrapper #t_clearall.active a img, #commandToolsWrapper #t_connectionoff.active a img, #commandToolsWrapper #t_assign.active a img {
+	opacity:inherit;
+}
+
+
 #canvasWrapper {
 	float : left;
 	margin : 0;
@@ -190,8 +267,12 @@ body {
 }
 #commandToolsWrapper a {
 	float : left;
-	padding : 9px 15px;
 }
+
+#commandToolsWrapper a img{
+	padding : 13px 20px;
+}
+
 #canvasWrapper #canvas {
 	outline : none;
 }
@@ -216,10 +297,6 @@ body {
 	left : 510px;
 	position : absolute;
 	z-index : 100;
-}
-#commandToolsWrapper a {
-	padding : 9px 15px;
-	float : left;
 }
 #canvasWrapper {
 	float : left;
@@ -440,24 +517,21 @@ a[title]:hover:after {
 	border : #ccc solid 1px;
 }
 #commandToolsWrapper {
-	background : #f3f3f3;
-	background-image : url('../images/nav_bg.png') !important;
-	background-position : left 5%;
-	background-repeat : repeat-x;
+background: #f0f9ff; /* Old browsers */
+background: -moz-linear-gradient(top, #f0f9ff 0%, #fbfbfb 0%, #d4d4d4 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f9ff), color-stop(0%,#fbfbfb), color-stop(100%,#d4d4d4)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #f0f9ff 0%,#fbfbfb 0%,#d4d4d4 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #f0f9ff 0%,#fbfbfb 0%,#d4d4d4 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #f0f9ff 0%,#fbfbfb 0%,#d4d4d4 100%); /* IE10+ */
+background: linear-gradient(to bottom, #f0f9ff 0%,#fbfbfb 0%,#d4d4d4 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#d4d4d4',GradientType=0 ); /* IE6-9 */
+
 	padding-bottom : 0;
 	border-bottom : 1px solid #aaa;
 	padding-left : 1%;
-	height : 44px;
+	height : 50px;
 	box-shadow : 0 0 5px #aaa;
 }
-#commandToolsWrapper #t_line a, #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_text a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_activeall a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a {
-	background-image : url(../images/border-img.png);
-	background-position : right top;
-	background-repeat : no-repeat;
-}
-
-
-
 
 #commandToolsWrapper #t_assign.controlCmd a {
 	background-image : none;
@@ -517,28 +591,29 @@ a[title]:hover:after {
 	font-weight : 500;
 }
 .tooltip {
-    display : inline;
-    position : relative;
-    font-size: 14px;
+	display : inline;
+	position : relative;
+	font-size: 14px;
+	z-index: 100;
 }
 
-#usertab_text.tooltip{
-    display : block;
+#usertab_text.tooltip {
+	display : block;
 }
 
 .tooltip:hover {
-/*	color : #c00;*/
+
 	text-decoration : none;
-} 
+}
 .tooltip:hover:after {
 	background : #fff;
 	border : #ccc solid 1px;
-	border-radius : 0.5em;
-	bottom : 1.35em;
+	border-radius : 0.3em;
+	bottom : 3em;
 	color : #fff;
 	content : attr(data-title);
 	display : block;
-	left : 1em;
+	left : 2em;
 	padding : 0.3em 1em;
 	position : absolute;
 	white-space : nowrap;
@@ -549,21 +624,22 @@ a[title]:hover:after {
 	font-weight: normal !important;
 }
 #audioWidget .Tool .tooltip:hover:after, #audioWidget .audioTool .tooltip:hover:after {
-	padding : 0.7em 1em;
-	right : 30px;
+	right : 50px;
 	left : auto;
-	bottom : -1em;
+	bottom : -0.7em;
 }
 #vAppOptionsCont .appOptions .tooltip:hover:after {
 	padding : 0.7em 1em;
 	right : auto;
-	left : 35px;
-	bottom : -1em;
+	left : 50px;
+	bottom : 1em;
 }
-#containerWb #commandToolsWrapper .tool .tooltip:hover:after {
-	bottom : -1.8em;
-	padding : 0.6em 1em;
-}
+
+
+
+
+
+
 #virtualWindow {
 	border : #ED6B83 dashed 1px;
 	border-left : none;
@@ -645,15 +721,12 @@ a[title]:hover:after {
 #informationCont {
 	margin-top : 11px;
 }
-#containerWb {
-	margin : 0;
-	padding : 0;
-}
+
 #t_assign.controlCmd a {
 	padding-left : 0;
 	padding-right : 0;
 }
- #t_assign.controlCmd a {
+#t_assign.controlCmd a {
 	padding-left : 12px;
 	padding-right : 14px;
 }
@@ -895,24 +968,8 @@ video, canvas {
 #mainContainer {
 	clear : both;
 }
-#vAppOptionsCont {
-	width : 35px;
-	float : left;
-}
-#vAppOptionsCont .appOptions {
-	padding-bottom : 17px;
-}
-#vAppOptionsCont:first-child, #vAppOptionsCont {
-	background-color : #dfdfdf;
-	position : absolute;
-	top : 120px;
-	border : #aaa solid 1px;
-	padding : 10px 4px 0 9px;
-	border-bottom-right-radius : 10px;
-	border-top-right-radius : 10px;
-	box-shadow : 0 0 5px #666;
-	z-index : 100;
-}
+
+
 #vAppScreenShare, #vAppWholeScreenShare {
 	float : left;
 	border : #ccc solid 1px;
@@ -1009,27 +1066,28 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	clear : both;
 }
 #audioWidget {
-	background-color : #dfdfdf;
-	border : #aaaaaa solid 1px;
-	border-bottom-left-radius : 10px;
-	border-top-left-radius : 10px;
-	box-shadow : 0 0 5px #666;
+	background: #fbfbfb; /* Old browsers */
+	background: -moz-linear-gradient(left, #fbfbfb 0%, #d4d4d4 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fbfbfb), color-stop(100%,#d4d4d4)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, #fbfbfb 0%,#d4d4d4 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, #fbfbfb 0%,#d4d4d4 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, #fbfbfb 0%,#d4d4d4 100%); /* IE10+ */
+	background: linear-gradient(to right, #fbfbfb 0%,#d4d4d4 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#d4d4d4',GradientType=1 ); /* IE6-9 */
+	border : #e2e2e2 solid 5px;
+	border-radius : 10px;
 	position : absolute;
-	width : 35px;
 	cursor : pointer;
 	float : right;
 	height : auto;
-	right : 3px;
-	padding-left : 15px;
-	top : 65px;
-	padding-top : 13px;
-	padding-bottom : 13px;
-	padding-right : 5px;
+	right : 10px;
+	top : 100px;
+	border-radius: 10px;
+
 }
-#audioWidget.fixed{
+#audioWidget.fixed {
 	position: fixed;
 }
-
 #audioWidget .Tool .tooltip img {
 	border : green solid 1px;
 	padding : 2px;
@@ -1047,12 +1105,10 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	border-top-width : 5px;
 	border-top-color : #aaa;
 }
-#alwaysPress #speakerPressing a:hover img {
+#speakerStudent #speakerPressing a:hover img {
 	opacity : 0.5;
 }
-#vAppCont.student #containerWb {
-	background-image : url('../images/nav_bg.png') !important;
-}
+
 #closebtn {
 	width : 35px;
 }
@@ -1086,7 +1142,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	padding-left : 25px;
 }
 .maximize {
-	height : 38px;
+	height : 36px;
 }
 #stickybar.minimize {
 	width : 50px;
@@ -1106,6 +1162,11 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 #stickycontainer #user_list .inner_bt #usertab_text, .vmchat_room_bt .inner_bt #chatroom_text {
 	background : url('../images/arrow-up.png') 75% 43% no-repeat;
 }
+
+#stickycontainer #user_list .inner_bt #usertab_text.open, .vmchat_room_bt .inner_bt #chatroom_text.open{
+	background : url('../images/arrow-down.png') 75% 43% no-repeat;
+}
+
 .ui-corner-all.ui-chatbox-icon .ui-icon-close {
 	margin-top : 7px;
 	margin-right : 8px;
@@ -1120,8 +1181,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-bottom : 4px;
 	margin-left : 2px;
 }
-
-#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip img, .controls a.audEnableSign img{
+#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip img, .controls a.audEnableSign img {
 	background-color: transparent;
 	margin-left: 1px;
 	margin-right: 0px;
@@ -1138,29 +1198,9 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 
 
-#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
-	bottom: -45px;
-	left: -15px;
-}
- #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls  a.tooltip:hover:after{
-	 bottom: 10px;
-	 left: -50px;
-	 font-size: 11px;
-	 padding-left: 4px;
-	 padding-right: 4px;
-	 
- }
- 
-#chat_div .ui-memblist-usr a.tooltip:hover:after{
-	 bottom: 7px;
-	 z-index: 1;
-
- }
-
-
 
 #vAppScreenShare, #vAppWholeScreenShare {
-    margin-left : 55px;
+	margin-left : 55px;
 }
 /*.ui-widget-content .controls {
 	clear : both;
@@ -1177,16 +1217,17 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	position : relative;
 }
 #speakerPressing {
-	width : 100%;
-	margin-bottom : 15px;
+	width: 38px;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 #speakerPressOnce {
 	width : 100%;
 	height : 100%;
 }
-/*#speakerPressOnce.deactive {
-	border : red solid 1px;
-}*/
+
 #chat_div .controleCont {
 	margin-top : 7px;
 	float : left;
@@ -1200,14 +1241,21 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .audEnableSign {
 	width : 12px;
 	height : 12px;
-/*	background-image : url('../images/online.png');*/
+	/*	background-image : url('../images/online.png');*/
 	float : left;
 	margin-left : 4px;
 }
-#audioWidget #speakerPressOnce, #audioWidget #audioTest, #audioWidget #audioTest {
-	margin-bottom : 15px;
+#audioWidget #speakerPressOnce {
+	margin-bottom: 5px;
+	padding-left: 8px;
+	margin-top: 5px;
 }
-#vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img{margin-left: -5px;padding : 1px;padding-left : 2px; border : transparent solid 1px;}
+#audioWidget #audioTest #vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img {
+	margin-left: -5px;
+	padding : 1px;
+	padding-left : 2px;
+	border : transparent solid 1px;
+}
 #vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
 	border : #006CA6 solid 1px !important;
 	padding : 1px;
@@ -1216,20 +1264,9 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	padding-left : 2px;
 	margin-left: -3px;
 }
-
 #vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
-    border : #41AA45 solid 1px !important;
-
+	border : #41AA45 solid 1px !important;
 }
- 
-#vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
-	border : #ec1109 solid 1px !important;
-	margin-left: -3px;
-}
-
-
-
-
 .ui-memblist-usr.student .controls .controleCont img.assignImg.block, .ui-memblist-usr.student .controls .controleCont img.audioImg.block, .ui-memblist-usr.student .controls .controleCont img.chatImg.block {
 	opacity : 0.4000000059604644775390625;
 	background-color : transparent;
@@ -1246,109 +1283,382 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .ui-memblist-usr a span {
 	margin-left : 10px;
 }
-
-
-
 /* added by suman */
 
-#vAppScreenShare{
-    width : 99%;
+#vAppScreenShare {
+	width : 99%;
 }
-
-#vAppCont{
-    width : auto;
+#vAppCont {
+	width : auto;
 }
-
-#t_reclaim{
+#t_reclaim {
 /*    width : 104%;*/
 }
-
 /* this should be write above */
 .student #vAppScreenShare, .student #vAppWholeScreenShare {
-    margin-left : 5px;
+	margin-left : 5px;
 }
-
-.teacher #vAppScreenShare, .teacher #vAppWholeScreenShare{
-    margin-left : 55px;
+.teacher #vAppScreenShare, .teacher #vAppWholeScreenShare {
+	margin-left : 55px;
 }
-
-
-#vAppScreenShare{
+#vAppScreenShare {
 /*    height : auto;*/
 }
-
-
 #vAppCont {
-    height : 99%;
+	height : 99%;
+}
+#commandToolsWrapper .tool.active a img{
+	background: #e2e2e2; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #e2e2e2 0%, #c9c9c9 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e2e2e2), color-stop(100%,#c9c9c9)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #e2e2e2 0%,#c9c9c9 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #e2e2e2 0%,#c9c9c9 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #e2e2e2 0%,#c9c9c9 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #e2e2e2 0%,#c9c9c9 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#c9c9c9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	box-shadow: 0px 0px 2px 1px #fff inset;
+	box-shadow: 0 1px 3px 1px #fff inset;
+	border:#a4a4a4 1px solid;
+	border-top:none;
+
+}
+#commandToolsWrapper .tool.active a img{
+	-webkit-transform: scale(1) !important;
+	-moz-transform: scale(1) !important;
+	-o-transform: scale(1) !important;
+	-ms-transform: scale(1) !important;
+	transform: scale(1) !important;
 }
 
-#commandToolsWrapper .tool.active a {
-	border-bottom : 1.5px solid #006CA6;
-	background-image: url(../images/border-img.png), url(../images/arrow-top.png) !important;
-	background-position: right top, center bottom !important;
+#commandToolsWrapper #t_rectangle.tool.active a{
 	
 }
-.controls a.audEnableSign img{
+.ui-memblist{
+	right: 6px;
+}
+
+.controls a.audEnableSign img {
 	margin-left: -2px;
 }
-
-
-#chat_div .mySelf, #audioTest.audioIsTesting{
-    pointer-events : none !important;
-    opacity : 0.6;
+#chat_div .mySelf, #audioTest.audioIsTesting {
+	pointer-events : none !important;
+	opacity : 0.6;
 }
-
-#page-mod-virtualclass-view #page{
+#page-mod-virtualclass-view #page {
 	padding: 0;
 }
 
-.tooltip.close{
+#usertab_icon {
+	margin: 1px 2px 0 0;
+}
+
+
+.ui-widget.disable {
+	opacity : 0.4;
+}
+.ui-widget.enable {
+	opacity : 1;
+}
+/* my css
+	
+*/
+
+
+#vAppWhiteboardTool a, #vAppScreenShareTool a, #vAppSessionEndTool a {
+	-webkit-animation: bounceInDown 900ms 200ms ease-in-out both;
+	text-decoration: none;
+	outline-width: 0px;
+	z-index: 990;
+	color: #a675b3;
+	text-align: center;
+	line-height: 15px;
+	display: block;
+}
+
+#vAppWhiteboardTool a img, #vAppScreenShareTool a img, #vAppSessionEndTool a img {
+	border:none;
+}
+
+
+#vAppOptionsCont .appOptions.active a img, #vAppScreenShareTool .appOptions.active a img, #vAppSessionEndTool .appOptions.active a img {
+	-webkit-box-shadow:inset px undefinedpx 3px 3px #ffffff;
+	box-shadow:inset px undefinedpx 3px 3px #ffffff;
+
+}
+
+#alwaysPress .audioTool a {
+	text-align: center;
+	text-shadow: 3px 3px 10px #FFFAFA;
+	font-size: 14px;
+}	
+
+#alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
+	background: #fefefe; /* Old browsers */
+	background: -moz-linear-gradient(top, #fefefe 0%, #dddddd 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fefefe 0%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fefefe 0%,#dddddd 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #fefefe 0%,#dddddd 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #fefefe 0%,#dddddd 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
+
+	box-shadow: 0px 0px 8px 2px #ddd inset;
+	border:#a4a4a4 1px solid;
+}
+
+
+#alwaysPress .audioTool.active, #vAppOptionsCont .appOptions.active, #audioTest-box .audioTool.audioIsTesting{
+	background: #e2e2e2; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #e2e2e2 0%, #c9c9c9 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e2e2e2), color-stop(100%,#c9c9c9)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #e2e2e2 0%,#c9c9c9 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #e2e2e2 0%,#c9c9c9 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #e2e2e2 0%,#c9c9c9 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #e2e2e2 0%,#c9c9c9 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#c9c9c9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	box-shadow: 0px 0px 2px 1px #fff inset;
+	border:#a4a4a4 1px solid;
+
+}
+#alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
+	text-align: center;
+	border-radius: 5px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+
+}
+#audioWidget #mainAudioPanel{
+	border: #a7a7a7 1px solid;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom: none;
+}
+
+#vAppOptionsCont .appOptions.active{
+	border-top-right-radius: 5px;
+}
+
+/* Styles */
+
+label {
+	width: 35px;
+	height: 17px;
+	display: inline-block;
+	margin-top: 20px;
+	position: relative;
+	border-radius: 2px;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	background: rgb(138,138,138);
+	background: -webkit-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+	background: -moz-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+	background: -o-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+	background: -ms-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+	background: linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+	box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+	line-height: 30px;
+	font-style: normal;
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	font-weight: bold;
+	-moz-transition: all 1s ease-in;
+	-webkit-transition: all 1s ease-in;
+	-o-transition: all 1s ease-in;
+	transition: all 1s ease-in;
+	cursor: pointer;
+	
+}
+label.attention:hover {
+	background: rgb(238,159,7);
+	background: -moz-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(238,159,7,1)), color-stop(45%, rgba(240,171,8,1)), color-stop(100%, rgba(243,182,15,1)));
+	background: -webkit-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
+	background: -o-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
+	background: -ms-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
+	background: linear-gradient(to bottom, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee9f07', endColorstr='#f3b60f', GradientType=0 );
+}
+label.attention:hover:before {
+	content: "☢"; /* &#9762; */
+	font-size: 22px
+}
+input[type=checkbox]:checked ~ label.attention:hover:before {
+ content: "on";
+ font-size: 14px
+}
+label i {
+	position: absolute;
+	top: -3px;
+	right: 20px;
+	width: 15px;
+	height: 20px;
+	display: block;
+	border-radius: 2px;
+	/* 	box-shadow: inset 0 -3px 3px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 0 rgba(0, 0, 0, 0.2); */
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	transition: all 200ms ease;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,252,252,1) 11%, rgba(228,228,228,1) 50%, rgba(221,221,221,1) 53%, rgba(205,205,205,1) 97%, rgba(191,191,191,1) 100%);
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,252,252,1) 11%, rgba(228,228,228,1) 50%, rgba(221,221,221,1) 53%, rgba(205,205,205,1) 97%, rgba(191,191,191,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,252,252,1) 11%, rgba(228,228,228,1) 50%, rgba(221,221,221,1) 53%, rgba(205,205,205,1) 97%, rgba(191,191,191,1) 100%);
+	border: #aaa 1px solid;
+}
+
+
+#speakerPressOnce #speakerPressonceAnch label#speakerPressonceLabel {
+background: #ea1717; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ea1717), color-stop(99%,#b50303)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover, #ea1717 0%,#b50303 99%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover, #ea1717 0%,#b50303 99%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover, #ea1717 0%,#b50303 99%); /* IE10+ */
+background: radial-gradient(ellipse at center, #ea1717 0%,#b50303 99%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', endColorstr='#b50303',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#speakerPressOnce.active #speakerPressonceAnch label#speakerPressonceLabel {
+
+	background: rgb(141,173,51);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+
+}
+#speakerPressOnce.active #speakerPressonceAnch label#speakerPressonceLabel i {
+	right: 0px;
+	border: #aaa 1px solid;
+}
+#speakerPressOnce.active #speakerPressonceAnch label#speakerPressonceLabel:before {
+	content: "on";
+	position: absolute;
+	top: -7px;
+	font-weight: normal;
+	font-size: 12px;
+	left: 3px;
+}
+#speakerPressOnce #speakerPressonceAnch label#speakerPressonceLabel:before {
+	content: "Off";
+	position: absolute;
+	top: -6px;
+	font-weight: normal;
+	font-size: 11px;
+	left: 16px;
+}
+#speakerPressOnce {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+#alwaysPress #speakerPressing a#speakerPressingAnch img {
+	border:none !important;
+}
+#speakerPressOnce #speakerPressonceAnch label {
+	margin-top: 11px;
+	margin-bottom: 6px;
+}
+	
+
+#audioTest-box {
+	border-radius: 5px;
+	padding: 4px;
+	text-align: center;
+	margin-bottom: 0px;
+	border: #a7a7a7 1px solid;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-top: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+/* Tooltip */
+
+.vmchat_room_bt.tooltip:hover:after {
+	bottom: 2.7em;
+	z-index: 10000;
+}
+
+.close.tooltip:hover:after {
+	bottom: 2em;
+}
+#usertab_text.tooltip.open:hover:after{
+	bottom: 2em;	
+}
+#speakerPressing .tooltip:hover:after, #speakerPressOnce .tooltip:hover:after, #audioTest .tooltip:hover:after{
+	line-height: 26px;
+
+}
+#speakerPressOnce .tooltip:hover:after{
+	bottom:5px !important;
+}
+
+#speakerPressing .tooltip:hover:after{ 
+	bottom:-40px !important;
+}
+
+
+#chat_div .ui-memblist-usr a.tooltip:hover:after {
+	bottom: 7px;
+	z-index: 1;
+}
+
+
+#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
+	bottom: -45px;
+	left: -8px;
+}
+
+#memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
+	bottom: 10px;
+	left: -2px;
+	font-size: 11px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.tooltip.close {
 	float: none;
 }
 
-#usertab_icon{margin: 5px 2px 0 0;}
-
-
-.vmchat_room_bt.tooltip:hover:after{bottom: 2.7em; z-index: 10000;}
-.close.tooltip:hover:after{bottom: 2.4em;}
-
-/*
-#page-mod-virtualclass-view #page.container-fluid #page-header{display: none !important; margin: 0 !important;}
-
-#page-mod-virtualclass-view #page.container-fluid{max-width: none !important;}
-.close.tooltip:hover:after, .open.tooltip:hover:after{bottom: 2.2em;}
-*/
-
-.ui-widget.disable{
-    opacity : 0.4;
-}
-
-.ui-widget.enable{
-    opacity : 1;
-}
-
-#audioWidget {
-     right:0;
+#vAppOptionsCont .appOptions .tooltip::hover:after{
+	bottom: -20px;
 }
 
 
 /* added by suman */
+
+#silenceDetect[data-silence-detect="stop"], #silenceDetect[data-silence-detect="notSending"], #silenceDetect[data-silence-detect="sending"]{
+	position: relative;
+	top: -5px;
+	left: -1px;
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid #fff;
+	height: 16px;
+	width: 16px;
+	border-radius: 100%;
+}
+
 #silenceDetect[data-silence-detect="stop"] {
-    color : red;
+	background: #E53030;
+	box-shadow: 0 0px 0 3px #c91919 inset;
 }
 
 #silenceDetect[data-silence-detect="notSending"] {
-    color : orange;
+	background: #FFC334;
+	border: 1px solid #fff;
+	box-shadow: 0 0px 0 3px #ffb401 inset;
 }
 
 #silenceDetect[data-silence-detect="sending"] {
-    color : green;
-}
+	background: #9ebe3b;
+	box-shadow: 0 0px 0 3px #8fb12c inset;
 
-#vAppCont #audioWidget .active {
-    border :2px solid green;
-}
-
-#speakerPressing.active{
-    cursor : default;
 }

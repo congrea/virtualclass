@@ -36,7 +36,7 @@
 //                error: [],
                 view:  {}, // For display important message to user
                 lang:  {},
-                system:{},
+                system:{},  
                 user : {},
                 gObj: {
                     myrepObj : [],
@@ -197,9 +197,13 @@
                  * this function does create the div
                  * toolId expect id for command
                  * text expects the text used for particular command
+                 * TODO this shol
+                 * this whole output process should come by 
+                 * html not javascript
                  */
                 createDiv: function(toolId, text, cmdToolsWrapper, cmdClass) {
-                    var imgName = text;
+                    //console.log('class name ' + text);
+                    var toolName = text;
                     var text =  vApp.lang.getString(text);
                     var ancTag = document.createElement('a');
                     ancTag.href = '#';
@@ -210,17 +214,20 @@
                         lDiv.className = cmdClass;
                     }
                     
-                    var imgTag = document.createElement('img');
-                    imgTag.alt = text;
-                    if(typeof window.whiteboardPath != 'undefined'){
-                        imgTag.src = window.whiteboardPath + '/images/' + imgName + ".png";
-                    }else{
-                        imgTag.src = '/images/' + imgName + ".png";
-                    }
-                    ancTag.appendChild(imgTag);
+//                    var imgTag = document.createElement('img');
+//                    imgTag.alt = text;
+//                    if(typeof window.whiteboardPath != 'undefined'){
+//                        imgTag.src = window.whiteboardPath + '/images/' + imgName + ".png";
+//                    }else{
+//                        imgTag.src = '/images/' + imgName + ".png";
+//                    }
+//                    
+//                    ancTag.appendChild(imgTag);
+                    ancTag.innerHTML = "&nbsp;";
+                    //ancTag.innerHTML = text;
                     //ancTag.title = '';
                     ancTag.dataset.title = text;
-                    ancTag.className = 'tooltip';
+                    ancTag.className = 'tooltip ' + toolName;
 
                     lDiv.appendChild(ancTag);
                     

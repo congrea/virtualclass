@@ -39,7 +39,7 @@
             uiFooterbarchatroomContent = (self.uiFooterbarchatroomContent = $('<div class = "inner_bt"></div>'))
             .appendTo(uiFooterbarchatroomtab)
 
-            uiFooterbarchatroomIcon = (self.uiFooterbarchatroomIcon = $('<div id = "chatroom_icon"></div>'))
+            uiFooterbarchatroomIcon = (self.uiFooterbarchatroomIcon = $('<div id = "chatroom_icon" class="icon-chatroom"></div>'))
             .appendTo(uiFooterbarchatroomContent)
              uiFooterbarchatroomText = (self.uiFooterbarchatroomText = $('<div id = "chatroom_text"></div>'))
             .appendTo(uiFooterbarchatroomContent)
@@ -96,19 +96,19 @@
 
             uiFooterbarUserlistIcon = (self.uiFooterbarUserlistIcon = $('<div id="usertab_icon"></div>'))
             .appendTo(uiFooterbarUserlistContent)
-             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close" data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
+             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close icon-arrow-up" data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
             .appendTo(uiFooterbarUserlistContent)
             .text('Private Chat')
             .click(function(){ 
                vApp.gObj.video.dispAllVideo("chat_div");
                 if(Object.keys(io.uniquesids).length > 0){
                     if($(this).hasClass('close')){
-                        $(this).addClass('open');
-                        $(this).removeClass('close');
+                        $(this).addClass('open icon-arrow-down');
+                        $(this).removeClass('close icon-arrow-up');
                         $(this).attr('data-title', vApp.lang.getString('miniUserList'));
                     }else{
-                        $(this).addClass('close');
-                        $(this).removeClass('open');
+                        $(this).addClass('close icon-arrow-up');
+                        $(this).removeClass('open icon-arrow-down');
                         $(this).attr('data-title', vApp.lang.getString('maxUserList'));
                     }
                     

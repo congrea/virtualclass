@@ -280,7 +280,7 @@
                     studentSpeak : function (elem){
                         if(typeof elem != 'undefined'){
                             var button = document.getElementById(elem.id+"Button");
-                            button.src  = window.whiteboardPath + "images/speakerpressingactive.png";
+                        //    button.src  = window.whiteboardPath + "images/speakerpressingactive.png";
                             
 //                          alert(elem.id);
                             
@@ -294,7 +294,7 @@
                         if(vApp.gObj.hasOwnProperty('audMouseDown') &&  vApp.gObj.audMouseDown){
                             if(typeof elem != 'undefined'){
                                 var button = document.getElementById(elem.id+"Button");
-                                button.src  = window.whiteboardPath + "images/speakerpressing.png";
+                               // button.src  = window.whiteboardPath + "images/speakerpressing.png";
                                 elem.classList.remove('active');
                                 elem.classList.add('deactive');
                             }

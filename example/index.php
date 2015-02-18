@@ -144,7 +144,9 @@ if(isset($_GET['lname'])){
 <!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
                 name="speakerPressingAnch">Push To Talk</a>-->
                 <a id="speakerPressingAnch" name="speakerPressingAnch">Push To Talk &nbsp; &nbsp;&nbsp;
-                <img id="speakerPressingButton" src="<?php echo $speakerimg; ?>" />
+                    <span id="speakerPressingButton" class="icon-speakerPressing"></span>
+<!--                <img id="speakerPressingButton" src="<?php //echo $speakerimg; ?>" />-->
+                
                 </a>
               </div>
         </div>
@@ -158,7 +160,10 @@ if(isset($_GET['lname'])){
     <div id="audioTest-box">
     <div class="audioTool" id="audioTest">
       <a data-title="Test Audio" class="tooltip" id="audiotestAnch" name=
-      "audiotestAnch"><img src="<?php echo $whiteboardpath.'images/audiotest.png'; ?>" id="audiotestImg" /><br />Test</a>
+      "audiotestAnch">
+<!--          <img src="<?php echo $whiteboardpath.'images/audiotest.png'; ?>" id="audiotestImg" /><br />Test-->
+          <span id="audiotestImg" class="icon-audiotest"></span>
+      </a>
     </div>
     </div>
     

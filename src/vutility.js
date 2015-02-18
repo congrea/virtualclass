@@ -314,7 +314,8 @@
 
             addClass : function (elemId, className){
                 var elem = document.getElementById(elemId);
-                if(elem.hasOwnProperty('classList')){
+//                if(elem.hasOwnProperty('classList')){
+                if(vApp.vutil.elemHasAnyClass(elemId)){
                     elem.classList.add(className);
                 }else{
                     elem.className = className;
@@ -323,7 +324,8 @@
 
             removeClass : function (id,  className){
                 var elem = document.getElementById(id);
-                if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
+//                if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
+                if(vApp.vutil.elemHasAnyClass(id) && elem.classList.contains(className)){ 
                     elem.classList.remove(className);
                 }
             },
@@ -360,7 +362,12 @@
                 } else if (numstring.length == 2) {
                     return numstring;
                 }
-            }   
+            },
+            
+            elemHasAnyClass : function (elemId){
+                var elem = document.getElementById(elemId);
+                return (typeof elem.classList != 'undefined') ? true : false;
+            }
         }
 
         window.vutil = vutil;

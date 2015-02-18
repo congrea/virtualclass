@@ -831,7 +831,9 @@
                 },
                 handleUserMedia : function(stream){
                     var audioWiget = document.getElementById('audioWidget');
-                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
+//                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
+//                    if(vApp.vutil.elemHasAnyClass(elem.id)
+                    if(vApp.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
                         vApp.user.control.audioWidgetEnable();
                     }
                     cthis.video.tempStream = stream;

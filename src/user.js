@@ -289,7 +289,9 @@
                         }
                     },
                     makeElemDisable : function (elem){
-                        if(elem.hasOwnProperty('classList')){
+                        
+//                        if(elem.hasOwnProperty('classList')){
+                        if(vApp.vutil.elemHasAnyClass(elem.id)){
                             elem.classList.remove('enable');
                             elem.classList.add('disable');
                         }else{
@@ -317,7 +319,8 @@
                         }
                     },
                     makeElemEnable : function (elem){
-                        if(elem.hasOwnProperty('classList')){
+//                        if(elem.hasOwnProperty('classList')){
+                        if(vApp.vutil.elemHasAnyClass(elem.id)){
                             elem.classList.remove('disable');
                             elem.classList.add('enable');
                         } else{

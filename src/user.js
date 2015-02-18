@@ -65,10 +65,14 @@
                     //var this should be in normalize in function
                     for(var i = 0; i < controls.length; i++){
                         if(controls[i] == 'assign'){
-                            var assignImg = document.createElement('img');
+                            
+//                            var assignImg = document.createElement('img');
+                            var assignImg = document.createElement('span'); 
                             var imgName = "contrAssign";
                             assignImg.id = userId + imgName + "Img";
-                            assignImg.src = window.whiteboardPath + "images/" + imgName + ".png";
+                          //  assignImg.src = window.whiteboardPath + "images/" + imgName + ".png";
+                            assignImg.innerHTML = "&nbsp;";
+                            
                             var assignAnch = document.createElement('a');
                             assignAnch.id = userId + imgName + "Anch";
                             assignAnch.className = "tooltip";
@@ -83,10 +87,12 @@
                             vApp.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
                             assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
                         } else if(controls[i] == 'audio'){
-                            var audBlock = document.createElement('img');
+                             var audBlock = document.createElement('span'); 
+//                            var audBlock = document.createElement('img');
                             imgName = "contrAud";
                             audBlock.id = userId + imgName + "Img";
-                            audBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
+//                            audBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
+                            audBlock.innerHTML = "&nbsp;";
                             var audAnch = document.createElement('a');
                             audAnch.id = userId + imgName + "Anch";
                             audAnch.className = "tooltip";
@@ -104,10 +110,13 @@
                             vApp.user.control.changeAttribute(userId, audBlock, audEnable, 'audio', 'aud');
                             audBlock.addEventListener('click', function (){ that.control.init.call(that, audBlock);});
                         }else if (controls[i] == 'chat'){
-                            var chatBlock = document.createElement('img');
+//                            var chatBlock = document.createElement('img');
+                            var chatBlock = document.createElement('span');
                             imgName = "contrChat";
                             chatBlock.id = userId + imgName + "Img";
-                            chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
+                            chatBlock.innerHTML = "&nbsp;";
+//                            chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
+                            chatBlock.innerHTML = "S";
                             var chatAnch = document.createElement('a');
                             chatAnch.id = userId + imgName + "Anch";
                             chatAnch.className = "tooltip";
@@ -133,7 +142,7 @@
                         if(elemEnable){
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                             elem.setAttribute('data-' + control + '-disable', "false");
-                            elem.className = control + "Img tooltip enable";
+                            elem.className = "icon-"+control + "Img tooltip enable";
                             vApp.user.control.updateUser(userId, label, true);
                         }else{
                             if(control == 'assign'){
@@ -141,7 +150,7 @@
                             }
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                             elem.setAttribute('data-' + control + '-disable', 'true');
-                            elem.className = control + "Img tooltip block";
+                            elem.className =  "icon-"+control + "Img tooltip block";
                             vApp.user.control.updateUser(userId, label, false);
                         }
                     },

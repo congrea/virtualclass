@@ -124,23 +124,26 @@ function (window){
 
                     var lDiv = document.createElement('div');
                     lDiv.id = toolId;
-                    if (typeof cmdClass != 'undefined') {
+                    if (typeof cmdClass != 'undefined ') {
                         lDiv.className = cmdClass;
                     }
 
-                    var imgTag = document.createElement('img');
+//                    var imgTag = document.createElement('img');
+//
+//                    imgTag.alt = this.vapp.lang.getString(text);
+//                    if(typeof window.whiteboardPath != 'undefined'){
+//                        imgTag.src = window.whiteboardPath + '/images/' + text + ".png";
+//                    }else{
+//                        imgTag.src = '/images/' + text + ".png";
+//                    }
 
-                    imgTag.alt = this.vapp.lang.getString(text);
-                    if(typeof window.whiteboardPath != 'undefined'){
-                        imgTag.src = window.whiteboardPath + '/images/' + text + ".png";
-                    }else{
-                        imgTag.src = '/images/' + text + ".png";
-                    }
-                    ancTag.appendChild(imgTag);
+//                    ancTag.appendChild(imgTag);
                     //ancTag.title = '';
+                    
+                    ancTag.innerHTML = "&nbsp";
 
                     ancTag.dataset.title = vApp.lang.getString(text);
-                    ancTag.className = 'tooltip';
+                    ancTag.className = 'tooltip' + ' ' + 'icon-' + text;
 
                     lDiv.appendChild(ancTag);
 

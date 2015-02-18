@@ -227,7 +227,7 @@
                     //ancTag.innerHTML = text;
                     //ancTag.title = '';
                     ancTag.dataset.title = text;
-                    ancTag.className = 'tooltip ' + toolName;
+                    ancTag.className = 'tooltip ' + "icon-" +toolName;
 
                     lDiv.appendChild(ancTag);
                     

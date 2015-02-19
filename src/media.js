@@ -177,7 +177,9 @@
                     
                     setAudioStatus : function (audStatus){
                         if(typeof silenceDetectElem == 'undefined'){
-                            var silenceDetectElem = document.getElementById(this.sdElem);
+                            var silenceDetectElem = document.getElementById('audioWidget').getElementsByClassName(this.sdElem)[0];
+                            
+//                            var silenceDetectElem = document.getElementById(this.sdElem);
                         }
                         silenceDetectElem.setAttribute('data-silence-detect',  audStatus);
                     },
@@ -217,16 +219,16 @@
                             }
                         }else if(this.id == 'silenceDetect'){
                             var a = this.getElementsByTagName('a')[0];
-                            var img = this.getElementsByTagName('img')[0];
+//                            var img = this.getElementsByTagName('img')[0];
                             if(that.sd){
                                that.sd = false;
                                this.className = this.className + " sdDisable";
-                               img.src = window.whiteboardPath + "images/silencedetectdisable.png";
+//                               img.src = window.whiteboardPath + "images/silencedetectdisable.png";
                             }else{
                                that.sd = true;
                                this.className = this.className + " sdEnable";
-                               var img = this.getElementsByTagName('img')[0];
-                               img.src = window.whiteboardPath + "images/silencedetectenable.png";
+//                               var img = this.getElementsByTagName('img')[0];
+//                               img.src = window.whiteboardPath + "images/silencedetectenable.png";
                             }
                         }
                     },
@@ -237,7 +239,29 @@
                         alwaysPress.addEventListener('mousedown', function (){ 
                             if(!vApp.gObj.audMouseDown){
                                 that.studentSpeak(alwaysPress);
-                                 beingPress = true
+                                beingPress = true
+                                
+                                var pressOnceLabel = document.getElementById("speakerPressonceLabel"); 
+                                if(pressOnceLabel != null){
+                                    if(vApp.vutil.elemHasAnyClass('speakerPressonceLabel')){
+                                        if(pressOnceLabel.classList.contains('silenceDetect')){
+//                                            pressOnceLabel.setAttribute('data-silence-detect', "false");
+                                            pressOnceLabel.removeAttribute('data-silence-detect');
+                                            pressOnceLabel.classList.remove('silenceDetect');
+                                            if(pressOnceLabel.classList.length <=0 ){
+                                                pressOnceLabel.removeAttribute('class');
+                                            }
+                                            
+                                            
+                                            var controller = pressOnceLabel.getElementsByTagName('i')[0];
+                                            if(controller != null){
+                                                controller.setAttribute('data-silence-detect', "stop");
+                                                controller.className = controller.className + ' silenceDetect';
+                                                
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         });
                         alwaysPress.addEventListener('mouseup', 
@@ -245,6 +269,22 @@
                                 if(beingPress){
                                     that.studentNotSpeak(alwaysPress);
                                     beingPress = false;
+                                    var pressOnceLabel = document.getElementById("speakerPressonceLabel"); 
+                                    var controller = pressOnceLabel.getElementsByTagName('i')[0];
+                                    if(typeof controller.classList != 'undefined' && controller.classList.contains('silenceDetect')){
+                                        controller.classList.remove('silenceDetect');
+                                        if(controller.classList.length <=0 ){
+                                            controller.removeAttribute('class');
+                                        }
+                                        pressOnceLabel.removeAttribute('data-silence-detect');
+//                                        pressOnceLabel.setAttribute('data-silence-detect', "false");
+                                    }
+                                    
+                                    if(pressOnceLabel !== null){
+                                        pressOnceLabel.setAttribute('data-silence-detect', "stop");
+                                        pressOnceLabel.className = controller.className + ' silenceDetect';
+                                                
+                                    }
                                 }
                             });
                     },
@@ -283,6 +323,14 @@
                         //    button.src  = window.whiteboardPath + "images/speakerpressingactive.png";
                             
 //                          alert(elem.id);
+//
+//                            var silenceDetecElem = document.getElementById('speakerPressOnce').getElementsByClassName('silenceDetect')[0];
+//                            
+//                            if(silenceDetecElem == null){
+//                                var speakerPressonce  = document.getElementById('speakerPressonceLabel')
+//                                speakerPressonce.className = speakerPressonce.className + 'silenceDetect';
+//                                speakerPressonce.setAttribute('data-silence-detect', 'stop');
+//                            }
                             
                             elem.classList.remove('deactive');
                             elem.classList.add('active');
@@ -293,6 +341,13 @@
                     studentNotSpeak : function (elem){
                         if(vApp.gObj.hasOwnProperty('audMouseDown') &&  vApp.gObj.audMouseDown){
                             if(typeof elem != 'undefined'){
+//                                var silenceDetecElem = document.getElementById('speakerPressOnce').getElementsByClassName('silenceDetect')[0];
+                                
+//                                if(silenceDetecElem != null){
+//                                    silenceDetecElem.classList.remove('silenceDetect');
+//                                    silenceDetecElem.setAttribute('data-silence-detect', '');
+//                                }
+                                
                                 var button = document.getElementById(elem.id+"Button");
                                // button.src  = window.whiteboardPath + "images/speakerpressing.png";
                                 elem.classList.remove('active');

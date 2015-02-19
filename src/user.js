@@ -142,7 +142,7 @@
                         if(elemEnable){
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                             elem.setAttribute('data-' + control + '-disable', "false");
-                            elem.className = "icon-"+control + "Img tooltip enable";
+                            elem.className = "icon-"+control + "Img enable";
                             vApp.user.control.updateUser(userId, label, true);
                         }else{
                             if(control == 'assign'){
@@ -150,7 +150,7 @@
                             }
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                             elem.setAttribute('data-' + control + '-disable', 'true');
-                            elem.className =  "icon-"+control + "Img tooltip block";
+                            elem.className =  "icon-"+control + "Img block";
                             vApp.user.control.updateUser(userId, label, false);
                         }
                     },

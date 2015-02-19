@@ -134,10 +134,12 @@ if(isset($_GET['lname'])){
         
           <a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $speakermsg; ?>" name=
           "speakerPressonceAnch">
-             <label id="speakerPressonceLabel"><i>  </i></label>
+             <label id="speakerPressonceLabel" class="silenceDetect"  data-silence-detect="stop" > <i>  </i> </label>
+<!--             <span class="audioTool  id="silenceDetect" data-silence-detect="stop"> </span>-->
           </a>
            
-            <div class="audioTool" id="silenceDetect" data-silence-detect="stop"> </div>
+            
+            
         </div>
         
         <div id="alwaysPress">

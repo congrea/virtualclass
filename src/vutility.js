@@ -215,10 +215,10 @@
                 }
             },
 
-            createSlienceDetect : function (){
-                var appOptCont = document.getElementById('vAppOptionsCont');
-                vApp.html.createDiv("vAppSlienceDetectTool", "silencedetect", appOptCont, 'appOptions');
-            },
+//            createSlienceDetect : function (){
+//                var appOptCont = document.getElementById('vAppOptionsCont');
+//                vApp.html.createDiv("vAppSlienceDetectTool", "silencedetect", appOptCont, 'appOptions');
+//            },
 
             clickOutSideCanvas : function (){
                 if(this.exitTextWrapper()){

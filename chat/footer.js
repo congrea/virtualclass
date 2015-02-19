@@ -76,7 +76,7 @@
                    
                    
                 }else{
-                    alert('sss');
+//                    alert('sss');
                     if($("div#chat_room").length == 0){
                         var d = document.createElement('div');
                         d.id = 'chat_room';

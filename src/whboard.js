@@ -214,20 +214,17 @@
                         lDiv.className = cmdClass;
                     }
                     
-//                    var imgTag = document.createElement('img');
-//                    imgTag.alt = text;
-//                    if(typeof window.whiteboardPath != 'undefined'){
-//                        imgTag.src = window.whiteboardPath + '/images/' + imgName + ".png";
-//                    }else{
-//                        imgTag.src = '/images/' + imgName + ".png";
-//                    }
+                    var iconButton = document.createElement('span');
+                    iconButton.className =  "icon-" +toolName;
+                    ancTag.appendChild(iconButton);
 //                    
 //                    ancTag.appendChild(imgTag);
 //                    ancTag.innerHTML = "&nbsp;";
                     //ancTag.innerHTML = text;
                     //ancTag.title = '';
                     ancTag.dataset.title = text;
-                    ancTag.className = 'tooltip ' + "icon-" +toolName;
+                    ancTag.className = 'tooltip';
+//                    ancTag.className = 'tooltip ' + "icon-" +toolName;
 
                     lDiv.appendChild(ancTag);
                     

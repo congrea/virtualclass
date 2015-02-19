@@ -140,10 +140,13 @@ function (window){
 //                    ancTag.appendChild(imgTag);
                     //ancTag.title = '';
                     
-                    ancTag.innerHTML = "&nbsp";
+                    var iconButton = document.createElement('span');
+                    iconButton.className =  "icon-" +text;
+                    ancTag.appendChild(iconButton);
+                    
 
                     ancTag.dataset.title = vApp.lang.getString(text);
-                    ancTag.className = 'tooltip' + ' ' + 'icon-' + text;
+                    ancTag.className = 'tooltip';
 
                     lDiv.appendChild(ancTag);
 

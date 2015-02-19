@@ -39,13 +39,15 @@
             uiFooterbarchatroomContent = (self.uiFooterbarchatroomContent = $('<div class = "inner_bt"></div>'))
             .appendTo(uiFooterbarchatroomtab)
 
-            uiFooterbarchatroomIcon = (self.uiFooterbarchatroomIcon = $('<div id = "chatroom_icon" class="icon-chatroom"></div>'))
+            uiFooterbarchatroomIcon = (self.uiFooterbarchatroomIcon = $('<div id = "chatroom_icon"><span class="icon-chatroom"></span></div>'))
             .appendTo(uiFooterbarchatroomContent)
              uiFooterbarchatroomText = (self.uiFooterbarchatroomText = $('<div id = "chatroom_text"></div>'))
             .appendTo(uiFooterbarchatroomContent)
-            .text('Chatroom')
+            .html('Chatroom <span id="cc_arrow_button" class="icon-arrow-up"></span>')
             .click(function(){
+                
                 if(vApp.chat.chatroombox){
+                    
 				    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
                        sessionStorage.removeItem('chatroom_status');
                        uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('minCommonChat'));
@@ -54,9 +56,27 @@
                        sessionStorage.setItem("chatroom_status", "hidden");
                        uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('maxCommonChat'));
                    }
+                   
+                   var iconarrowButton = document.getElementById('cc_arrow_button');
+                   if(iconarrowButton != null){
+                        if(vApp.vutil.elemHasAnyClass('cc_arrow_button')){
+                            if(iconarrowButton.classList.contains('icon-arrow-up')){
+                                iconarrowButton.classList.add('icon-arrow-down');
+                                iconarrowButton.classList.remove('icon-arrow-up');
+                            }else{
+                                iconarrowButton.classList.add('icon-arrow-up');
+                                iconarrowButton.classList.remove('icon-arrow-down');
+                            }
+                        }else{
+                            iconarrowButton.className = 'icon-arrow-up';
+                        }
+                        
+                   }
                    vApp.chat.chatroombox.chatroom("option", "boxManager").toggleBox();
+                   
+                   
                 }else{
-
+                    alert('sss');
                     if($("div#chat_room").length == 0){
                         var d = document.createElement('div');
                         d.id = 'chat_room';

@@ -161,7 +161,7 @@
             .appendTo(uiChatbox),
 
             uiChatboxTitle = (self.uiChatboxTitle = $('<span></span>'))
-            .html(title)
+            .html('<span class="icon-user"> </span>' + title)
             .appendTo(uiChatboxTitlebar),
 
             uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))

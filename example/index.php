@@ -131,6 +131,7 @@ if(isset($_GET['lname'])){
     
     <div id="mainAudioPanel">
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
+        
           <a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $speakermsg; ?>" name=
           "speakerPressonceAnch">
              <label id="speakerPressonceLabel"><i>  </i></label>

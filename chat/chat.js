@@ -125,8 +125,10 @@
             },
             
             makeUserListEmpty : function (){
+                
                 $("#user_list .inner_bt #usertab_icon").css({'background':  'url('+window.whiteboardPath+'images/offline.png)no-repeat top left'});
-                $("#user_list .inner_bt #usertab_text").text(lang.whos + " (0)");
+//                $("#user_list .inner_bt #usertab_text").text(lang.whos + " (0)");
+                $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>"+lang.whos + " (0) s</span> <span id='usertab_toogle_icon' class='icon-arrow-up'>d</span>");
                 $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (0)");
                 $('div#memlist').css('display','none');
             }

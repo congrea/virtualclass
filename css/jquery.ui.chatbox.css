@@ -180,7 +180,7 @@ ui-memblist-usr
     border-left: 1px solid transparent;
     color: #000;
     cursor: pointer;
-    height: 36px;
+    height: 40px;
     padding: 0px 6px;
     position: relative;
     left: 36px;
@@ -191,7 +191,7 @@ ui-memblist-usr
      width: 203px;
 }
 .inner_bt {
-    padding: 12px 0;
+    padding: 15px 0;
     line-height: 15px;
 }
 
@@ -215,8 +215,6 @@ ui-memblist-usr
     left:21px;
 }
 #chatroom_icon {
-    background-position: -154px -90px;
-    background: url('../images/chroom.png') no-repeat top left;
     float: left;
     height: 16px;
     margin: 1px 2px 0px 0px;
@@ -273,7 +271,7 @@ ui-memblist-usr
 .maximize{
     left: 0;
     width:100%;
-     height: 36px;
+     height: 41px;
 }
 
 

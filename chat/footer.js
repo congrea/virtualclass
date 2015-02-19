@@ -96,19 +96,30 @@
 
             uiFooterbarUserlistIcon = (self.uiFooterbarUserlistIcon = $('<div id="usertab_icon"></div>'))
             .appendTo(uiFooterbarUserlistContent)
-             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close icon-arrow-up" data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
-            .appendTo(uiFooterbarUserlistContent)
+             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close " data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
+                .appendTo(uiFooterbarUserlistContent)
+//            uiFooterUpArrowIcon = (self.uiFooterUpArrowIcon = $('<span id="usertab_toogle_icon" class="icon-arrow-up"></span>'))
+//                .appendto("#usertab_text")
+//        
             .text('Private Chat')
             .click(function(){ 
                vApp.gObj.video.dispAllVideo("chat_div");
                 if(Object.keys(io.uniquesids).length > 0){
                     if($(this).hasClass('close')){
-                        $(this).addClass('open icon-arrow-down');
-                        $(this).removeClass('close icon-arrow-up');
+                        $(this).addClass('open' );
+                        $(this).removeClass('close');
+                        
+                        $("#usertab_toogle_icon").addClass('icon-arrow-down');
+                        $("#usertab_toogle_icon").removeClass('close icon-arrow-up');
                         $(this).attr('data-title', vApp.lang.getString('miniUserList'));
+                        
                     }else{
-                        $(this).addClass('close icon-arrow-up');
-                        $(this).removeClass('open icon-arrow-down');
+//                        $(this).addClass('close icon-arrow-up');
+//                        $(this).removeClass('open icon-arrow-down');
+                        $(this).addClass('close');
+                        $(this).removeClass('open');
+                        $("#usertab_toogle_icon").addClass('icon-arrow-up');
+                        $("#usertab_toogle_icon").removeClass('icon-arrow-down');
                         $(this).attr('data-title', vApp.lang.getString('maxUserList'));
                     }
                     

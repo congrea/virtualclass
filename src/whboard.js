@@ -223,7 +223,7 @@
 //                    }
 //                    
 //                    ancTag.appendChild(imgTag);
-                    ancTag.innerHTML = "&nbsp;";
+//                    ancTag.innerHTML = "&nbsp;";
                     //ancTag.innerHTML = text;
                     //ancTag.title = '';
                     ancTag.dataset.title = text;

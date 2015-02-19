@@ -28,8 +28,9 @@ function memberUpdate(e, addType){
         
         $("#user_list .inner_bt #usertab_icon").css({'background': 'url(' + imgpath + ')no-repeat top left'});
     }
+    $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>"+lang.whos + " ( " + count + " )</span> <span id='usertab_toogle_icon' class='icon-arrow-up'></span>");
 
-    $("#user_list .inner_bt #usertab_text").text(lang.whos + " (" + count + ")");
+//    $("#user_list .inner_bt #usertab_text").text(lang.whos + " (" + count + ")");
     $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (" + count + ")");
     //if (userlist.length > 1) {
     //changed by suman

@@ -501,7 +501,7 @@ a[title]:hover:after {
 	padding-bottom : 0;
 	border-bottom : 1px solid #aaa;
 	padding-left : 1%;
-	height : 52px;
+	height : 46px;
 	box-shadow : 0 0 5px #aaa;
 }
 
@@ -1191,11 +1191,11 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	position : relative;
 }
 #speakerPressing {
-	width: 42px;
+	width: 40px;
 	padding-left: 12px;
 	padding-right: 12px;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 #speakerPressOnce {
 	width : 100%;
@@ -1324,7 +1324,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	display: block;
 }
 
-#vAppWhiteboardToo.active a, #vAppScreenShareTool.active a, #vAppSessionEndTool.active a{
+#vAppWhiteboardToo.active a span, #vAppScreenShareTool.active a span, #vAppSessionEndTool.active a span{
 	color:#fff !important;
 }
 
@@ -1341,7 +1341,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 
 #alwaysPress .audioTool a {
 	text-align: center;
-	text-shadow: 0 0 2px #fffafa;
+/* 	text-shadow: 0 px #fffafa; */
 	font-size: 14px;
 	position: relative;
 	top: 15px;
@@ -1362,39 +1362,41 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 
 
-#alwaysPress .audioTool.active, #vAppOptionsCont .appOptions.active, #audioTest-box .audioTool.audioIsTesting{
-	background: #aaaaaa; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover,  #aaaaaa 0%, #919191 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#aaaaaa), color-stop(100%,#919191)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover,  #aaaaaa 0%,#919191 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover,  #aaaaaa 0%,#919191 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover,  #aaaaaa 0%,#919191 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center,  #aaaaaa 0%,#919191 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aaaaaa', endColorstr='#919191',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-	border:#777 1px solid;
-	padding: 12px 5px;
-	text-shadow: 0 0px 1px #eee;
-	color:#fff;
+#alwaysPress .audioTool.active, #vAppOptionsCont .appOptions.active{
+	background: #bbb; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #bbb 0%, #919191 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#bbb), color-stop(100%,#919191)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #bbb 0%,#919191 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #bbb 0%,#919191 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #bbb 0%,#919191 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #bbb 0%,#919191 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbb', endColorstr='#919191',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	border:#a4a4a4 1px solid;
 
 }
-#alwaysPress .audioTool.active a.icon-whiteboard:before, #vAppOptionsCont .appOptions.active a.icon-whiteboard:before, #alwaysPress .audioTool.active a.icon-whiteboard:before, #audioTest-box .audioTool.audioIsTesting{
+#alwaysPress .audioTool.active{
+	box-shadow: 0 0 2px 1px #fff inset;
+	color:#fff;
+}
+
+#alwaysPress .audioTool.active span.icon-whiteboard:before, #vAppOptionsCont .appOptions.active span.icon-whiteboard:before, #alwaysPress .audioTool.active span.icon-whiteboard:before, #audioTest-box .audioTool.audioIsTesting{
 	color:#fff;
 }
 
 
 
 #vAppWhiteboardTool, #vAppScreenShareTool, #vAppSessionEndTool{
-	padding: 12px 5px;
+	padding: 7px 5px;
 }
 
 #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
 	text-align: center;
 	border-radius: 5px;
-	padding: 18px 12px;
+	padding: 11px 12px;
 
 }
 #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive{
-	padding: 12px;
+	padding: 11px 16px;
 }
 
 #audioWidget #mainAudioPanel{
@@ -1670,20 +1672,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 
 #commandToolsWrapper #t_rectangle a, #commandToolsWrapper #t_line a, #commandToolsWrapper #t_freeDrawing a, #commandToolsWrapper #t_oval a, #commandToolsWrapper #t_triangle a, #commandToolsWrapper #t_replay a, #commandToolsWrapper #t_clearall a, #commandToolsWrapper #t_connectionoff a, #commandToolsWrapper #t_assign a{
-	padding: 11px 18px 11px;
+	text-decoration: none;
+	padding: 8px 18px 8px;
 	color:#333;
 	border-right: #ccc 1px solid;
 }
 #commandToolsWrapper #t_text a{
-	padding: 8px 18px !important;
+	text-decoration: none;
+	padding: 5px 18px !important;
 	border-right: #ccc 1px solid;
+	color:#333;
 }
 #commandToolsWrapper #t_oval a{
-	padding: 12px 18px 13px;
+	text-decoration: none;
+	padding: 10px 18px 9px;
+	color:#333;
 }
 #commandToolsWrapper #t_activeall a{
+	text-decoration: none;
 	border-right: #ccc 1px solid;
-	padding: 12px 18px 12px;
+	padding: 9px 18px;
+	color:#333;
 }
 
 #containerWb #commandToolsWrapper .tool a:hover {
@@ -1696,11 +1705,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	background: linear-gradient(to bottom,  #d4d4d4 0%,#fbfbfb 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d4d4', endColorstr='#fbfbfb',GradientType=0 ); /* IE6-9 */
 
-}
-
-
-#containerWb #commandToolsWrapper .tool a:hover .icon-text:before {
-	font-size: 30px;
 }
 
 #containerWb #commandToolsWrapper .tool a:before{
@@ -1726,7 +1730,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 */
 }
 
-.textAlign{margin-left: 9px; text-align: center;}
+.textAlign{margin-left: 7px; text-align: center;}
 
 #commandToolsWrapper .tool.active a{
 	background: #919191; /* Old browsers */
@@ -1739,11 +1743,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#919191', endColorstr='#919191',GradientType=0 ); /* IE6-9 */
 	text-shadow: 0 1px 14px #eee;
 }
-#commandToolsWrapper .tool.active a:hover:before{
+#commandToolsWrapper .tool.active a span:hover:before{
 	color:#000 !important;
 	
 }
- .tool.active a:before{
+ .tool.active a span:before{
 	text-shadow: 0 1px 11px #eee;
 	color:#fff !important;
 }
@@ -1795,29 +1799,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	content: "\e604";
 	font-size: 32px;
 	position: relative;
-	top:4px;
-	left:2px;
+	top:2px;
+	left:0px;
 }
 
 .icon-screenshare:before{
 	content: "\e602";
 	font-size: 32px;
 	position: relative;
-	top:4px;
-	left:2px;
+	top:2px;
+	left:0px;
 }
 
 .icon-sessionend:before{
 	content: "\f00e";
 	font-size: 32px;
 	position: relative;
-	top:4px;
-	left:2px;
+	top:1px;
+	left:0px;
 }
 
 .icon-speakerPressing:before{
 	content: "\f130";
-	font-size: 43px;
+	font-size: 36px;
 	position: relative;
 	top: 5px;
 	left: 0px;
@@ -1835,6 +1839,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	top:-5px;
 }
 
+/*
 .icon-arrow-up:before{
 	content: "\e606";
 	font-size: 26px;
@@ -1844,6 +1849,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	content: "\e601";
 	font-size: 26px;
 }
+*/
 
 .icon-assignImg:before{
 	content: "\f064";
@@ -1859,6 +1865,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	content: "\f026";
 	font-size: 13px;
 }
+
+
+
+.icon-arrow-up:after{
+    content: "\e606";
+    font-size: 20px;
+}
+
+.icon-arrow-down:after, .icon-arrow-up:after{
+    position : relative; 
+    top : -3;
+}
+.icon-arrow-down:after{
+    content: "\e601";
+    font-size: 20px;
+}
+
+#onlineusertext {
+    position: relative;
+    top: -7px;
+}
+
+
 
 
 

@@ -116,7 +116,7 @@
                             chatBlock.id = userId + imgName + "Img";
                             chatBlock.innerHTML = "&nbsp;";
 //                            chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
-                            chatBlock.innerHTML = "S";
+//                            chatBlock.innerHTML = "S";
                             var chatAnch = document.createElement('a');
                             chatAnch.id = userId + imgName + "Anch";
                             chatAnch.className = "tooltip";

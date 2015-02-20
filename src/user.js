@@ -351,7 +351,7 @@
                         localStorage['vApp' + uObj.id] = JSON.stringify(uObj);
                         return uObj;
                     },
-                    audioSign2 : function (user, action){
+                    audioSign : function (user, action){
                         
                         if(action == 'create'){
                             if(document.getElementById(user.id + "AudEnableSign") == null){
@@ -379,7 +379,7 @@
                         
                     },
                     
-                    audioSign : function (user, action){
+                    audioSignNew : function (user, action){
                         if(action == 'create'){
 //                            123contrAudImg
                             var audioImg = document.getElementById(user.id + 'contrAudImg'); 

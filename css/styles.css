@@ -101,6 +101,11 @@ body {
 	border-top:none;
 	border-bottom: none;
 }
+#vAppOptionsCont #vAppScreenShareTool, #vAppOptionsCont #vAppSessionEndTool{
+	
+}
+
+
 #vAppOptionsCont .appOptions{
 	border:#a7a7a7 1px solid;
 	border-left: none;
@@ -604,13 +609,13 @@ a[title]:hover:after {
 #audioWidget .Tool .tooltip:hover:after, #audioWidget .audioTool .tooltip:hover:after {
 	right : 50px;
 	left : auto;
-	bottom : -0.7em;
+	bottom : 1em;
 }
 #vAppOptionsCont .appOptions .tooltip:hover:after {
 	padding : 0.7em 1em;
 	right : auto;
 	left : 50px;
-	bottom : 1em;
+	bottom : 0.2em;
 }
 
 
@@ -1044,8 +1049,14 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	clear : both;
 }
 #audioWidget {
-
-	
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #e9e9e9 90%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(90%,#e9e9e9)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#e9e9e9 90%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#e9e9e9 90%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#e9e9e9 90%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#e9e9e9 90%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e9e9e9',GradientType=0 ); /* IE6-9 */	
 	position : absolute;
 	cursor : pointer;
 	float : right;
@@ -1058,18 +1069,11 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 
 }
 #audioWidget #speakerPressOnce{
-	background: #fbfbfb; /* Old browsers */
-	background: -moz-linear-gradient(left, #fbfbfb 0%, #d4d4d4 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fbfbfb), color-stop(100%,#d4d4d4)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #fbfbfb 0%,#d4d4d4 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #fbfbfb 0%,#d4d4d4 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #fbfbfb 0%,#d4d4d4 100%); /* IE10+ */
-	background: linear-gradient(to right, #fbfbfb 0%,#d4d4d4 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#d4d4d4',GradientType=1 ); /* IE6-9 */
 	border : #a4a4a4 solid 1px;
 	border-top-left-radius: 5px;
 	border-bottom: none;
-	width: 58px;
+	width: 55px;
+	padding-left: 7px;
 }
 
 #audioWidget.fixed {
@@ -1103,13 +1107,14 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	top : 200px;
 }
 .ui-dialog-header span:first-child {
-	background : url('../images/user.png') 6% center no-repeat;
 	font-size : 14px;
-	padding-left : 30px;
+	padding-left : 5px;
 }
+/*
 .ui-widget-header .ui-icon {
 	background-image : url(images/ui-icons_222222_256x240.png);
 }
+*/
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	border : #eee solid 3px;
 	outline : none;
@@ -1139,25 +1144,15 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 .ui-chatbox {
 	width : 231px !important;
-	margin-left : -1px;
 }
 .ui-tabs .ui-tabs-nav li.ui-state-active {
 	background-image : none;
 	background-color : transparent;
 	border-top : 1px solid #aaa !important;
 }
-/*
-#stickycontainer #user_list .inner_bt #usertab_text, .vmchat_room_bt .inner_bt #chatroom_text {
-	background : url('../images/arrow-up.png') 75% 43% no-repeat;
-}
-
-#stickycontainer #user_list .inner_bt #usertab_text.open, .vmchat_room_bt .inner_bt #chatroom_text.open{
-	background : url('../images/arrow-down.png') 75% 43% no-repeat;
-}
-*/
 
 .ui-corner-all.ui-chatbox-icon .ui-icon-close {
-	margin-top : 7px;
+	margin-top : 2px;
 	margin-right : 8px;
 }
 .ui-memblist-usr a img {
@@ -1228,13 +1223,8 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 .audEnableSign {
 	width : 12px;
 	height : 12px;
-	/*	background-image : url('../images/online.png');*/
 	float : left;
 	margin-left : 4px;
-}
-#audioWidget #speakerPressOnce {
-	padding-left: 4px;
-
 }
 #audioWidget #audioTest #vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img {
 	margin-left: -5px;
@@ -1360,20 +1350,14 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }	
 
 #alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
-	background: #fefefe; /* Old browsers */
-	background: -moz-linear-gradient(top, #fefefe 0%, #dddddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fefefe 0%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #fefefe 0%,#dddddd 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #fefefe 0%,#dddddd 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #fefefe 0%,#dddddd 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
-	box-shadow: 0px 0px 8px 2px #ddd inset;
+/* 	box-shadow: 0px 0px 8px 2px #ddd inset; */
 	border:#a4a4a4 1px solid;
-	border-top: none;
+
 	border-bottom-left-radius: 5px;
 }
-
+#audioTest-box .audioTool{
+	border-top: none;
+}
 
 #alwaysPress .audioTool.active, #vAppOptionsCont .appOptions.active{
 	background: #bbb; /* Old browsers */
@@ -1385,10 +1369,11 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	background: radial-gradient(ellipse at center, #bbb 0%,#919191 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbb', endColorstr='#919191',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	border:#777 1px solid;
+	border-left-color: #919191;
+	border-right-color: #919191;
 
 }
 #alwaysPress .audioTool.active{
-	box-shadow: 0 0 2px 1px #fff inset;
 	color:#fff;
 	border-bottom-left-radius: 0px;
 	border-top-left-radius: 0px;
@@ -1401,19 +1386,23 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 
 
 #vAppWhiteboardTool, #vAppScreenShareTool, #vAppSessionEndTool{
-	padding: 7px 5px;
+	padding: 9px 5px;
 }
 
 #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
 	text-align: center;
 	padding: 15px 13px 3px;
 	border-radius: 0px;	
+	
+}
+
+#audioTest-box .audioTool{
 	border-bottom-left-radius:5px;
 }
 
 #audioTest-box .audioTool{
 	
-	padding: 10px 8px;
+	padding: 15px 8px;
 }
 
 #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive{
@@ -1428,7 +1417,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 /* Styles */
 
 label {
-	width: 35px;
+	width: 40px;
 	height: 17px;
 	display: inline-block;
 	margin-top: 20px;
@@ -1454,6 +1443,8 @@ label {
 	-o-transition: all 1s ease-in;
 	transition: all 1s ease-in;
 	cursor: pointer;
+	right: -2px;
+	
 	
 }
 label.attention:hover {
@@ -1477,7 +1468,7 @@ input[type=checkbox]:checked ~ label.attention:hover:before {
 label i {
 	position: absolute;
 	top: -3px;
-	right: 20px;
+	right: 24px;
 	width: 15px;
 	height: 20px;
 	display: block;
@@ -1522,12 +1513,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	border: #aaa 1px solid;
 }
 #speakerPressOnce.active #speakerPressonceAnch label#speakerPressonceLabel:before {
-	content: "on";
+	content: "On";
 	position: absolute;
-	top: -7px;
+	top: -6px;
 	font-weight: normal;
 	font-size: 12px;
-	left: 3px;
+	left: 4px;
 }
 #speakerPressOnce #speakerPressonceAnch label#speakerPressonceLabel:before {
 	content: "Off";
@@ -1535,7 +1526,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	top: -6px;
 	font-weight: normal;
 	font-size: 11px;
-	left: 16px;
+	left: 18px;
 }
 
 
@@ -1544,20 +1535,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 #speakerPressOnce #speakerPressonceAnch label {
 	margin-top: 11px;
-	margin-bottom: 6px;
+	margin-bottom: 11px;
 }
 	
 
 #audioTest-box {
-	border-radius: 5px;
+	border-radius: 8px;
 	text-align: center;
 	margin-bottom: 0px;
 	border: #e2e2e2 3px solid;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	border-top: none;
+	
 }
-
+.icon-audiotest:before{
+	color:#000;
+}
 
 /* Tooltip */
 
@@ -1617,44 +1611,53 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 
 /* added by suman */
 
-#silenceDetect[data-silence-detect="stop"], #silenceDetect[data-silence-detect="notSending"], #silenceDetect[data-silence-detect="sending"]{
+/*
+.silenceDetect[data-silence-detect="stop"], .silenceDetect[data-silence-detect="notSending"], .silenceDetect[data-silence-detect="sending"]{
     position: relative;
     top: -5px;
     left: -1px;
     cursor: pointer;
     display: inline-block;
-    /*border: 1px solid #fff;*/
     height: 16px;
     width: 16px;
     border-radius: 100%;
         
         
 }
+*/
 
-#silenceDetect[data-silence-detect="stop"] {
-    background: #E53030;
-    box-shadow: 0 0px 0 3px #c91919 inset;
-        background-color: #EC0C3F;
-        border-radius: 50%;
-        box-shadow: #EAE4E4 0 -1px 7px 1px, inset #7E7802 0 -1px 9px, #CBCBAF 0 2px 12px;
+
+
+
+.silenceDetect[data-silence-detect="notSending"] {
+	background: #e06f0d; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #e06f0d 0%, #f4a52e 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e06f0d), color-stop(100%,#f4a52e)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #e06f0d 0%,#f4a52e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #e06f0d 0%,#f4a52e 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #e06f0d 0%,#f4a52e 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #e06f0d 0%,#f4a52e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06f0d', endColorstr='#f4a52e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+/*
+
+    	box-shadow: 0 0px 0 3px #ffb401 inset;
+    
+    
+        box-shadow: #E5E5E5 0 -1px 7px 1px, inset #7E7802 0 -1px 9px, #CBCBAF 0 2px 12px;
+*/
 }
 
-#silenceDetect[data-silence-detect="notSending"] {
-    background: #FFC334;
-/*    border: 1px solid #fff;*/
-    box-shadow: 0 0px 0 3px #ffb401 inset;
-        background-color: #F0960B;
-        border-radius: 50%;
-        box-shadow: #E5E5E5 0 -1px 7px 1px, inset #7E7802 0 -1px 9px, #CBCBAF 0 2px 12px;
-}
-
-#silenceDetect[data-silence-detect="sending"] {
-    background: #9ebe3b;
-    box-shadow: 0 0px 0 3px #8fb12c inset;
-        background-color: #72C624;
-        border-radius: 50%;
-        
-        box-shadow: #E5E5E5 0 -1px 7px 1px, inset #7E7802 0 -1px 9px, #CBCBAF 0 2px 12px;
+i.silenceDetect[data-silence-detect="sending"] {
+   	background: rgb(141,173,51);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+	background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
+    border-radius: 3px;
+    border:rgb(119, 149, 35) 1px solid;
 }
 
 @font-face {
@@ -1743,20 +1746,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 
 .textAlign{margin-left: 7px; text-align: center;}
 
-#commandToolsWrapper .tool.active a{
+#commandToolsWrapper .tool.active a, #commandToolsWrapper .tool.active a:hover{
 	background: #919191; /* Old browsers */
-	background: -moz-linear-gradient(top,  #919191 0%, #919191 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#919191), color-stop(100%,#919191)); /* Chrome,Safari4+ */
+	background: -moz-linear-gradient(top,  #919191 0%, #919191 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#919191), color-stop(100%,#919191)) !important; /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #919191 0%,#919191 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top,  #919191 0%,#919191 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #919191 0%,#919191 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #919191 0%,#919191 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#919191', endColorstr='#919191',GradientType=0 ); /* IE6-9 */
 	text-shadow: 0 1px 14px #eee;
-}
-#commandToolsWrapper .tool.active a span:hover:before{
-	color:#000 !important;
-	
 }
  .tool.active a span:before{
 	text-shadow: 0 1px 11px #eee;
@@ -1870,7 +1869,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 
 .icon-chatImg:before{
-	content: "\f0e6	";
+	content: "\f086";
 	font-size: 14px;
 }
 
@@ -1896,10 +1895,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
     font-size: 20px;
 }
 
+.ui-icon-closethick:before{
+	content: "\f026";
+    font-size: 20px;
+}
+
+.icon-user:before{
+	content: "\f026";
+    font-size: 20px;
+}
+
+.icon-audioDisImg:before{
+	content: "\ea2a";
+    font-size: 13px;
+}
+
 #onlineusertext {
     position: relative;
     top: -7px;
 }
+
+
 
 #chatroom_bt2 .inner_bt #chatroom_text .icon-arrow-down:after, #chatroom_bt2 .inner_bt #chatroom_text .icon-arrow-up:after{right: -10px; top:5px !important;}
 
@@ -1909,11 +1925,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	text-align: center;
 }
 
-#speakerPressingtext{line-height: 15px; font-size: 11px; position: relative; top:-12px; text-shadow: #000 0px 0px 2px;}
+#speakerPressingtext{
+	line-height: 13px;
+	font-size: 10px;
+	position: relative;
+	top: -12px;
+}
+.audioTool.active #speakerPressingtext{text-shadow: #000 0px 0px 2px;}
 
 .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {bottom: -2.7em !important; left: 10px;}
 
 #commandToolsWrapper .tool.active a:hover{color:#000 !important;}
+
+.inner_bt { line-height: 21px; padding: 15px 0;}
+
+.ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header a.ui-corner-all.ui-chatbox-icon{padding-top: 1px !important;}
+
+.tabs-bottom a.ui-corner-all.ui-chatbox-icon{padding-top: 11px !important;}
 
 
 

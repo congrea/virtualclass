@@ -148,7 +148,7 @@ if(isset($_GET['lname'])){
                 name="speakerPressingAnch">Push To Talk</a>-->
                 <a id="speakerPressingAnch" name="speakerPressingAnch">
                     <span id="speakerPressingButton" class="icon-speakerPressing"></span>
-                    Push To Talk &nbsp; &nbsp;&nbsp;
+                    <span id="speakerPressingtext">Push <br >  To  <br > &nbsp;Talk </span> &nbsp; &nbsp;
 <!--                <img id="speakerPressingButton" src="<?php //echo $speakerimg; ?>" />-->
                 
                 </a>

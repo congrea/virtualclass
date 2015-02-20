@@ -150,7 +150,12 @@
                             }
                             elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                             elem.setAttribute('data-' + control + '-disable', 'true');
-                            elem.className =  "icon-"+control + "Img block";
+                            
+                            if(control == 'audio'){
+                                elem.className =  "icon-"+control + "DisImg block";
+                            }else{ 
+                                elem.className =  "icon-"+control + "Img block";
+                            }
                             vApp.user.control.updateUser(userId, label, false);
                         }
                     },

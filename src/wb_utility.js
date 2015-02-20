@@ -470,8 +470,11 @@
                         vcan.main.replayObjs.push(tempRepObjs);
                     }
                 },
-                makeDefaultValue: function() {
-                    vApp.wb.utility.makeDeActiveTool();
+                makeDefaultValue: function(cmd) {
+                    if(typeof cmd == 'undefined' || cmd != 't_clearall'){
+                        vApp.wb.utility.makeDeActiveTool();
+                    }
+                    
                     vApp.wb.gObj.myrepObj = [];
                     vApp.wb.gObj.replayObjs = [];
                     vApp.wb.gObj.rcvdPackId = 0;

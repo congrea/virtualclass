@@ -257,7 +257,12 @@
                  */
                 objInit: function(evt) {
                     if(vApp.gObj.uRole == 't'){
-                        vApp.wb.utility.makeActiveTool(this.parentNode.id);
+                        if(this.parentNode.id != 't_clearall'){
+                            //call back function should be used as second parameter
+                            // for action on reposnse of user, cancel, okay
+                            vApp.wb.utility.makeActiveTool(this.parentNode.id);
+                        }
+                        
                     }
                     
                     var anchorNode = this;
@@ -284,8 +289,10 @@
                         
                         vApp.wb.utility.beforeSend({'repObj': [obj]}); //after optimized
                     }
+                    if(this.parentNode.id != 't_clearall'){
+                        vApp.wb.prvTool = this.parentNode.id;
+                    }
                     
-                    vApp.wb.prvTool = this.parentNode.id;
                     
                 },
                 
@@ -363,12 +370,13 @@
                         if (!confirm(vApp.lang.getString('clearAllWarnMessage'))) {
                             return;
                         }
-
+                        
+                        vApp.wb.utility.makeActiveTool(cmd);
                         //vApp.gObj.video.updateVideoInfo();
                         vApp.wb.utility.t_clearallInit();
-                        vApp.wb.utility.makeDefaultValue();
+                        vApp.wb.utility.makeDefaultValue(cmd);
                         vApp.storage.clearStorageData();
-                        
+                        vApp.wb.prvTool = cmd;
                         vApp.wb.utility.beforeSend({'clearAll': true});
                     } else if (cmd == 't_assign') {
                         var toolHeight = localStorage.getItem('toolHeight');

@@ -71,8 +71,8 @@
             'PermissionDeniedError' : "You denied to access your Webcam.",
             'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone).",
             'notSupportBrowser' : "Not supported screen sharing for this version of browser",
-            'disableSpeaker' : "Disable Speaker",
-            'enableSpeaker' : "Enable Speaker"
+            'disableSpeaker' : "Disable Audio",
+            'enableSpeaker' : "Enable Audio"
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

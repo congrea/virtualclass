@@ -351,7 +351,8 @@
                         localStorage['vApp' + uObj.id] = JSON.stringify(uObj);
                         return uObj;
                     },
-                    audioSign : function (user, action){
+                    audioSign2 : function (user, action){
+                        
                         if(action == 'create'){
                             if(document.getElementById(user.id + "AudEnableSign") == null){
                                 //important
@@ -374,7 +375,42 @@
                             var audioEnableTag = document.getElementById(user.id + "AudEnableSign");
                             audioEnableTag.parentNode.removeChild(audioEnableTag);
                         }
+                        
+                        
                     },
+                    
+                    audioSign : function (user, action){
+                        if(action == 'create'){
+//                            123contrAudImg
+                            var audioImg = document.getElementById(user.id + 'contrAudImg'); 
+                                for(var i=0; i<audioImg.classList.length; i++){
+                                    if(audioImg.classList[i].substring(0, 5) ==  'icon-'){
+                                       audioImg.classList.remove(audioImg.classList[i]);
+                                       audioImg.classList.add("icon-audioEnaGreen") ;
+                                       break;  
+                                    }
+                                }
+                              
+                        }else {
+                            alert('removed audio sign');
+//                            var audioEnableTag = document.getElementById(user.id + "AudEnableSign");
+//                            audioEnableTag.parentNode.removeChild(audioEnableTag);
+                        }
+                        
+                        
+                    },
+                    
+                    iconAttrManupulate : function (uid){
+                        var audioImg = document.getElementById(uid + 'contrAudImg'); 
+                        for(var i=0; i<audioImg.classList.length; i++){
+                            if(audioImg.classList[i].substring(0, 5) ==  'icon-'){
+                               audioImg.classList.remove(audioImg.classList[i]);
+                               audioImg.classList.add("icon-audioEnaGreen") ;
+                               break;  
+                            }
+                        }
+                    },
+                    
                     shouldApply : function (uid){
                         var userObj = localStorage.getItem('vApp' + uid);
                         if(userObj != null){

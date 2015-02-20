@@ -182,6 +182,8 @@
 //                            var silenceDetectElem = document.getElementById(this.sdElem);
                         }
                         silenceDetectElem.setAttribute('data-silence-detect',  audStatus);
+//                          silenceDetectElem.setAttribute('data-silence-detect',  'notSending');
+
                     },
                     makeIconNotDraggable : function (id, imgName){
                         var canvas = document.getElementById(id, imgName);

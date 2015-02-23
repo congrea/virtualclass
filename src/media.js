@@ -456,6 +456,8 @@
                         (typeof testAudio != 'undefined') ? vApp.gObj.video.audio.play(samples, uid, testAudio) : vApp.gObj.video.audio.play(samples, uid);
                     },
                     play : function (receivedAudio, uid, testAudio){
+                        var userObj = JSON.parse(localStorage.getItem('vApp' + uid));
+                        
                         var samples = receivedAudio;
                         var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000); //8100 when sound is being delay
                         newBuffer.getChannelData(0).set(samples);
@@ -466,7 +468,20 @@
                         gainNode.gain.value = 0.9;
                         newSource.connect(gainNode);
                         gainNode.connect(this.Html5Audio.audioContext.destination);
+                        if(userObj.ad && userObj.aud){
+                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+                        }
+                        
+                        
+//                         if(this.audioToBePlay[uid].length <= 0){
+////                            vApp.user.control.audioSign(user, "create"); 
+//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange");
+//                            
+//                        }else{
+//                           vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen"); 
+//                        }
                         newSource.onended = function (){
+                            userObj = JSON.parse(localStorage.getItem('vApp' + uid));
                             // console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
                             if(typeof testAudio == 'undefined'){
                                 console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
@@ -474,6 +489,10 @@
                                 vApp.gObj[uid].isplaying = false;
                                 if(vApp.gObj.video.audio.audioToBePlay[uid].length > 0 ){
                                     vApp.gObj.video.audio.getChunks(uid);
+                                }else {
+                                    if(userObj.ad && userObj.aud){
+                                        vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange"); 
+                                    }
                                 }
                             }
                         }
@@ -546,6 +565,7 @@
                         }else{
                             vApp.gObj[uid].isplaying = false;
                         }
+                       
                     },
                     replayInit : function (){
                         vApp.storage.getAllObjs(["audioData"], repCallback);

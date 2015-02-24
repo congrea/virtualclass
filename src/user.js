@@ -47,7 +47,7 @@
                     return controlCont;
                 },
                 
-                createAssignControl : function (controlCont, userId, aRoleEnable){
+                createAssignControl : function (controlCont, userId, aRoleEnable, currTeacher){
                     var that = this;
                     var assignImg = document.createElement('span'); 
                     var imgName = "contrAssign";
@@ -82,7 +82,10 @@
 
                     //assignImg.className = 'contrAssign';
                     vApp.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
-
+                    
+                    if(typeof currTeacher != 'undefined'){
+                        assignImg.className = assignImg.className + ' currTeacher';
+                    }
                     assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
 
                 },
@@ -96,7 +99,14 @@
                     if(userObj != null){
                         uObj = true;
                         userObj = JSON.parse(userObj);
+                        if(userObj.hasOwnProperty('currTeacher')){
+                           if(userObj.currTeacher){
+                                var currTeacher = true; 
+                           }
+                        }
                     }
+                    
+                   
                     
                     var assignDisable = localStorage.getItem('reclaim');
                     if(assignDisable != null && assignDisable){
@@ -110,7 +120,13 @@
                     //var this should be in normalize in function
                     for(var i = 0; i < controls.length; i++){
                         if(controls[i] == 'assign' && orginalTeacher){
-                            this.createAssignControl(controlCont, userId, aRoleEnable);
+                            if(typeof currTeacher != 'undefined'){
+                                this.createAssignControl(controlCont, userId, aRoleEnable, currTeacher);
+                            }else{
+                                this.createAssignControl(controlCont, userId, aRoleEnable);
+                            }
+                            
+                            
 
 //                            var assignImg = document.createElement('img');
 //                            var assignImg = document.createElement('span'); 
@@ -170,7 +186,9 @@
                             imgCont.className = "controleCont";
                             imgCont.appendChild(audAnch);
                             controlCont.appendChild(imgCont);
+                            
                             if(uObj && userObj.hasOwnProperty('aud')){
+                                
                                 var audEnable = (userObj.aud) ? true : false;
                             } else {
                                 var audEnable = true;
@@ -215,15 +233,40 @@
                     }
                 },
                 control : {
+                    addCurrTeacherToControl  : function (id){
+                        
+                        var elem = document.getElementById(id);
+                        if(elem != null){
+                            if(vApp.vutil.elemHasAnyClass(id)){
+                                elem.classList.add('currTeacher');
+                            }else{
+                                elem.className = 'currTeacher';
+                            }
+                        }
+                    },
+                    
+                    removeCurrTeacherFromControl  : function (id){
+                        
+                        var elem = document.getElementById(id);
+                        if(vApp.vutil.elemHasAnyClass(id)){
+                            elem.classList.remove('currTeacher');
+                                var uidPos = id.indexOf("contr");
+                                var userId = id.substring(0, uidPos);
+                                vApp.user.control.updateUser(userId, 'currTeacher', false);
+                        }
+                    },
+                    
                     disable : function (toUser, control, contIdPart, label){
                         var elem = document.getElementById(toUser+'contr'+contIdPart+'Img');
                         vApp.user.control._disable(elem, control, toUser, label);
                     }, 
                     
                     _disable : function (elem, control, userId, label){
-                        if(control == 'assign'){
-                            elem.parentNode.classList.remove('tooltip');
-                        }
+//                        if(control == 'assign'){
+//                           elem.parentNode.classList.remove('tooltip');
+//                           this.addCurrTeacherToControl(elem.id);
+//                            //alert(userId + ' ' +elem.id);
+//                        }
 
                         elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                         elem.setAttribute('data-' + control + '-disable', 'true');
@@ -234,7 +277,15 @@
                             elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
                         }
                         
+                        if(control == 'assign'){
+                           elem.parentNode.classList.remove('tooltip');
+                           this.addCurrTeacherToControl(elem.id);
+                           vApp.user.control.updateUser(userId, 'currTeacher', true);
+                            //alert(userId + ' ' +elem.id);
+                        }
+                        
                         vApp.user.control.updateUser(userId, label, false);
+                        
                     },
                     
                     enable : function (toUser, control, contIdPart,  label){
@@ -245,6 +296,9 @@
                         elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                         elem.setAttribute('data-' + control + '-disable', "false");
                         elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
+                        
+                        
+                        
                         vApp.user.control.updateUser(userId, label, true);
                     },
                     
@@ -292,6 +346,7 @@
                                vApp.user.control._assign(userId);
                                vApp.user.control.changeAttrToAssign('block');
                            }
+                           
                         }else if (control == 'Chat'){
                             var action;
                             if(tag.getAttribute('data-chat-disable') == 'true'){
@@ -317,6 +372,7 @@
                     },
                     
                     _assign : function (userId, notsent, fromUserId){
+                        
                         vApp.wb.utility.assignRole();
                         vApp.vutil.removeAppPanel();
                         if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {

@@ -366,7 +366,10 @@
             
             elemHasAnyClass : function (elemId){
                 var elem = document.getElementById(elemId);
-                return (typeof elem.classList != 'undefined') ? true : false;
+                if(elem != null){
+                    return (typeof elem.classList != 'undefined') ? true : false;
+                }
+                return false;
             },
             
             userIsOrginalTeacher : function (userId){

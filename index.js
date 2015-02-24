@@ -170,7 +170,7 @@ $.uiBackCompat = false;
                     vApp.user.control.audioWidgetEnable();
                     vApp.gObj.audioEnable = true;
                 }else{
-                    vApp.user.control.enable(e.message.toUser, 'audio', 'Aud', 'ad');
+                    vApp.user.control.enable(e.message.toUser, 'audio', 'Aud', 'aud');
                 }
                 
                 return;
@@ -179,7 +179,9 @@ $.uiBackCompat = false;
                     vApp.user.control.audioWidgetDisable();
                     vApp.gObj.audioEnable = false;
                 }else{
-                    vApp.user.control.disable(e.message.toUser, 'audio','Aud', 'ad');
+//                    alert('hi brother');
+//                    debugger;
+                    vApp.user.control.disable(e.message.toUser, 'audio','Aud', 'aud');
                 }
                 return;
             }

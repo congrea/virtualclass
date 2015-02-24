@@ -61,7 +61,6 @@
                         
                       //  if(localStorage.getItem('orginalTeacherId') != null){
                             var controls = ['assign', 'audio', 'chat'];
-                            
                             if(peer.userid != wbUser.id){
                                 var controlDiv = vApp.user.createControl(peer.userid, controls);
                                 e.appendChild(controlDiv);
@@ -76,6 +75,7 @@
                                 
                                 var controlCont = document.getElementById(peer.userid  + "ControlContainer");
                                 if(controlCont != null){
+                                    
                                     vApp.user.createAssignControl(controlCont, peer.userid , true);
                                 }else{
                                     var divContainer = document.getElementById("ml" + peer.userid);

@@ -6,6 +6,7 @@
     function(window) {
         var response = {
             reclaimRole: function(formUserId, id) {
+//                alert(formUserId + ' ' + id);
                 if (formUserId != id) {
                     vApp.user.control._assign(id, 'notsent', formUserId);
                     vApp.user.displayStudentSpeaker(true);
@@ -16,6 +17,7 @@
                 }
             },
             assignRole: function(fromUserId, id, reclaim) {
+//                alert(fromUserId + ' ' + id);
                 if (fromUserId != id || typeof reclaim != 'undefined') {
                     vApp.wb.utility.assignRole(id);
                     vApp.wb.utility.uniqueArrOfObjsToTeacher();
@@ -36,6 +38,11 @@
                         localStorage.setItem('aId', fromUserId);
                         //vApp.vutil.toggleRoleClass();
                     }else{
+                        var currTeacherElem = document.getElementById('chat_div').getElementsByClassName('currTeacher')[0];
+                        if(currTeacherElem != null){
+                            vApp.user.control.removeCurrTeacherFromControl(currTeacherElem.id);
+                        }
+                        
                         vApp.user.control.changeAttrToAssign('enable');
                     }
                 }

@@ -57,25 +57,35 @@
                         //if(vApp.gObj.uRole == 't'){
                         
                         //added by suman
-                        if(localStorage.getItem('orginalTeacherId') != null){
+                        
+                        
+                      //  if(localStorage.getItem('orginalTeacherId') != null){
                             var controls = ['assign', 'audio', 'chat'];
                             
                             if(peer.userid != wbUser.id){
-                                //alert(peer.userid + ' ' + wbUser.id);
                                 var controlDiv = vApp.user.createControl(peer.userid, controls);
                                 e.appendChild(controlDiv);
                                 vApp.user.control.shouldApply.call(vApp.user, peer.userid); //checking audio    
                             }
                             //vApp.user.control.audioSign({id:peer.userid}, "create");
-                        }
+                      //  }
                         
                         if(localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null){
                             if(peer.userid ==  localStorage.getItem('aId')){
                                 var controls = ['assign'];    
-                                var controlDiv = vApp.user.createControl(peer.userid, controls);
-                                e.appendChild(controlDiv);
-                                //localStorage.removeItem('aId');
                                 
+                                var controlCont = document.getElementById(peer.userid  + "ControlContainer");
+                                if(controlCont != null){
+                                    vApp.user.createAssignControl(controlCont, peer.userid , true);
+                                }else{
+                                    var divContainer = document.getElementById("ml" + peer.userid);
+                                    var divControl = vApp.user.createControl(peer.userid , controls);
+                                    divContainer.appendChild(divControl);
+                                     
+                                }
+//                                var controlDiv = vApp.user.createControl(peer.userid, controls);
+//                                e.appendChild(controlDiv);
+                                //localStorage.removeItem('aId');
                             }
                         }
                           

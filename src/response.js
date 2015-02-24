@@ -7,7 +7,7 @@
         var response = {
             reclaimRole: function(formUserId, id) {
                 if (formUserId != id) {
-                    vApp.user.control._assign(id, 'notsent');
+                    vApp.user.control._assign(id, 'notsent', formUserId);
                     vApp.user.displayStudentSpeaker(true);
                     if(localStorage.getItem('aId') != null){
                         localStorage.removeItem('aId');
@@ -24,8 +24,15 @@
                         vApp.vutil.removeSessionTool();   //
                         var divContainer = document.getElementById("ml" + fromUserId);
                         var controls = ['assign'];
-                        var divControl = vApp.user.createControl(fromUserId, controls);
-                        divContainer.appendChild(divControl);
+                            
+                        var controlCont = document.getElementById(fromUserId + "ControlContainer");
+                        if(controlCont != null){
+                            vApp.user.createAssignControl(controlCont, fromUserId, true);
+                        }else{
+                            var divControl = vApp.user.createControl(fromUserId, controls);
+                            divContainer.appendChild(divControl);
+                        }
+                            
                         localStorage.setItem('aId', fromUserId);
                         //vApp.vutil.toggleRoleClass();
                     }else{

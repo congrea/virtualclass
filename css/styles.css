@@ -355,9 +355,9 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-top : 0;
 }
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-	border : #eee solid 3px;
+	border : #eee solid 2px;
 	box-shadow : 0 0 1px #333;
-	border-radius : 5px;
+	border-radius : 2px;
 	outline : none;
 	margin-bottom : 5px;
 }
@@ -1075,11 +1075,11 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 }
 .ui-dialog-header span:first-child {
 	font-size : 14px;
-	padding-left : 5px;
+	padding-left : 2px;
 }
 
 div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-	border : #eee solid 3px;
+	border : #eee solid 2px;
 	outline : none;
 	margin-bottom : 5px;
 }
@@ -1579,6 +1579,9 @@ i.silenceDetect[data-silence-detect="sending"] {
 }
 #vAppOptionsCont .appOptions a span:before {
 	color:#535151;
+	font-weight: 100;
+	font-variant: normal;
+	-webkit-font-smoothing: antialiased;
 }
 #commandToolsWrapper .tool.active a, #commandToolsWrapper .tool.active a:hover {
 	background: #919191; /* Old browsers */
@@ -1598,9 +1601,13 @@ i.silenceDetect[data-silence-detect="sending"] {
 	text-shadow: 0 1px 11px #eee;
 	color:#fff !important;
 }
-.icon-chatImg.block:before, .icon-assignImg.block:before {
-	color:#A9A8A8;
+
+.icon-chatImg:before, .icon-audioEnaGreen:before, .icon-assignImg:before, .icon-audioImg:before, .icon-audioDisImg:before{
+	font-weight: 100;
+	font-variant: normal;
+	-webkit-font-smoothing: antialiased;
 }
+
 
 /* Icon Css */
 
@@ -1681,19 +1688,36 @@ i.silenceDetect[data-silence-detect="sending"] {
 	color:#535151;
 }
 .icon-chatImg:before {
-	content: "\f0e5";
-	font-size: 15px;
-	color:#333;
+	content: "\f075";
+	font-size: 14px;
+	color:#535151;
+
 }
+.icon-chatImg.enable:before{
+	color:#94b532;
+}
+
 .icon-audioImg:before {
 	content: "\ea27";
 	font-size: 15px;
 	color:#535151;
 }
+.icon-audioEnaGreen:before{
+	content: "\ea27";
+	font-size: 15px;
+	color:#94b532;
+}
+
+.icon-audioEnaOrange:before{
+	content: "\ea27";
+	font-size: 15px;
+	color:#e55e0d;
+}
+
 .icon-audioDisImg:before {
 	content: "\ea2a";
 	font-size: 15px;
-	color:#A9A8A8;
+	color:#535151;
 }
 .icon-arrow-up:after {
 	content: "\e606";

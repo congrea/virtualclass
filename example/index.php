@@ -40,7 +40,7 @@ if(isset($_GET['id'])){
 
 if(isset($_GET['r'])){
     $r = $_GET['r'];
-    $cont_class = $r == 't' ? "teacher" : 'student';
+    $cont_class = $r == 't' ? "teacher orginalTeacher" : 'student';
 }else{
     $r = 's';
     $cont_class = 'student';

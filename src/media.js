@@ -320,6 +320,7 @@
                     // TODO
                     // there should not pass whole elem but id
                     studentSpeak : function (elem){
+                        
                         if(typeof elem != 'undefined'){
                             var button = document.getElementById(elem.id+"Button");
                         //    button.src  = window.whiteboardPath + "images/speakerpressingactive.png";
@@ -335,8 +336,12 @@
 //                            }
                             
                             elem.classList.remove('deactive');
+                            
                             elem.classList.add('active');
                         }
+                        
+//                        alert('speak');
+//                        debugger;
                         vApp.gObj.audMouseDown = true;
                         vApp.wb.utility.beforeSend({'sad': true});
                     },
@@ -468,9 +473,30 @@
                         gainNode.gain.value = 0.9;
                         newSource.connect(gainNode);
                         gainNode.connect(this.Html5Audio.audioContext.destination);
+                        
                         if(userObj.ad && userObj.aud){
                             vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
                         }
+                            
+//                        if(userObj.hasOwnProperty('ad')){
+//                            if(userObj.ad && userObj.aud){
+//                                vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+//                            }
+//                        }else{
+//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+//                        }
+                        
+//                        if(userObj.hasOwnProperty('ad')){
+//                            if(userObj.ad && userObj.aud){
+//                                vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+//                            }
+//                        }else{
+//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+//                        }
+//                        if(userObj.ad && userObj.aud){
+//                        if(userObj.aud){
+//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+//                        }
                         
                         
 //                         if(this.audioToBePlay[uid].length <= 0){
@@ -491,6 +517,7 @@
                                     vApp.gObj.video.audio.getChunks(uid);
                                 }else {
                                     if(userObj.ad && userObj.aud){
+                                        
                                         vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange"); 
                                     }
                                 }
@@ -653,6 +680,20 @@
                     receivedAudioProcess : function (msg){
                         var dataArr = this.extractData(msg); 
                         var uid = dataArr[0];
+                        
+                        if(typeof adSign == 'undefined'){
+                            var adSign = {};                            
+                        }
+
+                        if(!adSign.hasOwnProperty(uid)){
+                            adSign[uid] = {};
+                            adSign[uid].ad = true;
+                            var user =  vApp.user.control.updateUser(uid, 'ad', true);
+                            vApp.user.control.audioSign(user, "create");
+                        }
+                        
+                         
+                        
                         vApp.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
                         if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
                             vApp.gObj[uid] = {};

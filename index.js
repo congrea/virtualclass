@@ -121,6 +121,7 @@ $.uiBackCompat = false;
             
             if (data_pack[0] == 101) { // Audio
                 if(!vApp.gObj.video.audio.otherSound){
+                    
                     vApp.gObj.video.audio.receivedAudioProcess(e.message);
                 }
                 return;
@@ -138,7 +139,7 @@ $.uiBackCompat = false;
         
         $(document).on("newmessage", function(e){
             if(e.message.hasOwnProperty('sad')){
-                if(localStorage.getItem('orginalTeacherId') != null){
+//                if(localStorage.getItem('orginalTeacherId') != null){
                     if(e.message.sad){
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);
                         vApp.user.control.audioSign(user, "create");
@@ -146,7 +147,7 @@ $.uiBackCompat = false;
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', false);
                         vApp.user.control.audioSign(user, 'remove');
                     }
-                }
+//                }
                return true;
             } else if(e.message.hasOwnProperty('enc')){
                 if(e.message.toUser == vApp.gObj.uid){

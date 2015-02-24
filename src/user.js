@@ -215,26 +215,67 @@
                     }
                 },
                 control : {
+                    disable : function (toUser, control, contIdPart, label){
+                        var elem = document.getElementById(toUser+'contr'+contIdPart+'Img');
+                        vApp.user.control._disable(elem, control, toUser, label);
+                    }, 
+                    
+                    _disable : function (elem, control, userId, label){
+                        if(control == 'assign'){
+                            elem.parentNode.classList.remove('tooltip');
+                        }
+
+                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
+                        elem.setAttribute('data-' + control + '-disable', 'true');
+
+                        if(control == 'audio'){
+                            elem.className =  "icon-"+control + "DisImg block" + ' '+ control + 'DisImg' ;
+                        }else{ 
+                            elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
+                        }
+                        
+                        vApp.user.control.updateUser(userId, label, false);
+                    },
+                    
+                    enable : function (toUser, control, contIdPart,  label){
+                        var elem = document.getElementById(toUser+'contr'+contIdPart+'Img');
+                        vApp.user.control._enable(elem, control, toUser, label);
+                    },
+                    _enable : function (elem, control, userId, label){
+                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+                        elem.setAttribute('data-' + control + '-disable', "false");
+                        elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
+                        vApp.user.control.updateUser(userId, label, true);
+                    },
+                    
                     changeAttribute : function (userId, elem, elemEnable, control, label){
+//                        alert(control + ' ' + label)
                         if(elemEnable){
-                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+                            vApp.user.control._enable(elem, control, userId, label);
                             
-                            elem.setAttribute('data-' + control + '-disable', "false");
-                            elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
-                            vApp.user.control.updateUser(userId, label, true);
+//                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+//                            elem.setAttribute('data-' + control + '-disable', "false");
+//                            elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
+//                            vApp.user.control.updateUser(userId, label, true);
+                            
                         }else{
-                            if(control == 'assign'){
-                                elem.parentNode.classList.remove('tooltip');
-                            }
-                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
-                            elem.setAttribute('data-' + control + '-disable', 'true');
+//                            alert(elem.id + ' ' + label);
+                            vApp.user.control._disable(elem, control, userId, label);
                             
-                            if(control == 'audio'){
-                                elem.className =  "icon-"+control + "DisImg block" + ' '+ control + 'DisImg' ;
-                            }else{ 
-                                elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
-                            }
-                            vApp.user.control.updateUser(userId, label, false);
+                            
+//                            if(control == 'assign'){
+//                                elem.parentNode.classList.remove('tooltip');
+//                            }
+//                            
+//                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
+//                            elem.setAttribute('data-' + control + '-disable', 'true');
+//                            
+//                            if(control == 'audio'){
+//                                elem.className =  "icon-"+control + "DisImg block" + ' '+ control + 'DisImg' ;
+//                            }else{ 
+//                                elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
+//                            }
+//                            vApp.user.control.updateUser(userId, label, false);
                         }
                     },
                     init : function (tag){

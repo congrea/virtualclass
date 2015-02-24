@@ -152,24 +152,34 @@ $.uiBackCompat = false;
                 if(e.message.toUser == vApp.gObj.uid){
                     vApp.user.control.allChatEnable();
                     vApp.gObj.chatEnable = true;
+                }else{
+                    vApp.user.control.enable(e.message.toUser, 'chat', 'Chat', 'ch');
                 }
                 return;
             }else if(e.message.hasOwnProperty('dic')){
                 if(e.message.toUser == vApp.gObj.uid){
                     vApp.user.control.allChatDisable();
                     vApp.gObj.chatEnable = false;
+                }else{
+                    vApp.user.control.disable(e.message.toUser, 'chat', 'Chat', 'ch');
                 }
+                
                 return;
             }else if (e.message.hasOwnProperty('ena')){
                 if(e.message.toUser == vApp.gObj.uid){
                     vApp.user.control.audioWidgetEnable();
                     vApp.gObj.audioEnable = true;
+                }else{
+                    vApp.user.control.enable(e.message.toUser, 'audio', 'Aud', 'ad');
                 }
+                
                 return;
             }else if (e.message.hasOwnProperty('dia')){
                 if(e.message.toUser == vApp.gObj.uid){
                     vApp.user.control.audioWidgetDisable();
                     vApp.gObj.audioEnable = false;
+                }else{
+                    vApp.user.control.disable(e.message.toUser, 'audio','Aud', 'ad');
                 }
                 return;
             }

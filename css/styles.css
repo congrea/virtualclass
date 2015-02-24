@@ -1214,7 +1214,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	color : green !important;
 }
 .ui-memblist-usr a span {
-	margin-left : 10px;
+	margin-left : 8px !important;
 }
 /* added by suman */
 
@@ -1602,7 +1602,7 @@ i.silenceDetect[data-silence-detect="sending"] {
 	color:#fff !important;
 }
 
-.icon-chatImg:before, .icon-audioEnaGreen:before, .icon-assignImg:before, .icon-audioImg:before, .icon-audioDisImg:before{
+.icon-chatImg:before, .icon-audioEnaGreen:before, .icon-audioImg:before, .icon-audioDisImg:before{
 	font-weight: 100;
 	font-variant: normal;
 	-webkit-font-smoothing: antialiased;
@@ -1686,38 +1686,66 @@ i.silenceDetect[data-silence-detect="sending"] {
 	content: "\f064";
 	font-size: 17px;
 	color:#535151;
+	position: relative;
 }
+
+.icon-assignImg.block:before{
+	color:#94b532;
+}
+
 .icon-chatImg:before {
 	content: "\f075";
 	font-size: 14px;
 	color:#535151;
+	top:-2px;
+	position: relative;
+	left:-4px;
 
 }
 .icon-chatImg.enable:before{
 	color:#94b532;
 }
-
-.icon-audioImg:before {
-	content: "\ea27";
-	font-size: 15px;
-	color:#535151;
+.student .icon-audioImg.enable:before {
+	position: relative;
+	padding-right: 8px;
+	left: 4px;
 }
+
+.teacher.orginalTeacher .icon-audioImg.enable:before {
+	content: "\f026";
+	font-size: 17px;
+	color:#535151;
+	top: -2px;
+	position: relative;
+	padding-right: 8px;
+	left: 0px;
+}
+
+
 .icon-audioEnaGreen:before{
 	content: "\ea27";
 	font-size: 15px;
 	color:#94b532;
+	top: -2px;
+	position: relative;
 }
 
 .icon-audioEnaOrange:before{
 	content: "\ea27";
 	font-size: 15px;
 	color:#e55e0d;
+	font-variant: normal;
+	font-style: normal;
+	top: -2px;
+	position: relative;
 }
 
 .icon-audioDisImg:before {
 	content: "\ea2a";
 	font-size: 15px;
 	color:#535151;
+	top: -2px;
+	position: relative;
 }
 .icon-arrow-up:after {
 	content: "\e606";
@@ -1759,9 +1787,11 @@ i.silenceDetect[data-silence-detect="sending"] {
 #speakerPressing.active {
 	cursor : auto;
 }
-#chat_div .controls span.enable {
+
+.orginalTeacher #chat_div .controls span.enable {
 	cursor : pointer;
 }
+
 #chatroom_bt2 .inner_bt #chatroom_text .icon-arrow-down:after, #chatroom_bt2 .inner_bt #chatroom_text .icon-arrow-up:after {
 	right: -10px;
 	top:5px !important;
@@ -1781,7 +1811,11 @@ i.silenceDetect[data-silence-detect="sending"] {
 	position: relative;
 	top: -4px;
 }
-.ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
+.student .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
+	display: none;
+}
+
+.orginalTeacher .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
 	bottom: -2.7em !important;
 	left: 10px;
 }
@@ -1801,3 +1835,14 @@ i.silenceDetect[data-silence-detect="sending"] {
 .ui-icon.ui-icon-minusthick {
 	top: 1px !important;
 }
+
+
+/* Icon Css */
+
+
+/*
+#commandToolsWrapper, #vAppOptionsCont:first-child, #vAppOptionsCont, .ui-widget-header, #audioWidget, .ui-widget-header{
+	
+	background: red !important;
+}
+*/

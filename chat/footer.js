@@ -99,6 +99,10 @@
                                 }
                             }
                         }
+                        var iconarrowButton = document.getElementById('cc_arrow_button');
+                        iconarrowButton.classList.add('icon-arrow-down');
+                        iconarrowButton.classList.remove('icon-arrow-up');
+                                
                     }  // if end
                 }//else end
                 

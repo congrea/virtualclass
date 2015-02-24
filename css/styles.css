@@ -1125,7 +1125,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	border-radius : 3px;
 	border : #ddd solid 1px;
 	margin-bottom : 4px;
-	margin-left : 6px;
+	margin-left : 1px;
 }
 #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip img, .controls a.audEnableSign img {
 	background-color: transparent;
@@ -1468,6 +1468,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	border: #e2e2e2 3px solid;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
 	border-top: none;
 }
 /* Tooltip */
@@ -1687,9 +1688,10 @@ i.silenceDetect[data-silence-detect="sending"] {
 	font-size: 17px;
 	color:#535151;
 	position: relative;
+	top: -1px;
 }
 
-.icon-assignImg.block:before{
+.icon-assignImg.block.currTeacher:before{
 	color:#94b532;
 }
 
@@ -1697,18 +1699,22 @@ i.silenceDetect[data-silence-detect="sending"] {
 	content: "\f075";
 	font-size: 14px;
 	color:#535151;
-	top:-2px;
+	top:-1px;
 	position: relative;
-	left:-4px;
+	left:-5px;
 
 }
 .icon-chatImg.enable:before{
 	color:#94b532;
 }
 .student .icon-audioImg.enable:before {
+	content: "\f026";
+	font-size: 17px;
+	color:#535151;
 	position: relative;
 	padding-right: 8px;
 	left: 4px;
+	top: -2px;
 }
 
 .teacher.orginalTeacher .icon-audioImg.enable:before {
@@ -1728,16 +1734,19 @@ i.silenceDetect[data-silence-detect="sending"] {
 	color:#94b532;
 	top: -2px;
 	position: relative;
+	font-variant: normal;
+	font-style: normal;
 }
 
 .icon-audioEnaOrange:before{
 	content: "\ea27";
 	font-size: 15px;
 	color:#e55e0d;
-	font-variant: normal;
-	font-style: normal;
 	top: -2px;
 	position: relative;
+	font-variant: normal;
+	font-style: normal;
+	font-weight: normal;
 }
 
 .icon-audioDisImg:before {
@@ -1836,13 +1845,3 @@ i.silenceDetect[data-silence-detect="sending"] {
 	top: 1px !important;
 }
 
-
-/* Icon Css */
-
-
-/*
-#commandToolsWrapper, #vAppOptionsCont:first-child, #vAppOptionsCont, .ui-widget-header, #audioWidget, .ui-widget-header{
-	
-	background: red !important;
-}
-*/

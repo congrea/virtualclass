@@ -7,7 +7,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
- [id= "vAppCont"] [class^="icon-"], [class*=" icon-"] {
+ [class^="icon-"], [class*=" icon-"] {
  font-family: 'icomoon';
  speak: none;
  font-style: normal;
@@ -15,12 +15,11 @@
  font-variant: normal;
  text-transform: none;
  line-height: 1;
+
 /*	 Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-image : none;
-    width : auto;
-    height : auto;
+
+	-webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
 }
 * {
 	margin : 0;
@@ -323,7 +322,7 @@ body {
 	border-bottom: 1px solid #d5d5d5;
 	padding-left : 5px;
 }
-#vAppCont #chat_div .ui-memblist-usr.student {
+#vAppCont #chat_div .ui-memblist-usr.student, #vAppCont #chat_div .ui-memblist-usr {
 	padding-left : 5px;
 }
 #vAppCont div.ui-memblist-usr video {
@@ -1053,7 +1052,7 @@ opacity : 0.800000011920928955078125 !important;
 	margin-bottom : 5px;
 }
 #vAppCont #chat_div .ui-memblist-usr span {
-	text-transform : uppercase;
+	text-transform : capitalize;
 	font-weight : bold;
 }
 #vAppCont #chat_div.ui-memblist-log {
@@ -1156,9 +1155,12 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont .controls .controleCont img.audioImg.block {
 	margin-bottom : 0;
 }
-#vAppCont #chat_div .ui-memblist-usr.teacher a span:first-letter {
-	color : green !important;
+
+#vAppCont.student .ui-widget-content .controls{
+	position: relative;
+	left:2px;
 }
+
 #vAppCont .ui-memblist-usr a span {
 	margin-left : 8px !important;
 }
@@ -1624,7 +1626,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	color:#535151;
 	top:-1px;
 	position: relative;
-	left:0px;
+	left:-2px;
 }
 #vAppCont .icon-chatImg.enable:before {
 	color:#94b532;
@@ -1649,18 +1651,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaGreen:before {
 	content: "\ea27";
-	font-size: 15px;
+	font-size: 14px;
 	color:#94b532;
 	top: 0px;
 	position: relative;
 	font-variant: normal;
 	font-style: normal;
+	font-weight: normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaOrange:before {
 	content: "\ea27";
 	font-size: 14px;
 	color:#e55e0d;
-	top: -1px;
+	top: 0px;
 	position: relative;
 	font-variant: normal;
 	font-style: normal;
@@ -1670,7 +1673,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	content: "\ea2a";
 	font-size: 14px;
 	color:#535151;
-	top: -1px;
+	top: 0px;
 	position: relative;
 	left: 2px;
 }
@@ -1761,3 +1764,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	top: 1px !important;
 }
 
+#vAppCont.student .ui-memblist-usr .icon-chatImg:before{left: -4px;}
+#vAppCont .ui-corner-top.ui-memblist .ui-dialog-header .ui-corner-all{margin-right: 5px;}

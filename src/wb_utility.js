@@ -390,6 +390,7 @@
                 },
 
                 reclaimRole : function (){
+                    vApp.gObj.controlAssign = false;
                     vApp.wb.response.assignRole(vApp.gObj.uid , vApp.gObj.uid, true);
                 },
                 dispQueuePacket: function(result) {

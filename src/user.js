@@ -79,7 +79,8 @@
                         controlCont.appendChild(imgCont);
                     }
 
-
+//                    alert(userId);
+//                    debugger;
                     //assignImg.className = 'contrAssign';
                     vApp.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
                     
@@ -100,8 +101,13 @@
                         uObj = true;
                         userObj = JSON.parse(userObj);
                         if(userObj.hasOwnProperty('currTeacher')){
-                           if(userObj.currTeacher){
+                             vApp.gObj[userId+'currTeacher'] = {};
+                           if(userObj.currTeacher ==  true){
+                                vApp.user.control.currTeacherAlready = true;
                                 var currTeacher = true; 
+                                 vApp.gObj[userId+'currTeacher'].ct = true;
+                           }else {
+                               vApp.gObj[userId+'currTeacher'].ct = false;
                            }
                         }
                     }
@@ -246,7 +252,6 @@
                     },
                     
                     removeCurrTeacherFromControl  : function (id){
-                        
                         var elem = document.getElementById(id);
                         if(vApp.vutil.elemHasAnyClass(id)){
                             elem.classList.remove('currTeacher');
@@ -268,6 +273,9 @@
 //                            //alert(userId + ' ' +elem.id);
 //                        }
 
+//                        alert('suman bogati');
+//                        debugger;
+                        
                         elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
                         elem.setAttribute('data-' + control + '-disable', 'true');
 
@@ -280,7 +288,35 @@
                         if(control == 'assign'){
                            elem.parentNode.classList.remove('tooltip');
                            this.addCurrTeacherToControl(elem.id);
-                           vApp.user.control.updateUser(userId, 'currTeacher', true);
+                            var userObj = localStorage.getItem('vApp' + userId);
+                            userObj = JSON.parse(userObj);
+                            
+                            
+//                            if(!vApp.user.control.hasOwnProperty('currTeacherAlready') ){
+//                                vApp.user.control.updateUser(userId, 'currTeacher', true);
+//                            }
+                            if(vApp.gObj.hasOwnProperty(userId+'currTeacher')){
+                                if(vApp.gObj[userId+'currTeacher'].ct || (vApp.gObj.hasOwnProperty('controlAssign') && vApp.gObj.controlAssign && userObj.currTeacher)){
+                                    vApp.user.control.updateUser(userId, 'currTeacher', true);
+                                }
+                            }else{
+                                
+                                if(vApp.gObj.hasOwnProperty('controlAssign') && vApp.gObj.controlAssignId == userId){
+                                    vApp.user.control.updateUser(userId, 'currTeacher', true);
+                                }
+                                
+                            }
+
+                            
+                            
+//                            if(!userObj.hasOwnProperty('currTeacher')){
+//                                vApp.user.control.updateUser(userId, 'currTeacher', true);
+//                            }else {
+//                                if(userObj.currTeacher){
+//                                    vApp.user.control.updateUser(userId, 'currTeacher', true);
+//                                }
+//                            }
+                           
                             //alert(userId + ' ' +elem.id);
                         }
                         
@@ -340,6 +376,8 @@
                         var imgPos = restString.indexOf("Img");
                         var control = restString.substring(0, imgPos);
                         if(control == 'Assign'){
+                           vApp.gObj.controlAssign = true;
+                           vApp.gObj.controlAssignId = userId;
                            var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
                            if(!assignDisable){
                                this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
@@ -564,7 +602,7 @@
 //                            alert('hello brother');
 //                            debugger;
 //                            123contrAudImg
-                            this.changeAttrToAssign();
+                           // this.changeAttrToAssign();
                             this.iconAttrManupulate(user.id, "icon-audioEnaGreen");
                             
                             

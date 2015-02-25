@@ -252,12 +252,20 @@
                     },
                     
                     removeCurrTeacherFromControl  : function (id){
+                        
                         var elem = document.getElementById(id);
                         if(vApp.vutil.elemHasAnyClass(id)){
                             elem.classList.remove('currTeacher');
                                 var uidPos = id.indexOf("contr");
                                 var userId = id.substring(0, uidPos);
                                 vApp.user.control.updateUser(userId, 'currTeacher', false);
+                        }
+                    },
+                    
+                    removeAudioFromParticipate : function (id){
+                        var tobeDeleted = document.getElementById(id+'contrAssignCont');
+                        if(tobeDeleted != null){
+                            tobeDeleted.parentNode.removeChild(tobeDeleted);
                         }
                     },
                     

@@ -8,11 +8,14 @@
             reclaimRole: function(formUserId, id) {
 //                alert(formUserId + ' ' + id);
                 if (formUserId != id) {
+                    
                     vApp.user.control._assign(id, 'notsent', formUserId);
+                    
                     vApp.user.displayStudentSpeaker(true);
                     if(localStorage.getItem('aId') != null){
                         localStorage.removeItem('aId');
                     }
+                    vApp.user.control.removeAudioFromParticipate(formUserId)
                     //vApp.vutil.toggleRoleClass(true);
                 }
             },

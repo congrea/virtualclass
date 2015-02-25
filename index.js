@@ -146,6 +146,8 @@ $.uiBackCompat = false;
                     }else{
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', false);
                         vApp.user.control.audioSign(user, 'remove');
+                        var anchorTag = document.getElementById(user.id+'contrAudAnch');
+                        anchorTag.setAttribute('data-title', vApp.lang.getString('audioDisable'));
                     }
 //                }
                return true;

@@ -276,10 +276,11 @@
 //                        alert('suman bogati');
 //                        debugger;
                         
-                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
+                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                         elem.setAttribute('data-' + control + '-disable', 'true');
 
                         if(control == 'audio'){
+//                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
                             elem.className =  "icon-"+control + "DisImg block" + ' '+ control + 'DisImg' ;
                         }else{ 
                             elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
@@ -329,7 +330,10 @@
                         vApp.user.control._enable(elem, control, toUser, label);
                     },
                     _enable : function (elem, control, userId, label){
-                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
+                        if(control == 'audio'){
+                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable")); 
+                        }
                         elem.setAttribute('data-' + control + '-disable', "false");
                         elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
                         
@@ -661,10 +665,11 @@
                                 allUserElem[i].classList.remove('block');
                                 allUserElem[i].classList.add('enable');
                                 allUserElem[i].parentNode.classList.add('tooltip');
-                                allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignDisable'));
+                                allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignEnable')); 
                                 allUserElem[i].setAttribute('data-assign-disable', 'false');
                             }else{
                                 allUserElem[i].classList.remove('enable');
+//                                allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignDisable')); 
                                 allUserElem[i].classList.add('block');
                                 allUserElem[i].parentNode.classList.remove('tooltip')
                                 allUserElem[i].setAttribute('data-assign-disable', 'true');

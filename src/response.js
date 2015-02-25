@@ -42,7 +42,6 @@
                         if(currTeacherElem != null){
                             vApp.user.control.removeCurrTeacherFromControl(currTeacherElem.id);
                         }
-                        
                         vApp.user.control.changeAttrToAssign('enable');
                     }
                 }

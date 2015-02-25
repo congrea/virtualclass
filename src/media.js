@@ -476,6 +476,8 @@
                         
                         if(userObj.ad && userObj.aud){
                             vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+                            var anchorTag = document.getElementById(userObj.id + 'contrAudAnch');
+                            anchorTag.setAttribute('data-title', vApp.lang.getString('audioOn'));
                         }
                             
 //                        if(userObj.hasOwnProperty('ad')){

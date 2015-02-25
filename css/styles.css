@@ -7,7 +7,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
- [class^="icon-"], [class*=" icon-"] {
+ [id= "vAppCont"] [class^="icon-"], [class*=" icon-"] {
  font-family: 'icomoon';
  speak: none;
  font-style: normal;
@@ -15,11 +15,12 @@
  font-variant: normal;
  text-transform: none;
  line-height: 1;
-
 /*	 Better Font Rendering =========== */
-
-	-webkit-font-smoothing: antialiased;
- -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image : none;
+    width : auto;
+    height : auto;
 }
 * {
 	margin : 0;

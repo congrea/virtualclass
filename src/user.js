@@ -54,7 +54,7 @@
                     assignImg.id = userId + imgName + "Img";
                     
                    //  assignImg.src = window.whiteboardPath + "images/" + imgName + ".png";
-                    assignImg.innerHTML = "&nbsp;";
+//                    assignImg.innerHTML = "&nbsp;";
 
                     var assignAnch = document.createElement('a');
                     assignAnch.id = userId + imgName + "Anch";
@@ -182,7 +182,7 @@
                             imgName = "contrAud";
                             audBlock.id = userId + imgName + "Img";
 //                            audBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
-                            audBlock.innerHTML = "&nbsp;";
+//                            audBlock.innerHTML = "&nbsp;";
                             var audAnch = document.createElement('a');
                             audAnch.id = userId + imgName + "Anch";
                             audAnch.className = "tooltip";
@@ -194,7 +194,6 @@
                             controlCont.appendChild(imgCont);
                             
                             if(uObj && userObj.hasOwnProperty('aud')){
-                                
                                 var audEnable = (userObj.aud) ? true : false;
                             } else {
                                 var audEnable = true;
@@ -210,7 +209,7 @@
                             var chatBlock = document.createElement('span');
                             imgName = "contrChat";
                             chatBlock.id = userId + imgName + "Img";
-                            chatBlock.innerHTML = "&nbsp;";
+//                            chatBlock.innerHTML = "&nbsp;";
 //                            chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
 //                            chatBlock.innerHTML = "S";
                             var chatAnch = document.createElement('a');

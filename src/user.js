@@ -396,6 +396,9 @@
                                vApp.user.control.changeAttrToAssign('block');
                            }
                            
+                           if(localStorage.getItem('orginalTeacherId') == null){
+                                vApp.user.control.removeAudioFromParticipate(userId);
+                           }
                         }else if (control == 'Chat'){
                             var action;
                             if(tag.getAttribute('data-chat-disable') == 'true'){

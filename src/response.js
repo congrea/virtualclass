@@ -15,7 +15,7 @@
                     if(localStorage.getItem('aId') != null){
                         localStorage.removeItem('aId');
                     }
-                    vApp.user.control.removeAudioFromParticipate(formUserId)
+                    vApp.user.control.removeAudioFromParticipate(formUserId);
                     //vApp.vutil.toggleRoleClass(true);
                 }
             },

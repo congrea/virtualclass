@@ -14,7 +14,6 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/jquery-ui.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />

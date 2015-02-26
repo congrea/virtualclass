@@ -1,4 +1,5 @@
 /* CSS Document */
+
 @font-face {
         font-family: 'icomoon';
         src:url('../fonts/icomoon.eot?-jjdyd0');
@@ -21,7 +22,6 @@
         width : auto;
         height : auto;
 }
-
 * {
 	margin : 0;
 	padding : 0;
@@ -1628,7 +1628,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	top:-1px;
 	position: relative;
 	left:-2px;
-
 }
 #vAppCont .icon-chatImg.enable:before {
 	color:#94b532;

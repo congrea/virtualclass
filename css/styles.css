@@ -1441,8 +1441,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	bottom: -45px;
 	left: -8px;
 }
-#vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
-	bottom: -28px;
+
+#vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #vAppCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
+    bottom: -28px;
     left: 5px;
 }
 

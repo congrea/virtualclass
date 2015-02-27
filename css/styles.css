@@ -1,4 +1,5 @@
 /* CSS Document */
+
 @font-face {
         font-family: 'icomoon';
         src:url('../fonts/icomoon.eot?-jjdyd0');
@@ -1441,7 +1442,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	left: -8px;
 }
 #vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
-	bottom: -35px;
+	bottom: -28px;
     left: 5px;
 }
 

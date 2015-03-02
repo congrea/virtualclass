@@ -72,7 +72,7 @@ body {
 	font-size : 12px;
 }
 #vAppCont #vAppOptionsCont {
-	width : 55px;
+	width : 53px;
 	float : left;
 }
 #vAppCont #vAppOptionsCont:first-child, #vAppOptionsCont {
@@ -494,7 +494,7 @@ body {
 	padding-bottom : 0;
 	border-bottom : 1px solid #aaa;
 	padding-left : 1%;
-	height : 51px;
+	height : 46px;
 	box-shadow : 1px 1px 5px #aaa;
 }
 #vAppCont #commandToolsWrapper #t_assign.controlCmd a {
@@ -1020,7 +1020,7 @@ opacity : 0.800000011920928955078125 !important;
 	border : #a4a4a4 solid 1px;
 	border-top-left-radius: 5px;
 	border-bottom: none;
-	width: 55px;
+	width: 51px;
 	padding-left: 7px;
 }
 #vAppCont #audioWidget.fixed {
@@ -1048,7 +1048,7 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont .ui-dialog-header span:first-child {
 	font-size : 14px;
 	padding-left : 3px;
-	vertical-align: middle;
+	vertical-align: top;
 }
 #vAppCont div.ui-memblist-usr video, #vAppCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
@@ -1109,7 +1109,7 @@ opacity : 0.800000011920928955078125 !important;
 	position : relative;
 }
 #vAppCont #speakerPressing {
-	width: 36px;
+	width: 32px;
 	padding-left: 13px;
 	padding-right: 13px;
 }
@@ -1186,7 +1186,7 @@ opacity : 0.800000011920928955078125 !important;
 	height : 99%;
 }
 #vAppCont .ui-memblist {
-	right: 6px;
+	right: 6px !important;
 }
 #vAppCont .controls a.audEnableSign img {
 	margin-left: -2px;
@@ -1229,11 +1229,13 @@ opacity : 0.800000011920928955078125 !important;
 }
 #vAppCont #alwaysPress .audioTool a {
 	text-align: center;
-	font-size: 13px;
+	font-size: 12px;
 	position: relative;
 	top: 15px;
 }
 #vAppCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+	padding-bottom: 0;
+	padding-top: 7px;
 	border:#a4a4a4 1px solid;
 	border-bottom-left-radius: 5px;
 }
@@ -1270,11 +1272,11 @@ opacity : 0.800000011920928955078125 !important;
 	padding: 10px 5px;
 }
 #vAppCont #vAppSessionEndTool {
-	padding: 13px 5px;
+	padding: 10px 5px;
 }
 #vAppCont #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
 	text-align: center;
-	padding: 12px 13px 7px;
+	padding: 0px 13px 0px;
 	border-radius: 0px;
 }
 #vAppCont #audioTest-box .audioTool {
@@ -1284,7 +1286,7 @@ opacity : 0.800000011920928955078125 !important;
 	padding: 15px 8px 9px;
 }
 #vAppCont #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive {
-	padding: 14px 13px 10px;
+	padding: 7px 13px 0px;
 }
 #vAppCont #vAppOptionsCont .appOptions.active {
 	border-top-right-radius: 5px;
@@ -1366,7 +1368,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: radial-gradient(ellipse at center, #ea1717 0%, #b50303 99%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', endColorstr='#b50303', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-#vAppCont #speakerPressOnce.active #speakerPressonceAnch label#speakerPressonceLabel {
+#vAppCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel {
 	background: rgb(141,173,51);
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
 	background: -moz-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
@@ -1397,8 +1399,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #alwaysPress #speakerPressing a#speakerPressingAnch img {
 	border:none !important;
 }
-#speakerPressingAnch #speakerPressingButton{position: relative;top: -12px;}
- #speakerPressingAnch #speakerPressingtext{position: relative;top: -7px;}
+
+#speakerPressingAnch #speakerPressingtext{position: relative;top: -7px;}
 
 #vAppCont #speakerPressOnce #speakerPressonceAnch span {
 	margin-top: 11px;
@@ -1436,8 +1438,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	bottom:-40px !important;
 }
 #vAppCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom: 7px;
+	bottom: 0px;
+}
+
+#vAppCont.student #chat_div .ui-memblist-usr a.tooltip:hover:after {
+	bottom: -6px;
 	z-index: 1;
+	left: 50px;
 }
 
 #vAppCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
@@ -1447,7 +1454,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 
 #vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #vAppCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
     bottom: -28px;
-    left: 5px;
+    left: -18px;
 }
 
 #vAppCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
@@ -1480,10 +1487,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	border-radius: 3px;
 	border:rgb(119, 149, 35) 1px solid;
 }
-/* #vAppCont #commandToolsWrapper #t_rectangle a, #vAppCont #commandToolsWrapper #t_line a, #vAppCont #commandToolsWrapper #t_freeDrawing a, #vAppCont #commandToolsWrapper #t_oval a, #vAppCont #commandToolsWrapper #t_triangle a, #vAppCont #commandToolsWrapper #t_replay a, #vAppCont #commandToolsWrapper #t_clearall a, #vAppCont #commandToolsWrapper #t_connectionoff a, #vAppCont #commandToolsWrapper #t_assign a, #vAppCont #commandToolsWrapper #t_text a, #vAppCont #commandToolsWrapper #t_oval a, #vAppCont #commandToolsWrapper #t_activeall a  */
+
 #vAppCont #containerWb #commandToolsWrapper .tool a{
 	text-decoration: none;
-	padding: 11px 18px 10px;
+	padding: 9px 18px 7px;
 	color:#535151;
 	border-right: #ccc 1px solid;
 	font-size: 25px;
@@ -1590,7 +1597,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #speakerPressing .icon-speakerPressing:before {
 	content: "\f130";
 	font-size: 38px;
-
+	position: relative;
+	top: -8px;
 }
 #vAppCont #audioTest .icon-audiotest:before {
 	content: "\e60d";
@@ -1599,7 +1607,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 #vAppCont #chatroom_icon .icon-chatroom:before {
 	content: "\f0e6";
-	font-size: 15px;
+	font-size: 16px;
 }
 #vAppCont .ui-memblist-usr .icon-assignImg:before {
 	content: "\f064";
@@ -1607,7 +1615,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	font-size: 15px;
 	vertical-align: text-top;
 	position: relative;
-	top: -2px;
+	top: -1px;
 }
 #vAppCont .ui-memblist-usr .icon-assignImg.block.currTeacher:before {
 	color:#94b532;
@@ -1615,11 +1623,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont .ui-memblist-usr .icon-chatImg:before {
 	content: "\f075";
 	color:#535151;
+	position: relative;
+	top:-1px;
 
 }
 #vAppCont .icon-chatImg.enable:before {
 	color: #94b532;
-	font-size: 12.4px;
+	font-size: 12.5px;
 	position: relative;
 	top:-1px;
 }
@@ -1627,26 +1637,37 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	content: "\f026";
 	color:#535151;
 	padding-right: 8px;
+/*	font-size: 13px;*/
+        font-size: 107%;
+	
 }
 #vAppCont.teacher.orginalTeacher .icon-audioImg.enable:before, #vAppCont.teacher .icon-audioImg.enable:before {
 	content: "\f026";
 	color:#535151;
 	vertical-align: baseline;
+        font-size: 107%;
+        
 	
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaGreen:before {
 	content: "\ea27";
 	color:#94b532;
-
+	font-variant: normal;
+	font-style: normal;
+        font-size: 107%;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaOrange:before {
 	content: "\ea27";
 	color:#e55e0d;
+	font-variant: normal;
+	font-style: normal;
+        font-size: 107%;
 
 }
 #vAppCont .ui-memblist-usr .icon-audioDisImg:before {
 	content: "\ea2a";
 	color:#535151;
+        font-size: 107%;
 }
 #vAppCont #usertab_text .icon-arrow-up:before, #vAppCont #chatroom_text .icon-arrow-up:before {
 	content: "\e606";
@@ -1668,6 +1689,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont .ui-widget-header .icon-user:before {
 	content: "\f007";
 	font-size: 18px;
+	position: relative;
+	top: -2px;
 
 }
 #vAppCont #t_reclaim .icon-reclaim:before {

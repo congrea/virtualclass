@@ -7,7 +7,7 @@
     border-bottom: none;
     z-index: -1;
     overflow: hidden;
-    left: -1;
+    left: -1px;
 }
 
 .ui-chatbox-titlebar {
@@ -31,7 +31,7 @@
 	border-top:none;
 	border-bottom: :none;
     padding: 10px 3px;
-    height: 165px;
+    height: 155px;
     overflow-y: auto;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .ui-chatbox-input-box {
-    margin: 3px 5px;
+    margin: 8px 5px;
    /* border: 2px solid lightgrey;*//* #6699FF */
     height: 24px;
     resize: none;
@@ -389,11 +389,11 @@ ui-memblist-usr
 }
 #chat_div.ui-widget-content{border-top:none;}
 .ui-chatbox-input textarea{
-	
     font-size: 15px;
     border: 1px solid #ccc !important;
     padding: 0; /* override moodle textarea css*/
 }
+
 .ui-widget-header .ui-corner-all{
     border-radius: 2px;
     border:none;

@@ -43,7 +43,8 @@
                     'or click on allow button to share your microphone and camera with other users.',
             'canvasDrawMsg': 'You can click on any tool to draw object ' +
                     'with a mouse click, mouse move and mouse up in the Draw Area',
-            'clearAllWarnMessage': "Do you want to clear the Whiteboard?",
+            //'clearAllWarnMessage': "Do you want to clear the Whiteboard?",
+            'clearAllWarnMessage' : 'Do you want to remove all objects you have drawn?',
           //  'con': 'connection on',
             'cof': 'connection off',
             'askForConnect': 'You will be able to perform this action only when other user get connected',

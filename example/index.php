@@ -3,18 +3,13 @@
 <head>
 <title>Virtual Class</title>
 <?php
-
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
-
 include('auth.php');
-
 //the www path for virtualclass
 $whiteboardpath = "https://local.vidya.io/virtualclass/";
-
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
@@ -26,7 +21,6 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
 <?php
 include('js.debug.php');
 //include('js.php');
-
 // this url should be soemthing like this
 // https://local.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
     
@@ -37,9 +31,7 @@ if(isset($_GET['id'])){
     $uid = 100;
     $sid = 100;
 }
-
 //$r = (isset($_GET['r'])) ? $_GET['r'] : 's';
-
 if(isset($_GET['r'])){
     $r = $_GET['r'];
     $cont_class = $r == 't' ? "teacher orginalTeacher" : 'student';
@@ -47,10 +39,8 @@ if(isset($_GET['r'])){
     $r = 's';
     $cont_class = 'student';
 }
-
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 //echo $room;
-
 if(isset($_GET['name'])){
     $uname = $_GET['name'];
 //    $fname = $uname;
@@ -60,7 +50,6 @@ if(isset($_GET['name'])){
 //    $fname = $uname;
 //    $lname = $uname + ' lastname';
 }
-
 if(isset($_GET['lname'])){
     $lname = $_GET['lname'];
 }else{
@@ -133,12 +122,10 @@ if(isset($_GET['lname'])){
     <div id="mainAudioPanel">
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
         
-          <a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $speakermsg; ?>" name=
-          "speakerPressonceAnch">
-            <label id="speakerPressonceLabel" class="silenceDetect"  data-silence-detect="stop" > <i>  </i> </label>
-<!--             <span class="audioTool  id="silenceDetect" data-silence-detect="stop"> </span>-->
-          </a>
-           
+<a id="speakerPressonceAnch" class="tooltip" data-title="Enable Audio" name="speakerPressonceAnch">
+<span id="speakerPressonceLabel" class="silenceDetect" data-silence-detect="stop"> <i> </i> </span>
+
+</a>
             
             
         </div>
@@ -149,7 +136,10 @@ if(isset($_GET['lname'])){
                 name="speakerPressingAnch">Push To Talk</a>-->
                 <a id="speakerPressingAnch" name="speakerPressingAnch">
                     <span id="speakerPressingButton" class="icon-speakerPressing"></span>
-                    <span id="speakerPressingtext">Push <br >  To  <br > &nbsp;Talk </span> &nbsp; &nbsp;
+                    <div style="clear:both;"></div>
+                    <span id="speakerPressingtext">Push 
+                    
+                    <br >  To  <br > &nbsp;Talk </span> &nbsp; &nbsp;
 <!--                <img id="speakerPressingButton" src="<?php //echo $speakerimg; ?>" />-->
                 
                 </a>

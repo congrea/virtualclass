@@ -139,7 +139,7 @@ if(isset($_GET['lname'])){
                     <div style="clear:both;"></div>
                     <span id="speakerPressingtext">Push 
                     
-                    <br >  To  <br > &nbsp;Talk </span> &nbsp; &nbsp;
+                    <br >  To  <br > Talk </span> &nbsp; &nbsp;
 <!--                <img id="speakerPressingButton" src="<?php //echo $speakerimg; ?>" />-->
                 
                 </a>

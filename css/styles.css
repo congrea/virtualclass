@@ -1646,28 +1646,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	color:#535151;
 	vertical-align: baseline;
         font-size: 107%;
-        
-	
+        font-weight: normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaGreen:before {
 	content: "\ea27";
 	color:#94b532;
 	font-variant: normal;
 	font-style: normal;
-        font-size: 107%;
+        font-size: 112%;
+        font-weight: normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaOrange:before {
 	content: "\ea27";
 	color:#e55e0d;
 	font-variant: normal;
 	font-style: normal;
-        font-size: 107%;
-
+        font-size: 112%;
+        font-weight: normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioDisImg:before {
 	content: "\ea2a";
 	color:#535151;
         font-size: 107%;
+        font-weight: normal;
 }
 #vAppCont #usertab_text .icon-arrow-up:before, #vAppCont #chatroom_text .icon-arrow-up:before {
 	content: "\e606";
@@ -1713,7 +1714,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	cursor : pointer;
 }
 
-icon-assignImg
+
 
 #vAppCont #alwaysPress .audioTool a {
 	text-transform: uppercase;

@@ -113,7 +113,7 @@
                 'ui-chatbox'
             )
             .attr('id','cb' + self.options.id)
-            .attr('outline', 0)
+//            .attr('outline', 0) //html is not validated so
             .focusin(function(){
                 // ui-state-highlight is not really helpful here
                 //self.uiChatbox.removeClass('ui-state-highlight');

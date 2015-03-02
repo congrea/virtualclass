@@ -107,7 +107,7 @@
                  chatStatus
             )
             .prop('id', 'chatrm')
-            .prop('outline', 0)
+//            .prop('outline', 0) //html is not validated so
             .focusin(function(){
             	self.uiChatboxTitlebar.removeClass("ui-state-highlight"); // delete highlighting
                 // ui-state-highlight is not really helpful here

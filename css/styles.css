@@ -1687,10 +1687,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #speakerPressing.active {
 	cursor : auto;
 }
-#vAppCont.orginalTeacher #chat_div .controls span.enable{
+#vAppCont.orginalTeacher #chat_div .controls span.enable, #vAppCont.teacher #chat_div .controls .icon-assignImg.enable {
 	cursor : pointer;
-	
 }
+
+icon-assignImg
 
 #vAppCont #alwaysPress .audioTool a {
 	text-transform: uppercase;

@@ -148,7 +148,7 @@
                 'ui-memblist'
             )
             .attr('id', 'memlist')
-            .attr('outline', 0)
+//            .attr('outline', 0) html is not validated so
             //added to hide userlist on page load
             .css('display','none')
             .focusin(function(){

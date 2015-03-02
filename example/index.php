@@ -1,4 +1,7 @@
+<!DOCTYPE html>
+<html>
 <head>
+<title>Virtual Class</title>
 <?php
 
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
@@ -63,7 +66,6 @@ if(isset($_GET['lname'])){
 }else{
     $lname = '';
 }
-
 ?>
 <script type="text/javascript">	
     if (!!window.Worker) {
@@ -86,7 +88,7 @@ if(isset($_GET['lname'])){
 
 </head>
 
-
+<body>
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
     <div id="vAppWhiteboard" class="vmApp">
 
@@ -176,3 +178,5 @@ if(isset($_GET['lname'])){
     <div id = "stickycontainer"> </div>
 </div>   
 </div>
+</body>
+</html>

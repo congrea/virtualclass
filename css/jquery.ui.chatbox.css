@@ -195,7 +195,7 @@ ui-memblist-usr
      width: 203px;
 }
 .inner_bt {
-    padding: 15px 0;
+    padding: 10px 0;
     line-height: 15px;
 }
 
@@ -220,9 +220,6 @@ ui-memblist-usr
 }
 #chatroom_icon {
     float: left;
-    height: 16px;
-    margin: 1px 2px 0px 0px;
-    width: 16px;
 }
 
 

@@ -119,6 +119,9 @@ body {
 	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
 }
+#vAppCont #vAppOptionsCont .appOptions a span:before{font-size: 28px;}
+
+
 #vAppCont #vAppOptionsCont .appOptions {
 	border:#a7a7a7 1px solid;
 	border-left: none;
@@ -337,7 +340,7 @@ body {
 #vAppCont div.ui-memblist-usr .userVideos {
 	width : 60px;
 	height : 45px;
-	margin : 3px 0 0 2px;
+	margin : 3px 5px 0 2px !important;
 	outline : 1px solid #5A5757;
 }
 #vAppCont #graphCanvas {
@@ -1047,6 +1050,7 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont .ui-dialog-header span:first-child {
 	font-size : 14px;
 	padding-left : 3px;
+	vertical-align: middle;
 }
 #vAppCont div.ui-memblist-usr video, #vAppCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
@@ -1064,7 +1068,9 @@ opacity : 0.800000011920928955078125 !important;
 	font-weight : normal;
 }
 #vAppCont .vmchat_room_bt .inner_bt #chatroom_text {
-	padding-left : 30px;
+	position: relative;
+	top: -4px;
+	padding-left : 20px;
 }
 #vAppCont .maximize {
 	height : 41px;
@@ -1163,9 +1169,6 @@ opacity : 0.800000011920928955078125 !important;
 	left:2px;
 }
 
-#vAppCont .ui-memblist-usr a span {
-	margin-left : 8px !important;
-}
 /* added by suman */
 
 #vAppCont #vAppScreenShare {
@@ -1199,7 +1202,7 @@ opacity : 0.800000011920928955078125 !important;
 	padding: 0;
 }
 #vAppCont #usertab_icon {
-	margin: 1px 2px 0 0;
+	margin: 6px 2px 0 0;
 }
 #vAppCont .ui-widget.disable {
 	opacity : 0.4;
@@ -1397,6 +1400,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #alwaysPress #speakerPressing a#speakerPressingAnch img {
 	border:none !important;
 }
+#speakerPressingAnch #speakerPressingButton{position: relative;top: -12px;}
+ #speakerPressingAnch #speakerPressingtext{position: relative;top: -7px;}
+
 #vAppCont #speakerPressOnce #speakerPressonceAnch label {
 	margin-top: 11px;
 	margin-bottom: 11px;
@@ -1477,29 +1483,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	border-radius: 3px;
 	border:rgb(119, 149, 35) 1px solid;
 }
-#vAppCont #commandToolsWrapper #t_rectangle a, #vAppCont #commandToolsWrapper #t_line a, #vAppCont #commandToolsWrapper #t_freeDrawing a, #vAppCont #commandToolsWrapper #t_oval a, #vAppCont #commandToolsWrapper #t_triangle a, #vAppCont #commandToolsWrapper #t_replay a, #vAppCont #commandToolsWrapper #t_clearall a, #vAppCont #commandToolsWrapper #t_connectionoff a, #vAppCont #commandToolsWrapper #t_assign a {
+/* #vAppCont #commandToolsWrapper #t_rectangle a, #vAppCont #commandToolsWrapper #t_line a, #vAppCont #commandToolsWrapper #t_freeDrawing a, #vAppCont #commandToolsWrapper #t_oval a, #vAppCont #commandToolsWrapper #t_triangle a, #vAppCont #commandToolsWrapper #t_replay a, #vAppCont #commandToolsWrapper #t_clearall a, #vAppCont #commandToolsWrapper #t_connectionoff a, #vAppCont #commandToolsWrapper #t_assign a, #vAppCont #commandToolsWrapper #t_text a, #vAppCont #commandToolsWrapper #t_oval a, #vAppCont #commandToolsWrapper #t_activeall a  */
+#vAppCont #containerWb #commandToolsWrapper .tool a{
 	text-decoration: none;
-	padding: 8px 18px 8px;
+	padding: 11px 18px 10px;
 	color:#535151;
 	border-right: #ccc 1px solid;
+	font-size: 25px;
 }
-#vAppCont #commandToolsWrapper #t_text a {
-	text-decoration: none;
-	padding: 5px 18px !important;
-	border-right: #ccc 1px solid;
-	color:#444;
-}
-#vAppCont #commandToolsWrapper #t_oval a {
-	text-decoration: none;
-	padding: 9px 18px 10px;
-	color:#444;
-}
-#vAppCont #commandToolsWrapper #t_activeall a {
-	text-decoration: none;
-	border-right: #ccc 1px solid;
-	padding: 9px 18px;
-	color:#444;
-}
+
 #vAppCont #containerWb #commandToolsWrapper .tool a:hover {
 	background: #d4d4d4; /* Old browsers */
 	background: -moz-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* FF3.6+ */
@@ -1546,83 +1538,76 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	font-variant: normal;
 	-webkit-font-smoothing: antialiased;
 }
+
+#vAppCont #commandToolsWrapper .tool a{
+	
+}
+
+
 /* Icon Css */
+
 
 #vAppCont #commandToolsWrapper .icon-rectangle:before {
 	content: "\e60b";
-	font-size: 30px;
+
 }
 #vAppCont #commandToolsWrapper .icon-line:before {
 	content: "\e607";
-	font-size: 30px;
+
 }
 #vAppCont #commandToolsWrapper .icon-freeDrawing:before {
 	content: "\f040";
-	font-size: 30px;
+
 }
 #vAppCont #commandToolsWrapper .icon-oval:before {
 	content: "\f1db";
-	font-size: 27px;
+
 }
 #vAppCont #commandToolsWrapper .icon-triangle:before {
 	content: "\e603";
-	font-size: 30px;
+;
 }
 #vAppCont #commandToolsWrapper .icon-text:before {
 	content: "\e60e";
-	font-size: 36px;
-	position: relative;
-	top: 1px;
+
 }
 #vAppCont #commandToolsWrapper .icon-activeAll:before {
 	content: "\e600";
-	font-size: 28px;
+
 }
 #vAppCont #commandToolsWrapper .icon-clearAll:before {
 	content: "\ea0f";
-	font-size: 30px;
+	
 }
 #vAppCont #vAppWhiteboardTool .icon-whiteboard:before {
 	content: "\e604";
-	font-size: 32px;
-	position: relative;
-	top:2px;
-	left:0px;
+
 }
 #vAppCont #vAppScreenShareTool .icon-screenshare:before {
 	content: "\e602";
-	font-size: 32px;
-	position: relative;
-	top:2px;
-	left:0px;
 }
 #vAppCont #vAppSessionEndTool .icon-sessionend:before {
 	content: "\e9b6";
-	font-size: 22px;
-	position: relative;
-	left:0px;
+
 }
 #vAppCont #speakerPressing .icon-speakerPressing:before {
 	content: "\f130";
-	font-size: 36px;
-	position: relative;
-	top: -15px;
-	left: -1px;
+	font-size: 38px;
+
 }
 #vAppCont #audioTest .icon-audiotest:before {
 	content: "\e60d";
-	font-size: 45px;
+	font-size: 40px;
+	
 }
 #vAppCont #chatroom_icon .icon-chatroom:before {
 	content: "\f0e6";
-	font-size: 20px;
-	position: relative;
-	top:-5px;
+	font-size: 15px;
 }
 #vAppCont .ui-memblist-usr .icon-assignImg:before {
 	content: "\f064";
-	font-size: 17px;
 	color:#535151;
+	font-size: 15px;
 	position: relative;
 	top: -1px;
 }
@@ -1631,109 +1616,82 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 #vAppCont .ui-memblist-usr .icon-chatImg:before {
 	content: "\f075";
-	font-size: 14px;
 	color:#535151;
-	top:-1px;
-	position: relative;
-	left:-2px;
-        vertical-align: super;
+
 }
 #vAppCont .icon-chatImg.enable:before {
-	color:#94b532;
+	color: #94b532;
+	position: relative;
+	top: -1px;
+	font-size: 12.4px;
 }
 #vAppCont.student .icon-audioImg.enable:before {
 	content: "\f026";
-	font-size: 17px;
 	color:#535151;
-	position: relative;
 	padding-right: 8px;
-	left: 1px;
-	top: -2px;
 }
 #vAppCont.teacher.orginalTeacher .icon-audioImg.enable:before, #vAppCont.teacher .icon-audioImg.enable:before {
 	content: "\f026";
-	font-size: 17px;
 	color:#535151;
-	top: -2px;
-	position: relative;
 	padding-right: 8px;
-	left: 2px;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaGreen:before {
 	content: "\ea27";
-	font-size: 14px;
 	color:#94b532;
-	top: 0px;
-	position: relative;
-	font-variant: normal;
-	font-style: normal;
-	font-weight: normal;
+
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaOrange:before {
 	content: "\ea27";
-	font-size: 14px;
 	color:#e55e0d;
-	top: 0px;
-	position: relative;
-	font-variant: normal;
-	font-style: normal;
-	font-weight: normal;
+
 }
 #vAppCont .ui-memblist-usr .icon-audioDisImg:before {
 	content: "\ea2a";
-	font-size: 14px;
 	color:#535151;
-	top: 0px;
-	position: relative;
-	left: 2px;
 }
-#vAppCont #usertab_text .icon-arrow-up:after, #vAppCont #chatroom_text .icon-arrow-up:after {
+#vAppCont #usertab_text .icon-arrow-up:before, #vAppCont #chatroom_text .icon-arrow-up:before {
 	content: "\e606";
-	font-size: 20px;
+	font-size: 18px;
+	position: relative;
+	top: 4px;
 }
-#vAppCont .icon-arrow-down:after, #vAppCont .icon-arrow-up:after {
-	position : relative;
-	top : -3px;
-	right: -10px;
-}
+
+
 #vAppCont #usertab_text .icon-arrow-down:after, #vAppCont #chatroom_text .icon-arrow-down:after {
 	content: "\e601";
-	font-size: 20px;
+	font-size: 18px;
+	position: relative;
+	top: 3px;
 }
 #vAppCont .ui-widget-header .ui-icon-closethick:before {
 	content: "\f026";
-	font-size: 20px;
 }
 #vAppCont .ui-widget-header .icon-user:before {
 	content: "\f007";
-	font-size: 20px;
-	position: relative;
-	top: 7px;
+	font-size: 18px;
+
 }
 #vAppCont #t_reclaim .icon-reclaim:before {
 	content: "\f112";
-	font-size: 28px;
-	position: relative;
-	top:10px;
 	color:#535151;
+	font-size: 30px;
+	position: relative;
+	top: 10px;
 }
+
+
 #vAppCont #commandToolsWrapper a {
 	text-decoration: none;
 }
-#vAppCont #onlineusertext {
-	position: relative;
-	top: -7px;
-}
+
 #vAppCont #speakerPressing.active {
 	cursor : auto;
 }
 #vAppCont.orginalTeacher #chat_div .controls span.enable{
 	cursor : pointer;
+	
 }
-#vAppCont #chatroom_bt2 .inner_bt #chatroom_text .icon-arrow-down:after, #vAppCont #chatroom_bt2 .inner_bt #chatroom_text .icon-arrow-up:after {
-	right: -10px;
-	top:5px;
-}
+
 #vAppCont #alwaysPress .audioTool a {
 	text-transform: uppercase;
 	font-size: 10px;
@@ -1741,13 +1699,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 }
 #vAppCont #speakerPressingtext {
 	line-height: 13px;
-	font-size: 10px;
-	position: relative;
-	top: -7px;
-}
-#vAppCont #chatWidget .ui-memblist .ui-widget-header.ui-corner-top span {
-	position: relative;
-	top: -4px;
+
 }
 
 #vAppCont.orginalTeacher .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
@@ -1758,10 +1710,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #commandToolsWrapper .tool.active a:hover {
 	color:#000 !important;
 }
-#vAppCont .inner_bt {
-	line-height: 21px;
-	padding: 15px 0;
+#vAppCont #chatroom_bt2 .inner_bt {
+	padding:0;
+	margin-top: 20px;
 }
+
+
 #vAppCont .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header a.ui-corner-all.ui-chatbox-icon {
 	padding-top: 1px !important;
 }
@@ -1778,3 +1732,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #mainContainer{
     display :none;
 }
+
+.ui-memblist-usr a span.chatImg{margin-left: 0px;}

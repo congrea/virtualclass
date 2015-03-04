@@ -74,7 +74,10 @@
             'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone).",
             'notSupportBrowser' : "Not supported screen sharing for this version of browser",
             'disableSpeaker' : "Disable Audio",
-            'enableSpeaker' : "Enable Audio"
+            'enableSpeaker' : "Enable Audio",
+            'notSupportChrome' : 'Your browser {Browser Version} needs to updated, We support Chrome 40'
+                    
+                    
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

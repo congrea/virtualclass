@@ -18,13 +18,40 @@
               } else {
                   var msgBox = this.createMsgBox(msg, id, className, imageTag);
               }
-
               var parTag = document.getElementById('vcanvas');
               if (typeof intoAppend != 'undefined') {
                   document.getElementById(intoAppend).appendChild(msgBox);
               } else {
                   parTag.insertBefore(msgBox, parTag.childNodes[0]);
               }
+          },
+          
+          createErrorContainer : function (){
+                var errorCont = document.getElementById('errorContainer');
+                if(errorCont ==  null){
+                   var errorCont = document.createElement('div');
+                   var errContId = 'errorContainer';
+                   errorCont.id = errContId;
+                   
+                   var closeButton = document.createElement('span');
+                   closeButton.className = "icon-clearAll";
+                   closeButton.id = "errorCloseButton";
+                   errorCont.appendChild(closeButton);
+                   var canvasCont = document.getElementById('vcanvas');
+                   
+                   if(canvasCont != null){
+                       canvasCont.insertBefore(errorCont, canvasCont.childNodes[0]);
+                       var that = this;
+                       errorCont.addEventListener('cllick', function (){that.removeErrorContainer(errContId)})
+                   }
+                   
+                }
+                return errorCont.id;
+          },
+          
+          removeErrorContainer : function (id){
+                var element = document.getElementById(id);
+                element.parentNode.removeChild(element);
           },
 
           customCreateElement : function(tagName, id, className) {

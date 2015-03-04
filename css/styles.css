@@ -1579,7 +1579,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	content: "\e600";
 
 }
-#vAppCont #commandToolsWrapper .icon-clearAll:before {
+#vAppCont .icon-clearAll:before{
 	content: "\ea0f";
 	
 }

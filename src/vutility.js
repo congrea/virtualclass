@@ -47,13 +47,34 @@
                 var sidebar = document.getElementById("widgetRightSide");
                 sidebar.style.height = (window.innerHeight) + "px";
             },
-
-             isSystemCompatible: function() {
+            
+            //there function name should be change
+            isSystemCompatible: function() {
                 if (window.vApp.error.length > 0) {
+                    var errorContId = vApp.wb.view.createErrorContainer();
+                    
+//                    if(window.vApp.error.length > 1 ){
+//                        var errorContId = vApp.wb.view.createErrorContainer();
+//                    }
+                    
                     for (var i = 0; i < window.vApp.error.length; i++) {
                         var error = window.vApp.error[i];
                         if (error.hasOwnProperty('msg')) {
-                            vApp.wb.view.displayMessage(error.msg, error.id, error.className);
+                            vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
+                            
+//                            if(typeof errorContId != 'undefined'){
+//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
+//                            }else{
+//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className);
+//                            }
+                            
+                            
+//                            if(i > 0){
+//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
+//                            }else{
+//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className);
+//                            }
+                            
                         }
                     }
                 }

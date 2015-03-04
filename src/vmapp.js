@@ -58,7 +58,7 @@ function (window){
 
                 //this should be at top
                 this.system.check();
-                this.vutil.isSystemCompatible();
+                this.vutil.isSystemCompatible(); //this should be at system.js file
 
                 vApp.wb.utility.displayCanvas();
 

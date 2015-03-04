@@ -135,11 +135,11 @@ if(isset($_GET['lname'])){
 <!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
                 name="speakerPressingAnch">Push To Talk</a>-->
                 <a id="speakerPressingAnch" name="speakerPressingAnch">
-                    <span id="speakerPressingButton" class="icon-speakerPressing"></span>
+                    <div id="speakerPressingButton" class="icon-speakerPressing"></div>
                     <div style="clear:both;"></div>
-                    <span id="speakerPressingtext">Push 
+                    <div id="speakerPressingtext">&nbsp;Push 
                     
-                    <br >  To  <br > Talk </span> &nbsp; &nbsp;
+                    <br >To<br >Talk </div> &nbsp; &nbsp;
 <!--                <img id="speakerPressingButton" src="<?php //echo $speakerimg; ?>" />-->
                 
                 </a>

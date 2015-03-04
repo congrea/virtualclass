@@ -47,10 +47,23 @@
                     } else {
                         vApp.error.push({'msg': vApp.lang.getString('notSupportGetUserMedia'), 'id': 'errorGetUserMedia', 'className': 'error'});
                     }
-                } else if (browser == 'MSIE' && version <= 9) {
+                } else if (browser == 'MSIE' && version <= 11) {
                     vApp.error.push({'msg': vApp.lang.getString('notSupportWebRtc'), 'id': 'errorWebRtc', 'className': 'error'});
                 }
             },
+            
+            isBrowserCompatible : function (browserName, version){
+                
+//                vApp.error.push({'msg': vApp.lang.getString('notSupportChrome'), 'id': 'errorBrowser2', 'className': 'error'}); 
+                
+                
+                if(browserName == 'Chrome' && version < 40){
+                    vApp.error.push({'msg': vApp.lang.getString('notSupportChrome'), 'id': 'errorBrowser', 'className': 'error'}); 
+                    return false;
+                }
+                return true;
+            },
+            
             isWebSocketSupport : function(navigator, browser, version) {
                 this.webSocket = {};
                 if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
@@ -112,14 +125,18 @@
             },
             check : function (){
                 var browser = this.mybrowser.detection();
+                
                 var browserName = browser[0];
-                var browserVersion = browser[1];
+                var browserVersion = parseFloat(browser[1]);
                 this.mybrowser.name = browserName;
                 this.mybrowser.version = browserVersion;
 
                 this.isCanvasSupport(navigator, browserName, browserVersion);
                 this.isWebRtcSupport(navigator, browserName, browserVersion);
                 this.isWebSocketSupport(navigator, browserName, browserVersion);
+                
+               // this.isBrowserCompatible(browserName, browserVersion);
+                
             }
         };
         system = system.init();
@@ -141,18 +158,18 @@
         );
 
         system.mybrowser.detection = function() {
-                var ua = navigator.userAgent, tem,
-                        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
-                if (/trident/i.test(M[1])) {
-                    tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
-                    return 'IE ' + (tem[1] || '');
-                }
-                M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-                if ((tem = ua.match(/version\/([\.\d]+)/i)) != null){
-                    M[2] = tem[1];
-                }
-                // return M.join(' ');
-                return M;
+            var ua = navigator.userAgent, tem,
+                    M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
+            if (/trident/i.test(M[1])) {
+                tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
+                return 'IE ' + (tem[1] || '');
+            }
+            M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+            if ((tem = ua.match(/version\/([\.\d]+)/i)) != null){
+                M[2] = tem[1];
+            }
+            // return M.join(' ');
+            return M;
          },
         window.system = system;
     }

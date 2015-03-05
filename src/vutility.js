@@ -50,34 +50,20 @@
             
             //there function name should be change
             isSystemCompatible: function() {
-                if (window.vApp.error.length > 0) {
-                    var errorContId = vApp.wb.view.createErrorContainer();
+                if (vApp.error.length > 0) {
+                    var errorMsg = (vApp.error.length > 1) ? (vApp.error.join(",")) : vApp.error[0];
+                    vApp.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+                }   
                     
-//                    if(window.vApp.error.length > 1 ){
-//                        var errorContId = vApp.wb.view.createErrorContainer();
+//                    for (var i = 0; i < window.vApp.error.length; i++) {
+//                        var error = window.vApp.error[i];
+//                        if (error.hasOwnProperty('msg')) {
+//                            //view should come out from language file
+//                            
+//                            vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
+//                        }
 //                    }
-                    
-                    for (var i = 0; i < window.vApp.error.length; i++) {
-                        var error = window.vApp.error[i];
-                        if (error.hasOwnProperty('msg')) {
-                            vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
-                            
-//                            if(typeof errorContId != 'undefined'){
-//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
-//                            }else{
-//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className);
-//                            }
-                            
-                            
-//                            if(i > 0){
-//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
-//                            }else{
-//                                vApp.wb.view.displayMessage(error.msg, error.id, error.className);
-//                            }
-                            
-                        }
-                    }
-                }
+//                }
             },
 
             chkValueInLocalStorage : function(property) {

@@ -26,7 +26,7 @@
               }
           },
           
-          createErrorContainer : function (){
+          createErrorContainerToBeDeleted : function (){
                 var errorCont = document.getElementById('errorContainer');
                 if(errorCont ==  null){
                    var errorCont = document.createElement('div');
@@ -46,6 +46,18 @@
                    }
                    
                 }
+                return errorCont.id;
+          },
+          
+          createErrorMsg : function (msg, contId, addBefore){
+                var errorCont = document.getElementById(contId);
+                if(errorCont ==  null){
+                   var errorCont = document.createElement('div');
+                   errorCont.id = contId
+                   errorCont.innerHTML = msg;
+                }
+                var addBeforeElem = document.getElementById(addBefore);
+                addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
                 return errorCont.id;
           },
           

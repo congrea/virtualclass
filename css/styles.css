@@ -1,11 +1,9 @@
-/* CSS Document */
-
 @font-face {
-        font-family: 'icomoon';
-        src:url('../fonts/icomoon.eot?-jjdyd0');
-        src:url('../fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('../fonts/icomoon.woff?-jjdyd0') format('woff'), url('../fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('../fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
-        font-weight: normal;
-        font-style: normal;
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?-jjdyd0');
+	src:url('../fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('../fonts/icomoon.woff?-jjdyd0') format('woff'), url('../fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('../fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
  [id= "vAppCont"] [class^="icon-"], [class*=" icon-"] {
  font-family: 'icomoon';
@@ -17,32 +15,24 @@
  line-height: 1;
 /*	 Better Font Rendering =========== */
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        background-image : none;
-        width : auto;
-        height : auto;
+ -moz-osx-font-smoothing: grayscale;
+ background-image : none;
+ width : auto;
+ height : auto;
 }
-
-* {
+*, body {
 	margin : 0;
 	padding : 0;
 }
 html, body {
 	width : 100%;
 	height : 100%;
-	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 a, canvas {
 	outline : none;
 }
-.clear {
-	clear : both;
-}
-body {
-	margin : 0;
-	padding : 0;
-}
-#conControler {
+.clear, #conControler, #vAppCont #vAppOptionsCont, #vAppCont .msgBoxCanvasimg, #vAppCont .msgBoxCanvasimg, #vAppCont #mainContainer {
 	clear : both;
 }
 #vAppCont {
@@ -76,28 +66,31 @@ body {
 	float : left;
 }
 #vAppCont #vAppOptionsCont:first-child, #vAppOptionsCont {
-	background: #e9e9e9; /* Old browsers */
+	background : #e9e9e9;
 	position : absolute;
 	top : 120px;
 	border : #e2e2e2 solid 3px;
-	border-left: 0px;
+	border-left : 0;
 	border-bottom-right-radius : 10px;
 	border-top-right-radius : 10px;
 	z-index : 10;
 }
 #vAppCont #vAppOptionsCont .appOptions a img {
-	padding: 12px;
-	opacity: 0.7;
+	padding : 12px;
+	opacity : 0.699999988079071044921875;
 }
 #vAppCont #vAppOptionsCont .appOptions.active a img {
-	opacity: inherit;
+	opacity : inherit;
 }
 #vAppCont #vAppOptionsCont .appOptions:hover {
-	border-top-right-radius: 0px;
+	border-top-right-radius : 0;
 }
 #vAppCont #vAppOptionsCont #vAppScreenShareTool {
-	border-top:none;
-	border-bottom: none;
+	border-top : none;
+	border-bottom : none;
+}
+#vAppCont #vAppOptionsCont .appOptions a span:before {
+	font-size : 28px;
 }
 #vAppCont #vAppOptionsCont #vAppScreenShareTool:hover, #vAppCont #vAppOptionsCont #vAppSessionEndTool:hover {
 	background: #feffff; /* Old browsers */
@@ -119,25 +112,22 @@ body {
 	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
 }
-#vAppCont #vAppOptionsCont .appOptions a span:before{font-size: 28px;}
-
-
+#vAppCont #vAppOptionsCont .appOptions a span:before {
+	font-size: 28px;
+}
 #vAppCont #vAppOptionsCont .appOptions {
-	border:#a7a7a7 1px solid;
-	border-left: none;
+	border : #a7a7a7 solid 1px;
+	border-left : none;
 }
 #vAppCont #vAppOptionsCont #vAppWhiteboardTool.appOptions {
-	border-top-right-radius: 5px;
+	border-top-right-radius : 5px;
 }
 #vAppCont #vAppOptionsCont #vAppSessionEndTool {
-	border-top-right-radius: 0px;
+	border-top-right-radius : 0;
 }
 #vAppCont #vAppOptionsCont div:last-child {
-	border-bottom-right-radius: 5px;
-	border-bottom: #a7a7a7 1px solid !important;
-}
-#vAppCont #vAppOptionsCont {
-	clear : both;
+	border-bottom-right-radius : 5px;
+	border-bottom : 1px solid #a7a7a7 !important;
 }
 #vAppCont #vAppWhiteboardCont {
 	height : 100%;
@@ -192,8 +182,6 @@ body {
 #vAppCont.student #informationCont {
 	display : none;
 }
-/* Tool bar Css */
-
 #vAppCont #containerWb {
 	margin : 0;
 	padding : 0;
@@ -201,7 +189,7 @@ body {
 #vAppCont #containerWb .tool .tooltip:hover:after {
 	bottom : -2.5em;
 	padding : 0.6em 1em;
-	border-radius: 0px;
+	border-radius : 0;
 }
 #vAppCont #t_line a img[title]:hover:after {
 	content : attr(title);
@@ -254,9 +242,6 @@ body {
 	position : absolute;
 	z-index : 100;
 }
-#vAppCont .msgBoxCanvasimg {
-	clear : both;
-}
 #vAppCont #canvasDrawMsgContFirefox {
 	left : 510px;
 	position : absolute;
@@ -294,8 +279,8 @@ body {
 	text-align : left;
 }
 #vAppCont #videos {
-	margin: 0;
-	padding: 0;
+	margin : 0;
+	padding : 0;
 	width : 930px;
 	margin-top : 20px;
 	padding : 15px;
@@ -323,8 +308,8 @@ body {
 #vAppCont #chat_div .ui-memblist-usr.teacher {
 	padding-top : 0;
 	background-color : #f1f1f1;
-	border-top: 1px solid #d5d5d5;
-	border-bottom: 1px solid #d5d5d5;
+	border-top : 1px solid #d5d5d5;
+	border-bottom : 1px solid #d5d5d5;
 	padding-left : 5px;
 }
 #vAppCont #chat_div .ui-memblist-usr.student, #vAppCont #chat_div .ui-memblist-usr {
@@ -426,9 +411,6 @@ body {
 #vAppCont .msgBoxCanvas {
 	width : 350px;
 }
-#vAppCont .msgBoxCanvasimg {
-	clear : both;
-}
 #vAppCont #canvasDrawMsgContFirefox {
 	left : 510px;
 	position : absolute;
@@ -446,7 +428,7 @@ body {
 	color : #ddd;
 }
 #vAppCont #canvasDrawArea p {
-	text-align: center;
+	text-align : center;
 	color : rgb(197, 161, 161);
 }
 #vAppCont a[title]:hover:after {
@@ -549,16 +531,16 @@ body {
 	padding : 15px;
 	border-radius : 5px;
 	font-weight : 500;
-	color: #333;
-	font-size: 13px;
-	line-height: 21px;
-	font-weight: normal;
+	color : #333;
+	font-size : 13px;
+	line-height : 21px;
+	font-weight : normal;
 }
 #vAppCont .tooltip {
 	display : inline;
 	position : relative;
-	font-size: 14px;
-	z-index: 100;
+	font-size : 14px;
+	z-index : 100;
 }
 #vAppCont #usertab_text.tooltip {
 	display : block;
@@ -582,7 +564,7 @@ body {
 	color : #000;
 	box-shadow : 0 1px 2px rgba(0, 0, 0, 0.2);
 	font-size : 12px;
-	font-weight: normal !important;
+	font-weight : normal !important;
 }
 #vAppCont #audioWidget .Tool .tooltip:hover:after, #vAppCont #audioWidget .audioTool .tooltip:hover:after {
 	right : 50px;
@@ -905,9 +887,6 @@ body {
 	clear : both;
 	margin-top : 5px;
 }
-#vAppCont #mainContainer {
-	clear : both;
-}
 #vAppCont #vAppScreenShare, #vAppWholeScreenShare {
 	float : left;
 	border : #ccc solid 1px;
@@ -935,7 +914,6 @@ body {
 	margin-left : 8%;
 	font-size : 20px;
 }
-
 ::-webkit-input-placeholder, :-moz-placeholder {
 opacity : 0.800000011920928955078125 !important;
 }
@@ -1005,26 +983,26 @@ opacity : 0.800000011920928955078125 !important;
 	clear : both;
 }
 #vAppCont #audioWidget {
-	background: #e9e9e9; /* Old browsers */
+	background : #e9e9e9;
 	position : absolute;
 	cursor : pointer;
 	float : right;
 	height : auto;
 	top : 100px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	border-right: none;
-	right: 0;
+	border-top-left-radius : 10px;
+	border-bottom-left-radius : 10px;
+	border-right : none;
+	right : 0;
 }
 #vAppCont #audioWidget #speakerPressOnce {
 	border : #a4a4a4 solid 1px;
-	border-top-left-radius: 5px;
-	border-bottom: none;
-	width: 51px;
-	padding-left: 7px;
+	border-top-left-radius : 5px;
+	border-bottom : none;
+	width : 51px;
+	padding-left : 7px;
 }
 #vAppCont #audioWidget.fixed {
-	position: fixed;
+	position : fixed;
 }
 #vAppCont #audioWidget #speakerPressOnce .speakerPressonceAnch img {
 	margin-bottom : 10px;
@@ -1048,7 +1026,7 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont .ui-dialog-header span:first-child {
 	font-size : 14px;
 	padding-left : 3px;
-	vertical-align: top;
+	vertical-align : top;
 }
 #vAppCont div.ui-memblist-usr video, #vAppCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
@@ -1066,8 +1044,8 @@ opacity : 0.800000011920928955078125 !important;
 	font-weight : normal;
 }
 #vAppCont .vmchat_room_bt .inner_bt #chatroom_text {
-	position: relative;
-	top: -4px;
+	position : relative;
+	top : -4px;
 	padding-left : 20px;
 }
 #vAppCont .maximize {
@@ -1109,9 +1087,9 @@ opacity : 0.800000011920928955078125 !important;
 	position : relative;
 }
 #vAppCont #speakerPressing {
-	width: 32px;
-	padding-left: 13px;
-	padding-right: 13px;
+	width : 32px;
+	padding-left : 13px;
+	padding-right : 13px;
 }
 #vAppCont #speakerPressOnce {
 	width : 100%;
@@ -1119,7 +1097,7 @@ opacity : 0.800000011920928955078125 !important;
 }
 #vAppCont #chat_div .controleCont {
 	float : left;
-	width: 30px;
+	width : 30px;
 }
 #vAppCont .audioTransmit {
 	border : green solid 15px;
@@ -1134,7 +1112,7 @@ opacity : 0.800000011920928955078125 !important;
 	margin-left : 4px;
 }
 #vAppCont #audioWidget #audioTest #vAppCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #vAppCont.student #audioWidget .audioTool a#speakerPressingAnch img {
-	margin-left: -5px;
+	margin-left : -5px;
 	padding : 1px;
 	padding-left : 2px;
 	border : transparent solid 1px;
@@ -1145,7 +1123,7 @@ opacity : 0.800000011920928955078125 !important;
 	border-radius : 4px;
 	padding-right : 0;
 	padding-left : 2px;
-	margin-left: -3px;
+	margin-left : -3px;
 }
 #vAppCont.teacher #audioWidget .active a img, #vAppCont.teacher #audioWidget .deactive a img, #vAppCont.student #audioWidget .audioTool.active a img, #vAppCont.student #audioWidget .audioTool.deactive a img {
 	border : #41AA45 solid 1px !important;
@@ -1160,22 +1138,16 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont .controls .controleCont img.audioImg.block {
 	margin-bottom : 0;
 }
-
-#vAppCont.student .ui-widget-content .controls{
-	position: relative;
-	left:2px;
+#vAppCont.student .ui-widget-content .controls {
+	position : relative;
+	left : 2px;
 }
-
-/* added by suman */
-
 #vAppCont #vAppScreenShare {
 	width : 99%;
 }
 #vAppCont {
 	width : auto;
 }
-/* this should be write above */
-
 #vAppCont.student #vAppScreenShare, #vAppCont.student #vAppWholeScreenShare {
 	margin-left : 5px;
 }
@@ -1186,39 +1158,37 @@ opacity : 0.800000011920928955078125 !important;
 	height : 99%;
 }
 #vAppCont .ui-memblist {
-	right: 6px !important;
+	right : 6px !important;
 }
 #vAppCont .controls a.audEnableSign img {
-	margin-left: -2px;
+	margin-left : -2px;
 }
 #vAppCont #chat_div .mySelf, #vAppCont #audioTest.audioIsTesting {
-	pointer-events : none !important;
-	opacity : 0.6;
+	opacity : 0.60000002384185791015625;
 }
 #vAppCont #page-mod-virtualclass-view #page {
-	padding: 0;
+	padding : 0;
 }
 #vAppCont #usertab_icon {
-	margin: 6px 2px 0 0;
+	margin : 6px 2px 0 0;
 }
 #vAppCont .ui-widget.disable {
-	opacity : 0.4;
+	opacity : 0.4000000059604644775390625;
 }
 #vAppCont .ui-widget.enable {
 	opacity : 1;
 }
 #vAppCont #vAppWhiteboardTool a, #vAppCont #vAppScreenShareTool a, #vAppCont #vAppSessionEndTool a {
-	-webkit-animation: bounceInDown 900ms 200ms ease-in-out both;
-	text-decoration: none;
-	outline-width: 0px;
-	z-index: 990;
-	color: #333;
-	text-align: center;
-	line-height: 15px;
-	display: block;
+	text-decoration : none;
+	outline-width : 0;
+	z-index : 990;
+	color : #333;
+	text-align : center;
+	line-height : 15px;
+	display : block;
 }
 #vAppCont #vAppWhiteboardToo.active a span, #vAppCont #vAppScreenShareTool.active a span, #vAppCont #vAppSessionEndTool.active a span {
-	color:#fff !important;
+	color : #fff !important;
 }
 #vAppCont #vAppWhiteboardTool a img, #vAppCont #vAppScreenShareTool a img, #vAppCont #vAppSessionEndTool a img {
 	border:none;
@@ -1228,25 +1198,20 @@ opacity : 0.800000011920928955078125 !important;
 	box-shadow:inset px undefinedpx 3px 3px #ffffff;
 }
 #vAppCont #alwaysPress .audioTool a {
-	text-align: center;
-	font-size: 12px;
-	position: relative;
-	top: 15px;
+	text-align : center;
+	font-size : 12px;
+	position : relative;
+	top : 15px;
 }
 #vAppCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
-	padding-bottom: 0;
-	padding-top: 7px;
-	border:#a4a4a4 1px solid;
-	border-bottom-left-radius: 5px;
+	padding-bottom : 0;
+	padding-top : 7px;
+	border : #a4a4a4 solid 1px;
+	border-bottom-left-radius : 5px;
 }
 #vAppCont #audioTest-box .audioTool {
-	border-top: none !important;
+	border-top : none !important;
 }
-#vAppCont #alwaysPress .audioTool.deactive{
-	border-radius: 0px;
-}
-
-
 #vAppCont #alwaysPress .audioTool.active, #vAppOptionsCont .appOptions.active, #vAppCont #vAppOptionsCont #vAppWhiteboardTool.active:hover #vAppOptionsCont #vAppScreenShareTool.active:hover, #vAppCont #vAppOptionsCont #vAppSessionEndTool.active:hover {
 	background: #9e9e9e; /* Old browsers */
 	background: -moz-linear-gradient(left, #9e9e9e 0%, #919191 100%)!important; /* FF3.6+ */
@@ -1266,40 +1231,36 @@ opacity : 0.800000011920928955078125 !important;
 	border-top-left-radius: 0px;
 }
 #vAppCont #alwaysPress .audioTool.active span.icon-whiteboard:before, #vAppCont #vAppOptionsCont .appOptions.active span.icon-whiteboard:before, #vAppCont #alwaysPress .audioTool.active span.icon-whiteboard:before, #vAppCont #audioTest-box .audioTool.audioIsTesting:before {
-	color:#fff;
+	color : #fff;
 }
-#vAppCont #vAppWhiteboardTool, #vAppScreenShareTool, #vAppSessionEndTool {
-	padding: 10px 5px;
-}
-#vAppCont #vAppSessionEndTool {
-	padding: 10px 5px;
+#vAppCont #vAppWhiteboardTool, #vAppScreenShareTool, #vAppSessionEndTool, #vAppCont #vAppSessionEndTool {
+	padding : 10px 5px;
 }
 #vAppCont #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
-	text-align: center;
-	padding: 0px 13px 0px;
-	border-radius: 0px;
+	text-align : center;
+	padding : 0 13px 0;
+	border-radius : 0;
 }
 #vAppCont #audioTest-box .audioTool {
-	border-bottom-left-radius:5px;
+	border-bottom-left-radius : 5px;
 }
 #vAppCont #audioTest-box .audioTool {
-	padding: 15px 8px 9px;
+	padding : 15px 8px 9px;
 }
 #vAppCont #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive {
-	padding: 7px 13px 0px;
+	padding : 7px 13px 0;
 }
 #vAppCont #vAppOptionsCont .appOptions.active {
-	border-top-right-radius: 5px;
+	border-top-right-radius : 5px;
 }
 #vAppCont #vAppOptionsCont #vAppScreenShareTool.appOptions.active {
-	border-top-right-radius:0px;
+	border-top-right-radius : 0;
 }
 #vAppCont #mainAudioPanel {
-	border:3px solid #e2e2e2;
-	border-top-left-radius: 8px;
-	border-bottom: none;
+	border : #e2e2e2 solid 3px;
+	border-top-left-radius : 8px;
+	border-bottom : none;
 }
-/* Styles */
 
 #vAppCont #speakerPressonceAnch span {
 	width: 40px;
@@ -1377,86 +1338,81 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
 }
 #vAppCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel i {
-	right: 0px;
-	border: #aaa 1px solid;
+	right : 0;
+	border : #aaa solid 1px;
 }
 #vAppCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel:before {
-	content: "On";
-	position: absolute;
-	top: -6px;
-	font-weight: normal;
-	font-size: 12px;
-	left: 4px;
+	content : "On";
+	position : absolute;
+	top : -6px;
+	font-weight : normal;
+	font-size : 12px;
+	left : 4px;
 }
 #vAppCont #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel:before {
-	content: "Off";
-	position: absolute;
-	top: -6px;
-	font-weight: normal;
-	font-size: 11px;
-	left: 18px;
+	content : "Off";
+	position : absolute;
+	top : -6px;
+	font-weight : normal;
+	font-size : 11px;
+	left : 18px;
 }
 #vAppCont #alwaysPress #speakerPressing a#speakerPressingAnch img {
-	border:none !important;
+	border : none !important;
 }
-
-#speakerPressingAnch #speakerPressingtext{position: relative;top: -7px;}
-
+#speakerPressingAnch #speakerPressingtext {
+	position : relative;
+	top : -7px;
+}
 #vAppCont #speakerPressOnce #speakerPressonceAnch span {
-	margin-top: 11px;
-	margin-bottom: 11px;
+	margin-top : 11px;
+	margin-bottom : 11px;
 }
 #vAppCont #audioTest-box {
-	border-radius: 8px;
-	text-align: center;
-	margin-bottom: 0px;
-	border: #e2e2e2 3px solid;
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	border-bottom-right-radius: 0px;
-	border-top: none;
+	border-radius : 8px;
+	text-align : center;
+	margin-bottom : 0;
+	border : #e2e2e2 solid 3px;
+	border-top-left-radius : 0;
+	border-top-right-radius : 0;
+	border-bottom-right-radius : 0;
+	border-top : none;
 }
-/* Tooltip */
-
 #vAppCont .vmchat_room_bt.tooltip:hover:after {
-	bottom: 2.7em;
-	z-index: 10000;
+	bottom : 2.7em;
+	z-index : 10000;
 }
 #vAppCont .close.tooltip:hover:after {
-	bottom: 2em;
+	bottom : 2em;
 }
 #vAppCont #usertab_text.tooltip.open:hover:after {
-	bottom: 2em;
+	bottom : 2em;
 }
 #vAppCont #speakerPressing .tooltip:hover:after, #vAppCont #speakerPressOnce .tooltip:hover:after, #vAppCont #audioTest .tooltip:hover:after {
-	line-height: 26px;
+	line-height : 26px;
 }
 #vAppCont #speakerPressOnce .tooltip:hover:after {
-	bottom:5px !important;
+	bottom : 5px !important;
 }
 #vAppCont #speakerPressing .tooltip:hover:after {
-	bottom:-40px !important;
+	bottom : -40px !important;
 }
 #vAppCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom: 0px;
+	bottom : 0;
 }
-
 #vAppCont.student #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom: -6px;
-	z-index: 1;
-	left: 50px;
+	bottom : -6px;
+	z-index : 1;
+	left : 50px;
 }
-
 #vAppCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom: -45px;
-	left: -8px;
+	bottom : -45px;
+	left : -8px;
 }
-
-#vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #vAppCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after{
-    bottom: -28px;
-    left: -18px;
+#vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #vAppCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
+	bottom : -28px;
+	left : -18px;
 }
-
 #vAppCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
 	bottom: 10px;
 	left: -2px;
@@ -1487,15 +1443,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	border-radius: 3px;
 	border:rgb(119, 149, 35) 1px solid;
 }
-
-#vAppCont #containerWb #commandToolsWrapper .tool a{
+#vAppCont #containerWb #commandToolsWrapper .tool a {
 	text-decoration: none;
 	padding: 9px 18px 7px;
 	color:#535151;
 	border-right: #ccc 1px solid;
 	font-size: 25px;
 }
-
 #vAppCont #containerWb #commandToolsWrapper .tool a:hover {
 	background: #d4d4d4; /* Old browsers */
 	background: -moz-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* FF3.6+ */
@@ -1507,11 +1461,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d4d4', endColorstr='#fbfbfb', GradientType=0 ); /* IE6-9 */
 }
 #vAppCont #containerWb #commandToolsWrapper .tool a:before {
-	font-family: "icomoon";
-	display: inline-block;
-	vertical-align: middle;
-	font-weight: normal;
-	color:#444;
+	font-family : "icomoon";
+	display : inline-block;
+	vertical-align : middle;
+	font-weight : normal;
+	color : #444;
 }
 #vAppCont #vAppOptionsCont .appOptions a span:before {
 	color:#535151;
@@ -1534,227 +1488,207 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 	color:#fff;
 }
 #vAppCont .tool.active a span:before {
-	text-shadow: 0 1px 11px #eee;
-	color:#fff !important;
+	text-shadow : 0 1px 11px #eee;
+	color : #fff !important;
 }
 #vAppCont #ui-memblist .icon-chatImg:before, #vAppCont #ui-memblist .icon-audioEnaGreen:before, #vAppCont #ui-memblist .icon-audioImg:before, #vAppCont #ui-memblist .icon-audioDisImg:before {
-	font-weight: 100;
-	font-variant: normal;
-	-webkit-font-smoothing: antialiased;
+	font-weight : 100;
+	font-variant : normal;
 }
-
-#vAppCont #commandToolsWrapper .tool a{
-	
-}
-
-
-/* Icon Css */
-
-
 #vAppCont #commandToolsWrapper .icon-rectangle:before {
-	content: "\e60b";
-
+	content : "\e60b";
 }
 #vAppCont #commandToolsWrapper .icon-line:before {
-	content: "\e607";
-
+	content : "\e607";
 }
 #vAppCont #commandToolsWrapper .icon-freeDrawing:before {
-	content: "\f040";
-
+	content : "\f040";
 }
 #vAppCont #commandToolsWrapper .icon-oval:before {
-	content: "\f1db";
-
+	content : "\f1db";
 }
 #vAppCont #commandToolsWrapper .icon-triangle:before {
-	content: "\e603";
-;
+	content : "\e603";
 }
 #vAppCont #commandToolsWrapper .icon-text:before {
-	content: "\e60e";
-
+	content : "\e60e";
 }
 #vAppCont #commandToolsWrapper .icon-activeAll:before {
-	content: "\e600";
-
+	content : "\e600";
 }
-#vAppCont .icon-clearAll:before{
-	content: "\ea0f";
-	
+#vAppCont .icon-clearAll:before {
+	content : "\ea0f";
 }
 #vAppCont #vAppWhiteboardTool .icon-whiteboard:before {
-	content: "\e604";
-
+	content : "\e604";
 }
 #vAppCont #vAppScreenShareTool .icon-screenshare:before {
-	content: "\e602";
+	content : "\e602";
 }
 #vAppCont #vAppSessionEndTool .icon-sessionend:before {
-	content: "\e9b6";
-
+	content : "\e9b6";
 }
 #vAppCont #speakerPressing .icon-speakerPressing:before {
-	content: "\f130";
-	font-size: 38px;
-	position: relative;
-	top: -8px;
+	content : "\f130";
+	font-size : 38px;
+	position : relative;
+	top : -8px;
 }
 #vAppCont #audioTest .icon-audiotest:before {
-	content: "\e60d";
-	font-size: 40px;
-	
+	content : "\e60d";
+	font-size : 40px;
 }
 #vAppCont #chatroom_icon .icon-chatroom:before {
-	content: "\f0e6";
-	font-size: 16px;
+	content : "\f0e6";
+	font-size : 16px;
 }
 #vAppCont .ui-memblist-usr .icon-assignImg:before {
-	content: "\f064";
-	color:#535151;
-	font-size: 15px;
-	vertical-align: text-top;
-	position: relative;
-	top: -1px;
+	content : "\f064";
+	color : #535151;
+	font-size : 15px;
+	vertical-align : text-top;
+	position : relative;
+	top : -1px;
 }
 #vAppCont .ui-memblist-usr .icon-assignImg.block.currTeacher:before {
-	color:#94b532;
+	color : #94b532;
 }
 #vAppCont .ui-memblist-usr .icon-chatImg:before {
-	content: "\f075";
-	color:#535151;
-	position: relative;
-	top:-1px;
-
+	content : "\f075";
+	color : #535151;
+	position : relative;
+	top : -1px;
 }
 #vAppCont .icon-chatImg.enable:before {
-	color: #94b532;
-	font-size: 12.5px;
-	position: relative;
-	top:-1px;
+	color : #94b532;
+	font-size : 12.5px;
+	position : relative;
+	top : -1px;
 }
 #vAppCont.student .icon-audioImg.enable:before {
-	content: "\f026";
-	color:#535151;
-	padding-right: 8px;
-/*	font-size: 13px;*/
-        font-size: 107%;
-	
+	content : "\f026";
+	color : #535151;
+	padding-right : 8px;
+	font-size : 107%;
 }
 #vAppCont.teacher.orginalTeacher .icon-audioImg.enable:before, #vAppCont.teacher .icon-audioImg.enable:before {
-	content: "\f026";
-	color:#535151;
-	vertical-align: baseline;
-        font-size: 107%;
-        font-weight: normal;
+	content : "\f026";
+	color : #535151;
+	vertical-align : baseline;
+	font-size : 107%;
+	font-weight : normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaGreen:before {
-	content: "\ea27";
-	color:#94b532;
-	font-variant: normal;
-	font-style: normal;
-        font-size: 112%;
-        font-weight: normal;
+	content : "\ea27";
+	color : #94b532;
+	font-variant : normal;
+	font-style : normal;
+	font-size : 112%;
+	font-weight : normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioEnaOrange:before {
-	content: "\ea27";
-	color:#e55e0d;
-	font-variant: normal;
-	font-style: normal;
-        font-size: 112%;
-        font-weight: normal;
+	content : "\ea27";
+	color : #e55e0d;
+	font-variant : normal;
+	font-style : normal;
+	font-size : 112%;
+	font-weight : normal;
 }
 #vAppCont .ui-memblist-usr .icon-audioDisImg:before {
-	content: "\ea2a";
-	color:#535151;
-        font-size: 107%;
-        font-weight: normal;
+	content : "\ea2a";
+	color : #535151;
+	font-size : 107%;
+	font-weight : normal;
 }
 #vAppCont #usertab_text .icon-arrow-up:before, #vAppCont #chatroom_text .icon-arrow-up:before {
-	content: "\e606";
-	font-size: 18px;
-	position: relative;
-	top: 4px;
+	content : "\e606";
+	font-size : 18px;
+	position : relative;
+	top : 4px;
 }
-
-
 #vAppCont #usertab_text .icon-arrow-down:after, #vAppCont #chatroom_text .icon-arrow-down:after {
-	content: "\e601";
-	font-size: 18px;
-	position: relative;
-	top: 3px;
+	content : "\e601";
+	font-size : 18px;
+	position : relative;
+	top : 3px;
 }
 #vAppCont .ui-widget-header .ui-icon-closethick:before {
-	content: "\f026";
+	content : "\f026";
 }
 #vAppCont .ui-widget-header .icon-user:before {
-	content: "\f007";
-	font-size: 18px;
-	position: relative;
-	top: -2px;
-
+	content : "\f007";
+	font-size : 18px;
+	position : relative;
+	top : -2px;
 }
 #vAppCont #t_reclaim .icon-reclaim:before {
-	content: "\f112";
-	color:#535151;
-	font-size: 30px;
-	position: relative;
-	top: 10px;
+	content : "\f112";
+	color : #535151;
+	font-size : 30px;
+	position : relative;
+	top : 10px;
 }
-
-
 #vAppCont #commandToolsWrapper a {
-	text-decoration: none;
+	text-decoration : none;
 }
-
 #vAppCont #speakerPressing.active {
 	cursor : auto;
 }
 #vAppCont.orginalTeacher #chat_div .controls span.enable, #vAppCont.teacher #chat_div .controls .icon-assignImg.enable {
 	cursor : pointer;
 }
-
-
-
 #vAppCont #alwaysPress .audioTool a {
-	text-transform: uppercase;
-	font-size: 10px;
-	text-align: center;
+	text-transform : uppercase;
+	font-size : 10px;
+	text-align : center;
 }
 #vAppCont #speakerPressingtext {
-	line-height: 13px;
-
+	line-height : 13px;
 }
-
 #vAppCont.orginalTeacher .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom: -2.7em !important;
-	left: 10px;
-	display: inherit;
+	bottom : -2.7em !important;
+	left : 10px;
+	display : inherit;
 }
 #vAppCont #commandToolsWrapper .tool.active a:hover {
-	color:#000 !important;
+	color : #000 !important;
 }
 #vAppCont #chatroom_bt2 .inner_bt {
-	padding:0;
-	margin-top: 20px;
+	padding : 0;
+	margin-top : 20px;
 }
-
-
 #vAppCont .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header a.ui-corner-all.ui-chatbox-icon {
-	padding-top: 1px !important;
+	padding-top : 1px !important;
 }
 #vAppCont .tabs-bottom a.ui-corner-all.ui-chatbox-icon {
-	padding-top: 11px !important;
+	padding-top : 11px !important;
 }
 #vAppCont .ui-icon.ui-icon-minusthick {
-	top: 1px !important;
+	top : 1px !important;
+}
+#vAppCont.student .ui-memblist-usr .icon-chatImg:before {
+	left : -4px;
+}
+.ui-corner-top.ui-memblist .ui-dialog-header .ui-corner-all {
+	margin-right : 5px;
+}
+#vAppCont #mainContainer {
+	display : none;
+}
+.ui-memblist-usr a span.chatImg {
+	margin-left : 0;
+}
+#vAppCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+	border-bottom-left-radius: 0px;
+}
+#vAppCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
+	bottom:-6px;
+	left:6em;
 }
 
-#vAppCont.student .ui-memblist-usr .icon-chatImg:before{left: -4px;}
-.ui-corner-top.ui-memblist .ui-dialog-header .ui-corner-all{margin-right: 5px;}
-
-#vAppCont #mainContainer{
-    display :none;
+#vAppCont #errorContainer{
+    position: fixed;
+    bottom: 6%;
+    left: 30%;
+    color : rgba(131, 14, 14, 0.93);
 }
-
-.ui-memblist-usr a span.chatImg{margin-left: 0px;}

@@ -75,9 +75,20 @@
             'notSupportBrowser' : "Not supported screen sharing for this version of browser",
             'disableSpeaker' : "Disable Audio",
             'enableSpeaker' : "Enable Audio",
-            'notSupportChrome' : 'Your browser {Browser Version} needs to updated, We support Chrome 40'
-                    
-                    
+            'notSupportChrome' : 'Your browser {Browser Version} needs to updated, We support Chrome 40',
+            'errcanvas' : 'canvas',
+            'errwebSocket' : 'Web Socket',
+            'errgetusermedia' : 'getUserMedia',
+            'errindexeddb' : 'indexedDb',
+            'errwebworker' :  'Web worker',
+            'errwebaudio' : 'Web audio',
+            'errtypedarray' :  'Typed array',
+            'errscreenshare' : 'Screen share',
+            'operaBrowserIssue' : 'is Partially Supported, you will not be able to share your screen with Learners, We Fully Support Chrome and Firefox',
+            'commonBrowserIssue' : 'is not supported, We support Chrome and Firefox.',
+            'chFireBrowsersIssue' : ' needs to updated, We support Chrome 40 and Firefox 35.',
+            'studentSafariBrowserIssue' : 'you will not be able to share your Cam with other Users, We Fully Support Chrome  and Firefox.'
+            
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"
         };

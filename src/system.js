@@ -11,67 +11,144 @@
                 this.mybrowser = {};
                 return this;
             },
+            
+            
+//            isCanvasSupport : function(navigator, browserName, version) {
+//                if (browserName == 'MSIE') {
+////                    if (version != 9) {
+////                        alert(canvas);
+////                        
+////                        //TODO there should be some good method to check exisitence of canvas element in IE browsers
+////                        //vApp.error.push({'msg': vApp.lang.getString('notSupportCanvas'), 'id': 'errorCanvas', 'className': 'error'});
+////                    }
+////                    this.canvas = true;
+//                    this.canvas = (version != 9) ? false : true;
+//                } else {
+//                   this.canvas = (!window.CanvasRenderingContext2D) ? false : true;
+//                }
+//            },
+            
+//            isWebRtcSupport : function(navigator, browser, version) {
+//                if (browser == 'Firefox') {
+//                    if (navigator.mozGetUserMedia) {
+//                        this.wbRtc.userMedia = true;
+//                        if (!window.mozRTCPeerConnection) {
+//                            vApp.error.push({'msg': vApp.lang.getString('notSupportPeerConnect'), 'id': 'errorPeerConnect', 'className': 'error'});
+//                        } else {
+//                            this.wbRtc.peerCon = true;
+//                        }
+//                    } else {
+//                            this.wbRtc.peerCon = false;
+////                        vApp.error.push({'msg': vApp.lang.getString('notSupportGetUserMedia'), 'id': 'errorGetUserMedia', 'className': 'error'});
+//                    }
+//                } else if (browser == 'Chrome' || browser == 'Safari') {
+//                    if (navigator.webkitGetUserMedia) {
+//                        this.wbRtc.userMedia = true;
+//                        if (!window.webkitRTCPeerConnection) {
+//                            vApp.error.push({'msg': vApp.lang.getString('notSupportPeerConnect'), 'id': 'errorPeerConnect', 'className': 'error'});
+//                        } else {
+//                            this.wbRtc.peerCon = true;
+//                        }
+//                    } else {
+//                        this.wbRtc.peerCon = false;
+//                      //  vApp.error.push({'msg': vApp.lang.getString('notSupportGetUserMedia'), 'id': 'errorGetUserMedia', 'className': 'error'});
+//                    }
+//                } else if (browser == 'MSIE' && version <= 11) {
+//                    this.wbRtc.peerCon = false;
+//                    //vApp.error.push({'msg': vApp.lang.getString('notSupportWebRtc'), 'id': 'errorWebRtc', 'className': 'error'});
+//                }
+//            },
+//          
+            
             isCanvasSupport : function(navigator, browserName, version) {
                 if (browserName == 'MSIE') {
-                    if (version != 9) {
-                        //TODO there should be some good method to check exisitence of canvas element in IE browsers
-                        vApp.error.push({'msg': vApp.lang.getString('notSupportCanvas'), 'id': 'errorCanvas', 'className': 'error'});
-                    }
+                    return (version != 9) ? false : true;
                 } else {
-                    var canvasSupported = !!window.CanvasRenderingContext2D;
-                    if (!canvasSupported) {
-                        vApp.error.push({'msg': vApp.lang.getString('notSupportCanvas'), 'id': 'errorCanvas', 'className': 'error'});
-                    }
+                   return (!window.CanvasRenderingContext2D) ? false : true;
                 }
-            },
-            isWebRtcSupport : function(navigator, browser, version) {
-                if (browser == 'Firefox') {
-                    if (navigator.mozGetUserMedia) {
-                        this.wbRtc.userMedia = true;
-                        if (!window.mozRTCPeerConnection) {
-                            vApp.error.push({'msg': vApp.lang.getString('notSupportPeerConnect'), 'id': 'errorPeerConnect', 'className': 'error'});
-                        } else {
-                            this.wbRtc.peerCon = true;
-                        }
-                    } else {
-                        vApp.error.push({'msg': vApp.lang.getString('notSupportGetUserMedia'), 'id': 'errorGetUserMedia', 'className': 'error'});
-                    }
-                } else if (browser == 'Chrome' || browser == 'Safari') {
-                    if (navigator.webkitGetUserMedia) {
-                        this.wbRtc.userMedia = true;
-                        if (!window.webkitRTCPeerConnection) {
-                            vApp.error.push({'msg': vApp.lang.getString('notSupportPeerConnect'), 'id': 'errorPeerConnect', 'className': 'error'});
-                        } else {
-                            this.wbRtc.peerCon = true;
-                        }
-                    } else {
-                        vApp.error.push({'msg': vApp.lang.getString('notSupportGetUserMedia'), 'id': 'errorGetUserMedia', 'className': 'error'});
-                    }
-                } else if (browser == 'MSIE' && version <= 11) {
-                    vApp.error.push({'msg': vApp.lang.getString('notSupportWebRtc'), 'id': 'errorWebRtc', 'className': 'error'});
-                }
-            },
-            
-            isBrowserCompatible : function (browserName, version){
-                
-//                vApp.error.push({'msg': vApp.lang.getString('notSupportChrome'), 'id': 'errorBrowser2', 'className': 'error'}); 
-                
-                
-                if(browserName == 'Chrome' && version < 40){
-                    vApp.error.push({'msg': vApp.lang.getString('notSupportChrome'), 'id': 'errorBrowser', 'className': 'error'}); 
-                    return false;
-                }
-                return true;
             },
             
             isWebSocketSupport : function(navigator, browser, version) {
-                this.webSocket = {};
-                if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
-                    this.webSocket = true;
-                } else {
-                    vApp.error.push({'msg': vApp.lang.getString('notSupportWebSocket'), 'id': 'errorWebSocket', 'className': 'error'});
+                if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')){
+                    return true;
+                }else{
+                    return false;
                 }
+                    
             },
+            
+            isLocalStorageSupport: function (){
+                return (Storage !== void(0)) ? true : false;
+            },
+            
+            isGetUserMediaSupport : function(browser, version) {
+                navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+               
+                return (navigator.getUserMedia) ? true : false;
+            },
+            
+            isIndexedDbSupport : function (){
+               return (window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB) ? true : false;
+            },
+            
+            isWorkerSupport : function (){
+                return !!window.Worker ? true : false;
+            },
+            
+            isAudioApiSupport : function (){
+                return (window.AudioContext||window.webkitAudioContext) ? true : false;
+            },
+            
+            isTypedArraySupport : function (){
+                return ( 'ArrayBuffer' in window ) ? true : false;
+            },
+            
+            isScreenShareSupport : function (){
+                
+            },
+                
+            setValue : function (key, value){
+                this[key]  = value;
+            },
+            
+            checkBrowserFunctions : function (){
+                this.setValue('canvas', this.isCanvasSupport());
+                this.setValue('webSocket', this.isWebSocketSupport());
+                this.setValue('getusermedia', this.isGetUserMediaSupport());
+                this.setValue('indexeddb', this.isIndexedDbSupport());
+                this.setValue('webworker', this.isWorkerSupport());
+                this.setValue('webaudio', this.isAudioApiSupport());
+                this.setValue('typedarray', this.isTypedArraySupport());
+                this.setValue('screenshare', this.isScreenShareSupport());
+                this.setValue('localstorage', this.isLocalStorageSupport());
+            },     
+            
+            
+//            isBrowserCompatible : function (browserName, version){
+//                
+////                vApp.error.push({'msg': vApp.lang.getString('notSupportChrome'), 'id': 'errorBrowser2', 'className': 'error'}); 
+//                
+//                
+//                if(browserName == 'Chrome' && version < 40){
+//                    vApp.error.push({'msg': vApp.lang.getString('notSupportChrome'), 'id': 'errorBrowser', 'className': 'error'}); 
+//                    return false;
+//                }
+//                return true;
+//            },
+//            
+//            isWebSocketSupport : function(navigator, browser, version) {
+//                this.webSocket = {};
+//                if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
+//                    this.webSocket = true;
+//                } else {
+//                    this.webSocket = false;
+////                    vApp.error.push({'msg': vApp.lang.getString('notSupportWebSocket'), 'id': 'errorWebSocket', 'className': 'error'});
+//                }
+//            },
+            
             measureResoultion : function(resolution) {
                 var element = document.getElementById('vAppCont');
                 var offset = vcan.utility.getElementOffset(element);
@@ -123,22 +200,111 @@
                 }
                 return resolution;
             },
+            
+            reportBrowser : function (user){
+                var errors = this.getErrors(user);
+                if(errors.length > 1){
+                    alert('sss');
+                    debugger;
+                   var error = errors.joins(",");
+                   alert(error + ' feature/s  is/are disabled on your browser');
+                }
+            },
+    
+            getErrors : function (user){
+                var errors = [];
+                //webSocket to websocket
+                var  apis = ['canvas', 'webSocket', 'getusermedia', 'webaudio', 'indexeddb', 'localstorage','typedarray'];
+                if(user == 't') apis.push('webworker', 'screenshare');  
+                for (var i=0; i<apis.length; i++){
+                    if(!this[apis[i]])
+                        errors.push(vApp.lang.getString('err'+ apis[i]));
+                }
+                return errors;
+            },
+            isiOSDevice : function(){
+                var iOSVersion = parseFloat(
+                ('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(navigator.userAgent) || [0,''])[1])
+                .replace('undefined', '3_2').replace('_', '.').replace('_', '')
+                ) || false;
+                return iOSVersion; 
+            },
+            
+            isAndroid : function (){
+                var ua = navigator.userAgent.toLowerCase();
+                return ua.indexOf("android") > -1;
+            },
+            
             check : function (){
-                var browser = this.mybrowser.detection();
+               var iOS = this.isiOSDevice();
+               this.isAndroid();
+               
+                if(iOS){
+                    var bname = "safariMobile";
+                    var bversion = iOS;
+                }else{
+                    var androidDevice = this.isAndroid();
+                    var vendor = this.mybrowser.detection();
+                    var bname = vendor[0];
+                    var bversion = parseFloat(vendor[1]);
+                    
+                    this.mybrowser.name = bname;
+                    this.mybrowser.version = bversion;
+                }
                 
-                var browserName = browser[0];
-                var browserVersion = parseFloat(browser[1]);
-                this.mybrowser.name = browserName;
-                this.mybrowser.version = browserVersion;
-
-                this.isCanvasSupport(navigator, browserName, browserVersion);
-                this.isWebRtcSupport(navigator, browserName, browserVersion);
-                this.isWebSocketSupport(navigator, browserName, browserVersion);
+//                bname = vendeor[0];
+//                bversion = parseFloat(vendeor[1]);
+                this.checkBrowserFunctions();
                 
-               // this.isBrowserCompatible(browserName, browserVersion);
-                
-            }
+                if(vApp.gObj.uRole == 's' && typeof androidDevice != 'undefined' && androidDevice){
+                    if(bname == 'Chrome'){
+                         if(bversion >= 40){
+                         //     DO : Disable Audio Controls and Cam Support for this user
+                         }else{
+                            vApp.error.push( bname +  ' ' + bversion + ' ' + " is not supported, we support chrome  versoin 40 or newer on Android");
+                         }
+                    }else{
+                        vApp.error.push( bname  + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
+                    }
+                }else if ( (bname == 'Chrome' &&   bversion  >= 40) || (bname == 'Firefox' &&   bversion  >= 35) || 
+                        (vApp.gObj.uRole == 's' && bname == 'Opera' > bversion  >= 26)) {
+                    this.reportBrowser(vApp.gObj.uRole);
+                } else if ( (bname == 'Chrome' &&  bversion < 40) || (bname == 'Firefox' &&   bversion  < 35) ||
+                        (vApp.gObj.uRole == 's' && bname == 'Opera' && bversion < 26)) {
+                         //this should come from lang file   
+                    vApp.error.push(bname +  ' ' + bversion +   vApp.lang.getString('chFireBrowsersIssue'));
+                } else if(vApp.gObj.uRole == 't' && bname == 'Opera' &&  bversion >= 26 ){
+                    this.reportBrowser(vApp.gObj.uRole);
+                    vApp.error.push( bname +  ' ' + bversion +   vApp.lang.getString('operaBrowserIssue'));
+                } else if(vApp.gObj.uRole == 's' && bname == 'Safari' && bversion  >= 8) {
+                    this.reportBrowser(vApp.gObj.uRole);
+                    vApp.error.push(bname +  ' ' +   vApp.lang.getString('studentSafariBrowserIssue'));
+                    //DO : Disable Audio Controls and Cam Support for this user. 
+                } else if(vApp.gObj.uRole == 's'&& bname == 'safariMobile' &&  bversion >= 7) { 
+                    // here bversion is version of operating system 
+                    // we have to disable the audio compability
+                }else{
+                    vApp.error.push( bname +  ' ' + bversion + ' ' + vApp.lang.getString('commonBrowserIssue'));
+                }
+            }   
+            
+//            check : function (){
+//                var vendeor = this.mybrowser.detection();
+//                bname = vendeor[0];
+//                bversion = parseFloat(vendeor[1]);
+//
+////                this.isCanvasSupport(navigator, browserName, browserVersion);
+////                this.isWebRtcSupport(navigator, browserName, browserVersion);
+////                this.isWebSocketSupport(navigator, browserName, browserVersion);
+//                this.checkBrowserFunctions();
+////                this.isBrowserCompatible(browserName, browserVersion);
+//                if ( this.mybrowser == 'Chrome' &&   bversion  >= 40 ||
+//                        this.mybrowser == 'Firefox' &&   bversion  >= 35)  {
+//                    this.reportBrowser(vApp.gObj.uRole);
+//                }    
+//            }
         };
+        
         system = system.init();
          // There could be the problem
         window.addEventListener('resize',

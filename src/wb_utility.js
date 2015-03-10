@@ -553,10 +553,15 @@
                         }
                         vApp.vutil.removeSessionTool();
                     }
-
+                    
+                    
+                    if(!vApp.gObj.hasOwnProperty('audIntDisable') &&  !vApp.gObj.hasOwnProperty('vidIntDisable')){
+                        vApp.gObj.video.init();
+                        vApp.gObj.video.isInitiator = true;
+                    }
                     //bad way
-                    vApp.gObj.video.init();
-                    vApp.gObj.video.isInitiator = true;
+//                    vApp.gObj.video.init();
+//                    vApp.gObj.video.isInitiator = true;
                     vcan.oneExecuted = false;
                 },
                 checkWebRtcConnected: function() {
@@ -788,7 +793,9 @@
                             }
                         }else{
                             if (commandToolWrapper != null) {
-                                commandToolWrapper.style.pointerEvents = "visible";
+                                if(!vApp.gObj.hasOwnProperty('errNotDesktop')){
+                                    commandToolWrapper.style.pointerEvents = "visible";
+                                }
                             }
                         }
                     }

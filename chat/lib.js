@@ -69,7 +69,11 @@ function memberUpdate(e, addType){
             if (usr.userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
 
                     var vidTag = document.getElementById('video'+usr.userid);
-                    if(vidTag == null ){
+                    
+                    if(!vApp.gObj.hasOwnProperty('audIntDisable') &&  !vApp.gObj.hasOwnProperty('vidIntDisable') && vidTag == null){
+                        
+                    
+//                    if(vidTag == null ){
                         vApp.gObj.video._handleUserMedia(usr.userid);
                     }
                         

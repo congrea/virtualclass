@@ -106,15 +106,20 @@
                 return ( 'ArrayBuffer' in window ) ? true : false;
             },
             
-            isScreenShareSupport : function (){
-                
+            isScreenShareSupport : function (bname, bversion){
+                if(bname == 'Firefox'){
+                    return (bversion >= 34) ?  true : false;
+                }else if(bname == 'Chrome'){
+                    return (bversion >= 39) ?  true : false;
+                }
+                return false;
             },
                 
             setValue : function (key, value){
                 this[key]  = value;
             },
             
-            checkBrowserFunctions : function (){
+            checkBrowserFunctions : function (bname, bversion){
                 this.setValue('canvas', this.isCanvasSupport());
                 this.setValue('webSocket', this.isWebSocketSupport());
                 this.setValue('getusermedia', this.isGetUserMediaSupport());
@@ -122,7 +127,7 @@
                 this.setValue('webworker', this.isWorkerSupport());
                 this.setValue('webaudio', this.isAudioApiSupport());
                 this.setValue('typedarray', this.isTypedArraySupport());
-                this.setValue('screenshare', this.isScreenShareSupport());
+                this.setValue('screenshare', this.isScreenShareSupport(bname, bversion));
                 this.setValue('localstorage', this.isLocalStorageSupport());
             },     
             
@@ -203,22 +208,37 @@
             
             reportBrowser : function (user){
                 var errors = this.getErrors(user);
+//                alert('sss');
+//                debugger;
+//                if(errors.indexOf('errscreenshare') > -1){
+//                    alert("hi brother what is up"); 
+//                    debugger;
+//                    vApp.wb.view.disableSSUI();
+//                }
+                
                 if(errors.length > 1){
-                    alert('sss');
-                    debugger;
-                   var error = errors.joins(",");
-                   alert(error + ' feature/s  is/are disabled on your browser');
+                   vApp.error.push(errors.join(",") + " are disabled in your browser.");
+                }else if(errors.length == 1){
+                   vApp.error.push(errors + ' is disabled in your browser.'); 
                 }
+                
+                
+                
             },
     
             getErrors : function (user){
+                
                 var errors = [];
                 //webSocket to websocket
                 var  apis = ['canvas', 'webSocket', 'getusermedia', 'webaudio', 'indexeddb', 'localstorage','typedarray'];
                 if(user == 't') apis.push('webworker', 'screenshare');  
                 for (var i=0; i<apis.length; i++){
-                    if(!this[apis[i]])
+                    if(!this[apis[i]]){
+                        if(apis[i] == 'screenshare'){
+                           vApp.gObj.errNotScreenShare = true;
+                        }
                         errors.push(vApp.lang.getString('err'+ apis[i]));
+                    }
                 }
                 return errors;
             },
@@ -254,35 +274,53 @@
                 
 //                bname = vendeor[0];
 //                bversion = parseFloat(vendeor[1]);
-                this.checkBrowserFunctions();
-                
-                if(vApp.gObj.uRole == 's' && typeof androidDevice != 'undefined' && androidDevice){
-                    if(bname == 'Chrome'){
-                         if(bversion >= 40){
-                         //     DO : Disable Audio Controls and Cam Support for this user
-                         }else{
-                            vApp.error.push( bname +  ' ' + bversion + ' ' + " is not supported, we support chrome  versoin 40 or newer on Android");
-                         }
+                this.checkBrowserFunctions(bname, bversion);
+//                vApp.vutil.initDisableVirtualClass();
+                if(typeof androidDevice != 'undefined' && androidDevice || iOS){
+                    if(vApp.gObj.uRole == 't'){
+//                        vApp.gObj.errNotDesktop = true;
+                        vApp.vutil.initDisableVirtualClass();
+                        vApp.error.push("We support only desktop computer not  any tablet and mobile for teacher.");
+                        return;
                     }else{
-                        vApp.error.push( bname  + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
+                        if(androidDevice){
+                            if(bname == 'Chrome'){
+                            if(bversion >= 40){
+                            //     DO : Disable Audio Controls and Cam Support for this user
+                               vApp.vutil.initDisableAudVid();
+                               
+                            }else{
+                               vApp.error.push( bname +  ' ' + bversion + ' ' + " is not supported, we support chrome  versoin 40 or newer on Android");
+                            }
+                          }else{
+                              vApp.error.push( bname  + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
+                          }
+                        }
                     }
+                    
                 }else if ( (bname == 'Chrome' &&   bversion  >= 40) || (bname == 'Firefox' &&   bversion  >= 35) || 
                         (vApp.gObj.uRole == 's' && bname == 'Opera' > bversion  >= 26)) {
                     this.reportBrowser(vApp.gObj.uRole);
                 } else if ( (bname == 'Chrome' &&  bversion < 40) || (bname == 'Firefox' &&   bversion  < 35) ||
                         (vApp.gObj.uRole == 's' && bname == 'Opera' && bversion < 26)) {
-                         //this should come from lang file   
+                    this.reportBrowser(vApp.gObj.uRole);
                     vApp.error.push(bname +  ' ' + bversion +   vApp.lang.getString('chFireBrowsersIssue'));
                 } else if(vApp.gObj.uRole == 't' && bname == 'Opera' &&  bversion >= 26 ){
                     this.reportBrowser(vApp.gObj.uRole);
                     vApp.error.push( bname +  ' ' + bversion +   vApp.lang.getString('operaBrowserIssue'));
                 } else if(vApp.gObj.uRole == 's' && bname == 'Safari' && bversion  >= 8) {
+                    vApp.vutil.initDisableAudVid();
+//                        vApp.gObj.audIntDisable = true;
+//                        vApp.gObj.vidIntDisable = true;
+                        
                     this.reportBrowser(vApp.gObj.uRole);
                     vApp.error.push(bname +  ' ' +   vApp.lang.getString('studentSafariBrowserIssue'));
+                    vApp.user.control.audioWidgetDisable();
                     //DO : Disable Audio Controls and Cam Support for this user. 
                 } else if(vApp.gObj.uRole == 's'&& bname == 'safariMobile' &&  bversion >= 7) { 
                     // here bversion is version of operating system 
                     // we have to disable the audio compability
+                    vApp.vutil.initDisableAudVid();
                 }else{
                     vApp.error.push( bname +  ' ' + bversion + ' ' + vApp.lang.getString('commonBrowserIssue'));
                 }

@@ -51,8 +51,23 @@
             //there function name should be change
             isSystemCompatible: function() {
                 if (vApp.error.length > 0) {
-                    var errorMsg = (vApp.error.length > 1) ? (vApp.error.join(",")) : vApp.error[0];
+                    var errorMsg = (vApp.error.length > 1) ? (vApp.error.join("<br />")) : vApp.error[0];
                     vApp.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+                    
+                    if(vApp.gObj.hasOwnProperty('audIntDisable')){
+                        vApp.user.control.audioWidgetDisable();
+                    }
+                    
+                    if(vApp.gObj.hasOwnProperty('errNotDesktop')){
+                        vApp.user.control.audioWidgetDisable();
+                        vApp.vutil.disableVirtualClass();
+                    }
+                    
+                    
+//                    if(vApp.gObj.hasOwnProperty('errNotScreenShare')){
+//                        alert("suman bogati");
+//                        vApp.wb.view.disableSSUI();
+//                    }
                 }   
                     
 //                    for (var i = 0; i < window.vApp.error.length; i++) {
@@ -393,8 +408,25 @@
                 }else{
                     return false;
                 }
-            }
+            },
             
+            initDisableAudVid : function (){
+                vApp.gObj.audIntDisable = true;
+                vApp.gObj.vidIntDisable = true;
+            },
+            
+            initDisableVirtualClass : function (){
+                this.initDisableAudVid();
+                vApp.gObj.errNotDesktop = true
+            },
+            
+            disableVirtualClass : function (){
+                var virtualClass = document.getElementById('vAppCont');
+                virtualClass.style.opacity = 0.6;
+                virtualClass.style.pointerEvents = "none";
+                //document.getElementById('commandToolsWrapper').style.poniterEvents =   'none';
+                        
+            }
         }
 
         window.vutil = vutil;
@@ -409,8 +441,11 @@
 
             localStorage.removeItem('otherRole');
             vApp.wb.utility.userIds = [];
-
-            vApp.gObj.video.audio.studentNotSpeak();
+            
+            if(!vApp.gObj.hasOwnProperty('audIntDisable')){
+                vApp.gObj.video.audio.studentNotSpeak();
+            }
+            
             vApp.vutil.clickOutSideCanvas();
             
             //var data = JSON.stringify(vApp.chat.vmstorage);

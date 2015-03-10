@@ -44,6 +44,16 @@
                 oneExecuted: false,
                 videoControlId: 'videoContainer',
                 videoContainerId: "videos",
+                
+                util : {
+                  imageReplaceWithVideo : function (id, vidCont){
+                    var chatUser = document.getElementById("ml" + id);
+                    var childTag = chatUser.getElementsByTagName('a')[0];
+                    var imgTag = childTag.getElementsByTagName('img')[0];
+                    childTag.replaceChild(vidCont, imgTag);
+                  }  
+                },
+                
                 audio : {
                   audioStreamArr : [],
                   tempAudioStreamArr :  [],
@@ -474,7 +484,7 @@
                         newSource.connect(gainNode);
                         gainNode.connect(this.Html5Audio.audioContext.destination);
                         
-                        if(userObj.ad && userObj.aud){
+                        if(userObj != null && userObj.ad && userObj.aud){
                             vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
                             var anchorTag = document.getElementById(userObj.id + 'contrAudAnch');
                             anchorTag.setAttribute('data-title', vApp.lang.getString('audioOn'));
@@ -526,7 +536,7 @@
                             }
                         }
                         newSource.start();
-                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+//                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                         vApp.gObj[uid].isplaying = true;
                      //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
                         if(typeof testAudio == 'undefined'){
@@ -755,7 +765,9 @@
                         var videoCont = this.videoCont;
                         videoSubWrapper.appendChild(video);
                         videoCont = videoWrapper;
-                        cthis.video.imageReplaceWithVideo(user.id, videoCont);
+                        //cthis.video.imageReplaceWithVideo(user.id, videoCont);
+                        vApp.gObj.video.util.imageReplaceWithVideo(user.id, videoCont);
+                        
                     },
                     updateHightInSideBar : function (videoHeight){
                         //TODO this is not to do every time a function is called
@@ -906,12 +918,12 @@
                         childElement.appendChild(videoTag);
                         return parElement;
                     },
-                    imageReplaceWithVideo : function (id, vidCont){
-                        var chatUser = document.getElementById("ml" + id);
-                        var childTag = chatUser.getElementsByTagName('a')[0];
-                        var imgTag = childTag.getElementsByTagName('img')[0];
-                        childTag.replaceChild(vidCont, imgTag);
-                    },
+//                    imageReplaceWithVideo : function (id, vidCont){
+//                        var chatUser = document.getElementById("ml" + id);
+//                        var childTag = chatUser.getElementsByTagName('a')[0];
+//                        var imgTag = childTag.getElementsByTagName('img')[0];
+//                        childTag.replaceChild(vidCont, imgTag);
+//                    },
                     insertTempVideo : function (beforeInsert){
                         var tempVideo = document.createElement('canvas');
                         tempVideo.id = 'tempVideo';
@@ -931,6 +943,8 @@
                     }
                 },
                 init: function(vbool) {
+//                    alert('suman bogati');
+//                    debugger;
                     cthis = this; //TODO there should be done work for cthis
                     vcan.oneExecuted = true;
                     var audio = true;
@@ -942,7 +956,7 @@
                     vApp.adpt = new vApp.adapter();
                     var cNavigator = vApp.adpt.init(navigator);
                     cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
-                    if (vApp.system.wbRtc.peerCon) {
+                    if (vApp.system.wbRtc.peerCon) { //TODO this should be deleted 
                         if (typeof localStorage.wbrtcMsg == 'undefined') {
                             vApp.wb.view.multiMediaMsg('WebRtc');
                             localStorage.wbrtcMsg = true;
@@ -950,6 +964,7 @@
                     }
                 },
                 handleUserMedia : function(stream){
+                     
                     var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
 //                    if(vApp.vutil.elemHasAnyClass(elem.id)
@@ -981,7 +996,9 @@
                     }
                     if(typeof stream != 'undefined'){
                         var vidContainer = cthis.video.createVideoElement();
-                        cthis.video.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
+                        vApp.gObj.video.util.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
+//                        cthis.video.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
+                        
                         cthis.video.insertTempVideo(vidContainer);
                         cthis.video.tempVideoInit();
                         cthis.video.myVideo = document.getElementById("video" + vApp.gObj.uid);
@@ -1045,12 +1062,26 @@
                     return false;
                 },
                 handleUserMediaError: function(error) {
+                    alert('suman bogati');
+                    debugger;
+                    var error = (typeof error == 'object') ?  vApp.lang.getString(error.name) : vApp.lang.getString(error);
+                     
+                    vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
+                    
+//                    if(typeof error == 'object'){
+//                        alert(vApp.lang.getString(error.name));
+//                    }else {
+//                        alert(vApp.lang.getString(error));
+//                    }
+                    
                     vApp.user.control.audioWidgetDisable();
-                    if(error.hasOwnProperty('name')){
-                        alert("media error:- " + vApp.lang.getString(error.name));
-                    }else{
-                        alert("media error:- " + vApp.lang.getString(error));
-                    }
+                    
+//                    if(error.hasOwnProperty('name')){
+//                        alert("media error:- " + vApp.lang.getString(error.name));
+//                    }else{
+//                        alert("media error:- " + vApp.lang.getString(error));
+//                    }
+                    
                     vApp.wb.view.disappearBox('WebRtc');
                     console.log('navigator.getUserMedia error: ', error);
                 }

@@ -499,8 +499,12 @@
                         studentSpeaker.style.pointerEvents = "none";
                         studentSpeaker.className = 'deactive';
                         var alwaysPressElem = document.getElementById('speakerPressing');
-                        vApp.gObj.video.audio.studentNotSpeak(alwaysPressElem);
-                        vApp.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
+                        if(vApp.gObj.hasOwnProperty('video')){
+                            vApp.gObj.video.audio.studentNotSpeak(alwaysPressElem);
+                            vApp.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
+                        }
+                        
+                        
                     },
                     allChatDisable : function (){
                         localStorage.setItem('chatEnable', "false");

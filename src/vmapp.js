@@ -53,29 +53,37 @@ function (window){
 
                 this.html.init(this);
                 this.adapter = window.adapter;
-
+                    
                 this.makeAppReady(app, "byclick");
 
-                //this should be at top
+                //TODO system checking function should be invoked before makeAppReady
+                
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at system.js file
-
+                
                 vApp.wb.utility.displayCanvas();
 
                 if(app == this.apps[1]){
                     this.system.setAppDimension();
                 }
-
+                
                   //To teacher
                 vApp.user.assignRole(vApp.gObj.uRole, app);
 
                 if(vApp.gObj.uRole == 't'){
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                 }
-
-                this.gObj.video = new window.vApp.media();
-                this.initSocketConn();
                 
+                this.gObj.video = new window.vApp.media();
+                
+                
+                
+                
+//                if(!vApp.gObj.hasOwnProperty('audIntDisable) && !vApp.gObj.hasOwnPropert('videoDisable')){
+//                    this.gObj.video = new window.vApp.media();
+//                }
+                
+                this.initSocketConn();
                 vApp.chat = new Chat();
                 vApp.chat.init();
             },
@@ -112,7 +120,10 @@ function (window){
 
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
-
+                    if(vApp.gObj.hasOwnProperty('errNotScreenShare')){
+                        vApp.wb.view.disableSSUI();
+                    }
+                    
                     if(vApp.gObj.uRole == 't'){
                          this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }

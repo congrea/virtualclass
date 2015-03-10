@@ -50,12 +50,17 @@
           },
           
           createErrorMsg : function (msg, contId, addBefore){
+                
                 var errorCont = document.getElementById(contId);
                 if(errorCont ==  null){
                    var errorCont = document.createElement('div');
                    errorCont.id = contId
                    errorCont.innerHTML = msg;
+                }else{
+                    var errMsg =   msg +  "<br /> " + errorCont.innerHTML;
+                    errorCont.innerHTML = errMsg;
                 }
+                
                 var addBeforeElem = document.getElementById(addBefore);
                 addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
                 return errorCont.id;
@@ -155,6 +160,14 @@
               var errorDiv = document.getElementById(id);
               if(errorDiv != null){
                  errorDiv.parentNode.removeChild(errorDiv);
+              }
+          },
+          
+          disableSSUI : function (){
+              var sTool = document.getElementById('vAppScreenShareTool');
+              if(sTool != null){
+                  sTool.style.opacity = "0.5";
+                  sTool.style.pointerEvents = "none";
               }
           }
 

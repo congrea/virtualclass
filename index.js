@@ -18,6 +18,11 @@ $.uiBackCompat = false;
         var appIs = "Whiteboard";
         vApp.gObj.sessionClear = false;
         vApp.prvCurrUsersSame();
+        
+//        alert(vApp.gObj.errNotDesktop);
+//        debugger;
+        
+        
         vApp.init(wbUser.role, appIs);
         if(localStorage.getItem('tc') != null){
             vApp.vutil.toggleRoleClass();
@@ -28,6 +33,7 @@ $.uiBackCompat = false;
         if(vApp.vutil.isMiniFileIncluded('wb.min')){
             vApp.gObj.displayError = 0;
         }
+        
         
         if(window.vApp.error.length > 2){
             window.vApp.error = [];

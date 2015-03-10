@@ -102,6 +102,7 @@
                 };
                 vApp.adpt = new vApp.adapter();
                 navigator2 = vApp.adpt.init(navigator);
+                
                 navigator2.getUserMedia(constraints, function (stream, err) {
                         //callback(err, stream);
                         vApp.ss._init();
@@ -128,6 +129,10 @@
                             //PERMISSION_DENIED
                             if (error === 'PERMISSION_DENIED') {
                                 //this url is need to be changed
+                                window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
+                            }
+                        }else if(typeof error == 'object'){   //latest firefox
+                            if (error.name === 'PermissionDeniedError') {
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
                         }
@@ -206,6 +211,8 @@
             },
 
             getScreen: function (callback) {
+//                alert(chrome.desktopCapture);
+//                debugger;
                 if (vApp.system.mybrowser.name == 'Chrome') {
                     if (vApp.gObj.hasOwnProperty('ext') && vApp.gObj.ext) {
                         window.postMessage({type: 'getScreen', id: 1}, '*');

@@ -117,7 +117,8 @@ function (window){
                     var appCont = document.getElementById(this.id);
                     var appOptCont = this.createElement('div', 'vAppOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
-
+                    
+                    
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
                     if(vApp.gObj.hasOwnProperty('errNotScreenShare')){
@@ -127,6 +128,11 @@ function (window){
                     if(vApp.gObj.uRole == 't'){
                          this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
+                    if(vApp.gObj.hasOwnProperty('errAppBar')){
+                        
+                        vApp.wb.view.disableLeftAppBar();
+                    }
+                    
                 },
 
                 createDiv: function(toolId, text, cmdToolsWrapper, cmdClass, toBeReplace) {

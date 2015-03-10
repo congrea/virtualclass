@@ -266,10 +266,12 @@
                 }else{
                     
                     var androidDevice = this.isAndroid();
+                    
                     var vendor = this.mybrowser.detection();
                     var bname = vendor[0];
                     var bversion = parseFloat(vendor[1]);
-                   
+                    
+                    
                     this.mybrowser.name = bname;
                     this.mybrowser.version = bversion;
                 }
@@ -326,7 +328,14 @@
                     // we have to disable the audio compability
                     vApp.vutil.initDisableAudVid();
                 }else{
-                    vApp.error.push( bname +  ' ' + bversion + ' ' + vApp.lang.getString('commonBrowserIssue'));
+                    if(this.mybrowser.detectIE()){
+                        vApp.gObj.errIE = true;
+                        vApp.error.push(vApp.lang.getString('ieBrowserIssue'));
+                        vApp.vutil.initDisableVirtualClass();
+                    }else{
+                        vApp.error.push( bname +  ' ' + bversion + ' ' + vApp.lang.getString('commonBrowserIssue'));
+                    }
+//                    vApp.error.push( bname +  ' ' + bversion + ' ' + vApp.lang.getString('commonBrowserIssue'));
                 }
             }   
             
@@ -364,12 +373,38 @@
                 }
             }
         );
+        
+        system.mybrowser.detectIE = function (){
+            var ua = window.navigator.userAgent;
 
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0) {
+                // IE 10 or older => return version number
+                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+            }
+
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0) {
+                // IE 11 => return version number
+                var rv = ua.indexOf('rv:');
+                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+            }
+
+            var edge = ua.indexOf('Edge/');
+            if (edge > 0) {
+               // IE 12 => return version number
+               return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+            }
+
+            // other browser
+            return false;
+        },
         system.mybrowser.detection = function() {
+            
             var ua = navigator.userAgent, tem,
             M = ua.match(/(opera|opr|OPR(?=\/))\/?\s*([\d\.]+)/i) || []; //for opera especially
             if(M.length <= 0){
-                M = ua.match(/(chrome|safari|firefox|msie|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
+                M = ua.match(/(chrome|safari|firefox|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
             }
             if (/trident/i.test(M[1])) {
                 tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];

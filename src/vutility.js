@@ -51,8 +51,13 @@
             //there function name should be change
             isSystemCompatible: function() {
                 if (vApp.error.length > 0) {
+                    
                     var errorMsg = (vApp.error.length > 1) ? (vApp.error.join("<br />")) : vApp.error[0];
                     vApp.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+                    
+                    if(vApp.gObj.hasOwnProperty('errIE')){
+                        vApp.vutil.disableVirtualClass();
+                    }
                     
                     if(vApp.gObj.hasOwnProperty('audIntDisable')){
                         vApp.user.control.audioWidgetDisable();
@@ -417,7 +422,9 @@
             
             initDisableVirtualClass : function (){
                 this.initDisableAudVid();
-                vApp.gObj.errNotDesktop = true
+                vApp.gObj.errNotDesktop = true;
+                vApp.gObj.errNotScreenShare = true; 
+                vApp.gObj.errAppBar = true; 
             },
             
             disableVirtualClass : function (){

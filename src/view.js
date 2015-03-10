@@ -169,6 +169,14 @@
                   sTool.style.opacity = "0.5";
                   sTool.style.pointerEvents = "none";
               }
+          },
+          
+          disableLeftAppBar : function (){
+              var lefAppBar = document.getElementById("vAppOptionsCont");
+              if(lefAppBar != null){
+                  lefAppBar.style.opacity = "0.5";
+                  lefAppBar.style.pointerEvents = "none";
+              }
           }
 
         };

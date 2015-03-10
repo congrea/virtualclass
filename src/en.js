@@ -87,7 +87,8 @@
             'operaBrowserIssue' : 'is Partially Supported, you will not be able to share your screen with Learners, We Fully Support Chrome and Firefox',
             'commonBrowserIssue' : 'is not supported, We support Chrome and Firefox.',
             'chFireBrowsersIssue' : ' needs to updated, We support Chrome 40 and Firefox 35.',
-            'studentSafariBrowserIssue' : 'does not able to share your Cam with other Users, We Fully Support Chrome  and Firefox.'
+            'studentSafariBrowserIssue' : 'does not able to share your Cam with other Users, We Fully Support Chrome  and Firefox.',
+            'ieBrowserIssue' : 'Internet Explorer is not supported, We Fully Support Chrome  and Firefox.'
             
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"

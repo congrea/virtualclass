@@ -257,20 +257,23 @@
             
             check : function (){
                var iOS = this.isiOSDevice();
-               this.isAndroid();
+               
+//               this.isAndroid();
                
                 if(iOS){
                     var bname = "safariMobile";
                     var bversion = iOS;
                 }else{
+                    
                     var androidDevice = this.isAndroid();
                     var vendor = this.mybrowser.detection();
                     var bname = vendor[0];
                     var bversion = parseFloat(vendor[1]);
-                    
+                   
                     this.mybrowser.name = bname;
                     this.mybrowser.version = bversion;
                 }
+                
                 
 //                bname = vendeor[0];
 //                bversion = parseFloat(vendeor[1]);
@@ -286,6 +289,7 @@
                         if(androidDevice){
                             if(bname == 'Chrome'){
                             if(bversion >= 40){
+                                
                             //     DO : Disable Audio Controls and Cam Support for this user
                                vApp.vutil.initDisableAudVid();
                                
@@ -299,15 +303,15 @@
                     }
                     
                 }else if ( (bname == 'Chrome' &&   bversion  >= 40) || (bname == 'Firefox' &&   bversion  >= 35) || 
-                        (vApp.gObj.uRole == 's' && bname == 'Opera' > bversion  >= 26)) {
+                        (vApp.gObj.uRole == 's' && bname == 'OPR' > bversion  >= 26)) {
                     this.reportBrowser(vApp.gObj.uRole);
                 } else if ( (bname == 'Chrome' &&  bversion < 40) || (bname == 'Firefox' &&   bversion  < 35) ||
-                        (vApp.gObj.uRole == 's' && bname == 'Opera' && bversion < 26)) {
+                        (vApp.gObj.uRole == 's' && bname == 'OPR' && bversion < 26)) {
                     this.reportBrowser(vApp.gObj.uRole);
                     vApp.error.push(bname +  ' ' + bversion +   vApp.lang.getString('chFireBrowsersIssue'));
-                } else if(vApp.gObj.uRole == 't' && bname == 'Opera' &&  bversion >= 26 ){
+                } else if(vApp.gObj.uRole == 't' && bname == 'OPR' &&  bversion >= 26 ){
                     this.reportBrowser(vApp.gObj.uRole);
-                    vApp.error.push( bname +  ' ' + bversion +   vApp.lang.getString('operaBrowserIssue'));
+                    vApp.error.push( bname +  ' ' + bversion + ' ' +   vApp.lang.getString('operaBrowserIssue'));
                 } else if(vApp.gObj.uRole == 's' && bname == 'Safari' && bversion  >= 8) {
                     vApp.vutil.initDisableAudVid();
 //                        vApp.gObj.audIntDisable = true;
@@ -363,11 +367,15 @@
 
         system.mybrowser.detection = function() {
             var ua = navigator.userAgent, tem,
-                    M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
+            M = ua.match(/(opera|opr|OPR(?=\/))\/?\s*([\d\.]+)/i) || []; //for opera especially
+            if(M.length <= 0){
+                M = ua.match(/(chrome|safari|firefox|msie|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
+            }
             if (/trident/i.test(M[1])) {
                 tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
                 return 'IE ' + (tem[1] || '');
             }
+            
             M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
             if ((tem = ua.match(/version\/([\.\d]+)/i)) != null){
                 M[2] = tem[1];

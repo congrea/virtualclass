@@ -1689,6 +1689,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
 #vAppCont #errorContainer{
     position: fixed;
     bottom: 7%;
-    left: 30%;
+    left: 25%;
     color : rgba(131, 14, 14, 0.93);
 }

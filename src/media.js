@@ -1062,8 +1062,8 @@
                     return false;
                 },
                 handleUserMediaError: function(error) {
-                    alert('suman bogati');
-                    debugger;
+//                    alert('suman bogati');
+//                    debugger;
                     var error = (typeof error == 'object') ?  vApp.lang.getString(error.name) : vApp.lang.getString(error);
                      
                     vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');

@@ -1724,4 +1724,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
     left:3;
     
 }
- 
+
+#vAppCont #commandToolsWrapper:after{
+    content : "suman bogait";
+    clear :both;
+    display : block;
+    color : red;
+    height : 0;
+    visibility: hidden;
+}
+
+#vAppCont, #vAppCont #chat_div {
+    overflow: hidden;    
+}

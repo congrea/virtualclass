@@ -1070,15 +1070,19 @@ opacity : 0.800000011920928955078125 !important;
 	margin-right : 8px;
 }
 #vAppCont .ui-memblist-usr a img {
-	margin-top : 6px;
+	margin-top : 2px;
 	float : left;
 	background-color : #eee;
 	padding : 13px 22px;
 	border-radius : 3px;
 	border : #ddd solid 1px;
 	margin-bottom : 4px;
-	margin-left : 1px;
+/*	margin-left : 1px;*/
+        margin-left: 2px;
+        width: 20px;
 }
+
+
 #vAppCont #vAppScreenShare, #vAppWholeScreenShare {
 	margin-left : 55px;
 }
@@ -1692,3 +1696,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', end
     left: 25%;
     color : rgba(131, 14, 14, 0.93);
 }
+
+@media screen and (-webkit-min-device-pixel-ratio:0){
+#vAppCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
+ bottom:12px !important;
+ left:0em !important;
+}
+}
+
+#vAppCont  #chatWidget .mySelf{
+    pointer-events: none;
+}
+
+#vAppCont #chatWidget .mySelf span {
+    margin-left : 10px;
+    display : inline-block;
+    margin-top : 8px;
+}
+
+
+
+#vAppCont #chat_div .userImg a{
+    margin-left:4px;
+}
+#vAppCont #chat_div .userImg .controls{
+    position :relative;
+    left:3;
+    
+}
+ 

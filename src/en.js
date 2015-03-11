@@ -61,7 +61,7 @@
             'whiteboard' : 'Whiteboard',
             'screenshare' : 'Screen Share',
             'sessionend' : "Session End",
-            'audioTest' : "Kindly speak some words for audio testing",
+            'audioTest' : "Kindly speak some words for audio testing\nYour voice will be recorderd for 5 seconds after press OK.",
             'chatEnable' : "Chat is on",
             'chatDisable' : "Chat Disabled",
             'assignEnable' : "Transfer Controls",

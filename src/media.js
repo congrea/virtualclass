@@ -48,6 +48,9 @@
                 util : {
                   imageReplaceWithVideo : function (id, vidCont){
                     var chatUser = document.getElementById("ml" + id);
+                    if(vApp.vutil.elemHasAnyClass("ml" + id)){
+                        chatUser.classList.remove('userImg');
+                    }
                     var childTag = chatUser.getElementsByTagName('a')[0];
                     var imgTag = childTag.getElementsByTagName('img')[0];
                     childTag.replaceChild(vidCont, imgTag);

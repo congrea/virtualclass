@@ -32,10 +32,11 @@
                     var self = this;
                     var box = self.elem.uiChatboxLog;
                     var e = document.createElement('div');
+                    e.className =   e.className + "userImg";
                     box.append(e);
 
                     var systemMessage = false;
-
+                    
                     if (peer) {
                         var peerlink = document.createElement("a");
                         peerlink.href = '#' + peer.userid;

@@ -5,8 +5,15 @@
 
 (
     function (window){
-        var getString = function (string){
-            return window.vApp.lang.message[string];
+        var getString = function (string, words){
+            var langString = window.vApp.lang.message[string];
+            if(typeof words != 'undefined' &&  words.length > 0){
+                for(var i=0; i<words.length; i++){
+	            	var spatt = new RegExp('{vapp'+(i+1)+'}');
+                    langString = langString.replace(spatt, words[i]);
+                }
+            }
+            return langString;
         }
         window.getString = getString;
     }

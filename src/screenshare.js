@@ -139,7 +139,7 @@
                     }
                 );
             } else {
-                alert(vApp.lang.getString('notSupportBrowser'));
+                alert(vApp.lang.getString('notSupportBrowser', [ffver]));
             }
         };
         

@@ -159,7 +159,6 @@
                  * this function does create the command interface  
                  */
                 createCommand: function() {
-
                     var alreadyCreated = vApp.wb.utility.alreadyExistToolBar();
                     if (alreadyCreated) {
                         return true;
@@ -182,6 +181,7 @@
                 },
                 
                 createCommandWrapper : function (){
+                    //alert(vApp.system.device);
                     var cmdToolsWrapper = document.createElement('div');
                     cmdToolsWrapper.id = vApp.wb.commandToolsWrapperId;
                     var canvasElem = document.getElementById(vcan.canvasWrapperId);
@@ -292,8 +292,6 @@
                     if(this.parentNode.id != 't_clearall'){
                         vApp.wb.prvTool = this.parentNode.id;
                     }
-                    
-                    
                 },
                 
                 /**

@@ -1,5 +1,12 @@
 (
     function(window) {
+        
+        /**
+         * {vapp1} {vapp2} are elements you passes with getString function eg:-
+         *   vApp.lang.getString('operaBrowserIssue', ['opeara', 27]);
+         *   opera and 27 will be replaced over the {vapp1} and {vapp2} resepectively for particular line of language file.
+         * @type type
+         */
         var message = {
             'notSupportCanvas': 'This browser does not support Canvas. Please update your browser with the latest version' +
                     'For more information about Canvas, click on the link given here <a href="http://en.wikipedia.org/wiki/Canvas_element/">Canvas</a>',
@@ -72,10 +79,10 @@
             'DevicesNotFoundError' :  "You may not have Webcam(camera/microphone).",
             'PermissionDeniedError' : "You denied to access your Webcam.",
             'PERMISSION_DENIED' : "You denied to access your Webcam(camera/microphone).",
-            'notSupportBrowser' : "Not supported screen sharing for this version of browser",
+            'notSupportBrowser' : "Firefox {vApp1} does not support Screen sharing.",
             'disableSpeaker' : "Disable Audio",
             'enableSpeaker' : "Enable Audio",
-            'notSupportChrome' : 'Your browser {Browser Version} needs to updated, We support Chrome 40',
+            'notSupportChrome' : 'Your browser {vapp1} {vapp2} needs to updated, We support Chrome 40',
             'errcanvas' : 'canvas',
             'errwebSocket' : 'Web Socket',
             'errgetusermedia' : 'getUserMedia',
@@ -84,11 +91,14 @@
             'errwebaudio' : 'Web audio',
             'errtypedarray' :  'Typed array',
             'errscreenshare' : 'Screen share',
-            'operaBrowserIssue' : 'is Partially Supported, you will not be able to share your screen with Learners, We Fully Support Chrome and Firefox',
-            'commonBrowserIssue' : 'is not supported, We support Chrome and Firefox.',
-            'chFireBrowsersIssue' : ' needs to updated, We support Chrome 40 and Firefox 35.',
-            'studentSafariBrowserIssue' : 'does not able to share your Cam with other Users, We Fully Support Chrome  and Firefox.',
-            'ieBrowserIssue' : 'Internet Explorer is not supported, We Fully Support Chrome  and Firefox.'
+            'operaBrowserIssue' : 'Your browser {vapp1} {vapp2} is partially supported. You will not be able to share your screen with Learners, We fully support chrome and Firefox',
+            'commonBrowserIssue' : 'Your browser {vapp1} {vapp2} is not supported, We support Chrome and Firefox.',
+            'chFireBrowsersIssue' : 'Your browser {vapp1} {vapp2}  needs to updated, We support Chrome 40 and Firefox 35.',
+            'studentSafariBrowserIssue' : 'Your browser {vApp1} does not able to share your Cam with other users, We fully support Chrome  and Firefox.',
+            'ieBrowserIssue' : 'Your browser Internet Explorer is not supported, We fully support Chrome  and Firefox.',
+            'ios7support' : "We support only iOS 7 (Apple operating system 7) or higher.",
+            'supportDesktop' : "For teacher we support desktop computer only not any tablet and mobile phone.",
+            'notSupportIphone' : "We support iPad, Tablet or Desktop coputer, not any Mobile phone"
             
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"

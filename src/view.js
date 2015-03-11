@@ -66,6 +66,20 @@
                 return errorCont.id;
           },
           
+          removeErrorMsg : function (id, onlyLatest){
+            var delNode = document.getElementById(id);
+            if(typeof onlyLatest != 'undefined'){
+//                alert(onlyLatest);
+                var errMsgArr = delNode.innerHTML.split(/<br>|<br\\>/);
+                if(errMsgArr.length > 1){
+                    errMsgArr.shift();
+                     delNode.innerHTML = errMsgArr.join();
+                }
+            }else{
+                delNode.parentNode.removeChild(delNode);
+            }
+          },
+          
           removeErrorContainer : function (id){
                 var element = document.getElementById(id);
                 element.parentNode.removeChild(element);

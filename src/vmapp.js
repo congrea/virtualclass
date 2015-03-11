@@ -45,8 +45,8 @@ function (window){
                 this.clear = "";
                 this.currApp = app;
 
-                this.storage = window.storage;
-                this.storage.init();
+//                this.storage = window.storage;
+//                this.storage.init();
                 //this.sessionClear = sessionClear;
 
                 this.dirtyCorner = window.dirtyCorner;
@@ -60,6 +60,13 @@ function (window){
                 
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at system.js file
+                
+                //first this line is befre this.dirtyCorner assigned neard about 51 line number
+                // here because check for old browsers which does not support indexeddb, 
+                //inside storage.init() we are using indexeddb so, by above position there would 
+               // system coampablity error could not be generated.
+                this.storage = window.storage;
+                this.storage.init();
                 
                 vApp.wb.utility.displayCanvas();
 
@@ -75,8 +82,6 @@ function (window){
                 }
                 
                 this.gObj.video = new window.vApp.media();
-                
-                
                 
                 
 //                if(!vApp.gObj.hasOwnProperty('audIntDisable) && !vApp.gObj.hasOwnPropert('videoDisable')){

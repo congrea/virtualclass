@@ -17,6 +17,17 @@
                     }
                     vApp.user.control.removeAudioFromParticipate(formUserId);
                     //vApp.vutil.toggleRoleClass(true);
+                    
+                    if(vApp.system.device == 'mobTab'){ //mobile or tablet
+                        
+                        if(vApp.system.bname = "iOS" && /(iPad)/g.test( navigator.userAgent)){
+                            vApp.vutil.enableVirtualClass();    
+                        }
+                        
+                        
+                        var onlyLatest = true;
+                        vApp.wb.view.removeErrorMsg('errorContainer', onlyLatest);
+                    }
                 }
             },
             assignRole: function(fromUserId, id, reclaim) {
@@ -49,6 +60,11 @@
                     }
                 }
                 vApp.vutil.attachClickOutSideCanvas();
+                if(vApp.system.device == 'mobTab'){ //mobile or tablet
+                    vApp.vutil.disableVirtualClass();    
+                    vApp.wb.view.createErrorMsg(vApp.lang.getString('supportDesktop'), 'errorContainer', 'chatWidget');
+                }
+                
             },
             checkUser: function(e, id, storageHasTeacher) {
                 var joinId = e.message.joinId;

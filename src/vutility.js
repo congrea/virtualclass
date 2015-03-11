@@ -67,12 +67,11 @@
                         vApp.user.control.audioWidgetDisable();
                         vApp.vutil.disableVirtualClass();
                     }
+                }else{
+                    if(vApp.gObj.hasOwnProperty('audIntDisable') || vApp.gObj.hasOwnProperty('vidIntDisable')){
+                        vApp.user.control.audioWidgetDisable();
+                    }
                     
-                    
-//                    if(vApp.gObj.hasOwnProperty('errNotScreenShare')){
-//                        alert("suman bogati");
-//                        vApp.wb.view.disableSSUI();
-//                    }
                 }   
                     
 //                    for (var i = 0; i < window.vApp.error.length; i++) {
@@ -433,6 +432,13 @@
                 virtualClass.style.pointerEvents = "none";
                 //document.getElementById('commandToolsWrapper').style.poniterEvents =   'none';
                         
+            },
+            
+            enableVirtualClass : function (){
+                var virtualClass = document.getElementById('vAppCont');
+                virtualClass.style.opacity = 1;
+                virtualClass.style.pointerEvents = "visible";
+                
             }
         }
 

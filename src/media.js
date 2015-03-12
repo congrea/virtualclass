@@ -1065,26 +1065,9 @@
                     return false;
                 },
                 handleUserMediaError: function(error) {
-//                    alert('suman bogati');
-//                    debugger;
                     var error = (typeof error == 'object') ?  vApp.lang.getString(error.name) : vApp.lang.getString(error);
-                     
                     vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
-                    
-//                    if(typeof error == 'object'){
-//                        alert(vApp.lang.getString(error.name));
-//                    }else {
-//                        alert(vApp.lang.getString(error));
-//                    }
-                    
                     vApp.user.control.audioWidgetDisable();
-                    
-//                    if(error.hasOwnProperty('name')){
-//                        alert("media error:- " + vApp.lang.getString(error.name));
-//                    }else{
-//                        alert("media error:- " + vApp.lang.getString(error));
-//                    }
-                    
                     vApp.wb.view.disappearBox('WebRtc');
                     console.log('navigator.getUserMedia error: ', error);
                 }

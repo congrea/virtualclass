@@ -98,7 +98,11 @@
             'ieBrowserIssue' : 'Your browser Internet Explorer is not supported, We fully support Chrome  and Firefox.',
             'ios7support' : "We support only iOS 7 (Apple operating system 7) or higher.",
             'supportDesktop' : "For teacher we support desktop computer only not any tablet and mobile phone.",
-            'notSupportIphone' : "We support iPad, Tablet or Desktop coputer, not any Mobile phone"
+            'notSupportIphone' : "We support iPad, Tablet or Desktop coputer, not any Mobile phone",
+            'InternalError' : "It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not compaitible with different Operating System eg:- Windows, CentOS. ",
+            'SourceUnavailableError': 'It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not supported for operating system like : Windows, CentOS.'
+            
+         
             
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"

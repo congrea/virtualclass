@@ -94,15 +94,15 @@
             'operaBrowserIssue' : 'Your browser {vapp1} {vapp2} is partially supported. You will not be able to share your screen with Learners, We fully support chrome and Firefox',
             'commonBrowserIssue' : 'Your browser {vapp1} {vapp2} is not supported, We support Chrome and Firefox.',
             'chFireBrowsersIssue' : 'Your browser {vapp1} {vapp2}  needs to updated, We support Chrome 40 and Firefox 35.',
-            'studentSafariBrowserIssue' : 'Your browser {vApp1} does not able to share your Cam with other users, We fully support Chrome  and Firefox.',
+            'studentSafariBrowserIssue' : 'Your browser {vapp1} {vapp2} does not able to share your Cam with other users, We fully support Chrome  and Firefox.',
             'ieBrowserIssue' : 'Your browser Internet Explorer is not supported, We fully support Chrome  and Firefox.',
             'ios7support' : "We support only iOS 7 (Apple operating system 7) or higher.",
             'supportDesktop' : "For teacher we support desktop computer only not any tablet and mobile phone.",
             'notSupportIphone' : "We support iPad, Tablet or Desktop coputer, not any Mobile phone",
             'InternalError' : "It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not compaitible with different Operating System eg:- Windows, CentOS. ",
-            'SourceUnavailableError': 'It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not supported for operating system like : Windows, CentOS.'
-            
-         
+            'SourceUnavailableError': 'It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not supported for operating system like : Windows, CentOS.',
+            'teacherSafariBrowserIssue' : 'Your browser Safari is not supporting for teacher, We fully support Chrome  and Firefox.',
+            'safariBrowserIssue' : 'Your browser Safari {vapp1} is not supported, We fully support Chrome  and Firefox'
             
 //            'silenceDetectEnable' : "Silence detect enable",
 //            'silenceDetectDisable' : "Silence detect disable"

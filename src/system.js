@@ -186,15 +186,16 @@
                     var vendor = this.mybrowser.detection();
                     var bname = vendor[0];
                     var bversion = parseFloat(vendor[1]);
-                    
-                    
+//                    alert(bname);
+//                    alert(bversion);
+//                    
                     this.mybrowser.name = bname;
                     this.mybrowser.version = bversion;
                 }
                 
-                
-//                bname = vendeor[0];
-//                bversion = parseFloat(vendeor[1]);
+//                alert('suman bogati');
+//                debugger;
+
                 this.checkBrowserFunctions(bname, bversion);
 //                vApp.vutil.initDisableVirtualClass();
                 if((typeof androidDevice != 'undefined' && androidDevice) ){
@@ -235,12 +236,27 @@
                     this.reportBrowser(vApp.gObj.uRole);
                     vApp.error.push(vApp.lang.getString('operaBrowserIssue', [bname, bversion]));
                     
-                } else if(vApp.gObj.uRole == 's' && bname == 'Safari' && bversion  >= 8) {
-                    vApp.vutil.initDisableAudVid();
-                    this.reportBrowser(vApp.gObj.uRole);
+                } else if(bname == 'Safari') {
+                    if(bversion  >= 8){
+                        if(vApp.gObj.uRole == 't'){
+                            vApp.vutil.initDisableVirtualClass();
+                            vApp.error.push(vApp.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
+                        }else{
+                            vApp.vutil.initDisableAudVid();         
+                            vApp.error.push(vApp.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
+                            vApp.user.control.audioWidgetDisable();
+                        }
+                    }else{
+                        vApp.vutil.initDisableVirtualClass();
+                        vApp.error.push(vApp.lang.getString('safariBrowserIssue', [bname, bversion]));
+                    }
+//                     && bversion  >= 8
+             
+//                      vApp.vutil.initDisableAudVid();
+//                    this.reportBrowser(vApp.gObj.uRole);
                    
-                    vApp.error.push(vApp.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
-                    vApp.user.control.audioWidgetDisable();
+//                    vApp.error.push(vApp.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
+//                    vApp.user.control.audioWidgetDisable();
                     
                     //DO : Disable Audio Controls and Cam Support for this user. 
                 } else if(bname == 'iOS') { 
@@ -344,6 +360,10 @@
             M = ua.match(/(opera|opr|OPR(?=\/))\/?\s*([\d\.]+)/i) || []; //for opera especially
             if(M.length <= 0){
                 M = ua.match(/(chrome|safari|firefox|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
+                if(M[1] == 'Safari'){
+                    var version = ua.match(/(version(?=\/))\/?\s*([\d\.]+)/i) || [];
+                    M[2] = version[2];
+                }
             }
             if (/trident/i.test(M[1])) {
                 tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];

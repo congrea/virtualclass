@@ -26,7 +26,7 @@
         var minthreshold = 65535;
         var maxthreshold = 0;
         var audiotime = 0;
-
+//        var AudioContext = AudioContext || webkitAudioContext;
         var  media = function() {
             return {
                 isChannelReady: '',
@@ -70,7 +70,7 @@
                   audioNodes : [],
                   sdElem : 'silenceDetect',
 //                  sd : false,
-                   Html5Audio : {audioContext : new AudioContext()},
+                   Html5Audio : {audioContext :  new (window.AudioContext || window.webkitAudioContext)()},
                    init : function (){
                         if(localStorage.getItem('orginalTeacherId') != null){
                             vApp.gObj.audMouseDown = true;
@@ -396,11 +396,18 @@
                         var currTime = new Date().getTime();
                         if(!repMode){
                             var left = e.inputBuffer.getChannelData(0);
+//                            alert('hi guys what is up');
+//                            debugger;
                             var samples = this.resampler.resampler(left);
-
+//                            alert('sumna');
+//                            debugger;
+                            
                             if(!this.recordAudio){
                                 this.recordingLength += this.bufferSize;
                             }
+                            
+//                            console.log('recordingLength ' + this.recordingLength);
+                            
 
                             var leftSix = convertFloat32ToInt16(samples);
 
@@ -474,13 +481,34 @@
                         (typeof testAudio != 'undefined') ? vApp.gObj.video.audio.play(samples, uid, testAudio) : vApp.gObj.video.audio.play(samples, uid);
                     },
                     play : function (receivedAudio, uid, testAudio){
-                        var userObj = JSON.parse(localStorage.getItem('vApp' + uid));
                         
-                        var samples = receivedAudio;
-                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000); //8100 when sound is being delay
+                        
+//                        alert(vApp.gObj.uRole);
+//                        if(vApp.gObj.uRole == 's' && typeof myaudioContext == 'undefined'){
+//                            var myaudioContext = new (window.AudioContext || window.webkitAudioContext)();
+//                            var sumanBuffer = myaudioContext.createBuffer(2, 3000, 8000);
+//                            var somVar = sumanBuffer;
+//                            
+//                            //sumansource.buffer = this.buffer;  
+//                        }
+                        
+                        var userObj = JSON.parse(localStorage.getItem('vApp' + uid));
+//                        resampler : new Resampler(44100, 8000, 1, 4096)
+                        
+                        //var samples = receivedAudio;
+                          
+                        if(typeof receivedResampler == 'undefined') {
+                            receivedResampler = new Resampler(8000, 44100, 1, 16384);
+                        }
+                        
+//                        var samples = receivedAudio;
+                        
+                        var samples = receivedResampler.resampler(receivedAudio);
+                        
+//                        console.log('samples ' + samples.length);
+                        var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 44100); //8100 when sound is being delay
                         newBuffer.getChannelData(0).set(samples);
                         var newSource = this.Html5Audio.audioContext.createBufferSource();
-                        newSource.buffer = newBuffer;
                         newSource.buffer = newBuffer;
                         var gainNode = this.Html5Audio.audioContext.createGain();
                         gainNode.gain.value = 0.9;
@@ -538,7 +566,7 @@
                                 }
                             }
                         }
-                        newSource.start();
+                        newSource.start(0);
 //                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                         vApp.gObj[uid].isplaying = true;
                      //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);

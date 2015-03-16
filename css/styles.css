@@ -1702,7 +1702,8 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #vAppCont  #chatWidget .mySelf{
-    pointer-events: inherit;
+    pointer-events: none;
+    
 }
 
 #vAppCont #chatWidget .mySelf span {
@@ -1724,14 +1725,6 @@ opacity : 0.800000011920928955078125 !important;
 }
 */
 
-#vAppCont #commandToolsWrapper:after{
-    content : "suman bogait";
-    clear :both;
-    display : block;
-    color : red;
-    height : 0;
-    visibility: hidden;
-}
 
 #vAppCont, #vAppCont #chat_div {
     overflow: hidden;    

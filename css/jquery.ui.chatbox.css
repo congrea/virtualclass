@@ -11,7 +11,7 @@
 }
 
 .ui-chatbox-titlebar {
-    padding: 3px 3px 3px 3px;
+    padding: 3px;
     height:20px;
 }
 .ui-chatbox-titlebar span{
@@ -21,15 +21,15 @@
 
 }
 .ui-chatbox-content {
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    margin: 0px;
     border: 0px;
 }
 
 .ui-chatbox-log {
-	background-color: #fff;	
-	border-top:none;
-	border-bottom: :none;
+    background-color: #fff;	
+    border-top:none;
+    border-bottom  :none;
     padding: 10px 3px;
     height: 155px;
     overflow-y: auto;
@@ -45,7 +45,6 @@
 
 .ui-chatbox-input-box {
     margin: 8px 5px;
-   /* border: 2px solid lightgrey;*//* #6699FF */
     height: 24px;
     resize: none;
 }
@@ -90,8 +89,8 @@ ui-memblist-usr
 }
 
 .ui-memblist-content {
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    margin: 0px;
     border: 0px;
 }
 .ui-memblist-log {
@@ -103,8 +102,6 @@ ui-memblist-usr
 
 /*css for sticky footer bar*/
 #stickybar {
-
-    /*background:#EBEEF4;*/
     font-size:14px;
     font-weight:bold;
     color:#151715;
@@ -124,7 +121,6 @@ ui-memblist-usr
      text-transform: capitalize;
 }
 #closebtn {
-    /* background:url('../images/close.png') top no-repeat;*/
     border:0;
     width: 40px;
     cursor: pointer;
@@ -145,9 +141,6 @@ ui-memblist-usr
     background:url('../images/open.png') top no-repeat;
 }
 .vmchat_close_bt{
-    /*background: #EBEEF4;*/
-    /*border-right: 1px solid transparent;
-    border-left: 1px solid #bac0cd;*/
     color: #333;
     cursor: pointer;
     height: 29px;
@@ -158,7 +151,6 @@ ui-memblist-usr
     float: right;
 }
 .vmchat_bar_button {
-    /*background: #EBEEF4;*/
     border-right: 1px solid #bac0cd;
     border-left: 1px solid #bac0cd;
     color: #000;
@@ -171,15 +163,12 @@ ui-memblist-usr
     width: 212px;
 }
 
-/*#hide_bar{
-    border:none;
-}*/
+
 #chatroom_bt {
     padding-right: 5px;
     white-space: nowrap;
 }
 .vmchat_room_bt {
-    /*background: #EBEEF4;*/
     border-right: 1px solid #BAC0CD;
     border-left: 1px solid transparent;
     color: #000;
@@ -191,8 +180,7 @@ ui-memblist-usr
     padding-top: 0px;
     z-index: 1026;
     float: left;
-    /*text-align: center;*/
-     width: 203px;
+    width: 203px;
 }
 .inner_bt {
     padding: 10px 0;
@@ -379,7 +367,6 @@ ui-memblist-usr
       border: 1px solid #ccc;
       border-top: none;
       border-radius: 0;
-    /*   border-left: 1px solid #BAC0CD; */
     -webkit-border-bottom-right-radius: 6px;
     -webkit-border-bottom-left-radius: 6px;
     -moz-border-radius-bottomright: 6px;
@@ -431,15 +418,9 @@ ui-memblist-usr
     margin-top: 4px;
 }
 a.ui-tabs-anchor{
-        width: 160px;
-        cursor: pointer !important;
+    width: 160px;
+    cursor: pointer !important;
 }
-
-/* page bottom height*/
-#stickycontainer{
-/*    height: 40px;*/
-}
-
 
 #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
 

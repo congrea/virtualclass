@@ -480,29 +480,12 @@
                         samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
                         (typeof testAudio != 'undefined') ? vApp.gObj.video.audio.play(samples, uid, testAudio) : vApp.gObj.video.audio.play(samples, uid);
                     },
+                    
                     play : function (receivedAudio, uid, testAudio){
-                        
-                        
-//                        alert(vApp.gObj.uRole);
-//                        if(vApp.gObj.uRole == 's' && typeof myaudioContext == 'undefined'){
-//                            var myaudioContext = new (window.AudioContext || window.webkitAudioContext)();
-//                            var sumanBuffer = myaudioContext.createBuffer(2, 3000, 8000);
-//                            var somVar = sumanBuffer;
-//                            
-//                            //sumansource.buffer = this.buffer;  
-//                        }
-                        
                         var userObj = JSON.parse(localStorage.getItem('vApp' + uid));
-//                        resampler : new Resampler(44100, 8000, 1, 4096)
-                        
-                        //var samples = receivedAudio;
-                          
                         if(typeof receivedResampler == 'undefined') {
                             receivedResampler = new Resampler(8000, 44100, 1, 16384);
                         }
-                        
-//                        var samples = receivedAudio;
-                        
                         var samples = receivedResampler.resampler(receivedAudio);
                         
 //                        console.log('samples ' + samples.length);
@@ -520,35 +503,7 @@
                             var anchorTag = document.getElementById(userObj.id + 'contrAudAnch');
                             anchorTag.setAttribute('data-title', vApp.lang.getString('audioOn'));
                         }
-                            
-//                        if(userObj.hasOwnProperty('ad')){
-//                            if(userObj.ad && userObj.aud){
-//                                vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
-//                            }
-//                        }else{
-//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
-//                        }
-                        
-//                        if(userObj.hasOwnProperty('ad')){
-//                            if(userObj.ad && userObj.aud){
-//                                vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
-//                            }
-//                        }else{
-//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
-//                        }
-//                        if(userObj.ad && userObj.aud){
-//                        if(userObj.aud){
-//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
-//                        }
-                        
-                        
-//                         if(this.audioToBePlay[uid].length <= 0){
-////                            vApp.user.control.audioSign(user, "create"); 
-//                            vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange");
-//                            
-//                        }else{
-//                           vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen"); 
-//                        }
+  
                         newSource.onended = function (){
                             userObj = JSON.parse(localStorage.getItem('vApp' + uid));
                             // console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
@@ -566,6 +521,7 @@
                                 }
                             }
                         }
+                        
                         newSource.start(0);
 //                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                         vApp.gObj[uid].isplaying = true;
@@ -584,7 +540,10 @@
                                 (newSource.buffer.duration * 1000) + 10
                             );
                         }
+                        
+//                        }
                     },
+                 
                     calcAverage : function (){
                         var array = new Uint8Array(analyser.frequencyBinCount);
                         analyser.getByteFrequencyData(array);
@@ -623,7 +582,9 @@
                     
                     // TODO this(getChunks) should be rename into getAudioChunks()
                     getChunks : function  (uid, label){
-//                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
+//                        alert('suman bogati');
+//                        debugger;
+////                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
                         if(this.audioToBePlay[uid].length > 8){
                             this.audioToBePlay[uid].length = 0;
                             vApp.gObj[uid].isplaying = false;
@@ -721,6 +682,10 @@
                     },
                     
                     receivedAudioProcess : function (msg){
+                        if(vApp.gObj.hasOwnProperty('iosTabAudTrue') && vApp.gObj.iosTabAudTrue ==  false){
+                            return;
+                        }
+                        
                         var dataArr = this.extractData(msg); 
                         var uid = dataArr[0];
                         
@@ -734,9 +699,6 @@
                             var user =  vApp.user.control.updateUser(uid, 'ad', true);
                             vApp.user.control.audioSign(user, "create");
                         }
-                        
-                         
-                        
                         vApp.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
                         if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
                             vApp.gObj[uid] = {};
@@ -796,9 +758,7 @@
                         var videoCont = this.videoCont;
                         videoSubWrapper.appendChild(video);
                         videoCont = videoWrapper;
-                        //cthis.video.imageReplaceWithVideo(user.id, videoCont);
                         vApp.gObj.video.util.imageReplaceWithVideo(user.id, videoCont);
-                        
                     },
                     updateHightInSideBar : function (videoHeight){
                         //TODO this is not to do every time a function is called
@@ -995,7 +955,7 @@
                     }
                 },
                 handleUserMedia : function(stream){
-                     
+                    //latest code 
                     var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
 //                    if(vApp.vutil.elemHasAnyClass(elem.id)
@@ -1021,10 +981,10 @@
                 _handleUserMedia: function(userid) {
                     var userMainDiv = document.getElementById(userid);
                     var  stream = cthis.video.tempStream;
-                    var userDiv = document.getElementById("ml" + vApp.gObj.uid);
-                    if(userDiv != null){
-                       userDiv.classList.add("mySelf");
-                    }
+//                    var userDiv = document.getElementById("ml" + vApp.gObj.uid);
+//                    if(userDiv != null){
+//                       userDiv.classList.add("mySelf");
+//                    }
                     if(typeof stream != 'undefined'){
                         var vidContainer = cthis.video.createVideoElement();
                         vApp.gObj.video.util.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
@@ -1040,7 +1000,6 @@
                             console.log("raja" + stream.currentTime);
                         };
                         if(vApp.jId == vApp.gObj.uid){
-//                            alert("suman bogati brother");
                             cthis.stream = cthis.video.tempStream;
                             cthis.audio.manuPulateStream();
                             cthis.audio.graph.canvasForVideo();

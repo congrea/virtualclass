@@ -1729,3 +1729,14 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont{
     overflow: hidden;    
 }
+
+#iosAudioTrigger {
+   width: 300px;
+  height: 50px;
+  clear: both;
+  background-color: red;
+  position: absolute;
+  top: 90%;
+  left: 40%;
+  
+}

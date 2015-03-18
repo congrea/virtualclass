@@ -28,7 +28,7 @@ function (window){
               uName : window.wbUser.name
             },
 
-            //init : function (urole, app, sessionClear){
+            
             init : function (urole, app){
 
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
@@ -66,7 +66,10 @@ function (window){
                 //inside storage.init() we are using indexeddb so, by above position there would 
                // system coampablity error could not be generated.
                 this.storage = window.storage;
-                this.storage.init();
+                if(vApp.system.indexeddb){
+                    this.storage.init();
+                    
+                }
                 
                 vApp.wb.utility.displayCanvas();
 
@@ -91,6 +94,7 @@ function (window){
                 this.initSocketConn();
                 vApp.chat = new Chat();
                 vApp.chat.init();
+                vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
             },
             initSocketConn : function (){
                 if(this.system.webSocket){
@@ -244,8 +248,7 @@ function (window){
                             vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
                         }
 
-                        //important
-                        //this need only if user draw the whiteboard
+                        //important this need only if user draw the whiteboard
                         // after received image with teacher role.
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){

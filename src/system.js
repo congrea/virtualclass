@@ -172,29 +172,26 @@
             },
             
             check : function (){
-               var iOS = this.isiOSDevice();
-//               alert(iOS);
-//               this.isAndroid();
+                var iOS = this.isiOSDevice();
                 this.device = "desktop";
                 if(iOS){
                     var bname = "iOS";
                     var bversion = iOS;
                     this.device = "mobTab";
+//                    this.mybrowser.name = bname;
+//                    this.mybrowser.version = bversion;
                 }else{
                     
                     var androidDevice = this.isAndroid();
                     var vendor = this.mybrowser.detection();
                     var bname = vendor[0];
                     var bversion = parseFloat(vendor[1]);
-//                    alert(bname);
-//                    alert(bversion);
-//                    
-                    this.mybrowser.name = bname;
-                    this.mybrowser.version = bversion;
+//                    this.mybrowser.name = bname;
+//                    this.mybrowser.version = bversion;
                 }
                 
-//                alert('suman bogati');
-//                debugger;
+                this.mybrowser.name = bname;
+                this.mybrowser.version = bversion;
 
                 this.checkBrowserFunctions(bname, bversion);
 //                vApp.vutil.initDisableVirtualClass();
@@ -237,10 +234,11 @@
                     vApp.error.push(vApp.lang.getString('operaBrowserIssue', [bname, bversion]));
                     
                 } else if(bname == 'Safari') {
-                    if(bversion  >= 8){
+                    if(bversion >= 8){
                         if(vApp.gObj.uRole == 't'){
                             vApp.vutil.initDisableVirtualClass();
                             vApp.error.push(vApp.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
+                            
                         }else{
                             vApp.vutil.initDisableAudVid();         
                             vApp.error.push(vApp.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
@@ -250,22 +248,28 @@
                         vApp.vutil.initDisableVirtualClass();
                         vApp.error.push(vApp.lang.getString('safariBrowserIssue', [bname, bversion]));
                     }
-//                     && bversion  >= 8
-             
-//                      vApp.vutil.initDisableAudVid();
-//                    this.reportBrowser(vApp.gObj.uRole);
-                   
-//                    vApp.error.push(vApp.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
-//                    vApp.user.control.audioWidgetDisable();
                     
                     //DO : Disable Audio Controls and Cam Support for this user. 
                 } else if(bname == 'iOS') { 
                     var iPad = /(iPad)/g.test( navigator.userAgent);
-                    
                     if(iPad){
                         if(vApp.gObj.uRole == 's'){
-                            if(bversion >= 7){
+                            if(bversion >= 8){
                                 vApp.vutil.initDisableAudVid(); 
+                                vApp.gObj.iosIpadbAudTrue = false;
+                                //iosIpadbAudTrue
+                                var iosAudTrigger = document.createElement('div');
+                                iosAudTrigger.innerHTML = "Tap here for enable the audio"
+                                iosAudTrigger.id = "iosAudioTrigger";
+                                iosAudTrigger.addEventListener('click', function (){
+                                    vApp.vutil.firstiOSaudioCall();
+                                    this.parentNode.removeChild(this);
+
+                                });
+
+                                var audioWrapper = document.getElementById('audioWidget');
+                                audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
+                                
                             }else{
                                vApp.vutil.initDisableVirtualClass();
                                vApp.error.push(vApp.lang.getString('ios7support'));

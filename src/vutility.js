@@ -73,16 +73,6 @@
                     }
                     
                 }   
-                    
-//                    for (var i = 0; i < window.vApp.error.length; i++) {
-//                        var error = window.vApp.error[i];
-//                        if (error.hasOwnProperty('msg')) {
-//                            //view should come out from language file
-//                            
-//                            vApp.wb.view.displayMessage(error.msg, error.id, error.className, errorContId);
-//                        }
-//                    }
-//                }
             },
 
             chkValueInLocalStorage : function(property) {
@@ -224,9 +214,6 @@
                     if(app  == 'ScreenShare'){
                         app = "ss";
                     }
-//                    else if(app  == 'WholeScreenShare'){
-//                        app = "wss";
-//                    }
 
                     if(typeof notPutImage == 'undefined' && (typeof app != 'undefined' && (app == 'ss' || app == 'wss'))){
                         vApp[app].localCanvas = stCanvas;
@@ -240,11 +227,6 @@
                     vApp.vutil.removeTempVideo("vApp" + sid+"LocalTemp");
                 }
             },
-
-//            createSlienceDetect : function (){
-//                var appOptCont = document.getElementById('vAppOptionsCont');
-//                vApp.html.createDiv("vAppSlienceDetectTool", "silencedetect", appOptCont, 'appOptions');
-//            },
 
             clickOutSideCanvas : function (){
                 if(this.exitTextWrapper()){
@@ -439,38 +421,46 @@
                 virtualClass.style.opacity = 1;
                 virtualClass.style.pointerEvents = "visible";
                 
+            },
+            
+            firstiOSaudioCall  : function (){
+                if(vApp.gObj.hasOwnProperty('audioPlayMessage')){
+                    vApp.gObj.iosTabAudTrue = true;
+                    vApp.gObj.video.audio.receivedAudioProcess(vApp.gObj.audioPlayMessage);
+                }
+            },
+            
+            beforeLoad : function (){
+                if(typeof vApp.storage.wholeStoreData != 'undefined'){
+                    var obj = JSON.parse(vApp.storage.wholeStoreData);
+                    obj.beforeRefresh = true;
+                    vApp.storage.wholeStore(obj, "put");
+                }
+
+                localStorage.removeItem('otherRole');
+                vApp.wb.utility.userIds = [];
+
+                if(!vApp.gObj.hasOwnProperty('audIntDisable')){
+                    vApp.gObj.video.audio.studentNotSpeak();
+                }
+                vApp.vutil.clickOutSideCanvas();
+                localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage));
+                io.disconnect();
+            },
+            
+            initOnBeforeUnload : function (bname){
+            	if(bname == 'iOS'){
+          			document.body.onunload = function () {
+            	    	vApp.vutil.beforeLoad();
+            	    } 
+            	}else {
+            		window.onbeforeunload = function (){
+            	    	vApp.vutil.beforeLoad();
+            	    } 
+            	}
+            	
             }
         }
-
         window.vutil = vutil;
-        window.onbeforeunload = function() {
-            //if(typeof window.wholeStoreData != 'undefined'){
-            if(typeof vApp.storage.wholeStoreData != 'undefined'){
-                var obj = JSON.parse(vApp.storage.wholeStoreData);
-                obj.beforeRefresh = true;
-                //vApp.storage.wholeStore(JSON.stringify(obj), "put");
-                vApp.storage.wholeStore(obj, "put");
-            }
-
-            localStorage.removeItem('otherRole');
-            vApp.wb.utility.userIds = [];
-            
-            if(!vApp.gObj.hasOwnProperty('audIntDisable')){
-                vApp.gObj.video.audio.studentNotSpeak();
-            }
-            
-            vApp.vutil.clickOutSideCanvas();
-            
-            //var data = JSON.stringify(vApp.chat.vmstorage);
-//            if(!vApp.vutil.isObjectEmpty(vApp.chat.vmstorage)){
-//                localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage));
-//            }
-            localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage));
-
-//            var data = JSON.stringify(vApp.chat.vmstorage);
-         //   localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage))
-//            cthis.sendMessage('bye'); not using of 'video' label at index.js
-            io.disconnect();
-        }
     }
 )(window);

@@ -89,6 +89,7 @@
                                 //localStorage.removeItem('aId');
                             }
                         }
+                        
                           
                      //}
                         
@@ -100,6 +101,8 @@
                     
                     $(e).addClass("ui-memblist-usr");
                     $(e).attr("id", 'ml' + peer.userid);
+                    
+                    
                     $(e).fadeIn();
                     
                     self._scrollToBottom();
@@ -107,6 +110,15 @@
                     if(chatEnable != null && chatEnable ==  "false"){
                         vApp.user.control.disableOnLineUser();
                     }
+                    
+                    if(vApp.gObj.uid == peer.userid){
+                        var userDiv = document.getElementById("ml" + vApp.gObj.uid);
+                    
+                        if(userDiv != null){
+                           userDiv.classList.add("mySelf");
+                        }
+                    }
+                    
                 },
                 highlightBox: function() {
                     var self = this;

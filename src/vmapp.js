@@ -66,7 +66,10 @@ function (window){
                 //inside storage.init() we are using indexeddb so, by above position there would 
                // system coampablity error could not be generated.
                 this.storage = window.storage;
-                this.storage.init();
+                if(vApp.system.indexeddb){
+                    this.storage.init();
+                    
+                }
                 
                 vApp.wb.utility.displayCanvas();
 
@@ -91,6 +94,7 @@ function (window){
                 this.initSocketConn();
                 vApp.chat = new Chat();
                 vApp.chat.init();
+                vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
             },
             initSocketConn : function (){
                 if(this.system.webSocket){

@@ -26,8 +26,7 @@
                     this.elem = elem;
                 },
                 addUsr: function(peer) {
-//                    alert('addUser');
-//                    debugger;
+
                     
                     var self = this;
                     var box = self.elem.uiChatboxLog;

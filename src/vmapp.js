@@ -28,7 +28,7 @@ function (window){
               uName : window.wbUser.name
             },
 
-            //init : function (urole, app, sessionClear){
+            
             init : function (urole, app){
 
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
@@ -248,8 +248,7 @@ function (window){
                             vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
                         }
 
-                        //important
-                        //this need only if user draw the whiteboard
+                        //important this need only if user draw the whiteboard
                         // after received image with teacher role.
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){

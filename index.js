@@ -54,12 +54,6 @@ $.uiBackCompat = false;
             }
         }
         
-//        var userDiv = document.getElementById("ml" + vApp.gObj.uid);
-//        //alert(userDiv);
-//        if(userDiv != null){
-//           userDiv.classList.add("mySelf");
-//        }
-                    
         $(document).on("user_logout", function(e){
             removedMemberId = e.fromUser.userid;
             vApp.gObj.video.video.removeUser(removedMemberId);
@@ -134,7 +128,6 @@ $.uiBackCompat = false;
             if (data_pack[0] == 101) { // Audio
                 if(!vApp.gObj.video.audio.otherSound){
                     
-                    vApp.gObj.audioPlayMessage = e.message;
                     vApp.gObj.video.audio.receivedAudioProcess(e.message);
                 }
                 return;

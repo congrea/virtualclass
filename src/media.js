@@ -699,7 +699,6 @@
                             var user =  vApp.user.control.updateUser(uid, 'ad', true);
                             vApp.user.control.audioSign(user, "create");
                         }
-                        
                         vApp.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
                         if(!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')){
                             vApp.gObj[uid] = {};
@@ -759,9 +758,7 @@
                         var videoCont = this.videoCont;
                         videoSubWrapper.appendChild(video);
                         videoCont = videoWrapper;
-                        //cthis.video.imageReplaceWithVideo(user.id, videoCont);
                         vApp.gObj.video.util.imageReplaceWithVideo(user.id, videoCont);
-                        
                     },
                     updateHightInSideBar : function (videoHeight){
                         //TODO this is not to do every time a function is called
@@ -1003,7 +1000,6 @@
                             console.log("raja" + stream.currentTime);
                         };
                         if(vApp.jId == vApp.gObj.uid){
-//                            alert("suman bogati brother");
                             cthis.stream = cthis.video.tempStream;
                             cthis.audio.manuPulateStream();
                             cthis.audio.graph.canvasForVideo();

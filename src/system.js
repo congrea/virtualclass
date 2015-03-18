@@ -256,14 +256,15 @@
                         if(vApp.gObj.uRole == 's'){
                             if(bversion >= 8){
                                 vApp.vutil.initDisableAudVid(); 
-                                vApp.gObj.iosTabAudTrue = false;
-                 
+                                vApp.gObj.iosIpadbAudTrue = false;
+                                //iosIpadbAudTrue
                                 var iosAudTrigger = document.createElement('div');
                                 iosAudTrigger.innerHTML = "Tap here for enable the audio"
                                 iosAudTrigger.id = "iosAudioTrigger";
                                 iosAudTrigger.addEventListener('click', function (){
                                     vApp.vutil.firstiOSaudioCall();
                                     this.parentNode.removeChild(this);
+
                                 });
 
                                 var audioWrapper = document.getElementById('audioWidget');

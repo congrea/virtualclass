@@ -30,8 +30,6 @@
             'replay': 'Replay',
             'activeAll': 'Active All',
             'clearAll': 'Clear All',
-         //   'connectionOff': 'Connection Off',
-         //   'connectionOn': 'Connection On',
             'drawArea': 'Draw Area',
             'totRcvdPackets': 'Total Received Packets',
             'perSecRcvdData': 'Per Second Recevied Packet',
@@ -103,9 +101,6 @@
             'SourceUnavailableError': 'It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not supported for operating system like : Windows, CentOS.',
             'teacherSafariBrowserIssue' : 'Your browser Safari is not supporting for teacher, We fully support Chrome  and Firefox.',
             'safariBrowserIssue' : 'Your browser Safari {vapp1} is not supported, We fully support Chrome  and Firefox'
-            
-//            'silenceDetectEnable' : "Silence detect enable",
-//            'silenceDetectDisable' : "Silence detect disable"
         };
         window.message = message;
     }

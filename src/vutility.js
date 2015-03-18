@@ -425,7 +425,8 @@
             
             firstiOSaudioCall  : function (){
                 if(vApp.gObj.hasOwnProperty('audioPlayMessage')){
-                    vApp.gObj.iosTabAudTrue = true;
+                    //vApp.gObj.iosTabAudTrue = true;
+                    vApp.gObj.iosIpadbAudTrue = true;
                     vApp.gObj.video.audio.receivedAudioProcess(vApp.gObj.audioPlayMessage);
                 }
             },

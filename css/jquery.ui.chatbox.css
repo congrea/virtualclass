@@ -94,9 +94,8 @@ ui-memblist-usr
     border: 0px;
 }
 .ui-memblist-log {
-    padding: 15px 0px 3px 0px;
-    height: 220px;
-    overflow-y: auto;
+	padding-top:14px;
+	padding-bottom:15px;
     background: #FFFFFF;
 }
 

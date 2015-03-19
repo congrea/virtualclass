@@ -348,9 +348,11 @@ a, canvas {
 	text-transform : uppercase;
 	font-weight : bold;
 }
+/*
 #vAppCont #chat_div.ui-memblist-log {
 	height : auto !important;
 }
+*/
 #vAppCont .msgBoxWebRtc p, #vAppCont .msgBoxCanvas p {
 	position : relative;
 	background : #ffffff;
@@ -976,8 +978,7 @@ opacity : 0.800000011920928955078125 !important;
 	margin-top : 5px;
 }
 #vAppCont #chat_div {
-	padding-bottom : 5px;
-	min-height : 150px;
+	padding-bottom : 15px;
 }
 #vAppCont #chatWidget {
 	clear : both;
@@ -1037,9 +1038,11 @@ opacity : 0.800000011920928955078125 !important;
 	text-transform : capitalize;
 	font-weight : bold;
 }
+/*
 #vAppCont #chat_div.ui-memblist-log {
 	height : auto !important;
 }
+*/
 #vAppCont .vmchat_bar_button .inner_bt #usertab_text, #vAppCont .vmchat_room_bt .inner_bt #chatroom_text {
 	font-weight : normal;
 }
@@ -1730,13 +1733,24 @@ opacity : 0.800000011920928955078125 !important;
     overflow: hidden;    
 }
 
-#iosAudioTrigger {
-   width: 300px;
-  height: 50px;
-  clear: both;
-  background-color: red;
-  position: absolute;
-  top: 90%;
-  left: 40%;
-  
+#vAppCont #iosAudioTrigger {
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+    clear: both;
+    position: absolute;
+    top: 88%;
+    left: 40%;
+    border:1px solid 	#ccc;
+    border-radius:10px;
+    padding:15px;
+    -webkit-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+    -moz-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+    box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
 }
+

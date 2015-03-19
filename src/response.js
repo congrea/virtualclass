@@ -19,8 +19,8 @@
                     //vApp.vutil.toggleRoleClass(true);
                     
                     if(vApp.system.device == 'mobTab'){ //mobile or tablet
-                        
-                        if(vApp.system.bname = "iOS" && /(iPad)/g.test( navigator.userAgent)){
+                        //alert(App.system.mybrowser.name);
+                        if((vApp.system.mybrowser.name = "iOS" && vApp.system.mybrowser.version >= 8) && /(iPad)/g.test( navigator.userAgent)){
                             vApp.vutil.enableVirtualClass();    
                         }
                         

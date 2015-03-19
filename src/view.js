@@ -26,28 +26,31 @@
               }
           },
           
-          createErrorContainerToBeDeleted : function (){
-                var errorCont = document.getElementById('errorContainer');
-                if(errorCont ==  null){
-                   var errorCont = document.createElement('div');
-                   var errContId = 'errorContainer';
-                   errorCont.id = errContId;
-                   
-                   var closeButton = document.createElement('span');
-                   closeButton.className = "icon-clearAll";
-                   closeButton.id = "errorCloseButton";
-                   errorCont.appendChild(closeButton);
-                   var canvasCont = document.getElementById('vcanvas');
-                   
-                   if(canvasCont != null){
-                       canvasCont.insertBefore(errorCont, canvasCont.childNodes[0]);
-                       var that = this;
-                       errorCont.addEventListener('cllick', function (){that.removeErrorContainer(errContId)})
-                   }
-                   
-                }
-                return errorCont.id;
-          },
+//          createErrorContainerToBeDeleted : function (){
+//              
+//                var errorCont = document.getElementById('errorContainer');
+//                if(errorCont ==  null){
+//                   var errorCont = document.createElement('div');
+//                   var errContId = 'errorContainer';
+//                   errorCont.id = errContId;
+//                   
+//                   var closeButton = document.createElement('span');
+//                   closeButton.className = "icon-clearAll";
+//                   closeButton.id = "errorCloseButton";
+//                   errorCont.appendChild(closeButton);
+//                   var canvasCont = document.getElementById('vcanvas');
+//                   
+//                   if(canvasCont != null){
+//                       canvasCont.insertBefore(errorCont, canvasCont.childNodes[0]);
+//                       var that = this;
+//                       errorCont.addEventListener('click', function (){
+//                           that.removeErrorContainer(errContId);
+//                       })
+//                   }
+//                   
+//                }
+//                return errorCont.id;
+//          },
           
           createErrorMsg : function (msg, contId, addBefore){
                 
@@ -67,17 +70,29 @@
           },
           
           removeErrorMsg : function (id, onlyLatest){
+            
             var delNode = document.getElementById(id);
+//            if(typeof onlyLatest != 'undefined'){
+////                alert(onlyLatest);
+//                var errMsgArr = delNode.innerHTML.split(/<br>|<br\\>/);
+//                if(errMsgArr.length > 1){
+//                    errMsgArr.shift();
+//                    delNode.innerHTML = errMsgArr.join();
+//                }else{
+//                    delNode.parentNode.removeChild(delNode);
+//                }
+//            }else{
+//                delNode.parentNode.removeChild(delNode);
+//            }
             if(typeof onlyLatest != 'undefined'){
-//                alert(onlyLatest);
                 var errMsgArr = delNode.innerHTML.split(/<br>|<br\\>/);
                 if(errMsgArr.length > 1){
                     errMsgArr.shift();
-                     delNode.innerHTML = errMsgArr.join();
+                    delNode.innerHTML = errMsgArr.join();
+                    return;
                 }
-            }else{
-                delNode.parentNode.removeChild(delNode);
             }
+            delNode.parentNode.removeChild(delNode);
           },
           
           removeErrorContainer : function (id){

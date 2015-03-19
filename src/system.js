@@ -229,9 +229,11 @@
                     this.reportBrowser(vApp.gObj.uRole);
                     
                     vApp.error.push(vApp.lang.getString('chFireBrowsersIssue', [bname, bversion]));
-                } else if(vApp.gObj.uRole == 't' && bname == 'OPR' &&  bversion >= 26 ){
+                } else if(bname == 'OPR' &&  bversion >= 26 ){
                     this.reportBrowser(vApp.gObj.uRole);
-                    vApp.error.push(vApp.lang.getString('operaBrowserIssue', [bname, bversion]));
+                    if(vApp.gObj.uRole == 't' ){
+                        vApp.error.push(vApp.lang.getString('operaBrowserIssue', [bname, bversion]));
+                    }
                     
                 } else if(bname == 'Safari') {
                     if(bversion >= 8){

@@ -26,10 +26,14 @@
                     this.elem = elem;
                 },
                 addUsr: function(peer) {
-
-                    
                     var self = this;
                     var box = self.elem.uiChatboxLog;
+                    var userAlready = document.getElementById("ml" + peer.userid);
+                    if(userAlready != null){
+                       userAlready.parentNode.removeChild(userAlready); 
+                    }
+                    
+                    
                     var e = document.createElement('div');
                     e.className =   e.className + "userImg";
                     box.append(e);

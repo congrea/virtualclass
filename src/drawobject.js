@@ -137,6 +137,8 @@
                                     presentmousemovetime = new Date().getTime();
                                     if ((presentmousemovetime - lastmousemovetime) >= 2000) {	 // Optimized
                                         for (var i = 0; i < dataChunk.length; i++) {
+                                            //below code can be
+                                            //  dataChunk[i].uid = ++wb.uid;
                                             wb.uid++;
                                             dataChunk[i].uid = wb.uid;
                                             vcan.main.replayObjs.push(dataChunk[i]);

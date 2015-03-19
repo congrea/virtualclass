@@ -36,7 +36,7 @@
                 }
             }
 
-            presentmousemovetime = new Date().getTime();
+                presentmousemovetime = new Date().getTime();
 
             if ((presentmousemovetime - lastmousemovetime) >= 2000) {	 // Optimized
                 var currTime = new Date().getTime();
@@ -50,9 +50,12 @@
 
         calculatePackets : function(time, ac, x, y) {
             var obj = vcan.makeStackObj(time, ac, x, y);
+            console.log(obj);
             vApp.wb.uid++;
             obj.uid = vApp.wb.uid;
             vcan.main.replayObjs.push(obj);
+            
+            
             vApp.wb.utility.beforeSend({'repObj': [obj]});
             vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
             vApp.storage.wholeStore(obj);

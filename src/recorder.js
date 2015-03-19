@@ -70,7 +70,6 @@
                     vApp.wb.toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
                 } else {
                     if(this.objs[this.objNo].hasOwnProperty('si')){
-                        
 //                        vApp.initStudentScreen(this.objs[this.objNo], "recImgPlay");
                         vApp.studentScreen.initStudentScreen(this.objs[this.objNo], "recImgPlay");
                         
@@ -100,7 +99,7 @@
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
                         }
                         if(this.objs[this.objNo].hasOwnProperty('uid')){
-                            alert('suman bogati');
+                            
                             vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                             var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
                             vcan.main.canvas.dispatchEvent(eventConstruct);

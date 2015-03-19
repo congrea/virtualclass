@@ -27,9 +27,9 @@
 }
 
 .ui-chatbox-log {
-    background-color: #fff;	
-    border-top:none;
-    border-bottom  :none;
+	background-color: #fff;	
+	border-top:none;
+	border-bottom: :none;
     padding: 10px 3px;
     height: 155px;
     overflow-y: auto;
@@ -75,7 +75,6 @@ ui-memblist-usr
 .ui-memblist {
     position: fixed;
     bottom:32px;
-    background:  #CCCCCC;
     z-index: 2;
     right: 6px;
 }
@@ -94,10 +93,20 @@ ui-memblist-usr
     border: 0px;
 }
 .ui-memblist-log {
-	padding-top:14px;
+	padding-top:12px;
 	padding-bottom:15px;
     background: #FFFFFF;
 }
+
+.ui-memblist-log div.student:first-child {
+	margin-top:-5px !important;
+}
+
+.ui-memblist-log div.teacher:first-child {
+	margin-top:0px !important;
+}
+
+
 
 /*css for sticky footer bar*/
 #stickybar {
@@ -420,6 +429,9 @@ a.ui-tabs-anchor{
     width: 160px;
     cursor: pointer !important;
 }
+#stickycontainer{
+}
+
 
 #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
 

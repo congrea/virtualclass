@@ -632,9 +632,6 @@
                 sworker.postMessage({'initPrevImg' : true});
             }
         }
-        
-        
-        
     }
     window.studentScreen = studentScreen;
     window.screenShare = screenShare;

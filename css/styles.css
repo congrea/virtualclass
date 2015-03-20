@@ -310,10 +310,12 @@ a, canvas {
 	background-color : #f1f1f1;
 	border-top : 1px solid #d5d5d5;
 	border-bottom : 1px solid #d5d5d5;
-	padding-left : 5px;
+	padding-left : 4px;
+	margin-top: 5px;
+  	margin-bottom: 5px;
 }
 #vAppCont #chat_div .ui-memblist-usr.student, #vAppCont #chat_div .ui-memblist-usr {
-	padding-left : 5px;
+	padding-left : 4px;
 }
 #vAppCont div.ui-memblist-usr video {
 	width : 60px;
@@ -325,18 +327,28 @@ a, canvas {
 #vAppCont div.ui-memblist-usr .userVideos {
 	width : 60px;
 	height : 45px;
-	margin : 3px 5px 0 2px !important;
+	margin : 3px 5px 3px 2px !important;
 	outline : 1px solid #5A5757;
 }
 #vAppCont #graphCanvas {
 	top : -5px !important;
 }
-#vAppCont div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
+div.ui-memblist-usr .userVideos {
 	margin-top : 6px;
 }
 #vAppCont #chat_div .ui-memblist-usr:first-child {
 	margin-top : 0;
+	margin-bottom: 0px;
 }
+#vAppCont #chat_div .ui-memblist-usr:last-child {
+	margin-bottom: 5px;
+}
+
+#vAppCont #chat_div .ui-memblist-usr.teacher:last-child{
+	margin-top:3px;
+}
+
+
 #vAppCont div.ui-memblist-usr video, #vAppCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
 	box-shadow : 0 0 1px #333;
@@ -542,7 +554,6 @@ a, canvas {
 	display : inline;
 	position : relative;
 	font-size : 14px;
-	z-index : 100;
 }
 #vAppCont #usertab_text.tooltip {
 	display : block;
@@ -955,8 +966,7 @@ opacity : 0.800000011920928955078125 !important;
 	line-height : 125%;
 }
 #vAppCont #chat_div .ui-memblist-usr {
-	margin-top : 3px;
-	margin-bottom : 3px;
+
 }
 #vAppCont div.ui-memblist-usr video {
 	width : 60px;
@@ -978,7 +988,8 @@ opacity : 0.800000011920928955078125 !important;
 	margin-top : 5px;
 }
 #vAppCont #chat_div {
-	padding-bottom : 15px;
+	padding-bottom : 5px;
+	min-height : 150px;
 }
 #vAppCont #chatWidget {
 	clear : both;
@@ -1073,14 +1084,14 @@ opacity : 0.800000011920928955078125 !important;
 	margin-right : 8px;
 }
 #vAppCont .ui-memblist-usr a img {
-	margin-top : 2px;
+	margin-top : 4px;
 	float : left;
 	background-color : #eee;
 	padding : 13px 22px;
 	border-radius : 3px;
 	border : #ddd solid 1px;
-    margin-left: 2px;
-
+	margin-bottom : 4px;
+	margin-left: 1px;
 }
 
 
@@ -1403,8 +1414,7 @@ opacity : 0.800000011920928955078125 !important;
 	bottom : 0;
 }
 #vAppCont.student #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom : -6px;
-	z-index : 1;
+	bottom : -4px;
 	left : 50px;
 }
 #vAppCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
@@ -1412,7 +1422,7 @@ opacity : 0.800000011920928955078125 !important;
 	left : -8px;
 }
 #vAppCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #vAppCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom : -28px;
+	bottom : -24px;
 	left : -18px;
 }
 #vAppCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
@@ -1697,7 +1707,7 @@ opacity : 0.800000011920928955078125 !important;
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
 #vAppCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
- bottom:12px !important;
+ bottom:16px !important;
  left:0em !important;
 }
 }
@@ -1708,7 +1718,7 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #vAppCont #chatWidget .mySelf span {
-    padding-left : 6px;
+    padding-left : 5px;
     display : inline-block;
     margin-top : 8px;
 }
@@ -1718,37 +1728,38 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont #chat_div .userImg a{
     margin-left:4px;
 }
-/*
-#vAppCont #chat_div .userImg .controls{
-    position :relative;
-    left:3;
-    
-}
-*/
 
+@-moz-document url-prefix() {
+	#vAppCont.student #chat_div .userImg.ui-memblist-usr a.tooltip:hover:after{
+		bottom:15px;
+		left:-25px;
+	}
+	
+}
 
 #vAppCont{
     overflow: hidden;    
 }
 
-#iosAudioTrigger {
-background: #ffffff; /* Old browsers */
-background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* IE10+ */
-background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
-clear: both;
-position: absolute;
-top: 88%;
-left: 40%;
-border:1px solid 	#ccc;
-border-radius:10px;
-padding:15px;
--webkit-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
--moz-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+//for iPad
+#vAppCont #iosAudioTrigger {
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+    clear: both;
+    position: absolute;
+    top: 88%;
+    left: 40%;
+    border:1px solid 	#ccc;
+    border-radius:10px;
+    padding:15px;
+    -webkit-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+    -moz-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+    box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
 }
 

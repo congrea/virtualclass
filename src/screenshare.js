@@ -544,7 +544,6 @@
                     var imgData = this.dc.decodeRGB(rec, this.localCont, this.localCanvas);
                     this.localCont.putImageData(imgData, 0, 0);
                 }
-
             },
             drawSingleImage: function (rec) {
                 var imgData = this.dc.decodeRGB(rec, this.localCont, this.localCanvas);

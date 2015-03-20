@@ -93,20 +93,29 @@ ui-memblist-usr
     border: 0px;
 }
 .ui-memblist-log {
-	padding-top:12px;
+	padding-top:6px;
 	padding-bottom:15px;
     background: #FFFFFF;
 }
-
+/*
 .ui-memblist-log div.student:first-child {
-	margin-top:-5px !important;
+	margin-top:5px !important;
 }
+*/
 
+/*
 .ui-memblist-log div.teacher:first-child {
-	margin-top:0px !important;
+	margin-top:8px !important;
+}
+*/
+.ui-memblist-log div.teacher:last-child {
+	margin-top:5px;
+	margin-bottom:8px;
 }
 
-
+.ui-memblist-log div.teacher:last-child {
+	margin-bottom:8px !important;
+}
 
 /*css for sticky footer bar*/
 #stickybar {

@@ -101,7 +101,7 @@
                     this.prevTime = currTime;
                 }
             },
-            wholeStore : function (obj, type){
+            wholeStore : function (obj, type){  //storing whiteboard and screenshare
                 obj.peTime = window.pageEnter;
                 var data = JSON.stringify(obj);
                 var currTime = new Date().getTime();

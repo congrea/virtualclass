@@ -1662,6 +1662,11 @@ opacity : 0.800000011920928955078125 !important;
 	left : 10px;
 	display : inherit;
 }
+
+#vAppCont.orginalTeacher .ui-memblist-log div:last-child .controls .controleCont a.tooltip:hover:after, #vAppCont.student .ui-memblist-log div:last-child .controls .controleCont a.tooltip:hover:after {
+	bottom : 1.3em !important;
+}
+
 #vAppCont #commandToolsWrapper .tool.active a:hover {
 	color : #000 !important;
 }
@@ -1730,19 +1735,17 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 @-moz-document url-prefix() {
-	#vAppCont.student #chat_div .userImg.ui-memblist-usr a.tooltip:hover:after{
-		bottom:15px;
-		left:-25px;
-	}
-	
+    #vAppCont.student #chat_div .userImg.ui-memblist-usr a.tooltip:hover:after{
+            bottom:15px;
+            left:-25px;
+    }
 }
 
 #vAppCont{
     overflow: hidden;    
 }
 
-//for iPad
-#vAppCont #iosAudioTrigger {
+#iosAudioTrigger {
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */

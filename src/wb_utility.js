@@ -2,7 +2,7 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
-(
+(   
     function(window) {
         //vApp.wb = window.vApp.wb;
 
@@ -947,7 +947,11 @@
                  * @param {type} msg
                  * @returns {undefined}
                  */
-                beforeSend : function (msg){
+                beforeSend : function (msg, toUser){
+                   // when we are in replay mode we don't need send the object to other user
+//                    if(wbUser.vAppPlay != ' ' || wbUser.vAppPlay != false){
+//                        return;
+//                    }
                     if (msg.hasOwnProperty('createArrow')) {
                         var jobj = JSON.stringify(msg);
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
@@ -960,7 +964,8 @@
 
                         vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                         if (io.sock.readyState == 1) {
-                            io.send(msg);
+                            typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
+//                            io.send(msg);
                         }
 
                         //TODO this should be enable

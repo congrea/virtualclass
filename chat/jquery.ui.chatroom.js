@@ -86,8 +86,6 @@
         },
 
         _create: function(){
-//            alert("hey ram");
-//            debugger;
             if(localStorage.getItem('chatEnable') != null){
                 var chatStatus = (localStorage.chatEnable == "true") ? "enable" : "disable";
             }else{
@@ -221,7 +219,8 @@
             self._position(self.options.offset);
 
             self.options.boxManager.init(self);
-
+            
+            
             if (!self.options.hidden) {
                 uiChatbox.show();
             }

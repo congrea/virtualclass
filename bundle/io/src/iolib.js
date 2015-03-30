@@ -12,9 +12,19 @@ var io = {
     wsuri : null,
     error : null,
     uniquesids : null,
-
+   
     init : function(cfg, callback) {
         this.cfg = cfg;
+        
+        var that = this;
+//        that.completeStorage(cfg);
+        
+        ///alert("should first");
+        
+//        vApp.storeFirstData = function (){
+//            //alert("something happend");
+//            that.completeStorage(cfg);
+//        }
         this.wsconnect();
     },
 
@@ -44,13 +54,114 @@ var io = {
         }
         this.sock.binaryType = 'arraybuffer';
         this.sock.onmessage = function(e) {
+//            alert('suman bogati');
+//            debugger;
+            //io.completeStorage(e.data);
+            io.onRecMessage(e);
+        }
+
+        this.sock.onerror = function(e) {
+            scope.error = e;
+            console.log('Error:' + e);
+            $.event.trigger({
+                type: "error",
+                message: e
+            });
+
+        }
+        this.sock.onclose = function(e) {
+            console.log('Connection Closed');
+
+            $.event.trigger({
+                type: "connectionclose",
+                message: e.reason
+            });
+            console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
+            setTimeout(function(){scope.wsconnect()}, 5000);
+        }
+    },
+
+    userauthenticat : function (){
+        var obj = {
+            cfun  : 'authenticate',
+            arg : {'authuser':this.cfg.authuser, 'authpass':this.cfg.authpass}
+        }
+        var jobj = JSON.stringify(obj);
+        this.sock.send(jobj);
+    },
+
+    addclient : function (){
+        var obj = {
+            cfun : 'joinroom',
+            arg : {'client':this.cfg.userid, 'roomname':this.cfg.room, 'user':this.cfg.userobj}
+        }
+        var jobj = JSON.stringify(obj);
+        this.sock.send(jobj);
+    },
+
+    send : function(msg){
+        
+        //currTime(pag);            
+        var obj = {
+                //cfun : 'broadcast',
+                cfun : 'broadcastToAll',
+                arg : {'msg':msg}
+        }
+        if(arguments.length > 1){
+            var uid = arguments[1];// user id to  whom msg is intented
+            obj.arg.touser = this.uniquesids[uid];
+          
+        }
+        var jobj = JSON.stringify(obj);
+        this.sock.send(jobj);
+
+        if(arguments.length == 1){
+            //should not  be here but at init
+            if(typeof fromUser == 'undefined'){
+                fromUser = { 
+                    lname : wbUser.lname,
+                    name : wbUser.name,
+                    role : wbUser.role,
+                    userid : wbUser.id,
+                    img : wbUser.imageurl 
+                };
+            }
+            // STORAGE
+            var storObj = {
+                //cfun : 'broadcast',
+                type : 'broadcastToAll',
+                m : msg,
+                userto : obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "" ,
+                user : fromUser
+            }
+
+            var storjobj = JSON.stringify(storObj);
+
+            if(!msg.hasOwnProperty('sEnd')){
+                this.completeStorage(storjobj);
+            }
+        }
+        
+    },
+    sendBinary : function(msg){
+        this.sock.send(msg.buffer);
+        this.completeStorage(msg);
+    },
+
+    onRecMessage : function(e){
             try{
+                var scope = this;
                 if(e.data instanceof ArrayBuffer){
                     $.event.trigger({
                         type: "binrec",
                         message: e.data
-                    });                                     
+                    }); 
+                    // IndexDB does not support storing of buffer, need to convert it into array.
+                    var binData = new Uint8Array(e.data); 
+                    io.completeStorage(binData);
                 }else{
+                    io.completeStorage(e.data);
+                    
                     var r1 = JSON.parse(e.data);
     
                     if (r1.type == "joinroom"){
@@ -77,7 +188,12 @@ var io = {
                     if (r1.type == "broadcastToAll"){
                         console.log("json  : display msg");
                         var userto = '';
+                        
+//                        alert('suman bogati');
+//                        debugger;
+                        
                         if(r1.userto != undefined){ userto = r1.userto; }
+                        
                         $.event.trigger({
                             type: "newmessage",
                             message: r1.m,
@@ -124,7 +240,9 @@ var io = {
                             type: "Multiple_login"
                         });
                     }
+                    
                 }
+                
             }catch(e){
                 console.log("Error catched   : " + e);
                 $.event.trigger({
@@ -133,69 +251,37 @@ var io = {
                 });
                 return;
             }
-        }
-
-        this.sock.onerror = function(e) {
-            scope.error = e;
-            console.log('Error:' + e);
-            $.event.trigger({
-                type: "error",
-                message: e
-            });
-
-        }
-        this.sock.onclose = function(e) {
-            console.log('Connection Closed');
-
-            $.event.trigger({
-                type: "connectionclose",
-                message: e.reason
-            });
-            console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
-            setTimeout(function(){scope.wsconnect()}, 5000);
-        }
     },
-
-    userauthenticat : function (){
-        var obj = {
-            cfun  : 'authenticate',
-            arg : {'authuser':this.cfg.authuser, 'authpass':this.cfg.authpass}
-        }
-        var jobj = JSON.stringify(obj);
-        this.sock.send(jobj);
-    },
-
-    addclient : function (){
-        var obj = {
-            cfun : 'joinroom',
-            arg : {'client':this.cfg.userid, 'roomname':this.cfg.room, 'user':this.cfg.userobj}
-        }
-        var jobj = JSON.stringify(obj);
-        this.sock.send(jobj);
-    },
-
-    send : function(msg){
-        var obj = {
-                //cfun : 'broadcast',
-                cfun : 'broadcastToAll',
-                arg : {'msg':msg}
-        }
-        if(arguments.length > 1){
-            var uid = arguments[1];// user id to  whom msg is intented
-            obj.arg.touser = this.uniquesids[uid];
-        }
-        var jobj = JSON.stringify(obj);
-        this.sock.send(jobj);
-    },
-    sendBinary : function(msg){
-        //this.sock.binaryType = 'arraybuffer';
-        this.sock.send(msg.buffer);
-    },
-
+    
     disconnect:function(){
         this.sock.onclose = function () {};
         this.sock.close();
         console.log("i am closing this connection");
+    }, 
+    
+    completeStorage : function (data){
+        if(typeof firstTime == 'undefined'){
+            referenceTime = window.pageEnter;
+            firstTime = true;
+            
+           // vApp.notPLayed = true;
+           
+           if(wbUser.vAppPlay == false){
+                var t = vApp.storage.db.transaction(['allData'], "readwrite");
+                if(typeof t != 'undefined'){
+                    var objectStore = t.objectStore('allData');
+                    objectStore.clear();
+                }
+           }
+        }
+
+        var currTime = new Date().getTime();
+        var playTime = currTime - referenceTime;
+        
+        vApp.storage.completeStorage(playTime, data);
+        referenceTime = currTime;
     }
 };
+
+
 

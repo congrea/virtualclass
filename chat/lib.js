@@ -8,6 +8,8 @@
 
 
 function memberUpdate(e, addType){
+//    alert("suman bogati");
+//    debugger;
     var userlist = e.message;
     if(typeof whiteboardPath === 'undefined'){
         var imgpath = "../images/online.png";
@@ -104,7 +106,6 @@ function memberUpdate(e, addType){
 */
 
 function messageUpdate(e){
-    
     if($.isPlainObject(e.message)){
         var msg = e.message.msg;
     }else{
@@ -149,7 +150,7 @@ function messageUpdate(e){
             }
 
     }else if(to != undefined && to != ""){ // private chat
-
+        
         if(self == to.userid && from.userid != self){
 //            if($.inArray(from.userid, idList) == -1){
 //                counter++;
@@ -158,10 +159,10 @@ function messageUpdate(e){
                 vApp.chat.counter++;
                 vApp.chat.idList.push(from.userid);
                 
-                if(typeof from.lname == 'undefined'){
-                    alert("hello guys");
-                    debugger;
-                }
+//                if(typeof from.lname == 'undefined'){
+//                    alert("hello guys");
+//                    debugger;
+//                }
                 vApp.chat.vmstorage[from.userid] = [];
                 vApp.chat.vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
             }
@@ -194,7 +195,10 @@ function messageUpdate(e){
             //createNotification(from.userid);// tab scrolling notification for hidden tab
             var k = from.userid;
         }
-
+        
+//        alert('suman bogati');
+//        debugger;
+        
         //send msg to self
         /*if (self == from.userid){
             $("#" + to.userid).chatbox("option").messageSent(to.userid,from, msg);

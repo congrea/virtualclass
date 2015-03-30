@@ -8,7 +8,8 @@
         var wbDataArr = [];
         var that;
         var storage = {
-            init : function (){
+            init : function (firstDataStore){
+                //this.firstDataStore = firstDataStore;
                 this.reclaim = JSON.parse(vApp.vutil.chkValueInLocalStorage('reclaim'));
                 that = this;
                 //TODO these are not using because audio and video is not using
@@ -29,14 +30,18 @@
                         thisDb.createObjectStore("audioData", { keyPath : 'timeStamp', autoIncrement:true});
                     }
                     if(!thisDb.objectStoreNames.contains("allData")) {
-                       thisDb.createObjectStore("allData", { keyPath : 'timeStamp', autoIncrement:true});
-                     //   thisDb.createObjectStore("allData", {autoIncrement:true});
+                       //thisDb.createObjectStore("allData", { keyPath : 'playTime', autoIncrement:true});
+                      //thisDb.createObjectStore("allData", {autoIncrement:true});
+                      thisDb.createObjectStore("allData", {autoIncrement:true});
                     }
                     if(!thisDb.objectStoreNames.contains("config")) {
                        thisDb.createObjectStore("config", { keyPath : 'timeStamp', autoIncrement:true});
                     }
                 };
                 openRequest.onsuccess = function(e) {
+//                    alert("should come first")
+                    
+                    
                     that.db = e.target.result;
                     var currTime = new Date().getTime();
                     //meet condition when current and previous user are different
@@ -60,6 +65,7 @@
                     that.db.onerror = function(event) {
                         console.dir(event.target);
                     };
+                   firstDataStore();
                 };
             },
             store : function (data){
@@ -101,10 +107,21 @@
                     this.prevTime = currTime;
                 }
             },
-            wholeStore : function (obj, type){  //storing whiteboard and screenshare
+            
+            completeStorage : function (playTime, data){  //storing whiteboard and screenshare
+                //var data = JSON.stringify(obj); //already stringify or binary
+//                alert('suman bogati');
+//                debugger;
+                var t = that.db.transaction(["allData"], "readwrite");
+                t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
+            },
+            
+            wholeStore : function (playTime, obj, type){  //storing whiteboard and screenshare
+                alert('is there I am going to play');
                 obj.peTime = window.pageEnter;
                 var data = JSON.stringify(obj);
                 var currTime = new Date().getTime();
+                
                 if(typeof this.prevTime != 'undefined' && currTime == this.prevTime){
                     currTime = currTime + 1;
                 }
@@ -181,7 +198,10 @@
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
-                            vApp.recorder.items.push(JSON.parse(cursor.value.recObjs));
+                            
+//                            vApp.recorder.items.push(JSON.parse(cursor.value.recObjs));
+                            //vApp.recorder.items.push(cursor.value.recObjs);
+                            vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                         }
                         cursor.continue();
                     }else{
@@ -224,7 +244,9 @@
                         vApp.vutil.clearAllChat();
                     }
                     vApp.vutil.removeClass('audioWidget', "fixed");
-                    vApp.storage.clearStorageData();
+                    if(!vApp.hasOwnProperty('notPLayed')){
+                        vApp.storage.clearStorageData();
+                    }
                     that.config.createNewSession();
                 }
             },
@@ -238,7 +260,15 @@
                     var t = this.db.transaction([this.tables[i]], "readwrite");
                     if(typeof t != 'undefined'){
                         var objectStore = t.objectStore(this.tables[i]);
-                        objectStore.clear();
+                        
+                       if(this.tables[i] == 'allData'){
+                           if(wbUser.vAppPlay == false){
+                               objectStore.clear();
+                           }
+                       }else {
+                           objectStore.clear();
+                       }
+                       
                     }
                 }
             },

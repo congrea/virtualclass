@@ -117,8 +117,12 @@ $.uiBackCompat = false;
         });
         
         $(document).on("binrec", function(e){
+            
             //vApp.gObj.video.audio []
             var data_pack = new Uint8Array(e.message);
+            
+//            alert('suman bogati');
+//            debugger;
             
             if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
                 var stype = 'ss';
@@ -132,6 +136,8 @@ $.uiBackCompat = false;
                 }
                 return;
             } else if (data_pack[0] == 11) { // user video image
+//                alert('suman bogati');
+//                debugger;
                 vApp.gObj.video.video.process(e.message);
                 return;
             } else{
@@ -286,6 +292,7 @@ $.uiBackCompat = false;
                     vApp.wb.utility.beforeSend({'repObj' : chunk, 'chunk' : true});
                 }
                 if(e.message.hasOwnProperty('createArrow')){
+                    console.log('crearting arrow');
                     vApp.wb.response.createArrow(e.message, vApp.wb.oTeacher);
                 }else{
                     if(!e.message.hasOwnProperty('replayAll') && !e.message.hasOwnProperty('clearAll') && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('checkUser')){
@@ -368,5 +375,24 @@ $.uiBackCompat = false;
             500
         );
         vApp.vutil.attachClickOutSideCanvas();
+        
+        function dummyPlay(){
+            vApp.notPLayed = true;
+//            io.cfg = vApp.uInfo;
+            vApp.storage.config.endSession();
+            vApp.chat.chatroombox = false;
+            var chat_room = document.getElementById('chatrm');
+            if(chat_room != null){
+                chat_room.parentNode.removeChild(chat_room);
+            }
+            
+            //io.disconnect();
+            //vApp.user.control._assign(103);
+            vApp.recorder.init();
+        }
+        
+        document.getElementById('dummyPlay').addEventListener('click', function (){
+           dummyPlay();
+        });
    });
 //});

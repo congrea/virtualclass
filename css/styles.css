@@ -1766,3 +1766,10 @@ opacity : 0.800000011920928955078125 !important;
     box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
 }
 
+#dummyPlay {
+    position: absolute;
+    top: 17px;
+    left: 550px;
+    z-index: 666666;
+}
+

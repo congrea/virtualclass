@@ -30,7 +30,6 @@ function (window){
 
             
             init : function (urole, app){
-
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
                 this.ssConfig = { id : "vApp" + this.apps[1], classes : "appOptions"};
                 this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
@@ -66,9 +65,15 @@ function (window){
                 //inside storage.init() we are using indexeddb so, by above position there would 
                // system coampablity error could not be generated.
                 this.storage = window.storage;
+//                vApp.storeFirstData = function (){
+//                    alert("hi brother");
+//                }
                 if(vApp.system.indexeddb){
-                    this.storage.init();
-                    
+                    //alert('this should come at very first');
+                    this.storage.init( function (){
+//                        alert("hello brother");
+                        io.completeStorage(JSON.stringify(io.cfg));
+                    } );
                 }
                 
                 vApp.wb.utility.displayCanvas();
@@ -91,9 +96,14 @@ function (window){
 //                    this.gObj.video = new window.vApp.media();
 //                }
                 
-                this.initSocketConn();
+                if(!window.wbUser.vAppPlay){
+                    this.initSocketConn();
+                }
+                
+                
                 vApp.chat = new Chat();
                 vApp.chat.init();
+//                vApp.recPlayer = new recordPlayer();
                 vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
             },
             initSocketConn : function (){
@@ -292,8 +302,8 @@ function (window){
                     if (!confirm(vApp.lang.getString('startnewsession'))){
                         return;
                     }
-
-                    appName = appName.substring(0, appName.indexOf("Tool"));
+                    window.pageEnter = new Date().getTime();
+                    appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
                     vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
                     vApp.storage.config.endSession();

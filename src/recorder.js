@@ -6,126 +6,63 @@
 (
     function(window) {
         //var rObjs = localStorage.getItem('recObjs');
+        var e = {};
         var recorder = {
             items : [],
             recImgPlay : false,
+            objn : 0,
             init: function(repMode) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
                 if(typeof myfunc != 'undefined'){
                     this.objs = vcan.getStates('replayObjs');
                 }else{
-                    vApp.storage.getAllObjs(["allData"], repInit);
-                }
-                var that = this;
-                function repInit (){
-                    that.objs = vApp.recorder.items;
-                    that.objNo = 0;
-                    that.repMode = repMode;
-                    that.callBkfunc = "";
-
-                    vApp.ss = "";
-                    vApp.wss = "";
-
-                    var allChildrens;
-                    var screenShare = document.getElementById('vApp' + vApp.apps[1]);
-
-                    if(screenShare != null){
-                       screenShare.parentNode.removeChild(screenShare);
-                    }
-
-//                    var wholeScreenShare = document.getElementById('vApp' + vApp.apps[2]);
-//                    if(wholeScreenShare != null){
-//                       wholeScreenShare.parentNode.removeChild(wholeScreenShare);
-//                    }
-                    
-                    var obj = that.objs[0];
-                    var repTime = obj.mt - vApp.wb.pageEnteredTime;
-                    setTimeout(
-                        function (){
-                            vApp.recorder.renderObj();
-                        },
-                        repTime
-                    );
-                }
-                var audioRepTime = vApp.wb.recordStarted - vApp.wb.pageEnteredTime;
-                setTimeout(
-                    function (){
-                        if(typeof vApp.gObj.video != 'undefined'){
-                            //vApp.gObj.video.audio.replay(0, 0);
-                            vApp.gObj.video.audio.replayInit();
-                        }
-                    },
-                    audioRepTime
-                );
-             },
-            renderObj : function(myfunc) {
-                vApp.wb.drawMode = true;
-                if (typeof this.objs[this.objNo] == 'undefined') {
-                    console.log("is this happend");
-                    return;
-                }
-                if (this.objs[this.objNo].hasOwnProperty('cmd')) {
-                    vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
-                    vApp.wb.toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
-                } else {
-                    if(this.objs[this.objNo].hasOwnProperty('si')){
-//                        vApp.initStudentScreen(this.objs[this.objNo], "recImgPlay");
-                        vApp.studentScreen.initStudentScreen(this.objs[this.objNo], "recImgPlay");
-                        
-                    }else if(this.objs[this.objNo].hasOwnProperty('cuser')){
-                        vApp.gObj.chat.userChatList = [];
-                        vApp.gObj.chat.display(this.objs[this.objNo].cuser, 'cevent');
-                    }else{
-                        if(vApp.previous != "vApp" + vApp.apps[0]){
-                           document.getElementById('vApp' + vApp.apps[0]).style.display = 'block';
-                           document.getElementById(vApp.previous).style.display = 'none';
-                           vApp.previous = "vApp" + vApp.apps[0];
-                        }
-                        var event = "";
-                        if (this.objs[this.objNo].ac == 'd') {
-                            event = 'mousedown';
-                        } else if ((this.objs[this.objNo].ac == 'm')) {
-                            event = 'mousemove';
-                        } else if (this.objs[this.objNo].ac == 'u') {
-                            event = 'mouseup';
-                        }
-
-                        var currObj = this.objs[this.objNo];
-
-                        if (currObj.hasOwnProperty('mtext')) {
-                            var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
-                        } else {
-                            var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
-                        }
-                        if(this.objs[this.objNo].hasOwnProperty('uid')){
-                            
-                            vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
-                            var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
-                            vcan.main.canvas.dispatchEvent(eventConstruct);
-                        }
-                    }
-                }
-
-                if (typeof this.objs[this.objNo + 1] == 'object') {
-                    if (typeof this.repMode != 'undefined' && this.repMode == 'fromBrowser') {
-                        vApp.wb.replayTime = 0;
-                    }else{
-                        if(this.objs[this.objNo].hasOwnProperty('beforeRefresh')){
-                            vApp.wb.replayTime = (this.objs[this.objNo + 1].mt - this.objs[this.objNo + 1].peTime) + 1000;
-                            //vApp.wb.replayTime = 0;
-                        }else{
-                            vApp.wb.replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;
-                        }
-                    }
-
-                    this.objNo++;
                     var that = this;
-                    setTimeout(function (){
-                        that.renderObj.call(that);
-                    }, vApp.wb.replayTime);
+                    vApp.storage.getAllObjs(["allData"], function (){ that.play(); });
                 }
-                return;
+            },
+            // If binary, return buffer else return original value
+            convertInto : function (e){
+                if(typeof e.data == 'string'){
+                    return e;
+                }
+                e.data =  e.data.buffer;
+                return e;
+            },
+             
+            play : function (){
+                var that = this;
+                if(!this.hasOwnProperty('playTime')){
+                      this.playTime = this.items[0].playTime;
+                      e.data =  JSON.parse(this.items[this.objn].recObjs);
+                      io.cfg = e.data;
+                      vApp.gObj.uRole = io.cfg.userobj.role;
+                      vApp.gObj.uName = io.cfg.userobj.name;
+                      vApp.gObj.uid = io.cfg.userobj.userid;
+                      
+                      
+                }
+                if(typeof this.items[this.objn+1] == 'undefined'){
+                    e.data =  JSON.parse(this.items[this.objn].recObjs);
+                    io.onRecMessage(that.convertInto(e)); 
+                }else{
+                    setTimeout( function (){
+                        e.data =  that.items[that.objn].recObjs;
+                        io.onRecMessage(that.convertInto(e)); 
+                        that.play.call(that);
+                        that.objn++;
+                            
+//                        if(that.objn != 0){
+//                            io.onRecMessage(that.convertInto(e)); 
+//                            that.play.call(that);
+//                            that.objn++;
+//                        }else{
+//                            that.objn += 2; //skip first packet from replay 
+//                        }
+                        
+                        that.playTime = that.items[that.objn].playTime;
+                     }, that.playTime);
+                }
             }
         };
         window.recorder = recorder;

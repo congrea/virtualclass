@@ -23,7 +23,14 @@ include('js.debug.php');
 //include('js.php');
 // this url should be soemthing like this
 // https://local.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
-    
+
+$isplay = false;
+
+if(isset($_GET['play']) && ($_GET['play'] == 'true')){
+    $isplay = true;
+
+}
+
 if(isset($_GET['id'])){
     $uid = $_GET['id'];
     $sid = $uid;
@@ -31,14 +38,23 @@ if(isset($_GET['id'])){
     $uid = 100;
     $sid = 100;
 }
+
+
 //$r = (isset($_GET['r'])) ? $_GET['r'] : 's';
 if(isset($_GET['r'])){
     $r = $_GET['r'];
-    $cont_class = $r == 't' ? "teacher orginalTeacher" : 'student';
+    if($r == 't' &&  !$isplay){
+        $cont_class = "teacher orginalTeacher";
+    }else{
+        $r = 's';
+        $cont_class = 'student';
+    }
+//    $cont_class = ($r == 't' &&  !$isplay) ? "teacher orginalTeacher" : 'student';
 }else{
     $r = 's';
     $cont_class = 'student';
 }
+
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 //echo $room;
 if(isset($_GET['name'])){
@@ -60,7 +76,8 @@ if(isset($_GET['lname'])){
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
     }
-   
+    
+    <?php echo "wbUser.vAppPlay='$isplay';"; ?>
 	<?php echo "wbUser.name='$uname';"; ?>
 	<?php echo "wbUser.id='".$uid."';"; ?>
 	<?php echo "wbUser.socketOn='0';"; ?>
@@ -78,7 +95,9 @@ if(isset($_GET['lname'])){
 </head>
 
 <body>
+    <button id="dummyPlay">Play</button>
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
+    
     <div id="vAppWhiteboard" class="vmApp">
 
        <div id="vcanvas" class="socketon">
@@ -115,6 +134,7 @@ if(isset($_GET['lname'])){
     } else {
         $classes = "audioTool active";
         $speakermsg = "Disable Speaker";
+        //$dap = "true"; //display audio 
         $dap = "true";
         $speakerimg = $whiteboardpath . "images/speakerpressingactive.png";
     }?>

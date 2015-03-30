@@ -285,7 +285,7 @@
                         //recorder.items.push(obj);
                         
                         vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-                        vApp.storage.wholeStore(obj);
+//                        vApp.storage.wholeStore(obj);
                         
                         vApp.wb.utility.beforeSend({'repObj': [obj]}); //after optimized
                     }

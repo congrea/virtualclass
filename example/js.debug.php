@@ -49,6 +49,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/recorder.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/play.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/footer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatlist.js"></script>
@@ -57,7 +58,4 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
-
-      

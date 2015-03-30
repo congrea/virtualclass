@@ -147,7 +147,7 @@
                                         
                                         wb.utility.beforeSend({'repObj': dataChunk});
                                         vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-                                        vApp.storage.wholeStore(dataChunk);
+                                        //vApp.storage.wholeStore(dataChunk);
                                         wb.utility.updateSentPackets(dataChunk);
                                         dataChunk = [];
                                         lastmousemovetime = new Date().getTime();
@@ -258,7 +258,7 @@
                                 vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
                                 
                                
-                                vApp.storage.wholeStore(dataChunk);
+                                //vApp.storage.wholeStore(dataChunk);
                                 
                                 wb.utility.updateSentPackets(dataChunk);
                                 dataChunk = [];

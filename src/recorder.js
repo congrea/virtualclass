@@ -31,6 +31,8 @@
             },
              
             play : function (){
+//                alert("suman bogati");
+//                debugger;
                 var that = this;
                 if(!this.hasOwnProperty('playTime')){
                       this.playTime = this.items[0].playTime;

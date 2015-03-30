@@ -68,7 +68,7 @@ function (window){
 //                vApp.storeFirstData = function (){
 //                    alert("hi brother");
 //                }
-                if(vApp.system.indexeddb){
+                if(vApp.system.indexeddb && !vApp.vutil.isPlayMode()){
                     //alert('this should come at very first');
                     this.storage.init( function (){
 //                        alert("hello brother");

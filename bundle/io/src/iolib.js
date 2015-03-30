@@ -145,7 +145,7 @@ var io = {
     },
     sendBinary : function(msg){
         this.sock.send(msg.buffer);
-        this.completeStorage(msg);
+        this.completeStorage(msg.buffer);
     },
 
     onRecMessage : function(e){

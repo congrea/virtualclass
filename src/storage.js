@@ -110,8 +110,10 @@
             
             completeStorage : function (playTime, data){  //storing whiteboard and screenshare
                 //var data = JSON.stringify(obj); //already stringify or binary
-//                alert('suman bogati');
-//                debugger;
+
+                   
+                console.log(data);
+                console.log(typeof data);
                 var t = that.db.transaction(["allData"], "readwrite");
                 t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
             },
@@ -201,6 +203,9 @@
                             
 //                            vApp.recorder.items.push(JSON.parse(cursor.value.recObjs));
                             //vApp.recorder.items.push(cursor.value.recObjs);
+//                            alert('suman bogati');
+//                            debugger;
+                            var tempVal =  cursor.value.recObjs;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                         }
                         cursor.continue();

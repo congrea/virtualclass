@@ -460,6 +460,13 @@
             	    } 
             	}
             	
+            },
+            
+            isPlayMode : function (){
+                return (window.wbUser.vAppPlay == true) ? true : false;
+//                if(!window.wbUser.vAppPlay){
+//                    this.initSocketConn();
+//                }
             }
         }
         window.vutil = vutil;

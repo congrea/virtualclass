@@ -104,8 +104,7 @@ function memberUpdate(e, addType){
     Called on new message arival
     update msg list in chatbox
 */
-
-function messageUpdate(e){
+function messageUpdate2(e){
     if($.isPlainObject(e.message)){
         var msg = e.message.msg;
     }else{
@@ -118,7 +117,11 @@ function messageUpdate(e){
     var time = new Date().getTime();
     //common chat room
     if( e.message.receiver == 'chatroom' && (to == "" || to == undefined)){
+        
         if(self == from.userid){
+//            alert('sss');
+//            debugger;
+            
             $("#chat_room").chatroom("option").messageSent(from, msg);
         }else{
             if(vApp.chat.chatroombox) {
@@ -138,6 +141,113 @@ function messageUpdate(e){
                $("#chat_room").chatroom("option").messageSent(from, msg);
                }
             }
+
+            // store data on browser
+            if(sessionStorage.getItem('chatroom') != null){
+                var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
+                var temp = { userid:from.userid,name:from.name, msg: msg,time: time}
+                chatroom.push(temp);
+                sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
+            } else {
+                sessionStorage.setItem('chatroom', JSON.stringify([{ userid:from.userid,name:from.name , msg: msg,time: time}]));
+            }
+
+    }else if(to != undefined && to != ""){ // private chat
+        
+        if(self == to.userid && from.userid != self){
+            if($.inArray(from.userid, vApp.chat.idList) == -1){
+                vApp.chat.counter++;
+                vApp.chat.idList.push(from.userid);
+                
+                vApp.chat.vmstorage[from.userid] = [];
+                vApp.chat.vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
+            }
+                chatboxManager.addBox(from.userid,
+                          {dest:"dest" + vApp.chat.counter, // not used in demo
+                           title:"box" + vApp.chat.counter,
+                           first_name:from.name,
+                           last_name:from.lname
+                           //you can add your own options too
+                          });
+
+            var did = from.userid;
+
+            chatboxManager.init({
+                user:from,
+                messageSent : function(did,user,msg){
+                    $("#" + did).chatbox("option", "boxManager").addMsg(user.name, msg);
+                }});
+            
+            var chEnable = localStorage.getItem('chatEnable');
+            //bad way to check chatEnable
+            if(chEnable != null && chEnable == 'false'){
+                vApp.user.control.allChatDisable();
+
+//                vApp.user.allChatDisable();
+            }
+            
+            $("#" + from.userid).chatbox("option").messageSent(from.userid,from, msg);
+            $("li[aria-controls='tabcb" + from.userid + "']").addClass("ui-state-highlight");
+            //createNotification(from.userid);// tab scrolling notification for hidden tab
+            var k = from.userid;
+        }
+        vApp.chat.vmstorage[k].push({ userid:from.userid,name:from.name , msg: msg, time: time });
+    }
+}
+
+function messageUpdate(e){
+    if($.isPlainObject(e.message)){
+        var msg = e.message.msg;
+    }else{
+        var msg = e.message;
+    }
+
+    var to = e.toUser;
+    var from = e.fromUser;
+    var self = io.cfg.userid;
+    var time = new Date().getTime();
+    //common chat room
+    if( e.message.receiver == 'chatroom' && (to == "" || to == undefined)){
+        if(vApp.chat.chatroombox) {
+            $("#chat_room").chatroom("option").messageSent(from, msg);
+        }else{
+           if($("div#chat_room").length == 0){
+                var d = document.createElement('div');
+                d.id = 'chat_room';
+                document.body.appendChild(d);
+                vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                                        user : from,
+                                        title : lang.chatroom_header,
+                                        messageSent : function(user, msg) {
+                                            $("#chat_room").chatroom("option", "boxManager").addMsg(user.name,msg);
+                                        }});
+           }
+           $("#chat_room").chatroom("option").messageSent(from, msg);
+        }
+        
+//        if(self == from.userid){
+//            alert('sss');
+//            debugger;
+//            
+//            $("#chat_room").chatroom("option").messageSent(from, msg);
+//        }else{
+//            if(vApp.chat.chatroombox) {
+//                $("#chat_room").chatroom("option").messageSent(from, msg);
+//            }else{
+//               if($("div#chat_room").length == 0){
+//                    var d = document.createElement('div');
+//                    d.id = 'chat_room';
+//                    document.body.appendChild(d);
+//                    vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+//                                            user : from,
+//                                            title : lang.chatroom_header,
+//                                            messageSent : function(user, msg) {
+//                                                $("#chat_room").chatroom("option", "boxManager").addMsg(user.name,msg);
+//                                            }});
+//               }
+//               $("#chat_room").chatroom("option").messageSent(from, msg);
+//            }
+//        }
 
             // store data on browser
             if(sessionStorage.getItem('chatroom') != null){

@@ -266,13 +266,15 @@ var io = {
             
            // vApp.notPLayed = true;
            
-           if(wbUser.vAppPlay == false){
+           //if(wbUser.vAppPlay == false){
+            if(!vApp.vutil.isPlayMode()){
                 var t = vApp.storage.db.transaction(['allData'], "readwrite");
                 if(typeof t != 'undefined'){
                     var objectStore = t.objectStore('allData');
                     objectStore.clear();
                 }
-           }
+            }
+           //}
         }
 
         var currTime = new Date().getTime();

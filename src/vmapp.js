@@ -95,8 +95,8 @@ function (window){
 //                if(!vApp.gObj.hasOwnProperty('audIntDisable) && !vApp.gObj.hasOwnPropert('videoDisable')){
 //                    this.gObj.video = new window.vApp.media();
 //                }
-                
-                if(!window.wbUser.vAppPlay){
+                if(!vApp.vutil.isPlayMode()){
+                //if(!window.wbUser.vAppPlay){
                     this.initSocketConn();
                 }
                 

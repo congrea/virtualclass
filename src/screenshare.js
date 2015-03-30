@@ -211,6 +211,7 @@
             },
 
             getScreen: function (callback) {
+                
 //                alert(chrome.desktopCapture);
 //                debugger;
                 if (vApp.system.mybrowser.name == 'Chrome') {

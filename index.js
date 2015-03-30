@@ -125,6 +125,7 @@ $.uiBackCompat = false;
 //            debugger;
             
             if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
+          
                 var stype = 'ss';
                 var sTool = 'ScreenShare';
             }
@@ -141,6 +142,8 @@ $.uiBackCompat = false;
                 vApp.gObj.video.video.process(e.message);
                 return;
             } else{
+//                alert('suman bogati');
+//                debugger
                 if(!vApp.hasOwnProperty('studentScreen')){
                     vApp.studentScreen = new studentScreen();
                 }

@@ -9,7 +9,7 @@
   */
 include('auth.php');
 //the www path for virtualclass
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://local.vidya.io/suman-repo/virtualclass/";
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
@@ -88,7 +88,7 @@ if(isset($_GET['lname'])){
 	<?php // echo "wbUser.fname='".$fname."';"; ?>
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
-    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
+    window.whiteboardPath =  'https://local.vidya.io/suman-repo/virtualclass/';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
 </script>
 

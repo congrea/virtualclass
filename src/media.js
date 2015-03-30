@@ -934,8 +934,8 @@
                     }
                 },
                 init: function(vbool) {
-//                    alert('suman bogati');
-//                    debugger;
+                //    alert("hello borther");
+                    
                     cthis = this; //TODO there should be done work for cthis
                     vcan.oneExecuted = true;
                     var audio = true;
@@ -943,10 +943,15 @@
                         audio : audio,
                         video: true
                     };
+                    
                     cthis.video.init();
-                    vApp.adpt = new vApp.adapter();
-                    var cNavigator = vApp.adpt.init(navigator);
-                    cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
+                    if(!vApp.vutil.isPlayMode()){
+                        
+                        vApp.adpt = new vApp.adapter();
+                        var cNavigator = vApp.adpt.init(navigator);
+                        cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
+                    }
+                    
                     if (vApp.system.wbRtc.peerCon) { //TODO this should be deleted 
                         if (typeof localStorage.wbrtcMsg == 'undefined') {
                             vApp.wb.view.multiMediaMsg('WebRtc');
@@ -955,6 +960,7 @@
                     }
                 },
                 handleUserMedia : function(stream){
+                    
                     //latest code 
                     var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
@@ -1052,6 +1058,7 @@
                     return false;
                 },
                 handleUserMediaError: function(error) {
+                    
                     var error = (typeof error == 'object') ?  vApp.lang.getString(error.name) : vApp.lang.getString(error);
                     vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
                     vApp.user.control.audioWidgetDisable();

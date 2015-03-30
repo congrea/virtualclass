@@ -36,7 +36,8 @@
                       this.playTime = this.items[0].playTime;
                       e.data =  JSON.parse(this.items[this.objn].recObjs);
                       io.cfg = e.data;
-                      vApp.gObj.uRole = io.cfg.userobj.role;
+                      //vApp.gObj.uRole = io.cfg.userobj.role;
+                      vApp.gObj.uRole = 's'; //it teacher sets there would ask for choose screen share
                       vApp.gObj.uName = io.cfg.userobj.name;
                       vApp.gObj.uid = io.cfg.userobj.userid;
                       

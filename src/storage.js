@@ -262,9 +262,14 @@
                         var objectStore = t.objectStore(this.tables[i]);
                         
                        if(this.tables[i] == 'allData'){
-                           if(wbUser.vAppPlay == false){
+                           if(!vApp.vutil.isPlayMode()){
                                objectStore.clear();
                            }
+                           
+//                           if(wbUser.vAppPlay == false){
+//                               objectStore.clear();
+//                           }
+                           
                        }else {
                            objectStore.clear();
                        }

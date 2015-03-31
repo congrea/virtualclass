@@ -272,15 +272,26 @@ var io = {
             if(!vApp.vutil.isPlayMode()){
                 var t = vApp.storage.db.transaction(['allData'], "readwrite");
                 if(typeof t != 'undefined'){
-                    
                     //should check first row is authuser/authpass
                     // clear if differnt else leave as it is
                     var objectStore = t.objectStore('allData');
-                    
-//                    alert('suman');
-//                    debugger;
-                    
-                    objectStore.clear();
+                    objectStore.openCursor().onsuccess = function (event){
+                        var cursor = event.target.result;
+                        if (cursor) {
+                            if(cursor.value.hasOwnProperty('recObjs')){
+                                if(typeof cursor.value.recObjs == 'string'){
+                                    var recObs = JSON.parse(cursor.value.recObjs);
+                                    if(!recObs.hasOwnProperty('authuser')){
+                                        objectStore.clear();
+                                    }
+                                }else{
+                                    objectStore.clear();
+                                } 
+                                
+                                
+                            }
+                        }
+                    };
                 }
             }
            //}

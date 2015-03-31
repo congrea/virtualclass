@@ -11,6 +11,7 @@
             items : [],
             recImgPlay : false,
             objn : 0,
+            playTimeout : "",
             init: function(repMode) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -31,25 +32,30 @@
             },
              
             play : function (){
-//                alert("suman bogati");
-//                debugger;
                 var that = this;
+                if(typeof that.playTimeout != 'undefined' || that.playTimeout != ""){
+                    clearTimeout(that.playTimeout);
+                }
                 if(!this.hasOwnProperty('playTime')){
-                      this.playTime = this.items[0].playTime;
-                      e.data =  JSON.parse(this.items[this.objn].recObjs);
-                      io.cfg = e.data;
-                      //vApp.gObj.uRole = io.cfg.userobj.role;
-                      vApp.gObj.uRole = 's'; //it teacher sets there would ask for choose screen share
-                      vApp.gObj.uName = io.cfg.userobj.name;
-                      vApp.gObj.uid = io.cfg.userobj.userid;
+                    this.playTime = this.items[0].playTime;
+                    e.data =  JSON.parse(this.items[this.objn].recObjs);
+                    io.cfg = e.data;
+                    //vApp.gObj.uRole = io.cfg.userobj.role;
+                    vApp.gObj.uRole = 's'; //it teacher sets there would ask for choose screen share
+                    vApp.gObj.uName = io.cfg.userobj.name;
+                    vApp.gObj.uid = io.cfg.userobj.userid;
                       
                       
                 }
                 if(typeof this.items[this.objn+1] == 'undefined'){
-                    e.data =  JSON.parse(this.items[this.objn].recObjs);
+//                    e.data =  JSON.parse(this.items[this.objn].recObjs);
+                    e.data =  this.items[this.objn].recObjs;
                     io.onRecMessage(that.convertInto(e)); 
+                    
+                    
+                    //return;
                 }else{
-                    setTimeout( function (){
+                  that.playTimeout = setTimeout( function (){
                         e.data =  that.items[that.objn].recObjs;
                         io.onRecMessage(that.convertInto(e)); 
                         that.play.call(that);

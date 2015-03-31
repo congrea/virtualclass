@@ -948,6 +948,7 @@
                  * @returns {undefined}
                  */
                 beforeSend : function (msg, toUser){
+                    
                    // when we are in replay mode we don't need send the object to other user
 //                    if(wbUser.vAppPlay != ' ' || wbUser.vAppPlay != false){
 //                        return;

@@ -68,11 +68,14 @@ function (window){
 //                vApp.storeFirstData = function (){
 //                    alert("hi brother");
 //                }
-                if(vApp.system.indexeddb && !vApp.vutil.isPlayMode()){
+                //!vApp.vutil.isPlayMode()
+                if(vApp.system.indexeddb){
                     //alert('this should come at very first');
                     this.storage.init( function (){
 //                        alert("hello brother");
-                        io.completeStorage(JSON.stringify(io.cfg));
+                        if(!vApp.vutil.isPlayMode()){
+                            io.completeStorage(JSON.stringify(io.cfg));
+                        }
                     } );
                 }
                 

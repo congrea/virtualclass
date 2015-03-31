@@ -145,7 +145,7 @@ var io = {
     },
     sendBinary : function(msg){
         this.sock.send(msg.buffer);
-        this.completeStorage(msg.buffer);
+        this.completeStorage(msg);
     },
 
     onRecMessage : function(e){
@@ -267,10 +267,19 @@ var io = {
            // vApp.notPLayed = true;
            
            //if(wbUser.vAppPlay == false){
+           
+            
             if(!vApp.vutil.isPlayMode()){
                 var t = vApp.storage.db.transaction(['allData'], "readwrite");
                 if(typeof t != 'undefined'){
+                    
+                    //should check first row is authuser/authpass
+                    // clear if differnt else leave as it is
                     var objectStore = t.objectStore('allData');
+                    
+//                    alert('suman');
+//                    debugger;
+                    
                     objectStore.clear();
                 }
             }

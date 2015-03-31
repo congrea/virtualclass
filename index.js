@@ -389,8 +389,12 @@ $.uiBackCompat = false;
                 chat_room.parentNode.removeChild(chat_room);
             }
             
+//            var vAppCont = document.getElementById('vAppCont');
+//            if(vAppCont != null){
+//                vAppCont.style.pointerEvents = "none";
+//            };
             //io.disconnect();
-            //vApp.user.control._assign(103);
+            
             vApp.recorder.init();
         }
         

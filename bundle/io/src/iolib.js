@@ -136,8 +136,8 @@ var io = {
             }
 
             var storjobj = JSON.stringify(storObj);
-
-            if(!msg.hasOwnProperty('sEnd')){
+            //getMsPckt, can not request the packets from other user during replay
+            if(!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')){
                 this.completeStorage(storjobj);
             }
         }
@@ -287,8 +287,6 @@ var io = {
                                 }else{
                                     objectStore.clear();
                                 } 
-                                
-                                
                             }
                         }
                     };

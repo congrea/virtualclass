@@ -286,7 +286,8 @@ $.uiBackCompat = false;
                     }
                 }
 
-               if(e.message.hasOwnProperty('repObj')){
+               if(e.message.hasOwnProperty('repObj') && !vApp.vutil.isPlayMode()){
+                   
                    vApp.wb.response.repObjForMissedPkts(e.message.repObj);
                }
                 if(e.message.hasOwnProperty('getMsPckt')){
@@ -312,6 +313,7 @@ $.uiBackCompat = false;
                         }else{
                             if(vApp.wb.gObj.rcvdPackId + 1 == e.message.repObj[0].uid) {
                                 for (var i = 0; i < e.message.repObj.length; i++){
+                                    console.log("done rep Obj");
                                     vApp.wb.gObj.replayObjs.push(e.message.repObj[i]);
                                 }
                             }
@@ -387,6 +389,10 @@ $.uiBackCompat = false;
             var chat_room = document.getElementById('chatrm');
             if(chat_room != null){
                 chat_room.parentNode.removeChild(chat_room);
+            }
+            var canvasElem = document.getElementById('canvas');
+            if(canvasElem != null){
+                canvasElem.style.pointerEvents = "none";
             }
             
 //            var vAppCont = document.getElementById('vAppCont');

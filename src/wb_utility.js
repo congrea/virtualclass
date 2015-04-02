@@ -482,7 +482,10 @@
                     vApp.wb.gObj.displayedObjId = 0;
                     vApp.wb.gObj.packQueue = [];
                     vApp.wb.uid = 0;
-
+                    
+                    localStorage.setItem('rcvdPackId', 0);
+                    //TODO this code should be removed after validate 
+                    
                     var teacherId = vApp.vutil.chkValueInLocalStorage('teacherId');
                     var orginalTeacherId = vApp.vutil.chkValueInLocalStorage('orginalTeacherId');
                     var wbrtcMsg = vApp.vutil.chkValueInLocalStorage('wbrtcMsg');

@@ -95,7 +95,16 @@ if(isset($_GET['lname'])){
 </head>
 
 <body>
-    <button id="dummyPlay">Play</button>
+    
+    <div id="dummyPlayCont">
+        <a href="#" id="mydata"> Download file </a> 
+        <button id="getContent"> Get Content </button> 
+        <button id="dummyPlay">Play</button>
+        
+        <input type='file' id="fileInput" accept='text/plain'><br>
+        
+    </div>
+    
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
     
     <div id="vAppWhiteboard" class="vmApp">

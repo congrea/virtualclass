@@ -121,12 +121,8 @@ $.uiBackCompat = false;
             //vApp.gObj.video.audio []
             var data_pack = new Uint8Array(e.message);
             
-//            alert('suman bogati');
-//            debugger;
-            
             if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
-          
-                var stype = 'ss';
+               var stype = 'ss';
                 var sTool = 'ScreenShare';
             }
             
@@ -137,13 +133,9 @@ $.uiBackCompat = false;
                 }
                 return;
             } else if (data_pack[0] == 11) { // user video image
-//                alert('suman bogati');
-//                debugger;
                 vApp.gObj.video.video.process(e.message);
                 return;
             } else{
-//                alert('suman bogati');
-//                debugger
                 if(!vApp.hasOwnProperty('studentScreen')){
                     vApp.studentScreen = new studentScreen();
                 }
@@ -381,7 +373,7 @@ $.uiBackCompat = false;
         );
         vApp.vutil.attachClickOutSideCanvas();
         
-        function dummyPlay(){
+        function dummyPlay(data){
             vApp.notPLayed = true;
 //            io.cfg = vApp.uInfo;
             vApp.storage.config.endSession();
@@ -395,17 +387,34 @@ $.uiBackCompat = false;
                 canvasElem.style.pointerEvents = "none";
             }
             
-//            var vAppCont = document.getElementById('vAppCont');
-//            if(vAppCont != null){
-//                vAppCont.style.pointerEvents = "none";
-//            };
-            //io.disconnect();
-            
-            vApp.recorder.init();
+            vApp.recorder.init(data);
         }
         
+        function openFile (){
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                 dummyPlay(reader.result);
+                 //alert('actual data');
+            }
+            reader.readAsText(file);	
+            
+            
+    	} 
+        
+        
+        var fileInput = document.getElementById('fileInput');    
+        fileInput.addEventListener('change', function (){
+            openFile();
+        })
+        
+        document.getElementById('getContent').addEventListener('click', function (){
+           vApp.recorder.exportData();
+        });
+        
         document.getElementById('dummyPlay').addEventListener('click', function (){
-           dummyPlay();
+           /// vApp.recorder.init();
+            dummyPlay('fromplay');
         });
    });
 //});

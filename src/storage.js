@@ -40,8 +40,6 @@
                 };
                 openRequest.onsuccess = function(e) {
 //                    alert("should come first")
-                    
-                    
                     that.db = e.target.result;
                     var currTime = new Date().getTime();
                     //meet condition when current and previous user are different
@@ -118,7 +116,7 @@
             },
             
             wholeStore : function (playTime, obj, type){  //storing whiteboard and screenshare
-                alert('is there I am going to play');
+//                alert('is there I am going to play');
                 obj.peTime = window.pageEnter;
                 var data = JSON.stringify(obj);
                 var currTime = new Date().getTime();
@@ -138,13 +136,16 @@
             displayData : function (){
                 var transaction = that.db.transaction(["vapp"], "readonly");
                 var objectStore = transaction.objectStore("vapp");
+                
                 objectStore.openCursor().onsuccess = that.handleResult;
             },
             getAllObjs : function (tables, callback){
+                
                 var cb = typeof callback != 'undefined' ? callback : "";
                 for(var i = 0; i < tables.length; i++){
                     var transaction = that.db.transaction(tables[i], "readonly");
                     var objectStore = transaction.objectStore(tables[i]);
+                    
                     objectStore.openCursor().onsuccess = (
                         function (val, cb){
                             return function (event){
@@ -172,7 +173,7 @@
                             vApp.wb.utility.makeUserAvailable(); //at very first
                         }
                     }
-                 }
+                }
             },
             audioData : {
                 handleResult : function (event, cb){
@@ -196,14 +197,11 @@
             },
             allData : {
                 handleResult : function (event, cb){
+//                    alert('suman bogati');
+//                    debugger;
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
-//                            alert('insrted value');
-//                            vApp.recorder.items.push(JSON.parse(cursor.value.recObjs));
-                            //vApp.recorder.items.push(cursor.value.recObjs);
-//                            alert('suman bogati');
-//                            debugger;
                             var tempVal =  cursor.value.recObjs;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                         }

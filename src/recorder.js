@@ -12,15 +12,37 @@
             recImgPlay : false,
             objn : 0,
             playTimeout : "",
-            init: function(repMode) {
+            init: function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
                 if(typeof myfunc != 'undefined'){
                     this.objs = vcan.getStates('replayObjs');
                 }else{
                     var that = this;
-                    vApp.storage.getAllObjs(["allData"], function (){ that.play(); });
+                    if(data == 'fromplay'){
+                       vApp.storage.getAllObjs(["allData"], function (){ that.play(); });
+                         //
+                    }else{
+                         
+                        this.items = JSON.parse(data);
+                        that.play();
+                        
+                    }
+                    
+                    
+
+                   // vApp.storage.getAllObjs(["allData"], function (){ that.play(); })
                 }
+            },
+            
+            exportData : function (){
+               vApp.storage.getAllObjs(["allData"], function (){
+                   var stringifyData = JSON.stringify(vApp.recorder.items);
+                   var blob = new Blob([stringifyData], {type: "application/json"});
+                   var downloadLink = document.getElementById('mydata');
+                   downloadLink.href = window.URL.createObjectURL(blob);
+                   
+               });  
             },
             // If binary, return buffer else return original value
             convertInto : function (e){

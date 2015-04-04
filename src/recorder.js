@@ -21,23 +21,34 @@
                     var that = this;
                     if(data == 'fromplay'){
                        vApp.storage.getAllObjs(["allData"], function (){ that.play(); });
-                         //
+                          
                     }else{
-                         
-                        this.items = JSON.parse(data);
+                        var totalLength = 0;
+                        this.items =  JSON.parse(data);
+                        var binData;
+                        for(var i=0; i<this.items.length; i++){
+                            if(typeof this.items[i].recObjs == 'Object' || typeof this.items[i].recObjs == 'object' ){
+                          //      binData = Object.keys(this.items[i].recObjs);
+                               binData = Object.keys(this.items[i].recObjs).map(function (key) {return that.items[i].recObjs[key]});
+                                newBinData = new Uint8Array(binData.length);
+                                this.items[i].recObjs = newBinData;
+                                for(var j = 0; j< binData.length; j++){
+                                    this.items[i].recObjs[j] = binData[j];
+                                }
+                            }
+                        }
                         that.play();
-                        
                     }
-                    
-                    
 
                    // vApp.storage.getAllObjs(["allData"], function (){ that.play(); })
                 }
             },
             
             exportData : function (){
+               vApp.recorder.items = [];
                vApp.storage.getAllObjs(["allData"], function (){
                    var stringifyData = JSON.stringify(vApp.recorder.items);
+                 
                    var blob = new Blob([stringifyData], {type: "application/json"});
                    var downloadLink = document.getElementById('mydata');
                    downloadLink.href = window.URL.createObjectURL(blob);

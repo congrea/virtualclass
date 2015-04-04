@@ -197,12 +197,10 @@
             },
             allData : {
                 handleResult : function (event, cb){
-//                    alert('suman bogati');
-//                    debugger;
+                    //vApp.recorder.item = [];
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
-                            var tempVal =  cursor.value.recObjs;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                         }
                         cursor.continue();

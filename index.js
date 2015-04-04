@@ -394,6 +394,7 @@ $.uiBackCompat = false;
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
+                
                  dummyPlay(reader.result);
                  //alert('actual data');
             }

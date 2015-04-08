@@ -103,12 +103,14 @@ function (window){
                     this.initSocketConn();
                 }
                 
-                
                 vApp.chat = new Chat();
                 vApp.chat.init();
 //                vApp.recPlayer = new recordPlayer();
                 vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
+                vApp.xhr = window.xhr;
+                vApp.xhr.init();
             },
+            
             initSocketConn : function (){
                 if(this.system.webSocket){
                   var wbUser = window.wbUser;

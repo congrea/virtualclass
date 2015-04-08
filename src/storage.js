@@ -4,16 +4,19 @@
   */
 (
     function(window) {
+        var alData = 0;
         var adData = [];
         var wbDataArr = [];
         var that;
+        var totalComplete = 0;
         var storage = {
             init : function (firstDataStore){
                 //this.firstDataStore = firstDataStore;
                 this.reclaim = JSON.parse(vApp.vutil.chkValueInLocalStorage('reclaim'));
                 that = this;
                 //TODO these are not using because audio and video is not using
-                this.tables = ["wbData", "allData", "audioData", "config"];
+                //this.tables = ["wbData", "allData", "audioData", "config"];
+                this.tables = ["wbData", "audioData", "config"];
                 var openRequest = window.indexedDB.open("vidya_app", 3);
                 openRequest.onerror = function(e) {
                     console.log("Error opening db");
@@ -107,10 +110,7 @@
             },
             
             completeStorage : function (playTime, data){  //storing whiteboard and screenshare
-                //var data = JSON.stringify(obj); //already stringify or binary
-//                   
-//                console.log(data);
-//                console.log(typeof data);
+                totalComplete++;
                 var t = that.db.transaction(["allData"], "readwrite");
                 t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
             },
@@ -140,7 +140,6 @@
                 objectStore.openCursor().onsuccess = that.handleResult;
             },
             getAllObjs : function (tables, callback){
-                
                 var cb = typeof callback != 'undefined' ? callback : "";
                 for(var i = 0; i < tables.length; i++){
                     var transaction = that.db.transaction(tables[i], "readonly");
@@ -196,16 +195,27 @@
                  }
             },
             allData : {
+                chunk : 0,    
                 handleResult : function (event, cb){
+                    
                     //vApp.recorder.item = [];
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
+                            this.chunk++;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
+                            if(this.chunk % 100 == 0){
+                                vApp.recorder.sendDataToServer();
+                                vApp.recorder.items = [];
+                                console.log("sending the data");
+                            }
                         }
                         cursor.continue();
                     }else{
                         if(typeof cb == 'function'){
+                            vApp.recorder.sendDataToServer();
+                            vApp.recorder.items = [];
+                            console.log("finished fetch data");
                             cb();
                         }
                     }

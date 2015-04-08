@@ -38,9 +38,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bridge.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/response.js"></script>
-
-<!--<script type="text/javascript" src="<?php // echo $whiteboardpath;?>src/lzstring.js"></script>-->
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/g711.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/getscreen.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dirtycorner.js"></script>
@@ -50,6 +48,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/play.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/xhr.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/footer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatlist.js"></script>
@@ -58,4 +58,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
+
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

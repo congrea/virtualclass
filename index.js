@@ -387,7 +387,7 @@ $.uiBackCompat = false;
                 canvasElem.style.pointerEvents = "none";
             }
             
-            vApp.recorder.init(data);
+           // vApp.recorder.init(data);
         }
         
         function openFile (){
@@ -399,9 +399,7 @@ $.uiBackCompat = false;
                  //alert('actual data');
             }
             reader.readAsText(file);	
-            
-            
-    	} 
+        }
         
         
         var fileInput = document.getElementById('fileInput');    
@@ -415,6 +413,7 @@ $.uiBackCompat = false;
         
         document.getElementById('dummyPlay').addEventListener('click', function (){
            /// vApp.recorder.init();
+            vApp.recorder.requestDataFromServer(0);
             dummyPlay('fromplay');
         });
    });

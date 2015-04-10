@@ -44,7 +44,6 @@
                     }
                 };
                 openRequest.onsuccess = function(e) {
-//                    alert("should come first")
                     that.db = e.target.result;
                     var currTime = new Date().getTime();
                     //meet condition when current and previous user are different
@@ -205,14 +204,14 @@
             allData : {
                 chunk : 0,    
                 handleResult : function (event, cb){
-                    
                     //vApp.recorder.item = [];
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
                             this.chunk++;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
-                            if(this.chunk % 100 == 0){
+                            //on there 500 data the comressing algorithm is not working
+                            if(this.chunk % 300 == 0){
                                 vApp.recorder.sendDataToServer();
                                 vApp.recorder.items = [];
                                 console.log("sending the data");
@@ -221,7 +220,6 @@
                         cursor.continue();
                     }else{
                         if(typeof cb == 'function'){
-                            
                             vApp.recorder.sendDataToServer("finished");
                             vApp.recorder.items = [];
                             console.log("finished fetch data");

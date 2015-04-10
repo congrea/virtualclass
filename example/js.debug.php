@@ -50,6 +50,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/play.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/xhr.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/footer.js"></script>

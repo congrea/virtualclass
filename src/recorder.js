@@ -136,9 +136,27 @@
                 this.totalSent += vApp.recorder.items.length;
                 
                 //sometimes vApp.storage.totalStored is total sent
+                
                 if(fetchFinished == 'finished'){
                     vApp.storage.totalStored = this.totalSent;
+                    setTimeout(
+                        function (){
+                            var vAppToolCont = document.getElementById('vAppOptionsCont');
+                            vAppToolCont.style.zIndex = 0;
+
+                            var stickBar = document.getElementById('stickybar');
+                            stickBar.style.zIndex = 2000;
+
+                            var element = document.getElementById('about-modal');
+                            vApp.popModal.close(element);
+                        },
+                        7000
+                    );
                 }
+                
+                
+        
+                
                 
                 vApp.vutil.progressBar(vApp.storage.totalStored, this.totalSent);
                 

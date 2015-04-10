@@ -437,10 +437,13 @@
                     obj.beforeRefresh = true;
                     vApp.storage.wholeStore(obj, "put");
                 }
-
+                
+                localStorage.setItem('totalStored', vApp.storage.totalStored);
+                
                 localStorage.removeItem('otherRole');
                 vApp.wb.utility.userIds = [];
-
+                
+                
                 if(!vApp.gObj.hasOwnProperty('audIntDisable')){
                     vApp.gObj.video.audio.studentNotSpeak();
                 }
@@ -464,9 +467,12 @@
             
             isPlayMode : function (){
                 return (window.wbUser.vAppPlay == true) ? true : false;
-//                if(!window.wbUser.vAppPlay){
-//                    this.initSocketConn();
-//                }
+            },
+            
+            progressBar : function (totalVal, portion){
+                var totalProgress=Math.round((portion*100)/totalVal);
+                document.getElementById("progressBar").style.width=totalProgress+'%';
+                document.getElementById("progressValue").innerHTML=totalProgress+'%';
             }
         }
         window.vutil = vutil;

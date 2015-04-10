@@ -390,22 +390,22 @@ $.uiBackCompat = false;
            // vApp.recorder.init(data);
         }
         
-        function openFile (){
-            var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                
-                 dummyPlay(reader.result);
-                 //alert('actual data');
-            }
-            reader.readAsText(file);	
-        }
+//        function openFile (){
+//            var file = fileInput.files[0];
+//            var reader = new FileReader();
+//            reader.onload = function(e) {
+//                
+//                 dummyPlay(reader.result);
+//                 //alert('actual data');
+//            }
+//            reader.readAsText(file);	
+//        }
         
         
-        var fileInput = document.getElementById('fileInput');    
-        fileInput.addEventListener('change', function (){
-            openFile();
-        })
+//        var fileInput = document.getElementById('fileInput');    
+//        fileInput.addEventListener('change', function (){
+//            openFile();
+//        })
         
         document.getElementById('getContent').addEventListener('click', function (){
            vApp.getContent = true; 
@@ -419,5 +419,7 @@ $.uiBackCompat = false;
             vApp.recorder.requestDataFromServer(1);
             dummyPlay('fromplay');
         });
+        
+//        vApp.vutil.progressBar(112, 56);
    });
 //});

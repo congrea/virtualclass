@@ -19,7 +19,7 @@
                 var that = this;
                 this.httpObj.onreadystatechange  = function (){
                     if (that.httpObj.readyState==4 && that.httpObj.status==200){
-                            alert(that.httpObj.responseText);
+                         //   alert(that.httpObj.responseText);
                             if(typeof that.cb != 'undefined'){
                                 that.cb(that.httpObj.responseText);
                             }

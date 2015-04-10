@@ -485,7 +485,7 @@
                     
                     localStorage.setItem('rcvdPackId', 0);
                     //TODO this code should be removed after validate 
-                    
+                    localStorage.removeItem('totalStored');
                     var teacherId = vApp.vutil.chkValueInLocalStorage('teacherId');
                     var orginalTeacherId = vApp.vutil.chkValueInLocalStorage('orginalTeacherId');
                     var wbrtcMsg = vApp.vutil.chkValueInLocalStorage('wbrtcMsg');
@@ -496,6 +496,8 @@
 
 //                    localStorage.clear();
                      vApp.recorder.items = [];
+                     vApp.storage.totalStored = 0;
+                     vApp.recorder.totalSent = 0;
 
                     // TODO this should be done by proepr way
                     // it has to be done in function

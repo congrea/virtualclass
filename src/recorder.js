@@ -13,6 +13,7 @@
             recImgPlay : false,
             objn : 0,
             playTimeout : "",
+            totalSent : 0,
             
             init : function(data) {
                  //localStorage.removeItem('recObjs');
@@ -126,21 +127,33 @@
                 return e;
             },
             
-            sendDataToServer : function (){
+            sendDataToServer : function (fetchFinished){
                 if(!this.hasOwnProperty('cn')){
                     this.cn = 0;
                 }
+                
                 this.cn++;
+                this.totalSent += vApp.recorder.items.length;
+                
+                //sometimes vApp.storage.totalStored is total sent
+                if(fetchFinished == 'finished'){
+                    vApp.storage.totalStored = this.totalSent;
+                }
+                
+                vApp.vutil.progressBar(vApp.storage.totalStored, this.totalSent);
                 
                 var stringifyData = JSON.stringify(vApp.recorder.items);
                 var data = LZString.compressToEncodedURIComponent(stringifyData);
-                //var data = "sumanbogati";
+                
                 vApp.xhr.send("record_data=" + data + '&user='+vApp.gObj.uid+'&cn='+this.cn, 'import.php');
+                
+                
                 
             },
             
             requestDataFromServer : function (reqFile){
                 var that = this;
+//                alert(that.items + 'ss');
                 vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                     (data){
                         that.afterResponse(data);

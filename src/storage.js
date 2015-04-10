@@ -8,15 +8,17 @@
         var adData = [];
         var wbDataArr = [];
         var that;
-        var totalComplete = 0;
+        var totalDataStored = localStorage.getItem('totalStored');
+        
         var storage = {
+            totalStored : (totalDataStored ==  null) ? 0 : JSON.parse(totalDataStored),
             init : function (firstDataStore){
                 //this.firstDataStore = firstDataStore;
                 this.reclaim = JSON.parse(vApp.vutil.chkValueInLocalStorage('reclaim'));
                 that = this;
                 //TODO these are not using because audio and video is not using
-                //this.tables = ["wbData", "allData", "audioData", "config"];
-                this.tables = ["wbData", "audioData", "config"];
+                this.tables = ["wbData", "allData", "audioData", "config"];
+                //this.tables = ["wbData", "audioData", "config"];
                 var openRequest = window.indexedDB.open("vidya_app", 3);
                 openRequest.onerror = function(e) {
                     console.log("Error opening db");
@@ -61,7 +63,9 @@
                                 that.config.endSession();
                             }
                         }
-                        });
+                        },
+                        'allData'
+                        );
                     }
                     that.db.onerror = function(event) {
                         console.dir(event.target);
@@ -110,9 +114,10 @@
             },
             
             completeStorage : function (playTime, data){  //storing whiteboard and screenshare
-                totalComplete++;
+                this.totalStored++;
                 var t = that.db.transaction(["allData"], "readwrite");
                 t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
+//                console.log('add data ' + data);
             },
             
             wholeStore : function (playTime, obj, type){  //storing whiteboard and screenshare
@@ -139,7 +144,7 @@
                 
                 objectStore.openCursor().onsuccess = that.handleResult;
             },
-            getAllObjs : function (tables, callback){
+            getAllObjs : function (tables, callback, exludeTable){
                 var cb = typeof callback != 'undefined' ? callback : "";
                 for(var i = 0; i < tables.length; i++){
                     var transaction = that.db.transaction(tables[i], "readonly");
@@ -147,6 +152,9 @@
                     
                     objectStore.openCursor().onsuccess = (
                         function (val, cb){
+                            if(tables[val] == exludeTable){
+                                return;
+                            }
                             return function (event){
                                 if(typeof cb == 'function'){
                                     that[tables[val]].handleResult(event, cb);
@@ -204,7 +212,7 @@
                         if(cursor.value.hasOwnProperty('recObjs')){
                             this.chunk++;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
-                            if(this.chunk % 250 == 0){
+                            if(this.chunk % 100 == 0){
                                 vApp.recorder.sendDataToServer();
                                 vApp.recorder.items = [];
                                 console.log("sending the data");
@@ -213,7 +221,8 @@
                         cursor.continue();
                     }else{
                         if(typeof cb == 'function'){
-                            vApp.recorder.sendDataToServer();
+                            
+                            vApp.recorder.sendDataToServer("finished");
                             vApp.recorder.items = [];
                             console.log("finished fetch data");
                             cb();
@@ -266,20 +275,16 @@
                 }
             },
             clearStorageData : function (){
+                
                 for(var i = 0; i < this.tables.length; i++){
                     var t = this.db.transaction([this.tables[i]], "readwrite");
                     if(typeof t != 'undefined'){
                         var objectStore = t.objectStore(this.tables[i]);
-                        
-                       if(this.tables[i] == 'allData'){
+                        if(this.tables[i] == 'allData'){
                            if(!vApp.vutil.isPlayMode()){
                                objectStore.clear();
                            }
-                           
-//                           if(wbUser.vAppPlay == false){
-//                               objectStore.clear();
-//                           }
-                           
+
                        }else {
                            objectStore.clear();
                        }

@@ -30,7 +30,7 @@ if(isset($_GET['play']) && ($_GET['play'] == 'true')){
     $isplay = true;
 
 }
-
+    
 if(isset($_GET['id'])){
     $uid = $_GET['id'];
     $sid = $uid;
@@ -100,8 +100,16 @@ if(isset($_GET['lname'])){
         <a href="#" id="mydata"> Download file </a> 
         <button id="getContent"> Get Content </button> 
         <button id="dummyPlay">Play</button>
-        
-        <input type='file' id="fileInput" accept='text/plain'><br>
+        <div id="progressBarContainer" style="width:200px; padding:50px;">
+            <div id="progress">
+                <div id="progressBar">
+                </div>
+                <div id="progressValue">
+                </div>
+            </div>
+            
+        </div>
+<!--        <input type='file' id="fileInput" accept='text/plain'><br>-->
         
     </div>
     

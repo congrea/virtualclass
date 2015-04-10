@@ -264,12 +264,18 @@ var io = {
             return; // not store when data is fetching from indexeddb
         }
         
+        //for debug mode only
+//        if(data.hasOwnProperty('createArrow')){
+//            return; // not store when data is fetching from indexeddb
+//        }
+//        
+        
 //        if(io.sock != null){
 //            if(io.sock.readyState != 1){
 //                return true;
 //            }
 //        }
-        console.log("storing data " + data);
+//        console.log("storing data " + data);
         if(typeof firstTime == 'undefined'){
             referenceTime = window.pageEnter;
             firstTime = true;

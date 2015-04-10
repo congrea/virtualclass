@@ -7,6 +7,7 @@
     function(window) {
         //var rObjs = localStorage.getItem('recObjs');
         var e = {};
+        var reqFile = 1;
         var recorder = {
             items : [],
             recImgPlay : false,
@@ -104,11 +105,9 @@
             exportData : function (){
                vApp.recorder.items = [];
                vApp.storage.getAllObjs(["allData"], function (){
-                   alert('upload finished');
-                   
+//                   alert('upload finished');
                    //var stringifyData = JSON.stringify(vApp.recorder.items);
-                 
-                 //  var blob = new Blob([stringifyData], {type: "application/json"});
+                   // var blob = new Blob([stringifyData], {type: "application/json"});
                    
                    //var blob = new Blob(vApp.recorder.items,  {'type': 'application/octet-stream'});
 //                   var blob = new Blob([stringifyData], {type: "application/json"});
@@ -134,34 +133,26 @@
                 this.cn++;
                 
                 var stringifyData = JSON.stringify(vApp.recorder.items);
-                var data = LZString.compressToBase64(stringifyData);
-                data = encodeURIComponent(data);
-                
+                var data = LZString.compressToEncodedURIComponent(stringifyData);
+                //var data = "sumanbogati";
                 vApp.xhr.send("record_data=" + data + '&user='+vApp.gObj.uid+'&cn='+this.cn, 'import.php');
+                
             },
             
-            requestDataFromServer : function (prvFile){
+            requestDataFromServer : function (reqFile){
                 var that = this;
-                vApp.xhr.send("request_data=true&prvfile="+prvFile+"&user="+vApp.gObj.uid, 'export.php', function
+                vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                     (data){
                         that.afterResponse(data);
                     }
                 );
             },
             
-            afterResponse : function (data){
-                var dataArr = JSON.parse(data);
-                if(dataArr.length > 1){
-                    var arrivedFile = dataArr[0];
-                    var encodeData = dataArr[1];
-
-                    var decodeLzString = LZString.decompressFromBase64(encodeData);
-                    this.init(decodeLzString);
-                    this.requestDataFromServer(arrivedFile);
-                    
-                }else {
-                    alert("file not found");
-                }
+            afterResponse : function (encodeData){
+                reqFile++;
+                var decodeLzString = LZString.decompressFromEncodedURIComponent(encodeData);
+                this.init(decodeLzString);
+                this.requestDataFromServer(reqFile);
                 
             },
             

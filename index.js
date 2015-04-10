@@ -408,12 +408,15 @@ $.uiBackCompat = false;
         })
         
         document.getElementById('getContent').addEventListener('click', function (){
+           vApp.getContent = true; 
+           io.sock.close();
            vApp.recorder.exportData();
+           
         });
         
         document.getElementById('dummyPlay').addEventListener('click', function (){
            /// vApp.recorder.init();
-            vApp.recorder.requestDataFromServer(0);
+            vApp.recorder.requestDataFromServer(1);
             dummyPlay('fromplay');
         });
    });

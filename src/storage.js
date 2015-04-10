@@ -204,7 +204,7 @@
                         if(cursor.value.hasOwnProperty('recObjs')){
                             this.chunk++;
                             vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
-                            if(this.chunk % 100 == 0){
+                            if(this.chunk % 250 == 0){
                                 vApp.recorder.sendDataToServer();
                                 vApp.recorder.items = [];
                                 console.log("sending the data");

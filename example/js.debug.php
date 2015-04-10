@@ -38,7 +38,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bridge.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/response.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/g711.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/getscreen.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dirtycorner.js"></script>

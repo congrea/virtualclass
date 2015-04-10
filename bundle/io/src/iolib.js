@@ -77,7 +77,7 @@ var io = {
                 message: e.reason
             });
             console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
-            setTimeout(function(){scope.wsconnect()}, 5000);
+          //  setTimeout(function(){scope.wsconnect()}, 5000);
         }
     },
 
@@ -260,6 +260,16 @@ var io = {
     }, 
     
     completeStorage : function (data){
+        if(vApp.hasOwnProperty('getContent')){
+            return; // not store when data is fetching from indexeddb
+        }
+        
+//        if(io.sock != null){
+//            if(io.sock.readyState != 1){
+//                return true;
+//            }
+//        }
+        console.log("storing data " + data);
         if(typeof firstTime == 'undefined'){
             referenceTime = window.pageEnter;
             firstTime = true;

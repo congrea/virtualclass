@@ -19,8 +19,7 @@
                 var that = this;
                 this.httpObj.onreadystatechange  = function (){
                     if (that.httpObj.readyState==4 && that.httpObj.status==200){
-                         //alert(that.httpObj.responseText);
-                       
+                            alert(that.httpObj.responseText);
                             if(typeof that.cb != 'undefined'){
                                 that.cb(that.httpObj.responseText);
                             }
@@ -32,11 +31,13 @@
                 this.cb = cb;
                 //this.httpObj.open("POST", window.whiteboardPath + "uploader.php", true);
                 this.httpObj.open("POST", window.whiteboardPath + file, true);
+
                 //for send data like form sbumit
                 this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//                if(file == 'export.php'){
+//                    this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//                }
                 this.httpObj.send(data);
-
-
             }
         }
         window.xhr = xhr;

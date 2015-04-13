@@ -335,6 +335,8 @@ function (window){
                             io.sock.close();
                             vApp.recorder.exportData(function (){
                                 clearSession(appName);
+                                vApp.getContent = false; 
+                                io.wsconnect();
                             });
                             var vAppToolCont = document.getElementById('vAppOptionsCont');
                             vAppToolCont.style.zIndex = -1;

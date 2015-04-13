@@ -470,9 +470,15 @@
             },
             
             progressBar : function (totalVal, portion){
-                var totalProgress=Math.round((portion*100)/totalVal);
+                if(totalVal == 0 && portion == 0){
+                    var totalProgress =  0;
+                }else {
+                    var totalProgress=Math.round((portion*100)/totalVal);
+                }
+                
                 document.getElementById("progressBar").style.width=totalProgress+'%';
                 document.getElementById("progressValue").innerHTML=totalProgress+'%';
+                
             }
         }
         window.vutil = vutil;

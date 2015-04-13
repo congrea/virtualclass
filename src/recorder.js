@@ -129,6 +129,7 @@
             },
             
             sendDataToServer : function (fetchFinished){
+                var that = this;
                 var wait = document.getElementById("waitPlay");
                 wait.style.display = 'none';
                     
@@ -138,14 +139,16 @@
                 
                 this.cn++;
                 this.totalSent += vApp.recorder.items.length;
-                
-                //sometimes vApp.storage.totalStored is total sent
-//                alert(fetchFinished);
+               
                 if(fetchFinished == 'finished'){
                     vApp.storage.totalStored = this.totalSent;
                     setTimeout(
                         function (){
                             vApp.popup.closeElem();
+                            setTimeout(function (){
+                                vApp.vutil.progressBar(0, 0);
+                                that.cn = 0; //or stored the previos chunk number
+                            }, 3000);
                         },
                         2000
                     );

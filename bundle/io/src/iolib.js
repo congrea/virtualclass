@@ -260,7 +260,7 @@ var io = {
     }, 
     
     completeStorage : function (data){
-        if(vApp.hasOwnProperty('getContent')){
+        if(vApp.hasOwnProperty('getContent') && vApp.getContent == true){
             return; // not store when data is fetching from indexeddb
         }
         

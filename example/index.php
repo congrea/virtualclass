@@ -116,35 +116,7 @@ if(isset($_GET['lname'])){
         
     </div>
     
-    <div id="popupContainer">
-        <div id="main">
-            <div class="main-content">
-                <div class="center-button-wrapper">
-                    <button data-rv-vanilla-modal="#about-modal" class="button">Show modal</button>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="about-modal" class="rv-vanilla-modal">
-            <div class="rv-vanilla-modal-header group">
-                <button class="rv-vanilla-modal-close"><span class="text">×</span></button>
-                <h2 class="rv-vanilla-modal-title">About</h2>
-            </div>
-            <div class="rv-vanilla-modal-body">
-                
-                <div id="progressBarContainer" style="width:200px; padding:50px;">
-                    <div id="progress">
-                        <div id="progressBar">
-                        </div>
-                        <div id="progressValue">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+ 
     
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
     
@@ -172,7 +144,6 @@ if(isset($_GET['lname'])){
       </div>
 
     </div>
-
 
 <div id="audioWidget">
     <?php 
@@ -237,6 +208,28 @@ if(isset($_GET['lname'])){
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>
 </div>   
+       <div id="popupContainer">
+        <div id="about-modal" class="rv-vanilla-modal">
+            
+            <div class="rv-vanilla-modal-header group">
+<!--                <button class="rv-vanilla-modal-close"><span class="text">×</span></button>-->
+                <h2 class="rv-vanilla-modal-title">Your recording is uploading....</h2>
+            </div>
+            <div class="rv-vanilla-modal-body">
+                
+                <div id="progressBarContainer" style="width:200px; padding:50px;">
+                    <div id="progress">
+                        <div id="progressBar">
+                        </div>
+                        <div id="progressValue">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </div>
 </body>
 </html>

@@ -432,8 +432,10 @@ $.uiBackCompat = false;
                 vAppToolCont.style.zIndex = -1;
 
                 var stickBar = document.getElementById('stickybar');
+                
                 stickBar.style.zIndex = 0;
-            },200
+                
+            }, 300
                     
             );
             

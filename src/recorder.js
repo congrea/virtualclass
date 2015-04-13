@@ -142,7 +142,7 @@
                     setTimeout(
                         function (){
                             var vAppToolCont = document.getElementById('vAppOptionsCont');
-                            vAppToolCont.style.zIndex = 0;
+                            vAppToolCont.style.zIndex = 100;
 
                             var stickBar = document.getElementById('stickybar');
                             stickBar.style.zIndex = 2000;
@@ -150,13 +150,9 @@
                             var element = document.getElementById('about-modal');
                             vApp.popModal.close(element);
                         },
-                        7000
+                        2000
                     );
                 }
-                
-                
-        
-                
                 
                 vApp.vutil.progressBar(vApp.storage.totalStored, this.totalSent);
                 

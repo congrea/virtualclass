@@ -414,92 +414,33 @@ $.uiBackCompat = false;
             dummyPlay('fromplay');
         });
         
-        vApp.popModal = new RvVanillaModal({
+        vApp.popup = new PopUp({
             showOverlay: true
         });
         
         
-        document.getElementById('getContent').addEventListener('click', function (event){
-           var element = document.getElementById('about-modal');
-            event.preventDefault();
-            vApp.popModal.open(element);
-            
-            setTimeout(function (){
-                vApp.getContent = true; 
-                io.sock.close();
-                vApp.recorder.exportData();
-                var vAppToolCont = document.getElementById('vAppOptionsCont');
-                vAppToolCont.style.zIndex = -1;
-
-                var stickBar = document.getElementById('stickybar');
-                
-                stickBar.style.zIndex = 0;
-                
-            }, 300
-                    
-            );
-            
-//           vApp.getContent = true; 
-//           io.sock.close();
-//           vApp.recorder.exportData();
-//           var vAppToolCont = document.getElementById('vAppOptionsCont');
-//           vAppToolCont.style.zIndex = -1;
-//           
-//           var stickBar = document.getElementById('stickybar');
-//           stickBar.style.zIndex = 0;
-                   
+//        document.getElementById('getContent').addEventListener('click', function (){
 //            var element = document.getElementById('about-modal');
-//            event.preventDefault();
-//            vApp.popModal.open(element);
+//            vApp.popup.open(element);
 //            
-            
-
-        });
-    
-
-        // each method
-//         vApp.popModal.each(function(element) {
-////            alert("suman bogati");
-//            var target = element.getAttribute('data-rv-vanilla-modal');
+//            var wait = document.getElementById("waitPlay");
+//            wait.style.display = 'none';
 //            
-//            var targetElement = document.querySelector(target);
-//            var closeBtn = targetElement.querySelector( vApp.popModal.settings.closeSelector);
+//            setTimeout(function (){
+//                vApp.getContent = true; 
+//                io.sock.close();
+//                vApp.recorder.exportData();
+//                var vAppToolCont = document.getElementById('vAppOptionsCont');
+//                vAppToolCont.style.zIndex = -1;
 //
-//            // close click listerner
-//            closeBtn.addEventListener('click', function(event) {
-//                event.preventDefault();
-//                 vApp.popModal.close(targetElement);
-//            });
-//
-//            // open click listerner
-//            element.addEventListener('click', function(event) {
-////                alert(targetElement.id);
-//                event.preventDefault();
-//                 vApp.popModal.open(targetElement);
-//            });
+//                var stickBar = document.getElementById('stickybar');
+//                
+//                stickBar.style.zIndex = 0;
+//                
+//            }, 300
+//                    
+//            );
 //        });
         
-        
-    //            alert("suman bogati");
-                
-//                setTimeout(function (){
-//                    var element = document.getElementById('about-modal');
-//                    vApp.popModal.open(element)
-//                    
-//                    },10
-//                );
-        
-                
-                 
-                // close click listerner
-//                closeBtn.addEventListener('click', function(event) {
-//                    event.preventDefault();
-//                     vApp.popModal.close(targetElement);
-//                });
-
-                
-            
-//        
-//        vApp.vutil.progressBar(112, 56);
    });
 //});

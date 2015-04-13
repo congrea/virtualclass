@@ -5,6 +5,20 @@
 
 (
 function (window){
+    function clearSession (appName){
+        window.pageEnter = new Date().getTime();
+        appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
+
+        vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
+        vApp.storage.config.endSession();
+        vApp.wb.utility.beforeSend({sEnd : true});
+
+        if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
+            vApp.prevScreen.unShareScreen();
+        }
+        vApp.prevApp = "vApp" + appName;
+    }
+    
     window.vmApp = function (){
 //        vmApp.storage = window.storage;
 //        vmApp.storage.init();
@@ -304,20 +318,50 @@ function (window){
                 var appName = elem.parentNode.id.split("vApp")[1];
                 //alert(appName);
                 if(appName == 'SessionEndTool'){
-                    if (!confirm(vApp.lang.getString('startnewsession'))){
-                        return;
-                    }
-                    window.pageEnter = new Date().getTime();
-                    appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
+                    if (!confirm(vApp.lang.getString('savesession'))){
+                        if (!confirm(vApp.lang.getString('startnewsession'))){
+                            return;
+                        }
+                        clearSession(appName);
+                    } else {
+                        var element = document.getElementById('about-modal');
+                        vApp.popup.open(element);
 
-                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
-                    vApp.storage.config.endSession();
-                    vApp.wb.utility.beforeSend({sEnd : true});
+                        var wait = document.getElementById("waitPlay");
+                        wait.style.display = 'none';
 
-                    if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
-                        vApp.prevScreen.unShareScreen();
+                        setTimeout(function (){
+                            vApp.getContent = true; 
+                            io.sock.close();
+                            vApp.recorder.exportData(function (){
+                                clearSession(appName);
+                            });
+                            var vAppToolCont = document.getElementById('vAppOptionsCont');
+                            vAppToolCont.style.zIndex = -1;
+
+                            var stickBar = document.getElementById('stickybar');
+                            stickBar.style.zIndex = 0;
+                            
+
+                        }, 300
+
+                        );
                     }
-                    vApp.prevApp = "vApp" + appName;
+                    
+                    //clearSession();
+                    
+//                    window.pageEnter = new Date().getTime();
+//                    appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
+//
+//                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
+//                    vApp.storage.config.endSession();
+//                    vApp.wb.utility.beforeSend({sEnd : true});
+//
+//                    if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
+//                        vApp.prevScreen.unShareScreen();
+//                    }
+//                    vApp.prevApp = "vApp" + appName;
+                    
                 } else{
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     this.currApp = appName;

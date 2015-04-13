@@ -1,9 +1,12 @@
-/* exported RvVanillaModal */
+/* exported PopUp */
 /**
- * RvVanillaModal.
+ * PopUp.
  * @namespace
  */
-var RvVanillaModal = (function(window, undefined) {
+// RvVanillaModal
+var PopUp = (function(window, undefined) {
+    
+//var PopUp = (function(window, undefined) {
 	'use strict';
 	/**
 	 * Modal constructor.
@@ -11,7 +14,7 @@ var RvVanillaModal = (function(window, undefined) {
 	 * @param {Object} options
 	 * @returns: {Object} this with public methods
 	 */
-	function RvVanillaModal(options) {
+	function PopUp(options) {
 		this.init(options);
 
 		return this;
@@ -21,7 +24,7 @@ var RvVanillaModal = (function(window, undefined) {
 	 * @public: inits application.
 	 * @param: {Object} options
 	 */
-	RvVanillaModal.prototype.init = function(options) {
+	PopUp.prototype.init = function(options) {
 		var defaults = {
 			selector: '[data-rv-vanilla-modal]',
 			modalSelector: '.rv-vanilla-modal',
@@ -65,7 +68,7 @@ var RvVanillaModal = (function(window, undefined) {
 	 * @public: closes modal
 	 * @param: {Object} targetElement
 	 */
-	RvVanillaModal.prototype.close = function(targetElement) {
+	PopUp.prototype.close = function(targetElement) {
 		targetElement.classList.remove(this.settings.showModalClassName);
 
 		if (this.settings.showOverlay) {
@@ -77,7 +80,7 @@ var RvVanillaModal = (function(window, undefined) {
 	 * @public: opens modal
 	 * @param: {Object} targetElement
 	 */
-	RvVanillaModal.prototype.open = function(targetElement) {
+	PopUp.prototype.open = function(targetElement) {
 		this.closeShownModal();
 
 		targetElement.classList.add(this.settings.showModalClassName);
@@ -91,7 +94,7 @@ var RvVanillaModal = (function(window, undefined) {
 	 * @public: loops through list of triggers and fires a callback
 	 * @returns: callback
 	 */
-	RvVanillaModal.prototype.each = function(callback) {
+	PopUp.prototype.each = function(callback) {
 		var array = [];
 		array.forEach.call(this.triggers, function(element) {
 			if (typeof callback === 'function') {
@@ -103,7 +106,7 @@ var RvVanillaModal = (function(window, undefined) {
 	/**
 	 * @public: closes modal if any is shown
 	 */
-	RvVanillaModal.prototype.closeShownModal = function() {
+	PopUp.prototype.closeShownModal = function() {
 		var array = [];
 		var showModalClassName = this.settings.showModalClassName;
 		array.forEach.call(this.modalElements, function(element) {
@@ -113,6 +116,18 @@ var RvVanillaModal = (function(window, undefined) {
 			}
 		});
 	}
+    
+    PopUp.prototype.closeElem = function (){
+        var vAppToolCont = document.getElementById('vAppOptionsCont');
+        vAppToolCont.style.zIndex = 100;
+
+        var stickBar = document.getElementById('stickybar');
+        stickBar.style.zIndex = 2000;
+
+        var element = document.getElementById('about-modal');
+        vApp.popup.close(element);
+    }
+    
 
 	/**
 	 * @private: short version of querySelectorAll
@@ -167,5 +182,5 @@ var RvVanillaModal = (function(window, undefined) {
 		}
 	}
 
-	return RvVanillaModal;
+	return PopUp;
 })(window);

@@ -97,10 +97,11 @@ if(isset($_GET['lname'])){
 </head>
 
 <body>
-    
     <div id="dummyPlayCont">
-        <a href="#" id="mydata"> Download file </a> 
-        <button id="getContent"> Get Content </button> 
+        
+<!--        <a href="#" id="mydata"> Download file </a> 
+        <button id="getContent"> Get Content </button> -->
+        
         <button id="dummyPlay">Play</button>
 <!--        <div id="progressBarContainer" style="width:200px; padding:50px;">
             <div id="progress">
@@ -211,22 +212,34 @@ if(isset($_GET['lname'])){
        <div id="popupContainer">
         <div id="about-modal" class="rv-vanilla-modal">
             
-            <div class="rv-vanilla-modal-header group">
-<!--                <button class="rv-vanilla-modal-close"><span class="text">×</span></button>-->
-                <h2 class="rv-vanilla-modal-title">Your recording is uploading....</h2>
-            </div>
-            <div class="rv-vanilla-modal-body">
-                
-                <div id="progressBarContainer" style="width:200px; padding:50px;">
-                    <div id="progress">
-                        <div id="progressBar">
-                        </div>
-                        <div id="progressValue">
-                        </div>
-                    </div>
+            <div id="progressBarContainer">
+                <div class="rv-vanilla-modal-header group">
+        <!--                <button class="rv-vanilla-modal-close"><span class="text">×</span></button>-->
+                    <h2 class="rv-vanilla-modal-title">Your recording is uploading....</h2>
+                </div>
 
+                <div class="rv-vanilla-modal-body">
+                    <div style="width:200px; padding:50px;">
+                        <div id="progress">
+                            <div id="progressBar">
+                            </div>
+                            <div id="progressValue">0%
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div id="waitPlay">
+                <div class="rv-vanilla-modal-body">
+                    <div style="width:200px; padding:50px;">
+                        Please wait a while....
+                    </div>
                 </div>
             </div>
+            
         </div>
         
     </div>

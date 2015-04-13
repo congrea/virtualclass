@@ -2,8 +2,7 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
-
-(
+(   
     function(window) {
         //var rObjs = localStorage.getItem('recObjs');
         var e = {};
@@ -62,9 +61,7 @@
                         if(!this.hasOwnProperty('prvNum')){
                             that.play();
                         }
-                        
-                        this.prvNum = i;
-                        
+                       this.prvNum = i;
                     }
                 }
             },
@@ -103,9 +100,13 @@
                 }
             },
             
-            exportData : function (){
+            exportData : function (cb){
                vApp.recorder.items = [];
                vApp.storage.getAllObjs(["allData"], function (){
+                   if(typeof cb == 'function'){
+                       cb();
+                   }
+                   
 //                   alert('upload finished');
                    //var stringifyData = JSON.stringify(vApp.recorder.items);
                    // var blob = new Blob([stringifyData], {type: "application/json"});
@@ -128,6 +129,9 @@
             },
             
             sendDataToServer : function (fetchFinished){
+                var wait = document.getElementById("waitPlay");
+                wait.style.display = 'none';
+                    
                 if(!this.hasOwnProperty('cn')){
                     this.cn = 0;
                 }
@@ -136,19 +140,12 @@
                 this.totalSent += vApp.recorder.items.length;
                 
                 //sometimes vApp.storage.totalStored is total sent
-                
+//                alert(fetchFinished);
                 if(fetchFinished == 'finished'){
                     vApp.storage.totalStored = this.totalSent;
                     setTimeout(
                         function (){
-                            var vAppToolCont = document.getElementById('vAppOptionsCont');
-                            vAppToolCont.style.zIndex = 100;
-
-                            var stickBar = document.getElementById('stickybar');
-                            stickBar.style.zIndex = 2000;
-
-                            var element = document.getElementById('about-modal');
-                            vApp.popModal.close(element);
+                            vApp.popup.closeElem();
                         },
                         2000
                     );
@@ -158,16 +155,21 @@
                 
                 var stringifyData = JSON.stringify(vApp.recorder.items);
                 var data = LZString.compressToEncodedURIComponent(stringifyData);
-                
                 vApp.xhr.send("record_data=" + data + '&user='+vApp.gObj.uid+'&cn='+this.cn, 'import.php');
-                
-                
-                
             },
             
             requestDataFromServer : function (reqFile){
+//                var wait = document.getElementById("waitPlay");
+//                wait.style.display = 'block';
+//                var progressBarContainer = document.getElementById("progressBarContainer");
+//                progressBarContainer.style.display = "none";
+
+                var element = document.getElementById('about-modal');
+                vApp.popup.open(element);
+                
+                console.log("Play popup");
+                
                 var that = this;
-//                alert(that.items + 'ss');
                 vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                     (data){
                         that.afterResponse(data);
@@ -180,7 +182,6 @@
                 var decodeLzString = LZString.decompressFromEncodedURIComponent(encodeData);
                 this.init(decodeLzString);
                 this.requestDataFromServer(reqFile);
-                
             },
             
             play : function (){

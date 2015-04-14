@@ -335,14 +335,18 @@ function (window){
                             io.sock.close();
                             vApp.recorder.exportData(function (){
                                 clearSession(appName);
-                                vApp.getContent = false; 
-                                io.wsconnect();
+                                //vApp.getContent = false; 
+                               // io.wsconnect();
+                               location.reload();
                             });
                             var vAppToolCont = document.getElementById('vAppOptionsCont');
                             vAppToolCont.style.zIndex = -1;
 
                             var stickBar = document.getElementById('stickybar');
                             stickBar.style.zIndex = 0;
+                            
+                            var chatrm = document.getElementById('chatrm');
+                            chatrm.style.zIndex = 0;
                             
 
                         }, 300

@@ -130,8 +130,10 @@
             
             sendDataToServer : function (fetchFinished){
                 var that = this;
-                var wait = document.getElementById("waitPlay");
-                wait.style.display = 'none';
+                
+                vApp.popup.waitBlockAction('none');
+//                var wait = document.getElementById("waitPlay");
+//                wait.style.display = 'none';
                     
                 if(!this.hasOwnProperty('cn')){
                     this.cn = 0;
@@ -164,17 +166,23 @@
             requestDataFromServer : function (reqFile){
 //                var wait = document.getElementById("waitPlay");
 //                wait.style.display = 'block';
-//                var progressBarContainer = document.getElementById("progressBarContainer");
-//                progressBarContainer.style.display = "none";
+                
+                vApp.popup.waitBlockAction('block');
+                
+                vApp.popup.sendBackOtherElems();
+                
+                var progressBarContainer = document.getElementById("progressBarContainer");
+                progressBarContainer.style.display = "none";
 
                 var element = document.getElementById('about-modal');
                 vApp.popup.open(element);
                 
-                console.log("Play popup");
-                
                 var that = this;
                 vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                     (data){
+                        if(document.getElementById('waitPlay').style.display == 'block'){
+                             vApp.popup.closeElem();
+                        }
                         that.afterResponse(data);
                     }
                 );

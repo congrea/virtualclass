@@ -326,9 +326,10 @@ function (window){
                     } else {
                         var element = document.getElementById('about-modal');
                         vApp.popup.open(element);
-
-                        var wait = document.getElementById("waitPlay");
-                        wait.style.display = 'none';
+//                        var wait = document.getElementById("waitPlay");
+//                        wait.style.display = 'none';
+                        
+                        vApp.popup.waitBlockAction('none');
 
                         setTimeout(function (){
                             vApp.getContent = true; 
@@ -339,16 +340,20 @@ function (window){
                                // io.wsconnect();
                                location.reload();
                             });
-                            var vAppToolCont = document.getElementById('vAppOptionsCont');
-                            vAppToolCont.style.zIndex = -1;
-
-                            var stickBar = document.getElementById('stickybar');
-                            stickBar.style.zIndex = 0;
                             
-                            var chatrm = document.getElementById('chatrm');
-                            chatrm.style.zIndex = 0;
+                            vApp.popup.sendBackOtherElems();
                             
-
+//                            var vAppToolCont = document.getElementById('vAppOptionsCont');
+//                            vAppToolCont.style.zIndex = -1;
+//
+//                            var stickBar = document.getElementById('stickybar');
+//                            stickBar.style.zIndex = 0;
+//                            
+//                            if(chatrm != null){
+//                                var chatrm = document.getElementById('chatrm');
+//                                chatrm.style.zIndex = 0;
+//                            }
+                            
                         }, 300
 
                         );

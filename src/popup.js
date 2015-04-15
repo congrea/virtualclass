@@ -119,14 +119,46 @@ var PopUp = (function(window, undefined) {
     
     PopUp.prototype.closeElem = function (){
         var vAppToolCont = document.getElementById('vAppOptionsCont');
-        vAppToolCont.style.zIndex = 100;
+        if(vAppToolCont != null){
+            vAppToolCont.style.zIndex = 100;
+        }
+        
+        if(stickBar != null){
+            var stickBar = document.getElementById('stickybar');
+            stickBar.style.zIndex = 2000;
+        }
+        
+        var mainPopCont = document.getElementById('about-modal');
+        if(mainPopCont != null){
+            vApp.popup.close(mainPopCont);
+        }
+    },
+        
+    PopUp.prototype.waitBlockAction = function (action){
+        var wait = document.getElementById("waitPlay");
+        wait.style.display = action;
+    }
+    
+    PopUp.prototype.sendBackOtherElems = function (action){
+        var vAppToolCont = document.getElementById('vAppOptionsCont');
+        if(vAppToolCont !=  null){
+            vAppToolCont.style.zIndex = -1;
+        }
+        
 
         var stickBar = document.getElementById('stickybar');
-        stickBar.style.zIndex = 2000;
-
-        var element = document.getElementById('about-modal');
-        vApp.popup.close(element);
+        if(stickBar != null){
+            stickBar.style.zIndex = 0;
+        }
+        var chatrm = document.getElementById('chatrm');   
+        
+        if(chatrm != null){
+            chatrm.style.zIndex = 0;
+        }
     }
+    
+      
+    
     
 
 	/**

@@ -143,9 +143,20 @@ var io = {
         }
         
     },
+    
     sendBinary : function(msg){
         this.sock.send(msg.buffer);
-        this.completeStorage(msg);
+        //2nd parameter about binary data
+        var bcsv = Array.prototype.join.call(msg, ",");
+        
+        if(Object.prototype.toString.call(msg) == "[object Int8Array]"){
+            bcsv = 'a,' + msg.length + ',' + bcsv;
+        }else if(Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
+            bcsv = 'c,' + msg.length + ',' + bcsv;
+        }
+        
+        this.completeStorage(bcsv, true);
+        
     },
 
     onRecMessage : function(e){
@@ -259,7 +270,7 @@ var io = {
         console.log("i am closing this connection");
     }, 
     
-    completeStorage : function (data){
+    completeStorage : function (data, bdata){
         if(vApp.hasOwnProperty('getContent') && vApp.getContent == true){
             return; // not store when data is fetching from indexeddb
         }
@@ -314,7 +325,8 @@ var io = {
         var currTime = new Date().getTime();
         var playTime = currTime - referenceTime;
         
-        vApp.storage.completeStorage(playTime, data);
+        (typeof bdata == 'undefined') ? vApp.storage.completeStorage(playTime, data) : vApp.storage.completeStorage(playTime, data, bdata);
+        
         referenceTime = currTime;
     }
 };

@@ -4,15 +4,16 @@
   */
 (   
     function(window) {
-        //var rObjs = localStorage.getItem('recObjs');
+        var binData;
         var e = {};
-        var reqFile = 1;
+        var reqFile = 0;
         var recorder = {
             items : [],
             recImgPlay : false,
             objn : 0,
             playTimeout : "",
             totalSent : 0,
+            fileQueue : [],
             
             init : function(data) {
                  //localStorage.removeItem('recObjs');
@@ -33,24 +34,54 @@
                          //   totalLength =  totalLength + tempData.length;
                         }
                         
-                        var tempData =  JSON.parse(data);
+                        var tempData = data;
+//                        var tempData =  JSON.parse(data);
                         
                         //TODO, this should be adjust at below loop
                         for(var m = 0; m < tempData.length; m++){
                             this.items.push(tempData[m]);
                         }
                         
-//                        alert('suman bogati hello');
-//                        debugger;
                         
-                        var binData;
+//                        if(cursor.value.hasOwnProperty('bd')){
+//                                tarr = cursor.value.recObjs;
+//                                prArr = tarr.splice(0, 2);
+//                                
+//                                if(prArr[0] == ''){
+//                                    
+//                                }
+//                                
+//                                view = new Uint8Array(arr);
+//                                return view.buffer;
+//                                
+//                        }
+//                            
+                        
                         for(k=0; k<tempData.length; k++){
-                            
-                            if(typeof tempData[k].recObjs == 'Object' || typeof tempData[k].recObjs == 'object' ){
-                          //      binData = Object.keys(this.items[i].recObjs);
-                                binData = Object.keys(tempData[k].recObjs).map(function (key) {return tempData[k].recObjs[key]});
-                                newBinData = new Uint8Array(binData.length);
-                                this.items[i].recObjs = newBinData;
+                            if(tempData[k].hasOwnProperty('bd')){
+                                
+                                tempArr = tempData[k].recObjs.split(",");
+                                
+                                prArr = tempArr.splice(0, 2);
+                                
+                                if(prArr [0] == 'a') {
+                                    binData = new Int8Array(tempArr);
+                                } else if(prArr[0] == 'c'){
+                                    binData = new Uint8ClampedArray(tempArr);
+                                }
+                                
+                                
+
+//                                if(prArr [0] == 'a') {
+//                                    tpdArr = new Int8Array(tempArr);
+//                                } else if(prArr[0] == 's'){
+//                                    tpdArr = new Uint8ClampedArray(tempArr);
+//                                }
+
+//                                binData = Object.keys(tempData[k].recObjs).map(function (key) {return tempData[k].recObjs[key]});
+//                                newBinData = new Uint8Array(binData.length);
+                                
+                                 this.items[i].recObjs = binData;
                                 for(var j = 0; j< binData.length; j++){
                                     this.items[i].recObjs[j] = binData[j];
                                 }
@@ -106,19 +137,9 @@
                    if(typeof cb == 'function'){
                        cb();
                    }
-                   
-//                   alert('upload finished');
-                   //var stringifyData = JSON.stringify(vApp.recorder.items);
-                   // var blob = new Blob([stringifyData], {type: "application/json"});
-                   
-                   //var blob = new Blob(vApp.recorder.items,  {'type': 'application/octet-stream'});
-//                   var blob = new Blob([stringifyData], {type: "application/json"});
-//                   
-//                   var downloadLink = document.getElementById('mydata');
-//                   downloadLink.href = window.URL.createObjectURL(blob);
-                   
                });  
             },
+            
             // If binary, return buffer else return original value
             convertInto : function (e){
                 if(typeof e.data == 'string'){
@@ -128,71 +149,102 @@
                 return e;
             },
             
-            sendDataToServer : function (fetchFinished){
+            sendDataToServer : function (){
                 var that = this;
-                
                 vApp.popup.waitBlockAction('none');
-//                var wait = document.getElementById("waitPlay");
-//                wait.style.display = 'none';
-                    
-                if(!this.hasOwnProperty('cn')){
-                    this.cn = 0;
+
+                if (!!window.Worker) {
+                    mvDataWorker.postMessage({
+                        rdata : vApp.recorder.items,
+                        totalStored :vApp.storage.totalStored,
+                        makeChunk : true
+                    });
                 }
                 
-                this.cn++;
-                this.totalSent += vApp.recorder.items.length;
-               
-                if(fetchFinished == 'finished'){
-                    vApp.storage.totalStored = this.totalSent;
-                    setTimeout(
-                        function (){
-                            vApp.popup.closeElem();
-                            setTimeout(function (){
-                                vApp.vutil.progressBar(0, 0);
-                                that.cn = 0; //or stored the previos chunk number
-                            }, 3000);
-                        },
-                        2000
-                    );
+                // Every time the data is sending the function 
+                // is declaring as expression which is not good
+                
+                mvDataWorker.onmessage = function (e) {
+                    if(e.data.hasOwnProperty('import')){
+                        vApp.recorder.cn = e.data.cn;
+                        vApp.recorder.totalSent +=  e.data.currData;
+                
+                        if(e.data.hasOwnProperty('status')){
+                            if(e.data.fetch == 'done'){
+                                vApp.storage.totalStored = vApp.recorder.totalSent;
+                                setTimeout(
+                                    function (){
+                                        vApp.popup.closeElem();
+                                        vApp.vutil.progressBar(0, 0);
+                                        vApp.recorder.cn = 0;
+                                        vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
+                                        window.location.reload();
+                                    },
+                                    2000
+                                );
+                            }
+                        }
+                        
+//                        fileQueue.push("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn);
+                        
+                        
+                        vApp.xhr.send("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn, 'import.php', function (){
+                            
+                        });
+                        vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
+                    } 
                 }
-                
-                vApp.vutil.progressBar(vApp.storage.totalStored, this.totalSent);
-                
-                var stringifyData = JSON.stringify(vApp.recorder.items);
-                var data = LZString.compressToEncodedURIComponent(stringifyData);
-                vApp.xhr.send("record_data=" + data + '&user='+vApp.gObj.uid+'&cn='+this.cn, 'import.php');
             },
             
             requestDataFromServer : function (reqFile){
-//                var wait = document.getElementById("waitPlay");
-//                wait.style.display = 'block';
-                
-                vApp.popup.waitBlockAction('block');
-                
-                vApp.popup.sendBackOtherElems();
-                
-                var progressBarContainer = document.getElementById("progressBarContainer");
-                progressBarContainer.style.display = "none";
+                if(typeof waitPopup == 'undefined'){
+                    vApp.popup.waitBlockAction('block');
+                    vApp.popup.sendBackOtherElems();
 
-                var element = document.getElementById('about-modal');
-                vApp.popup.open(element);
+                    var progressBarContainer = document.getElementById("progressBarContainer");
+                    progressBarContainer.style.display = "none";
+
+                    var element = document.getElementById('about-modal');
+                    vApp.popup.open(element);
+                    var that = this;
+                    waitPopup = true;
+                }
                 
-                var that = this;
                 vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                     (data){
                         if(document.getElementById('waitPlay').style.display == 'block'){
                              vApp.popup.closeElem();
                         }
-                        that.afterResponse(data);
+                        if(data == 'filenotfound'){
+                            return;
+                        }
+//                        that.afterResponse(data);
+                        vApp.recorder.afterResponse(data);
                     }
                 );
             },
             
             afterResponse : function (encodeData){
-                reqFile++;
-                var decodeLzString = LZString.decompressFromEncodedURIComponent(encodeData);
-                this.init(decodeLzString);
-                this.requestDataFromServer(reqFile);
+             //   reqFile++;
+                //var decodeLzString = LZString.decompressFromEncodedURIComponent(encodeData);
+                
+                if (!!window.Worker) {
+                    mvDataWorker.postMessage({
+                        rdata: encodeData,
+                        getData : true
+                    });
+                }
+                
+                 mvDataWorker.onmessage = function (e) {
+                    if(e.data.hasOwnProperty('export')){
+                        reqFile++;
+                        vApp.recorder.init(e.data.rdata);
+                        vApp.recorder.requestDataFromServer(reqFile);
+                    }
+                }
+              
+//                this.init(decodeLzString);
+//                this.requestDataFromServer(reqFile);
             },
             
             play : function (){

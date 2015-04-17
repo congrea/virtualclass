@@ -78,6 +78,8 @@ if(isset($_GET['lname'])){
 <script type="text/javascript">	
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
+        var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/movedata.js" ?>");
+        
     }
     
     <?php echo "wbUser.vAppPlay='$isplay';"; ?>

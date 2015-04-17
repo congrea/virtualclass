@@ -410,7 +410,7 @@ $.uiBackCompat = false;
         
         document.getElementById('dummyPlay').addEventListener('click', function (){
            /// vApp.recorder.init();
-            vApp.recorder.requestDataFromServer(1);
+            vApp.recorder.requestDataFromServer(0);
             dummyPlay('fromplay');
         });
         

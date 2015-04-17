@@ -512,9 +512,10 @@
                             offsetHeight: that.video.offsetHeight,
                             type: that.type
                         }, [masterImgData.data.buffer]);
-
+                        
+                        // Every time the data is sending the function 
+                        // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
-
                             if (e.data.needFullScreen == 1) { //sending full screen here
                                 var createdImg = vApp.getDataFullScreen(that.type);
                                 io.sendBinary(createdImg);

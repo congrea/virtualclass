@@ -8,6 +8,8 @@
         var adData = [];
         var wbDataArr = [];
         var that;
+        var prArr = [];
+        var tarr = [];
         var totalDataStored = localStorage.getItem('totalStored');
         
         var storage = {
@@ -112,10 +114,18 @@
                 }
             },
             
-            completeStorage : function (playTime, data){  //storing whiteboard and screenshare
+            completeStorage : function (playTime, data, bdata){  //storing whiteboard and screenshare
                 this.totalStored++;
                 var t = that.db.transaction(["allData"], "readwrite");
-                t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
+                
+                if(typeof bdata == 'undefined'){
+                    t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
+                }else{
+                    t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3, bd: true});
+                }
+                
+                
+                
 //                console.log('add data ' + data);
             },
             
@@ -208,19 +218,39 @@
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
-                            this.chunk++;
-                            vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
-                            //on there 500 data the comressing algorithm is not working
-                            if(this.chunk % 300 == 0){
-                                vApp.recorder.sendDataToServer();
-                                vApp.recorder.items = [];
-                                console.log("sending the data");
+                            //this.chunk++;
+                            
+                            //if binary data
+                            
+//                            if(cursor.value.hasOwnProperty('bd')){
+//                                tarr = cursor.value.recObjs;
+//                                prArr = tarr.splice(0, 2);
+//                                
+//                                if(prArr[0] == ''){
+//                                    
+//                                }
+//                                
+//                                view = new Uint8Array(arr);
+//                                return view.buffer;
+//                                
+//                            }
+                            if(cursor.value.hasOwnProperty('bd')){
+                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs, bd:1});
+                            }else{
+                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                             }
+                            
+                            
+//                            if(this.chunk % 100 == 0){
+//                                vApp.recorder.sendDataToServer();
+//                                vApp.recorder.items = [];
+//                                console.log("sending the data");
+//                            }
                         }
                         cursor.continue();
                     }else{
                         if(typeof cb == 'function'){
-                            vApp.recorder.sendDataToServer("finished");
+                            vApp.recorder.sendDataToServer();
                             vApp.recorder.items = [];
                             console.log("finished fetch data");
                             cb();

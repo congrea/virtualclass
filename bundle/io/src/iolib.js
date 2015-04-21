@@ -6,6 +6,7 @@
  * @copyright  2014 Pinky Sharma  {@link http://vidyamantra.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 var io = {
     cfg : {},
     sock : null,
@@ -15,8 +16,8 @@ var io = {
    
     init : function(cfg, callback) {
         this.cfg = cfg;
-        
         var that = this;
+        
 //        that.completeStorage(cfg);
         
         ///alert("should first");
@@ -144,7 +145,21 @@ var io = {
         
     },
     
-    sendBinary : function(msg){
+    sendBinary : function (msg){
+        this.sock.send(msg.buffer);
+        if(Object.prototype.toString.call(msg) == "[object Int8Array]"){
+            var dtype = 'a';
+//            msg = base64EncArrInt(msg);
+            msg = vApp.dtCon.base64EncArrInt(msg);
+        }else if(Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
+            var dtype = 'c';
+            msg = vApp.dtCon.base64EncArr(msg);
+//            msg = base64EncArr(msg);
+        }
+        this.completeStorage(msg, {type : dtype});
+    },
+    
+    sendBinary_old : function(msg){
         this.sock.send(msg.buffer);
         //2nd parameter about binary data
         var bcsv = Array.prototype.join.call(msg, ",");
@@ -154,9 +169,7 @@ var io = {
         }else if(Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
             bcsv = 'c,' + msg.length + ',' + bcsv;
         }
-        
         this.completeStorage(bcsv, true);
-        
     },
 
     onRecMessage : function(e){
@@ -199,9 +212,6 @@ var io = {
                     if (r1.type == "broadcastToAll"){
                         console.log("json  : display msg");
                         var userto = '';
-                        
-//                        alert('suman bogati');
-//                        debugger;
                         
                         if(r1.userto != undefined){ userto = r1.userto; }
                         
@@ -275,26 +285,9 @@ var io = {
             return; // not store when data is fetching from indexeddb
         }
         
-        //for debug mode only
-//        if(data.hasOwnProperty('createArrow')){
-//            return; // not store when data is fetching from indexeddb
-//        }
-//        
-        
-//        if(io.sock != null){
-//            if(io.sock.readyState != 1){
-//                return true;
-//            }
-//        }
-//        console.log("storing data " + data);
         if(typeof firstTime == 'undefined'){
             referenceTime = window.pageEnter;
             firstTime = true;
-            
-           // vApp.notPLayed = true;
-           
-           //if(wbUser.vAppPlay == false){
-           
             
             if(!vApp.vutil.isPlayMode()){
                 var t = vApp.storage.db.transaction(['allData'], "readwrite");
@@ -325,6 +318,7 @@ var io = {
         var currTime = new Date().getTime();
         var playTime = currTime - referenceTime;
         
+        //data = encodeURI(data);
         (typeof bdata == 'undefined') ? vApp.storage.completeStorage(playTime, data) : vApp.storage.completeStorage(playTime, data, bdata);
         
         referenceTime = currTime;

@@ -31,9 +31,9 @@
                 this.cb = cb;
                 //this.httpObj.open("POST", window.whiteboardPath + "uploader.php", true);
                 this.httpObj.open("POST", window.whiteboardPath + file, true);
-
+                
                 //for send data like form sbumit
-                this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//                this.httpObj.setRequestHeader("Content-type", "text/plain");
 //                if(file == 'export.php'){
 //                    this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //                }

@@ -45,6 +45,7 @@
                        thisDb.createObjectStore("config", { keyPath : 'timeStamp', autoIncrement:true});
                     }
                 };
+                
                 openRequest.onsuccess = function(e) {
                     that.db = e.target.result;
                     var currTime = new Date().getTime();
@@ -121,12 +122,9 @@
                 if(typeof bdata == 'undefined'){
                     t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
                 }else{
-                    t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3, bd: true});
+                    t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3, bd: bdata.type});
                 }
                 
-                
-                
-//                console.log('add data ' + data);
             },
             
             wholeStore : function (playTime, obj, type){  //storing whiteboard and screenshare
@@ -218,24 +216,8 @@
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
-                            //this.chunk++;
-                            
-                            //if binary data
-                            
-//                            if(cursor.value.hasOwnProperty('bd')){
-//                                tarr = cursor.value.recObjs;
-//                                prArr = tarr.splice(0, 2);
-//                                
-//                                if(prArr[0] == ''){
-//                                    
-//                                }
-//                                
-//                                view = new Uint8Array(arr);
-//                                return view.buffer;
-//                                
-//                            }
                             if(cursor.value.hasOwnProperty('bd')){
-                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs, bd:1});
+                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs, bd:cursor.value.bd});
                             }else{
                                 vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                             }

@@ -5,25 +5,7 @@
 
 (
 function (window){
-//    function clearSession (appName){
-//        alert(appName);
-//        window.pageEnter = new Date().getTime();
-//        appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
-//
-//        vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
-//        vApp.storage.config.endSession();
-//        vApp.wb.utility.beforeSend({sEnd : true});
-//
-//        if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
-//            vApp.prevScreen.unShareScreen();
-//        }
-//        vApp.prevApp = "vApp" + appName;
-//    }
-    
     window.vmApp = function (){
-//        vmApp.storage = window.storage;
-//        vmApp.storage.init();
-
         return {
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
             apps : ["Whiteboard", "ScreenShare"],
@@ -42,7 +24,6 @@ function (window){
               uRole : window.wbUser.role,
               uName : window.wbUser.name
             },
-
             clearSession : function (appName){
                 window.pageEnter = new Date().getTime();
                 appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
@@ -68,6 +49,7 @@ function (window){
             //    this.chat = window.chat;
                 this.system = window.system;
                 this.recorder = window.recorder;
+                this.converter = window.converter;
                 this.clear = "";
                 this.currApp = app;
 
@@ -99,7 +81,6 @@ function (window){
                 if(vApp.system.indexeddb){
                     //alert('this should come at very first');
                     this.storage.init( function (){
-//                        alert("hello brother");
                         if(!vApp.vutil.isPlayMode()){
                             io.completeStorage(JSON.stringify(io.cfg));
                         }
@@ -136,6 +117,8 @@ function (window){
                 vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
                 vApp.xhr = window.xhr;
                 vApp.xhr.init();
+                
+                vApp.dtCon = vApp.converter();
             },
             
             initSocketConn : function (){
@@ -283,11 +266,11 @@ function (window){
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
-
                               //important can be crtical
 //                            if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
 //                              //vApp.wb.utility.makeCanvasEnable();
 //                            }
+
                             vApp.wb.utility.makeCanvasEnable();
                         }
 
@@ -329,7 +312,7 @@ function (window){
 
             initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
-                //alert(appName);
+                
                 if(appName == 'SessionEndTool'){
                     if (!confirm(vApp.lang.getString('savesession'))){
                         if (!confirm(vApp.lang.getString('startnewsession'))){

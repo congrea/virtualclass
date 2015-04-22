@@ -131,14 +131,23 @@
                 }
             },
             
-            chunkStorage : function (value, row, trow, cn){
+           // chunkStorage : function (value, row, trow, cn, d){
+            chunkStorage : function (dobj){
                 var t = that.db.transaction(["chunkData"], "readwrite");
-                var dobj  = {};
-                dobj.data = value;
                 dobj.id = 4;
-                dobj.row = row;
-                dobj.trow = trow;
-                dobj.cn = cn;
+                
+//                var dobj  = {};
+//                dobj.data = value;
+//                dobj.id = 4;
+//                dobj.row = row;
+//                dobj.trow = trow;
+//                dobj.cn = cn;
+                
+//                if(typeof d != 'undefined'){
+//                    alert('suman bogati');
+//                    debugger;
+//                    dobj.dn = d;
+//                }
                 t.objectStore("chunkData").add(dobj);
             },
             
@@ -205,10 +214,10 @@
                     objectStore.openCursor().onsuccess = function(event) {
                         var cursor = event.target.result;
                         if (cursor) {
-                            if(cursor.value.hasOwnProperty('row')){
+//                            if(cursor.value.hasOwnProperty('totalSent')){
                                 cb(cursor.value, cursor.key);
                                 return;
-                            }
+//                            }
                         }
                        cb("No Such Row"); 
                     }
@@ -299,21 +308,19 @@
                             }else{
                                 vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                             }
-                            
-                            
-//                            if(this.chunk % 100 == 0){
-//                                vApp.recorder.sendDataToServer();
-//                                vApp.recorder.items = [];
-//                                console.log("sending the data");
-//                            }
                         }
                         cursor.continue();
                     }else{
                         if(typeof cb == 'function'){
                             vApp.recorder.sendDataToServer();
+                            setTimeout(
+                                function (){
+                                    vApp.recorder.xhrsenddata();
+                                }, 100
+                            );
                             vApp.recorder.items = [];
                             console.log("finished fetch data");
-                            cb();
+                            cb.apply(vApp.recorder);
                         }
                     }
                 }

@@ -18,10 +18,14 @@
             onReadStateChange : function (){
                 var that = this;
                 this.httpObj.onreadystatechange  = function (){
-                    if (that.httpObj.readyState==4 && that.httpObj.status==200){
+                    if (that.httpObj.readyState==4){
 //                            alert(that.httpObj.responseText);
                             if(typeof that.cb != 'undefined'){
-                                that.cb(that.httpObj.responseText);
+                                if (that.httpObj.status==200) {
+                                    that.cb(that.httpObj.responseText);
+                                } else {
+                                    that.cb("ERROR "+that.httpObj.status);
+                                }
                             }
                        }
                 }

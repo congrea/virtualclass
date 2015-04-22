@@ -11,7 +11,8 @@
         
         //this should be include intto recorder function
         var sentFile = 0;
-        
+//        var xhrCall = 0;
+        var chunkNum = 0;
         /*
          * QUEUE CODE
         function sendData(data){
@@ -25,6 +26,7 @@
             });
         } */
         
+        var fromFille = 0;
         var recorder = {
             items : [],
             recImgPlay : false,
@@ -33,6 +35,7 @@
             totalSent : 0,
             fileQueue : [],
             rnum : 1,
+            storeDone : 0,
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -135,39 +138,83 @@
                 return e;
             },
             
-            xhrsenddata : function (ftime){
-                 
-                if(typeof ftime != 'undefined'){
-                    var rnum = ftime;
-                }else{
-                    var rnum =  this.rnum;
+            
+            xhrsenddata : function (rnum){
+                if(vApp.recorder.storeDone == 1){
+                    return;
                 }
-                var that = this;
+                
+                if(typeof earlierTimeout != 'undefined'){
+                    clearTimeout(earlierTimeout);
+                }
+                
+                if((typeof rnum == 'undefined') || rnum == ''){
+                    var rnum = 'first';
+                }
+                
+                vApp.recorder.rnum = rnum;
+                
                 vApp.storage.getrowData(['chunkData'], function (dObj,  frow){
-                    if(typeof frow != 'undefined'){
-                        that.rnum = frow;
-                    }
-                    if(typeof dObj == 'string'){
-                        alert(dObj);
+                    if((typeof dObj == 'string' || typeof dObj == 'undefined')){
+                        earlierTimeout = setTimeout (
+                            function (){
+                               vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                            },
+                            1000
+                        );
                     } else {
+                        if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
+                            vApp.recorder.storeDone = 1;
+                            setTimeout(
+                                function (){
+                                    vApp.popup.closeElem();
+                                    vApp.vutil.progressBar(0, 0);
+                                    vApp.recorder.cn = 0;
+                                    vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
+                                    window.location.reload();
+                                },
+                                2000
+                            );
+                            return;
+                        }   
+                        
+                        if(typeof frow != 'undefined'){
+                            vApp.recorder.rnum = frow;
+                        }
+                        
                         var formData = new FormData();
-                        formData.append("record_data", dObj.data);
+                        formData.append("record_data", dObj.rdata);
                         formData.append("user", vApp.gObj.uid); 
-                        formData.append("cn", dObj.cn);
-                        vApp.vutil.progressBar(dObj.trow, dObj.row);
-                        sentFile++;
-                        vApp.xhr.send(formData, 'import.php', function (msg){
+                        formData.append("cn", chunkNum);
+                        vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent);
+                        
+                        vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
                             if (msg == 'File created') {
-//                                alert('done');
-                                that.rnum++;
-                                that.xhrsenddata();
+                                vApp.recorder.rnum++;
+                                chunkNum++;
+                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                            } else {
+                                setTimeout (
+                                    function (){
+                                        // Show Message "Retring [Retry Number]"
+                                       vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                                    },
+                                    1000
+                                );
                             }
                         });
+                        
                     }
-                }, rnum)
+                }, vApp.recorder.rnum);
             },
             
             sendDataToServer : function (){
+                
+                var t = vApp.storage.db.transaction(["chunkData"], "readwrite");
+                var objectStore = t.objectStore("chunkData");
+                objectStore.clear();
+                
+                        
                 var that = this;
                 vApp.popup.waitBlockAction('none');
 
@@ -177,63 +224,69 @@
                         totalStored :vApp.storage.totalStore,
                         makeChunk : true
                     });
-                }
                 
-                // Every time the data is sending the function 
-                // is declaring as expression which is not good
+                    // Every time the data is sending the function 
+                    // is declaring as expression which is not good
                 
-                mvDataWorker.onmessage = function (e) {
-                    if(e.data.hasOwnProperty('import')){
-                        vApp.recorder.cn = e.data.cn;
-                        vApp.recorder.totalSent =  e.data.totalSent;
-                        vApp.storage.totalStored = e.data.totalStore;
-                        
-                        if(e.data.hasOwnProperty('status')){
-                            if(e.data.status == 'done'){
-                                vApp.storage.totalStored = vApp.recorder.totalSent;
-                                setTimeout(
-                                    function (){
-                                        vApp.popup.closeElem();
-                                        vApp.vutil.progressBar(0, 0);
-                                        vApp.recorder.cn = 0;
-                                        vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
-                                        window.location.reload();
-                                    },
-                                    2000
-                                );
-                            }
-                        }
-                        
-                        vApp.storage.chunkStorage(e.data.rdata, vApp.recorder.totalSent, vApp.storage.totalStored, vApp.recorder.cn);
-                        
-                        setTimeout(
-                            function (){
-                                that.xhrsenddata("first");
-                            }, 5000
-                        );
-                
-                        
-                        
-                        
+                    mvDataWorker.onmessage = function (e) {
+                        vApp.storage.chunkStorage(e.data);
+    //                    if(e.data.hasOwnProperty('import')){
+    //                        vApp.recorder.cn = e.data.cn;
+    //                        vApp.recorder.totalSent =  e.data.totalSent;
+    //                        vApp.storage.totalStored = e.data.totalStore;
+    //                        
+    //                        if(e.data.hasOwnProperty('status')){
+    //                            if(e.data.status == 'done'){
+    ////                                vApp.storage.totalStored = vApp.recorder.totalSent;
+    ////                                setTimeout(
+    ////                                    function (){
+    ////                                        vApp.popup.closeElem();
+    ////                                        vApp.vutil.progressBar(0, 0);
+    ////                                        vApp.recorder.cn = 0;
+    ////                                        vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
+    ////                                        window.location.reload();
+    ////                                    },
+    ////                                    2000
+    ////                                );
+    //                                
+    //                                vApp.storage.chunkStorage(e.data.rdata, vApp.recorder.totalSent, vApp.storage.totalStored, vApp.recorder.cn, 'd');
+    //                            }
+    //                            
+    //                        }else{
+    //                            vApp.storage.chunkStorage(e.data.rdata, vApp.recorder.totalSent, vApp.storage.totalStored, vApp.recorder.cn);
+    //                        }
 
-//                        vApp.xhr.send(formData, 'import.php', function (){  });
-                        
 
-                        
-//                        vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
-//                        sentFile++;
-                        
-                        // QUEUE CODE
-//                        vApp.recorder.fileQueue.push("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn);
-//                        if(typeof ftSentData == 'undefined'){
-//                            sentFile++;
-//                            console.log("file is sent " + sentFile);
-//                            sendData(vApp.recorder.fileQueue.splice(0, 1)[0]);
-//                            vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
-//                            ftSentData = true;
-//                        }
-                    } 
-                }
+
+    //                        setTimeout(
+    //                            function (){
+    //                                that.xhrsenddata("first");
+    //                            }, 10
+    //                        );
+
+
+
+
+
+    //                        vApp.xhr.send(formData, 'import.php', function (){  });
+
+
+
+    //                        vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
+    //                        sentFile++;
+
+                            // QUEUE CODE
+    //                        vApp.recorder.fileQueue.push("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn);
+    //                        if(typeof ftSentData == 'undefined'){
+    //                            sentFile++;
+    //                            console.log("file is sent " + sentFile);
+    //                            sendData(vApp.recorder.fileQueue.splice(0, 1)[0]);
+    //                            vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
+    //                            ftSentData = true;
+    //                        }
+                        } 
+                     }
+//                }
             },
             
             requestDataFromServer : function (reqFile){

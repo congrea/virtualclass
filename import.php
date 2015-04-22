@@ -31,7 +31,7 @@ $file_name = "user.".$chunk_num;
 //exit;
 if (isset($_POST['record_data'])) {
     if(file_put_contents('uploads/'.$file_name, $_POST['record_data']) != false ){
-        echo "File created (".basename($file_name).")";
+        echo "File created";
     }else{
         echo $file_name;
     }

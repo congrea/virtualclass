@@ -32,7 +32,7 @@
             playTimeout : "",
             totalSent : 0,
             fileQueue : [],
-            
+            rnum : 1,
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -111,7 +111,6 @@
                                 }
                             }
                         }
-                        
                         that.play();
                     }
                    // vApp.storage.getAllObjs(["allData"], function (){ that.play(); })
@@ -136,6 +135,38 @@
                 return e;
             },
             
+            xhrsenddata : function (ftime){
+                 
+                if(typeof ftime != 'undefined'){
+                    var rnum = ftime;
+                }else{
+                    var rnum =  this.rnum;
+                }
+                var that = this;
+                vApp.storage.getrowData(['chunkData'], function (dObj,  frow){
+                    if(typeof frow != 'undefined'){
+                        that.rnum = frow;
+                    }
+                    if(typeof dObj == 'string'){
+                        alert(dObj);
+                    } else {
+                        var formData = new FormData();
+                        formData.append("record_data", dObj.data);
+                        formData.append("user", vApp.gObj.uid); 
+                        formData.append("cn", dObj.cn);
+                        vApp.vutil.progressBar(dObj.trow, dObj.row);
+                        sentFile++;
+                        vApp.xhr.send(formData, 'import.php', function (msg){
+                            if (msg == 'File created') {
+//                                alert('done');
+                                that.rnum++;
+                                that.xhrsenddata();
+                            }
+                        });
+                    }
+                }, rnum)
+            },
+            
             sendDataToServer : function (){
                 var that = this;
                 vApp.popup.waitBlockAction('none');
@@ -156,6 +187,7 @@
                         vApp.recorder.cn = e.data.cn;
                         vApp.recorder.totalSent =  e.data.totalSent;
                         vApp.storage.totalStored = e.data.totalStore;
+                        
                         if(e.data.hasOwnProperty('status')){
                             if(e.data.status == 'done'){
                                 vApp.storage.totalStored = vApp.recorder.totalSent;
@@ -172,30 +204,24 @@
                             }
                         }
                         
+                        vApp.storage.chunkStorage(e.data.rdata, vApp.recorder.totalSent, vApp.storage.totalStored, vApp.recorder.cn);
                         
-                        var formData = new FormData();
-
-                        formData.append("record_data", e.data.rdata);
-                        formData.append("user", vApp.gObj.uid); 
-
-                        formData.append("cn", vApp.recorder.cn);
-
+                        setTimeout(
+                            function (){
+                                that.xhrsenddata("first");
+                            }, 5000
+                        );
                 
-//                        var request = new XMLHttpRequest();
-//                        request.open("POST", "http://foo.com/submitform.php");
-//                        request.send(formData);
                         
-//                        var euiData = encodeURIComponent(e.data.rdata);
-                       // var euiData = encodeURI(e.data.rdata)
                         
-                        vApp.xhr.send(formData, 'import.php', function (){ });
                         
-//                        vApp.xhr.send("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn, 'import.php', function (){
-//                        
-//                        });
+
+//                        vApp.xhr.send(formData, 'import.php', function (){  });
                         
-                        vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
-                        sentFile++;
+
+                        
+//                        vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
+//                        sentFile++;
                         
                         // QUEUE CODE
 //                        vApp.recorder.fileQueue.push("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn);

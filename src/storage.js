@@ -41,8 +41,13 @@
                       //thisDb.createObjectStore("allData", {autoIncrement:true});
                       thisDb.createObjectStore("allData", {autoIncrement:true});
                     }
+                    
                     if(!thisDb.objectStoreNames.contains("config")) {
                        thisDb.createObjectStore("config", { keyPath : 'timeStamp', autoIncrement:true});
+                    }
+                    
+                    if(!thisDb.objectStoreNames.contains("chunkData")) {
+                       thisDb.createObjectStore("chunkData", {autoIncrement:true});
                     }
                 };
                 
@@ -54,17 +59,17 @@
                         that.config.endSession(true);
                     }else{
                         that.getAllObjs(that.tables, function (result){
-                        if(typeof result == 'undefined'){
-                              that.config.createNewSession();
-                        }else{
-                            var roomCreatedTime = result.createdDate;
-                            var baseDate = new Date().getTime();
-                            var totalTime = baseDate - roomCreatedTime;
-                            //////////////////////1sec-1min--1hr--48hr/////////
-                            if(totalTime > (1000 * 60 * 60 * 60 * 48) || result.room != wbUser.room){
-                                that.config.endSession();
+                            if(typeof result == 'undefined'){
+                                  that.config.createNewSession();
+                            }else{
+                                var roomCreatedTime = result.createdDate;
+                                var baseDate = new Date().getTime();
+                                var totalTime = baseDate - roomCreatedTime;
+                                //////////////////////1sec-1min--1hr--48hr/////////
+                                if(totalTime > (1000 * 60 * 60 * 60 * 48) || result.room != wbUser.room){
+                                    that.config.endSession();
+                                }
                             }
-                        }
                         },
                         'allData'
                         );
@@ -124,11 +129,20 @@
                 }else{
                     t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3, bd: bdata.type});
                 }
-                
+            },
+            
+            chunkStorage : function (value, row, trow, cn){
+                var t = that.db.transaction(["chunkData"], "readwrite");
+                var dobj  = {};
+                dobj.data = value;
+                dobj.id = 4;
+                dobj.row = row;
+                dobj.trow = trow;
+                dobj.cn = cn;
+                t.objectStore("chunkData").add(dobj);
             },
             
             wholeStore : function (playTime, obj, type){  //storing whiteboard and screenshare
-//                alert('is there I am going to play');
                 obj.peTime = window.pageEnter;
                 var data = JSON.stringify(obj);
                 var currTime = new Date().getTime();
@@ -145,13 +159,14 @@
                 this.wholeStoreData = data;
                 this.prevTime = currTime;
             },
+            
             displayData : function (){
                 var transaction = that.db.transaction(["vapp"], "readonly");
                 var objectStore = transaction.objectStore("vapp");
                 
                 objectStore.openCursor().onsuccess = that.handleResult;
             },
-            getAllObjs : function (tables, callback, exludeTable){
+            getAllObjs : function (tables, callback, exludeTable, row){
                 var cb = typeof callback != 'undefined' ? callback : "";
                 for(var i = 0; i < tables.length; i++){
                     var transaction = that.db.transaction(tables[i], "readonly");
@@ -164,14 +179,55 @@
                             }
                             return function (event){
                                 if(typeof cb == 'function'){
-                                    that[tables[val]].handleResult(event, cb);
+                                    if(typeof row != 'undefined'){
+                                        that[tables[val]].handleResult(event, cb, row);
+                                    }else {
+                                        that[tables[val]].handleResult(event, cb);
+                                    }
                                 }else{
-                                    that[tables[val]].handleResult(event);
+                                    if(typeof row != 'undefined'){
+                                        that[tables[val]].handleResult(event, undefined, row);
+                                    }else{
+                                        that[tables[val]].handleResult(event);
+                                    }
                                 }
                             }
                         }
                     )(i, cb);
                 }
+            },
+            
+            getrowData : function (table, cb, row){
+                var transaction = that.db.transaction(table, "readonly");
+                var objectStore = transaction.objectStore(table);
+                
+                if(typeof row == 'string' && row == 'first'){
+                    objectStore.openCursor().onsuccess = function(event) {
+                        var cursor = event.target.result;
+                        if (cursor) {
+                            if(cursor.value.hasOwnProperty('row')){
+                                cb(cursor.value, cursor.key);
+                                return;
+                            }
+                        }
+                       cb("No Such Row"); 
+                    }
+                }else{
+                    //that[table].handleResult(event, cb);
+                    var request = objectStore.get(row);
+
+                    request.onerror = function(event) {
+                      return "No Such Row";
+                    };
+                    request.onsuccess = function(event) {
+                      // Do something with the request.result!
+                      cb(request.result);
+
+                    };
+                }
+                
+                
+                
             },
             wbData : {
                 handleResult : function (event, cb){
@@ -189,6 +245,28 @@
                     }
                 }
             },
+            
+//            chunkData : function (){
+//                handleResult : function z(){}
+//            },
+            
+//            chunkData : {
+//                handleResult : function (event, cb, row){
+////                    alert(row + " hello brother");
+//                    var cursor = event.target.result;
+//                    if (cursor) {
+//                        if(cursor.value.hasOwnProperty('row')){
+//                            if(cursor.value.row == row){
+//                               cb(cursor.value);
+//                               return;
+//                            } 
+//                        }
+//                        cursor.continue();
+//                    }else{
+//                        cb("row not found");
+//                    }
+//                }
+//            },
             audioData : {
                 handleResult : function (event, cb){
                     var cursor = event.target.result;

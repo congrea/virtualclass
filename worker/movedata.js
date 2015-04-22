@@ -67,7 +67,6 @@ onmessage = function(e) {
         
     } else if (e.data.hasOwnProperty('rdata') && e.data.hasOwnProperty('getData')){
 //        var data = e.data.rdata;
-          
         var data = LZString.decompressFromEncodedURIComponent(e.data.rdata);
         data = JSON.parse(data);
         

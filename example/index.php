@@ -228,12 +228,19 @@ if(isset($_GET['lname'])){
                 <div class="rv-vanilla-modal-body">
                     <div style="width:200px; padding:50px;">
                         <div id="progress">
-                            <div id="progressBar">
+                            <div id="progressBar" class="progressBar">
                             </div>
-                            <div id="progressValue">0%
+                            <div id="progressValue" class="progressValue">0%
                             </div>
                         </div>
-
+                        <br />
+                        <div id="indProgress">
+                            <div id="indProgressBar" class="progressBar">
+                            </div>
+                            
+                            <div id="indProgressValue" class="progressValue"> 0%
+                            </div>
+                        </div>
                     </div>
                 </div>
                 

@@ -36,6 +36,7 @@
             fileQueue : [],
             rnum : 1,
             storeDone : 0,
+            emn : 0,
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -165,16 +166,16 @@
                     } else {
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
-                            setTimeout(
-                                function (){
-                                    vApp.popup.closeElem();
-                                    vApp.vutil.progressBar(0, 0);
-                                    vApp.recorder.cn = 0;
-                                    vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
-                                    window.location.reload();
-                                },
-                                2000
-                            );
+//                            setTimeout(
+//                                function (){
+//                                    vApp.popup.closeElem();
+//                                    vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
+//                                    vApp.recorder.cn = 0;
+//                                    vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
+//                                    window.location.reload();
+//                                },
+//                                3000
+//                            );
                             return;
                         }   
                         
@@ -186,7 +187,7 @@
                         formData.append("record_data", dObj.rdata);
                         formData.append("user", vApp.gObj.uid); 
                         formData.append("cn", chunkNum);
-                        vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent);
+                        vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
                         
                         vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
                             if (msg == 'File created') {
@@ -197,6 +198,7 @@
                                 setTimeout (
                                     function (){
                                         // Show Message "Retring [Retry Number]"
+                                       console.log("Trying to connnect " + (++vApp.recorder.emn));
                                        vApp.recorder.xhrsenddata(vApp.recorder.rnum);
                                     },
                                     1000

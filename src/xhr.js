@@ -12,14 +12,43 @@
                     this.httpObj = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 
+                this.httpObj.upload.addEventListener("progress", function(evt) { 
+//                    var percentComplete = (evt.loaded / evt.total) * 100; 
+                    vApp.vutil.progressBar(evt.loaded, evt.total, 'indProgressBar', 'indProgressValue');
+                    
+                    if(evt.loaded == evt.total){
+                        setTimeout(
+                            function (){
+                                vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');
+                            }, 1000
+                        );
+                        
+                    }
+                });
+                //this.onprogress();
                 this.onReadStateChange();
             },
+            
+//            onprogress : function (){
+//                var num = 0;
+//                this.httpObj.onprogress = function (evt){
+//                    if (evt.lengthComputable) {
+//                        var percentComplete = (evt.loaded / evt.total) * 100; 
+//                        
+//                        if(evt.loaded == evt.total){
+//                            vApp.vutil.progressBar(evt.loaded, evt.total, 'indProgressBar', 'indProgressValue');
+//                        }
+//                        
+//                    }else {
+//                        console.log("Unable to compute progress information since the total size is unknown");
+//                    }
+//                }
+//            },
             
             onReadStateChange : function (){
                 var that = this;
                 this.httpObj.onreadystatechange  = function (){
                     if (that.httpObj.readyState==4){
-//                            alert(that.httpObj.responseText);
                             if(typeof that.cb != 'undefined'){
                                 if (that.httpObj.status==200) {
                                     that.cb(that.httpObj.responseText);

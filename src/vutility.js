@@ -469,15 +469,15 @@
                 return (window.wbUser.vAppPlay == true) ? true : false;
             },
             
-            progressBar : function (totalVal, portion){
+            progressBar : function (totalVal, portion, pbar, pval){
                 if(totalVal == 0 && portion == 0){
                     var totalProgress =  0;
                 }else {
                     var totalProgress=Math.round((portion*100)/totalVal);
                 }
                 
-                document.getElementById("progressBar").style.width=totalProgress+'%';
-                document.getElementById("progressValue").innerHTML=totalProgress+'%';
+                document.getElementById(pbar).style.width=totalProgress+'%';
+                document.getElementById(pval).innerHTML=totalProgress+'%';
                 
             }
         }

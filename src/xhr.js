@@ -18,20 +18,16 @@
                 
                 this.httpObj.onerror = function (err){
                     console.log("Error " + err);
-                    
                 }
                 
                 this.httpObj.onabort = function (evt){
                     console.log("Error abort " + evt);
                 }
-                
-                
             },
             
             //this is not inbuilt onprogress
             onProgress : function (evt){
                 console.log('pbar ' + evt.loaded);
-                
                 vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
                 if(evt.loaded == evt.total){
                      vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');
@@ -62,12 +58,8 @@
             send : function (data, file, cb){
                 this.cb = cb;
 //                this.httpObj.open("POST", window.whiteboardPath + file, true);
-                
                 this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
                 this.httpObj.send(data);
-                    
-
-                
             }
         }
         window.xhr = xhr;

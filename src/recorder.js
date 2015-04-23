@@ -37,6 +37,9 @@
             rnum : 1,
             storeDone : 0,
             emn : 0,
+            allFileFound : false,
+            waitServer : false,
+            waitPopup : false,
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -214,11 +217,9 @@
             },
             
             sendDataToServer : function (){
-                
                 var t = vApp.storage.db.transaction(["chunkData"], "readwrite");
                 var objectStore = t.objectStore("chunkData");
                 objectStore.clear();
-                
                         
                 var that = this;
                 vApp.popup.waitBlockAction('none');
@@ -230,72 +231,18 @@
                         makeChunk : true
                     });
                 
-                    // Every time the data is sending the function 
+                    // Every time the data is sending, the function 
                     // is declaring as expression which is not good
                 
                     mvDataWorker.onmessage = function (e) {
                         vApp.storage.chunkStorage(e.data);
-    //                    if(e.data.hasOwnProperty('import')){
-    //                        vApp.recorder.cn = e.data.cn;
-    //                        vApp.recorder.totalSent =  e.data.totalSent;
-    //                        vApp.storage.totalStored = e.data.totalStore;
-    //                        
-    //                        if(e.data.hasOwnProperty('status')){
-    //                            if(e.data.status == 'done'){
-    ////                                vApp.storage.totalStored = vApp.recorder.totalSent;
-    ////                                setTimeout(
-    ////                                    function (){
-    ////                                        vApp.popup.closeElem();
-    ////                                        vApp.vutil.progressBar(0, 0);
-    ////                                        vApp.recorder.cn = 0;
-    ////                                        vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
-    ////                                        window.location.reload();
-    ////                                    },
-    ////                                    2000
-    ////                                );
-    //                                
-    //                                vApp.storage.chunkStorage(e.data.rdata, vApp.recorder.totalSent, vApp.storage.totalStored, vApp.recorder.cn, 'd');
-    //                            }
-    //                            
-    //                        }else{
-    //                            vApp.storage.chunkStorage(e.data.rdata, vApp.recorder.totalSent, vApp.storage.totalStored, vApp.recorder.cn);
-    //                        }
-
-
-
-    //                        setTimeout(
-    //                            function (){
-    //                                that.xhrsenddata("first");
-    //                            }, 10
-    //                        );
-
-
-
-
-
-    //                        vApp.xhr.send(formData, 'import.php', function (){  });
-
-
-
-    //                        vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
-    //                        sentFile++;
-
-                            // QUEUE CODE
-    //                        vApp.recorder.fileQueue.push("record_data=" + e.data.rdata + '&user='+vApp.gObj.uid+'&cn='+vApp.recorder.cn);
-    //                        if(typeof ftSentData == 'undefined'){
-    //                            sentFile++;
-    //                            console.log("file is sent " + sentFile);
-    //                            sendData(vApp.recorder.fileQueue.splice(0, 1)[0]);
-    //                            vApp.vutil.progressBar(e.data.totalStore, vApp.recorder.totalSent);
-    //                            ftSentData = true;
-    //                        }
-                        } 
-                     }
+                    } 
+                }
 //                }
             },
             
-            requestDataFromServer : function (reqFile){
-                if(typeof waitPopup == 'undefined'){
+            displayWaitPopupIfNot : function (){
+                if(this.waitPopup == false){
                     vApp.popup.waitBlockAction('block');
                     vApp.popup.sendBackOtherElems();
 
@@ -305,11 +252,25 @@
                     var element = document.getElementById('about-modal');
                     vApp.popup.open(element);
                     var that = this;
-                    waitPopup = true;
+                    this.waitPopup = true;
                 }
+            },
+            requestDataFromServer : function (reqFile){
+//                if(this.waitPopup == false){
+//                    vApp.popup.waitBlockAction('block');
+//                    vApp.popup.sendBackOtherElems();
+//
+//                    var progressBarContainer = document.getElementById("progressBarContainer");
+//                    progressBarContainer.style.display = "none";
+//
+//                    var element = document.getElementById('about-modal');
+//                    vApp.popup.open(element);
+//                    var that = this;
+//                    this.waitPopup = true;
+//                }
                 
+                this.displayWaitPopupIfNot();
                 var formData = new FormData();
-
                 formData.append("record_data", "true");
                 formData.append("prvfile", reqFile); 
                 formData.append("user", vApp.gObj.uid);
@@ -317,11 +278,26 @@
                 //vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                 vApp.xhr.send(formData, 'export.php', function
                     (data){
-                        if(document.getElementById('waitPlay').style.display == 'block'){
-                             vApp.popup.closeElem();
-                        }
+                        vApp.popup.closeElem();
+                        
+//                        if(document.getElementById('waitPlay').style.display == 'block'){
+//                             vApp.popup.closeElem();
+//                        }
+                        
+                        //from where would know, we don't have to request
                         if(data == 'filenotfound'){
-                            return;
+                            vApp.recorder.allFileFound = true;
+                            if(vApp.recorder.waitServer == true){
+                                var toBePlayItems = vApp.recorder.items;
+                                vApp.storage.config.endSession();
+                                
+                                vApp.popup.closeElem();
+                                vApp.recorder.objn = 0;
+                                vApp.recorder.items = toBePlayItems;
+                                vApp.recorder.play();
+                                vApp.recorder.waitServer = false;
+                            }
+                            return;  
                         }
 //                        that.afterResponse(data);
                         vApp.recorder.afterResponse(data);
@@ -330,8 +306,6 @@
             },
             
             afterResponse : function (encodeData){
-             //   reqFile++;
-                //var decodeLzString = LZString.decompressFromEncodedURIComponent(encodeData);
                 
                 if (!!window.Worker) {
                     mvDataWorker.postMessage({
@@ -340,11 +314,10 @@
                     });
                 }
                 
-                 mvDataWorker.onmessage = function (e) {
+                mvDataWorker.onmessage = function (e) {
                     if(e.data.hasOwnProperty('export')){
                         reqFile++;
-                        
-//                        var ori3 = base64DecToArrclm(e.data.rdata);
+//                      var ori3 = base64DecToArrclm(e.data.rdata);
                         vApp.recorder.init(e.data.rdata);
                         vApp.recorder.requestDataFromServer(reqFile);
                     }
@@ -373,6 +346,12 @@
                     e.data =  this.items[this.objn].recObjs;
                     io.onRecMessage(that.convertInto(e)); 
                     
+                    if(vApp.recorder.allFileFound == false){
+                        //waiting for server response
+                        vApp.recorder.waitServer = true;
+                        this.displayWaitPopupIfNot();
+                    }
+                    
                     //return;
                 }else{
                   that.playTimeout = setTimeout( function (){
@@ -380,7 +359,14 @@
                         io.onRecMessage(that.convertInto(e)); 
                         that.play.call(that);
                         that.objn++;
-                        that.playTime = that.items[that.objn].playTime;
+//                        if(typeof that.items[that.objn] != 'object'){
+//                            
+//                        }
+                        
+                        if(typeof that.items[that.objn] == 'object'){
+                            that.playTime = that.items[that.objn].playTime;
+                        }
+                        
                     }, that.playTime);
                 }
             }

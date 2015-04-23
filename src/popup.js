@@ -118,19 +118,21 @@ var PopUp = (function(window, undefined) {
 	}
     
     PopUp.prototype.closeElem = function (){
-        var vAppToolCont = document.getElementById('vAppOptionsCont');
-        if(vAppToolCont != null){
-            vAppToolCont.style.zIndex = 100;
-        }
-        
-        if(stickBar != null){
-            var stickBar = document.getElementById('stickybar');
-            stickBar.style.zIndex = 2000;
-        }
-        
-        var mainPopCont = document.getElementById('about-modal');
-        if(mainPopCont != null){
-            vApp.popup.close(mainPopCont);
+        if(document.getElementById('waitPlay').style.display == 'block'){
+            var vAppToolCont = document.getElementById('vAppOptionsCont');
+            if(vAppToolCont != null){
+                vAppToolCont.style.zIndex = 100;
+            }
+
+            if(stickBar != null){
+                var stickBar = document.getElementById('stickybar');
+                stickBar.style.zIndex = 2000;
+            }
+
+            var mainPopCont = document.getElementById('about-modal');
+            if(mainPopCont != null){
+                vApp.popup.close(mainPopCont);
+            }
         }
     },
         

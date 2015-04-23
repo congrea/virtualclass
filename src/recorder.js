@@ -349,6 +349,7 @@
                     if(vApp.recorder.allFileFound == false){
                         //waiting for server response
                         vApp.recorder.waitServer = true;
+                        vApp.recorder.waitPopup = false;     
                         this.displayWaitPopupIfNot();
                     }
                     

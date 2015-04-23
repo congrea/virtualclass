@@ -81,6 +81,7 @@ var PopUp = (function(window, undefined) {
 	 * @param: {Object} targetElement
 	 */
 	PopUp.prototype.open = function(targetElement) {
+           
 		this.closeShownModal();
 
 		targetElement.classList.add(this.settings.showModalClassName);

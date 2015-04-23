@@ -166,6 +166,8 @@
                     } else {
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
+                            
+                            
 //                            setTimeout(
 //                                function (){
 //                                    vApp.popup.closeElem();
@@ -200,6 +202,7 @@
                                         // Show Message "Retring [Retry Number]"
                                        console.log("Trying to connnect " + (++vApp.recorder.emn));
                                        vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                                       
                                     },
                                     1000
                                 );

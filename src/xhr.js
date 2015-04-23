@@ -12,42 +12,41 @@
                     this.httpObj = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 
-                this.httpObj.upload.addEventListener("progress", function(evt) { 
-//                    var percentComplete = (evt.loaded / evt.total) * 100; 
-                    vApp.vutil.progressBar(evt.loaded, evt.total, 'indProgressBar', 'indProgressValue');
-                    
-                    if(evt.loaded == evt.total){
-                        setTimeout(
-                            function (){
-                                vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');
-                            }, 1000
-                        );
-                        
-                    }
-                });
-                //this.onprogress();
+                this.httpObj.upload.addEventListener("progress", this.onProgress);
+                
                 this.onReadStateChange();
+                
+                this.httpObj.onerror = function (err){
+                    console.log("Error " + err);
+                    
+                }
+                
+                this.httpObj.onabort = function (evt){
+                    console.log("Error abort " + evt);
+                }
+                
+                
             },
             
-//            onprogress : function (){
-//                var num = 0;
-//                this.httpObj.onprogress = function (evt){
-//                    if (evt.lengthComputable) {
-//                        var percentComplete = (evt.loaded / evt.total) * 100; 
-//                        
-//                        if(evt.loaded == evt.total){
-//                            vApp.vutil.progressBar(evt.loaded, evt.total, 'indProgressBar', 'indProgressValue');
-//                        }
-//                        
-//                    }else {
-//                        console.log("Unable to compute progress information since the total size is unknown");
-//                    }
-//                }
-//            },
+            //this is not inbuilt onprogress
+            onProgress : function (evt){
+                console.log('pbar ' + evt.loaded);
+                
+                vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
+                if(evt.loaded == evt.total){
+                     vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');
+//                    setTimeout(
+//                        function (){
+//                            vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');
+//                        }, 10
+//                    );
+                }
+            },
             
             onReadStateChange : function (){
                 var that = this;
                 this.httpObj.onreadystatechange  = function (){
+//                    console.log('rs' + that.httpObj.readyState);
                     if (that.httpObj.readyState==4){
                             if(typeof that.cb != 'undefined'){
                                 if (that.httpObj.status==200) {
@@ -62,15 +61,13 @@
             
             send : function (data, file, cb){
                 this.cb = cb;
-                //this.httpObj.open("POST", window.whiteboardPath + "uploader.php", true);
-                this.httpObj.open("POST", window.whiteboardPath + file, true);
+//                this.httpObj.open("POST", window.whiteboardPath + file, true);
                 
-                //for send data like form sbumit
-//                this.httpObj.setRequestHeader("Content-type", "text/plain");
-//                if(file == 'export.php'){
-//                    this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//                }
+                this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
                 this.httpObj.send(data);
+                    
+
+                
             }
         }
         window.xhr = xhr;

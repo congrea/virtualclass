@@ -174,3 +174,7 @@ transition:all .2s linear;
     position: relative;
     top: -16px;
 }
+
+#indProgressBar {
+    background: #9BEBA8;
+}

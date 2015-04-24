@@ -290,12 +290,11 @@
                             if(vApp.recorder.waitServer == true){
                                 var toBePlayItems = vApp.recorder.items;
                                 vApp.storage.config.endSession();
-                                
-                                vApp.popup.closeElem();
                                 vApp.recorder.objn = 0;
                                 vApp.recorder.items = toBePlayItems;
                                 vApp.recorder.play();
                                 vApp.recorder.waitServer = false;
+                                vApp.popup.closeElem();
                             }
                             return;  
                         }

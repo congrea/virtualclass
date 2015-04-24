@@ -418,6 +418,15 @@ $.uiBackCompat = false;
             showOverlay: true
         });
         
+//        setTimeout(
+//            function (){
+//             //   var element = document.getElementById('about-modal');
+//                //vApp.popup.open(element);
+//                vApp.recorder.displayWaitPopupIfNot(vApp.lang.getString("plswaitwhile"));
+//            },
+//            2000
+//        );
+        
         
 //        document.getElementById('getContent').addEventListener('click', function (){
 //            var element = document.getElementById('about-modal');

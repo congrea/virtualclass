@@ -230,7 +230,7 @@ if(isset($_GET['lname'])){
                         <div id="progress">
                             <div id="progressBar" class="progressBar">
                             </div>
-                            <div id="progressValue" class="progressValue">0%
+                            <div id="progressValue" class="progressValue"> 0%
                             </div>
                         </div>
                         <br />
@@ -248,8 +248,8 @@ if(isset($_GET['lname'])){
             
             <div id="waitPlay">
                 <div class="rv-vanilla-modal-body">
-                    <div style="width:200px; padding:50px;">
-                        Please wait a while....
+                    <div id="waitMsg" >
+                        
                     </div>
                 </div>
             </div>

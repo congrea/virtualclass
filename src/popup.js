@@ -160,10 +160,11 @@ var PopUp = (function(window, undefined) {
         }
     }
     
-      
+    PopUp.prototype.updLoadedFile = function(nfile){
+        var updtMsg = vApp.lang.getString("downloadedFile",  [nfile]);
+        document.getElementById('waitMsg').innerHTML = updtMsg;
+    }
     
-    
-
 	/**
 	 * @private: short version of querySelectorAll
 	 * @param: {string} selector - css-like

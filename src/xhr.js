@@ -4,6 +4,7 @@
   */
 (
     function(window) {
+        var pb = 0;
         var xhr  = {
             init : function (){
                 if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -27,7 +28,8 @@
             
             //this is not inbuilt onprogress
             onProgress : function (evt){
-                console.log('pbar ' + evt.loaded);
+                pb++;
+                console.log('pb ' + pb);
                 vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
                 if(evt.loaded == evt.total){
                      vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');

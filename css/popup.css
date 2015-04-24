@@ -178,3 +178,13 @@ transition:all .2s linear;
 #indProgressBar {
     background: #9BEBA8;
 }
+
+#waitMsg {
+    width : 300px;
+    margin-top: 32px;
+    margin-left: 22px;
+}
+
+.rv-vanilla-modal-body {
+    width : 400px;
+}

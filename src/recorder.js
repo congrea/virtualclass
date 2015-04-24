@@ -92,38 +92,6 @@
                 }
             },
             
-            init2 : function(data) {
-                 //localStorage.removeItem('recObjs');
-                var vcan = vApp.wb.vcan;
-                if(typeof myfunc != 'undefined'){
-                    this.objs = vcan.getStates('replayObjs');
-                }else{
-                    var that = this;
-                    if(data == 'fromplay'){
-                       vApp.storage.getAllObjs(["allData"], function (){ that.play(); });
-                          
-                    }else{
-                        var totalLength = 0;
-                        this.items =  JSON.parse(data);
-                        var binData;
-                        
-                        for(var i=0; i<this.items.length; i++){
-                            if(typeof this.items[i].recObjs == 'Object' || typeof this.items[i].recObjs == 'object' ){
-                          //      binData = Object.keys(this.items[i].recObjs);
-                                binData = Object.keys(this.items[i].recObjs).map(function (key) {return that.items[i].recObjs[key]});
-                                newBinData = new Uint8Array(binData.length);
-                                this.items[i].recObjs = newBinData;
-                                for(var j = 0; j< binData.length; j++){
-                                    this.items[i].recObjs[j] = binData[j];
-                                }
-                            }
-                        }
-                        that.play();
-                    }
-                   // vApp.storage.getAllObjs(["allData"], function (){ that.play(); })
-                }
-            },
-            
             exportData : function (cb){
                vApp.recorder.items = [];
                vApp.storage.getAllObjs(["allData"], function (){
@@ -169,18 +137,6 @@
                     } else {
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
-                            
-                            
-//                            setTimeout(
-//                                function (){
-//                                    vApp.popup.closeElem();
-//                                    vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
-//                                    vApp.recorder.cn = 0;
-//                                    vApp.clearSession('SessionEndTool'); //sesionend was invoking earlier at vmApp.js\
-//                                    window.location.reload();
-//                                },
-//                                3000
-//                            );
                             return;
                         }   
                         
@@ -238,38 +194,29 @@
                         vApp.storage.chunkStorage(e.data);
                     } 
                 }
-//                }
             },
             
-            displayWaitPopupIfNot : function (){
+            displayWaitPopupIfNot : function (msg){
                 if(this.waitPopup == false){
                     vApp.popup.waitBlockAction('block');
                     vApp.popup.sendBackOtherElems();
 
                     var progressBarContainer = document.getElementById("progressBarContainer");
                     progressBarContainer.style.display = "none";
+                    
+                    if(typeof msg != 'undefined'){
+                        document.getElementById('waitMsg').innerHTML = msg;
+                    }
 
                     var element = document.getElementById('about-modal');
                     vApp.popup.open(element);
-                    var that = this;
+//                    var that = this;
                     this.waitPopup = true;
                 }
             },
+            
             requestDataFromServer : function (reqFile){
-//                if(this.waitPopup == false){
-//                    vApp.popup.waitBlockAction('block');
-//                    vApp.popup.sendBackOtherElems();
-//
-//                    var progressBarContainer = document.getElementById("progressBarContainer");
-//                    progressBarContainer.style.display = "none";
-//
-//                    var element = document.getElementById('about-modal');
-//                    vApp.popup.open(element);
-//                    var that = this;
-//                    this.waitPopup = true;
-//                }
-                
-                this.displayWaitPopupIfNot();
+                this.displayWaitPopupIfNot(vApp.lang.getString("plswaitwhile"));
                 var formData = new FormData();
                 formData.append("record_data", "true");
                 formData.append("prvfile", reqFile); 
@@ -279,12 +226,9 @@
                 vApp.xhr.send(formData, 'export.php', function
                     (data){
                         vApp.popup.closeElem();
+                        vApp.popup.updLoadedFile(reqFile+1);
                         
-//                        if(document.getElementById('waitPlay').style.display == 'block'){
-//                             vApp.popup.closeElem();
-//                        }
-                        
-                        //from where would know, we don't have to request
+//                      //from where would know, we don't have to request
                         if(data == 'filenotfound'){
                             vApp.recorder.allFileFound = true;
                             if(vApp.recorder.waitServer == true){
@@ -305,14 +249,13 @@
             },
             
             afterResponse : function (encodeData){
-                
                 if (!!window.Worker) {
                     mvDataWorker.postMessage({
                         rdata: encodeData,
                         getData : true
                     });
                 }
-                
+                    
                 mvDataWorker.onmessage = function (e) {
                     if(e.data.hasOwnProperty('export')){
                         reqFile++;
@@ -359,9 +302,6 @@
                         io.onRecMessage(that.convertInto(e)); 
                         that.play.call(that);
                         that.objn++;
-//                        if(typeof that.items[that.objn] != 'object'){
-//                            
-//                        }
                         
                         if(typeof that.items[that.objn] == 'object'){
                             that.playTime = that.items[that.objn].playTime;

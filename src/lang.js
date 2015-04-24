@@ -5,6 +5,10 @@
 
 (
     function (window){
+        /*
+         * @words expect array
+         * 
+         */
         var getString = function (string, words){
             var langString = window.vApp.lang.message[string];
             if(typeof words != 'undefined' &&  words.length > 0){

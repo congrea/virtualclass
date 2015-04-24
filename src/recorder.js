@@ -40,6 +40,9 @@
             allFileFound : false,
             waitServer : false,
             waitPopup : false,
+            tempRecData : [],
+            alreadyAskForPlay : false,
+            playStart : false,
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -93,6 +96,7 @@
             },
             
             exportData : function (cb){
+               vApp.popup.openProgressBar();
                vApp.recorder.items = [];
                vApp.storage.getAllObjs(["allData"], function (){
                    if(typeof cb == 'function'){
@@ -200,19 +204,22 @@
             
             displayWaitPopupIfNot : function (msg){
                 if(this.waitPopup == false){
-                    vApp.popup.waitBlockAction('block');
                     vApp.popup.sendBackOtherElems();
-
+                 
                     var progressBarContainer = document.getElementById("progressBarContainer");
                     progressBarContainer.style.display = "none";
+                    
+                    vApp.popup.waitBlockAction('block');
                     
                     if(typeof msg != 'undefined'){
                         document.getElementById('waitMsg').innerHTML = msg;
                     }
-
+                    
+                    vApp.vutil.progressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
+                    
                     var element = document.getElementById('about-modal');
                     vApp.popup.open(element);
-//                    var that = this;
+
                     this.waitPopup = true;
                 }
             },
@@ -227,8 +234,9 @@
                 //vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                 vApp.xhr.send(formData, 'export.php', function
                     (data){
-                        vApp.popup.closeElem();
-                        vApp.popup.updLoadedFile(reqFile+1);
+                        
+//                    vApp.popup.closeElem();
+//                    vApp.popup.updLoadedFile(reqFile+1);
                         
 //                      //from where would know, we don't have to request
                         if(data == 'filenotfound'){
@@ -245,12 +253,12 @@
                             return;  
                         }
 //                        that.afterResponse(data);
-                        vApp.recorder.afterResponse(data);
+                        vApp.recorder.sendToWorker(data);
                     }
                 );
             },
             
-            afterResponse : function (encodeData){
+            sendToWorker : function (encodeData){
                 if (!!window.Worker) {
                     mvDataWorker.postMessage({
                         rdata: encodeData,
@@ -266,14 +274,59 @@
 //                            e.data.alldata.totalSent
 //                            e.data.alldata.totalStore
 //                            e.data.alldata.cn
-                            vApp.recorder.init(e.data.alldata.rdata);
+                            
+                            var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore);
+                            
+                            if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
+                                vApp.recorder.askToPlay();
+                                vApp.recorder.alreadyAskForPlay = true;
+                            }else if(isUptoBase && vApp.recorder.playStart){
+                                vApp.popup.closeElem();
+                                vApp.recorder.init(e.data.alldata.rdata);
+                            }else {
+                                vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
+                                vApp.recorder.tempRecData.push(e.data.alldata.rdata);
+                            }
+                            
+                            //vApp.recorder.init(e.data.alldata.rdata);
                             vApp.recorder.requestDataFromServer(reqFile);
+                            
 //                        }
                     }
                 }
               
 //                this.init(decodeLzString);
 //                this.requestDataFromServer(reqFile);
+            },
+            
+            
+            playInt : function (){
+                //convert [[1, 3], [3, 5]] to [1, 3, 3, 5]
+                var mainData = vApp.recorder.tempRecData.reduce(function(a, b) {
+                    return a.concat(b);
+                });
+                
+                vApp.recorder.playStart = true;
+                vApp.recorder.init(mainData);
+                vApp.recorder.tempRecData.length = 0;
+                
+            },
+            
+            askToPlay : function (){
+                var that = this;
+                var playButton = document.getElementById("playButton");
+                if(playButton != null){
+                    playButton.style.display = 'block';
+                    playButton.addEventListener('click', that.playInt);
+                }
+            },
+            
+            isUptoBaseValue : function (totalRecevied, totalPack){
+                //30% is base value
+                if(totalRecevied >=  totalPack * 30/100) {
+                    return true;
+                }
+                return false;
             },
             
             play : function (){

@@ -81,9 +81,12 @@ var PopUp = (function(window, undefined) {
 	 * @param: {Object} targetElement
 	 */
 	PopUp.prototype.open = function(targetElement) {
-           
+        var playButton = document.getElementById("playButton"); //inject code
+        if(playButton != null){
+            playButton.style.display = 'none'
+        }
+        
 		this.closeShownModal();
-
 		targetElement.classList.add(this.settings.showModalClassName);
 
 		if (this.settings.showOverlay) {
@@ -163,6 +166,12 @@ var PopUp = (function(window, undefined) {
     PopUp.prototype.updLoadedFile = function(nfile){
         var updtMsg = vApp.lang.getString("downloadedFile",  [nfile]);
         document.getElementById('waitMsg').innerHTML = updtMsg;
+    }
+    
+    PopUp.prototype.openProgressBar = function(nfile){
+        var element = document.getElementById('about-modal');
+        vApp.popup.open(element);
+        vApp.popup.waitBlockAction('none');
     }
     
 	/**

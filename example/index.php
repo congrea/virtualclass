@@ -216,12 +216,11 @@ if(isset($_GET['lname'])){
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>
 </div>   
-       <div id="popupContainer">
+    <div id="popupContainer">
         <div id="about-modal" class="rv-vanilla-modal">
-            
+
             <div id="progressBarContainer">
                 <div class="rv-vanilla-modal-header group">
-        <!--                <button class="rv-vanilla-modal-close"><span class="text">×</span></button>-->
                     <h2 class="rv-vanilla-modal-title">Your recording is uploading....</h2>
                 </div>
 
@@ -237,22 +236,34 @@ if(isset($_GET['lname'])){
                         <div id="indProgress">
                             <div id="indProgressBar" class="progressBar">
                             </div>
-                            
+
                             <div id="indProgressValue" class="progressValue"> 0%
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             
-            <div id="waitPlay">
-                <div class="rv-vanilla-modal-body">
-                    <div id="waitMsg" >
+            
+                <div id="waitPlay">
+                    <div class="rv-vanilla-modal-body">
+                        <div id="waitMsg">
+                            
+                        </div>
+                        
+                        <div id="downloadProgress">
+                            <div id="downloadProgressBar" class="progressBar">
+
+                            </div>
+                            <div id="downloadProgressValue" class="progressValue"> 0%
+                            </div>
+                        </div>
+                        
+                        <button id="playButton">Play</button>
                         
                     </div>
                 </div>
-            </div>
             
         </div>
         

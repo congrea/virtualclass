@@ -151,7 +151,7 @@ transition:all .2s linear;
 }
 
 
-#progress, #indProgress{
+#progress, #indProgress, #downloadProgress{
     width:100%;
     height:15px;
     border:1px solid #000;

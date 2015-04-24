@@ -59,8 +59,8 @@
             
             send : function (data, file, cb){
                 this.cb = cb;
-                this.httpObj.open("POST", window.whiteboardPath + file, true);
-                //this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
+//                this.httpObj.open("POST", window.whiteboardPath + file, true);
+                this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
                 this.httpObj.send(data);
             }
         }

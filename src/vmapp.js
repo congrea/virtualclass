@@ -320,12 +320,9 @@ function (window){
                         }
                         vApp.clearSession(appName);
                     } else {
-                        var element = document.getElementById('about-modal');
-                        vApp.popup.open(element);
-//                        var wait = document.getElementById("waitPlay");
-//                        wait.style.display = 'none';
+                        //vApp.popup.openProgressBar();
                         
-                        vApp.popup.waitBlockAction('none');
+                        
 
                         setTimeout(function (){
                             vApp.getContent = true; 

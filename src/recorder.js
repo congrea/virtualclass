@@ -144,8 +144,10 @@
                             vApp.recorder.rnum = frow;
                         }
                         
+//                        var tmpsenddata = JSON.stringify(dObj);
+                        
                         var formData = new FormData();
-                        formData.append("record_data", dObj.rdata);
+                        formData.append("record_data", JSON.stringify(dObj));
                         formData.append("user", vApp.gObj.uid); 
                         formData.append("cn", chunkNum);
                         vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
@@ -254,14 +256,19 @@
                         rdata: encodeData,
                         getData : true
                     });
-                }
-                    
-                mvDataWorker.onmessage = function (e) {
-                    if(e.data.hasOwnProperty('export')){
-                        reqFile++;
-//                      var ori3 = base64DecToArrclm(e.data.rdata);
-                        vApp.recorder.init(e.data.rdata);
-                        vApp.recorder.requestDataFromServer(reqFile);
+
+                    mvDataWorker.onmessage = function (e) {
+//                        if(e.data.hasOwnProperty('export')){
+                            reqFile++;
+    //                      var ori3 = base64DecToArrclm(e.data.rdata);
+    
+//                            e.data.alldata.rdata
+//                            e.data.alldata.totalSent
+//                            e.data.alldata.totalStore
+//                            e.data.alldata.cn
+                            vApp.recorder.init(e.data.alldata.rdata);
+                            vApp.recorder.requestDataFromServer(reqFile);
+//                        }
                     }
                 }
               

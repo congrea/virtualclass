@@ -1,5 +1,6 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
+ * @author  Jai Gupta <http://www.vidyamantra.com>
   */
  
 //number of chunck sent to server
@@ -9,7 +10,7 @@ var totalSent = 0;
 var totalStore = 0;
 var sizemultiplier = 1024 * 1024;
 var chunks = 0;
-//var cdata=[];
+
 var ctmp;
 var csize = 100;
 var datatmp, beforeStringfy;
@@ -55,11 +56,9 @@ onmessage = function(e) {
             
             postMessage({
                 rdata:datatmp,
-                import : true,
                 totalSent : totalSent, //crrent data
                 totalStore : totalStore,
                 cn : cn
-
             });
             cn++;
         }
@@ -67,12 +66,12 @@ onmessage = function(e) {
         
     } else if (e.data.hasOwnProperty('rdata') && e.data.hasOwnProperty('getData')){
 //        var data = e.data.rdata;
-        var data = LZString.decompressFromEncodedURIComponent(e.data.rdata);
-        data = JSON.parse(data);
+        var alldata = JSON.parse(e.data.rdata);
+        var data = LZString.decompressFromEncodedURIComponent(alldata.rdata);
+        alldata.rdata = JSON.parse(data);
         
         postMessage({
-            rdata : data,
-            export : true
+            alldata : alldata
         });
     }
 };

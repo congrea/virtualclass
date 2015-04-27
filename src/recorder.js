@@ -162,6 +162,10 @@ return;
                         formData.append("record_data", JSON.stringify(dObj));
                         formData.append("user", vApp.gObj.uid); 
                         formData.append("cn", chunkNum);
+                        //make forcecully 100% if totalSent is overflow
+                        if(dObj.totalSent > dObj.totalStore){
+                            dObj.totalSent = dObj.totalStore;
+                        }
                         vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
                         
                         vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
@@ -203,7 +207,6 @@ return;
                 
                     // Every time the data is sending, the function 
                     // is declaring as expression which is not good
-                
                     mvDataWorker.onmessage = function (e) {
                         vApp.storage.chunkStorage(e.data);
                     } 
@@ -242,26 +245,10 @@ return;
                 //vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                 vApp.xhr.send(formData, 'export.php', function
                     (data){
-                        
-//                    vApp.popup.closeElem();
-//                    vApp.popup.updLoadedFile(reqFile+1);
-                        
-//                      //from where would know, we don't have to request
                         if(data == 'filenotfound'){
                             alert('this should not come');
-//                            vApp.recorder.allFileFound = true;
-//                            if(vApp.recorder.waitServer == true){
-//                                var toBePlayItems = vApp.recorder.items;
-//                                vApp.storage.config.endSession();
-//                                vApp.recorder.objn = 0;
-//                                vApp.recorder.items = toBePlayItems;
-//                                vApp.recorder.play();
-//                                vApp.recorder.waitServer = false;
-//                                vApp.popup.closeElem();
-//                            }
                             return;  
                         }
-//                        that.afterResponse(data);
                         vApp.recorder.sendToWorker(data);
                     }
                 );
@@ -277,7 +264,10 @@ return;
                     mvDataWorker.onmessage = function (e) {
                         reqFile++;
                         var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
-                        
+                        //make forcecully 100% if totalSent is overflow
+                        if(e.data.alldata.totalSent > e.data.alldata.totalStore){
+                            e.data.alldata.totalStore = e.data.alldata.totalSent;
+                        }
                         vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
                         
                         if(isUptoBase && !vApp.recorder.alreadyAskForPlay){

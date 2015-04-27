@@ -266,50 +266,41 @@
                     });
 
                     mvDataWorker.onmessage = function (e) {
-//                        if(e.data.hasOwnProperty('export')){
-                            reqFile++;
-    //                      var ori3 = base64DecToArrclm(e.data.rdata);
-    
-//                            e.data.alldata.rdata
-//                            e.data.alldata.totalSent
-//                            e.data.alldata.totalStore
-//                            e.data.alldata.cn
+                        reqFile++;
+                        var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
+                        
+                        vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
+                        
+                        if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
+                            vApp.recorder.askToPlay();
+                            vApp.recorder.alreadyAskForPlay = true;
+                            vApp.recorder.tempRecData.push(e.data.alldata.rdata);
                             
-                            var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore);
+//                            if(vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 100)){
+//                                vApp.recorder.tempRecData.push(e.data.alldata.rdata);
+//                            }
                             
-                            if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
-                                vApp.recorder.askToPlay();
-                                vApp.recorder.alreadyAskForPlay = true;
-                            }else if(isUptoBase && vApp.recorder.playStart){
-                                vApp.popup.closeElem();
-                                vApp.recorder.init(e.data.alldata.rdata);
-                            }else {
-                                vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
-                                vApp.recorder.tempRecData.push(e.data.alldata.rdata);
-                            }
+                        }else if(isUptoBase && vApp.recorder.playStart){
+                            vApp.recorder.init(e.data.alldata.rdata);
+                        }else {
                             
-                            //vApp.recorder.init(e.data.alldata.rdata);
-                            vApp.recorder.requestDataFromServer(reqFile);
-                            
-//                        }
+                            vApp.recorder.tempRecData.push(e.data.alldata.rdata);
+                        }
+                        vApp.recorder.requestDataFromServer(reqFile);
                     }
                 }
-              
-//                this.init(decodeLzString);
-//                this.requestDataFromServer(reqFile);
             },
             
             
             playInt : function (){
-                //convert [[1, 3], [3, 5]] to [1, 3, 3, 5]
+                //convert [[1, 3], [3, 5]] TO [1, 3, 3, 5]
                 var mainData = vApp.recorder.tempRecData.reduce(function(a, b) {
                     return a.concat(b);
                 });
-                
-                vApp.recorder.playStart = true;
+                vApp.popup.closeElem();
                 vApp.recorder.init(mainData);
+                vApp.recorder.playStart = true;
                 vApp.recorder.tempRecData.length = 0;
-                
             },
             
             askToPlay : function (){
@@ -321,9 +312,11 @@
                 }
             },
             
-            isUptoBaseValue : function (totalRecevied, totalPack){
+            isUptoBaseValue : function (totalRecevied, totalPack, base){
                 //30% is base value
-                if(totalRecevied >=  totalPack * 30/100) {
+                if(totalRecevied >=  (totalPack * base)/100) {
+//                    alert('suman bogati');
+//                    debugger;
                     return true;
                 }
                 return false;

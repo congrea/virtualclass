@@ -11,7 +11,18 @@
         var prArr = [];
         var tarr = [];
         var totalDataStored = localStorage.getItem('totalStored');
-        
+        function initToServer (cb){
+            if(typeof cb == 'function'){
+                vApp.recorder.sendDataToServer();
+                setTimeout(
+                    function (){
+                        vApp.recorder.xhrsenddata();
+                    }, 100
+                );
+                vApp.recorder.items = [];
+                cb.apply(vApp.recorder);
+            }
+        }
         var storage = {
             totalStored : (totalDataStored ==  null) ? 0 : JSON.parse(totalDataStored),
             init : function (firstDataStore){
@@ -120,14 +131,17 @@
                 }
             },
             
-            completeStorage : function (playTime, data, bdata){  //storing whiteboard and screenshare
+            completeStorage : function (playTime, data, bdata, sessionEnd){  //storing whiteboard and screenshare
                 this.totalStored++;
                 var t = that.db.transaction(["allData"], "readwrite");
-                
-                if(typeof bdata == 'undefined'){
-                    t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3});
+                if(typeof sessionEnd != 'undefined'){
+                    t.objectStore("allData").add({recObjs: "", sessionEnd: true, id: 3});
                 }else{
-                    t.objectStore("allData").add({recObjs :data, playTime : playTime, id : 3, bd: bdata.type});
+                    if (typeof bdata == 'undefined') {
+                        t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3});
+                    } else {
+                        t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3, bd: bdata.type});
+                    }
                 }
             },
             
@@ -135,19 +149,6 @@
             chunkStorage : function (dobj){
                 var t = that.db.transaction(["chunkData"], "readwrite");
                 dobj.id = 4;
-                
-//                var dobj  = {};
-//                dobj.data = value;
-//                dobj.id = 4;
-//                dobj.row = row;
-//                dobj.trow = trow;
-//                dobj.cn = cn;
-                
-//                if(typeof d != 'undefined'){
-//                    alert('suman bogati');
-//                    debugger;
-//                    dobj.dn = d;
-//                }
                 t.objectStore("chunkData").add(dobj);
             },
             
@@ -303,25 +304,33 @@
                     var cursor = event.target.result;
                     if (cursor) {
                         if(cursor.value.hasOwnProperty('recObjs')){
-                            if(cursor.value.hasOwnProperty('bd')){
-                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs, bd:cursor.value.bd});
+                            if(cursor.value.hasOwnProperty('sessionEnd')){
+                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs, sessionEnd:true});
+                                initToServer(cb);
+                                return;
                             }else{
-                                vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
+                                if(cursor.value.hasOwnProperty('bd')){
+                                    vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs, bd:cursor.value.bd});
+                                }else{
+                                    vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
+                                }
                             }
+                            
                         }
                         cursor.continue();
                     }else{
-                        if(typeof cb == 'function'){
-                            vApp.recorder.sendDataToServer();
-                            setTimeout(
-                                function (){
-                                    vApp.recorder.xhrsenddata();
-                                }, 100
-                            );
-                            vApp.recorder.items = [];
-                            console.log("finished fetch data");
-                            cb.apply(vApp.recorder);
-                        }
+                        //initToServer(cb);
+                        
+//                        if(typeof cb == 'function'){
+//                            vApp.recorder.sendDataToServer();
+//                            setTimeout(
+//                                function (){
+//                                    vApp.recorder.xhrsenddata();
+//                                }, 100
+//                            );
+//                            vApp.recorder.items = [];
+//                            cb.apply(vApp.recorder);
+//                        }
                     }
                 }
             },

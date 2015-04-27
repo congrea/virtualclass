@@ -163,7 +163,6 @@ function (window){
                          this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                     if(vApp.gObj.hasOwnProperty('errAppBar')){
-                        
                         vApp.wb.view.disableLeftAppBar();
                     }
                     
@@ -320,29 +319,21 @@ function (window){
                         }
                         vApp.clearSession(appName);
                     } else {
-                        //vApp.popup.openProgressBar();
+                        io.completeStorage(undefined, undefined, 'sessionend');
                         
-                        
-
                         setTimeout(function (){
-                            vApp.getContent = true; 
-                            io.sock.close();
-                            vApp.recorder.exportData(function (){
-//                                alert("suman bogati hello");
-                                
-//                                vApp.clearSession(appName);
-                                //vApp.getContent = false; 
-                               // io.wsconnect();
-                             //  location.reload();
-                            });
-                            
-                            vApp.popup.sendBackOtherElems();
-                        }, 300
-
+                                //var seData = JSON.stringify({'sessionEnd' : true});
+                                //vApp.storage.completeStorage(undefined, undefined, undefined, 'sessionend');
+                                //io.completeStorage(seData);
+                                vApp.getContent = true;
+                                io.sock.close();
+                                vApp.recorder.exportData(function (){ });
+                                vApp.popup.sendBackOtherElems();
+                            }, 300
                         );
                     }
                     
-                } else{
+                } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     this.currApp = appName;
                     if(!this.PrvAndCurrIsWss(this.previous, appName)){

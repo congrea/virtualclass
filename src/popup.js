@@ -122,7 +122,7 @@ var PopUp = (function(window, undefined) {
 	}
     
     PopUp.prototype.closeElem = function (){
-        if(document.getElementById('waitPlay').style.display == 'block' && vApp.recorder.waitServer == false){
+        if(vApp.recorder.waitServer == false){
             var vAppToolCont = document.getElementById('vAppOptionsCont');
             if(vAppToolCont != null){
                 vAppToolCont.style.zIndex = 100;

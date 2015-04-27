@@ -17,15 +17,6 @@ var io = {
     init : function(cfg, callback) {
         this.cfg = cfg;
         var that = this;
-        
-//        that.completeStorage(cfg);
-        
-        ///alert("should first");
-        
-//        vApp.storeFirstData = function (){
-//            //alert("something happend");
-//            that.completeStorage(cfg);
-//        }
         this.wsconnect();
     },
 
@@ -280,7 +271,8 @@ var io = {
         console.log("i am closing this connection");
     }, 
     
-    completeStorage : function (data, bdata){
+    completeStorage : function (data, bdata, sessionEnd){
+        
         if(vApp.hasOwnProperty('getContent') && vApp.getContent == true){
             return; // not store when data is fetching from indexeddb
         }
@@ -318,8 +310,13 @@ var io = {
         var currTime = new Date().getTime();
         var playTime = currTime - referenceTime;
         
-        //data = encodeURI(data);
-        (typeof bdata == 'undefined') ? vApp.storage.completeStorage(playTime, data) : vApp.storage.completeStorage(playTime, data, bdata);
+        if(typeof sessionEnd != 'undefined'){
+            //undefined for data and bindary data
+            vApp.storage.completeStorage(playTime, undefined, undefined, sessionEnd)
+        }else{
+            (typeof bdata == 'undefined') ? vApp.storage.completeStorage(playTime, data) : vApp.storage.completeStorage(playTime, data, bdata);
+        }
+        
         
         referenceTime = currTime;
     }

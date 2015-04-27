@@ -117,7 +117,8 @@
             
             xhrsenddata : function (rnum){
                 if(vApp.recorder.storeDone == 1){
-                    return;
+                    
+return;
                 }
                 
                 if(typeof earlierTimeout != 'undefined'){
@@ -132,6 +133,7 @@
                 
                 vApp.storage.getrowData(['chunkData'], function (dObj,  frow){
                     if((typeof dObj == 'string' || typeof dObj == 'undefined')){
+                        //try if not found first row
                         earlierTimeout = setTimeout (
                             function (){
                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
@@ -141,6 +143,12 @@
                     } else {
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
+                                setTimeout(function (){
+                                    vApp.popup.closeElem();
+                                    vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
+                                    vApp.storage.config.endSession();
+                                },2000
+                            );
                             return;
                         }   
                         
@@ -240,16 +248,17 @@
                         
 //                      //from where would know, we don't have to request
                         if(data == 'filenotfound'){
-                            vApp.recorder.allFileFound = true;
-                            if(vApp.recorder.waitServer == true){
-                                var toBePlayItems = vApp.recorder.items;
-                                vApp.storage.config.endSession();
-                                vApp.recorder.objn = 0;
-                                vApp.recorder.items = toBePlayItems;
-                                vApp.recorder.play();
-                                vApp.recorder.waitServer = false;
-                                vApp.popup.closeElem();
-                            }
+                            alert('this should not come');
+//                            vApp.recorder.allFileFound = true;
+//                            if(vApp.recorder.waitServer == true){
+//                                var toBePlayItems = vApp.recorder.items;
+//                                vApp.storage.config.endSession();
+//                                vApp.recorder.objn = 0;
+//                                vApp.recorder.items = toBePlayItems;
+//                                vApp.recorder.play();
+//                                vApp.recorder.waitServer = false;
+//                                vApp.popup.closeElem();
+//                            }
                             return;  
                         }
 //                        that.afterResponse(data);
@@ -264,7 +273,7 @@
                         rdata: encodeData,
                         getData : true
                     });
-
+                    
                     mvDataWorker.onmessage = function (e) {
                         reqFile++;
                         var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
@@ -275,18 +284,28 @@
                             vApp.recorder.askToPlay();
                             vApp.recorder.alreadyAskForPlay = true;
                             vApp.recorder.tempRecData.push(e.data.alldata.rdata);
-                            
-//                            if(vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 100)){
-//                                vApp.recorder.tempRecData.push(e.data.alldata.rdata);
-//                            }
-                            
                         }else if(isUptoBase && vApp.recorder.playStart){
                             vApp.recorder.init(e.data.alldata.rdata);
                         }else {
-                            
                             vApp.recorder.tempRecData.push(e.data.alldata.rdata);
                         }
-                        vApp.recorder.requestDataFromServer(reqFile);
+                        
+                        if(!e.data.alldata.rdata[e.data.alldata.rdata.length-1].hasOwnProperty('sessionEnd')){
+                            vApp.recorder.requestDataFromServer(reqFile);
+                        }else{
+                            vApp.recorder.allFileFound = true;
+                            if(vApp.recorder.waitServer == true){ //if earler interrupt of replay
+                                var toBePlayItems = vApp.recorder.items;
+                                vApp.storage.config.endSession();
+                                vApp.recorder.objn = 0;
+                                vApp.recorder.items = toBePlayItems;
+                                vApp.recorder.play();
+                                vApp.recorder.waitServer = false;
+                                vApp.popup.closeElem();
+                                return;
+                            }
+                        }
+//                        
                     }
                 }
             },
@@ -336,8 +355,11 @@
                     vApp.gObj.uName = io.cfg.userobj.name;
                     vApp.gObj.uid = io.cfg.userobj.userid;
                 }
-                if(typeof this.items[this.objn+1] == 'undefined'){
-//                    e.data =  JSON.parse(this.items[this.objn].recObjs);
+                
+                
+                
+           //     if(typeof this.items[this.objn+1] == 'undefined'){
+                if(this.items[this.objn+1].hasOwnProperty('sessionEnd')){  
                     e.data =  this.items[this.objn].recObjs;
                     io.onRecMessage(that.convertInto(e)); 
                     
@@ -347,7 +369,6 @@
                         vApp.recorder.waitPopup = false;     
                         this.displayWaitPopupIfNot();
                     }
-                    
                     //return;
                 }else{
                   that.playTimeout = setTimeout( function (){

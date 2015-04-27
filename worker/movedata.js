@@ -65,10 +65,14 @@ onmessage = function(e) {
         postMessage({status:'done'});
         
     } else if (e.data.hasOwnProperty('rdata') && e.data.hasOwnProperty('getData')){
+        
+        
 //        var data = e.data.rdata;
+        
         var alldata = JSON.parse(e.data.rdata);
         var data = LZString.decompressFromEncodedURIComponent(alldata.rdata);
         alldata.rdata = JSON.parse(data);
+        
         
         postMessage({
             alldata : alldata

@@ -163,6 +163,8 @@
 //                        }
                         vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
                         
+                        vApp.recorder.items = []; //empty on each chunk sent
+                        
                         vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
                             if (msg == 'File created') {
                                 vApp.recorder.rnum++;
@@ -186,11 +188,12 @@
             },
             
             sendDataToServer : function (){
+                var that = this;
+                
                 var t = vApp.storage.db.transaction(["chunkData"], "readwrite");
                 var objectStore = t.objectStore("chunkData");
                 objectStore.clear();
-                        
-                var that = this;
+              
                 vApp.popup.waitBlockAction('none');
 
                 if (!!window.Worker) {
@@ -199,7 +202,7 @@
                         totalStored :vApp.storage.totalStore,
                         makeChunk : true
                     });
-                
+
                     // Every time the data is sending, the function 
                     // is declaring as expression which is not good
                     mvDataWorker.onmessage = function (e) {
@@ -240,10 +243,10 @@
                 //vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                 vApp.xhr.send(formData, 'export.php', function
                     (data){
-                        if(data == 'filenotfound'){
-                            alert('this should not come');
-                            return;  
-                        }
+//                        if(data == 'filenotfound'){
+//                            alert('this should not come');
+//                            return;  
+//                        }
                         vApp.recorder.sendToWorker(data);
                     }
                 );

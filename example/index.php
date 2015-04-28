@@ -245,7 +245,6 @@ if(isset($_GET['lname'])){
 
             </div>
             
-            
                 <div id="waitPlay">
                     <div class="rv-vanilla-modal-body">
                         <div id="waitMsg">

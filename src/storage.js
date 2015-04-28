@@ -19,7 +19,7 @@
                         vApp.recorder.xhrsenddata();
                     }, 100
                 );
-                vApp.recorder.items = [];
+//                vApp.recorder.items = [];
                 cb.apply(vApp.recorder);
             }
         }
@@ -32,12 +32,14 @@
                 //TODO these are not using because audio and video is not using
                 this.tables = ["wbData", "allData", "audioData", "config"];
                 //this.tables = ["wbData", "audioData", "config"];
-                var openRequest = window.indexedDB.open("vidya_app", 3);
+                //second parameter is versoin of datbase
+                var openRequest = window.indexedDB.open("vidya_app", 4);
                 openRequest.onerror = function(e) {
                     console.log("Error opening db");
                     console.dir(e);
                 };
                 openRequest.onupgradeneeded = function(e) {
+                    
                     var thisDb = e.target.result;
                     var objectStore;
                     //Create Note OS
@@ -209,7 +211,7 @@
             
             getrowData : function (table, cb, row){
                 var transaction = that.db.transaction(table, "readonly");
-                var objectStore = transaction.objectStore(table);
+                var objectStore = transaction.objectStore(table[0]);
                 
                 if(typeof row == 'string' && row == 'first'){
                     objectStore.openCursor().onsuccess = function(event) {
@@ -315,7 +317,6 @@
                                     vApp.recorder.items.push({playTime: cursor.value.playTime, recObjs : cursor.value.recObjs});
                                 }
                             }
-                            
                         }
                         cursor.continue();
                     }else{

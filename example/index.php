@@ -260,7 +260,11 @@ if(isset($_GET['lname'])){
                             </div>
                         </div>
                         
-                        <button id="playButton">Play</button>
+                        <div id="askPlay">
+                            <div id="playMessage"></div>
+                            <button id="playButton">Play</button>
+                        </div>
+                        
                         
                     </div>
                 </div>

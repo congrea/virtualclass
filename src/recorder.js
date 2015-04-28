@@ -13,18 +13,7 @@
         var sentFile = 0;
 //        var xhrCall = 0;
         var chunkNum = 0;
-        /*
-         * QUEUE CODE
-        function sendData(data){
-            vApp.xhr.send(data, 'import.php', function (){
-                if(vApp.recorder.fileQueue.length > 0 ){
-                    sentFile++;
-                    sendData(vApp.recorder.fileQueue.splice(0, 1)[0]);
-                    vApp.vutil.progressBar(vApp.storage.totalStored, vApp.recorder.totalSent);
-                    console.log('file is sent ' + sentFile);
-                }
-            });
-        } */
+        
         
         var fromFille = 0;
         var recorder = {
@@ -114,11 +103,15 @@
                 return e;
             },
             
+            clearPopups : function (){
+                vApp.popup.closeElem();
+                vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
+                vApp.storage.config.endSession();
+            },
             
             xhrsenddata : function (rnum){
                 if(vApp.recorder.storeDone == 1){
-                    
-return;
+                    return;
                 }
                 
                 if(typeof earlierTimeout != 'undefined'){
@@ -144,9 +137,11 @@ return;
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
                                 setTimeout(function (){
-                                    vApp.popup.closeElem();
-                                    vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
-                                    vApp.storage.config.endSession();
+//                                vApp.recorder.clearPopups();
+//                                    vApp.popup.closeElem();
+//                                    vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
+//                                    vApp.storage.config.endSession();
+                                    
                                 },2000
                             );
                             return;
@@ -163,9 +158,9 @@ return;
                         formData.append("user", vApp.gObj.uid); 
                         formData.append("cn", chunkNum);
                         //make forcecully 100% if totalSent is overflow
-                        if(dObj.totalSent > dObj.totalStore){
-                            dObj.totalSent = dObj.totalStore;
-                        }
+//                        if(dObj.totalSent > dObj.totalStore){
+//                            dObj.totalSent = dObj.totalStore;
+//                        }
                         vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
                         
                         vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
@@ -265,9 +260,9 @@ return;
                         reqFile++;
                         var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
                         //make forcecully 100% if totalSent is overflow
-                        if(e.data.alldata.totalSent > e.data.alldata.totalStore){
-                            e.data.alldata.totalStore = e.data.alldata.totalSent;
-                        }
+//                        if(e.data.alldata.totalSent > e.data.alldata.totalStore){
+//                            e.data.alldata.totalStore = e.data.alldata.totalSent;
+//                        }
                         vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
                         
                         if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
@@ -284,7 +279,7 @@ return;
                             vApp.recorder.requestDataFromServer(reqFile);
                         }else{
                             vApp.recorder.allFileFound = true;
-                            if(vApp.recorder.waitServer == true){ //if earler interrupt of replay
+                            if(vApp.recorder.waitServer == true){ //if earlier replay is interrupt 
                                 var toBePlayItems = vApp.recorder.items;
                                 vApp.storage.config.endSession();
                                 vApp.recorder.objn = 0;
@@ -313,6 +308,8 @@ return;
             },
             
             askToPlay : function (){
+//                var playMessage = vApp.lang.getString('askUser');
+                
                 var that = this;
                 var playButton = document.getElementById("playButton");
                 if(playButton != null){
@@ -322,10 +319,7 @@ return;
             },
             
             isUptoBaseValue : function (totalRecevied, totalPack, base){
-                //30% is base value
                 if(totalRecevied >=  (totalPack * base)/100) {
-//                    alert('suman bogati');
-//                    debugger;
                     return true;
                 }
                 return false;
@@ -345,8 +339,6 @@ return;
                     vApp.gObj.uName = io.cfg.userobj.name;
                     vApp.gObj.uid = io.cfg.userobj.userid;
                 }
-                
-                
                 
            //     if(typeof this.items[this.objn+1] == 'undefined'){
                 if(this.items[this.objn+1].hasOwnProperty('sessionEnd')){  

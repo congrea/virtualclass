@@ -470,6 +470,9 @@
             },
             
             progressBar : function (totalVal, portion, pbar, pval){
+                if(portion > totalVal){
+                    portion = totalVal;
+                }
                 if(totalVal == 0 && portion == 0){
                     var totalProgress =  0;
                 }else {

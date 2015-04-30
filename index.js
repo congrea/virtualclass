@@ -117,25 +117,25 @@ $.uiBackCompat = false;
         });
         
         $(document).on("binrec", function(e){
-            
-            //vApp.gObj.video.audio []
+            // vApp.gObj.video.audio []
+            // TODO here should be eith unit8clampped array or unit8array
             var data_pack = new Uint8Array(e.message);
             
-            if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
+               
+            if(data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
                var stype = 'ss';
-                var sTool = 'ScreenShare';
+               var sTool = 'ScreenShare';
             }
             
             if (data_pack[0] == 101) { // Audio
                 if(!vApp.gObj.video.audio.otherSound){
-                    
                     vApp.gObj.video.audio.receivedAudioProcess(e.message);
                 }
                 return;
             } else if (data_pack[0] == 11) { // user video image
                 vApp.gObj.video.video.process(e.message);
                 return;
-            } else{
+            } else {
                 if(!vApp.hasOwnProperty('studentScreen')){
                     vApp.studentScreen = new studentScreen();
                 }

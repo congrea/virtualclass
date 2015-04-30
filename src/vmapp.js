@@ -318,6 +318,7 @@ function (window){
                             return;
                         }
                         vApp.clearSession(appName);
+                        window.location.reload();
                     } else {
                         io.completeStorage(undefined, undefined, 'sessionend');
                         

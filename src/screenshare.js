@@ -47,6 +47,9 @@
             },
             
             initStudentScreen : function (imgData, d, stype, stool){
+                
+//                io.dataBinaryStore(imgData); //storing received screen
+                
                 vApp.vutil.addClass('audioWidget', "fixed");
                 app = stype;
                 if(typeof vApp[app] != 'object' ){

@@ -266,16 +266,23 @@
 //                        if(e.data.alldata.totalSent > e.data.alldata.totalStore){
 //                            e.data.alldata.totalStore = e.data.alldata.totalSent;
 //                        }
+                        
+                        vApp.recorder.ctotalStore =  e.data.alldata.totalStore;
+                        vApp.recorder.ctotalSent =  e.data.alldata.totalSent;
+                        
                         vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
                         
                         if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
                             vApp.recorder.askToPlay();
                             vApp.recorder.alreadyAskForPlay = true;
                             vApp.recorder.tempRecData.push(e.data.alldata.rdata);
-                        }else if(isUptoBase && vApp.recorder.playStart){
+                        }else if(isUptoBase && vApp.recorder.playStart && vApp.recorder.waitServer == false){
                             vApp.recorder.init(e.data.alldata.rdata);
                         }else {
                             vApp.recorder.tempRecData.push(e.data.alldata.rdata);
+                            if(vApp.recorder.waitServer == true){
+                                 vApp.recorder.alreadyPlayed = true;
+                            }
                         }
                         
                         if(!e.data.alldata.rdata[e.data.alldata.rdata.length-1].hasOwnProperty('sessionEnd')){
@@ -283,10 +290,25 @@
                         }else{
                             vApp.recorder.allFileFound = true;
                             if(vApp.recorder.waitServer == true){ //if earlier replay is interrupt 
-                                var toBePlayItems = vApp.recorder.items;
+                                
+//                                if(vApp.recorder.hasOwnProperty('alreadyPlayed')){
+//                                     
+//                                }
+                                
+//                                if(vApp.recorder.hasOwnProperty('alreadyPlayed') && vApp.recorder.alreadyPlayed.length > 0){
+//                                    toBePlayItems = vApp.recorder.alreadyPlayed.concat(toBePlayItems);
+//                                }
+                                //var toBePlayItems = vApp.recorder.items;
+                                
                                 vApp.storage.config.endSession();
+                                
+                                var mainData = vApp.recorder.tempRecData.reduce(function(a, b) {
+                                    return a.concat(b);
+                                });
+                                
+                                //vApp.recorder.items = toBePlayItems;
                                 vApp.recorder.objn = 0;
-                                vApp.recorder.items = toBePlayItems;
+                                vApp.recorder.init(mainData);
                                 vApp.recorder.play();
                                 vApp.recorder.waitServer = false;
                                 vApp.popup.closeElem();
@@ -343,24 +365,36 @@
                     vApp.gObj.uid = io.cfg.userobj.userid;
                 }
                 
-           //     if(typeof this.items[this.objn+1] == 'undefined'){
-                if(this.items[this.objn+1].hasOwnProperty('sessionEnd')){  
-                    e.data =  this.items[this.objn].recObjs;
-                    io.onRecMessage(that.convertInto(e)); 
+//                if(this.items[this.objn] == 'undefined'){
+//                    alert("suman bogati");
+//                    debugger;
+//                }
+                if((typeof this.items[this.objn+1] == 'undefined') || (this.items[this.objn].hasOwnProperty('sessionEnd'))){
+//                if(this.items[this.objn].hasOwnProperty('sessionEnd')){
+                    if(!this.items[this.objn].hasOwnProperty('sessionEnd')){
+                        e.data =  this.items[this.objn].recObjs;
+                        io.onRecMessage(that.convertInto(e)); 
+                    }
                     
                     if(vApp.recorder.allFileFound == false){
                         //waiting for server response
                         vApp.recorder.waitServer = true;
                         vApp.recorder.waitPopup = false;     
                         this.displayWaitPopupIfNot();
+                        if(vApp.recorder.hasOwnProperty('ctotalStore') || vApp.recorder.hasOwnProperty('ctotalSent')){
+//                            vApp.recorder.ctotalStore = e.data.alldata.totalStore;
+//                            vApp.recorder.ctotalSent = e.data.alldata.totalStore
+                            vApp.vutil.progressBar(vApp.recorder.ctotalStore, vApp.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
+                        }
                     }
                     //return;
                 }else{
-                  that.playTimeout = setTimeout( function (){
-                        e.data =  that.items[that.objn].recObjs;
-                        io.onRecMessage(that.convertInto(e)); 
-                        that.play.call(that);
+                    that.playTimeout = setTimeout( function (){
+                        var ev = {};
+                        ev.data =  that.items[that.objn].recObjs;
+                        io.onRecMessage(that.convertInto(ev)); 
                         that.objn++;
+                        that.play.call(that);
                         
                         if(typeof that.items[that.objn] == 'object'){
                             that.playTime = that.items[that.objn].playTime;

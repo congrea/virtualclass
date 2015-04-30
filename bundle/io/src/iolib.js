@@ -46,9 +46,6 @@ var io = {
         }
         this.sock.binaryType = 'arraybuffer';
         this.sock.onmessage = function(e) {
-//            alert('suman bogati');
-//            debugger;
-            //io.completeStorage(e.data);
             io.onRecMessage(e);
         }
 
@@ -92,13 +89,13 @@ var io = {
     },
 
     send : function(msg){
-        
         //currTime(pag);            
         var obj = {
                 //cfun : 'broadcast',
                 cfun : 'broadcastToAll',
                 arg : {'msg':msg}
         }
+        
         if(arguments.length > 1){
             var uid = arguments[1];// user id to  whom msg is intented
             obj.arg.touser = this.uniquesids[uid];
@@ -138,14 +135,17 @@ var io = {
     
     sendBinary : function (msg){
         this.sock.send(msg.buffer);
+        this.dataBinaryStore(msg);
+    },
+    
+    dataBinaryStore : function (msg){
         if(Object.prototype.toString.call(msg) == "[object Int8Array]"){
             var dtype = 'a';
-//            msg = base64EncArrInt(msg);
             msg = vApp.dtCon.base64EncArrInt(msg);
-        }else if(Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
+        } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
             var dtype = 'c';
             msg = vApp.dtCon.base64EncArr(msg);
-//            msg = base64EncArr(msg);
+
         }
         this.completeStorage(msg, {type : dtype});
     },
@@ -171,14 +171,26 @@ var io = {
                         type: "binrec",
                         message: e.data
                     }); 
-                    // IndexDB does not support storing of buffer, need to convert it into array.
-                    var binData = new Uint8Array(e.data); 
-                    io.completeStorage(binData);
+                     
+                    var data_pack = new Uint8Array(e.data);
+                    var msg = (data_pack[0] == 101) ?  new Int8Array(data_pack) : new Uint8ClampedArray(data_pack); 
+                    
+//                    if (data_pack[0] == 101) { 
+//                        var msg = new Int8Array(data_pack);
+//                    } else {
+//                        var msg = new Uint8ClampedArray(data_pack);
+//                    }
+                    this.dataBinaryStore(msg);
+                    
                 }else{
-                    io.completeStorage(e.data);
+//                  io.completeStorage(e.data);
                     
                     var r1 = JSON.parse(e.data);
-    
+                    
+                    if(!r1.hasOwnProperty('userto')){
+                        io.completeStorage(e.data);
+                    }
+                    
                     if (r1.type == "joinroom"){
                         console.log("New user join room " + r1.users);
                         /* identifying new user from list*/
@@ -201,6 +213,7 @@ var io = {
                     }
     
                     if (r1.type == "broadcastToAll"){
+                        
                         console.log("json  : display msg");
                         var userto = '';
                         
@@ -291,7 +304,7 @@ var io = {
                         var cursor = event.target.result;
                         if (cursor) {
                             if(cursor.value.hasOwnProperty('recObjs')){
-                                if(typeof cursor.value.recObjs == 'string'){
+                                if(!cursor.value.hasOwnProperty('bd')){
                                     var recObs = JSON.parse(cursor.value.recObjs);
                                     if(!recObs.hasOwnProperty('authuser')){
                                         objectStore.clear();
@@ -304,7 +317,6 @@ var io = {
                     };
                 }
             }
-           //}
         }
 
         var currTime = new Date().getTime();

@@ -14,16 +14,16 @@
 //        var xhrCall = 0;
         var chunkNum = 0;
         
-         errInterval = setInterval(
-            function (){
-                if(chunkNum == 2){
-                    vApp.recorder.startDownloadProcess();
-                    clearInterval(errInterval);
-                }
-            }, 1000
-        );
+//         errInterval = setInterval(
+//            function (){
+//                if(chunkNum == 2){
+//                    vApp.recorder.startDownloadProcess();
+//                    clearInterval(errInterval);
+//                }
+//            }, 1000
+//        );
 
-        function destroyClickedElement(event){
+        function destroyClickedElementForFirefox(event){
             document.body.removeChild(event.target);
         }
 
@@ -196,19 +196,22 @@
                                     chunkNum++;
                                     vApp.recorder.xhrsenddata(vApp.recorder.rnum);
                                 } else {
-                                    setTimeout (
-                                        function (){
-                                            // Show Message "Retring [Retry Number]"
-                                           //console.log("Trying to connnect " + (++vApp.recorder.emn));
-                                           if(vApp.recorder.emn <= 1){
-                                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
-                                                vApp.recorder.emn++;
-                                           }else{
-                                               // vApp.recorder.startDownloadProcess(); //if error occurred
-                                           }
-                                        },
-                                        1000
-                                    );
+                                    
+                                    vApp.recorder.tryForTransmit();
+                                    
+//                                    setTimeout (
+//                                        function (){
+//                                            // Show Message "Retring [Retry Number]"
+//                                           //console.log("Trying to connnect " + (++vApp.recorder.emn));
+//                                           if(vApp.recorder.emn <= 1){
+//                                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+//                                                vApp.recorder.emn++;
+//                                           }else{
+//                                                vApp.recorder.startDownloadProcess(); //if error occurred
+//                                           }
+//                                        },
+//                                        1000
+//                                    );
                                 }
                             });
                         }
@@ -216,7 +219,21 @@
                 }, vApp.recorder.rnum);
             },
             
-            
+            tryForconnect : function (){
+                setTimeout (
+                    function (){
+                        // Show Message "Retring [Retry Number]"
+                       //console.log("Trying to connnect " + (++vApp.recorder.emn));
+                       if(vApp.recorder.emn <= 1){
+                            vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                            vApp.recorder.emn++;
+                       }else{
+                            vApp.recorder.startDownloadProcess(); //if error occurred
+                       }
+                    },
+                    1000
+                );
+            }, 
             makeAvailDownloadFile : function (){
                 var pbar = document.getElementById('progressBarContainer');
                 var downloadLinkCont  = document.createElement('div');
@@ -255,7 +272,7 @@
                             // Firefox requires the link to be added to the DOM
                             // before it can be clicked.
                             downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-                            downloadLink.onclick = destroyClickedElement;
+                            downloadLink.onclick = destroyClickedElementForFirefox;
                             document.body.appendChild(downloadLink);
                         }
                         downloadLink.click();

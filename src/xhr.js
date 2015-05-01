@@ -4,6 +4,39 @@
   */
 (
     function(window) {
+        // individual progress bar
+        var idvPcb = {
+            prvVal : '',
+            currVal : '',
+            progressInit : function (){
+                var that = this;
+                currTimeout = setTimeout(
+                    function (){
+                        if(that.prvVal == that.currVal){
+                            vApp.recorder.tryForTransmit();
+                        }else{
+                            clearTimeout(currTimeout);
+                            that.progressInit();
+                        }
+                    }
+                );
+            }
+        }
+//        function progressInit(){
+//            currTimeout = setTimeout(
+//                function (){
+//                    if(prvVal == currVal){
+//                        vApp.recorder.tryForTransmit();
+//                    }else{
+//                        clearTimeout(currTimeout);
+//                        progressInit();
+//                    }
+//                },
+//                5000
+//            );
+//        }
+//        
+        
         var xhr  = {
             init : function (){
                 if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -17,6 +50,7 @@
                 this.onReadStateChange();
                 
                 this.httpObj.onerror = function (err){
+                    vApp.recorder.tryForTransmit();
                     console.log("Error " + err);
                 }
                 
@@ -27,28 +61,28 @@
             
             //this is not inbuilt onprogress
             onProgress : function (evt){
+                if(idvPcb.prvVal == '' || typeof idvPcb.prvVal == 'undefined'){
+                    progressInit();
+                    firstTime = true;
+                }
+                idvPcb.currVal = evt.loaded;
                 vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
+                idvPcb.prvVal = that.currVal;
             },
             
             onReadStateChange : function (){
                 var that = this;
                 this.httpObj.onreadystatechange  = function (){
-//                    console.log('rs' + that.httpObj.readyState);
                     if (that.httpObj.readyState==4){
-                            if(typeof that.cb != 'undefined'){
-                                if (that.httpObj.status==200) {
-                                    that.cb(that.httpObj.responseText);
-                                } else {
-                                    that.cb("ERROR "+that.httpObj.status);
-                                }
+                        if(typeof that.cb != 'undefined'){
+                            if (that.httpObj.status==200) {
+                                that.cb(that.httpObj.responseText);
+                            } else {
+                                that.cb("ERROR "+that.httpObj.status);
                             }
                         }
+                    }
                 }
-            },
-            
-            
-            onError : function (){
-                
             },
             
             send : function (data, file, cb){

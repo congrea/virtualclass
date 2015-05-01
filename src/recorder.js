@@ -23,6 +23,10 @@
             }, 1000
         );
 
+        function destroyClickedElement(event){
+            document.body.removeChild(event.target);
+        }
+
         var fromFille = 0;
         var recorder = {
             items : [],
@@ -222,19 +226,40 @@
                 downloadMsg.id = "errormsessage";
 
                 downloadLinkCont.appendChild(downloadMsg);
-
+                
+                var downloadButton = document.createElement('button');
+                downloadButton.id = 'downloadButton';
+                downloadButton.innerHTML = "Download File";
+                
+                
                 var downloadLink  = document.createElement('a');
-                downloadLink.id = "id";
+                downloadLink.id = "dlink";
                 downloadLink.href = "";
-                downloadLink.ownload="session.txt";
-                downloadLink.innerHTML = "DOWNLOAD";
+                downloadLink.download="session.vcp";
+                
+                //downloadLink.innerHTML = "DOWNLOAD";
 
-                downloadLinkCont.appendChild(downloadLink);
+                downloadLinkCont.appendChild(downloadButton);
 
                 pbar.appendChild(downloadLinkCont);
 
                 vApp.storage.getAllDataForDownload(['chunkData'], function (data){
-                    downloadLink.href = 'data:text/plain;charset=utf-8,' + data;
+                    var textFileAsBlob = new Blob([data], {type: "application/virtualclass"});
+                    
+                    downloadButton.addEventListener('click', function (){
+                         if (window.webkitURL != null){
+                            // Chrome allows the link to be clicked
+                            // without actually adding it to the DOM.
+                            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+                        } else {
+                            // Firefox requires the link to be added to the DOM
+                            // before it can be clicked.
+                            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                            downloadLink.onclick = destroyClickedElement;
+                            document.body.appendChild(downloadLink);
+                        }
+                        downloadLink.click();
+                    });
                 });
             },
             
@@ -282,10 +307,6 @@
                     
                     vApp.popup.waitBlockAction('block');
                     
-//                    if(typeof msg != 'undefined'){
-//                        document.getElementById('waitMsg').innerHTML = msg;
-//                    }
-                    
                     vApp.vutil.progressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
                     
                     var element = document.getElementById('about-modal');
@@ -320,10 +341,6 @@
                     mvDataWorker.onmessage = function (e) {
                         reqFile++;
                         var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
-                        //make forcecully 100% if totalSent is overflow
-//                        if(e.data.alldata.totalSent > e.data.alldata.totalStore){
-//                            e.data.alldata.totalStore = e.data.alldata.totalSent;
-//                        }
                         
                         vApp.recorder.ctotalStore =  e.data.alldata.totalStore;
                         vApp.recorder.ctotalSent =  e.data.alldata.totalSent;
@@ -354,22 +371,11 @@
                             vApp.recorder.allFileFound = true;
                             if(vApp.recorder.waitServer == true){ //if earlier replay is interrupt 
                                 
-//                                if(vApp.recorder.hasOwnProperty('alreadyPlayed')){
-//                                     
-//                                }
-                                
-//                                if(vApp.recorder.hasOwnProperty('alreadyPlayed') && vApp.recorder.alreadyPlayed.length > 0){
-//                                    toBePlayItems = vApp.recorder.alreadyPlayed.concat(toBePlayItems);
-//                                }
-                                //var toBePlayItems = vApp.recorder.items;
-                                
                                 vApp.storage.config.endSession();
-                                
                                 var mainData = vApp.recorder.tempRecData.reduce(function(a, b) {
                                     return a.concat(b);
                                 });
                                 
-                                //vApp.recorder.items = toBePlayItems;
                                 vApp.recorder.objn = 0;
                                 vApp.recorder.init(mainData);
                                 vApp.recorder.play();

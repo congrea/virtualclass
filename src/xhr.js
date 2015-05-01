@@ -28,10 +28,6 @@
             //this is not inbuilt onprogress
             onProgress : function (evt){
                 vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
-                
-//                if(evt.loaded == evt.total){
-//                    vApp.vutil.progressBar(0, 0, 'indProgressBar', 'indProgressValue');
-//                }
             },
             
             onReadStateChange : function (){
@@ -46,8 +42,13 @@
                                     that.cb("ERROR "+that.httpObj.status);
                                 }
                             }
-                       }
+                        }
                 }
+            },
+            
+            
+            onError : function (){
+                
             },
             
             send : function (data, file, cb){

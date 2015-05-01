@@ -7,7 +7,18 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
+
+include('en.php');
 include('auth.php');
+
+function get_string($phrase){
+    global $string;
+    $lang = $string;
+    return $lang[$phrase];
+}
+
+
+
 //the www path for virtualclass
 //$whiteboardpath = "https://local.vidya.io/virtualclass/";
 $whiteboardpath = "https://local.vidya.io/suman-repo/virtualclass/";
@@ -105,27 +116,8 @@ if(isset($_GET['lname'])){
 
 <body>
     <div id="dummyPlayCont">
-        
-<!--        <a href="#" id="mydata"> Download file </a> 
-        <button id="getContent"> Get Content </button> -->
-        
         <button id="dummyPlay">Play</button>
-<!--        <div id="progressBarContainer" style="width:200px; padding:50px;">
-            <div id="progress">
-                <div id="progressBar">
-                </div>
-                <div id="progressValue">
-                </div>
-            </div>
-            
-        </div>-->
-
-<!--        <input type='file' id="fileInput" accept='text/plain'><br>-->
-        
     </div>
-    
- 
-    
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
     
     <div id="vAppWhiteboard" class="vmApp">
@@ -221,51 +213,59 @@ if(isset($_GET['lname'])){
 
             <div id="progressBarContainer">
                 <div class="rv-vanilla-modal-header group">
-                    <h2 class="rv-vanilla-modal-title">Your recording is uploading....</h2>
+                    <h2 class="rv-vanilla-modal-title"> <?php echo get_string('uploadsession'); ?> </h2>
                 </div>
 
                 <div class="rv-vanilla-modal-body">
                     <div style="width:200px; padding:50px;">
-                        <div id="progress">
-                            <div id="progressBar" class="progressBar">
+                        <div id="totProgressCont">
+                            <div id="totalProgressLabel"> <?php echo get_string('totalprogress'); ?> </div>
+                            
+                            <div id="progress">
+                                <div id="progressBar" class="progressBar"></div>
+                                <div id="progressValue" class="progressValue"> 0%</div>
                             </div>
-                            <div id="progressValue" class="progressValue"> 0%
-                            </div>
+                            
                         </div>
-                        <br />
-                        <div id="indProgress">
-                            <div id="indProgressBar" class="progressBar">
-                            </div>
+                       
+                        <div id="indvProgressCont">
+                            <div id="indvProgressLabel"> <?php echo get_string('indvprogress'); ?> </div>
+                        
+                            <div id="indProgress">
+                                <div id="indProgressBar" class="progressBar">
+                                </div>
 
-                            <div id="indProgressValue" class="progressValue"> 0%
+                                <div id="indProgressValue" class="progressValue"> 0%
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                
 
             </div>
             
                 <div id="waitPlay">
                     <div class="rv-vanilla-modal-body">
-                        <div id="waitMsg">
+                        <div id="downloadPcCont">
+                            <div id="downloadSessionText"> <?php echo get_string('downloadsession'); ?> </div>
+                            
+                            <div id="downloadPrgressLabel"> <?php echo get_string('overallprogress'); ?>  </div>
+                            <div id="downloadProgress">
+                                <div id="downloadProgressBar" class="progressBar"></div>
+                                <div id="downloadProgressValue" class="progressValue"> 0% </div>
+                            </div>
                             
                         </div>
                         
-                        <div id="downloadProgress">
-                            <div id="downloadProgressBar" class="progressBar">
-
-                            </div>
-                            <div id="downloadProgressValue" class="progressValue"> 0%
-                            </div>
-                        </div>
-                        
                         <div id="askPlay">
-                            <div id="playMessage"></div>
+                            <div id="askplayMessage"> </div>
                             <button id="playButton">Play</button>
                         </div>
                         
-                        
                     </div>
+                    
                 </div>
             
         </div>

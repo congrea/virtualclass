@@ -4,7 +4,7 @@
   */
 (   
     function(window) {
-
+        
         var binData;
         var e = {};
         var reqFile = 0;
@@ -14,7 +14,15 @@
 //        var xhrCall = 0;
         var chunkNum = 0;
         
-        
+         errInterval = setInterval(
+            function (){
+                if(chunkNum == 2){
+                    vApp.recorder.startDownloadProcess();
+                    clearInterval(errInterval);
+                }
+            }, 1000
+        );
+
         var fromFille = 0;
         var recorder = {
             items : [],
@@ -32,6 +40,8 @@
             tempRecData : [],
             alreadyAskForPlay : false,
             playStart : false,
+            error : 0,
+            mkDownloadLink : "",
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -59,7 +69,6 @@
                             this.items.push(tempData[m]);
                         }
                         
-                        
                         for(k=0; k<tempData.length; k++){
                             if(tempData[k].hasOwnProperty('bd')){
                                 if(tempData[k].bd == 'a') {
@@ -82,6 +91,11 @@
                        this.prvNum = i;
                     }
                 }
+            },
+            
+            startUploadProcess : function (){
+                vApp.recorder.exportData(function (){});
+                vApp.popup.sendBackOtherElems();
             },
             
             exportData : function (cb){
@@ -109,7 +123,16 @@
                 vApp.storage.config.endSession();
             },
             
-            xhrsenddata : function (rnum){
+            xhrsenddata : function (rnum, err, cb){
+                if(typeof err != 'undefined'){
+                    vApp.recorder.error = 1;
+//                    error = "error";
+                }
+                if(typeof cb != 'undefined'){
+                    vApp.recorder.mkDownloadLink =  cb; // mkDownloadLink should be localize
+                }
+                
+                //this is not happend but in any case
                 if(vApp.recorder.storeDone == 1){
                     return;
                 }
@@ -126,7 +149,7 @@
                 
                 vApp.storage.getrowData(['chunkData'], function (dObj,  frow){
                     if((typeof dObj == 'string' || typeof dObj == 'undefined')){
-                        //try if not found first row
+                        console.log("should invoke only once");
                         earlierTimeout = setTimeout (
                             function (){
                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
@@ -134,16 +157,12 @@
                             1000
                         );
                     } else {
+                        
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
-                                setTimeout(function (){
-//                                vApp.recorder.clearPopups();
-//                                    vApp.popup.closeElem();
-//                                    vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
-//                                    vApp.storage.config.endSession();
-                                    
-                                },2000
-                            );
+                            if(typeof vApp.recorder.mkDownloadLink != 'undefined' || vApp.recorder.mkDownloadLink != ""){
+                                vApp.recorder.mkDownloadLink();
+                            }
                             return;
                         }   
                         
@@ -151,40 +170,83 @@
                             vApp.recorder.rnum = frow;
                         }
                         
-//                        var tmpsenddata = JSON.stringify(dObj);
-                        
-                        var formData = new FormData();
-                        formData.append("record_data", JSON.stringify(dObj));
-                        formData.append("user", vApp.gObj.uid); 
-                        formData.append("cn", chunkNum);
-                        //make forcecully 100% if totalSent is overflow
-//                        if(dObj.totalSent > dObj.totalStore){
-//                            dObj.totalSent = dObj.totalStore;
-//                        }
-                        vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
-                        
-                        vApp.recorder.items = []; //empty on each chunk sent
-                        
-                        vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
-                            if (msg == 'File created') {
+//                        typeof error != 'undefined'){
+                        if(vApp.recorder.error == 1){
+                            if(vApp.recorder.storeDone == 0){
+                                vApp.recorder.xhrsenddata(vApp.recorder.rnum, 'error');
                                 vApp.recorder.rnum++;
-                                chunkNum++;
-                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
-                            } else {
-                                setTimeout (
-                                    function (){
-                                        // Show Message "Retring [Retry Number]"
-                                       console.log("Trying to connnect " + (++vApp.recorder.emn));
-                                       vApp.recorder.xhrsenddata(vApp.recorder.rnum);
-                                       
-                                    },
-                                    1000
-                                );
                             }
-                        });
-                        
+                        } else {
+                            var formData = new FormData();
+                            formData.append("record_data", JSON.stringify(dObj));
+                            formData.append("user", vApp.gObj.uid); 
+                            formData.append("cn", chunkNum);
+
+                            vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
+
+                            vApp.recorder.items = []; //empty on each chunk sent
+
+                            vApp.xhr.send(formData, 'import.php', function (msg){ //TODO Handle more situations
+                                if (msg == 'File created') {
+                                    vApp.recorder.rnum++;
+                                    chunkNum++;
+                                    vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                                } else {
+                                    setTimeout (
+                                        function (){
+                                            // Show Message "Retring [Retry Number]"
+                                           //console.log("Trying to connnect " + (++vApp.recorder.emn));
+                                           if(vApp.recorder.emn <= 1){
+                                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                                                vApp.recorder.emn++;
+                                           }else{
+                                               // vApp.recorder.startDownloadProcess(); //if error occurred
+                                           }
+                                        },
+                                        1000
+                                    );
+                                }
+                            });
+                        }
                     }
                 }, vApp.recorder.rnum);
+            },
+            
+            
+            makeAvailDownloadFile : function (){
+                var pbar = document.getElementById('progressBarContainer');
+                var downloadLinkCont  = document.createElement('div');
+                downloadLinkCont.id = "downloadFileCont";
+
+                var downloadMsg  = document.createElement('div');
+                downloadMsg.id = "errormsessage";
+
+                downloadLinkCont.appendChild(downloadMsg);
+
+                var downloadLink  = document.createElement('a');
+                downloadLink.id = "id";
+                downloadLink.href = "";
+                downloadLink.ownload="session.txt";
+                downloadLink.innerHTML = "DOWNLOAD";
+
+                downloadLinkCont.appendChild(downloadLink);
+
+                pbar.appendChild(downloadLinkCont);
+
+                vApp.storage.getAllDataForDownload(['chunkData'], function (data){
+                    downloadLink.href = 'data:text/plain;charset=utf-8,' + data;
+                });
+            },
+            
+            startDownloadProcess : function (){
+                console.log('this should not happend ' + vApp.recorder.storeDone);
+                if(!vApp.recorder.storeDone) {
+                    var that = this;
+                    vApp.recorder.xhrsenddata(vApp.recorder.rnum, 'error', that.makeAvailDownloadFile);
+                } else {
+                    this.makeAvailDownloadFile();
+                }
+                //here we start the download process
             },
             
             sendDataToServer : function (){
@@ -211,7 +273,7 @@
                 }
             },
             
-            displayWaitPopupIfNot : function (msg){
+            displayWaitPopupIfNot : function (){
                 if(this.waitPopup == false){
                     vApp.popup.sendBackOtherElems();
                  
@@ -220,9 +282,9 @@
                     
                     vApp.popup.waitBlockAction('block');
                     
-                    if(typeof msg != 'undefined'){
-                        document.getElementById('waitMsg').innerHTML = msg;
-                    }
+//                    if(typeof msg != 'undefined'){
+//                        document.getElementById('waitMsg').innerHTML = msg;
+//                    }
                     
                     vApp.vutil.progressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
                     
@@ -243,10 +305,6 @@
                 //vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
                 vApp.xhr.send(formData, 'export.php', function
                     (data){
-//                        if(data == 'filenotfound'){
-//                            alert('this should not come');
-//                            return;  
-//                        }
                         vApp.recorder.sendToWorker(data);
                     }
                 );
@@ -273,7 +331,12 @@
                         vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
                         
                         if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
-                            vApp.recorder.askToPlay();
+                            if(e.data.alldata.totalSent > e.data.alldata.totalStore){
+                                vApp.recorder.askToPlay("completed");
+                            }else{
+                                vApp.recorder.askToPlay();
+                            }
+                            
                             vApp.recorder.alreadyAskForPlay = true;
                             vApp.recorder.tempRecData.push(e.data.alldata.rdata);
                         }else if(isUptoBase && vApp.recorder.playStart && vApp.recorder.waitServer == false){
@@ -332,8 +395,14 @@
                 vApp.recorder.tempRecData.length = 0;
             },
             
-            askToPlay : function (){
+            askToPlay : function (downloadFinish){
 //                var playMessage = vApp.lang.getString('askUser');
+                if(typeof downloadFinish !=  'undefined'){
+                    document.getElementById('askplayMessage').innerHTML = vApp.lang.getString('playsessionmsg'); 
+                }else{
+                    document.getElementById('askplayMessage').innerHTML = vApp.lang.getString('askplayMessage');
+                }
+                
                 
                 var that = this;
                 var playButton = document.getElementById("playButton");

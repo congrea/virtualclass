@@ -79,7 +79,7 @@ function (window){
 //                }
                 //!vApp.vutil.isPlayMode()
                 if(vApp.system.indexeddb){
-                    //alert('this should come at very first');
+                    
                     this.storage.init( function (){
                         if(!vApp.vutil.isPlayMode()){
                             io.completeStorage(JSON.stringify(io.cfg));
@@ -321,15 +321,17 @@ function (window){
                         window.location.reload();
                     } else {
                         io.completeStorage(undefined, undefined, 'sessionend');
-                        
                         setTimeout(function (){
-                                //var seData = JSON.stringify({'sessionEnd' : true});
-                                //vApp.storage.completeStorage(undefined, undefined, undefined, 'sessionend');
-                                //io.completeStorage(seData);
-                                vApp.getContent = true;
-                                io.sock.close();
-                                vApp.recorder.exportData(function (){ });
-                                vApp.popup.sendBackOtherElems();
+                            //var seData = JSON.stringify({'sessionEnd' : true});
+                            //vApp.storage.completeStorage(undefined, undefined, undefined, 'sessionend');
+                            //io.completeStorage(seData);
+                            vApp.getContent = true;
+                            io.sock.close();
+                            vApp.recorder.startUploadProcess();
+                            
+//                            vApp.recorder.exportData(function (){ });
+//                            vApp.popup.sendBackOtherElems();
+                            
                             }, 300
                         );
                     }

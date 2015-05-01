@@ -209,6 +209,24 @@
                 }
             },
             
+            getAllDataForDownload : function (table, cb) {
+                
+                var wholeData = [];
+                var transaction = that.db.transaction(table, "readonly");
+                var objectStore = transaction.objectStore(table[0]);
+                
+                objectStore.openCursor().onsuccess = function(event) {
+                    var cursor = event.target.result;
+                    if (cursor) {
+                        wholeData.push(cursor.value);
+                       cursor.continue();
+                    } else {
+                        cb(JSON.stringify(wholeData));
+                    }
+
+                }
+            },
+            
             getrowData : function (table, cb, row){
                 var transaction = that.db.transaction(table, "readonly");
                 var objectStore = transaction.objectStore(table[0]);
@@ -234,13 +252,10 @@
                     request.onsuccess = function(event) {
                       // Do something with the request.result!
                       cb(request.result);
-
                     };
                 }
-                
-                
-                
             },
+            
             wbData : {
                 handleResult : function (event, cb){
                     var cursor = event.target.result;
@@ -257,28 +272,6 @@
                     }
                 }
             },
-            
-//            chunkData : function (){
-//                handleResult : function z(){}
-//            },
-            
-//            chunkData : {
-//                handleResult : function (event, cb, row){
-////                    alert(row + " hello brother");
-//                    var cursor = event.target.result;
-//                    if (cursor) {
-//                        if(cursor.value.hasOwnProperty('row')){
-//                            if(cursor.value.row == row){
-//                               cb(cursor.value);
-//                               return;
-//                            } 
-//                        }
-//                        cursor.continue();
-//                    }else{
-//                        cb("row not found");
-//                    }
-//                }
-//            },
             audioData : {
                 handleResult : function (event, cb){
                     var cursor = event.target.result;

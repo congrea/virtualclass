@@ -174,19 +174,12 @@ var io = {
                      
                     var data_pack = new Uint8Array(e.data);
                     var msg = (data_pack[0] == 101) ?  new Int8Array(data_pack) : new Uint8ClampedArray(data_pack); 
-                    
-//                    if (data_pack[0] == 101) { 
-//                        var msg = new Int8Array(data_pack);
-//                    } else {
-//                        var msg = new Uint8ClampedArray(data_pack);
-//                    }
+
                     this.dataBinaryStore(msg);
-                    
                 }else{
 //                  io.completeStorage(e.data);
                     
                     var r1 = JSON.parse(e.data);
-                    
                     if(!r1.hasOwnProperty('userto')){
                         io.completeStorage(e.data);
                     }

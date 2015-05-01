@@ -163,10 +163,10 @@ var PopUp = (function(window, undefined) {
         }
     }
     
-    PopUp.prototype.updLoadedFile = function(nfile){
-        var updtMsg = vApp.lang.getString("downloadedFile",  [nfile]);
-        document.getElementById('waitMsg').innerHTML = updtMsg;
-    }
+//    PopUp.prototype.updLoadedFile = function(nfile){
+//        var updtMsg = vApp.lang.getString("downloadedFile",  [nfile]);
+//        document.getElementById('waitMsg').innerHTML = updtMsg;
+//    }
     
     PopUp.prototype.openProgressBar = function(nfile){
         var element = document.getElementById('about-modal');

@@ -103,7 +103,10 @@
             'safariBrowserIssue' : 'Your browser Safari {vapp1} is not supported, We fully support Chrome  and Firefox',
             'savesession' : 'Do you want to save a current Session ?',
             'plswaitwhile' : 'Please wait a while....',
-            'downloadedFile'  : "Your files are downloading....,  <br />Number of file has been downloaded is {vapp1}"
+            'downloadedFile'  : "Your files are downloading....,  <br />Number of file has been downloaded is {vapp1}",
+            'overallprogress' : 'Overall Progress',
+            'playsessionmsg' : 'Click play button to start playing session',
+            'askplayMessage' : '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>'
             
         };
         window.message = message;

@@ -5,37 +5,29 @@
 (
     function(window) {
         // individual progress bar
+        
         var idvPcb = {
             prvVal : '',
             currVal : '',
             progressInit : function (){
                 var that = this;
-                currTimeout = setTimeout(
+                if(typeof prvTimeout != 'undefined'){
+                    clearTimeout(prvTimeout);
+                }
+                
+                prvTimeout = setTimeout(
                     function (){
                         if(that.prvVal == that.currVal){
-                            vApp.recorder.tryForTransmit();
-                        }else{
-                            clearTimeout(currTimeout);
+                            vApp.recorder.tryForReTransmit();
+                        } else {
+                            that.prvVal = that.currVal;
                             that.progressInit();
                         }
-                    }
+                    }, 50000
                 );
             }
         }
-//        function progressInit(){
-//            currTimeout = setTimeout(
-//                function (){
-//                    if(prvVal == currVal){
-//                        vApp.recorder.tryForTransmit();
-//                    }else{
-//                        clearTimeout(currTimeout);
-//                        progressInit();
-//                    }
-//                },
-//                5000
-//            );
-//        }
-//        
+
         
         var xhr  = {
             init : function (){
@@ -50,7 +42,7 @@
                 this.onReadStateChange();
                 
                 this.httpObj.onerror = function (err){
-                    vApp.recorder.tryForTransmit();
+                    vApp.recorder.tryForReTransmit();
                     console.log("Error " + err);
                 }
                 
@@ -61,13 +53,13 @@
             
             //this is not inbuilt onprogress
             onProgress : function (evt){
-                if(idvPcb.prvVal == '' || typeof idvPcb.prvVal == 'undefined'){
-                    progressInit();
-                    firstTime = true;
-                }
                 idvPcb.currVal = evt.loaded;
+                //if(idvPcb.prvVal == '' || typeof idvPcb.prvVal == 'undefined'){
+                // first time
+                if(idvPcb.prvVal == '' || typeof idvPcb.prvVal == 'undefined'){
+                    idvPcb.progressInit();
+                }
                 vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
-                idvPcb.prvVal = that.currVal;
             },
             
             onReadStateChange : function (){

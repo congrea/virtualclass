@@ -197,7 +197,7 @@
                                     vApp.recorder.xhrsenddata(vApp.recorder.rnum);
                                 } else {
                                     
-                                    vApp.recorder.tryForTransmit();
+                                    vApp.recorder.tryForReTransmit();
                                     
 //                                    setTimeout (
 //                                        function (){
@@ -219,7 +219,7 @@
                 }, vApp.recorder.rnum);
             },
             
-            tryForconnect : function (){
+            tryForReTransmit : function (){
                 setTimeout (
                     function (){
                         // Show Message "Retring [Retry Number]"

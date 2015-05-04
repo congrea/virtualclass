@@ -117,8 +117,8 @@ function (window){
                 vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
                 vApp.xhr = window.xhr;
                 vApp.xhr.init();
-                
-                vApp.dtCon = vApp.converter();
+                vApp.dtCon = vApp.converter();  
+                vApp.pbar = progressBar;
             },
             
             initSocketConn : function (){

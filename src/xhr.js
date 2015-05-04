@@ -4,30 +4,6 @@
   */
 (
     function(window) {
-        // individual progress bar
-        
-        var idvPcb = {
-            prvVal : '',
-            currVal : '',
-            progressInit : function (){
-                var that = this;
-                if(typeof prvTimeout != 'undefined'){
-                    clearTimeout(prvTimeout);
-                }
-                
-                prvTimeout = setTimeout(
-                    function (){
-                        if(that.prvVal == that.currVal){
-                            vApp.recorder.tryForReTransmit();
-                        } else {
-                            that.prvVal = that.currVal;
-                            that.progressInit();
-                        }
-                    }, 50000
-                );
-            }
-        }
-
         
         var xhr  = {
             init : function (){
@@ -53,13 +29,13 @@
             
             //this is not inbuilt onprogress
             onProgress : function (evt){
-                idvPcb.currVal = evt.loaded;
-                //if(idvPcb.prvVal == '' || typeof idvPcb.prvVal == 'undefined'){
+                vApp.pbar.currVal = evt.loaded;
+                //if(vApp.pbar.prvVal == '' || typeof vApp.pbar.prvVal == 'undefined'){
                 // first time
-                if(idvPcb.prvVal == '' || typeof idvPcb.prvVal == 'undefined'){
-                    idvPcb.progressInit();
+                if(vApp.pbar.prvVal == '' || typeof vApp.pbar.prvVal == 'undefined'){
+                    vApp.pbar.progressInit();
                 }
-                vApp.vutil.progressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
+                vApp.pbar.renderProgressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
             },
             
             onReadStateChange : function (){
@@ -79,8 +55,8 @@
             
             send : function (data, file, cb){
                 this.cb = cb;
-                this.httpObj.open("POST", window.whiteboardPath + file, true);
-//                this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
+//                this.httpObj.open("POST", window.whiteboardPath + file, true);
+                this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
                 this.httpObj.send(data);
             }
         }

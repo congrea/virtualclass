@@ -123,7 +123,7 @@
             
             clearPopups : function (){
                 vApp.popup.closeElem();
-                vApp.vutil.progressBar(0, 0, 'progressBar', 'progressValue');
+                vApp.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
                 vApp.storage.config.endSession();
             },
             
@@ -164,7 +164,7 @@
                         
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
-                            if(typeof vApp.recorder.mkDownloadLink != 'undefined' || vApp.recorder.mkDownloadLink != ""){
+                            if(typeof vApp.recorder.mkDownloadLink != 'undefined' || vApp.recorder.mkDownloadLink != " "){
                                 vApp.recorder.mkDownloadLink();
                             }
                             return;
@@ -186,7 +186,7 @@
                             formData.append("user", vApp.gObj.uid); 
                             formData.append("cn", chunkNum);
 
-                            vApp.vutil.progressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
+                            vApp.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
                             vApp.recorder.items = []; //empty on each chunk sent
 
@@ -324,7 +324,7 @@
                     
                     vApp.popup.waitBlockAction('block');
                     
-                    vApp.vutil.progressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
+                    vApp.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
                     
                     var element = document.getElementById('about-modal');
                     vApp.popup.open(element);
@@ -362,7 +362,7 @@
                         vApp.recorder.ctotalStore =  e.data.alldata.totalStore;
                         vApp.recorder.ctotalSent =  e.data.alldata.totalSent;
                         
-                        vApp.vutil.progressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
+                        vApp.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
                         
                         if(isUptoBase && !vApp.recorder.alreadyAskForPlay){
                             if(e.data.alldata.totalSent > e.data.alldata.totalStore){
@@ -476,7 +476,7 @@
                         if(vApp.recorder.hasOwnProperty('ctotalStore') || vApp.recorder.hasOwnProperty('ctotalSent')){
 //                            vApp.recorder.ctotalStore = e.data.alldata.totalStore;
 //                            vApp.recorder.ctotalSent = e.data.alldata.totalStore
-                            vApp.vutil.progressBar(vApp.recorder.ctotalStore, vApp.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
+                            vApp.pbar.renderProgressBar(vApp.recorder.ctotalStore, vApp.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
                         }
                     }
                     //return;

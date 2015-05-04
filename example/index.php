@@ -107,18 +107,28 @@ if(isset($_GET['lname'])){
     
     //window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
     window.whiteboardPath =  'https://local.vidya.io/suman-repo/virtualclass/';
-    
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
-    
 </script>
 
 </head>
 
 <body>
     <div id="dummyPlayCont">
-        <button id="dummyPlay">Play</button>
+        <button id="dummyPlay">Fetch from server</button>
     </div>
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
+    <?php
+        if($isplay){
+            ?>
+        <div id="playController">
+            <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff"> FF2 </button></div>
+            <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff"> FF8 </button></div>
+            <div id="recPlayCont" class="recButton"> <button id="recPlay"> Play </button></div>
+            <div id="recPlayCont" class="recButton"> <button id="recPause"> Pause </button></div>
+        </div>
+    <?php
+        }
+    ?>
     
     <div id="vAppWhiteboard" class="vmApp">
 

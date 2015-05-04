@@ -1773,9 +1773,12 @@ opacity : 0.800000011920928955078125 !important;
     z-index: 666666;
 }
 
+.recButton {
+    display:inline;
+    
+}
 
-
-
-
-
-
+#playController {
+    text-align : center;
+/*    display : none;*/
+}

@@ -444,6 +444,11 @@
             
             play : function (){
                 var that = this;
+                
+                if(this.controller.pause){
+                    return;
+                }
+                
                 if(typeof that.playTimeout != 'undefined' || that.playTimeout != ""){
                     clearTimeout(that.playTimeout);
                 }
@@ -457,10 +462,6 @@
                     vApp.gObj.uid = io.cfg.userobj.userid;
                 }
                 
-//                if(this.items[this.objn] == 'undefined'){
-//                    alert("suman bogati");
-//                    debugger;
-//                }
                 if((typeof this.items[this.objn+1] == 'undefined') || (this.items[this.objn].hasOwnProperty('sessionEnd'))){
 //                if(this.items[this.objn].hasOwnProperty('sessionEnd')){
                     if(!this.items[this.objn].hasOwnProperty('sessionEnd')){
@@ -489,12 +490,33 @@
                         that.play.call(that);
                         
                         if(typeof that.items[that.objn] == 'object'){
-                            that.playTime = that.items[that.objn].playTime;
+                            that.playTime = that.items[that.objn].playTime / that.controller.ff;
                         }
                         
                     }, that.playTime);
                 }
-            }
+            },
+            
+            initControler : function (){
+                var init = document.getElementById()
+            },
+            
+            controller : {
+                pause : false,
+                ff : 1,
+                _play : function(){
+                    vApp.recorder.play();
+                    this.pause = false;
+                },
+                
+                _pause : function (){
+                    this.pause = true;
+                }, 
+                
+                fastForward : function (by){
+                    this.ff = by;
+                }
+            },
         };
         window.recorder = recorder;
     }

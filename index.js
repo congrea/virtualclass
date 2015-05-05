@@ -373,9 +373,8 @@ $.uiBackCompat = false;
         );
         vApp.vutil.attachClickOutSideCanvas();
         
-        function dummyPlay(data){
+        function clearEverthing(){
             vApp.notPLayed = true;
-//            io.cfg = vApp.uInfo;
             vApp.storage.config.endSession();
             vApp.chat.chatroombox = false;
             var chat_room = document.getElementById('chatrm');
@@ -386,32 +385,11 @@ $.uiBackCompat = false;
             if(canvasElem != null){
                 canvasElem.style.pointerEvents = "none";
             }
-            
-           // vApp.recorder.init(data);
         }
         
-//        function openFile (){
-//            var file = fileInput.files[0];
-//            var reader = new FileReader();
-//            reader.onload = function(e) {
-//                
-//                 dummyPlay(reader.result);
-//                 //alert('actual data');
-//            }
-//            reader.readAsText(file);	
-//        }
-        
-        
-//        var fileInput = document.getElementById('fileInput');    
-//        fileInput.addEventListener('change', function (){
-//            openFile();
-//        })
-        
-        
         document.getElementById('dummyPlay').addEventListener('click', function (){
-           /// vApp.recorder.init();
             vApp.recorder.requestDataFromServer(0);
-            dummyPlay('fromplay');
+            clearEverthing();
         });
         
         vApp.popup = new PopUp({

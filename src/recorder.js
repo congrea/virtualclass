@@ -416,6 +416,10 @@
                 vApp.recorder.init(mainData);
                 vApp.recorder.playStart = true;
                 vApp.recorder.tempRecData.length = 0;
+                vApp.recorder.initController();
+                
+//                var playController = document.getElementById('playController');
+//                playController.style.display = 'block';
             },
             
             askToPlay : function (downloadFinish){
@@ -497,20 +501,57 @@
                 }
             },
             
-            initControler : function (){
-                var init = document.getElementById()
+            initController : function (){
+                var playController = document.getElementById('playController');
+                if(playController != null){
+                    playController.style.display = 'block';
+                    
+                    //init fast forward
+                    var recButton = document.getElementsByClassName('ff');
+                    for(var i = 0; i<recButton.length; i++){
+                        recButton[i].onclick = function (){
+                            var ffBy = this.id.split('ff')[1];
+                            vApp.recorder.controller.fastForward(parseInt(ffBy, 10));
+                        };
+                    }
+
+                    //init play
+                    var recPlay = document.getElementById('recPlay');
+                    recPlay.addEventListener('click', function (){
+                        vApp.recorder.controller._play();
+                    });
+
+                    //init pause
+                    var recPlay = document.getElementById('recPause');
+                    recPlay.addEventListener('click', function (){
+                        vApp.recorder.controller._pause();
+                    });
+                }
             },
             
             controller : {
                 pause : false,
                 ff : 1,
                 _play : function(){
-                    vApp.recorder.play();
-                    this.pause = false;
+//                    this.pause = false; 
+//                    vApp.recorder.play();
+                    this.ff = 1; //when click on play it should be normal
+                    
+                    if(!this.pause){
+//                        alert('This is in already play mode');
+                    }else{
+                        this.pause = false; 
+                        vApp.recorder.play();
+                    
+                    }
                 },
                 
                 _pause : function (){
-                    this.pause = true;
+                    if(this.puase){
+                        alert('This is in already pause mode.');
+                    }else{
+                        this.pause = true;
+                    }
                 }, 
                 
                 fastForward : function (by){

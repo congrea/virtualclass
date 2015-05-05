@@ -46,6 +46,8 @@
             playStart : false,
             error : 0,
             mkDownloadLink : "",
+            tillPlayTime : 0,
+            getPlayTotTime : false,
             init : function(data) {
                  //localStorage.removeItem('recObjs');
                 var vcan = vApp.wb.vcan;
@@ -127,11 +129,36 @@
                 vApp.storage.config.endSession();
             },
             
+            playProgressBar : function (){
+                //CONVERT [{pt : 560}, {pt : 160}] TO 720
+                if(!this.getPlayTotTime){
+                    this.totPlayTime = this.items.reduce(function (a, b) { // a = previous value, b = current value
+                        if(b.hasOwnProperty('playTime')){
+                            return {playTime : a.playTime + b.playTime};  //at each iteration of reduce there is need to expect paramter as object
+                        }else{
+                            return a.playTime;
+                        }
+                    });
+                    this.getPlayTotTime = true;
+                }
+                
+                
+                if(this.tillPlayTime > 0){
+                    if(this.tillPlayTime > this.totPlayTime ){
+                        this.tillPlayTime = this.totPlayTime;
+                    }
+                    vApp.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
+                }else{
+                    
+                    vApp.pbar.renderProgressBar(this.totPlayTime, 0, 'playProgressBar', undefined);
+                }
+            },
+            
             xhrsenddata : function (rnum, err, cb){
                 if(typeof err != 'undefined'){
                     vApp.recorder.error = 1;
-//                    error = "error";
                 }
+                
                 if(typeof cb != 'undefined'){
                     vApp.recorder.mkDownloadLink =  cb; // mkDownloadLink should be localize
                 }
@@ -161,7 +188,7 @@
                             1000
                         );
                     } else {
-                        
+                        // this has been performed when all files are stored
                         if((dObj.hasOwnProperty('status')) && (dObj.status == 'done')){
                             vApp.recorder.storeDone = 1;
                             if(typeof vApp.recorder.mkDownloadLink != 'undefined' || vApp.recorder.mkDownloadLink != " "){
@@ -196,22 +223,7 @@
                                     chunkNum++;
                                     vApp.recorder.xhrsenddata(vApp.recorder.rnum);
                                 } else {
-                                    
                                     vApp.recorder.tryForReTransmit();
-                                    
-//                                    setTimeout (
-//                                        function (){
-//                                            // Show Message "Retring [Retry Number]"
-//                                           //console.log("Trying to connnect " + (++vApp.recorder.emn));
-//                                           if(vApp.recorder.emn <= 1){
-//                                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
-//                                                vApp.recorder.emn++;
-//                                           }else{
-//                                                vApp.recorder.startDownloadProcess(); //if error occurred
-//                                           }
-//                                        },
-//                                        1000
-//                                    );
                                 }
                             });
                         }
@@ -385,6 +397,8 @@
                         if(!e.data.alldata.rdata[e.data.alldata.rdata.length-1].hasOwnProperty('sessionEnd')){
                             vApp.recorder.requestDataFromServer(reqFile);
                         }else{
+//                            alert('suman bogati');
+//                            debugger;
                             vApp.recorder.allFileFound = true;
                             if(vApp.recorder.waitServer == true){ //if earlier replay is interrupt 
                                 
@@ -447,11 +461,16 @@
             },
             
             play : function (){
+                        
                 var that = this;
                 
                 if(this.controller.pause){
                     return;
                 }
+                
+//                if(this.allFileFound){
+//                    this.playProgressBar();
+//                }
                 
                 if(typeof that.playTimeout != 'undefined' || that.playTimeout != ""){
                     clearTimeout(that.playTimeout);
@@ -495,7 +514,14 @@
                         
                         if(typeof that.items[that.objn] == 'object'){
                             that.playTime = that.items[that.objn].playTime / that.controller.ff;
+                            that.tillPlayTime += (that.playTime * that.controller.ff);
+                            
+                            if((that.allFileFound) && typeof that.items[that.objn+1] == 'object'){
+                                that.playProgressBar();
+                            }
                         }
+                        
+                        // && that.totPlayTime > 0
                         
                     }, that.playTime);
                 }
@@ -538,7 +564,7 @@
                     this.ff = 1; //when click on play it should be normal
                     
                     if(!this.pause){
-//                        alert('This is in already play mode');
+                        alert('This is in already play mode');
                     }else{
                         this.pause = false; 
                         vApp.recorder.play();

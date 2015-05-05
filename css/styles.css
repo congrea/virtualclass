@@ -38,6 +38,7 @@ a, canvas {
 #vAppCont {
 	height : 100%;
 }
+
 #vAppCont #divForReloadMsg {
 	border : #8eb9ce solid 1px;
 	width : auto;
@@ -49,6 +50,7 @@ a, canvas {
 	letter-spacing : 0.3px;
 	margin : 15px 0;
 }
+
 #vAppCont #serverErrorCont, #vAppCont #divForReloadMsg {
 	padding : 10px;
 	width : auto;
@@ -1769,7 +1771,7 @@ opacity : 0.800000011920928955078125 !important;
 #dummyPlay {
     position: absolute;
     top: 17px;
-    left: 550px;
+    left: 150px;
     z-index: 666666;
 }
 
@@ -1779,6 +1781,11 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #playController {
+    position : relative;
+    left : 40%;
+}
+
+#playProgress {
+    width : 300px;
     text-align : center;
-    display : none;
 }

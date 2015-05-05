@@ -449,6 +449,7 @@
                             var pta = true;
                             that.playRecordedAudio(vApp.gObj.audioForTest, vApp.gObj.uid, pta);
                         }, totTestTime);
+                        
                         setTimeout (
                             function (){
                                 audioTestElem.classList.remove("audioIsTesting");
@@ -1066,8 +1067,8 @@
                     }
                     return false;
                 },
+                
                 handleUserMediaError: function(error) {
-                    
                     var error = (typeof error == 'object') ?  vApp.lang.getString(error.name) : vApp.lang.getString(error);
                     vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
                     vApp.user.control.audioWidgetDisable();

@@ -36,9 +36,15 @@ var progressBar = {
         }else {
             var totalProgress=Math.round((portion*100)/totalVal);
         }
-
-        document.getElementById(pbar).style.width=totalProgress+'%';
-        document.getElementById(pval).innerHTML=totalProgress+'%';
-
+        
+        var pbarElem = document.getElementById(pbar);
+        if(pbarElem != null){
+            pbarElem.style.width=totalProgress+'%';
+        }
+        
+        var pvalElem = document.getElementById(pval);
+        if(pvalElem != null){
+            pvalElem.innerHTML =totalProgress+'%';
+        }
     }
 }

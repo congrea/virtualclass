@@ -188,3 +188,13 @@ transition:all .2s linear;
 .rv-vanilla-modal-body {
     width : 400px;
 }
+
+#playProgress {
+    width : 300px;
+    height:7px;
+    border:1px solid #B6B4B4;
+    overflow:hidden;
+    background : #E9E6E4;
+    margin-top : 10px;
+    margin-bottom : 4px;
+}

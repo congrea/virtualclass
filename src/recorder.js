@@ -160,11 +160,11 @@
                     vApp.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
                     
                     var time = this.convertIntoReadable(this.tillPlayTime);
-                    document.getElementById('tillRepTime').innerHTML = time.h + ' : ' + time.m + ' : ' + time.s;
+                    document.getElementById('tillRepTime').innerHTML = time.m + ' : ' + time.s;
                     
                     if(typeof alreadyCalcTotTime == 'undefined'){
                         var ttime = this.convertIntoReadable(this.totPlayTime);
-                        document.getElementById('totalRepTime').innerHTML = ttime.h + ' : ' + ttime.m + ' : ' + ttime.s;
+                        document.getElementById('totalRepTime').innerHTML = ttime.m + ' : ' + ttime.s;
                         alreadyCalcTotTime = true;
                     }
                 }else{
@@ -172,15 +172,24 @@
                 }
             },
             
+//            convertIntoReadable : function(ms){
+//               	var x = ms / 1000;
+//                var seconds = Math.floor(x % 60);
+//                x /= 60;
+//                var minutes = Math.floor(x % 60);
+//                x /= 60;
+//                var hours = Math.floor(x % 24);
+//                return {s:seconds, m : minutes, h : hours};
+//                
+//                
+//            }, 
+//            
             convertIntoReadable : function(ms){
-               	var x = ms / 1000;
+                var x = ms / 1000;
                 var seconds = Math.floor(x % 60);
-                x /= 60;
-                var minutes = Math.floor(x % 60);
-                x /= 60;
-                var hours = Math.floor(x % 24);
-                return {s:seconds, m : minutes, h : hours};
-            }, 
+                var minutes = Math.floor(x / 60);
+                return {s:seconds, m : minutes};
+             }, 
             
             xhrsenddata : function (rnum, err, cb){
                 if(typeof err != 'undefined'){

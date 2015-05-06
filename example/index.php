@@ -127,13 +127,11 @@ if(isset($_GET['lname'])){
             ?>
         <div id="playController">
             <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
-            
-            <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff"> FF2 </button></div>
-            <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff"> FF8 </button></div>
             <div id="recPlayCont" class="recButton"> <button id="recPlay"> Play </button></div>
             <div id="recPlayCont" class="recButton"> <button id="recPause"> Pause </button></div> 
+            <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff"> FF2 </button></div>
+            <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff"> FF8 </button></div>
             <div id="repTimeCont"> <span id="tillRepTime">0 </span> / <span id="totalRepTime">0</span> </div> 
-            
         </div>
     <?php
         }

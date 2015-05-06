@@ -198,3 +198,9 @@ transition:all .2s linear;
     margin-top : 10px;
     margin-bottom : 4px;
 }
+
+#repTimeCont {
+    display : inline;
+    font-size : 12px;
+    margin-left : 10px;
+}

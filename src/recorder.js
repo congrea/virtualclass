@@ -147,12 +147,31 @@
                     if(this.tillPlayTime > this.totPlayTime ){
                         this.tillPlayTime = this.totPlayTime;
                     }
-                    vApp.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
-                }else{
                     
+                    vApp.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
+                    
+                    var time = this.convertIntoReadable(this.tillPlayTime);
+                    document.getElementById('tillRepTime').innerHTML = time.h + ' : ' + time.m + ' : ' + time.s;
+                    
+                    if(typeof alreadyCalcTotTime == 'undefined'){
+                        var ttime = this.convertIntoReadable(this.totPlayTime);
+                        document.getElementById('totalRepTime').innerHTML = ttime.h + ' : ' + ttime.m + ' : ' + ttime.s;
+                        alreadyCalcTotTime = true;
+                    }
+                }else{
                     vApp.pbar.renderProgressBar(this.totPlayTime, 0, 'playProgressBar', undefined);
                 }
             },
+            
+            convertIntoReadable : function(ms){
+               	var x = ms / 1000;
+                seconds = x % 60;
+                x /= 60;
+                minutes = x % 60;
+                x /= 60;
+                hours = x % 24
+                return {s:Math.round(seconds), m : Math.round(minutes), h : Math.round(hours)};
+            }, 
             
             xhrsenddata : function (rnum, err, cb){
                 if(typeof err != 'undefined'){

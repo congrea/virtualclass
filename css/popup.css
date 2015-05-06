@@ -1,71 +1,62 @@
 #main {
-    width:1000px;
-    margin:0 auto;
+	width:1000px;
+	margin:0 auto;
 }
-
 .button {
-    color:#3CB3E7;
-    font-family:Raleway,Helvetica,sans-serif;
-    border-radius:4px;
-    border:1px solid #3CB3E7;
-    background:0 0;
-    font-size:14px;
-    cursor:pointer;
-    padding:15px 25px;
+	color:#3CB3E7;
+	font-family:Raleway, Helvetica, sans-serif;
+	border-radius:4px;
+	border:1px solid #3CB3E7;
+	background:0 0;
+	font-size:14px;
+	cursor:pointer;
+	padding:15px 25px;
 }
-
 .button:hover {
-    color:#fff;
-    background:#3CB3E7;
+	color:#fff;
+	background:#3CB3E7;
 }
-
 .center-button-wrapper {
-    text-align:center;
-    padding:50px 0;
+	text-align:center;
+	padding:50px 0;
 }
-
 #progressBarContainer {
-    min-height:240px;
+	min-height:240px;
 }
-
 .rv-vanilla-modal {
-    position:absolute;
-    top:-100%;
-    left:58%;
-    width:30%;
-    min-height:240px;
-    background:#fff;
-    z-index:10;
-    -webkit-transition:.3s all ease-out;
-    transition:.3s all ease-out;
-    border-radius:4px;
-    -webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
-    box-shadow:0 0 6px 0 rgba(0,0,0,.3);
-    margin:-300px 0 0 -22.5%;
+	position:absolute;
+	top:-100%;
+	left:58%;
+	width: 27%;
+	min-height:auto;
+	background:#fff;
+	z-index:10;
+	-webkit-transition:.3s all ease-out;
+	transition:.3s all ease-out;
+	border-radius:4px;
+	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
+	box-shadow:0 0 6px 0 rgba(0,0,0,.3);
+	margin:-300px 0 0 -22.5%;
 }
-
 .rv-vanilla-modal-is-open {
-    top:55%;
+	top: 55%;
 }
-
 .rv-vanilla-modal-overlay {
-    position:absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    background:rgba(0,0,0,.5);
-    opacity:0;
-    display:none;
-    -webkit-transition:.4s opacity linear;
-    transition:.4s opacity linear;
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	background:rgba(0,0,0,.5);
+	opacity:0;
+	display:none;
+	-webkit-transition:.4s opacity linear;
+	transition:.4s opacity linear;
 }
-
 .rv-vanilla-modal-overlay.is-shown {
-    opacity:1;
-    display:block;
+	opacity:1;
+	display:block;
 }
-
 /*.rv-vanilla-modal-header {
     background:#d4d4d4;
     border-radius:4px 4px 0 0;
@@ -73,33 +64,28 @@
 }*/
 
 .rv-vanilla-modal-body {
-    overflow:auto;
-    color:#555;
-    padding:25px 20px 20px;
+	overflow:auto;
+	color:#555;
+	padding: 40px 25px 40px;
 }
-
 .rv-vanilla-modal-body p {
-    line-height:150%;
-    margin:0 0 1em;
+	line-height:150%;
+	margin:0 0 1em;
 }
-
 .rv-vanilla-modal-title {
-/*    color:#000000;
+	/*    color:#000000;
     font-size:18px;
     font-weight:300;
     margin:0;*/
     
     color: #414C46;
-    font-size: 18px;
-    font-weight: 300;
-    margin: 0;
-    margin-top: 13px;
-    margin-left: 4%;
-    letter-spacing : 0.01em;
+	font-size: 15px;
+	font-weight: 300;
+	margin: 0;
+	margin-top: 13px;
+	margin-left: 4%;
+	letter-spacing : 0.01em;
 }
-
-
-
 /*.rv-vanilla-modal-close {
 color:#1a9dd6;
 font-size:16px;
@@ -118,89 +104,204 @@ transition:all .2s linear;
 }*/
 
 .rv-vanilla-modal-close .text {
-    position:relative;
-    top:-1px;
+	position:relative;
+	top:-1px;
 }
-
 .rv-vanilla-modal-close:hover {
-    color:#1996cd;
-    background:rgba(255,255,255,.5);
+	color:#1996cd;
+	background:rgba(255,255,255,.5);
 }
-
 .hidden {
-    display:none!important;
-    visibility:hidden;
+	display:none!important;
+	visibility:hidden;
 }
-
-.group:after,.group:before {
-    content:"";
-    display:table;
+.group:after, .group:before {
+	content:"";
+	display:table;
 }
-
 .group:after {
-    clear:both;
+	clear:both;
 }
-
 .centered {
-    text-align:center;
+	text-align:center;
 }
-
-#vAppCont .rv-vanilla-modal-header{
-    border-radius:4px 4px 0 0;
-    
+#vAppCont .rv-vanilla-modal-header {
+	border-radius:4px 4px 0 0;
 }
-
-
-#progress, #indProgress, #downloadProgress{
-    width:100%;
-    height:15px;
-    border:1px solid #000;
-    overflow:hidden;
+#progress, #indProgress, #downloadProgress {
+	width:100%;
+	height:15px;
+	border:1px solid #000;
+	overflow:hidden;
 }
-
-.progressBar{
-    width:0;
-    height:15px;
-    border-right: 1px solid #000000;
-    background: #46D65D;
-
+.progressBar {
+	width:0;
+	height:15px;
+	border-right: 1px solid #000000;
+	background: #46D65D;
 }
 .progressValue {
-    color: #000000;
-    font-size: 15px;
-    font-style: italic;
-    font-weight: bold;
-    left: 25px;
-    position: relative;
-    top: -16px;
+	color: #fff;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: normal;
+	left: 10px;
+	position: relative;
+	top: -25px;
 }
-
 #indProgressBar {
-    background: #9BEBA8;
+	background: #b9db0c;
 }
-
 #waitMsg {
-    width : 300px;
-    margin-top: 32px;
-    margin-left: 22px;
+	width : 300px;
+	margin-top: 32px;
+	margin-left: 22px;
 }
-
 .rv-vanilla-modal-body {
-    width : 400px;
+	width : 400px;
+}
+/*Hasan css start*/
+
+#downloadProgress {
+	background-color: #f5f5f5;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+	height: 16px;
+	border:none;
+}
+.progressBar {
+	background-color: #93b42f;
+	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+	box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+	-webkit-transition: width .6s ease;
+	transition: width .6s ease;
+	height: 20px;
+	border:none;
+}
+#askplayMessage {
+	font-size: 14px;
+	text-align: left;
+	margin-top: 7px;
+	margin-bottom: 10px;
+	padding-left: 25px;
+	padding-right: 15px;
+}
+#downloadSessionText, #downloadPrgressLabel {
+	font-size: 13px;
+}
+#playButton {
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #eeeeee 0%, #dddddd 100%); /* W3C */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0 ); /* IE6-9 */
+	padding: 7px 30px;
+	border-radius: 5px;
+	border: none;
+	margin-left: 165px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+#playButton:hover {
+	background: #dddddd; /* Old browsers */
+	background: -moz-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #eeeeee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0 ); /* IE6-9 */
+	padding: 7px 30px;
+	border-radius: 5px;
+	border: none;
+	margin-left: 165px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+/*Hasan css start student*/
+
+.rv-vanilla-modal {
+	min-height: auto;
+	width: auto;
+}
+#progressBarContainer {
+	min-height: 190px;
+}
+#progressBarContainer .rv-vanilla-modal-body div {
+	padding: 0px !important;
+}
+#about-modal #progressBarContainer .rv-vanilla-modal-body div {
+	width: 100% !important;
+}
+.rv-vanilla-modal-body {
+	padding: 30px 25px 30px;
+}
+.rv-vanilla-modal-title {
+	font-size: 15px;
+}
+#vAppCont .rv-vanilla-modal-header {
+	height: 42px;
+}
+#progressBarContainer .rv-vanilla-modal-body div {
+	border-radius: 4px;
+	font-size: 13px;
+	margin-bottom: 7px;
+}
+#progress, #indProgress, #downloadProgress {
+	height: 18px;
+	border:none;
+}
+#indProgress #indProgressValue {
+}
+#progress .progressValue {
+	top: -25px;
+}
+.rv-vanilla-modal-body {
+	padding: 25px 25px 25px;
+}
+#totProgressCont {
+	margin-bottom: 15px;
+}
+#totProgressCont {
+	margin-bottom: 20px !important;
+}
+#downloadProgressValue.progressValue {
+	top: -17px;
+}
+#about-modal #waitPlay .rv-vanilla-modal-body {
+	padding: 0px;
+	border-radius: 10px;
+}
+#waitPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
+	padding-top: 16px;
+	padding-left: 20px;
+	height: 30px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-size: 15px;
+	font-weight: 300;
+}
+downloadPrgressLabel {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#downloadProgress {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#downloadPcCont #downloadPrgressLabel {
+	padding: 15px 0px 9px 23px;
+}
+#downloadPcCont #downloadProgress {
+	width: 90%;
+	margin-bottom: 15px;
 }
 
-#playProgress {
-    width : 300px;
-    height:7px;
-    border:1px solid #B6B4B4;
-    overflow:hidden;
-    background : #E9E6E4;
-    margin-top : 10px;
-    margin-bottom : 4px;
+#playController{
+    display : none;
 }
 
-#repTimeCont {
-    display : inline;
-    font-size : 12px;
-    margin-left : 10px;
-}

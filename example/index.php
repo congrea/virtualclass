@@ -40,9 +40,10 @@ include('js.debug.php');
 
 $isplay = false;
 
+$cont_class = '';
 if(isset($_GET['play']) && ($_GET['play'] == 'true')){
     $isplay = true;
-
+    $cont_class .=  "playMode ";
 }
     
 if(isset($_GET['id'])){
@@ -58,16 +59,18 @@ if(isset($_GET['id'])){
 if(isset($_GET['r'])){
     $r = $_GET['r'];
     if($r == 't' &&  !$isplay){
-        $cont_class = "teacher orginalTeacher";
+        $cont_class .= "teacher orginalTeacher";
     }else{
         $r = 's';
-        $cont_class = 'student';
+        $cont_class .= 'student';
     }
 //    $cont_class = ($r == 't' &&  !$isplay) ? "teacher orginalTeacher" : 'student';
 }else{
     $r = 's';
-    $cont_class = 'student';
+    $cont_class .= 'student';
 }
+
+
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 //echo $room;
@@ -114,7 +117,9 @@ if(isset($_GET['lname'])){
 
 <body>
     <div id="dummyPlayCont">
-        <button id="dummyPlay">Fetch from server</button>
+        
+<!--        <button id="dummyPlay">Fetch from server</button>-->
+        
     </div>
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
     <?php
@@ -218,6 +223,8 @@ if(isset($_GET['lname'])){
     </div>
     
 </div>
+    
+
 
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>

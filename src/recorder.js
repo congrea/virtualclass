@@ -147,11 +147,7 @@
 //                        }
 //                    }
                     
-                    this.totPlayTime = atime;
-                    
-                    console.log('atime ' + atime);
-                    console.log('btime ' + btime);
-                    console.log('rtime ' + this.totPlayTime);
+//                    this.totPlayTime = atime;
                     this.getPlayTotTime = true;
                 }
                 

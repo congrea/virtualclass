@@ -387,47 +387,34 @@ $.uiBackCompat = false;
             }
         }
         
-        document.getElementById('dummyPlay').addEventListener('click', function (){
-            vApp.recorder.requestDataFromServer(0);
-            clearEverthing();
-        });
+//        document.getElementById('dummyPlay').addEventListener('click', function (){
+//            vApp.recorder.requestDataFromServer(0);
+//            clearEverthing();
+//        });
+        
         
         vApp.popup = new PopUp({
             showOverlay: true
         });
         
-//        setTimeout(
-//            function (){
-//             //   var element = document.getElementById('about-modal');
-//                //vApp.popup.open(element);
-//                vApp.recorder.displayWaitPopupIfNot(vApp.lang.getString("plswaitwhile"));
-//            },
-//            2000
-//        );
+//        vApp.recorder.requestDataFromServer(0);
+//        clearEverthing();
         
+        //db transaction of indexeddb is not ready on page onload, 10 ms delay
+        if(vApp.vutil.isPlayMode()){
+            setTimeout(
+                function (){
+                    vApp.recorder.requestDataFromServer(0);
+                    clearEverthing();
+                },
+                10
+            );
+        }
         
-//        document.getElementById('getContent').addEventListener('click', function (){
-//            var element = document.getElementById('about-modal');
-//            vApp.popup.open(element);
-//            
-//            var wait = document.getElementById("waitPlay");
-//            wait.style.display = 'none';
-//            
-//            setTimeout(function (){
-//                vApp.getContent = true; 
-//                io.sock.close();
-//                vApp.recorder.exportData();
-//                var vAppToolCont = document.getElementById('vAppOptionsCont');
-//                vAppToolCont.style.zIndex = -1;
-//
-//                var stickBar = document.getElementById('stickybar');
-//                
-//                stickBar.style.zIndex = 0;
-//                
-//            }, 300
-//                    
-//            );
-//        });
+//        if(vApp.vutil.isPlayMode()){
+//            disCommonChatInput();
+//        }
+//        
         
    });
 //});

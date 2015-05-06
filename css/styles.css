@@ -1788,3 +1788,16 @@ opacity : 0.800000011920928955078125 !important;
     width : 300px;
     text-align : center;
 }
+
+
+
+
+#vAppCont.playMode #audioWidget{
+    display : none;
+}
+
+#vAppCont.playMode .ui-memblist-usr{
+    pointer-events : none;
+}
+
+/*#vAppCont.playMode ,ui-memblist-usr*/

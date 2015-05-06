@@ -223,6 +223,10 @@
             
             if (!self.options.hidden) {
                 uiChatbox.show();
+                if(vApp.vutil.isPlayMode()){
+                  
+                    disCommonChatInput();
+                }
             }
         },
 

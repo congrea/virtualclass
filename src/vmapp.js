@@ -119,6 +119,7 @@ function (window){
                 vApp.xhr.init();
                 vApp.dtCon = vApp.converter();  
                 vApp.pbar = progressBar;
+                
             },
             
             initSocketConn : function (){

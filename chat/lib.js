@@ -464,3 +464,10 @@ function clearAllChatBox(){
     //$("#chatrm .ui-icon-minusthick").trigger("click");
     //  alert("suman bogati chat lib.js");
 }
+
+function disCommonChatInput(){
+    var commonChatInput = document.getElementById('ta_chrm');
+    if(commonChatInput != null){
+        commonChatInput.disabled = true;
+    }
+}

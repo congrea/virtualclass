@@ -22,7 +22,8 @@
 //                }
 //            }, 1000
 //        );
-
+//        var atime = 0;
+//        var btime = 0;
         function destroyClickedElementForFirefox(event){
             document.body.removeChild(event.target);
         }
@@ -139,6 +140,18 @@
                             return a.playTime;
                         }
                     });
+
+//                    for(var i=0; i<this.items.length; i++){
+//                        if(this.items[i].hasOwnProperty('playTime')){
+//                             atime += this.items[i].playTime;
+//                        }
+//                    }
+                    
+                    this.totPlayTime = atime;
+                    
+                    console.log('atime ' + atime);
+                    console.log('btime ' + btime);
+                    console.log('rtime ' + this.totPlayTime);
                     this.getPlayTotTime = true;
                 }
                 
@@ -165,12 +178,12 @@
             
             convertIntoReadable : function(ms){
                	var x = ms / 1000;
-                seconds = x % 60;
+                var seconds = Math.floor(x % 60);
                 x /= 60;
-                minutes = x % 60;
+                var minutes = Math.floor(x % 60);
                 x /= 60;
-                hours = x % 24
-                return {s:Math.round(seconds), m : Math.round(minutes), h : Math.round(hours)};
+                var hours = Math.floor(x % 24);
+                return {s:seconds, m : minutes, h : hours};
             }, 
             
             xhrsenddata : function (rnum, err, cb){
@@ -486,10 +499,6 @@
                 if(this.controller.pause){
                     return;
                 }
-                
-//                if(this.allFileFound){
-//                    this.playProgressBar();
-//                }
                 
                 if(typeof that.playTimeout != 'undefined' || that.playTimeout != ""){
                     clearTimeout(that.playTimeout);

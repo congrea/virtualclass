@@ -8,7 +8,7 @@ function (window){
     window.vmApp = function (){
         return {
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-            apps : ["Whiteboard", "ScreenShare"],
+            apps : ["Whiteboard", "ScreenShare", 'Yts'],
             appSessionEnd : "vAppSessionEnd",
             appAudioTest : "vAppAudioTest",
             //appAudioTestPlay : "vAppAudioTestPlay",
@@ -40,7 +40,8 @@ function (window){
             init : function (urole, app){
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
                 this.ssConfig = { id : "vApp" + this.apps[1], classes : "appOptions"};
-                this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
+                this.ytsConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
+                //this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
                 this.lang.getString = window.getString;
                 this.lang.message = window.message;
@@ -79,7 +80,6 @@ function (window){
 //                }
                 //!vApp.vutil.isPlayMode()
                 if(vApp.system.indexeddb){
-                    
                     this.storage.init( function (){
                         if(!vApp.vutil.isPlayMode()){
                             io.completeStorage(JSON.stringify(io.cfg));
@@ -119,6 +119,7 @@ function (window){
                 vApp.xhr.init();
                 vApp.dtCon = vApp.converter();  
                 vApp.pbar = progressBar;
+                vApp.yts = window.yts();
                 
             },
             
@@ -156,6 +157,9 @@ function (window){
                     
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
+                    
+                    this.createDiv(vApp.ytsConfig.id + "Tool", "youtubeshare", appOptCont, vApp.ssConfig.classes);
+                    
                     if(vApp.gObj.hasOwnProperty('errNotScreenShare')){
                         vApp.wb.view.disableSSUI();
                     }
@@ -323,21 +327,23 @@ function (window){
                     } else {
                         io.completeStorage(undefined, undefined, 'sessionend');
                         setTimeout(function (){
-                            //var seData = JSON.stringify({'sessionEnd' : true});
-                            //vApp.storage.completeStorage(undefined, undefined, undefined, 'sessionend');
-                            //io.completeStorage(seData);
-                            vApp.getContent = true;
-                            io.sock.close();
-                            vApp.recorder.startUploadProcess();
-                            
-//                            vApp.recorder.exportData(function (){ });
-//                            vApp.popup.sendBackOtherElems();
-                            
+                                vApp.getContent = true;
+                                io.sock.close();
+                                vApp.recorder.startUploadProcess();
                             }, 300
                         );
                     }
                     
-                } else {
+                }  else if(appName == 'YtsTool'){
+                        var whiteboard = document.getElementById('vAppWhiteboard');
+                        whiteboard.style.display = 'none';
+                        
+                        var yt = document.getElementById('vAppYts');
+                        yt.style.display = 'block';
+                        
+                        vApp.yts.init();
+                        
+                }else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     this.currApp = appName;
                     if(!this.PrvAndCurrIsWss(this.previous, appName)){

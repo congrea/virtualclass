@@ -54,6 +54,10 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/converter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
 
+<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/footer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatlist.js"></script>

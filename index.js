@@ -120,7 +120,6 @@ $.uiBackCompat = false;
             // vApp.gObj.video.audio []
             // TODO here should be eith unit8clampped array or unit8array
             var data_pack = new Uint8Array(e.message);
-            
                
             if(data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
                var stype = 'ss';
@@ -145,7 +144,10 @@ $.uiBackCompat = false;
         });
         
         $(document).on("newmessage", function(e){
-            if(e.message.hasOwnProperty('sad')){
+            if(e.message.hasOwnProperty('yts')){
+                vApp.yts.onmessage(e.message);
+                return;
+            } else if(e.message.hasOwnProperty('sad')){
 //                if(localStorage.getItem('orginalTeacherId') != null){
                     if(e.message.sad){
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);

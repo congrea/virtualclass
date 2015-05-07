@@ -93,7 +93,6 @@ if(isset($_GET['lname'])){
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
         var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/movedata.js" ?>");
-        
     }
     
     <?php echo "wbUser.vAppPlay='$isplay';"; ?>
@@ -147,19 +146,23 @@ if(isset($_GET['lname'])){
 
 
         <div id="mainContainer">
+            <div id="packetContainer" >
+                
+            </div>
 
-          <div id="packetContainer">
-
-          </div>
-
-          <div id="informationCont">
-
-          </div>
+            <div id="informationCont">
+                
+            </div>
         </div>
 
         <div class="clear"></div>
       </div>
 
+    </div>
+    
+    <div id="vAppYts" class="vmApp" width="1400px" height="1200px">
+        <div id="player"></div>
+        
     </div>
 
 <div id="audioWidget">

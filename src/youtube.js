@@ -17,59 +17,62 @@
             var CTpre= 0, PLState = -2, PSmute = -1;
             
             return {
-                init : function (user){
+                init : function (videoId, user){
                     //for students
                     if(typeof user != 'undefined' && user ==  'student'){
-                       this.onYTIframApi(); 
+                       this.onYTIframApi(videoId); 
                     } else {
+                        
                         var uiContainer = document.createElement('div');
                         uiContainer.id = "youtubeUrlContainer";
 
-                        var textArea = document.createElement("TEXTAREA");
-                        textArea.cols = 70;
-                        textArea.rows = 3;
+                        var input = document.createElement("input");
+                        input.id = "youtubeurl";
+                        input.cols = 70;
+                        input.rows = 3;
                         var tnode = document.createTextNode("Please paste here youtube url");
-                        textArea.appendChild(tnode);
-                        document.getElementById('vAppYts').appendChild(textArea);
+                        input.appendChild(tnode);
+                        document.getElementById('vAppYts').appendChild(input);
 
-                        uiContainer.appendChild(textArea);
+                        uiContainer.appendChild(input);
 
-                        var submitURL = document.crateElement('button');
+                        var submitURL = document.createElement('button');
                         submitURL.id = 'submitURL';
+                        submitURL.innerHTML = "Share Video";
 
                         uiContainer.appendChild(submitURL);
                         
+                        document.getElementById('vAppYts').appendChild(uiContainer);
+                        
                         var that = this;
+                        
                         //for teachers
                         submitURL.addEventListener('click', function (){
-                            var videourl = this.value;
                             
+                            var videourl = document.getElementById('youtubeurl').value;
                             var videoId = that.getVideoId(videourl);
                             
+                            
                             that.onYTIframApi(videoId);
-                            io.send({'yts' : 'init'});
-
+                            
+                            io.send({'yts' : {'init' : videoId}});
                         });
                     }
                 },
                 
                 getVideoId  : function (url){
-                    var video_id = window.location.search.split('v=')[1];
-                    var ampersandPosition = video_id.indexOf('&');
-                    if(ampersandPosition != -1) {
-                      video_id = video_id.substring(0, ampersandPosition);
-                    }  
-                    return video_id;
+                    var rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+                    var r = url.match(rx)[1].substring(0, 11);
+                    if (r.length == 11) {
+                        return r;
+                    } else {
+                        alert("Invalid YouTube URL.");
+                    }
                 },
-                
                 
                 onmessage : function (msg){
                    if(typeof msg.yts == 'string'){
-                       if(msg.yts == 'init'){
-                            document.getElementById('vAppWhiteboard').style.display = 'none';
-                            document.getElementById('vAppYts').style.display = 'block';
-                            this.init('student');
-                        } else if(msg.yts == 'play') {
+                        if(msg.yts == 'play') {
                             player.playVideo();
                         } else if(msg.yts == 'pause') {
                             player.pauseVideo();
@@ -79,26 +82,36 @@
                            player.unMute();
                         }
                    } else {
-                        var seekToNum = parseInt(msg.yts.seekto, 10);
-                        player.seekTo(seekToNum);
+                        if(msg.yts.hasOwnProperty('init')){
+                            document.getElementById('vAppWhiteboard').style.display = 'none';
+                            document.getElementById('vAppYts').style.display = 'block';
+                            this.init(msg.yts.init, 'student');
+                        }else{
+                            var seekToNum = parseInt(msg.yts.seekto, 10);
+                            player.seekTo(seekToNum);
+                        }
                    } 
                 },
 
                 onYTIframApi : function (videoId){
-                    player = new YT.Player('player', {
-                        height: '390',
-                        width: '640',
-                        videoId: 'M7lc1UVf-VE',
-                        autohide : 0,
-                        disablekb : 1,
-                        enablejsapi : 1,
-                        modestbranding : 1,
-                        autoplay : 0,
-
-                        events: {
-                            'onReady': this.onPlayerReady
-                        }
-                    });
+                    if(typeof player == 'object'){
+                        //player.stopVideo();
+                        player.loadVideoById(videoId);
+                    } else{
+                        player = new YT.Player('player', {
+                            height: '390',
+                            width: '640',
+                            videoId: videoId,
+                            autohide : 0,
+                            disablekb : 1,
+                            enablejsapi : 1,
+                            modestbranding : 1,
+                            autoplay : 0,
+                            events: {
+                                'onReady': this.onPlayerReady
+                            }
+                        });
+                    }
                 },
 
                triggerOnSeekChange :  function () {

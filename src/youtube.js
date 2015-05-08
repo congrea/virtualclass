@@ -17,6 +17,7 @@
             var CTpre= 0, PLState = -2, PSmute = -1;
             
             return {
+                player : '',
                 init : function (videoId, user){
                     this.UI.container();
                     
@@ -24,41 +25,6 @@
                        this.onYTIframApi(videoId); 
                     } else {
                         this.UI.inputURL();
-                        
-//                        var uiContainer = document.createElement('div');
-//                        uiContainer.id = "youtubeUrlContainer";
-//
-//                        var input = document.createElement("input");
-//                        input.id = "youtubeurl";
-//                        input.cols = 70;
-//                        input.rows = 3;
-//                        var tnode = document.createTextNode("Please paste here youtube url");
-//                        input.appendChild(tnode);
-//                        document.getElementById('vAppYts').appendChild(input);
-//
-//                        uiContainer.appendChild(input);
-//
-//                        var submitURL = document.createElement('button');
-//                        submitURL.id = 'submitURL';
-//                        submitURL.innerHTML = "Share Video";
-//
-//                        uiContainer.appendChild(submitURL);
-//                        
-//                        document.getElementById('vAppYts').appendChild(uiContainer);
-//                        
-//                        var that = this;
-//                        
-//                        //for teachers
-//                        submitURL.addEventListener('click', function (){
-//                            
-//                            var videourl = document.getElementById('youtubeurl').value;
-//                            var videoId = that.getVideoId(videourl);
-//                            
-//                            
-//                            that.onYTIframApi(videoId);
-//                            
-//                            io.send({'yts' : {'init' : videoId}});
-//                        });
                     }
                 },
                 
@@ -70,13 +36,14 @@
                         var divYts = document.createElement('div');
                         divYts.id = this.id;
                         divYts.className = this.class;
-
-//                        var divPlayer = document.createElement('div');
-//                        divPlayer.id = "player";
-//                        divYts.appendChild(divPlayer);
-
+                        
+                        var divPlayer = document.createElement('div');
+                        divPlayer.id = "player";
+                        divYts.appendChild(divPlayer);
+                        
                         var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
                         document.getElementById(vApp.html.id).insertBefore(divYts, beforeAppend);
+                        
                        }
                    },
                    
@@ -104,9 +71,9 @@
                             var ytsCont = document.getElementById('vAppYts');
                             ytsCont.appendChild(uiContainer);
                             
-                            var divPlayer = document.createElement('div');
-                            divPlayer.id = "player";
-                            ytsCont.appendChild(divPlayer);
+//                            var divPlayer = document.createElement('div');
+//                            divPlayer.id = "player";
+//                            ytsCont.appendChild(divPlayer);
                             
                             //var that = this;
 
@@ -120,6 +87,7 @@
                                     alert('Invalid YouTube URL.');
                                     return;
                                 }
+                                
                                 
                                 vApp.yts.onYTIframApi(videoId);
                                 io.send({'yts' : {'init' : videoId}});
@@ -144,31 +112,31 @@
                 onmessage : function (msg){
                    if(typeof msg.yts == 'string'){
                         if(msg.yts == 'play') {
-                            player.playVideo();
+                            this.player.playVideo();
                         } else if(msg.yts == 'pause') {
-                            player.pauseVideo();
+                            this.player.pauseVideo();
                         } else if(msg.yts == 'mute'){
-                            player.mute();
+                            this.player.mute();
                         }  else if(msg.yts == 'unmute'){
-                           player.unMute();
+                           this.player.unMute();
                         }
                    } else {
                         if(msg.yts.hasOwnProperty('init')){
+                            this.init(msg.yts.init, 'student');
                             document.getElementById('vAppWhiteboard').style.display = 'none';
                             document.getElementById('vAppYts').style.display = 'block';
-                            this.init(msg.yts.init, 'student');
                         }else{
                             var seekToNum = parseInt(msg.yts.seekto, 10);
-                            player.seekTo(seekToNum);
+                            this.player.seekTo(seekToNum);
                         }
                    } 
                 },
 
                 onYTIframApi : function (videoId){
-                    if(typeof player == 'object'){
-                        player.loadVideoById(videoId);
+                    if(typeof this.player == 'object'){
+                        this.player.loadVideoById(videoId);
                     } else{
-                        player = new YT.Player('player', {
+                        this.player = new YT.Player('player', {
                             height: '390',
                             width: '640',
                             videoId: videoId,
@@ -187,25 +155,25 @@
                triggerOnSeekChange :  function () {
                     console.log('there should happend something after each 2 second');
                     if (CTpre == 0 || PLState == -2 || PSmute == -1) {
-                        CTpre = player.getCurrentTime();
-                        PLState = player.getPlayerState();
-                        PSmute = player.isMuted();
+                        CTpre = this.player.getCurrentTime();
+                        PLState = this.player.getPlayerState();
+                        PSmute = this.player.isMuted();
                     } else {
-                        var difftime = Math.abs(player.getCurrentTime() - CTpre);
-                        CTpre = player.getCurrentTime();
+                        var difftime = Math.abs(this.player.getCurrentTime() - CTpre);
+                        CTpre = this.player.getCurrentTime();
 
                         if (difftime > 4) {
-                            this.ytOnSeek(player.getCurrentTime());
+                            this.ytOnSeek(this.player.getCurrentTime());
                         }
 
-                        if ((player.getPlayerState() != PLState) && player.getPlayerState() != 3)  {
-                            this.ytOnChange(player.getPlayerState());
-                            PLState = player.getPlayerState();
+                        if ((this.player.getPlayerState() != PLState) && this.player.getPlayerState() != 3)  {
+                            this.ytOnChange(this.player.getPlayerState());
+                            PLState = this.player.getPlayerState();
                         }
 
-                        if (player.isMuted() != PSmute) {
-                            this.ytOnMuted(player.isMuted());
-                            PSmute = player.isMuted();
+                        if (this.player.isMuted() != PSmute) {
+                            this.ytOnMuted(this.player.isMuted());
+                            PSmute = this.player.isMuted();
                         }
 
                     }
@@ -247,10 +215,9 @@
                 }, 
 
                 onPlayerReady : function (event) {
-                    var that = this;
                     event.target.playVideo();
-                    player.unMute();
-                    player.setVolume(40);
+                    vApp.yts.player.unMute();
+                    vApp.yts.player.setVolume(40);
                     setInterval(
                         function (){
                             vApp.yts.triggerOnSeekChange();

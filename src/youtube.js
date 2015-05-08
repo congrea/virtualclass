@@ -18,56 +18,127 @@
             
             return {
                 init : function (videoId, user){
-                    //for students
+                    this.UI.container();
+                    
                     if(typeof user != 'undefined' && user ==  'student'){
                        this.onYTIframApi(videoId); 
                     } else {
+                        this.UI.inputURL();
                         
-                        var uiContainer = document.createElement('div');
-                        uiContainer.id = "youtubeUrlContainer";
-
-                        var input = document.createElement("input");
-                        input.id = "youtubeurl";
-                        input.cols = 70;
-                        input.rows = 3;
-                        var tnode = document.createTextNode("Please paste here youtube url");
-                        input.appendChild(tnode);
-                        document.getElementById('vAppYts').appendChild(input);
-
-                        uiContainer.appendChild(input);
-
-                        var submitURL = document.createElement('button');
-                        submitURL.id = 'submitURL';
-                        submitURL.innerHTML = "Share Video";
-
-                        uiContainer.appendChild(submitURL);
-                        
-                        document.getElementById('vAppYts').appendChild(uiContainer);
-                        
-                        var that = this;
-                        
-                        //for teachers
-                        submitURL.addEventListener('click', function (){
-                            
-                            var videourl = document.getElementById('youtubeurl').value;
-                            var videoId = that.getVideoId(videourl);
-                            
-                            
-                            that.onYTIframApi(videoId);
-                            
-                            io.send({'yts' : {'init' : videoId}});
-                        });
+//                        var uiContainer = document.createElement('div');
+//                        uiContainer.id = "youtubeUrlContainer";
+//
+//                        var input = document.createElement("input");
+//                        input.id = "youtubeurl";
+//                        input.cols = 70;
+//                        input.rows = 3;
+//                        var tnode = document.createTextNode("Please paste here youtube url");
+//                        input.appendChild(tnode);
+//                        document.getElementById('vAppYts').appendChild(input);
+//
+//                        uiContainer.appendChild(input);
+//
+//                        var submitURL = document.createElement('button');
+//                        submitURL.id = 'submitURL';
+//                        submitURL.innerHTML = "Share Video";
+//
+//                        uiContainer.appendChild(submitURL);
+//                        
+//                        document.getElementById('vAppYts').appendChild(uiContainer);
+//                        
+//                        var that = this;
+//                        
+//                        //for teachers
+//                        submitURL.addEventListener('click', function (){
+//                            
+//                            var videourl = document.getElementById('youtubeurl').value;
+//                            var videoId = that.getVideoId(videourl);
+//                            
+//                            
+//                            that.onYTIframApi(videoId);
+//                            
+//                            io.send({'yts' : {'init' : videoId}});
+//                        });
                     }
                 },
                 
+                UI : {
+                   id : 'vAppYts', 
+                   class : 'vmApp',
+                   container : function (){
+                       if(document.getElementById(this.id) ==  null){
+                        var divYts = document.createElement('div');
+                        divYts.id = this.id;
+                        divYts.className = this.class;
+
+//                        var divPlayer = document.createElement('div');
+//                        divPlayer.id = "player";
+//                        divYts.appendChild(divPlayer);
+
+                        var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
+                        document.getElementById(vApp.html.id).insertBefore(divYts, beforeAppend);
+                       }
+                   },
+                   
+                   inputURL : function (){
+                       if(document.getElementById('youtubeUrlContainer') == null){
+                            var uiContainer = document.createElement('div');
+                            uiContainer.id = "youtubeUrlContainer";
+
+                            var input = document.createElement("input");
+                            input.id = "youtubeurl";
+                            input.cols = 70;
+                            input.rows = 3;
+                            var tnode = document.createTextNode("Please paste here youtube url");
+                            input.appendChild(tnode);
+                            document.getElementById('vAppYts').appendChild(input);
+
+                            uiContainer.appendChild(input);
+
+                            var submitURL = document.createElement('button');
+                            submitURL.id = 'submitURL';
+                            submitURL.innerHTML = "Share Video";
+
+                            uiContainer.appendChild(submitURL);
+                            
+                            var ytsCont = document.getElementById('vAppYts');
+                            ytsCont.appendChild(uiContainer);
+                            
+                            var divPlayer = document.createElement('div');
+                            divPlayer.id = "player";
+                            ytsCont.appendChild(divPlayer);
+                            
+                            //var that = this;
+
+                            //for teachers
+                            submitURL.addEventListener('click', function (){
+
+                                var videourl = document.getElementById('youtubeurl').value;
+                                var videoId = vApp.yts.getVideoId(videourl);
+                                
+                                if(typeof videoId == 'boolean'){
+                                    alert('Invalid YouTube URL.');
+                                    return;
+                                }
+                                
+                                vApp.yts.onYTIframApi(videoId);
+                                io.send({'yts' : {'init' : videoId}});
+                            });
+                       }
+                   }
+                   
+                },
+               
                 getVideoId  : function (url){
                     var rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
-                    var r = url.match(rx)[1].substring(0, 11);
-                    if (r.length == 11) {
-                        return r;
-                    } else {
-                        alert("Invalid YouTube URL.");
+                    var m = url.match(rx);
+                    if (m != null && m.length > 1){
+                        var r = m[1].substring(0, 11);
+                        if (r.length == 11) {
+                            return r;
+                        }
                     }
+                    return false;
                 },
                 
                 onmessage : function (msg){
@@ -95,7 +166,6 @@
 
                 onYTIframApi : function (videoId){
                     if(typeof player == 'object'){
-                        //player.stopVideo();
                         player.loadVideoById(videoId);
                     } else{
                         player = new YT.Player('player', {

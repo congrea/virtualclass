@@ -1167,8 +1167,13 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont.student #vAppScreenShare, #vAppCont.student #vAppWholeScreenShare {
 	margin-left : 5px;
 }
-#vAppCont.teacher #vAppScreenShare, #vAppCont.teacher #vAppWholeScreenShare {
-	margin-left : 55px;
+
+/*#vAppCont.teacher #vAppScreenShare, #vAppCont.teacher #vAppWholeScreenShare {
+    margin-left : 55px;
+}*/
+
+.vmApp {
+    margin-left : 55px;
 }
 #vAppCont {
 	height : 99%;
@@ -1806,8 +1811,7 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #vAppYts {
-    border : 2px solid green;
-    width : 1100px;
-    height : 800px;
-    margin-left : 50px;
+/*    width : 1100px;
+    height : 800px;*/
+    margin-left : 60px;
 }

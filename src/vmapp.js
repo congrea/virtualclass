@@ -88,7 +88,8 @@ function (window){
                 }
                 
                 vApp.wb.utility.displayCanvas();
-
+                vApp.yts = window.yts();
+                
                 if(app == this.apps[1]){
                     this.system.setAppDimension();
                 }
@@ -102,12 +103,7 @@ function (window){
                 
                 this.gObj.video = new window.vApp.media();
                 
-                
-//                if(!vApp.gObj.hasOwnProperty('audIntDisable) && !vApp.gObj.hasOwnPropert('videoDisable')){
-//                    this.gObj.video = new window.vApp.media();
-//                }
                 if(!vApp.vutil.isPlayMode()){
-                //if(!window.wbUser.vAppPlay){
                     this.initSocketConn();
                 }
                 
@@ -119,7 +115,7 @@ function (window){
                 vApp.xhr.init();
                 vApp.dtCon = vApp.converter();  
                 vApp.pbar = progressBar;
-                vApp.yts = window.yts();
+                
                 
             },
             
@@ -218,10 +214,27 @@ function (window){
                     return elem;
                 }
               },
+              
+              dispVappLayout : function (appId){
+                    if(typeof this.previous != 'undefined'){
+                        document.getElementById(vApp.previous).style.display = 'none';
+                    }
+
+                    var appElement = document.getElementById(appId);
+                    if(appElement != null){
+                        appElement.style.display = 'block';
+                    }
+              },
 
               makeAppReady : function (app, cusEvent){
+//                  var currAppId = "";
+                  
+                    if(app != this.apps[1]){
+                       if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
+                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
+                        }
+                   }
                   if(app == this.apps[0]){
-
                         if(typeof this.ss == 'object'){
                               this.ss.prevStream = false;
                         }
@@ -230,13 +243,14 @@ function (window){
                             if(typeof cusEvent != 'undefined' && cusEvent == "byclick"){
                                 vApp.wb.utility.beforeSend({'dispWhiteboard' : true});
                             }
-                            document.getElementById(vApp.previous).style.display = 'none';
+                           // document.getElementById(vApp.previous).style.display = 'none';
                         }
-                        var wb = document.getElementById(this.wbConfig.id);
-                        if(wb != null){
-                            wb.style.display = 'block';
-                        }
-
+                        
+//                        var wb = document.getElementById(this.wbConfig.id);
+//                        if(wb != null){
+//                            wb.style.display = 'block';
+//                        }
+                        this.dispVappLayout(this.wbConfig.id);
                         //this should be checked with solid condition
                         if(typeof this.wb != 'object'){
                             this.wb = new window.whiteboard(this.wbConfig);
@@ -261,20 +275,15 @@ function (window){
                         if(typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')){
                             this.prevScreen.unShareScreen();
                         }
-                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
-                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
-                        }
+//                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
+//                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
+//                        }
 
                         //important this need only if user draw the whiteboard
                         // after received image with teacher role.
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
-                              //important can be crtical
-//                            if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
-//                              //vApp.wb.utility.makeCanvasEnable();
-//                            }
-
                             vApp.wb.utility.makeCanvasEnable();
                         }
 
@@ -283,23 +292,31 @@ function (window){
                                 vApp.wb.utility.lockVapp();
                             }
                         }
-
+                        
+                        this.previous =  this.wbConfig.id;
+                        this.prevApp = this.previous;
+                        
+//                        currAppId = this.wbConfig.id;
                         //TODO this should be into same varible
-                        this.previous = this.wbConfig.id;
-                        this.prevApp = this.wbConfig.id;
-                  }else if(app == this.apps[1]){
+                   }else if(app == this.apps[1]){
                         if(typeof this.ss != 'object'){
                             this.ss = new window.screenShare(vApp.ssConfig);
                         }
                         this.ss.init({type: 'ss', app : app});
-                  }
-                  
-//                  else if(app == this.apps[2]){
-//                      if(typeof this.wss != 'object'){
-//                        this.wss = new window.screenShare(vApp.wssConfig);
-//                      }
-//                      this.wss.init({type: 'wss', app : app});
-//                  }
+                        
+//                        this.previous =  vApp.ssConfig.id;
+//                        this.prevApp = this.previous;
+                        
+                  }else if(app == this.apps[2]){
+                        this.dispVappLayout(vApp.ytsConfig.id);
+                        vApp.yts.init();
+                        this.previous = vApp.ytsConfig.id;
+                        this.prevApp = this.previous;
+                        var measureRes = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+                        vApp.vutil.setContainerWidth(measureRes);
+                   }
+                   
+              
               },
 
               attachFunction :function (){
@@ -334,16 +351,19 @@ function (window){
                         );
                     }
                     
-                }  else if(appName == 'YtsTool'){
-                        var whiteboard = document.getElementById('vAppWhiteboard');
-                        whiteboard.style.display = 'none';
-                        
-                        var yt = document.getElementById('vAppYts');
-                        yt.style.display = 'block';
-                        
-                        vApp.yts.init();
-                        
-                }else {
+                }
+//                else if(appName == 'YtsTool'){
+//                    
+////                        var whiteboard = document.getElementById('vAppWhiteboard');
+////                        whiteboard.style.display = 'none';
+//                        
+//                        var yt = document.getElementById('vAppYts');
+//                        yt.style.display = 'block';
+//                        
+//                        vApp.yts.init();
+//                        
+//                } 
+                else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     this.currApp = appName;
                     if(!this.PrvAndCurrIsWss(this.previous, appName)){
@@ -354,7 +374,6 @@ function (window){
                 }
                 if(appName != "ScreenShare"){
                     vApp.vutil.removeClass('audioWidget', "fixed");
-
                 }
             },
 

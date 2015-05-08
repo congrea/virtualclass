@@ -88,7 +88,7 @@
                 if(typeof vApp.previous != 'undefined'){
                    appId = vApp.previous;
                 }
-
+                //alert(appId);
                 var appCont = document.getElementById(appId);
                 var rightOffSet = 5;
 
@@ -109,8 +109,10 @@
                 //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
                 res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth) ;
                 appCont.style.width = res.width + 'px';
-
-                if(appId != 'vAppWhiteboard'){
+                appCont.style.height = res.height + 'px';
+                
+                if(appId == 'vAppScreenShare'){
+                //if(appId != 'vAppWhiteboard'){
                     var ssType = document.getElementById(appId + 'Local');
                     res.width = res.width - 10;
                     appCont.style.width = res.width;
@@ -135,12 +137,11 @@
             }, 
 
             makeActiveApp : function (app, prvTool){
-                if(typeof prvTool != 'undefined'){
-                     var prvTool = prvTool+'Tool';
-                     var classes = vApp.wb.utility.removeClassFromElement(prvTool, 'active');
-                     document.getElementById(prvTool).className = classes;
-                 }
-                 
+                if(app != prvTool && typeof prvTool != 'undefined'){
+                    var prvTool = prvTool+'Tool';
+                    var classes = vApp.wb.utility.removeClassFromElement(prvTool, 'active');
+                    document.getElementById(prvTool).className = classes;
+                }
                 document.getElementById(app + "Tool").className += ' active';
                  
             },

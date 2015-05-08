@@ -160,10 +160,9 @@ if(isset($_GET['lname'])){
 
     </div>
     
-    <div id="vAppYts" class="vmApp" width="1400px" height="1200px">
+<!--    <div id="vAppYts" class="vmApp" width="1400px" height="1200px">
         <div id="player"></div>
-        
-    </div>
+    </div>-->
 
 <div id="audioWidget">
     <?php 

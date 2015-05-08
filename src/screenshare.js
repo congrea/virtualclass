@@ -191,9 +191,12 @@
                     if (ssUI != null) {
                         ssUI.parentNode.removeChild(ssUI);
                     }
+//                    alert('suman bogati');
+//                    debugger;
                     ssUI = this.html.UI.call(this, vApp.gObj.uRole);
                     var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
                     document.getElementById(vApp.html.id).insertBefore(ssUI, beforeAppend);
+                    
                     if (vApp.gObj.uRole == 't' && !vApp.recorder.recImgPlay) {
                         vApp.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }

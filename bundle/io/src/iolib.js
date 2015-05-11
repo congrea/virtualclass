@@ -207,7 +207,7 @@ var io = {
     
                     if (r1.type == "broadcastToAll"){
                         
-                        console.log("json  : display msg");
+                      //  console.log("json  : display msg");
                         var userto = '';
                         
                         if(r1.userto != undefined){ userto = r1.userto; }

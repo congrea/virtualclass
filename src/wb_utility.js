@@ -963,6 +963,9 @@
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                     } else {
                         if(msg.hasOwnProperty('repObj')){
+                            if(typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined'){
+                                return;
+                            }
                             vApp.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                             vApp.wb.gObj.displayedObjId = vApp.wb.gObj.rcvdPackId;
                         }

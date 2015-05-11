@@ -291,7 +291,7 @@ $.uiBackCompat = false;
                     vApp.wb.utility.beforeSend({'repObj' : chunk, 'chunk' : true});
                 }
                 if(e.message.hasOwnProperty('createArrow')){
-                    console.log('crearting arrow');
+                //    console.log('crearting arrow');
                     vApp.wb.response.createArrow(e.message, vApp.wb.oTeacher);
                 }else{
                     if(!e.message.hasOwnProperty('replayAll') && !e.message.hasOwnProperty('clearAll') && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('checkUser')){
@@ -308,7 +308,7 @@ $.uiBackCompat = false;
                         }else{
                             if(vApp.wb.gObj.rcvdPackId + 1 == e.message.repObj[0].uid) {
                                 for (var i = 0; i < e.message.repObj.length; i++){
-                                    console.log("done rep Obj");
+                                //    console.log("done rep Obj");
                                     vApp.wb.gObj.replayObjs.push(e.message.repObj[i]);
                                 }
                             }

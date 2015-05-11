@@ -13,11 +13,10 @@
          */
         
         var yts  = function (config) { 
-            var player;
+            //var player;
             var CTpre= 0, PLState = -2, PSmute = -1;
             
             return {
-                
                 player : '',
                 init : function (videoId, user){
                     this.UI.container();
@@ -30,6 +29,7 @@
                 
                 destroyYT : function (){
                     if(typeof vApp.yts.player == 'object'){
+                        console.log('Player object is DESTROYED.');
                         vApp.yts.player.destroy();
                         vApp.yts.player = "";
                         if(vApp.yts.hasOwnProperty('tcs')){
@@ -142,7 +142,10 @@
                             
                         }else{
                             var seekToNum = parseInt(msg.yts.seekto, 10);
-                            this.player.seekTo(seekToNum);
+                            //during the replay if player is ready for seek
+                            if(this.player.hasOwnProperty('seekTo')){
+                                this.player.seekTo(seekToNum);
+                            }
                         }
                    } 
                 },
@@ -164,7 +167,7 @@
                               }
                          }
                       
-                        
+                        console.log('Player object is CREATED');
                         this.player = new YT.Player('player', videoObj);
 
                     }
@@ -232,6 +235,7 @@
                 }, 
 
                 onPlayerReady : function (event) {
+                    console.log('Player is ready');
                     event.target.playVideo();
                     vApp.yts.player.unMute();
                     vApp.yts.player.setVolume(40);
@@ -240,7 +244,7 @@
                         function (){
                             vApp.yts.triggerOnSeekChange();
                         }
-                        , 2000);
+                        , 2000/vApp.recorder.controller.ff);
                     }
                 }
             }

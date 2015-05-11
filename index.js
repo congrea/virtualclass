@@ -205,6 +205,7 @@ $.uiBackCompat = false;
             
             if(e.message.hasOwnProperty('sEnd')){
                 vApp.storage.config.endSession();
+                location.reload();
                 return;
             }
             

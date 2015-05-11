@@ -1199,7 +1199,7 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont .ui-widget.enable {
 	opacity : 1;
 }
-#vAppCont #vAppWhiteboardTool a, #vAppCont #vAppScreenShareTool a, #vAppCont #vAppSessionEndTool a {
+#vAppCont #vAppOptionsCont, .tooltip {
 	text-decoration : none;
 	outline-width : 0;
 	z-index : 990;
@@ -1539,8 +1539,14 @@ opacity : 0.800000011920928955078125 !important;
 #vAppCont #vAppWhiteboardTool .icon-whiteboard:before {
 	content : "\e604";
 }
+
 #vAppCont #vAppScreenShareTool .icon-screenshare:before {
 	content : "\e602";
+}
+
+#vAppCont #vAppYtsTool .icon-youtubeshare:before {
+
+	content : "\ea99";
 }
 #vAppCont #vAppSessionEndTool .icon-sessionend:before {
 	content : "\e9b6";
@@ -1638,6 +1644,8 @@ opacity : 0.800000011920928955078125 !important;
 	position : relative;
 	top : -2px;
 }
+
+
 #vAppCont #t_reclaim .icon-reclaim:before {
 	content : "\f112";
 	color : #535151;
@@ -1803,15 +1811,19 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 
-.icon-youtubeshare:after{
-    content: 'YT';
-    width : 60px;
-    height : 80px;
-    cursor :pointer;
-}
+/*.icon-youtubeshare:after{*/
+	/*content: 'YT';*/
+	/*width : 60px;*/
+	/*height : 80px;*/
+	/*cursor :pointer;*/
+/*}*/
 
 #vAppYts {
 /*    width : 1100px;
     height : 800px;*/
     margin-left : 60px;
+}
+
+#vAppCont #player{
+	margin-top : 20px;
 }

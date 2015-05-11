@@ -71,7 +71,6 @@
                     if(vApp.gObj.hasOwnProperty('audIntDisable') || vApp.gObj.hasOwnProperty('vidIntDisable')){
                         vApp.user.control.audioWidgetDisable();
                     }
-                    
                 }   
             },
 
@@ -485,7 +484,16 @@
                 document.getElementById(pbar).style.width=totalProgress+'%';
                 document.getElementById(pval).innerHTML=totalProgress+'%';
                 
+            },
+            
+            hidePrevIcon : function (app){
+                var prvScreen = document.getElementById(vApp.previous);
+                if(prvScreen != null){
+                    prvScreen.style.display = 'none';
+                    document.getElementById(vApp[app].id).style.display = 'block';
+                }
             }
+            
         }
         window.vutil = vutil;
     }

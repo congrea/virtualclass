@@ -226,15 +226,17 @@ function (window){
                     }
               },
 
-              makeAppReady : function (app, cusEvent){
+              makeAppReady : function (app, cusEvent, videoId){
 //                  var currAppId = "";
-                  
+
+                    
                     if(app != this.apps[1]){
                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
                             vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
                         }
-                   }
-                  if(app == this.apps[0]){
+                    }
+                    
+                    if(app == this.apps[0]){
                         if(typeof this.ss == 'object'){
                               this.ss.prevStream = false;
                         }
@@ -246,10 +248,6 @@ function (window){
                            // document.getElementById(vApp.previous).style.display = 'none';
                         }
                         
-//                        var wb = document.getElementById(this.wbConfig.id);
-//                        if(wb != null){
-//                            wb.style.display = 'block';
-//                        }
                         this.dispVappLayout(this.wbConfig.id);
                         //this should be checked with solid condition
                         if(typeof this.wb != 'object'){
@@ -275,9 +273,6 @@ function (window){
                         if(typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')){
                             this.prevScreen.unShareScreen();
                         }
-//                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
-//                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
-//                        }
 
                         //important this need only if user draw the whiteboard
                         // after received image with teacher role.
@@ -303,37 +298,42 @@ function (window){
                             this.ss = new window.screenShare(vApp.ssConfig);
                         }
                         this.ss.init({type: 'ss', app : app});
-                        
-//                        this.previous =  vApp.ssConfig.id;
-//                        this.prevApp = this.previous;
-                        
                   }else if(app == this.apps[2]){
                         this.dispVappLayout(vApp.ytsConfig.id);
-                        vApp.yts.init();
+                        if(typeof videoId != 'undefined'){
+                            vApp.yts.init(videoId);
+                        } else {
+                            vApp.yts.init();
+                        }
+                        
+                        
                         this.previous = vApp.ytsConfig.id;
                         this.prevApp = this.previous;
+                        
                         var measureRes = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
                         vApp.vutil.setContainerWidth(measureRes);
                    }
                    
-              
-              },
+                    if(app != this.apps[1]  && app != this.apps[2] && vApp.hasOwnProperty('yts')){
+                        vApp.yts.destroyYT();
+                    }
+                   
+             },
 
-              attachFunction :function (){
-                  var allAppOptions = document.getElementsByClassName("appOptions");
-                  for(var i = 0; i < allAppOptions.length; i++){
-                      var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
-                      var that = this;
-                      clickedAnchor = anchTag;
-                      anchTag.onclick = function (){
-                          that.initlizer(this);
-                      };
-                  }
-              },
+            attachFunction :function (){
+                var allAppOptions = document.getElementsByClassName("appOptions");
+                for(var i = 0; i < allAppOptions.length; i++){
+                    var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
+                    var that = this;
+                    clickedAnchor = anchTag;
+                    anchTag.onclick = function (){
+                        that.initlizer(this);
+                    };
+                }
+            },
 
             initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
-                
                 if(appName == 'SessionEndTool'){
                     if (!confirm(vApp.lang.getString('savesession'))){
                         if (!confirm(vApp.lang.getString('startnewsession'))){
@@ -350,20 +350,7 @@ function (window){
                             }, 300
                         );
                     }
-                    
-                }
-//                else if(appName == 'YtsTool'){
-//                    
-////                        var whiteboard = document.getElementById('vAppWhiteboard');
-////                        whiteboard.style.display = 'none';
-//                        
-//                        var yt = document.getElementById('vAppYts');
-//                        yt.style.display = 'block';
-//                        
-//                        vApp.yts.init();
-//                        
-//                } 
-                else {
+                } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     this.currApp = appName;
                     if(!this.PrvAndCurrIsWss(this.previous, appName)){
@@ -375,6 +362,7 @@ function (window){
                 if(appName != "ScreenShare"){
                     vApp.vutil.removeClass('audioWidget', "fixed");
                 }
+                
             },
 
             PrvAndCurrIsWss : function (previous, appName){

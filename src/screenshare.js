@@ -58,11 +58,14 @@
                      }
                      vApp.makeAppReady(stool);
                 }else{
-                     var prvScreen = document.getElementById(vApp.previous);
-                     if(prvScreen != null){
-                         prvScreen.style.display = 'none';
-                         document.getElementById(vApp[app].id).style.display = 'block';
-                     }
+                    
+                    vApp.vutil.hidePrevIcon(app);
+                    
+//                     var prvScreen = document.getElementById(vApp.previous);
+//                     if(prvScreen != null){
+//                         prvScreen.style.display = 'none';
+//                         document.getElementById(vApp[app].id).style.display = 'block';
+//                     }
                 }
 
                 if(d.hasOwnProperty('d')){
@@ -332,7 +335,12 @@
                     vApp.vutil.setContainerWidth(res);
 
                     if (vApp.gObj.uRole == 't') {
+                        //TODO This should be invoke at one place
                         vApp.vutil.makeActiveApp(that.id, vApp.prevApp);
+                        if(vApp.prevApp == 'vAppYts'){
+                            vApp.yts.destroyYT();
+                        }
+                        
                     }
                     vApp.prevApp = that.id;
                 }
@@ -583,9 +591,13 @@
                     vc.style.height = msg.vc.h + "px";
                 }
 
-                if (vApp.previous != 'vAppWhiteboard') {
+                if(vApp.previous == 'vAppScreenShare'){
                     vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
                 }
+
+                //if (vApp.previous != 'vAppWhiteboard') {
+                //    vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
+                //}
             },
             html: {
                 UI: function (user) {

@@ -17,14 +17,24 @@
             var CTpre= 0, PLState = -2, PSmute = -1;
             
             return {
+                
                 player : '',
                 init : function (videoId, user){
                     this.UI.container();
-                    
-                    if(typeof user != 'undefined' && user ==  'student'){
+                    if(vApp.gObj.uRole == 's'){
                        this.onYTIframApi(videoId); 
                     } else {
                         this.UI.inputURL();
+                    }
+                },
+                
+                destroyYT : function (){
+                    if(typeof vApp.yts.player == 'object'){
+                        vApp.yts.player.destroy();
+                        vApp.yts.player = "";
+                        if(vApp.yts.hasOwnProperty('tcs')){
+                            clearInterval(vApp.yts.tcs);
+                        }
                     }
                 },
                 
@@ -69,7 +79,10 @@
                             uiContainer.appendChild(submitURL);
                             
                             var ytsCont = document.getElementById('vAppYts');
-                            ytsCont.appendChild(uiContainer);
+                            var playerTag = document.getElementById('player');
+                            ytsCont.insertBefore(uiContainer, playerTag);
+                            
+                        //    ytsCont.appendChild(uiContainer);
                             
 //                            var divPlayer = document.createElement('div');
 //                            divPlayer.id = "player";
@@ -87,7 +100,6 @@
                                     alert('Invalid YouTube URL.');
                                     return;
                                 }
-                                
                                 
                                 vApp.yts.onYTIframApi(videoId);
                                 io.send({'yts' : {'init' : videoId}});
@@ -122,9 +134,12 @@
                         }
                    } else {
                         if(msg.yts.hasOwnProperty('init')){
-                            this.init(msg.yts.init, 'student');
-                            document.getElementById('vAppWhiteboard').style.display = 'none';
-                            document.getElementById('vAppYts').style.display = 'block';
+                            vApp.makeAppReady('Yts', undefined, msg.yts.init);
+                            
+//                            this.init(msg.yts.init, 'student');
+//                            document.getElementById('vAppWhiteboard').style.display = 'none';
+//                            document.getElementById('vAppYts').style.display = 'block';
+                            
                         }else{
                             var seekToNum = parseInt(msg.yts.seekto, 10);
                             this.player.seekTo(seekToNum);
@@ -136,19 +151,22 @@
                     if(typeof this.player == 'object'){
                         this.player.loadVideoById(videoId);
                     } else{
-                        this.player = new YT.Player('player', {
-                            height: '390',
-                            width: '640',
-                            videoId: videoId,
-                            autohide : 0,
-                            disablekb : 1,
-                            enablejsapi : 1,
-                            modestbranding : 1,
-                            autoplay : 0,
-                            events: {
+                        var videoObj = {
+                              height: '390',
+                              width: '640',
+                              videoId: videoId,
+                              autohide : 0,
+                              disablekb : 1,
+                              enablejsapi : 1,
+                              modestbranding : 1,
+                              events : {
                                 'onReady': this.onPlayerReady
-                            }
-                        });
+                              }
+                         }
+                      
+                        
+                        this.player = new YT.Player('player', videoObj);
+
                     }
                 },
 
@@ -186,7 +204,6 @@
                         io.send({'yts' : 'unmute'});
                     }
                     
-                    
                     console.log('MUTED '+muted);
                 },
 
@@ -218,11 +235,13 @@
                     event.target.playVideo();
                     vApp.yts.player.unMute();
                     vApp.yts.player.setVolume(40);
-                    setInterval(
+                    if(vApp.gObj.uRole == 't'){
+                        vApp.yts.tsc = setInterval(
                         function (){
                             vApp.yts.triggerOnSeekChange();
                         }
-                    , 2000);
+                        , 2000);
+                    }
                 }
             }
     }

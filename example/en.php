@@ -1,0 +1,10 @@
+<?php
+    $string =  array();
+    $string['uploadsession'] = 'Please wait while upload Session.';
+    $string['totalprogress'] = 'Total Progress';
+    $string['indvprogress'] = 'Individual File Upload.';
+    $string['downloadsession'] = 'Please wait while download Sesssion.';
+    $string['askplaymsg'] = '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>';
+    $string['overallprogress'] = 'Overall Progress';
+    
+?>

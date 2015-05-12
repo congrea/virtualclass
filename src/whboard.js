@@ -285,7 +285,7 @@
                         //recorder.items.push(obj);
                         
                         vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-                        vApp.storage.wholeStore(obj);
+//                        vApp.storage.wholeStore(obj);
                         
                         vApp.wb.utility.beforeSend({'repObj': [obj]}); //after optimized
                     }
@@ -379,6 +379,7 @@
                     } else if (cmd == 't_assign') {
                         var toolHeight = localStorage.getItem('toolHeight');
                         if (toolHeight != null) {
+                              alert('hel');
                               vApp.wb.utility.beforeSend({'assignRole': true, 'toolHeight': toolHeight, 'socket': vApp.wb.socketOn});
                         } else {
                             vApp.wb.utility.beforeSend({'assignRole': true, 'socket': vApp.wb.socketOn});

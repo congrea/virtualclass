@@ -50,13 +50,15 @@
 
         calculatePackets : function(time, ac, x, y) {
             var obj = vcan.makeStackObj(time, ac, x, y);
-            console.log(obj);
+            
+//            console.log(obj);
+            
             vApp.wb.uid++;
             obj.uid = vApp.wb.uid;
             vcan.main.replayObjs.push(obj);
             vApp.wb.utility.beforeSend({'repObj': [obj]});
             vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-            vApp.storage.wholeStore(obj);
+          //  vApp.storage.wholeStore(obj);
             vApp.wb.utility.updateSentPackets(obj);
         }
     }

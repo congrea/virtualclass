@@ -118,7 +118,8 @@
                 if (vApp.wb.gObj.rcvdPackId != 0 || (vApp.wb.uid > 0 && vApp.wb.gObj.rcvdPackId == 0)) { //for handle very starting stage
                     if ((typeof msgRepObj == 'object' || msgRepObj instanceof Array)) {
                         if (msgRepObj[0].hasOwnProperty('uid')) {
-                            if ((vApp.wb.gObj.rcvdPackId + 1 != msgRepObj[0].uid) && (!msgRepObj.hasOwnProperty('chunk'))) {
+                            if (vApp.wb.gObj.rcvdPackId + 1 != msgRepObj[0].uid && (!msgRepObj.hasOwnProperty('chunk'))){
+//                            if ((vApp.wb.gObj.rcvdPackId + 1 != msgRepObj[0].uid)) {
                                 if (Number(vApp.wb.gObj.rcvdPackId) < Number(msgRepObj[0].uid)) {
                                     var reqPacket = vApp.wb.bridge.requestPackets(msgRepObj);
                                     vApp.wb.utility.beforeSend({'getMsPckt': reqPacket});

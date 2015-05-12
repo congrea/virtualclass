@@ -100,7 +100,14 @@
             'InternalError' : "It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not compaitible with different Operating System eg:- Windows, CentOS. ",
             'SourceUnavailableError': 'It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not supported for operating system like : Windows, CentOS.',
             'teacherSafariBrowserIssue' : 'Your browser Safari is not supporting for teacher, We fully support Chrome  and Firefox.',
-            'safariBrowserIssue' : 'Your browser Safari {vapp1} is not supported, We fully support Chrome  and Firefox'
+            'safariBrowserIssue' : 'Your browser Safari {vapp1} is not supported, We fully support Chrome  and Firefox',
+            'savesession' : 'Do you want to save a current Session ?',
+            'plswaitwhile' : 'Please wait a while....',
+            'downloadedFile'  : "Your files are downloading....,  <br />Number of file has been downloaded is {vapp1}",
+            'overallprogress' : 'Overall Progress',
+            'playsessionmsg' : 'Click play button to start playing session',
+            'askplayMessage' : '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>'
+            
         };
         window.message = message;
     }

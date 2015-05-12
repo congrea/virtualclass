@@ -15,14 +15,15 @@
                         var vAppOptionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
                         window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
 
-                        if(app == 'Whiteboard' && vApp.gObj.uRole == 't'){
-                            if(vApp.hasOwnProperty('prevApp')){
-                                vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
-                            } else{
-                                vApp.vutil.makeActiveApp("vApp" + app);
-                            }
-
-                            vApp.wb.utility.makeCanvasEnable();
+                        if(vApp.gObj.uRole == 't'){
+//                            if(app == 'Whiteboard') {
+                                if(vApp.hasOwnProperty('prevApp')){
+                                    vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
+                                } else{
+                                    vApp.vutil.makeActiveApp("vApp" + app);
+                                }
+                                vApp.wb.utility.makeCanvasEnable();
+//                            }
                         }
                     }
                 },
@@ -446,16 +447,23 @@
                         var app;
                         if(vApp.currApp == "ScreenShare"){
                             app = 'ss';
-                        }
-//                        else if(vApp.currApp == "WholeScreenShare"){
-//                            app = 'wss';
-//                        }
-                        if(vApp.currApp != "Whiteboard"){
+
                             if(vApp[app].hasOwnProperty('currentStream')){
                                 vApp[app].currentStream.stop();
                             }
                             vApp[app] = "";
+
                         }
+//                        else if(vApp.currApp == "WholeScreenShare"){
+//                            app = 'wss';
+//                        }
+//                        if(vApp.currApp != "Whiteboard"){
+//                            if(vApp[app].hasOwnProperty('currentStream')){
+//                                vApp[app].currentStream.stop();
+//                            }
+//                            vApp[app] = "";
+//                        }
+
                         if(typeof notsent == 'undefined'){
                             vApp.wb.utility.beforeSend({'assignRole' : true, toUser : userId});
                         }

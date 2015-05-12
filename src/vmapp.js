@@ -6,12 +6,9 @@
 (
 function (window){
     window.vmApp = function (){
-//        vmApp.storage = window.storage;
-//        vmApp.storage.init();
-
         return {
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-            apps : ["Whiteboard", "ScreenShare"],
+            apps : ["Whiteboard", "ScreenShare", 'Yts'],
             appSessionEnd : "vAppSessionEnd",
             appAudioTest : "vAppAudioTest",
             //appAudioTestPlay : "vAppAudioTestPlay",
@@ -27,13 +24,24 @@ function (window){
               uRole : window.wbUser.role,
               uName : window.wbUser.name
             },
+            clearSession : function (appName){
+                window.pageEnter = new Date().getTime();
+                appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
-            
+                vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
+                vApp.storage.config.endSession();
+                vApp.wb.utility.beforeSend({sEnd : true});
+
+                if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
+                    vApp.prevScreen.unShareScreen();
+                }
+                vApp.prevApp = "vApp" + appName;
+            },
             init : function (urole, app){
-
                 this.wbConfig = { id : "vApp" + this.apps[0], classes : "appOptions"};
                 this.ssConfig = { id : "vApp" + this.apps[1], classes : "appOptions"};
-                this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
+                this.ytsConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
+                //this.wssConfig = { id : "vApp" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
                 this.lang.getString = window.getString;
                 this.lang.message = window.message;
@@ -42,6 +50,7 @@ function (window){
             //    this.chat = window.chat;
                 this.system = window.system;
                 this.recorder = window.recorder;
+                this.converter = window.converter;
                 this.clear = "";
                 this.currApp = app;
 
@@ -66,13 +75,21 @@ function (window){
                 //inside storage.init() we are using indexeddb so, by above position there would 
                // system coampablity error could not be generated.
                 this.storage = window.storage;
+//                vApp.storeFirstData = function (){
+//                    alert("hi brother");
+//                }
+                //!vApp.vutil.isPlayMode()
                 if(vApp.system.indexeddb){
-                    this.storage.init();
-                    
+                    this.storage.init( function (){
+                        if(!vApp.vutil.isPlayMode()){
+                            io.completeStorage(JSON.stringify(io.cfg));
+                        }
+                    } );
                 }
                 
                 vApp.wb.utility.displayCanvas();
-
+                vApp.yts = window.yts();
+                
                 if(app == this.apps[1]){
                     this.system.setAppDimension();
                 }
@@ -86,16 +103,22 @@ function (window){
                 
                 this.gObj.video = new window.vApp.media();
                 
+                if(!vApp.vutil.isPlayMode()){
+                    this.initSocketConn();
+                }
                 
-//                if(!vApp.gObj.hasOwnProperty('audIntDisable) && !vApp.gObj.hasOwnPropert('videoDisable')){
-//                    this.gObj.video = new window.vApp.media();
-//                }
-                
-                this.initSocketConn();
                 vApp.chat = new Chat();
                 vApp.chat.init();
+//                vApp.recPlayer = new recordPlayer();
                 vApp.vutil.initOnBeforeUnload(vApp.system.mybrowser.name);
+                vApp.xhr = window.xhr;
+                vApp.xhr.init();
+                vApp.dtCon = vApp.converter();  
+                vApp.pbar = progressBar;
+                
+                
             },
+            
             initSocketConn : function (){
                 if(this.system.webSocket){
                   var wbUser = window.wbUser;
@@ -130,6 +153,9 @@ function (window){
                     
                     this.createDiv(vApp.wbConfig.id + "Tool", "whiteboard", appOptCont, vApp.wbConfig.classes);
                     this.createDiv(vApp.ssConfig.id + "Tool", "screenshare", appOptCont, vApp.ssConfig.classes);
+                    
+                    this.createDiv(vApp.ytsConfig.id + "Tool", "youtubeshare", appOptCont, vApp.ssConfig.classes);
+                    
                     if(vApp.gObj.hasOwnProperty('errNotScreenShare')){
                         vApp.wb.view.disableSSUI();
                     }
@@ -138,7 +164,6 @@ function (window){
                          this.createDiv(vApp.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                     if(vApp.gObj.hasOwnProperty('errAppBar')){
-                        
                         vApp.wb.view.disableLeftAppBar();
                     }
                     
@@ -189,10 +214,29 @@ function (window){
                     return elem;
                 }
               },
+              
+              dispVappLayout : function (appId){
+                    if(typeof this.previous != 'undefined'){
+                        document.getElementById(vApp.previous).style.display = 'none';
+                    }
 
-              makeAppReady : function (app, cusEvent){
-                  if(app == this.apps[0]){
+                    var appElement = document.getElementById(appId);
+                    if(appElement != null){
+                        appElement.style.display = 'block';
+                    }
+              },
 
+              makeAppReady : function (app, cusEvent, videoId){
+//                  var currAppId = "";
+                    this.currApp = app;
+                    
+                    if(app != this.apps[1]){
+                       if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
+                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
+                        }
+                    }
+                    
+                    if(app == this.apps[0]){
                         if(typeof this.ss == 'object'){
                               this.ss.prevStream = false;
                         }
@@ -201,13 +245,10 @@ function (window){
                             if(typeof cusEvent != 'undefined' && cusEvent == "byclick"){
                                 vApp.wb.utility.beforeSend({'dispWhiteboard' : true});
                             }
-                            document.getElementById(vApp.previous).style.display = 'none';
+                           // document.getElementById(vApp.previous).style.display = 'none';
                         }
-                        var wb = document.getElementById(this.wbConfig.id);
-                        if(wb != null){
-                            wb.style.display = 'block';
-                        }
-
+                        
+                        this.dispVappLayout(this.wbConfig.id);
                         //this should be checked with solid condition
                         if(typeof this.wb != 'object'){
                             this.wb = new window.whiteboard(this.wbConfig);
@@ -232,20 +273,12 @@ function (window){
                         if(typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')){
                             this.prevScreen.unShareScreen();
                         }
-                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
-                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
-                        }
 
                         //important this need only if user draw the whiteboard
                         // after received image with teacher role.
                         //offset problem have to think about this
                         if(document.getElementById('canvas') != null){
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
-
-                              //important can be crtical
-//                            if(this.prevApp == "vAppScreenShare" || this.prevApp == "WholeScreenShare"){
-//                              //vApp.wb.utility.makeCanvasEnable();
-//                            }
                             vApp.wb.utility.makeCanvasEnable();
                         }
 
@@ -254,58 +287,72 @@ function (window){
                                 vApp.wb.utility.lockVapp();
                             }
                         }
-
+                        
+                        this.previous =  this.wbConfig.id;
+                        this.prevApp = this.previous;
+                        
+//                        currAppId = this.wbConfig.id;
                         //TODO this should be into same varible
-                        this.previous = this.wbConfig.id;
-                        this.prevApp = this.wbConfig.id;
-                  }else if(app == this.apps[1]){
+                   }else if(app == this.apps[1]){
                         if(typeof this.ss != 'object'){
                             this.ss = new window.screenShare(vApp.ssConfig);
                         }
                         this.ss.init({type: 'ss', app : app});
-                  }
-                  
-//                  else if(app == this.apps[2]){
-//                      if(typeof this.wss != 'object'){
-//                        this.wss = new window.screenShare(vApp.wssConfig);
-//                      }
-//                      this.wss.init({type: 'wss', app : app});
-//                  }
-              },
+                  }else if(app == this.apps[2]){
+                        this.dispVappLayout(vApp.ytsConfig.id);
+                        if(typeof videoId != 'undefined'){
+                            vApp.yts.init(videoId);
+                        } else {
+                            vApp.yts.init();
+                        }
+                        
+                        
+                        this.previous = vApp.ytsConfig.id;
+                        this.prevApp = this.previous;
+                        
+                        var measureRes = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+                        vApp.vutil.setContainerWidth(measureRes);
+                   }
+                   
+                    if(app != this.apps[1]  && app != this.apps[2] && vApp.hasOwnProperty('yts')){
+                        vApp.yts.destroyYT();
+                    }
+                   
+             },
 
-              attachFunction :function (){
-                  var allAppOptions = document.getElementsByClassName("appOptions");
-                  for(var i = 0; i < allAppOptions.length; i++){
-                      var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
-                      var that = this;
-                      clickedAnchor = anchTag;
-                      anchTag.onclick = function (){
-                          that.initlizer(this);
-                      };
-                  }
-              },
+            attachFunction :function (){
+                var allAppOptions = document.getElementsByClassName("appOptions");
+                for(var i = 0; i < allAppOptions.length; i++){
+                    var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
+                    var that = this;
+                    clickedAnchor = anchTag;
+                    anchTag.onclick = function (){
+                        that.initlizer(this);
+                    };
+                }
+            },
 
             initlizer : function (elem){
                 var appName = elem.parentNode.id.split("vApp")[1];
-                //alert(appName);
                 if(appName == 'SessionEndTool'){
-                    if (!confirm(vApp.lang.getString('startnewsession'))){
-                        return;
+                    if (!confirm(vApp.lang.getString('savesession'))){
+                        if (!confirm(vApp.lang.getString('startnewsession'))){
+                            return;
+                        }
+                        vApp.clearSession(appName);
+                        window.location.reload();
+                    } else {
+                        io.completeStorage(undefined, undefined, 'sessionend');
+                        setTimeout(function (){
+                                vApp.getContent = true;
+                                io.sock.close();
+                                vApp.recorder.startUploadProcess();
+                            }, 300
+                        );
                     }
-
+                } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
-
-                    vApp.vutil.makeActiveApp("vApp" + appName, vApp.previous);
-                    vApp.storage.config.endSession();
-                    vApp.wb.utility.beforeSend({sEnd : true});
-
-                    if(vApp.hasOwnProperty('prevScreen') && vApp.prevScreen.hasOwnProperty('currentStream')){
-                        vApp.prevScreen.unShareScreen();
-                    }
-                    vApp.prevApp = "vApp" + appName;
-                } else{
-                    appName = appName.substring(0, appName.indexOf("Tool"));
-                    this.currApp = appName;
+                  //  this.currApp = appName; //could be dangerous
                     if(!this.PrvAndCurrIsWss(this.previous, appName)){
                         this.makeAppReady(appName, "byclick");
                     }else{
@@ -314,8 +361,8 @@ function (window){
                 }
                 if(appName != "ScreenShare"){
                     vApp.vutil.removeClass('audioWidget', "fixed");
-
                 }
+                
             },
 
             PrvAndCurrIsWss : function (previous, appName){

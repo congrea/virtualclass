@@ -117,24 +117,24 @@ $.uiBackCompat = false;
         });
         
         $(document).on("binrec", function(e){
-            //vApp.gObj.video.audio []
+            // vApp.gObj.video.audio []
+            // TODO here should be eith unit8clampped array or unit8array
             var data_pack = new Uint8Array(e.message);
-            
-            if(data_pack[0] == 101 || data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
-                var stype = 'ss';
-                var sTool = 'ScreenShare';
+               
+            if(data_pack[0] == 102 || data_pack[0] == 103 || data_pack[0] == 104){
+               var stype = 'ss';
+               var sTool = 'ScreenShare';
             }
             
             if (data_pack[0] == 101) { // Audio
                 if(!vApp.gObj.video.audio.otherSound){
-                    
                     vApp.gObj.video.audio.receivedAudioProcess(e.message);
                 }
                 return;
             } else if (data_pack[0] == 11) { // user video image
                 vApp.gObj.video.video.process(e.message);
                 return;
-            } else{
+            } else {
                 if(!vApp.hasOwnProperty('studentScreen')){
                     vApp.studentScreen = new studentScreen();
                 }
@@ -144,7 +144,10 @@ $.uiBackCompat = false;
         });
         
         $(document).on("newmessage", function(e){
-            if(e.message.hasOwnProperty('sad')){
+            if(e.message.hasOwnProperty('yts')){
+                vApp.yts.onmessage(e.message);
+                return;
+            } else if(e.message.hasOwnProperty('sad')){
 //                if(localStorage.getItem('orginalTeacherId') != null){
                     if(e.message.sad){
                         var user =  vApp.user.control.updateUser(e.fromUser.userid, 'ad', true);
@@ -202,6 +205,7 @@ $.uiBackCompat = false;
             
             if(e.message.hasOwnProperty('sEnd')){
                 vApp.storage.config.endSession();
+                location.reload();
                 return;
             }
             
@@ -277,7 +281,8 @@ $.uiBackCompat = false;
                     }
                 }
 
-               if(e.message.hasOwnProperty('repObj')){
+               if(e.message.hasOwnProperty('repObj') && !vApp.vutil.isPlayMode()){
+                   
                    vApp.wb.response.repObjForMissedPkts(e.message.repObj);
                }
                 if(e.message.hasOwnProperty('getMsPckt')){
@@ -302,6 +307,7 @@ $.uiBackCompat = false;
                         }else{
                             if(vApp.wb.gObj.rcvdPackId + 1 == e.message.repObj[0].uid) {
                                 for (var i = 0; i < e.message.repObj.length; i++){
+                                    console.log("done rep Obj");
                                     vApp.wb.gObj.replayObjs.push(e.message.repObj[i]);
                                 }
                             }
@@ -368,5 +374,49 @@ $.uiBackCompat = false;
             500
         );
         vApp.vutil.attachClickOutSideCanvas();
+        
+        function clearEverthing(){
+            vApp.notPLayed = true;
+            vApp.storage.config.endSession();
+            vApp.chat.chatroombox = false;
+            var chat_room = document.getElementById('chatrm');
+            if(chat_room != null){
+                chat_room.parentNode.removeChild(chat_room);
+            }
+            var canvasElem = document.getElementById('canvas');
+            if(canvasElem != null){
+                canvasElem.style.pointerEvents = "none";
+            }
+        }
+        
+//        document.getElementById('dummyPlay').addEventListener('click', function (){
+//            vApp.recorder.requestDataFromServer(0);
+//            clearEverthing();
+//        });
+        
+        
+        vApp.popup = new PopUp({
+            showOverlay: true
+        });
+        
+//        vApp.recorder.requestDataFromServer(0);
+//        clearEverthing();
+        
+        //db transaction of indexeddb is not ready on page onload, 10 ms delay
+        if(vApp.vutil.isPlayMode()){
+            setTimeout(
+                function (){
+                    vApp.recorder.requestDataFromServer(0);
+                    clearEverthing();
+                },
+                10
+            );
+        }
+        
+//        if(vApp.vutil.isPlayMode()){
+//            disCommonChatInput();
+//        }
+//        
+        
    });
 //});

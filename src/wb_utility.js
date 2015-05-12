@@ -2,7 +2,7 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
-(
+(   
     function(window) {
         //vApp.wb = window.vApp.wb;
 
@@ -353,8 +353,22 @@
 
                         vApp.user.assignRole(vApp.gObj.uRole, vApp.currApp);
                         vcan.utility.canvasCalcOffset(vcan.main.canid);
+                        if( vApp.currApp == 'Yts'){
+                            vApp.yts.UI.inputURL();
+                             
+                             vApp.yts.seekChangeInterval();
+                        }
 
                     } else {
+//                        alert(vApp.currApp);
+                        if(vApp.currApp == 'Yts'){
+                            vApp.yts.UI.removeinputURL();
+                            if(vApp.yts.hasOwnProperty('tsc')){
+                                clearInterval(vApp.yts.tsc);
+                            }
+                        }
+                        
+                        
                         vApp.gObj.uRole  = 's';
                         var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
                         if (cmdToolsWrapper != null) {
@@ -390,6 +404,7 @@
                 },
 
                 reclaimRole : function (){
+
                     vApp.gObj.controlAssign = false;
                     vApp.wb.response.assignRole(vApp.gObj.uid , vApp.gObj.uid, true);
                 },
@@ -482,7 +497,10 @@
                     vApp.wb.gObj.displayedObjId = 0;
                     vApp.wb.gObj.packQueue = [];
                     vApp.wb.uid = 0;
-
+                    
+                    localStorage.setItem('rcvdPackId', 0);
+                    //TODO this code should be removed after validate 
+                    localStorage.removeItem('totalStored');
                     var teacherId = vApp.vutil.chkValueInLocalStorage('teacherId');
                     var orginalTeacherId = vApp.vutil.chkValueInLocalStorage('orginalTeacherId');
                     var wbrtcMsg = vApp.vutil.chkValueInLocalStorage('wbrtcMsg');
@@ -493,6 +511,8 @@
 
 //                    localStorage.clear();
                      vApp.recorder.items = [];
+                     vApp.storage.totalStored = 0;
+                     vApp.recorder.totalSent = 0;
 
                     // TODO this should be done by proepr way
                     // it has to be done in function
@@ -947,12 +967,20 @@
                  * @param {type} msg
                  * @returns {undefined}
                  */
-                beforeSend : function (msg){
+                beforeSend : function (msg, toUser){
+                    
+                   // when we are in replay mode we don't need send the object to other user
+//                    if(wbUser.vAppPlay != ' ' || wbUser.vAppPlay != false){
+//                        return;
+//                    }
                     if (msg.hasOwnProperty('createArrow')) {
                         var jobj = JSON.stringify(msg);
                         vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                     } else {
                         if(msg.hasOwnProperty('repObj')){
+                            if(typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined'){
+                                return;
+                            }
                             vApp.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                             vApp.wb.gObj.displayedObjId = vApp.wb.gObj.rcvdPackId;
                         }
@@ -960,7 +988,8 @@
 
                         vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
                         if (io.sock.readyState == 1) {
-                            io.send(msg);
+                            typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
+//                            io.send(msg);
                         }
 
                         //TODO this should be enable

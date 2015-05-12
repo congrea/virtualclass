@@ -449,6 +449,7 @@
                             var pta = true;
                             that.playRecordedAudio(vApp.gObj.audioForTest, vApp.gObj.uid, pta);
                         }, totTestTime);
+                        
                         setTimeout (
                             function (){
                                 audioTestElem.classList.remove("audioIsTesting");
@@ -687,6 +688,9 @@
                         }
                         
                         var dataArr = this.extractData(msg); 
+                        
+//                        io.dataBinaryStore(dataArr); //for store received audio
+                       
                         var uid = dataArr[0];
                         
                         if(typeof adSign == 'undefined'){
@@ -709,8 +713,12 @@
                             vApp.gObj.video.audio.getChunks(uid);
                         }
                     },
+                    
                     extractData : function (msg){
-                        var data_pack = new Uint8ClampedArray(msg);
+                        // the audio sent in Int8Array
+//                      var data_pack = new Uint8ClampedArray(msg);
+                        var data_pack = new Int8Array(msg);
+                        
                         var uid = vApp.vutil.numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
                         return [uid, data_pack.subarray(5, data_pack.length)];
                     }
@@ -926,16 +934,18 @@
                         cthis.video.tempVid.height = cthis.video.height;
                         cthis.video.tempVidCont = cthis.video.tempVid.getContext('2d');
                     }, 
+                    
                     process : function (msg){
                         var data_pack = new Uint8ClampedArray(msg);
+//                        io.dataBinaryStore(data_pack); // storing received video
                         var uid = vApp.vutil.numValidateFour(data_pack[1],data_pack[2],data_pack[3],data_pack[4]);
                         var recmsg = data_pack.subarray(5,data_pack.length);
                         vApp.gObj.video.video.playWithoutSlice(uid,recmsg);
                     }
                 },
                 init: function(vbool) {
-//                    alert('suman bogati');
-//                    debugger;
+                //    alert("hello borther");
+                    
                     cthis = this; //TODO there should be done work for cthis
                     vcan.oneExecuted = true;
                     var audio = true;
@@ -943,10 +953,15 @@
                         audio : audio,
                         video: true
                     };
+                    
                     cthis.video.init();
-                    vApp.adpt = new vApp.adapter();
-                    var cNavigator = vApp.adpt.init(navigator);
-                    cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
+                    if(!vApp.vutil.isPlayMode()){
+                        
+                        vApp.adpt = new vApp.adapter();
+                        var cNavigator = vApp.adpt.init(navigator);
+                        cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
+                    }
+                    
                     if (vApp.system.wbRtc.peerCon) { //TODO this should be deleted 
                         if (typeof localStorage.wbrtcMsg == 'undefined') {
                             vApp.wb.view.multiMediaMsg('WebRtc');
@@ -955,6 +970,7 @@
                     }
                 },
                 handleUserMedia : function(stream){
+                    
                     //latest code 
                     var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
@@ -1051,6 +1067,7 @@
                     }
                     return false;
                 },
+                
                 handleUserMediaError: function(error) {
                     var error = (typeof error == 'object') ?  vApp.lang.getString(error.name) : vApp.lang.getString(error);
                     vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');

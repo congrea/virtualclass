@@ -214,7 +214,7 @@
                         //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                         vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        vApp.recorder.items.push(obj);
-                        vApp.storage.wholeStore(obj);
+                      //  vApp.storage.wholeStore(obj);
                         // vApp.wb.utility.beforeSend({'repObj': [obj]});
                         vApp.wb.utility.beforeSend({'repObj': [obj]});
                         vApp.wb.utility.updateSentPackets(obj);

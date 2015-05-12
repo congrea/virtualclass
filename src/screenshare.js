@@ -47,6 +47,9 @@
             },
             
             initStudentScreen : function (imgData, d, stype, stool){
+                
+//                io.dataBinaryStore(imgData); //storing received screen
+                
                 vApp.vutil.addClass('audioWidget', "fixed");
                 app = stype;
                 if(typeof vApp[app] != 'object' ){
@@ -55,11 +58,14 @@
                      }
                      vApp.makeAppReady(stool);
                 }else{
-                     var prvScreen = document.getElementById(vApp.previous);
-                     if(prvScreen != null){
-                         prvScreen.style.display = 'none';
-                         document.getElementById(vApp[app].id).style.display = 'block';
-                     }
+                    
+                    vApp.vutil.hidePrevIcon(app);
+                    
+//                     var prvScreen = document.getElementById(vApp.previous);
+//                     if(prvScreen != null){
+//                         prvScreen.style.display = 'none';
+//                         document.getElementById(vApp[app].id).style.display = 'block';
+//                     }
                 }
 
                 if(d.hasOwnProperty('d')){
@@ -188,9 +194,12 @@
                     if (ssUI != null) {
                         ssUI.parentNode.removeChild(ssUI);
                     }
+//                    alert('suman bogati');
+//                    debugger;
                     ssUI = this.html.UI.call(this, vApp.gObj.uRole);
                     var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
                     document.getElementById(vApp.html.id).insertBefore(ssUI, beforeAppend);
+                    
                     if (vApp.gObj.uRole == 't' && !vApp.recorder.recImgPlay) {
                         vApp.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
@@ -211,6 +220,7 @@
             },
 
             getScreen: function (callback) {
+                
 //                alert(chrome.desktopCapture);
 //                debugger;
                 if (vApp.system.mybrowser.name == 'Chrome') {
@@ -325,7 +335,12 @@
                     vApp.vutil.setContainerWidth(res);
 
                     if (vApp.gObj.uRole == 't') {
+                        //TODO This should be invoke at one place
                         vApp.vutil.makeActiveApp(that.id, vApp.prevApp);
+                        if(vApp.prevApp == 'vAppYts'){
+                            vApp.yts.destroyYT();
+                        }
+                        
                     }
                     vApp.prevApp = that.id;
                 }
@@ -511,9 +526,10 @@
                             offsetHeight: that.video.offsetHeight,
                             type: that.type
                         }, [masterImgData.data.buffer]);
-
+                        
+                        // Every time the data is sending the function 
+                        // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
-
                             if (e.data.needFullScreen == 1) { //sending full screen here
                                 var createdImg = vApp.getDataFullScreen(that.type);
                                 io.sendBinary(createdImg);
@@ -575,9 +591,13 @@
                     vc.style.height = msg.vc.h + "px";
                 }
 
-                if (vApp.previous != 'vAppWhiteboard') {
+                if(vApp.previous == 'vAppScreenShare'){
                     vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
                 }
+
+                //if (vApp.previous != 'vAppWhiteboard') {
+                //    vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
+                //}
             },
             html: {
                 UI: function (user) {

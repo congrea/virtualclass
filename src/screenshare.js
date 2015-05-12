@@ -1,66 +1,66 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
-  */
+ */
 
 (function (window) {
     function callback(error) {
         vApp.vutil.initInstallChromeExt(error);
     }
-    
-    var studentScreen = function (){
+
+    var studentScreen = function () {
         return {
-            ssProcess : function (data_pack, msg, stype, sTool){
-                if(data_pack[0] == 102 || data_pack[0] == 202) { //full image
+            ssProcess: function (data_pack, msg, stype, sTool) {
+                if (data_pack[0] == 102 || data_pack[0] == 202) { //full image
                     var data_pack = new Uint8ClampedArray(msg);
-                    var w = vApp.vutil.numValidateTwo(data_pack[1],data_pack[2]);
-                    var h = vApp.vutil.numValidateTwo(data_pack[3],data_pack[4]);
-                    var recmsg = data_pack.subarray(5,data_pack.length);
-                    this.initStudentScreen(recmsg, {w:w, h:h}, stype, sTool);
-                    return;
-                }else if(data_pack[0] == 103 || data_pack[0] == 203) { //slice image
+                    var w = vApp.vutil.numValidateTwo(data_pack[1], data_pack[2]);
+                    var h = vApp.vutil.numValidateTwo(data_pack[3], data_pack[4]);
+                    var recmsg = data_pack.subarray(5, data_pack.length);
+                    this.initStudentScreen(recmsg, {w: w, h: h}, stype, sTool);
+
+                } else if (data_pack[0] == 103 || data_pack[0] == 203) { //slice image
                     var data_pack = new Uint8ClampedArray(msg);
                     var s = 7;
-                    for (var i = 0; (i+7) <= data_pack.length;i=l+1) {
-                        var x = vApp.vutil.numValidateTwo(data_pack[i+1],data_pack[i+2]);
-                         var y = vApp.vutil.numValidateTwo(data_pack[i+3],data_pack[i+4]);
-                         var h = parseInt(data_pack[i+5]);
-                         var w = parseInt(data_pack[i+6]);
-                         var l = s+(h*w)-1;
-                         var recmsg = data_pack.subarray(s,l+1);
-                         var d = { x:x, y : y, w :w, h : h };
-                         this.initStudentScreen(recmsg, d, stype, sTool);
-                         s=l+7+1;
-                     }
-                     return;
-                }else if (data_pack[0] == 104 || data_pack[0] == 204){ //full image with resize
+                    for (var i = 0; (i + 7) <= data_pack.length; i = l + 1) {
+                        var x = vApp.vutil.numValidateTwo(data_pack[i + 1], data_pack[i + 2]);
+                        var y = vApp.vutil.numValidateTwo(data_pack[i + 3], data_pack[i + 4]);
+                        var h = parseInt(data_pack[i + 5]);
+                        var w = parseInt(data_pack[i + 6]);
+                        var l = s + (h * w) - 1;
+                        var recmsg = data_pack.subarray(s, l + 1);
+                        var d = {x: x, y: y, w: w, h: h};
+                        this.initStudentScreen(recmsg, d, stype, sTool);
+                        s = l + 7 + 1;
+                    }
+
+                } else if (data_pack[0] == 104 || data_pack[0] == 204) { //full image with resize
                     var data_pack = new Uint8ClampedArray(msg);
-                    var dw = vApp.vutil.numValidateTwo(data_pack[1],data_pack[2]);
-                    var dh = vApp.vutil.numValidateTwo(data_pack[3],data_pack[4]);
-                    var vcw = vApp.vutil.numValidateTwo(data_pack[5],data_pack[6]);
-                    var vch = vApp.vutil.numValidateTwo(data_pack[7],data_pack[8]);
-                    var recmsg = data_pack.subarray(9,data_pack.length);
-                    var dimObj = { d : {w : dw, h : dh},  vc : {w : vcw, h : vch}};
+                    var dw = vApp.vutil.numValidateTwo(data_pack[1], data_pack[2]);
+                    var dh = vApp.vutil.numValidateTwo(data_pack[3], data_pack[4]);
+                    var vcw = vApp.vutil.numValidateTwo(data_pack[5], data_pack[6]);
+                    var vch = vApp.vutil.numValidateTwo(data_pack[7], data_pack[8]);
+                    var recmsg = data_pack.subarray(9, data_pack.length);
+                    var dimObj = {d: {w: dw, h: dh}, vc: {w: vcw, h: vch}};
                     this.initStudentScreen(recmsg, dimObj, stype, sTool);
-                    return;
+
                 }
             },
-            
-            initStudentScreen : function (imgData, d, stype, stool){
-                
+
+            initStudentScreen: function (imgData, d, stype, stool) {
+
 //                io.dataBinaryStore(imgData); //storing received screen
-                
+
                 vApp.vutil.addClass('audioWidget', "fixed");
                 app = stype;
-                if(typeof vApp[app] != 'object' ){
-                     if(typeof vtype != 'undefined'){
-                         vApp.recorder.recImgPlay = true;
-                     }
-                     vApp.makeAppReady(stool);
-                }else{
-                    
+                if (typeof vApp[app] != 'object') {
+                    if (typeof vtype != 'undefined') {
+                        vApp.recorder.recImgPlay = true;
+                    }
+                    vApp.makeAppReady(stool);
+                } else {
+
                     vApp.vutil.hidePrevIcon(app);
-                    
+
 //                     var prvScreen = document.getElementById(vApp.previous);
 //                     if(prvScreen != null){
 //                         prvScreen.style.display = 'none';
@@ -68,24 +68,24 @@
 //                     }
                 }
 
-                if(d.hasOwnProperty('d')){
+                if (d.hasOwnProperty('d')) {
                     vApp[app].dimensionStudentScreenResize(d);
-                    dim = true
+                    dim = true;
                     vApp[app].drawImages(imgData);
-                }else{
-                    if(typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))){
-                        dim = true
+                } else {
+                    if (typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))) {
+                        dim = true;
                         vApp[app].dimensionStudentScreen(d.w, d.h);
                         prvWidth = d.w;
                         prvHeight = d.h;
                     }
 
-                    if(d.hasOwnProperty('x')){
+                    if (d.hasOwnProperty('x')) {
                         vApp[app].drawImages(imgData, d);
-                    }else{
-                        if(d.hasOwnProperty('w')){
-                           vApp[app].localCanvas.width = d.w;
-                           vApp[app].localCanvas.height = d.h;
+                    } else {
+                        if (d.hasOwnProperty('w')) {
+                            vApp[app].localCanvas.width = d.w;
+                            vApp[app].localCanvas.height = d.h;
                         }
                         vApp[app].drawImages(imgData);
                     }
@@ -94,8 +94,8 @@
                 vApp.previous = vApp[app].id;
             }
         }
-    }
-    
+    };
+
     var screenShare = function (config) {
         vApp.getSceenFirefox = function () {
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
@@ -108,7 +108,7 @@
                 };
                 vApp.adpt = new vApp.adapter();
                 navigator2 = vApp.adpt.init(navigator);
-                
+
                 navigator2.getUserMedia(constraints, function (stream, err) {
                         //callback(err, stream);
                         vApp.ss._init();
@@ -137,7 +137,7 @@
                                 //this url is need to be changed
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
-                        }else if(typeof error == 'object'){   //latest firefox
+                        } else if (typeof error == 'object') {   //latest firefox
                             if (error.name === 'PermissionDeniedError') {
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
@@ -148,7 +148,7 @@
                 alert(vApp.lang.getString('notSupportBrowser', [ffver]));
             }
         };
-        
+
         return {
             prevStream: false,
             init: function (screen) {
@@ -184,7 +184,7 @@
                     this.id = config.hasOwnProperty('id') ? config.id : "vAppScreenShare";
                     this.className = "vmApp";
                     this.label = "Local",
-                    this.local = this.id + this.label;
+                        this.local = this.id + this.label;
                     this.localTemp = this.id + this.label + "Temp";
                     this.classes = config.hasOwnProperty('class') ? config.classes : "";
 
@@ -199,7 +199,7 @@
                     ssUI = this.html.UI.call(this, vApp.gObj.uRole);
                     var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
                     document.getElementById(vApp.html.id).insertBefore(ssUI, beforeAppend);
-                    
+
                     if (vApp.gObj.uRole == 't' && !vApp.recorder.recImgPlay) {
                         vApp.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
@@ -209,7 +209,7 @@
             readyTostart: function (app) {
                 if (app == vApp.apps[1]) {
                     this.getScreen();
-                } 
+                }
 //                else if (app == vApp.apps[2]) {
 //                    this.wholeScreen();
 //                }
@@ -220,7 +220,7 @@
             },
 
             getScreen: function (callback) {
-                
+
 //                alert(chrome.desktopCapture);
 //                debugger;
                 if (vApp.system.mybrowser.name == 'Chrome') {
@@ -230,7 +230,7 @@
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
                             window.location.reload();
-                            });
+                        });
                     }
                 } else if (vApp.system.mybrowser.name == 'Firefox') {
                     vApp.getSceenFirefox();
@@ -306,7 +306,7 @@
                     } else {
                         that.ssByClick = true;
                     }
-                }
+                };
 
                 var container = {};
                 container.width = window.innerWidth;
@@ -337,10 +337,10 @@
                     if (vApp.gObj.uRole == 't') {
                         //TODO This should be invoke at one place
                         vApp.vutil.makeActiveApp(that.id, vApp.prevApp);
-                        if(vApp.prevApp == 'vAppYts'){
+                        if (vApp.prevApp == 'vAppYts') {
                             vApp.yts.destroyYT();
                         }
-                        
+
                     }
                     vApp.prevApp = that.id;
                 }
@@ -526,7 +526,7 @@
                             offsetHeight: that.video.offsetHeight,
                             type: that.type
                         }, [masterImgData.data.buffer]);
-                        
+
                         // Every time the data is sending the function 
                         // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
@@ -545,6 +545,7 @@
                     clearInterval(vApp.clear);
                     vApp.clear = setInterval(sendScreen, screenIntervalTime);
                 }
+
                 clearInterval(vApp.clear);
                 vApp.clear = setInterval(sendScreen, screenIntervalTime);
             },
@@ -591,7 +592,7 @@
                     vc.style.height = msg.vc.h + "px";
                 }
 
-                if(vApp.previous == 'vAppScreenShare'){
+                if (vApp.previous == 'vAppScreenShare') {
                     vApp.vutil.setScreenInnerTagsWidth(vApp.previous);
                 }
 
@@ -646,12 +647,12 @@
                     };
                 }
             },
-            
-            initPrevImage : function (){
-                sworker.postMessage({'initPrevImg' : true});
+
+            initPrevImage: function () {
+                sworker.postMessage({'initPrevImg': true});
             }
         }
-    }
+    };
     window.studentScreen = studentScreen;
     window.screenShare = screenShare;
 })(window);

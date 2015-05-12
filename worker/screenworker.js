@@ -1,39 +1,39 @@
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Jai Gupta <http://www.vidyamantra.com>
-  */
- 
+ */
+
 var x, y, cx, cy, sl, needFullScreen = 0;
-    var tempObj, matched, masterSlice, d, imgData, encodeDataArr = null;
+var tempObj, matched, masterSlice, d, imgData, encodeDataArr = null;
 var prevImageSlices = [];
 
-onmessage = function(e) {
-    if (e.data.hasOwnProperty('initPrevImg')){
+onmessage = function (e) {
+    if (e.data.hasOwnProperty('initPrevImg')) {
         prevImageSlices = [];
         encodeDataArr = null;
-    } else{
+    } else {
         //if (typeof e.data.resize == 'undefined'){
-        if (!e.data.hasOwnProperty('resize')){
+        if (!e.data.hasOwnProperty('resize')) {
             encodeRGB(e.data.img);
             for (sl = 0; sl < ( e.data.resA * e.data.resB); sl++) {
-                if(sl == 0){
+                if (sl == 0) {
                     x = 0;
                     y = 0;
-                }else{
+                } else {
                     cx = sl % e.data.resB; // for x
                     cy = Math.floor(sl / e.data.resB); // for y
                     x = cx * e.data.dw;
                     y = cy * e.data.dh;
                 }
-                d = {'x' : x, 'y' : y, 'w' : e.data.dw, 'h' : e.data.dh};
+                d = {'x': x, 'y': y, 'w': e.data.dw, 'h': e.data.dh};
 
                 imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, encodeDataArr);
 
-                if(typeof prevImageSlices[sl] != 'undefined'){
+                if (typeof prevImageSlices[sl] != 'undefined') {
                     matched = matchWithPrevious(imgData, prevImageSlices[sl], d.w);
-                    if(!matched){
+                    if (!matched) {
                         if (prevImageSlices[sl].length != imgData.length) {
                             prevImageSlices[sl] = imgData;
-                        }else {
+                        } else {
                             for (var l = 0; l < imgData.length; l++) {
                                 prevImageSlices[sl][l] = imgData[l];
                             }
@@ -41,20 +41,20 @@ onmessage = function(e) {
                         addSliceToSingle(sendSliceData(imgData, d, e.data.type));
                     }
 
-                }else{
+                } else {
                     prevImageSlices[sl] = imgData;
                     needFullScreen = 1;
                 }
             }
             if (masterSlice) {
                 postMessage({
-                    masterSlice:masterSlice,
-                    needFullScreen:needFullScreen
+                    masterSlice: masterSlice,
+                    needFullScreen: needFullScreen
                 }, [masterSlice.buffer]);
             } else {
                 postMessage({
-                    masterSlice:null,
-                    needFullScreen:needFullScreen
+                    masterSlice: null,
+                    needFullScreen: needFullScreen
                 });
             }
 
@@ -62,23 +62,23 @@ onmessage = function(e) {
             masterSlice = null;
         } else {
             for (sl = 0; sl < ( e.data.resA * e.data.resB); sl++) {
-                if(sl == 0){
+                if (sl == 0) {
                     x = 0;
                     y = 0;
-                }else{
+                } else {
                     cx = sl % e.data.resB; // for x
                     cy = Math.floor(sl / e.data.resB); // for y
                     x = cx * e.data.dw;
                     y = cy * e.data.dh;
                 }
-                d = {'x' : x, 'y' : y, 'w' : e.data.dw, 'h' : e.data.dh};
+                d = {'x': x, 'y': y, 'w': e.data.dw, 'h': e.data.dh};
                 prevImageSlices[sl] = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, e.data.img);
             }
         }
     }
 };
 
-var encodeRGB = function(imgData){
+var encodeRGB = function (imgData) {
     var length = imgData.length / 4;
     if (encodeDataArr == null || encodeDataArr.length != length) {
         encodeDataArr = new Uint8ClampedArray(length);
@@ -87,7 +87,7 @@ var encodeRGB = function(imgData){
     //(r*6/256)*36 + (g*6/256)*6 + (b*6/256)
     var red, green, blue, encodedData;
 
-    for(var i = 0; i < length; i++){
+    for (var i = 0; i < length; i++) {
         red = imgData[(i * 4) + 0];
         green = imgData[(i * 4) + 1];
         blue = imgData[(i * 4) + 2];
@@ -98,11 +98,11 @@ var encodeRGB = function(imgData){
     }
 };
 
-var sendSliceData = function (encodedData, d, stype){
-    var x = breakintobytes(d.x,4);
-    var y = breakintobytes(d.y,4);
+var sendSliceData = function (encodedData, d, stype) {
+    var x = breakintobytes(d.x, 4);
+    var y = breakintobytes(d.y, 4);
     var appCode = (stype == 'ss') ? 103 : 203;
-    var scode = new Uint8ClampedArray( [ appCode, x[0], x[1], y[0], y[1] , d.h, d.w ] );
+    var scode = new Uint8ClampedArray([appCode, x[0], x[1], y[0], y[1], d.h, d.w]);
     var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
     sendmsg.set(scode);
     sendmsg.set(encodedData, scode.length);
@@ -135,40 +135,40 @@ var getImageDataCache = function (x, y, w, h, W, H, d) {
     return arr;
 };
 
-var matchWithPrevious = function(newI, oldI, width){
+var matchWithPrevious = function (newI, oldI, width) {
     if (oldI.length != newI.length) {
         return false;
     }
     var l = oldI.length;
     var w = width;
-    for(var i = 0; i < l; i = i + 1){ // Quickly Check Forward Diagnal
-        if ( (! matchI (oldI[i],newI[i]))  ) {
+    for (var i = 0; i < l; i = i + 1) { // Quickly Check Forward Diagnal
+        if ((!matchI(oldI[i], newI[i]))) {
             return false;
         }
         i = i + w;
     }
-    for(var i = 0; i < l; i = i - 1){// Quickly Check Backword Diagnal
+    for (var i = 0; i < l; i = i - 1) {// Quickly Check Backword Diagnal
         i = i + w;
-        if ( (! matchI (oldI[i],newI[i]))  ) {
+        if ((!matchI(oldI[i], newI[i]))) {
             return false;
         }
     }
     var jump = 7;
-    for(var i = 0; i < l; i = i + jump){ // Check (all/jump) pixals
-        if ( (! matchI (oldI[i],newI[i])) ) {
+    for (var i = 0; i < l; i = i + jump) { // Check (all/jump) pixals
+        if ((!matchI(oldI[i], newI[i]))) {
             return false;
         }
     }
     return true;
 };
 
-var matchI = function(oldPixel,newPixel) {
+var matchI = function (oldPixel, newPixel) {
     return (oldPixel == newPixel);
 };
 
-function breakintobytes (val,l) {
+function breakintobytes(val, l) {
     var numstring = val.toString();
-    for(var i = numstring.length; i < l; i++) {
+    for (var i = numstring.length; i < l; i++) {
         numstring = '0' + numstring;
     }
     var parts = numstring.match(/[\S]{1,2}/g) || [];

@@ -1,16 +1,15 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
-  */
-(
-function(window) {
+ */
+(function (window) {
     var keyBoard = {
         prvTool: "",
         skey: false,
         /**
-         * this function triggers the activeAll function 
+         * this function triggers the activeAll function
          */
-        triggerActiveAll: function(e) {
+        triggerActiveAll: function (e) {
             if (e.shiftKey) {
                 console.log('what happend mere bhai');
                 vApp.wb.keyBoard.skey = true;
@@ -24,9 +23,9 @@ function(window) {
             }
         },
         /**
-         * this function triggers the deActiveAll function 
+         * this function triggers the deActiveAll function
          */
-        triggerdeActiveAll: function(e) {
+        triggerdeActiveAll: function (e) {
             if (vApp.wb.keyBoard.skey) {
                 console.log('what happend mere bhai ddd');
                 var currTime = new Date().getTime();
@@ -39,6 +38,6 @@ function(window) {
                 vApp.wb.utility.beforeSend({'repObj': [obj]});
             }
         }
-    }
+    };
     window.keyBoard = keyBoard;
 })(window);

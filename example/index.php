@@ -4,7 +4,7 @@
 <title>Virtual Class</title>
 <?php
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
+/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
   */
 
@@ -20,8 +20,7 @@ function get_string($phrase){
 
 
 //the www path for virtualclass
-//$whiteboardpath = "https://local.vidya.io/virtualclass/";
-$whiteboardpath = "https://local.vidya.io/suman-repo/virtualclass/";
+$whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 ?>
 
@@ -92,7 +91,7 @@ if(isset($_GET['lname'])){
 <script type="text/javascript">	
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
-        var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/movedata.js" ?>");
+        var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/json-chunks.js" ?>");
     }
     
     <?php echo "wbUser.vAppPlay='$isplay';"; ?>
@@ -107,8 +106,7 @@ if(isset($_GET['lname'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
-    //window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
-    window.whiteboardPath =  'https://local.vidya.io/suman-repo/virtualclass/';
+    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
 </script>
 

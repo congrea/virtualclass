@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidyamantra Edusystems. Pvt.Ltd.
+/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
@@ -195,7 +195,7 @@
                 if (e.fromUser.userid != wbUser.id) {
                     vApp.wb.utility.removeVirtualWindow('virtualWindow');
                 }
-                return;
+
             } else if (message.hasOwnProperty('createVirtualWindow')) {
                 if (message.hasOwnProperty('toolHeight')) {
                     localStorage.setItem('toolHeight', message.toolHeight);
@@ -203,7 +203,7 @@
 
                 if (e.fromUser.userid != wbUser.id) {
                     vApp.wb.utility.createVirtualWindow(message.createVirtualWindow);
-                    return;
+
                 }
             } else if (message.hasOwnProperty('shareBrowserWidth')) {
                 if (message.hasOwnProperty('toolHeight')) {

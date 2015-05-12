@@ -115,11 +115,13 @@ if(isset($_GET['lname'])){
 </head>
 
 <body>
+
+    <!--
     <div id="dummyPlayCont">
-        
-<!--        <button id="dummyPlay">Fetch from server</button>-->
-        
+
     </div>
+    -->
+
 <div id="vAppCont" class="<?php echo $cont_class; ?>">
     <?php
         if($isplay){

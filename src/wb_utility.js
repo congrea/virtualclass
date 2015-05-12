@@ -353,8 +353,22 @@
 
                         vApp.user.assignRole(vApp.gObj.uRole, vApp.currApp);
                         vcan.utility.canvasCalcOffset(vcan.main.canid);
+                        if( vApp.currApp == 'Yts'){
+                            vApp.yts.UI.inputURL();
+                             
+                             vApp.yts.seekChangeInterval();
+                        }
 
                     } else {
+//                        alert(vApp.currApp);
+                        if(vApp.currApp == 'Yts'){
+                            vApp.yts.UI.removeinputURL();
+                            if(vApp.yts.hasOwnProperty('tsc')){
+                                clearInterval(vApp.yts.tsc);
+                            }
+                        }
+                        
+                        
                         vApp.gObj.uRole  = 's';
                         var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
                         if (cmdToolsWrapper != null) {
@@ -390,6 +404,7 @@
                 },
 
                 reclaimRole : function (){
+
                     vApp.gObj.controlAssign = false;
                     vApp.wb.response.assignRole(vApp.gObj.uid , vApp.gObj.uid, true);
                 },

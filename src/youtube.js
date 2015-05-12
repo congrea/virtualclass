@@ -32,8 +32,8 @@
                         console.log('Player object is DESTROYED.');
                         vApp.yts.player.destroy();
                         vApp.yts.player = "";
-                        if(vApp.yts.hasOwnProperty('tcs')){
-                            clearInterval(vApp.yts.tcs);
+                        if(vApp.yts.hasOwnProperty('tsc')){
+                            clearInterval(vApp.yts.tsc);
                         }
                     }
                 },
@@ -105,7 +105,14 @@
                                 io.send({'yts' : {'init' : videoId}});
                             });
                        }
-                   }
+                   },
+
+                    removeinputURL : function (){
+                        var inputContainer = document.getElementById('youtubeUrlContainer');
+                        if(inputContainer != null){
+                            inputContainer.parentNode.removeChild(inputContainer);
+                        }
+                    }
                    
                 },
                
@@ -135,6 +142,7 @@
                    } else {
                         if(msg.yts.hasOwnProperty('init')){
                             vApp.makeAppReady('Yts', undefined, msg.yts.init);
+//                            vApp.yts.tsc();
                             
 //                            this.init(msg.yts.init, 'student');
 //                            document.getElementById('vAppWhiteboard').style.display = 'none';
@@ -240,13 +248,17 @@
                     vApp.yts.player.unMute();
                     vApp.yts.player.setVolume(40);
                     if(vApp.gObj.uRole == 't'){
-                        vApp.yts.tsc = setInterval(
+                        vApp.yts.seekChangeInterval();
+                    }
+                },
+                
+                seekChangeInterval : function (){
+                    vApp.yts.tsc = setInterval(
                         function (){
                             vApp.yts.triggerOnSeekChange();
                         }
-                        , 2000/vApp.recorder.controller.ff);
-                    }
-                }
+                    , 2000);
+                  }
             }
     }
     window.yts = yts;

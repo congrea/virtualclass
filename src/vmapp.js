@@ -228,7 +228,7 @@ function (window){
 
               makeAppReady : function (app, cusEvent, videoId){
 //                  var currAppId = "";
-
+                    this.currApp = app;
                     
                     if(app != this.apps[1]){
                        if(vApp.hasOwnProperty('prevApp') && vApp.gObj.uRole == 't'){
@@ -352,7 +352,7 @@ function (window){
                     }
                 } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
-                    this.currApp = appName;
+                  //  this.currApp = appName; //could be dangerous
                     if(!this.PrvAndCurrIsWss(this.previous, appName)){
                         this.makeAppReady(appName, "byclick");
                     }else{

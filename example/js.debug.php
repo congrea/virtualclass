@@ -6,7 +6,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-whiteboard-canvas-utility.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/view.js"></script>
@@ -48,7 +48,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/record-play.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/indexeddb-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/footer-control-user.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/play.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/xhr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>

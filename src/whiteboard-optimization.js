@@ -4,7 +4,7 @@
  */
 
 (function (window) {
-    var optiomize = {
+    var optimize = {
         sendPacketWithOptimization: function (jobj, readyState, time) {
             if (typeof this.lastarrowtime == 'undefined') {
                 this.lastarrowtime = new Date().getTime();
@@ -61,5 +61,5 @@
             virtualclass.wb.utility.updateSentPackets(obj);
         }
     };
-    vcan.optimize = optiomize;
+    vcan.optimize = optimize;
 })(window);

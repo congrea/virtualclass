@@ -1,234 +1,500 @@
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
- * @author  Suman Bogati <http://www.vidyamantra.com>
+/** To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
+/*  * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 (function (window) {
-    var vcan = window.vcan;
-    vcan.utility = {
-        /**
-         * Calculates canvas element offset relative to the document
-         * @param cid is canvas's id
-         * @return {offset} calculated value value
-         */
-        canvasCalcOffset: function (cid) {
-            /*alert('suman');
-             debugger; */
-            var vcanMain = vcan.main;
-            //TODO cid should be happened as in fabric
-            var canvasEl = document.getElementById(cid);
-            var offset = vcan.utility.getElementOffset(canvasEl);
-            vcanMain.offset = offset;
-            return offset;
-        },
-        /**
-         * Returns offset for a given element
-         * @method getElementOffset
-         * @param {HTMLElement} element Element to get offset for
-         * @return {Object} Object with "left" and "top" properties
-         */
-        getElementOffset: function (element) {
-            // TODO : need to fix this method
-            var valueT = 0, valueL = 0;
-            do {
-                valueT += element.offsetTop || 0;
-                valueL += element.offsetLeft || 0;
-                element = element.offsetParent;
-            }
-            while (element);
-            return ({x: valueL, y: valueT});
-        },
-        /**
-         * this function does set the value on property of passed object
-         * @param obj expect object on which the property of value should be stored
-         * @param property expects the property name on which the value would be stored
-         * @param the value would be stored on property of object
-         * TODO this function should transfer to object method
-         */
-        setVal: function (obj, property, value) {
-            var shouldConstrainValue = (property === 'scaleX' || property === 'scaleY') && value < obj.MIN_SCALE_LIMIT;
-            if (shouldConstrainValue) {
-                value = obj.MIN_SCALE_LIMIT;
-            }
-            if (typeof property == 'object') {
-                for (var prop in property) {
-                    vcan.utility.setVal(obj, prop, property[prop]);
-                }
-            }
-            else {
-                if (property === 'angle') {
-                    vcan.utility.setAngle(obj, value);
-                }
-                else {
-                    obj[property] = value;
-                }
+    var vutil = {
+        createDOM: function (tag, id, _class) {
+            var elem = document.createElement(tag);
+            if (typeof id != 'undefined') {
+                elem.id = id;
             }
 
-            return obj;
-        },
-        /**
-         *  This function returns the value with passed property from passed object
-         *  @param obj expects the object
-         *  @property expects the property name
-         *  return the value
-         *  TODO this function should transfer to object method
-         */
-        getVal: function (obj, property) {
-            return obj[property];
-        },
-        /**
-         * Sets object's angle
-         * @param value {Number} angle value
-         * @return {Object} thisArg
-         */
-        setAngle: function (obj, value) {
-            obj.theta = value / 180 * Math.PI;
-            obj.angle = value;
-            return obj;
-        },
-        /**
-         * Gets the actual horizontal and vertical position
-         * expects as event object as parameter
-         * @param event is event object
-         * returns horizontal and vertical position
-         */
-        actualPointer: function (event) {
-            // TODO this method needs fixing
-            return {x: vcan.utility.pointerX(event), y: vcan.utility.pointerY(event)};
-        },
-        /**
-         * Gets the actual horizontal position
-         * expects as event object as parameter
-         * @param event is event object
-         * returns horizontal position
-         */
-        pointerX: function (event) {
-            /* TODO follow the standard as framework done */
-            var docElement = document.documentElement,
-                body = document.body || {scrollLeft: 0};
-            // looks like in IE (<9) clientX at certain point (apparently when mouseup fires on VML element)
-            // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
-            // need to investigate later
-            return event.pageX || ((typeof event.clientX != 'unknown' ? event.clientX : 0) +
-                (docElement.scrollLeft || body.scrollLeft) -
-                (docElement.clientLeft || 0));
-
-        },
-        /**
-         * Gets the actual vertical position
-         * expects as event object as parameter
-         * @param is an event object
-         * returns vertical position
-         */
-        pointerY: function (event) {
-            /*TODO follow the standard as framework done*/
-            var docElement = document.documentElement,
-                body = document.body || {scrollTop: 0};
-            return event.pageY || ((typeof event.clientY != 'unknown' ? event.clientY : 0) +
-                (docElement.scrollTop || body.scrollTop) -
-                (docElement.clientTop || 0));
-
-        },
-        /**
-         * Returns pointer coordinates relative to canvas.
-         * @method getReltivePoint
-         * @param e is ean event object
-         * @return {Object} object with "x" and "y" number values
-         */
-
-        getReltivePoint: function (e) {
-            var offset = vcan.main.offset;
-            var pointer = vcan.utility.actualPointer(e);
-            return {
-                x: pointer.x - offset.x,
-                y: pointer.y - offset.y
-            };
-        },
-        /**
-         * Transforms degrees to radians.
-         * @static
-         * @method degreesToRadians
-         * @param {Number} degrees value in degrees
-         * @return {Number} value in radians
-         */
-        degreesToRadians: function (degrees) {
-            var PiBy180 = Math.PI / 180;
-            return degrees * PiBy180;
-        },
-        /**
-         * Sets given object as active object
-         * @method setActiveObject
-         * @param object is the object which have to be active
-         * @returns return particular that object
-         */
-        setActiveObject: function (object) {
-            if (vcan.main.activeObject) {
-                vcan.main.activeObject.setActive(false);
-            }
-            vcan.main.activeObject = object;
-            object.setActive(true);
-            return object;
-        },
-        /* TODO this funciton should be optimized in future
-         this function should be done properly
-         this is not good way to talk	it woulld be greater if we can ignore this function */
-        updateObj: function (obj) {
-            var newObj = {};
-            for (prop in obj) {
-                if (prop != 'oCoords') {
-                    newObj[prop] = obj[prop];
-                } else {
-                    newObj.start = {};
-                    newObj.end = {};
-                    newObj.start.x = obj[prop].tl.x;
-                    newObj.start.y = obj[prop].tl.y;
-                    newObj.end.x = obj[prop].br.x;
-                    newObj.end.y = obj[prop].br.y;
-                }
-            }
-            return newObj;
-        },
-        /*
-         * imporant right now this funciton is not using
-         */
-        /**
-         * Sets the cursor depending on where the canvas is being hovered.
-         * Note: very buggy in Opera
-         * @method setCursorFromEvent
-         * @param e {Event} Event object
-         * @param target {Object} Object that the mouse is hovering, if so.
-         */
-
-        setCursorFromEvent: function (vcanMain, e, target) {
-            var s = vcanMain.upperCanvasEl.style;
-            if (!target) {
-                s.cursor = this.defaultCursor;
-                return false;
-            } else {
-                var corner = target.findTargetCorner(e);
-                if (!corner) {
-                    s.cursor = vcanMain.hoverCursor;
-                }
-                else {
-                    if (corner in vcanMain.cursorMap) {
-                        s.cursor = vcanMain.cursorMap[corner];
-                    } else if (corner === 'mtr' && target.hasRotatingPoint) {
-                        s.cursor = vcanMain.rotationCursor;
-                    } else {
-                        s.cursor = this.defaulCursor;
-                        return false;
+            if (typeof _class != 'undefined') {
+                var classes = "";
+                if (_class.length > 0) {
+                    for (var i = 0; i < _class.length; i++) {
+                        classes += _class[i] + " ";
                     }
                 }
+
+                elem.className = classes;
             }
+
+            return elem;
+        },
+
+        ab2str: function (buf) {
+            return String.fromCharCode.apply(null, new Uint8ClampedArray(buf));
+        },
+
+        str2ab: function (str) {
+            var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+            var bufView = new Uint8ClampedArray(buf);
+            for (var i = 0, strLen = str.length; i < strLen; i++) {
+                bufView[i] = str.charCodeAt(i);
+            }
+            return bufView;
+        },
+
+        sidebarHeightInit: function () {
+            var sidebar = document.getElementById("widgetRightSide");
+            sidebar.style.height = (window.innerHeight) + "px";
+        },
+
+        //there function name should be change
+        isSystemCompatible: function () {
+            if (virtualclass.error.length > 0) {
+
+                var errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join("<br />")) : virtualclass.error[0];
+                virtualclass.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+
+                if (virtualclass.gObj.hasOwnProperty('errIE')) {
+                    virtualclass.vutil.disableVirtualClass();
+                }
+
+                if (virtualclass.gObj.hasOwnProperty('audIntDisable')) {
+                    virtualclass.user.control.audioWidgetDisable();
+                }
+
+                if (virtualclass.gObj.hasOwnProperty('errNotDesktop')) {
+                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.vutil.disableVirtualClass();
+                }
+            } else {
+                if (virtualclass.gObj.hasOwnProperty('audIntDisable') || virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+                    virtualclass.user.control.audioWidgetDisable();
+                }
+            }
+        },
+
+        chkValueInLocalStorage: function (property) {
+            if (localStorage.getItem(property) === null) {
+                return false;
+            } else {
+                return localStorage[property];
+            }
+        },
+
+        setContainerWidth: function (res) {
+            var appId = 'virtualclassWhiteboard';
+            if (typeof virtualclass.previous != 'undefined') {
+                appId = virtualclass.previous;
+            }
+            //alert(appId);
+            var appCont = document.getElementById(appId);
+            var rightOffSet = 5;
+
+            var extraWidth = 0;
+
+            if (virtualclass.currApp == 'ScreenShare') {
+                var leftSideBar = document.getElementById("virtualclassOptionsCont");
+                if (leftSideBar != null) {
+                    var offset = vcan.utility.getElementOffset(leftSideBar);
+                    leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
+                } else {
+                    leftSideBarWidth = 0;
+                }
+            } else {
+                leftSideBarWidth = 0;
+            }
+
+            //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
+            res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
+            appCont.style.width = res.width + 'px';
+            appCont.style.height = res.height + 'px';
+
+            if (appId == 'virtualclassScreenShare') {
+                //if(appId != 'virtualclassWhiteboard'){
+                var ssType = document.getElementById(appId + 'Local');
+                res.width = res.width - 10;
+                appCont.style.width = res.width;
+                ssType.style.width = res.width + "px";
+                virtualclass.vutil.setScreenInnerTagsWidth(appId);
+            }
+        },
+
+        setScreenInnerTagsWidth: function (currAppId) {
+            var sId = currAppId;
+            var screenShare = document.getElementById(sId);
+            var screenShareWidth = screenShare.offsetWidth;
+            var screenShareLocal = document.getElementById(sId + "Local");
+            var screenShareLocalWidth = screenShareLocal.offsetWidth;
+            var toBeLeft = screenShareWidth - screenShareLocalWidth;
+
+            var screenShareLocalVideo = document.getElementById(sId + "LocalVideo");
+            var screenShareLocalVideoWidth = screenShareLocalVideo.offsetWidth;
+
+            var screenShareLocalVideoWidth = screenShareLocalWidth - screenShareLocalVideoWidth;
+            //screenShareLocalVideo.style.marginLeft = (screenShareLocalVideoWidth/2) + "px";
+        },
+
+        makeActiveApp: function (app, prvTool) {
+            if (app != prvTool && typeof prvTool != 'undefined') {
+                var prvTool = prvTool + 'Tool';
+                var classes = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
+                document.getElementById(prvTool).className = classes;
+            }
+            document.getElementById(app + "Tool").className += ' active';
+
+        },
+
+        initInstallChromeExt: function (error) {
+            if (error.name == 'EXTENSION_UNAVAILABLE') {
+                console.log('ask for inline installation');
+                //alert('ss' + chrome);
+                chrome.webstore.install('https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl',
+                    function (arg) {
+                        window.location.reload();
+                    },
+                    function (e) {
+                        alert(e);
+                    }
+                )
+            }
+        },
+
+        removeAppPanel: function () {
+            var appPanel = document.getElementById('virtualclassOptionsCont');
+            if (appPanel != null) {
+                appPanel.parentNode.removeChild(appPanel);
+            }
+        },
+
+        removeTempVideo: function (id) {
+            var toBeRemove = document.getElementById(id);
+            toBeRemove.parentNode.removeChild(toBeRemove)
+        },
+
+        createLocalTempVideo: function (mainCont, localTemp) {
+            if (typeof mainCont == "string" || typeof mainCont == "String") {
+                mainCont = document.getElementById(mainCont);
+            }
+            //var mainCont = document.getElementById(mcId);
+            var locVidContTemp = virtualclass.vutil.createDOM("div", localTemp);
+            var vidContTemp = virtualclass.vutil.createDOM("canvas", localTemp + "Video");
+            locVidContTemp.appendChild(vidContTemp);
+            mainCont.appendChild(locVidContTemp);
+        },
+
+        initLocCanvasCont: function (tempVideoId) {
+            if (virtualclass.currApp == "ScreenShare") {
+                var app = 'ss';
+            } else {
+                var app = 'wss';
+            }
+
+            virtualclass[app].localtempCanvas = document.getElementById(tempVideoId);
+            virtualclass[app].localtempCont = virtualclass[app].localtempCanvas.getContext('2d');
+        },
+
+        videoTeacher2Student: function (sid, notPutImage) {
+            //virtualclassScreenShareLocalVideo
+            var app = sid;
+            var id = "virtualclass" + sid + "LocalVideo";
+
+            var localVideo = document.getElementById(id);
+
+            if (localVideo != null && localVideo.tagName == "VIDEO") {
+                //    alert('this would not performed');
+                var stCanvas = document.createElement('canvas');
+                stCanvas.id = localVideo.id;
+                stCanvas.width = localVideo.offsetWidth;
+                stCanvas.height = localVideo.offsetHeight;
+
+                var tempVid = localVideo;
+                localVideo.parentNode.replaceChild(stCanvas, localVideo);
+                var app;
+                if (app == 'ScreenShare') {
+                    app = "ss";
+                }
+
+                if (typeof notPutImage == 'undefined' && (typeof app != 'undefined' && (app == 'ss' || app == 'wss'))) {
+                    virtualclass[app].localCanvas = stCanvas;
+                    virtualclass[app].localCont = virtualclass[app].localCanvas.getContext('2d');
+
+                    var imgData = virtualclass[app].localtempCont.getImageData(0, 0, virtualclass[app].localtempCanvas.width, virtualclass[app].localtempCanvas.height);
+                    virtualclass[app].localCont.putImageData(imgData, 0, 0);
+                }
+
+                //virtualclass.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
+                virtualclass.vutil.removeTempVideo("virtualclass" + sid + "LocalTemp");
+            }
+        },
+
+        clickOutSideCanvas: function () {
+            if (this.exitTextWrapper()) {
+                virtualclass.wb.obj.drawTextObj.textUtility(virtualclass.wb.gObj.spx, virtualclass.wb.gObj.spy);
+            }
+        },
+
+        exitTextWrapper: function () {
+            var textBoxContainer = document.getElementsByClassName('textBoxContainer');
+            return textBoxContainer.length > 0 ? true : false;
+        },
+
+        attachClickOutSideCanvas: function () {
+            _attachClickOutSideCanvas('commandToolsWrapper');
+            _attachClickOutSideCanvas('virtualclassOptionsCont');
+            _attachClickOutSideCanvas('audioWidget');
+            _attachClickOutSideCanvas('chatWidget');
+
+            function _attachClickOutSideCanvas(id) {
+                var elem = document.getElementById(id);
+                if (elem != null) {
+                    elem.onclick = function () {
+                        virtualclass.vutil.clickOutSideCanvas();
+                    };
+                }
+            }
+        },
+
+        dimensionMatch: function (wbc, ssc) {
+            var wbcWidth = document.getElementById(wbc).offsetWidth;
+            var optionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
+            var sscWidth = document.getElementById(ssc).offsetWidth + optionsContWidth;
+            return (sscWidth == wbcWidth) ? true : false;
+        },
+
+        disableAppsBar: function () {
+            var appBarCont = document.getElementById('virtualclassOptionsCont');
+            if (appBarCont != null) {
+                appBarCont.style.pointerEvents = "none";
+            }
+        },
+
+        isMiniFileIncluded: function (src) {
+//                var filePatt = new RegExp(src+".js$");
+            var filePatt = new RegExp(src + ".js?=\*([0-9]*)"); //matched when src is mid of path, todo find it at end of path
+            var scripts = document.getElementsByTagName("script");
+            for (var i = 0; i < scripts.length; i++) {
+                if (filePatt.test(scripts[i].src)) {
+                    return true;
+                }
+            }
+            return false;
+        },
+
+        clearAllChat: function () {
+            localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
+            sessionStorage.clear('chatroom'); //all
+            //idList = [];
+//                idList.length = 0;
+            virtualclass.chat.idList.length = 0;
+            clearAllChatBox();
+
+            var allChat = document.getElementById("chatWidget").getElementsByClassName('ui-chatbox-msg');
+            if (allChat.length > 0) {
+                while (allChat[0] != null) {
+                    allChat[0].parentNode.removeChild(allChat[0]);
+                }
+            }
+        },
+
+        isObjectEmpty: function (obj) {
+            for (var prop in obj) {
+                if (obj.hasOwnProperty(prop))
+                    return false;
+            }
+
             return true;
         },
-        /**
-         * this function returns the number object
-         * those have created on canavas
-         * TODO this function should used
-         * instead of vcan.main.children
-         */
-        getChildren: function () {
-            return vcan.main.children;
+
+        removeSessionTool: function () {
+            if (localStorage.getItem('orginalTeacherId') == null) {
+                var SessionEndTool = document.getElementById("virtualclassSessionEndTool");
+                if (SessionEndTool != null) {
+                    SessionEndTool.parentNode.removeChild(SessionEndTool);
+                }
+            }
+        },
+
+        toggleRoleClass: function (reclaim) {
+            if ((localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null) || reclaim) {
+                document.getElementById("virtualclassCont").classList.toggle('teacher');
+                document.getElementById("virtualclassCont").classList.toggle('student');
+            }
+        },
+
+        addClass: function (elemId, className) {
+            var elem = document.getElementById(elemId);
+//                if(elem.hasOwnProperty('classList')){
+            if (virtualclass.vutil.elemHasAnyClass(elemId)) {
+                elem.classList.add(className);
+            } else {
+                elem.className = className;
+            }
+        },
+
+        removeClass: function (id, className) {
+            var elem = document.getElementById(id);
+//                if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
+            if (virtualclass.vutil.elemHasAnyClass(id) && elem.classList.contains(className)) {
+                elem.classList.remove(className);
+            }
+        },
+
+        breakIntoBytes: function (val, l) {
+            var numstring = val.toString();
+            for (var i = numstring.length; i < l; i++) {
+                numstring = '0' + numstring;
+            }
+            var parts = numstring.match(/[\S]{1,2}/g) || [];
+            return parts;
+        },
+
+        numValidateFour: function (n1, n2, n3, n4) {
+            n1 = this.preNumValidateTwo(n1);
+            n2 = this.preNumValidateTwo(n2);
+            n3 = this.preNumValidateTwo(n3);
+            n4 = this.preNumValidateTwo(n4);
+            var nres = n1 + n2 + n3 + n4;
+            return parseInt(nres);
+        },
+
+        numValidateTwo: function (n1, n2) {
+            n1 = this.preNumValidateTwo(n1);
+            n2 = this.preNumValidateTwo(n2);
+            var nres = n1 + n2;
+            return parseInt(nres);
+        },
+
+        preNumValidateTwo: function (n) {
+            var numstring = n.toString();
+            if (numstring.length == 1) {
+                return '0' + numstring;
+            } else if (numstring.length == 2) {
+                return numstring;
+            }
+        },
+
+        elemHasAnyClass: function (elemId) {
+            var elem = document.getElementById(elemId);
+            if (elem != null) {
+                return (typeof elem.classList != 'undefined') ? true : false;
+            }
+            return false;
+        },
+
+        userIsOrginalTeacher: function (userId) {
+            if (localStorage.getItem('orginalTeacherId') != null) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        isUserTeacher: function (userId) {
+            if (localStorage.getItem('teacherId') != null) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        initDisableAudVid: function () {
+            virtualclass.gObj.audIntDisable = true;
+            virtualclass.gObj.vidIntDisable = true;
+        },
+
+        initDisableVirtualClass: function () {
+            this.initDisableAudVid();
+            virtualclass.gObj.errNotDesktop = true;
+            virtualclass.gObj.errNotScreenShare = true;
+            virtualclass.gObj.errAppBar = true;
+        },
+
+        disableVirtualClass: function () {
+            var virtualClass = document.getElementById('virtualclassCont');
+            virtualClass.style.opacity = 0.6;
+            virtualClass.style.pointerEvents = "none";
+            //document.getElementById('commandToolsWrapper').style.poniterEvents =   'none';
+
+        },
+
+        enableVirtualClass: function () {
+            var virtualClass = document.getElementById('virtualclassCont');
+            virtualClass.style.opacity = 1;
+            virtualClass.style.pointerEvents = "visible";
+
+        },
+
+        firstiOSaudioCall: function () {
+            if (virtualclass.gObj.hasOwnProperty('audioPlayMessage')) {
+                //virtualclass.gObj.iosTabAudTrue = true;
+                virtualclass.gObj.iosIpadbAudTrue = true;
+                virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
+            }
+        },
+
+        beforeLoad: function () {
+            if (typeof virtualclass.storage.wholeStoreData != 'undefined') {
+                var obj = JSON.parse(virtualclass.storage.wholeStoreData);
+                obj.beforeRefresh = true;
+                virtualclass.storage.wholeStore(obj, "put");
+            }
+
+            localStorage.setItem('totalStored', virtualclass.storage.totalStored);
+
+            localStorage.removeItem('otherRole');
+            virtualclass.wb.utility.userIds = [];
+
+
+            if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
+                virtualclass.gObj.video.audio.studentNotSpeak();
+            }
+            virtualclass.vutil.clickOutSideCanvas();
+            localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
+            io.disconnect();
+        },
+
+        initOnBeforeUnload: function (bname) {
+            if (bname == 'iOS') {
+                document.body.onunload = function () {
+                    virtualclass.vutil.beforeLoad();
+                }
+            } else {
+                window.onbeforeunload = function () {
+                    virtualclass.vutil.beforeLoad();
+                }
+            }
+
+        },
+
+        isPlayMode: function () {
+            return (window.wbUser.virtualclassPlay == true) ? true : false;
+        },
+
+        progressBar: function (totalVal, portion, pbar, pval) {
+            if (portion > totalVal) {
+                portion = totalVal;
+                document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
+            }
+
+            if (totalVal == 0 && portion == 0) {
+                var totalProgress = 0;
+            } else {
+                var totalProgress = Math.round((portion * 100) / totalVal);
+            }
+
+            document.getElementById(pbar).style.width = totalProgress + '%';
+            document.getElementById(pval).innerHTML = totalProgress + '%';
+
+        },
+
+        hidePrevIcon: function (app) {
+            var prvScreen = document.getElementById(virtualclass.previous);
+            if (prvScreen != null) {
+                prvScreen.style.display = 'none';
+                document.getElementById(virtualclass[app].id).style.display = 'block';
+            }
         }
-    }
+
+    };
+    window.vutil = vutil;
 })(window);

@@ -64,7 +64,7 @@
                 //TODO system checking function should be invoked before makeAppReady
 
                 this.system.check();
-                this.vutil.isSystemCompatible(); //this should be at system.js file
+                this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
 
                 //first this line is befre this.dirtyCorner assigned neard about 51 line number
                 // here because check for old browsers which does not support indexeddb, 
@@ -105,7 +105,6 @@
 
                 virtualclass.chat = new Chat();
                 virtualclass.chat.init();
-//                virtualclass.recPlayer = new recordPlayer();
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();

@@ -11,7 +11,6 @@
          */
         triggerActiveAll: function (e) {
             if (e.shiftKey) {
-                console.log('what happend mere bhai');
                 virtualclass.wb.keyBoard.skey = true;
                 virtualclass.wb.keyBoard.prvTool = virtualclass.wb.tool.cmd;
                 virtualclass.wb.toolInit('t_activeall');
@@ -27,7 +26,6 @@
          */
         triggerdeActiveAll: function (e) {
             if (virtualclass.wb.keyBoard.skey) {
-                console.log('what happend mere bhai ddd');
                 var currTime = new Date().getTime();
                 virtualclass.wb.utility.deActiveFrmDragDrop();
                 virtualclass.wb.toolInit(virtualclass.wb.keyBoard.prvTool);

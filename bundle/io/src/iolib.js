@@ -8,21 +8,21 @@
  */
 
 var io = {
-    cfg : {},
-    sock : null,
-    wsuri : null,
-    error : null,
-    uniquesids : null,
-   
-    init : function(cfg, callback) {
+    cfg: {},
+    sock: null,
+    wsuri: null,
+    error: null,
+    uniquesids: null,
+    init: function (cfg, callback) {
+        "use strict";
         this.cfg = cfg;
         var that = this;
         this.wsconnect();
     },
 
-    wsconnect : function(){
-        io.wsuri = "wss://"+this.cfg.rid;
-        console.log(this.cfg.rid);
+    wsconnect: function () {
+        "use strict";
+        io.wsuri = "wss://" + this.cfg.rid;
         if ("WebSocket" in window) {
             this.sock = new WebSocket(io.wsuri);
         } else if ("MozWebSocket" in window) {
@@ -32,7 +32,7 @@ var io = {
             this.error = lang.wserror;
         }
         var scope = this;
-        this.sock.onopen = function() {
+        this.sock.onopen = function () {
             console.log("Connected to " + scope.cfg.rid);
 
             $.event.trigger({
@@ -43,13 +43,13 @@ var io = {
 
             // user join chat room
             scope.addclient();
-        }
+        };
         this.sock.binaryType = 'arraybuffer';
-        this.sock.onmessage = function(e) {
+        this.sock.onmessage = function (e) {
             io.onRecMessage(e);
-        }
+        };
 
-        this.sock.onerror = function(e) {
+        this.sock.onerror = function (e) {
             scope.error = e;
             console.log('Error:' + e);
             $.event.trigger({
@@ -57,8 +57,8 @@ var io = {
                 message: e
             });
 
-        }
-        this.sock.onclose = function(e) {
+        };
+        this.sock.onclose = function (e) {
             console.log('Connection Closed');
 
             $.event.trigger({
@@ -66,245 +66,225 @@ var io = {
                 message: e.reason
             });
             console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
-          //  setTimeout(function(){scope.wsconnect()}, 5000);
-        }
+            //  setTimeout(function(){scope.wsconnect()}, 5000);
+        };
     },
 
-    userauthenticat : function (){
+    userauthenticat: function () {
+        "use strict";
         var obj = {
-            cfun  : 'authenticate',
-            arg : {'authuser':this.cfg.authuser, 'authpass':this.cfg.authpass}
-        }
+            cfun: 'authenticate',
+            arg: {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
+        };
         var jobj = JSON.stringify(obj);
         this.sock.send(jobj);
     },
 
-    addclient : function (){
+    addclient: function () {
+        "use strict";
         var obj = {
-            cfun : 'joinroom',
-            arg : {'client':this.cfg.userid, 'roomname':this.cfg.room, 'user':this.cfg.userobj}
-        }
+            cfun: 'joinroom',
+            arg: {'client': this.cfg.userid, 'roomname': this.cfg.room, 'user': this.cfg.userobj}
+        };
         var jobj = JSON.stringify(obj);
         this.sock.send(jobj);
     },
 
-    send : function(msg){
+    send: function (msg) {
+        "use strict";
         //currTime(pag);            
         var obj = {
-                //cfun : 'broadcast',
-                cfun : 'broadcastToAll',
-                arg : {'msg':msg}
-        }
-        
-        if(arguments.length > 1){
+            //cfun : 'broadcast',
+            cfun: 'broadcastToAll',
+            arg: {'msg': msg}
+        };
+
+        if (arguments.length > 1) {
             var uid = arguments[1];// user id to  whom msg is intented
             obj.arg.touser = this.uniquesids[uid];
-          
+
         }
         var jobj = JSON.stringify(obj);
         this.sock.send(jobj);
 
-        if(arguments.length == 1){
-            //should not  be here but at init
-            if(typeof fromUser == 'undefined'){
-                fromUser = { 
-                    lname : wbUser.lname,
-                    name : wbUser.name,
-                    role : wbUser.role,
-                    userid : wbUser.id,
-                    img : wbUser.imageurl 
-                };
-            }
+        if (arguments.length == 1) {
             // STORAGE
             var storObj = {
                 //cfun : 'broadcast',
-                type : 'broadcastToAll',
-                m : msg,
-                userto : obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "" ,
-                user : fromUser
-            }
+                type: 'broadcastToAll',
+                m: msg,
+                userto: obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "",
+                user: virtualclass.uInfo.userobj
+            };
 
             var storjobj = JSON.stringify(storObj);
             //getMsPckt, can not request the packets from other user during replay
-            if(!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')){
+            if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
                 this.completeStorage(storjobj);
             }
         }
-        
+
     },
-    
-    sendBinary : function (msg){
+
+    sendBinary: function (msg) {
+        "use strict";
         this.sock.send(msg.buffer);
         this.dataBinaryStore(msg);
     },
-    
-    dataBinaryStore : function (msg){
-        if(Object.prototype.toString.call(msg) == "[object Int8Array]"){
-            var dtype = 'a';
-            msg = vApp.dtCon.base64EncArrInt(msg);
-        } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
-            var dtype = 'c';
-            msg = vApp.dtCon.base64EncArr(msg);
 
+    dataBinaryStore: function (msg) {
+        "use strict";
+        var dtype;
+        if (Object.prototype.toString.call(msg) == "[object Int8Array]") {
+            dtype = 'a';
+            msg = virtualclass.dtCon.base64EncArrInt(msg);
+        } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]") {
+            dtype = 'c';
+            msg = virtualclass.dtCon.base64EncArr(msg);
         }
-        this.completeStorage(msg, {type : dtype});
+        this.completeStorage(msg, {type: dtype});
     },
-    
-    sendBinary_old : function(msg){
+
+    sendBinary_old: function (msg) {
+        "use strict";
         this.sock.send(msg.buffer);
         //2nd parameter about binary data
         var bcsv = Array.prototype.join.call(msg, ",");
-        
-        if(Object.prototype.toString.call(msg) == "[object Int8Array]"){
+
+        if (Object.prototype.toString.call(msg) == "[object Int8Array]") {
             bcsv = 'a,' + msg.length + ',' + bcsv;
-        }else if(Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]"){
+        } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]") {
             bcsv = 'c,' + msg.length + ',' + bcsv;
         }
         this.completeStorage(bcsv, true);
     },
 
-    onRecMessage : function(e){
-//            try{
-                var scope = this;
-                if(e.data instanceof ArrayBuffer){
-                    $.event.trigger({
-                        type: "binrec",
-                        message: e.data
-                    }); 
-                     
-                    var data_pack = new Uint8Array(e.data);
-                    var msg = (data_pack[0] == 101) ?  new Int8Array(data_pack) : new Uint8ClampedArray(data_pack); 
-
-                    this.dataBinaryStore(msg);
-                }else{
-//                  io.completeStorage(e.data);
-                    
-                    var r1 = JSON.parse(e.data);
-                    if(!r1.hasOwnProperty('userto')){
-                        io.completeStorage(e.data);
-                    }
-                    
-                    if (r1.type == "joinroom"){
-                        console.log("New user join room " + r1.users);
+    onRecMessage: function (e) {
+        "use strict";
+        try {
+            var scope = this;
+            if (e.data instanceof ArrayBuffer) {
+                $.event.trigger({
+                    type: "binrec",
+                    message: e.data
+                });
+                var data_pack = new Uint8Array(e.data);
+                var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
+                this.dataBinaryStore(msg);
+            } else {
+                var receivemsg = JSON.parse(e.data);
+                if (!receivemsg.hasOwnProperty('userto')) {
+                    io.completeStorage(e.data);
+                }
+                var userto = '';
+                switch (receivemsg.type) {
+                    case "joinroom":
+                        console.log("New user join room " + receivemsg.users);
                         /* identifying new user from list*/
                         var newuser = null;
-                        if(scope.uniquesids != null){
-                            $.each(r1.clientids, function(i,v) {
-                                if(scope.uniquesids[i] == undefined){
+                        if (scope.uniquesids != null) {
+                            $.each(receivemsg.clientids, function (i, v) {
+                                if (scope.uniquesids[i] == undefined) {
                                     newuser = i;
                                 }
                             });
                         }
-    
-                        scope.uniquesids = r1.clientids;
+                        scope.uniquesids = receivemsg.clientids;
                         //update users
                         $.event.trigger({
                             type: "member_added",
-                            message: r1.users,
-                            newuser:newuser
+                            message: receivemsg.users,
+                            newuser: newuser
                         });
-                    }
-    
-                    if (r1.type == "broadcastToAll"){
-                        
-                      //  console.log("json  : display msg");
-                        var userto = '';
-                        
-                        if(r1.userto != undefined){ userto = r1.userto; }
-                        
+                        break;
+                    case "broadcastToAll":
+                        if (receivemsg.userto != undefined) {
+                            userto = receivemsg.userto;
+                        }
                         $.event.trigger({
                             type: "newmessage",
-                            message: r1.m,
-                            fromUser: r1.user,
+                            message: receivemsg.m,
+                            fromUser: receivemsg.user,
                             toUser: userto
                         });
-                    }
-    
-                    if (r1.type == "userleft"){
-                        console.log("user logout");
-                        var userto = '';
-                        if(r1.userto != undefined){ userto = r1.userto; }
-                        if(scope.uniquesids != null){
-                            delete scope.uniquesids[r1.user.userid];
+                        break;
+                    case "userleft":
+                        if (receivemsg.userto != undefined) {
+                            userto = receivemsg.userto;
                         }
-    
+                        if (scope.uniquesids != null) {
+                            delete scope.uniquesids[receivemsg.user.userid];
+                        }
                         $.event.trigger({
                             type: "user_logout",
-                            fromUser: r1.user,
+                            fromUser: receivemsg.user,
                             message: 'offline',
                             toUser: userto
                         });
-                    }
-    
-                    if (r1.type == "leftroom"){
-                        console.log("member removed");
+                        break;
+                    case "leftroom":
                         $.event.trigger({
                             type: "member_removed",
-                            message: r1.users
+                            message: receivemsg.users
                         });
-                    }
-    
-                    if (r1.type == "Unauthenticated"){
-                        console.log("Unauthenticated user");
+                        break;
+                    case "Unauthenticated":
                         $.event.trigger({
                             type: "authentication_failed",
                             message: 'Authentication failed'
                         });
-                    }
-    
-                    if (r1.type == "Multiple_login"){
-                        console.log("Multiple_login");
+                        break;
+                    case "Multiple_login":
                         $.event.trigger({
                             type: "Multiple_login"
                         });
-                    }
-                    
+                        break;
                 }
-                
-//            }catch(e){
-//                console.log("Error catched   : " + e);
-//                $.event.trigger({
-//                    type: "error",
-//                    message: e
-//                });
-                return;
-//            }
+            }
+        } catch (e) {
+            console.log("Error catched   : " + e);
+            $.event.trigger({
+                type: "error",
+                message: e
+            });
+        }
     },
-    
-    disconnect:function(){
-        this.sock.onclose = function () {};
+
+    disconnect: function () {
+        this.sock.onclose = function () {
+        };
         this.sock.close();
         console.log("i am closing this connection");
-    }, 
-    
-    completeStorage : function (data, bdata, sessionEnd){
-        
-        if(vApp.hasOwnProperty('getContent') && vApp.getContent == true){
+    },
+
+    completeStorage: function (data, bdata, sessionEnd) {
+
+        if (virtualclass.hasOwnProperty('getContent') && virtualclass.getContent == true) {
             return; // not store when data is fetching from indexeddb
         }
-        
-        if(typeof firstTime == 'undefined'){
+
+        if (typeof firstTime == 'undefined') {
             referenceTime = window.pageEnter;
             firstTime = true;
-            
-            if(!vApp.vutil.isPlayMode()){
-                var t = vApp.storage.db.transaction(['allData'], "readwrite");
-                if(typeof t != 'undefined'){
+
+            if (!virtualclass.vutil.isPlayMode()) {
+                var t = virtualclass.storage.db.transaction(['allData'], "readwrite");
+                if (typeof t != 'undefined') {
                     //should check first row is authuser/authpass
                     // clear if differnt else leave as it is
                     var objectStore = t.objectStore('allData');
-                    objectStore.openCursor().onsuccess = function (event){
+                    objectStore.openCursor().onsuccess = function (event) {
                         var cursor = event.target.result;
                         if (cursor) {
-                            if(cursor.value.hasOwnProperty('recObjs')){
-                                if(!cursor.value.hasOwnProperty('bd')){
+                            if (cursor.value.hasOwnProperty('recObjs')) {
+                                if (!cursor.value.hasOwnProperty('bd')) {
                                     var recObs = JSON.parse(cursor.value.recObjs);
-                                    if(!recObs.hasOwnProperty('authuser')){
+                                    if (!recObs.hasOwnProperty('authuser')) {
                                         objectStore.clear();
                                     }
-                                }else{
+                                } else {
                                     objectStore.clear();
-                                } 
+                                }
                             }
                         }
                     };
@@ -314,18 +294,14 @@ var io = {
 
         var currTime = new Date().getTime();
         var playTime = currTime - referenceTime;
-        
-        if(typeof sessionEnd != 'undefined'){
+
+        if (typeof sessionEnd != 'undefined') {
             //undefined for data and bindary data
-            vApp.storage.completeStorage(playTime, undefined, undefined, sessionEnd)
-        }else{
-            (typeof bdata == 'undefined') ? vApp.storage.completeStorage(playTime, data) : vApp.storage.completeStorage(playTime, data, bdata);
+            virtualclass.storage.completeStorage(playTime, undefined, undefined, sessionEnd)
+        } else {
+            (typeof bdata == 'undefined') ? virtualclass.storage.completeStorage(playTime, data) : virtualclass.storage.completeStorage(playTime, data, bdata);
         }
-        
-        
+
         referenceTime = currTime;
     }
 };
-
-
-

@@ -8,21 +8,21 @@
         sendPacketWithOptimization: function (jobj, readyState, time) {
             if (typeof this.lastarrowtime == 'undefined') {
                 this.lastarrowtime = new Date().getTime();
-                vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
+                virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
-                    vApp.wb.utility.beforeSend(JSON.parse(jobj));
+                    virtualclass.wb.utility.beforeSend(JSON.parse(jobj));
                 }
 
-                vApp.wb.utility.updateSentInformation(jobj, true);
+                virtualclass.wb.utility.updateSentInformation(jobj, true);
             }
             this.presentarrowtime = new Date().getTime();
             if ((this.presentarrowtime - this.lastarrowtime) >= time) {
-                vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
+                virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
-                    // vApp.wb.utility.beforeSend(JSON.parse(jobj));
+                    // virtualclass.wb.utility.beforeSend(JSON.parse(jobj));
                     io.send(JSON.parse(jobj));
                 }
-                vApp.wb.utility.updateSentInformation(jobj, true);
+                virtualclass.wb.utility.updateSentInformation(jobj, true);
                 this.lastarrowtime = new Date().getTime();
             }
         },
@@ -52,13 +52,13 @@
 
 //            console.log(obj);
 
-            vApp.wb.uid++;
-            obj.uid = vApp.wb.uid;
+            virtualclass.wb.uid++;
+            obj.uid = virtualclass.wb.uid;
             vcan.main.replayObjs.push(obj);
-            vApp.wb.utility.beforeSend({'repObj': [obj]});
-            vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-            //  vApp.storage.wholeStore(obj);
-            vApp.wb.utility.updateSentPackets(obj);
+            virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+            virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+            //  virtualclass.storage.wholeStore(obj);
+            virtualclass.wb.utility.updateSentPackets(obj);
         }
     };
     vcan.optimize = optiomize;

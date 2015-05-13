@@ -2,7 +2,7 @@
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */(function (window) {
-    //   vApp.wb = window.vApp.wb;
+    //   virtualclass.wb = window.virtualclass.wb;
 
     /**
      * this class initializes the functions
@@ -30,9 +30,9 @@
              */
 
             drawStart: function (ev) {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 //if(vcan.main.freesvg == true){
-                if (vApp.wb.obj.freeDrawObj.freesvg == true) {
+                if (virtualclass.wb.obj.freeDrawObj.freesvg == true) {
                     var ctx = vcan.main.canvas.getContext('2d');
                     //borderColor = "red";
                     //this.fdObj = vcan.main.freeHandDrawing(ev, {borderColor: borderColor});
@@ -59,18 +59,18 @@
                 this.fdObj.fhRendering(pointer);
             },
             finalizeDraw: function (ev) {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 //TODO this(finalizeDrawingPath) should be called over the object.
                 //prvObj =  vcan.main.freeDraw.finalizeDrawingPath();
 
-                vApp.wb.prvObj = this.fdObj.finalizeDrawingPath(vApp.wb.canvas);
+                virtualclass.wb.prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb.canvas);
                 var lastChild = vcan.main.children[vcan.main.children.length - 1];
-                lastChild.mt = vApp.wb.utility.stringToNumber(vApp.wb.prvObj.path[vApp.wb.prvObj.path.length - 1][3]);
+                lastChild.mt = virtualclass.wb.utility.stringToNumber(virtualclass.wb.prvObj.path[virtualclass.wb.prvObj.path.length - 1][3]);
 
                 /****
                  *
                  * This would I have disbaled can be critical
-                 * vApp.wb.repObj.replayObjs.push(vApp.wb.prvObj);
+                 * virtualclass.wb.repObj.replayObjs.push(virtualclass.wb.prvObj);
                  *
                  ****/
             }

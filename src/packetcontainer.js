@@ -46,7 +46,7 @@
                 var packetContainer = document.getElementById('packetContainer');
                 var headingTag = document.createElement("h4");
                 headingTag.id = 'dataInfoHeading';
-                headingTag.innerHTML = vApp.lang.getString('dataDetails');
+                headingTag.innerHTML = virtualclass.lang.getString('dataDetails');
                 var toggleBox = document.createElement("div");
                 toggleBox.id = "toggleContainer";
                 toggleBox.className = "display";
@@ -64,16 +64,16 @@
                 blankDiv.innerHTML = "&nbsp;<br/>&nbsp;";
                 labelDiv.appendChild(blankDiv);
                 var perSecLabel = this.createPacketContDiv("perSecData");
-                perSecLabel.innerHTML = vApp.lang.getString('perSecond');
+                perSecLabel.innerHTML = virtualclass.lang.getString('perSecond');
                 labelDiv.appendChild(perSecLabel);
                 var totalDataLabel = this.createPacketContDiv('totalDataLabel');
-                totalDataLabel.innerHTML = vApp.lang.getString('total');
+                totalDataLabel.innerHTML = virtualclass.lang.getString('total');
                 labelDiv.appendChild(totalDataLabel);
                 //Creating Column Two.
                 var sentPackCont = this.createPacketContDiv('sendPackCont');
                 packetContainer.appendChild(sentPackCont);
                 var sendPacketPSLabel = this.createPacketContDiv('sentPacketsLabel');
-                sendPacketPSLabel.innerHTML = vApp.lang.getString('sentPackets');
+                sendPacketPSLabel.innerHTML = virtualclass.lang.getString('sentPackets');
                 sentPackCont.appendChild(sendPacketPSLabel);
                 var sendPacketPS = this.createPacketContDiv('sendPackPsCont');
                 sentPackCont.appendChild(sendPacketPS);
@@ -89,7 +89,7 @@
                 var receviedPackCont = this.createPacketContDiv('receivePackCont');
                 packetContainer.appendChild(receviedPackCont);
                 var receivedPacketPSLabel = this.createPacketContDiv('receivedPacketsLabel');
-                receivedPacketPSLabel.innerHTML = vApp.lang.getString('receviedPackets');
+                receivedPacketPSLabel.innerHTML = virtualclass.lang.getString('receviedPackets');
                 receviedPackCont.appendChild(receivedPacketPSLabel);
                 var receivePacketPS = this.createPacketContDiv('receivePackPsCont');
                 receviedPackCont.appendChild(receivePacketPS);
@@ -107,7 +107,7 @@
                 ///creating sent message information
                 var informationCont = document.getElementById('informationCont');
                 label = document.createElement('label');
-                label.innerHTML = vApp.lang.getString("sentMessageInfo");
+                label.innerHTML = virtualclass.lang.getString("sentMessageInfo");
 
                 var sentMsgInfoCont = this.createPacketContDiv('sentMsgInfoContainer');
                 sentMsgInfoCont.appendChild(label);
@@ -119,7 +119,7 @@
 
                 var receivedMsgInfoCont = this.createPacketContDiv('receivedMsgInfoContainer');
                 label = document.createElement('label');
-                label.innerHTML = vApp.lang.getString("receivedMessageInfo");
+                label.innerHTML = virtualclass.lang.getString("receivedMessageInfo");
 
                 receivedMsgInfoCont.appendChild(label);
 

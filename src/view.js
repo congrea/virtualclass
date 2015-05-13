@@ -93,12 +93,12 @@
         },
 
         multiMediaMsg: function (className) {
-            if (vApp.system.mybrowser.name == 'Firefox') {
-                var msg = vApp.lang.getString('wbrtcMsgFireFox');
+            if (virtualclass.system.mybrowser.name == 'Firefox') {
+                var msg = virtualclass.lang.getString('wbrtcMsgFireFox');
                 this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
 
-            } else if (vApp.system.mybrowser.name == 'Chrome') {
-                var msg = vApp.lang.getString('wbrtcMsgChrome');
+            } else if (virtualclass.system.mybrowser.name == 'Chrome') {
+                var msg = virtualclass.lang.getString('wbrtcMsgChrome');
                 this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
             }
         },
@@ -106,36 +106,36 @@
         canvasDrawMsg: function (className) {
             var mainContainer = document.getElementById('vcanvas');
             mainContainer.className = 'canvasMsgBoxParent';
-            if (vApp.system.mybrowser.name == 'Firefox') {
-                var msg = vApp.lang.getString('canvasDrawMsg');
+            if (virtualclass.system.mybrowser.name == 'Firefox') {
+                var msg = virtualclass.lang.getString('canvasDrawMsg');
                 this.displayMessage(msg, "canvasDrawMsgContFirefox", this.msgBoxClass + className, 'containerWb');
 
-            } else if (vApp.system.mybrowser.name == 'Chrome') {
-                var msg = vApp.lang.getString('canvasDrawMsg');
+            } else if (virtualclass.system.mybrowser.name == 'Chrome') {
+                var msg = virtualclass.lang.getString('canvasDrawMsg');
                 this.displayMessage(msg, "canvasDrawMsgContChrome", this.msgBoxClass + className, 'containerWb');
             }
         },
 
         drawLabel: function (className) {
-            var msg = vApp.lang.getString('drawArea');
+            var msg = virtualclass.lang.getString('drawArea');
             this.displayMessage(msg, "canvasDrawArea", this.msgBoxClass + className, 'containerWb', false);
         },
 
         displayMsgBox: function (id, msg) {
             var div = this.customCreateElement('div', id);
             var p = this.customCreateElement('p', id + "Para");
-            p.innerHTML = vApp.lang.getString(msg);
+            p.innerHTML = virtualclass.lang.getString(msg);
             div.appendChild(p);
             var a = this.customCreateElement('a', id + "Anchor");
             a.href = window.location;
-            a.innerHTML = vApp.lang.getString('reload');
+            a.innerHTML = virtualclass.lang.getString('reload');
             a.onclick = function () {
                 window.location.reload();
             };
             div.appendChild(a);
 
-            var vAppCont = document.getElementById('vAppCont');
-            vAppCont.insertBefore(div, vAppCont.firstChild);
+            var virtualclassCont = document.getElementById('virtualclassCont');
+            virtualclassCont.insertBefore(div, virtualclassCont.firstChild);
         },
 
         displayServerError: function (id, msg) {
@@ -153,7 +153,7 @@
         },
 
         disableSSUI: function () {
-            var sTool = document.getElementById('vAppScreenShareTool');
+            var sTool = document.getElementById('virtualclassScreenShareTool');
             if (sTool != null) {
                 sTool.style.opacity = "0.5";
                 sTool.style.pointerEvents = "none";
@@ -161,7 +161,7 @@
         },
 
         disableLeftAppBar: function () {
-            var lefAppBar = document.getElementById("vAppOptionsCont");
+            var lefAppBar = document.getElementById("virtualclassOptionsCont");
             if (lefAppBar != null) {
                 lefAppBar.style.opacity = "0.5";
                 lefAppBar.style.pointerEvents = "none";
@@ -182,8 +182,8 @@
 
     view.window.resize = function () {
 
-        var res = vApp.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-        vApp.vutil.setContainerWidth(res);
+        var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+        virtualclass.vutil.setContainerWidth(res);
         vcan.renderAll();
     },
 
@@ -193,7 +193,7 @@
             var message = e.message.virtualWindow;
             if (message.hasOwnProperty('removeVirtualWindow')) {
                 if (e.fromUser.userid != wbUser.id) {
-                    vApp.wb.utility.removeVirtualWindow('virtualWindow');
+                    virtualclass.wb.utility.removeVirtualWindow('virtualWindow');
                 }
 
             } else if (message.hasOwnProperty('createVirtualWindow')) {
@@ -202,7 +202,7 @@
                 }
 
                 if (e.fromUser.userid != wbUser.id) {
-                    vApp.wb.utility.createVirtualWindow(message.createVirtualWindow);
+                    virtualclass.wb.utility.createVirtualWindow(message.createVirtualWindow);
 
                 }
             } else if (message.hasOwnProperty('shareBrowserWidth')) {
@@ -211,17 +211,17 @@
                 }
 
                 if (localStorage.getItem('teacherId') != null) {
-                    var toolBoxHeight = vApp.wb.utility.getWideValueAppliedByCss('commandToolsWrapper');
+                    var toolBoxHeight = virtualclass.wb.utility.getWideValueAppliedByCss('commandToolsWrapper');
                     localStorage.setItem('toolHeight', toolBoxHeight);
                 }
 
                 if (e.fromUser.userid != wbUser.id) {
                     if (localStorage.getItem('teacherId') != null) {
-                        vApp.wb.utility.makeCanvasEnable();
+                        virtualclass.wb.utility.makeCanvasEnable();
                     }
                     otherBrowser = message.browserRes;
                 } else {
-                    myBrowser = vApp.system.measureResoultion({
+                    myBrowser = virtualclass.system.measureResoultion({
                         'width': window.outerWidth,
                         'height': window.innerHeight
                     });
@@ -229,24 +229,24 @@
 
                 if (typeof myBrowser == 'object' && typeof otherBrowser == 'object') {
                     if (myBrowser.width > otherBrowser.width) {
-                        if (!vApp.wb.gObj.virtualWindow) {
-                            vApp.wb.utility.createVirtualWindow(otherBrowser);
-                            vApp.wb.gObj.virtualWindow = true;
+                        if (!virtualclass.wb.gObj.virtualWindow) {
+                            virtualclass.wb.utility.createVirtualWindow(otherBrowser);
+                            virtualclass.wb.gObj.virtualWindow = true;
                         }
                     } else if (myBrowser.width < otherBrowser.width) {
-                        if (!vApp.wb.gObj.virtualWindow) {
-                            // vApp.wb.gObj.virtualWindow = true;
+                        if (!virtualclass.wb.gObj.virtualWindow) {
+                            // virtualclass.wb.gObj.virtualWindow = true;
                             var canvaContainer = document.getElementById("vcanvas");
-                            var rightOffset = vApp.wb.utility.getElementRightOffSet(canvaContainer);
+                            var rightOffset = virtualclass.wb.utility.getElementRightOffSet(canvaContainer);
                             if (localStorage.getItem('teacherId') != null) {
-                                vApp.wb.utility.beforeSend({
+                                virtualclass.wb.utility.beforeSend({
                                     'virtualWindow': {
                                         'createVirtualWindow': myBrowser - rightOffset,
                                         'toolHeight': toolBoxHeight
                                     }
                                 });
                             } else {
-                                vApp.wb.utility.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
+                                virtualclass.wb.utility.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
                             }
                         }
                     }

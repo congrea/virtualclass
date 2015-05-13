@@ -8,20 +8,20 @@
             //TODO function name should be change
             assignRole: function (role, app) {
                 if (role == 't') {
-                    vApp.html.optionsWithWrapper();
-                    vApp.attachFunction();
+                    virtualclass.html.optionsWithWrapper();
+                    virtualclass.attachFunction();
 
-                    var vAppOptionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
-                    window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                    var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
+                    window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
 
-                    if (vApp.gObj.uRole == 't') {
+                    if (virtualclass.gObj.uRole == 't') {
 //                            if(app == 'Whiteboard') {
-                        if (vApp.hasOwnProperty('prevApp')) {
-                            vApp.vutil.makeActiveApp("vApp" + app, vApp.prevApp);
+                        if (virtualclass.hasOwnProperty('previrtualclass')) {
+                            virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                         } else {
-                            vApp.vutil.makeActiveApp("vApp" + app);
+                            virtualclass.vutil.makeActiveApp("virtualclass" + app);
                         }
-                        vApp.wb.utility.makeCanvasEnable();
+                        virtualclass.wb.utility.makeCanvasEnable();
 //                            }
                     }
                 }
@@ -82,7 +82,7 @@
 //                    alert(userId);
 //                    debugger;
                 //assignImg.className = 'contrAssign';
-                vApp.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
+                virtualclass.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
 
                 if (typeof currTeacher != 'undefined') {
                     assignImg.className = assignImg.className + ' currTeacher';
@@ -98,18 +98,18 @@
                 var that = this;
                 //var userObj = localStorage.getItem(userId);
                 var uObj = false;
-                var userObj = localStorage.getItem('vApp' + userId);
+                var userObj = localStorage.getItem('virtualclass' + userId);
                 if (userObj != null) {
                     uObj = true;
                     userObj = JSON.parse(userObj);
                     if (userObj.hasOwnProperty('currTeacher')) {
-                        vApp.gObj[userId + 'currTeacher'] = {};
+                        virtualclass.gObj[userId + 'currTeacher'] = {};
                         if (userObj.currTeacher == true) {
-                            vApp.user.control.currTeacherAlready = true;
+                            virtualclass.user.control.currTeacherAlready = true;
                             var currTeacher = true;
-                            vApp.gObj[userId + 'currTeacher'].ct = true;
+                            virtualclass.gObj[userId + 'currTeacher'].ct = true;
                         } else {
-                            vApp.gObj[userId + 'currTeacher'].ct = false;
+                            virtualclass.gObj[userId + 'currTeacher'].ct = false;
                         }
                     }
                 }
@@ -122,8 +122,8 @@
                     var aRoleEnable = true;
                 }
 
-                var orginalTeacher = vApp.vutil.userIsOrginalTeacher(userId);
-                var isUserTeacher = vApp.vutil.isUserTeacher(userId);
+                var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
+                var isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
                 //var this should be in normalize in function
                 for (var i = 0; i < controls.length; i++) {
                     if (controls[i] == 'assign' && orginalTeacher) {
@@ -167,7 +167,7 @@
 
 
                         //assignImg.className = 'contrAssign';
-//                            vApp.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
+//                            virtualclass.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
 //                            
 ////                            if(orginalTeacher){
 //                                assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
@@ -196,7 +196,7 @@
                         } else {
                             var audEnable = true;
                         }
-                        vApp.user.control.changeAttribute(userId, audBlock, audEnable, 'audio', 'aud');
+                        virtualclass.user.control.changeAttribute(userId, audBlock, audEnable, 'audio', 'aud');
 
                         if (orginalTeacher) {
                             audBlock.addEventListener('click', function () {
@@ -235,7 +235,7 @@
                             var chEnable = true;
                         }
 
-                        vApp.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
+                        virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
                     }
                 }
             },
@@ -244,7 +244,7 @@
 
                     var elem = document.getElementById(id);
                     if (elem != null) {
-                        if (vApp.vutil.elemHasAnyClass(id)) {
+                        if (virtualclass.vutil.elemHasAnyClass(id)) {
                             elem.classList.add('currTeacher');
                         } else {
                             elem.className = 'currTeacher';
@@ -255,11 +255,11 @@
                 removeCurrTeacherFromControl: function (id) {
 
                     var elem = document.getElementById(id);
-                    if (vApp.vutil.elemHasAnyClass(id)) {
+                    if (virtualclass.vutil.elemHasAnyClass(id)) {
                         elem.classList.remove('currTeacher');
                         var uidPos = id.indexOf("contr");
                         var userId = id.substring(0, uidPos);
-                        vApp.user.control.updateUser(userId, 'currTeacher', false);
+                        virtualclass.user.control.updateUser(userId, 'currTeacher', false);
                     }
                 },
 
@@ -272,7 +272,7 @@
 
                 disable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    vApp.user.control._disable(elem, control, toUser, label);
+                    virtualclass.user.control._disable(elem, control, toUser, label);
                 },
 
                 _disable: function (elem, control, userId, label) {
@@ -285,11 +285,11 @@
 //                        alert('suman bogati');
 //                        debugger;
 
-                    elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+                    elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
 
                     if (control == 'audio') {
-//                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+//                            elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
                     } else {
                         elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
@@ -298,77 +298,77 @@
                     if (control == 'assign') {
                         elem.parentNode.classList.remove('tooltip');
                         this.addCurrTeacherToControl(elem.id);
-                        var userObj = localStorage.getItem('vApp' + userId);
+                        var userObj = localStorage.getItem('virtualclass' + userId);
                         userObj = JSON.parse(userObj);
 
 
-//                            if(!vApp.user.control.hasOwnProperty('currTeacherAlready') ){
-//                                vApp.user.control.updateUser(userId, 'currTeacher', true);
+//                            if(!virtualclass.user.control.hasOwnProperty('currTeacherAlready') ){
+//                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
 //                            }
-                        if (vApp.gObj.hasOwnProperty(userId + 'currTeacher')) {
-                            if (vApp.gObj[userId + 'currTeacher'].ct || (vApp.gObj.hasOwnProperty('controlAssign') && vApp.gObj.controlAssign && userObj.currTeacher)) {
-                                vApp.user.control.updateUser(userId, 'currTeacher', true);
+                        if (virtualclass.gObj.hasOwnProperty(userId + 'currTeacher')) {
+                            if (virtualclass.gObj[userId + 'currTeacher'].ct || (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
+                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
                             }
                         } else {
 
-                            if (vApp.gObj.hasOwnProperty('controlAssign') && vApp.gObj.controlAssignId == userId) {
-                                vApp.user.control.updateUser(userId, 'currTeacher', true);
+                            if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
+                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
                             }
 
                         }
 
 
 //                            if(!userObj.hasOwnProperty('currTeacher')){
-//                                vApp.user.control.updateUser(userId, 'currTeacher', true);
+//                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
 //                            }else {
 //                                if(userObj.currTeacher){
-//                                    vApp.user.control.updateUser(userId, 'currTeacher', true);
+//                                    virtualclass.user.control.updateUser(userId, 'currTeacher', true);
 //                                }
 //                            }
 
                         //alert(userId + ' ' +elem.id);
                     }
 
-                    vApp.user.control.updateUser(userId, label, false);
+                    virtualclass.user.control.updateUser(userId, label, false);
 
                 },
 
                 enable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    vApp.user.control._enable(elem, control, toUser, label);
+                    virtualclass.user.control._enable(elem, control, toUser, label);
                 },
                 _enable: function (elem, control, userId, label) {
-                    elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
+                    elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
                     if (control == 'audio') {
-                        elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+                        elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     }
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
 
 
-                    vApp.user.control.updateUser(userId, label, true);
+                    virtualclass.user.control.updateUser(userId, label, true);
                 },
 
                 changeAttribute: function (userId, elem, elemEnable, control, label) {
 //                        alert(control + ' ' + label)
                     if (elemEnable) {
-                        vApp.user.control._enable(elem, control, userId, label);
+                        virtualclass.user.control._enable(elem, control, userId, label);
 
-//                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Disable"));
+//                            elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
 //                            elem.setAttribute('data-' + control + '-disable', "false");
 //                            elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
-//                            vApp.user.control.updateUser(userId, label, true);
+//                            virtualclass.user.control.updateUser(userId, label, true);
 
                     } else {
 //                            alert(elem.id + ' ' + label);
-                        vApp.user.control._disable(elem, control, userId, label);
+                        virtualclass.user.control._disable(elem, control, userId, label);
 
 
 //                            if(control == 'assign'){
 //                                elem.parentNode.classList.remove('tooltip');
 //                            }
 //                            
-//                            elem.parentNode.setAttribute('data-title', vApp.lang.getString(control + "Enable"));
+//                            elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
 //                            elem.setAttribute('data-' + control + '-disable', 'true');
 //                            
 //                            if(control == 'audio'){
@@ -376,7 +376,7 @@
 //                            }else{ 
 //                                elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
 //                            }
-//                            vApp.user.control.updateUser(userId, label, false);
+//                            virtualclass.user.control.updateUser(userId, label, false);
                     }
                 },
                 init: function (tag) {
@@ -387,17 +387,17 @@
                     var imgPos = restString.indexOf("Img");
                     var control = restString.substring(0, imgPos);
                     if (control == 'Assign') {
-                        vApp.gObj.controlAssign = true;
-                        vApp.gObj.controlAssignId = userId;
+                        virtualclass.gObj.controlAssign = true;
+                        virtualclass.gObj.controlAssignId = userId;
                         var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
                         if (!assignDisable) {
                             this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
-                            vApp.user.control._assign(userId);
-                            vApp.user.control.changeAttrToAssign('block');
+                            virtualclass.user.control._assign(userId);
+                            virtualclass.user.control.changeAttrToAssign('block');
                         }
 
                         if (localStorage.getItem('orginalTeacherId') == null) {
-                            vApp.user.control.removeAudioFromParticipate(userId);
+                            virtualclass.user.control.removeAudioFromParticipate(userId);
                         }
                     } else if (control == 'Chat') {
                         var action;
@@ -425,46 +425,46 @@
 
                 _assign: function (userId, notsent, fromUserId) {
 
-                    vApp.wb.utility.assignRole();
-                    vApp.vutil.removeAppPanel();
-                    if (!vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                    virtualclass.wb.utility.assignRole();
+                    virtualclass.vutil.removeAppPanel();
+                    if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
                         var canvasWrapper = document.getElementById("vcanvas");
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
                         canvasWrapper.className = 'student';
                     }
                     localStorage.setItem('canvasDrwMsg', true);
-                    var ssVideo = document.getElementById('vAppScreenShareLocalVideo');
+                    var ssVideo = document.getElementById('virtualclassScreenShareLocalVideo');
                     if (ssVideo != null && ssVideo.tagName == "VIDEO") {
-                        vApp.vutil.videoTeacher2Student('ScreenShare', true);
+                        virtualclass.vutil.videoTeacher2Student('ScreenShare', true);
                     }
 
-//                        var wssVideo = document.getElementById('vAppWholeScreenShareLocalVideo');
+//                        var wssVideo = document.getElementById('virtualclassWholeScreenShareLocalVideo');
 //                        if(wssVideo != null && wssVideo.tagName == "VIDEO"){
-//                            vApp.vutil.videoTeacher2Student('WholeScreenShare', true);
+//                            virtualclass.vutil.videoTeacher2Student('WholeScreenShare', true);
 //                        }
 
                     var app;
-                    if (vApp.currApp == "ScreenShare") {
+                    if (virtualclass.currApp == "ScreenShare") {
                         app = 'ss';
 
-                        if (vApp[app].hasOwnProperty('currentStream')) {
-                            vApp[app].currentStream.stop();
+                        if (virtualclass[app].hasOwnProperty('currentStream')) {
+                            virtualclass[app].currentStream.stop();
                         }
-                        vApp[app] = "";
+                        virtualclass[app] = "";
 
                     }
-//                        else if(vApp.currApp == "WholeScreenShare"){
+//                        else if(virtualclass.currApp == "WholeScreenShare"){
 //                            app = 'wss';
 //                        }
-//                        if(vApp.currApp != "Whiteboard"){
-//                            if(vApp[app].hasOwnProperty('currentStream')){
-//                                vApp[app].currentStream.stop();
+//                        if(virtualclass.currApp != "Whiteboard"){
+//                            if(virtualclass[app].hasOwnProperty('currentStream')){
+//                                virtualclass[app].currentStream.stop();
 //                            }
-//                            vApp[app] = "";
+//                            virtualclass[app] = "";
 //                        }
 
                     if (typeof notsent == 'undefined') {
-                        vApp.wb.utility.beforeSend({'assignRole': true, toUser: userId});
+                        virtualclass.wb.utility.beforeSend({'assignRole': true, toUser: userId});
                     }
                     if (localStorage.getItem('orginalTeacherId') == null) {
                         if (typeof fromUserId == 'undefined') {
@@ -478,17 +478,17 @@
                 },
                 _chat: function (userId, action) {
                     if (action == 'enable') {
-                        vApp.wb.utility.beforeSend({'enc': true, toUser: userId});
+                        virtualclass.wb.utility.beforeSend({'enc': true, toUser: userId});
                     } else {
-                        var user = vApp.user.control.updateUser(userId, 'ch', false);
-                        vApp.wb.utility.beforeSend({'dic': true, toUser: userId});
+                        var user = virtualclass.user.control.updateUser(userId, 'ch', false);
+                        virtualclass.wb.utility.beforeSend({'dic': true, toUser: userId});
                     }
                 },
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                        vApp.wb.utility.beforeSend({'ena': true, toUser: userId});
+                        virtualclass.wb.utility.beforeSend({'ena': true, toUser: userId});
                     } else {
-                        vApp.wb.utility.beforeSend({'dia': true, toUser: userId});
+                        virtualclass.wb.utility.beforeSend({'dia': true, toUser: userId});
                     }
                 },
                 audioWidgetEnable: function () {
@@ -506,9 +506,9 @@
                     studentSpeaker.style.pointerEvents = "none";
                     studentSpeaker.className = 'deactive';
                     var alwaysPressElem = document.getElementById('speakerPressing');
-                    if (vApp.gObj.hasOwnProperty('video')) {
-                        vApp.gObj.video.audio.studentNotSpeak(alwaysPressElem);
-                        vApp.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
+                    if (virtualclass.gObj.hasOwnProperty('video')) {
+                        virtualclass.gObj.video.audio.studentNotSpeak(alwaysPressElem);
+                        virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
 
 
@@ -540,7 +540,7 @@
                 makeElemDisable: function (elem) {
 
 //                        if(elem.hasOwnProperty('classList')){
-                    if (vApp.vutil.elemHasAnyClass(elem.id)) {
+                    if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                         elem.classList.remove('enable');
                         elem.classList.add('disable');
                     } else {
@@ -569,7 +569,7 @@
                 },
                 makeElemEnable: function (elem) {
 //                        if(elem.hasOwnProperty('classList')){
-                    if (vApp.vutil.elemHasAnyClass(elem.id)) {
+                    if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                         elem.classList.remove('disable');
                         elem.classList.add('enable');
                     } else {
@@ -583,7 +583,7 @@
                 },
                 updateUser: function (uid, key, val) {
                     //var userId =  localStorage.getItem(uid);
-                    var userId = localStorage.getItem('vApp' + uid);
+                    var userId = localStorage.getItem('virtualclass' + uid);
                     var uObj = {};
                     if (userId == null) {
                         //userId = uid;
@@ -592,7 +592,7 @@
                         uObj = JSON.parse(userId);
                     }
                     uObj[key] = val;
-                    localStorage['vApp' + uObj.id] = JSON.stringify(uObj);
+                    localStorage['virtualclass' + uObj.id] = JSON.stringify(uObj);
                     return uObj;
                 },
                 audioSign2: function (user, action) {
@@ -666,12 +666,12 @@
                 },
 
                 shouldApply: function (uid) {
-                    var userObj = localStorage.getItem('vApp' + uid);
+                    var userObj = localStorage.getItem('virtualclass' + uid);
                     if (userObj != null) {
                         userObj = JSON.parse(userObj);
                         console.log('uid ' + uid + " " + userObj.ad);
                         if (userObj.ad) {
-                            vApp.user.control.audioSign({id: uid}, "create");
+                            virtualclass.user.control.audioSign({id: uid}, "create");
                         }
                     }
                 },
@@ -684,11 +684,11 @@
                             allUserElem[i].classList.remove('block');
                             allUserElem[i].classList.add('enable');
                             allUserElem[i].parentNode.classList.add('tooltip');
-                            allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignEnable'));
+                            allUserElem[i].parentNode.setAttribute('data-title', virtualclass.lang.getString('assignEnable'));
                             allUserElem[i].setAttribute('data-assign-disable', 'false');
                         } else {
                             allUserElem[i].classList.remove('enable');
-//                                allUserElem[i].parentNode.setAttribute('data-title', vApp.lang.getString('assignDisable')); 
+//                                allUserElem[i].parentNode.setAttribute('data-title', virtualclass.lang.getString('assignDisable'));
                             allUserElem[i].classList.add('block');
                             allUserElem[i].parentNode.classList.remove('tooltip');
                             allUserElem[i].setAttribute('data-assign-disable', 'true');

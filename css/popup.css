@@ -125,7 +125,8 @@ transition:all .2s linear;
 .centered {
 	text-align:center;
 }
-#vAppCont .rv-vanilla-modal-header {
+
+#virtualclassCont .rv-vanilla-modal-header {
 	border-radius:4px 4px 0 0;
 }
 #progress, #indProgress, #downloadProgress {
@@ -243,7 +244,8 @@ transition:all .2s linear;
 .rv-vanilla-modal-title {
 	font-size: 15px;
 }
-#vAppCont .rv-vanilla-modal-header {
+
+#virtualclassCont .rv-vanilla-modal-header {
 	height: 42px;
 }
 #progressBarContainer .rv-vanilla-modal-body div {

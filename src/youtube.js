@@ -19,7 +19,7 @@
             player: '',
             init: function (videoId, user) {
                 this.UI.container();
-                if (vApp.gObj.uRole == 's') {
+                if (virtualclass.gObj.uRole == 's') {
                     this.onYTIframApi(videoId);
                 } else {
                     this.UI.inputURL();
@@ -27,19 +27,19 @@
             },
 
             destroyYT: function () {
-                if (typeof vApp.yts.player == 'object') {
+                if (typeof virtualclass.yts.player == 'object') {
                     console.log('Player object is DESTROYED.');
-                    vApp.yts.player.destroy();
-                    vApp.yts.player = "";
-                    if (vApp.yts.hasOwnProperty('tsc')) {
-                        clearInterval(vApp.yts.tsc);
+                    virtualclass.yts.player.destroy();
+                    virtualclass.yts.player = "";
+                    if (virtualclass.yts.hasOwnProperty('tsc')) {
+                        clearInterval(virtualclass.yts.tsc);
                     }
                 }
             },
 
             UI: {
-                id: 'vAppYts',
-                class: 'vmApp',
+                id: 'virtualclassYts',
+                class: 'virtualclass',
                 container: function () {
                     if (document.getElementById(this.id) == null) {
                         var divYts = document.createElement('div');
@@ -50,8 +50,8 @@
                         divPlayer.id = "player";
                         divYts.appendChild(divPlayer);
 
-                        var beforeAppend = document.getElementById(vApp.rWidgetConfig.id);
-                        document.getElementById(vApp.html.id).insertBefore(divYts, beforeAppend);
+                        var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                        document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
 
                     }
                 },
@@ -67,7 +67,7 @@
                         input.rows = 3;
                         var tnode = document.createTextNode("Please paste here youtube url");
                         input.appendChild(tnode);
-                        document.getElementById('vAppYts').appendChild(input);
+                        document.getElementById('virtualclassYts').appendChild(input);
 
                         uiContainer.appendChild(input);
 
@@ -77,7 +77,7 @@
 
                         uiContainer.appendChild(submitURL);
 
-                        var ytsCont = document.getElementById('vAppYts');
+                        var ytsCont = document.getElementById('virtualclassYts');
                         var playerTag = document.getElementById('player');
                         ytsCont.insertBefore(uiContainer, playerTag);
 
@@ -93,14 +93,14 @@
                         submitURL.addEventListener('click', function () {
 
                             var videourl = document.getElementById('youtubeurl').value;
-                            var videoId = vApp.yts.getVideoId(videourl);
+                            var videoId = virtualclass.yts.getVideoId(videourl);
 
                             if (typeof videoId == 'boolean') {
                                 alert('Invalid YouTube URL.');
                                 return;
                             }
 
-                            vApp.yts.onYTIframApi(videoId);
+                            virtualclass.yts.onYTIframApi(videoId);
                             io.send({'yts': {'init': videoId}});
                         });
                     }
@@ -140,12 +140,12 @@
                     }
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
-                        vApp.makeAppReady('Yts', undefined, msg.yts.init);
-//                            vApp.yts.tsc();
+                        virtualclass.makeAppReady('Yts', undefined, msg.yts.init);
+//                            virtualclass.yts.tsc();
 
 //                            this.init(msg.yts.init, 'student');
-//                            document.getElementById('vAppWhiteboard').style.display = 'none';
-//                            document.getElementById('vAppYts').style.display = 'block';
+//                            document.getElementById('virtualclassWhiteboard').style.display = 'none';
+//                            document.getElementById('virtualclassYts').style.display = 'block';
 
                     } else {
                         var seekToNum = parseInt(msg.yts.seekto, 10);
@@ -244,17 +244,17 @@
             onPlayerReady: function (event) {
                 console.log('Player is ready');
                 event.target.playVideo();
-                vApp.yts.player.unMute();
-                vApp.yts.player.setVolume(40);
-                if (vApp.gObj.uRole == 't') {
-                    vApp.yts.seekChangeInterval();
+                virtualclass.yts.player.unMute();
+                virtualclass.yts.player.setVolume(40);
+                if (virtualclass.gObj.uRole == 't') {
+                    virtualclass.yts.seekChangeInterval();
                 }
             },
 
             seekChangeInterval: function () {
-                vApp.yts.tsc = setInterval(
+                virtualclass.yts.tsc = setInterval(
                     function () {
-                        vApp.yts.triggerOnSeekChange();
+                        virtualclass.yts.triggerOnSeekChange();
                     }
                     , 2000);
             }

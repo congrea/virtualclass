@@ -57,8 +57,8 @@
                         peerlink.appendChild(usrElement);
                         
                         e.appendChild(peerlink);
-                        
-                        //if(vApp.gObj.uRole == 't'){
+
+                        //if(virtualclass.gObj.uRole == 't'){
                         
                         //added by suman
                         
@@ -66,11 +66,11 @@
                       //  if(localStorage.getItem('orginalTeacherId') != null){
                             var controls = ['assign', 'audio', 'chat'];
                             if(peer.userid != wbUser.id){
-                                var controlDiv = vApp.user.createControl(peer.userid, controls);
+                                var controlDiv = virtualclass.user.createControl(peer.userid, controls);
                                 e.appendChild(controlDiv);
-                                vApp.user.control.shouldApply.call(vApp.user, peer.userid); //checking audio    
+                                virtualclass.user.control.shouldApply.call(virtualclass.user, peer.userid); //checking audio
                             }
-                            //vApp.user.control.audioSign({id:peer.userid}, "create");
+                        //virtualclass.user.control.audioSign({id:peer.userid}, "create");
                       //  }
                         
                         if(localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null){
@@ -79,15 +79,15 @@
                                 
                                 var controlCont = document.getElementById(peer.userid  + "ControlContainer");
                                 if(controlCont != null){
-                                    
-                                    vApp.user.createAssignControl(controlCont, peer.userid , true);
+
+                                    virtualclass.user.createAssignControl(controlCont, peer.userid, true);
                                 }else{
                                     var divContainer = document.getElementById("ml" + peer.userid);
-                                    var divControl = vApp.user.createControl(peer.userid , controls);
+                                    var divControl = virtualclass.user.createControl(peer.userid, controls);
                                     divContainer.appendChild(divControl);
                                      
                                 }
-//                                var controlDiv = vApp.user.createControl(peer.userid, controls);
+//                                var controlDiv = virtualclass.user.createControl(peer.userid, controls);
 //                                e.appendChild(controlDiv);
                                 //localStorage.removeItem('aId');
                             }
@@ -99,8 +99,8 @@
                     } else {
                         systemMessage = true;
                     }
-                    
-                    //alert(vApp.gObj.uRole);     
+
+                    //alert(virtualclass.gObj.uRole);
                     
                     $(e).addClass("ui-memblist-usr");
                     $(e).attr("id", 'ml' + peer.userid);
@@ -111,11 +111,11 @@
                     self._scrollToBottom();
                     var chatEnable = localStorage.getItem('chatEnable');
                     if(chatEnable != null && chatEnable ==  "false"){
-                        vApp.user.control.disableOnLineUser();
+                        virtualclass.user.control.disableOnLineUser();
                     }
-                    
-                    if(vApp.gObj.uid == peer.userid){
-                        var userDiv = document.getElementById("ml" + vApp.gObj.uid);
+
+                    if (virtualclass.gObj.uid == peer.userid) {
+                        var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
                     
                         if(userDiv != null){
                            userDiv.classList.add("mySelf");
@@ -196,7 +196,9 @@
                 )
                 .attr('role', 'button')
                 .hover(function() {uiChatboxTitlebarClose.addClass('ui-state-hover');},
-                function() {uiChatboxTitlebarClose.removeClass('ui-state-hover');})
+                function () {
+                    uiChatboxTitlebarClose.removeClass('ui-state-hover');
+                });
 
             uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href="#"></a>'))
                 .addClass('ui-corner-all ' +
@@ -251,18 +253,19 @@
                     //if($.inArray(id, idList) == -1){
                     
 //                    if($.inArray(id, idList) == -1){
-                    if($.inArray(id, vApp.chat.idList) == -1){
+                    if ($.inArray(id, virtualclass.chat.idList) == -1) {
 //                        counter++;
                         //idList.push(id);
-                        vApp.chat.counter++;
-                        vApp.chat.idList.push(id);
-                        vApp.chat.vmstorage[id] = [];
-                        vApp.chat.vmstorage[id].push( { userid:id, name:name});
+                        virtualclass.chat.counter++;
+                        virtualclass.chat.idList.push(id);
+                        virtualclass.chat.vmstorage[id] = [];
+                        virtualclass.chat.vmstorage[id].push({userid: id, name: name});
                     }
 
                     chatboxManager.addBox(id,
-                                      {dest:"dest" + vApp.chat.counter, // not used in demo
-                                       title:"box" + vApp.chat.counter,
+                        {
+                            dest: "dest" + virtualclass.chat.counter, // not used in demo
+                            title: "box" + virtualclass.chat.counter,
                                        first_name:name
                                        //you can add your own options too
                                       });

@@ -30,7 +30,7 @@
                 this.startPosX = startPosX;
                 this.startPosY = startPosY;
                 //alert('is there anything for you');
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 var ctx = vcan.main.canvas.getContext('2d');
                 var obj = {};
                 this.textWriteMode++;
@@ -46,15 +46,15 @@
                             y: this.currObject['oCoords'].tl.y,
                             text: this.currObject.text
                         };
-                        if (!vApp.wb.utility.clickOutSidebox(this.textWriteMode)) {
-                            //vApp.wb.obj.drawTextObj.drawTextBoxWrapper(ctx, obj,  this.currObject.id);
-                            vApp.wb.obj.drawTextObj.drawTextBoxWrapper(obj, this.currObject.id);
+                        if (!virtualclass.wb.utility.clickOutSidebox(this.textWriteMode)) {
+                            //virtualclass.wb.obj.drawTextObj.drawTextBoxWrapper(ctx, obj,  this.currObject.id);
+                            virtualclass.wb.obj.drawTextObj.drawTextBoxWrapper(obj, this.currObject.id);
                         }
                         vcan.main.currentTransform = "";
                     }
 
-                    if (vApp.wb.utility.clickOutSidebox(this.textWriteMode)) {
-                        vApp.wb.obj.drawTextObj.renderText(this.prvCurrTransform, this.prvModTextObj, ctx);
+                    if (virtualclass.wb.utility.clickOutSidebox(this.textWriteMode)) {
+                        virtualclass.wb.obj.drawTextObj.renderText(this.prvCurrTransform, this.prvModTextObj, ctx);
                     }
 
                     if (this.currObject != undefined && this.currObject.type == 'text') {
@@ -78,22 +78,22 @@
 
                 } else {
 
-                    if (vApp.wb.utility.clickOutSidebox(this.textWriteMode)) {
+                    if (virtualclass.wb.utility.clickOutSidebox(this.textWriteMode)) {
                         //alert('suman bogati khan');
                         if (typeof mtext != 'undefined') {
-                            vApp.wb.obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, mtext);
+                            virtualclass.wb.obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, mtext);
                         } else {
-                            vApp.wb.obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx);
+                            virtualclass.wb.obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx);
                         }
 
                     } else {
                         this.totalBox++;
                         var obj = {x: startPosX, y: startPosY, width: 300, height: 100};
-                        //vApp.wb.obj.drawTextObj.drawTextBoxWrapper(ctx, obj,  this.totalBox);
+                        //virtualclass.wb.obj.drawTextObj.drawTextBoxWrapper(ctx, obj,  this.totalBox);
                         if (typeof mtext == 'undefined') {
-                            vApp.wb.obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox);
+                            virtualclass.wb.obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox);
                         } else {
-                            vApp.wb.obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox, mtext);
+                            virtualclass.wb.obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox, mtext);
                         }
 
                     }
@@ -108,7 +108,7 @@
              * @returns nothing
              */
             drawTextBoxWrapper: function (obj, boxNumber, mtext) {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 var divNode = document.createElement('div');
                 divNode.id = "box" + boxNumber;
                 divNode.className = "textBoxContainer";
@@ -131,7 +131,7 @@
                 this.prevTextObj = divNode;
                 this.currTextObjWrapper = obj;
                 this.prevTextObj.measure = obj;
-                vApp.wb.utility.toolWrapperDisable(true);
+                virtualclass.wb.utility.toolWrapperDisable(true);
             },
             /**
              * The function renders the text after typed by user into textarea
@@ -142,9 +142,9 @@
              * @returns nothing
              */
             renderText: function (currObject, prvModTextObj, ctx, mtext) {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 if (this.prevTextObj != '') {
-                    if (!vApp.wb.utility.IsObjEmpty(currObject)) {
+                    if (!virtualclass.wb.utility.IsObjEmpty(currObject)) {
                         for (var i = 0; i < vcan.main.children.length; i++) {
                             if (currObject.id == vcan.main.children[i].id) {
                                 vcan.main.children.splice(i, 1);
@@ -154,7 +154,7 @@
                         }
                     }
 
-                    if (!vApp.wb.utility.IsObjEmpty(currObject)) {
+                    if (!virtualclass.wb.utility.IsObjEmpty(currObject)) {
                         if (typeof mtext != 'undefined') {
                             this.finalizeText(ctx, this.prevTextObj, prvModTextObj, mtext);
                         } else {
@@ -168,7 +168,7 @@
                         }
                     }
 
-                    vApp.wb.obj.drawTextObj.wmode = false;
+                    virtualclass.wb.obj.drawTextObj.wmode = false;
                 }
             },
             /**
@@ -180,7 +180,7 @@
              * @returns nothing
              */
             finalizeText: function (ctx, txtWrapper, prvModObj, mtext) {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 var prvNode = document.getElementById(txtWrapper.id);
                 var userText = "";
                 if (typeof mtext == 'undefined') {
@@ -222,7 +222,7 @@
                     mp: {x: txtWrapper.measure.x, y: txtWrapper.measure.y}
                 };
 
-                if (vApp.wb.obj.drawTextObj.muser == false) {
+                if (virtualclass.wb.obj.drawTextObj.muser == false) {
                     var obj = {
                         'mt': currTime,
                         'ac': 'd',
@@ -230,33 +230,33 @@
                         'y': this.startPosY,
                         'mtext': textObj.text
                     };
-                    vApp.wb.uid++;
-                    obj.uid = vApp.wb.uid;
+                    virtualclass.wb.uid++;
+                    obj.uid = virtualclass.wb.uid;
                     vcan.main.replayObjs.push(obj);
                     //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
-                    vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-//                        vApp.recorder.items.push(obj);
-                    //  vApp.storage.wholeStore(obj);
-                    // vApp.wb.utility.beforeSend({'repObj': [obj]});
-                    vApp.wb.utility.beforeSend({'repObj': [obj]});
-                    vApp.wb.utility.updateSentPackets(obj);
+                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+//                        virtualclass.recorder.items.push(obj);
+                    //  virtualclass.storage.wholeStore(obj);
+                    // virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+                    virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+                    virtualclass.wb.utility.updateSentPackets(obj);
                 }
 
-                var text = vApp.wb.canvas.readyObject(textObj);
+                var text = virtualclass.wb.canvas.readyObject(textObj);
                 var tempObj = text.coreObj;
-                vApp.wb.canvas.addObject(text);
+                virtualclass.wb.canvas.addObject(text);
 
                 var lastTxtObj = vcan.main.children[vcan.main.children.length - 1];
                 lastTxtObj.mt = currTime;
                 //this.keyTyped = [];.
                 prvNode.parentNode.removeChild(txtWrapper);
                 vcan.renderAll();
-                if (vApp.wb.sentPackets > 0) {
-                    if (document.getElementById(vApp.wb.sentPackDiv) != null) {
-                        document.getElementById(vApp.wb.sentPackDiv).innerHTML = vApp.wb.sentPackets;
+                if (virtualclass.wb.sentPackets > 0) {
+                    if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
+                        document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
                     }
                 }
-                vApp.wb.utility.toolWrapperEnable(true);
+                virtualclass.wb.utility.toolWrapperEnable(true);
             }
         }
     };

@@ -16,7 +16,7 @@ var progressBar = {
             function () {
                 if (that.prvVal == that.currVal) {
                     console.log("start for download");
-                    vApp.recorder.tryForReTransmit();
+                    virtualclass.recorder.tryForReTransmit();
                 } else {
                     that.prvVal = that.currVal;
                     that.progressInit();
@@ -28,7 +28,7 @@ var progressBar = {
     renderProgressBar: function (totalVal, portion, pbar, pval) {
         if (portion > totalVal) {
             portion = totalVal;
-            document.getElementById('askplayMessage').innerHTML = vApp.lang.getString('playsessionmsg');
+            document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
         }
 
         if (totalVal == 0 && portion == 0) {

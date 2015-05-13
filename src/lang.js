@@ -9,10 +9,10 @@
      *
      */
     var getString = function (string, words) {
-        var langString = window.vApp.lang.message[string];
+        var langString = window.virtualclass.lang.message[string];
         if (typeof words != 'undefined' && words.length > 0) {
             for (var i = 0; i < words.length; i++) {
-                var spatt = new RegExp('{vapp' + (i + 1) + '}');
+                var spatt = new RegExp('{virtualclass' + (i + 1) + '}');
                 langString = langString.replace(spatt, words[i]);
             }
         }

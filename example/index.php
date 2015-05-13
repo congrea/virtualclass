@@ -94,7 +94,7 @@ if(isset($_GET['lname'])){
         var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/json-chunks.js" ?>");
     }
     
-    <?php echo "wbUser.vAppPlay='$isplay';"; ?>
+    <?php echo "wbUser.virtualclassPlay='$isplay';"; ?>
 	<?php echo "wbUser.name='$uname';"; ?>
 	<?php echo "wbUser.id='".$uid."';"; ?>
 	<?php echo "wbUser.socketOn='0';"; ?>
@@ -120,7 +120,7 @@ if(isset($_GET['lname'])){
     </div>
     -->
 
-<div id="vAppCont" class="<?php echo $cont_class; ?>">
+<div id="virtualclassCont" class="<?php echo $cont_class; ?>">
     <?php
         if($isplay){
             ?>
@@ -136,7 +136,7 @@ if(isset($_GET['lname'])){
         }
     ?>
     
-    <div id="vAppWhiteboard" class="vmApp">
+    <div id="virtualclassWhiteboard" class="virtualclass">
 
        <div id="vcanvas" class="socketon">
 
@@ -160,7 +160,7 @@ if(isset($_GET['lname'])){
 
     </div>
     
-<!--    <div id="vAppYts" class="vmApp" width="1400px" height="1200px">
+<!--    <div id="virtualclassYts" class="virtualclass" width="1400px" height="1200px">
         <div id="player"></div>
     </div>-->
 

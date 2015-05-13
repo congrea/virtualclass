@@ -31,35 +31,35 @@
             uiFooterbarchatroomtab = (self.uiFooterbarchatroomtab = $('<div></div>'))
             .addClass('vmchat_room_bt tooltip')
             //.data('data-title', 'Expand for common chat'), is not working 
-            .attr('data-title', vApp.lang.getString('maxCommonChat'))
+                .attr('data-title', virtualclass.lang.getString('maxCommonChat'))
             .prop('id', 'chatroom_bt2')
             
             .appendTo(uiFooterbar),
 
             uiFooterbarchatroomContent = (self.uiFooterbarchatroomContent = $('<div class = "inner_bt"></div>'))
-            .appendTo(uiFooterbarchatroomtab)
+                .appendTo(uiFooterbarchatroomtab);
 
             uiFooterbarchatroomIcon = (self.uiFooterbarchatroomIcon = $('<div id = "chatroom_icon"><span class="icon-chatroom"></span></div>'))
-            .appendTo(uiFooterbarchatroomContent)
+                .appendTo(uiFooterbarchatroomContent);
              uiFooterbarchatroomText = (self.uiFooterbarchatroomText = $('<div id = "chatroom_text"></div>'))
             .appendTo(uiFooterbarchatroomContent)
             .html('Chatroom <span id="cc_arrow_button" class="icon-arrow-up"></span>')
             .click(function(){
-                
-                if(vApp.chat.chatroombox){
+
+                     if (virtualclass.chat.chatroombox) {
                     
 				    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
                        sessionStorage.removeItem('chatroom_status');
-                       uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('minCommonChat'));
+                        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('minCommonChat'));
                       
                    }else{
                        sessionStorage.setItem("chatroom_status", "hidden");
-                       uiFooterbarchatroomtab.attr('data-title', vApp.lang.getString('maxCommonChat'));
+                        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('maxCommonChat'));
                    }
                    
                    var iconarrowButton = document.getElementById('cc_arrow_button');
                    if(iconarrowButton != null){
-                        if(vApp.vutil.elemHasAnyClass('cc_arrow_button')){
+                       if (virtualclass.vutil.elemHasAnyClass('cc_arrow_button')) {
                             if(iconarrowButton.classList.contains('icon-arrow-up')){
                                 iconarrowButton.classList.add('icon-arrow-down');
                                 iconarrowButton.classList.remove('icon-arrow-up');
@@ -72,7 +72,7 @@
                         }
                         
                    }
-                   vApp.chat.chatroombox.chatroom("option", "boxManager").toggleBox();
+                         virtualclass.chat.chatroombox.chatroom("option", "boxManager").toggleBox();
                    
                    
                 }else{
@@ -82,7 +82,8 @@
                         d.id = 'chat_room';
                         document.body.appendChild(d);
 
-                        vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                        virtualclass.chat.chatroombox = $("#chat_room").chatroom({
+                            id: "chat_room",
                                                 user:{'name':'test'},
                                                 title : lang.chatroom_header,
                                                 offset: '20px',
@@ -91,11 +92,11 @@
                                                 }});
                         
                         //added by suman
-                        if(vApp.gObj.hasOwnProperty('chatEnable')){
-                            if(!vApp.gObj.chatEnable){
+                        if (virtualclass.gObj.hasOwnProperty('chatEnable')) {
+                            if (!virtualclass.gObj.chatEnable) {
                                 var chatCont = document.getElementById('chatrm');
                                 if(chatCont != null){
-                                   vApp.user.control.makeElemDisable(chatCont);
+                                    virtualclass.user.control.makeElemDisable(chatCont);
                                 }
                             }
                         }
@@ -105,9 +106,9 @@
                                 
                     }  // if end
                 }//else end
-                
-                
-            }) //click end
+
+
+                 }); //click end
 
             //userlist tab
             uiFooterbarUserlisttab = (self.uiFooterbarUserlisttab = $('<div></div>'))
@@ -116,18 +117,18 @@
             .appendTo(uiFooterbar),
 
             uiFooterbarUserlistContent = (self.uiFooterbarUserlistContent = $('<div class="inner_bt"></div>'))
-            .appendTo(uiFooterbarUserlisttab)
+                .appendTo(uiFooterbarUserlisttab);
 
             uiFooterbarUserlistIcon = (self.uiFooterbarUserlistIcon = $('<div id="usertab_icon"></div>'))
-            .appendTo(uiFooterbarUserlistContent)
-             uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close " data-title="'+vApp.lang.getString('maxUserList')+'"></div>'))
+                .appendTo(uiFooterbarUserlistContent);
+            uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text" class="tooltip close " data-title="' + virtualclass.lang.getString('maxUserList') + '"></div>'))
                 .appendTo(uiFooterbarUserlistContent)
 //            uiFooterUpArrowIcon = (self.uiFooterUpArrowIcon = $('<span id="usertab_toogle_icon" class="icon-arrow-up"></span>'))
 //                .appendto("#usertab_text")
 //        
             .text('Private Chat')
-            .click(function(){ 
-               vApp.gObj.video.dispAllVideo("chat_div");
+            .click(function(){
+                    virtualclass.gObj.video.dispAllVideo("chat_div");
                 if(Object.keys(io.uniquesids).length > 0){
                     if($(this).hasClass('close')){
                         $(this).addClass('open' );
@@ -135,7 +136,7 @@
                         
                         $("#usertab_toogle_icon").addClass('icon-arrow-down');
                         $("#usertab_toogle_icon").removeClass('close icon-arrow-up');
-                        $(this).attr('data-title', vApp.lang.getString('miniUserList'));
+                        $(this).attr('data-title', virtualclass.lang.getString('miniUserList'));
                         
                     }else{
 //                        $(this).addClass('close icon-arrow-up');
@@ -144,21 +145,21 @@
                         $(this).removeClass('open');
                         $("#usertab_toogle_icon").addClass('icon-arrow-up');
                         $("#usertab_toogle_icon").removeClass('icon-arrow-down');
-                        $(this).attr('data-title', vApp.lang.getString('maxUserList'));
+                        $(this).attr('data-title', virtualclass.lang.getString('maxUserList'));
                     }
                     
                     $("#chat_div").memberlist("option", "boxManager").toggleBox();
                 }
-            })
+                });
 
             // tab contain multiple open chatbox
             uiFooterbartabCont = (self.uiFooterbartabCont = $('<div></div>'))
             .attr('id', 'tabs')
             .addClass( "tabs-bottom" )
-            .appendTo(uiFooterbar)
+                .appendTo(uiFooterbar);
 
             uiFooterbartabs = (self.uiFooterbartabs = $('<ul class="tabs"></ul>'))
-            .appendTo(uiFooterbartabCont)
+                .appendTo(uiFooterbartabCont);
 
             self._setWidth(self.options.width);
             self.init(self);

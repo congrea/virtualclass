@@ -3,7 +3,7 @@
 // this should be removed
 //counter = 0;
 //idList = new Array();
-//vApp.chat.chatroombox = null;
+//virtualclass.chat.chatroombox = null;
 
 
 
@@ -20,13 +20,13 @@ function memberUpdate(e, addType){
                 //changed by suman
         var count = userlist.length - 1;
         //var count = userlist.length;
-        
-        ///vApp.gObj.totalUser = count;
-        vApp.gObj.totalUser = [];
+
+        ///virtualclass.gObj.totalUser = count;
+        virtualclass.gObj.totalUser = [];
         for(var i=0; i<userlist.length; i++){
-            vApp.gObj.totalUser.push(userlist[i].id);
+            virtualclass.gObj.totalUser.push(userlist[i].id);
         }
-        vApp.gObj.totalUser.sort();
+        virtualclass.gObj.totalUser.sort();
         
         $("#user_list .inner_bt #usertab_icon").css({'background': 'url(' + imgpath + ')no-repeat top left'});
     }
@@ -71,21 +71,21 @@ function memberUpdate(e, addType){
             if (usr.userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
 
                     var vidTag = document.getElementById('video'+usr.userid);
-                    
-                    if(!vApp.gObj.hasOwnProperty('audIntDisable') &&  !vApp.gObj.hasOwnProperty('vidIntDisable') && vidTag == null){
+
+                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
                         
                     
 //                    if(vidTag == null ){
-                        vApp.gObj.video._handleUserMedia(usr.userid);
+                    virtualclass.gObj.video._handleUserMedia(usr.userid);
                     }
                         
 //                    }
                     
 //                }
-                
-                //vApp.gObj.video._handleUserMedia(usr.userid);
+
+                //virtualclass.gObj.video._handleUserMedia(usr.userid);
             }
-            vApp.gObj.video.addUserRole(usr.userid, usr.role);
+            virtualclass.gObj.video.addUserRole(usr.userid, usr.role);
         });
         
     }else{
@@ -124,14 +124,15 @@ function messageUpdate2(e){
             
             $("#chat_room").chatroom("option").messageSent(from, msg);
         }else{
-            if(vApp.chat.chatroombox) {
+            if (virtualclass.chat.chatroombox) {
                 $("#chat_room").chatroom("option").messageSent(from, msg);
             }else{
                if($("div#chat_room").length == 0){
                     var d = document.createElement('div');
                     d.id = 'chat_room';
                     document.body.appendChild(d);
-                    vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                   virtualclass.chat.chatroombox = $("#chat_room").chatroom({
+                       id: "chat_room",
                                             user : from,
                                             title : lang.chatroom_header,
                                             messageSent : function(user, msg) {
@@ -145,7 +146,7 @@ function messageUpdate2(e){
             // store data on browser
             if(sessionStorage.getItem('chatroom') != null){
                 var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
-                var temp = { userid:from.userid,name:from.name, msg: msg,time: time}
+                var temp = {userid: from.userid, name: from.name, msg: msg, time: time};
                 chatroom.push(temp);
                 sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
             } else {
@@ -155,16 +156,20 @@ function messageUpdate2(e){
     }else if(to != undefined && to != ""){ // private chat
         
         if(self == to.userid && from.userid != self){
-            if($.inArray(from.userid, vApp.chat.idList) == -1){
-                vApp.chat.counter++;
-                vApp.chat.idList.push(from.userid);
-                
-                vApp.chat.vmstorage[from.userid] = [];
-                vApp.chat.vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
+            if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
+                virtualclass.chat.counter++;
+                virtualclass.chat.idList.push(from.userid);
+
+                virtualclass.chat.vmstorage[from.userid] = [];
+                virtualclass.chat.vmstorage[from.userid].push({
+                    userid: from.userid,
+                    name: from.name + ' ' + from.lname
+                });
             }
                 chatboxManager.addBox(from.userid,
-                          {dest:"dest" + vApp.chat.counter, // not used in demo
-                           title:"box" + vApp.chat.counter,
+                    {
+                        dest: "dest" + virtualclass.chat.counter, // not used in demo
+                        title: "box" + virtualclass.chat.counter,
                            first_name:from.name,
                            last_name:from.lname
                            //you can add your own options too
@@ -181,9 +186,9 @@ function messageUpdate2(e){
             var chEnable = localStorage.getItem('chatEnable');
             //bad way to check chatEnable
             if(chEnable != null && chEnable == 'false'){
-                vApp.user.control.allChatDisable();
+                virtualclass.user.control.allChatDisable();
 
-//                vApp.user.allChatDisable();
+//                virtualclass.user.allChatDisable();
             }
             
             $("#" + from.userid).chatbox("option").messageSent(from.userid,from, msg);
@@ -191,7 +196,7 @@ function messageUpdate2(e){
             //createNotification(from.userid);// tab scrolling notification for hidden tab
             var k = from.userid;
         }
-        vApp.chat.vmstorage[k].push({ userid:from.userid,name:from.name , msg: msg, time: time });
+        virtualclass.chat.vmstorage[k].push({userid: from.userid, name: from.name, msg: msg, time: time});
     }
 }
 
@@ -208,14 +213,15 @@ function messageUpdate(e){
     var time = new Date().getTime();
     //common chat room
     if( e.message.receiver == 'chatroom' && (to == "" || to == undefined)){
-        if(vApp.chat.chatroombox) {
+        if (virtualclass.chat.chatroombox) {
             $("#chat_room").chatroom("option").messageSent(from, msg);
         }else{
            if($("div#chat_room").length == 0){
                 var d = document.createElement('div');
                 d.id = 'chat_room';
                 document.body.appendChild(d);
-                vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+               virtualclass.chat.chatroombox = $("#chat_room").chatroom({
+                   id: "chat_room",
                                         user : from,
                                         title : lang.chatroom_header,
                                         messageSent : function(user, msg) {
@@ -231,14 +237,14 @@ function messageUpdate(e){
 //            
 //            $("#chat_room").chatroom("option").messageSent(from, msg);
 //        }else{
-//            if(vApp.chat.chatroombox) {
+//            if(virtualclass.chat.chatroombox) {
 //                $("#chat_room").chatroom("option").messageSent(from, msg);
 //            }else{
 //               if($("div#chat_room").length == 0){
 //                    var d = document.createElement('div');
 //                    d.id = 'chat_room';
 //                    document.body.appendChild(d);
-//                    vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+//                    virtualclass.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
 //                                            user : from,
 //                                            title : lang.chatroom_header,
 //                                            messageSent : function(user, msg) {
@@ -252,7 +258,7 @@ function messageUpdate(e){
             // store data on browser
             if(sessionStorage.getItem('chatroom') != null){
                 var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
-                var temp = { userid:from.userid,name:from.name, msg: msg,time: time}
+                var temp = {userid: from.userid, name: from.name, msg: msg, time: time};
                 chatroom.push(temp);
                 sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
             } else {
@@ -265,20 +271,24 @@ function messageUpdate(e){
 //            if($.inArray(from.userid, idList) == -1){
 //                counter++;
 //                idList.push(from.userid);
-            if($.inArray(from.userid, vApp.chat.idList) == -1){
-                vApp.chat.counter++;
-                vApp.chat.idList.push(from.userid);
+            if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
+                virtualclass.chat.counter++;
+                virtualclass.chat.idList.push(from.userid);
                 
 //                if(typeof from.lname == 'undefined'){
 //                    alert("hello guys");
 //                    debugger;
 //                }
-                vApp.chat.vmstorage[from.userid] = [];
-                vApp.chat.vmstorage[from.userid].push({ userid:from.userid, name:from.name + ' ' + from.lname});
+                virtualclass.chat.vmstorage[from.userid] = [];
+                virtualclass.chat.vmstorage[from.userid].push({
+                    userid: from.userid,
+                    name: from.name + ' ' + from.lname
+                });
             }
                 chatboxManager.addBox(from.userid,
-                          {dest:"dest" + vApp.chat.counter, // not used in demo
-                           title:"box" + vApp.chat.counter,
+                    {
+                        dest: "dest" + virtualclass.chat.counter, // not used in demo
+                        title: "box" + virtualclass.chat.counter,
                            first_name:from.name,
                            last_name:from.lname
                            //you can add your own options too
@@ -295,9 +305,9 @@ function messageUpdate(e){
             var chEnable = localStorage.getItem('chatEnable');
             //bad way to check chatEnable
             if(chEnable != null && chEnable == 'false'){
-                vApp.user.control.allChatDisable();
+                virtualclass.user.control.allChatDisable();
 
-//                vApp.user.allChatDisable();
+//                virtualclass.user.allChatDisable();
             }
             
             $("#" + from.userid).chatbox("option").messageSent(from.userid,from, msg);
@@ -316,11 +326,11 @@ function messageUpdate(e){
         }
         // to avoid error of undefined
         var k = to.userid;
-        if (typeof(vApp.chat.vmstorage[k]) == 'undefined') {
-            vApp.chat.vmstorage[k] = [];
+         if (typeof(virtualclass.chat.vmstorage[k]) == 'undefined') {
+         virtualclass.chat.vmstorage[k] = [];
         }
         console.log('vmstograge key = ' + k);*/
-        vApp.chat.vmstorage[k].push({ userid:from.userid,name:from.name , msg: msg, time: time });
+        virtualclass.chat.vmstorage[k].push({userid: from.userid, name: from.name, msg: msg, time: time});
     }
 }
 
@@ -392,7 +402,8 @@ function displaycomChatHistory(){
             var data = JSON.parse(sessionStorage.getItem('chatroom'));
             $.each(data, function(id, msgobj) {
                 if(id < 1){
-                    vApp.chat.chatroombox = $("#chat_room").chatroom({id:"chat_room",
+                    virtualclass.chat.chatroombox = $("#chat_room").chatroom({
+                        id: "chat_room",
                                                 user : msgobj,
                                                 title : "Common chat",
                                                 messageSent : function(user, msg) {
@@ -420,14 +431,15 @@ function displayPvtChatHistory(){
         $.each(data, function(id, msgarr) {
 //            counter++;
 //            idList.push(id);
-              vApp.chat.counter++;
-              vApp.chat.idList.push(id);
+            virtualclass.chat.counter++;
+            virtualclass.chat.idList.push(id);
 
             $.each(msgarr, function(i, msgobj) {
                 if(i < 1){
                     chatboxManager.addBox(id,
-                                  {dest:"dest" + vApp.chat.counter, // not used in demo
-                                   title:"box" + vApp.chat.counter,
+                        {
+                            dest: "dest" + virtualclass.chat.counter, // not used in demo
+                            title: "box" + virtualclass.chat.counter,
                                    first_name:msgobj.name
                                   });
 

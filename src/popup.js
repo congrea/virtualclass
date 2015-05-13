@@ -122,10 +122,10 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.closeElem = function () {
-        if (vApp.recorder.waitServer == false) {
-            var vAppToolCont = document.getElementById('vAppOptionsCont');
-            if (vAppToolCont != null) {
-                vAppToolCont.style.zIndex = 100;
+        if (virtualclass.recorder.waitServer == false) {
+            var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
+            if (virtualclassToolCont != null) {
+                virtualclassToolCont.style.zIndex = 100;
             }
 
             if (stickBar != null) {
@@ -135,7 +135,7 @@ var PopUp = (function (window, undefined) {
 
             var mainPopCont = document.getElementById('about-modal');
             if (mainPopCont != null) {
-                vApp.popup.close(mainPopCont);
+                virtualclass.popup.close(mainPopCont);
             }
         }
     },
@@ -146,9 +146,9 @@ var PopUp = (function (window, undefined) {
         };
 
     PopUp.prototype.sendBackOtherElems = function (action) {
-        var vAppToolCont = document.getElementById('vAppOptionsCont');
-        if (vAppToolCont != null) {
-            vAppToolCont.style.zIndex = -1;
+        var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
+        if (virtualclassToolCont != null) {
+            virtualclassToolCont.style.zIndex = -1;
         }
 
 
@@ -164,14 +164,14 @@ var PopUp = (function (window, undefined) {
     };
 
 //    PopUp.prototype.updLoadedFile = function(nfile){
-//        var updtMsg = vApp.lang.getString("downloadedFile",  [nfile]);
+//        var updtMsg = virtualclass.lang.getString("downloadedFile",  [nfile]);
 //        document.getElementById('waitMsg').innerHTML = updtMsg;
 //    }
 
     PopUp.prototype.openProgressBar = function (nfile) {
         var element = document.getElementById('about-modal');
-        vApp.popup.open(element);
-        vApp.popup.waitBlockAction('none');
+        virtualclass.popup.open(element);
+        virtualclass.popup.waitBlockAction('none');
     };
 
     /**

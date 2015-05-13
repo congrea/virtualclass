@@ -8,7 +8,7 @@ window.addEventListener('message', function (event) {
         if (event.data.sourceId === '') { // user canceled
             var error = new Error('NavigatorUserMediaError');
             error.name = 'PERMISSION_DENIED';
-            vApp.ss.onError(error);
+            virtualclass.ss.onError(error);
         } else {
             constraints = constraints || {
                     audio: false, video: {
@@ -27,20 +27,20 @@ window.addEventListener('message', function (event) {
                     }
                 };
 
-            vApp.adpt = new vApp.adapter();
-            navigator2 = vApp.adpt.init(navigator);
+            virtualclass.adpt = new virtualclass.adapter();
+            navigator2 = virtualclass.adpt.init(navigator);
 
             navigator2.getUserMedia(constraints, function (stream) {
-                vApp.ss._init();
-                vApp.ss.initializeRecorder.call(vApp.ss, stream);
+                virtualclass.ss._init();
+                virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
             }, function (e) {
-                vApp.ss.onError.call(vApp.ss, e);
+                virtualclass.ss.onError.call(virtualclass.ss, e);
             });
             //the stream we can get here with initalizeRecorder()
         }
     } else if (event.data.type == 'getScreenPending') {
         window.clearTimeout(event.data.id);
     } else if (event.data.type == 'yes') {
-        vApp.gObj.ext = true;
+        virtualclass.gObj.ext = true;
     }
 });

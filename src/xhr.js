@@ -17,7 +17,7 @@
             this.onReadStateChange();
 
             this.httpObj.onerror = function (err) {
-                vApp.recorder.tryForReTransmit();
+                virtualclass.recorder.tryForReTransmit();
                 console.log("Error " + err);
             };
 
@@ -28,13 +28,13 @@
 
         //this is not inbuilt onprogress
         onProgress: function (evt) {
-            vApp.pbar.currVal = evt.loaded;
-            //if(vApp.pbar.prvVal == '' || typeof vApp.pbar.prvVal == 'undefined'){
+            virtualclass.pbar.currVal = evt.loaded;
+            //if(virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined'){
             // first time
-            if (vApp.pbar.prvVal == '' || typeof vApp.pbar.prvVal == 'undefined') {
-                vApp.pbar.progressInit();
+            if (virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined') {
+                virtualclass.pbar.progressInit();
             }
-            vApp.pbar.renderProgressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
+            virtualclass.pbar.renderProgressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
         },
 
         onReadStateChange: function () {

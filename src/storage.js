@@ -13,14 +13,14 @@
 
     function initToServer(cb) {
         if (typeof cb == 'function') {
-            vApp.recorder.sendDataToServer();
+            virtualclass.recorder.sendDataToServer();
             setTimeout(
                 function () {
-                    vApp.recorder.xhrsenddata();
+                    virtualclass.recorder.xhrsenddata();
                 }, 100
             );
-//                vApp.recorder.items = [];
-            cb.apply(vApp.recorder);
+//                virtualclass.recorder.items = [];
+            cb.apply(virtualclass.recorder);
         }
     }
 
@@ -28,7 +28,7 @@
         totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         init: function (firstDataStore) {
             //this.firstDataStore = firstDataStore;
-            this.reclaim = JSON.parse(vApp.vutil.chkValueInLocalStorage('reclaim'));
+            this.reclaim = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
             that = this;
             //TODO these are not using because audio and video is not using
             this.tables = ["wbData", "allData", "audioData", "config"];
@@ -69,7 +69,7 @@
                 that.db = e.target.result;
                 var currTime = new Date().getTime();
                 //meet condition when current and previous user are different
-                if (vApp.gObj.sessionClear) {
+                if (virtualclass.gObj.sessionClear) {
                     that.config.endSession(true);
                 } else {
                     that.getAllObjs(that.tables, function (result) {
@@ -174,8 +174,8 @@
         },
 
         displayData: function () {
-            var transaction = that.db.transaction(["vapp"], "readonly");
-            var objectStore = transaction.objectStore("vapp");
+            var transaction = that.db.transaction(["virtualclass"], "readonly");
+            var objectStore = transaction.objectStore("virtualclass");
 
             objectStore.openCursor().onsuccess = that.handleResult;
         },
@@ -260,13 +260,13 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
-                        vApp.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                        virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
                         storeFirstObj = true;
                     }
                     cursor.continue();
                 } else {
                     if (typeof storeFirstObj == 'undefined') {
-                        vApp.wb.utility.makeUserAvailable(); //at very first
+                        virtualclass.wb.utility.makeUserAvailable(); //at very first
                     }
                 }
             }
@@ -281,11 +281,11 @@
                     cursor.continue();
                 } else {
                     if (adData.length > 1) {
-                        vApp.gObj.video.audio.recordingLength = 0;
+                        virtualclass.gObj.video.audio.recordingLength = 0;
                         if (typeof cb == 'function') {
-                            vApp.gObj.video.audio.assignFromLocal(adData, cb);
+                            virtualclass.gObj.video.audio.assignFromLocal(adData, cb);
                         } else {
-                            vApp.gObj.video.audio.assignFromLocal(adData);
+                            virtualclass.gObj.video.audio.assignFromLocal(adData);
                         }
                     }
                 }
@@ -294,12 +294,12 @@
         allData: {
             chunk: 0,
             handleResult: function (event, cb) {
-                //vApp.recorder.item = [];
+                //virtualclass.recorder.item = [];
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('recObjs')) {
                         if (cursor.value.hasOwnProperty('sessionEnd')) {
-                            vApp.recorder.items.push({
+                            virtualclass.recorder.items.push({
                                 playTime: cursor.value.playTime,
                                 recObjs: cursor.value.recObjs,
                                 sessionEnd: true
@@ -308,13 +308,13 @@
                             return;
                         } else {
                             if (cursor.value.hasOwnProperty('bd')) {
-                                vApp.recorder.items.push({
+                                virtualclass.recorder.items.push({
                                     playTime: cursor.value.playTime,
                                     recObjs: cursor.value.recObjs,
                                     bd: cursor.value.bd
                                 });
                             } else {
-                                vApp.recorder.items.push({
+                                virtualclass.recorder.items.push({
                                     playTime: cursor.value.playTime,
                                     recObjs: cursor.value.recObjs
                                 });
@@ -326,14 +326,14 @@
                     //initToServer(cb);
 
 //                        if(typeof cb == 'function'){
-//                            vApp.recorder.sendDataToServer();
+//                            virtualclass.recorder.sendDataToServer();
 //                            setTimeout(
 //                                function (){
-//                                    vApp.recorder.xhrsenddata();
+//                                    virtualclass.recorder.xhrsenddata();
 //                                }, 100
 //                            );
-//                            vApp.recorder.items = [];
-//                            cb.apply(vApp.recorder);
+//                            virtualclass.recorder.items = [];
+//                            cb.apply(virtualclass.recorder);
 //                        }
                 }
             }
@@ -366,20 +366,20 @@
             },
             endSession: function (onlyStoredData) {
                 if (!onlyStoredData) {
-                    vApp.wb.utility.t_clearallInit();
-                    vApp.wb.utility.makeDefaultValue();
-                    vApp.vutil.clearAllChat();
+                    virtualclass.wb.utility.t_clearallInit();
+                    virtualclass.wb.utility.makeDefaultValue();
+                    virtualclass.vutil.clearAllChat();
                 }
-                vApp.vutil.removeClass('audioWidget', "fixed");
-                if (!vApp.hasOwnProperty('notPLayed')) {
-                    vApp.storage.clearStorageData();
+                virtualclass.vutil.removeClass('audioWidget', "fixed");
+                if (!virtualclass.hasOwnProperty('notPLayed')) {
+                    virtualclass.storage.clearStorageData();
                 }
                 that.config.createNewSession();
             }
         },
         shapesData: {
             handleResult: function () {
-                vApp.recorder.items.push(JSON.parse(cursor.value.recObjs));
+                virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
             }
         },
         clearStorageData: function () {
@@ -389,7 +389,7 @@
                 if (typeof t != 'undefined') {
                     var objectStore = t.objectStore(this.tables[i]);
                     if (this.tables[i] == 'allData') {
-                        if (!vApp.vutil.isPlayMode()) {
+                        if (!virtualclass.vutil.isPlayMode()) {
                             objectStore.clear();
                         }
 
@@ -405,12 +405,12 @@
             if (cursor) {
                 if (cursor.value.hasOwnProperty('repObjs')) {
                     var allObjs = JSON.parse(cursor.value.repObjs);
-                    vApp.wb.utility.replayFromLocalStroage(allObjs);
+                    virtualclass.wb.utility.replayFromLocalStroage(allObjs);
                 } else if (cursor.value.hasOwnProperty('audiostream')) {
                     var allObjs = JSON.parse(cursor.value.audiostream);
-                    vApp.gObj.video.audio.assignFromLocal(allObjs);
+                    virtualclass.gObj.video.audio.assignFromLocal(allObjs);
                 } else if (cursor.value.hasOwnProperty('recObjs')) {
-                    vApp.recorder.items.push(JSON.parse(cursor.value.recObjs));
+                    virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
                 }
                 cursor.continue();
             }

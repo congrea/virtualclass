@@ -49,26 +49,26 @@
 
         //there function name should be change
         isSystemCompatible: function () {
-            if (vApp.error.length > 0) {
+            if (virtualclass.error.length > 0) {
 
-                var errorMsg = (vApp.error.length > 1) ? (vApp.error.join("<br />")) : vApp.error[0];
-                vApp.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+                var errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join("<br />")) : virtualclass.error[0];
+                virtualclass.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
 
-                if (vApp.gObj.hasOwnProperty('errIE')) {
-                    vApp.vutil.disableVirtualClass();
+                if (virtualclass.gObj.hasOwnProperty('errIE')) {
+                    virtualclass.vutil.disableVirtualClass();
                 }
 
-                if (vApp.gObj.hasOwnProperty('audIntDisable')) {
-                    vApp.user.control.audioWidgetDisable();
+                if (virtualclass.gObj.hasOwnProperty('audIntDisable')) {
+                    virtualclass.user.control.audioWidgetDisable();
                 }
 
-                if (vApp.gObj.hasOwnProperty('errNotDesktop')) {
-                    vApp.user.control.audioWidgetDisable();
-                    vApp.vutil.disableVirtualClass();
+                if (virtualclass.gObj.hasOwnProperty('errNotDesktop')) {
+                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.vutil.disableVirtualClass();
                 }
             } else {
-                if (vApp.gObj.hasOwnProperty('audIntDisable') || vApp.gObj.hasOwnProperty('vidIntDisable')) {
-                    vApp.user.control.audioWidgetDisable();
+                if (virtualclass.gObj.hasOwnProperty('audIntDisable') || virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+                    virtualclass.user.control.audioWidgetDisable();
                 }
             }
         },
@@ -82,9 +82,9 @@
         },
 
         setContainerWidth: function (res) {
-            var appId = 'vAppWhiteboard';
-            if (typeof vApp.previous != 'undefined') {
-                appId = vApp.previous;
+            var appId = 'virtualclassWhiteboard';
+            if (typeof virtualclass.previous != 'undefined') {
+                appId = virtualclass.previous;
             }
             //alert(appId);
             var appCont = document.getElementById(appId);
@@ -92,8 +92,8 @@
 
             var extraWidth = 0;
 
-            if (vApp.currApp == 'ScreenShare') {
-                var leftSideBar = document.getElementById("vAppOptionsCont");
+            if (virtualclass.currApp == 'ScreenShare') {
+                var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
                     var offset = vcan.utility.getElementOffset(leftSideBar);
                     leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
@@ -109,13 +109,13 @@
             appCont.style.width = res.width + 'px';
             appCont.style.height = res.height + 'px';
 
-            if (appId == 'vAppScreenShare') {
-                //if(appId != 'vAppWhiteboard'){
+            if (appId == 'virtualclassScreenShare') {
+                //if(appId != 'virtualclassWhiteboard'){
                 var ssType = document.getElementById(appId + 'Local');
                 res.width = res.width - 10;
                 appCont.style.width = res.width;
                 ssType.style.width = res.width + "px";
-                vApp.vutil.setScreenInnerTagsWidth(appId);
+                virtualclass.vutil.setScreenInnerTagsWidth(appId);
             }
         },
 
@@ -137,7 +137,7 @@
         makeActiveApp: function (app, prvTool) {
             if (app != prvTool && typeof prvTool != 'undefined') {
                 var prvTool = prvTool + 'Tool';
-                var classes = vApp.wb.utility.removeClassFromElement(prvTool, 'active');
+                var classes = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
                 document.getElementById(prvTool).className = classes;
             }
             document.getElementById(app + "Tool").className += ' active';
@@ -160,7 +160,7 @@
         },
 
         removeAppPanel: function () {
-            var appPanel = document.getElementById('vAppOptionsCont');
+            var appPanel = document.getElementById('virtualclassOptionsCont');
             if (appPanel != null) {
                 appPanel.parentNode.removeChild(appPanel);
             }
@@ -176,27 +176,27 @@
                 mainCont = document.getElementById(mainCont);
             }
             //var mainCont = document.getElementById(mcId);
-            var locVidContTemp = vApp.vutil.createDOM("div", localTemp);
-            var vidContTemp = vApp.vutil.createDOM("canvas", localTemp + "Video");
+            var locVidContTemp = virtualclass.vutil.createDOM("div", localTemp);
+            var vidContTemp = virtualclass.vutil.createDOM("canvas", localTemp + "Video");
             locVidContTemp.appendChild(vidContTemp);
             mainCont.appendChild(locVidContTemp);
         },
 
         initLocCanvasCont: function (tempVideoId) {
-            if (vApp.currApp == "ScreenShare") {
+            if (virtualclass.currApp == "ScreenShare") {
                 var app = 'ss';
             } else {
                 var app = 'wss';
             }
 
-            vApp[app].localtempCanvas = document.getElementById(tempVideoId);
-            vApp[app].localtempCont = vApp[app].localtempCanvas.getContext('2d');
+            virtualclass[app].localtempCanvas = document.getElementById(tempVideoId);
+            virtualclass[app].localtempCont = virtualclass[app].localtempCanvas.getContext('2d');
         },
 
         videoTeacher2Student: function (sid, notPutImage) {
-            //vAppScreenShareLocalVideo
+            //virtualclassScreenShareLocalVideo
             var app = sid;
-            var id = "vApp" + sid + "LocalVideo";
+            var id = "virtualclass" + sid + "LocalVideo";
 
             var localVideo = document.getElementById(id);
 
@@ -215,21 +215,21 @@
                 }
 
                 if (typeof notPutImage == 'undefined' && (typeof app != 'undefined' && (app == 'ss' || app == 'wss'))) {
-                    vApp[app].localCanvas = stCanvas;
-                    vApp[app].localCont = vApp[app].localCanvas.getContext('2d');
+                    virtualclass[app].localCanvas = stCanvas;
+                    virtualclass[app].localCont = virtualclass[app].localCanvas.getContext('2d');
 
-                    var imgData = vApp[app].localtempCont.getImageData(0, 0, vApp[app].localtempCanvas.width, vApp[app].localtempCanvas.height);
-                    vApp[app].localCont.putImageData(imgData, 0, 0);
+                    var imgData = virtualclass[app].localtempCont.getImageData(0, 0, virtualclass[app].localtempCanvas.width, virtualclass[app].localtempCanvas.height);
+                    virtualclass[app].localCont.putImageData(imgData, 0, 0);
                 }
 
-                //vApp.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
-                vApp.vutil.removeTempVideo("vApp" + sid + "LocalTemp");
+                //virtualclass.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
+                virtualclass.vutil.removeTempVideo("virtualclass" + sid + "LocalTemp");
             }
         },
 
         clickOutSideCanvas: function () {
             if (this.exitTextWrapper()) {
-                vApp.wb.obj.drawTextObj.textUtility(vApp.wb.gObj.spx, vApp.wb.gObj.spy);
+                virtualclass.wb.obj.drawTextObj.textUtility(virtualclass.wb.gObj.spx, virtualclass.wb.gObj.spy);
             }
         },
 
@@ -240,7 +240,7 @@
 
         attachClickOutSideCanvas: function () {
             _attachClickOutSideCanvas('commandToolsWrapper');
-            _attachClickOutSideCanvas('vAppOptionsCont');
+            _attachClickOutSideCanvas('virtualclassOptionsCont');
             _attachClickOutSideCanvas('audioWidget');
             _attachClickOutSideCanvas('chatWidget');
 
@@ -248,7 +248,7 @@
                 var elem = document.getElementById(id);
                 if (elem != null) {
                     elem.onclick = function () {
-                        vApp.vutil.clickOutSideCanvas();
+                        virtualclass.vutil.clickOutSideCanvas();
                     };
                 }
             }
@@ -256,13 +256,13 @@
 
         dimensionMatch: function (wbc, ssc) {
             var wbcWidth = document.getElementById(wbc).offsetWidth;
-            var optionsContWidth = document.getElementById("vAppOptionsCont").offsetWidth;
+            var optionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
             var sscWidth = document.getElementById(ssc).offsetWidth + optionsContWidth;
             return (sscWidth == wbcWidth) ? true : false;
         },
 
         disableAppsBar: function () {
-            var appBarCont = document.getElementById('vAppOptionsCont');
+            var appBarCont = document.getElementById('virtualclassOptionsCont');
             if (appBarCont != null) {
                 appBarCont.style.pointerEvents = "none";
             }
@@ -281,11 +281,11 @@
         },
 
         clearAllChat: function () {
-            localStorage.removeItem(vApp.gObj.uid); //remove chat about user
+            localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             sessionStorage.clear('chatroom'); //all
             //idList = [];
 //                idList.length = 0;
-            vApp.chat.idList.length = 0;
+            virtualclass.chat.idList.length = 0;
             clearAllChatBox();
 
             var allChat = document.getElementById("chatWidget").getElementsByClassName('ui-chatbox-msg');
@@ -307,7 +307,7 @@
 
         removeSessionTool: function () {
             if (localStorage.getItem('orginalTeacherId') == null) {
-                var SessionEndTool = document.getElementById("vAppSessionEndTool");
+                var SessionEndTool = document.getElementById("virtualclassSessionEndTool");
                 if (SessionEndTool != null) {
                     SessionEndTool.parentNode.removeChild(SessionEndTool);
                 }
@@ -316,15 +316,15 @@
 
         toggleRoleClass: function (reclaim) {
             if ((localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null) || reclaim) {
-                document.getElementById("vAppCont").classList.toggle('teacher');
-                document.getElementById("vAppCont").classList.toggle('student');
+                document.getElementById("virtualclassCont").classList.toggle('teacher');
+                document.getElementById("virtualclassCont").classList.toggle('student');
             }
         },
 
         addClass: function (elemId, className) {
             var elem = document.getElementById(elemId);
 //                if(elem.hasOwnProperty('classList')){
-            if (vApp.vutil.elemHasAnyClass(elemId)) {
+            if (virtualclass.vutil.elemHasAnyClass(elemId)) {
                 elem.classList.add(className);
             } else {
                 elem.className = className;
@@ -334,7 +334,7 @@
         removeClass: function (id, className) {
             var elem = document.getElementById(id);
 //                if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
-            if (vApp.vutil.elemHasAnyClass(id) && elem.classList.contains(className)) {
+            if (virtualclass.vutil.elemHasAnyClass(id) && elem.classList.contains(className)) {
                 elem.classList.remove(className);
             }
         },
@@ -398,19 +398,19 @@
         },
 
         initDisableAudVid: function () {
-            vApp.gObj.audIntDisable = true;
-            vApp.gObj.vidIntDisable = true;
+            virtualclass.gObj.audIntDisable = true;
+            virtualclass.gObj.vidIntDisable = true;
         },
 
         initDisableVirtualClass: function () {
             this.initDisableAudVid();
-            vApp.gObj.errNotDesktop = true;
-            vApp.gObj.errNotScreenShare = true;
-            vApp.gObj.errAppBar = true;
+            virtualclass.gObj.errNotDesktop = true;
+            virtualclass.gObj.errNotScreenShare = true;
+            virtualclass.gObj.errAppBar = true;
         },
 
         disableVirtualClass: function () {
-            var virtualClass = document.getElementById('vAppCont');
+            var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 0.6;
             virtualClass.style.pointerEvents = "none";
             //document.getElementById('commandToolsWrapper').style.poniterEvents =   'none';
@@ -418,62 +418,62 @@
         },
 
         enableVirtualClass: function () {
-            var virtualClass = document.getElementById('vAppCont');
+            var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 1;
             virtualClass.style.pointerEvents = "visible";
 
         },
 
         firstiOSaudioCall: function () {
-            if (vApp.gObj.hasOwnProperty('audioPlayMessage')) {
-                //vApp.gObj.iosTabAudTrue = true;
-                vApp.gObj.iosIpadbAudTrue = true;
-                vApp.gObj.video.audio.receivedAudioProcess(vApp.gObj.audioPlayMessage);
+            if (virtualclass.gObj.hasOwnProperty('audioPlayMessage')) {
+                //virtualclass.gObj.iosTabAudTrue = true;
+                virtualclass.gObj.iosIpadbAudTrue = true;
+                virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
             }
         },
 
         beforeLoad: function () {
-            if (typeof vApp.storage.wholeStoreData != 'undefined') {
-                var obj = JSON.parse(vApp.storage.wholeStoreData);
+            if (typeof virtualclass.storage.wholeStoreData != 'undefined') {
+                var obj = JSON.parse(virtualclass.storage.wholeStoreData);
                 obj.beforeRefresh = true;
-                vApp.storage.wholeStore(obj, "put");
+                virtualclass.storage.wholeStore(obj, "put");
             }
 
-            localStorage.setItem('totalStored', vApp.storage.totalStored);
+            localStorage.setItem('totalStored', virtualclass.storage.totalStored);
 
             localStorage.removeItem('otherRole');
-            vApp.wb.utility.userIds = [];
+            virtualclass.wb.utility.userIds = [];
 
 
-            if (!vApp.gObj.hasOwnProperty('audIntDisable')) {
-                vApp.gObj.video.audio.studentNotSpeak();
+            if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
+                virtualclass.gObj.video.audio.studentNotSpeak();
             }
-            vApp.vutil.clickOutSideCanvas();
-            localStorage.setItem(wbUser.sid, JSON.stringify(vApp.chat.vmstorage));
+            virtualclass.vutil.clickOutSideCanvas();
+            localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
             io.disconnect();
         },
 
         initOnBeforeUnload: function (bname) {
             if (bname == 'iOS') {
                 document.body.onunload = function () {
-                    vApp.vutil.beforeLoad();
+                    virtualclass.vutil.beforeLoad();
                 }
             } else {
                 window.onbeforeunload = function () {
-                    vApp.vutil.beforeLoad();
+                    virtualclass.vutil.beforeLoad();
                 }
             }
 
         },
 
         isPlayMode: function () {
-            return (window.wbUser.vAppPlay == true) ? true : false;
+            return (window.wbUser.virtualclassPlay == true) ? true : false;
         },
 
         progressBar: function (totalVal, portion, pbar, pval) {
             if (portion > totalVal) {
                 portion = totalVal;
-                document.getElementById('askplayMessage').innerHTML = vApp.lang.getString('playsessionmsg');
+                document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
             }
 
             if (totalVal == 0 && portion == 0) {
@@ -488,10 +488,10 @@
         },
 
         hidePrevIcon: function (app) {
-            var prvScreen = document.getElementById(vApp.previous);
+            var prvScreen = document.getElementById(virtualclass.previous);
             if (prvScreen != null) {
                 prvScreen.style.display = 'none';
-                document.getElementById(vApp[app].id).style.display = 'block';
+                document.getElementById(virtualclass[app].id).style.display = 'block';
             }
         }
 

@@ -6,7 +6,7 @@
     _replay = function () {
         return {
             init: function (repMode, myfunc) {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 if (typeof myfunc != 'undefined') {
                     this.objs = vcan.getStates('replayObjs');
                 } else {
@@ -18,7 +18,7 @@
             },
             renderObj: function (myfunc) {
                 //console.log("browser mode " + this.repMode);
-                vApp.wb.drawMode = true;
+                virtualclass.wb.drawMode = true;
                 if (typeof this.objs[this.objNo] == 'undefined') {
                     console.log("is this happend");
                     return;
@@ -27,13 +27,13 @@
                     this.callBkfunc = myfunc;
                 }
                 if (this.objs[this.objNo].hasOwnProperty('cmd')) {
-                    vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
-                    vApp.wb.toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
+                    virtualclass.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
+                    virtualclass.wb.toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
                 } else {
                     var event = "";
                     if (this.objs[this.objNo].ac == 'del') {
                         if (vcan.main.currObj != "") {
-                            vApp.wb.utility.removeSelectedItem(vcan.main.currObj, true);
+                            virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj, true);
                         }
                     } else {
                         if (this.objs[this.objNo].ac == 'd') {
@@ -54,30 +54,30 @@
                         vcan.main.canvas.dispatchEvent(eventConstruct);
                     }
                     //alert(this.objs[this.objNo].uid);
-                    vApp.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
+                    virtualclass.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                 }
 
                 if (typeof this.callBkfunc == 'function') {
-                    if (this.objs[this.objs.length - 1].uid == vApp.wb.gObj.displayedObjId) {
+                    if (this.objs[this.objs.length - 1].uid == virtualclass.wb.gObj.displayedObjId) {
                         this.callBkfunc('callBkfunc');
                     }
                 }
 
                 if (typeof this.objs[this.objNo + 1] == 'object') {
                     if (typeof this.repMode != 'undefined' && this.repMode == 'fromBrowser') {
-                        vApp.wb.replayTime = 0;
+                        virtualclass.wb.replayTime = 0;
                     } else {
                         if (this.objNo == 0) {
-                            vApp.wb.replayTime = this.objs[this.objNo].mt - vApp.wb.pageEnteredTime;
+                            virtualclass.wb.replayTime = this.objs[this.objNo].mt - virtualclass.wb.pageEnteredTime;
                         } else {
-                            vApp.wb.replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;
+                            virtualclass.wb.replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;
                         }
                     }
                     this.objNo++;
                     var that = this;
                     setTimeout(function () {
                         that.renderObj.call(that);
-                    }, vApp.wb.replayTime);
+                    }, virtualclass.wb.replayTime);
                 }
 
             }

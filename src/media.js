@@ -49,7 +49,7 @@
             util: {
                 imageReplaceWithVideo: function (id, vidCont) {
                     var chatUser = document.getElementById("ml" + id);
-                    if (vApp.vutil.elemHasAnyClass("ml" + id)) {
+                    if (virtualclass.vutil.elemHasAnyClass("ml" + id)) {
                         chatUser.classList.remove('userImg');
                     }
                     var childTag = chatUser.getElementsByTagName('a')[0];
@@ -74,7 +74,7 @@
                 Html5Audio: {audioContext: new (window.AudioContext || window.webkitAudioContext)()},
                 init: function () {
                     if (localStorage.getItem('orginalTeacherId') != null) {
-                        vApp.gObj.audMouseDown = true;
+                        virtualclass.gObj.audMouseDown = true;
                         //can be critical
                         //this.clickOnceSpeaker('speakerPressOnce');
                     }
@@ -85,7 +85,7 @@
                         average: 0,
                         display: function () {
                             var cvideo = cthis.video;
-                            if (vApp.gObj.uRole == 't') {
+                            if (virtualclass.gObj.uRole == 't') {
                                 var avg = this.height - (this.height * this.average) / 100;
                                 this._display(cvideo.tempVidCont, avg);
                             }
@@ -172,23 +172,23 @@
                     if ((thdiff >= 2 && vol >= minthreshold * th)) {
                         if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
                             //        console.log('SEND PRE');
-                            vApp.wb.utility.audioSend(preAudioSamp);
+                            virtualclass.wb.utility.audioSend(preAudioSamp);
                             preAudioSamp = 0;
                         }
                         //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
-                        vApp.wb.utility.audioSend(send, audStatus);
+                        virtualclass.wb.utility.audioSend(send, audStatus);
                         audioWasSent = 9;
 
                     } else if (audioWasSent > 0) {
 
                         //    console.log('SEND NEXT');
-                        vApp.wb.utility.audioSend(send, audStatus);  // Continue sending Audio for next X samples
+                        virtualclass.wb.utility.audioSend(send, audStatus);  // Continue sending Audio for next X samples
                         audioWasSent--;
                     } else if (thdiff < 2) { // We are not ready, send all samples
                         //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                        vApp.wb.utility.audioSend(send, audStatus);
+                        virtualclass.wb.utility.audioSend(send, audStatus);
                     } else {
-//                            if(vApp.gObj.audMouseDown){
+//                            if(virtualclass.gObj.audMouseDown){
                         this.setAudioStatus("notSending");
 //                            }
                         // console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
@@ -238,11 +238,11 @@
                     }
                 },
                 audioToolInit: function () {
-                    var that = vApp.gObj.video.audio;
+                    var that = virtualclass.gObj.video.audio;
                     if (this.id == 'speakerPressOnce') {
                         that.clickOnceSpeaker(this.id);
                     } else if (this.id == 'audioTest') {
-                        if (confirm(vApp.lang.getString('audioTest'))) {
+                        if (confirm(virtualclass.lang.getString('audioTest'))) {
                             that.testInit(this.id);
                         }
                     } else if (this.id == 'silenceDetect') {
@@ -265,13 +265,13 @@
                     var alwaysPress = document.getElementById(id);
                     var beingPress = false;
                     alwaysPress.addEventListener('mousedown', function () {
-                        if (!vApp.gObj.audMouseDown) {
+                        if (!virtualclass.gObj.audMouseDown) {
                             that.studentSpeak(alwaysPress);
                             beingPress = true;
 
                             var pressOnceLabel = document.getElementById("speakerPressonceLabel");
                             if (pressOnceLabel != null) {
-                                if (vApp.vutil.elemHasAnyClass('speakerPressonceLabel')) {
+                                if (virtualclass.vutil.elemHasAnyClass('speakerPressonceLabel')) {
                                     if (pressOnceLabel.classList.contains('silenceDetect')) {
 //                                            pressOnceLabel.setAttribute('data-silence-detect', "false");
                                         pressOnceLabel.removeAttribute('data-silence-detect');
@@ -334,14 +334,14 @@
                         this.studentSpeak(alwaysPressElem);
 //                            this.studentSpeak(alwaysPressElem);
                         tag.setAttribute('data-audio-playing', "true");
-                        anchor.setAttribute('data-title', vApp.lang.getString('disableSpeaker'));
+                        anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
                         tag.className = "audioTool active";
 
 
                     } else {
                         this.studentNotSpeak(alwaysPressElem);
                         tag.setAttribute('data-audio-playing', "false");
-                        anchor.setAttribute('data-title', vApp.lang.getString('enableSpeaker'));
+                        anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
                         tag.className = "audioTool deactive";
                     }
                 },
@@ -370,11 +370,11 @@
 
 //                        alert('speak');
 //                        debugger;
-                    vApp.gObj.audMouseDown = true;
-                    vApp.wb.utility.beforeSend({'sad': true});
+                    virtualclass.gObj.audMouseDown = true;
+                    virtualclass.wb.utility.beforeSend({'sad': true});
                 },
                 studentNotSpeak: function (elem) {
-                    if (vApp.gObj.hasOwnProperty('audMouseDown') && vApp.gObj.audMouseDown) {
+                    if (virtualclass.gObj.hasOwnProperty('audMouseDown') && virtualclass.gObj.audMouseDown) {
                         if (typeof elem != 'undefined') {
 //                                var silenceDetecElem = document.getElementById('speakerPressOnce').getElementsByClassName('silenceDetect')[0];
 
@@ -391,9 +391,9 @@
                         var tag = document.getElementById("speakerPressOnce");
                         tag.setAttribute('data-audio-playing', "false");
                         tag.className = "audioTool deactive";
-                        vApp.gObj.audMouseDown = false;
-                        vApp.gObj.video.audio.setAudioStatus("stop");
-                        vApp.wb.utility.beforeSend({'sad': false});
+                        virtualclass.gObj.audMouseDown = false;
+                        virtualclass.gObj.video.audio.setAudioStatus("stop");
+                        virtualclass.wb.utility.beforeSend({'sad': false});
                     }
                 },
                 ab2str: function (buf) {
@@ -433,12 +433,12 @@
                         }
 
 //                            if(this.sd){
-                        if (vApp.gObj.audMouseDown && (io.sock.readyState == 1)) {
+                        if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
                             this.slienceDetection(send, leftSix);
                         }
 
 //                            }else{
-//                                vApp.wb.utility.audioSend(send);
+//                                virtualclass.wb.utility.audioSend(send);
 //                            }
                     }
                 },
@@ -452,7 +452,7 @@
                     var audioTestElem = document.getElementById(id);
                     audioTestElem.classList.add("audioIsTesting");
                     this.studentNotSpeak();
-                    vApp.gObj.audioForTest = [];
+                    virtualclass.gObj.audioForTest = [];
                     this.storeAudio = true;
                     var that = this;
                     that.otherSound = true;
@@ -462,7 +462,7 @@
                     var totTestTime = 5000;
                     that.testAudio = setTimeout(function () {
                         var pta = true;
-                        that.playRecordedAudio(vApp.gObj.audioForTest, vApp.gObj.uid, pta);
+                        that.playRecordedAudio(virtualclass.gObj.audioForTest, virtualclass.gObj.uid, pta);
                     }, totTestTime);
 
                     setTimeout(
@@ -476,8 +476,8 @@
                     var encoded = G711.encode(leftSix, {
                         alaw: this.encMode == "alaw" ? true : false
                     });
-                    vApp.gObj.audioForTest.push(encoded);
-                    vApp.gObj[vApp.gObj.uid] = false;
+                    virtualclass.gObj.audioForTest.push(encoded);
+                    virtualclass.gObj[virtualclass.gObj.uid] = false;
                 },
                 playRecordedAudio: function (encChuncks, uid, testAudio) {
                     var samples, clip;
@@ -494,11 +494,11 @@
                         recordingLength += samples.length;
                     }
                     samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
-                    (typeof testAudio != 'undefined') ? vApp.gObj.video.audio.play(samples, uid, testAudio) : vApp.gObj.video.audio.play(samples, uid);
+                    (typeof testAudio != 'undefined') ? virtualclass.gObj.video.audio.play(samples, uid, testAudio) : virtualclass.gObj.video.audio.play(samples, uid);
                 },
 
                 play: function (receivedAudio, uid, testAudio) {
-                    var userObj = JSON.parse(localStorage.getItem('vApp' + uid));
+                    var userObj = JSON.parse(localStorage.getItem('virtualclass' + uid));
                     if (typeof receivedResampler == 'undefined') {
                         receivedResampler = new Resampler(8000, 44100, 1, 16384);
                     }
@@ -515,24 +515,24 @@
                     gainNode.connect(this.Html5Audio.audioContext.destination);
 
                     if (userObj != null && userObj.ad && userObj.aud) {
-                        vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
+                        virtualclass.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
                         var anchorTag = document.getElementById(userObj.id + 'contrAudAnch');
-                        anchorTag.setAttribute('data-title', vApp.lang.getString('audioOn'));
+                        anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
                     }
 
                     newSource.onended = function () {
-                        userObj = JSON.parse(localStorage.getItem('vApp' + uid));
+                        userObj = JSON.parse(localStorage.getItem('virtualclass' + uid));
                         // console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
                         if (typeof testAudio == 'undefined') {
-//                                console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
-                            clearTimeout(vApp.gObj[uid].out);
-                            vApp.gObj[uid].isplaying = false;
-                            if (vApp.gObj.video.audio.audioToBePlay[uid].length > 0) {
-                                vApp.gObj.video.audio.getChunks(uid);
+//                                console.log("Stack length " +  virtualclass.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+                            clearTimeout(virtualclass.gObj[uid].out);
+                            virtualclass.gObj[uid].isplaying = false;
+                            if (virtualclass.gObj.video.audio.audioToBePlay[uid].length > 0) {
+                                virtualclass.gObj.video.audio.getChunks(uid);
                             } else {
                                 if (userObj.ad && userObj.aud) {
 
-                                    vApp.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange");
+                                    virtualclass.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange");
                                 }
                             }
                         }
@@ -540,17 +540,17 @@
 
                     newSource.start(0);
 //                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
-                    vApp.gObj[uid].isplaying = true;
+                    virtualclass.gObj[uid].isplaying = true;
                     //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
                     if (typeof testAudio == 'undefined') {
-                        vApp.gObj[uid].out = setTimeout(
+                        virtualclass.gObj[uid].out = setTimeout(
                             function () {
-//                                    console.log("Stack length " +  vApp.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
+//                                    console.log("Stack length " +  virtualclass.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
                                 //                                console.log("UID " + uid+ " video ended  Duration OUT :"+newSource.buffer.duration);
 
-                                vApp.gObj[uid].isplaying = false;
-                                if (vApp.gObj.video.audio.audioToBePlay[uid].length > 0) {
-                                    vApp.gObj.video.audio.getChunks(uid);
+                                virtualclass.gObj[uid].isplaying = false;
+                                if (virtualclass.gObj.video.audio.audioToBePlay[uid].length > 0) {
+                                    virtualclass.gObj.video.audio.getChunks(uid);
                                 }
                             },
                             (newSource.buffer.duration * 1000) + 10
@@ -573,7 +573,7 @@
                 //this is not using right now
                 audioInGraph: function () {
                     var cvideo = cthis.video;
-                    if (vApp.gObj.uRole == 't') {
+                    if (virtualclass.gObj.uRole == 't') {
                         var avg = this.graph.height - (this.graph.height * this.graph.average) / 100;
                         cvideo.tempVidCont.beginPath();
                         cvideo.tempVidCont.moveTo(cvideo.tempVid.width - this.graph.width, this.graph.height);
@@ -603,21 +603,21 @@
 ////                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
                     if (this.audioToBePlay[uid].length > 8) {
                         this.audioToBePlay[uid].length = 0;
-                        vApp.gObj[uid].isplaying = false;
+                        virtualclass.gObj[uid].isplaying = false;
                     } else if (this.audioToBePlay[uid].length > 0) {
 //                            console.log("play twice time");
-//                            vApp.gObj[uid].isplaying = true;
+//                            virtualclass.gObj[uid].isplaying = true;
                         this.playRecordedAudio(this.audioToBePlay[uid], uid);
                         this.audioToBePlay[uid].length = 0;
                     } else {
-                        vApp.gObj[uid].isplaying = false;
+                        virtualclass.gObj[uid].isplaying = false;
                     }
 
                 },
                 replayInit: function () {
-                    vApp.storage.getAllObjs(["audioData"], repCallback);
+                    virtualclass.storage.getAllObjs(["audioData"], repCallback);
                     function repCallback() {
-                        vApp.gObj.video.audio.replay(0, 0)
+                        virtualclass.gObj.video.audio.replay(0, 0)
                     }
                 },
                 replay: function (inHowLong, offset) {
@@ -671,11 +671,11 @@
                 },
                 manuPulateStream: function () {
                     var stream = cthis.stream;
-                    if (!vApp.vutil.chkValueInLocalStorage('recordStart')) {
-                        vApp.wb.recordStarted = new Date().getTime();
-                        localStorage.setItem('recordStart', vApp.wb.recordStarted);
+                    if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
+                        virtualclass.wb.recordStarted = new Date().getTime();
+                        localStorage.setItem('recordStart', virtualclass.wb.recordStarted);
                     } else {
-                        vApp.wb.recordStarted = localStorage.getItem('recordStart');
+                        virtualclass.wb.recordStarted = localStorage.getItem('recordStart');
                     }
                     var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                     cthis.audio.bufferSize = 16384;
@@ -692,13 +692,13 @@
                 },
                 updateInfo: function () {
                     this.audioStreamArr = [];
-                    vApp.wb.pageEnteredTime = vApp.wb.recordStarted = new Date().getTime();
+                    virtualclass.wb.pageEnteredTime = virtualclass.wb.recordStarted = new Date().getTime();
                     this.recordAudio = false;
                     repMode = false;
                 },
 
                 receivedAudioProcess: function (msg) {
-                    if (vApp.gObj.hasOwnProperty('iosTabAudTrue') && vApp.gObj.iosTabAudTrue == false) {
+                    if (virtualclass.gObj.hasOwnProperty('iosTabAudTrue') && virtualclass.gObj.iosTabAudTrue == false) {
                         return;
                     }
 
@@ -715,17 +715,17 @@
                     if (!adSign.hasOwnProperty(uid)) {
                         adSign[uid] = {};
                         adSign[uid].ad = true;
-                        var user = vApp.user.control.updateUser(uid, 'ad', true);
-                        vApp.user.control.audioSign(user, "create");
+                        var user = virtualclass.user.control.updateUser(uid, 'ad', true);
+                        virtualclass.user.control.audioSign(user, "create");
                     }
-                    vApp.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                    if (!vApp.gObj.hasOwnProperty(uid) || !vApp.gObj[uid].hasOwnProperty('isplaying')) {
-                        vApp.gObj[uid] = {};
-                        vApp.gObj[uid].isplaying = true;
-                        vApp.gObj.video.audio.getChunks(uid);
+                    virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                    if (!virtualclass.gObj.hasOwnProperty(uid) || !virtualclass.gObj[uid].hasOwnProperty('isplaying')) {
+                        virtualclass.gObj[uid] = {};
+                        virtualclass.gObj[uid].isplaying = true;
+                        virtualclass.gObj.video.audio.getChunks(uid);
 
-                    } else if (vApp.gObj[uid].isplaying == false) {
-                        vApp.gObj.video.audio.getChunks(uid);
+                    } else if (virtualclass.gObj[uid].isplaying == false) {
+                        virtualclass.gObj.video.audio.getChunks(uid);
                     }
                 },
 
@@ -734,7 +734,7 @@
 //                      var data_pack = new Uint8ClampedArray(msg);
                     var data_pack = new Int8Array(msg);
 
-                    var uid = vApp.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
+                    var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     return [uid, data_pack.subarray(5, data_pack.length)];
                 }
 
@@ -781,7 +781,7 @@
                     var videoCont = this.videoCont;
                     videoSubWrapper.appendChild(video);
                     videoCont = videoWrapper;
-                    vApp.gObj.video.util.imageReplaceWithVideo(user.id, videoCont);
+                    virtualclass.gObj.video.util.imageReplaceWithVideo(user.id, videoCont);
                 },
                 updateHightInSideBar: function (videoHeight) {
                     //TODO this is not to do every time a function is called
@@ -792,8 +792,8 @@
                     chatBox.style.height = chatBoxHeight + "px";
                 },
                 send: function () {
-                    if (vApp.gObj.video.hasOwnProperty('smallVid')) {
-                        clearInterval(vApp.gObj.video.smallVid);
+                    if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
+                        clearInterval(virtualclass.gObj.video.smallVid);
                     }
                     var cvideo = this;
                     var frame;
@@ -801,7 +801,7 @@
                     var totalMembers = -1;
 
                     function sendSmallVideo() {
-                        if (vApp.gObj.uRole == 't') {
+                        if (virtualclass.gObj.uRole == 't') {
                             if (typeof graphCanvas == "undefined") {
                                 var graphCanvas = document.getElementById("graphCanvas");
                                 if (graphCanvas != null) {
@@ -833,42 +833,42 @@
                             }
                         }
 
-                        if (vApp.gObj.uRole == 't') {
+                        if (virtualclass.gObj.uRole == 't') {
                             cthis.audio.graph.display();
                         }
                         //frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
                         var user = {
-                            name: vApp.gObj.uName,
-                            id: vApp.gObj.uid
+                            name: virtualclass.gObj.uName,
+                            id: virtualclass.gObj.uid
                         };
-                        if (vApp.gObj.uRole == 't') {
-                            user.role = vApp.gObj.uRole;
+                        if (virtualclass.gObj.uRole == 't') {
+                            user.role = virtualclass.gObj.uRole;
                         }
-                        vApp.wb.utility.beforeSend({videoByImage: user});
+                        virtualclass.wb.utility.beforeSend({videoByImage: user});
                         var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
-                        var encodedframe = vApp.dirtyCorner.encodeRGB(frame.data);
-                        var uid = breakintobytes(vApp.gObj.uid, 8);
+                        var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);
+                        var uid = breakintobytes(virtualclass.gObj.uid, 8);
                         var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3]]);
                         var sendmsg = new Uint8ClampedArray(encodedframe.length + scode.length);
                         sendmsg.set(scode);
                         sendmsg.set(encodedframe, scode.length);
                         io.sendBinary(sendmsg);
-                        clearInterval(vApp.gObj.video.smallVid);
-                        var d = 2000 + (vApp.gObj.totalUser.length * 2500);
-                        if (totalMembers != vApp.gObj.totalUser) {
-                            totalMembers = vApp.gObj.totalUser.length;
-                            var p = vApp.gObj.totalUser.indexOf(vApp.gObj.uId);
+                        clearInterval(virtualclass.gObj.video.smallVid);
+                        var d = 2000 + (virtualclass.gObj.totalUser.length * 2500);
+                        if (totalMembers != virtualclass.gObj.totalUser) {
+                            totalMembers = virtualclass.gObj.totalUser.length;
+                            var p = virtualclass.gObj.totalUser.indexOf(virtualclass.gObj.uId);
                             var td = d / totalMembers;
                             var md = p * td;
-                            vApp.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
+                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
                             //console.log("send time " + (d + md) + new Date().getSeconds());
                         } else {
-                            vApp.gObj.video.smallVid = setInterval(sendSmallVideo, d);
+                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
                             //console.log("send time " + d + new Date().getSeconds());
                         }
                     }
 
-                    vApp.gObj.video.smallVid = setInterval(sendSmallVideo, 300);
+                    virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, 300);
                     function breakintobytes(val, l) {
                         var numstring = val.toString();
                         for (var i = numstring.length; i < l; i++) {
@@ -885,7 +885,7 @@
                 playWithoutSlice: function (uid, msg) {
                     this.remoteVid = document.getElementById("video" + uid);
                     this.remoteVidCont = this.remoteVid.getContext('2d');
-                    var imgData = vApp.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
+                    var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
                     this.remoteVidCont.putImageData(imgData, 0, 0);
                 },
                 justForDemo: function () {
@@ -914,7 +914,7 @@
                                 if (videoCont.offsetHeight >= maxHeight) {
                                     if (videoCont.style.overflowY != 'undefined' && videoCont.style.overflowY != "scroll") {
                                         videoCont.style.overflowY = "scroll";
-                                        document.getElementById(vApp.gObj.chat.mainChatBoxId).style.borderTop = "3px solid #bbb";
+                                        document.getElementById(virtualclass.gObj.chat.mainChatBoxId).style.borderTop = "3px solid #bbb";
                                     }
                                 }
                             }
@@ -930,7 +930,7 @@
                     childElement.className = 'videoSubWrapper';
                     parElement.appendChild(childElement);
                     var videoTag = document.createElement(vTag);
-                    videoTag.id = "video" + vApp.gObj.uid;
+                    videoTag.id = "video" + virtualclass.gObj.uid;
                     videoTag.autoplay = true;
                     childElement.appendChild(videoTag);
                     return parElement;
@@ -956,9 +956,9 @@
                 process: function (msg) {
                     var data_pack = new Uint8ClampedArray(msg);
 //                        io.dataBinaryStore(data_pack); // storing received video
-                    var uid = vApp.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
+                    var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     var recmsg = data_pack.subarray(5, data_pack.length);
-                    vApp.gObj.video.video.playWithoutSlice(uid, recmsg);
+                    virtualclass.gObj.video.video.playWithoutSlice(uid, recmsg);
                 }
             },
             init: function (vbool) {
@@ -973,16 +973,16 @@
                 };
 
                 cthis.video.init();
-                if (!vApp.vutil.isPlayMode()) {
+                if (!virtualclass.vutil.isPlayMode()) {
 
-                    vApp.adpt = new vApp.adapter();
-                    var cNavigator = vApp.adpt.init(navigator);
+                    virtualclass.adpt = new virtualclass.adapter();
+                    var cNavigator = virtualclass.adpt.init(navigator);
                     cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
                 }
 
-                if (vApp.system.wbRtc.peerCon) { //TODO this should be deleted
+                if (virtualclass.system.wbRtc.peerCon) { //TODO this should be deleted
                     if (typeof localStorage.wbrtcMsg == 'undefined') {
-                        vApp.wb.view.multiMediaMsg('WebRtc');
+                        virtualclass.wb.view.multiMediaMsg('WebRtc');
                         localStorage.wbrtcMsg = true;
                     }
                 }
@@ -992,17 +992,17 @@
                 //latest code
                 var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
-//                    if(vApp.vutil.elemHasAnyClass(elem.id)
-                if (vApp.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')) {
-                    vApp.user.control.audioWidgetEnable();
+//                    if(virtualclass.vutil.elemHasAnyClass(elem.id)
+                if (virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')) {
+                    virtualclass.user.control.audioWidgetEnable();
                 }
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
-                var userDiv = document.getElementById("ml" + vApp.gObj.uid);
+                var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
                 if (userDiv != null) {
                     var vidTag = userDiv.getElementsByTagName('video');
                     if (vidTag != null) {
-                        cthis._handleUserMedia(vApp.gObj.uid);
+                        cthis._handleUserMedia(virtualclass.gObj.uid);
                     }
                 }
             },
@@ -1015,25 +1015,25 @@
             _handleUserMedia: function (userid) {
                 var userMainDiv = document.getElementById(userid);
                 var stream = cthis.video.tempStream;
-//                    var userDiv = document.getElementById("ml" + vApp.gObj.uid);
+//                    var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
 //                    if(userDiv != null){
 //                       userDiv.classList.add("mySelf");
 //                    }
                 if (typeof stream != 'undefined') {
                     var vidContainer = cthis.video.createVideoElement();
-                    vApp.gObj.video.util.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
-//                        cthis.video.imageReplaceWithVideo(vApp.gObj.uid, vidContainer);
+                    virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+//                        cthis.video.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
                     cthis.video.insertTempVideo(vidContainer);
                     cthis.video.tempVideoInit();
-                    cthis.video.myVideo = document.getElementById("video" + vApp.gObj.uid);
-                    vApp.adpt.attachMediaStream(cthis.video.myVideo, stream);
+                    cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+                    virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
                     cthis.video.myVideo.muted = true;
                     //todo this should be removed
                     stream.ontimeupdate = function () {
                         console.log("raja" + stream.currentTime);
                     };
-                    if (vApp.jId == vApp.gObj.uid) {
+                    if (virtualclass.jId == virtualclass.gObj.uid) {
                         cthis.stream = cthis.video.tempStream;
                         cthis.audio.manuPulateStream();
                         cthis.audio.graph.canvasForVideo();
@@ -1045,14 +1045,14 @@
                 userMedia = true;
             },
             updateVidContHeight: function () {
-                var elem = document.getElementById("vAppCont");
+                var elem = document.getElementById("virtualclassCont");
                 var offset = vcan.utility.getElementOffset(elem);
                 var mh = window.innerHeight - (offset.y + 75);
                 document.getElementById("chat_div").style.maxHeight = mh + "px";
             },
             close: function () {
-                if (vApp.gObj.video.hasOwnProperty('smallVid')) {
-                    clearInterval(vApp.gObj.video.smallVid);
+                if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
+                    clearInterval(virtualclass.gObj.video.smallVid);
                 }
             },
             dispAllVideo: function (id) {
@@ -1071,9 +1071,9 @@
             },
 //                sendMessage: function(message) {
 //                    if (arguments.length > 1) {
-//                        vApp.wb.utility.beforeSend({'video': message}, arguments[1]);
+//                        virtualclass.wb.utility.beforeSend({'video': message}, arguments[1]);
 //                    } else {
-//                        vApp.wb.utility.beforeSend({'video': message});
+//                        virtualclass.wb.utility.beforeSend({'video': message});
 //                    }
 //                },
             existVideoContainer: function (user) {
@@ -1087,10 +1087,10 @@
             },
 
             handleUserMediaError: function (error) {
-                var error = (typeof error == 'object') ? vApp.lang.getString(error.name) : vApp.lang.getString(error);
-                vApp.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
-                vApp.user.control.audioWidgetDisable();
-                vApp.wb.view.disappearBox('WebRtc');
+                var error = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
+                virtualclass.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
+                virtualclass.user.control.audioWidgetDisable();
+                virtualclass.wb.view.disappearBox('WebRtc');
                 console.log('navigator.getUserMedia error: ', error);
             }
         }

@@ -12,30 +12,30 @@
         triggerActiveAll: function (e) {
             if (e.shiftKey) {
                 console.log('what happend mere bhai');
-                vApp.wb.keyBoard.skey = true;
-                vApp.wb.keyBoard.prvTool = vApp.wb.tool.cmd;
-                vApp.wb.toolInit('t_activeall');
+                virtualclass.wb.keyBoard.skey = true;
+                virtualclass.wb.keyBoard.prvTool = virtualclass.wb.tool.cmd;
+                virtualclass.wb.toolInit('t_activeall');
                 var currTime = new Date().getTime();
                 var obj = {'cmd': 't_activeall', mt: currTime};
                 vcan.main.replayObjs.push(obj);
-                vApp.wb.utility.beforeSend({'repObj': [obj]});
-                vApp.wb.vcan.main.action = 'move';
+                virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+                virtualclass.wb.vcan.main.action = 'move';
             }
         },
         /**
          * this function triggers the deActiveAll function
          */
         triggerdeActiveAll: function (e) {
-            if (vApp.wb.keyBoard.skey) {
+            if (virtualclass.wb.keyBoard.skey) {
                 console.log('what happend mere bhai ddd');
                 var currTime = new Date().getTime();
-                vApp.wb.utility.deActiveFrmDragDrop();
-                vApp.wb.toolInit(vApp.wb.keyBoard.prvTool);
-                //var obj = {'cmd': vApp.wb.keyBoard.prvTool,  mdTime : currTime};
-                var obj = {'cmd': vApp.wb.keyBoard.prvTool, mt: currTime};
+                virtualclass.wb.utility.deActiveFrmDragDrop();
+                virtualclass.wb.toolInit(virtualclass.wb.keyBoard.prvTool);
+                //var obj = {'cmd': virtualclass.wb.keyBoard.prvTool,  mdTime : currTime};
+                var obj = {'cmd': virtualclass.wb.keyBoard.prvTool, mt: currTime};
                 vcan.main.replayObjs.push(obj);
-                //vApp.wb.utility.beforeSend({'repObj': [obj]}); //after optimized
-                vApp.wb.utility.beforeSend({'repObj': [obj]});
+                //virtualclass.wb.utility.beforeSend({'repObj': [obj]}); //after optimized
+                virtualclass.wb.utility.beforeSend({'repObj': [obj]});
             }
         }
     };

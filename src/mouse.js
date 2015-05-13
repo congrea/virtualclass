@@ -87,24 +87,24 @@
                         //alert('suman bogati');
                         var currTime = new Date().getTime();
                         var obj = vcan.makeStackObj(currTime, 'd', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
-                        vApp.wb.uid++;
-                        console.log('uid ' + vApp.wb.uid);
-                        obj.uid = vApp.wb.uid;
+                        virtualclass.wb.uid++;
+                        console.log('uid ' + virtualclass.wb.uid);
+                        obj.uid = virtualclass.wb.uid;
                         vcan.main.replayObjs.push(obj);
-                        vApp.wb.utility.beforeSend({'repObj': [obj]});
-                        vApp.wb.utility.updateSentPackets(obj);
+                        virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+                        virtualclass.wb.utility.updateSentPackets(obj);
                     }
 
                     //these code run when user is trying to create particular object.
                 } else if (vcan.main.action == 'create') {
                     if (e.detail.hasOwnProperty('cevent')) {
-                        e.clientX = e.detail.cevent.x + (vApp.wb.vcan.main.offset.x);
-                        e.clientY = e.detail.cevent.y + (vApp.wb.vcan.main.offset.y);
+                        e.clientX = e.detail.cevent.x + (virtualclass.wb.vcan.main.offset.x);
+                        e.clientY = e.detail.cevent.y + (virtualclass.wb.vcan.main.offset.y);
 
-                        e.x = e.detail.cevent.x + (vApp.wb.vcan.main.offset.x);
-                        e.y = e.detail.cevent.x + (vApp.wb.vcan.main.offset.y);
-                        e.pageX = e.detail.cevent.x + (vApp.wb.vcan.main.offset.x);
-                        e.pageY = e.detail.cevent.y + (vApp.wb.vcan.main.offset.y);
+                        e.x = e.detail.cevent.x + (virtualclass.wb.vcan.main.offset.x);
+                        e.y = e.detail.cevent.x + (virtualclass.wb.vcan.main.offset.y);
+                        e.pageX = e.detail.cevent.x + (virtualclass.wb.vcan.main.offset.x);
+                        e.pageY = e.detail.cevent.y + (virtualclass.wb.vcan.main.offset.y);
                         e.currX = e.detail.cevent.x;
                         e.currY = e.detail.cevent.y;
                     }
@@ -112,7 +112,7 @@
                     var foundTarget = vcan.events().findTarget(e),
                         pointer = vcan.utility.getReltivePoint(e);
 
-                    if (foundTarget && foundTarget.type == 'text' && vApp.wb.tool.cmd == 't_text') {
+                    if (foundTarget && foundTarget.type == 'text' && virtualclass.wb.tool.cmd == 't_text') {
                         foundTarget.setupCurrentTransform(e);
                     }
                 }

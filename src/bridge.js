@@ -8,18 +8,18 @@
         requestPackets: function (msgRepObj) {
             //more than one packets comes after connection on
             if (msgRepObj.length > 1) {
-                vApp.wb.gObj.myArr = msgRepObj;
+                virtualclass.wb.gObj.myArr = msgRepObj;
             }
 
-            vApp.wb.sentReq = true;
-            var sp = vApp.wb.gObj.rcvdPackId;
+            virtualclass.wb.sentReq = true;
+            var sp = virtualclass.wb.gObj.rcvdPackId;
             var ep = msgRepObj[0].uid;
             return [sp, ep];
         },
 
         makeQueue: function (e) {
-            if (vApp.wb.gObj.rcvdPackId != vApp.wb.gObj.displayedObjId) {
-                vApp.wb.gObj.packQueue = vApp.wb.gObj.packQueue.concat(e.message.repObj);
+            if (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId) {
+                virtualclass.wb.gObj.packQueue = virtualclass.wb.gObj.packQueue.concat(e.message.repObj);
             }
         },
 
@@ -29,8 +29,8 @@
             } else {
                 var fs = e.message.getMsPckt[0].uid;
                 //TODO myrepObj should be changed into another name.
-                for (var i = 0; i < vApp.wb.gObj.myrepObj.length; i++) {
-                    if (e.message.getMsPckt[0] == vApp.wb.gObj.myrepObj[i].uid) {
+                for (var i = 0; i < virtualclass.wb.gObj.myrepObj.length; i++) {
+                    if (e.message.getMsPckt[0] == virtualclass.wb.gObj.myrepObj[i].uid) {
                         fs = e.message.getMsPckt[0];
                         break;
                     }
@@ -38,47 +38,47 @@
             }
 
             for (var j = i + 1; j < e.message.getMsPckt[1]; j++) {
-                chunk.push(vApp.wb.gObj.myrepObj[j]);
+                chunk.push(virtualclass.wb.gObj.myrepObj[j]);
             }
             return chunk;
         },
 
         handleMissedPackets: function (fromUserId, id, repObj) {
             var repObj = this.removeDupObjs(repObj);
-            vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(repObj);
+            virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(repObj);
             bridge.sortingReplyObjs();
 
             if (fromUserId != id) {
-                vApp.storage.store(JSON.stringify(vApp.wb.gObj.replayObjs));
+                virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
             }
-            this.containsIfQueuePacks(fromUserId, id, vApp.wb.gObj.displayedObjId, repObj);
+            this.containsIfQueuePacks(fromUserId, id, virtualclass.wb.gObj.displayedObjId, repObj);
         },
 
         removeDupObjs: function (repObj) {
-            if (vApp.wb.gObj.myArr.length > 0) {
-                if (repObj[repObj.length - 1].uid == vApp.wb.gObj.myArr[0].uid) {
-                    if (!vApp.wb.gObj.myArr[0].hasOwnProperty('cmd')) {
-                        vApp.wb.gObj.myArr.shift();
+            if (virtualclass.wb.gObj.myArr.length > 0) {
+                if (repObj[repObj.length - 1].uid == virtualclass.wb.gObj.myArr[0].uid) {
+                    if (!virtualclass.wb.gObj.myArr[0].hasOwnProperty('cmd')) {
+                        virtualclass.wb.gObj.myArr.shift();
                     }
                 }
-                repObj = repObj.concat(vApp.wb.gObj.myArr);
-                vApp.wb.gObj.myArr = [];
+                repObj = repObj.concat(virtualclass.wb.gObj.myArr);
+                virtualclass.wb.gObj.myArr = [];
             }
             return repObj;
         },
 
         containsIfQueuePacks: function (fromUserId, id, dispId, repObj) {
             if (fromUserId != id && (dispId + 1 != repObj[0].uid)) {
-                if (vApp.wb.gObj.packQueue.length > 0) {
-                    if (repObj[repObj.length - 1].uid == vApp.wb.gObj.packQueue[0].uid) {
+                if (virtualclass.wb.gObj.packQueue.length > 0) {
+                    if (repObj[repObj.length - 1].uid == virtualclass.wb.gObj.packQueue[0].uid) {
                         var fArr = repObj;
-                        vApp.wb.gObj.packQueue = fArr.concat(vApp.wb.gObj.packQueue);
+                        virtualclass.wb.gObj.packQueue = fArr.concat(virtualclass.wb.gObj.packQueue);
                     }
                 }
             }
         },
         sortingReplyObjs: function () {
-            vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.sort(function (a, b) {
+            virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.sort(function (a, b) {
                 return a.uid - b.uid;
             });
         }

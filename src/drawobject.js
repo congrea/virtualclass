@@ -5,7 +5,7 @@
 
 (function (window) {
 
-    //var vApp = window.vApp;
+    //var virtualclass = window.virtualclass;
     /**
      * this class has methods by which the user can draw the particular object at different mouse event
      * @param objType is the particular object type which has to be drawn
@@ -32,7 +32,7 @@
          */
         tool.mousedown = function (ev, cobj) {
             var ct = new Date().getTime();
-            //  console.log("sumanbogati" + (ct - vApp.wb.pageEnteredTime));
+            //  console.log("sumanbogati" + (ct - virtualclass.wb.pageEnteredTime));
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
@@ -52,8 +52,8 @@
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
 
-            vApp.wb.gObj.spx = tool.startPosX;
-            vApp.wb.gObj.spy = tool.startPosY;
+            virtualclass.wb.gObj.spx = tool.startPosX;
+            virtualclass.wb.gObj.spy = tool.startPosY;
 
             var currState = vcan.getStates('action');
             if (currState == 'create') {
@@ -141,12 +141,12 @@
                                         wb.uid++;
                                         dataChunk[i].uid = wb.uid;
                                         vcan.main.replayObjs.push(dataChunk[i]);
-//                                            vApp.recorder.items.push(dataChunk[i]);
+//                                            virtualclass.recorder.items.push(dataChunk[i]);
                                     }
 
                                     wb.utility.beforeSend({'repObj': dataChunk});
-                                    vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
-                                    //vApp.storage.wholeStore(dataChunk);
+                                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                                    //virtualclass.storage.wholeStore(dataChunk);
                                     wb.utility.updateSentPackets(dataChunk);
                                     dataChunk = [];
                                     lastmousemovetime = new Date().getTime();
@@ -248,16 +248,16 @@
                                 wb.uid++;
                                 dataChunk[i].uid = wb.uid;
                                 vcan.main.replayObjs.push(dataChunk[i]);
-//                                    vApp.recorder.items.push(dataChunk[i]);
+//                                    virtualclass.recorder.items.push(dataChunk[i]);
                             }
 
                             wb.utility.beforeSend({'repObj': dataChunk});
 
                             //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
-                            vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
+                            virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 
 
-                            //vApp.storage.wholeStore(dataChunk);
+                            //virtualclass.storage.wholeStore(dataChunk);
 
                             wb.utility.updateSentPackets(dataChunk);
                             dataChunk = [];

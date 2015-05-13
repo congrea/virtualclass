@@ -82,7 +82,7 @@
         },
 
         measureResoultion: function (resolution) {
-            var element = document.getElementById('vAppCont');
+            var element = document.getElementById('virtualclassCont');
             var offset = vcan.utility.getElementOffset(element);
             var offsetLeft = offset.x;
             if (resolution.width < 1024) {
@@ -95,9 +95,9 @@
         },
         setAppDimension: function () {
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-            //var mainWrapper =  document.getElementById('vAppCont');
-            vApp.vutil.setContainerWidth(measureRes);
-            if (vApp.currApp == 'Whiteboard') {
+            //var mainWrapper =  document.getElementById('virtualclassCont');
+            virtualclass.vutil.setContainerWidth(measureRes);
+            if (virtualclass.currApp == 'Whiteboard') {
                 system.setCanvasDimension(measureRes);
             }
         },
@@ -107,7 +107,7 @@
                 ctx = vcan.main.canvas.getContext('2d');
 
                 canvas.width = measureRes.width;
-                var toolWrapperHeight = (vApp.gObj.uRole == 't') ? (45 + 20) : 10;
+                var toolWrapperHeight = (virtualclass.gObj.uRole == 't') ? (45 + 20) : 10;
                 canvas.height = measureRes.height - toolWrapperHeight;
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');
@@ -136,9 +136,9 @@
         reportBrowser: function (user) {
             var errors = this.getErrors(user);
             if (errors.length > 1) {
-                vApp.error.push(errors.join(",") + " are disabled in your browser.");
+                virtualclass.error.push(errors.join(",") + " are disabled in your browser.");
             } else if (errors.length == 1) {
-                vApp.error.push(errors + ' is disabled in your browser.');
+                virtualclass.error.push(errors + ' is disabled in your browser.');
             }
         },
 
@@ -150,9 +150,9 @@
             for (var i = 0; i < apis.length; i++) {
                 if (!this[apis[i]]) {
                     if (apis[i] == 'screenshare') {
-                        vApp.gObj.errNotScreenShare = true;
+                        virtualclass.gObj.errNotScreenShare = true;
                     }
-                    errors.push(vApp.lang.getString('err' + apis[i]));
+                    errors.push(virtualclass.lang.getString('err' + apis[i]));
                 }
             }
             return errors;
@@ -193,13 +193,13 @@
             this.mybrowser.version = bversion;
 
             this.checkBrowserFunctions(bname, bversion);
-//                vApp.vutil.initDisableVirtualClass();
+//                virtualclass.vutil.initDisableVirtualClass();
             if ((typeof androidDevice != 'undefined' && androidDevice)) {
                 this.device = "mobTab";
-                if (vApp.gObj.uRole == 't') {
-//                        vApp.gObj.errNotDesktop = true;
-                    vApp.vutil.initDisableVirtualClass();
-                    vApp.error.push("We support only desktop computer not  any tablet and mobile for teacher.");
+                if (virtualclass.gObj.uRole == 't') {
+//                        virtualclass.gObj.errNotDesktop = true;
+                    virtualclass.vutil.initDisableVirtualClass();
+                    virtualclass.error.push("We support only desktop computer not  any tablet and mobile for teacher.");
 
                 } else {
                     if (androidDevice) {
@@ -207,63 +207,63 @@
                             if (bversion >= 40) {
 
                                 //     DO : Disable Audio Controls and Cam Support for this user
-                                vApp.vutil.initDisableAudVid();
+                                virtualclass.vutil.initDisableAudVid();
 
                             } else {
-                                vApp.error.push(bname + ' ' + bversion + ' ' + " is not supported, we support chrome  versoin 40 or newer on Android");
-                                vApp.vutil.initDisableVirtualClass();
+                                virtualclass.error.push(bname + ' ' + bversion + ' ' + " is not supported, we support chrome  versoin 40 or newer on Android");
+                                virtualclass.vutil.initDisableVirtualClass();
                             }
                         } else {
-                            vApp.error.push(bname + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
-                            vApp.vutil.initDisableVirtualClass();
+                            virtualclass.error.push(bname + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
+                            virtualclass.vutil.initDisableVirtualClass();
                         }
                     }
                 }
 
             } else if ((bname == 'Chrome' && bversion >= 40) || (bname == 'Firefox' && bversion >= 35) ||
-                (vApp.gObj.uRole == 's' && bname == 'OPR' > bversion >= 26)) {
-                this.reportBrowser(vApp.gObj.uRole);
+                (virtualclass.gObj.uRole == 's' && bname == 'OPR' > bversion >= 26)) {
+                this.reportBrowser(virtualclass.gObj.uRole);
             } else if ((bname == 'Chrome' && bversion < 40) || (bname == 'Firefox' && bversion < 35) ||
-                (vApp.gObj.uRole == 's' && bname == 'OPR' && bversion < 26)) {
-                this.reportBrowser(vApp.gObj.uRole);
+                (virtualclass.gObj.uRole == 's' && bname == 'OPR' && bversion < 26)) {
+                this.reportBrowser(virtualclass.gObj.uRole);
 
-                vApp.error.push(vApp.lang.getString('chFireBrowsersIssue', [bname, bversion]));
+                virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion]));
             } else if (bname == 'OPR' && bversion >= 26) {
-                this.reportBrowser(vApp.gObj.uRole);
-                if (vApp.gObj.uRole == 't') {
-                    vApp.error.push(vApp.lang.getString('operaBrowserIssue', [bname, bversion]));
+                this.reportBrowser(virtualclass.gObj.uRole);
+                if (virtualclass.gObj.uRole == 't') {
+                    virtualclass.error.push(virtualclass.lang.getString('operaBrowserIssue', [bname, bversion]));
                 }
 
             } else if (bname == 'Safari') {
                 if (bversion >= 8) {
-                    if (vApp.gObj.uRole == 't') {
-                        vApp.vutil.initDisableVirtualClass();
-                        vApp.error.push(vApp.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
+                    if (virtualclass.gObj.uRole == 't') {
+                        virtualclass.vutil.initDisableVirtualClass();
+                        virtualclass.error.push(virtualclass.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
 
                     } else {
-                        vApp.vutil.initDisableAudVid();
-                        vApp.error.push(vApp.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
-                        vApp.user.control.audioWidgetDisable();
+                        virtualclass.vutil.initDisableAudVid();
+                        virtualclass.error.push(virtualclass.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
+                        virtualclass.user.control.audioWidgetDisable();
                     }
                 } else {
-                    vApp.vutil.initDisableVirtualClass();
-                    vApp.error.push(vApp.lang.getString('safariBrowserIssue', [bname, bversion]));
+                    virtualclass.vutil.initDisableVirtualClass();
+                    virtualclass.error.push(virtualclass.lang.getString('safariBrowserIssue', [bname, bversion]));
                 }
 
                 //DO : Disable Audio Controls and Cam Support for this user.
             } else if (bname == 'iOS') {
                 var iPad = /(iPad)/g.test(navigator.userAgent);
                 if (iPad) {
-                    if (vApp.gObj.uRole == 's') {
+                    if (virtualclass.gObj.uRole == 's') {
                         if (bversion >= 8) {
-                            vApp.vutil.initDisableAudVid();
-                            vApp.gObj.iosIpadbAudTrue = false;
+                            virtualclass.vutil.initDisableAudVid();
+                            virtualclass.gObj.iosIpadbAudTrue = false;
                             //iosIpadbAudTrue
                             var iosAudTrigger = document.createElement('div');
                             iosAudTrigger.innerHTML = "Tap here for enable the audio";
                             iosAudTrigger.id = "iosAudioTrigger";
                             iosAudTrigger.addEventListener('click', function () {
-                                vApp.vutil.firstiOSaudioCall();
+                                virtualclass.vutil.firstiOSaudioCall();
                                 this.parentNode.removeChild(this);
 
                             });
@@ -272,30 +272,30 @@
                             audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
 
                         } else {
-                            vApp.vutil.initDisableVirtualClass();
-                            vApp.error.push(vApp.lang.getString('ios7support'));
+                            virtualclass.vutil.initDisableVirtualClass();
+                            virtualclass.error.push(virtualclass.lang.getString('ios7support'));
                         }
                     } else {
-                        vApp.vutil.initDisableVirtualClass();
-                        vApp.error.push(vApp.lang.getString('supportDesktop'));
+                        virtualclass.vutil.initDisableVirtualClass();
+                        virtualclass.error.push(virtualclass.lang.getString('supportDesktop'));
                     }
                 } else {
-                    vApp.vutil.initDisableVirtualClass();
-                    vApp.error.push(vApp.lang.getString('notSupportIphone'));
+                    virtualclass.vutil.initDisableVirtualClass();
+                    virtualclass.error.push(virtualclass.lang.getString('notSupportIphone'));
                 }
                 // here bversion is version of operating system
                 // we have to disable the audio compability
 
             } else {
                 if (this.mybrowser.detectIE()) {
-                    vApp.gObj.errIE = true;
-                    vApp.error.push(vApp.lang.getString('ieBrowserIssue'));
-                    vApp.vutil.initDisableVirtualClass();
+                    virtualclass.gObj.errIE = true;
+                    virtualclass.error.push(virtualclass.lang.getString('ieBrowserIssue'));
+                    virtualclass.vutil.initDisableVirtualClass();
                 } else {
-                    vApp.error.push(vApp.lang.getString('commonBrowserIssue', [bname, bversion]));
-                    vApp.vutil.initDisableVirtualClass();
+                    virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
+                    virtualclass.vutil.initDisableVirtualClass();
                 }
-//                    vApp.error.push( bname +  ' ' + bversion + ' ' + vApp.lang.getString('commonBrowserIssue'));
+//                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
             }
         }
 
@@ -311,7 +311,7 @@
 ////                this.isBrowserCompatible(browserName, browserVersion);
 //                if ( this.mybrowser == 'Chrome' &&   bversion  >= 40 ||
 //                        this.mybrowser == 'Firefox' &&   bversion  >= 35)  {
-//                    this.reportBrowser(vApp.gObj.uRole);
+//                    this.reportBrowser(virtualclass.gObj.uRole);
 //                }    
 //            }
     };
@@ -329,7 +329,7 @@
     window.addEventListener('resize',
         function () {
             if (window.earlierWidth != window.innerWidth) {
-                vApp.wb.view.window.resize();
+                virtualclass.wb.view.window.resize();
             }
         }
     );

@@ -3,7 +3,7 @@
 
 <!--<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/wb.min.js"></script>-->
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vmapp.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vcan.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/wb_utility.js"></script>

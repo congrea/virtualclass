@@ -3,7 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-    //vApp.wb = window.vApp.wb;
+    //virtualclass.wb = window.virtualclass.wb;
 
     var utility = function () {
         return {
@@ -16,8 +16,8 @@
              * TODO This function is not used any more can be removed from here
              */
             isObjExistRE: function (obj) {
-                if (vApp.wb.replay.removeElements.length >= 0) {
-                    var objPos = vApp.wb.vcan.ArrayIndexOf(vApp.wb.replay.removeElements, function (pobj) {
+                if (virtualclass.wb.replay.removeElements.length >= 0) {
+                    var objPos = virtualclass.wb.vcan.ArrayIndexOf(virtualclass.wb.replay.removeElements, function (pobj) {
                         return pobj.id == obj.id
                     });
                     if (objPos >= 0) {
@@ -73,30 +73,30 @@
                 //var currTime = new Date().getTime();
                 //8 is used for delete on mac
                 if (evt.keyCode == 8 || evt.keyCode == 46) {
-                    var vcan = vApp.wb.vcan;
+                    var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
-                        var obj = vApp.wb.utility.removeSelectedItem(vcan.main.currObj);
-                        vApp.wb.utility.beforeSend({'repObj': [obj]});
+                        var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
+                        virtualclass.wb.utility.beforeSend({'repObj': [obj]});
                     }
                 }
             },
 
             removeSelectedItem: function (obj, notIncrement) {
-                vApp.wb.canvas.removeObject(vcan.main.currObj);
+                virtualclass.wb.canvas.removeObject(vcan.main.currObj);
                 var currTime = new Date().getTime();
 
                 var obj = {'mt': currTime, 'ac': 'del'};
                 if (typeof notIncrement == 'undefined') {
-                    vApp.wb.uid++;
+                    virtualclass.wb.uid++;
                 }
 
-                obj.uid = vApp.wb.uid;
+                obj.uid = virtualclass.wb.uid;
 
-                if (vApp.gObj.uRole == 's') {
-                    vApp.storage.store(JSON.stringify(vApp.wb.gObj.replayObjs));
+                if (virtualclass.gObj.uRole == 's') {
+                    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 } else {
                     vcan.main.replayObjs.push(obj);
-                    vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
+                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
                 }
 
                 vcan.main.currObj = "";
@@ -108,9 +108,9 @@
              *  mouse down, up and move
              */
             attachEventHandlers: function () {
-                vApp.wb.canvas.bind('mousedown', vApp.wb.utility.ev_canvas);
-                vApp.wb.canvas.bind('mousemove', vApp.wb.utility.ev_canvas);
-                vApp.wb.canvas.bind('mouseup', vApp.wb.utility.ev_canvas);
+                virtualclass.wb.canvas.bind('mousedown', virtualclass.wb.utility.ev_canvas);
+                virtualclass.wb.canvas.bind('mousemove', virtualclass.wb.utility.ev_canvas);
+                virtualclass.wb.canvas.bind('mouseup', virtualclass.wb.utility.ev_canvas);
             },
             /**
              * Call the function through which
@@ -118,7 +118,7 @@
              */
             t_clearallInit: function () {
                 var delRpNode = true;
-                vApp.wb.utility.clearAll(delRpNode);
+                virtualclass.wb.utility.clearAll(delRpNode);
             },
             /**
              * By this function  all drawn object over the canvas would be erased
@@ -127,26 +127,26 @@
              */
             clearAll: function (delRpNode, pkMode) {
                 //TODO this should be done in proper way
-                //vApp.recorder.items = [];
+                //virtualclass.recorder.items = [];
 
-                vApp.wb.uid = 0; //this should be done with proper way
-                vApp.wb.lt = "";
-                var vcan = vApp.wb.vcan;
+                virtualclass.wb.uid = 0; //this should be done with proper way
+                virtualclass.wb.lt = "";
+                var vcan = virtualclass.wb.vcan;
                 while (vcan.main.children.length > 0) {
-                    vApp.wb.canvas.removeObject(vcan.main.children[0]);
+                    virtualclass.wb.canvas.removeObject(vcan.main.children[0]);
                 }
 
                 //removing all the elements from replayObjs
                 if (delRpNode == true) {
                     /*****
                      This would I have disbaled can be critical
-                     vApp.wb.repObj.replayObjs.splice(0, vApp.wb.repObj.replayObjs);
+                     virtualclass.wb.repObj.replayObjs.splice(0, virtualclass.wb.repObj.replayObjs);
                      *****/
                     vcan.main.replayObjs.splice(0, vcan.main.replayObjs.length);
                 }
 
-                if (vApp.wb.replay != undefined) {
-                    vApp.wb.replay.objNo = 0;
+                if (virtualclass.wb.replay != undefined) {
+                    virtualclass.wb.replay.objNo = 0;
                 }
 
                 if (vcan.getStates('action') == 'move') {
@@ -163,8 +163,8 @@
                     }
                 }
                 if (typeof pkMode == 'undefined') {
-                    vApp.wb.sentPackets = 0;
-                    vApp.wb.receivedPackets = 0;
+                    virtualclass.wb.sentPackets = 0;
+                    virtualclass.wb.receivedPackets = 0;
                 }
 
                 //for clear sent and received msg information
@@ -197,7 +197,7 @@
              * @returns {Boolean}
              */
             deActiveFrmDragDrop: function () {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 var allChildren = vcan.main.children;
                 var currState = vcan.getStates('action');
                 if (currState == 'move') {
@@ -241,12 +241,12 @@
              */
             ev_canvas: function (ev) {
                 //NOTE:- this have been done during the unit testing
-                var posMous = vApp.wb.vcan.utility.getReltivePoint(ev);
+                var posMous = virtualclass.wb.vcan.utility.getReltivePoint(ev);
                 ev.currX = posMous.x;
                 ev.currY = posMous.y;
 
                 // Here the particular function is calling according to mouse event.
-                var func = vApp.wb.tool[ev.type];
+                var func = virtualclass.wb.tool[ev.type];
                 if (func) {
                     func(ev);
                     return this.ev_canvas;
@@ -258,7 +258,7 @@
              * they can be selectable, draggable, rotateable etc
              */
             t_activeallInit: function () {
-                var vcan = vApp.wb.vcan;
+                var vcan = virtualclass.wb.vcan;
                 var allChildren = vcan.getStates('children');
                 if (allChildren.length >= 1) {
                     /* TODO this should not contain here */
@@ -269,8 +269,8 @@
                 }
             },
             drawArrowImg: function (img, obj) {
-                var ctx = vApp.wb.vcan.main.canvas.getContext('2d');
-                ctx.clearRect(0, 0, vApp.wb.vcan.main.canvas.width, vApp.wb.vcan.main.canvas.height);
+                var ctx = virtualclass.wb.vcan.main.canvas.getContext('2d');
+                ctx.clearRect(0, 0, virtualclass.wb.vcan.main.canvas.width, virtualclass.wb.vcan.main.canvas.height);
                 vcan.renderAll();
                 ctx.save();
                 ctx.beginPath();
@@ -280,67 +280,67 @@
                 ctx.restore();
             },
             calcPsSentPackets: function (oldData) {
-                if (vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-                    var pacPerSec = vApp.wb.sentPackets - oldData;
+                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                    var pacPerSec = virtualclass.wb.sentPackets - oldData;
                     if (pacPerSec < 0) {
                         pacPerSec = 0;
                     }
-                    if (document.getElementById(vApp.wb.sentPackDivPS != null)) {
-                        document.getElementById(vApp.wb.sentPackDivPS).innerHTML = pacPerSec;
+                    if (document.getElementById(virtualclass.wb.sentPackDivPS != null)) {
+                        document.getElementById(virtualclass.wb.sentPackDivPS).innerHTML = pacPerSec;
                     }
-                    return vApp.wb.sentPackets;
+                    return virtualclass.wb.sentPackets;
                 }
 
             },
             calcPsRecvdPackets: function (oldData2) {
-                var pacPerSec = vApp.wb.receivedPackets - oldData2;
+                var pacPerSec = virtualclass.wb.receivedPackets - oldData2;
                 if (pacPerSec < 0) {
                     pacPerSec = 0;
                 }
-                if (document.getElementById(vApp.wb.receivedPackDivPS) != null) {
-                    document.getElementById(vApp.wb.receivedPackDivPS).innerHTML = pacPerSec;
+                if (document.getElementById(virtualclass.wb.receivedPackDivPS) != null) {
+                    document.getElementById(virtualclass.wb.receivedPackDivPS).innerHTML = pacPerSec;
                 }
-                return vApp.wb.receivedPackets;
+                return virtualclass.wb.receivedPackets;
             },
             //initialize transfred packets from local storage when
             // browser is reloaded.
             initStoredPacketsNumbers: function () {
-                if (vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
                     if (localStorage.sentPackets) {
                         var totSentPackets = JSON.parse(localStorage.sentPackets);
-                        vApp.wb.sentPackets = totSentPackets;
-                        if (document.getElementById(vApp.wb.sentPackDiv) != null) {
-                            document.getElementById(vApp.wb.sentPackDiv).innerHTML = totSentPackets;
+                        virtualclass.wb.sentPackets = totSentPackets;
+                        if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
+                            document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = totSentPackets;
                         }
                     }
 
                     if (localStorage.receivedPackets) {
-                        vApp.wb.receivedPackets = JSON.parse(localStorage.receivedPackets);
-                        if (document.getElementById(vApp.wb.receivedPackDiv) != null) {
-                            document.getElementById(vApp.wb.receivedPackDiv).innerHTML = vApp.wb.receivedPackets;
+                        virtualclass.wb.receivedPackets = JSON.parse(localStorage.receivedPackets);
+                        if (document.getElementById(virtualclass.wb.receivedPackDiv) != null) {
+                            document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
                         }
                     }
                 }
             },
             updateSentPackets: function (obj) {
-                if (vApp.wb.dataInfo == 1) {
-                    if (vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-                        vApp.wb.sentPackets = vApp.wb.sentPackets + JSON.stringify(obj).length;
-                        if (document.getElementById(vApp.wb.sentPackDiv) != null) {
-                            document.getElementById(vApp.wb.sentPackDiv).innerHTML = vApp.wb.sentPackets;
+                if (virtualclass.wb.dataInfo == 1) {
+                    if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                        virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + JSON.stringify(obj).length;
+                        if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
+                            document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
                         }
                     }
                 }
             },
             assignRole: function (studentId) {
-                vApp.wb.tool = "";
+                virtualclass.wb.tool = "";
                 if (vcan.main.action == 'move') {
-                    vApp.wb.utility.deActiveFrmDragDrop();
+                    virtualclass.wb.utility.deActiveFrmDragDrop();
                 }
 
                 if (typeof studentId != 'undefined') {
                     if (localStorage.getItem('reclaim') != null) {
-                        var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
+                        var cmdToolsWrapper = document.getElementById(virtualclass.wb.commandToolsWrapperId);
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
                         localStorage.removeItem('reclaim');
                     }
@@ -348,38 +348,38 @@
                     localStorage.removeItem('studentId');
                     localStorage.setItem('teacherId', studentId);
 
-                    vApp.gObj.uRole = 't';
+                    virtualclass.gObj.uRole = 't';
 
-                    vApp.user.assignRole(vApp.gObj.uRole, vApp.currApp);
+                    virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
-                    if (vApp.currApp == 'Yts') {
-                        vApp.yts.UI.inputURL();
+                    if (virtualclass.currApp == 'Yts') {
+                        virtualclass.yts.UI.inputURL();
 
-                        vApp.yts.seekChangeInterval();
+                        virtualclass.yts.seekChangeInterval();
                     }
 
                 } else {
-//                        alert(vApp.currApp);
-                    if (vApp.currApp == 'Yts') {
-                        vApp.yts.UI.removeinputURL();
-                        if (vApp.yts.hasOwnProperty('tsc')) {
-                            clearInterval(vApp.yts.tsc);
+//                        alert(virtualclass.currApp);
+                    if (virtualclass.currApp == 'Yts') {
+                        virtualclass.yts.UI.removeinputURL();
+                        if (virtualclass.yts.hasOwnProperty('tsc')) {
+                            clearInterval(virtualclass.yts.tsc);
                         }
                     }
 
 
-                    vApp.gObj.uRole = 's';
-                    var cmdToolsWrapper = document.getElementById(vApp.wb.commandToolsWrapperId);
+                    virtualclass.gObj.uRole = 's';
+                    var cmdToolsWrapper = document.getElementById(virtualclass.wb.commandToolsWrapperId);
                     if (cmdToolsWrapper != null) {
                         while (cmdToolsWrapper.hasChildNodes()) {
                             cmdToolsWrapper.removeChild(cmdToolsWrapper.lastChild);
                         }
                     }
 
-                    vApp.wb.utility.makeCanvasDisable();
+                    virtualclass.wb.utility.makeCanvasDisable();
 
                     if (typeof localStorage.orginalTeacherId != 'undefined') {
-                        vApp.wb.utility.createReclaimButton(cmdToolsWrapper);
+                        virtualclass.wb.utility.createReclaimButton(cmdToolsWrapper);
                         //localStorage.reclaim = true;
                         localStorage.setItem('reclaim', true);
                     } else {
@@ -393,36 +393,36 @@
                     localStorage.removeItem('teacherId');
                     localStorage.setItem('studentId', tid);
 
-                    vApp.wb.utility.uniqueArrOfObjsToStudent();
+                    virtualclass.wb.utility.uniqueArrOfObjsToStudent();
 
                 }
 
                 if (localStorage.getItem('orginalTeacherId') == null) {
-                    vApp.vutil.toggleRoleClass(true);
+                    virtualclass.vutil.toggleRoleClass(true);
                 }
             },
 
             reclaimRole: function () {
 
-                vApp.gObj.controlAssign = false;
-                vApp.wb.response.assignRole(vApp.gObj.uid, vApp.gObj.uid, true);
+                virtualclass.gObj.controlAssign = false;
+                virtualclass.wb.response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
             },
             dispQueuePacket: function (result) {
                 if ((localStorage.getItem('teacherId') != null) ||
-                    (localStorage.getItem('orginalTeacherId') != null && vApp.vutil.chkValueInLocalStorage('reclaim'))) {
-                    vApp.wb.utility.toolWrapperEnable();
+                    (localStorage.getItem('orginalTeacherId') != null && virtualclass.vutil.chkValueInLocalStorage('reclaim'))) {
+                    virtualclass.wb.utility.toolWrapperEnable();
 
                 }
-                vApp.wb.drawMode = false;
-                //if (localStorage.getItem('teacherId') != null && vApp.wb.user.connected) {
+                virtualclass.wb.drawMode = false;
+                //if (localStorage.getItem('teacherId') != null && virtualclass.wb.user.connected) {
                 if (localStorage.getItem('teacherId') != null) {
-                    vApp.wb.utility.makeCanvasEnable();
-                    vApp.wb.utility.enableAppsBar();
+                    virtualclass.wb.utility.makeCanvasEnable();
+                    virtualclass.wb.utility.enableAppsBar();
                 }
-                if (vApp.wb.gObj.packQueue.length > 0) {
-                    window.vApp.wb.vcan.main.replayObjs = vApp.wb.gObj.packQueue;
-                    vApp.wb.gObj.packQueue = [];
-                    vApp.wb.toolInit('t_replay', 'fromBrowser', true, vApp.wb.utility.dispQueuePacket);
+                if (virtualclass.wb.gObj.packQueue.length > 0) {
+                    window.virtualclass.wb.vcan.main.replayObjs = virtualclass.wb.gObj.packQueue;
+                    virtualclass.wb.gObj.packQueue = [];
+                    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
                 } else {
 
                 }
@@ -444,7 +444,7 @@
             },
             makeCanvasEnable: function () {
                 if (localStorage.getItem('teacherId') != null) {
-                    if (!vApp.wb.hasOwnProperty('canvasDisable') || !vApp.wb.canvasDisable) {
+                    if (!virtualclass.wb.hasOwnProperty('canvasDisable') || !virtualclass.wb.canvasDisable) {
                         var canvasElement = vcan.main.canvas;
                         canvasElement.style.pointerEvents = "visible";
                     }
@@ -455,9 +455,9 @@
                 cmdWrapper.parentNode.removeChild(cmdWrapper);
             },
             createReclaimButton: function (cmdToolsWrapper) {
-                vApp.wb.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
+                virtualclass.wb.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
                 var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
-                aTags[0].addEventListener('click', vApp.wb.objInit);
+                aTags[0].addEventListener('click', virtualclass.wb.objInit);
             },
             chkValueInLocalStorage: function (property) {
                 if (localStorage.getItem(property) === null) {
@@ -471,55 +471,55 @@
             uniqueArrOfObjsToStudent: function () {
                 //  alert('toStudent');
                 var tempRepObjs = "";
-                vApp.wb.gObj.replayObjs = [];
+                virtualclass.wb.gObj.replayObjs = [];
                 for (var i = 0; i < vcan.main.replayObjs.length; i++) {
                     tempRepObjs = vcan.extend({}, vcan.main.replayObjs[i]);
-                    vApp.wb.gObj.replayObjs.push(tempRepObjs);
+                    virtualclass.wb.gObj.replayObjs.push(tempRepObjs);
                 }
             },
             uniqueArrOfObjsToTeacher: function () {
                 vcan.main.replayObjs = [];
                 var tempRepObjs = "";
-                for (var i = 0; i < vApp.wb.gObj.replayObjs.length; i++) {
-                    tempRepObjs = vcan.extend({}, vApp.wb.gObj.replayObjs[i]);
+                for (var i = 0; i < virtualclass.wb.gObj.replayObjs.length; i++) {
+                    tempRepObjs = vcan.extend({}, virtualclass.wb.gObj.replayObjs[i]);
                     vcan.main.replayObjs.push(tempRepObjs);
                 }
             },
             makeDefaultValue: function (cmd) {
                 if (typeof cmd == 'undefined' || cmd != 't_clearall') {
-                    vApp.wb.utility.makeDeActiveTool();
+                    virtualclass.wb.utility.makeDeActiveTool();
                 }
 
-                vApp.wb.gObj.myrepObj = [];
-                vApp.wb.gObj.replayObjs = [];
-                vApp.wb.gObj.rcvdPackId = 0;
-                vApp.wb.gObj.displayedObjId = 0;
-                vApp.wb.gObj.packQueue = [];
-                vApp.wb.uid = 0;
+                virtualclass.wb.gObj.myrepObj = [];
+                virtualclass.wb.gObj.replayObjs = [];
+                virtualclass.wb.gObj.rcvdPackId = 0;
+                virtualclass.wb.gObj.displayedObjId = 0;
+                virtualclass.wb.gObj.packQueue = [];
+                virtualclass.wb.uid = 0;
 
                 localStorage.setItem('rcvdPackId', 0);
                 //TODO this code should be removed after validate
                 localStorage.removeItem('totalStored');
-                var teacherId = vApp.vutil.chkValueInLocalStorage('teacherId');
-                var orginalTeacherId = vApp.vutil.chkValueInLocalStorage('orginalTeacherId');
-                var wbrtcMsg = vApp.vutil.chkValueInLocalStorage('wbrtcMsg');
-                var canvasDrwMsg = vApp.vutil.chkValueInLocalStorage('canvasDrwMsg');
-                var toolHeight = vApp.vutil.chkValueInLocalStorage('toolHeight');
-                var prvUser = JSON.parse(vApp.vutil.chkValueInLocalStorage('prvUser'));
-                var toggleRole = JSON.parse(vApp.vutil.chkValueInLocalStorage('tc'));
+                var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
+                var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
+                var wbrtcMsg = virtualclass.vutil.chkValueInLocalStorage('wbrtcMsg');
+                var canvasDrwMsg = virtualclass.vutil.chkValueInLocalStorage('canvasDrwMsg');
+                var toolHeight = virtualclass.vutil.chkValueInLocalStorage('toolHeight');
+                var prvUser = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('prvUser'));
+                var toggleRole = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('tc'));
 
 //                    localStorage.clear();
-                vApp.recorder.items = [];
-                vApp.storage.totalStored = 0;
-                vApp.recorder.totalSent = 0;
+                virtualclass.recorder.items = [];
+                virtualclass.storage.totalStored = 0;
+                virtualclass.recorder.totalSent = 0;
 
                 // TODO this should be done by proepr way
                 // it has to be done in function
-                vApp.gObj.video.audio.bufferSize = 0;
-                vApp.gObj.video.audio.encMode = "alaw";
-//                    vApp.gObj.video.audio.an = -1;
-                vApp.gObj.video.audio.rec = '';
-                vApp.gObj.video.audio.audioNodes = [];
+                virtualclass.gObj.video.audio.bufferSize = 0;
+                virtualclass.gObj.video.audio.encMode = "alaw";
+//                    virtualclass.gObj.video.audio.an = -1;
+                virtualclass.gObj.video.audio.rec = '';
+                virtualclass.gObj.video.audio.audioNodes = [];
 
                 if (typeof vcan.objTxt != 'undefined') {
                     vcan.objTxt.removeTextNode();
@@ -529,35 +529,35 @@
                     vcan.main.currentTransform = "";
                 }
 
-                vApp.gObj.video.audio.updateInfo();
+                virtualclass.gObj.video.audio.updateInfo();
             },
 
             clearCurrentTool: function () {
-                if (vApp.wb.hasOwnProperty("tool")) {
-                    vApp.wb.tool = ""
+                if (virtualclass.wb.hasOwnProperty("tool")) {
+                    virtualclass.wb.tool = ""
                 }
             },
 
             //setOrginalTeacherContent: function(e) {
             setOrginalTeacherContent: function () {
-                localStorage.setItem('teacherId', vApp.gObj.uid);
-                window.vApp.wb.view.canvasDrawMsg('Canvas');
+                localStorage.setItem('teacherId', virtualclass.gObj.uid);
+                window.virtualclass.wb.view.canvasDrawMsg('Canvas');
                 localStorage.setItem('canvasDrwMsg', true);
-                if (!vApp.wb.utility.alreadyExistPacketContainer()) {
+                if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
                     if (parseInt(wbUser.dataInfo, 10) == 1) {
-                        vApp.wb.packContainer.createPacketContainer();
-                        vApp.wb.packContainer.createPacketInfoContainer();
-                        vApp.wb.utility.initStoredPacketsNumbers();
+                        virtualclass.wb.packContainer.createPacketContainer();
+                        virtualclass.wb.packContainer.createPacketInfoContainer();
+                        virtualclass.wb.utility.initStoredPacketsNumbers();
                     }
                 }
-                localStorage.setItem('orginalTeacherId', vApp.gObj.uid);
+                localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
             },
             initDefaultInfo: function (role) {
                 if (role == 't') {
                     if (localStorage.getItem('orginalTeacherId') == null) {
-                        //vApp.wb.utility.setOrginalTeacherContent(e);
-                        vApp.wb.utility.setOrginalTeacherContent();
-                        window.vApp.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                        //virtualclass.wb.utility.setOrginalTeacherContent(e);
+                        virtualclass.wb.utility.setOrginalTeacherContent();
+                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     }
 
                     //} else if (role == 's' && newuser == null) {
@@ -570,17 +570,17 @@
                     if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
                         localStorage.setItem('studentId', wbUser.id);
                     }
-                    vApp.vutil.removeSessionTool();
+                    virtualclass.vutil.removeSessionTool();
                 }
 
 
-                if (!vApp.gObj.hasOwnProperty('audIntDisable') && !vApp.gObj.hasOwnProperty('vidIntDisable')) {
-                    vApp.gObj.video.init();
-                    vApp.gObj.video.isInitiator = true;
+                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+                    virtualclass.gObj.video.init();
+                    virtualclass.gObj.video.isInitiator = true;
                 }
                 //bad way
-//                    vApp.gObj.video.init();
-//                    vApp.gObj.video.isInitiator = true;
+//                    virtualclass.gObj.video.init();
+//                    virtualclass.gObj.video.isInitiator = true;
                 vcan.oneExecuted = false;
             },
             checkWebRtcConnected: function () {
@@ -592,9 +592,9 @@
                 return false;
             },
             createVirtualWindow: function (resolution) {
-                vApp.wb.gObj.virtualWindow = true;
+                virtualclass.wb.gObj.virtualWindow = true;
                 var div = document.createElement('div');
-                vApp.wb.utility.removeVirtualWindow('virtualWindow');
+                virtualclass.wb.utility.removeVirtualWindow('virtualWindow');
                 var divId = 'virtualWindow';
                 div.setAttribute('id', divId);
                 var offset = vcan.main.offset;
@@ -624,7 +624,7 @@
             removeVirtualWindow: function (id) {
                 var virtualWindow = document.getElementById(id);
                 if (virtualWindow != null) {
-                    vApp.wb.gObj.virtualWindow = false;
+                    virtualclass.wb.gObj.virtualWindow = false;
                     virtualWindow.parentNode.removeChild(virtualWindow);
                 }
             },
@@ -688,7 +688,7 @@
                         if (role) {
                             if (localStorage.getItem('otherRole') == null) {
                                 var roles = [];
-                                if (role != vApp.gObj.uRole) {
+                                if (role != virtualclass.gObj.uRole) {
                                     roles.push(role);
                                 } else {
                                     existUser = true;
@@ -706,7 +706,7 @@
                                 console.log("Other Browser " + role + ' ' + e.fromUser.userid);
                             }
                         }
-                        return (vApp.gObj.uRole == role) ? true : false;
+                        return (virtualclass.gObj.uRole == role) ? true : false;
                     }
                 } else {
                     if (typeof existUser != 'undefined') {
@@ -715,7 +715,7 @@
                         var otherRoles = JSON.parse(localStorage.getItem('otherRole'));
                         if (otherRoles != null) {
                             for (var i = 0; i < otherRoles.length; i++) {
-                                if (vApp.gObj.uRole == otherRoles[i]) {
+                                if (virtualclass.gObj.uRole == otherRoles[i]) {
                                     return true;
                                 }
                             }
@@ -729,7 +729,7 @@
                 this.userIds.push(e.fromUser.userid);
 
                 if (this.userIds.length > 1) {
-                    var userSameId = vApp.wb.utility.arrayContainsSameValue(this.userIds[0], this.userIds);
+                    var userSameId = virtualclass.wb.utility.arrayContainsSameValue(this.userIds[0], this.userIds);
                     if (userSameId) {
                         return true;
                     }
@@ -740,29 +740,32 @@
             //makeUserAvailable: function(browerLength) {
             makeUserAvailable: function () {
                 if (localStorage.getItem('repObjs') == null) {
-                    vApp.wb.utility.toolWrapperEnable();
+                    virtualclass.wb.utility.toolWrapperEnable();
                     if (vcan.main.canvas != null) {
-                        vApp.wb.utility.makeCanvasEnable();
+                        virtualclass.wb.utility.makeCanvasEnable();
                     }
                 }
             },
             displayCanvas: function () {
                 vcan.canvasWrapperId = 'canvasWrapper';
                 if (document.getElementById('canvas') == null) {
-                    vApp.wb.createCanvas();
+                    virtualclass.wb.createCanvas();
                 }
 
-                window.vApp.wb.init();
+                window.virtualclass.wb.init();
 
-                vApp.wb.utility.makeCanvasDisable();
-                vApp.wb.utility.toolWrapperDisable();
+                virtualclass.wb.utility.makeCanvasDisable();
+                virtualclass.wb.utility.toolWrapperDisable();
 
             },
             initAll: function (e) {
                 if (localStorage.getItem('teacherId') != null) {
-                    vApp.wb.utility.makeCanvasDisable();
+                    virtualclass.wb.utility.makeCanvasDisable();
                 }
-                var res = vApp.system.measureResoultion({'width': window.outerWidth, 'height': window.innerHeight});
+                var res = virtualclass.system.measureResoultion({
+                    'width': window.outerWidth,
+                    'height': window.innerHeight
+                });
             },
             alreadyExistToolBar: function () {
                 var rectDiv = document.getElementById('t_rectangle');
@@ -812,7 +815,7 @@
                         }
                     } else {
                         if (commandToolWrapper != null) {
-                            if (!vApp.gObj.hasOwnProperty('errNotDesktop')) {
+                            if (!virtualclass.gObj.hasOwnProperty('errNotDesktop')) {
                                 commandToolWrapper.style.pointerEvents = "visible";
                             }
                         }
@@ -822,21 +825,21 @@
 
             replayFromLocalStroage: function (allRepObjs) {
                 if (typeof (Storage) !== "undefined") {
-                    if (vApp.storage.reclaim === false) {
-                        //vApp.wb.utility.disableAppsBar();
-                        vApp.vutil.disableAppsBar();
+                    if (virtualclass.storage.reclaim === false) {
+                        //virtualclass.wb.utility.disableAppsBar();
+                        virtualclass.vutil.disableAppsBar();
                     }
-                    vApp.wb.vcan.main.replayObjs = allRepObjs;
-                    vApp.wb.utility.clearAll(false, 'dontClear');
-                    vApp.wb.gObj.replayObjs = vApp.wb.gObj.replayObjs.concat(allRepObjs);
+                    virtualclass.wb.vcan.main.replayObjs = allRepObjs;
+                    virtualclass.wb.utility.clearAll(false, 'dontClear');
+                    virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(allRepObjs);
 
                     if (allRepObjs.length > 0) {
-                        vApp.wb.utility.makeCanvasDisable();
-                        vApp.wb.utility.toolWrapperDisable();
+                        virtualclass.wb.utility.makeCanvasDisable();
+                        virtualclass.wb.utility.toolWrapperDisable();
 
-                        vApp.wb.uid = allRepObjs[allRepObjs.length - 1].uid;
-                        vApp.wb.gObj.rcvdPackId = vApp.wb.uid;
-                        vApp.wb.toolInit('t_replay', 'fromBrowser', true, vApp.wb.utility.dispQueuePacket);
+                        virtualclass.wb.uid = allRepObjs[allRepObjs.length - 1].uid;
+                        virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.uid;
+                        virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
                     }
                 }
             },
@@ -844,17 +847,17 @@
             setUserStatus: function (storageHasTeacher, storageHasReclaim) {
                 //TODO storageHasTeacher check with null rather than style of now.
                 if (!storageHasTeacher && !storageHasReclaim) {
-                    vApp.wb.utility.removeToolBox();
-                    vApp.wb.utility.setClass('vcanvas', 'student');
+                    virtualclass.wb.utility.removeToolBox();
+                    virtualclass.wb.utility.setClass('vcanvas', 'student');
                 } else {
-                    vApp.wb.utility.setClass('vcanvas', 'teacher');
+                    virtualclass.wb.utility.setClass('vcanvas', 'teacher');
                 }
             },
             crateCanvasDrawMesssage: function () {
                 if (typeof localStorage.teacherId != 'undefined') {
                     if (localStorage.getItem('canvasDrwMsg') == null) {
-                        window.vApp.wb.view.canvasDrawMsg('Canvas');
-                        window.vApp.wb.view.drawLabel('drawArea');
+                        window.virtualclass.wb.view.canvasDrawMsg('Canvas');
+                        window.virtualclass.wb.view.drawLabel('drawArea');
                         localStorage.canvasDrwMsg = true;
                     }
                 }
@@ -869,19 +872,19 @@
                         localStorage.removeItem('orginalTeacherId');
                         if (localStorage.getItem('teacherId') != null) {
                             localStorage.removeItem('teacherId');
-                            //vApp.wb.utility.removeToolBox();
+                            //virtualclass.wb.utility.removeToolBox();
                         }
                         if (localStorage.getItem('reclaim') != null) {
                             localStorage.removeItem('reclaim');
                         }
-                        vApp.wb.utility.removeToolBox();
+                        virtualclass.wb.utility.removeToolBox();
                     }
                 }
             },
 //important can be critical
 //                canvasEnabelWhenRefresh: function() {
 //                    if (localStorage.getItem('teacherId') != null) {
-//                        vApp.wb.utility.makeCanvasEnable();
+//                        virtualclass.wb.utility.makeCanvasEnable();
 //                    }
 //                },
             arrayContainsSameValue: function (val, ids) {
@@ -894,10 +897,10 @@
             },
 
             actionAfterRemovedUser: function () {
-                vApp.wb.utility.makeCanvasDisable();
-                vApp.wb.utility.setStyleUserConnetion('con', 'coff');
-                vApp.wb.utility.removeVirtualWindow('virtualWindow');
-                vApp.wb.user.connected = false;
+                virtualclass.wb.utility.makeCanvasDisable();
+                virtualclass.wb.utility.setStyleUserConnetion('con', 'coff');
+                virtualclass.wb.utility.removeVirtualWindow('virtualWindow');
+                virtualclass.wb.user.connected = false;
                 localStorage.removeItem('otherRole');
 
                 if (typeof cthis != 'undefined') {
@@ -909,10 +912,10 @@
             },
 
             sendRequest: function (msg, value) {
-                vApp.wb.utility.beforeSend({'reclaimRole': true});
+                virtualclass.wb.utility.beforeSend({'reclaimRole': true});
             },
             updateSentInformation: function (jobj, createArrow) {
-                if (vApp.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
                     var sentObj = JSON.parse(jobj);
                     if (typeof createArrow != 'undefined') {
                         var msg = sentObj;
@@ -935,20 +938,20 @@
              * @returns {undefined}
              */
             audioSend: function (msg, adStatus) {
-                if (vApp.gObj.audMouseDown && io.sock.readyState == 1) {
-                    var uid = breakintobytes(vApp.gObj.uid, 8);
+                if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
+                    var uid = breakintobytes(virtualclass.gObj.uid, 8);
                     var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
                     var sendmsg = new Int8Array(msg.length + scode.length);
                     sendmsg.set(scode);
                     sendmsg.set(msg, scode.length); // First element is status code (101)
                     io.sendBinary(sendmsg);
-                    vApp.gObj.video.audio.setAudioStatus(adStatus);
+                    virtualclass.gObj.video.audio.setAudioStatus(adStatus);
                 } else {
-                    vApp.gObj.video.audio.setAudioStatus("stop");
+                    virtualclass.gObj.video.audio.setAudioStatus("stop");
                 }
 
 
-//                    var uid = breakintobytes(vApp.gObj.uid, 8);
+//                    var uid = breakintobytes(virtualclass.gObj.uid, 8);
 //                    var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
 //                    var sendmsg = new Int8Array(msg.length + scode.length);
 //                    sendmsg.set(scode);
@@ -956,7 +959,7 @@
 //
 //                    // Temp change
 //                    if (io.sock.readyState == 1) {
-//                        if(vApp.gObj.audMouseDown){
+//                        if(virtualclass.gObj.audMouseDown){
 //                           io.sendBinary(sendmsg);
 //                        }
 //                    }
@@ -969,23 +972,23 @@
             beforeSend: function (msg, toUser) {
 
                 // when we are in replay mode we don't need send the object to other user
-//                    if(wbUser.vAppPlay != ' ' || wbUser.vAppPlay != false){
+//                    if(wbUser.virtualclassPlay != ' ' || wbUser.virtualclassPlay != false){
 //                        return;
 //                    }
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
-                    vApp.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
+                    virtualclass.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                 } else {
                     if (msg.hasOwnProperty('repObj')) {
                         if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
                             return;
                         }
-                        vApp.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
-                        vApp.wb.gObj.displayedObjId = vApp.wb.gObj.rcvdPackId;
+                        virtualclass.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+                        virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
                     }
                     var jobj = JSON.stringify(msg);
 
-                    vApp.wb.sentPackets = vApp.wb.sentPackets + jobj.length;
+                    virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                     if (io.sock.readyState == 1) {
                         typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
 //                            io.send(msg);
@@ -994,10 +997,10 @@
                     //TODO this should be enable
                     var tempObj = JSON.parse(jobj);
                     if (tempObj.hasOwnProperty('repObj')) {
-                        vApp.wb.utility.updateSentInformation(jobj);
+                        virtualclass.wb.utility.updateSentInformation(jobj);
                     }
                 }
-                localStorage.sentPackets = vApp.wb.sentPackets;
+                localStorage.sentPackets = virtualclass.wb.sentPackets;
             },
 
             checkCanvasHasParents: function () {
@@ -1015,16 +1018,16 @@
                 }
             },
 
-            //TODO lockVapp should be lockWhiteboard
-            lockVapp: function () {
+            //TODO lockvirtualclass should be lockWhiteboard
+            lockvirtualclass: function () {
                 if (window.earlierWidth != window.innerWidth) {
-                    vApp.wb.canvasDisable = true;
-                    vApp.wb.utility.makeCanvasDisable();
-                    vApp.wb.utility.toolWrapperDisable();
-                    vApp.vutil.disableAppsBar();
+                    virtualclass.wb.canvasDisable = true;
+                    virtualclass.wb.utility.makeCanvasDisable();
+                    virtualclass.wb.utility.toolWrapperDisable();
+                    virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
                         var label = (localStorage.getItem('teacherId') != null) ? 'msgForReload' : 'msgStudentForReload';
-                        window.vApp.wb.view.displayMsgBox('divForReloadMsg', label);
+                        window.virtualclass.wb.view.displayMsgBox('divForReloadMsg', label);
                         //fix me earlierWidth and innerwidth are same
                         window.earlierWidth = window.innerWidth;
                     }
@@ -1045,11 +1048,11 @@
             },
 
             initUpdateInfo: function (oldData2) {
-                oldData2 = vApp.wb.receivedPackets;
+                oldData2 = virtualclass.wb.receivedPackets;
                 setInterval(function () {
-                    if (document.getElementById(vApp.wb.receivedPackDivPS) != null) {
-                        oldData2 = vApp.wb.utility.calcPsRecvdPackets(oldData2);
-                        document.getElementById(vApp.wb.receivedPackDiv).innerHTML = vApp.wb.receivedPackets;
+                    if (document.getElementById(virtualclass.wb.receivedPackDivPS) != null) {
+                        oldData2 = virtualclass.wb.utility.calcPsRecvdPackets(oldData2);
+                        document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
                     }
                 }, 1000);
             },
@@ -1059,7 +1062,7 @@
             objPutInContainer: function (obj) {
                 vcan.main.replayObjs.push(obj);
                 //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
-                vApp.storage.store(JSON.stringify(vcan.main.replayObjs));
+                virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
             },
 
             removeClassFromElement: function (prvTool, className) {
@@ -1083,9 +1086,9 @@
             makeActiveTool: function (byReload) {
                 var tag = document.getElementById(byReload);
                 var classes;
-                if (vApp.wb.hasOwnProperty('prvTool') && vApp.wb.prvTool != "t_reclaim") {
-                    classes = vApp.wb.utility.removeClassFromElement(vApp.wb.prvTool, "active");
-                    document.getElementById(vApp.wb.prvTool).className = classes;
+                if (virtualclass.wb.hasOwnProperty('prvTool') && virtualclass.wb.prvTool != "t_reclaim") {
+                    classes = virtualclass.wb.utility.removeClassFromElement(virtualclass.wb.prvTool, "active");
+                    document.getElementById(virtualclass.wb.prvTool).className = classes;
                 } else {
                     classes = tag.className;
                     //classes =  this.parentNode.className;
@@ -1095,7 +1098,7 @@
             },
 
             makeDeActiveTool: function () {
-                vApp.wb.tool = "";//unselect any selected tool
+                virtualclass.wb.tool = "";//unselect any selected tool
 
                 var toolsWrapper = document.getElementById("commandToolsWrapper");
                 var activeTool = document.getElementsByClassName('tool active');
@@ -1115,13 +1118,13 @@
             },
             //todo, this shoudl be into user file
             _reclaimRole: function () {
-                vApp.wb.utility.reclaimRole();
-                vApp.wb.utility.sendRequest('reclaimRole', true);
-                vApp.user.control.changeAttrToAssign('enable');
+                virtualclass.wb.utility.reclaimRole();
+                virtualclass.wb.utility.sendRequest('reclaimRole', true);
+                virtualclass.user.control.changeAttrToAssign('enable');
             },
 
             enableAppsBar: function () {
-                var appBarCont = document.getElementById('vAppOptionsCont');
+                var appBarCont = document.getElementById('virtualclassOptionsCont');
                 if (appBarCont != null) {
                     appBarCont.style.pointerEvents = "visible";
                 }

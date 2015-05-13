@@ -1,9 +1,9 @@
 (function (window) {
 
     /**
-     * {vapp1} {vapp2} are elements you passes with getString function eg:-
-     *   vApp.lang.getString('operaBrowserIssue', ['opeara', 27]);
-     *   opera and 27 will be replaced over the {vapp1} and {vapp2} resepectively for particular line of language file.
+     * {virtualclass1} {virtualclass2} are elements you passes with getString function eg:-
+     *   virtualclass.lang.getString('operaBrowserIssue', ['opeara', 27]);
+     *   opera and 27 will be replaced over the {virtualclass1} and {virtualclass2} resepectively for particular line of language file.
      * @type type
      */
     var message = {
@@ -76,10 +76,10 @@
         'DevicesNotFoundError': "You may not have Webcam(camera/microphone).",
         'PermissionDeniedError': "You denied to access your Webcam.",
         'PERMISSION_DENIED': "You denied to access your Webcam(camera/microphone).",
-        'notSupportBrowser': "Firefox {vApp1} does not support Screen sharing.",
+        'notSupportBrowser': "Firefox {virtualclass1} does not support Screen sharing.",
         'disableSpeaker': "Disable Audio",
         'enableSpeaker': "Enable Audio",
-        'notSupportChrome': 'Your browser {vapp1} {vapp2} needs to updated, We support Chrome 40',
+        'notSupportChrome': 'Your browser {virtualclass1} {virtualclass2} needs to updated, We support Chrome 40',
         'errcanvas': 'canvas',
         'errwebSocket': 'Web Socket',
         'errgetusermedia': 'getUserMedia',
@@ -88,10 +88,10 @@
         'errwebaudio': 'Web audio',
         'errtypedarray': 'Typed array',
         'errscreenshare': 'Screen share',
-        'operaBrowserIssue': 'Your browser {vapp1} {vapp2} is partially supported. You will not be able to share your screen with Learners, We fully support chrome and Firefox',
-        'commonBrowserIssue': 'Your browser {vapp1} {vapp2} is not supported, We support Chrome and Firefox.',
-        'chFireBrowsersIssue': 'Your browser {vapp1} {vapp2}  needs to updated, We support Chrome 40 and Firefox 35.',
-        'studentSafariBrowserIssue': 'Your browser {vapp1} {vapp2} does not able to share your Cam with other users, We fully support Chrome  and Firefox.',
+        'operaBrowserIssue': 'Your browser {virtualclass1} {virtualclass2} is partially supported. You will not be able to share your screen with Learners, We fully support chrome and Firefox',
+        'commonBrowserIssue': 'Your browser {virtualclass1} {virtualclass2} is not supported, We support Chrome and Firefox.',
+        'chFireBrowsersIssue': 'Your browser {virtualclass1} {virtualclass2}  needs to updated, We support Chrome 40 and Firefox 35.',
+        'studentSafariBrowserIssue': 'Your browser {virtualclass1} {virtualclass2} does not able to share your Cam with other users, We fully support Chrome  and Firefox.',
         'ieBrowserIssue': 'Your browser Internet Explorer is not supported, We fully support Chrome  and Firefox.',
         'ios7support': "We support only iOS 8 (Apple's operating system version 8) or higher.",
         'supportDesktop': "For teacher we support desktop computer only not any tablet and mobile phone.",
@@ -99,10 +99,10 @@
         'InternalError': "It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not compaitible with different Operating System eg:- Windows, CentOS. ",
         'SourceUnavailableError': 'It seems that you try to connect a single web cam from two different browsers on a single computer.<br /> This is not supported for operating system like : Windows, CentOS.',
         'teacherSafariBrowserIssue': 'Your browser Safari is not supporting for teacher, We fully support Chrome  and Firefox.',
-        'safariBrowserIssue': 'Your browser Safari {vapp1} is not supported, We fully support Chrome  and Firefox',
+        'safariBrowserIssue': 'Your browser Safari {virtualclass1} is not supported, We fully support Chrome  and Firefox',
         'savesession': 'Do you want to save a current Session ?',
         'plswaitwhile': 'Please wait a while....',
-        'downloadedFile': "Your files are downloading....,  <br />Number of file has been downloaded is {vapp1}",
+        'downloadedFile': "Your files are downloading....,  <br />Number of file has been downloaded is {virtualclass1}",
         'overallprogress': 'Overall Progress',
         'playsessionmsg': 'Click play button to start playing session',
         'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>'

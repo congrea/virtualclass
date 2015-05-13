@@ -3,7 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-//        vApp.wb = window.vApp.wb;
+//        virtualclass.wb = window.virtualclass.wb;
 
     /**
      * this function makes the properties for particular object like start and end point for line, width,height,x,y made for rectangle

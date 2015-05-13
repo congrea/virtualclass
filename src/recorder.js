@@ -16,7 +16,7 @@
 //         errInterval = setInterval(
 //            function (){
 //                if(chunkNum == 2){
-//                    vApp.recorder.startDownloadProcess();
+//                    virtualclass.recorder.startDownloadProcess();
 //                    clearInterval(errInterval);
 //                }
 //            }, 1000
@@ -50,13 +50,13 @@
         getPlayTotTime: false,
         init: function (data) {
             //localStorage.removeItem('recObjs');
-            var vcan = vApp.wb.vcan;
+            var vcan = virtualclass.wb.vcan;
             if (typeof myfunc != 'undefined') {
                 this.objs = vcan.getStates('replayObjs');
             } else {
                 var that = this;
                 if (data == 'fromplay') {
-                    vApp.storage.getAllObjs(["allData"], function () {
+                    virtualclass.storage.getAllObjs(["allData"], function () {
                         that.play();
                     });
 
@@ -80,9 +80,9 @@
                     for (k = 0; k < tempData.length; k++) {
                         if (tempData[k].hasOwnProperty('bd')) {
                             if (tempData[k].bd == 'a') {
-                                binData = vApp.dtCon.base64DecToArrInt(tempData[k].recObjs);
+                                binData = virtualclass.dtCon.base64DecToArrInt(tempData[k].recObjs);
                             } else if (tempData[k].bd == 'c') {
-                                binData = vApp.dtCon.base64DecToArrclm(tempData[k].recObjs);
+                                binData = virtualclass.dtCon.base64DecToArrclm(tempData[k].recObjs);
                             }
 
                             this.items[i].recObjs = binData;
@@ -102,15 +102,15 @@
         },
 
         startUploadProcess: function () {
-            vApp.recorder.exportData(function () {
+            virtualclass.recorder.exportData(function () {
             });
-            vApp.popup.sendBackOtherElems();
+            virtualclass.popup.sendBackOtherElems();
         },
 
         exportData: function (cb) {
-            vApp.popup.openProgressBar();
-            vApp.recorder.items = [];
-            vApp.storage.getAllObjs(["allData"], function () {
+            virtualclass.popup.openProgressBar();
+            virtualclass.recorder.items = [];
+            virtualclass.storage.getAllObjs(["allData"], function () {
                 if (typeof cb == 'function') {
                     cb();
                 }
@@ -127,9 +127,9 @@
         },
 
         clearPopups: function () {
-            vApp.popup.closeElem();
-            vApp.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
-            vApp.storage.config.endSession();
+            virtualclass.popup.closeElem();
+            virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
+            virtualclass.storage.config.endSession();
         },
 
         playProgressBar: function () {
@@ -159,7 +159,7 @@
                     this.tillPlayTime = this.totPlayTime;
                 }
 
-                vApp.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
+                virtualclass.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
 
                 var time = this.convertIntoReadable(this.tillPlayTime);
                 document.getElementById('tillRepTime').innerHTML = time.m + ' : ' + time.s;
@@ -170,7 +170,7 @@
                     alreadyCalcTotTime = true;
                 }
             } else {
-                vApp.pbar.renderProgressBar(this.totPlayTime, 0, 'playProgressBar', undefined);
+                virtualclass.pbar.renderProgressBar(this.totPlayTime, 0, 'playProgressBar', undefined);
             }
         },
 
@@ -195,15 +195,15 @@
 
         xhrsenddata: function (rnum, err, cb) {
             if (typeof err != 'undefined') {
-                vApp.recorder.error = 1;
+                virtualclass.recorder.error = 1;
             }
 
             if (typeof cb != 'undefined') {
-                vApp.recorder.mkDownloadLink = cb; // mkDownloadLink should be localize
+                virtualclass.recorder.mkDownloadLink = cb; // mkDownloadLink should be localize
             }
 
             //this is not happend but in any case
-            if (vApp.recorder.storeDone == 1) {
+            if (virtualclass.recorder.storeDone == 1) {
                 return;
             }
 
@@ -215,71 +215,71 @@
                 var rnum = 'first';
             }
 
-            vApp.recorder.rnum = rnum;
+            virtualclass.recorder.rnum = rnum;
 
-            vApp.storage.getrowData(['chunkData'], function (dObj, frow) {
+            virtualclass.storage.getrowData(['chunkData'], function (dObj, frow) {
                 if ((typeof dObj == 'string' || typeof dObj == 'undefined')) {
                     console.log("should invoke only once");
                     earlierTimeout = setTimeout(
                         function () {
-                            vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                            virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
                         },
                         1000
                     );
                 } else {
                     // this has been performed when all files are stored
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
-                        vApp.recorder.storeDone = 1;
-                        if (typeof vApp.recorder.mkDownloadLink != 'undefined' || vApp.recorder.mkDownloadLink != " ") {
-                            vApp.recorder.mkDownloadLink();
+                        virtualclass.recorder.storeDone = 1;
+                        if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' || virtualclass.recorder.mkDownloadLink != " ") {
+                            virtualclass.recorder.mkDownloadLink();
                         }
                         return;
                     }
 
                     if (typeof frow != 'undefined') {
-                        vApp.recorder.rnum = frow;
+                        virtualclass.recorder.rnum = frow;
                     }
 
 //                        typeof error != 'undefined'){
-                    if (vApp.recorder.error == 1) {
-                        if (vApp.recorder.storeDone == 0) {
-                            vApp.recorder.xhrsenddata(vApp.recorder.rnum, 'error');
-                            vApp.recorder.rnum++;
+                    if (virtualclass.recorder.error == 1) {
+                        if (virtualclass.recorder.storeDone == 0) {
+                            virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error');
+                            virtualclass.recorder.rnum++;
                         }
                     } else {
                         var formData = new FormData();
                         formData.append("record_data", JSON.stringify(dObj));
-                        formData.append("user", vApp.gObj.uid);
+                        formData.append("user", virtualclass.gObj.uid);
                         formData.append("cn", chunkNum);
 
-                        vApp.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
+                        virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
-                        vApp.recorder.items = []; //empty on each chunk sent
+                        virtualclass.recorder.items = []; //empty on each chunk sent
 
-                        vApp.xhr.send(formData, 'import.php', function (msg) { //TODO Handle more situations
+                        virtualclass.xhr.send(formData, 'import.php', function (msg) { //TODO Handle more situations
                             if (msg == 'File created') {
-                                vApp.recorder.rnum++;
+                                virtualclass.recorder.rnum++;
                                 chunkNum++;
-                                vApp.recorder.xhrsenddata(vApp.recorder.rnum);
+                                virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
                             } else {
-                                vApp.recorder.tryForReTransmit();
+                                virtualclass.recorder.tryForReTransmit();
                             }
                         });
                     }
                 }
-            }, vApp.recorder.rnum);
+            }, virtualclass.recorder.rnum);
         },
 
         tryForReTransmit: function () {
             setTimeout(
                 function () {
                     // Show Message "Retring [Retry Number]"
-                    //console.log("Trying to connnect " + (++vApp.recorder.emn));
-                    if (vApp.recorder.emn <= 1) {
-                        vApp.recorder.xhrsenddata(vApp.recorder.rnum);
-                        vApp.recorder.emn++;
+                    //console.log("Trying to connnect " + (++virtualclass.recorder.emn));
+                    if (virtualclass.recorder.emn <= 1) {
+                        virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
+                        virtualclass.recorder.emn++;
                     } else {
-                        vApp.recorder.startDownloadProcess(); //if error occurred
+                        virtualclass.recorder.startDownloadProcess(); //if error occurred
                     }
                 },
                 1000
@@ -311,7 +311,7 @@
 
             pbar.appendChild(downloadLinkCont);
 
-            vApp.storage.getAllDataForDownload(['chunkData'], function (data) {
+            virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
                 var textFileAsBlob = new Blob([data], {type: "application/virtualclass"});
 
                 downloadButton.addEventListener('click', function () {
@@ -332,10 +332,10 @@
         },
 
         startDownloadProcess: function () {
-            console.log('this should not happend ' + vApp.recorder.storeDone);
-            if (!vApp.recorder.storeDone) {
+            console.log('this should not happend ' + virtualclass.recorder.storeDone);
+            if (!virtualclass.recorder.storeDone) {
                 var that = this;
-                vApp.recorder.xhrsenddata(vApp.recorder.rnum, 'error', that.makeAvailDownloadFile);
+                virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error', that.makeAvailDownloadFile);
             } else {
                 this.makeAvailDownloadFile();
             }
@@ -345,56 +345,56 @@
         sendDataToServer: function () {
             var that = this;
 
-            var t = vApp.storage.db.transaction(["chunkData"], "readwrite");
+            var t = virtualclass.storage.db.transaction(["chunkData"], "readwrite");
             var objectStore = t.objectStore("chunkData");
             objectStore.clear();
 
-            vApp.popup.waitBlockAction('none');
+            virtualclass.popup.waitBlockAction('none');
 
             if (!!window.Worker) {
                 mvDataWorker.postMessage({
-                    rdata: vApp.recorder.items,
-                    totalStored: vApp.storage.totalStore,
+                    rdata: virtualclass.recorder.items,
+                    totalStored: virtualclass.storage.totalStore,
                     makeChunk: true
                 });
 
                 // Every time the data is sending, the function
                 // is declaring as expression which is not good
                 mvDataWorker.onmessage = function (e) {
-                    vApp.storage.chunkStorage(e.data);
+                    virtualclass.storage.chunkStorage(e.data);
                 }
             }
         },
 
         displayWaitPopupIfNot: function () {
             if (this.waitPopup == false) {
-                vApp.popup.sendBackOtherElems();
+                virtualclass.popup.sendBackOtherElems();
 
                 var progressBarContainer = document.getElementById("progressBarContainer");
                 progressBarContainer.style.display = "none";
 
-                vApp.popup.waitBlockAction('block');
+                virtualclass.popup.waitBlockAction('block');
 
-                vApp.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
+                virtualclass.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
 
                 var element = document.getElementById('about-modal');
-                vApp.popup.open(element);
+                virtualclass.popup.open(element);
 
                 this.waitPopup = true;
             }
         },
 
         requestDataFromServer: function (reqFile) {
-            this.displayWaitPopupIfNot(vApp.lang.getString("plswaitwhile"));
+            this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
             var formData = new FormData();
             formData.append("record_data", "true");
             formData.append("prvfile", reqFile);
-            formData.append("user", vApp.gObj.uid);
+            formData.append("user", virtualclass.gObj.uid);
 
-            //vApp.xhr.send("record_data=true&prvfile="+reqFile+"&user="+vApp.gObj.uid, 'export.php', function
-            vApp.xhr.send(formData, 'export.php', function
+            //virtualclass.xhr.send("record_data=true&prvfile="+reqFile+"&user="+virtualclass.gObj.uid, 'export.php', function
+            virtualclass.xhr.send(formData, 'export.php', function
                     (data) {
-                    vApp.recorder.sendToWorker(data);
+                    virtualclass.recorder.sendToWorker(data);
                 }
             );
         },
@@ -408,49 +408,49 @@
 
                 mvDataWorker.onmessage = function (e) {
                     reqFile++;
-                    var isUptoBase = vApp.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
+                    var isUptoBase = virtualclass.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
 
-                    vApp.recorder.ctotalStore = e.data.alldata.totalStore;
-                    vApp.recorder.ctotalSent = e.data.alldata.totalSent;
+                    virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
+                    virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
 
-                    vApp.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
+                    virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
 
-                    if (isUptoBase && !vApp.recorder.alreadyAskForPlay) {
+                    if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {
                         if (e.data.alldata.totalSent > e.data.alldata.totalStore) {
-                            vApp.recorder.askToPlay("completed");
+                            virtualclass.recorder.askToPlay("completed");
                         } else {
-                            vApp.recorder.askToPlay();
+                            virtualclass.recorder.askToPlay();
                         }
 
-                        vApp.recorder.alreadyAskForPlay = true;
-                        vApp.recorder.tempRecData.push(e.data.alldata.rdata);
-                    } else if (isUptoBase && vApp.recorder.playStart && vApp.recorder.waitServer == false) {
-                        vApp.recorder.init(e.data.alldata.rdata);
+                        virtualclass.recorder.alreadyAskForPlay = true;
+                        virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
+                    } else if (isUptoBase && virtualclass.recorder.playStart && virtualclass.recorder.waitServer == false) {
+                        virtualclass.recorder.init(e.data.alldata.rdata);
                     } else {
-                        vApp.recorder.tempRecData.push(e.data.alldata.rdata);
-                        if (vApp.recorder.waitServer == true) {
-                            vApp.recorder.alreadyPlayed = true;
+                        virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
+                        if (virtualclass.recorder.waitServer == true) {
+                            virtualclass.recorder.alreadyPlayed = true;
                         }
                     }
 
                     if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
-                        vApp.recorder.requestDataFromServer(reqFile);
+                        virtualclass.recorder.requestDataFromServer(reqFile);
                     } else {
 //                            alert('suman bogati');
 //                            debugger;
-                        vApp.recorder.allFileFound = true;
-                        if (vApp.recorder.waitServer == true) { //if earlier replay is interrupt
+                        virtualclass.recorder.allFileFound = true;
+                        if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
 
-                            vApp.storage.config.endSession();
-                            var mainData = vApp.recorder.tempRecData.reduce(function (a, b) {
+                            virtualclass.storage.config.endSession();
+                            var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
                                 return a.concat(b);
                             });
 
-                            vApp.recorder.objn = 0;
-                            vApp.recorder.init(mainData);
-                            vApp.recorder.play();
-                            vApp.recorder.waitServer = false;
-                            vApp.popup.closeElem();
+                            virtualclass.recorder.objn = 0;
+                            virtualclass.recorder.init(mainData);
+                            virtualclass.recorder.play();
+                            virtualclass.recorder.waitServer = false;
+                            virtualclass.popup.closeElem();
 
                         }
                     }
@@ -462,25 +462,25 @@
 
         playInt: function () {
             //convert [[1, 3], [3, 5]] TO [1, 3, 3, 5]
-            var mainData = vApp.recorder.tempRecData.reduce(function (a, b) {
+            var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
                 return a.concat(b);
             });
-            vApp.popup.closeElem();
-            vApp.recorder.init(mainData);
-            vApp.recorder.playStart = true;
-            vApp.recorder.tempRecData.length = 0;
-            vApp.recorder.initController();
+            virtualclass.popup.closeElem();
+            virtualclass.recorder.init(mainData);
+            virtualclass.recorder.playStart = true;
+            virtualclass.recorder.tempRecData.length = 0;
+            virtualclass.recorder.initController();
 
 //                var playController = document.getElementById('playController');
 //                playController.style.display = 'block';
         },
 
         askToPlay: function (downloadFinish) {
-//                var playMessage = vApp.lang.getString('askUser');
+//                var playMessage = virtualclass.lang.getString('askUser');
             if (typeof downloadFinish != 'undefined') {
-                document.getElementById('askplayMessage').innerHTML = vApp.lang.getString('playsessionmsg');
+                document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
             } else {
-                document.getElementById('askplayMessage').innerHTML = vApp.lang.getString('askplayMessage');
+                document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('askplayMessage');
             }
 
 
@@ -514,10 +514,10 @@
                 this.playTime = this.items[0].playTime;
                 e.data = JSON.parse(this.items[this.objn].recObjs);
                 io.cfg = e.data;
-                //vApp.gObj.uRole = io.cfg.userobj.role;
-                vApp.gObj.uRole = 's'; //it teacher sets there would ask for choose screen share
-                vApp.gObj.uName = io.cfg.userobj.name;
-                vApp.gObj.uid = io.cfg.userobj.userid;
+                //virtualclass.gObj.uRole = io.cfg.userobj.role;
+                virtualclass.gObj.uRole = 's'; //it teacher sets there would ask for choose screen share
+                virtualclass.gObj.uName = io.cfg.userobj.name;
+                virtualclass.gObj.uid = io.cfg.userobj.userid;
             }
 
             if ((typeof this.items[this.objn + 1] == 'undefined') || (this.items[this.objn].hasOwnProperty('sessionEnd'))) {
@@ -527,15 +527,15 @@
                     io.onRecMessage(that.convertInto(e));
                 }
 
-                if (vApp.recorder.allFileFound == false) {
+                if (virtualclass.recorder.allFileFound == false) {
                     //waiting for server response
-                    vApp.recorder.waitServer = true;
-                    vApp.recorder.waitPopup = false;
+                    virtualclass.recorder.waitServer = true;
+                    virtualclass.recorder.waitPopup = false;
                     this.displayWaitPopupIfNot();
-                    if (vApp.recorder.hasOwnProperty('ctotalStore') || vApp.recorder.hasOwnProperty('ctotalSent')) {
-//                            vApp.recorder.ctotalStore = e.data.alldata.totalStore;
-//                            vApp.recorder.ctotalSent = e.data.alldata.totalStore
-                        vApp.pbar.renderProgressBar(vApp.recorder.ctotalStore, vApp.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
+                    if (virtualclass.recorder.hasOwnProperty('ctotalStore') || virtualclass.recorder.hasOwnProperty('ctotalSent')) {
+//                            virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
+//                            virtualclass.recorder.ctotalSent = e.data.alldata.totalStore
+                        virtualclass.pbar.renderProgressBar(virtualclass.recorder.ctotalStore, virtualclass.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
                     }
                 }
                 //return;
@@ -572,20 +572,20 @@
                 for (var i = 0; i < recButton.length; i++) {
                     recButton[i].onclick = function () {
                         var ffBy = this.id.split('ff')[1];
-                        vApp.recorder.controller.fastForward(parseInt(ffBy, 10));
+                        virtualclass.recorder.controller.fastForward(parseInt(ffBy, 10));
                     };
                 }
 
                 //init play
                 var recPlay = document.getElementById('recPlay');
                 recPlay.addEventListener('click', function () {
-                    vApp.recorder.controller._play();
+                    virtualclass.recorder.controller._play();
                 });
 
                 //init pause
                 var recPlay = document.getElementById('recPause');
                 recPlay.addEventListener('click', function () {
-                    vApp.recorder.controller._pause();
+                    virtualclass.recorder.controller._pause();
                 });
             }
         },
@@ -595,14 +595,14 @@
             ff: 1,
             _play: function () {
 //                    this.pause = false; 
-//                    vApp.recorder.play();
+//                    virtualclass.recorder.play();
                 this.ff = 1; //when click on play it should be normal
 
                 if (!this.pause) {
                     alert('This is in already play mode');
                 } else {
                     this.pause = false;
-                    vApp.recorder.play();
+                    virtualclass.recorder.play();
 
                 }
             },

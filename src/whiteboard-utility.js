@@ -965,7 +965,7 @@
 //                    }
             },
             /**
-             * the operation before send infor to server
+             * the operation before send message to server
              * @param {type} msg
              * @returns {undefined}
              */

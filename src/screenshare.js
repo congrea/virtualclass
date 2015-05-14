@@ -4,6 +4,8 @@
  */
 
 (function (window) {
+    "use strict";
+    var changeonresize, resizecalled, prvWidth, prvHeight, prvVWidth, prvVHeight, app, dim;
     function callback(error) {
         virtualclass.vutil.initInstallChromeExt(error);
     }
@@ -11,38 +13,45 @@
     var studentScreen = function () {
         return {
             ssProcess: function (data_pack, msg, stype, sTool) {
-                if (data_pack[0] == 102 || data_pack[0] == 202) { //full image
-                    var data_pack = new Uint8ClampedArray(msg);
-                    var w = virtualclass.vutil.numValidateTwo(data_pack[1], data_pack[2]);
-                    var h = virtualclass.vutil.numValidateTwo(data_pack[3], data_pack[4]);
-                    var recmsg = data_pack.subarray(5, data_pack.length);
-                    this.initStudentScreen(recmsg, {w: w, h: h}, stype, sTool);
-
-                } else if (data_pack[0] == 103 || data_pack[0] == 203) { //slice image
-                    var data_pack = new Uint8ClampedArray(msg);
-                    var s = 7;
-                    for (var i = 0; (i + 7) <= data_pack.length; i = l + 1) {
-                        var x = virtualclass.vutil.numValidateTwo(data_pack[i + 1], data_pack[i + 2]);
-                        var y = virtualclass.vutil.numValidateTwo(data_pack[i + 3], data_pack[i + 4]);
-                        var h = parseInt(data_pack[i + 5]);
-                        var w = parseInt(data_pack[i + 6]);
-                        var l = s + (h * w) - 1;
-                        var recmsg = data_pack.subarray(s, l + 1);
-                        var d = {x: x, y: y, w: w, h: h};
-                        this.initStudentScreen(recmsg, d, stype, sTool);
-                        s = l + 7 + 1;
-                    }
-
-                } else if (data_pack[0] == 104 || data_pack[0] == 204) { //full image with resize
-                    var data_pack = new Uint8ClampedArray(msg);
-                    var dw = virtualclass.vutil.numValidateTwo(data_pack[1], data_pack[2]);
-                    var dh = virtualclass.vutil.numValidateTwo(data_pack[3], data_pack[4]);
-                    var vcw = virtualclass.vutil.numValidateTwo(data_pack[5], data_pack[6]);
-                    var vch = virtualclass.vutil.numValidateTwo(data_pack[7], data_pack[8]);
-                    var recmsg = data_pack.subarray(9, data_pack.length);
-                    var dimObj = {d: {w: dw, h: dh}, vc: {w: vcw, h: vch}};
-                    this.initStudentScreen(recmsg, dimObj, stype, sTool);
-
+                var mycase = data_pack[0];
+                var data_pack = new Uint8ClampedArray(msg);
+                var x, y, h, w, l, recmsg, dw, dh, vcw, vch, dimObj;
+                switch (mycase) {
+                    // Full Image
+                    case 102:
+                    case 202:
+                        w = virtualclass.vutil.numValidateTwo(data_pack[1], data_pack[2]);
+                        h = virtualclass.vutil.numValidateTwo(data_pack[3], data_pack[4]);
+                        recmsg = data_pack.subarray(5, data_pack.length);
+                        this.initStudentScreen(recmsg, {w: w, h: h}, stype, sTool);
+                        break;
+                    // Slice Image
+                    case 103:
+                    case 203:
+                        var s = 7;
+                        for (var i = 0; (i + 7) <= data_pack.length; i = l + 1) {
+                            x = virtualclass.vutil.numValidateTwo(data_pack[i + 1], data_pack[i + 2]);
+                            y = virtualclass.vutil.numValidateTwo(data_pack[i + 3], data_pack[i + 4]);
+                            h = parseInt(data_pack[i + 5]);
+                            w = parseInt(data_pack[i + 6]);
+                            l = s + (h * w) - 1;
+                            recmsg = data_pack.subarray(s, l + 1);
+                            var d = {x: x, y: y, w: w, h: h};
+                            this.initStudentScreen(recmsg, d, stype, sTool);
+                            s = l + 7 + 1;
+                        }
+                        break;
+                    // Full Image with Resize
+                    case 104:
+                    case 204:
+                        dw = virtualclass.vutil.numValidateTwo(data_pack[1], data_pack[2]);
+                        dh = virtualclass.vutil.numValidateTwo(data_pack[3], data_pack[4]);
+                        vcw = virtualclass.vutil.numValidateTwo(data_pack[5], data_pack[6]);
+                        vch = virtualclass.vutil.numValidateTwo(data_pack[7], data_pack[8]);
+                        recmsg = data_pack.subarray(9, data_pack.length);
+                        dimObj = {d: {w: dw, h: dh}, vc: {w: vcw, h: vch}};
+                        this.initStudentScreen(recmsg, dimObj, stype, sTool);
+                        break;
                 }
             },
 
@@ -100,14 +109,14 @@
         virtualclass.getSceenFirefox = function () {
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
             if (ffver >= 33) {
-                constraints = {
+                var constraints = {
                     video: {
                         mozMediaSource: 'window',
                         mediaSource: 'window'
                     }
                 };
                 virtualclass.adpt = new virtualclass.adapter();
-                navigator2 = virtualclass.adpt.init(navigator);
+                var navigator2 = virtualclass.adpt.init(navigator);
 
                 navigator2.getUserMedia(constraints, function (stream, err) {
                         //callback(err, stream);
@@ -357,7 +366,7 @@
                 var uniqmax = (resA * resB) / 5;
                 var sendObj;
                 //var changeonresize=1;
-                randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
+                //randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
                 if (virtualclass.hasOwnProperty('wholeImage')) {
                     clearInterval(virtualclass.wholeImage);
                 }

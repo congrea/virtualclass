@@ -161,7 +161,7 @@ var io = {
 
     onRecMessage: function (e) {
         "use strict";
-        try {
+        //try {
             var scope = this;
             if (e.data instanceof ArrayBuffer) {
                 $.event.trigger({
@@ -241,13 +241,13 @@ var io = {
                         break;
                 }
             }
-        } catch (e) {
-            console.log("Error catched   : " + e);
-            $.event.trigger({
-                type: "error",
-                message: e
-            });
-        }
+        //} catch (e) {
+        //    console.log("Error catched   : " + e);
+        //    $.event.trigger({
+        //        type: "error",
+        //        message: e
+        //    });
+        //}
     },
 
     disconnect: function () {

@@ -4,7 +4,7 @@
     window.virtualclass = function () {
         return {
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-            apps: ["Whiteboard", "ScreenShare", 'Yts'],
+            apps : ["Whiteboard", "ScreenShare", 'Yts', 'Editor'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
             //appAudioTestPlay : "virtualclassAudioTestPlay",
@@ -37,6 +37,7 @@
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
                 this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
+                this.edConfig = { id : "virtualclass" + this.apps[3], classes : "appOptions"};
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
                 this.lang.getString = window.getString;
@@ -110,7 +111,7 @@
                 virtualclass.xhr.init();
                 virtualclass.dtCon = virtualclass.converter();
                 virtualclass.pbar = progressBar;
-
+                virtualclass.editor = window.editor();
 
             },
 
@@ -154,8 +155,9 @@
 
                     this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
                     this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
-
                     this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ssConfig.classes);
+                    this.createDiv(virtualclass.edConfig.id + "Tool", "editor", appOptCont, virtualclass.edConfig.classes);
+
 
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.wb.view.disableSSUI();
@@ -231,6 +233,7 @@
 //                  var currAppId = "";
                 this.currApp = app;
 
+                //TODO this should be simplyfied
                 if (app != this.apps[1]) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && virtualclass.gObj.uRole == 't') {
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
@@ -290,7 +293,7 @@
                     }
 
                     this.previous = this.wbConfig.id;
-                    this.previrtualclass = this.previous;
+                    //    this.previrtualclass = this.previous;
 
 //                        currAppId = this.wbConfig.id;
                     //TODO this should be into same varible
@@ -309,12 +312,27 @@
 
 
                     this.previous = virtualclass.ytsConfig.id;
-                    this.previrtualclass = this.previous;
+
+                    //this.previrtualclass = this.previous;
 
                     var measureRes = virtualclass.system.measureResoultion({
                         'width': window.innerWidth,
                         'height': window.innerHeight
                     });
+                    virtualclass.vutil.setContainerWidth(measureRes);
+                } else if (app == this.apps[3]) {
+                    var whiteboard = document.getElementById('virtualclassWhiteboard');
+                    whiteboard.style.display = 'none';
+                    virtualclass.editor.init();
+                  //  this.previous = virtualclass.edConfig.id;
+                }
+
+                //this.createDiv(vApp.edConfig.id + "Tool", "editor", appOptCont, vApp.edConfig.classes);
+
+                this.previrtualclass = this.previous;
+
+                if(app == this.apps[2] || app == this.apps[3]){
+                    var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
                     virtualclass.vutil.setContainerWidth(measureRes);
                 }
 

@@ -226,6 +226,9 @@ $(document).ready(function () {
      * @type {receiveFunctions}
      */
     var receiveFunctions = new function () {
+        this.eddata = function (e){
+            virtualclass.editor.onmessage(e.message);
+        }
 
         this.yts = function (e) {
             virtualclass.yts.onmessage(e.message);

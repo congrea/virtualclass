@@ -2138,3 +2138,23 @@ opacity : 0.800000011920928955078125 !important;
 #virtualclassCont #player {
 	margin-top : 20px;
 }
+
+#virtualclassCont #virtualclassEditorTool .icon-editor:before {
+	content : "edi";
+	
+}
+
+#virtualclassCont{
+	width : 100%;
+	height : 80%;
+}
+
+#virtualclassCont #virtualclassEditor {
+	width : 100%;
+	height : 100%;
+}
+
+#virtualclassCont #virtualclassEditorBody{
+	width : 75%;
+	height : 100%;
+}

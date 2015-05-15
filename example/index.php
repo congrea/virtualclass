@@ -20,7 +20,7 @@ function get_string($phrase){
 
 
 //the www path for virtualclass
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://local.vidya.io/suman-repo/virtualclass/";
 
 ?>
 
@@ -28,7 +28,16 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/popup.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/jquery-ui.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
+
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+
+<style>
+  .CodeMirror { height: auto; border: 1px solid #ddd; }
+  .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+</style>
+
 
 
 <?php
@@ -106,7 +115,7 @@ if(isset($_GET['lname'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
-    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
+    window.whiteboardPath =  'https://local.vidya.io/suman-repo/virtualclass/';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
 </script>
 

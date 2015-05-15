@@ -51,7 +51,7 @@
 
                     var edElem = document.getElementById(this.UI.edId);
 
-                    mycm =  CodeMirror(edElem, {
+                    this.cm =  CodeMirror(edElem, {
                         lineNumbers: true,
                         lineWrapping: true,
                         mode: "markdown",
@@ -72,7 +72,7 @@
                         revision,
                         clients,
                         otAdapter,
-                        new ot.CodeMirrorAdapter(mycm)
+                        new ot.CodeMirrorAdapter(this.cm)
                     );
                 }
 

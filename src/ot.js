@@ -1658,23 +1658,27 @@ ot.EditorClient = (function () {
     var self = this;
 
     this.editorAdapter.registerCallbacks({
-      change: function (operation, inverse) { self.onChange(operation, inverse); },
+      change: function (operation, inverse) {
+
+        self.onChange(operation, inverse);
+      },
       cursorActivity: function () { self.onCursorActivity(); },
       blur: function () { self.onBlur(); }
     });
     this.editorAdapter.registerUndo(function () { self.undo(); });
     this.editorAdapter.registerRedo(function () { self.redo(); });
 
-    this.serverAdapter.regiseterCb = {
-        cursor : function (cursor){
-          self.transformCursor(Cursor.fromJSON(cursor));
-          console.log('cursor updated');
-        },
+    //this.serverAdapter.regiseterCb = {
+    //    cursor : function (cursor){
+    //      self.transformCursor(Cursor.fromJSON(cursor));
+    //      console.log('cursor updated');
+    //    },
+    //
+    //    operation: function (operation) {
+    //      self.applyServer(TextOperation.fromJSON(operation));
+    //    }
+    //}
 
-        operation: function (operation) {
-          self.applyServer(TextOperation.fromJSON(operation));
-        }
-    }
     this.serverAdapter.registerCallbacks({
       client_left: function (clientId) { self.onClientLeft(clientId); },
       set_name: function (clientId, name) { self.getClientObject(clientId).setName(name); },
@@ -1682,15 +1686,12 @@ ot.EditorClient = (function () {
       operation: function (operation) {
         self.applyServer(TextOperation.fromJSON(operation));
       },
-      cursor: function (clientId, cursor) {
+      cursor: function (cursor) {
         if (cursor) {
-          self.getClientObject(clientId).updateCursor(
               self.transformCursor(Cursor.fromJSON(cursor))
-          );
-        } else {
-          self.getClientObject(clientId).removeCursor();
         }
       },
+
       clients: function (clients) {
         var clientId;
         for (clientId in self.clients) {
@@ -1716,6 +1717,50 @@ ot.EditorClient = (function () {
       },
       reconnect: function () { self.serverReconnect(); }
     });
+
+
+    //this.serverAdapter.registerCallbacks({
+    //  client_left: function (clientId) { self.onClientLeft(clientId); },
+    //  set_name: function (clientId, name) { self.getClientObject(clientId).setName(name); },
+    //  ack: function () { self.serverAck(); },
+    //  operation: function (operation) {
+    //    self.applyServer(TextOperation.fromJSON(operation));
+    //  },
+    //  cursor: function (clientId, cursor) {
+    //    if (cursor) {
+    //      self.getClientObject(clientId).updateCursor(
+    //          self.transformCursor(Cursor.fromJSON(cursor))
+    //      );
+    //    } else {
+    //      self.getClientObject(clientId).removeCursor();
+    //    }
+    //  },
+    //
+    //  clients: function (clients) {
+    //    var clientId;
+    //    for (clientId in self.clients) {
+    //      if (self.clients.hasOwnProperty(clientId) && !clients.hasOwnProperty(clientId)) {
+    //        self.onClientLeft(clientId);
+    //      }
+    //    }
+    //
+    //    for (clientId in clients) {
+    //      if (clients.hasOwnProperty(clientId)) {
+    //        if (self.clients.hasOwnProperty(clientId)) {
+    //          var cursor = clients[clientId];
+    //          if (cursor) {
+    //            self.clients[clientId].updateCursor(
+    //                self.transformCursor(Cursor.fromJSON(cursor))
+    //            );
+    //          } else {
+    //            self.clients[clientId].removeCursor();
+    //          }
+    //        }
+    //      }
+    //    }
+    //  },
+    //  reconnect: function () { self.serverReconnect(); }
+    //});
   }
 
   inherit(EditorClient, Client);
@@ -1946,6 +1991,12 @@ virtualclassAdapter = (function () {
 
   // We pretend to be a server
 
+  this.trigger = function (){
+       var args = Array.prototype.slice.call(arguments)
+       var event = args.shift();
+       this.callbacks[event](args[0]);
+  }
+
   this.receivedMessage = function (event){
 
     var data = JSON.parse(event.data),
@@ -1965,17 +2016,18 @@ virtualclassAdapter = (function () {
       var wrappedPrime = server.receiveOperation(data.revision, wrapped);
       console.log("new operation: " + wrapped);
 
-      this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
-      this.regiseterCb.cursor(wrappedPrime.meta);
+      //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
+      //this.regiseterCb.cursor(wrappedPrime.meta);
 
-      //this.trigger('operation', wrappedPrime.wrapped.toJSON());
+      this.trigger('operation', wrappedPrime.wrapped.toJSON());
+      this.trigger('cursor', wrappedPrime.meta);
       //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
 
     } else if(event.eddata == 'virtualclass-editor-cursor'){
       var cursor = JSON.parse(event.data);
 
-      this.regiseterCb.cursor(cursor);
-
+    //  this.regiseterCb.cursor(cursor);
+      this.trigger('cursor', cursor);
       //this.trigger('cursor', event.from.connectionId, cursor);
     }
 

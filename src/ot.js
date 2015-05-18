@@ -1050,13 +1050,125 @@ if (typeof module === 'object') {
   module.exports = ot.Client;
 }
 
+
 /*global ot */
+
+
+ot.Cursor = (function (global) {
+  'use strict';
+
+
+  var TextOperation = global.ot ? global.ot.TextOperation : require('./text-operation');
+
+  // A cursor has a `position` and a `selection`. The property `position` is a
+  // zero-based index into the document and `selection` an array of Range
+  // objects (see below). When nothing is selected, the array is empty.
+  function Cursor (position, selection) {
+    this.position = position;
+
+    var filteredSelection = [];
+    for (var i = 0; i < selection.length; i++) {
+      if (!selection[i].isEmpty()) { filteredSelection.push(selection[i]); }
+    }
+    this.selection = filteredSelection;
+  }
+
+  // Range has `anchor` and `head` properties, which are zero-based indices into
+  // the document. The `anchor` is the side of the selection that stays fixed,
+  // `head` is the side of the selection where the cursor is.
+  function Range (anchor, head) {
+    this.anchor = anchor;
+    this.head = head;
+  }
+
+  Cursor.Range = Range;
+
+  Range.fromJSON = function (obj) {
+    return new Range(obj.anchor, obj.head);
+  };
+
+  Range.prototype.equals = function (other) {
+    return this.anchor === other.anchor && this.head === other.head;
+  };
+
+  Range.prototype.isEmpty = function () {
+    return this.anchor === this.head;
+  };
+
+  Cursor.fromJSON = function (obj) {
+    var selection = [];
+    for (var i = 0; i < obj.selection.length; i++) {
+      selection[i] = Range.fromJSON(obj.selection[i]);
+    }
+    return new Cursor(obj.position, selection);
+  };
+
+  Cursor.prototype.equals = function (other) {
+    if (this.position !== other.position) { return false; }
+    if (this.selection.length !== other.selection.length) { return false; }
+    // FIXME: Sort ranges before comparing them?
+    for (var i = 0; i < this.selection.length; i++) {
+      if (!this.selection[i].equals(other.selection[i])) { return false; }
+    }
+    return true;
+  };
+
+  // Return the more current cursor information.
+  Cursor.prototype.compose = function (other) {
+    return other;
+  };
+
+  // Update the cursor with respect to an operation.
+  Cursor.prototype.transform = function (other) {
+    function transformIndex (index) {
+      var newIndex = index;
+      var ops = other.ops;
+      for (var i = 0, l = other.ops.length; i < l; i++) {
+        if (TextOperation.isRetain(ops[i])) {
+          index -= ops[i];
+        } else if (TextOperation.isInsert(ops[i])) {
+          newIndex += ops[i].length;
+        } else {
+          newIndex -= Math.min(index, -ops[i]);
+          index += ops[i];
+        }
+        if (index < 0) { break; }
+      }
+      return newIndex;
+    }
+
+    var newPosition = transformIndex(this.position);
+
+    var newSelection = [];
+    for (var i = 0; i < this.selection.length; i++) {
+      var range = this.selection[i];
+      var newRange = new Range(transformIndex(range.anchor), transformIndex(range.head));
+      if (!newRange.isEmpty()) { newSelection.push(newRange); }
+    }
+
+    return new Cursor(newPosition, newSelection);
+  };
+
+  return Cursor;
+
+}(this));
+
+
+// Export for CommonJS
+if (typeof module === 'object') {
+  module.exports = ot.Cursor;
+}
+
 
 ot.CodeMirrorAdapter = (function (global) {
   'use strict';
 
   var TextOperation = ot.TextOperation;
   var Selection = ot.Selection;
+  var Cursor = ot.Cursor;
+
+    //alert('sss');
+    //debugger;
 
   function CodeMirrorAdapter (cm) {
     this.cm = cm;
@@ -1235,6 +1347,7 @@ ot.CodeMirrorAdapter = (function (global) {
     this.ignoreNextChange = false;
   };
 
+  /*
   CodeMirrorAdapter.prototype.onCursorActivity =
   CodeMirrorAdapter.prototype.onFocus = function () {
     if (this.changeInProgress) {
@@ -1242,6 +1355,12 @@ ot.CodeMirrorAdapter = (function (global) {
     } else {
       this.trigger('selectionChange');
     }
+  };
+  */
+
+  CodeMirrorAdapter.prototype.onCursorActivity =
+  CodeMirrorAdapter.prototype.onFocus = function () {
+    this.trigger('cursorActivity');
   };
 
   CodeMirrorAdapter.prototype.onBlur = function () {
@@ -1251,6 +1370,25 @@ ot.CodeMirrorAdapter = (function (global) {
   CodeMirrorAdapter.prototype.getValue = function () {
     return this.cm.getValue();
   };
+
+  CodeMirrorAdapter.prototype.getCursor = function () {
+      var cm = this.cm;
+      var cursorPos = cm.getCursor();
+      var position = cm.indexFromPos(cursorPos);
+
+      var selectionList = cm.listSelections();
+      var selection = [];
+      for (var i = 0; i < selectionList.length; i++) {
+        selection[i] = new Cursor.Range(
+            cm.indexFromPos(selectionList[i].anchor),
+            cm.indexFromPos(selectionList[i].head)
+        );
+      }
+
+      return new Cursor(position, selection);
+  };
+
+
 
   CodeMirrorAdapter.prototype.getSelection = function () {
     var cm = this.cm;
@@ -1555,8 +1693,8 @@ ot.AjaxAdapter = (function () {
 
 ot.EditorClient = (function () {
   'use strict';
-
   var Client = ot.Client;
+  var Cursor = ot.Cursor;
   var Selection = ot.Selection;
   var UndoManager = ot.UndoManager;
   var TextOperation = ot.TextOperation;
@@ -1654,13 +1792,16 @@ ot.EditorClient = (function () {
     this.removeSelection();
   };
 
-  OtherClient.prototype.removeSelection = function () {
-    if (this.mark) {
-      this.mark.clear();
-      this.mark = null;
-    }
-  };
+  //OtherClient.prototype.removeSelection = function () {
+  //  if (this.mark) {
+  //    this.mark.clear();
+  //    this.mark = null;
+  //  }
+  //};
 
+  OtherClient.prototype.removeCursor = function () {
+    if (this.mark) { this.mark.clear(); }
+  };
 
   function EditorClient (revision, clients, serverAdapter, editorAdapter) {
     Client.call(this, revision);
@@ -1677,7 +1818,10 @@ ot.EditorClient = (function () {
       change: function (operation, inverse) { 
             self.onChange(operation, inverse);
        },
-      selectionChange: function () { self.onSelectionChange(); },
+//      selectionChange: function () { self.onSelectionChange(); },
+
+      cursorActivity: function () { self.onCursorActivity(); },
+
       blur: function () { self.onBlur(); }
     });
     this.editorAdapter.registerUndo(function () { self.undo(); });
@@ -1690,13 +1834,23 @@ ot.EditorClient = (function () {
       operation: function (operation) {
         self.applyServer(TextOperation.fromJSON(operation));
       },
-      selection: function (clientId, selection) {
-        if (selection) {
-          self.getClientObject(clientId).updateSelection(
-            self.transformSelection(Selection.fromJSON(selection))
+      //selection: function (clientId, selection) {
+      //  if (selection) {
+      //    self.getClientObject(clientId).updateSelection(
+      //      self.transformSelection(Selection.fromJSON(selection))
+      //    );
+      //  } else {
+      //    self.getClientObject(clientId).removeSelection();
+      //  }
+      //},
+
+      cursor: function (clientId, cursor) {
+        if (cursor) {
+          self.getClientObject(clientId).updateCursor(
+              self.transformCursor(Cursor.fromJSON(cursor))
           );
         } else {
-          self.getClientObject(clientId).removeSelection();
+          self.getClientObject(clientId).removeCursor();
         }
       },
       clients: function (clients) {
@@ -1822,13 +1976,36 @@ ot.EditorClient = (function () {
     this.sendSelection(null);
   };
 
+// added by suman
+
+  EditorClient.prototype.updateCursor = function () {
+    this.cursor = this.editorAdapter.getCursor();
+  };
+
+  EditorClient.prototype.onCursorActivity = function () {
+    var oldCursor = this.cursor;
+    this.updateCursor();
+    if (oldCursor && this.cursor.equals(oldCursor)) { return; }
+    this.sendCursor(this.cursor);
+  };
+
+
+  EditorClient.prototype.sendCursor = function (cursor) {
+    if (this.state instanceof Client.AwaitingWithBuffer) { return; }
+    this.serverAdapter.sendCursor(cursor);
+  };
+
   EditorClient.prototype.sendSelection = function (selection) {
     if (this.state instanceof Client.AwaitingWithBuffer) { return; }
     this.serverAdapter.sendSelection(selection);
   };
 
+  //EditorClient.prototype.sendOperation = function (revision, operation) {
+  //  this.serverAdapter.sendOperation(revision, operation.toJSON(), this.selection);
+  //};
+
   EditorClient.prototype.sendOperation = function (revision, operation) {
-    this.serverAdapter.sendOperation(revision, operation.toJSON(), this.selection);
+    this.serverAdapter.sendOperation(revision, operation.toJSON(), this.cursor);
   };
 
   EditorClient.prototype.applyOperation = function (operation) {
@@ -1932,108 +2109,6 @@ if (typeof module === 'object') {
   module.exports = ot.Server;
 }
 
-ot.Cursor = (function (global) {
-  'use strict';
-
-  var TextOperation = global.ot ? global.ot.TextOperation : require('./text-operation');
-
-  // A cursor has a `position` and a `selection`. The property `position` is a
-  // zero-based index into the document and `selection` an array of Range
-  // objects (see below). When nothing is selected, the array is empty.
-  function Cursor (position, selection) {
-    this.position = position;
-
-    var filteredSelection = [];
-    for (var i = 0; i < selection.length; i++) {
-      if (!selection[i].isEmpty()) { filteredSelection.push(selection[i]); }
-    }
-    this.selection = filteredSelection;
-  }
-
-  // Range has `anchor` and `head` properties, which are zero-based indices into
-  // the document. The `anchor` is the side of the selection that stays fixed,
-  // `head` is the side of the selection where the cursor is.
-  function Range (anchor, head) {
-    this.anchor = anchor;
-    this.head = head;
-  }
-
-  Cursor.Range = Range;
-
-  Range.fromJSON = function (obj) {
-    return new Range(obj.anchor, obj.head);
-  };
-
-  Range.prototype.equals = function (other) {
-    return this.anchor === other.anchor && this.head === other.head;
-  };
-
-  Range.prototype.isEmpty = function () {
-    return this.anchor === this.head;
-  };
-
-  Cursor.fromJSON = function (obj) {
-    var selection = [];
-    for (var i = 0; i < obj.selection.length; i++) {
-      selection[i] = Range.fromJSON(obj.selection[i]);
-    }
-    return new Cursor(obj.position, selection);
-  };
-
-  Cursor.prototype.equals = function (other) {
-    if (this.position !== other.position) { return false; }
-    if (this.selection.length !== other.selection.length) { return false; }
-    // FIXME: Sort ranges before comparing them?
-    for (var i = 0; i < this.selection.length; i++) {
-      if (!this.selection[i].equals(other.selection[i])) { return false; }
-    }
-    return true;
-  };
-
-  // Return the more current cursor information.
-  Cursor.prototype.compose = function (other) {
-    return other;
-  };
-
-  // Update the cursor with respect to an operation.
-  Cursor.prototype.transform = function (other) {
-    function transformIndex (index) {
-      var newIndex = index;
-      var ops = other.ops;
-      for (var i = 0, l = other.ops.length; i < l; i++) {
-        if (TextOperation.isRetain(ops[i])) {
-          index -= ops[i];
-        } else if (TextOperation.isInsert(ops[i])) {
-          newIndex += ops[i].length;
-        } else {
-          newIndex -= Math.min(index, -ops[i]);
-          index += ops[i];
-        }
-        if (index < 0) { break; }
-      }
-      return newIndex;
-    }
-
-    var newPosition = transformIndex(this.position);
-
-    var newSelection = [];
-    for (var i = 0; i < this.selection.length; i++) {
-      var range = this.selection[i];
-      var newRange = new Range(transformIndex(range.anchor), transformIndex(range.head));
-      if (!newRange.isEmpty()) { newSelection.push(newRange); }
-    }
-
-    return new Cursor(newPosition, newSelection);
-  };
-
-  return Cursor;
-
-}(this));
-
-// Export for CommonJS
-if (typeof module === 'object') {
-      module.exports = ot.Cursor;
-}
 
 
 virtualclassAdapter = (function () {
@@ -2057,7 +2132,7 @@ virtualclassAdapter = (function () {
 
 
 
-  // We pretend to be a server
+
 
   this.trigger = function (){
        var args = Array.prototype.slice.call(arguments)
@@ -2065,47 +2140,17 @@ virtualclassAdapter = (function () {
        this.callbacks[event](args[0]);
   }
 
-  this.receivedMessage = function (event){
+  this.receivedMessage2 = function (event){
     var msg = event.message;
     if(msg.hasOwnProperty('data')){
         var data = JSON.parse(msg.data);
     }
-    
+
     var wrapped;
 
     //TODO sholld be done by calling dynamic method invoke
     if(msg.eddata == 'virtualclass-editor-operation'){
-      //wrapped = new ot.WrappedOperation(
-      //    ot.TextOperation.fromJSON(data.operation),
-      //    data.cursor && ot.Cursor.fromJSON(data.cursor)
-      //);
-      //
-      //// Might need to try catch here and if it fails wait a little while and
-      //// try again. This way if we receive operations out of order we might
-      //// be able to recover
-      //
-      //var wrappedPrime = server.receiveOperation(data.revision, wrapped);
-      //console.log("new operation: " + wrapped);
-
-      //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
-      //this.regiseterCb.cursor(wrappedPrime.meta);
-
-
-      //acknoledgement of sent to server
-      // as opentalk does compare it by creating session ids
-      //if(event.fromUser.userid == virtualclass.gObj.uid){
-      //  this.trigger('ack');
-      //} else {
-      //  //this.trigger('operation', wrappedPrime.wrapped.toJSON());
-      //  this.trigger('operation', data.operation);
-      //
-      //  //this.trigger('selection', virtualclass.gObj.uid,  wrappedPrime.meta);
-      //  //this.trigger('cursor', wrappedPrime.meta);
-      //}
-      //alert('suman bogati');
-      //debugger;
-      this.trigger('operation', data.operation);
-
+        this.trigger('operation', data.operation);
 
       //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
 
@@ -2122,10 +2167,53 @@ virtualclassAdapter = (function () {
 
   }
 
+    this.receivedMessage = function (event){
+      var msg = event.message;
+      if(msg.hasOwnProperty('data')){
+        var data = JSON.parse(msg.data);
+      }
+
+      var wrapped;
+
+      //TODO sholld be done by calling dynamic method invoke
+      if(msg.eddata == 'virtualclass-editor-operation'){
+          wrapped = new ot.WrappedOperation(
+              ot.TextOperation.fromJSON(data.operation),
+              data.cursor && ot.Cursor.fromJSON(data.cursor)
+          );
+
+          // Might need to try catch here and if it fails wait a little while and
+          // try again. This way if we receive operations out of order we might
+          // be able to recover
+
+          var wrappedPrime = server.receiveOperation(data.revision, wrapped);
+          console.log("new operation: " + wrapped);
+
+          //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
+          //this.regiseterCb.cursor(wrappedPrime.meta);
+
+
+          this.trigger('operation', wrappedPrime.wrapped.toJSON());
+          this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
+
+       } else if(msg.eddata == 'virtualclass-editor-cursor'){
+          //var cursor = JSON.parse(msg.data);
+          //this.trigger('cursor', cursor);
+
+          //var cursor = JSON.parse(msg.data);
+          this.trigger('cursor', event.fromUser.userid, data);
+
+        //this.trigger('cursor', event.from.connectionId, cursor);
+      }else if(msg.eddata == 'selection'){
+        var selection = JSON.parse(msg.data);
+        this.trigger('selection', virtualclass.gObj.uid, selection);
+      }
+
+    }
+
   };
 
   virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
-
     io.send({
       eddata: 'virtualclass-editor-operation',
       data: JSON.stringify({
@@ -2135,7 +2223,14 @@ virtualclassAdapter = (function () {
       })
     });
 
-    this.trigger('ack');
+    var that = this;
+    setTimeout(
+        function (){
+          that.trigger('ack');
+        },
+        100
+    );
+
 
   }
 

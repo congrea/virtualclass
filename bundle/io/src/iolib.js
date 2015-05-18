@@ -99,6 +99,16 @@ var io = {
             arg: {'msg': msg}
         };
 
+        //if(msg.hasOwnProperty('eddata')){
+        //    console.log('eddata');
+        //    obj.cfun = 'broadcast';
+        //}else{
+        //    obj.cfun = 'broadcastToAll';
+        //}
+        //obj.cfun = 'broadcastToAll';
+
+        //obj.cfun = 'broadcast';
+
         if (arguments.length > 1) {
             var uid = arguments[1];// user id to  whom msg is intented
             obj.arg.touser = this.uniquesids[uid];

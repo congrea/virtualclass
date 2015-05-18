@@ -227,7 +227,10 @@ $(document).ready(function () {
      */
     var receiveFunctions = new function () {
         this.eddata = function (e){
-            virtualclass.editor.onmessage(e.message);
+
+            //virtualclass.editor.onmessage(e.message);
+            virtualclass.editor.onmessage(e);
+
         }
 
         this.yts = function (e) {

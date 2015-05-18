@@ -17,7 +17,7 @@
 
                 onmessage : function (e){
                     //at student
-                    if(e.eddata === 'init'){
+                    if(e.message.eddata === 'init'){
                         virtualclass.makeAppReady('Editor');
                     }
                     otAdapter.receivedMessage(e);
@@ -46,8 +46,6 @@
                 },
 
                 initCm : function (){
-                    //alert('suman bogati');
-                    //debugger;
 
                     var edElem = document.getElementById(this.UI.edId);
 

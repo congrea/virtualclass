@@ -1701,43 +1701,43 @@ ot.EditorClient = (function () {
   var WrappedOperation = ot.WrappedOperation;
 
 
-  function SelfMeta (selectionBefore, selectionAfter) {
-    this.selectionBefore = selectionBefore;
-    this.selectionAfter  = selectionAfter;
+  function SelfMeta (cursorBefore, cursorAfter) {
+    this.cursorBefore = cursorBefore;
+    this.cursorAfter  = cursorAfter;
   }
 
   SelfMeta.prototype.invert = function () {
-    return new SelfMeta(this.selectionAfter, this.selectionBefore);
+    return new SelfMeta(this.cursorAfter, this.cursorBefore);
   };
 
   SelfMeta.prototype.compose = function (other) {
-    return new SelfMeta(this.selectionBefore, other.selectionAfter);
+    return new SelfMeta(this.cursorBefore, other.cursorAfter);
   };
 
   SelfMeta.prototype.transform = function (operation) {
     return new SelfMeta(
-      this.selectionBefore.transform(operation),
-      this.selectionAfter.transform(operation)
+        this.cursorBefore.transform(operation),
+        this.cursorAfter.transform(operation)
     );
   };
 
 
-  function OtherMeta (clientId, selection) {
-    this.clientId  = clientId;
-    this.selection = selection;
+  function OtherMeta (clientId, cursor) {
+    this.clientId = clientId;
+    this.cursor   = cursor;
   }
 
   OtherMeta.fromJSON = function (obj) {
     return new OtherMeta(
-      obj.clientId,
-      obj.selection && Selection.fromJSON(obj.selection)
+        obj.clientId,
+        obj.cursor && Cursor.fromJSON(obj.cursor)
     );
   };
 
   OtherMeta.prototype.transform = function (operation) {
     return new OtherMeta(
-      this.clientId,
-      this.selection && this.selection.transform(operation)
+        this.clientId,
+        this.cursor && this.cursor.transform(operation)
     );
   };
 
@@ -1948,14 +1948,22 @@ ot.EditorClient = (function () {
   };
 
   EditorClient.prototype.onChange = function (textOperation, inverse) {
-    var selectionBefore = this.selection;
-    this.updateSelection();
-    var meta = new SelfMeta(selectionBefore, this.selection);
-    var operation = new WrappedOperation(textOperation, meta);
+    //var selectionBefore = this.selection;
+    //this.updateSelection();
+    //var meta = new SelfMeta(selectionBefore, this.selection);
 
+    var cursorBefore = this.cursor;
+    this.updateCursor();
+    var meta = new SelfMeta(cursorBefore, this.cursor);
+
+    var operation = new WrappedOperation(textOperation, meta);
     var compose = this.undoManager.undoStack.length > 0 &&
       inverse.shouldBeComposedWithInverted(last(this.undoManager.undoStack).wrapped);
-    var inverseMeta = new SelfMeta(this.selection, selectionBefore);
+
+    // var inverseMeta = new SelfMeta(this.selection, selectionBefore);
+
+    var inverseMeta = new SelfMeta(this.cursor, cursorBefore);
+
     this.undoManager.add(new WrappedOperation(inverse, inverseMeta), compose);
     this.applyClient(textOperation);
   };
@@ -1971,12 +1979,18 @@ ot.EditorClient = (function () {
     this.sendSelection(this.selection);
   };
 
+
   EditorClient.prototype.onBlur = function () {
     this.selection = null;
     this.sendSelection(null);
   };
 
 // added by suman
+
+  EditorClient.prototype.onBlur = function () {
+    this.cursor = null;
+    this.sendCursor(null);
+  };
 
   EditorClient.prototype.updateCursor = function () {
     this.cursor = this.editorAdapter.getCursor();
@@ -2140,32 +2154,37 @@ virtualclassAdapter = (function () {
        this.callbacks[event](args[0]);
   }
 
-  this.receivedMessage2 = function (event){
-    var msg = event.message;
-    if(msg.hasOwnProperty('data')){
-        var data = JSON.parse(msg.data);
-    }
-
-    var wrapped;
-
-    //TODO sholld be done by calling dynamic method invoke
-    if(msg.eddata == 'virtualclass-editor-operation'){
-        this.trigger('operation', data.operation);
-
-      //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
-
-    } else if(msg.eddata == 'virtualclass-editor-cursor'){
-      var cursor = JSON.parse(msg.data);
-
-    //  this.regiseterCb.cursor(cursor);
-      this.trigger('cursor', cursor);
-      //this.trigger('cursor', event.from.connectionId, cursor);
-    }else if(msg.eddata == 'selection'){
-        var selection = JSON.parse(msg.data);
-        this.trigger('selection', virtualclass.gObj.uid, selection);
-    }
-
-  }
+  //this.receivedMessage2 = function (event){
+  //  var msg = event.message;
+  //  if(msg.hasOwnProperty('data')){
+  //      var data = JSON.parse(msg.data);
+  //  }
+  //
+  //  var wrapped;
+  //
+  //  //TODO sholld be done by calling dynamic method invoke
+  //  if(msg.eddata == 'virtualclass-editor-operation'){
+  //      //if(event.fromUser.userid == virtualclass.gObj.uid){
+  //      //    this.trigger('ack');
+  //      //}else{
+  //      //    this.trigger('trigger', data.operation);
+  //      //}
+  //    this.trigger('trigger', data.operation);
+  //
+  //    //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
+  //
+  //  } else if(msg.eddata == 'virtualclass-editor-cursor'){
+  //    var cursor = JSON.parse(msg.data);
+  //
+  //  //  this.regiseterCb.cursor(cursor);
+  //    this.trigger('cursor', cursor);
+  //    //this.trigger('cursor', event.from.connectionId, cursor);
+  //  }else if(msg.eddata == 'selection'){
+  //      var selection = JSON.parse(msg.data);
+  //      this.trigger('selection', virtualclass.gObj.uid, selection);
+  //  }
+  //
+  //}
 
     this.receivedMessage = function (event){
       var msg = event.message;
@@ -2192,9 +2211,13 @@ virtualclassAdapter = (function () {
           //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
           //this.regiseterCb.cursor(wrappedPrime.meta);
 
-
-          this.trigger('operation', wrappedPrime.wrapped.toJSON());
-          this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
+          if(event.fromUser.userid == virtualclass.gObj.uid){
+                this.trigger('ack');
+            }else{
+                //this.trigger('trigger', data.operation);
+                this.trigger('operation', wrappedPrime.wrapped.toJSON());
+                this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
+            }
 
        } else if(msg.eddata == 'virtualclass-editor-cursor'){
           //var cursor = JSON.parse(msg.data);
@@ -2214,21 +2237,38 @@ virtualclassAdapter = (function () {
   };
 
   virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
-    io.send({
+    var sendData = {
       eddata: 'virtualclass-editor-operation',
-      data: JSON.stringify({
-        revision: revision,
-        operation: operation,
-        cursor: cursor
+          data: JSON.stringify({
+          revision: revision,
+          operation: operation,
+          cursor: cursor
       })
-    });
+    };
+    io.send(sendData);
 
     var that = this;
+
+    //var event = {
+    //    fromUser : {userid : virtualclass.gObj.uid},
+    //    message : sendData
+    //};
+    //
+    //virtualclass.editor.onmessage (event);
+
+
     setTimeout(
         function (){
-          that.trigger('ack');
+          var event = {
+              fromUser : {userid : virtualclass.gObj.uid},
+              message : sendData
+          };
+
+          virtualclass.editor.onmessage (event);
+        //  that.trigger('ack');
+
         },
-        100
+        300
     );
 
 
@@ -2236,10 +2276,12 @@ virtualclassAdapter = (function () {
 
   virtualclassAdapter.prototype.sendSelection = function (selection) {
     //io.send({'selection' : selection});
-    io.send({
-      eddata : 'selection',
-      data: JSON.stringify(selection)
-    });
+      alert('suman bogati');
+      debugger;
+      io.send({
+        eddata : 'selection',
+        data: JSON.stringify(selection)
+      });
   };
 
   virtualclassAdapter.prototype.sendCursor = function (cursor) {

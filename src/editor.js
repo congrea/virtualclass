@@ -20,6 +20,7 @@
                     if(e.message.eddata === 'init'){
                         virtualclass.makeAppReady('Editor');
                     }
+
                     otAdapter.receivedMessage(e);
                 },
 

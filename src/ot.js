@@ -896,6 +896,11 @@ ot.Client = (function (global) {
     return this.state.transformSelection(selection);
   };
 
+
+  Client.prototype.transformCursor = function (cursor) {
+    return this.state.transformCursor(cursor);
+  };
+
   // Override this method.
   Client.prototype.sendOperation = function (revision, operation) {
     throw new Error("sendOperation must be defined in child class");
@@ -932,6 +937,8 @@ ot.Client = (function (global) {
 
   // Nothing to do because the latest server state and client state are the same.
   Synchronized.prototype.transformSelection = function (x) { return x; };
+
+  Synchronized.prototype.transformCursor = function (cursor) { return cursor; };
 
   // Singleton
   var synchronized_ = new Synchronized();
@@ -973,8 +980,12 @@ ot.Client = (function (global) {
     return synchronized_;
   };
 
-  AwaitingConfirm.prototype.transformSelection = function (selection) {
-    return selection.transform(this.outstanding);
+  //AwaitingConfirm.prototype.transformSelection = function (selection) {
+  //  return selection.transform(this.outstanding);
+  //};
+
+  AwaitingConfirm.prototype.transformCursor = function (cursor) {
+    return cursor.transform(this.outstanding);
   };
 
   AwaitingConfirm.prototype.resend = function (client) {
@@ -1033,6 +1044,10 @@ ot.Client = (function (global) {
 
   AwaitingWithBuffer.prototype.transformSelection = function (selection) {
     return selection.transform(this.outstanding).transform(this.buffer);
+  };
+
+  AwaitingWithBuffer.prototype.transformCursor = function (cursor) {
+    return cursor.transform(this.outstanding).transform(this.buffer);
   };
 
   AwaitingWithBuffer.prototype.resend = function (client) {
@@ -1430,21 +1445,72 @@ ot.CodeMirrorAdapter = (function (global) {
     };
   }());
 
-  CodeMirrorAdapter.prototype.setOtherCursor = function (position, color, clientId) {
-    var cursorPos = this.cm.posFromIndex(position);
-    var cursorCoords = this.cm.cursorCoords(cursorPos);
-    var cursorEl = document.createElement('span');
-    cursorEl.className = 'other-client';
-    cursorEl.style.display = 'inline-block';
-    cursorEl.style.padding = '0';
-    cursorEl.style.marginLeft = cursorEl.style.marginRight = '-1px';
-    cursorEl.style.borderLeftWidth = '2px';
-    cursorEl.style.borderLeftStyle = 'solid';
-    cursorEl.style.borderLeftColor = color;
-    cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
-    cursorEl.style.zIndex = 0;
-    cursorEl.setAttribute('data-clientid', clientId);
-    return this.cm.setBookmark(cursorPos, { widget: cursorEl, insertLeft: true });
+  //CodeMirrorAdapter.prototype.setOtherCursor = function (position, color, clientId) {
+  //  var cursorPos = this.cm.posFromIndex(position);
+  //  var cursorCoords = this.cm.cursorCoords(cursorPos);
+  //  var cursorEl = document.createElement('span');
+  //  cursorEl.className = 'other-client';
+  //  cursorEl.style.display = 'inline-block';
+  //  cursorEl.style.padding = '0';
+  //  cursorEl.style.marginLeft = cursorEl.style.marginRight = '-1px';
+  //  cursorEl.style.borderLeftWidth = '2px';
+  //  cursorEl.style.borderLeftStyle = 'solid';
+  //  cursorEl.style.borderLeftColor = color;
+  //  cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
+  //  cursorEl.style.zIndex = 0;
+  //  cursorEl.setAttribute('data-clientid', clientId);
+  //  return this.cm.setBookmark(cursorPos, { widget: cursorEl, insertLeft: true });
+  //};
+
+  CodeMirrorAdapter.prototype.setOtherCursor = function (cursor, color, clientId) {
+    var cursorPos = this.cm.posFromIndex(cursor.position);
+    if (cursor.selection.length === 0) {
+      // show cursor
+      var cursorCoords = this.cm.cursorCoords(cursorPos);
+      var cursorEl = document.createElement('pre');
+      cursorEl.className = 'other-client';
+      cursorEl.style.borderLeftWidth = '2px';
+      cursorEl.style.borderLeftStyle = 'solid';
+      cursorEl.innerHTML = '&nbsp;';
+      cursorEl.style.borderLeftColor = color;
+      cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
+      cursorEl.style.marginTop = (cursorCoords.top - cursorCoords.bottom) + 'px';
+      cursorEl.style.zIndex = 0;
+      cursorEl.setAttribute('data-clientid', clientId);
+      this.cm.addWidget(cursorPos, cursorEl, false);
+      return {
+        clear: function () {
+          var parent = cursorEl.parentNode;
+          if (parent) { parent.removeChild(cursorEl); }
+        }
+      };
+    } else {
+      // show selection
+      var match = /^#([0-9a-fA-F]{6})$/.exec(color);
+      if (!match) { throw new Error("only six-digit hex colors are allowed."); }
+      var selectionClassName = 'selection-' + match[1];
+      var rule = '.' + selectionClassName + ' { background: ' + color + '; }';
+      addStyleRule(rule);
+
+      var selectionObjects = [];
+      for (var i = 0; i < cursor.selection.length; i++) {
+        var anchorPos = this.cm.posFromIndex(cursor.selection[i].anchor);
+        var headPos   = this.cm.posFromIndex(cursor.selection[i].head);
+        selectionObjects[i] = this.cm.markText(
+            minPos(anchorPos, headPos),
+            maxPos(anchorPos, headPos),
+            { className: selectionClassName }
+        );
+      }
+
+      return {
+        clear: function () {
+          for (var i = 0; i < selectionObjects.length; i++) {
+            selectionObjects[i].clear();
+          }
+        }
+      };
+    }
   };
 
   CodeMirrorAdapter.prototype.setOtherSelectionRange = function (range, color, clientId) {
@@ -1777,13 +1843,23 @@ ot.EditorClient = (function () {
     this.setColor(hueFromName(name));
   };
 
-  OtherClient.prototype.updateSelection = function (selection) {
-    this.removeSelection();
-    this.selection = selection;
-    this.mark = this.editorAdapter.setOtherSelection(
-      selection,
-      selection.position === selection.selectionEnd ? this.color : this.lightColor,
-      this.id
+  //OtherClient.prototype.updateSelection = function (selection) {
+  //  this.removeSelection();
+  //  this.selection = selection;
+  //  this.mark = this.editorAdapter.setOtherSelection(
+  //    selection,
+  //    selection.position === selection.selectionEnd ? this.color : this.lightColor,
+  //    this.id
+  //  );
+  //};
+
+  OtherClient.prototype.updateCursor = function (cursor) {
+    this.removeCursor();
+    this.cursor = cursor;
+    this.mark = this.editorAdapter.setOtherCursor(
+        cursor,
+        cursor.position === cursor.selectionEnd ? this.color : this.lightColor,
+        this.id
     );
   };
 
@@ -2148,11 +2224,22 @@ virtualclassAdapter = (function () {
 
 
 
-  this.trigger = function (){
-       var args = Array.prototype.slice.call(arguments)
-       var event = args.shift();
-       this.callbacks[event](args[0]);
-  }
+  this.trigger = function (func){
+      // var args = Array.prototype.slice.call(arguments)
+      // var event = args.shift();
+      //if(event == 'cursor'){
+      //      this.callbacks[event](args[0]);
+      //}
+
+
+        //var args = Array.prototype.slice.call(arguments);
+        //var myfunc = args.shift();
+        //
+        //myObj[myfunc](Array.prototype.slice.call(args, 0));
+
+      this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
+
+}
 
   //this.receivedMessage2 = function (event){
   //  var msg = event.message;
@@ -2237,41 +2324,33 @@ virtualclassAdapter = (function () {
   };
 
   virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
-    var sendData = {
-      eddata: 'virtualclass-editor-operation',
-          data: JSON.stringify({
-          revision: revision,
-          operation: operation,
-          cursor: cursor
-      })
-    };
-    io.send(sendData);
+      var sendData = {
+        eddata: 'virtualclass-editor-operation',
+            data: JSON.stringify({
+            revision: revision,
+            operation: operation,
+            cursor: cursor
+        })
+      };
 
-    var that = this;
+      io.send(sendData);
 
-    //var event = {
-    //    fromUser : {userid : virtualclass.gObj.uid},
-    //    message : sendData
-    //};
-    //
-    //virtualclass.editor.onmessage (event);
+      var that = this;
 
+      // fake server response
+      // this should be from server response
+      // for ackowledgement we need to send the at own side also.
 
-    setTimeout(
-        function (){
-          var event = {
-              fromUser : {userid : virtualclass.gObj.uid},
-              message : sendData
-          };
-
-          virtualclass.editor.onmessage (event);
-        //  that.trigger('ack');
-
-        },
-        300
-    );
-
-
+      setTimeout(
+          function (){
+            var event = {
+                fromUser : {userid : virtualclass.gObj.uid},
+                message : sendData
+            };
+            virtualclass.editor.onmessage (event);
+          },
+          300
+      );
   }
 
   virtualclassAdapter.prototype.sendSelection = function (selection) {

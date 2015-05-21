@@ -2200,11 +2200,10 @@ if (typeof module === 'object') {
 }
 
 
-
-virtualclassAdapter = (function () {
+virtualclassAdapter = function () {
   'use strict';
 
-  function virtualclassAdapter (revision, doc, operations) {
+  function virtualclassAdapter(revision, doc, operations) {
     if (operations && revision > operations.length) {
       // the operations have been truncated fill in the beginning with empty space
       var filler = [];
@@ -2215,16 +2214,13 @@ virtualclassAdapter = (function () {
     }
 
     // We pretend to be a server
-   var server = new ot.Server(doc, this.operations);
+    var server = new ot.Server(doc, this.operations);
 
     //OT.$.eventing(this);
     //this.registerCallbacks = this.on;
 
 
-
-
-
-  this.trigger = function (func){
+    this.trigger = function (func) {
       // var args = Array.prototype.slice.call(arguments)
       // var event = args.shift();
       //if(event == 'cursor'){
@@ -2232,89 +2228,89 @@ virtualclassAdapter = (function () {
       //}
 
 
-        //var args = Array.prototype.slice.call(arguments);
-        //var myfunc = args.shift();
-        //
-        //myObj[myfunc](Array.prototype.slice.call(args, 0));
+      //var args = Array.prototype.slice.call(arguments);
+      //var myfunc = args.shift();
+      //
+      //myObj[myfunc](Array.prototype.slice.call(args, 0));
 
       this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
 
-}
+    }
 
-  //this.receivedMessage2 = function (event){
-  //  var msg = event.message;
-  //  if(msg.hasOwnProperty('data')){
-  //      var data = JSON.parse(msg.data);
-  //  }
-  //
-  //  var wrapped;
-  //
-  //  //TODO sholld be done by calling dynamic method invoke
-  //  if(msg.eddata == 'virtualclass-editor-operation'){
-  //      //if(event.fromUser.userid == virtualclass.gObj.uid){
-  //      //    this.trigger('ack');
-  //      //}else{
-  //      //    this.trigger('trigger', data.operation);
-  //      //}
-  //    this.trigger('trigger', data.operation);
-  //
-  //    //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
-  //
-  //  } else if(msg.eddata == 'virtualclass-editor-cursor'){
-  //    var cursor = JSON.parse(msg.data);
-  //
-  //  //  this.regiseterCb.cursor(cursor);
-  //    this.trigger('cursor', cursor);
-  //    //this.trigger('cursor', event.from.connectionId, cursor);
-  //  }else if(msg.eddata == 'selection'){
-  //      var selection = JSON.parse(msg.data);
-  //      this.trigger('selection', virtualclass.gObj.uid, selection);
-  //  }
-  //
-  //}
+    //this.receivedMessage2 = function (event){
+    //  var msg = event.message;
+    //  if(msg.hasOwnProperty('data')){
+    //      var data = JSON.parse(msg.data);
+    //  }
+    //
+    //  var wrapped;
+    //
+    //  //TODO sholld be done by calling dynamic method invoke
+    //  if(msg.eddata == 'virtualclass-editor-operation'){
+    //      //if(event.fromUser.userid == virtualclass.gObj.uid){
+    //      //    this.trigger('ack');
+    //      //}else{
+    //      //    this.trigger('trigger', data.operation);
+    //      //}
+    //    this.trigger('trigger', data.operation);
+    //
+    //    //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
+    //
+    //  } else if(msg.eddata == 'virtualclass-editor-cursor'){
+    //    var cursor = JSON.parse(msg.data);
+    //
+    //  //  this.regiseterCb.cursor(cursor);
+    //    this.trigger('cursor', cursor);
+    //    //this.trigger('cursor', event.from.connectionId, cursor);
+    //  }else if(msg.eddata == 'selection'){
+    //      var selection = JSON.parse(msg.data);
+    //      this.trigger('selection', virtualclass.gObj.uid, selection);
+    //  }
+    //
+    //}
 
-    this.receivedMessage = function (event){
+    this.receivedMessage = function (event) {
       var msg = event.message;
-      if(msg.hasOwnProperty('data')){
+      if (msg.hasOwnProperty('data')) {
         var data = JSON.parse(msg.data);
       }
 
       var wrapped;
 
       //TODO sholld be done by calling dynamic method invoke
-      if(msg.eddata == 'virtualclass-editor-operation'){
-          wrapped = new ot.WrappedOperation(
-              ot.TextOperation.fromJSON(data.operation),
-              data.cursor && ot.Cursor.fromJSON(data.cursor)
-          );
+      if (msg.eddata == 'virtualclass-editor-operation') {
+        wrapped = new ot.WrappedOperation(
+            ot.TextOperation.fromJSON(data.operation),
+            data.cursor && ot.Cursor.fromJSON(data.cursor)
+        );
 
-          // Might need to try catch here and if it fails wait a little while and
-          // try again. This way if we receive operations out of order we might
-          // be able to recover
+        // Might need to try catch here and if it fails wait a little while and
+        // try again. This way if we receive operations out of order we might
+        // be able to recover
 
-          var wrappedPrime = server.receiveOperation(data.revision, wrapped);
-          console.log("new operation: " + wrapped);
+        var wrappedPrime = server.receiveOperation(data.revision, wrapped);
+        console.log("new operation: " + wrapped);
 
-          //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
-          //this.regiseterCb.cursor(wrappedPrime.meta);
+        //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
+        //this.regiseterCb.cursor(wrappedPrime.meta);
 
-          if(event.fromUser.userid == virtualclass.gObj.uid){
-                this.trigger('ack');
-            }else{
-                //this.trigger('trigger', data.operation);
-                this.trigger('operation', wrappedPrime.wrapped.toJSON());
-                this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
-            }
+        if (event.fromUser.userid == virtualclass.gObj.uid) {
+          this.trigger('ack');
+        } else {
+          //this.trigger('trigger', data.operation);
+          this.trigger('operation', wrappedPrime.wrapped.toJSON());
+          this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
+        }
 
-       } else if(msg.eddata == 'virtualclass-editor-cursor'){
-          //var cursor = JSON.parse(msg.data);
-          //this.trigger('cursor', cursor);
+      } else if (msg.eddata == 'virtualclass-editor-cursor') {
+        //var cursor = JSON.parse(msg.data);
+        //this.trigger('cursor', cursor);
 
-          //var cursor = JSON.parse(msg.data);
-          this.trigger('cursor', event.fromUser.userid, data);
+        //var cursor = JSON.parse(msg.data);
+        this.trigger('cursor', event.fromUser.userid, data);
 
         //this.trigger('cursor', event.from.connectionId, cursor);
-      }else if(msg.eddata == 'selection'){
+      } else if (msg.eddata == 'selection') {
         var selection = JSON.parse(msg.data);
         this.trigger('selection', virtualclass.gObj.uid, selection);
       }
@@ -2324,48 +2320,61 @@ virtualclassAdapter = (function () {
   };
 
   virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
-      var sendData = {
-        eddata: 'virtualclass-editor-operation',
-            data: JSON.stringify({
-            revision: revision,
-            operation: operation,
-            cursor: cursor
-        })
-      };
+    var sendData = {
+      eddata: 'virtualclass-editor-operation',
+      data: JSON.stringify({
+        revision: revision,
+        operation: operation,
+        cursor: cursor
+      })
+    };
 
-      io.send(sendData);
+    io.send(sendData);
 
-      var that = this;
+    //alert('suman bogati');
+    //debugger;
 
-      // fake server response
-      // this should be from server response
-      // for ackowledgement we need to send the at own side also.
 
-      setTimeout(
-          function (){
-            var event = {
-                fromUser : {userid : virtualclass.gObj.uid},
-                message : sendData
-            };
-            virtualclass.editor.onmessage (event);
-          },
-          300
-      );
+    var that = this;
+
+    // fake server response
+    // this should be from server response
+    // for ackowledgement we need to send the at own side also.
+    //var event = {
+    //          fromUser : {userid : virtualclass.gObj.uid},
+    //          message : sendData
+    //    };
+    // virtualclass.editor.onmessage(event);
+
+    //from here we started
+
+    //setTimeout(
+    //    function () {
+    //      var event = {
+    //        fromUser: {userid: virtualclass.gObj.uid},
+    //        message: sendData
+    //      };
+    //      virtualclass.editor.onmessage(event);
+    //    },
+    //    1
+    //);
+
+
   }
 
   virtualclassAdapter.prototype.sendSelection = function (selection) {
     //io.send({'selection' : selection});
-      alert('suman bogati');
-      debugger;
-      io.send({
-        eddata : 'selection',
-        data: JSON.stringify(selection)
-      });
+    alert('suman bogati');
+    debugger;
+    io.send({
+      eddata: 'selection',
+      data: JSON.stringify(selection)
+    });
   };
 
   virtualclassAdapter.prototype.sendCursor = function (cursor) {
     io.send({
-      eddata  : 'virtualclass-editor-cursor',
+      eddata: 'virtualclass-editor-cursor',
       data: JSON.stringify(cursor)
     });
   };
@@ -2376,4 +2385,4 @@ virtualclassAdapter = (function () {
 
   return virtualclassAdapter;
 
-}());
+}();

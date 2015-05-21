@@ -17,7 +17,7 @@
 
                 onmessage : function (e){
                     //at student
-                    if(e.message.eddata === 'init'){
+                    if(e.message.eddata === 'init' && e.fromUser.userid != virtualclass.gObj.uid){
                         virtualclass.makeAppReady('Editor');
                     }
 

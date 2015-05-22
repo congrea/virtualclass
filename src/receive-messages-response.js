@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     var response = {
         reclaimRole: function (formUserId, id) {
 //                alert(formUserId + ' ' + id);
@@ -113,16 +114,13 @@
         chunk: function (fromUser, id, repObj) {
             virtualclass.wb.bridge.handleMissedPackets(fromUser, id, repObj);
         },
-        repObjForMissedPkts: function (msgRepObj) {//TODO : Review @jai
-            if (virtualclass.wb.gObj.rcvdPackId != 0 || (virtualclass.wb.uid > 0 && virtualclass.wb.gObj.rcvdPackId == 0)) { //for handle very starting stage
-                if ((typeof msgRepObj == 'object' || msgRepObj instanceof Array)) {
-                    if (msgRepObj[0].hasOwnProperty('uid')) {
-                        if (virtualclass.wb.gObj.rcvdPackId + 1 != msgRepObj[0].uid && (!msgRepObj.hasOwnProperty('chunk'))) {
-//                            if ((virtualclass.wb.gObj.rcvdPackId + 1 != msgRepObj[0].uid)) {
-                            if (Number(virtualclass.wb.gObj.rcvdPackId) < Number(msgRepObj[0].uid)) {
-                                var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
-                                virtualclass.wb.utility.beforeSend({'getMsPckt': reqPacket});
-                            }
+        repObjForMissedPkts: function (msgRepObj) {
+            if (virtualclass.wb.gObj.rcvdPackId !== 0 || (virtualclass.wb.uid > 0 && virtualclass.wb.gObj.rcvdPackId === 0)) { //for handle very starting stage
+                if ((typeof msgRepObj === 'object' || msgRepObj instanceof Array)) {
+                    if (msgRepObj[0].hasOwnProperty('uid') && (!msgRepObj.hasOwnProperty('chunk'))) {
+                        if (Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) {
+                            var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
+                            virtualclass.wb.utility.beforeSend({'getMsPckt': reqPacket});
                         }
                     }
                 }

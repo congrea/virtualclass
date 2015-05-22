@@ -148,8 +148,15 @@ $(document).ready(function () {
             case 102:
             case 103:
             case 104:
+            case 202:
+            case 203:
+            case 204:
                 var stype = 'ss';
                 var sTool = 'ScreenShare';
+                if (!virtualclass.hasOwnProperty('studentScreen')) {
+                    virtualclass.studentScreen = new studentScreen();
+                }
+                virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
                 break;
             case 101: // Audio
                 if (!virtualclass.gObj.video.audio.otherSound) {
@@ -159,12 +166,6 @@ $(document).ready(function () {
             case 11:  // user video image
                 virtualclass.gObj.video.video.process(e.message);
                 break;
-
-            default:
-                if (!virtualclass.hasOwnProperty('studentScreen')) {
-                    virtualclass.studentScreen = new studentScreen();
-                }
-                virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
         }
     });
 
@@ -378,6 +379,10 @@ $(document).ready(function () {
         };
 
         this.repObj = function (e) {
+            if (!virtualclass.vutil.isPlayMode()) {
+                virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
+            }
+
             if (!e.message.hasOwnProperty('sentObj')) {
                 if (e.message.repObj[0].hasOwnProperty('uid')) {
                     if (virtualclass.previous !== "virtualclass" + virtualclass.apps[0]) {
@@ -389,10 +394,6 @@ $(document).ready(function () {
                 if (virtualclass.wb.gObj.displayedObjId > 0 && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('chunk') && virtualclass.wb.gObj.rcvdPackId !== 0) {
                     virtualclass.wb.bridge.makeQueue(e);
                 }
-            }
-
-            if (!virtualclass.vutil.isPlayMode()) {
-                virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
             }
 
             if (e.message.repObj.length > 1 && e.message.hasOwnProperty('chunk') && e.fromUser.userid === wbUser.id) {

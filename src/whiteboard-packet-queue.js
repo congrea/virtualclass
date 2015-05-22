@@ -4,7 +4,8 @@
  */
 
 (function (window) {
-    var bridge = {
+    "use strict";
+    var packetQueue = {
         requestPackets: function (msgRepObj) {
             //more than one packets comes after connection on
             if (msgRepObj.length > 1) {
@@ -46,7 +47,7 @@
         handleMissedPackets: function (fromUserId, id, repObj) {
             var repObj = this.removeDupObjs(repObj);
             virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(repObj);
-            bridge.sortingReplyObjs();
+            packetQueue.sortingReplyObjs();
 
             if (fromUserId != id) {
                 virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
@@ -83,5 +84,5 @@
             });
         }
     };
-    window.bridge = bridge;
+    window.bridge = packetQueue;
 })(window);

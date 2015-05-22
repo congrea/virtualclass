@@ -1,5 +1,6 @@
 //JavaScript Audio Resampler (c) 2011 - Grant Galitz
 function Resampler(fromSampleRate, toSampleRate, channels, outputBufferSize, noReturn) {
+    "use strict";
     this.fromSampleRate = fromSampleRate;
     this.toSampleRate = toSampleRate;
     this.channels = channels | 0;
@@ -8,6 +9,7 @@ function Resampler(fromSampleRate, toSampleRate, channels, outputBufferSize, noR
     this.initialize();
 }
 Resampler.prototype.initialize = function () {
+    "use strict";
     //Perform some checks:
     if (this.fromSampleRate > 0 && this.toSampleRate > 0 && this.channels > 0) {
         if (this.fromSampleRate == this.toSampleRate) {
@@ -44,6 +46,7 @@ Resampler.prototype.initialize = function () {
     }
 };
 Resampler.prototype.compileLinearInterpolationFunction = function () {
+    "use strict";
     var toCompile = "var bufferLength = buffer.length;\
 	var outLength = this.outputBufferSize;\
 	if ((bufferLength % " + this.channels + ") == 0) {\
@@ -88,6 +91,7 @@ Resampler.prototype.compileLinearInterpolationFunction = function () {
     this.resampler = Function("buffer", toCompile);
 };
 Resampler.prototype.compileMultiTapFunction = function () {
+    "use strict";
     var toCompile = "var bufferLength = buffer.length;\
 	var outLength = this.outputBufferSize;\
 	if ((bufferLength % " + this.channels + ") == 0) {\
@@ -162,6 +166,7 @@ Resampler.prototype.compileMultiTapFunction = function () {
     this.resampler = Function("buffer", toCompile);
 };
 Resampler.prototype.bypassResampler = function (buffer) {
+    "use strict";
     if (this.noReturn) {
         //Set the buffer passed as our own, as we don't need to resample it:
         this.outputBuffer = buffer;
@@ -173,6 +178,7 @@ Resampler.prototype.bypassResampler = function (buffer) {
     }
 };
 Resampler.prototype.bufferSlice = function (sliceAmount) {
+    "use strict";
     if (this.noReturn) {
         //If we're going to access the properties directly from this object:
         return sliceAmount;
@@ -196,6 +202,7 @@ Resampler.prototype.bufferSlice = function (sliceAmount) {
     }
 };
 Resampler.prototype.initializeBuffers = function () {
+    "use strict";
     //Initialize the internal buffer:
     try {
         this.outputBuffer = new Float32Array(this.outputBufferSize);

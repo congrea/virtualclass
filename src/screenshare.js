@@ -14,7 +14,7 @@
         return {
             ssProcess: function (data_pack, msg, stype, sTool) {
                 var mycase = data_pack[0];
-                var data_pack = new Uint8ClampedArray(msg);
+                data_pack = new Uint8ClampedArray(msg);
                 var x, y, h, w, l, recmsg, dw, dh, vcw, vch, dimObj;
                 switch (mycase) {
                     // Full Image
@@ -409,18 +409,19 @@
 
                     var wdw = Math.round((that.localtempCanvas.width) / resB);
                     var wdh = Math.round((that.localtempCanvas.height) / resA);
+                    var dw, dh, vcw, vch;
 
                     var contDimension = that.getContainerDimension();
                     if (typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined') {
-                        var dw = breakintobytes(prvVWidth, 4);
-                        var dh = breakintobytes(prvVHeight, 4);
-                        var vcw = breakintobytes(contDimension.width, 4);
-                        var vch = breakintobytes(contDimension.height, 4);
+                        dw = breakintobytes(prvVWidth, 4);
+                        dh = breakintobytes(prvVHeight, 4);
+                        vcw = breakintobytes(contDimension.width, 4);
+                        vch = breakintobytes(contDimension.height, 4);
                     } else {
-                        var dw = breakintobytes(that.video.offsetWidth, 4);
-                        var dh = breakintobytes(that.video.offsetHeight, 4);
-                        var vcw = breakintobytes(contDimension.width, 4);
-                        var vch = breakintobytes(contDimension.height, 4);
+                        dw = breakintobytes(that.video.offsetWidth, 4);
+                        dh = breakintobytes(that.video.offsetHeight, 4);
+                        vcw = breakintobytes(contDimension.width, 4);
+                        vch = breakintobytes(contDimension.height, 4);
                     }
 
                     var appCode = (stype == 'ss' ) ? 104 : 204;

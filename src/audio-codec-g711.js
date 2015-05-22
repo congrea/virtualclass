@@ -4,6 +4,7 @@
  * MIT Licensed
  */
 (function (exports) {
+    "use strict";
     var G711 = {};
     G711.BIAS = 0x84;
     G711.CLIP = 32635;
@@ -222,7 +223,7 @@
         }
 
         /* Fetch Segment */
-        var seg = G711.tables.ulaw.compress[(pcm_val >> 8) & 0x7F];
+        seg = G711.tables.ulaw.compress[(pcm_val >> 8) & 0x7F];
 
         /*
          * Combine the sign, segment, quantization bits;
@@ -258,7 +259,7 @@
          * Extract and bias the quantization bits. Then
          * shift up by the segment number and subtract out the bias.
          */
-        t = ((u_val & 0xf) << 3) + G711.BIAS;
+        var t = ((u_val & 0xf) << 3) + G711.BIAS;
         t <<= (u_val & 0x70) >> 4;
 
         var s = (u_val & 0x80) == 0x80;

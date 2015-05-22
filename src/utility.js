@@ -8,6 +8,7 @@
  */
 
 (function (window) {
+    "use strict";
     var vutil = {
         createDOM: function (tag, id, _class) {
             var elem = document.createElement(tag);
@@ -91,7 +92,7 @@
             var rightOffSet = 5;
 
             var extraWidth = 0;
-
+            var leftSideBarWidth;
             if (virtualclass.currApp == 'ScreenShare') {
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
@@ -129,16 +130,14 @@
 
             var screenShareLocalVideo = document.getElementById(sId + "LocalVideo");
             var screenShareLocalVideoWidth = screenShareLocalVideo.offsetWidth;
-
-            var screenShareLocalVideoWidth = screenShareLocalWidth - screenShareLocalVideoWidth;
+            screenShareLocalVideoWidth = screenShareLocalWidth - screenShareLocalVideoWidth;
             //screenShareLocalVideo.style.marginLeft = (screenShareLocalVideoWidth/2) + "px";
         },
 
         makeActiveApp: function (app, prvTool) {
             if (app != prvTool && typeof prvTool != 'undefined') {
-                var prvTool = prvTool + 'Tool';
-                var classes = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
-                document.getElementById(prvTool).className = classes;
+                prvTool = prvTool + 'Tool';
+                document.getElementById(prvTool).className = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
             }
             document.getElementById(app + "Tool").className += ' active';
 
@@ -183,10 +182,11 @@
         },
 
         initLocCanvasCont: function (tempVideoId) {
+            var app;
             if (virtualclass.currApp == "ScreenShare") {
-                var app = 'ss';
+                app = 'ss';
             } else {
-                var app = 'wss';
+                app = 'wss';
             }
 
             virtualclass[app].localtempCanvas = document.getElementById(tempVideoId);
@@ -209,7 +209,6 @@
 
                 var tempVid = localVideo;
                 localVideo.parentNode.replaceChild(stCanvas, localVideo);
-                var app;
                 if (app == 'ScreenShare') {
                     app = "ss";
                 }
@@ -235,7 +234,7 @@
 
         exitTextWrapper: function () {
             var textBoxContainer = document.getElementsByClassName('textBoxContainer');
-            return textBoxContainer.length > 0 ? true : false;
+            return textBoxContainer.length > 0;
         },
 
         attachClickOutSideCanvas: function () {
@@ -258,7 +257,7 @@
             var wbcWidth = document.getElementById(wbc).offsetWidth;
             var optionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
             var sscWidth = document.getElementById(ssc).offsetWidth + optionsContWidth;
-            return (sscWidth == wbcWidth) ? true : false;
+            return (sscWidth == wbcWidth);
         },
 
         disableAppsBar: function () {
@@ -344,8 +343,7 @@
             for (var i = numstring.length; i < l; i++) {
                 numstring = '0' + numstring;
             }
-            var parts = numstring.match(/[\S]{1,2}/g) || [];
-            return parts;
+            return numstring.match(/[\S]{1,2}/g) || [];
         },
 
         numValidateFour: function (n1, n2, n3, n4) {
@@ -376,25 +374,17 @@
         elemHasAnyClass: function (elemId) {
             var elem = document.getElementById(elemId);
             if (elem != null) {
-                return (typeof elem.classList != 'undefined') ? true : false;
+                return (typeof elem.classList != 'undefined');
             }
             return false;
         },
 
         userIsOrginalTeacher: function (userId) {
-            if (localStorage.getItem('orginalTeacherId') != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return localStorage.getItem('orginalTeacherId') != null;
         },
 
         isUserTeacher: function (userId) {
-            if (localStorage.getItem('teacherId') != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return localStorage.getItem('teacherId') != null;
         },
 
         initDisableAudVid: function () {
@@ -467,7 +457,7 @@
         },
 
         isPlayMode: function () {
-            return (window.wbUser.virtualclassPlay == true) ? true : false;
+            return (window.wbUser.virtualclassPlay == true);
         },
 
         progressBar: function (totalVal, portion, pbar, pval) {
@@ -475,11 +465,11 @@
                 portion = totalVal;
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
             }
-
+            var totalProgress;
             if (totalVal == 0 && portion == 0) {
-                var totalProgress = 0;
+                totalProgress = 0;
             } else {
-                var totalProgress = Math.round((portion * 100) / totalVal);
+                totalProgress = Math.round((portion * 100) / totalVal);
             }
 
             document.getElementById(pbar).style.width = totalProgress + '%';

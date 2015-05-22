@@ -91,6 +91,11 @@ var io = {
     },
 
     send: function (msg) {
+        if(this.sock == null){
+            console.log("socket is not created");
+            return;
+        }
+
         "use strict";
         var bctype = 'broadcastToAll';
         if(msg.hasOwnProperty('eddata')){
@@ -127,10 +132,12 @@ var io = {
                 user: virtualclass.uInfo.userobj
             };
 
-            var storjobj = JSON.stringify(storObj);
-            //getMsPckt, can not request the packets from other user during replay
-            if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
-                this.completeStorage(storjobj);
+            if(storObj.type != 'broadcast'){
+                var storjobj = JSON.stringify(storObj);
+                //getMsPckt, can not request the packets from other user during replay
+                if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
+                    this.completeStorage(storjobj);
+                }
             }
         }
 
@@ -184,17 +191,20 @@ var io = {
             } else {
                 var receivemsg = JSON.parse(e.data);
                 if (!receivemsg.hasOwnProperty('userto')) {
+                    io.completeStorage(e.data);
 
-                    //TODO this has to be simpliyfied
-                    if(receivemsg.hasOwnProperty('m')){
-                        if(receivemsg.m.hasOwnProperty('eddata')){
-                            if(receivemsg.m.eddata != 'init'){
-                                io.completeStorage(e.data);
-                            }
-                        }
-                    } else {
-                        io.completeStorage(e.data);
-                    }
+                    //////TODO this has to be simpliyfied
+                    //if(receivemsg.hasOwnProperty('m')){
+                    //    if(receivemsg.m.hasOwnProperty('eddata')){
+                    //        if(receivemsg.m.eddata != 'init'){
+                    //            io.completeStorage(e.data);
+                    //        }
+                    //    }else {
+                    //        io.completeStorage(e.data);
+                    //    }
+                    //} else {
+                    //    io.completeStorage(e.data);
+                    //}
                 }
                 var userto = '';
                 switch (receivemsg.type) {

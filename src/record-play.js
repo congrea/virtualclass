@@ -511,8 +511,7 @@
                 clearTimeout(that.playTimeout);
             }
             if (!this.hasOwnProperty('playTime')) {
-                 alert('ss');
-                 debugger;
+
                 this.playTime = this.items[0].playTime;
                 e.data = JSON.parse(this.items[this.objn].recObjs);
                 io.cfg = e.data;
@@ -522,6 +521,7 @@
                 virtualclass.gObj.uRole = 's'; //if teacher sets there would ask for choose screen share
                 // TODO this need to find why this below line are using
                 // TODO validate also After disabled, all recording are working properly
+
                 //virtualclass.gObj.uName = io.cfg.userobj.name;
                 //virtualclass.gObj.uid = io.cfg.userobj.userid;
 

@@ -2167,6 +2167,7 @@ ot.Server = (function (global) {
   }
 
   // Call this method whenever you receive an operation from a client.
+
   Server.prototype.receiveOperation = function (revision, operation) {
     if (revision < 0 || this.operations.length < revision) {
       throw new Error("operation revision not in history");
@@ -2174,10 +2175,11 @@ ot.Server = (function (global) {
     // Find all operations that the client didn't know of when it sent the
     // operation ...
     var concurrentOperations = this.operations.slice(revision);
-
+    console.log('conc operation ' + concurrentOperations.length);
     // ... and transform the operation against all these operations ...
     var transform = operation.constructor.transform;
     for (var i = 0; i < concurrentOperations.length; i++) {
+      console.log('transforming');
       operation = transform(operation, concurrentOperations[i])[0];
     }
 
@@ -2364,19 +2366,22 @@ virtualclassAdapter = function () {
 
   virtualclassAdapter.prototype.sendSelection = function (selection) {
     //io.send({'selection' : selection});
-    alert('suman bogati');
-    debugger;
+
     io.send({
       eddata: 'selection',
       data: JSON.stringify(selection)
     });
+
   };
 
   virtualclassAdapter.prototype.sendCursor = function (cursor) {
+    console.log("Send Cursor");
     io.send({
       eddata: 'virtualclass-editor-cursor',
       data: JSON.stringify(cursor)
     });
+
+
   };
 
   virtualclassAdapter.prototype.registerCallbacks = function (cb) {

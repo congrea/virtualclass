@@ -28,7 +28,7 @@
         },
 
         isLocalStorageSupport: function () {
-            return (Storage !== void(0)) ? true : false;
+            return (Storage !== void(0));
         },
 
         isGetUserMediaSupport: function (browser, version) {
@@ -45,7 +45,7 @@
         },
 
         isWorkerSupport: function () {
-            return !!window.Worker ? true : false;
+            return !!window.Worker;
         },
 
         isAudioApiSupport: function () {
@@ -53,12 +53,12 @@
         },
 
         isTypedArraySupport: function () {
-            return ( 'ArrayBuffer' in window ) ? true : false;
+            return !!( 'ArrayBuffer' in window );
         },
 
         isScreenShareSupport: function (bname, bversion) {
             if (bname == 'Firefox') {
-                return (bversion >= 34) ? true : false;
+                return (bversion >= 34);
             } else if (bname == 'Chrome') {
                 return (bversion >= 39) ? true : false;
             }

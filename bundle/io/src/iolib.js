@@ -92,24 +92,26 @@ var io = {
 
     send: function (msg) {
         "use strict";
-        //currTime(pag);            
+        var bctype = 'broadcastToAll';
+        if(msg.hasOwnProperty('eddata')){
+
+            bctype = 'broadcast';
+        }
+
         var obj = {
             //cfun : 'broadcast',
-            cfun: 'broadcastToAll',
+            cfun: bctype,
             arg: {'msg': msg}
         };
 
 
-        if(msg.hasOwnProperty('eddata')){
-            console.log('eddata');
-            obj.cfun = 'broadcast';
-        }
+
 
         if (arguments.length > 1) {
             var uid = arguments[1];// user id to  whom msg is intented
             obj.arg.touser = this.uniquesids[uid];
         }
-        
+
         var jobj = JSON.stringify(obj);
         this.sock.send(jobj);
 
@@ -118,7 +120,7 @@ var io = {
             var storObj = {
                 //cfun : 'broadcast',
 
-                type: 'broadcastToAll',
+                type: bctype,
 
                 m: msg,
                 userto: obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "",
@@ -182,7 +184,17 @@ var io = {
             } else {
                 var receivemsg = JSON.parse(e.data);
                 if (!receivemsg.hasOwnProperty('userto')) {
-                    io.completeStorage(e.data);
+
+                    //TODO this has to be simpliyfied
+                    if(receivemsg.hasOwnProperty('m')){
+                        if(receivemsg.m.hasOwnProperty('eddata')){
+                            if(receivemsg.m.eddata != 'init'){
+                                io.completeStorage(e.data);
+                            }
+                        }
+                    } else {
+                        io.completeStorage(e.data);
+                    }
                 }
                 var userto = '';
                 switch (receivemsg.type) {

@@ -10,6 +10,9 @@ $(document).ready(function () {
 
     window.pageEnter = new Date().getTime();
     var virtualclass = new window.virtualclass();
+
+
+
     window.virtualclass = virtualclass; //Need virtualclass object in each file
 
     virtualclass.gObj.displayError = 1;

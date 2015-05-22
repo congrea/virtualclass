@@ -5,6 +5,8 @@
 (
     function(window) {
         var  editor = function() {
+            "use strict";
+            var otAdapter;
             return {
                 cm : '',
                 init: function () {
@@ -15,15 +17,19 @@
                     }
                 },
 
+                //Trigger when the packet(text) is received from server
                 onmessage : function (e){
                     //at student
-                    if(e.message.eddata === 'init' && e.fromUser.userid != virtualclass.gObj.uid){
+                    //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
+                    if((e.message.eddata === 'init' && e.fromUser.userid != virtualclass.gObj.uid) ||
+                        (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
                         virtualclass.makeAppReady('Editor');
                     }
 
                     otAdapter.receivedMessage(e);
                 },
 
+                //UI object is used for create container for editor
                 UI: {
                     id: 'virtualclassEditor',
                     class: 'vmApp',
@@ -46,8 +52,12 @@
                     }
                 },
 
+                //initalize the code mirror
                 initCm : function (){
-
+                    var revision = 0;
+                    var clients = [];
+                    var docs = "";
+                    var operations = "";
                     var edElem = document.getElementById(this.UI.edId);
 
                     this.cm =  CodeMirror(edElem, {
@@ -57,11 +67,9 @@
                         matchBrackets: true
                     });
 
-                    revision = 0;
-                    clients = [];
-                    docs = "";
+
                     //docs = mycm.getValue();
-                    operations = "";
+
 
                     otAdapter =  new virtualclassAdapter(revision, docs, operations);
 

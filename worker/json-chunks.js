@@ -6,10 +6,11 @@
 
 importScripts('lzstring.js');
 
-var cn, totalSent, totalStore = 0;
+var cn,  totalStore = 0;
 var sizemultiplier = 1024 * 1024;
 var csize = 100;
 var datatmp, beforeStringfy, ctmp;
+var totalSent = 0;
 
 function sliceandstring() {
     "use strict";
@@ -40,6 +41,7 @@ onmessage = function (e) {
                 sliceandstring();
             }
             beforeStringfy.splice(0, csize);
+
             totalSent += csize;
             datatmp = LZString.compressToEncodedURIComponent(datatmp);
             postMessage({

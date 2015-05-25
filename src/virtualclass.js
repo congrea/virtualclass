@@ -323,7 +323,12 @@
                 } else if (app == this.apps[3]) {
                     var whiteboard = document.getElementById('virtualclassWhiteboard');
                     whiteboard.style.display = 'none';
-                    virtualclass.editor.init();
+
+                    var revision = 0;
+                    var clients = [];
+                    var docs = "";
+                    var operations = "";
+                    virtualclass.editor.init(revision, clients, docs, operations);
                   //  this.previous = virtualclass.edConfig.id;
                 }
 

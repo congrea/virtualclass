@@ -106,12 +106,25 @@ $(document).ready(function () {
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
         memberUpdate(e, 'added');
+
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
             virtualclass.gObj.video.updateVidContHeight();
             virtualclass.gObj.updateHeight = true;
         }
 
-        if (virtualclass.gObj.uRole === 't') {
+        if (virtualclass.gObj.uRole === 't' &&  virtualclass.gObj.uid != virtualclass.jId) {
+            if(virtualclass.editor.hasOwnProperty('vcAdataper') && virtualclass.editor.vcAdataper.operations.length > 0){
+                if(virtualclass.editor.vcAdataper.operations.length > 50){
+                    virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
+                }
+            }
+
+            if(virtualclass.currApp == 'Editor'){
+                virtualclass.editor.initVcEditor('editor');
+            }else {
+                virtualclass.editor.initVcEditor();
+            }
+
             if (virtualclass.currApp === 'ScreenShare') {
                 sType = 'ss';
             }
@@ -124,6 +137,7 @@ $(document).ready(function () {
                 sType = null;
             }
         }
+
     });
 
     $(document).on("Multiple_login", function (e) {
@@ -173,7 +187,10 @@ $(document).ready(function () {
      * On every new message from IOLib/Server
      */
     $(document).on("newmessage", function (e) {
-
+        //if(e.message.hasOwnProperty('editorSuman')){
+        //    alert('I have just joined the room');
+        //    return;
+        //}
         var recMsg = e.message, key;
         virtualclass.wb.gObj.myrepObj = virtualclass.wb.vcan.getStates('replayObjs');
 
@@ -236,6 +253,8 @@ $(document).ready(function () {
             virtualclass.editor.onmessage(e);
 
         }
+
+
 
         this.yts = function (e) {
             virtualclass.yts.onmessage(e.message);

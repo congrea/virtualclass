@@ -2201,7 +2201,7 @@ if (typeof module === 'object') {
   module.exports = ot.Server;
 }
 
-
+//this should be seprated
 virtualclassAdapter = function () {
   'use strict';
 
@@ -2315,10 +2315,16 @@ virtualclassAdapter = function () {
       } else if (msg.eddata == 'selection') {
         var selection = JSON.parse(msg.data);
         this.trigger('selection', virtualclass.gObj.uid, selection);
+      } else if(msg.eddata == 'initVcEditor'){
+          //if(msg.hasOwnProperty('layoutEd')){
+          //    virtualclass.makeAppReady('Editor');
+          //}
+
+          //var doc = JSON.parse(msg.data);
+          //virtualclass.editor.initialiseDoc(doc);
+          //do work for init editor
       }
-
     }
-
   };
 
   virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
@@ -2389,5 +2395,4 @@ virtualclassAdapter = function () {
   };
 
   return virtualclassAdapter;
-
 }();

@@ -116,7 +116,6 @@
                             str: this.cm.getValue(), //cm is my code mirror
                             operations: operations
                         })
-
                     }
 
                     if(typeof appIsEditor != 'undefined'){

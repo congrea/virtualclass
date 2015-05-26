@@ -12,23 +12,32 @@
                 vcAdapter : "",
                 initialised :false,
                 init: function (revision, clients, docs, operations) {
-                    this.UI.container();
-                    //var revision = 0;
-                    //var clients = [];
-                    //var docs = "";
-                    //var operations = "";
-
-                    this.initCm(revision, clients, docs, operations);
+                    this.cmLayout();
+                    this.createEditorClient(revision, clients, docs, operations);
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init'});
                     }
+                },
+
+                cmLayout : function (){
+                    this.UI.container();
+                    var edElem = document.getElementById(this.UI.edId);
+
+                    if(typeof this.cm != 'object'){
+                        this.cm =  CodeMirror(edElem, {
+                            lineNumbers: true,
+                            lineWrapping: true,
+                            mode: "markdown",
+                            matchBrackets: true
+                        });
+                    }
+
                 },
 
                 //Trigger when the packet(text) is received from server
                 onmessage : function (e){
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
-                    //if(((e.message.eddata === 'init' || e.message.hasOwnProperty('layoutEd'))  && e.fromUser.userid != virtualclass.gObj.uid) ||
                     if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
                         (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
                         virtualclass.makeAppReady('Editor');
@@ -45,7 +54,6 @@
                     } else {
                         this.vcAdapter.receivedMessage(e);
                     }
-
                 },
 
                 //UI object is used for create container for editor
@@ -74,60 +82,8 @@
                     }
                 },
 
-                //initalize the code mirror
-                initCm : function (revision, clients, docs,  operations){
-
-
-                    //var revision = 0;
-                    //var clients = [];
-                    //var docs = "";
-                    //var operations = "";
-
-
-                    //this.cm =  CodeMirror(edElem, {
-                    //    lineNumbers: true,
-                    //    lineWrapping: true,
-                    //    mode: "markdown",
-                    //    matchBrackets: true
-                    //});
-                    //
-                    //
-                    //this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
-                    //
-                    //this.cmClient = new ot.EditorClient(
-                    //    revision,
-                    //    clients,
-                    //    this.vcAdapter,
-                    //    new ot.CodeMirrorAdapter(this.cm)
-                    //);
-
-                    var edElem = document.getElementById(this.UI.edId);
-                    if(typeof this.cm != 'object'){
-                        this.cm =  CodeMirror(edElem, {
-                            lineNumbers: true,
-                            lineWrapping: true,
-                            mode: "markdown",
-                            matchBrackets: true
-                        });
-                    }
-
-                    this.createEditorClient(revision, clients, docs,  operations);
-                },
-
                 createEditorClient : function (revision, clients, docs, operations){
-
-                    //var edElem = document.getElementById(this.UI.edId);
-                    //if(typeof this.cm != 'object'){
-                    //    this.cm =  CodeMirror(edElem, {
-                    //        lineNumbers: true,
-                    //        lineWrapping: true,
-                    //        mode: "markdown",
-                    //        matchBrackets: true
-                    //    });
-                    //}
-
                     this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
-
                     this.cmClient = new ot.EditorClient(
                         revision,
                         clients,
@@ -136,6 +92,7 @@
                     );
                 },
 
+                //sending the editor packets for new join memeber
                 initVcEditor : function (appIsEditor){
                     var operations = this.vcAdapter && this.vcAdapter.operations ? serialiseOps(this.vcAdapter.operations): [];
                     // We only want the most recent 50 because we can't send too much data
@@ -158,45 +115,23 @@
                     if(typeof appIsEditor != 'undefined'){
                         initPacket.layoutEd  = "1";  //this would be for create editor layout
                     }
-
                     io.send(initPacket);
-
                 },
 
+                // After editor packets recived from teacher
+                // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc) {
-                    var mydeserialiseOps =  deserialiseOps(doc.operations);
-
-                    //alert('suman bogati');
-                    //debugger;
-
-                    this.init(doc.revision, doc.clients, doc.str, mydeserialiseOps);
-
-                    //this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
-
+                    this.cmLayout();
                     if (this.cm && !this.initialised) {
                         this.initialised = true;
                         if (this.cm.getValue() !== doc.str) {
                             this.cm.setValue(doc.str);
 
                         }
-                        //this.createEditorClient(revision, clients, operations);
-                        //this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
+                        this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations))
                     }
-                    //this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations))
                 }
             }
-
-            //var initialiseDoc = function () {
-            //    if (myCodeMirror && !initialised) {
-            //        initialised = true;
-            //        if (virtualclass.editor.cm.getValue() !== doc.str) {
-            //            virtualclass.editor.cm.setValue(doc.str);
-            //
-            //        }
-            //        createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
-            //    }
-            //};
-
         };
 
         // Turns the Array of operation Objects into an Array of JSON stringifyable objects

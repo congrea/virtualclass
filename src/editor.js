@@ -12,8 +12,14 @@
                 vcAdapter : "",
                 initialised :false,
                 init: function (revision, clients, docs, operations) {
-                    this.cmLayout();
+                    if(!this.cm && typeof this.cm != 'object'){
+                        this.cmLayout();
+                    }else {
+                        virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
+                    }
+
                     this.createEditorClient(revision, clients, docs, operations);
+
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init'});
                     }
@@ -43,9 +49,7 @@
                         virtualclass.makeAppReady('Editor');
                     }
 
-
                     if(e.message.eddata == 'initVcEditor'){
-
                         if(virtualclass.gObj.uRole != 't'){
                             var doc = JSON.parse(e.message.data);
                             virtualclass.editor.initialiseDoc(doc);
@@ -62,10 +66,10 @@
                     class: 'vmApp',
                     edId : 'virtualclassEditorBody',
                     container: function () {
-                        var whiteboard = document.getElementById('virtualclassWhiteboard');
-                        whiteboard.style.display = 'none';
 
-                        if (document.getElementById(this.id) == null) {
+                        //var whiteboard = document.getElementById('virtualclassWhiteboard');
+                        //whiteboard.style.display = 'none';
+                       if (document.getElementById(this.id) == null) {
                             var divEditor = document.createElement('div');
                             divEditor.id = this.id;
                             divEditor.className = this.class;
@@ -83,13 +87,16 @@
                 },
 
                 createEditorClient : function (revision, clients, docs, operations){
-                    this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
-                    this.cmClient = new ot.EditorClient(
-                        revision,
-                        clients,
-                        this.vcAdapter,
-                        new ot.CodeMirrorAdapter(this.cm)
-                    );
+                    if(!this.hasOwnProperty('cmClient') || typeof this.cmClient != 'object'){
+                        this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
+                        this.cmClient = new ot.EditorClient(
+                            revision,
+                            clients,
+                            this.vcAdapter,
+                            new ot.CodeMirrorAdapter(this.cm)
+                        );
+                    }
+
                 },
 
                 //sending the editor packets for new join memeber
@@ -121,14 +128,14 @@
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc) {
+                    virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app);
                     this.cmLayout();
                     if (this.cm && !this.initialised) {
                         this.initialised = true;
                         if (this.cm.getValue() !== doc.str) {
                             this.cm.setValue(doc.str);
-
                         }
-                        this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations))
+                        this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
                     }
                 }
             }

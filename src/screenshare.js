@@ -219,9 +219,7 @@
                 if (app == virtualclass.apps[1]) {
                     this.getScreen();
                 }
-//                else if (app == virtualclass.apps[2]) {
-//                    this.wholeScreen();
-//                }
+
             },
 
             onError: function (e) {

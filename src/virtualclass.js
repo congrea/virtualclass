@@ -230,7 +230,7 @@
             },
 
             makeAppReady: function (app, cusEvent, videoId) {
-//                  var currAppId = "";
+
                 this.currApp = app;
 
                 //TODO this should be simplyfied
@@ -239,6 +239,13 @@
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                     }
                 }
+
+                //if not screen share
+
+                if(app != this.apps[1] ){
+                   this.dispvirtualclassLayout('virtualclass' +app);
+                }
+
 
                 if (app == this.apps[0]) {
                     if (typeof this.ss == 'object') {
@@ -249,10 +256,10 @@
                         if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
                             virtualclass.wb.utility.beforeSend({'dispWhiteboard': true});
                         }
-                        // document.getElementById(virtualclass.previous).style.display = 'none';
                     }
 
-                    this.dispvirtualclassLayout(this.wbConfig.id);
+                    //this.dispvirtualclassLayout(this.wbConfig.id);
+
                     //this should be checked with solid condition
                     if (typeof this.wb != 'object') {
                         this.wb = new window.whiteboard(this.wbConfig);
@@ -303,33 +310,36 @@
                     }
                     this.ss.init({type: 'ss', app: app});
                 } else if (app == this.apps[2]) {
-                    this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
+                    //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
+
                     if (typeof videoId != 'undefined') {
                         virtualclass.yts.init(videoId);
                     } else {
                         virtualclass.yts.init();
                     }
 
-
                     this.previous = virtualclass.ytsConfig.id;
-
-                    //this.previrtualclass = this.previous;
 
                     var measureRes = virtualclass.system.measureResoultion({
                         'width': window.innerWidth,
                         'height': window.innerHeight
                     });
+
                     virtualclass.vutil.setContainerWidth(measureRes);
+
                 } else if (app == this.apps[3]) {
-                    var whiteboard = document.getElementById('virtualclassWhiteboard');
-                    whiteboard.style.display = 'none';
+
+                    //this.dispvirtualclassLayout(virtualclass.ytsConfig.edConfig);
+
+                    //var whiteboard = document.getElementById('virtualclassWhiteboard');
+                    //whiteboard.style.display = 'none';
 
                     var revision = 0;
                     var clients = [];
                     var docs = "";
                     var operations = "";
                     virtualclass.editor.init(revision, clients, docs, operations);
-                  //  this.previous = virtualclass.edConfig.id;
+                    this.previous = virtualclass.edConfig.id;
                 }
 
                 //this.createDiv(vApp.edConfig.id + "Tool", "editor", appOptCont, vApp.edConfig.classes);

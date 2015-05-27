@@ -220,7 +220,9 @@
 
             dispvirtualclassLayout: function (appId) {
                 if (typeof this.previous != 'undefined') {
-                    document.getElementById(virtualclass.previous).style.display = 'none';
+                    if(this.previous != 'virtualclass'+this.currApp){
+                        document.getElementById(virtualclass.previous).style.display = 'none';
+                    }
                 }
 
                 var appElement = document.getElementById(appId);

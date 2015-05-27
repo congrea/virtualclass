@@ -11,8 +11,6 @@ $(document).ready(function () {
     window.pageEnter = new Date().getTime();
     var virtualclass = new window.virtualclass();
 
-
-
     window.virtualclass = virtualclass; //Need virtualclass object in each file
 
     virtualclass.gObj.displayError = 1;
@@ -112,32 +110,55 @@ $(document).ready(function () {
             virtualclass.gObj.updateHeight = true;
         }
 
-        if (virtualclass.gObj.uRole === 't' &&  virtualclass.gObj.uid != virtualclass.jId) {
-            if(virtualclass.editor.hasOwnProperty('vcAdataper') && virtualclass.editor.vcAdataper.operations.length > 0){
-                if(virtualclass.editor.vcAdataper.operations.length > 50){
-                    virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
+        if (virtualclass.gObj.uRole === 't') {
+            if(virtualclass.gObj.uid != virtualclass.jId){
+                if(virtualclass.editor.hasOwnProperty('vcAdataper') && virtualclass.editor.vcAdataper.operations.length > 0){
+                    if(virtualclass.editor.vcAdataper.operations.length > 50){
+                        virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
+                    }
                 }
-            }
 
-            if(virtualclass.currApp == 'Editor'){
-                virtualclass.editor.initVcEditor('editor');
-            }else {
-                virtualclass.editor.initVcEditor();
-            }
+                if(virtualclass.currApp == 'Editor'){
+                    virtualclass.editor.initVcEditor({'editor' : true }); //give sign for create editor
+                }else{
+                    virtualclass.editor.initVcEditor();
+                }
 
-            if (virtualclass.currApp === 'ScreenShare') {
-                sType = 'ss';
-            }
+                if (virtualclass.currApp === 'ScreenShare') {
+                    sType = 'ss';
+                }
 
-            if (typeof sType !== 'undefined' && sType !== null) {
-                //TODO this should be into function
-                sType = virtualclass.getDataFullScreen(sType);
-                var createdImg = virtualclass.getDataFullScreen('ss');
-                io.sendBinary(createdImg);
-                sType = null;
+                if (typeof sType !== 'undefined' && sType !== null) {
+                    //TODO this should be into function
+                    sType = virtualclass.getDataFullScreen(sType);
+                    var createdImg = virtualclass.getDataFullScreen('ss');
+                    io.sendBinary(createdImg);
+                    sType = null;
+                }
+            } else {
+                var revisonNumber = parseInt(localStorage.getItem('edOperationRev'), 10)  ;
+
+                if (revisonNumber != null && revisonNumber > 0) {
+                    if(virtualclass.wb.clientLen == 1){
+                        var wrappedOperation = JSON.parse(localStorage.getItem('allEditorOperations'));
+                        var docs = JSON.parse(wrappedOperation.data);
+                        virtualclass.editor.initialiseDoc(docs);
+                         //display from local Storage
+                    } else {
+
+                        var toRequestUser = e.message[0];
+                        if (toRequestUser.userid == virtualclass.gObj.userid) {
+                            toRequestUser = e.message[1];
+                        }
+
+                        io.send({'eddata': 'requestForEditorData'}, toRequestUser.userid);
+                    }
+                }else{
+                    document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';
+                }
+
             }
         }
-
     });
 
     $(document).on("Multiple_login", function (e) {

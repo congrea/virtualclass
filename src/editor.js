@@ -11,6 +11,7 @@
                 cm : '',
                 vcAdapter : "",
                 initialised :false,
+                prvEdRev : 0,
                 init: function (revision, clients, docs, operations) {
                     if(!this.cm && typeof this.cm != 'object'){
                         this.cmLayout();
@@ -37,11 +38,15 @@
                             matchBrackets: true
                         });
                     }
+                },
+
+                responseToEditorRequest : function (){
 
                 },
 
                 //Trigger when the packet(text) is received from server
                 onmessage : function (e){
+
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
                     if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
@@ -50,11 +55,12 @@
                     }
 
                     if(e.message.eddata == 'initVcEditor'){
-                        if(virtualclass.gObj.uRole != 't'){
+                        if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser'))){
                             var doc = JSON.parse(e.message.data);
                             virtualclass.editor.initialiseDoc(doc);
                         }
-
+                    }else if( e.message.eddata == 'requestForEditorData'){
+                        this.initVcEditor({toUser : e.fromUser.userid});
                     } else {
                         this.vcAdapter.receivedMessage(e);
                     }
@@ -66,7 +72,6 @@
                     class: 'vmApp',
                     edId : 'virtualclassEditorBody',
                     container: function () {
-
                         //var whiteboard = document.getElementById('virtualclassWhiteboard');
                         //whiteboard.style.display = 'none';
                        if (document.getElementById(this.id) == null) {
@@ -101,6 +106,23 @@
 
                 //sending the editor packets for new join memeber
                 initVcEditor : function (appIsEditor){
+                    var initPacket = this.getWrappedOperations();
+                    if(typeof appIsEditor != 'undefined'){
+                        if(appIsEditor.hasOwnProperty('editor')){
+                            initPacket.layoutEd  = "1";  //this would be for create editor layout
+                        }
+
+                        if(appIsEditor.hasOwnProperty('toUser')){
+                            initPacket.resFromUser = true;
+                        }
+
+                        io.send(initPacket, appIsEditor.toUser);
+                    }else {
+                        io.send(initPacket);
+                    }
+                },
+
+                getWrappedOperations : function (){
                     var operations = this.vcAdapter && this.vcAdapter.operations ? serialiseOps(this.vcAdapter.operations): [];
                     // We only want the most recent 50 because we can't send too much data
 
@@ -108,7 +130,7 @@
                         operations = operations.slice(operations.length - 50);
                     }
 
-                    var initPacket = {
+                    var wrappedOperations = {
                         eddata: 'initVcEditor',
                         data: JSON.stringify({
                             revision: this.cmClient.revision,
@@ -118,10 +140,7 @@
                         })
                     }
 
-                    if(typeof appIsEditor != 'undefined'){
-                        initPacket.layoutEd  = "1";  //this would be for create editor layout
-                    }
-                    io.send(initPacket);
+                    return wrappedOperations;
                 },
 
                 // After editor packets recived from teacher
@@ -131,11 +150,19 @@
                     this.cmLayout();
                     if (this.cm && !this.initialised) {
                         this.initialised = true;
-                        if (this.cm.getValue() !== doc.str) {
-                            this.cm.setValue(doc.str);
+                        if(this.prvEdRev != doc.revision){
+                            if (this.cm.getValue() !== doc.str) {
+                                this.cm.setValue(doc.str);
+                            }
+                            this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
                         }
-                        this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
+                        this.prvEdRev = doc.revision;
+
                     }
+                    document.getElementById("virtualclassEditorTool").style.pointerEvents = 'visible';
+
+                   // document.getElementById("virtualclassEditor").style.color = "red";
+                    //document.getElementById('virtualclassEditor').style.pointerEvents = 'visible';
                 }
             }
         };

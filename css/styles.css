@@ -2159,3 +2159,7 @@ opacity : 0.800000011920928955078125 !important;
 	height : 100%;
 	overflow : scroll;
 }
+
+#virtualclassEditorTool {
+	pointer-events : none;
+}

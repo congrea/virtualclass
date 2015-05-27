@@ -2372,7 +2372,6 @@ virtualclassAdapter = function () {
 
   virtualclassAdapter.prototype.sendSelection = function (selection) {
     //io.send({'selection' : selection});
-
     io.send({
       eddata: 'selection',
       data: JSON.stringify(selection)
@@ -2386,8 +2385,6 @@ virtualclassAdapter = function () {
       eddata: 'virtualclass-editor-cursor',
       data: JSON.stringify(cursor)
     });
-
-
   };
 
   virtualclassAdapter.prototype.registerCallbacks = function (cb) {

@@ -219,10 +219,11 @@
             },
 
             dispvirtualclassLayout: function (appId) {
+
                 if (typeof this.previous != 'undefined') {
-                    if(this.previous != 'virtualclass'+this.currApp){
+                //    if(this.previous != 'virtualclass'+this.currApp){
                         document.getElementById(virtualclass.previous).style.display = 'none';
-                    }
+                  //  }
                 }
 
                 var appElement = document.getElementById(appId);

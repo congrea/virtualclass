@@ -100,6 +100,7 @@ $(document).ready(function () {
 
     $(document).on("member_added", function (e) {
         var sType;
+        virtualclass.connectedUsers = e.message;
         virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
@@ -117,7 +118,8 @@ $(document).ready(function () {
                         virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
                     }
                 }
-
+                //alert('SSS');
+                //debugger;
                 if(virtualclass.currApp == 'Editor'){
                     virtualclass.editor.initVcEditor({'editor' : true }); //give sign for create editor
                 }else{
@@ -152,6 +154,7 @@ $(document).ready(function () {
                         }
 
                         io.send({'eddata': 'requestForEditorData'}, toRequestUser.userid);
+                        virtualclass.editor.toAlreadyRequestUser = toRequestUser.userid;
                     }
                 }else{
                     document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';

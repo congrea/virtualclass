@@ -12,6 +12,7 @@
                 vcAdapter : "",
                 initialised :false,
                 prvEdRev : 0,
+                dataReqTry : 0,
                 init: function (revision, clients, docs, operations) {
                     if(!this.cm && typeof this.cm != 'object'){
                         this.cmLayout();
@@ -54,13 +55,32 @@
                         virtualclass.makeAppReady('Editor');
                     }
 
-                    if(e.message.eddata == 'initVcEditor'){
+                    if(e.message.eddata == 'noDataForEditor'){
+                        if(virtualclass.gObj.uRole == 't'){
+                            if(this.dataReqTry <=2 ){
+                                for(var i=0; i<virtualclass.connectedUsers.length; i++){
+                                    if((this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid) && (virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid)){
+                                        io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                                        this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
+                                        this.dataReqTry++;
+                                    }
+                                }
+                            }
+                        }
+                    } else if(e.message.eddata == 'initVcEditor'){
                         if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser'))){
                             var doc = JSON.parse(e.message.data);
                             virtualclass.editor.initialiseDoc(doc);
                         }
                     }else if( e.message.eddata == 'requestForEditorData'){
+                        // no operation at client side
+                        if(this.vcAdapter.operations.length == 0){
+                            io.send({'eddata' : 'noDataForEditor'});
+                            return;
+                        }
+
                         this.initVcEditor({toUser : e.fromUser.userid});
+
                     } else {
                         this.vcAdapter.receivedMessage(e);
                     }
@@ -146,7 +166,7 @@
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc) {
-                    virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app);
+                    virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
                     this.cmLayout();
                     if (this.cm && !this.initialised) {
                         this.initialised = true;

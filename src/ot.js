@@ -2169,28 +2169,35 @@ ot.Server = (function (global) {
   // Call this method whenever you receive an operation from a client.
 
   Server.prototype.receiveOperation = function (revision, operation) {
-    if (revision < 0 || this.operations.length < revision) {
-      throw new Error("operation revision not in history");
-    }
-    // Find all operations that the client didn't know of when it sent the
-    // operation ...
-    var concurrentOperations = this.operations.slice(revision);
-    console.log('conc operation ' + concurrentOperations.length);
-    // ... and transform the operation against all these operations ...
-    var transform = operation.constructor.transform;
-    for (var i = 0; i < concurrentOperations.length; i++) {
-      console.log('transforming');
-      operation = transform(operation, concurrentOperations[i])[0];
-    }
+      if (revision < 0 || this.operations.length < revision) {
 
-    // ... and apply that on the document.
-    this.document = operation.apply(this.document);
-    // Store operation in history.
-    this.operations.push(operation);
+        if( revision > 1 ){
+            virtualclass.editor.requestData('fromStudent');
+        }
 
-    // It's the caller's responsibility to send the operation to all connected
-    // clients and an acknowledgement to the creator.
-    return operation;
+        //throw new Error("operation revision not in history");
+        console.log("operation revision not in history");
+        return false ;
+      }
+      // Find all operations that the client didn't know of when it sent the
+      // operation ...
+      var concurrentOperations = this.operations.slice(revision);
+      console.log('conc operation ' + concurrentOperations.length);
+      // ... and transform the operation against all these operations ...
+      var transform = operation.constructor.transform;
+      for (var i = 0; i < concurrentOperations.length; i++) {
+        console.log('transforming');
+        operation = transform(operation, concurrentOperations[i])[0];
+      }
+
+      // ... and apply that on the document.
+      this.document = operation.apply(this.document);
+      // Store operation in history.
+      this.operations.push(operation);
+
+      // It's the caller's responsibility to send the operation to all connected
+      // clients and an acknowledgement to the creator.
+      return operation;
   };
 
   return Server;
@@ -2281,6 +2288,12 @@ virtualclassAdapter = function () {
 
       //TODO sholld be done by calling dynamic method invoke
       if (msg.eddata == 'virtualclass-editor-operation') {
+         //display editor if not
+          if(virtualclass.previous != 'Editor'){
+              virtualclass.currApp = "Editor"
+              virtualclass.dispvirtualclassLayout();
+          }
+
         wrapped = new ot.WrappedOperation(
             ot.TextOperation.fromJSON(data.operation),
             data.cursor && ot.Cursor.fromJSON(data.cursor)
@@ -2291,6 +2304,9 @@ virtualclassAdapter = function () {
         // be able to recover
 
         var wrappedPrime = server.receiveOperation(data.revision, wrapped);
+        if(!wrappedPrime){ // there is some problem on revision of history
+             return;
+        }
         console.log("new operation: " + wrapped);
 
         //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());

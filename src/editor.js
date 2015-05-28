@@ -6,21 +6,61 @@
     function(window) {
         var  editor = function() {
             "use strict";
-
             return {
                 cm : '',
                 vcAdapter : "",
                 initialised :false,
                 prvEdRev : 0,
                 dataReqTry : 0,
+                stroageData : localStorage.getItem('allEditorOperations'),
+                stroageDataRev : localStorage.getItem('edOperationRev'),
+                veryInit : function (){
+                    if(this.stroageData != null){
+                        var wrappedOperation = JSON.parse(this.stroageData);
+                        var docs = JSON.parse(wrappedOperation.data);
+
+                        if(virtualclass.hasOwnProperty('currAppEditor')){
+                            virtualclass.editor.initialiseDoc(docs, 'displayEditor');
+                        } else {
+                            virtualclass.editor.initialiseDoc(docs);
+                        }
+
+                    }else {
+                        if(virtualclass.gObj.uRole == 's'){
+                            this.requestData('from_' + virtualclass.gObj.uRole);
+
+                            //for(var i=0; i < virtualclass.connectedUsers.length; i++){
+                            //    if(virtualclass.connectedUsers[i].role == 't'){
+                            //        this.requestData('fromStudent');
+                            //        break;
+                            //    }
+                            //}
+                        }
+                    }
+               },
+
+                //init: function (revision, clients, docs, operations) {
+                //    if(!this.cm && typeof this.cm != 'object'){
+                //        this.cmLayout();
+                //
+                //    }else {
+                //        virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
+                //    }
+                //
+                //    this.createEditorClient(revision, clients, docs, operations);
+                //
+                //    if(virtualclass.gObj.uRole == 't'){
+                //        io.send({eddata : 'init'});
+                //    }
+                //},
+
                 init: function (revision, clients, docs, operations) {
                     if(!this.cm && typeof this.cm != 'object'){
                         this.cmLayout();
+                        this.createEditorClient(revision, clients, docs, operations);
                     }else {
                         virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
                     }
-
-                    this.createEditorClient(revision, clients, docs, operations);
 
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init'});
@@ -45,11 +85,45 @@
 
                 },
 
+                requestData : function (request){
+                    if(request == 'from_s'){
+                        for(var i=0; i < virtualclass.connectedUsers.length; i++){
+                            if(virtualclass.connectedUsers[i].role == 't'){
+                                io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                                break;
+                            }
+                        }
+                    }else {
+                        if(this.dataReqTry <=12 ){
+                            for(var i=0; i<virtualclass.connectedUsers.length; i++){
+                                if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid){ //is not teacher self
+                                    if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
+                                        io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                                        this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
+                                        this.dataReqTry++;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
+                readOnlyMode : function (){
+
+                },
+
                 //Trigger when the packet(text) is received from server
                 onmessage : function (e){
-
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
+                    if(e.message.eddata == 'currAppEditor'){
+                        if(e.fromUser.userid != virtualclass.gObj.userid){
+                            virtualclass.currAppEditor = true;
+                        }
+                        return;
+                    }
+
                     if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
                         (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
                         virtualclass.makeAppReady('Editor');
@@ -57,24 +131,33 @@
 
                     if(e.message.eddata == 'noDataForEditor'){
                         if(virtualclass.gObj.uRole == 't'){
-                            if(this.dataReqTry <=2 ){
-                                for(var i=0; i<virtualclass.connectedUsers.length; i++){
-                                    if((this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid) && (virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid)){
-                                        io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                                        this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
-                                        this.dataReqTry++;
-                                    }
-                                }
-                            }
+                            //if(this.dataReqTry <=2 ){
+                            //    for(var i=0; i<virtualclass.connectedUsers.length; i++){
+                            //        if((this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid) && (virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid)){
+                            //            io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                            //            this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
+                            //            this.dataReqTry++;
+                            //        }
+                            //    }
+                            //}
+
+                            this.requestData('fromTeacher');
                         }
                     } else if(e.message.eddata == 'initVcEditor'){
                         if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser'))){
                             var doc = JSON.parse(e.message.data);
-                            virtualclass.editor.initialiseDoc(doc);
+
+
+                            if(e.message.hasOwnProperty('layoutEd')){
+                                virtualclass.editor.initialiseDoc(doc, "displayEditor");
+                            } else {
+                                virtualclass.editor.initialiseDoc(doc);
+                            }
                         }
                     }else if( e.message.eddata == 'requestForEditorData'){
                         // no operation at client side
-                        if(this.vcAdapter.operations.length == 0){
+
+                        if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
                             io.send({'eddata' : 'noDataForEditor'});
                             return;
                         }
@@ -124,11 +207,12 @@
 
                 },
 
-                //sending the editor packets for new join memeber
+                //sending the editor packets for requested user
                 initVcEditor : function (appIsEditor){
+
                     var initPacket = this.getWrappedOperations();
                     if(typeof appIsEditor != 'undefined'){
-                        if(appIsEditor.hasOwnProperty('editor')){
+                        if(appIsEditor.hasOwnProperty('editor') || (virtualclass.gObj.uRole == 't' && virtualclass.currApp == 'Editor')){
                             initPacket.layoutEd  = "1";  //this would be for create editor layout
                         }
 
@@ -165,24 +249,30 @@
 
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
-                initialiseDoc : function (doc) {
+                initialiseDoc : function (doc, displayEditor) {
+                    if(typeof displayEditor != 'undefined'){
+                        virtualclass.currApp = virtualclass.apps[3];
+                    }
+
+
+                     this.cmLayout();
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
-                    this.cmLayout();
-                    if (this.cm && !this.initialised) {
+
+                    //if ((this.cm && !this.initialised) || (this.prvEdRev != doc.revision)) {
+                    if ((this.cm && !this.initialised)) {
                         this.initialised = true;
-                        if(this.prvEdRev != doc.revision){
                             if (this.cm.getValue() !== doc.str) {
                                 this.cm.setValue(doc.str);
                             }
                             this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
-                        }
                         this.prvEdRev = doc.revision;
-
                     }
-                    document.getElementById("virtualclassEditorTool").style.pointerEvents = 'visible';
 
-                   // document.getElementById("virtualclassEditor").style.color = "red";
-                    //document.getElementById('virtualclassEditor').style.pointerEvents = 'visible';
+                    var editorTool = document.getElementById("virtualclassEditorTool");
+                    if(editorTool  != null){
+                        editorTool.style.pointerEvents = 'visible';
+                    }
+
                 }
             }
         };

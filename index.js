@@ -20,6 +20,23 @@ $(document).ready(function () {
     virtualclass.prvCurrUsersSame();
 
     virtualclass.init(wbUser.role, appIs);
+
+
+    var tryEditorinit =  setInterval(
+        function (){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                if(virtualclass.connectedUsers.length >= 1){
+                    virtualclass.editor.veryInit();
+                    clearInterval(tryEditorinit);
+                }
+            }
+        },
+        500
+    );
+
+
+
+
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();
     } else {
@@ -113,18 +130,23 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
-                if(virtualclass.editor.hasOwnProperty('vcAdataper') && virtualclass.editor.vcAdataper.operations.length > 0){
-                    if(virtualclass.editor.vcAdataper.operations.length > 50){
-                        virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
-                    }
-                }
-                //alert('SSS');
-                //debugger;
                 if(virtualclass.currApp == 'Editor'){
-                    virtualclass.editor.initVcEditor({'editor' : true }); //give sign for create editor
-                }else{
-                    virtualclass.editor.initVcEditor();
+                    io.send({'eddata' : 'currAppEditor'});
+
                 }
+
+                //if(virtualclass.editor.hasOwnProperty('vcAdataper') && virtualclass.editor.vcAdataper.operations.length > 0){
+                //    if(virtualclass.editor.vcAdataper.operations.length > 50){
+                //        virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
+                //    }
+                //}
+                ////alert('SSS');
+                ////debugger;
+                //if(virtualclass.currApp == 'Editor'){
+                //    virtualclass.editor.initVcEditor({'editor' : true }); //give sign for create editor
+                //}else{
+                //    virtualclass.editor.initVcEditor();
+                //}
 
                 if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
@@ -138,27 +160,35 @@ $(document).ready(function () {
                     sType = null;
                 }
             } else {
-                var revisonNumber = parseInt(localStorage.getItem('edOperationRev'), 10)  ;
+                //var revisonNumber = parseInt(localStorage.getItem('edOperationRev'), 10);
+                //
+                //if (revisonNumber != null && revisonNumber > 0) {
+                //    var wrappedOperation = JSON.parse(localStorage.getItem('allEditorOperations'));
+                //    var docs = JSON.parse(wrappedOperation.data);
+                //    virtualclass.editor.initialiseDoc(docs);
+                //}else {
+                //    document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';
+                //}
 
-                if (revisonNumber != null && revisonNumber > 0) {
-                    if(virtualclass.wb.clientLen == 1){
-                        var wrappedOperation = JSON.parse(localStorage.getItem('allEditorOperations'));
-                        var docs = JSON.parse(wrappedOperation.data);
-                        virtualclass.editor.initialiseDoc(docs);
-                         //display from local Storage
-                    } else {
-
-                        var toRequestUser = e.message[0];
-                        if (toRequestUser.userid == virtualclass.gObj.userid) {
-                            toRequestUser = e.message[1];
-                        }
-
-                        io.send({'eddata': 'requestForEditorData'}, toRequestUser.userid);
-                        virtualclass.editor.toAlreadyRequestUser = toRequestUser.userid;
-                    }
-                }else{
-                    document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';
-                }
+                //if (revisonNumber != null && revisonNumber > 0) {
+                //    if(virtualclass.wb.clientLen == 1){
+                //        var wrappedOperation = JSON.parse(localStorage.getItem('allEditorOperations'));
+                //        var docs = JSON.parse(wrappedOperation.data);
+                //        virtualclass.editor.initialiseDoc(docs);
+                //         //display from local Storage
+                //    } else {
+                //
+                //        var toRequestUser = e.message[0];
+                //        if (toRequestUser.userid == virtualclass.gObj.userid) {
+                //            toRequestUser = e.message[1];
+                //        }
+                //
+                //        io.send({'eddata': 'requestForEditorData'}, toRequestUser.userid);
+                //        virtualclass.editor.toAlreadyRequestUser = toRequestUser.userid;
+                //    }
+                //}else{
+                //    document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';
+                //}
 
             }
         }

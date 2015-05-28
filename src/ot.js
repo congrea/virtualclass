@@ -2171,8 +2171,10 @@ ot.Server = (function (global) {
   Server.prototype.receiveOperation = function (revision, operation) {
       if (revision < 0 || this.operations.length < revision) {
 
-        if( revision > 1 ){
-            virtualclass.editor.requestData('fromStudent');
+        if(revision > 1 ){
+            //alert('suman bogati hello');
+            //debugger;
+            virtualclass.editor.requestData('from_s');
         }
 
         //throw new Error("operation revision not in history");
@@ -2182,11 +2184,11 @@ ot.Server = (function (global) {
       // Find all operations that the client didn't know of when it sent the
       // operation ...
       var concurrentOperations = this.operations.slice(revision);
-      console.log('conc operation ' + concurrentOperations.length);
+      //console.log('conc operation ' + concurrentOperations.length);
       // ... and transform the operation against all these operations ...
       var transform = operation.constructor.transform;
       for (var i = 0; i < concurrentOperations.length; i++) {
-        console.log('transforming');
+        //console.log('transforming');
         operation = transform(operation, concurrentOperations[i])[0];
       }
 
@@ -2307,7 +2309,7 @@ virtualclassAdapter = function () {
         if(!wrappedPrime){ // there is some problem on revision of history
              return;
         }
-        console.log("new operation: " + wrapped);
+        //console.log("new operation: " + wrapped);
 
         //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
         //this.regiseterCb.cursor(wrappedPrime.meta);
@@ -2396,7 +2398,7 @@ virtualclassAdapter = function () {
   };
 
   virtualclassAdapter.prototype.sendCursor = function (cursor) {
-    console.log("Send Cursor");
+    //console.log("Send Cursor");
     io.send({
       eddata: 'virtualclass-editor-cursor',
       data: JSON.stringify(cursor)

@@ -18,8 +18,9 @@
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
-
+                          //alert('outer');
                         if(virtualclass.hasOwnProperty('currAppEditor')){
+                            //alert('ttt');
                             virtualclass.editor.initialiseDoc(docs, 'displayEditor');
                         } else {
                             virtualclass.editor.initialiseDoc(docs);
@@ -165,7 +166,12 @@
                         this.initVcEditor({toUser : e.fromUser.userid});
 
                     } else {
-                        this.vcAdapter.receivedMessage(e);
+                        if(typeof this.vcAdapter == 'object'){
+                            this.vcAdapter.receivedMessage(e);
+                        }else{
+                            console.log("virtualclass adapter is not ready for editor");
+                        }
+
                     }
                 },
 
@@ -254,18 +260,36 @@
                         virtualclass.currApp = virtualclass.apps[3];
                     }
 
+                    this.cmLayout();
 
-                     this.cmLayout();
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
 
                     //if ((this.cm && !this.initialised) || (this.prvEdRev != doc.revision)) {
-                    if ((this.cm && !this.initialised)) {
-                        this.initialised = true;
-                            if (this.cm.getValue() !== doc.str) {
-                                this.cm.setValue(doc.str);
-                            }
+                    //if ((this.cm && !this.initialised)) {
+                    //    this.initialised = true;
+                    //        if (this.cm.getValue() !== doc.str) {
+                    //            this.cm.setValue(doc.str);
+                    //
+                    //            this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
+                    //            this.prvEdRev = doc.revision;
+                    //        }
+                    //
+                    //
+                    //}
+
+                    if ((this.cm)) {
+                        if (this.cm.getValue() !== doc.str) {
+
+
+                            //this.cm.toTextArea();
+
+                            console.log('new string set');
+                            //this.cm.clear();
+                            this.cm.setValue(doc.str);
+
                             this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
-                        this.prvEdRev = doc.revision;
+                            this.prvEdRev = doc.revision;
+                        }
                     }
 
                     var editorTool = document.getElementById("virtualclassEditorTool");

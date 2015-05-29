@@ -2253,7 +2253,7 @@ virtualclassAdapter = function () {
       if (msg.hasOwnProperty('data')) {
           var data = JSON.parse(msg.data);
 
-          if(data.revision < virtualclass.editor.cmClient.revision) {
+          if(data !=  null && data.revision < virtualclass.editor.cmClient.revision) {
             console.log("should not update older revision");
             return;
           }

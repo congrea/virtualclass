@@ -72,14 +72,21 @@
                     this.UI.container();
                     var edElem = document.getElementById(this.UI.edId);
 
-                    if(typeof this.cm != 'object'){
-                        this.cm =  CodeMirror(edElem, {
-                            lineNumbers: true,
-                            lineWrapping: true,
-                            mode: "markdown",
-                            matchBrackets: true
-                        });
-                    }
+                    this.cm =  CodeMirror(edElem, {
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        mode: "markdown",
+                        matchBrackets: true
+                    });
+
+                    //if(typeof this.cm != 'object'){
+                    //    this.cm =  CodeMirror(edElem, {
+                    //        lineNumbers: true,
+                    //        lineWrapping: true,
+                    //        mode: "markdown",
+                    //        matchBrackets: true
+                    //    });
+                    //}
                 },
 
                 responseToEditorRequest : function (){
@@ -145,7 +152,7 @@
                             this.requestData('fromTeacher');
                         }
                     } else if(e.message.eddata == 'initVcEditor'){
-                        if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser'))){
+                        if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
 
 
@@ -236,9 +243,9 @@
                     var operations = this.vcAdapter && this.vcAdapter.operations ? serialiseOps(this.vcAdapter.operations): [];
                     // We only want the most recent 50 because we can't send too much data
 
-                    if (operations.length > 50) {
-                        operations = operations.slice(operations.length - 50);
-                    }
+                    //if (operations.length > 50) {
+                    //    operations = operations.slice(operations.length - 50);
+                    //}
 
                     var wrappedOperations = {
                         eddata: 'initVcEditor',
@@ -256,11 +263,18 @@
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc, displayEditor) {
+
                     if(typeof displayEditor != 'undefined'){
                         virtualclass.currApp = virtualclass.apps[3];
                     }
 
-                    this.cmLayout();
+                    var uiCont = document.getElementById(this.UI.id)
+                    if(uiCont != null){
+                        uiCont.parentNode.removeChild(uiCont);
+                    }
+
+                    this.cm = "";
+                        this.cmLayout();
 
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
 
@@ -279,14 +293,13 @@
 
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
-
-
-                            //this.cm.toTextArea();
+                            var cmElem = document.getElementById('virtualclassEditorBody');
 
                             console.log('new string set');
                             //this.cm.clear();
                             this.cm.setValue(doc.str);
-
+                            this.cmClient = "";
+                            this.vcAdapter = "";
                             this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
                             this.prvEdRev = doc.revision;
                         }

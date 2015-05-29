@@ -135,19 +135,6 @@ $(document).ready(function () {
 
                 }
 
-                //if(virtualclass.editor.hasOwnProperty('vcAdataper') && virtualclass.editor.vcAdataper.operations.length > 0){
-                //    if(virtualclass.editor.vcAdataper.operations.length > 50){
-                //        virtualclass.editor.vcAdataper.operations.slice(virtualclass.editor.vcAdataper.operations.length - 50);
-                //    }
-                //}
-                ////alert('SSS');
-                ////debugger;
-                //if(virtualclass.currApp == 'Editor'){
-                //    virtualclass.editor.initVcEditor({'editor' : true }); //give sign for create editor
-                //}else{
-                //    virtualclass.editor.initVcEditor();
-                //}
-
                 if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
                 }

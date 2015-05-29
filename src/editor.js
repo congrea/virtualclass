@@ -18,9 +18,7 @@
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
-                          //alert('outer');
                         if(virtualclass.hasOwnProperty('currAppEditor')){
-                            //alert('ttt');
                             virtualclass.editor.initialiseDoc(docs, 'displayEditor');
                         } else {
                             virtualclass.editor.initialiseDoc(docs);
@@ -29,31 +27,9 @@
                     }else {
                         if(virtualclass.gObj.uRole == 's'){
                             this.requestData('from_' + virtualclass.gObj.uRole);
-
-                            //for(var i=0; i < virtualclass.connectedUsers.length; i++){
-                            //    if(virtualclass.connectedUsers[i].role == 't'){
-                            //        this.requestData('fromStudent');
-                            //        break;
-                            //    }
-                            //}
                         }
                     }
-               },
-
-                //init: function (revision, clients, docs, operations) {
-                //    if(!this.cm && typeof this.cm != 'object'){
-                //        this.cmLayout();
-                //
-                //    }else {
-                //        virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
-                //    }
-                //
-                //    this.createEditorClient(revision, clients, docs, operations);
-                //
-                //    if(virtualclass.gObj.uRole == 't'){
-                //        io.send({eddata : 'init'});
-                //    }
-                //},
+                },
 
                 init: function (revision, clients, docs, operations) {
                     if(!this.cm && typeof this.cm != 'object'){
@@ -78,57 +54,40 @@
                         mode: "markdown",
                         matchBrackets: true
                     });
-
-                    //if(typeof this.cm != 'object'){
-                    //    this.cm =  CodeMirror(edElem, {
-                    //        lineNumbers: true,
-                    //        lineWrapping: true,
-                    //        mode: "markdown",
-                    //        matchBrackets: true
-                    //    });
-                    //}
                 },
 
                 responseToEditorRequest : function (){
 
                 },
 
-                requestData : function (request){
-                    var toUser;
+                requestData : function (request, withDiffUser){
+                    var toUser = '';
                     for(var i=0; i < virtualclass.connectedUsers.length; i++){
-                        if(virtualclass.connectedUsers[i].role == 't'){
-                            toUser = virtualclass.connectedUsers[i].userid;
-                        }else{
-                            toUser = virtualclass.connectedUsers[i].userid;
+                        if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid) {
+                            if(virtualclass.connectedUsers[i].role == 't'){
+                                if(typeof withDiffUser != 'undefined'){
+                                    if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
+                                        //io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                                        toUser = virtualclass.connectedUsers[i].userid;
+                                        this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
+                                        this.dataReqTry++;
+                                        break;
+                                    }
+                                }else {
+                                    toUser = virtualclass.connectedUsers[i].userid;
+                                    break;
+                                }
+
+                            }else{
+                                toUser = virtualclass.connectedUsers[i].userid;
+                                break;
+                            }
                         }
-                        io.send({'eddata': 'requestForEditorData'}, toUser);
-                        break;
                     }
 
-                    //if(request == 'from_s'){
-                    //    for(var i=0; i < virtualclass.connectedUsers.length; i++){
-                    //        if(virtualclass.connectedUsers[i].role == 't'){
-                    //            io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                    //            break;
-                    //        }
-                    //    }
-                    //
-                    //}else {
-                    //
-                    //
-                    //    //if(this.dataReqTry <=12 ){
-                    //    //    for(var i=0; i<virtualclass.connectedUsers.length; i++){
-                    //    //        if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid){ //is not teacher self
-                    //    //            if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
-                    //    //                io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                    //    //                this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
-                    //    //                this.dataReqTry++;
-                    //    //                break;
-                    //    //            }
-                    //    //        }
-                    //    //    }
-                    //    //}
-                    //}
+                    if(toUser != '' || typeof toUser == 'undefined'){
+                        io.send({'eddata': 'requestForEditorData'}, toUser);
+                    }
                 },
 
                 readOnlyMode : function (){
@@ -139,6 +98,8 @@
                 onmessage : function (e){
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
+
+                    //TODO this all if and else condition should be simplyfy
                     if(e.message.eddata == 'currAppEditor'){
                         if(e.fromUser.userid != virtualclass.gObj.userid){
                             virtualclass.currAppEditor = true;
@@ -153,23 +114,11 @@
 
                     if(e.message.eddata == 'noDataForEditor'){
                         if(virtualclass.gObj.uRole == 't'){
-                            //if(this.dataReqTry <=2 ){
-                            //    for(var i=0; i<virtualclass.connectedUsers.length; i++){
-                            //        if((this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid) && (virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid)){
-                            //            io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                            //            this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
-                            //            this.dataReqTry++;
-                            //        }
-                            //    }
-                            //}
-
-                            this.requestData('fromTeacher');
+                            this.requestData('fromTeacher', 'withDifStudent');
                         }
                     } else if(e.message.eddata == 'initVcEditor'){
                         if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
-
-
                             if(e.message.hasOwnProperty('layoutEd')){
                                 virtualclass.editor.initialiseDoc(doc, "displayEditor");
                             } else {
@@ -274,6 +223,14 @@
                     return wrappedOperations;
                 },
 
+                removeCodeMirror : function (){
+                    var uiCont = document.getElementById(this.UI.id)
+                    if(uiCont != null){
+                        uiCont.parentNode.removeChild(uiCont);
+                    }
+                    this.cm = "";
+                },
+
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc, displayEditor) {
@@ -282,13 +239,14 @@
                         virtualclass.currApp = virtualclass.apps[3];
                     }
 
-                    var uiCont = document.getElementById(this.UI.id)
-                    if(uiCont != null){
-                        uiCont.parentNode.removeChild(uiCont);
-                    }
+                    //var uiCont = document.getElementById(this.UI.id)
+                    //if(uiCont != null){
+                    //    uiCont.parentNode.removeChild(uiCont);
+                    //}
+                    //this.cm = "";
 
-                    this.cm = "";
-                        this.cmLayout();
+                    this.removeCodeMirror();
+                    this.cmLayout();
 
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
 

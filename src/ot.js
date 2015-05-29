@@ -2248,43 +2248,17 @@ virtualclassAdapter = function () {
 
     }
 
-    //this.receivedMessage2 = function (event){
-    //  var msg = event.message;
-    //  if(msg.hasOwnProperty('data')){
-    //      var data = JSON.parse(msg.data);
-    //  }
-    //
-    //  var wrapped;
-    //
-    //  //TODO sholld be done by calling dynamic method invoke
-    //  if(msg.eddata == 'virtualclass-editor-operation'){
-    //      //if(event.fromUser.userid == virtualclass.gObj.uid){
-    //      //    this.trigger('ack');
-    //      //}else{
-    //      //    this.trigger('trigger', data.operation);
-    //      //}
-    //    this.trigger('trigger', data.operation);
-    //
-    //    //this.trigger('cursor', event.from.connectionId, wrappedPrime.meta);
-    //
-    //  } else if(msg.eddata == 'virtualclass-editor-cursor'){
-    //    var cursor = JSON.parse(msg.data);
-    //
-    //  //  this.regiseterCb.cursor(cursor);
-    //    this.trigger('cursor', cursor);
-    //    //this.trigger('cursor', event.from.connectionId, cursor);
-    //  }else if(msg.eddata == 'selection'){
-    //      var selection = JSON.parse(msg.data);
-    //      this.trigger('selection', virtualclass.gObj.uid, selection);
-    //  }
-    //
-    //}
-
     this.receivedMessage = function (event) {
       var msg = event.message;
       if (msg.hasOwnProperty('data')) {
-        var data = JSON.parse(msg.data);
+          var data = JSON.parse(msg.data);
+
+          if(data.revision < virtualclass.editor.cmClient.revision) {
+            console.log("should not update older revision");
+            return;
+          }
       }
+
 
       var wrapped;
 
@@ -2309,6 +2283,7 @@ virtualclassAdapter = function () {
         if(!wrappedPrime){ // there is some problem on revision of history
              return;
         }
+
         //console.log("new operation: " + wrapped);
 
         //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());

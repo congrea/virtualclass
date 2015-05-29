@@ -94,27 +94,41 @@
                 },
 
                 requestData : function (request){
-                    if(request == 'from_s'){
-                        for(var i=0; i < virtualclass.connectedUsers.length; i++){
-                            if(virtualclass.connectedUsers[i].role == 't'){
-                                io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                                break;
-                            }
+                    var toUser;
+                    for(var i=0; i < virtualclass.connectedUsers.length; i++){
+                        if(virtualclass.connectedUsers[i].role == 't'){
+                            toUser = virtualclass.connectedUsers[i].userid;
+                        }else{
+                            toUser = virtualclass.connectedUsers[i].userid;
                         }
-                    }else {
-                        if(this.dataReqTry <=12 ){
-                            for(var i=0; i<virtualclass.connectedUsers.length; i++){
-                                if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid){ //is not teacher self
-                                    if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
-                                        io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                                        this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
-                                        this.dataReqTry++;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        io.send({'eddata': 'requestForEditorData'}, toUser);
+                        break;
                     }
+
+                    //if(request == 'from_s'){
+                    //    for(var i=0; i < virtualclass.connectedUsers.length; i++){
+                    //        if(virtualclass.connectedUsers[i].role == 't'){
+                    //            io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                    //            break;
+                    //        }
+                    //    }
+                    //
+                    //}else {
+                    //
+                    //
+                    //    //if(this.dataReqTry <=12 ){
+                    //    //    for(var i=0; i<virtualclass.connectedUsers.length; i++){
+                    //    //        if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid){ //is not teacher self
+                    //    //            if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
+                    //    //                io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                    //    //                this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
+                    //    //                this.dataReqTry++;
+                    //    //                break;
+                    //    //            }
+                    //    //        }
+                    //    //    }
+                    //    //}
+                    //}
                 },
 
                 readOnlyMode : function (){

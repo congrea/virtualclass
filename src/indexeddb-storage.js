@@ -27,6 +27,7 @@
     var storage = {
         totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         init: function (firstDataStore) {
+
             //this.firstDataStore = firstDataStore;
             this.reclaim = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
             that = this;
@@ -34,13 +35,14 @@
             this.tables = ["wbData", "allData", "audioData", "config"];
             //this.tables = ["wbData", "audioData", "config"];
             //second parameter is versoin of datbase
-            var openRequest = window.indexedDB.open("vidya_app", 4);
+            var openRequest = window.indexedDB.open("vidya_apps", 1);
+
             openRequest.onerror = function (e) {
                 console.log("Error opening db");
                 console.dir(e);
             };
             openRequest.onupgradeneeded = function (e) {
-
+                //alert("by this there should create");
                 var thisDb = e.target.result;
                 var objectStore;
                 //Create Note OS
@@ -71,6 +73,7 @@
                 //meet condition when current and previous user are different
                 if (virtualclass.gObj.sessionClear) {
                     that.config.endSession(true);
+
                 } else {
                     that.getAllObjs(that.tables, function (result) {
                             if (typeof result == 'undefined') {
@@ -369,6 +372,7 @@
                     virtualclass.wb.utility.t_clearallInit();
                     virtualclass.wb.utility.makeDefaultValue();
                     virtualclass.vutil.clearAllChat();
+                    virtualclass.editor.removeEditorData();
                 }
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 if (!virtualclass.hasOwnProperty('notPLayed')) {

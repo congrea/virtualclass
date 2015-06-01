@@ -190,7 +190,7 @@ var io = {
                 this.dataBinaryStore(msg);
             } else {
                 var receivemsg = JSON.parse(e.data);
-                if (!receivemsg.hasOwnProperty('userto')) {
+                if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') &&  receivemsg.m.hasOwnProperty('eddata'))) {
                     io.completeStorage(e.data);
 
                     //////TODO this has to be simpliyfied

@@ -442,7 +442,7 @@
             localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
 
             //editor data save when page is being refreshed
-            if(virtualclass.editor.vcAdapter.operations.length > 0){
+            if((typeof virtualclass.editor.vcAdapter == 'object' && virtualclass.editor.vcAdapter.operations.length > 0)){
                 var wrappedOperations = virtualclass.editor.getWrappedOperations();
                 localStorage.removeItem('allEditorOperations');
                 localStorage.setItem('allEditorOperations',  JSON.stringify(wrappedOperations));

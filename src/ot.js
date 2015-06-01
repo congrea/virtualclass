@@ -2178,7 +2178,7 @@ ot.Server = (function (global) {
         }
 
         //throw new Error("operation revision not in history");
-        console.log("operation revision not in history");
+        console.log("operation revision " + revision + " not in history");
         return false ;
       }
       // Find all operations that the client didn't know of when it sent the
@@ -2252,7 +2252,6 @@ virtualclassAdapter = function () {
       var msg = event.message;
       if (msg.hasOwnProperty('data')) {
           var data = JSON.parse(msg.data);
-
           if(data !=  null && data.revision < virtualclass.editor.cmClient.revision) {
             console.log("should not update older revision");
             return;
@@ -2331,10 +2330,6 @@ virtualclassAdapter = function () {
     };
 
     io.send(sendData);
-
-    //alert('suman bogati');
-    //debugger;
-
 
     var that = this;
 

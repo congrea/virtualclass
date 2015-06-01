@@ -85,8 +85,10 @@
                         }
                     }
 
-                    if(toUser != '' || typeof toUser == 'undefined'){
-                        io.send({'eddata': 'requestForEditorData'}, toUser);
+                    if(toUser != '' && typeof toUser != 'undefined' &&  io.sock != null){
+                         if(io.sock.readyState == 1){
+                             io.send({'eddata': 'requestForEditorData'}, toUser);
+                         }
                     }
                 },
 
@@ -114,9 +116,11 @@
 
                     if(e.message.eddata == 'noDataForEditor'){
                         if(virtualclass.gObj.uRole == 't'){
-                            this.requestData('fromTeacher', 'withDifStudent');
+                           // this.requestData('fromTeacher', 'withDifStudent');
                         }
+                        return;
                     } else if(e.message.eddata == 'initVcEditor'){
+                        console.log('action initVcEditor');
                         if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
                             if(e.message.hasOwnProperty('layoutEd')){
@@ -282,6 +286,15 @@
                         editorTool.style.pointerEvents = 'visible';
                     }
 
+                },
+
+                removeEditorData : function (){
+
+                    if(typeof this.vcAdapter == 'object' ){
+                         this.vcAdapter.operations.length = 0;
+                    }
+                    localStorage.removeItem('allEditorOperations');
+                    localStorage.removeItem('edOperationRev');
                 }
             }
         };

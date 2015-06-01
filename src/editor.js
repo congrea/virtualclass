@@ -14,6 +14,7 @@
                 dataReqTry : 0,
                 stroageData : localStorage.getItem('allEditorOperations'),
                 stroageDataRev : localStorage.getItem('edOperationRev'),
+                readonly : false,
                 veryInit : function (){
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
@@ -89,11 +90,25 @@
                          if(io.sock.readyState == 1){
                              io.send({'eddata': 'requestForEditorData'}, toUser);
                          }
+                        //this.cm.readOnly(true);
+                        this.readOnlyMode('disable');
                     }
                 },
 
-                readOnlyMode : function (){
-
+                readOnlyMode : function (mode){
+                    if(typeof this.cm == 'object'){
+                        if(mode == 'disable'){
+                            if(!this.readonly){
+                                this.cm.setOption("readOnly", true);
+                                this.UI.createReadOnlyMsgBox();
+                            }
+                        } else {
+                            if(this.readonly){
+                                this.cm.setOption("readOnly", false);
+                                this.UI.hideReadOnlyBox();
+                            }
+                        }
+                    }
                 },
 
                 //Trigger when the packet(text) is received from server
@@ -131,13 +146,19 @@
                         }
                     }else if( e.message.eddata == 'requestForEditorData'){
                         // no operation at client side
+                        //alert("wil have to response data");
+                        //debugger;
 
-                        if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
-                            io.send({'eddata' : 'noDataForEditor'});
-                            return;
+                        if(e.fromUser.userid != virtualclass.gObj.uid){
+                            if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
+                                io.send({'eddata' : 'noDataForEditor'});
+                                return;
+                            }
+
+                            this.initVcEditor({toUser : e.fromUser.userid});
+
                         }
 
-                        this.initVcEditor({toUser : e.fromUser.userid});
 
                     } else {
                         if(typeof this.vcAdapter == 'object'){
@@ -171,7 +192,35 @@
                             document.getElementById(virtualclass.html.id).insertBefore(divEditor, beforeAppend);
 
                         }
+                    },
+
+                    createReadOnlyMsgBox : function (){
+                        if(document.getElementById('readOnlyMsgBox') != null){
+                            this.showReadOnlyBox();
+                        } else {
+                            var msgBox = document.createElement('div');
+                            msgBox.id = 'readOnlyMsgBox';
+                            msgBox.style.width = "340px";
+                            msgBox.style.height = "15px";
+
+
+                            var msg = document.createElement('p');
+                            msg.id = 'readOnlyMsg';
+                            msg.innerHTML = "Please wait a while.  Synchronizing with new content.";
+                            msgBox.appendChild(msg);
+                            document.getElementById(this.id).appendChild(msgBox);
+                        }
+                    },
+
+                    showReadOnlyBox : function (){
+                        document.getElementById('readOnlyMsgBox').style.display = 'block';
+                    },
+
+                    hideReadOnlyBox : function (){
+                        document.getElementById('readOnlyMsgBox').style.display = 'none';
                     }
+
+
                 },
 
                 createEditorClient : function (revision, clients, docs, operations){
@@ -188,6 +237,7 @@
                 },
 
                 //sending the editor packets for requested user
+                //reponse request data
                 initVcEditor : function (appIsEditor){
 
                     var initPacket = this.getWrappedOperations();

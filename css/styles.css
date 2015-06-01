@@ -2163,3 +2163,13 @@ opacity : 0.800000011920928955078125 !important;
 /*#virtualclassEditorTool {*/
 	/*pointer-events : none;*/
 /*}*/
+
+#virtualclassEditor #readOnlyMsgBox {
+	position : relative;
+	bottom : 99%;
+	left : 55%;
+	background : #EBECC6;
+	padding : 8px;
+	padding-left : 12px;
+	font-size : 14px;
+}

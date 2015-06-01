@@ -2263,6 +2263,15 @@ virtualclassAdapter = function () {
 
       //TODO sholld be done by calling dynamic method invoke
       if (msg.eddata == 'virtualclass-editor-operation') {
+
+        virtualclass.editor.readOnlyMode('enable');
+
+        //if(virtualclass.editor.readonly){
+        //    if(typeof virtualclass.editor.cm == 'object'){
+        //        virtualclass.editor.cm.setOption("readOnly", false);
+        //    }
+        //}
+
          //display editor if not
           if(virtualclass.previous != 'Editor'){
               virtualclass.currApp = "Editor"

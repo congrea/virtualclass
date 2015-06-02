@@ -105,9 +105,9 @@
                             }
                         } else {
                             if(this.readonly){
-                                this.readonly = false;
                                 this.cm.setOption("readOnly", false);
                                 this.UI.hideReadOnlyBox();
+                                this.readonly = false;
                             }
                         }
                     }
@@ -281,6 +281,7 @@
                 },
 
                 removeCodeMirror : function (){
+                    this.readonly = false;
                     var uiCont = document.getElementById(this.UI.id)
                     if(uiCont != null){
                         uiCont.parentNode.removeChild(uiCont);

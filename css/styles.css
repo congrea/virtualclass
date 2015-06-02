@@ -1395,6 +1395,11 @@ opacity : 0.800000011920928955078125 !important;
     margin-left : 55px;
 }
 
+.student .vmApp {
+	margin-left : 3px;
+}
+
+
 #virtualclassCont {
 	height : 99%;
 }

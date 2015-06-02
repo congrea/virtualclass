@@ -82,18 +82,29 @@
             }
         },
 
-        setContainerWidth: function (res) {
+        setContainerWidth: function (res, app) {
+            //if(app == 'Editor'){
+            //    var appId = 'virtualclassEditor';
+            //}else{
+            //    var appId = 'virtualclassWhiteboard';
+            //}
+
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
                 appId = virtualclass.previous;
-            }
+
+           }
             //alert(appId);
             var appCont = document.getElementById(appId);
             var rightOffSet = 5;
 
             var extraWidth = 0;
             var leftSideBarWidth;
-            if (virtualclass.currApp == 'ScreenShare') {
+
+            if(app == 'Whiteboard'){
+                leftSideBarWidth = 0;
+            }else{
+                rightOffSet = 65;
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
                     var offset = vcan.utility.getElementOffset(leftSideBar);
@@ -101,14 +112,25 @@
                 } else {
                     leftSideBarWidth = 0;
                 }
-            } else {
-                leftSideBarWidth = 0;
             }
+
+
+            //if (virtualclass.currApp == 'ScreenShare') {
+            //    var leftSideBar = document.getElementById("virtualclassOptionsCont");
+            //    if (leftSideBar != null) {
+            //        var offset = vcan.utility.getElementOffset(leftSideBar);
+            //        leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
+            //    } else {
+            //        leftSideBarWidth = 0;
+            //    }
+            //} else {
+            //    leftSideBarWidth = 0;
+            //}
 
             //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
             res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
             appCont.style.width = res.width + 'px';
-            appCont.style.height = res.height + 'px';
+            appCont.style.height = (res.height - 60)  + 'px';
 
             if (appId == 'virtualclassScreenShare') {
                 //if(appId != 'virtualclassWhiteboard'){

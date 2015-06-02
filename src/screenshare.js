@@ -342,7 +342,7 @@
                     });
 
                     that.sharing();
-                    virtualclass.vutil.setContainerWidth(res);
+                    virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
 
                     if (virtualclass.gObj.uRole == 't') {
                         //TODO This should be invoke at one place

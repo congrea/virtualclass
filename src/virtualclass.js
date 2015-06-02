@@ -233,9 +233,7 @@
             },
 
             makeAppReady: function (app, cusEvent, videoId) {
-
                 this.currApp = app;
-
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && virtualclass.gObj.uRole == 't') {
@@ -244,11 +242,9 @@
                 }
 
                 //if not screen share
-
                 if(app != this.apps[1] ){
                    this.dispvirtualclassLayout('virtualclass' +app);
                 }
-
 
                 if (app == this.apps[0]) {
                     if (typeof this.ss == 'object') {
@@ -323,12 +319,12 @@
 
                     this.previous = virtualclass.ytsConfig.id;
 
-                    var measureRes = virtualclass.system.measureResoultion({
-                        'width': window.innerWidth,
-                        'height': window.innerHeight
-                    });
-
-                    virtualclass.vutil.setContainerWidth(measureRes);
+                    //var measureRes = virtualclass.system.measureResoultion({
+                    //    'width': window.innerWidth,
+                    //    'height': window.innerHeight
+                    //});
+                    //
+                    //virtualclass.vutil.setContainerWidth(measureRes);
 
                 } else if (app == this.apps[3]) {
 
@@ -349,9 +345,12 @@
 
                 this.previrtualclass = this.previous;
 
+
                 if(app == this.apps[2] || app == this.apps[3]){
-                    var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-                    virtualclass.vutil.setContainerWidth(measureRes);
+                    //var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+                    //virtualclass.vutil.setContainerWidth(measureRes);
+
+                    virtualclass.system.setAppDimension();
                 }
 
                 if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {

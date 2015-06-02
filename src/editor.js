@@ -101,9 +101,11 @@
                             if(!this.readonly){
                                 this.cm.setOption("readOnly", true);
                                 this.UI.createReadOnlyMsgBox();
+                                this.readonly = true;
                             }
                         } else {
                             if(this.readonly){
+                                this.readonly = false;
                                 this.cm.setOption("readOnly", false);
                                 this.UI.hideReadOnlyBox();
                             }
@@ -159,7 +161,6 @@
 
                         }
 
-
                     } else {
                         if(typeof this.vcAdapter == 'object'){
                             this.vcAdapter.receivedMessage(e);
@@ -208,7 +209,9 @@
                             msg.id = 'readOnlyMsg';
                             msg.innerHTML = "Please wait a while.  Synchronizing with new content.";
                             msgBox.appendChild(msg);
-                            document.getElementById(this.id).appendChild(msgBox);
+
+                            var parTag = document.getElementById(this.id);
+                            parTag.insertBefore(msgBox, parTag.firstChild);
                         }
                     },
 
@@ -288,35 +291,17 @@
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc, displayEditor) {
-
                     if(typeof displayEditor != 'undefined'){
                         virtualclass.currApp = virtualclass.apps[3];
                     }
 
-                    //var uiCont = document.getElementById(this.UI.id)
-                    //if(uiCont != null){
-                    //    uiCont.parentNode.removeChild(uiCont);
-                    //}
-                    //this.cm = "";
+                    //var measureRes =  virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+                    ////var mainWrapper =  document.getElementById('virtualclassCont');
+                    //virtualclass.vutil.setContainerWidth(measureRes, 'Editor');
 
                     this.removeCodeMirror();
                     this.cmLayout();
-
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
-
-                    //if ((this.cm && !this.initialised) || (this.prvEdRev != doc.revision)) {
-                    //if ((this.cm && !this.initialised)) {
-                    //    this.initialised = true;
-                    //        if (this.cm.getValue() !== doc.str) {
-                    //            this.cm.setValue(doc.str);
-                    //
-                    //            this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
-                    //            this.prvEdRev = doc.revision;
-                    //        }
-                    //
-                    //
-                    //}
-
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
                             var cmElem = document.getElementById('virtualclassEditorBody');
@@ -331,6 +316,11 @@
                         }
                     }
 
+                    if( virtualclass.currApp == 'Editor'){
+                        virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
+                        virtualclass.system.setAppDimension(virtualclass.currApp);
+                    }
+
                     var editorTool = document.getElementById("virtualclassEditorTool");
                     if(editorTool  != null){
                         editorTool.style.pointerEvents = 'visible';
@@ -339,7 +329,6 @@
                 },
 
                 removeEditorData : function (){
-
                     if(typeof this.vcAdapter == 'object' ){
                          this.vcAdapter.operations.length = 0;
                     }

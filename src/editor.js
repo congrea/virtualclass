@@ -296,10 +296,6 @@
                         virtualclass.currApp = virtualclass.apps[3];
                     }
 
-                    //var measureRes =  virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-                    ////var mainWrapper =  document.getElementById('virtualclassCont');
-                    //virtualclass.vutil.setContainerWidth(measureRes, 'Editor');
-
                     this.removeCodeMirror();
                     this.cmLayout();
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);

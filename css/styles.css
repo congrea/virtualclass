@@ -2194,3 +2194,7 @@ opacity : 0.800000011920928955078125 !important;
 #virtualclassEditor{
 	margin-top : 1.5%;
 }
+
+.richText #virtualclassEditorBody{
+	height : 100%;
+}

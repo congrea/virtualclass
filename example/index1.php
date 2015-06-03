@@ -31,7 +31,11 @@ $whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/firepad.css" ?> />
+
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+
+
 
 <style>
   .CodeMirror { height: auto; border: 1px solid #ddd; }

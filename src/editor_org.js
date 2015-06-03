@@ -32,7 +32,7 @@
                     }
                 },
 
-                init_old : function (revision, clients, docs, operations) {
+                init: function (revision, clients, docs, operations) {
                     if(!this.cm && typeof this.cm != 'object'){
                         this.cmLayout();
                         this.createEditorClient(revision, clients, docs, operations);
@@ -45,50 +45,10 @@
                     }
                 },
 
-                init : function (revision, clients, docs, operations) {
-                    this.cmLayout();
-
-                    var codeMirror = CodeMirror(document.getElementById(this.UI.edId), { lineWrapping: true });
-
-                    //// Create Firepad (with rich text toolbar and shortcuts enabled).
-                    var firepad = Firepad.fromCodeMirror({}, codeMirror,
-                        { richTextToolbar: true, richTextShortcuts: true })
-
-                    if(virtualclass.gObj.uRole == 't'){
-                        io.send({eddata : 'init'});
-                    }
-                    
-                    //var codeMirror = CodeMirror(document.getElementById(this.UI.edId), {
-                    //    lineNumbers: true,
-                    //    mode: 'markdown'
-                    //});
-                    //
-                    //var firepad = Firepad.fromCodeMirror({}, codeMirror, {
-                    //    defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
-                    //});
-
-                },
-
                 cmLayout : function (){
-                    var editorType = "richText";
-
-                    this.UI.container(editorType);
-
-                    var edElem = document.getElementById(this.UI.edId);
-
-                    //this.cm =  CodeMirror(edElem, {
-                    //    lineNumbers: true,
-                    //    lineWrapping: true,
-                    //    mode: "markdown",
-                    //    matchBrackets: true
-                    //});
-                },
-
-
-                cmLayout_2 : function (){
                     this.UI.container();
-
                     var edElem = document.getElementById(this.UI.edId);
+
                     this.cm =  CodeMirror(edElem, {
                         lineNumbers: true,
                         lineWrapping: true,
@@ -216,15 +176,13 @@
                     id: 'virtualclassEditor',
                     class: 'vmApp',
                     edId : 'virtualclassEditorBody',
-                    container: function (classes) {
+                    container: function () {
                         //var whiteboard = document.getElementById('virtualclassWhiteboard');
                         //whiteboard.style.display = 'none';
-
                        if (document.getElementById(this.id) == null) {
-
                             var divEditor = document.createElement('div');
                             divEditor.id = this.id;
-                            divEditor.className = this.class + ' ' + classes;
+                            divEditor.className = this.class;
 
                             var editor = document.createElement('div');
                             editor.id =  this.edId;
@@ -233,6 +191,7 @@
 
                             var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
                             document.getElementById(virtualclass.html.id).insertBefore(divEditor, beforeAppend);
+
                         }
                     },
 
@@ -269,9 +228,7 @@
 
                 createEditorClient : function (revision, clients, docs, operations){
                     if(!this.hasOwnProperty('cmClient') || typeof this.cmClient != 'object'){
-
                         this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
-
                         this.cmClient = new ot.EditorClient(
                             revision,
                             clients,
@@ -344,7 +301,7 @@
                     virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
-                            var cmElem = document.getElementById(this.UI.edId);
+                            var cmElem = document.getElementById('virtualclassEditorBody');
 
                             console.log('new string set');
                             //this.cm.clear();

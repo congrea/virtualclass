@@ -57,7 +57,7 @@
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init'});
                     }
-                    
+
                     //var codeMirror = CodeMirror(document.getElementById(this.UI.edId), {
                     //    lineNumbers: true,
                     //    mode: 'markdown'

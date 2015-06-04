@@ -867,6 +867,9 @@
     return TextOperation;
   }());
 
+  if (typeof module === 'object') {
+    module.exports = vcEditor.TextOperation;
+  }
   var vcEditor = vcEditor || { };
 
 // TODO: Rewrite this (probably using a splay tree) to be efficient.  Right now it's based on a linked list
@@ -2217,7 +2220,15 @@
     var Client = vcEditor.Client;
     var Cursor = vcEditor.Cursor;
     var UndoManager = vcEditor.UndoManager;
+    var TextOperation = vcEditor.TextOperation;
     var WrappedOperation = vcEditor.WrappedOperation;
+
+    //var Client = ot.Client;
+    //var Cursor = ot.Cursor;
+    //var Selection = ot.Selection;
+    //var UndoManager = ot.UndoManager;
+    //var TextOperation = ot.TextOperation;
+    //var WrappedOperation = ot.WrappedOperation;
 
     function SelfMeta (cursorBefore, cursorAfter) {
       this.cursorBefore = cursorBefore;
@@ -2287,33 +2298,97 @@
       this.editorAdapter.registerUndo(function () { self.undo(); });
       this.editorAdapter.registerRedo(function () { self.redo(); });
 
+      //this.serverAdapter.registerCallbacks({
+      //  ack: function () {
+      //    self.serverAck();
+      //    if (self.focused && self.state instanceof Client.Synchronized) {
+      //      self.updateCursor();
+      //      self.sendCursor(self.cursor);
+      //    }
+      //    self.emitStatus();
+      //  },
+      //  retry: function() { self.serverRetry(); },
+      //  operation: function (operation) {
+      //    self.applyServer(operation);
+      //  },
+      //  cursor: function (clientId, cursor, color) {
+      //    if (self.serverAdapter.userId_ === clientId ||
+      //        !(self.state instanceof Client.Synchronized)) {
+      //      return;
+      //    }
+      //    var client = self.getClientObject(clientId);
+      //    if (cursor) {
+      //      if (color) client.setColor(color);
+      //      client.updateCursor(Cursor.fromJSON(cursor));
+      //    } else {
+      //      client.removeCursor();
+      //    }
+      //  }
+      //
+      //});
+
+
       this.serverAdapter.registerCallbacks({
-        ack: function () {
-          self.serverAck();
-          if (self.focused && self.state instanceof Client.Synchronized) {
-            self.updateCursor();
-            self.sendCursor(self.cursor);
-          }
-          self.emitStatus();
-        },
-        retry: function() { self.serverRetry(); },
-        operation: function (operation) {
-          self.applyServer(operation);
-        },
-        cursor: function (clientId, cursor, color) {
-          if (self.serverAdapter.userId_ === clientId ||
-              !(self.state instanceof Client.Synchronized)) {
-            return;
-          }
-          var client = self.getClientObject(clientId);
-          if (cursor) {
-            if (color) client.setColor(color);
-            client.updateCursor(Cursor.fromJSON(cursor));
-          } else {
-            client.removeCursor();
-          }
-        }
+          client_left: function (clientId) { self.onClientLeft(clientId); },
+          set_name: function (clientId, name) { self.getClientObject(clientId).setName(name); },
+          ack: function () { self.serverAck(); },
+          operation: function (operation) {
+            self.applyServer(TextOperation.fromJSON(operation));
+          },
+          //selection: function (clientId, selection) {
+          //  if (selection) {
+          //    self.getClientObject(clientId).updateSelection(
+          //      self.transformSelection(Selection.fromJSON(selection))
+          //    );
+          //  } else {
+          //    self.getClientObject(clientId).removeSelection();
+          //  }
+          //},
+
+          cursor: function (clientId, cursor, color) {
+              if (self.serverAdapter.userId_ === clientId ||
+                  !(self.state instanceof Client.Synchronized)) {
+                return;
+              }
+              var client = self.getClientObject(clientId);
+              if (cursor) {
+                if (color) client.setColor(color);
+                client.updateCursor(Cursor.fromJSON(cursor));
+              } else {
+                client.removeCursor();
+              }
+            },
+
+          clients: function (clients) {
+            var clientId;
+            for (clientId in self.clients) {
+              if (self.clients.hasOwnProperty(clientId) && !clients.hasOwnProperty(clientId)) {
+                self.onClientLeft(clientId);
+              }
+            }
+
+            for (clientId in clients) {
+              if (clients.hasOwnProperty(clientId)) {
+                var clientObject = self.getClientObject(clientId);
+
+                if (clients[clientId].name) {
+                  clientObject.setName(clients[clientId].name);
+                }
+
+                var selection = clients[clientId].selection;
+                if (selection) {
+                  self.clients[clientId].updateSelection(
+                      self.transformSelection(Selection.fromJSON(selection))
+                  );
+                } else {
+                  self.clients[clientId].removeSelection();
+                }
+              }
+            }
+          },
+          reconnect: function () { self.serverReconnect(); }
       });
+
     }
 
     inherit(EditorClient, Client);

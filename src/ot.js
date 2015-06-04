@@ -4432,7 +4432,7 @@
       var position = cm.indexFromPos(cursorPos);
       var selectionEnd;
       if (cm.somethingSelected()) {
-        
+
         var startPos = cm.getCursor(true);
         var selectionEndPos = posEq(cursorPos, startPos) ? cm.getCursor(false) : startPos;
         selectionEnd = cm.indexFromPos(selectionEndPos);
@@ -6035,9 +6035,12 @@
         var msg = event.message;
         if (msg.hasOwnProperty('data')) {
           var data = JSON.parse(msg.data);
-          if(data !=  null && data.revision < virtualclass.editor.cmClient.revision) {
-            console.log("should not update older revision");
-            return;
+          if(data !=  null && (data.revision < virtualclass.editor.cmClient.revision)) {
+            //TODO handle for the older version which is less than 5
+            if((virtualclass.editor.cmClient.revision - data.revision) > 5 ){ //if older version more than 5 revision
+                console.log("should not update older revision if neweer version is available");
+                return;
+            }
           }
         }
 

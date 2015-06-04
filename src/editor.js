@@ -66,6 +66,10 @@
                     //var firepad = Firepad.fromCodeMirror({}, codeMirror, {
                     //    defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
                     //});
+                    //
+                    //if(virtualclass.gObj.uRole == 't'){
+                    //    io.send({eddata : 'init'});
+                    //}
 
                 },
 

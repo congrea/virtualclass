@@ -277,6 +277,28 @@
     };
 
 
+    // Operation are essentially lists of ops. There are three types of ops:
+    //
+    // * Retain ops: Advance the cursor position by a given number of characters.
+    //   Represented by positive ints.
+    // * Insert ops: Insert a given string at the current cursor position.
+    //   Represented by strings.
+    // * Delete ops: Delete the next n characters. Represented by negative ints.
+
+    //var isRetain = TextOperation.isRetain = function (op) {
+    //  return typeof op === 'number' && op > 0;
+    //};
+    //
+    //var isInsert = TextOperation.isInsert = function (op) {
+    //  return typeof op === 'string';
+    //};
+    //
+    //var isDelete = TextOperation.isDelete = function (op) {
+    //  return typeof op === 'number' && op < 0;
+    //};
+
+
+
     // After an operation is constructed, the user of the library can specify the
     // actions of an operation (skip/insert/delete) with these three builder
     // methods. They all return the operation for convenient chaining.
@@ -1257,6 +1279,7 @@
   }());
 
   var vcEditor = vcEditor || { };
+
   vcEditor.Cursor = (function () {
     'use strict';
 
@@ -1313,6 +1336,104 @@
 
   }());
 
+ // vcEditor.Cursor = (function (global) {
+ //   'use strict';
+ ////   var TextOperation = global.vcEditor ? global.vcEditor.TextOperation : require('./text-operation');
+ //
+ //   var TextOperation = vcEditor.TextOperation;
+ //
+ //   // A cursor has a `position` and a `selection`. The property `position` is a
+ //   // zero-based index into the document and `selection` an array of Range
+ //   // objects (see below). When nothing is selected, the array is empty.
+ //   function Cursor (position, selection) {
+ //     this.position = position;
+ //
+ //     var filteredSelection = [];
+ //     for (var i = 0; i < selection.length; i++) {
+ //       if (!selection[i].isEmpty()) { filteredSelection.push(selection[i]); }
+ //     }
+ //     this.selection = filteredSelection;
+ //   }
+ //
+ //   // Range has `anchor` and `head` properties, which are zero-based indices into
+ //   // the document. The `anchor` is the side of the selection that stays fixed,
+ //   // `head` is the side of the selection where the cursor is.
+ //   function Range (anchor, head) {
+ //     this.anchor = anchor;
+ //     this.head = head;
+ //   }
+ //
+ //   Cursor.Range = Range;
+ //
+ //   Range.fromJSON = function (obj) {
+ //     return new Range(obj.anchor, obj.head);
+ //   };
+ //
+ //   Range.prototype.equals = function (other) {
+ //     return this.anchor === other.anchor && this.head === other.head;
+ //   };
+ //
+ //   Range.prototype.isEmpty = function () {
+ //     return this.anchor === this.head;
+ //   };
+ //
+ //   Cursor.fromJSON = function (obj) {
+ //     var selection = [];
+ //     for (var i = 0; i < obj.selection.length; i++) {
+ //       selection[i] = Range.fromJSON(obj.selection[i]);
+ //     }
+ //     return new Cursor(obj.position, selection);
+ //   };
+ //
+ //   Cursor.prototype.equals = function (other) {
+ //     if (this.position !== other.position) { return false; }
+ //     if (this.selection.length !== other.selection.length) { return false; }
+ //     // FIXME: Sort ranges before comparing them?
+ //     for (var i = 0; i < this.selection.length; i++) {
+ //       if (!this.selection[i].equals(other.selection[i])) { return false; }
+ //     }
+ //     return true;
+ //   };
+ //
+ //   // Return the more current cursor information.
+ //   Cursor.prototype.compose = function (other) {
+ //     return other;
+ //   };
+ //
+ //   // Update the cursor with respect to an operation.
+ //   Cursor.prototype.transform = function (other) {
+ //     function transformIndex (index) {
+ //       var newIndex = index;
+ //       var ops = other.ops;
+ //       for (var i = 0, l = other.ops.length; i < l; i++) {
+ //         if (TextOperation.isRetain(ops[i])) {
+ //           index -= ops[i];
+ //         } else if (TextOperation.isInsert(ops[i])) {
+ //           newIndex += ops[i].length;
+ //         } else {
+ //           newIndex -= Math.min(index, -ops[i]);
+ //           index += ops[i];
+ //         }
+ //         if (index < 0) { break; }
+ //       }
+ //       return newIndex;
+ //     }
+ //
+ //     var newPosition = transformIndex(this.position);
+ //
+ //     var newSelection = [];
+ //     for (var i = 0; i < this.selection.length; i++) {
+ //       var range = this.selection[i];
+ //       var newRange = new Range(transformIndex(range.anchor), transformIndex(range.head));
+ //       if (!newRange.isEmpty()) { newSelection.push(newRange); }
+ //     }
+ //
+ //     return new Cursor(newPosition, newSelection);
+ //   };
+ //
+ //   return Cursor;
+ //
+ // }(this));
 
   var vcEditor = vcEditor || { };
 
@@ -2069,6 +2190,11 @@
       this.setState(this.state.serverRetry(this));
     };
 
+    Client.prototype.transformCursor = function (cursor) {
+      return this.state.transformCursor(cursor);
+    };
+
+
     // Override this method.
     Client.prototype.sendOperation = function (operation) {
       throw new Error("sendOperation must be defined in child class");
@@ -2100,6 +2226,8 @@
       client.applyOperation(operation);
       return this;
     };
+
+    Synchronized.prototype.transformCursor = function (cursor) { return cursor; };
 
     Synchronized.prototype.serverAck = function (client) {
       throw new Error("There is no pending operation.");
@@ -2154,6 +2282,12 @@
       return this;
     };
 
+
+    AwaitingConfirm.prototype.transformCursor = function (cursor) {
+      return cursor.transform(this.outstanding);
+    };
+
+
     // In the 'AwaitingWithBuffer' state, the client is waiting for an operation
     // to be acknowledged by the server while buffering the edits the user makes
     function AwaitingWithBuffer (outstanding, buffer) {
@@ -2204,9 +2338,16 @@
     AwaitingWithBuffer.prototype.serverAck = function (client) {
       // The pending operation has been acknowledged
       // => send buffer
-      client.sendOperation(this.buffer);
+      client.sendOperation(client.revision, this.buffer);
       return new AwaitingConfirm(this.buffer);
     };
+
+    AwaitingWithBuffer.prototype.transformCursor = function (cursor) {
+      return cursor.transform(this.outstanding).transform(this.buffer);
+    };
+
+
+
 
     return Client;
 
@@ -2262,6 +2403,7 @@
     };
 
     OtherClient.prototype.updateCursor = function (cursor) {
+      this.color = "#df2029";
       this.removeCursor();
       this.cursor = cursor;
       this.mark = this.editorAdapter.setOtherCursor(
@@ -2291,7 +2433,9 @@
 
       this.editorAdapter.registerCallbacks({
         change: function (operation, inverse) { self.onChange(operation, inverse); },
-        cursorActivity: function () { self.onCursorActivity(); },
+        cursorActivity: function () {
+          self.onCursorActivity();
+        },
         blur: function () { self.onBlur(); },
         focus: function () { self.onFocus(); }
       });
@@ -2345,19 +2489,15 @@
           //  }
           //},
 
-          cursor: function (clientId, cursor, color) {
-              if (self.serverAdapter.userId_ === clientId ||
-                  !(self.state instanceof Client.Synchronized)) {
-                return;
-              }
-              var client = self.getClientObject(clientId);
-              if (cursor) {
-                if (color) client.setColor(color);
-                client.updateCursor(Cursor.fromJSON(cursor));
-              } else {
-                client.removeCursor();
-              }
-            },
+          cursor: function (clientId, cursor) {
+            if (cursor) {
+              self.getClientObject(clientId).updateCursor(
+                  self.transformCursor(Cursor.fromJSON(cursor))
+              );
+            } else {
+              self.getClientObject(clientId).removeCursor();
+            }
+          },
 
           clients: function (clients) {
             var clientId;
@@ -4292,6 +4432,7 @@
       var position = cm.indexFromPos(cursorPos);
       var selectionEnd;
       if (cm.somethingSelected()) {
+        
         var startPos = cm.getCursor(true);
         var selectionEndPos = posEq(cursorPos, startPos) ? cm.getCursor(false) : startPos;
         selectionEnd = cm.indexFromPos(selectionEndPos);

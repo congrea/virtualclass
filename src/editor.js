@@ -5,6 +5,7 @@
 (
     function(window) {
         var  editor = function() {
+
             var editorType = { lineWrapping: true };
             var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
 

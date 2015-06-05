@@ -5,6 +5,8 @@
 (
     function(window) {
         var  editor = function() {
+            var editorType = { lineWrapping: true };
+            var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
             "use strict";
             return {
                 cm : '',
@@ -46,39 +48,55 @@
                 },
 
                 init : function (revision, clients, docs, operations) {
-                    this.cmLayout();
+                    var docsInfo = {};
+                    if(typeof revision != 'undefined'){ docsInfo.revision =  revision;}
+                    if(typeof clients != 'undefined'){ docsInfo.clients =  clients;}
+                    if(typeof docs != 'undefined'){ docsInfo.doc =  docs;}
+                    if(typeof operations != 'undefined'){ docsInfo.operations =  operations;}
 
-                    var codeMirror = CodeMirror(document.getElementById(this.UI.edId), { lineWrapping: true });
 
-                    //// Create Firepad (with rich text toolbar and shortcuts enabled).
-                    var firepad = Firepad.fromCodeMirror({}, codeMirror,
-                        { richTextToolbar: true, richTextShortcuts: true })
+                    if(!this.cm && typeof this.cm != 'object'){
+                        //this.cmLayout();
+                        //this.createEditorClient(revision, clients, docs, operations);
+                        this.cmLayout(editorType);
+                        //this._init({ lineWrapping: true }, {richTextToolbar: true, richTextShortcuts: true}, editorInfo);
+                        this.createEditorClient(richEditorToolbar, docsInfo);
+
+                    }else {
+                        virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
+                    }
+
+                    //this.cmLayout();
+
+                    // rich text editor
+                    //this._init({ lineWrapping: true }, {richTextToolbar: true, richTextShortcuts: true}, docsInfo);
+
+                    // markdown editor
+                    //this._init({lineNumbers: true, mode : 'markdown'}, {defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'});
 
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init'});
                     }
 
-                    //var codeMirror = CodeMirror(document.getElementById(this.UI.edId), {
-                    //    lineNumbers: true,
-                    //    mode: 'markdown'
-                    //});
-                    //
-                    //var firepad = Firepad.fromCodeMirror({}, codeMirror, {
-                    //    defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
-                    //});
-                    //
-                    //if(virtualclass.gObj.uRole == 't'){
-                    //    io.send({eddata : 'init'});
-                    //}
-
                 },
 
-                cmLayout : function (){
+                //_init : function (mode, defaultInfo, docsInfo){
+                //    var codeMirror = CodeMirror(document.getElementById(this.UI.edId), mode);
+                //    Firepad.fromCodeMirror({}, codeMirror, defaultInfo, docsInfo);
+                //},
+
+                createEditorClient : function (defaultInfo, docsInfo){
+                    //if(typeof  this.cm  != 'object'){
+                    //    this.cm = CodeMirror(document.getElementById(this.UI.edId), mode);
+                    //}
+                    Firepad.fromCodeMirror({}, this.cm, defaultInfo, docsInfo);
+                },
+
+                cmLayout : function (mode){
                     var editorType = "richText";
-
                     this.UI.container(editorType);
-
                     var edElem = document.getElementById(this.UI.edId);
+
 
                     //this.cm =  CodeMirror(edElem, {
                     //    lineNumbers: true,
@@ -86,6 +104,10 @@
                     //    mode: "markdown",
                     //    matchBrackets: true
                     //});
+
+                    if(typeof  this.cm  != 'object'){
+                        this.cm = CodeMirror(document.getElementById(this.UI.edId), mode);
+                    }
                 },
 
 
@@ -271,11 +293,9 @@
 
                 },
 
-                createEditorClient : function (revision, clients, docs, operations){
+                createEditorClient_org : function (revision, clients, docs, operations){
                     if(!this.hasOwnProperty('cmClient') || typeof this.cmClient != 'object'){
-
                         this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
-
                         this.cmClient = new ot.EditorClient(
                             revision,
                             clients,
@@ -283,7 +303,6 @@
                             new ot.CodeMirrorAdapter(this.cm)
                         );
                     }
-
                 },
 
                 //sending the editor packets for requested user
@@ -339,6 +358,9 @@
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc, displayEditor) {
+
+                //    vcEditor.TextOperation.fromJSON(op.operation);
+
                     if(typeof displayEditor != 'undefined'){
                         virtualclass.currApp = virtualclass.apps[3];
                     }
@@ -352,12 +374,26 @@
 
                             console.log('new string set');
                             //this.cm.clear();
-                            this.cm.setValue(doc.str);
+                            //alert('sss');
+                            //debugger;
+                          //  this.cm.setValue(doc.str);
+
                             this.cmClient = "";
                             this.vcAdapter = "";
-                            this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
+
+                            doc.operations = deserialiseOps(doc.operations);
+                            doc.doc = doc.str;
+
+                            // this._init(doc);
+                            //this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
+
+                            this.createEditorClient(richEditorToolbar, doc);
                             this.prvEdRev = doc.revision;
                         }
+                    }
+
+                    for(var  i=0; i<doc.operations.length; i++){
+                        this.vcAdapter.trigger('operation', doc.operations[i].wrapped.toJSON());
                     }
 
                     if( virtualclass.currApp == 'Editor'){
@@ -393,10 +429,11 @@
 
         // Turns the JSON form of the Array of operations into ot.TextOperations
         var deserialiseOps = function (operations) {
+            var vcEditor = Firepad.getvcEditor();
             return operations.map(function (op) {
-                return new ot.WrappedOperation(
-                    ot.TextOperation.fromJSON(op.operation),
-                    op.cursor && ot.Cursor.fromJSON(op.cursor)
+                return new vcEditor.WrappedOperation(
+                    vcEditor.TextOperation.fromJSON(op.operation),
+                    op.cursor && vcEditor.Cursor.fromJSON(op.cursor)
                 );
             });
         };

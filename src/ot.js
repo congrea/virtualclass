@@ -12,7 +12,8 @@
   if (typeof module != 'undefined' && module.exports) module.exports = definition();
   else if (typeof context['define'] == 'function' && context['define']['amd']) define(definition);
   else context[name] = definition();
-})('Firepad', function () {var vcEditor = vcEditor || { };
+})('Firepad', function () {
+  var vcEditor = vcEditor || { };
   vcEditor.utils = { };
 
   vcEditor.utils.makeEventEmitter = function(clazz, opt_allowedEVents) {
@@ -5483,8 +5484,9 @@
     var CodeMirror = global.CodeMirror;
     var ace = global.ace;
 
-    function Firepad(ref, place, options) {
-      if (!(this instanceof Firepad)) { return new Firepad(ref, place, options); }
+    function Firepad(ref, place, options, editorInfo) {
+
+      if (!(this instanceof Firepad)) { return new Firepad(ref, place, options, editorInfo); }
 
       if (!CodeMirror && !ace) {
         throw new Error('Couldn\'t find CodeMirror or ACE.  Did you forget to include codemirror.js or ace.js?');
@@ -5552,7 +5554,7 @@
       var docs = "";
       var operations = "";
       //this.vcAdapter =   new virtualclassAdapter(revision, docs, operations);
-      virtualclass.editor.vcAdapter =   new virtualclassAdapter(revision, docs, operations);
+      virtualclass.editor.vcAdapter =   new virtualclassAdapter(editorInfo);
 
       if (this.codeMirror_) {
         this.richTextCodeMirror_ = new RichTextCodeMirror(this.codeMirror_, this.entityManager_, { cssPrefix: 'vcEditor-' });
@@ -5957,6 +5959,8 @@
       };
     };
 
+
+
     function colorFromUserId (userId) {
       var a = 1;
       for (var i = 0; i < userId.length; i++) {
@@ -5990,6 +5994,8 @@
       return rgb2hex(hue2rgb(h+1/3), hue2rgb(h), hue2rgb(h-1/3));
     }
 
+
+
     return Firepad;
   })(this);
 
@@ -6013,18 +6019,20 @@
   virtualclassAdapter = function () {
     'use strict';
 
-    function virtualclassAdapter(revision, doc, operations) {
-      if (operations && revision > operations.length) {
+    //function virtualclassAdapter(revision, doc, operations) {
+
+    function virtualclassAdapter(editorInfo) {
+      if (editorInfo.operations && editorInfo.revision > editorInfo.operations.length) {
         // the operations have been truncated fill in the beginning with empty space
         var filler = [];
-        filler[revision - operations.length - 1] = null;
-        this.operations = filler.concat(operations);
+        filler[editorInfo.revision - editorInfo.operations.length - 1] = null;
+        this.operations = filler.concat(editorInfo.operations);
       } else {
-        this.operations = operations ? operations : [];
+        this.operations = editorInfo.operations ? editorInfo.operations : [];
       }
 
       // We pretend to be a server
-      var server = new vcEditor.Server(doc, this.operations);
+      var server = new vcEditor.Server(editorInfo.doc, this.operations);
       this.trigger = function (func) {
         this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
       }
@@ -6135,6 +6143,10 @@
     return virtualclassAdapter;
   }();
 
+
+  vcEditor.Firepad.getvcEditor = function (){
+    return vcEditor;
+  }
   return vcEditor.Firepad; }, this);
 
 

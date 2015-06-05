@@ -21,21 +21,21 @@ $(document).ready(function () {
 
     virtualclass.init(wbUser.role, appIs);
 
-
+    var alreadyInit = false;
     var tryEditorinit =  setInterval(
         function (){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 if(virtualclass.connectedUsers.length >= 1){
-                    virtualclass.editor.veryInit();
-                    clearInterval(tryEditorinit);
+                    if(!alreadyInit){
+                        virtualclass.editor.veryInit();
+                        alreadyInit = true;
+                        clearInterval(tryEditorinit);
+                    }
                 }
             }
         },
         1000
     );
-
-
-
 
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();

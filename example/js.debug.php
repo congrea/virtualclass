@@ -55,9 +55,10 @@
 
 <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/lib/codemirror.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-markdown.js"></script>
+
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>

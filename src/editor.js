@@ -6,11 +6,12 @@
     function(window) {
         var  editor = function() {
 
-            var editorType = { lineWrapping: true };
-            var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
+            //var editorType = { lineWrapping: true };
+            //var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
 
-            //var editorType =  {lineNumbers: true, mode : 'javascript'};
-            //var richEditorToolbar = {defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'};
+            var editorType =  {lineNumbers: true, mode : 'markdown'};
+
+            var richEditorToolbar = {defaultText: 'Markdown Editor '};
 
             "use strict";
             return {

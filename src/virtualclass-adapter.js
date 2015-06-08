@@ -1,19 +1,26 @@
-//this should be seprated
 virtualclassAdapter = function () {
 	'use strict';
 
-	function virtualclassAdapter(revision, doc, operations) {
-		if (operations && revision > operations.length) {
+	//function virtualclassAdapter(revision, doc, operations) {
+
+	function virtualclassAdapter(editorInfo, etype) {
+		etype = etype.charAt(0).toLowerCase() + etype.slice(1);
+		alert('sss');
+		debugger;
+
+		this[etype] = {"operations" : ""};
+		var vcEditor = Firepad.getvcEditor();
+		if (editorInfo.operations && editorInfo.revision > editorInfo.operations.length) {
 			// the operations have been truncated fill in the beginning with empty space
 			var filler = [];
-			filler[revision - operations.length - 1] = null;
-			this.operations = filler.concat(operations);
+			filler[editorInfo.revision - editorInfo.operations.length - 1] = null;
+			this[etype].operations = filler.concat(editorInfo.operations);
 		} else {
-			this.operations = operations ? operations : [];
+			this[etype].operations = editorInfo.operations ? editorInfo.operations : [];
 		}
 
 		// We pretend to be a server
-		var server = new ot.Server(doc, this.operations);
+		var server = new vcEditor.Server(editorInfo.doc, this[etype].operations);
 		this.trigger = function (func) {
 			this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
 		}
@@ -22,9 +29,13 @@ virtualclassAdapter = function () {
 			var msg = event.message;
 			if (msg.hasOwnProperty('data')) {
 				var data = JSON.parse(msg.data);
-				if(data !=  null && data.revision < virtualclass.editor.cmClient.revision) {
-					console.log("should not update older revision");
-					return;
+				if(data !=  null && (data.revision < virtualclass[etype].cmClient.revision)) {
+					//TODO handle for the older version which is less than 5
+					//this should be dynamic
+					if((virtualclass[etype].cmClient.revision - data.revision) > 5 ){ //if older version more than 5 revision
+						console.log("should not update older revision if neweer version is available");
+						return;
+					}
 				}
 			}
 
@@ -33,38 +44,47 @@ virtualclassAdapter = function () {
 
 			//TODO sholld be done by calling dynamic method invoke
 			if (msg.eddata == 'virtualclass-editor-operation') {
-					//display editor if not
-					if(virtualclass.previous != 'Editor'){
+				//display editor if not
+				if(virtualclass.previous != 'Editor'){
+					if(etype == 'editor'){
 						virtualclass.currApp = "Editor"
 						virtualclass.dispvirtualclassLayout();
-					}
-
-					wrapped = new ot.WrappedOperation(
-						ot.TextOperation.fromJSON(data.operation),
-						data.cursor && ot.Cursor.fromJSON(data.cursor)
-					);
-
-					// Might need to try catch here and if it fails wait a little while and
-					// try again. This way if we receive operations out of order we might
-					// be able to recover
-
-					var wrappedPrime = server.receiveOperation(data.revision, wrapped);
-					if(!wrappedPrime){ // there is some problem on revision of history
-						return;
-					}
-
-					//console.log("new operation: " + wrapped);
-
-					//this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
-					//this.regiseterCb.cursor(wrappedPrime.meta);
-
-					if (event.fromUser.userid == virtualclass.gObj.uid) {
-						this.trigger('ack');
 					} else {
-						//this.trigger('trigger', data.operation);
-						this.trigger('operation', wrappedPrime.wrapped.toJSON());
-						this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
+						virtualclass.currApp = "editorCode"
+
+						
+
 					}
+
+
+				}
+
+				wrapped = new vcEditor.WrappedOperation(
+					vcEditor.TextOperation.fromJSON(data.operation),
+					data.cursor && vcEditor.Cursor.fromJSON(data.cursor)
+				);
+
+				// Might need to try catch here and if it fails wait a little while and
+				// try again. This way if we receive operations out of order we might.p
+				// be able to recover
+
+				var wrappedPrime = server.receiveOperation(data.revision, wrapped);
+				if(!wrappedPrime){ // there is some problem on revision of history
+					return;
+				}
+
+				//console.log("new operation: " + wrapped);
+
+				//this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
+				//this.regiseterCb.cursor(wrappedPrime.meta);
+
+				if (event.fromUser.userid == virtualclass.gObj.uid) {
+					this.trigger('ack');
+				} else {
+					//this.trigger('trigger', data.operation);
+					this.trigger('operation', wrappedPrime.wrapped.toJSON());
+					this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
+				}
 
 			} else if (msg.eddata == 'virtualclass-editor-cursor') {
 				//var cursor = JSON.parse(msg.data);
@@ -82,16 +102,18 @@ virtualclassAdapter = function () {
 	};
 
 	virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
+
 		var sendData = {
 			eddata: 'virtualclass-editor-operation',
 			data: JSON.stringify({
-			revision: revision,
-			operation: operation,
-			cursor: cursor
+				revision: revision,
+				operation: operation,
+				cursor: cursor
 			})
 		};
 		io.send(sendData);
 		var that = this;
+		console.log("send operation");
 	}
 
 	virtualclassAdapter.prototype.sendSelection = function (selection) {
@@ -111,7 +133,7 @@ virtualclassAdapter = function () {
 	};
 
 	virtualclassAdapter.prototype.registerCallbacks = function (cb) {
-	this.callbacks = cb;
+		this.callbacks = cb;
 	};
 
 	return virtualclassAdapter;

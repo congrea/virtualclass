@@ -463,14 +463,23 @@
             virtualclass.vutil.clickOutSideCanvas();
             localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
 
-            //editor data save when page is being refreshed
-            if((typeof virtualclass.editor.vcAdapter == 'object' && virtualclass.editor.vcAdapter.operations.length > 0)){
-                var wrappedOperations = virtualclass.editor.getWrappedOperations();
-                localStorage.removeItem('allEditorOperations');
-                localStorage.setItem('allEditorOperations',  JSON.stringify(wrappedOperations));
-                localStorage.setItem('edOperationRev',  virtualclass.editor.cmClient.revision);
-
+            if(typeof virtualclass.editor.vcAdapter == 'object'){
+                virtualclass.editor.saveIntoLocalStorage();
             }
+
+            if(typeof virtualclass.editorCoode.vcAdapter == 'object'){
+                virtualclass.editorCoode.saveIntoLocalStorage();
+            }
+
+            //editor data save when page is being refreshed
+            //if((typeof virtualclass.editor.vcAdapter == 'object' && virtualclass.editor.vcAdapter.operations.length > 0)){
+            //    var wrappedOperations = virtualclass.editor.getWrappedOperations();
+            //    localStorage.removeItem('allEditorOperations');
+            //    localStorage.setItem('allEditorOperations',  JSON.stringify(wrappedOperations));
+            //    localStorage.setItem('edOperationRev',  virtualclass.editor.cmClient.revision);
+            //
+            //}
+            //
             io.disconnect();
         },
 

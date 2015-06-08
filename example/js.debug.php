@@ -60,7 +60,9 @@
 
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>

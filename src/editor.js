@@ -4,15 +4,18 @@
   */
 (
     function(window) {
-        var  editor = function() {
+        var  editor = function(type, containerId, editorId) {
+            this.etype = type;
+            var that = this;
 
-            //var editorType = { lineWrapping: true };
-            //var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
+            if(type == 'editor'){
+                var editorType = { lineWrapping: true };
+                var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
+            } else{
+                var editorType =  {lineNumbers: true, mode : 'markdown'};
+                var richEditorToolbar = {defaultText: 'Markdown Editor '};
 
-            var editorType =  {lineNumbers: true, mode : 'markdown'};
-
-            var richEditorToolbar = {defaultText: 'Markdown Editor '};
-
+            }
             "use strict";
             return {
                 cm : '',
@@ -20,36 +23,23 @@
                 initialised :false,
                 prvEdRev : 0,
                 dataReqTry : 0,
-                stroageData : localStorage.getItem('allEditorOperations'),
-                stroageDataRev : localStorage.getItem('edOperationRev'),
+                stroageData : localStorage.getItem(this.etype+'_allEditorOperations'),
+                stroageDataRev : localStorage.getItem(this.etype+'_edOperationRev'),
                 readonly : false,
                 veryInit : function (){
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
-                            virtualclass.editor.initialiseDoc(docs, 'displayEditor');
+                            this.initialiseDoc(docs, 'displayEditor');
                         } else {
-                            virtualclass.editor.initialiseDoc(docs);
+                            this.initialiseDoc(docs);
                         }
 
                     }else {
                         if(virtualclass.gObj.uRole == 's'){
                             this.requestData('from_' + virtualclass.gObj.uRole);
                         }
-                    }
-                },
-
-                init_old : function (revision, clients, docs, operations) {
-                    if(!this.cm && typeof this.cm != 'object'){
-                        this.cmLayout();
-                        this.createEditorClient(revision, clients, docs, operations);
-                    }else {
-                        virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
-                    }
-
-                    if(virtualclass.gObj.uRole == 't'){
-                        io.send({eddata : 'init'});
                     }
                 },
 
@@ -62,23 +52,12 @@
 
 
                     if(!this.cm && typeof this.cm != 'object'){
-                        //this.cmLayout();
-                        //this.createEditorClient(revision, clients, docs, operations);
                         this.cmLayout(editorType);
-                        //this._init({ lineWrapping: true }, {richTextToolbar: true, richTextShortcuts: true}, editorInfo);
                         this.createEditorClient(richEditorToolbar, docsInfo);
 
                     }else {
                         virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
                     }
-
-                    //this.cmLayout();
-
-                    // rich text editor
-                    //this._init({ lineWrapping: true }, {richTextToolbar: true, richTextShortcuts: true}, docsInfo);
-
-                    // markdown editor
-                    //this._init({lineNumbers: true, mode : 'markdown'}, {defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'});
 
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init'});
@@ -86,15 +65,7 @@
 
                 },
 
-                //_init : function (mode, defaultInfo, docsInfo){
-                //    var codeMirror = CodeMirror(document.getElementById(this.UI.edId), mode);
-                //    Firepad.fromCodeMirror({}, codeMirror, defaultInfo, docsInfo);
-                //},
-
                 createEditorClient : function (defaultInfo, docsInfo){
-                    //if(typeof  this.cm  != 'object'){
-                    //    this.cm = CodeMirror(document.getElementById(this.UI.edId), mode);
-                    //}
                     Firepad.fromCodeMirror({}, this.cm, defaultInfo, docsInfo);
                 },
 
@@ -103,34 +74,9 @@
                     this.UI.container(editorType);
                     var edElem = document.getElementById(this.UI.edId);
 
-
-                    //this.cm =  CodeMirror(edElem, {
-                    //    lineNumbers: true,
-                    //    lineWrapping: true,
-                    //    mode: "markdown",
-                    //    matchBrackets: true
-                    //});
-
                     if(typeof  this.cm  != 'object'){
                         this.cm = CodeMirror(document.getElementById(this.UI.edId), mode);
                     }
-                },
-
-
-                cmLayout_2 : function (){
-                    this.UI.container();
-
-                    var edElem = document.getElementById(this.UI.edId);
-                    this.cm =  CodeMirror(edElem, {
-                        lineNumbers: true,
-                        lineWrapping: true,
-                        mode: "markdown",
-                        matchBrackets: true
-                    });
-                },
-
-                responseToEditorRequest : function (){
-
                 },
 
                 requestData : function (request, withDiffUser){
@@ -186,7 +132,7 @@
                 },
 
                 //Trigger when the packet(text) is received from server
-                onmessage : function (e){
+                onmessage : function (e, etype){
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
 
@@ -200,7 +146,7 @@
 
                     if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
                         (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
-                        virtualclass.makeAppReady('Editor');
+                        virtualclass.makeAppReady(etype);
                     }
 
                     if(e.message.eddata == 'noDataForEditor'){
@@ -213,9 +159,9 @@
                         if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
                             if(e.message.hasOwnProperty('layoutEd')){
-                                virtualclass.editor.initialiseDoc(doc, "displayEditor");
+                                this.initialiseDoc(doc, "displayEditor");
                             } else {
-                                virtualclass.editor.initialiseDoc(doc);
+                                this.initialiseDoc(doc);
                             }
                         }
                     }else if( e.message.eddata == 'requestForEditorData'){
@@ -245,15 +191,14 @@
 
                 //UI object is used for create container for editor
                 UI: {
-                    id: 'virtualclassEditor',
+                    id: containerId,
                     class: 'vmApp',
-                    edId : 'virtualclassEditorBody',
+                    edId : editorId,
                     container: function (classes) {
                         //var whiteboard = document.getElementById('virtualclassWhiteboard');
                         //whiteboard.style.display = 'none';
 
                        if (document.getElementById(this.id) == null) {
-
                             var divEditor = document.createElement('div');
                             divEditor.id = this.id;
                             divEditor.className = this.class + ' ' + classes;
@@ -364,9 +309,6 @@
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
                 initialiseDoc : function (doc, displayEditor) {
-
-                //    vcEditor.TextOperation.fromJSON(op.operation);
-
                     if(typeof displayEditor != 'undefined'){
                         virtualclass.currApp = virtualclass.apps[3];
                     }
@@ -379,19 +321,12 @@
                             var cmElem = document.getElementById(this.UI.edId);
 
                             console.log('new string set');
-                            //this.cm.clear();
-                            //alert('sss');
-                            //debugger;
-                          //  this.cm.setValue(doc.str);
 
                             this.cmClient = "";
                             this.vcAdapter = "";
 
                             doc.operations = deserialiseOps(doc.operations);
                             doc.doc = doc.str;
-
-                            // this._init(doc);
-                            //this.createEditorClient(doc.revision, doc.clients, doc.str, deserialiseOps(doc.operations));
 
                             this.createEditorClient(richEditorToolbar, doc);
                             this.prvEdRev = doc.revision;
@@ -420,6 +355,16 @@
                     }
                     localStorage.removeItem('allEditorOperations');
                     localStorage.removeItem('edOperationRev');
+                },
+
+                saveIntoLocalStorage : function (){
+                    if((typeof this.vcAdapter == 'object' && this.vcAdapter[this.etype].operations.length > 0)){
+                        var wrappedOperations = virtualclass.editor.getWrappedOperations();
+                        localStorage.removeItem(this.etype+'_allEditorOperations');
+                        localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(wrappedOperations));
+                        localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
+
+                    }
                 }
             }
         };

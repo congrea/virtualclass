@@ -2146,7 +2146,10 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #virtualclassEditorTool .icon-editor:before {
 	content : "edi";
-	
+}
+
+#virtualclassCont .icon-editorCode:before{
+	content : "edc";
 }
 
 #virtualclassCont{
@@ -2195,6 +2198,8 @@ opacity : 0.800000011920928955078125 !important;
 	margin-top : 1.5%;
 }
 
-.richText #virtualclassEditorBody{
+.richText #virtualclassEditorBody, #virtualclassEditorCodeBody{
 	height : 100%;
 }
+
+

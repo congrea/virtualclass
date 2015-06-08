@@ -291,10 +291,15 @@ $(document).ready(function () {
         this.eddata = function (e){
 
             //virtualclass.editor.onmessage(e.message);
-            virtualclass.editor.onmessage(e);
+            if(e.message.hasOwnProperty('et')){
 
+                if(e.message.et == 'ed'){
+                    virtualclass.editor.onmessage(e, 'Editor');
+                }else {
+                    virtualclass.editorCode.onmessage(e, 'EditorCode');
+                }
+            }
         }
-
 
 
         this.yts = function (e) {

@@ -1,10 +1,8 @@
-
-
 (function (window) {
     window.virtualclass = function () {
         return {
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-            apps : ["Whiteboard", "ScreenShare", 'Yts', 'Editor'],
+            apps : ["Whiteboard", "ScreenShare", 'Yts', 'Editor', 'EditorCode'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
             //appAudioTestPlay : "virtualclassAudioTestPlay",
@@ -33,11 +31,14 @@
                 }
                 virtualclass.previrtualclass = "virtualclass" + appName;
             },
+
             init: function (urole, app) {
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
                 this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
                 this.edConfig = { id : "virtualclass" + this.apps[3], classes : "appOptions"};
+                this.edCodeConfig = { id : "virtualclass" + this.apps[4], classes : "appOptions"};
+
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
                 this.lang.getString = window.getString;
@@ -111,9 +112,10 @@
                 virtualclass.xhr.init();
                 virtualclass.dtCon = virtualclass.converter();
                 virtualclass.pbar = progressBar;
-                virtualclass.editor = window.editor();
+                virtualclass.editor = window.editor('editor', 'virtualclassEditor', 'virtualclassEditorBody');
+                virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
-            },
+                },
 
             initSocketConn: function () {
                 if (this.system.webSocket) {
@@ -152,12 +154,11 @@
                     var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
 
-
+                    this.createDiv(virtualclass.edConfig.id + "Tool", "editor", appOptCont, virtualclass.edConfig.classes);
                     this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
                     this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
-                    this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ssConfig.classes);
-                    this.createDiv(virtualclass.edConfig.id + "Tool", "editor", appOptCont, virtualclass.edConfig.classes);
-
+                    this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
+                    this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
 
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.wb.view.disableSSUI();
@@ -326,19 +327,19 @@
                     //
                     //virtualclass.vutil.setContainerWidth(measureRes);
 
-                } else if (app == this.apps[3]) {
-
-                    //this.dispvirtualclassLayout(virtualclass.ytsConfig.edConfig);
-
-                    //var whiteboard = document.getElementById('virtualclassWhiteboard');
-                    //whiteboard.style.display = 'none';
+                } else if (app == this.apps[3] || app == this.apps[4]) {
 
                     var revision = 0;
                     var clients = [];
                     var docs = "";
                     var operations = "";
-                    virtualclass.editor.init(revision, clients, docs, operations);
-                    this.previous = virtualclass.edConfig.id;
+                    if(app == this.apps[3]){
+                        virtualclass.editor.init(revision, clients, docs, operations);
+                        this.previous = virtualclass.edConfig.id;
+                    }else {
+                        virtualclass.editorCode.init(revision, clients, docs, operations);
+                        this.previous = virtualclass.edCodeConfig.id;
+                    }
                 }
 
                 //this.createDiv(vApp.edConfig.id + "Tool", "editor", appOptCont, vApp.edConfig.classes);
@@ -346,10 +347,9 @@
                 this.previrtualclass = this.previous;
 
 
-                if(app == this.apps[2] || app == this.apps[3]){
-                    //var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-                    //virtualclass.vutil.setContainerWidth(measureRes);
+//                if(app == this.apps[2] || app == this.apps[3] ){
 
+                if(app != this.apps[0] && app != this.apps[1] ){
                     virtualclass.system.setAppDimension();
                 }
 

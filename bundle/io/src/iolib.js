@@ -99,7 +99,11 @@ var io = {
         "use strict";
         var bctype = 'broadcastToAll';
         if(msg.hasOwnProperty('eddata')){
-
+            if(virtualclass.currApp == "Editor"){
+                msg.et = 'ed';
+            } else if(virtualclass.currApp == "EditorCode"){
+                msg.et = 'edCode';
+            }
             bctype = 'broadcast';
         }
 

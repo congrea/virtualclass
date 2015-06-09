@@ -228,16 +228,18 @@
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
                         //TODO this should be handle by better way, this is very rough
-                        if (appId == "editor") {
+                        if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITOR" ) {
                             var editorCode = document.getElementById("virtualclassEditorCode");
                             if (editorCode != null) {
                                 editorCode.style.display = 'none';
                             }
-                        } else if (appId == "editorCode") {
-                            var editor = document.getElementById("virtualclassEditor");
-                            if (editor != null) {
-                                editor.style.display = 'none';
+                            if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORCODE" ) {
+                                var editor = document.getElementById("virtualclassEditor");
+                                if (editor != null) {
+                                    editor.style.display = 'none';
+                                }
                             }
+
                         }
                     }
                 }

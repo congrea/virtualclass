@@ -64,11 +64,11 @@
                         this.createEditorClient(richEditorToolbar, docsInfo);
 
                     }else {
-                        virtualclass.dispvirtualclassLayout(virtualclass.app); //
+                        virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                     }
 
                     if(virtualclass.gObj.uRole == 't'){
-                        io.send({eddata : 'init'});
+                        io.send({eddata : 'init', et: this.etype});
                     }
 
                 },
@@ -373,8 +373,8 @@
                     if(typeof this.vcAdapter == 'object' ){
                          this.vcAdapter.operations.length = 0;
                     }
-                    localStorage.removeItem('allEditorOperations');
-                    localStorage.removeItem('edOperationRev');
+                    localStorage.removeItem(this.etype +'_allEditorOperations');
+                    localStorage.removeItem(this.etype + '_edOperationRev');
                 },
 
                 saveIntoLocalStorage : function (){

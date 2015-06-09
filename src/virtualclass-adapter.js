@@ -6,19 +6,22 @@ virtualclassAdapter = function () {
 		etype = etype.charAt(0).toLowerCase() + etype.slice(1);
 
 
-		this[etype] = {"operations" : ""};
+	//	this[etype] = {"operations" : ""};
 		var vcEditor = Firepad.getvcEditor();
 		if (editorInfo.operations && editorInfo.revision > editorInfo.operations.length) {
 			// the operations have been truncated fill in the beginning with empty space
 			var filler = [];
 			filler[editorInfo.revision - editorInfo.operations.length - 1] = null;
-			this[etype].operations = filler.concat(editorInfo.operations);
+		//	this[etype].operations = filler.concat(editorInfo.operations);
+			this.operations = filler.concat(editorInfo.operations);
 		} else {
-			this[etype].operations = editorInfo.operations ? editorInfo.operations : [];
+			//this[etype].operations = editorInfo.operations ? editorInfo.operations : [];
+			this.operations = editorInfo.operations ? editorInfo.operations : [];
 		}
 
 		// We pretend to be a server
-		var server = new vcEditor.Server(editorInfo.doc, this[etype].operations);
+		//var server = new vcEditor.Server(editorInfo.doc, this[etype].operations);
+		var server = new vcEditor.Server(editorInfo.doc, this.operations);
 		this.trigger = function (func) {
 			this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
 		}
@@ -27,6 +30,7 @@ virtualclassAdapter = function () {
 			var msg = event.message;
 			if (msg.hasOwnProperty('data')) {
 				var data = JSON.parse(msg.data);
+			//	if(data !=  null && (data.revision < virtualclass[etype].cmClient.revision)) {
 				if(data !=  null && (data.revision < virtualclass[etype].cmClient.revision)) {
 					//TODO handle for the older version which is less than 5
 					//this should be dynamic

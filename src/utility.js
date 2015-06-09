@@ -469,9 +469,9 @@
                 }
             }
 
-            if(virtualclass.hasOwnProperty('editorCoode')){
-                if(typeof virtualclass.editorCoode.vcAdapter == 'object'){
-                    virtualclass.editorCoode.saveIntoLocalStorage();
+            if(virtualclass.hasOwnProperty('editorCode')){
+                if(typeof virtualclass.editorCode.vcAdapter == 'object'){
+                    virtualclass.editorCode.saveIntoLocalStorage();
                 }
             }
 

@@ -19,6 +19,7 @@
             }
 
             return {
+                etype : type,
                 cm : '',
                 vcAdapter : "",
                 initialised :false,
@@ -33,7 +34,12 @@
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
-                            this.initialiseDoc(docs, 'displayEditor');
+                            if(virtualclass.currAppEditorType == this.etype){
+                                this.initialiseDoc(docs, 'displayEditor', virtualclass.currAppEditorType);
+                            } else {
+                                this.initialiseDoc(docs);
+                            }
+
                         } else {
                             this.initialiseDoc(docs);
                         }
@@ -142,6 +148,7 @@
                     if(e.message.eddata == 'currAppEditor'){
                         if(e.fromUser.userid != virtualclass.gObj.userid){
                             virtualclass.currAppEditor = true;
+                            virtualclass.currAppEditorType = e.message.et;
                         }
                         return;
                     }
@@ -161,7 +168,7 @@
                         if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
                             if(e.message.hasOwnProperty('layoutEd')){
-                                this.initialiseDoc(doc, "displayEditor");
+                                this.initialiseDoc(doc, "displayEditor", e.message.et);
                             } else {
                                 this.initialiseDoc(doc);
                             }
@@ -262,8 +269,10 @@
 
                     var initPacket = this.getWrappedOperations();
                     if(typeof appIsEditor != 'undefined'){
-                        if(appIsEditor.hasOwnProperty('editor') || (virtualclass.gObj.uRole == 't' && virtualclass.currApp == 'Editor')){
+                        //if(appIsEditor.hasOwnProperty('editor') || (virtualclass.gObj.uRole == 't' && virtualclass.currApp == 'Editor')){
+                        if((appIsEditor.hasOwnProperty('editor') || appIsEditor.hasOwnProperty('editorCode'))|| this.isEidtorWithTeacher()){
                             initPacket.layoutEd  = "1";  //this would be for create editor layout
+                            initPacket.et = virtualclass.currApp;
                         }
 
                         if(appIsEditor.hasOwnProperty('toUser')){
@@ -274,6 +283,10 @@
                     }else {
                         io.send(initPacket);
                     }
+                },
+
+                isEidtorWithTeacher : function(){
+                    return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'Editor' || virtualclass.currApp == 'EditorCode'));
                 },
 
                 getWrappedOperations : function (){
@@ -308,9 +321,10 @@
 
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
-                initialiseDoc : function (doc, displayEditor) {
+                initialiseDoc : function (doc, displayEditor, et) {
                     if(typeof displayEditor != 'undefined'){
-                        virtualclass.currApp = virtualclass.apps[3];
+                        //virtualclass.currApp = virtualclass.apps[3];
+                        virtualclass.currApp = et;
                     }
 
                     this.removeCodeMirror();
@@ -337,6 +351,8 @@
                         this.vcAdapter.trigger('operation', doc.operations[i].wrapped.toJSON());
                     }
 
+                    this.cm.refresh();
+
                     if( virtualclass.currApp == 'Editor'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
@@ -358,8 +374,8 @@
                 },
 
                 saveIntoLocalStorage : function (){
-                    if((typeof this.vcAdapter == 'object' && this.vcAdapter[this.etype].operations.length > 0)){
-                        var wrappedOperations = virtualclass.editor.getWrappedOperations();
+                    if((typeof this.vcAdapter == 'object' && this.vcAdapter.operations.length > 0)){
+                        var wrappedOperations = this.getWrappedOperations();
                         localStorage.removeItem(this.etype+'_allEditorOperations');
                         localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(wrappedOperations));
                         localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);

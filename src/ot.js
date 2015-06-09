@@ -5566,11 +5566,13 @@
 
     //  virtualclass.editor.cmClient = new EditorClient(revision, clients, virtualclass.editor.vcAdapter, this.editorAdapter_);
       //TODO this should be dynamic
-      if(virtualclass.currApp == "Editor"){
-        virtualclass.editor.vcAdapter =   new virtualclassAdapter(editorInfo, virtualclass.currApp);
+
+      if(options.hasOwnProperty('richTextToolbar')){
+       //if(virtualclass.currApp == "Editor"){
+        virtualclass.editor.vcAdapter =   new virtualclassAdapter(editorInfo, 'Editor');
         virtualclass.editor.cmClient = new EditorClient(revision, clients, virtualclass.editor.vcAdapter, this.editorAdapter_);
       }else{
-        virtualclass.editorCode.vcAdapter =   new virtualclassAdapter(editorInfo, virtualclass.currApp);
+        virtualclass.editorCode.vcAdapter =   new virtualclassAdapter(editorInfo, 'EditorCode');
         virtualclass.editorCode.cmClient = new EditorClient(revision, clients, virtualclass.editorCode.vcAdapter, this.editorAdapter_);
       }
 

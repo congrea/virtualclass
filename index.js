@@ -22,6 +22,9 @@ $(document).ready(function () {
     virtualclass.init(wbUser.role, appIs);
 
     var alreadyInit = false;
+
+    //TODO this both setinterval functinos should be merged into one
+
     var tryEditorinit =  setInterval(
         function (){
             if(virtualclass.hasOwnProperty('connectedUsers')){
@@ -30,6 +33,22 @@ $(document).ready(function () {
                         virtualclass.editor.veryInit();
                         alreadyInit = true;
                         clearInterval(tryEditorinit);
+                    }
+                }
+            }
+        },
+        1000
+    );
+
+    var alreadyEditorCodeInit  = false;
+    var tryEditorCodeinit =  setInterval(
+        function (){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                if(virtualclass.connectedUsers.length >= 1){
+                    if(!alreadyEditorCodeInit){
+                        virtualclass.editorCode.veryInit();
+                        alreadyEditorCodeInit = true;
+                        clearInterval(tryEditorCodeinit);
                     }
                 }
             }
@@ -130,9 +149,8 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
-                if(virtualclass.currApp == 'Editor'){
-                    io.send({'eddata' : 'currAppEditor'});
-
+                if(virtualclass.currApp.toUpperCase() == 'EDITOR' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                    io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 }
 
                 if (virtualclass.currApp === 'ScreenShare') {
@@ -146,37 +164,6 @@ $(document).ready(function () {
                     io.sendBinary(createdImg);
                     sType = null;
                 }
-            } else {
-                //var revisonNumber = parseInt(localStorage.getItem('edOperationRev'), 10);
-                //
-                //if (revisonNumber != null && revisonNumber > 0) {
-                //    var wrappedOperation = JSON.parse(localStorage.getItem('allEditorOperations'));
-                //    var docs = JSON.parse(wrappedOperation.data);
-                //    virtualclass.editor.initialiseDoc(docs);
-                //}else {
-                //    document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';
-                //}
-
-                //if (revisonNumber != null && revisonNumber > 0) {
-                //    if(virtualclass.wb.clientLen == 1){
-                //        var wrappedOperation = JSON.parse(localStorage.getItem('allEditorOperations'));
-                //        var docs = JSON.parse(wrappedOperation.data);
-                //        virtualclass.editor.initialiseDoc(docs);
-                //         //display from local Storage
-                //    } else {
-                //
-                //        var toRequestUser = e.message[0];
-                //        if (toRequestUser.userid == virtualclass.gObj.userid) {
-                //            toRequestUser = e.message[1];
-                //        }
-                //
-                //        io.send({'eddata': 'requestForEditorData'}, toRequestUser.userid);
-                //        virtualclass.editor.toAlreadyRequestUser = toRequestUser.userid;
-                //    }
-                //}else{
-                //    document.getElementById('virtualclassEditorTool').style.pointerEvents = 'visible';
-                //}
-
             }
         }
     });

@@ -4,19 +4,20 @@
   */
 (
     function(window) {
+        "use strict";
         var  editor = function(type, containerId, editorId) {
             this.etype = type;
             var that = this;
 
+            //TODO this should be dynamic
             if(type == 'editor'){
                 var editorType = { lineWrapping: true };
                 var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
             } else{
                 var editorType =  {lineNumbers: true, mode : 'markdown'};
                 var richEditorToolbar = {defaultText: 'Markdown Editor '};
-
             }
-            "use strict";
+
             return {
                 cm : '',
                 vcAdapter : "",
@@ -26,6 +27,7 @@
                 stroageData : localStorage.getItem(this.etype+'_allEditorOperations'),
                 stroageDataRev : localStorage.getItem(this.etype+'_edOperationRev'),
                 readonly : false,
+
                 veryInit : function (){
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
@@ -240,8 +242,6 @@
                     hideReadOnlyBox : function (){
                         document.getElementById('readOnlyMsgBox').style.display = 'none';
                     }
-
-
                 },
 
                 createEditorClient_org : function (revision, clients, docs, operations){

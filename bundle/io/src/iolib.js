@@ -98,10 +98,11 @@ var io = {
 
         "use strict";
         var bctype = 'broadcastToAll';
+
         if(msg.hasOwnProperty('eddata')){
-            if(virtualclass.currApp == "Editor"){
+            if(virtualclass.currApp == "Editor" || virtualclass.currApp == "editor"){
                 msg.et = 'ed';
-            } else if(virtualclass.currApp == "EditorCode"){
+            } else if(virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
                 msg.et = 'edCode';
             }
             bctype = 'broadcast';
@@ -112,8 +113,6 @@ var io = {
             cfun: bctype,
             arg: {'msg': msg}
         };
-
-
 
 
         if (arguments.length > 1) {
@@ -128,9 +127,7 @@ var io = {
             // STORAGE
             var storObj = {
                 //cfun : 'broadcast',
-
                 type: bctype,
-
                 m: msg,
                 userto: obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "",
                 user: virtualclass.uInfo.userobj

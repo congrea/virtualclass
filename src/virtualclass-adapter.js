@@ -2,11 +2,9 @@ virtualclassAdapter = function () {
 	'use strict';
 
 	//function virtualclassAdapter(revision, doc, operations) {
-
 	function virtualclassAdapter(editorInfo, etype) {
 		etype = etype.charAt(0).toLowerCase() + etype.slice(1);
-		alert('sss');
-		debugger;
+
 
 		this[etype] = {"operations" : ""};
 		var vcEditor = Firepad.getvcEditor();
@@ -39,7 +37,6 @@ virtualclassAdapter = function () {
 				}
 			}
 
-
 			var wrapped;
 
 			//TODO sholld be done by calling dynamic method invoke
@@ -51,12 +48,7 @@ virtualclassAdapter = function () {
 						virtualclass.dispvirtualclassLayout();
 					} else {
 						virtualclass.currApp = "editorCode"
-
-						
-
 					}
-
-
 				}
 
 				wrapped = new vcEditor.WrappedOperation(

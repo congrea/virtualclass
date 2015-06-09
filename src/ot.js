@@ -5563,8 +5563,7 @@
       } else {
         this.editorAdapter_ = new ACEAdapter(this.ace_);
       }
-      alert('suman bogati');
-      debugger;
+
     //  virtualclass.editor.cmClient = new EditorClient(revision, clients, virtualclass.editor.vcAdapter, this.editorAdapter_);
       //TODO this should be dynamic
       if(virtualclass.currApp == "Editor"){

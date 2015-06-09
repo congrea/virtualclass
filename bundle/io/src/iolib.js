@@ -100,11 +100,16 @@ var io = {
         var bctype = 'broadcastToAll';
 
         if(msg.hasOwnProperty('eddata')){
-            if(virtualclass.currApp == "Editor" || virtualclass.currApp == "editor"){
-                msg.et = 'ed';
-            } else if(virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
-                msg.et = 'edCode';
+            if(msg.eddata != 'initVcEditor'){
+                if(virtualclass.currApp == "Editor" || virtualclass.currApp == "editor"){
+                    msg.et = 'editor';
+                } else if(virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
+                    msg.et = 'editorCode';
+                }else {
+                    msg.et = msg.et;
+                }
             }
+
             bctype = 'broadcast';
         }
 

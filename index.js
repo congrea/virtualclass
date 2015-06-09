@@ -37,7 +37,7 @@ $(document).ready(function () {
                 }
             }
         },
-        1000
+        1500
     );
 
     var alreadyEditorCodeInit  = false;
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 }
             }
         },
-        1000
+        1550
     );
 
     if (localStorage.getItem('tc') !== null) {
@@ -279,8 +279,7 @@ $(document).ready(function () {
 
             //virtualclass.editor.onmessage(e.message);
             if(e.message.hasOwnProperty('et')){
-
-                if(e.message.et == 'ed'){
+                if(e.message.et == 'editor'){
                     virtualclass.editor.onmessage(e, 'Editor');
                 }else {
                     virtualclass.editorCode.onmessage(e, 'EditorCode');

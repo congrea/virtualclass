@@ -64,7 +64,7 @@
                         this.createEditorClient(richEditorToolbar, docsInfo);
 
                     }else {
-                        virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.app); //
+                        virtualclass.dispvirtualclassLayout(virtualclass.app); //
                     }
 
                     if(virtualclass.gObj.uRole == 't'){
@@ -114,7 +114,7 @@
 
                     if(toUser != '' && typeof toUser != 'undefined' &&  io.sock != null){
                          if(io.sock.readyState == 1){
-                             io.send({'eddata': 'requestForEditorData'}, toUser);
+                             io.send({'eddata': 'requestForEditorData', et: this.etype}, toUser);
                          }
                         //this.cm.readOnly(true);
                         this.readOnlyMode('disable');
@@ -269,10 +269,13 @@
 
                     var initPacket = this.getWrappedOperations();
                     if(typeof appIsEditor != 'undefined'){
+                        //alert("suman bogati");
+                        //debugger;
                         //if(appIsEditor.hasOwnProperty('editor') || (virtualclass.gObj.uRole == 't' && virtualclass.currApp == 'Editor')){
-                        if((appIsEditor.hasOwnProperty('editor') || appIsEditor.hasOwnProperty('editorCode'))|| this.isEidtorWithTeacher()){
+                        if((appIsEditor.hasOwnProperty('editor') || appIsEditor.hasOwnProperty('editorCode')) || this.isEidtorWithTeacher()){
                             initPacket.layoutEd  = "1";  //this would be for create editor layout
-                            initPacket.et = virtualclass.currApp;
+                            initPacket.cet = virtualclass.currApp;
+                            initPacket.et = this.etype;
                         }
 
                         if(appIsEditor.hasOwnProperty('toUser')){
@@ -304,7 +307,8 @@
                             clients: [],
                             str: this.cm.getValue(), //cm is my code mirror
                             operations: operations
-                        })
+                        }),
+                        et : this.etype
                     }
 
                     return wrappedOperations;
@@ -329,7 +333,7 @@
 
                     this.removeCodeMirror();
                     this.cmLayout(editorType);
-                    virtualclass.dispvirtualclassLayout('virtualclass' + virtualclass.currApp);
+                    virtualclass.dispvirtualclassLayout(virtualclass.currApp);
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
                             var cmElem = document.getElementById(this.UI.edId);

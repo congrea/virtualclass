@@ -221,12 +221,29 @@
 
             dispvirtualclassLayout: function (appId) {
 
+                //appId =
                 if (typeof this.previous != 'undefined') {
-                    if(this.previous != 'virtualclass'+this.currApp){
+
+                    if (this.previous != 'virtualclass' + this.currApp) {
                         document.getElementById(virtualclass.previous).style.display = 'none';
+
+                        //TODO this should be handle by better way, this is very rough
+                        if (appId == "editor") {
+                            var editorCode = document.getElementById("virtualclassEditorCode");
+                            if (editorCode != null) {
+                                editorCode.style.display = 'none';
+                            }
+                        } else if (appId == "editorCode") {
+                            var editor = document.getElementById("virtualclassEditor");
+                            if (editor != null) {
+                                editor.style.display = 'none';
+                            }
+                        }
                     }
                 }
-
+                if(typeof appId != 'undefined'){
+                    appId = "virtualclass" + capitalizeFirstLetter(appId);
+                }
                 var appElement = document.getElementById(appId);
                 if (appElement != null) {
                     appElement.style.display = 'block';
@@ -244,7 +261,7 @@
 
                 //if not screen share
                 if(app != this.apps[1] ){
-                   this.dispvirtualclassLayout('virtualclass' +app);
+                   this.dispvirtualclassLayout(app);
                 }
 
                 if (app == this.apps[0]) {
@@ -432,6 +449,9 @@
 
             //TODO remove this function
             //the same function is defining at script.js
+        }
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
     }
 })(window);

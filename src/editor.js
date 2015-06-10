@@ -171,7 +171,8 @@
                         return;
                     } else if(e.message.eddata == 'initVcEditor'){
                         console.log('action initVcEditor');
-                        if((virtualclass.gObj.uRole != 't') || (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
+                        if((virtualclass.gObj.uRole != 't') ||
+                            (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
                             if(e.message.hasOwnProperty('layoutEd')){
                                 this.initialiseDoc(doc, "displayEditor", e.message.et);
@@ -202,10 +203,30 @@
                                     this.readOnlyMode('enable');
                                 }
                             }
+
                             this.vcAdapter.receivedMessage(e);
+
                         }else{
+                            if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
+                                virtualclass.makeAppReady(etype);
+                                this.vcAdapter.receivedMessage(e);
+                            }
+
                             console.log("virtualclass adapter is not ready for editor");
                         }
+
+
+
+                        //if(e.message.eddata == 'virtualclass-editor-operation'){
+                        //    if(typeof this.vcAdapter == 'object'){
+                        //        if(this.readonly){
+                        //            //At received of some packet, if there would enabled readOnlyMode, we disabled it
+                        //            this.readOnlyMode('enable');
+                        //        }
+                        //        this.vcAdapter.receivedMessage(e);
+                        //    }
+                        //
+                        //}
 
                     }
                 },

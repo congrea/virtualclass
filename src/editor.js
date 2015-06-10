@@ -190,6 +190,12 @@
 
                     } else {
                         if(typeof this.vcAdapter == 'object'){
+                            if(e.message.eddata == 'virtualclass-editor-operation'){
+                                if(this.readonly){
+                                    //At received of some packet, if there would enabled readOnlyMode, we disabled it
+                                    this.readOnlyMode('enable');
+                                }
+                            }
                             this.vcAdapter.receivedMessage(e);
                         }else{
                             console.log("virtualclass adapter is not ready for editor");

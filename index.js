@@ -37,7 +37,7 @@ $(document).ready(function () {
                 }
             }
         },
-        1500
+        1100
     );
 
     var alreadyEditorCodeInit  = false;
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 }
             }
         },
-        1550
+        1150
     );
 
     if (localStorage.getItem('tc') !== null) {

@@ -45,6 +45,8 @@ virtualclassAdapter = function () {
 
 			//TODO sholld be done by calling dynamic method invoke
 			if (msg.eddata == 'virtualclass-editor-operation') {
+
+
 				//display editor if not
 				if(virtualclass.previous != 'Editor'){
 					if(etype == 'editor'){

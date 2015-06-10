@@ -29,6 +29,7 @@
                 stroageDataRev : localStorage.getItem(this.etype+'_edOperationRev'),
                 readonly : false,
 
+
                 veryInit : function (){
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
@@ -74,6 +75,9 @@
                 },
 
                 createEditorClient : function (defaultInfo, docsInfo){
+                    if(virtualclass.isPlayMode){
+                        this.readOnlyMode('disable', 'notCreateSyncBox');
+                    }
                     Firepad.fromCodeMirror({}, this.cm, defaultInfo, docsInfo);
                 },
 
@@ -121,16 +125,18 @@
                     }
                 },
 
-                readOnlyMode : function (mode){
+                readOnlyMode : function (mode, notcreateBox){
                     if(typeof this.cm == 'object'){
                         if(mode == 'disable'){
                             if(!this.readonly){
                                 this.cm.setOption("readOnly", true);
-                                this.UI.createReadOnlyMsgBox();
+                                if(typeof notcreateBox == ''){
+                                    this.UI.createReadOnlyMsgBox();
+                                }
                                 this.readonly = true;
                             }
                         } else {
-                            if(this.readonly){
+                            if(this.readonly && !virtualclass.isPlayMode){
                                 this.cm.setOption("readOnly", false);
                                 this.UI.hideReadOnlyBox();
                                 this.readonly = false;
@@ -249,11 +255,18 @@
                     },
 
                     showReadOnlyBox : function (){
-                        document.getElementById('readOnlyMsgBox').style.display = 'block';
+                        var readOnlyMsgBox = document.getElementById('readOnlyMsgBox');
+                        if(readOnlyMsgBox != null){
+                            readOnlyMsgBox.display = 'block';
+                        }
+
                     },
 
                     hideReadOnlyBox : function (){
-                        document.getElementById('readOnlyMsgBox').style.display = 'none';
+                        var readOnlyMsgBox = document.getElementById('readOnlyMsgBox');
+                        if(readOnlyMsgBox != null){
+                            readOnlyMsgBox.display = 'none';
+                        }
                     }
                 },
 

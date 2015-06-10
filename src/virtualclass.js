@@ -115,6 +115,8 @@
                 virtualclass.editor = window.editor('editor', 'virtualclassEditor', 'virtualclassEditorBody');
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
+                virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
+
                 },
 
             initSocketConn: function () {
@@ -253,14 +255,13 @@
             },
 
             dispvirtualclassLayout: function (appId) {
-
                 //appId =
                 if (typeof this.previous != 'undefined') {
+                    //TODO this should be handle by better way, this is very rough
 
-                    if (this.previous != 'virtualclass' + this.currApp) {
+                    if (this.previous.toUpperCase() != ('virtualclass' + this.currApp).toUpperCase()) {
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
-                        //TODO this should be handle by better way, this is very rough
                         if(typeof appId != 'undefined'){
                             if (appId.toUpperCase() == "EDITOR" ) {
                                 var editorCode = document.getElementById("virtualclassEditorCode");

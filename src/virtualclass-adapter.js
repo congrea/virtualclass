@@ -51,10 +51,12 @@ virtualclassAdapter = function () {
 				if(virtualclass.previous != 'Editor'){
 					if(etype == 'editor'){
 						virtualclass.currApp = "Editor"
-						virtualclass.dispvirtualclassLayout();
-					} else {
-						virtualclass.currApp = "editorCode"
+						//virtualclass.dispvirtualclassLayout();
+					} else if(etype == "editorCode") {
+						virtualclass.currApp = "EditorCode";
+						//virtualclass.dispvirtualclassLayout();
 					}
+					virtualclass.dispvirtualclassLayout(virtualclass.currApp);
 				}
 
 				wrapped = new vcEditor.WrappedOperation(

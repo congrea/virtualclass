@@ -100,10 +100,11 @@ var io = {
         var bctype = 'broadcastToAll';
 
         if(msg.hasOwnProperty('eddata')){
-            if(msg.eddata != 'initVcEditor'){
+
+            if(msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation'){
                 if(virtualclass.currApp == "Editor" || virtualclass.currApp == "editor"){
                     msg.et = 'editor';
-                } else if(virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
+                } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
                     msg.et = 'editorCode';
                 }else {
                     msg.et = msg.et;

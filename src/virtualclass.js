@@ -261,23 +261,7 @@
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
                         //TODO this should be handle by better way, this is very rough
-                        /*if(typeof appId != 'undefined'){
-                         if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITOR" ) {
-                         var editorCode = document.getElementById("virtualclassEditorCode");
-                         if (editorCode != null) {
-                         editorCode.style.display = 'none';
-                         }
-                         if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORCODE" ) {
-                         var editor = document.getElementById("virtualclassEditor");
-                         if (editor != null) {
-                         editor.style.display = 'none';
-                         }
-                         }
-                         }
-                         }*/
-
                         if(typeof appId != 'undefined'){
-                            //if (this.currApp.toUpperCase() != appId.toUpperCase()) {
                             if (appId.toUpperCase() == "EDITOR" ) {
                                 var editorCode = document.getElementById("virtualclassEditorCode");
                                 if (editorCode != null) {
@@ -290,10 +274,8 @@
                                     editor.style.display = 'none';
                                 }
                             }
-                            //}
+
                         }
-
-
                     }
                 }
                 if(typeof appId != 'undefined'){
@@ -305,11 +287,11 @@
                 }
             },
 
-
-
-
             makeAppReady: function (app, cusEvent, videoId) {
+                //alert('this should be invoked first');
+                //debugger;
                 this.currApp = app;
+
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && virtualclass.gObj.uRole == 't') {
@@ -394,13 +376,6 @@
                     }
 
                     this.previous = virtualclass.ytsConfig.id;
-
-                    //var measureRes = virtualclass.system.measureResoultion({
-                    //    'width': window.innerWidth,
-                    //    'height': window.innerHeight
-                    //});
-                    //
-                    //virtualclass.vutil.setContainerWidth(measureRes);
 
                 } else if (app == this.apps[3] || app == this.apps[4]) {
 

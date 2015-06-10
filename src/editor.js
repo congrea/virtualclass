@@ -328,7 +328,13 @@
                 initialiseDoc : function (doc, displayEditor, et) {
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
-                        virtualclass.currApp = et;
+                        if(virtualclass.currAppEditor){
+                            if(virtualclass.currAppEditorType == et){
+                                virtualclass.currApp = et;
+                            }
+                        }else{
+                            virtualclass.currApp = et;
+                        }
                     }
 
                     this.removeCodeMirror();

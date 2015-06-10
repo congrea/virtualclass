@@ -2603,7 +2603,11 @@
     };
 
     EditorClient.prototype.sendOperation = function (revision, operation) {
-      this.serverAdapter.sendOperation(revision, operation.toJSON(), this.cursor);
+        //this.editorAdapter.cm.options.keyMap is editor type need to send with each operation
+        // becuase at very speed, when switching the editor, vApp.currApp is not playing correctly at io.lib.js
+        // vApp.currApp is containg the older application but should be contain latest as app
+        // we should know about text is comming from which Editor from richtext editor or OR code editor
+        this.serverAdapter.sendOperation(revision, operation.toJSON(), this.cursor, this.editorAdapter.cm.options.keyMap);
     };
 
     //EditorClient.prototype.sendOperation = function (operation) {

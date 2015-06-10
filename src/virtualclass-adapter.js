@@ -97,16 +97,27 @@ virtualclassAdapter = function () {
 		}
 	};
 
-	virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
-
+	//sending the opration
+	virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor, etype) {
+		if(typeof etype != 'undefined'){
+			if(etype == 'richtext'){
+				var editor = "editor";
+			}else{
+				var editor = "editorCode";
+			}
+		}
 		var sendData = {
 			eddata: 'virtualclass-editor-operation',
 			data: JSON.stringify({
 				revision: revision,
 				operation: operation,
 				cursor: cursor
-			})
+			}),
+			et: editor
+
 		};
+
+
 		io.send(sendData);
 		var that = this;
 		console.log("send operation");

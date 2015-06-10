@@ -219,7 +219,7 @@
                 }
             },
 
-            dispvirtualclassLayout: function (appId) {
+            dispvirtualclassLayout_old: function (appId) {
 
                 //appId =
                 if (typeof this.previous != 'undefined') {
@@ -251,6 +251,62 @@
                     appElement.style.display = 'block';
                 }
             },
+
+            dispvirtualclassLayout: function (appId) {
+
+                //appId =
+                if (typeof this.previous != 'undefined') {
+
+                    if (this.previous != 'virtualclass' + this.currApp) {
+                        document.getElementById(virtualclass.previous).style.display = 'none';
+
+                        //TODO this should be handle by better way, this is very rough
+                        /*if(typeof appId != 'undefined'){
+                         if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITOR" ) {
+                         var editorCode = document.getElementById("virtualclassEditorCode");
+                         if (editorCode != null) {
+                         editorCode.style.display = 'none';
+                         }
+                         if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORCODE" ) {
+                         var editor = document.getElementById("virtualclassEditor");
+                         if (editor != null) {
+                         editor.style.display = 'none';
+                         }
+                         }
+                         }
+                         }*/
+
+                        if(typeof appId != 'undefined'){
+                            //if (this.currApp.toUpperCase() != appId.toUpperCase()) {
+                            if (appId.toUpperCase() == "EDITOR" ) {
+                                var editorCode = document.getElementById("virtualclassEditorCode");
+                                if (editorCode != null) {
+                                    editorCode.style.display = 'none';
+                                }
+                            }
+                            if (appId.toUpperCase() == "EDITORCODE" ) {
+                                var editor = document.getElementById("virtualclassEditor");
+                                if (editor != null) {
+                                    editor.style.display = 'none';
+                                }
+                            }
+                            //}
+                        }
+
+
+                    }
+                }
+                if(typeof appId != 'undefined'){
+                    appId = "virtualclass" + capitalizeFirstLetter(appId);
+                }
+                var appElement = document.getElementById(appId);
+                if (appElement != null) {
+                    appElement.style.display = 'block';
+                }
+            },
+
+
+
 
             makeAppReady: function (app, cusEvent, videoId) {
                 this.currApp = app;

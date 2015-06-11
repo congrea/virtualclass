@@ -159,7 +159,8 @@
                     }
                 },
 
-                /** Make editor either enable or disable with optional synch message box
+                /**
+                 * Make editor either enable or disable with optional synch message box
                  * @param mode mode expect either editor is enable or disbale
                  * @param notcreateBox indates iether synch message would created or not
                  */
@@ -184,6 +185,81 @@
                 },
 
 
+                receivedOperations : {
+                    currAppEditor : function (e){
+                        if(e.fromUser.userid != virtualclass.gObj.userid){
+                            virtualclass.currAppEditor = true;
+                            virtualclass.currAppEditorType = e.message.et;
+                        }
+                        return;
+                    },
+
+                    init : function (e, etype){
+                        if((e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')){
+                            virtualclass.makeAppReady(etype);
+                        }
+                        return;
+                    },
+
+                    initVcEditor : function (e){
+                        if((virtualclass.gObj.uRole != 't') ||
+                            (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
+                            var doc = JSON.parse(e.message.data);
+                            if(e.message.hasOwnProperty('layoutEd')){
+                                this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
+                            } else {
+                                this.initialiseDataWithEditor(doc);
+                            }
+                        }
+                        return;
+                    },
+
+                    requestForEditorData : function (e){
+                        if(e.fromUser.userid != virtualclass.gObj.uid){
+                            if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
+                                io.send({'eddata' : 'noDataForEditor'});
+                                return;
+                            }
+
+                            this.reponseToRequest({toUser : e.fromUser.userid});
+
+                        }
+                        return;
+                    },
+
+                    noDataForEditor : function (){
+                        if(virtualclass.gObj.uRole == 't'){
+                            // this.requestData('fromTeacher', 'withDifStudent');
+                        }
+                        return;
+                    },
+
+                    'virtualclass-editor-operation' : function (e){
+                        if(typeof this.vcAdapter == 'object'){
+                            //At received of some packet, if there would enabled readOnlyMode, we disabled it
+                            this.readOnlyMode('disable');
+                            this.vcAdapter.receivedMessage(e);
+                        }
+                        return;
+                    },
+
+
+                    'virtualclass-editor-cursor' : function (e){
+                        if(typeof this.vcAdapter == 'object'){
+                            this.vcAdapter.receivedMessage(e);
+                        }
+                        return;
+                    },
+
+                    'select' : function (){
+                        if(typeof this.vcAdapter == 'object'){
+                            this.vcAdapter.receivedMessage(e);
+                        }
+                        return;
+                    }
+                },
+
+
                 /**
                  *  Handle all the responses related to editor coming from server
                  * @param e expects event parameter
@@ -194,65 +270,77 @@
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
 
                     //TODO this all if and else condition should be simplyfy
-                    if(e.message.eddata == 'currAppEditor'){
-                        if(e.fromUser.userid != virtualclass.gObj.userid){
-                            virtualclass.currAppEditor = true;
-                            virtualclass.currAppEditorType = e.message.et;
+
+                    this.receivedOperations[e.message.eddata].call(this, e, etype);
+
+                    if(typeof this.vcAdapter != 'object'){
+                        if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
+                            virtualclass.makeAppReady(etype);
+                            this.vcAdapter.receivedMessage(e, onmessage);
                         }
-                        return;
+                        console.log("virtualclass adapter is not ready for editor");
                     }
 
-                    if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
-                        (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
-                        virtualclass.makeAppReady(etype);
-                    }
-
-                    if(e.message.eddata == 'noDataForEditor'){
-                        if(virtualclass.gObj.uRole == 't'){
-                           // this.requestData('fromTeacher', 'withDifStudent');
-                        }
-                        return;
-                    } else if(e.message.eddata == 'initVcEditor'){
-                        if((virtualclass.gObj.uRole != 't') ||
-                            (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
-                            var doc = JSON.parse(e.message.data);
-                            if(e.message.hasOwnProperty('layoutEd')){
-                                this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
-                            } else {
-                                this.initialiseDataWithEditor(doc);
-                            }
-                        }
-                    }else if( e.message.eddata == 'requestForEditorData'){
-                        if(e.fromUser.userid != virtualclass.gObj.uid){
-                            if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
-                                io.send({'eddata' : 'noDataForEditor'});
-                                return;
-                            }
-
-                            this.reponseToRequest({toUser : e.fromUser.userid});
-
-                        }
-
-                    } else {
-                        if(typeof this.vcAdapter == 'object'){
-                            if(e.message.eddata == 'virtualclass-editor-operation'){
-                                if(this.readonly){
-                                    //At received of some packet, if there would enabled readOnlyMode, we disabled it
-                                    this.readOnlyMode('enable');
-                                }
-                            }
-
-                            this.vcAdapter.receivedMessage(e);
-
-                        }else{
-                            if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
-                                virtualclass.makeAppReady(etype);
-                                this.vcAdapter.receivedMessage(e);
-                            }
-
-                            console.log("virtualclass adapter is not ready for editor");
-                        }
-            }
+                    //if(e.message.eddata == 'currAppEditor'){
+                    //    if(e.fromUser.userid != virtualclass.gObj.userid){
+                    //        virtualclass.currAppEditor = true;
+                    //        virtualclass.currAppEditorType = e.message.et;
+                    //    }
+                    //    return;
+                    //}
+                    //
+                    //if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
+                    //    (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
+                    //    virtualclass.makeAppReady(etype);
+                    //}
+                    //
+                    //if(e.message.eddata == 'noDataForEditor'){
+                    //    if(virtualclass.gObj.uRole == 't'){
+                    //       // this.requestData('fromTeacher', 'withDifStudent');
+                    //    }
+                    //    return;
+                    //} else if(e.message.eddata == 'initVcEditor'){
+                    //    if((virtualclass.gObj.uRole != 't') ||
+                    //        (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
+                    //        var doc = JSON.parse(e.message.data);
+                    //        if(e.message.hasOwnProperty('layoutEd')){
+                    //            this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
+                    //        } else {
+                    //            this.initialiseDataWithEditor(doc);
+                    //        }
+                    //    }
+                    //}else if( e.message.eddata == 'requestForEditorData'){
+                    //    if(e.fromUser.userid != virtualclass.gObj.uid){
+                    //        if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
+                    //            io.send({'eddata' : 'noDataForEditor'});
+                    //            return;
+                    //        }
+                    //
+                    //        this.reponseToRequest({toUser : e.fromUser.userid});
+                    //
+                    //    }
+                    //
+                    //} else {
+                    //    if(typeof this.vcAdapter == 'object'){
+                    //        if(e.message.eddata == 'virtualclass-editor-operation'){
+                    //            if(this.readonly){
+                    //                //At received of some packet, if there would enabled readOnlyMode, we disabled it
+                    //                this.readOnlyMode('enable');
+                    //            }
+                    //        }
+                    //
+                    //        this.vcAdapter.receivedMessage(e);
+                    //
+                    //    }else{
+                    //        if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
+                    //            virtualclass.makeAppReady(etype);
+                    //            this.vcAdapter.receivedMessage(e);
+                    //        }
+                    //
+                    //        console.log("virtualclass adapter is not ready for editor");
+                    //    }
+                    //
+                    //   }
                 },
 
                 /**
@@ -340,7 +428,7 @@
                         }
 
                         io.send(initPacket, appIsEditor.toUser);
-                    }else {
+                    } else {
                         io.send(initPacket);
                     }
                 },

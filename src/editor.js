@@ -178,9 +178,9 @@
                             if(this.readonly && !virtualclass.isPlayMode){
                                 this.cm.setOption("readOnly", false);
                                 this.readonly = false;
+                                this.UI.hideSynchMessageBox();
                             }
 
-                            this.UI.hideSynchMessageBox();
                         }
                     }
                 },
@@ -335,10 +335,11 @@
                         }
                     },
 
+                    //TODO below 2 functions can be convert into 1
                     showSynchMessageBox : function (){
                         var synchMessageBox = document.getElementById('synchMessageBox');
                         if(synchMessageBox != null){
-                            synchMessageBox.display = 'block';
+                            synchMessageBox.style.display = 'block';
                         }
 
                     },
@@ -346,7 +347,7 @@
                     hideSynchMessageBox : function (){
                         var synchMessageBox = document.getElementById('synchMessageBox');
                         if(synchMessageBox != null){
-                            synchMessageBox.display = 'none';
+                            synchMessageBox.style.display = 'none';
                         }
                     }
                 },

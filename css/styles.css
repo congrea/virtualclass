@@ -2157,21 +2157,6 @@ opacity : 0.800000011920928955078125 !important;
 	/*height : 80%;*/
 }
 
-/*#virtualclassCont #virtualclassEditor {*/
-	/*width : 100%;*/
-	/*height : 100%;*/
-/*}*/
-
-#virtualclassCont #virtualclassEditorBody{
-	/*width : 75%;*/
-	/*height : 100%;*/
-	/*overflow : scroll;*/
-}
-
-/*#virtualclassEditorTool {*/
-	/*pointer-events : none;*/
-/*}*/
-
 #virtualclassEditor #synchMessageBox {
 	position : absolute;
 	top : 15px;

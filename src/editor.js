@@ -93,16 +93,19 @@
                     }
 
                 },
-                /***
-                 *
-                 * @param defaultInfo
-                 * @param docsInfo
+
+                /*
+                 * By this function we creating the
+                 * Editor client and virtualclass adapter in ot.js
+                 * @param editorType expect editor type
+                 * @param docsInfo about docs(operation, revision, etc)
                  */
-                createEditorClient : function (defaultInfo, docsInfo){
+                createEditorClient : function (editorType, docsInfo){
                     if(virtualclass.isPlayMode){
-                        this.readOnlyMode('disable', 'notCreateSyncBox');
+                        //this.readOnlyMode('disable', 'notCreateSyncBox');
+                        this.readOnlyMode('enable', 'notCreateSyncBox');
                     }
-                    Firepad.fromCodeMirror({}, this.cm, defaultInfo, docsInfo);
+                    Firepad.fromCodeMirror({}, this.cm, editorType, docsInfo);
                 },
 
                 /**
@@ -152,17 +155,20 @@
                          if(io.sock.readyState == 1){
                              io.send({'eddata': 'requestForEditorData', et: this.etype}, toUser);
                          }
-                        //this.cm.readOnly(true);
-                        this.readOnlyMode('disable');
+                        this.readOnlyMode('enable');
                     }
                 },
 
+                /** Make editor either enable or disable with optional synch message box
+                 * @param mode mode expect either editor is enable or disbale
+                 * @param notcreateBox indates iether synch message would created or not
+                 */
                 readOnlyMode : function (mode, notcreateBox){
                     if(typeof this.cm == 'object'){
-                        if(mode == 'disable'){
+                        if(mode == 'enable'){
                             if(!this.readonly){
                                 this.cm.setOption("readOnly", true);
-                                if(typeof notcreateBox == ''){
+                                if(typeof notcreateBox == 'undefined'){
                                     this.UI.createSynchMessageBox();
                                 }
                                 this.readonly = true;
@@ -207,7 +213,6 @@
                         }
                         return;
                     } else if(e.message.eddata == 'initVcEditor'){
-                        console.log('action initVcEditor');
                         if((virtualclass.gObj.uRole != 't') ||
                             (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
@@ -224,7 +229,7 @@
                                 return;
                             }
 
-                            this.initVcEditor({toUser : e.fromUser.userid});
+                            this.reponseToRequest({toUser : e.fromUser.userid});
 
                         }
 
@@ -317,10 +322,11 @@
                     }
                 },
 
-                //sending the editor packets for requested user
-                //reponse request data
-                initVcEditor : function (appIsEditor){
-
+                /**
+                 * Response the requested data to requested user
+                 * @param appIsEditor does decide the editor shoudl be shown or not at other user
+                 */
+                reponseToRequest : function (appIsEditor){
                     var initPacket = this.getWrappedOperations();
                     if(typeof appIsEditor != 'undefined'){
                         if((appIsEditor.hasOwnProperty('editor') || appIsEditor.hasOwnProperty('editorCode')) || this.isEidtorWithTeacher()){
@@ -347,6 +353,10 @@
                     return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'Editor' || virtualclass.currApp == 'EditorCode'));
                 },
 
+                /**
+                 * Wrapped the text operation with reviion, string etc.
+                 * @returns {{eddata: string, data, et: *}}
+                 */
                 getWrappedOperations : function (){
                     var operations = this.vcAdapter && this.vcAdapter.operations ? serialiseOps(this.vcAdapter.operations): [];
                     // We only want the most recent 50 because we can't send too much data
@@ -382,9 +392,11 @@
                     this.cm = "";
                 },
 
+                /**
+                 * After editor packets recived from teacher
+                 * will set with code mirror, and apply the operations agains text transform
+                 */
 
-                // After editor packets recived from teacher
-                // will set with code mirror, and apply the operations agains text transform
                 initialiseDataWithEditor : function (doc, displayEditor, et) {
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];

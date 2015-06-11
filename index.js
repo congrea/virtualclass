@@ -10,6 +10,7 @@ $(document).ready(function () {
 
     window.pageEnter = new Date().getTime();
     var virtualclass = new window.virtualclass();
+
     window.virtualclass = virtualclass; //Need virtualclass object in each file
 
     virtualclass.gObj.displayError = 1;
@@ -19,6 +20,42 @@ $(document).ready(function () {
     virtualclass.prvCurrUsersSame();
 
     virtualclass.init(wbUser.role, appIs);
+
+    var alreadyInit = false;
+
+    //TODO this both setinterval functinos should be merged into one
+
+    var tryEditorinit =  setInterval(
+        function (){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                if(virtualclass.connectedUsers.length >= 1){
+                    if(!alreadyInit){
+                        virtualclass.editorRich.veryInit();
+                        alreadyInit = true;
+                        clearInterval(tryEditorinit);
+                    }
+                }
+            }
+        },
+        1100
+    );
+
+    var alreadyEditorCodeInit  = false;
+    var tryEditorCodeinit =  setInterval(
+        function (){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                if(virtualclass.connectedUsers.length >= 1){
+                    if(!alreadyEditorCodeInit){
+                        virtualclass.editorCode.veryInit();
+                        alreadyEditorCodeInit = true;
+                        clearInterval(tryEditorCodeinit);
+                    }
+                }
+            }
+        },
+        1150
+    );
+
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();
     } else {
@@ -99,26 +136,34 @@ $(document).ready(function () {
 
     $(document).on("member_added", function (e) {
         var sType;
+        virtualclass.connectedUsers = e.message;
         virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
         memberUpdate(e, 'added');
+
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
             virtualclass.gObj.video.updateVidContHeight();
             virtualclass.gObj.updateHeight = true;
         }
 
         if (virtualclass.gObj.uRole === 't') {
-            if (virtualclass.currApp === 'ScreenShare') {
-                sType = 'ss';
-            }
+            if(virtualclass.gObj.uid != virtualclass.jId){
+                if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                    io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+                }
 
-            if (typeof sType !== 'undefined' && sType !== null) {
-                //TODO this should be into function
-                sType = virtualclass.getDataFullScreen(sType);
-                var createdImg = virtualclass.getDataFullScreen('ss');
-                io.sendBinary(createdImg);
-                sType = null;
+                if (virtualclass.currApp === 'ScreenShare') {
+                    sType = 'ss';
+                }
+
+                if (typeof sType !== 'undefined' && sType !== null) {
+                    //TODO this should be into function
+                    sType = virtualclass.getDataFullScreen(sType);
+                    var createdImg = virtualclass.getDataFullScreen('ss');
+                    io.sendBinary(createdImg);
+                    sType = null;
+                }
             }
         }
     });
@@ -170,7 +215,10 @@ $(document).ready(function () {
      * On every new message from IOLib/Server
      */
     $(document).on("newmessage", function (e) {
-
+        //if(e.message.hasOwnProperty('editorSuman')){
+        //    alert('I have just joined the room');
+        //    return;
+        //}
         var recMsg = e.message, key;
         virtualclass.wb.gObj.myrepObj = virtualclass.wb.vcan.getStates('replayObjs');
 
@@ -227,6 +275,18 @@ $(document).ready(function () {
      * @type {receiveFunctions}
      */
     var receiveFunctions = new function () {
+        this.eddata = function (e){
+
+            //virtualclass.editorRich.onmessage(e.message);
+            if(e.message.hasOwnProperty('et')){
+                if(e.message.et == 'editorRich'){
+                    virtualclass.editorRich.onmessage(e, 'EditorRich');
+                }else {
+                    virtualclass.editorCode.onmessage(e, 'EditorCode');
+                }
+            }
+        }
+
 
         this.yts = function (e) {
             virtualclass.yts.onmessage(e.message);

@@ -91,19 +91,41 @@ var io = {
     },
 
     send: function (msg) {
+        if(this.sock == null){
+            console.log("socket is not created");
+            return;
+        }
+
         "use strict";
-        //currTime(pag);            
+        var bctype = 'broadcastToAll';
+
+        if(msg.hasOwnProperty('eddata')){
+
+            if(msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation'){
+                if(virtualclass.currApp == "Editor" || virtualclass.currApp == "editor"){
+                    msg.et = 'editor';
+                } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
+                    msg.et = 'editorCode';
+                }else {
+                    msg.et = msg.et;
+                }
+            }
+
+            bctype = 'broadcast';
+        }
+
         var obj = {
             //cfun : 'broadcast',
-            cfun: 'broadcastToAll',
+            cfun: bctype,
             arg: {'msg': msg}
         };
+
 
         if (arguments.length > 1) {
             var uid = arguments[1];// user id to  whom msg is intented
             obj.arg.touser = this.uniquesids[uid];
-
         }
+
         var jobj = JSON.stringify(obj);
         this.sock.send(jobj);
 
@@ -111,16 +133,18 @@ var io = {
             // STORAGE
             var storObj = {
                 //cfun : 'broadcast',
-                type: 'broadcastToAll',
+                type: bctype,
                 m: msg,
                 userto: obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "",
                 user: virtualclass.uInfo.userobj
             };
 
-            var storjobj = JSON.stringify(storObj);
-            //getMsPckt, can not request the packets from other user during replay
-            if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
-                this.completeStorage(storjobj);
+            if(storObj.type != 'broadcast'){
+                var storjobj = JSON.stringify(storObj);
+                //getMsPckt, can not request the packets from other user during replay
+                if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
+                    this.completeStorage(storjobj);
+                }
             }
         }
 
@@ -161,7 +185,7 @@ var io = {
 
     onRecMessage: function (e) {
         "use strict";
-        try {
+        //try {
             var scope = this;
             if (e.data instanceof ArrayBuffer) {
                 $.event.trigger({
@@ -173,8 +197,21 @@ var io = {
                 this.dataBinaryStore(msg);
             } else {
                 var receivemsg = JSON.parse(e.data);
-                if (!receivemsg.hasOwnProperty('userto')) {
+                if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') &&  receivemsg.m.hasOwnProperty('eddata'))) {
                     io.completeStorage(e.data);
+
+                    //////TODO this has to be simpliyfied
+                    //if(receivemsg.hasOwnProperty('m')){
+                    //    if(receivemsg.m.hasOwnProperty('eddata')){
+                    //        if(receivemsg.m.eddata != 'init'){
+                    //            io.completeStorage(e.data);
+                    //        }
+                    //    }else {
+                    //        io.completeStorage(e.data);
+                    //    }
+                    //} else {
+                    //    io.completeStorage(e.data);
+                    //}
                 }
                 var userto = '';
                 switch (receivemsg.type) {
@@ -198,6 +235,7 @@ var io = {
                         });
                         break;
                     case "broadcastToAll":
+                    case "broadcast":
                         if (receivemsg.userto != undefined) {
                             userto = receivemsg.userto;
                         }
@@ -241,13 +279,13 @@ var io = {
                         break;
                 }
             }
-        } catch (e) {
-            console.log("Error catched   : " + e);
-            $.event.trigger({
-                type: "error",
-                message: e
-            });
-        }
+        //} catch (e) {
+        //    console.log("Error catched   : " + e);
+        //    $.event.trigger({
+        //        type: "error",
+        //        message: e
+        //    });
+        //}
     },
 
     disconnect: function () {

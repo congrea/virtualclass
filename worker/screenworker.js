@@ -68,7 +68,10 @@ var sendSliceData = function (encodedData, dimension, screenType) {
  */
 var addSliceToSingle = function (encodedData) {
     "use strict";
-    if (masterSlice === null || masterSlice === 'undefined') {
+    // masterSlice === 'undefined' is false when masterSlice is undefined
+    //if (masterSlice === null || masterSlice === 'undefined') {
+    if (masterSlice === null || masterSlice === undefined) {
+
         masterSlice = encodedData;
     } else {
         var tempslice = new Uint8ClampedArray(masterSlice.length + encodedData.length);

@@ -96,7 +96,7 @@
         setAppDimension: function () {
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             //var mainWrapper =  document.getElementById('virtualclassCont');
-            virtualclass.vutil.setContainerWidth(measureRes);
+            virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
             if (virtualclass.currApp == 'Whiteboard') {
                 system.setCanvasDimension(measureRes);
             }

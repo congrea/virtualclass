@@ -82,18 +82,29 @@
             }
         },
 
-        setContainerWidth: function (res) {
+        setContainerWidth: function (res, app) {
+            //if(app == 'Editor'){
+            //    var appId = 'virtualclassEditorRich';
+            //}else{
+            //    var appId = 'virtualclassWhiteboard';
+            //}
+
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
                 appId = virtualclass.previous;
-            }
+
+           }
             //alert(appId);
             var appCont = document.getElementById(appId);
             var rightOffSet = 5;
 
             var extraWidth = 0;
             var leftSideBarWidth;
-            if (virtualclass.currApp == 'ScreenShare') {
+
+            if(app == 'Whiteboard'){
+                leftSideBarWidth = 0;
+            }else{
+                rightOffSet = 65;
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
                     var offset = vcan.utility.getElementOffset(leftSideBar);
@@ -101,14 +112,25 @@
                 } else {
                     leftSideBarWidth = 0;
                 }
-            } else {
-                leftSideBarWidth = 0;
             }
+
+
+            //if (virtualclass.currApp == 'ScreenShare') {
+            //    var leftSideBar = document.getElementById("virtualclassOptionsCont");
+            //    if (leftSideBar != null) {
+            //        var offset = vcan.utility.getElementOffset(leftSideBar);
+            //        leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
+            //    } else {
+            //        leftSideBarWidth = 0;
+            //    }
+            //} else {
+            //    leftSideBarWidth = 0;
+            //}
 
             //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
             res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
             appCont.style.width = res.width + 'px';
-            appCont.style.height = res.height + 'px';
+            appCont.style.height = (res.height - 60)  + 'px';
 
             if (appId == 'virtualclassScreenShare') {
                 //if(appId != 'virtualclassWhiteboard'){
@@ -434,12 +456,35 @@
             localStorage.removeItem('otherRole');
             virtualclass.wb.utility.userIds = [];
 
-
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
                 virtualclass.gObj.video.audio.studentNotSpeak();
             }
+
             virtualclass.vutil.clickOutSideCanvas();
             localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
+
+            if(virtualclass.hasOwnProperty('editorRich')){
+                if(typeof virtualclass.editorRich.vcAdapter == 'object'){
+                    virtualclass.editorRich.saveIntoLocalStorage();
+                }
+            }
+
+            if(virtualclass.hasOwnProperty('editorCode')){
+                if(typeof virtualclass.editorCode.vcAdapter == 'object'){
+                    virtualclass.editorCode.saveIntoLocalStorage();
+                }
+            }
+
+
+            //editor data save when page is being refreshed
+            //if((typeof virtualclass.editorRich.vcAdapter == 'object' && virtualclass.editorRich.vcAdapter.operations.length > 0)){
+            //    var wrappedOperations = virtualclass.editorRich.getWrappedOperations();
+            //    localStorage.removeItem('allEditorOperations');
+            //    localStorage.setItem('allEditorOperations',  JSON.stringify(wrappedOperations));
+            //    localStorage.setItem('edOperationRev',  virtualclass.editorRich.cmClient.revision);
+            //
+            //}
+            //
             io.disconnect();
         },
 
@@ -453,7 +498,6 @@
                     virtualclass.vutil.beforeLoad();
                 }
             }
-
         },
 
         isPlayMode: function () {

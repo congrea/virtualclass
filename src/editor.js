@@ -177,9 +177,10 @@
                         } else {
                             if(this.readonly && !virtualclass.isPlayMode){
                                 this.cm.setOption("readOnly", false);
-                                this.UI.hideSynchMessageBox();
                                 this.readonly = false;
                             }
+
+                            this.UI.hideSynchMessageBox();
                         }
                     }
                 },
@@ -237,6 +238,7 @@
                     'virtualclass-editor-operation' : function (e){
                         if(typeof this.vcAdapter == 'object'){
                             //At received of some packet, if there would enabled readOnlyMode, we disabled it
+
                             this.readOnlyMode('disable');
                             this.vcAdapter.receivedMessage(e);
                         }

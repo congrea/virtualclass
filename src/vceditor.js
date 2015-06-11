@@ -5732,10 +5732,10 @@
         };
 
         Vceditor.prototype.addPoweredByLogo_ = function () {
-            var poweredBy = utils.elt('a', null, {'class': 'powered-by-vceditor'});
-            poweredBy.setAttribute('href', 'http://www.vceditor.io/');
-            poweredBy.setAttribute('target', '_blank');
-            this.vcEditorWrapper_.appendChild(poweredBy)
+            //var poweredBy = utils.elt('a', null, {'class': 'powered-by-vceditor'});
+            //poweredBy.setAttribute('href', 'http://www.vceditor.io/');
+            //poweredBy.setAttribute('target', '_blank');
+            //this.vcEditorWrapper_.appendChild(poweredBy)
         };
 
         Vceditor.prototype.initializeKeyMap_ = function () {

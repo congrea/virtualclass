@@ -373,7 +373,7 @@
                     virtualclass.wb.utility.makeDefaultValue();
                     virtualclass.vutil.clearAllChat();
 
-                    virtualclass.editor.removeEditorData();
+                    virtualclass.editorRich.removeEditorData();
                     virtualclass.editorCode.removeEditorData();
                 }
                 virtualclass.vutil.removeClass('audioWidget', "fixed");

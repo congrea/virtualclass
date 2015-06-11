@@ -84,7 +84,7 @@
 
         setContainerWidth: function (res, app) {
             //if(app == 'Editor'){
-            //    var appId = 'virtualclassEditor';
+            //    var appId = 'virtualclassEditorRich';
             //}else{
             //    var appId = 'virtualclassWhiteboard';
             //}
@@ -463,9 +463,9 @@
             virtualclass.vutil.clickOutSideCanvas();
             localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
 
-            if(virtualclass.hasOwnProperty('editor')){
-                if(typeof virtualclass.editor.vcAdapter == 'object'){
-                    virtualclass.editor.saveIntoLocalStorage();
+            if(virtualclass.hasOwnProperty('editorRich')){
+                if(typeof virtualclass.editorRich.vcAdapter == 'object'){
+                    virtualclass.editorRich.saveIntoLocalStorage();
                 }
             }
 
@@ -477,11 +477,11 @@
 
 
             //editor data save when page is being refreshed
-            //if((typeof virtualclass.editor.vcAdapter == 'object' && virtualclass.editor.vcAdapter.operations.length > 0)){
-            //    var wrappedOperations = virtualclass.editor.getWrappedOperations();
+            //if((typeof virtualclass.editorRich.vcAdapter == 'object' && virtualclass.editorRich.vcAdapter.operations.length > 0)){
+            //    var wrappedOperations = virtualclass.editorRich.getWrappedOperations();
             //    localStorage.removeItem('allEditorOperations');
             //    localStorage.setItem('allEditorOperations',  JSON.stringify(wrappedOperations));
-            //    localStorage.setItem('edOperationRev',  virtualclass.editor.cmClient.revision);
+            //    localStorage.setItem('edOperationRev',  virtualclass.editorRich.cmClient.revision);
             //
             //}
             //

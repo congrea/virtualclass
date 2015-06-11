@@ -13,7 +13,7 @@ Server = (function (global) {
 		if (revision < 0 || this.operations.length < revision) {
 
 		if(revision > 1 ){
-			virtualclass.editor.requestData('from_s');
+			virtualclass.editorRich.requestData('from_s');
 		}
 
 		//throw new Error("operation revision not in history");

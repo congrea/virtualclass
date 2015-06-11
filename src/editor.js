@@ -18,7 +18,7 @@
             var that = this;
 
             //TODO this should be dynamic
-            if(type == 'editor'){
+            if(type == 'editorRich'){
                 var editorType = { lineWrapping: true };
                 var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
             } else{
@@ -359,7 +359,7 @@
                 reponseToRequest : function (appIsEditor){
                     var initPacket = this.getWrappedOperations();
                     if(typeof appIsEditor != 'undefined'){
-                        if((appIsEditor.hasOwnProperty('editor') || appIsEditor.hasOwnProperty('editorCode')) || this.isEidtorWithTeacher()){
+                        if((appIsEditor.hasOwnProperty('editorRich') || appIsEditor.hasOwnProperty('editorCode')) || this.isEidtorWithTeacher()){
                             initPacket.layoutEd  = "1";  //this would be for create editor layout
                             initPacket.cet = virtualclass.currApp;
                             initPacket.et = this.etype;
@@ -465,7 +465,7 @@
 
                     this.cm.refresh();
 
-                    if( virtualclass.currApp == 'Editor'){
+                    if( virtualclass.currApp == 'EditorRich'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
                     }

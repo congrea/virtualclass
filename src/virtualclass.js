@@ -2,7 +2,7 @@
     window.virtualclass = function () {
         return {
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-            apps : ["Whiteboard", "ScreenShare", 'Yts', 'Editor', 'EditorCode'],
+            apps : ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
             //appAudioTestPlay : "virtualclassAudioTestPlay",
@@ -112,7 +112,11 @@
                 virtualclass.xhr.init();
                 virtualclass.dtCon = virtualclass.converter();
                 virtualclass.pbar = progressBar;
-                virtualclass.editor = window.editor('editor', 'virtualclassEditor', 'virtualclassEditorBody');
+
+                //editor which is rich text editor which has various options
+                virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorBody');
+
+                //simple code editor with markdown
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
@@ -156,7 +160,7 @@
                     var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
 
-                    this.createDiv(virtualclass.edConfig.id + "Tool", "editor", appOptCont, virtualclass.edConfig.classes);
+                    this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
                     this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
                     this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
                     this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
@@ -230,13 +234,13 @@
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
                         //TODO this should be handle by better way, this is very rough
-                        if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITOR" ) {
+                        if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORRICH" ) {
                             var editorCode = document.getElementById("virtualclassEditorCode");
                             if (editorCode != null) {
                                 editorCode.style.display = 'none';
                             }
                             if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORCODE" ) {
-                                var editor = document.getElementById("virtualclassEditor");
+                                var editor = document.getElementById("virtualclassEditorRich");
                                 if (editor != null) {
                                     editor.style.display = 'none';
                                 }
@@ -263,14 +267,14 @@
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
                         if(typeof appId != 'undefined'){
-                            if (appId.toUpperCase() == "EDITOR" ) {
+                            if (appId.toUpperCase() == "EDITORRICH" ) {
                                 var editorCode = document.getElementById("virtualclassEditorCode");
                                 if (editorCode != null) {
                                     editorCode.style.display = 'none';
                                 }
                             }
                             if (appId.toUpperCase() == "EDITORCODE" ) {
-                                var editor = document.getElementById("virtualclassEditor");
+                                var editor = document.getElementById("virtualclassEditorRich");
                                 if (editor != null) {
                                     editor.style.display = 'none';
                                 }
@@ -390,7 +394,7 @@
                     var docs = "";
                     var operations = "";
                     if(app == this.apps[3]){
-                        virtualclass.editor.init(revision, clients, docs, operations);
+                        virtualclass.editorRich.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edConfig.id;
                     }else {
                         virtualclass.editorCode.init(revision, clients, docs, operations);

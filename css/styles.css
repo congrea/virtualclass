@@ -2144,7 +2144,7 @@ opacity : 0.800000011920928955078125 !important;
 	margin-top : 20px;
 }
 
-#virtualclassCont #virtualclassEditorTool .icon-editor:before {
+#virtualclassCont .icon-editorRich:before {
 	content : "edi";
 }
 
@@ -2157,7 +2157,7 @@ opacity : 0.800000011920928955078125 !important;
 	/*height : 80%;*/
 }
 
-#virtualclassEditor #synchMessageBox {
+#virtualclassEditorRich #synchMessageBox {
 	position : absolute;
 	top : 15px;
 	left : 64%;
@@ -2170,20 +2170,20 @@ opacity : 0.800000011920928955078125 !important;
 
 
 
-/*#virtualclassEditor {*/
+/*#virtualclassEditorRich {*/
 	/*width : 90%;*/
 	/*height : 95%;*/
 /*}*/
 
-#virtualclassEditor {
+#virtualclassEditorRich {
 	overflow : auto;
 }
 
-#virtualclassEditor{
+#virtualclassEditorRich{
 	margin-top : 1.5%;
 }
 
-#virtualclassEditor, #virtualclassEditorBody, #virtualclassEditorCode, #virtualclassEditorCodeBody{
+#virtualclassEditorRich, #virtualclassEditorBody, #virtualclassEditorCode, #virtualclassEditorCodeBody{
 	height : 100%;
 }
 

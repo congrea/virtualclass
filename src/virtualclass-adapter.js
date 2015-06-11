@@ -48,9 +48,9 @@ virtualclassAdapter = function () {
 
 
 				//display editor if not
-				if(virtualclass.previous != 'Editor'){
-					if(etype == 'editor'){
-						virtualclass.currApp = "Editor"
+				if(virtualclass.previous != 'EditorRich'){
+					if(etype == 'editorRich'){
+						virtualclass.currApp = "EditorRich"
 						//virtualclass.dispvirtualclassLayout();
 					} else if(etype == "editorCode") {
 						virtualclass.currApp = "EditorCode";
@@ -105,7 +105,7 @@ virtualclassAdapter = function () {
 	virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor, etype) {
 		if(typeof etype != 'undefined'){
 			if(etype == 'richtext'){
-				var editor = "editor";
+				var editor = "editorRich";
 			}else{
 				var editor = "editorCode";
 			}

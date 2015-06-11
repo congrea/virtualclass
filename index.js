@@ -30,7 +30,7 @@ $(document).ready(function () {
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 if(virtualclass.connectedUsers.length >= 1){
                     if(!alreadyInit){
-                        virtualclass.editor.veryInit();
+                        virtualclass.editorRich.veryInit();
                         alreadyInit = true;
                         clearInterval(tryEditorinit);
                     }
@@ -149,7 +149,7 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
-                if(virtualclass.currApp.toUpperCase() == 'EDITOR' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 }
 
@@ -277,10 +277,10 @@ $(document).ready(function () {
     var receiveFunctions = new function () {
         this.eddata = function (e){
 
-            //virtualclass.editor.onmessage(e.message);
+            //virtualclass.editorRich.onmessage(e.message);
             if(e.message.hasOwnProperty('et')){
-                if(e.message.et == 'editor'){
-                    virtualclass.editor.onmessage(e, 'Editor');
+                if(e.message.et == 'editorRich'){
+                    virtualclass.editorRich.onmessage(e, 'EditorRich');
                 }else {
                     virtualclass.editorCode.onmessage(e, 'EditorCode');
                 }

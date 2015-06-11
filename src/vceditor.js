@@ -5370,7 +5370,7 @@
             var operations = "";
             //this.vcAdapter =   new virtualclassAdapter(revision, docs, operations);
 
-//      virtualclass.editor.vcAdapter =   new virtualclassAdapter(editorInfo, virtualclass.currApp);
+//      virtualclass.editorRich.vcAdapter =   new virtualclassAdapter(editorInfo, virtualclass.currApp);
 
             if (this.codeMirror_) {
                 this.richTextCodeMirror_ = new RichTextCodeMirror(this.codeMirror_, this.entityManager_, {cssPrefix: 'vceditor-'});
@@ -5379,13 +5379,13 @@
                 this.editorAdapter_ = new ACEAdapter(this.ace_);
             }
 
-            //  virtualclass.editor.cmClient = new EditorClient(revision, clients, virtualclass.editor.vcAdapter, this.editorAdapter_);
+            //  virtualclass.editorRich.cmClient = new EditorClient(revision, clients, virtualclass.editorRich.vcAdapter, this.editorAdapter_);
             //TODO this should be dynamic
 
             if (options.hasOwnProperty('richTextToolbar')) {
                 //if(virtualclass.currApp == "Editor"){
-                virtualclass.editor.vcAdapter = new virtualclassAdapter(editorInfo, 'Editor');
-                virtualclass.editor.cmClient = new EditorClient(revision, clients, virtualclass.editor.vcAdapter, this.editorAdapter_);
+                virtualclass.editorRich.vcAdapter = new virtualclassAdapter(editorInfo, 'EditorRich');
+                virtualclass.editorRich.cmClient = new EditorClient(revision, clients, virtualclass.editorRich.vcAdapter, this.editorAdapter_);
             } else {
                 virtualclass.editorCode.vcAdapter = new virtualclassAdapter(editorInfo, 'EditorCode');
                 virtualclass.editorCode.cmClient = new EditorClient(revision, clients, virtualclass.editorCode.vcAdapter, this.editorAdapter_);

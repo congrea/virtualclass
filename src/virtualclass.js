@@ -258,7 +258,7 @@
                 //appId =
                 if (typeof this.previous != 'undefined') {
                     //TODO this should be handle by better way, this is very rough
-
+                    // remove case situation
                     if (this.previous.toUpperCase() != ('virtualclass' + this.currApp).toUpperCase()) {
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
@@ -275,7 +275,12 @@
                                     editor.style.display = 'none';
                                 }
                             }
-
+                        }
+                    }else{
+                        //tricky case  when previous and current are same hide other appilcations but current
+                        var allApps = document.getElementsByClassName('virtualclass');
+                        for(var i=0; i<allApps.length; i++){
+                            allApps[i].style.display = 'none';
                         }
                     }
                 }

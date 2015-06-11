@@ -44,7 +44,6 @@
                         } else {
                             this.initialiseDoc(docs);
                         }
-
                     }else {
                         if(virtualclass.gObj.uRole == 's'){
                             this.requestData('from_' + virtualclass.gObj.uRole);
@@ -234,7 +233,7 @@
                 //UI object is used for create container for editor
                 UI: {
                     id: containerId,
-                    class: 'vmApp',
+                    class: 'vmApp virtualclass',
                     edId : editorId,
                     container: function (classes) {
                         //var whiteboard = document.getElementById('virtualclassWhiteboard');

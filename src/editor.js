@@ -1,10 +1,18 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2015  Vidyamantra Edusystems. Pvt.Ltd.
+/**
+ * By this file we are creating the Editor
+ * It depends on parameters what kind of editor(Rich Text or Code editor would be created)
+ *
+ * @Copyright 2015  Vidyamantra Edusystems. Pvt.Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
+ *
+ *
   */
 (
     function(window) {
         "use strict";
+
+        //this is main class
         var  editor = function(type, containerId, editorId) {
             this.etype = type;
             var that = this;
@@ -30,19 +38,24 @@
                 readonly : false,
 
 
+                /**
+                 *  Get the data from localStorage
+                 *  initialise that data to editor if available
+                 *  if data is not available,
+                 *  the function requests the data from teacher in case of student
+                 */
                 veryInit : function (){
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
                             if(virtualclass.currAppEditorType == this.etype){
-                                this.initialiseDoc(docs, 'displayEditor', virtualclass.currAppEditorType);
+                                this.initialiseDataWithEditor(docs, 'displayEditor', virtualclass.currAppEditorType);
                             } else {
-                                this.initialiseDoc(docs);
+                                this.initialiseDataWithEditor(docs);
                             }
-
                         } else {
-                            this.initialiseDoc(docs);
+                            this.initialiseDataWithEditor(docs);
                         }
                     }else {
                         if(virtualclass.gObj.uRole == 's'){
@@ -51,6 +64,14 @@
                     }
                 },
 
+                /**
+                 * Initialise the Editor at very first when user click on click Or get command
+                 * from other user
+                 * @param revision expects revision document with editor
+                 * @param clients client number
+                 * @param docs expect wrapped datas
+                 * @param operations expect operations of docs
+                 */
                 init : function (revision, clients, docs, operations) {
                     var docsInfo = {};
                     if(typeof revision != 'undefined'){ docsInfo.revision =  revision;}
@@ -60,7 +81,7 @@
 
 
                     if(!this.cm && typeof this.cm != 'object'){
-                        this.cmLayout(editorType);
+                        this.codemirrorWithLayout(editorType);
                         this.createEditorClient(richEditorToolbar, docsInfo);
 
                     }else {
@@ -72,7 +93,11 @@
                     }
 
                 },
-
+                /***
+                 *
+                 * @param defaultInfo
+                 * @param docsInfo
+                 */
                 createEditorClient : function (defaultInfo, docsInfo){
                     if(virtualclass.isPlayMode){
                         this.readOnlyMode('disable', 'notCreateSyncBox');
@@ -80,9 +105,12 @@
                     Firepad.fromCodeMirror({}, this.cm, defaultInfo, docsInfo);
                 },
 
-                cmLayout : function (mode){
-                    var editorType = "richText";
-                    this.UI.container(editorType);
+                /**
+                 * Create the code mirror with layout
+                 * @param mode expect type  of editor
+                 */
+                codemirrorWithLayout : function (mode){
+                    this.UI.container(this.etype);
                     var edElem = document.getElementById(this.UI.edId);
 
                     if(typeof  this.cm  != 'object'){
@@ -90,7 +118,12 @@
                     }
                 },
 
-                requestData : function (request, withDiffUser){
+                /**
+                 * requst the data from other use if data is missed at local
+                 * @param byRequest expects from request is coming from
+                 * @param withDiffUser is flag for try with different user
+                 */
+                requestData : function (byRequest, withDiffUser){
                     var toUser = '';
                     for(var i=0; i < virtualclass.connectedUsers.length; i++){
                         if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid) {
@@ -130,21 +163,26 @@
                             if(!this.readonly){
                                 this.cm.setOption("readOnly", true);
                                 if(typeof notcreateBox == ''){
-                                    this.UI.createReadOnlyMsgBox();
+                                    this.UI.createSynchMessageBox();
                                 }
                                 this.readonly = true;
                             }
                         } else {
                             if(this.readonly && !virtualclass.isPlayMode){
                                 this.cm.setOption("readOnly", false);
-                                this.UI.hideReadOnlyBox();
+                                this.UI.hideSynchMessageBox();
                                 this.readonly = false;
                             }
                         }
                     }
                 },
 
-                //Trigger when the packet(text) is received from server
+
+                /**
+                 *  Handle all the responses related to editor coming from server
+                 * @param e expects event parameter
+                 * @param etype expects editor type
+                 */
                 onmessage : function (e, etype){
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
@@ -174,16 +212,12 @@
                             (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
                             if(e.message.hasOwnProperty('layoutEd')){
-                                this.initialiseDoc(doc, "displayEditor", e.message.et);
+                                this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
                             } else {
-                                this.initialiseDoc(doc);
+                                this.initialiseDataWithEditor(doc);
                             }
                         }
                     }else if( e.message.eddata == 'requestForEditorData'){
-                        // no operation at client side
-                        //alert("wil have to response data");
-                        //debugger;
-
                         if(e.fromUser.userid != virtualclass.gObj.uid){
                             if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
                                 io.send({'eddata' : 'noDataForEditor'});
@@ -213,33 +247,22 @@
 
                             console.log("virtualclass adapter is not ready for editor");
                         }
-
-
-
-                        //if(e.message.eddata == 'virtualclass-editor-operation'){
-                        //    if(typeof this.vcAdapter == 'object'){
-                        //        if(this.readonly){
-                        //            //At received of some packet, if there would enabled readOnlyMode, we disabled it
-                        //            this.readOnlyMode('enable');
-                        //        }
-                        //        this.vcAdapter.receivedMessage(e);
-                        //    }
-                        //
-                        //}
-
-                    }
+            }
                 },
 
-                //UI object is used for create container for editor
+                /**
+                 * this object is used for user interace of Editor
+                 */
                 UI: {
                     id: containerId,
                     class: 'vmApp virtualclass',
                     edId : editorId,
+                    /**
+                     * Create container of editor
+                     * @param classes expect class name for container
+                     */
                     container: function (classes) {
-                        //var whiteboard = document.getElementById('virtualclassWhiteboard');
-                        //whiteboard.style.display = 'none';
-
-                       if (document.getElementById(this.id) == null) {
+                        if (document.getElementById(this.id) == null) {
                             var divEditor = document.createElement('div');
                             divEditor.id = this.id;
                             divEditor.className = this.class + ' ' + classes;
@@ -254,12 +277,16 @@
                         }
                     },
 
-                    createReadOnlyMsgBox : function (){
-                        if(document.getElementById('readOnlyMsgBox') != null){
-                            this.showReadOnlyBox();
+                    /**
+                     * Create synchronizing message box
+                     * to user for wating
+                     */
+                    createSynchMessageBox : function (){
+                        if(document.getElementById('synchMessageBox') != null){
+                            this.showSynchMessageBox();
                         } else {
                             var msgBox = document.createElement('div');
-                            msgBox.id = 'readOnlyMsgBox';
+                            msgBox.id = 'synchMessageBox';
                             msgBox.style.width = "340px";
                             msgBox.style.height = "15px";
 
@@ -274,31 +301,19 @@
                         }
                     },
 
-                    showReadOnlyBox : function (){
-                        var readOnlyMsgBox = document.getElementById('readOnlyMsgBox');
-                        if(readOnlyMsgBox != null){
-                            readOnlyMsgBox.display = 'block';
+                    showSynchMessageBox : function (){
+                        var synchMessageBox = document.getElementById('synchMessageBox');
+                        if(synchMessageBox != null){
+                            synchMessageBox.display = 'block';
                         }
 
                     },
 
-                    hideReadOnlyBox : function (){
-                        var readOnlyMsgBox = document.getElementById('readOnlyMsgBox');
-                        if(readOnlyMsgBox != null){
-                            readOnlyMsgBox.display = 'none';
+                    hideSynchMessageBox : function (){
+                        var synchMessageBox = document.getElementById('synchMessageBox');
+                        if(synchMessageBox != null){
+                            synchMessageBox.display = 'none';
                         }
-                    }
-                },
-
-                createEditorClient_org : function (revision, clients, docs, operations){
-                    if(!this.hasOwnProperty('cmClient') || typeof this.cmClient != 'object'){
-                        this.vcAdapter =  new virtualclassAdapter(revision, docs, operations);
-                        this.cmClient = new ot.EditorClient(
-                            revision,
-                            clients,
-                            this.vcAdapter,
-                            new ot.CodeMirrorAdapter(this.cm)
-                        );
                     }
                 },
 
@@ -308,9 +323,6 @@
 
                     var initPacket = this.getWrappedOperations();
                     if(typeof appIsEditor != 'undefined'){
-                        //alert("suman bogati");
-                        //debugger;
-                        //if(appIsEditor.hasOwnProperty('editor') || (virtualclass.gObj.uRole == 't' && virtualclass.currApp == 'Editor')){
                         if((appIsEditor.hasOwnProperty('editor') || appIsEditor.hasOwnProperty('editorCode')) || this.isEidtorWithTeacher()){
                             initPacket.layoutEd  = "1";  //this would be for create editor layout
                             initPacket.cet = virtualclass.currApp;
@@ -327,6 +339,10 @@
                     }
                 },
 
+                /**
+                 * Check if teacher editor of teacher is
+                 * @returns {boolean}
+                 */
                 isEidtorWithTeacher : function(){
                     return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'Editor' || virtualclass.currApp == 'EditorCode'));
                 },
@@ -353,6 +369,10 @@
                     return wrappedOperations;
                 },
 
+                /**
+                 * Remove the Code Mirror from DOM
+                 * and make empty of code mirror object
+                 */
                 removeCodeMirror : function (){
                     this.readonly = false;
                     var uiCont = document.getElementById(this.UI.id)
@@ -362,9 +382,10 @@
                     this.cm = "";
                 },
 
+
                 // After editor packets recived from teacher
                 // will set with code mirror, and apply the operations agains text transform
-                initialiseDoc : function (doc, displayEditor, et) {
+                initialiseDataWithEditor : function (doc, displayEditor, et) {
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
@@ -377,7 +398,7 @@
                     }
 
                     this.removeCodeMirror();
-                    this.cmLayout(editorType);
+                    this.codemirrorWithLayout(editorType);
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp);
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
@@ -414,6 +435,10 @@
 
                 },
 
+                /**
+                 * removing error data from local storage
+                 * and from inline memoery
+                 */
                 removeEditorData : function (){
                     if(typeof this.vcAdapter == 'object' ){
                          this.vcAdapter.operations.length = 0;
@@ -422,6 +447,9 @@
                     localStorage.removeItem(this.etype + '_edOperationRev');
                 },
 
+                /**
+                 * Save the editor data in to local storage
+                 */
                 saveIntoLocalStorage : function (){
                     if((typeof this.vcAdapter == 'object' && this.vcAdapter.operations.length > 0)){
                         var wrappedOperations = this.getWrappedOperations();

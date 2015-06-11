@@ -459,7 +459,7 @@
                     ops.push(-this.ops[i].chars);
                 }
             }
-            // Return an array with /something/ in it, since an empty array will be treated as null by Firebase.
+            // Return an array with /something/ in it, since an empty array will be treated as null by .
             if (ops.length === 0) {
                 ops.push(0);
             }
@@ -4916,7 +4916,7 @@
     var vceditor = vceditor || {};
 
     /**
-     * Helper to turn Firebase contents into HMTL.
+     * Helper to turn  contents into HMTL.
      * Takes a doc and an entity manager
      */
     vceditor.SerializeHtml = (function () {
@@ -5169,7 +5169,7 @@
     vceditor.Headless = (function () {
 
         var TextOperation = vceditor.TextOperation;
-        //var FirebaseAdapter = vceditor.FirebaseAdapter;
+        //var Adapter = vceditor.Adapter;
         var EntityManager = vceditor.EntityManager;
         var ParseHtml = vceditor.ParseHtml;
 
@@ -5179,7 +5179,7 @@
                 return new Headless(ref);
             }
 
-            //this.adapter        = new FirebaseAdapter(ref);
+            //this.adapter        = new Adapter(ref);
             this.ready = false;
             this.entityManager = new EntityManager();
         }
@@ -5288,7 +5288,7 @@
         var RichTextCodeMirror = vceditor.RichTextCodeMirror;
         var RichTextToolbar = vceditor.RichTextToolbar;
         var ACEAdapter = vceditor.ACEAdapter;
-        //var FirebaseAdapter = vceditor.FirebaseAdapter;
+        //var Adapter = vceditor.Adapter;
         var EditorClient = vceditor.EditorClient;
         var EntityManager = vceditor.EntityManager;
         var ATTR = vceditor.AttributeConstants;
@@ -5328,7 +5328,7 @@
             editorWrapper.parentNode.replaceChild(this.vcEditorWrapper_, editorWrapper);
             this.vcEditorWrapper_.appendChild(editorWrapper);
 
-            // Don't allow drag/drop because it causes issues.  See https://github.com/firebase/vceditor/issues/36
+            // Don't allow drag/drop because it causes issues.  See https://github.com//vceditor/issues/36
             utils.on(editorWrapper, 'dragstart', utils.stopEvent);
 
             // Provide an easy way to get the vceditor instance associated with this CodeMirror instance.
@@ -5363,7 +5363,7 @@
 
             this.entityManager_ = new EntityManager();
 
-            //this.firebaseAdapter_ = new FirebaseAdapter(ref, userId, userColor);
+            //this.Adapter_ = new Adapter(ref, userId, userColor);
             var revision = 0;
             var clients = [];
             var docs = "";

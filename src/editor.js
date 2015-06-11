@@ -105,7 +105,7 @@
                         //this.readOnlyMode('disable', 'notCreateSyncBox');
                         this.readOnlyMode('enable', 'notCreateSyncBox');
                     }
-                    Firepad.fromCodeMirror({}, this.cm, editorType, docsInfo);
+                    Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
                 },
 
                 /**
@@ -280,68 +280,7 @@
                         }
                         console.log("virtualclass adapter is not ready for editor");
                     }
-
-                    //if(e.message.eddata == 'currAppEditor'){
-                    //    if(e.fromUser.userid != virtualclass.gObj.userid){
-                    //        virtualclass.currAppEditor = true;
-                    //        virtualclass.currAppEditorType = e.message.et;
-                    //    }
-                    //    return;
-                    //}
-                    //
-                    //if(((e.message.eddata === 'init')  && e.fromUser.userid != virtualclass.gObj.uid) ||
-                    //    (e.message.eddata === 'init' &&  wbUser.virtualclassPlay == '1')){
-                    //    virtualclass.makeAppReady(etype);
-                    //}
-                    //
-                    //if(e.message.eddata == 'noDataForEditor'){
-                    //    if(virtualclass.gObj.uRole == 't'){
-                    //       // this.requestData('fromTeacher', 'withDifStudent');
-                    //    }
-                    //    return;
-                    //} else if(e.message.eddata == 'initVcEditor'){
-                    //    if((virtualclass.gObj.uRole != 't') ||
-                    //        (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
-                    //        var doc = JSON.parse(e.message.data);
-                    //        if(e.message.hasOwnProperty('layoutEd')){
-                    //            this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
-                    //        } else {
-                    //            this.initialiseDataWithEditor(doc);
-                    //        }
-                    //    }
-                    //}else if( e.message.eddata == 'requestForEditorData'){
-                    //    if(e.fromUser.userid != virtualclass.gObj.uid){
-                    //        if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
-                    //            io.send({'eddata' : 'noDataForEditor'});
-                    //            return;
-                    //        }
-                    //
-                    //        this.reponseToRequest({toUser : e.fromUser.userid});
-                    //
-                    //    }
-                    //
-                    //} else {
-                    //    if(typeof this.vcAdapter == 'object'){
-                    //        if(e.message.eddata == 'virtualclass-editor-operation'){
-                    //            if(this.readonly){
-                    //                //At received of some packet, if there would enabled readOnlyMode, we disabled it
-                    //                this.readOnlyMode('enable');
-                    //            }
-                    //        }
-                    //
-                    //        this.vcAdapter.receivedMessage(e);
-                    //
-                    //    }else{
-                    //        if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
-                    //            virtualclass.makeAppReady(etype);
-                    //            this.vcAdapter.receivedMessage(e);
-                    //        }
-                    //
-                    //        console.log("virtualclass adapter is not ready for editor");
-                    //    }
-                    //
-                    //   }
-                },
+    },
 
                 /**
                  * this object is used for user interace of Editor
@@ -573,11 +512,11 @@
 
         // Turns the JSON form of the Array of operations into ot.TextOperations
         var deserialiseOps = function (operations) {
-            var vcEditor = Firepad.getvcEditor();
+            var vceditor = Vceditor.getvcEditor();
             return operations.map(function (op) {
-                return new vcEditor.WrappedOperation(
-                    vcEditor.TextOperation.fromJSON(op.operation),
-                    op.cursor && vcEditor.Cursor.fromJSON(op.cursor)
+                return new vceditor.WrappedOperation(
+                    vceditor.TextOperation.fromJSON(op.operation),
+                    op.cursor && vceditor.Cursor.fromJSON(op.cursor)
                 );
             });
         };

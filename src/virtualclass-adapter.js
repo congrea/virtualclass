@@ -7,7 +7,7 @@ virtualclassAdapter = function () {
 
 
 	//	this[etype] = {"operations" : ""};
-		var vcEditor = Firepad.getvcEditor();
+		var vceditor = Vceditor.getvcEditor();
 		if (editorInfo.operations && editorInfo.revision > editorInfo.operations.length) {
 			// the operations have been truncated fill in the beginning with empty space
 			var filler = [];
@@ -20,8 +20,8 @@ virtualclassAdapter = function () {
 		}
 
 		// We pretend to be a server
-		//var server = new vcEditor.Server(editorInfo.doc, this[etype].operations);
-		var server = new vcEditor.Server(editorInfo.doc, this.operations);
+		//var server = new vceditor.Server(editorInfo.doc, this[etype].operations);
+		var server = new vceditor.Server(editorInfo.doc, this.operations);
 		this.trigger = function (func) {
 			this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
 		}
@@ -59,9 +59,9 @@ virtualclassAdapter = function () {
 					virtualclass.dispvirtualclassLayout(virtualclass.currApp);
 				}
 
-				wrapped = new vcEditor.WrappedOperation(
-					vcEditor.TextOperation.fromJSON(data.operation),
-					data.cursor && vcEditor.Cursor.fromJSON(data.cursor)
+				wrapped = new vceditor.WrappedOperation(
+					vceditor.TextOperation.fromJSON(data.operation),
+					data.cursor && vceditor.Cursor.fromJSON(data.cursor)
 				);
 
 				// Might need to try catch here and if it fails wait a little while and

@@ -1,4 +1,4 @@
-.vcEditor {
+.vceditor {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   line-height: normal;
 }
 
-.vcEditor .CodeMirror {
+.vceditor .CodeMirror {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -18,16 +18,16 @@
   height: auto;
 }
 
-.vcEditor-with-toolbar .CodeMirror {
+.vceditor-with-toolbar .CodeMirror {
   top: 83px;
   padding-left: 10px;
 }
 
-.vcEditor-with-toolbar .CodeMirror-lines {
+.vceditor-with-toolbar .CodeMirror-lines {
   padding-top: 10px;
 }
 
-.vcEditor-toolbar {
+.vceditor-toolbar {
   height: 82px;
   line-height: 82px;
   padding-left: 10px;
@@ -42,45 +42,45 @@
   user-select: none;
 }
 
-.vcEditor-toolbar-wrapper {
+.vceditor-toolbar-wrapper {
   display: inline-block;
   line-height: 14px;
 }
 
-.vcEditor-richtext .CodeMirror {
+.vceditor-richtext .CodeMirror {
   font-family: Verdana, sans-serif;
   font-size: 14px;
 }
 
-.vcEditor-spacer {
+.vceditor-spacer {
   height: 10px;
   width: 1px;
 }
 
 /** Styles for all of the rich-text formatting we support. */
-.vcEditor-b { font-weight: bold; }
-.vcEditor-i { font-style: italic; }
-.vcEditor-u { text-decoration: underline; }
-.vcEditor-s { text-decoration: line-through; }
-.vcEditor-u.vcEditor-s { text-decoration: underline line-through; }
+.vceditor-b { font-weight: bold; }
+.vceditor-i { font-style: italic; }
+.vceditor-u { text-decoration: underline; }
+.vceditor-s { text-decoration: line-through; }
+.vceditor-u.vceditor-s { text-decoration: underline line-through; }
 
-.vcEditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
-.vcEditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
-.vcEditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
-.vcEditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
-.vcEditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
-.vcEditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
+.vceditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
+.vceditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
+.vceditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
+.vceditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
+.vceditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
+.vceditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
 
-.vcEditor-la-left { text-align: left; }
-.vcEditor-la-center { text-align: center; }
-.vcEditor-la-right { text-align: right; }
+.vceditor-la-left { text-align: left; }
+.vceditor-la-center { text-align: center; }
+.vceditor-la-right { text-align: right; }
 
 /** Line Styles */
-pre.vcEditor-lt-o, pre.vcEditor-lt-u, pre.vcEditor-lt-t, pre.vcEditor-lt-tc {
+pre.vceditor-lt-o, pre.vceditor-lt-u, pre.vceditor-lt-t, pre.vceditor-lt-tc {
   padding-left: 40px;
 }
 
-.vcEditor-list-left {
+.vceditor-list-left {
   display:inline-block;
   margin-left: -40px;
   width: 40px;
@@ -88,7 +88,7 @@ pre.vcEditor-lt-o, pre.vcEditor-lt-u, pre.vcEditor-lt-t, pre.vcEditor-lt-tc {
   text-align: right;
 }
 
-.vcEditor-todo-left {
+.vceditor-todo-left {
   display:inline-block;
   margin-left: -20px;
   width: 20px;
@@ -110,12 +110,12 @@ pre.vcEditor-lt-o, pre.vcEditor-lt-u, pre.vcEditor-lt-t, pre.vcEditor-lt-tc {
   opacity: 1;
 }
 
-.vcEditor-btn-group {
+.vceditor-btn-group {
   margin: 5px 7px 0 0;
   display: inline-block;
 }
 
-a.vcEditor-btn, a.vcEditor-btn:visited, a.vcEditor-btn:active {
+a.vceditor-btn, a.vceditor-btn:visited, a.vceditor-btn:active {
   font-family: "Arial" sans-serif;
   cursor: pointer;
   text-decoration: none;
@@ -130,20 +130,20 @@ a.vcEditor-btn, a.vcEditor-btn:visited, a.vcEditor-btn:active {
   color: #9c9c9c;
 }
 
-a.vcEditor-btn:hover {
+a.vceditor-btn:hover {
   color: #fff;
   background-color: #ffbf86;
   border-color: #e6a165;
   text-decoration: none;
 }
 
-a.vcEditor-btn:active {
+a.vceditor-btn:active {
   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
 }
 
-.vcEditor-btn-group > .vcEditor-btn {
+.vceditor-btn-group > .vceditor-btn {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -151,7 +151,7 @@ a.vcEditor-btn:active {
 }
 
 
-.vcEditor-btn-group > .vcEditor-btn:first-child {
+.vceditor-btn-group > .vceditor-btn:first-child {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
   -webkit-border-bottom-left-radius: 6px;
@@ -161,7 +161,7 @@ a.vcEditor-btn:active {
   margin-left: 0px;
 }
 
-.vcEditor-btn-group > .vcEditor-btn:last-child {
+.vceditor-btn-group > .vceditor-btn:last-child {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
   -webkit-border-bottom-right-radius: 6px;
@@ -170,11 +170,11 @@ a.vcEditor-btn:active {
   -moz-border-radius-topright: 6px;
 }
 
-.vcEditor-dropdown {
+.vceditor-dropdown {
   position: relative;
 }
 
-.vcEditor-dropdown-menu {
+.vceditor-dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -200,7 +200,7 @@ a.vcEditor-btn:active {
   background-clip: padding-box;
 }
 
-.vcEditor-dropdown-menu a {
+.vceditor-dropdown-menu a {
   text-align: left;
   display: block;
   padding: 3px 15px;
@@ -211,18 +211,18 @@ a.vcEditor-btn:active {
   white-space: nowrap;
 }
 
-.vcEditor-dropdown-menu a:hover {
+.vceditor-dropdown-menu a:hover {
   color: #fff;
   text-decoration: none;
   background-color: #ffbf86;
 }
 
-.vcEditor-color-dropdown-item {
+.vceditor-color-dropdown-item {
   height: 25px;
   width: 25px;
 }
 
-.vcEditor-dialog {
+.vceditor-dialog {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -231,7 +231,7 @@ a.vcEditor-btn:active {
   z-index: 1000;
 }
 
-.vcEditor-dialog-div {
+.vceditor-dialog-div {
   position: relative;
   width: 400px;
   height: 100px;
@@ -241,7 +241,7 @@ a.vcEditor-btn:active {
   padding: 15px;
 }
 
-.vcEditor-dialog-input {
+.vceditor-dialog-input {
   width: 80%;
   display: block;
   padding: 5px 5px;
@@ -273,7 +273,7 @@ a.vcEditor-btn:active {
   font-style: normal;
 }
 
-.vcEditor-tb-bold, .vcEditor-tb-italic, .vcEditor-tb-underline, .vcEditor-tb-strikethrough, .vcEditor-tb-list, .vcEditor-tb-list-2, .vcEditor-tb-numbered-list, .vcEditor-tb-paragraph-left, .vcEditor-tb-paragraph-center, .vcEditor-tb-paragraph-right, .vcEditor-tb-paragraph-justify, .vcEditor-tb-menu, .vcEditor-tb-link, .vcEditor-tb-undo, .vcEditor-tb-redo, .vcEditor-tb-box-add, .vcEditor-tb-box-remove, .vcEditor-tb-print, .vcEditor-tb-indent-decrease, .vcEditor-tb-indent-increase, .vcEditor-tb-insert-image, .vcEditor-tb-bubble {
+.vceditor-tb-bold, .vceditor-tb-italic, .vceditor-tb-underline, .vceditor-tb-strikethrough, .vceditor-tb-list, .vceditor-tb-list-2, .vceditor-tb-numbered-list, .vceditor-tb-paragraph-left, .vceditor-tb-paragraph-center, .vceditor-tb-paragraph-right, .vceditor-tb-paragraph-justify, .vceditor-tb-menu, .vceditor-tb-link, .vceditor-tb-undo, .vceditor-tb-redo, .vceditor-tb-box-add, .vceditor-tb-box-remove, .vceditor-tb-print, .vceditor-tb-indent-decrease, .vceditor-tb-indent-increase, .vceditor-tb-insert-image, .vceditor-tb-bubble {
   font-family: 'firepad';
   speak: none;
   font-style: normal;
@@ -283,69 +283,69 @@ a.vcEditor-btn:active {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 }
-.vcEditor-tb-bold:before {
+.vceditor-tb-bold:before {
   content: "\e000";
 }
-.vcEditor-tb-italic:before {
+.vceditor-tb-italic:before {
   content: "\e001";
 }
-.vcEditor-tb-underline:before {
+.vceditor-tb-underline:before {
   content: "\e002";
 }
-.vcEditor-tb-strikethrough:before {
+.vceditor-tb-strikethrough:before {
   content: "\e003";
 }
-.vcEditor-tb-list:before {
+.vceditor-tb-list:before {
   content: "\e004";
 }
-.vcEditor-tb-list-2:before {
+.vceditor-tb-list-2:before {
   content: "\e005";
 }
-.vcEditor-tb-numbered-list:before {
+.vceditor-tb-numbered-list:before {
   content: "\e006";
 }
-.vcEditor-tb-paragraph-left:before {
+.vceditor-tb-paragraph-left:before {
   content: "\e007";
 }
-.vcEditor-tb-paragraph-center:before {
+.vceditor-tb-paragraph-center:before {
   content: "\e008";
 }
-.vcEditor-tb-paragraph-right:before {
+.vceditor-tb-paragraph-right:before {
   content: "\e009";
 }
-.vcEditor-tb-paragraph-justify:before {
+.vceditor-tb-paragraph-justify:before {
   content: "\e00a";
 }
-.vcEditor-tb-menu:before {
+.vceditor-tb-menu:before {
   content: "\e00b";
 }
-.vcEditor-tb-link:before {
+.vceditor-tb-link:before {
   content: "\e00c";
 }
-.vcEditor-tb-undo:before {
+.vceditor-tb-undo:before {
   content: "\e00d";
 }
-.vcEditor-tb-redo:before {
+.vceditor-tb-redo:before {
   content: "\e00e";
 }
-.vcEditor-tb-box-add:before {
+.vceditor-tb-box-add:before {
   content: "\e010";
 }
-.vcEditor-tb-box-remove:before {
+.vceditor-tb-box-remove:before {
   content: "\e011";
 }
-.vcEditor-tb-print:before {
+.vceditor-tb-print:before {
   content: "\e012";
 }
-.vcEditor-tb-indent-decrease:before {
+.vceditor-tb-indent-decrease:before {
   content: "\e013";
 }
-.vcEditor-tb-indent-increase:before {
+.vceditor-tb-indent-increase:before {
   content: "\e014";
 }
-.vcEditor-tb-insert-image:before {
+.vceditor-tb-insert-image:before {
   content: "\e015";
 }
-.vcEditor-tb-bubble:before {
+.vceditor-tb-bubble:before {
   content: "\e00f";
 }

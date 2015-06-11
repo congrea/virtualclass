@@ -1,10 +1,10 @@
 /*
- * Firepad http://www.vcEditor.io/
+ * Create the Editor, handle all text operation on editor, all OT work performing on this file
  *
- * Copyright 2014 Firebase
+ * Copyright 2015 Vidyamantra EduSystem Pvt Ltd.
  * with code from ot.js (Copyright 2012-2013 Tim Baumann)
  *
- * Version 0.0.0
+ * Version 0.0.1
  */
 
 (function (name, definition, context) {
@@ -12,11 +12,11 @@
   if (typeof module != 'undefined' && module.exports) module.exports = definition();
   else if (typeof context['define'] == 'function' && context['define']['amd']) define(definition);
   else context[name] = definition();
-})('Firepad', function () {
-  var vcEditor = vcEditor || { };
-  vcEditor.utils = { };
+})('Vceditor', function () {
+  var vceditor = vceditor || { };
+  vceditor.utils = { };
 
-  vcEditor.utils.makeEventEmitter = function(clazz, opt_allowedEVents) {
+  vceditor.utils.makeEventEmitter = function(clazz, opt_allowedEVents) {
     clazz.prototype.allowedEvents_ = opt_allowedEVents;
 
     clazz.prototype.on = function(eventType, callback, context) {
@@ -62,10 +62,10 @@
     };
   };
 
-  vcEditor.utils.elt = function(tag, content, attrs) {
+  vceditor.utils.elt = function(tag, content, attrs) {
     var e = document.createElement(tag);
     if (typeof content === "string") {
-      vcEditor.utils.setTextContent(e, content);
+      vceditor.utils.setTextContent(e, content);
     } else if (content) {
       for (var i = 0; i < content.length; ++i) { e.appendChild(content[i]); }
     }
@@ -75,13 +75,13 @@
     return e;
   };
 
-  vcEditor.utils.setTextContent = function(e, str) {
+  vceditor.utils.setTextContent = function(e, str) {
     e.innerHTML = "";
     e.appendChild(document.createTextNode(str));
   };
 
 
-  vcEditor.utils.on = function(emitter, type, f, capture) {
+  vceditor.utils.on = function(emitter, type, f, capture) {
     if (emitter.addEventListener) {
       emitter.addEventListener(type, f, capture || false);
     } else if (emitter.attachEvent) {
@@ -89,7 +89,7 @@
     }
   };
 
-  vcEditor.utils.off = function(emitter, type, f, capture) {
+  vceditor.utils.off = function(emitter, type, f, capture) {
     if (emitter.removeEventListener) {
       emitter.removeEventListener(type, f, capture || false);
     } else if (emitter.detachEvent) {
@@ -97,7 +97,7 @@
     }
   };
 
-  vcEditor.utils.preventDefault = function(e) {
+  vceditor.utils.preventDefault = function(e) {
     if (e.preventDefault) {
       e.preventDefault();
     } else {
@@ -105,7 +105,7 @@
     }
   };
 
-  vcEditor.utils.stopPropagation = function(e) {
+  vceditor.utils.stopPropagation = function(e) {
     if (e.stopPropagation) {
       e.stopPropagation();
     } else {
@@ -113,24 +113,24 @@
     }
   };
 
-  vcEditor.utils.stopEvent = function(e) {
-    vcEditor.utils.preventDefault(e);
-    vcEditor.utils.stopPropagation(e);
+  vceditor.utils.stopEvent = function(e) {
+    vceditor.utils.preventDefault(e);
+    vceditor.utils.stopPropagation(e);
   };
 
-  vcEditor.utils.stopEventAnd = function(fn) {
+  vceditor.utils.stopEventAnd = function(fn) {
     return function(e) {
       fn(e);
-      vcEditor.utils.stopEvent(e);
+      vceditor.utils.stopEvent(e);
       return false;
     };
   };
 
-  vcEditor.utils.trim = function(str) {
+  vceditor.utils.trim = function(str) {
     return str.replace(/^\s+/g, '').replace(/\s+$/g, '');
   };
 
-  vcEditor.utils.stringEndsWith = function(str, suffix) {
+  vceditor.utils.stringEndsWith = function(str, suffix) {
     var list = (typeof suffix == 'string') ? [suffix] : suffix;
     for (var i = 0; i < list.length; i++) {
       var suffix = list[i];
@@ -140,15 +140,15 @@
     return false;
   };
 
-  vcEditor.utils.assert = function assert (b, msg) {
+  vceditor.utils.assert = function assert (b, msg) {
     if (!b) {
       throw new Error(msg || "assertion error");
     }
   };
 
-  vcEditor.utils.log = function() {
+  vceditor.utils.log = function() {
     if (typeof console !== 'undefined' && typeof console.log !== 'undefined') {
-      var args = ['Firepad:'];
+      var args = ['Vceditor:'];
       for(var i = 0; i < arguments.length; i++) {
         args.push(arguments[i]);
       }
@@ -156,8 +156,8 @@
     }
   };
 
-  var vcEditor = vcEditor || { };
-  vcEditor.Span = (function () {
+  var vceditor = vceditor || { };
+  vceditor.Span = (function () {
     function Span(pos, length) {
       this.pos = pos;
       this.length = length;
@@ -170,10 +170,10 @@
     return Span;
   }());
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.TextOp = (function() {
-    var utils = vcEditor.utils;
+  vceditor.TextOp = (function() {
+    var utils = vceditor.utils;
 
     // Operation are essentially lists of ops. There are three types of ops:
     //
@@ -240,12 +240,12 @@
     return TextOp;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.TextOperation = (function () {
+  vceditor.TextOperation = (function () {
     'use strict';
-    var TextOp = vcEditor.TextOp;
-    var utils = vcEditor.utils;
+    var TextOp = vceditor.TextOp;
+    var utils = vceditor.utils;
 
     // Constructor for new operations.
     function TextOperation () {
@@ -891,14 +891,14 @@
   }());
 
   if (typeof module === 'object') {
-    module.exports = vcEditor.TextOperation;
+    module.exports = vceditor.TextOperation;
   }
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
 // TODO: Rewrite this (probably using a splay tree) to be efficient.  Right now it's based on a linked list
 // so all operations are O(n), where n is the number of spans in the list.
-  vcEditor.AnnotationList = (function () {
-    var Span = vcEditor.Span;
+  vceditor.AnnotationList = (function () {
+    var Span = vceditor.Span;
 
     function assert(bool, text) {
       if (!bool) {
@@ -1279,9 +1279,9 @@
     return AnnotationList;
   }());
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.Cursor = (function () {
+  vceditor.Cursor = (function () {
     'use strict';
 
     // A cursor has a `position` and a `selectionEnd`. Both are zero-based indexes
@@ -1337,11 +1337,11 @@
 
   }());
 
- // vcEditor.Cursor = (function (global) {
+ // vceditor.Cursor = (function (global) {
  //   'use strict';
- ////   var TextOperation = global.vcEditor ? global.vcEditor.TextOperation : require('./text-operation');
+ ////   var TextOperation = global.vceditor ? global.vceditor.TextOperation : require('./text-operation');
  //
- //   var TextOperation = vcEditor.TextOperation;
+ //   var TextOperation = vceditor.TextOperation;
  //
  //   // A cursor has a `position` and a `selection`. The property `position` is a
  //   // zero-based index into the document and `selection` an array of Range
@@ -1436,404 +1436,12 @@
  //
  // }(this));
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.FirebaseAdapter = (function (global) {
+  var vceditor = vceditor || { };
 
-    if (typeof require === 'function' && typeof Firebase !== 'function') {
-      Firebase = require('firebase');
-    }
-
-    var TextOperation = vcEditor.TextOperation;
-    var utils = vcEditor.utils;
-
-    // Save a checkpoint every 100 edits.
-    var CHECKPOINT_FREQUENCY = 100;
-
-    function FirebaseAdapter (ref, userId, userColor) {
-      this.ref_ = ref;
-      this.ready_ = false;
-      this.firebaseCallbacks_ = [];
-      this.zombie_ = false;
-
-      // We store the current document state as a TextOperation so we can write checkpoints to Firebase occasionally.
-      // TODO: Consider more efficient ways to do this. (composing text operations is ~linear in the length of the document).
-      this.document_ = new TextOperation();
-
-      // The next expected revision.
-      this.revision_ = 0;
-
-      // This is used for two purposes:
-      // 1) On initialization, we fill this with the latest checkpoint and any subsequent operations and then
-      //      process them all together.
-      // 2) If we ever receive revisions out-of-order (e.g. rev 5 before rev 4), we queue them here until it's time
-      //    for them to be handled. [this should never happen with well-behaved clients; but if it /does/ happen we want
-      //    to handle it gracefully.]
-      this.pendingReceivedRevisions_ = { };
-
-      var self = this;
-
-      if (userId) {
-        this.setUserId(userId);
-        this.setColor(userColor);
-        /*
-         this.firebaseOn_(ref.root().child('.info/connected'), 'value', function(snapshot) {
-         if (snapshot.val() === true) {
-         self.initializeUserData_();
-         }
-         }, this);
-
-         // Once we're initialized, start tracking users' cursors.
-         this.on('ready', function() {
-         self.monitorCursors_();
-         }); */
-
-      } else {
-        this.userId_ = ref.push().key();
-      }
-      /*
-       // Avoid triggering any events until our callers have had a chance to attach their listeners.
-       setTimeout(function() {
-       self.monitorHistory_();
-       }, 0); */
-
-    }
-    utils.makeEventEmitter(FirebaseAdapter, ['ready', 'cursor', 'operation', 'ack', 'retry']);
-
-    FirebaseAdapter.prototype.dispose = function() {
-      this.removeFirebaseCallbacks_();
-
-      //this.userRef_.child('cursor').remove();
-      //  this.userRef_.child('color').remove();
-
-      this.ref_ = null;
-      this.document_ = null;
-      this.zombie_ = true;
-    };
-
-    FirebaseAdapter.prototype.setUserId = function(userId) {
-      if (this.userRef_) {
-        // clean up existing data.
-        /*
-         this.userRef_.child('cursor').remove();
-         this.userRef_.child('cursor').onDisconnect().cancel();
-         this.userRef_.child('color').remove();
-         this.userRef_.child('color').onDisconnect().cancel(); */
-      }
-
-      this.userId_ = userId;
-      //this.userRef_ = this.ref_.child('users').child(userId);
-
-      this.initializeUserData_();
-    };
-
-    FirebaseAdapter.prototype.isHistoryEmpty = function() {
-      assert(this.ready_, "Not ready yet.");
-      return this.revision_ === 0;
-    };
-
-    /*
-     * Send operation, retrying on connection failure. Takes an optional callback with signature:
-     * function(error, committed).
-     * An exception will be thrown on transaction failure, which should only happen on
-     * catastrophic failure like a security rule violation.
-     */
-    FirebaseAdapter.prototype.sendOperation = function (operation, callback) {
-      var self = this;
-
-      // If we're not ready yet, do nothing right now, and trigger a retry when we're ready.
-      if (!this.ready_) {
-        this.on('ready', function() {
-          self.trigger('retry');
-        });
-        return;
-      }
-
-      // Sanity check that this operation is valid.
-      assert(this.document_.targetLength === operation.baseLength, "sendOperation() called with invalid operation.");
-
-      // Convert revision into an id that will sort properly lexicographically.
-      var revisionId = revisionToId(this.revision_);
-
-      function doTransaction(revisionId, revisionData) {
-
-        self.ref_.child('history').child(revisionId).transaction(function(current) {
-          if (current === null) {
-            return revisionData;
-          }
-        }, function(error, committed, snapshot) {
-          if (error) {
-            if (error.message === 'disconnect') {
-              if (self.sent_ && self.sent_.id === revisionId) {
-                // We haven't seen our transaction succeed or fail.  Send it again.
-                setTimeout(function() {
-                  doTransaction(revisionId, revisionData);
-                }, 0);
-              } else if (callback) {
-                callback(error, false);
-              }
-            } else {
-              utils.log('Transaction failure!', error);
-              throw error;
-            }
-          } else {
-            if (callback) callback(null, committed);
-          }
-        }, /*applyLocally=*/false);
-      }
-
-      this.sent_ = { id: revisionId, op: operation };
-      doTransaction(revisionId, { a: self.userId_, o: operation.toJSON(), t: Firebase.ServerValue.TIMESTAMP });
-    };
-
-    FirebaseAdapter.prototype.sendCursor = function (obj) {
-      // this.userRef_.child('cursor').set(obj);
-      this.cursor_ = obj;
-    };
-
-    FirebaseAdapter.prototype.setColor = function(color) {
-      //  this.userRef_.child('color').set(color);
-      this.color_ = color;
-    };
-
-    FirebaseAdapter.prototype.getDocument = function() {
-      return this.document_;
-    };
-
-    FirebaseAdapter.prototype.registerCallbacks = function(callbacks) {
-      for (var eventType in callbacks) {
-        this.on(eventType, callbacks[eventType]);
-      }
-    };
-
-    FirebaseAdapter.prototype.initializeUserData_ = function() {
-      //  this.userRef_.child('cursor').onDisconnect().remove();
-      //  this.userRef_.child('color').onDisconnect().remove();
-//
-      this.sendCursor(this.cursor_ || null);
-      this.setColor(this.color_ || null);
-    };
-
-    FirebaseAdapter.prototype.monitorCursors_ = function() {
-      var usersRef = this.ref_.child('users'), self = this;
-
-      function childChanged(childSnap) {
-        var userId = childSnap.key();
-        var userData = childSnap.val();
-        self.trigger('cursor', userId, userData.cursor, userData.color);
-      }
-
-      this.firebaseOn_(usersRef, 'child_added', childChanged);
-      this.firebaseOn_(usersRef, 'child_changed', childChanged);
-
-      this.firebaseOn_(usersRef, 'child_removed', function(childSnap) {
-        var userId = childSnap.key();
-        self.trigger('cursor', userId, null);
-      });
-    };
-
-    FirebaseAdapter.prototype.monitorHistory_ = function() {
-      var self = this;
-      // Get the latest checkpoint as a starting point so we don't have to re-play entire history.
-      this.ref_.child('checkpoint').once('value', function(s) {
-        if (self.zombie_) { return; } // just in case we were cleaned up before we got the checkpoint data.
-        var revisionId = s.child('id').val(),  op = s.child('o').val(), author = s.child('a').val();
-        if (op != null && revisionId != null && author !== null) {
-          self.pendingReceivedRevisions_[revisionId] = { o: op, a: author };
-          self.checkpointRevision_ = revisionFromId(revisionId);
-          self.monitorHistoryStartingAt_(self.checkpointRevision_ + 1);
-        } else {
-          self.checkpointRevision_ = 0;
-          self.monitorHistoryStartingAt_(self.checkpointRevision_);
-        }
-      });
-    };
-
-    FirebaseAdapter.prototype.monitorHistoryStartingAt_ = function(revision) {
-      var historyRef = this.ref_.child('history').startAt(null, revisionToId(revision));
-      var self = this;
-
-      setTimeout(function() {
-        self.firebaseOn_(historyRef, 'child_added', function(revisionSnapshot) {
-          var revisionId = revisionSnapshot.key();
-          self.pendingReceivedRevisions_[revisionId] = revisionSnapshot.val();
-          if (self.ready_) {
-            self.handlePendingReceivedRevisions_();
-          }
-        });
-
-        historyRef.once('value', function() {
-          self.handleInitialRevisions_();
-        });
-      }, 0);
-    };
-
-    FirebaseAdapter.prototype.handleInitialRevisions_ = function() {
-      assert(!this.ready_, "Should not be called multiple times.");
-
-      // Compose the checkpoint and all subsequent revisions into a single operation to apply at once.
-      this.revision_ = this.checkpointRevision_;
-      var revisionId = revisionToId(this.revision_), pending = this.pendingReceivedRevisions_;
-      while (pending[revisionId] != null) {
-        var revision = this.parseRevision_(pending[revisionId]);
-        if (!revision) {
-          // If a misbehaved client adds a bad operation, just ignore it.
-          utils.log('Invalid operation.', this.ref_.toString(), revisionId, pending[revisionId]);
-        } else {
-          this.document_ = this.document_.compose(revision.operation);
-        }
-
-        delete pending[revisionId];
-        this.revision_++;
-        revisionId = revisionToId(this.revision_);
-      }
-
-      this.trigger('operation', this.document_);
-
-      this.ready_ = true;
-      var self = this;
-      setTimeout(function() {
-        self.trigger('ready');
-      }, 0);
-    };
-
-    FirebaseAdapter.prototype.handlePendingReceivedRevisions_ = function() {
-      var pending = this.pendingReceivedRevisions_;
-      var revisionId = revisionToId(this.revision_);
-      var triggerRetry = false;
-      while (pending[revisionId] != null) {
-        this.revision_++;
-
-        var revision = this.parseRevision_(pending[revisionId]);
-        if (!revision) {
-          // If a misbehaved client adds a bad operation, just ignore it.
-          utils.log('Invalid operation.', this.ref_.toString(), revisionId, pending[revisionId]);
-        } else {
-          this.document_ = this.document_.compose(revision.operation);
-          if (this.sent_ && revisionId === this.sent_.id) {
-            // We have an outstanding change at this revision id.
-            if (this.sent_.op.equals(revision.operation) && revision.author === this.userId_) {
-              // This is our change; it succeeded.
-              if (this.revision_ % CHECKPOINT_FREQUENCY === 0) {
-                this.saveCheckpoint_();
-              }
-              this.sent_ = null;
-              this.trigger('ack');
-            } else {
-              // our op failed.  Trigger a retry after we're done catching up on any incoming ops.
-              triggerRetry = true;
-              this.trigger('operation', revision.operation);
-            }
-          } else {
-            this.trigger('operation', revision.operation);
-          }
-        }
-        delete pending[revisionId];
-
-        revisionId = revisionToId(this.revision_);
-      }
-
-      if (triggerRetry) {
-        this.sent_ = null;
-        this.trigger('retry');
-      }
-    };
-
-    FirebaseAdapter.prototype.parseRevision_ = function(data) {
-      // We could do some of this validation via security rules.  But it's nice to be robust, just in case.
-      if (typeof data !== 'object') { return null; }
-      if (typeof data.a !== 'string' || typeof data.o !== 'object') { return null; }
-      var op = null;
-      try {
-        op = TextOperation.fromJSON(data.o);
-      }
-      catch (e) {
-        return null;
-      }
-
-      if (op.baseLength !== this.document_.targetLength) {
-        return null;
-      }
-      return { author: data.a, operation: op }
-    };
-
-    FirebaseAdapter.prototype.saveCheckpoint_ = function() {
-      this.ref_.child('checkpoint').set({
-        a: this.userId_,
-        o: this.document_.toJSON(),
-        id: revisionToId(this.revision_ - 1) // use the id for the revision we just wrote.
-      });
-    };
-
-    FirebaseAdapter.prototype.firebaseOn_ = function(ref, eventType, callback, context) {
-      this.firebaseCallbacks_.push({ref: ref, eventType: eventType, callback: callback, context: context });
-      ref.on(eventType, callback, context);
-      return callback;
-    };
-
-    FirebaseAdapter.prototype.firebaseOff_ = function(ref, eventType, callback, context) {
-      ref.off(eventType, callback, context);
-      for(var i = 0; i < this.firebaseCallbacks_.length; i++) {
-        var l = this.firebaseCallbacks_[i];
-        if (l.ref === ref && l.eventType === eventType && l.callback === callback && l.context === context) {
-          this.firebaseCallbacks_.splice(i, 1);
-          break;
-        }
-      }
-    };
-
-    FirebaseAdapter.prototype.removeFirebaseCallbacks_ = function() {
-      for(var i = 0; i < this.firebaseCallbacks_.length; i++) {
-        var l = this.firebaseCallbacks_[i];
-        l.ref.off(l.eventType, l.callback, l.context);
-      }
-      this.firebaseCallbacks_ = [];
-    };
-
-    // Throws an error if the first argument is falsy. Useful for debugging.
-    function assert (b, msg) {
-      if (!b) {
-        throw new Error(msg || "assertion error");
-      }
-    }
-
-    // Based off ideas from http://www.zanopha.com/docs/elen.pdf
-    var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    function revisionToId(revision) {
-      if (revision === 0) {
-        return 'A0';
-      }
-
-      var str = '';
-      while (revision > 0) {
-        var digit = (revision % characters.length);
-        str = characters[digit] + str;
-        revision -= digit;
-        revision /= characters.length;
-      }
-
-      // Prefix with length (starting at 'A' for length 1) to ensure the id's sort lexicographically.
-      var prefix = characters[str.length + 9];
-      return prefix + str;
-    }
-
-    function revisionFromId(revisionId) {
-      assert (revisionId.length > 0 && revisionId[0] === characters[revisionId.length + 8]);
-      var revision = 0;
-      for(var i = 1; i < revisionId.length; i++) {
-        revision *= characters.length;
-        revision += characters.indexOf(revisionId[i]);
-      }
-      return revision;
-    }
-
-    return FirebaseAdapter;
-  }());
-
-  var vcEditor = vcEditor || { };
-
-  vcEditor.RichTextToolbar = (function(global) {
-    var utils = vcEditor.utils;
+  vceditor.RichTextToolbar = (function(global) {
+    var utils = vceditor.utils;
 
     function RichTextToolbar(imageInsertionUI) {
       this.imageInsertionUI = imageInsertionUI;
@@ -1849,7 +1457,7 @@
     RichTextToolbar.prototype.makeButton_ = function(eventName, iconName) {
       var self = this;
       iconName = iconName || eventName;
-      var btn = utils.elt('a', [utils.elt('span', '', { 'class': 'vcEditor-tb-' + iconName } )], { 'class': 'vcEditor-btn' });
+      var btn = utils.elt('a', [utils.elt('span', '', { 'class': 'vceditor-tb-' + iconName } )], { 'class': 'vceditor-btn' });
       utils.on(btn, 'click', utils.stopEventAnd(function() { self.trigger(eventName); }));
       return btn;
     }
@@ -1862,29 +1470,29 @@
       var color = this.makeColorDropdown_();
 
       var toolbarOptions = [
-        utils.elt('div', [font], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [fontSize], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [color], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('unordered-list', 'list-2'), self.makeButton_('ordered-list', 'numbered-list'), self.makeButton_('todo-list', 'list')], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], { 'class': 'vcEditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], { 'class': 'vcEditor-btn-group'})
+        utils.elt('div', [font], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [fontSize], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [color], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [self.makeButton_('unordered-list', 'list-2'), self.makeButton_('ordered-list', 'numbered-list'), self.makeButton_('todo-list', 'list')], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], { 'class': 'vceditor-btn-group'}),
+        utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], { 'class': 'vceditor-btn-group'})
       ];
 
       if (self.imageInsertionUI) {
-        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { 'class': 'vcEditor-btn-group' }));
+        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { 'class': 'vceditor-btn-group' }));
       }
 
-      var toolbarWrapper = utils.elt('div', toolbarOptions, { 'class': 'vcEditor-toolbar-wrapper' });
-      var toolbar = utils.elt('div', null, { 'class': 'vcEditor-toolbar' });
+      var toolbarWrapper = utils.elt('div', toolbarOptions, { 'class': 'vceditor-toolbar-wrapper' });
+      var toolbar = utils.elt('div', null, { 'class': 'vceditor-toolbar' });
       toolbar.appendChild(toolbarWrapper)
 
       return toolbar;
     };
 
     RichTextToolbar.prototype.makeFontDropdown_ = function() {
-      // NOTE: There must be matching .css styles in vcEditor.css.
+      // NOTE: There must be matching .css styles in vceditor.css.
       var fonts = ['Arial', 'Comic Sans MS', 'Courier New', 'Impact', 'Times New Roman', 'Verdana'];
 
       var items = [];
@@ -1897,7 +1505,7 @@
     };
 
     RichTextToolbar.prototype.makeFontSizeDropdown_ = function() {
-      // NOTE: There must be matching .css styles in vcEditor.css.
+      // NOTE: There must be matching .css styles in vceditor.css.
       var sizes = [9, 10, 12, 14, 18, 24, 32, 42];
 
       var items = [];
@@ -1915,7 +1523,7 @@
       var items = [];
       for(var i = 0; i < colors.length; i++) {
         var content = utils.elt('div');
-        content.className = 'vcEditor-color-dropdown-item';
+        content.className = 'vceditor-color-dropdown-item';
         content.setAttribute('style', 'background-color:' + colors[i]);
         items.push({ content: content, value: colors[i] });
       }
@@ -1925,8 +1533,8 @@
     RichTextToolbar.prototype.makeDropdown_ = function(title, eventName, items, value_suffix) {
       value_suffix = value_suffix || "";
       var self = this;
-      var button = utils.elt('a', title + ' \u25be', { 'class': 'vcEditor-btn vcEditor-dropdown' });
-      var list = utils.elt('ul', [ ], { 'class': 'vcEditor-dropdown-menu' });
+      var button = utils.elt('a', title + ' \u25be', { 'class': 'vceditor-btn vceditor-dropdown' });
+      var list = utils.elt('ul', [ ], { 'class': 'vceditor-dropdown-menu' });
       button.appendChild(list);
 
       var isShown = false;
@@ -1981,8 +1589,8 @@
     return RichTextToolbar;
   })();
 
-  var vcEditor = vcEditor || { };
-  vcEditor.WrappedOperation = (function (global) {
+  var vceditor = vceditor || { };
+  vceditor.WrappedOperation = (function (global) {
     'use strict';
 
     // A WrappedOperation contains an operation and corresponing metadata.
@@ -2053,9 +1661,9 @@
 
   }());
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.UndoManager = (function () {
+  vceditor.UndoManager = (function () {
     'use strict';
 
     var NORMAL_STATE = 'normal';
@@ -2157,8 +1765,8 @@
 
   }());
 
-  var vcEditor = vcEditor || { };
-  vcEditor.Client = (function () {
+  var vceditor = vceditor || { };
+  vceditor.Client = (function () {
     'use strict';
 
     // Client constructor
@@ -2354,16 +1962,16 @@
 
   }());
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.EditorClient = (function () {
+  vceditor.EditorClient = (function () {
     'use strict';
 
-    var Client = vcEditor.Client;
-    var Cursor = vcEditor.Cursor;
-    var UndoManager = vcEditor.UndoManager;
-    var TextOperation = vcEditor.TextOperation;
-    var WrappedOperation = vcEditor.WrappedOperation;
+    var Client = vceditor.Client;
+    var Cursor = vceditor.Cursor;
+    var UndoManager = vceditor.UndoManager;
+    var TextOperation = vceditor.TextOperation;
+    var WrappedOperation = vceditor.WrappedOperation;
 
     //var Client = ot.Client;
     //var Cursor = ot.Cursor;
@@ -2641,17 +2249,17 @@
     return EditorClient;
   }());
 
-  vcEditor.utils.makeEventEmitter(vcEditor.EditorClient, ['synced']);
+  vceditor.utils.makeEventEmitter(vceditor.EditorClient, ['synced']);
 
-  var ACEAdapter, vcEditor,
+  var ACEAdapter, vceditor,
       __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
       __slice = [].slice;
 
-  if (typeof vcEditor === "undefined" || vcEditor === null) {
-    vcEditor = {};
+  if (typeof vceditor === "undefined" || vceditor === null) {
+    vceditor = {};
   }
 
-  vcEditor.ACEAdapter = ACEAdapter = (function() {
+  vceditor.ACEAdapter = ACEAdapter = (function() {
     ACEAdapter.prototype.ignoreChanges = false;
 
     function ACEAdapter(aceInstance) {
@@ -2727,8 +2335,8 @@
       if (action === "remove") {
         restLength -= text.length;
       }
-      operation = new vcEditor.TextOperation().retain(start).insert(text).retain(restLength);
-      inverse = new vcEditor.TextOperation().retain(start)["delete"](text).retain(restLength);
+      operation = new vceditor.TextOperation().retain(start).insert(text).retain(restLength);
+      inverse = new vceditor.TextOperation().retain(start)["delete"](text).retain(restLength);
       if (action === 'remove') {
         _ref1 = [inverse, operation], operation = _ref1[0], inverse = _ref1[1];
       }
@@ -2807,7 +2415,7 @@
       if (start > end) {
         _ref1 = [end, start], start = _ref1[0], end = _ref1[1];
       }
-      return new vcEditor.Cursor(start, end);
+      return new vceditor.Cursor(start, end);
     };
 
     ACEAdapter.prototype.setCursor = function(cursor) {
@@ -2918,9 +2526,9 @@
 
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.AttributeConstants = {
+  vceditor.AttributeConstants = {
     BOLD: 'b',
     ITALIC: 'i',
     UNDERLINE: 'u',
@@ -2938,7 +2546,7 @@
     LIST_TYPE: 'lt'
   };
 
-  vcEditor.sentinelConstants = {
+  vceditor.sentinelConstants = {
     // A special character we insert at the beginning of lines so we can attach attributes to it to represent
     // "line attributes."  E000 is from the unicode "private use" range.
     LINE_SENTINEL_CHARACTER:   '\uE000',
@@ -2947,10 +2555,10 @@
     ENTITY_SENTINEL_CHARACTER: '\uE001'
   };
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.EntityManager = (function () {
-    var utils = vcEditor.utils;
+  vceditor.EntityManager = (function () {
+    var utils = vceditor.utils;
 
     function EntityManager() {
       this.entities_ = {};
@@ -2984,8 +2592,8 @@
     }
 
     EntityManager.prototype.register = function(type, options) {
-      vcEditor.utils.assert(options.render, "Entity options should include a 'render' function!");
-      vcEditor.utils.assert(options.fromElement, "Entity options should include a 'fromElement' function!");
+      vceditor.utils.assert(options.render, "Entity options should include a 'render' function!");
+      vceditor.utils.assert(options.fromElement, "Entity options should include a 'fromElement' function!");
       this.entities_[type] = options;
     };
 
@@ -2998,7 +2606,7 @@
       var elt = this.tryRenderToElement_(entity, 'export') ||
           this.tryRenderToElement_(entity, 'getHtml') ||
           this.tryRenderToElement_(entity, 'render');
-      elt.setAttribute('data-vcEditor-entity', entity.type);
+      elt.setAttribute('data-vceditor-entity', entity.type);
       return elt;
     };
 
@@ -3015,7 +2623,7 @@
     };
 
     EntityManager.prototype.fromElement = function(element) {
-      var type = element.getAttribute('data-vcEditor-entity');
+      var type = element.getAttribute('data-vceditor-entity');
 
       // HACK.  This should be configurable through entity registration.
       if (!type)
@@ -3023,22 +2631,22 @@
 
       if (type && this.entities_[type]) {
         var info = this.entities_[type].fromElement(element);
-        return new vcEditor.Entity(type, info);
+        return new vceditor.Entity(type, info);
       }
     };
 
     EntityManager.prototype.tryRenderToElement_ = function(entity, renderFn, entityHandle) {
       var type = entity.type, info = entity.info;
       if (this.entities_[type] && this.entities_[type][renderFn]) {
-        var windowDocument = vcEditor.document || (window && window.document);
+        var windowDocument = vceditor.document || (window && window.document);
         var res = this.entities_[type][renderFn](info, entityHandle, windowDocument);
         if (res) {
           if (typeof res === 'string') {
-            var div = (vcEditor.document || document).createElement('div');
+            var div = (vceditor.document || document).createElement('div');
             div.innerHTML = res;
             return div.childNodes[0];
           } else if (typeof res === 'object') {
-            vcEditor.utils.assert(typeof res.nodeType !== 'undefined', 'Error rendering ' + type + ' entity.  render() function' +
+            vceditor.utils.assert(typeof res.nodeType !== 'undefined', 'Error rendering ' + type + ' entity.  render() function' +
                 ' must return an html string or a DOM element.');
             return res;
           }
@@ -3053,13 +2661,13 @@
     return EntityManager;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Object to represent an Entity.
    */
-  vcEditor.Entity = (function() {
-    var ATTR = vcEditor.AttributeConstants;
+  vceditor.Entity = (function() {
+    var ATTR = vceditor.AttributeConstants;
     var SENTINEL = ATTR.ENTITY_SENTINEL;
     var PREFIX = SENTINEL + '_';
 
@@ -3097,13 +2705,13 @@
     return Entity;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.RichTextCodeMirror = (function () {
-    var AnnotationList = vcEditor.AnnotationList;
-    var Span = vcEditor.Span;
-    var utils = vcEditor.utils;
-    var ATTR = vcEditor.AttributeConstants;
+  vceditor.RichTextCodeMirror = (function () {
+    var AnnotationList = vceditor.AnnotationList;
+    var Span = vceditor.Span;
+    var utils = vceditor.utils;
+    var ATTR = vceditor.AttributeConstants;
     var RichTextClassPrefixDefault = 'cmrt-';
     var RichTextOriginPrefix = 'cmrt-';
 
@@ -3150,8 +2758,8 @@
     utils.makeEventEmitter(RichTextCodeMirror, ['change', 'attributesChange', 'newLine']);
 
 
-    var LineSentinelCharacter   = vcEditor.sentinelConstants.LINE_SENTINEL_CHARACTER;
-    var EntitySentinelCharacter = vcEditor.sentinelConstants.ENTITY_SENTINEL_CHARACTER;
+    var LineSentinelCharacter   = vceditor.sentinelConstants.LINE_SENTINEL_CHARACTER;
+    var EntitySentinelCharacter = vceditor.sentinelConstants.ENTITY_SENTINEL_CHARACTER;
 
     RichTextCodeMirror.prototype.detach = function() {
       this.codeMirror.off('beforeChange', this.onCodeMirrorBeforeChange_);
@@ -3338,7 +2946,7 @@
 
     RichTextCodeMirror.prototype.insertEntityAt = function(index, type, info, origin) {
       var cm = this.codeMirror;
-      this.insertEntity_(index, new vcEditor.Entity(type, info), origin);
+      this.insertEntity_(index, new vceditor.Entity(type, info), origin);
     };
 
     RichTextCodeMirror.prototype.insertEntity_ = function(index, entity, origin) {
@@ -3492,7 +3100,7 @@
       for (var attr in attributes) {
         var val = attributes[attr];
         if (attr === ATTR.LINE_SENTINEL) {
-          vcEditor.utils.assert(val === true, "LINE_SENTINEL attribute should be true if it exists.");
+          vceditor.utils.assert(val === true, "LINE_SENTINEL attribute should be true if it exists.");
         } else {
           var className = (this.options_['cssPrefix'] || RichTextClassPrefixDefault) + attr;
           if (val !== true) {
@@ -3529,7 +3137,7 @@
 
     RichTextCodeMirror.prototype.markEntity_ = function(annotationNode) {
       var attributes = annotationNode.annotation.attributes;
-      var entity = vcEditor.Entity.fromAttributes(attributes);
+      var entity = vceditor.Entity.fromAttributes(attributes);
       var cm = this.codeMirror;
       var self = this;
 
@@ -3564,7 +3172,7 @@
          *     attributes to apply.
          */
         update: function(info) {
-          var entity = vcEditor.Entity.fromAttributes(info);
+          var entity = vceditor.Entity.fromAttributes(info);
           for(var i = 0; i < markers.length; i++) {
             self.entityManager_.updateElement(entity, markers[i].replacedWith);
           }
@@ -3613,7 +3221,7 @@
        *     attributes to apply.
        */
       function replace(info) {
-        var ATTR = vcEditor.AttributeConstants;
+        var ATTR = vceditor.AttributeConstants;
         var SENTINEL = ATTR.ENTITY_SENTINEL;
         var PREFIX = SENTINEL + '_';
 
@@ -3801,7 +3409,7 @@
      */
     RichTextCodeMirror.prototype.markLineSentinelCharactersForChanges_ = function(changes) {
       // TODO: This doesn't handle multiple changes correctly (overlapping, out-of-oder, etc.).
-      // But In practice, people using vcEditor for rich-text editing don't batch multiple changes
+      // But In practice, people using vceditor for rich-text editing don't batch multiple changes
       // together, so this isn't quite as bad as it seems.
       var startLine = Number.MAX_VALUE, endLine = -1;
 
@@ -3942,13 +3550,13 @@
 
     RichTextCodeMirror.prototype.makeOrderedListElement_ = function(number) {
       return utils.elt('div', number + '.', {
-        'class': 'vcEditor-list-left'
+        'class': 'vceditor-list-left'
       });
     };
 
     RichTextCodeMirror.prototype.makeUnorderedListElement_ = function() {
       return utils.elt('div', '\u2022', {
-        'class': 'vcEditor-list-left'
+        'class': 'vceditor-list-left'
       });
     };
 
@@ -3969,7 +3577,7 @@
     RichTextCodeMirror.prototype.makeTodoListElement_ = function(checked, getMarkerLine) {
       var params = {
         'type': "checkbox",
-        'class': 'vcEditor-todo-left'
+        'class': 'vceditor-todo-left'
       };
       if (checked) params['checked'] = true;
       var el = utils.elt('input', false, params);
@@ -4034,7 +3642,7 @@
       if (spans.length > 0 && (!(ATTR.LINE_SENTINEL in spans[0].annotation.attributes))) {
         attributes = spans[0].annotation.attributes;
       } else if (spans.length > 1) {
-        vcEditor.utils.assert(!(ATTR.LINE_SENTINEL in spans[1].annotation.attributes), "Cursor can't be between two line sentinel characters.");
+        vceditor.utils.assert(!(ATTR.LINE_SENTINEL in spans[1].annotation.attributes), "Cursor can't be between two line sentinel characters.");
         attributes = spans[1].annotation.attributes;
       }
       for(var attr in attributes) {
@@ -4062,7 +3670,7 @@
       if (line.length > 0 && line[0] === LineSentinelCharacter) {
         var lineStartIndex = this.codeMirror.indexFromPos({ line: lineNum, ch: 0 });
         var spans = this.annotationList_.getAnnotatedSpansForSpan(new Span(lineStartIndex, 1));
-        vcEditor.utils.assert(spans.length === 1);
+        vceditor.utils.assert(spans.length === 1);
         for(var attr in spans[0].annotation.attributes) {
           attributes[attr] = spans[0].annotation.attributes[attr];
         }
@@ -4238,15 +3846,15 @@
     return RichTextCodeMirror;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
 // TODO: Can this derive from CodeMirrorAdapter or similar?
-  vcEditor.RichTextCodeMirrorAdapter = (function () {
+  vceditor.RichTextCodeMirrorAdapter = (function () {
     'use strict';
 
-    var TextOperation = vcEditor.TextOperation;
-    var WrappedOperation = vcEditor.WrappedOperation;
-    var Cursor = vcEditor.Cursor;
+    var TextOperation = vceditor.TextOperation;
+    var WrappedOperation = vceditor.WrappedOperation;
+    var Cursor = vceditor.Cursor;
 
     function RichTextCodeMirrorAdapter (rtcm) {
       this.rtcm = rtcm;
@@ -4613,7 +4221,7 @@
     return RichTextCodeMirrorAdapter;
   }());
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Immutable object to represent text formatting.  Formatting can be modified by chaining method calls.
@@ -4621,8 +4229,8 @@
    * @constructor
    * @type {Function}
    */
-  vcEditor.Formatting = (function() {
-    var ATTR = vcEditor.AttributeConstants;
+  vceditor.Formatting = (function() {
+    var ATTR = vceditor.AttributeConstants;
 
     function Formatting(attributes) {
       // Allow calling without new.
@@ -4684,26 +4292,26 @@
     return Formatting;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Object to represent Formatted text.
    *
    * @type {Function}
    */
-  vcEditor.Text = (function() {
+  vceditor.Text = (function() {
     function Text(text, formatting) {
       // Allow calling without new.
       if (!(this instanceof Text)) { return new Text(text, formatting); }
 
       this.text = text;
-      this.formatting = formatting || vcEditor.Formatting();
+      this.formatting = formatting || vceditor.Formatting();
     }
 
     return Text;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Immutable object to represent line formatting.  Formatting can be modified by chaining method calls.
@@ -4711,8 +4319,8 @@
    * @constructor
    * @type {Function}
    */
-  vcEditor.LineFormatting = (function() {
-    var ATTR = vcEditor.AttributeConstants;
+  vceditor.LineFormatting = (function() {
+    var ATTR = vceditor.AttributeConstants;
 
     function LineFormatting(attributes) {
       // Allow calling without new.
@@ -4757,7 +4365,7 @@
     };
 
     LineFormatting.prototype.listItem = function(val) {
-      vcEditor.utils.assert(val === false || val === 'u' || val === 'o' || val === 't' || val === 'tc');
+      vceditor.utils.assert(val === false || val === 'u' || val === 'o' || val === 't' || val === 'tc');
       return this.cloneWithNewAttribute_(ATTR.LIST_TYPE, val);
     };
 
@@ -4776,14 +4384,14 @@
     return LineFormatting;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Object to represent Formatted line.
    *
    * @type {Function}
    */
-  vcEditor.Line = (function() {
+  vceditor.Line = (function() {
     function Line(textPieces, formatting) {
       // Allow calling without new.
       if (!(this instanceof Line)) { return new Line(textPieces, formatting); }
@@ -4797,20 +4405,20 @@
       }
 
       this.textPieces = textPieces;
-      this.formatting = formatting || vcEditor.LineFormatting();
+      this.formatting = formatting || vceditor.LineFormatting();
     }
 
     return Line;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
-   * Helper to parse html into Firepad-compatible lines / text.
+   * Helper to parse html into Vceditor-compatible lines / text.
    * @type {*}
    */
-  vcEditor.ParseHtml = (function () {
-    var LIST_TYPE = vcEditor.LineFormatting.LIST_TYPE;
+  vceditor.ParseHtml = (function () {
+    var LIST_TYPE = vceditor.LineFormatting.LIST_TYPE;
 
     /**
      * Represents the current parse state as an immutable structure.  To create a new ParseState, use
@@ -4823,8 +4431,8 @@
      */
     function ParseState(opt_listType, opt_lineFormatting, opt_textFormatting) {
       this.listType = opt_listType || LIST_TYPE.UNORDERED;
-      this.lineFormatting = opt_lineFormatting || vcEditor.LineFormatting();
-      this.textFormatting = opt_textFormatting || vcEditor.Formatting();
+      this.lineFormatting = opt_lineFormatting || vceditor.LineFormatting();
+      this.textFormatting = opt_textFormatting || vceditor.Formatting();
     }
 
     ParseState.prototype.withTextFormatting = function(textFormatting) {
@@ -4881,7 +4489,7 @@
         this.currentLineListItemType = null;
       }
 
-      this.lines.push(vcEditor.Line(this.currentLine, lineFormatting));
+      this.lines.push(vceditor.Line(this.currentLine, lineFormatting));
       this.currentLine = [];
     };
 
@@ -4909,7 +4517,7 @@
     var entityManager_;
     function parseHtml(html, entityManager) {
       // Create DIV with HTML (as a convenient way to parse it).
-      var div = (vcEditor.document || document).createElement('div');
+      var div = (vceditor.document || document).createElement('div');
       div.innerHTML = html;
 
       // HACK until I refactor this.
@@ -4933,9 +4541,9 @@
       if (node.nodeType === Node.ELEMENT_NODE) {
         var entity = entityManager_.fromElement(node);
         if (entity) {
-          output.currentLine.push(new vcEditor.Text(
-              vcEditor.sentinelConstants.ENTITY_SENTINEL_CHARACTER,
-              new vcEditor.Formatting(entity.toAttributes())
+          output.currentLine.push(new vceditor.Text(
+              vceditor.sentinelConstants.ENTITY_SENTINEL_CHARACTER,
+              new vceditor.Formatting(entity.toAttributes())
           ));
           return;
         }
@@ -4945,7 +4553,7 @@
         case Node.TEXT_NODE:
           // This probably isn't exactly right, but mostly works...
           var text = node.nodeValue.replace(/[ \n\t]+/g, ' ');
-          output.currentLine.push(vcEditor.Text(text, state.textFormatting));
+          output.currentLine.push(vceditor.Text(text, state.textFormatting));
           break;
         case Node.ELEMENT_NODE:
           var style = node.getAttribute('style') || '';
@@ -4994,7 +4602,7 @@
               break;
             case 'ul':
               output.newlineIfNonEmptyOrListItem(state);
-              var listType = node.getAttribute('class') === 'vcEditor-todo' ? LIST_TYPE.TODO : LIST_TYPE.UNORDERED;
+              var listType = node.getAttribute('class') === 'vceditor-todo' ? LIST_TYPE.TODO : LIST_TYPE.UNORDERED;
               parseChildren(node, state.withListType(listType).withIncreasedIndent(), output);
               output.newlineIfNonEmpty(state);
               break;
@@ -5034,7 +4642,7 @@
 
       output.newlineIfNonEmptyOrListItem(state);
 
-      var listType = (node.getAttribute('class') === 'vcEditor-checked') ? LIST_TYPE.TODOCHECKED : state.listType;
+      var listType = (node.getAttribute('class') === 'vceditor-checked') ? LIST_TYPE.TODOCHECKED : state.listType;
       output.makeListItem(listType);
       var oldLine = output.currentLine;
 
@@ -5053,8 +4661,8 @@
         var stylePieces = styles[i].split(':');
         if (stylePieces.length !== 2)
           continue;
-        var prop = vcEditor.utils.trim(stylePieces[0]).toLowerCase();
-        var val = vcEditor.utils.trim(stylePieces[1]).toLowerCase();
+        var prop = vceditor.utils.trim(stylePieces[0]).toLowerCase();
+        var val = vceditor.utils.trim(stylePieces[1]).toLowerCase();
         switch (prop) {
           case 'text-decoration':
             var underline = val.indexOf('underline') >= 0;
@@ -5081,7 +4689,7 @@
           case 'font-size':
             var size = null;
             var allowedValues = ['px','pt','%','em','xx-small','x-small','small','medium','large','x-large','xx-large','smaller','larger'];
-            if (vcEditor.utils.stringEndsWith(val, allowedValues)) {
+            if (vceditor.utils.stringEndsWith(val, allowedValues)) {
               size = val;
             }
             else if (parseInt(val)) {
@@ -5092,7 +4700,7 @@
             }
             break;
           case 'font-family':
-            var font = vcEditor.utils.trim(val.split(',')[0]); // get first font.
+            var font = vceditor.utils.trim(val.split(',')[0]); // get first font.
             font = font.replace(/['"]/g, ''); // remove quotes.
             font = font.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() });
             textFormatting = textFormatting.font(font);
@@ -5105,23 +4713,23 @@
     return parseHtml;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Helper to turn Firebase contents into HMTL.
    * Takes a doc and an entity manager
    */
-  vcEditor.SerializeHtml = (function () {
+  vceditor.SerializeHtml = (function () {
 
-    var utils      = vcEditor.utils;
-    var ATTR       = vcEditor.AttributeConstants;
-    var LIST_TYPE  = vcEditor.LineFormatting.LIST_TYPE;
-    var TODO_STYLE = '<style>ul.vcEditor-todo { list-style: none; margin-left: 0; padding-left: 0; } ul.vcEditor-todo > li { padding-left: 1em; text-indent: -1em; } ul.vcEditor-todo > li:before { content: "\\2610"; padding-right: 5px; } ul.vcEditor-todo > li.vcEditor-checked:before { content: "\\2611"; padding-right: 5px; }</style>\n';
+    var utils      = vceditor.utils;
+    var ATTR       = vceditor.AttributeConstants;
+    var LIST_TYPE  = vceditor.LineFormatting.LIST_TYPE;
+    var TODO_STYLE = '<style>ul.vceditor-todo { list-style: none; margin-left: 0; padding-left: 0; } ul.vceditor-todo > li { padding-left: 1em; text-indent: -1em; } ul.vceditor-todo > li:before { content: "\\2610"; padding-right: 5px; } ul.vceditor-todo > li.vceditor-checked:before { content: "\\2611"; padding-right: 5px; }</style>\n';
 
     function open(listType) {
       return (listType === LIST_TYPE.ORDERED) ? '<ol>' :
           (listType === LIST_TYPE.UNORDERED) ? '<ul>' :
-              '<ul class="vcEditor-todo">';
+              '<ul class="vceditor-todo">';
     }
 
     function close(listType) {
@@ -5201,10 +4809,10 @@
             switch (listType)
             {
               case LIST_TYPE.TODOCHECKED:
-                clazz = ' class="vcEditor-checked"';
+                clazz = ' class="vceditor-checked"';
                 break;
               case LIST_TYPE.TODO:
-                clazz = ' class="vcEditor-unchecked"';
+                clazz = ' class="vceditor-unchecked"';
                 break;
             }
             html += "<li" + clazz + style + ">";
@@ -5223,7 +4831,7 @@
 
         if (ATTR.ENTITY_SENTINEL in attrs) {
           for(var j = 0; j < op.text.length; j++) {
-            var entity = vcEditor.Entity.fromAttributes(attrs);
+            var entity = vceditor.Entity.fromAttributes(attrs);
             var element = entityManager.exportToElement(entity);
             html += element.outerHTML;
           }
@@ -5266,7 +4874,7 @@
           newLine = true;
           if (newLineIndex < text.length - 1) {
             // split op.
-            op = new vcEditor.TextOp('insert', text.substr(newLineIndex+1), attrs);
+            op = new vceditor.TextOp('insert', text.substr(newLineIndex+1), attrs);
           } else {
             op = doc.ops[++i];
           }
@@ -5310,16 +4918,16 @@
     return serializeHtml;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
    * Helper to turn pieces of text into insertable operations
    */
-  vcEditor.textPiecesToInserts = function(atNewLine, textPieces) {
+  vceditor.textPiecesToInserts = function(atNewLine, textPieces) {
     var inserts = [];
 
     function insert(string, attributes) {
-      if (string instanceof vcEditor.Text) {
+      if (string instanceof vceditor.Text) {
         attributes = string.formatting.attributes;
         string     = string.text;
       }
@@ -5333,7 +4941,7 @@
       // the way this is used for inserting HTML, we end up inserting a "line" in the middle
       // of text, in which case we don't want to actually insert a newline.
       if (atNewLine) {
-        insert(vcEditor.sentinelConstants.LINE_SENTINEL_CHARACTER, line.formatting.attributes);
+        insert(vceditor.sentinelConstants.LINE_SENTINEL_CHARACTER, line.formatting.attributes);
       }
 
       for(var i = 0; i < line.textPieces.length; i++) {
@@ -5344,7 +4952,7 @@
     }
 
     for(var i = 0; i < textPieces.length; i++) {
-      if (textPieces[i] instanceof vcEditor.Line) {
+      if (textPieces[i] instanceof vceditor.Line) {
         insertLine(textPieces[i]);
       } else {
         insert(textPieces[i]);
@@ -5354,23 +4962,23 @@
     return inserts;
   }
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
   /**
-   * Instance of headless Firepad for use in NodeJS. Supports get/set on text/html.
+   * Instance of headless Vceditor for use in NodeJS. Supports get/set on text/html.
    */
-  vcEditor.Headless = (function() {
+  vceditor.Headless = (function() {
 
-    var TextOperation   = vcEditor.TextOperation;
-    var FirebaseAdapter = vcEditor.FirebaseAdapter;
-    var EntityManager   = vcEditor.EntityManager;
-    var ParseHtml       = vcEditor.ParseHtml;
+    var TextOperation   = vceditor.TextOperation;
+   //var FirebaseAdapter = vceditor.FirebaseAdapter;
+    var EntityManager   = vceditor.EntityManager;
+    var ParseHtml       = vceditor.ParseHtml;
 
     function Headless(ref) {
       // Allow calling without new.
       if (!(this instanceof Headless)) { return new Headless(ref); }
 
-      this.adapter        = new FirebaseAdapter(ref);
+      //this.adapter        = new FirebaseAdapter(ref);
       this.ready          = false;
       this.entityManager  = new EntityManager();
     }
@@ -5393,8 +5001,8 @@
         var text = doc.apply('');
 
         // Strip out any special characters from Rich Text formatting
-        for (key in vcEditor.sentinelConstants) {
-          text = text.replace(new RegExp(vcEditor.sentinelConstants[key], 'g'), '');
+        for (key in vceditor.sentinelConstants) {
+          text = text.replace(new RegExp(vceditor.sentinelConstants[key], 'g'), '');
         }
         callback(text);
       });
@@ -5406,18 +5014,18 @@
     }
 
     Headless.prototype.initializeFakeDom = function(callback) {
-      if (typeof document === 'object' || typeof vcEditor.document === 'object') {
+      if (typeof document === 'object' || typeof vceditor.document === 'object') {
         callback();
       } else {
         require('jsdom').env('<head></head><body></body>', function(err, window) {
-          if (vcEditor.document) {
+          if (vceditor.document) {
             // Return if we've already made a jsdom to avoid making more than one
             // This would be easier with promises but we want to avoid introducing
             // another dependency for just headless mode.
             window.close();
             return callback();
           }
-          vcEditor.document = window.document;
+          vceditor.document = window.document;
           callback();
         });
       }
@@ -5428,7 +5036,7 @@
 
       self.initializeFakeDom(function() {
         self.getDocument(function(doc) {
-          callback(vcEditor.SerializeHtml(doc, this.entityManager));
+          callback(vceditor.SerializeHtml(doc, this.entityManager));
         });
       });
     }
@@ -5438,7 +5046,7 @@
 
       self.initializeFakeDom(function() {
         var textPieces = ParseHtml(html, self.entityManager);
-        var inserts    = vcEditor.textPiecesToInserts(true, textPieces);
+        var inserts    = vceditor.textPiecesToInserts(true, textPieces);
         var op         = new TextOperation();
 
         for (var i = 0; i < inserts.length; i++) {
@@ -5469,28 +5077,28 @@
     return Headless;
   })();
 
-  var vcEditor = vcEditor || { };
+  var vceditor = vceditor || { };
 
-  vcEditor.Firepad = (function(global) {
-    if (!vcEditor.RichTextCodeMirrorAdapter) {
-      throw new Error("Oops! It looks like you're trying to include lib/vcEditor.js directly.  This is actually one of many source files that make up vcEditor.  You want dist/vcEditor.js instead.");
+  vceditor.Vceditor = (function(global) {
+    if (!vceditor.RichTextCodeMirrorAdapter) {
+      throw new Error("Oops! It looks like you're trying to include lib/vceditor.js directly.  This is actually one of many source files that make up vceditor.  You want dist/vceditor.js instead.");
     }
-    var RichTextCodeMirrorAdapter = vcEditor.RichTextCodeMirrorAdapter;
-    var RichTextCodeMirror = vcEditor.RichTextCodeMirror;
-    var RichTextToolbar = vcEditor.RichTextToolbar;
-    var ACEAdapter = vcEditor.ACEAdapter;
-    var FirebaseAdapter = vcEditor.FirebaseAdapter;
-    var EditorClient = vcEditor.EditorClient;
-    var EntityManager = vcEditor.EntityManager;
-    var ATTR = vcEditor.AttributeConstants;
-    var utils = vcEditor.utils;
-    var LIST_TYPE = vcEditor.LineFormatting.LIST_TYPE;
+    var RichTextCodeMirrorAdapter = vceditor.RichTextCodeMirrorAdapter;
+    var RichTextCodeMirror = vceditor.RichTextCodeMirror;
+    var RichTextToolbar = vceditor.RichTextToolbar;
+    var ACEAdapter = vceditor.ACEAdapter;
+    //var FirebaseAdapter = vceditor.FirebaseAdapter;
+    var EditorClient = vceditor.EditorClient;
+    var EntityManager = vceditor.EntityManager;
+    var ATTR = vceditor.AttributeConstants;
+    var utils = vceditor.utils;
+    var LIST_TYPE = vceditor.LineFormatting.LIST_TYPE;
     var CodeMirror = global.CodeMirror;
     var ace = global.ace;
 
-    function Firepad(ref, place, options, editorInfo) {
+    function Vceditor(ref, place, options, editorInfo) {
 
-      if (!(this instanceof Firepad)) { return new Firepad(ref, place, options, editorInfo); }
+      if (!(this instanceof Vceditor)) { return new Vceditor(ref, place, options, editorInfo); }
 
       if (!CodeMirror && !ace) {
         throw new Error('Couldn\'t find CodeMirror or ACE.  Did you forget to include codemirror.js or ace.js?');
@@ -5500,28 +5108,28 @@
         this.codeMirror_ = this.editor_ = place;
         var curValue = this.codeMirror_.getValue();
         if (curValue !== '') {
-          throw new Error("Can't initialize Firepad with a CodeMirror instance that already contains text.");
+          throw new Error("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
         }
       } else if (ace && place && place.session instanceof ace.EditSession) {
         this.ace_ = this.editor_ = place;
         curValue = this.ace_.getValue();
         if (curValue !== '') {
-          throw new Error("Can't initialize Firepad with an ACE instance that already contains text.");
+          throw new Error("Can't initialize Vceditor with an ACE instance that already contains text.");
         }
       } else {
         this.codeMirror_ = this.editor_ = new CodeMirror(place);
       }
 
       var editorWrapper = this.codeMirror_ ? this.codeMirror_.getWrapperElement() : this.ace_.container;
-      this.vcEditorWrapper_ = utils.elt("div", null, { 'class': 'vcEditor' });
+      this.vcEditorWrapper_ = utils.elt("div", null, { 'class': 'vceditor' });
       editorWrapper.parentNode.replaceChild(this.vcEditorWrapper_, editorWrapper);
       this.vcEditorWrapper_.appendChild(editorWrapper);
 
-      // Don't allow drag/drop because it causes issues.  See https://github.com/firebase/vcEditor/issues/36
+      // Don't allow drag/drop because it causes issues.  See https://github.com/firebase/vceditor/issues/36
       utils.on(editorWrapper, 'dragstart', utils.stopEvent);
 
-      // Provide an easy way to get the vcEditor instance associated with this CodeMirror instance.
-      this.editor_.vcEditor = this;
+      // Provide an easy way to get the vceditor instance associated with this CodeMirror instance.
+      this.editor_.vceditor = this;
 
       this.options_ = options || { };
 
@@ -5530,14 +5138,14 @@
           this.initializeKeyMap_();
         }
         this.codeMirror_.setOption('keyMap', 'richtext');
-        this.vcEditorWrapper_.className += ' vcEditor-richtext';
+        this.vcEditorWrapper_.className += ' vceditor-richtext';
       }
 
       this.imageInsertionUI = this.getOption('imageInsertionUI', true);
 
       if (this.getOption('richTextToolbar', false)) {
         this.addToolbar_();
-        this.vcEditorWrapper_.className += ' vcEditor-richtext vcEditor-with-toolbar';
+        this.vcEditorWrapper_.className += ' vceditor-richtext vceditor-with-toolbar';
       }
 
       this.addPoweredByLogo_();
@@ -5562,7 +5170,7 @@
 //      virtualclass.editor.vcAdapter =   new virtualclassAdapter(editorInfo, virtualclass.currApp);
 
       if (this.codeMirror_) {
-        this.richTextCodeMirror_ = new RichTextCodeMirror(this.codeMirror_, this.entityManager_, { cssPrefix: 'vcEditor-' });
+        this.richTextCodeMirror_ = new RichTextCodeMirror(this.codeMirror_, this.entityManager_, { cssPrefix: 'vceditor-' });
         this.editorAdapter_ = new RichTextCodeMirrorAdapter(this.richTextCodeMirror_);
       } else {
         this.editorAdapter_ = new ACEAdapter(this.ace_);
@@ -5581,38 +5189,6 @@
       }
 
 
-
-    //  this.client_ = new EditorClient(revision, clients, virtualclass.editor.vcAdapter, this.editorAdapter_);
-
-      //var self = this;
-      //this.vcAdapter.on('cursor', function() {
-      //  self.trigger.apply(self, ['cursor'].concat([].slice.call(arguments)));
-      //});
-      //
-      //if (this.codeMirror_) {
-      //  this.richTextCodeMirror_.on('newLine', function() {
-      //    self.trigger.apply(self, ['newLine'].concat([].slice.call(arguments)));
-      //  });
-      //}
-
-      //this.vcAdapter.on('ready', function() {
-      //  self.ready_ = true;
-      //
-      //  if (this.ace_) {
-      //    this.editorAdapter_.grabDocumentState();
-      //  }
-      //
-      //  var defaultText = self.getOption('defaultText', null);
-      //  if (defaultText && self.isHistoryEmpty()) {
-      //    self.setText(defaultText);
-      //  }
-      //
-      //  self.trigger('ready');
-      //
-      //});
-
-  //    this.client_.on('synced', function(isSynced) { self.trigger('synced', isSynced)} );
-
       // Hack for IE8 to make font icons work more reliably.
       // http://stackoverflow.com/questions/9809351/ie8-css-font-face-fonts-only-working-for-before-content-on-over-and-sometimes
       if (navigator.appName == 'Microsoft Internet Explorer' && navigator.userAgent.match(/MSIE 8\./)) {
@@ -5628,13 +5204,13 @@
         };
       }
     }
-    utils.makeEventEmitter(Firepad);
+    utils.makeEventEmitter(Vceditor);
 
-    // For readability, these are the primary "constructors", even though right now they're just aliases for Firepad.
-    Firepad.fromCodeMirror = Firepad;
-    Firepad.fromACE = Firepad;
+    // For readability, these are the primary "constructors", even though right now they're just aliases for Vceditor.
+    Vceditor.fromCodeMirror = Vceditor;
+    Vceditor.fromACE = Vceditor;
 
-    Firepad.prototype.dispose = function() {
+    Vceditor.prototype.dispose = function() {
       this.zombie_ = true; // We've been disposed.  No longer valid to do anything.
 
       // Unwrap the editor.
@@ -5642,7 +5218,7 @@
       this.vcEditorWrapper_.removeChild(editorWrapper);
       this.vcEditorWrapper_.parentNode.replaceChild(editorWrapper, this.vcEditorWrapper_);
 
-      this.editor_.vcEditor = null;
+      this.editor_.vceditor = null;
 
       if (this.codeMirror_ && this.codeMirror_.getOption('keyMap') === 'richtext') {
         this.codeMirror_.setOption('keyMap', 'default');
@@ -5654,15 +5230,15 @@
         this.richTextCodeMirror_.detach();
     };
 
-    Firepad.prototype.setUserId = function(userId) {
+    Vceditor.prototype.setUserId = function(userId) {
       this.vcAdapter.setUserId(userId);
     };
 
-    Firepad.prototype.setUserColor = function(color) {
+    Vceditor.prototype.setUserColor = function(color) {
       this.vcAdapter.setColor(color);
     };
 
-    Firepad.prototype.getText = function() {
+    Vceditor.prototype.getText = function() {
       this.assertReady_('getText');
       if (this.codeMirror_)
         return this.richTextCodeMirror_.getText();
@@ -5670,7 +5246,7 @@
         return this.ace_.getSession().getDocument().getValue();
     };
 
-    Firepad.prototype.setText = function(textPieces) {
+    Vceditor.prototype.setText = function(textPieces) {
       if (this.ace_) {
         return this.ace_.getSession().getDocument().setValue(textPieces);
       } else {
@@ -5683,11 +5259,11 @@
       }
     };
 
-    Firepad.prototype.insertTextAtCursor = function(textPieces) {
+    Vceditor.prototype.insertTextAtCursor = function(textPieces) {
       this.insertText(this.codeMirror_.indexFromPos(this.codeMirror_.getCursor()), textPieces);
     };
 
-    Firepad.prototype.insertText = function(index, textPieces) {
+    Vceditor.prototype.insertText = function(index, textPieces) {
       utils.assert(!this.ace_, "Not supported for ace yet.");
       this.assertReady_('insertText');
 
@@ -5700,7 +5276,7 @@
       // HACK: We should check if we're actually at the beginning of a line; but checking for index == 0 is sufficient
       // for the setText() case.
       var atNewLine = index === 0;
-      var inserts = vcEditor.textPiecesToInserts(atNewLine, textPieces);
+      var inserts = vceditor.textPiecesToInserts(atNewLine, textPieces);
 
       for (var i = 0; i < inserts.length; i++) {
         var string     = inserts[i].string;
@@ -5710,11 +5286,11 @@
       }
     };
 
-    Firepad.prototype.getOperationForSpan = function(start, end) {
+    Vceditor.prototype.getOperationForSpan = function(start, end) {
       var text = this.richTextCodeMirror_.getRange(start, end);
       var spans = this.richTextCodeMirror_.getAttributeSpans(start, end);
       var pos = 0;
-      var op = new vcEditor.TextOperation();
+      var op = new vceditor.TextOperation();
       for(var i = 0; i < spans.length; i++) {
         op.insert(text.substr(pos, spans[i].length), spans[i].attributes);
         pos += spans[i].length;
@@ -5722,83 +5298,83 @@
       return op;
     };
 
-    Firepad.prototype.getHtml = function() {
+    Vceditor.prototype.getHtml = function() {
       return this.getHtmlFromRange(null, null);
     };
 
-    Firepad.prototype.getHtmlFromSelection = function() {
+    Vceditor.prototype.getHtmlFromSelection = function() {
       var startPos = this.codeMirror_.getCursor('start'), endPos = this.codeMirror_.getCursor('end');
       var startIndex = this.codeMirror_.indexFromPos(startPos), endIndex = this.codeMirror_.indexFromPos(endPos);
       return this.getHtmlFromRange(startIndex, endIndex);
     };
 
-    Firepad.prototype.getHtmlFromRange = function(start, end) {
+    Vceditor.prototype.getHtmlFromRange = function(start, end) {
       var doc = (start != null && end != null) ?
           this.getOperationForSpan(start, end) :
           this.getOperationForSpan(0, this.codeMirror_.getValue().length);
-      return vcEditor.SerializeHtml(doc, this.entityManager_);
+      return vceditor.SerializeHtml(doc, this.entityManager_);
     };
 
-    Firepad.prototype.insertHtml = function (index, html) {
-      var lines = vcEditor.ParseHtml(html, this.entityManager_);
+    Vceditor.prototype.insertHtml = function (index, html) {
+      var lines = vceditor.ParseHtml(html, this.entityManager_);
       this.insertText(index, lines);
     };
 
-    Firepad.prototype.insertHtmlAtCursor = function (html) {
+    Vceditor.prototype.insertHtmlAtCursor = function (html) {
       this.insertHtml(this.codeMirror_.indexFromPos(this.codeMirror_.getCursor()), html);
     };
 
-    Firepad.prototype.setHtml = function (html) {
-      var lines = vcEditor.ParseHtml(html, this.entityManager_);
+    Vceditor.prototype.setHtml = function (html) {
+      var lines = vceditor.ParseHtml(html, this.entityManager_);
       this.setText(lines);
     };
 
-    Firepad.prototype.isHistoryEmpty = function() {
+    Vceditor.prototype.isHistoryEmpty = function() {
       this.assertReady_('isHistoryEmpty');
       return this.vcAdapter.isHistoryEmpty();
     };
 
-    Firepad.prototype.bold = function() {
+    Vceditor.prototype.bold = function() {
       this.richTextCodeMirror_.toggleAttribute(ATTR.BOLD);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.italic = function() {
+    Vceditor.prototype.italic = function() {
       this.richTextCodeMirror_.toggleAttribute(ATTR.ITALIC);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.underline = function() {
+    Vceditor.prototype.underline = function() {
       this.richTextCodeMirror_.toggleAttribute(ATTR.UNDERLINE);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.strike = function() {
+    Vceditor.prototype.strike = function() {
       this.richTextCodeMirror_.toggleAttribute(ATTR.STRIKE);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.fontSize = function(size) {
+    Vceditor.prototype.fontSize = function(size) {
       this.richTextCodeMirror_.setAttribute(ATTR.FONT_SIZE, size);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.font = function(font) {
+    Vceditor.prototype.font = function(font) {
       this.richTextCodeMirror_.setAttribute(ATTR.FONT, font);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.color = function(color) {
+    Vceditor.prototype.color = function(color) {
       this.richTextCodeMirror_.setAttribute(ATTR.COLOR, color);
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.highlight = function() {
+    Vceditor.prototype.highlight = function() {
       this.richTextCodeMirror_.toggleAttribute(ATTR.BACKGROUND_COLOR, 'rgba(255,255,0,.65)');
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.align = function(alignment) {
+    Vceditor.prototype.align = function(alignment) {
       if (alignment !== 'left' && alignment !== 'center' && alignment !== 'right') {
         throw new Error('align() must be passed "left", "center", or "right".');
       }
@@ -5806,81 +5382,81 @@
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.orderedList = function() {
+    Vceditor.prototype.orderedList = function() {
       this.richTextCodeMirror_.toggleLineAttribute(ATTR.LIST_TYPE, 'o');
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.unorderedList = function() {
+    Vceditor.prototype.unorderedList = function() {
       this.richTextCodeMirror_.toggleLineAttribute(ATTR.LIST_TYPE, 'u');
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.todo = function() {
+    Vceditor.prototype.todo = function() {
       this.richTextCodeMirror_.toggleTodo();
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.newline = function() {
+    Vceditor.prototype.newline = function() {
       this.richTextCodeMirror_.newline();
     };
 
-    Firepad.prototype.deleteLeft = function() {
+    Vceditor.prototype.deleteLeft = function() {
       this.richTextCodeMirror_.deleteLeft();
     };
 
-    Firepad.prototype.deleteRight = function() {
+    Vceditor.prototype.deleteRight = function() {
       this.richTextCodeMirror_.deleteRight();
     };
 
-    Firepad.prototype.indent = function() {
+    Vceditor.prototype.indent = function() {
       this.richTextCodeMirror_.indent();
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.unindent = function() {
+    Vceditor.prototype.unindent = function() {
       this.richTextCodeMirror_.unindent();
       this.codeMirror_.focus();
     };
 
-    Firepad.prototype.undo = function() {
+    Vceditor.prototype.undo = function() {
       this.codeMirror_.undo();
     };
 
-    Firepad.prototype.redo = function() {
+    Vceditor.prototype.redo = function() {
       this.codeMirror_.redo();
     };
 
-    Firepad.prototype.insertEntity = function(type, info, origin) {
+    Vceditor.prototype.insertEntity = function(type, info, origin) {
       this.richTextCodeMirror_.insertEntityAtCursor(type, info, origin);
     };
 
-    Firepad.prototype.insertEntityAt = function(index, type, info, origin) {
+    Vceditor.prototype.insertEntityAt = function(index, type, info, origin) {
       this.richTextCodeMirror_.insertEntityAt(index, type, info, origin);
     };
 
-    Firepad.prototype.registerEntity = function(type, options) {
+    Vceditor.prototype.registerEntity = function(type, options) {
       this.entityManager_.register(type, options);
     };
 
-    Firepad.prototype.getOption = function(option, def) {
+    Vceditor.prototype.getOption = function(option, def) {
       return (option in this.options_) ? this.options_[option] : def;
     };
 
-    Firepad.prototype.assertReady_ = function(funcName) {
+    Vceditor.prototype.assertReady_ = function(funcName) {
       if (!this.ready_) {
         throw new Error('You must wait for the "ready" event before calling ' + funcName + '.');
       }
       if (this.zombie_) {
-        throw new Error('You can\'t use a Firepad after calling dispose()!');
+        throw new Error('You can\'t use a Vceditor after calling dispose()!');
       }
     };
 
-    Firepad.prototype.makeImageDialog_ = function() {
+    Vceditor.prototype.makeImageDialog_ = function() {
       this.makeDialog_('img', 'Insert image url');
     };
 
-    Firepad.prototype.makeDialog_ = function(id, placeholder) {
+    Vceditor.prototype.makeDialog_ = function(id, placeholder) {
       var self = this;
 
       var hideDialog = function() {
@@ -5898,23 +5474,23 @@
         self.vcEditorWrapper_.removeChild(dialog);
       };
 
-      var input = utils.elt('input', null, { 'class':'vcEditor-dialog-input', 'id':id, 'type':'text', 'placeholder':placeholder, 'autofocus':'autofocus' });
+      var input = utils.elt('input', null, { 'class':'vceditor-dialog-input', 'id':id, 'type':'text', 'placeholder':placeholder, 'autofocus':'autofocus' });
 
-      var submit = utils.elt('a', 'Submit', { 'class': 'vcEditor-btn', 'id':'submitbtn' });
+      var submit = utils.elt('a', 'Submit', { 'class': 'vceditor-btn', 'id':'submitbtn' });
       utils.on(submit, 'click', utils.stopEventAnd(cb));
 
-      var cancel = utils.elt('a', 'Cancel', { 'class': 'vcEditor-btn' });
+      var cancel = utils.elt('a', 'Cancel', { 'class': 'vceditor-btn' });
       utils.on(cancel, 'click', utils.stopEventAnd(hideDialog));
 
-      var buttonsdiv = utils.elt('div', [submit, cancel], { 'class':'vcEditor-btn-group' });
+      var buttonsdiv = utils.elt('div', [submit, cancel], { 'class':'vceditor-btn-group' });
 
-      var div = utils.elt('div', [input, buttonsdiv], { 'class':'vcEditor-dialog-div' });
-      var dialog = utils.elt('div', [div], { 'class': 'vcEditor-dialog', id:'overlay' });
+      var div = utils.elt('div', [input, buttonsdiv], { 'class':'vceditor-dialog-div' });
+      var dialog = utils.elt('div', [div], { 'class': 'vceditor-dialog', id:'overlay' });
 
       this.vcEditorWrapper_.appendChild(dialog);
     };
 
-    Firepad.prototype.addToolbar_ = function() {
+    Vceditor.prototype.addToolbar_ = function() {
       this.toolbar = new RichTextToolbar(this.imageInsertionUI);
 
       this.toolbar.on('undo', this.undo, this);
@@ -5939,21 +5515,21 @@
       this.vcEditorWrapper_.insertBefore(this.toolbar.element(), this.vcEditorWrapper_.firstChild);
     };
 
-    Firepad.prototype.addPoweredByLogo_ = function() {
-      var poweredBy = utils.elt('a', null, { 'class': 'powered-by-vcEditor'} );
-      poweredBy.setAttribute('href', 'http://www.vcEditor.io/');
+    Vceditor.prototype.addPoweredByLogo_ = function() {
+      var poweredBy = utils.elt('a', null, { 'class': 'powered-by-vceditor'} );
+      poweredBy.setAttribute('href', 'http://www.vceditor.io/');
       poweredBy.setAttribute('target', '_blank');
       this.vcEditorWrapper_.appendChild(poweredBy)
     };
 
-    Firepad.prototype.initializeKeyMap_ = function() {
+    Vceditor.prototype.initializeKeyMap_ = function() {
       function binder(fn) {
         return function(cm) {
           // HACK: CodeMirror will often call our key handlers within a cm.operation(), and that
           // can mess us up (we rely on events being triggered synchronously when we make CodeMirror
           // edits).  So to escape any cm.operation(), we do a setTimeout.
           setTimeout(function() {
-            fn.call(cm.vcEditor);
+            fn.call(cm.vceditor);
           }, 0);
         }
       }
@@ -6013,158 +5589,29 @@
 
 
 
-    return Firepad;
+    return Vceditor;
   })(this);
 
 // Export Text classes
-  vcEditor.Firepad.Formatting = vcEditor.Formatting;
-  vcEditor.Firepad.Text = vcEditor.Text;
-  vcEditor.Firepad.Entity = vcEditor.Entity;
-  vcEditor.Firepad.LineFormatting = vcEditor.LineFormatting;
-  vcEditor.Firepad.Line = vcEditor.Line;
-  vcEditor.Firepad.TextOperation = vcEditor.TextOperation;
-  vcEditor.Firepad.Headless = vcEditor.Headless;
+  vceditor.Vceditor.Formatting = vceditor.Formatting;
+  vceditor.Vceditor.Text = vceditor.Text;
+  vceditor.Vceditor.Entity = vceditor.Entity;
+  vceditor.Vceditor.LineFormatting = vceditor.LineFormatting;
+  vceditor.Vceditor.Line = vceditor.Line;
+  vceditor.Vceditor.TextOperation = vceditor.TextOperation;
+  vceditor.Vceditor.Headless = vceditor.Headless;
 
 // Export adapters
-  vcEditor.Firepad.RichTextCodeMirrorAdapter = vcEditor.RichTextCodeMirrorAdapter;
-  vcEditor.Firepad.ACEAdapter = vcEditor.ACEAdapter;
+  vceditor.Vceditor.RichTextCodeMirrorAdapter = vceditor.RichTextCodeMirrorAdapter;
+  vceditor.Vceditor.ACEAdapter = vceditor.ACEAdapter;
 
-  vcEditor.Server = Server;
-
-
-  //this should be seprated
-  //virtualclassAdapter = function () {
-  //  'use strict';
-  //
-  //  //function virtualclassAdapter(revision, doc, operations) {
-  //
-  //  function virtualclassAdapter(editorInfo) {
-  //    if (editorInfo.operations && editorInfo.revision > editorInfo.operations.length) {
-  //      // the operations have been truncated fill in the beginning with empty space
-  //      var filler = [];
-  //      filler[editorInfo.revision - editorInfo.operations.length - 1] = null;
-  //      this.operations = filler.concat(editorInfo.operations);
-  //    } else {
-  //      this.operations = editorInfo.operations ? editorInfo.operations : [];
-  //    }
-  //
-  //    // We pretend to be a server
-  //    var server = new vcEditor.Server(editorInfo.doc, this.operations);
-  //    this.trigger = function (func) {
-  //      this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
-  //    }
-  //
-  //    this.receivedMessage = function (event) {
-  //      //alert('message received');
-  //
-  //      var msg = event.message;
-  //      if (msg.hasOwnProperty('data')) {
-  //        var data = JSON.parse(msg.data);
-  //        if(data !=  null && (data.revision < virtualclass.editor.cmClient.revision)) {
-  //          //TODO handle for the older version which is less than 5
-  //          if((virtualclass.editor.cmClient.revision - data.revision) > 5 ){ //if older version more than 5 revision
-  //              console.log("should not update older revision if neweer version is available");
-  //              return;
-  //          }
-  //        }
-  //      }
-  //
-  //
-  //      var wrapped;
-  //
-  //      //TODO sholld be done by calling dynamic method invoke
-  //      if (msg.eddata == 'virtualclass-editor-operation') {
-  //        //display editor if not
-  //        if(virtualclass.previous != 'Editor'){
-  //          virtualclass.currApp = "Editor"
-  //          virtualclass.dispvirtualclassLayout();
-  //        }
-  //
-  //        wrapped = new vcEditor.WrappedOperation(
-  //            vcEditor.TextOperation.fromJSON(data.operation),
-  //            data.cursor && vcEditor.Cursor.fromJSON(data.cursor)
-  //        );
-  //
-  //        // Might need to try catch here and if it fails wait a little while and
-  //        // try again. This way if we receive operations out of order we might
-  //        // be able to recover
-  //
-  //        var wrappedPrime = server.receiveOperation(data.revision, wrapped);
-  //        if(!wrappedPrime){ // there is some problem on revision of history
-  //          return;
-  //        }
-  //
-  //        //console.log("new operation: " + wrapped);
-  //
-  //        //this.regiseterCb.operation(wrappedPrime.wrapped.toJSON());
-  //        //this.regiseterCb.cursor(wrappedPrime.meta);
-  //
-  //        if (event.fromUser.userid == virtualclass.gObj.uid) {
-  //          this.trigger('ack');
-  //        } else {
-  //          //this.trigger('trigger', data.operation);
-  //          this.trigger('operation', wrappedPrime.wrapped.toJSON());
-  //          this.trigger('cursor', event.fromUser.userid, wrappedPrime.meta);
-  //        }
-  //
-  //      } else if (msg.eddata == 'virtualclass-editor-cursor') {
-  //        //var cursor = JSON.parse(msg.data);
-  //        //this.trigger('cursor', cursor);
-  //
-  //        //var cursor = JSON.parse(msg.data);
-  //        this.trigger('cursor', event.fromUser.userid, data);
-  //
-  //        //this.trigger('cursor', event.from.connectionId, cursor);
-  //      } else if (msg.eddata == 'selection') {
-  //        var selection = JSON.parse(msg.data);
-  //        this.trigger('selection', virtualclass.gObj.uid, selection);
-  //      }
-  //    }
-  //  };
-  //
-  //  virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor) {
-  //
-  //    var sendData = {
-  //      eddata: 'virtualclass-editor-operation',
-  //      data: JSON.stringify({
-  //        revision: revision,
-  //        operation: operation,
-  //        cursor: cursor
-  //      })
-  //    };
-  //    io.send(sendData);
-  //    var that = this;
-  //    console.log("send operation");
-  //  }
-  //
-  //  virtualclassAdapter.prototype.sendSelection = function (selection) {
-  //    //io.send({'selection' : selection});
-  //    io.send({
-  //      eddata: 'selection',
-  //      data: JSON.stringify(selection)
-  //    });
-  //  };
-  //
-  //  virtualclassAdapter.prototype.sendCursor = function (cursor) {
-  //    //console.log("Send Cursor");
-  //    io.send({
-  //      eddata: 'virtualclass-editor-cursor',
-  //      data: JSON.stringify(cursor)
-  //    });
-  //  };
-  //
-  //  virtualclassAdapter.prototype.registerCallbacks = function (cb) {
-  //    this.callbacks = cb;
-  //  };
-  //
-  //  return virtualclassAdapter;
-  //}();
+  vceditor.Server = Server;
 
 
-  vcEditor.Firepad.getvcEditor = function (){
-    return vcEditor;
+  vceditor.Vceditor.getvcEditor = function (){
+    return vceditor;
   }
 
-  return vcEditor.Firepad; }, this);
+  return vceditor.Vceditor; }, this);
 
 

@@ -527,8 +527,21 @@
                 prvScreen.style.display = 'none';
                 document.getElementById(virtualclass[app].id).style.display = 'block';
             }
-        }
+        },
 
+        /**
+         * Return the value of provided key of particular user from prvovided user list
+         * @param users user list
+         * @param key kew of which return value
+         * @param userId the user
+         */
+        getUserInfo : function (key, userId, users){
+            for(var i=0; i<users.length; i++){
+                if(users[i].userid == userId){
+                    return users[i][key];
+                }
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

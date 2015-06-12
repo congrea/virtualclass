@@ -2087,7 +2087,7 @@
         };
 
         OtherClient.prototype.updateCursor = function (cursor) {
-            this.color = "#df2029";
+            this.color = "#199305";
             this.removeCursor();
             this.cursor = cursor;
             this.mark = this.editorAdapter.setOtherCursor(
@@ -4226,7 +4226,6 @@
             var position = cm.indexFromPos(cursorPos);
             var selectionEnd;
             if (cm.somethingSelected()) {
-
                 var startPos = cm.getCursor(true);
                 var selectionEndPos = posEq(cursorPos, startPos) ? cm.getCursor(false) : startPos;
                 selectionEnd = cm.indexFromPos(selectionEndPos);
@@ -4275,16 +4274,30 @@
             }
 
             if (cursor.position === cursor.selectionEnd) {
-                // show cursor
-                var cursorCoords = this.cm.cursorCoords(cursorPos);
                 var cursorEl = document.createElement('span');
-                cursorEl.className = 'other-client';
-                cursorEl.style.borderLeftWidth = '2px';
-                cursorEl.style.borderLeftStyle = 'solid';
-                cursorEl.style.borderLeftColor = color;
-                cursorEl.style.marginLeft = cursorEl.style.marginRight = '-1px';
-                cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
+
+                //changed by suman
+                //don't need to create cursor at our end
+                if(clientId != virtualclass.gObj.uid){
+                    var cursorCoords = this.cm.cursorCoords(cursorPos);
+                    console.log('Coords ' + cursorCoords);
+                    cursorEl.className = 'other-client';
+                    cursorEl.style.borderLeftWidth = '3px';
+                    cursorEl.style.borderLeftStyle = 'solid';
+                    cursorEl.style.borderLeftColor = color;
+                    cursorEl.style.marginLeft = cursorEl.style.marginRight = '-3px';
+                    cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
+                    cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name'  , clientId, virtualclass.connectedUsers)); //display user name with cursor
+                    cursorEl.style.position = 'relative'
+                }
+
+                // show cursor
                 cursorEl.setAttribute('data-clientid', clientId);
+
+              //  cursorEl.setAttribute('data-clientname', virutalclass.connectedUsers[clientId]);
+              //  cursorEl.setAttribute('data-clientname', "suman");
+
+
                 cursorEl.style.zIndex = 0;
 
                 return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});

@@ -4273,51 +4273,52 @@
                 return;
             }
 
-            if (cursor.position === cursor.selectionEnd) {
-                var cursorEl = document.createElement('span');
+            //changed by SUMAN
 
-                //changed by suman
-                //don't need to create cursor at our end
-                if(clientId != virtualclass.gObj.uid){
-                    var cursorCoords = this.cm.cursorCoords(cursorPos);
-                    console.log('Coords ' + cursorCoords);
-                    cursorEl.className = 'other-client';
-                    cursorEl.style.borderLeftWidth = '3px';
-                    cursorEl.style.borderLeftStyle = 'solid';
-                    cursorEl.style.borderLeftColor = color;
-                    cursorEl.style.marginLeft = cursorEl.style.marginRight = '-3px';
-                    cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
-                    cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name'  , clientId, virtualclass.connectedUsers)); //display user name with cursor
-                    cursorEl.style.position = 'relative'
-                }
+            var cursorCoords = this.cm.cursorCoords(cursorPos);
 
-                // show cursor
-                cursorEl.setAttribute('data-clientid', clientId);
+            var cursorEl = document.createElement('span');
+            console.log('Coords ' + cursorCoords);
+            cursorEl.className = 'other-client';
+            cursorEl.id = "cursorId" + clientId;
+            cursorEl.style.borderLeftWidth = '3px';
+            cursorEl.style.borderLeftStyle = 'solid';
+            cursorEl.style.borderLeftColor = color;
+            cursorEl.style.marginLeft = cursorEl.style.marginRight = '-3px';
+            cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
+            cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name'  , clientId, virtualclass.connectedUsers)); //display user name with cursor
+            cursorEl.setAttribute('data-clientid', clientId);
+            cursorEl.style.position = 'relative'
 
-              //  cursorEl.setAttribute('data-clientname', virutalclass.connectedUsers[clientId]);
-              //  cursorEl.setAttribute('data-clientname', "suman");
-
-
-                cursorEl.style.zIndex = 0;
-
-                return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
-            } else {
-                // show selection
-                var selectionClassName = 'selection-' + color.replace('#', '');
-                var rule = '.' + selectionClassName + ' { background: ' + color + '; }';
-                this.addStyleRule(rule);
-
-                var fromPos, toPos;
-                if (cursor.selectionEnd > cursor.position) {
-                    fromPos = cursorPos;
-                    toPos = this.cm.posFromIndex(cursor.selectionEnd);
+            if(clientId != virtualclass.gObj.uid){
+                if (cursor.position === cursor.selectionEnd) {
+                    cursorEl.style.zIndex = 0;
+                    return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
                 } else {
-                    fromPos = this.cm.posFromIndex(cursor.selectionEnd);
-                    toPos = cursorPos;
+                    var cursorTag = document.getElementById('cursorId' + clientId);
+                    if(cursorTag != null){
+                        cursorTag.parentNode.removeChild(cursorTag);
+                    }
+
+                    this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
+
+                    // show selection
+                    var selectionClassName = 'selection-' + color.replace('#', '');
+                    var rule = '.' + selectionClassName + ' { background: ' + color + '; }';
+                    this.addStyleRule(rule);
+
+                    var fromPos, toPos;
+                    if (cursor.selectionEnd > cursor.position) {
+                        fromPos = cursorPos;
+                        toPos = this.cm.posFromIndex(cursor.selectionEnd);
+                    } else {
+                        fromPos = this.cm.posFromIndex(cursor.selectionEnd);
+                        toPos = cursorPos;
+                    }
+                    return this.cm.markText(fromPos, toPos, {
+                        className: selectionClassName
+                    });
                 }
-                return this.cm.markText(fromPos, toPos, {
-                    className: selectionClassName
-                });
             }
         };
 

@@ -2087,7 +2087,7 @@
         };
 
         OtherClient.prototype.updateCursor = function (cursor) {
-            this.color = "#199305";
+            this.color = "#86BA7D";
             this.removeCursor();
             this.cursor = cursor;
             this.mark = this.editorAdapter.setOtherCursor(
@@ -4288,19 +4288,20 @@
             cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
             cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name'  , clientId, virtualclass.connectedUsers)); //display user name with cursor
             cursorEl.setAttribute('data-clientid', clientId);
-            cursorEl.style.position = 'relative'
+            cursorEl.style.position = 'relative';
+
+            var cursorTag = document.getElementById('cursorId' + clientId);
+            if(cursorTag != null){
+                cursorTag.parentNode.removeChild(cursorTag);
+            }
 
             if(clientId != virtualclass.gObj.uid){
                 if (cursor.position === cursor.selectionEnd) {
                     cursorEl.style.zIndex = 0;
                     return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
                 } else {
-                    var cursorTag = document.getElementById('cursorId' + clientId);
-                    if(cursorTag != null){
-                        cursorTag.parentNode.removeChild(cursorTag);
-                    }
 
-                    this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
+                 this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
 
                     // show selection
                     var selectionClassName = 'selection-' + color.replace('#', '');

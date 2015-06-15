@@ -2190,7 +2190,7 @@ opacity : 0.800000011920928955078125 !important;
 
 .other-client:before {
 	content: attr(data-clientname);
-	background: #199305;
+	background : #137C01;
 	padding: 2px;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -2200,3 +2200,7 @@ opacity : 0.800000011920928955078125 !important;
 	color : #ffffff;
 }
 
+
+div.CodeMirror-cursors{
+	visibility : visible !important;
+}

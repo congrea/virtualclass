@@ -47,53 +47,72 @@
                 return controlCont;
             },
 
-            createAssignControl: function (controlCont, userId, aRoleEnable, currTeacher) {
-                var that = this;
-                var assignImg = document.createElement('span');
-                var imgName = "contrAssign";
-                assignImg.id = userId + imgName + "Img";
+            createControllerElement : function (userId, imgName) {
+                var elemBlock = document.createElement('span');
+                elemBlock.id = userId + imgName + "Img";
 
-                //  assignImg.src = window.whiteboardPath + "images/" + imgName + ".png";
-//                    assignImg.innerHTML = "&nbsp;";
+                var elemAnch = document.createElement('a');
+                elemAnch.id = userId + imgName + "Anch";
+                elemAnch.className = "tooltip";
+                elemAnch.appendChild(elemBlock);
 
-                var assignAnch = document.createElement('a');
-                assignAnch.id = userId + imgName + "Anch";
-                assignAnch.className = "tooltip";
-                // assignAnch.setAttribute('data-title', "Assign Role");
-                assignAnch.appendChild(assignImg);
                 var imgCont = document.createElement('div');
                 imgCont.id = userId + imgName + "Cont";
                 imgCont.className = "controleCont";
-                imgCont.appendChild(assignAnch);
+                imgCont.appendChild(elemAnch);
+
+                return [imgCont, elemBlock];
+            },
+
+            createAssignControl: function (controlCont, userId, aRoleEnable, currTeacher) {
+                var that = this;
+
+                //var assignImg = document.createElement('span');
+                //var imgName = "contrAssign";
+                //assignImg.id = userId + imgName + "Img";
+                //
+                //var assignAnch = document.createElement('a');
+                //assignAnch.id = userId + imgName + "Anch";
+                //assignAnch.className = "tooltip";
+                //// assignAnch.setAttribute('data-title', "Assign Role");
+                //assignAnch.appendChild(assignImg);
+                //var imgCont = document.createElement('div');
+                //imgCont.id = userId + imgName + "Cont";
+                //imgCont.className = "controleCont";
+                //imgCont.appendChild(assignAnch);
+
+                //TODO var [a, , b] = [1,2,3]; this would be available in ecmascript 6, will have to convert
+                var elems = this.createControllerElement(userId, "contrAssign");
+                var controller = elems[0];
+                var assignBlock = elems[1];
 
                 var controllerDiv = document.getElementById(userId + 'ControlContainer');
 
                 if (controllerDiv != null) {
                     var controllers = controllerDiv.getElementsByClassName('controleCont');
                     if (controllers.length <= 0) {
-                        controllerDiv.appendChild(imgCont);
+                        controllerDiv.appendChild(controller);
                     } else {
-                        controllerDiv.insertBefore(imgCont, controllerDiv.firstChild);
+                        controllerDiv.insertBefore(controller, controllerDiv.firstChild);
                     }
                 } else {
-                    controlCont.appendChild(imgCont);
+                    controlCont.appendChild(controller);
                 }
 
-//                    alert(userId);
-//                    debugger;
-                //assignImg.className = 'contrAssign';
-                virtualclass.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
+                virtualclass.user.control.changeAttribute(userId, assignBlock, aRoleEnable, 'assign', 'aRole');
 
                 if (typeof currTeacher != 'undefined') {
-                    assignImg.className = assignImg.className + ' currTeacher';
+                    assignBlock.className = assignBlock.className + ' currTeacher';
                 }
-                assignImg.addEventListener('click', function () {
-                    that.control.init.call(that, assignImg);
+                assignBlock.addEventListener('click', function () {
+                    that.control.init.call(that, assignBlock);
                 });
 
             },
 
+
             // TODO this function should be normalize with other
+            // should be converted into smaller funciton rather than single
             createControlDivs: function (controlCont, userId, controls) {
                 var that = this;
                 //var userObj = localStorage.getItem(userId);
@@ -133,69 +152,33 @@
                             this.createAssignControl(controlCont, userId, aRoleEnable);
                         }
 
-
-//                            var assignImg = document.createElement('img');
-//                            var assignImg = document.createElement('span'); 
-//                            var imgName = "contrAssign";
-//                            assignImg.id = userId + imgName + "Img";
-//                          //  assignImg.src = window.whiteboardPath + "images/" + imgName + ".png";
-//                            assignImg.innerHTML = "&nbsp;";
-//                            
-//                            var assignAnch = document.createElement('a');
-//                            assignAnch.id = userId + imgName + "Anch";
-//                            assignAnch.className = "tooltip";
-//                           // assignAnch.setAttribute('data-title', "Assign Role");
-//                            assignAnch.appendChild(assignImg);
-//                            var imgCont = document.createElement('div');
-//                            imgCont.id = userId + imgName + "Cont";
-//                            imgCont.className = "controleCont";
-//                            imgCont.appendChild(assignAnch);
-//                            
-//                            var controllerDiv = document.getElementById(userId+'ControlContainer');
-//                            
-//                            if(controllerDiv != null){
-//                                var controllers = controllerDiv.getElementsByClassName('controleCont');
-//                                    
-//                                if(controllers.length <= 0){
-//                                    controllerDiv.appendChild(imgCont);
-//                                }else{
-//                                    controllerDiv.insertBefore(imgCont, controllerDiv.firstChild);
-//                                }
-//                            }else{
-//                                controlCont.appendChild(imgCont);
-//                            }
-
-
-                        //assignImg.className = 'contrAssign';
-//                            virtualclass.user.control.changeAttribute(userId, assignImg, aRoleEnable, 'assign', 'aRole');
-//                            
-////                            if(orginalTeacher){
-//                                assignImg.addEventListener('click', function (){ that.control.init.call(that, assignImg);});
-//                            }
-
-
                     } else if (controls[i] == 'audio') {
-                        var audBlock = document.createElement('span');
-//                            var audBlock = document.createElement('img');
-                        imgName = "contrAud";
-                        audBlock.id = userId + imgName + "Img";
-//                            audBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
-//                            audBlock.innerHTML = "&nbsp;";
-                        var audAnch = document.createElement('a');
-                        audAnch.id = userId + imgName + "Anch";
-                        audAnch.className = "tooltip";
-                        audAnch.appendChild(audBlock);
-                        var imgCont = document.createElement('div');
-                        imgCont.id = userId + imgName + "Cont";
-                        imgCont.className = "controleCont";
-                        imgCont.appendChild(audAnch);
-                        controlCont.appendChild(imgCont);
+
+                        //var audBlock = document.createElement('span');
+                        //imgName = "contrAud";
+                        //audBlock.id = userId + imgName + "Img";
+                        //
+                        //var audAnch = document.createElement('a');
+                        //audAnch.id = userId + imgName + "Anch";
+                        //audAnch.className = "tooltip";
+                        //audAnch.appendChild(audBlock);
+                        //var imgCont = document.createElement('div');
+                        //imgCont.id = userId + imgName + "Cont";
+                        //imgCont.className = "controleCont";
+                        //imgCont.appendChild(audAnch);
+
+
+                        var elems = this.createControllerElement(userId, "contrAud");
+                        var controller = elems[0];
+                        var audBlock = elems[1];
+                        controlCont.appendChild(controller);
 
                         if (uObj && userObj.hasOwnProperty('aud')) {
                             var audEnable = (userObj.aud) ? true : false;
                         } else {
                             var audEnable = true;
                         }
+
                         virtualclass.user.control.changeAttribute(userId, audBlock, audEnable, 'audio', 'aud');
 
                         if (orginalTeacher) {
@@ -205,23 +188,26 @@
                         }
 
                     } else if (controls[i] == 'chat') {
-//                            var chatBlock = document.createElement('img');
-                        var chatBlock = document.createElement('span');
-                        imgName = "contrChat";
-                        chatBlock.id = userId + imgName + "Img";
-//                            chatBlock.innerHTML = "&nbsp;";
-//                            chatBlock.src = window.whiteboardPath + "images/" + imgName + ".png";
-//                            chatBlock.innerHTML = "S";
-                        var chatAnch = document.createElement('a');
-                        chatAnch.id = userId + imgName + "Anch";
-                        chatAnch.className = "tooltip";
-                        //     chatAnch.setAttribute('data-title', "Block Chat");
-                        chatAnch.appendChild(chatBlock);
-                        var imgCont = document.createElement('div');
-                        imgCont.id = userId + imgName + "Cont";
-                        imgCont.className = "controleCont";
-                        imgCont.appendChild(chatAnch);
-                        controlCont.appendChild(imgCont);
+
+                        //var chatBlock = document.createElement('span');
+                        //imgName = "contrChat";
+                        //chatBlock.id = userId + imgName + "Img";
+                        //var chatAnch = document.createElement('a');
+                        //chatAnch.id = userId + imgName + "Anch";
+                        //chatAnch.className = "tooltip";
+                        ////     chatAnch.setAttribute('data-title', "Block Chat");
+                        //chatAnch.appendChild(chatBlock);
+                        //var imgCont = document.createElement('div');
+                        //imgCont.id = userId + imgName + "Cont";
+                        //imgCont.className = "controleCont";
+                        // imgCont.appendChild(chatAnch);
+
+                        var elems = this.createControllerElement(userId, "contrChat");
+
+                        var controller = elems[0];
+                        var chatBlock = elems[1];
+
+                        controlCont.appendChild(controller);
 
                         if (orginalTeacher) {
                             chatBlock.addEventListener('click', function () {
@@ -234,14 +220,57 @@
                         } else {
                             var chEnable = true;
                         }
-
                         virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
+
+                    } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')){
+
+
+                        var elems = this.createControllerElement(userId,  'contr' + controls[i]);
+                        var controller = elems[0];
+                        var editorBlock = elems[1];
+                        var editorBlockEnable = true;
+                        controlCont.appendChild(controller);
+
+                        virtualclass.user.control.changeAttribute(userId, editorBlock, editorBlockEnable, controls[i], controls[i]);
+
+                        if (orginalTeacher) {
+                            editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
+                        }
                     }
                 }
             },
-            control: {
-                addCurrTeacherToControl: function (id) {
 
+            closureEditor : function (that, editorBlock){
+                return function(){
+                    //alert('you clicked' + i);
+                    that.control.init.call(that, editorBlock);
+                }
+            },
+
+            control: {
+                received_editorRich : function (msg){
+                    if(msg.status){
+                        virtualclass.editorRich.cm.setOption('readOnly', false);
+                    } else {
+                        virtualclass.editorRich.cm.setOption('readOnly', true);
+                    }
+                },
+
+                received_editorCode : function (msg){
+                    if(msg.status){
+                        virtualclass.editorCode.cm.setOption('readOnly', false);
+                    } else {
+                        virtualclass.editorCode.cm.setOption('readOnly', true);
+                    }
+                },
+
+                onmessage : function (e){
+                   if(virtualclass.gObj.uid == e.message.toUser){
+                       this['received_' + e.message.control](e.message);
+                   }
+                },
+
+                addCurrTeacherToControl: function (id) {
                     var elem = document.getElementById(id);
                     if (elem != null) {
                         if (virtualclass.vutil.elemHasAnyClass(id)) {
@@ -253,7 +282,6 @@
                 },
 
                 removeCurrTeacherFromControl: function (id) {
-
                     var elem = document.getElementById(id);
                     if (virtualclass.vutil.elemHasAnyClass(id)) {
                         elem.classList.remove('currTeacher');
@@ -275,25 +303,10 @@
                     virtualclass.user.control._disable(elem, control, toUser, label);
                 },
 
+
                 _disable: function (elem, control, userId, label) {
-//                        if(control == 'assign'){
-//                           elem.parentNode.classList.remove('tooltip');
-//                           this.addCurrTeacherToControl(elem.id);
-//                            //alert(userId + ' ' +elem.id);
-//                        }
-
-//                        alert('suman bogati');
-//                        debugger;
-
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
-
-                    if (control == 'audio') {
-//                            elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
-                        elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
-                    } else {
-                        elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
-                    }
 
                     if (control == 'assign') {
                         elem.parentNode.classList.remove('tooltip');
@@ -301,10 +314,6 @@
                         var userObj = localStorage.getItem('virtualclass' + userId);
                         userObj = JSON.parse(userObj);
 
-
-//                            if(!virtualclass.user.control.hasOwnProperty('currTeacherAlready') ){
-//                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
-//                            }
                         if (virtualclass.gObj.hasOwnProperty(userId + 'currTeacher')) {
                             if (virtualclass.gObj[userId + 'currTeacher'].ct || (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
                                 virtualclass.user.control.updateUser(userId, 'currTeacher', true);
@@ -314,23 +323,45 @@
                             if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
                                 virtualclass.user.control.updateUser(userId, 'currTeacher', true);
                             }
-
                         }
-
-
-//                            if(!userObj.hasOwnProperty('currTeacher')){
-//                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
-//                            }else {
-//                                if(userObj.currTeacher){
-//                                    virtualclass.user.control.updateUser(userId, 'currTeacher', true);
-//                                }
-//                            }
-
-                        //alert(userId + ' ' +elem.id);
+                    } else if (control == 'audio') {
+                        elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
+                    } else {
+                        elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     }
 
                     virtualclass.user.control.updateUser(userId, label, false);
+                },
 
+                _disable_old: function (elem, control, userId, label) {
+                    elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
+                    elem.setAttribute('data-' + control + '-disable', 'true');
+
+                    if (control == 'audio') {
+                        elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
+                    } else {
+
+                        elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
+                    }
+
+                    if (control == 'assign') {
+                        elem.parentNode.classList.remove('tooltip');
+                        this.addCurrTeacherToControl(elem.id);
+                        var userObj = localStorage.getItem('virtualclass' + userId);
+                        userObj = JSON.parse(userObj);
+
+                        if (virtualclass.gObj.hasOwnProperty(userId + 'currTeacher')) {
+                            if (virtualclass.gObj[userId + 'currTeacher'].ct || (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
+                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
+                            }
+                        } else {
+
+                            if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
+                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
+                            }
+                        }
+                    }
+                    virtualclass.user.control.updateUser(userId, label, false);
                 },
 
                 enable: function (toUser, control, contIdPart, label) {
@@ -350,35 +381,13 @@
                 },
 
                 changeAttribute: function (userId, elem, elemEnable, control, label) {
-//                        alert(control + ' ' + label)
                     if (elemEnable) {
                         virtualclass.user.control._enable(elem, control, userId, label);
-
-//                            elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
-//                            elem.setAttribute('data-' + control + '-disable', "false");
-//                            elem.className = "icon-"+control + "Img enable" + ' '+ control + 'Img';
-//                            virtualclass.user.control.updateUser(userId, label, true);
-
                     } else {
-//                            alert(elem.id + ' ' + label);
                         virtualclass.user.control._disable(elem, control, userId, label);
-
-
-//                            if(control == 'assign'){
-//                                elem.parentNode.classList.remove('tooltip');
-//                            }
-//                            
-//                            elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
-//                            elem.setAttribute('data-' + control + '-disable', 'true');
-//                            
-//                            if(control == 'audio'){
-//                                elem.className =  "icon-"+control + "DisImg block" + ' '+ control + 'DisImg' ;
-//                            }else{ 
-//                                elem.className =  "icon-"+control + "Img block"+ ' '+ control + 'Img';
-//                            }
-//                            virtualclass.user.control.updateUser(userId, label, false);
                     }
                 },
+
                 init: function (tag) {
                     var compId = tag.id;
                     var ep = compId.indexOf("contr");
@@ -386,6 +395,56 @@
                     var restString = compId.split('contr')[1];
                     var imgPos = restString.indexOf("Img");
                     var control = restString.substring(0, imgPos);
+                    //TODO this function should be generalise
+                    if (control == 'Assign') {
+                        virtualclass.gObj.controlAssign = true;
+                        virtualclass.gObj.controlAssignId = userId;
+                        var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
+                        if (!assignDisable) {
+                            this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
+                            virtualclass.user.control._assign(userId);
+                            virtualclass.user.control.changeAttrToAssign('block');
+                        }
+
+                        if (localStorage.getItem('orginalTeacherId') == null) {
+                            virtualclass.user.control.removeAudioFromParticipate(userId);
+                        }
+                    } else {
+                        var action, ctrType, boolVal;
+                        //TODO this should be generalise
+                        if(control == 'Chat'){
+                            tag.className = 'contrChatBlock';
+                            ctrType = 'chat'
+                        }else if(control == 'Aud'){
+                            ctrType = 'audio';
+                        }else {
+                            ctrType = control;
+                        }
+
+                        if (tag.getAttribute('data-'+ctrType+'-disable') == 'true') {
+                            action = 'enable';
+                            boolVal = true;
+
+                        } else {
+                            action = 'block';
+                            boolVal = false;
+
+                        }
+
+                        this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
+                        this.control['_'+ctrType].call(this.control, userId, action);
+
+                    }
+                },
+
+                init_old: function (tag) {
+                    var compId = tag.id;
+                    var ep = compId.indexOf("contr");
+                    var userId = compId.substring(0, ep);
+                    var restString = compId.split('contr')[1];
+                    var imgPos = restString.indexOf("Img");
+                    var control = restString.substring(0, imgPos);
+                    //TODO this function should be generalise
                     if (control == 'Assign') {
                         virtualclass.gObj.controlAssign = true;
                         virtualclass.gObj.controlAssignId = userId;
@@ -424,7 +483,6 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
-
                     virtualclass.wb.utility.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
@@ -438,11 +496,6 @@
                         virtualclass.vutil.videoTeacher2Student('ScreenShare', true);
                     }
 
-//                        var wssVideo = document.getElementById('virtualclassWholeScreenShareLocalVideo');
-//                        if(wssVideo != null && wssVideo.tagName == "VIDEO"){
-//                            virtualclass.vutil.videoTeacher2Student('WholeScreenShare', true);
-//                        }
-
                     var app;
                     if (virtualclass.currApp == "ScreenShare") {
                         app = 'ss';
@@ -453,15 +506,6 @@
                         virtualclass[app] = "";
 
                     }
-//                        else if(virtualclass.currApp == "WholeScreenShare"){
-//                            app = 'wss';
-//                        }
-//                        if(virtualclass.currApp != "Whiteboard"){
-//                            if(virtualclass[app].hasOwnProperty('currentStream')){
-//                                virtualclass[app].currentStream.stop();
-//                            }
-//                            virtualclass[app] = "";
-//                        }
 
                     if (typeof notsent == 'undefined') {
                         virtualclass.wb.utility.beforeSend({'assignRole': true, toUser: userId});
@@ -491,6 +535,35 @@
                         virtualclass.wb.utility.beforeSend({'dia': true, toUser: userId});
                     }
                 },
+
+
+                _editorRich: function (userId, action) {
+                    if (action == 'enable') {
+                        virtualclass.wb.utility.beforeSend({'status': true, control:'editorRich', toUser: userId});
+                    } else {
+                        virtualclass.wb.utility.beforeSend({'status': false, control:'editorRich', toUser: userId});
+                    }
+                },
+
+
+                _editorCode: function (userId, action) {
+                    if (action == 'enable') {
+                        virtualclass.wb.utility.beforeSend({'status': true, control:'editorCode', toUser: userId});
+                    } else {
+                        virtualclass.wb.utility.beforeSend({'status': false, control:'editorCode', toUser: userId});
+                    }
+                },
+
+
+                _audio: function (userId, action) {
+                    if (action == 'enable') {
+                        virtualclass.wb.utility.beforeSend({'ena': true, toUser: userId});
+                    } else {
+                        virtualclass.wb.utility.beforeSend({'dia': true, toUser: userId});
+                    }
+                },
+
+
                 audioWidgetEnable: function () {
                     localStorage.setItem('audEnable', "true");
                     var studentSpeaker = document.getElementById('audioWidget');
@@ -510,8 +583,6 @@
                         virtualclass.gObj.video.audio.studentNotSpeak(alwaysPressElem);
                         virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
-
-
                 },
                 allChatDisable: function () {
                     localStorage.setItem('chatEnable', "false");
@@ -538,8 +609,6 @@
                     }
                 },
                 makeElemDisable: function (elem) {
-
-//                        if(elem.hasOwnProperty('classList')){
                     if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                         elem.classList.remove('enable');
                         elem.classList.add('disable');
@@ -624,31 +693,13 @@
 
                 audioSign: function (user, action) {
                     if (action == 'create') {
-//                            alert('hello brother');
-//                            debugger;
-//                            123contrAudImg
-                        // this.changeAttrToAssign();
                         this.iconAttrManupulate(user.id, "icon-audioEnaGreen");
-
-
-//                                for(var i=0; i<audioImg.classList.length; i++){
-//                                    if(audioImg.classList[i].substring(0, 5) ==  'icon-'){
-//                                       audioImg.classList.remove(audioImg.classList[i]);
-//                                       audioImg.classList.add("icon-audioEnaGreen") ;
-//                                       break;  
-//                                    }
-//                                }
-
                     } else {
                         if (user.aud) {
                             this.iconAttrManupulate(user.id, "icon-audioImg");
                         } else {
                             this.iconAttrManupulate(user.id, "icon-audioDisImg");
                         }
-
-
-//                            var audioEnableTag = document.getElementById(user.id + "AudEnableSign");
-//                            audioEnableTag.parentNode.removeChild(audioEnableTag);
                     }
                 },
 

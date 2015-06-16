@@ -2204,3 +2204,12 @@ opacity : 0.800000011920928955078125 !important;
 div.CodeMirror-cursors{
 	visibility : visible !important;
 }
+
+
+.icon-editorRichImg:before {
+	content : 'er'
+}
+
+.icon-editorCodeImg:before {
+	content : 'ec'
+}

@@ -63,6 +63,13 @@
         'chatDisable': "Chat Disabled",
         'assignEnable': "Transfer Controls",
         'assignDisable': "Reclaim Role",
+
+        'editorRichDisable': "Disable Editor Rich",
+        'editorRichEnable': "Enable Editor Rich",
+
+        'editorCodeDisable': "Disable Editor Code",
+        'editorCodeEnable': "Enable Editor Code",
+
         'audioEnable': "Audio Enabled",
         'audioDisable': "Audio Disabled",
         'audioOn': "Audio on",

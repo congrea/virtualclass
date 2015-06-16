@@ -275,6 +275,21 @@ $(document).ready(function () {
      * @type {receiveFunctions}
      */
     var receiveFunctions = new function () {
+         this.control = function (e){
+             virtualclass.user.control.onmessage(e);
+         }
+
+         this.eddata = function (e){
+            //virtualclass.editorRich.onmessage(e.message);
+            if(e.message.hasOwnProperty('et')){
+                if(e.message.et == 'editorRich'){
+                    virtualclass.editorRich.onmessage(e, 'EditorRich');
+                }else {
+                    virtualclass.editorCode.onmessage(e, 'EditorCode');
+                }
+            }
+         }
+
         this.eddata = function (e){
 
             //virtualclass.editorRich.onmessage(e.message);

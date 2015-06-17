@@ -543,10 +543,13 @@
             }
         },
 
-         smallizeFirstLetter : function (string) {
+        smallizeFirstLetter : function (string) {
              return string.charAt(0).toLowerCase() + string.slice(1);
-         }
+        },
 
+        capitalizeFirstLetter : function (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
     };
     window.vutil = vutil;
 })(window);

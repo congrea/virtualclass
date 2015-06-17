@@ -114,7 +114,8 @@
                 virtualclass.pbar = progressBar;
 
                 //editor which is rich text editor which has various options
-                virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorBody');
+
+                virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorRichBody');
 
                 //simple code editor with markdown
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');

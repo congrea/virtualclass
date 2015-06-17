@@ -2213,3 +2213,23 @@ div.CodeMirror-cursors{
 .icon-editorCodeImg:before {
 	content : 'ec'
 }
+
+.block.editorRichImg {
+	opacity : 0.5;
+}
+
+.block.editorCodeImg {
+	opacity : 0.5;
+}
+
+#alleditorRichContainer, #alleditorCodeContainer {
+	position: relative;
+	bottom: 97%;
+	left: 48%;
+	z-index : 5500;
+}
+
+#virtualclassEditorRichBody {
+	height : 100%;
+}
+

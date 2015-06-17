@@ -388,12 +388,20 @@
                     }
                 },
 
-                init: function (tag) {
+                init: function (tag, defaultAction, searchBy) {
+
+                    if(typeof searchBy != 'undefined'){
+                        searchBy = searchBy;
+                    } else {
+                        searchBy = "Img";
+                    }
+
                     var compId = tag.id;
                     var ep = compId.indexOf("contr");
                     var userId = compId.substring(0, ep);
                     var restString = compId.split('contr')[1];
-                    var imgPos = restString.indexOf("Img");
+                    var imgPos = restString.indexOf(searchBy);
+
                     var control = restString.substring(0, imgPos);
                     //TODO this function should be generalise
                     if (control == 'Assign') {
@@ -421,14 +429,21 @@
                             ctrType = control;
                         }
 
-                        if (tag.getAttribute('data-'+ctrType+'-disable') == 'true') {
-                            action = 'enable';
-                            boolVal = true;
+                        if(typeof defaultAction != 'undefined'){
+                            boolVal = (defaultAction == 'enable') ? true : false;
+
+                            action = (boolVal) ? 'enable' : 'block';
 
                         } else {
-                            action = 'block';
-                            boolVal = false;
+                            if (tag.getAttribute('data-'+ctrType+'-disable') == 'true') {
+                                action = 'enable';
+                                boolVal = true;
 
+                            } else {
+                                action = 'block';
+                                boolVal = false;
+
+                            }
                         }
 
                         this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
@@ -584,6 +599,7 @@
                         virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
                 },
+
                 allChatDisable: function () {
                     localStorage.setItem('chatEnable', "false");
                     this.disableCommonChat();
@@ -650,6 +666,28 @@
                         inputBox.disabled = false;
                     }
                 },
+
+                /**
+                 * Is use for either diable/enable provided  editor for all user
+                 * @param edType
+                 */
+                toggleAllEditorController : function (edType, action){
+                    edType = virtualclass.vutil.smallizeFirstLetter(edType);
+                    var allUsersDom = document.getElementsByClassName('controleCont');
+                    if(allUsersDom.length > 0){
+                        for(var i=0; i<allUsersDom.length; i++){
+                            if(allUsersDom[i].id.indexOf(edType) > 0){
+                                var idPartPos = allUsersDom[i].id.indexOf('Cont');
+                                if(idPartPos > 0){
+                                    var idPart = allUsersDom[i].id.substr(0, idPartPos);
+                                    var elem = document.getElementById(idPart+'Img');
+                                    this.control.init.call(this, elem, action);
+                                }
+                            }
+                        }
+                    }
+                },
+
                 updateUser: function (uid, key, val) {
                     //var userId =  localStorage.getItem(uid);
                     var userId = localStorage.getItem('virtualclass' + uid);
@@ -687,7 +725,6 @@
                         var audioEnableTag = document.getElementById(user.id + "AudEnableSign");
                         audioEnableTag.parentNode.removeChild(audioEnableTag);
                     }
-
 
                 },
 

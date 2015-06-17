@@ -88,9 +88,67 @@
                         virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                     }
 
+                    this.createAllEditorController();
                     if(virtualclass.gObj.uRole == 't'){
                         io.send({eddata : 'init', et: this.etype});
                     }
+
+                },
+
+                createAllEditorController : function (){
+                    var editorType = this.etype;
+                    var containerId = 'all' + editorType + 'Container';
+                    if(document.getElementById(containerId) ==  null){
+                        var actionToPerform = 'enable';
+                        var editorControllerCont = document.createElement('div');
+                        editorControllerCont.id  = containerId;
+                        editorControllerCont.class = 'editorController';
+
+                        var editorControllerAnch = document.createElement('a');
+                        editorControllerAnch.id  = editorControllerCont.id + "Anch";
+                        editorControllerAnch.href = "#";
+                        editorControllerAnch.innerHTML = "Enable All";
+                        editorControllerAnch.dataset.action = actionToPerform;
+                        editorControllerCont.appendChild(editorControllerAnch);
+
+                        editorType = virtualclass.vutil.capitalizeFirstLetter(editorType);
+                        document.getElementById('virtualclass' + editorType + 'Body').appendChild(editorControllerCont);
+
+                        editorControllerAnch.addEventListener('click', function (){
+                            //that.createAllEditorController();
+                            //virtualclass.user.control.toggleAllEditorController(editorType, actionToPerform);
+                            var editorControllerAnch = document.getElementById(containerId + 'Anch');
+
+                            if(editorControllerAnch != null){
+                                actionToPerform = editorControllerAnch.dataset.action;
+                                if(editorControllerAnch.dataset.action == 'enable'){
+                                    editorControllerAnch.dataset.action = 'disable';
+                                    editorControllerAnch.innerHTML = "Disable All";
+                                } else {
+                                    editorControllerAnch.dataset.action = 'enable';
+                                    editorControllerAnch.innerHTML = "Enable All";
+                                }
+
+                            }
+                           
+                            virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
+                        });
+
+                    } else {
+
+                        //var editorControllerAnch = document.getElementById(containerId + 'Anch');
+                        //if(editorControllerAnch != null){
+                        //    if(editorControllerAnch.dataset.action == 'enable'){
+                        //        actionToPerform = 'disable';
+                        //        editorControllerAnch.innerHTML = "Disable All";
+                        //    } else {
+                        //        actionToPerform = 'enable';
+                        //        editorControllerAnch.innerHTML = "Enable All";
+                        //    }
+                        //
+                        //}
+                    }
+
 
                 },
 

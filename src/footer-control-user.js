@@ -67,20 +67,6 @@
             createAssignControl: function (controlCont, userId, aRoleEnable, currTeacher) {
                 var that = this;
 
-                //var assignImg = document.createElement('span');
-                //var imgName = "contrAssign";
-                //assignImg.id = userId + imgName + "Img";
-                //
-                //var assignAnch = document.createElement('a');
-                //assignAnch.id = userId + imgName + "Anch";
-                //assignAnch.className = "tooltip";
-                //// assignAnch.setAttribute('data-title', "Assign Role");
-                //assignAnch.appendChild(assignImg);
-                //var imgCont = document.createElement('div');
-                //imgCont.id = userId + imgName + "Cont";
-                //imgCont.className = "controleCont";
-                //imgCont.appendChild(assignAnch);
-
                 //TODO var [a, , b] = [1,2,3]; this would be available in ecmascript 6, will have to convert
                 var elems = this.createControllerElement(userId, "contrAssign");
                 var controller = elems[0];
@@ -154,20 +140,6 @@
 
                     } else if (controls[i] == 'audio') {
 
-                        //var audBlock = document.createElement('span');
-                        //imgName = "contrAud";
-                        //audBlock.id = userId + imgName + "Img";
-                        //
-                        //var audAnch = document.createElement('a');
-                        //audAnch.id = userId + imgName + "Anch";
-                        //audAnch.className = "tooltip";
-                        //audAnch.appendChild(audBlock);
-                        //var imgCont = document.createElement('div');
-                        //imgCont.id = userId + imgName + "Cont";
-                        //imgCont.className = "controleCont";
-                        //imgCont.appendChild(audAnch);
-
-
                         var elems = this.createControllerElement(userId, "contrAud");
                         var controller = elems[0];
                         var audBlock = elems[1];
@@ -188,19 +160,6 @@
                         }
 
                     } else if (controls[i] == 'chat') {
-
-                        //var chatBlock = document.createElement('span');
-                        //imgName = "contrChat";
-                        //chatBlock.id = userId + imgName + "Img";
-                        //var chatAnch = document.createElement('a');
-                        //chatAnch.id = userId + imgName + "Anch";
-                        //chatAnch.className = "tooltip";
-                        ////     chatAnch.setAttribute('data-title', "Block Chat");
-                        //chatAnch.appendChild(chatBlock);
-                        //var imgCont = document.createElement('div');
-                        //imgCont.id = userId + imgName + "Cont";
-                        //imgCont.className = "controleCont";
-                        // imgCont.appendChild(chatAnch);
 
                         var elems = this.createControllerElement(userId, "contrChat");
 
@@ -224,11 +183,16 @@
 
                     } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')){
 
+                        if (uObj && userObj.hasOwnProperty(controls[i])) {
+                            var editorBlockEnable = (userObj[controls[i]]) ? true : false;
+                        } else {
+                            var editorBlockEnable = true;
+                        }
 
                         var elems = this.createControllerElement(userId,  'contr' + controls[i]);
                         var controller = elems[0];
                         var editorBlock = elems[1];
-                        var editorBlockEnable = true;
+
                         controlCont.appendChild(controller);
 
                         virtualclass.user.control.changeAttribute(userId, editorBlock, editorBlockEnable, controls[i], controls[i]);
@@ -250,9 +214,19 @@
             control: {
                 received_editorRich : function (msg){
                     if(msg.status){
-                        virtualclass.editorRich.cm.setOption('readOnly', false);
+                        if(virtualclass.gObj.uid == msg.toUser){
+                            virtualclass.editorRich.cm.setOption('readOnly', false);
+                        } else {
+                            this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
+                        }
+
+
                     } else {
-                        virtualclass.editorRich.cm.setOption('readOnly', true);
+                        if(virtualclass.gObj.uid == msg.toUser){
+                            virtualclass.editorRich.cm.setOption('readOnly', true);
+                        } else {
+                            this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
+                        }
                     }
                 },
 
@@ -265,9 +239,11 @@
                 },
 
                 onmessage : function (e){
-                   if(virtualclass.gObj.uid == e.message.toUser){
-                       this['received_' + e.message.control](e.message);
-                   }
+                   this['received_' + e.message.control](e.message);
+
+                   //if(virtualclass.gObj.uid == e.message.toUser){
+                   //    this['received_' + e.message.control](e.message);
+                   //}
                 },
 
                 addCurrTeacherToControl: function (id) {
@@ -305,6 +281,7 @@
 
 
                 _disable: function (elem, control, userId, label) {
+
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
 
@@ -333,36 +310,6 @@
                     virtualclass.user.control.updateUser(userId, label, false);
                 },
 
-                _disable_old: function (elem, control, userId, label) {
-                    elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
-                    elem.setAttribute('data-' + control + '-disable', 'true');
-
-                    if (control == 'audio') {
-                        elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
-                    } else {
-
-                        elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
-                    }
-
-                    if (control == 'assign') {
-                        elem.parentNode.classList.remove('tooltip');
-                        this.addCurrTeacherToControl(elem.id);
-                        var userObj = localStorage.getItem('virtualclass' + userId);
-                        userObj = JSON.parse(userObj);
-
-                        if (virtualclass.gObj.hasOwnProperty(userId + 'currTeacher')) {
-                            if (virtualclass.gObj[userId + 'currTeacher'].ct || (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
-                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
-                            }
-                        } else {
-
-                            if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
-                                virtualclass.user.control.updateUser(userId, 'currTeacher', true);
-                            }
-                        }
-                    }
-                    virtualclass.user.control.updateUser(userId, label, false);
-                },
 
                 enable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
@@ -421,6 +368,8 @@
                         var action, ctrType, boolVal;
                         //TODO this should be generalise
                         if(control == 'Chat'){
+                            alert('suman bogati');
+                            debugger;
                             tag.className = 'contrChatBlock';
                             ctrType = 'chat'
                         }else if(control == 'Aud'){
@@ -474,6 +423,7 @@
                             virtualclass.user.control.removeAudioFromParticipate(userId);
                         }
                     } else if (control == 'Chat') {
+
                         var action;
                         if (tag.getAttribute('data-chat-disable') == 'true') {
                             tag.className = 'contrChatBlock';
@@ -688,6 +638,7 @@
                     }
                 },
 
+                //TODO this function name should be convert into updateControlAtLocalStorage
                 updateUser: function (uid, key, val) {
                     //var userId =  localStorage.getItem(uid);
                     var userId = localStorage.getItem('virtualclass' + uid);
@@ -702,6 +653,7 @@
                     localStorage['virtualclass' + uObj.id] = JSON.stringify(uObj);
                     return uObj;
                 },
+
                 audioSign2: function (user, action) {
                     if (action == 'create') {
                         if (document.getElementById(user.id + "AudEnableSign") == null) {
@@ -784,6 +736,7 @@
                     }
                 }
             },
+
             displayStudentSpeaker: function (display) {
                 var alwaysPress = document.getElementById('alwaysPress');
                 if (alwaysPress != null) {

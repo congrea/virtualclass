@@ -88,8 +88,8 @@
                         virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                     }
 
-                    this.createAllEditorController();
                     if(virtualclass.gObj.uRole == 't'){
+                        this.createAllEditorController();
                         io.send({eddata : 'init', et: this.etype});
                     }
 
@@ -118,7 +118,6 @@
                             //that.createAllEditorController();
                             //virtualclass.user.control.toggleAllEditorController(editorType, actionToPerform);
                             var editorControllerAnch = document.getElementById(containerId + 'Anch');
-
                             if(editorControllerAnch != null){
                                 actionToPerform = editorControllerAnch.dataset.action;
                                 if(editorControllerAnch.dataset.action == 'enable'){
@@ -128,27 +127,12 @@
                                     editorControllerAnch.dataset.action = 'enable';
                                     editorControllerAnch.innerHTML = "Enable All";
                                 }
-
                             }
-                           
+
                             virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
                         });
 
-                    } else {
-
-                        //var editorControllerAnch = document.getElementById(containerId + 'Anch');
-                        //if(editorControllerAnch != null){
-                        //    if(editorControllerAnch.dataset.action == 'enable'){
-                        //        actionToPerform = 'disable';
-                        //        editorControllerAnch.innerHTML = "Disable All";
-                        //    } else {
-                        //        actionToPerform = 'enable';
-                        //        editorControllerAnch.innerHTML = "Enable All";
-                        //    }
-                        //
-                        //}
                     }
-
 
                 },
 

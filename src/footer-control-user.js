@@ -212,6 +212,7 @@
             },
 
             control: {
+                //TODO this funciton should be improved
                 received_editorRich : function (msg){
                     if(msg.status){
                         if(virtualclass.gObj.uid == msg.toUser){
@@ -220,22 +221,40 @@
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
 
-
+                        localStorage.setItem('editorRich', true);
                     } else {
                         if(virtualclass.gObj.uid == msg.toUser){
                             virtualclass.editorRich.cm.setOption('readOnly', true);
                         } else {
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
+                        localStorage.setItem('editorRich', false);
                     }
                 },
 
+                //TODO this funciton should be improved
                 received_editorCode : function (msg){
                     if(msg.status){
-                        virtualclass.editorCode.cm.setOption('readOnly', false);
+                        if(virtualclass.gObj.uid == msg.toUser){
+                            virtualclass.editorCode.cm.setOption('readOnly', false);
+                        } else {
+                            this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
+                        }
+                        localStorage.setItem('editorCode', true);
                     } else {
-                        virtualclass.editorCode.cm.setOption('readOnly', true);
+                        if(virtualclass.gObj.uid == msg.toUser){
+                            virtualclass.editorCode.cm.setOption('readOnly', true);
+                        } else {
+                            this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
+                        }
+                        localStorage.setItem('editorCode', false);
                     }
+
+                    //if(msg.status){
+                    //    virtualclass.editorCode.cm.setOption('readOnly', false);
+                    //} else {
+                    //    virtualclass.editorCode.cm.setOption('readOnly', true);
+                    //}
                 },
 
                 onmessage : function (e){
@@ -536,6 +555,7 @@
                     studentSpeaker.style.opacity = "1";
                     studentSpeaker.style.pointerEvents = "visible";
                 },
+
                 //move into media.js
                 audioWidgetDisable: function () {
                     localStorage.setItem('audEnable', "false");

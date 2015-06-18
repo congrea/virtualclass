@@ -48,6 +48,7 @@
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
+                        console.log('Current Editor type ' + virtualclass.currAppEditorType);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
                             if(virtualclass.currAppEditorType == this.etype){
                                 this.initialiseDataWithEditor(docs, 'displayEditor', virtualclass.currAppEditorType);
@@ -231,8 +232,10 @@
                 receivedOperations : {
                     currAppEditor : function (e){
                         if(e.fromUser.userid != virtualclass.gObj.userid){
+                            console.log('curr app editor');
                             virtualclass.currAppEditor = true;
                             virtualclass.currAppEditorType = e.message.et;
+                            virtualclass.dispvirtualclassLayout(virtualclass.currAppEditorType);
                         }
                         return;
                     },
@@ -314,9 +317,7 @@
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
 
                     //TODO this all if and else condition should be simplyfy
-
                     this.receivedOperations[e.message.eddata].call(this, e, etype);
-
                     if(typeof this.vcAdapter != 'object'){
                         if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
                             virtualclass.makeAppReady(etype);
@@ -324,7 +325,7 @@
                         }
                         console.log("virtualclass adapter is not ready for editor");
                     }
-    },
+                },
 
                 /**
                  * this object is used for user interace of Editor
@@ -483,7 +484,9 @@
 
                     this.removeCodeMirror();
                     this.codemirrorWithLayout(editorType);
+
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp);
+
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
                             var cmElem = document.getElementById(this.UI.edId);
@@ -507,6 +510,11 @@
 
                     this.cm.refresh();
 
+                    var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
+                    if(cmReadOnly != null && !cmReadOnly){
+                        this.cm.setOption("readOnly", true);
+                    }
+
                     if( virtualclass.currApp == 'EditorRich'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
@@ -516,7 +524,6 @@
                     if(editorTool  != null){
                         editorTool.style.pointerEvents = 'visible';
                     }
-
                 },
 
                 /**

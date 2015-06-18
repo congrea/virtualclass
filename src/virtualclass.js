@@ -227,10 +227,8 @@
             },
 
             dispvirtualclassLayout_old: function (appId) {
-
                 //appId =
                 if (typeof this.previous != 'undefined') {
-
                     if (this.previous != 'virtualclass' + this.currApp) {
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
@@ -259,6 +257,7 @@
                 }
             },
 
+            //TODO dispvirtualclassLayout should be renamed it with dispvirtualclassLayout
             dispvirtualclassLayout: function (appId) {
                 //appId =
                 if (typeof this.previous != 'undefined') {

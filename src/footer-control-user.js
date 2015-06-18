@@ -7,8 +7,7 @@
         return {
             //TODO function name should be change
             assignRole: function (role, app) {
-                if (role == 't') {
-                    virtualclass.html.optionsWithWrapper();
+                if (role == 't') {                    virtualclass.html.optionsWithWrapper();
                     virtualclass.attachFunction();
 
                     var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
@@ -182,23 +181,29 @@
                         virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
 
                     } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')){
+                        if(localStorage.hasOwnProperty('orginalTeacherId')){
+                            if (uObj && userObj.hasOwnProperty(controls[i])) {
+                                var editorBlockEnable = (userObj[controls[i]]) ? true : false;
+                            } else {
+                                var editorBlockEnable = false; //By default it would be false
+                            }
 
-                        if (uObj && userObj.hasOwnProperty(controls[i])) {
-                            var editorBlockEnable = (userObj[controls[i]]) ? true : false;
-                        } else {
-                            var editorBlockEnable = true;
-                        }
+                            var elems = this.createControllerElement(userId,  'contr' + controls[i]);
+                            var controller = elems[0];
+                            var editorBlock = elems[1];
+                            controller.className += ' controller' + controls[i];
 
-                        var elems = this.createControllerElement(userId,  'contr' + controls[i]);
-                        var controller = elems[0];
-                        var editorBlock = elems[1];
+                            controlCont.appendChild(controller);
 
-                        controlCont.appendChild(controller);
+                            if(virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])){
+                                controller.style.display = 'none';
+                            }
 
-                        virtualclass.user.control.changeAttribute(userId, editorBlock, editorBlockEnable, controls[i], controls[i]);
+                            virtualclass.user.control.changeAttribute(userId, editorBlock, editorBlockEnable, controls[i], controls[i]);
 
-                        if (orginalTeacher) {
-                            editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
+                            if (orginalTeacher) {
+                                editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
+                            }
                         }
                     }
                 }
@@ -520,7 +525,6 @@
                     }
                 },
 
-
                 _editorRich: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.wb.utility.beforeSend({'status': true, control:'editorRich', toUser: userId});
@@ -576,6 +580,7 @@
                     this.disbaleAllChatBox();
                     this.disableOnLineUser();
                 },
+
                 disableCommonChat: function () {
                     var div = document.getElementById("chatrm");
                     if (div != null) {
@@ -622,14 +627,15 @@
                         allChatDivCont[i].style.pointerEvents = "visible";
                     }
                 },
+
                 makeElemEnable: function (elem) {
-//                        if(elem.hasOwnProperty('classList')){
                     if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                         elem.classList.remove('disable');
                         elem.classList.add('enable');
                     } else {
                         elem.className = "enable";
                     }
+
                     //elem.style.opacity = "1";
                     var inputBox = elem.getElementsByClassName("ui-chatbox-input-box")[0];
                     if (inputBox != null) {
@@ -655,6 +661,19 @@
                                 }
                             }
                         }
+                    }
+                },
+
+                /**
+                 * Either Show OR Hidden all editor controller
+                 * @param editor editor type
+                 * @param action show or hidden
+                 */
+               toggleDisplayEditorController : function (editor, action){
+                    editor = virtualclass.vutil.smallizeFirstLetter(editor);
+                    var allEditorController = document.getElementsByClassName('controller'+editor);
+                    for(var i=0; i< allEditorController.length; i++){
+                        allEditorController[i].style.display = action;
                     }
                 },
 

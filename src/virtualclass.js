@@ -309,6 +309,14 @@
                     }
                 }
 
+                //hiding editor controllers from footer
+                if(typeof this.previous != 'undefined'){
+                    if(this.previous == 'virtualclassEditorRich' || this.previous == 'virtualclassEditorCode'){
+                        var editorType = this.previous.split('virtualclass')[1];
+                        this.user.control.toggleDisplayEditorController(editorType, 'none');
+                    }
+                }
+
                 //if not screen share
                 if(app != this.apps[1] ){
                    this.dispvirtualclassLayout(app);
@@ -388,6 +396,9 @@
                     this.previous = virtualclass.ytsConfig.id;
 
                 } else if (app == this.apps[3] || app == this.apps[4]) {
+
+                    //showing controllers from footer
+                    this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'),  app.length), 'block');
 
                     var revision = 0;
                     var clients = [];

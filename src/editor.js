@@ -20,9 +20,9 @@
             //TODO this should be dynamic
             if(type == 'editorRich'){
                 var editorType = { lineWrapping: true };
-                var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
-            } else{
-                var editorType =  {lineNumbers: true, mode : 'markdown'};
+                var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true, readOnly : true};
+            } else {
+                var editorType =  {lineNumbers: true, mode : 'markdown', readOnly : true};
                 var richEditorToolbar = {defaultText: 'Markdown Editor '};
             }
 
@@ -116,8 +116,6 @@
                         document.getElementById('virtualclass' + editorType + 'Body').appendChild(editorControllerCont);
 
                         editorControllerAnch.addEventListener('click', function (){
-                            //that.createAllEditorController();
-                            //virtualclass.user.control.toggleAllEditorController(editorType, actionToPerform);
                             var editorControllerAnch = document.getElementById(containerId + 'Anch');
                             if(editorControllerAnch != null){
                                 actionToPerform = editorControllerAnch.dataset.action;
@@ -129,7 +127,6 @@
                                     editorControllerAnch.innerHTML = "Enable All";
                                 }
                             }
-
                             virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
                         });
 
@@ -149,6 +146,9 @@
                         this.readOnlyMode('enable', 'notCreateSyncBox');
                     }
                     Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
+                    if(virtualclass.gObj.uRole == 't'){
+                       this.cm.setOption('readOnly', false);
+                    }
                 },
 
                 /**
@@ -471,6 +471,7 @@
                  */
 
                 initialiseDataWithEditor : function (doc, displayEditor, et) {
+
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
@@ -513,6 +514,8 @@
                     var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
                     if(cmReadOnly != null && !cmReadOnly){
                         this.cm.setOption("readOnly", true);
+                    }else {
+                        this.cm.setOption("readOnly", false);
                     }
 
                     if( virtualclass.currApp == 'EditorRich'){

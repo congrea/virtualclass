@@ -419,16 +419,15 @@
                         if(writeMode == null){
                             this[etType].cm.setOption('readOnly', true);
                             this.user.control.toggleDisplayWriteModeMsgBox(app, false);
+                            console.log('message box is created ' + app);
                         } else {
-                            this[etType].user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
+                            this.user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
                             if(!writeMode){
                                 this[etType].cm.setOption('readOnly', true);
                             } else {
                                 this[etType].cm.setOption('readOnly', false);
                             }
                         }
-                    }else {
-                     //   this[etType].cm.setOption('readOnly', false);
                     }
                 }
 

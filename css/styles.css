@@ -2236,7 +2236,8 @@ div.CodeMirror-cursors{
 	position: relative;
 	bottom: 97%;
 	left: 48%;
-	z-index : 5500;
+	z-index : 5;
+	width : 150px;
 }
 
 #virtualclassEditorRichBody {

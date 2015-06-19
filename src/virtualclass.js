@@ -412,13 +412,23 @@
                         this.previous = virtualclass.edCodeConfig.id;
                     }
 
-                    var editorSet = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
-                    if(virtualclass.gObj.uRole != 't'){
-                        if(editorSet == null){
+                    var writeMode = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
+                    var etType = virtualclass.vutil.smallizeFirstLetter(app)
+
+                    if(localStorage.getItem('orginalTeacherId') == null){
+                        if(writeMode == null){
+                            this[etType].cm.setOption('readOnly', true);
                             this.user.control.toggleDisplayWriteModeMsgBox(app, false);
                         } else {
-                            this.user.control.toggleDisplayWriteModeMsgBox(app, editorSet);
+                            this[etType].user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
+                            if(!writeMode){
+                                this[etType].cm.setOption('readOnly', true);
+                            } else {
+                                this[etType].cm.setOption('readOnly', false);
+                            }
                         }
+                    }else {
+                     //   this[etType].cm.setOption('readOnly', false);
                     }
                 }
 

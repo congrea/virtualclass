@@ -224,6 +224,7 @@
                  * @param writeMode readonly OR write and read mode
                  */
                 toggleDisplayWriteModeMsgBox : function (editorType, writeMode){
+
                     var writeModeBox = document.getElementById(editorType+'writeModeBox');
                     var modeMessage = (writeMode)  ? "Write and Read Mode." : "Read Mode Only";
                     if(writeModeBox == null){
@@ -257,9 +258,10 @@
                         localStorage.setItem('editorRich', action);
                     }
 
+                    if(localStorage.getItem('orginalTeacherId') == null){
+                        this.toggleDisplayWriteModeMsgBox('EditorRich', action);
+                    }
 
-
-                    this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                 },
 
                 //TODO this funciton should be improved
@@ -282,8 +284,10 @@
                         action = false;
                         localStorage.setItem('editorCode', action);
                     }
+                    if(localStorage.getItem('orginalTeacherId') == null){
+                        this.toggleDisplayWriteModeMsgBox('EditorCode', action);
+                    }
 
-                    this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                 },
 
                 onmessage : function (e){
@@ -695,6 +699,7 @@
                  */
                toggleDisplayEditorController : function (editor, action){
                     editor = virtualclass.vutil.smallizeFirstLetter(editor);
+
                     var allEditorController = document.getElementsByClassName('controller'+editor);
                     for(var i=0; i< allEditorController.length; i++){
                         allEditorController[i].style.display = action;

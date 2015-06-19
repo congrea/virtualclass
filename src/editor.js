@@ -471,7 +471,6 @@
                  */
 
                 initialiseDataWithEditor : function (doc, displayEditor, et) {
-
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
@@ -512,11 +511,31 @@
                     this.cm.refresh();
 
                     var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
-                    if(cmReadOnly != null && !cmReadOnly){
-                        this.cm.setOption("readOnly", true);
-                    }else {
+
+                    //if(cmReadOnly != null && !cmReadOnly){
+                    //    this.cm.setOption("readOnly", true);
+                    //    var writeMode = false;
+                    //
+                    //}else {
+                    //    this.cm.setOption("readOnly", false);
+                    //    var writeMode = true;
+                    //}
+
+                    //TODO To be simplyfied
+                    if(cmReadOnly != null){
+                        if(!cmReadOnly){
+                            this.cm.setOption("readOnly", true);
+                            var writeMode = false;
+                        }else {
+                            this.cm.setOption("readOnly", false);
+                            var writeMode = true;
+                        }
+                    } else {
                         this.cm.setOption("readOnly", false);
+                        var writeMode = false;
                     }
+
+                    virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
 
                     if( virtualclass.currApp == 'EditorRich'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;

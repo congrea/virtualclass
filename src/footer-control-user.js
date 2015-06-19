@@ -217,49 +217,73 @@
             },
 
             control: {
+
+                /**
+                 * Display message box with showing read only and write and read mode
+                 * @param editorType type of editor
+                 * @param writeMode readonly OR write and read mode
+                 */
+                toggleDisplayWriteModeMsgBox : function (editorType, writeMode){
+                    var writeModeBox = document.getElementById(editorType+'writeModeBox');
+                    var modeMessage = (writeMode)  ? "Write and Read Mode." : "Read Mode Only";
+                    if(writeModeBox == null){
+                        writeModeBox = document.createElement('div');
+                        writeModeBox.id = editorType + 'writeModeBox';
+                        document.getElementById('virtualclass' + editorType + 'Body').appendChild(writeModeBox);
+                    }
+                    writeModeBox.className = 'writeModeBox';
+                    writeModeBox.dataset.writeMode = writeMode;
+                    writeModeBox.innerHTML = modeMessage;
+                },
+
                 //TODO this funciton should be improved
                 received_editorRich : function (msg){
+                    var action;
                     if(msg.status){
                         if(virtualclass.gObj.uid == msg.toUser){
                             virtualclass.editorRich.cm.setOption('readOnly', false);
                         } else {
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
-
-                        localStorage.setItem('editorRich', true);
+                        action = true;
+                        localStorage.setItem('editorRich', action);
                     } else {
                         if(virtualclass.gObj.uid == msg.toUser){
                             virtualclass.editorRich.cm.setOption('readOnly', true);
                         } else {
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
-                        localStorage.setItem('editorRich', false);
+                        action = false;
+                        localStorage.setItem('editorRich', action);
                     }
+
+
+
+                    this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                 },
 
                 //TODO this funciton should be improved
                 received_editorCode : function (msg){
+                    var action;
                     if(msg.status){
                         if(virtualclass.gObj.uid == msg.toUser){
                             virtualclass.editorCode.cm.setOption('readOnly', false);
                         } else {
                             this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }
-                        localStorage.setItem('editorCode', true);
+                        action = true;
+                        localStorage.setItem('editorCode', action);
                     } else {
                         if(virtualclass.gObj.uid == msg.toUser){
                             virtualclass.editorCode.cm.setOption('readOnly', true);
                         } else {
                             this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }
-                        localStorage.setItem('editorCode', false);
+                        action = false;
+                        localStorage.setItem('editorCode', action);
                     }
 
-                    //if(msg.status){
-                    //    virtualclass.editorCode.cm.setOption('readOnly', false);
-                    //} else {
-                    //    virtualclass.editorCode.cm.setOption('readOnly', true);
-                    //}
+                    this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                 },
 
                 onmessage : function (e){

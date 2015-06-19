@@ -244,7 +244,6 @@
                                     editor.style.display = 'none';
                                 }
                             }
-
                         }
                     }
                 }
@@ -404,12 +403,22 @@
                     var clients = [];
                     var docs = "";
                     var operations = "";
+
                     if(app == this.apps[3]){
                         virtualclass.editorRich.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edConfig.id;
                     }else {
                         virtualclass.editorCode.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edCodeConfig.id;
+                    }
+
+                    var editorSet = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
+                    if(virtualclass.gObj.uRole != 't'){
+                        if(editorSet == null){
+                            this.user.control.toggleDisplayWriteModeMsgBox(app, false);
+                        } else {
+                            this.user.control.toggleDisplayWriteModeMsgBox(app, editorSet);
+                        }
                     }
                 }
 
@@ -472,7 +481,6 @@
                 if (appName != "ScreenShare") {
                     virtualclass.vutil.removeClass('audioWidget', "fixed");
                 }
-
             },
 
             PrvAndCurrIsWss: function (previous, appName) {

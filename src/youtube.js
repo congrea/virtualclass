@@ -65,8 +65,11 @@
                         input.id = "youtubeurl";
                         input.cols = 70;
                         input.rows = 3;
-                        var tnode = document.createTextNode("Please paste here youtube url");
-                        input.appendChild(tnode);
+                        input.value =  virtualclass.lang.getString("youTubeUrl");
+
+                        //var tnode = document.createTextNode("Please put here youtube url");
+                        //input.appendChild(tnode);
+
                         document.getElementById('virtualclassYts').appendChild(input);
 
                         uiContainer.appendChild(input);

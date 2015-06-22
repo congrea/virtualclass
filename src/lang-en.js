@@ -112,7 +112,8 @@
         'downloadedFile': "Your files are downloading....,  <br />Number of file has been downloaded is {virtualclass1}",
         'overallprogress': 'Overall Progress',
         'playsessionmsg': 'Click play button to start playing session',
-        'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>'
+        'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>',
+        'youTubeUrl' : 'I want the youTube URL.'
 
     };
     window.message = message;

@@ -5352,9 +5352,11 @@
             this.options_ = options || {};
 
             if (this.getOption('richTextShortcuts', false)) {
+
                 if (!CodeMirror.keyMap['richtext']) {
                     this.initializeKeyMap_();
                 }
+
                 this.codeMirror_.setOption('keyMap', 'richtext');
                 this.vcEditorWrapper_.className += ' vceditor-richtext';
             }
@@ -5765,22 +5767,34 @@
                 }
             }
 
-            CodeMirror.keyMap["richtext"] = {
-                "Ctrl-B": binder(this.bold),
-                "Cmd-B": binder(this.bold),
-                "Ctrl-I": binder(this.italic),
-                "Cmd-I": binder(this.italic),
-                "Ctrl-U": binder(this.underline),
-                "Cmd-U": binder(this.underline),
-                "Ctrl-H": binder(this.highlight),
-                "Cmd-H": binder(this.highlight),
-                "Enter": binder(this.newline),
-                "Delete": binder(this.deleteRight),
-                "Backspace": binder(this.deleteLeft),
-                "Tab": binder(this.indent),
-                "Shift-Tab": binder(this.unindent),
-                fallthrough: ['default']
-            };
+
+            //changed by suman
+            //We don't need this handler when the
+            // editor is OFF
+            if(!this.getOption('readOnly')){
+                CodeMirror.keyMap["richtext"] = {
+                    "Ctrl-B": binder(this.bold),
+                    "Cmd-B": binder(this.bold),
+                    "Ctrl-I": binder(this.italic),
+                    "Cmd-I": binder(this.italic),
+                    "Ctrl-U": binder(this.underline),
+                    "Cmd-U": binder(this.underline),
+                    "Ctrl-H": binder(this.highlight),
+                    "Cmd-H": binder(this.highlight),
+                    "Enter": binder(this.newline),
+                    "Delete": binder(this.deleteRight),
+                    "Backspace": binder(this.deleteLeft),
+                    "Tab": binder(this.indent),
+                    "Shift-Tab": binder(this.unindent),
+                    fallthrough: ['default']
+                };
+            }else {
+                CodeMirror.keyMap["richtext"] = {
+                    fallthrough: ['default']
+                };
+            }
+
+
         };
 
 

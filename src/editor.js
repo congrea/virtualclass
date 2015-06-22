@@ -19,11 +19,11 @@
 
             //TODO this should be dynamic
             if(type == 'editorRich'){
-                var editorType = { lineWrapping: true };
-                var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true, readOnly : true};
+                var editorType = { lineWrapping: true};
+                var editorToolbar =  {richTextToolbar: true, richTextShortcuts: true, readOnly : true}; //For RichText Editor here we need to make readOnly parameter
             } else {
                 var editorType =  {lineNumbers: true, mode : 'markdown', readOnly : true};
-                var richEditorToolbar = {defaultText: 'Markdown Editor '};
+                var editorToolbar = {defaultText: 'Markdown Editor '};
             }
 
             return {
@@ -83,7 +83,7 @@
 
                     if(!this.cm && typeof this.cm != 'object'){
                         this.codemirrorWithLayout(editorType);
-                        this.createEditorClient(richEditorToolbar, docsInfo);
+                        this.createEditorClient(editorToolbar, docsInfo);
 
                     }else {
                         virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
@@ -141,14 +141,19 @@
                  * @param docsInfo about docs(operation, revision, etc)
                  */
                 createEditorClient : function (editorType, docsInfo){
+                    //alert('sss');
+                    //debugger;
                     if(virtualclass.isPlayMode){
                         //this.readOnlyMode('disable', 'notCreateSyncBox');
                         this.readOnlyMode('enable', 'notCreateSyncBox');
                     }
-                    Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
                     if(virtualclass.gObj.uRole == 't'){
-                       this.cm.setOption('readOnly', false);
+                        this.cm.setOption('readOnly', false);
+                        editorType.readOnly = false;
                     }
+                    Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
+
+
                 },
 
                 /**
@@ -499,7 +504,7 @@
                             doc.operations = deserialiseOps(doc.operations);
                             doc.doc = doc.str;
 
-                            this.createEditorClient(richEditorToolbar, doc);
+                            this.createEditorClient(editorToolbar, doc);
                             this.prvEdRev = doc.revision;
                         }
                     }

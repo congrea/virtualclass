@@ -226,7 +226,9 @@
                 toggleDisplayWriteModeMsgBox : function (editorType, writeMode){
 
                     var writeModeBox = document.getElementById(editorType+'writeModeBox');
-                    var modeMessage = (writeMode)  ? "Write and Read Mode." : "Read Mode Only";
+
+
+                    var modeMessage = (writeMode)  ? "Write Mode." : "Read Mode Only.";
                     if(writeModeBox == null){
                         writeModeBox = document.createElement('div');
                         writeModeBox.id = editorType + 'writeModeBox';
@@ -235,6 +237,29 @@
                     writeModeBox.className = 'writeModeBox';
                     writeModeBox.dataset.writeMode = writeMode;
                     writeModeBox.innerHTML = modeMessage;
+
+                    if(editorType == "EditorRich"){
+                        this.tooglDisplayEditorToolBar(writeMode);
+                    }
+                },
+
+                /**
+                 * Either enable or disable toolbar of Editor Rich Text
+                 * @param writeMode expects true or flase
+                 */
+                tooglDisplayEditorToolBar : function (writeMode){
+                    var editorToolBars = document.getElementsByClassName('vceditor-toolbar');
+                    var editorToolBar = editorToolBars[0];
+                    if(editorToolBars.length > 0){
+                        if(writeMode){
+                            editorToolBar.style.pointerEvents = 'visible';
+                            editorToolBar.style.opacity = "1";
+                        }else {
+                            editorToolBar.style.pointerEvents = 'none';
+                            editorToolBar.style.opacity = "0.5";
+                        }
+
+                    }
                 },
 
                 //TODO this funciton should be improved
@@ -777,7 +802,7 @@
                     var userObj = localStorage.getItem('virtualclass' + uid);
                     if (userObj != null) {
                         userObj = JSON.parse(userObj);
-                        console.log('uid ' + uid + " " + userObj.ad);
+                        //console.log('uid ' + uid + " " + userObj.ad);
                         if (userObj.ad) {
                             virtualclass.user.control.audioSign({id: uid}, "create");
                         }

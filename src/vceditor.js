@@ -4278,7 +4278,7 @@
             var cursorCoords = this.cm.cursorCoords(cursorPos);
 
             var cursorEl = document.createElement('span');
-            console.log('Coords ' + cursorCoords);
+           // console.log('Coords ' + cursorCoords);
             cursorEl.className = 'other-client';
             cursorEl.id = "cursorId" + clientId;
             cursorEl.style.borderLeftWidth = '3px';

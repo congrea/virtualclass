@@ -5,7 +5,7 @@
  */
 (function (window) {
     repMode = false;
-    var io = window.io;
+    //var io = window.io;
 
     function convertFloat32ToInt16(buffer) {
         l = buffer.length;

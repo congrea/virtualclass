@@ -5797,7 +5797,6 @@
 
         };
 
-
         function colorFromUserId(userId) {
             var a = 1;
             for (var i = 0; i < userId.length; i++) {

@@ -17,10 +17,10 @@
 
         return {
             player: '',
-            init: function (videoId, user) {
+            init: function (videoId, startFrom) {
                 this.UI.container();
                 if (virtualclass.gObj.uRole == 's') {
-                    this.onYTIframApi(videoId);
+                   (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
                 } else {
                     this.UI.inputURL();
                 }
@@ -76,7 +76,7 @@
 
                         var submitURL = document.createElement('button');
                         submitURL.id = 'submitURL';
-                        submitURL.innerHTML = "Share Video";
+                        submitURL.innerHTML = virtualclass.lang.getString('shareYouTubeVideo');
 
                         uiContainer.appendChild(submitURL);
 
@@ -92,7 +92,7 @@
 
                         //var that = this;
 
-                        //for teachers
+                        //for teachers'
                         submitURL.addEventListener('click', function () {
 
                             var videourl = document.getElementById('youtubeurl').value;
@@ -103,6 +103,7 @@
                                 return;
                             }
 
+                            virtualclass.yts.videoId = videoId;
                             virtualclass.yts.onYTIframApi(videoId);
                             io.send({'yts': {'init': videoId}});
                         });
@@ -132,6 +133,7 @@
 
             onmessage: function (msg) {
                 if (typeof msg.yts == 'string') {
+
                     if (msg.yts == 'play') {
                         this.player.playVideo();
                     } else if (msg.yts == 'pause') {
@@ -141,9 +143,13 @@
                     } else if (msg.yts == 'unmute') {
                         this.player.unMute();
                     }
+
+
+
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
-                        virtualclass.makeAppReady('Yts', undefined, msg.yts.init);
+                        virtualclass.makeAppReady('Yts', undefined, msg.yts);
+
 //                            virtualclass.yts.tsc();
 
 //                            this.init(msg.yts.init, 'student');
@@ -160,30 +166,54 @@
                 }
             },
 
-            onYTIframApi: function (videoId) {
+            onYTIframApi: function (videoId, playStratFrom) {
+
                 if (typeof this.player == 'object') {
                     this.player.loadVideoById(videoId);
                 } else {
-                    var videoObj = {
+                    //var videoObj = {
+                    //    height: '390',
+                    //    width: '640',
+                    //    videoId: videoId,
+                    //    autohide: 0,
+                    //    disablekb: 1,
+                    //    enablejsapi: 1,
+                    //    modestbranding: 1,
+                    //    start : 60,
+                    //    events: {
+                    //        'onReady': this.onPlayerReady
+                    //    }
+                    //};
+
+                    var playerVarsObj = {
                         height: '390',
                         width: '640',
-                        videoId: videoId,
                         autohide: 0,
                         disablekb: 1,
                         enablejsapi: 1,
                         modestbranding: 1,
-                        events: {
+                        start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
+                        }
+
+                    var videoObj = {
+                        playerVars : playerVarsObj,
+                        videoId :  videoId,
+                        events : {
                             'onReady': this.onPlayerReady
                         }
-                    };
+                    }
+
+                    if(typeof playStratFrom != 'undefined'){
+                        videoObj.start = playStratFrom;
+                    }
 
                     console.log('Player object is CREATED');
                     this.player = new YT.Player('player', videoObj);
-
                 }
             },
 
             triggerOnSeekChange: function () {
+                //this.actualCurrentTime = this.player.getCurrentTime();
                 console.log('there should happend something after each 2 second');
                 if (CTpre == 0 || PLState == -2 || PSmute == -1) {
                     CTpre = this.player.getCurrentTime();

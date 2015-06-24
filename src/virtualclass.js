@@ -296,7 +296,7 @@
                 }
             },
 
-            makeAppReady: function (app, cusEvent, videoId) {
+            makeAppReady: function (app, cusEvent, videoObj) {
                 //alert('this should be invoked first');
                 //debugger;
                 this.currApp = app;
@@ -386,8 +386,8 @@
                 } else if (app == this.apps[2]) {
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
 
-                    if (typeof videoId != 'undefined') {
-                        virtualclass.yts.init(videoId);
+                    if (typeof videoObj != 'undefined') {
+                        virtualclass.yts.init(videoObj.init, videoObj.startFrom);
                     } else {
                         virtualclass.yts.init();
                     }

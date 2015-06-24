@@ -135,12 +135,14 @@ $(document).ready(function () {
     });
 
     $(document).on("member_added", function (e) {
+
         var sType;
         virtualclass.connectedUsers = e.message;
         virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
         memberUpdate(e, 'added');
+
 
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
             virtualclass.gObj.video.updateVidContHeight();
@@ -149,12 +151,15 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
+
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-                }
-
-                if (virtualclass.currApp === 'ScreenShare') {
+                } else if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
+                } else if(virtualclass.currApp === 'Yts'){
+                    //virtualclass.yts.player.getCurrentTime();
+                    io.send({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}}, virtualclass.jId);
+                    //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
                 }
 
                 if (typeof sType !== 'undefined' && sType !== null) {

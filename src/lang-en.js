@@ -1,5 +1,4 @@
 (function (window) {
-
     /**
      * {virtualclass1} {virtualclass2} are elements you passes with getString function eg:-
      *   virtualclass.lang.getString('operaBrowserIssue', ['opeara', 27]);
@@ -113,7 +112,8 @@
         'overallprogress': 'Overall Progress',
         'playsessionmsg': 'Click play button to start playing session',
         'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>',
-        'youTubeUrl' : 'I want the youTube URL.'
+        'youTubeUrl' : 'I want the youTube URL.',
+        'shareYouTubeVideo' : 'Share YouTube Video'
 
     };
     window.message = message;

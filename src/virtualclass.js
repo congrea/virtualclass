@@ -18,13 +18,14 @@
                 uRole: window.wbUser.role,
                 uName: window.wbUser.name
             },
+
             clearSession: function (appName) {
                 window.pageEnter = new Date().getTime();
                 appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
                 virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
                 virtualclass.storage.config.endSession();
-                virtualclass.wb.utility.beforeSend({sEnd: true});
+              virtualclass.vutil.beforeSend({sEnd: true});
 
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
@@ -61,6 +62,21 @@
                 this.html.init(this);
                 this.adapter = window.adapter;
 
+                virtualclass.chat = new Chat();
+                virtualclass.chat.init();
+                virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
+                virtualclass.xhr = window.xhr;
+                virtualclass.xhr.init();
+                virtualclass.dtCon = virtualclass.converter();
+                virtualclass.pbar = progressBar;
+
+                //editor which is rich text editor which has various options
+
+                virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorRichBody');
+
+                //simple code editor with markdown
+                virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
+
                 this.makeAppReady(app, "byclick");
 
                 //TODO system checking function should be invoked before makeAppReady
@@ -85,7 +101,9 @@
                     });
                 }
 
-                virtualclass.wb.utility.displayCanvas();
+                //1
+                //virtualclass.wb.utility.displayCanvas();
+
                 virtualclass.yts = window.yts();
 
                 if (app == this.apps[1]) {
@@ -95,9 +113,10 @@
                 //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
-                if (virtualclass.gObj.uRole == 't') {
-                    vcan.utility.canvasCalcOffset(vcan.main.canid);
-                }
+                //2
+                //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
+                //    vcan.utility.canvasCalcOffset(vcan.main.canid);
+                //}
 
                 this.gObj.video = new window.virtualclass.media();
 
@@ -105,20 +124,21 @@
                     this.initSocketConn();
                 }
 
-                virtualclass.chat = new Chat();
-                virtualclass.chat.init();
-                virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
-                virtualclass.xhr = window.xhr;
-                virtualclass.xhr.init();
-                virtualclass.dtCon = virtualclass.converter();
-                virtualclass.pbar = progressBar;
 
-                //editor which is rich text editor which has various options
-
-                virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorRichBody');
-
-                //simple code editor with markdown
-                virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
+                //virtualclass.chat = new Chat();
+                //virtualclass.chat.init();
+                //virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
+                //virtualclass.xhr = window.xhr;
+                //virtualclass.xhr.init();
+                //virtualclass.dtCon = virtualclass.converter();
+                //virtualclass.pbar = progressBar;
+                //
+                ////editor which is rich text editor which has various options
+                //
+                //virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorRichBody');
+                //
+                ////simple code editor with markdown
+                //virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
 
@@ -168,14 +188,14 @@
                     this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
 
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
-                        virtualclass.wb.view.disableSSUI();
+                        virtualclass.view.disableSSUI();
                     }
 
                     if (virtualclass.gObj.uRole == 't') {
                         this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                     if (virtualclass.gObj.hasOwnProperty('errAppBar')) {
-                        virtualclass.wb.view.disableLeftAppBar();
+                        virtualclass.view.disableLeftAppBar();
                     }
 
                 },
@@ -297,6 +317,8 @@
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
+                this.view = window.view;
+
                 //alert('this should be invoked first');
                 //debugger;
                 this.currApp = app;
@@ -322,15 +344,24 @@
                 }
 
                 if (app == this.apps[0]) {
+
+                    //virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
+                    //
+                    //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
+                    //    vcan.utility.canvasCalcOffset(vcan.main.canid);
+                    //}
+
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
 
                     if (typeof this.previous != 'undefined') {
                         if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
-                            virtualclass.wb.utility.beforeSend({'dispWhiteboard': true});
+                          virtualclass.vutil.beforeSend({'dispWhiteboard': true});
                         }
                     }
+
+
 
                     //this.dispvirtualclassLayout(this.wbConfig.id);
 
@@ -339,7 +370,7 @@
                         this.wb = new window.whiteboard(this.wbConfig);
                         this.wb.utility = new window.utility();
 
-                        this.wb.view = window.view;
+                        //this.view = window.view;
 
                         this.wb.packContainer = new window.packContainer();
                         this.wb.draw_object = window.draw_object;
@@ -352,6 +383,12 @@
                         this.wb.response = window.response;
                         var olddata = "";
                         this.wb.utility.initUpdateInfo(olddata);
+                        virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
+                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
+
+                        if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
+                            vcan.utility.canvasCalcOffset(vcan.main.canid);
+                        }
 
                     }
 
@@ -374,6 +411,8 @@
                     }
 
                     this.previous = this.wbConfig.id;
+
+
                     //    this.previrtualclass = this.previous;
 
 //                        currAppId = this.wbConfig.id;

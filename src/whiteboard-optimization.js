@@ -10,7 +10,7 @@
                 this.lastarrowtime = new Date().getTime();
                 virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
-                    virtualclass.wb.utility.beforeSend(JSON.parse(jobj));
+                  virtualclass.vutil.beforeSend(JSON.parse(jobj));
                 }
 
                 virtualclass.wb.utility.updateSentInformation(jobj, true);
@@ -19,7 +19,7 @@
             if ((this.presentarrowtime - this.lastarrowtime) >= time) {
                 virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
-                    // virtualclass.wb.utility.beforeSend(JSON.parse(jobj));
+                    //virutalclass.vutil.beforeSend(JSON.parse(jobj));
                     io.send(JSON.parse(jobj));
                 }
                 virtualclass.wb.utility.updateSentInformation(jobj, true);
@@ -55,7 +55,7 @@
             virtualclass.wb.uid++;
             obj.uid = virtualclass.wb.uid;
             vcan.main.replayObjs.push(obj);
-            virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+          virtualclass.vutil.beforeSend({'repObj': [obj]});
             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
             //  virtualclass.storage.wholeStore(obj);
             virtualclass.wb.utility.updateSentPackets(obj);

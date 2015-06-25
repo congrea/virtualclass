@@ -11,18 +11,22 @@
                     virtualclass.html.optionsWithWrapper();
                     virtualclass.attachFunction();
 
-                    var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
-                    window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                    //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
+
+                    if(app == 'Whiteboard'){
+                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                    }
 
                     if (virtualclass.gObj.uRole == 't') {
-//                            if(app == 'Whiteboard') {
                         if (virtualclass.hasOwnProperty('previrtualclass')) {
                             virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                         } else {
                             virtualclass.vutil.makeActiveApp("virtualclass" + app);
                         }
-                        virtualclass.wb.utility.makeCanvasEnable();
-//                            }
+
+                        if(app == 'Whiteboard'){
+                            virtualclass.wb.utility.makeCanvasEnable();
+                        }
                     }
                 }
             },
@@ -551,7 +555,7 @@
                     }
 
                     if (typeof notsent == 'undefined') {
-                        virtualclass.wb.utility.beforeSend({'assignRole': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId});
                     }
                     if (localStorage.getItem('orginalTeacherId') == null) {
                         if (typeof fromUserId == 'undefined') {
@@ -565,43 +569,43 @@
                 },
                 _chat: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.wb.utility.beforeSend({'enc': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'enc': true, toUser: userId});
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'ch', false);
-                        virtualclass.wb.utility.beforeSend({'dic': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'dic': true, toUser: userId});
                     }
                 },
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.wb.utility.beforeSend({'ena': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId});
                     } else {
-                        virtualclass.wb.utility.beforeSend({'dia': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId});
                     }
                 },
 
                 _editorRich: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.wb.utility.beforeSend({'status': true, control:'editorRich', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': true, control:'editorRich', toUser: userId});
                     } else {
-                        virtualclass.wb.utility.beforeSend({'status': false, control:'editorRich', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': false, control:'editorRich', toUser: userId});
                     }
                 },
 
 
                 _editorCode: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.wb.utility.beforeSend({'status': true, control:'editorCode', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': true, control:'editorCode', toUser: userId});
                     } else {
-                        virtualclass.wb.utility.beforeSend({'status': false, control:'editorCode', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': false, control:'editorCode', toUser: userId});
                     }
                 },
 
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.wb.utility.beforeSend({'ena': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId});
                     } else {
-                        virtualclass.wb.utility.beforeSend({'dia': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId});
                     }
                 },
 

@@ -371,7 +371,7 @@
 //                        alert('speak');
 //                        debugger;
                     virtualclass.gObj.audMouseDown = true;
-                    virtualclass.wb.utility.beforeSend({'sad': true});
+                  virtualclass.vutil.beforeSend({'sad': true});
                 },
                 studentNotSpeak: function (elem) {
                     if (virtualclass.gObj.hasOwnProperty('audMouseDown') && virtualclass.gObj.audMouseDown) {
@@ -393,7 +393,7 @@
                         tag.className = "audioTool deactive";
                         virtualclass.gObj.audMouseDown = false;
                         virtualclass.gObj.video.audio.setAudioStatus("stop");
-                        virtualclass.wb.utility.beforeSend({'sad': false});
+                      virtualclass.vutil.beforeSend({'sad': false});
                     }
                 },
                 ab2str: function (buf) {
@@ -844,7 +844,7 @@
                         if (virtualclass.gObj.uRole == 't') {
                             user.role = virtualclass.gObj.uRole;
                         }
-                        virtualclass.wb.utility.beforeSend({videoByImage: user});
+                      virtualclass.vutil.beforeSend({videoByImage: user});
                         var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
                         var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);
                         var uid = breakintobytes(virtualclass.gObj.uid, 8);
@@ -982,7 +982,7 @@
 
                 if (virtualclass.system.wbRtc.peerCon) { //TODO this should be deleted
                     if (typeof localStorage.wbrtcMsg == 'undefined') {
-                        virtualclass.wb.view.multiMediaMsg('WebRtc');
+                        virtualclass.view.multiMediaMsg('WebRtc');
                         localStorage.wbrtcMsg = true;
                     }
                 }
@@ -1071,9 +1071,9 @@
             },
 //                sendMessage: function(message) {
 //                    if (arguments.length > 1) {
-//                        virtualclass.wb.utility.beforeSend({'video': message}, arguments[1]);
+//                      virtualclass.vutil.beforeSend({'video': message}, arguments[1]);
 //                    } else {
-//                        virtualclass.wb.utility.beforeSend({'video': message});
+//                      virtualclass.vutil.beforeSend({'video': message});
 //                    }
 //                },
             existVideoContainer: function (user) {
@@ -1088,9 +1088,9 @@
 
             handleUserMediaError: function (error) {
                 var error = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
-                virtualclass.wb.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
+                virtualclass.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
                 virtualclass.user.control.audioWidgetDisable();
-                virtualclass.wb.view.disappearBox('WebRtc');
+                virtualclass.view.disappearBox('WebRtc');
                 console.log('navigator.getUserMedia error: ', error);
             }
         }

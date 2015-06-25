@@ -33,6 +33,7 @@
          *  @param canvid is canvas's id
          */
         main: function (canvid) {
+            console.log("should first");
             vcan.main.children = []; //vcan.main should be converted into 'this' variable
             vcan.main.id = 0;
             vcan.main.uid = 0;

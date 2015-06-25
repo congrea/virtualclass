@@ -15,9 +15,14 @@ $(document).ready(function () {
 
     virtualclass.gObj.displayError = 1;
 
-    var appIs = "Whiteboard";
+     var appIs = "EditorRich";
+
+    // var appIs = "Whiteboard";
+
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
+
+
 
     virtualclass.init(wbUser.role, appIs);
 
@@ -71,11 +76,12 @@ $(document).ready(function () {
         return;
     }
 
-    if ((typeof vcan.teacher === 'undefined') && (!virtualclass.wb.stHasTeacher)) {
+    if ((typeof vcan.teacher === 'undefined') && (!virtualclass.wb.stHasTeacher) && appIs == 'Whiteboard') {
         virtualclass.wb.utility.makeCanvasDisable();
     }
 
-    virtualclass.wb.utility.initDefaultInfo(wbUser.role);
+    //virtualclass.wb.utility.initDefaultInfo(wbUser.role);
+    virtualclass.vutil.initDefaultInfo(wbUser.role, appIs);
 
     if (wbUser.role === 's') {
         var audioEnable = localStorage.getItem('audEnable');
@@ -122,8 +128,8 @@ $(document).ready(function () {
 
     $(document).on("error", function (e) {
         if (virtualclass.gObj.displayError) {
-            virtualclass.wb.view.removeElement('serverErrorCont');
-            virtualclass.wb.view.displayServerError('serverErrorCont', e.message.stack);
+            virtualclass.view.removeElement('serverErrorCont');
+            virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
             if (typeof e.message !== 'object') {
                 display_error(e.message.stack);
             }
@@ -138,7 +144,7 @@ $(document).ready(function () {
 
         var sType;
         virtualclass.connectedUsers = e.message;
-        virtualclass.wb.clientLen = e.message.length;
+        //virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
         memberUpdate(e, 'added');
@@ -220,12 +226,14 @@ $(document).ready(function () {
      * On every new message from IOLib/Server
      */
     $(document).on("newmessage", function (e) {
-        //if(e.message.hasOwnProperty('editorSuman')){
-        //    alert('I have just joined the room');
-        //    return;
-        //}
         var recMsg = e.message, key;
-        virtualclass.wb.gObj.myrepObj = virtualclass.wb.vcan.getStates('replayObjs');
+
+        //critical, wrapping with if condition can be crtical,j validate proper if condition is not violating anything
+        if(typeof virtualclass.wb == 'object'){
+            if(virtualclass.wb.hasOwnProperty('vcan')){
+                virtualclass.wb.gObj.myrepObj = virtualclass.wb.vcan.getStates('replayObjs');
+            }
+        }
 
         if (typeof recMsg === 'string') {
             messageUpdate(e);  //chat update
@@ -438,7 +446,7 @@ $(document).ready(function () {
         this.getMsPckt = function (e) {
             virtualclass.wb.gObj.chunk = [];
             var chunk = virtualclass.wb.bridge.sendPackets(e, virtualclass.wb.gObj.chunk);
-            virtualclass.wb.utility.beforeSend({'repObj': chunk, 'chunk': true});
+          virtualclass.vutil.beforeSend({'repObj': chunk, 'chunk': true});
         };
 
         this.createArrow = function (e) {

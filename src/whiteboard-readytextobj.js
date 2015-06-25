@@ -237,8 +237,8 @@
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        virtualclass.recorder.items.push(obj);
                     //  virtualclass.storage.wholeStore(obj);
-                    // virtualclass.wb.utility.beforeSend({'repObj': [obj]});
-                    virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+                    //virutalclass.vutil.beforeSend({'repObj': [obj]});
+                  virtualclass.vutil.beforeSend({'repObj': [obj]});
                     virtualclass.wb.utility.updateSentPackets(obj);
                 }
 

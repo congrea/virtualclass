@@ -239,14 +239,14 @@
                             var canvaContainer = document.getElementById("vcanvas");
                             var rightOffset = virtualclass.wb.utility.getElementRightOffSet(canvaContainer);
                             if (localStorage.getItem('teacherId') != null) {
-                                virtualclass.wb.utility.beforeSend({
+                              virtualclass.vutil.beforeSend({
                                     'virtualWindow': {
                                         'createVirtualWindow': myBrowser - rightOffset,
                                         'toolHeight': toolBoxHeight
                                     }
                                 });
                             } else {
-                                virtualclass.wb.utility.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
+                              virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
                             }
                         }
                     }

@@ -255,7 +255,7 @@
                     this.currentStream.stop();
                 }
 
-                virtualclass.wb.utility.beforeSend({'unshareScreen': true, st: this.type});
+              virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type});
             },
 
             removeStream: function () {
@@ -306,7 +306,7 @@
                         clearInterval(virtualclass.clear);
                         //that.prevImageSlices = [];
                         that.initPrevImage();
-                        virtualclass.wb.utility.beforeSend({'unshareScreen': true, st: that.type});
+                      virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type});
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same

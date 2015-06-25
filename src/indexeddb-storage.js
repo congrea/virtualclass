@@ -268,7 +268,7 @@
                     }
                     cursor.continue();
                 } else {
-                    if (typeof storeFirstObj == 'undefined') {
+                    if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
                         virtualclass.wb.utility.makeUserAvailable(); //at very first
                     }
                 }

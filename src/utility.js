@@ -53,7 +53,7 @@
             if (virtualclass.error.length > 0) {
 
                 var errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join("<br />")) : virtualclass.error[0];
-                virtualclass.wb.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+                virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
 
                 if (virtualclass.gObj.hasOwnProperty('errIE')) {
                     virtualclass.vutil.disableVirtualClass();
@@ -159,7 +159,8 @@
         makeActiveApp: function (app, prvTool) {
             if (app != prvTool && typeof prvTool != 'undefined') {
                 prvTool = prvTool + 'Tool';
-                document.getElementById(prvTool).className = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
+                //document.getElementById(prvTool).className = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
+                document.getElementById(prvTool).className = virtualclass.vutil.removeClassFromElement(prvTool, 'active');
             }
             document.getElementById(app + "Tool").className += ' active';
 
@@ -549,6 +550,87 @@
 
         capitalizeFirstLetter : function (string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+
+
+        initDefaultInfo: function (role, appIs) {
+            if (role == 't'  && appIs == 'Whiteboard') {
+                if (localStorage.getItem('orginalTeacherId') == null) {
+                    virtualclass.wb.utility.setOrginalTeacherContent();
+                    virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                }
+                //} else if (role == 's' && newuser == null) {
+            } else if (role == 's') {
+                vcan.studentId = wbUser.id;
+
+                if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
+                    localStorage.setItem('studentId', wbUser.id);
+                }
+                virtualclass.vutil.removeSessionTool();
+            }
+
+            if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+                virtualclass.gObj.video.init();
+                virtualclass.gObj.video.isInitiator = true;
+            }
+            //bad way
+//                    virtualclass.gObj.video.init();
+//                    virtualclass.gObj.video.isInitiator = true;
+            vcan.oneExecuted = false;
+        },
+
+        removeClassFromElement: function (prvTool, className) {
+            if (prvTool != "t_reclaim") {
+                var prvTool = document.getElementById(prvTool).className;
+                var classes = prvTool.split(" ");
+                var retClass = [];
+                for (var i = 0; i < classes.length; i++) {
+                    if (classes[i] != className) {
+                        retClass.push(classes[i]);
+                    }
+                }
+                if (retClass.length > 1) {
+                    return retClass.join(" ");
+                } else {
+                    return retClass[0];
+                }
+            }
+        },
+
+        /**
+         * the operation before send message to server
+         * @param {type} msg
+         * @returns {undefined}
+         */
+        beforeSend: function (msg, toUser) {
+            // when we are in replay mode we don't need send the object to other user
+            if (msg.hasOwnProperty('createArrow')) {
+                var jobj = JSON.stringify(msg);
+                virtualclass.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
+            } else {
+                if (msg.hasOwnProperty('repObj')) {
+                    if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
+                        return;
+                    }
+                    virtualclass.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+                    virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
+                }
+                var jobj = JSON.stringify(msg);
+                if(typeof virtualclass.wb == 'object'){
+                    virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
+                }
+
+                if (io.sock.readyState == 1) {
+                    typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
+                }
+
+                //TODO this should be enable
+                var tempObj = JSON.parse(jobj);
+                if (tempObj.hasOwnProperty('repObj')) {
+                    virtualclass.wb.utility.updateSentInformation(jobj);
+                }
+            }
+            localStorage.sentPackets = virtualclass.wb.sentPackets;
         }
     };
     window.vutil = vutil;

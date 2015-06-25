@@ -329,7 +329,7 @@
     window.addEventListener('resize',
         function () {
             if (window.earlierWidth != window.innerWidth) {
-                virtualclass.wb.view.window.resize();
+                virtualclass.view.window.resize();
             }
         }
     );

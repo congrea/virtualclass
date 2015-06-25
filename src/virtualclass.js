@@ -110,6 +110,7 @@
                     this.system.setAppDimension();
                 }
 
+
                 //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
@@ -317,10 +318,8 @@
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
-                this.view = window.view;
 
-                //alert('this should be invoked first');
-                //debugger;
+                this.view = window.view;
                 this.currApp = app;
 
                 //TODO this should be simplyfied
@@ -343,8 +342,8 @@
                    this.dispvirtualclassLayout(app);
                 }
 
+                //TODO this should be simplyfy
                 if (app == this.apps[0]) {
-
                     //virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
                     //
                     //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
@@ -361,10 +360,7 @@
                         }
                     }
 
-
-
                     //this.dispvirtualclassLayout(this.wbConfig.id);
-
                     //this should be checked with solid condition
                     if (typeof this.wb != 'object') {
                         this.wb = new window.whiteboard(this.wbConfig);
@@ -384,12 +380,16 @@
                         var olddata = "";
                         this.wb.utility.initUpdateInfo(olddata);
                         virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
-                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
 
-                        if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
+                        if (virtualclass.gObj.uRole == 't') {
+                         // window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
+                            if (localStorage.getItem('orginalTeacherId') == null) {
+                                virtualclass.wb.utility.setOrginalTeacherContent(app);
+                            }
+
+                            virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
                         }
-
                     }
 
                     if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
@@ -412,10 +412,9 @@
 
                     this.previous = this.wbConfig.id;
 
-
                     //    this.previrtualclass = this.previous;
+                    //    currAppId = this.wbConfig.id;
 
-//                        currAppId = this.wbConfig.id;
                     //TODO this should be into same varible
                 } else if (app == this.apps[1]) {
                     if (typeof this.ss != 'object') {
@@ -446,16 +445,16 @@
                     if(app == this.apps[3]){
                         virtualclass.editorRich.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edConfig.id;
-                    }else {
+                    } else {
                         virtualclass.editorCode.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edCodeConfig.id;
                     }
 
                     var writeMode = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
-                    var etType = virtualclass.vutil.smallizeFirstLetter(app)
+                    var etType = virtualclass.vutil.smallizeFirstLetter(app);
 
                     if(localStorage.getItem('orginalTeacherId') == null){
-                        if(writeMode == null){
+                        if(writeMode == null) {
                             this[etType].cm.setOption('readOnly', true);
                             this.user.control.toggleDisplayWriteModeMsgBox(app, false);
                             console.log('message box is created ' + app);
@@ -473,9 +472,6 @@
                 //this.createDiv(vApp.edConfig.id + "Tool", "editor", appOptCont, vApp.edConfig.classes);
 
                 this.previrtualclass = this.previous;
-
-
-//                if(app == this.apps[2] || app == this.apps[3] ){
 
                 if(app != this.apps[0] && app != this.apps[1] ){
                     virtualclass.system.setAppDimension();

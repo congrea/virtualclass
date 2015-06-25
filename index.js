@@ -15,21 +15,20 @@ $(document).ready(function () {
 
     virtualclass.gObj.displayError = 1;
 
-     var appIs = "EditorRich";
+    // TODO Error when screenShare or YouTube is default application
 
-    // var appIs = "Whiteboard";
+    var appIs = "EditorRich";
+    // var appIs = "ScreenShare";
+    //   var appIs = "Whiteboard";
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
-
-
 
     virtualclass.init(wbUser.role, appIs);
 
     var alreadyInit = false;
 
     //TODO this both setinterval functinos should be merged into one
-
     var tryEditorinit =  setInterval(
         function (){
             if(virtualclass.hasOwnProperty('connectedUsers')){
@@ -101,7 +100,7 @@ $(document).ready(function () {
     );
     virtualclass.vutil.attachClickOutSideCanvas();
 
-
+    //TODO this should be at virtualclass.js
     virtualclass.popup = new PopUp({
         showOverlay: true
     });

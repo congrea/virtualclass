@@ -540,8 +540,8 @@
 
             //setOrginalTeacherContent: function(e) {
             setOrginalTeacherContent: function () {
-                localStorage.setItem('teacherId', virtualclass.gObj.uid);
-                window.virtualclass.view.canvasDrawMsg('Canvas');
+                //localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
+                //window.virtualclass.view.canvasDrawMsg('Canvas');
                 localStorage.setItem('canvasDrwMsg', true);
                 if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
                     if (parseInt(wbUser.dataInfo, 10) == 1) {
@@ -550,7 +550,7 @@
                         virtualclass.wb.utility.initStoredPacketsNumbers();
                     }
                 }
-                localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
+                //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
             },
 
 //            initDefaultInfo: function (role) {
@@ -823,7 +823,7 @@
             },
 
             replayFromLocalStroage: function (allRepObjs) {
-                if (typeof (Storage) !== "undefined") {
+                 if (typeof (Storage) !== "undefined") {
                     if (virtualclass.storage.reclaim === false) {
                         //virtualclass.wb.utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
@@ -1112,6 +1112,7 @@
                 virtualclass.user.control.changeAttrToAssign('enable');
             },
 
+            //TODO this should be at virtualclass.js
             enableAppsBar: function () {
                 var appBarCont = document.getElementById('virtualclassOptionsCont');
                 if (appBarCont != null) {

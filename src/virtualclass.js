@@ -339,6 +339,10 @@
                     }
                 }
 
+                if (this.gObj.uRole == 't') {
+                    this.vutil.setOrginalTeacher();
+                }
+
                 //if not screen share
                 if(app != this.apps[1] ){
                    this.dispvirtualclassLayout(app);
@@ -361,7 +365,6 @@
                           virtualclass.vutil.beforeSend({'dispWhiteboard': true});
                         }
                     }
-
                     //this.dispvirtualclassLayout(this.wbConfig.id);
                     //this should be checked with solid condition
                     if (typeof this.wb != 'object') {
@@ -385,31 +388,31 @@
 
                         if (virtualclass.gObj.uRole == 't') {
                          // window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
-                            if (localStorage.getItem('orginalTeacherId') == null) {
+                            //if (localStorage.getItem('orginalTeacherId') == null) {
                                 virtualclass.wb.utility.setOrginalTeacherContent(app);
-                            }
+                           // }
 
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
                         }
 
                         // Only need to  serve on after page refresh
-                        if(!this.alreadyReplayFromStorage){
+                        if(!this.alreadyReplayFromStorage && this.gObj.tempReplayObjs.length > 0){
                             this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
                         }
 
-                        if(this.gObj.tempReplayObjs.length > 0){
-                            this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
-                          //  this.gObj.tempReplayObjs.length = 0
-
-                            //var that = this;
-                            //setTimeout(
-                            //    function (){
-                            //        that.wb.utility.replayFromLocalStroage(that.gObj.tempReplayObjs);
-                            //        that.gObj.tempReplayObjs.length = 0;
-                            //    },2000
-                            //);
-                        }
+                        //if(this.gObj.tempReplayObjs.length > 0){
+                        //    this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
+                        //  //  this.gObj.tempReplayObjs.length = 0
+                        //
+                        //    //var that = this;
+                        //    //setTimeout(
+                        //    //    function (){
+                        //    //        that.wb.utility.replayFromLocalStroage(that.gObj.tempReplayObjs);
+                        //    //        that.gObj.tempReplayObjs.length = 0;
+                        //    //    },2000
+                        //    //);
+                        //}
                     }
 
                     if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {

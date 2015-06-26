@@ -640,6 +640,12 @@
             }
             var parts = numstring.match(/[\S]{1,2}/g) || [];
             return parts;
+        },
+
+        setOrginalTeacher : function (){
+            localStorage.setItem('teacherId', virtualclass.gObj.uid);
+            localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
+
         }
     };
     window.vutil = vutil;

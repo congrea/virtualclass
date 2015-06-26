@@ -161,6 +161,7 @@
         },
 
         disableLeftAppBar: function () {
+
             var lefAppBar = document.getElementById("virtualclassOptionsCont");
             if (lefAppBar != null) {
                 lefAppBar.style.opacity = "0.5";

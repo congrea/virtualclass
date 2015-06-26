@@ -18,7 +18,13 @@ $(document).ready(function () {
     // TODO Error when screenShare or YouTube is default application
 
    //  var appIs = "EditorRich";
-   var appIs = "EditorRich";
+    var appIs = "Yts";
+
+    //if(appIs == 'Yts'){
+    //    if(wbUser.role == 's'){
+    //        appIs = 'Eidtorrich';
+    //    }
+    //}
 
     // var appIs = "ScreenShare";
 

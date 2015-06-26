@@ -79,6 +79,8 @@
                 //simple code editor with markdown
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
+                virtualclass.yts = window.yts();
+
                 this.makeAppReady(app, "byclick");
 
                 //TODO system checking function should be invoked before makeAppReady
@@ -106,7 +108,7 @@
                 //1
                 //virtualclass.wb.utility.displayCanvas();
 
-                virtualclass.yts = window.yts();
+                //virtualclass.yts = window.yts();
 
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();

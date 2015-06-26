@@ -115,6 +115,21 @@
                     };
                     this.attachFunctionsToAudioWidget();
                 },
+
+                audioSend: function (msg, adStatus) {
+                    if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
+                        var uid = virtualclass.vutil.breakintobytes(virtualclass.gObj.uid, 8);
+                        var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
+                        var sendmsg = new Int8Array(msg.length + scode.length);
+                        sendmsg.set(scode);
+                        sendmsg.set(msg, scode.length); // First element is status code (101)
+                        io.sendBinary(sendmsg);
+                        virtualclass.gObj.video.audio.setAudioStatus(adStatus);
+                    } else {
+                        virtualclass.gObj.video.audio.setAudioStatus("stop");
+                    }
+                },
+
                 slienceDetection: function (send, leftSix) {
                     var audStatus;
                     var vol = 0;
@@ -172,21 +187,21 @@
                     if ((thdiff >= 2 && vol >= minthreshold * th)) {
                         if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
                             //        console.log('SEND PRE');
-                            virtualclass.wb.utility.audioSend(preAudioSamp);
+                            this.audioSend(preAudioSamp);
                             preAudioSamp = 0;
                         }
                         //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
-                        virtualclass.wb.utility.audioSend(send, audStatus);
+                        this.audioSend(send, audStatus);
                         audioWasSent = 9;
 
                     } else if (audioWasSent > 0) {
 
                         //    console.log('SEND NEXT');
-                        virtualclass.wb.utility.audioSend(send, audStatus);  // Continue sending Audio for next X samples
+                        this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
                         audioWasSent--;
                     } else if (thdiff < 2) { // We are not ready, send all samples
                         //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                        virtualclass.wb.utility.audioSend(send, audStatus);
+                        this.audioSend(send, audStatus);
                     } else {
 //                            if(virtualclass.gObj.audMouseDown){
                         this.setAudioStatus("notSending");
@@ -438,7 +453,7 @@
                         }
 
 //                            }else{
-//                                virtualclass.wb.utility.audioSend(send);
+//                                this.audioSend(send);
 //                            }
                     }
                 },

@@ -18,8 +18,10 @@ $(document).ready(function () {
     // TODO Error when screenShare or YouTube is default application
 
     var appIs = "EditorRich";
+ //   var appIs = "Whiteboard";
+
     // var appIs = "ScreenShare";
-    //   var appIs = "Whiteboard";
+
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();

@@ -936,33 +936,19 @@
              * @param {type} msg
              * @returns {undefined}
              */
-            audioSend: function (msg, adStatus) {
-                if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
-                    var uid = breakintobytes(virtualclass.gObj.uid, 8);
-                    var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
-                    var sendmsg = new Int8Array(msg.length + scode.length);
-                    sendmsg.set(scode);
-                    sendmsg.set(msg, scode.length); // First element is status code (101)
-                    io.sendBinary(sendmsg);
-                    virtualclass.gObj.video.audio.setAudioStatus(adStatus);
-                } else {
-                    virtualclass.gObj.video.audio.setAudioStatus("stop");
-                }
-
-
-//                    var uid = breakintobytes(virtualclass.gObj.uid, 8);
-//                    var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
-//                    var sendmsg = new Int8Array(msg.length + scode.length);
-//                    sendmsg.set(scode);
-//                    sendmsg.set(msg, scode.length); // First element is status code (101)
-//
-//                    // Temp change
-//                    if (io.sock.readyState == 1) {
-//                        if(virtualclass.gObj.audMouseDown){
-//                           io.sendBinary(sendmsg);
-//                        }
-//                    }
-            },
+            //audioSend: function (msg, adStatus) {
+            //    if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
+            //        var uid = breakintobytes(virtualclass.gObj.uid, 8);
+            //        var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
+            //        var sendmsg = new Int8Array(msg.length + scode.length);
+            //        sendmsg.set(scode);
+            //        sendmsg.set(msg, scode.length); // First element is status code (101)
+            //        io.sendBinary(sendmsg);
+            //        virtualclass.gObj.video.audio.setAudioStatus(adStatus);
+            //    } else {
+            //        virtualclass.gObj.video.audio.setAudioStatus("stop");
+            //    }
+            //},
 
             /**
              * the operation before send message to server
@@ -1135,14 +1121,14 @@
         };
     };
 
-    function breakintobytes(val, l) {
-        var numstring = val.toString();
-        for (var i = numstring.length; i < l; i++) {
-            numstring = '0' + numstring;
-        }
-        var parts = numstring.match(/[\S]{1,2}/g) || [];
-        return parts;
-    }
+    //function breakintobytes(val, l) {
+    //    var numstring = val.toString();
+    //    for (var i = numstring.length; i < l; i++) {
+    //        numstring = '0' + numstring;
+    //    }
+    //    var parts = numstring.match(/[\S]{1,2}/g) || [];
+    //    return parts;
+    //}
 
     window.utility = utility;
 })(window);

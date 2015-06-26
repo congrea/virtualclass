@@ -40,6 +40,7 @@
              * @param e is event object
              */
             mousedown: function (e, cobj) {
+
                 if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
                     e.clientX = vcan.main.offset.x + e.detail.cevent.x;
                     e.clientY = vcan.main.offset.y + e.detail.cevent.y;

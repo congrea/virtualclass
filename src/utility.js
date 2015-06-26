@@ -631,6 +631,15 @@
                 }
             }
             localStorage.sentPackets = virtualclass.wb.sentPackets;
+        },
+
+        breakintobytes : function (val, l){
+            var numstring = val.toString();
+            for (var i = numstring.length; i < l; i++) {
+                numstring = '0' + numstring;
+            }
+            var parts = numstring.match(/[\S]{1,2}/g) || [];
+            return parts;
         }
     };
     window.vutil = vutil;

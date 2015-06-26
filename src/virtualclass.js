@@ -16,7 +16,9 @@
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
-                uName: window.wbUser.name
+                uName: window.wbUser.name,
+                tempReplayObjs : [], //for store temp replayObjs
+                alreadyReplayFromStorage : false
             },
 
             clearSession: function (appName) {
@@ -365,7 +367,7 @@
                     if (typeof this.wb != 'object') {
                         this.wb = new window.whiteboard(this.wbConfig);
                         this.wb.utility = new window.utility();
-
+                        this.wb.alreadyReplay = false;
                         //this.view = window.view;
 
                         this.wb.packContainer = new window.packContainer();
@@ -389,6 +391,24 @@
 
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
+                        }
+
+                        // Only need to  serve on after page refresh
+                        if(!this.alreadyReplayFromStorage){
+                            this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
+                        }
+
+                        if(this.gObj.tempReplayObjs.length > 0){
+                            this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
+                          //  this.gObj.tempReplayObjs.length = 0
+
+                            //var that = this;
+                            //setTimeout(
+                            //    function (){
+                            //        that.wb.utility.replayFromLocalStroage(that.gObj.tempReplayObjs);
+                            //        that.gObj.tempReplayObjs.length = 0;
+                            //    },2000
+                            //);
                         }
                     }
 

@@ -65,18 +65,23 @@
 
                 if (typeof this.objs[this.objNo + 1] == 'object') {
                     if (typeof this.repMode != 'undefined' && this.repMode == 'fromBrowser') {
+                        //virtualclass.wb.replayTime = 0;
                         virtualclass.wb.replayTime = 0;
                     } else {
                         if (this.objNo == 0) {
-                            virtualclass.wb.replayTime = this.objs[this.objNo].mt - virtualclass.wb.pageEnteredTime;
+                            //virtualclass.wb.replayTime = this.objs[this.objNo].mt - virtualclass.wb.pageEnteredTime;
+                            virtualclass.wb.replayTime = 0;
                         } else {
                             virtualclass.wb.replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;
                         }
                     }
                     this.objNo++;
                     var that = this;
+                     self = this;
                     setTimeout(function () {
+                        var temp = self;
                         that.renderObj.call(that);
+
                     }, virtualclass.wb.replayTime);
                 }
 

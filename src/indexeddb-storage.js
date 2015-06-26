@@ -263,7 +263,11 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
-                        virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                        if(typeof virtualclass.wb == 'object'){
+                            virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                        } else {
+                            virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
+                        }
                         storeFirstObj = true;
                     }
                     cursor.continue();

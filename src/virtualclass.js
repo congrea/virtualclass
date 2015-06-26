@@ -35,7 +35,7 @@
                 virtualclass.previrtualclass = "virtualclass" + appName;
             },
 
-            init: function (urole, app) {
+            init: function (urole, app, videoObj) {
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
                 this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
@@ -81,7 +81,12 @@
 
                 virtualclass.yts = window.yts();
 
-                this.makeAppReady(app, "byclick");
+                if(typeof videoObj == 'undefined'){
+                    this.makeAppReady(app, "byclick");
+                } else {
+                    this.makeAppReady(app, "byclick", videoObj);
+                }
+
 
                 //TODO system checking function should be invoked before makeAppReady
 

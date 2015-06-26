@@ -26,8 +26,12 @@
                         this.UI.container();
                         (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
                     }
+
                 } else {
                     this.UI.container();
+                    if(typeof startFrom != 'undefined'){
+                        this.onYTIframApi(videoId, startFrom);
+                    }
                     this.UI.inputURL();
                 }
             },

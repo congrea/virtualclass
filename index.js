@@ -16,23 +16,24 @@ $(document).ready(function () {
     virtualclass.gObj.displayError = 1;
 
     // TODO Error when screenShare or YouTube is default application
-
-   //  var appIs = "EditorRich";
-    var appIs = "Yts";
-
-    //if(appIs == 'Yts'){
-    //    if(wbUser.role == 's'){
-    //        appIs = 'Eidtorrich';
-    //    }
-    //}
-
-    // var appIs = "ScreenShare";
-
+    //  var appIs = "EditorRich";
+    // var appIs = "Whiteboard";
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
 
-    virtualclass.init(wbUser.role, appIs);
+    var previousApp = JSON.parse(localStorage.getItem('prevApp'));
+    if(previousApp != null) {
+        virtualclass.previousApp = previousApp;
+        var appIs = previousApp.name;
+        if(previousApp.name == 'Yts'){
+            var videoObj = previousApp.metaData;
+        }
+    } else {
+        var appIs = "EditorRich";
+    }
+
+    (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
     var alreadyInit = false;
 
@@ -149,7 +150,6 @@ $(document).ready(function () {
     });
 
     $(document).on("member_added", function (e) {
-
         var sType;
         virtualclass.connectedUsers = e.message;
         //virtualclass.wb.clientLen = e.message.length;
@@ -172,6 +172,8 @@ $(document).ready(function () {
                     sType = 'ss';
                 } else if(virtualclass.currApp === 'Yts'){
                     //virtualclass.yts.player.getCurrentTime();
+
+                    //init name should be changed with video id
                     io.send({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}}, virtualclass.jId);
                     //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
                 }

@@ -479,6 +479,15 @@
                 }
             }
 
+            var prvAppObj = {name : virtualclass.currApp};
+
+            if(virtualclass.currApp == 'Screenshare'){
+                prvAppObj.name = "EditorRich";
+            }else if((virtualclass.currApp == 'Yts')){
+                prvAppObj.metaData = {'init' : virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()};
+            }
+            localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+
 
             //editor data save when page is being refreshed
             //if((typeof virtualclass.editorRich.vcAdapter == 'object' && virtualclass.editorRich.vcAdapter.operations.length > 0)){
@@ -619,6 +628,7 @@
                     virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
                 }
                 var jobj = JSON.stringify(msg);
+
                 if(typeof virtualclass.wb == 'object'){
                     virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 }

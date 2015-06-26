@@ -723,6 +723,8 @@
                     }
                 }
             },
+
+            //TODO remove this function
             existUserWithSameId: function (e) {
                 var myId = e.message.checkUser.wbUser.id;
                 this.userIds.push(e.fromUser.userid);

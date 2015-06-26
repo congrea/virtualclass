@@ -373,10 +373,12 @@
             },
             endSession: function (onlyStoredData) {
                 if (!onlyStoredData) {
-                    virtualclass.wb.utility.t_clearallInit();
-                    virtualclass.wb.utility.makeDefaultValue();
-                    virtualclass.vutil.clearAllChat();
+                    if(typeof virtualclass.wb == 'object'){
+                        virtualclass.wb.utility.t_clearallInit();
+                        virtualclass.wb.utility.makeDefaultValue();
+                    }
 
+                    virtualclass.vutil.clearAllChat();
                     virtualclass.editorRich.removeEditorData();
                     virtualclass.editorCode.removeEditorData();
                 }

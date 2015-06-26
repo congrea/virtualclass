@@ -455,7 +455,10 @@
             localStorage.setItem('totalStored', virtualclass.storage.totalStored);
 
             localStorage.removeItem('otherRole');
-            virtualclass.wb.utility.userIds = [];
+
+            //critical, this can be critical
+
+            //virtualclass.wb.utility.userIds = [];
 
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
                 virtualclass.gObj.video.audio.studentNotSpeak();

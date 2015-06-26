@@ -17,8 +17,8 @@ $(document).ready(function () {
 
     // TODO Error when screenShare or YouTube is default application
 
-    var appIs = "EditorRich";
- //   var appIs = "Whiteboard";
+   //  var appIs = "EditorRich";
+   var appIs = "EditorRich";
 
     // var appIs = "ScreenShare";
 
@@ -123,7 +123,8 @@ $(document).ready(function () {
     });
 
     $(document).on("member_removed", function (e) {
-        virtualclass.wb.utility.userIds = [];
+        // critical removign this can be critical
+      //  virtualclass.wb.utility.userIds = [];
         memberUpdate(e, "removed");
     });
 

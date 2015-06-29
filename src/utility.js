@@ -486,8 +486,16 @@
             }else if((virtualclass.currApp == 'Yts')){
                 prvAppObj.metaData = {'init' : virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()};
             }
-            localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
 
+            // not storing the YouTube status on student's storage
+            // Not showing the youtube video is at student if current app is not youtube
+            if(virtualclass.gObj.uRole == 's' ){
+                if(virtualclass.currApp != 'Yts'){
+                    localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+                }
+            }else {
+                localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+            }
 
             //editor data save when page is being refreshed
             //if((typeof virtualclass.editorRich.vcAdapter == 'object' && virtualclass.editorRich.vcAdapter.operations.length > 0)){

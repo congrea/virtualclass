@@ -26,9 +26,13 @@ $(document).ready(function () {
     if(previousApp != null) {
         virtualclass.previousApp = previousApp;
         var appIs = previousApp.name;
+
         if(previousApp.name == 'Yts'){
             var videoObj = previousApp.metaData;
         }
+
+
+
     } else {
         var appIs = "EditorRich";
     }

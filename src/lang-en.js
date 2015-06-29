@@ -113,7 +113,8 @@
         'playsessionmsg': 'Click play button to start playing session',
         'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>',
         'youTubeUrl' : 'I want the youTube URL.',
-        'shareYouTubeVideo' : 'Share YouTube Video'
+        'shareYouTubeVideo' : 'Share YouTube Video',
+         'shareAnotherYouTubeVideo' : 'Share Another YouTube Video'
 
     };
     window.message = message;

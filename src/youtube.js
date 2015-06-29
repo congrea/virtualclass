@@ -106,7 +106,9 @@
 
                         var ytsCont = document.getElementById('virtualclassYts');
                         var playerTag = document.getElementById('player');
-                        ytsCont.insertBefore(uiContainer, playerTag);
+
+                        // referenceNode.nextSibling, insert after
+                        ytsCont.insertBefore(uiContainer, playerTag.nextSibling);
 
 
 
@@ -181,7 +183,9 @@
                 if(typeof videoId != 'undefined'){
                     this.videoId = videoId;
                 }
-                if (typeof this.player == 'object') {
+
+                // virtualclass.gObj.uRole == 't', because loadVideoById is not working, find out why
+                if (typeof this.player == 'object' && virtualclass.gObj.uRole == 't') {
                     this.player.loadVideoById(videoId);
                 } else {
                     var playerVarsObj = {
@@ -285,8 +289,13 @@
             },
 
             onPlayerReady: function (event) {
-                console.log('Player is ready');
+                if(virtualclass.gObj.uRole == 't'){
+                    var submitURLButton = document.getElementById('submitURL');
+                    submitURLButton.innerHTML = virtualclass.lang.getString('shareAnotherYouTubeVideo');
+                }
+
                 event.target.playVideo();
+
                 virtualclass.yts.player.unMute();
                 virtualclass.yts.player.setVolume(40);
                 if (virtualclass.gObj.uRole == 't') {

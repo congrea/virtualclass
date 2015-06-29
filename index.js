@@ -35,9 +35,10 @@ $(document).ready(function () {
 
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
+
     var alreadyInit = false;
 
-    //TODO this both setinterval functinos should be merged into one
+    //TODO this both setinterval functions should be merged into one
     var tryEditorinit =  setInterval(
         function (){
             if(virtualclass.hasOwnProperty('connectedUsers')){

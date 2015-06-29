@@ -30,7 +30,7 @@
                 } else {
                     this.UI.container();
                     if(typeof startFrom != 'undefined'){
-                        this.onYTIframApi(videoId, startFrom);
+                        this.onYTIframApi(videoId, startFrom, 'fromReload');
                     }
                     this.UI.inputURL();
                 }
@@ -177,8 +177,10 @@
                 }
             },
 
-            onYTIframApi: function (videoId, playStratFrom) {
-
+            onYTIframApi: function (videoId, playStratFrom, fromReload) {
+                if(typeof videoId != 'undefined'){
+                    this.videoId = videoId;
+                }
                 if (typeof this.player == 'object') {
                     this.player.loadVideoById(videoId);
                 } else {
@@ -205,7 +207,18 @@
                     }
 
                     console.log('Player object is CREATED');
-                    this.player = new YT.Player('player', videoObj);
+                    //this.player = new YT.Player('player', videoObj);
+
+                    if(typeof fromReload !=  'undefined'){
+                        var that = this;
+                        // YouTube player is not ready for when the page is being load
+                        // this should should not worked when the user click on youtube share button
+                        window.onYouTubeIframeAPIReady = function() {
+                            that.player = new YT.Player('player', videoObj);
+                        };
+                    }else {
+                        this.player = new YT.Player('player', videoObj);
+                    }
                 }
             },
 

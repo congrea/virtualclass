@@ -481,8 +481,8 @@
 
             var prvAppObj = {name : virtualclass.currApp};
 
-            if(virtualclass.currApp == 'Screenshare'){
-                prvAppObj.name = "EditorRich";
+            if(virtualclass.currApp == 'ScreenShare'){
+                prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window
             }else if((virtualclass.currApp == 'Yts')){
                 prvAppObj.metaData = {'init' : virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()};
             }

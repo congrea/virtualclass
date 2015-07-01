@@ -515,11 +515,18 @@
                 play: function (receivedAudio, uid, testAudio) {
                     var userObj = JSON.parse(localStorage.getItem('virtualclass' + uid));
                     if (typeof receivedResampler == 'undefined') {
-                        receivedResampler = new Resampler(8000, 44100, 1, 16384);
+                        receivedResampler = new Resampler(8000, 44100, 1, 16384000); // this value increased for large audio chunks
                     }
-                    var samples = receivedResampler.resampler(receivedAudio);
 
-//                        console.log('samples ' + samples.length);
+                    //alert('sss');
+                    //debugger;
+                   // receivedResampler = new Resampler(8000, 44100, 1, 16384000);
+
+                    var samples = receivedResampler.resampler(receivedAudio);
+                   // samples = receivedAudio;
+
+
+                        console.log('receivedAudio ' + receivedAudio.length +' samples ' + samples.length);
                     var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 44100); //8100 when sound is being delay
                     newBuffer.getChannelData(0).set(samples);
                     var newSource = this.Html5Audio.audioContext.createBufferSource();
@@ -553,7 +560,7 @@
                         }
                     };
 
-                    newSource.start(0);
+                    newSource.start(1);
 //                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                     virtualclass.gObj[uid].isplaying = true;
                     //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
@@ -893,16 +900,19 @@
                         return parts;
                     }
                 },
+
                 startToStream: function () {
                     cthis.video.calcDimension();
                     cthis.video.send();
                 },
+
                 playWithoutSlice: function (uid, msg) {
                     this.remoteVid = document.getElementById("video" + uid);
                     this.remoteVidCont = this.remoteVid.getContext('2d');
                     var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
                     this.remoteVidCont.putImageData(imgData, 0, 0);
                 },
+
                 justForDemo: function () {
                     var maxHeight = 250;
                     var num = 0;

@@ -8,7 +8,7 @@
             //TODO function name should be change
             assignRole: function (role, app) {
                 if (role == 't') {
-                    virtualclass.html.optionsWithWrapper();
+                    virtualclass.html.leftAppBar();
                     virtualclass.attachFunction();
 
                     //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;

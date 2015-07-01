@@ -55,10 +55,6 @@
                 this.clear = "";
                 this.currApp = app;
 
-//                this.storage = window.storage;
-//                this.storage.init();
-                //this.sessionClear = sessionClear;
-
                 this.dirtyCorner = window.dirtyCorner;
 
                 this.html.init(this);
@@ -112,7 +108,6 @@
 
                 //1
                 //virtualclass.wb.utility.displayCanvas();
-
                 //virtualclass.yts = window.yts();
 
                 if (app == this.apps[1]) {
@@ -186,7 +181,7 @@
                 },
 
                 //TODO this should be created throught the simple html
-                optionsWithWrapper: function () {
+                leftAppBar: function () {
                     var appCont = document.getElementById(this.id);
                     var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
@@ -253,36 +248,6 @@
                         }
                     }
                     return elem;
-                }
-            },
-
-            dispvirtualclassLayout_old: function (appId) {
-                //appId =
-                if (typeof this.previous != 'undefined') {
-                    if (this.previous != 'virtualclass' + this.currApp) {
-                        document.getElementById(virtualclass.previous).style.display = 'none';
-
-                        //TODO this should be handle by better way, this is very rough
-                        if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORRICH" ) {
-                            var editorCode = document.getElementById("virtualclassEditorCode");
-                            if (editorCode != null) {
-                                editorCode.style.display = 'none';
-                            }
-                            if (this.currApp.toUpperCase() != appId.toUpperCase() && appId.toUpperCase() == "EDITORCODE" ) {
-                                var editor = document.getElementById("virtualclassEditorRich");
-                                if (editor != null) {
-                                    editor.style.display = 'none';
-                                }
-                            }
-                        }
-                    }
-                }
-                if(typeof appId != 'undefined'){
-                    appId = "virtualclass" + capitalizeFirstLetter(appId);
-                }
-                var appElement = document.getElementById(appId);
-                if (appElement != null) {
-                    appElement.style.display = 'block';
                 }
             },
 
@@ -408,18 +373,7 @@
                             this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
                         }
 
-                        //if(this.gObj.tempReplayObjs.length > 0){
-                        //    this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
-                        //  //  this.gObj.tempReplayObjs.length = 0
-                        //
-                        //    //var that = this;
-                        //    //setTimeout(
-                        //    //    function (){
-                        //    //        that.wb.utility.replayFromLocalStroage(that.gObj.tempReplayObjs);
-                        //    //        that.gObj.tempReplayObjs.length = 0;
-                        //    //    },2000
-                        //    //);
-                        //}
+
                     }
 
                     if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {

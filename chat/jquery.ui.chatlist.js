@@ -64,7 +64,7 @@
                         
                         
                       //  if(localStorage.getItem('orginalTeacherId') != null){
-                            var controls = ['assign', 'audio', 'chat'];
+                            var controls = ['assign', 'audio', 'chat', 'editorRich', 'editorCode'];
                             if(peer.userid != wbUser.id){
                                 var controlDiv = virtualclass.user.createControl(peer.userid, controls);
                                 e.appendChild(controlDiv);

@@ -16,10 +16,11 @@
   right: 0;
   left: 0;
   height: auto;
+  z-index: 0;
 }
 
 .vceditor-with-toolbar .CodeMirror {
-  top: 83px;
+  top: 71px;
   padding-left: 10px;
 }
 
@@ -27,10 +28,12 @@
   padding-top: 10px;
 }
 
+#virtualclassCont.student #virtualclassEditorRich, #virtualclassCont.student #virtualclassEditorCode, #virtualclassCont.student #virtualclassScreenShare{margin:10px 10px 0px 10px;}
+
 .vceditor-toolbar {
-  height: 82px;
-  line-height: 82px;
-  padding-left: 10px;
+  height: 70px;
+  line-height: 70px;
+  padding-left: 30px;
   border-bottom: 1px solid #c9c9c9;
 
   /* Don't select text when double-clicking in toolbar */
@@ -111,8 +114,20 @@ pre.vceditor-lt-o, pre.vceditor-lt-u, pre.vceditor-lt-t, pre.vceditor-lt-tc {
 }
 
 .vceditor-btn-group {
+
   margin: 5px 7px 0 0;
   display: inline-block;
+}
+
+.vceditor-dialog .vceditor-dialog-div .vceditor-btn-group{
+  float: right;
+}
+
+.vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
+	margin-right: 10px;
+}
+.vceditor-btn-group > .vceditor-btn:last-child{
+	margin-right: 0px;
 }
 
 a.vceditor-btn, a.vceditor-btn:visited, a.vceditor-btn:active {
@@ -132,8 +147,8 @@ a.vceditor-btn, a.vceditor-btn:visited, a.vceditor-btn:active {
 
 a.vceditor-btn:hover {
   color: #fff;
-  background-color: #ffbf86;
-  border-color: #e6a165;
+  background-color: #6f9b90;
+  border-color: #6f9b90;
   text-decoration: none;
 }
 
@@ -214,7 +229,7 @@ a.vceditor-btn:active {
 .vceditor-dropdown-menu a:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #ffbf86;
+  background-color: #6f9b90;
 }
 
 .vceditor-color-dropdown-item {
@@ -237,12 +252,12 @@ a.vceditor-btn:active {
   height: 100px;
   margin: 100px auto;
   background-color: #fff;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   padding: 15px;
 }
 
 .vceditor-dialog-input {
-  width: 80%;
+  width: 94%;
   display: block;
   padding: 5px 5px;
   margin: 10px 10px 10px 5px;
@@ -251,7 +266,11 @@ a.vceditor-btn:active {
   line-height: 25px;
   color: #333333;
   white-space: nowrap;
+  border: #ccc 1px solid;
+  font-size: 15px;
 }
+
+
 
 /********************************************************************
  * Generated via icomoon.io.
@@ -349,3 +368,5 @@ a.vceditor-btn:active {
 .vceditor-tb-bubble:before {
   content: "\e00f";
 }
+
+

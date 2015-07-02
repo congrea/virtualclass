@@ -15,16 +15,34 @@ $(document).ready(function () {
 
     virtualclass.gObj.displayError = 1;
 
-    var appIs = "Whiteboard";
+    // TODO Error when screenShare or YouTube is default application
+    //  var appIs = "EditorRich";
+    // var appIs = "Whiteboard";
+
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
 
-    virtualclass.init(wbUser.role, appIs);
+    var previousApp = JSON.parse(localStorage.getItem('prevApp'));
+    if(previousApp != null) {
+        virtualclass.previousApp = previousApp;
+        var appIs = previousApp.name;
+
+        if(previousApp.name == 'Yts'){
+            var videoObj = previousApp.metaData;
+        }
+
+
+
+    } else {
+        var appIs = "EditorRich";
+    }
+
+    (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
+
 
     var alreadyInit = false;
 
-    //TODO this both setinterval functinos should be merged into one
-
+    //TODO this both setinterval functions should be merged into one
     var tryEditorinit =  setInterval(
         function (){
             if(virtualclass.hasOwnProperty('connectedUsers')){
@@ -71,11 +89,12 @@ $(document).ready(function () {
         return;
     }
 
-    if ((typeof vcan.teacher === 'undefined') && (!virtualclass.wb.stHasTeacher)) {
+    if ((typeof vcan.teacher === 'undefined') && (!virtualclass.wb.stHasTeacher) && appIs == 'Whiteboard') {
         virtualclass.wb.utility.makeCanvasDisable();
     }
 
-    virtualclass.wb.utility.initDefaultInfo(wbUser.role);
+    //virtualclass.wb.utility.initDefaultInfo(wbUser.role);
+    virtualclass.vutil.initDefaultInfo(wbUser.role, appIs);
 
     if (wbUser.role === 's') {
         var audioEnable = localStorage.getItem('audEnable');
@@ -95,7 +114,7 @@ $(document).ready(function () {
     );
     virtualclass.vutil.attachClickOutSideCanvas();
 
-
+    //TODO this should be at virtualclass.js
     virtualclass.popup = new PopUp({
         showOverlay: true
     });
@@ -116,14 +135,15 @@ $(document).ready(function () {
     });
 
     $(document).on("member_removed", function (e) {
-        virtualclass.wb.utility.userIds = [];
+        // critical removign this can be critical
+      //  virtualclass.wb.utility.userIds = [];
         memberUpdate(e, "removed");
     });
 
     $(document).on("error", function (e) {
         if (virtualclass.gObj.displayError) {
-            virtualclass.wb.view.removeElement('serverErrorCont');
-            virtualclass.wb.view.displayServerError('serverErrorCont', e.message.stack);
+            virtualclass.view.removeElement('serverErrorCont');
+            virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
             if (typeof e.message !== 'object') {
                 display_error(e.message.stack);
             }
@@ -137,10 +157,11 @@ $(document).ready(function () {
     $(document).on("member_added", function (e) {
         var sType;
         virtualclass.connectedUsers = e.message;
-        virtualclass.wb.clientLen = e.message.length;
+        //virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
         memberUpdate(e, 'added');
+
 
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
             virtualclass.gObj.video.updateVidContHeight();
@@ -149,12 +170,17 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
+
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-                }
-
-                if (virtualclass.currApp === 'ScreenShare') {
+                } else if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
+                } else if(virtualclass.currApp === 'Yts'){
+                    //virtualclass.yts.player.getCurrentTime();
+
+                    //init name should be changed with video id
+                    io.send({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}}, virtualclass.jId);
+                    //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
                 }
 
                 if (typeof sType !== 'undefined' && sType !== null) {
@@ -215,12 +241,14 @@ $(document).ready(function () {
      * On every new message from IOLib/Server
      */
     $(document).on("newmessage", function (e) {
-        //if(e.message.hasOwnProperty('editorSuman')){
-        //    alert('I have just joined the room');
-        //    return;
-        //}
         var recMsg = e.message, key;
-        virtualclass.wb.gObj.myrepObj = virtualclass.wb.vcan.getStates('replayObjs');
+
+        //critical, wrapping with if condition can be crtical,j validate proper if condition is not violating anything
+        if(typeof virtualclass.wb == 'object'){
+            if(virtualclass.wb.hasOwnProperty('vcan')){
+                virtualclass.wb.gObj.myrepObj = virtualclass.wb.vcan.getStates('replayObjs');
+            }
+        }
 
         if (typeof recMsg === 'string') {
             messageUpdate(e);  //chat update
@@ -275,6 +303,21 @@ $(document).ready(function () {
      * @type {receiveFunctions}
      */
     var receiveFunctions = new function () {
+         this.control = function (e){
+             virtualclass.user.control.onmessage(e);
+         }
+
+         this.eddata = function (e){
+            //virtualclass.editorRich.onmessage(e.message);
+            if(e.message.hasOwnProperty('et')){
+                if(e.message.et == 'editorRich'){
+                    virtualclass.editorRich.onmessage(e, 'EditorRich');
+                }else {
+                    virtualclass.editorCode.onmessage(e, 'EditorCode');
+                }
+            }
+         }
+
         this.eddata = function (e){
 
             //virtualclass.editorRich.onmessage(e.message);
@@ -418,7 +461,7 @@ $(document).ready(function () {
         this.getMsPckt = function (e) {
             virtualclass.wb.gObj.chunk = [];
             var chunk = virtualclass.wb.bridge.sendPackets(e, virtualclass.wb.gObj.chunk);
-            virtualclass.wb.utility.beforeSend({'repObj': chunk, 'chunk': true});
+          virtualclass.vutil.beforeSend({'repObj': chunk, 'chunk': true});
         };
 
         this.createArrow = function (e) {

@@ -263,12 +263,16 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
-                        virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                        if(typeof virtualclass.wb == 'object'){
+                            virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                        } else {
+                            virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
+                        }
                         storeFirstObj = true;
                     }
                     cursor.continue();
                 } else {
-                    if (typeof storeFirstObj == 'undefined') {
+                    if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
                         virtualclass.wb.utility.makeUserAvailable(); //at very first
                     }
                 }
@@ -369,10 +373,12 @@
             },
             endSession: function (onlyStoredData) {
                 if (!onlyStoredData) {
-                    virtualclass.wb.utility.t_clearallInit();
-                    virtualclass.wb.utility.makeDefaultValue();
-                    virtualclass.vutil.clearAllChat();
+                    if(typeof virtualclass.wb == 'object'){
+                        virtualclass.wb.utility.t_clearallInit();
+                        virtualclass.wb.utility.makeDefaultValue();
+                    }
 
+                    virtualclass.vutil.clearAllChat();
                     virtualclass.editorRich.removeEditorData();
                     virtualclass.editorCode.removeEditorData();
                 }

@@ -101,11 +101,13 @@ a, canvas {
 	border-bottom : none;
 }
 
+/*
 #virtualclassCont #virtualclassOptionsCont .appOptions a span:before {
 	font-size : 28px;
 }
+*/
 
-#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool:hover {
+#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool:hover,  #virtualclassCont #virtualclassOptionsCont #virtualclassYtsTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool:hover, #virtualclassEditorCodeTool:hover, #virtualclassWhiteboardTool:hover {
 	background: #feffff; /* Old browsers */
 	background: -moz-linear-gradient(left, #feffff 0%, #ddd 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f0f0f0), color-stop(100%, #ccc)); /* Chrome,Safari4+ */
@@ -127,17 +129,24 @@ a, canvas {
  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
 }
 
+/*
 #virtualclassCont #virtualclassOptionsCont .appOptions a span:before {
 	font-size: 28px;
 }
+*/
 
 #virtualclassCont #virtualclassOptionsCont .appOptions {
 	border : #a7a7a7 solid 1px;
 	border-left : none;
+	padding: 10px 5px;
+}
+
+#virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions {
+	border-top-right-radius : 5px;
 }
 
 #virtualclassCont #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions {
-	border-top-right-radius : 5px;
+	border-top-right-radius : 0px;
 }
 
 #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool {
@@ -419,7 +428,7 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont #chat_div .ui-memblist-usr span {
 	text-transform : uppercase;
-	font-weight : bold;
+	font-weight : normal;
 }
 /*
 #virtualclassCont #chat_div.ui-memblist-log {
@@ -686,7 +695,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont #virtualclassOptionsCont .appOptions .tooltip:hover:after {
 	padding : 0.7em 1em;
 	right : auto;
-	left : 50px;
+	left : 45px;
 	bottom : -0.4em;
 }
 
@@ -1244,13 +1253,9 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #chat_div .ui-memblist-usr span {
 	text-transform : capitalize;
-	font-weight : bold;
+	font-weight : 200;
 }
-/*
-#virtualclassCont #chat_div.ui-memblist-log {
-	height : auto !important;
-}
-*/
+
 #virtualclassCont .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text {
 	font-weight : normal;
 }
@@ -1304,7 +1309,7 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont .ui-widget-content .controls {
-	width : 165px;
+	width : 200px;
 	position : relative;
 }
 
@@ -1319,9 +1324,11 @@ opacity : 0.800000011920928955078125 !important;
 	height : 100%;
 }
 
-#virtualclassCont #chat_div .controleCont {
-	float : left;
+#virtualclassCont #chat_div .controleCont, #virtualclassCont #chat_div .controleCont, #virtualclassCont #chat_div .controllereditorCode{
+	float : left; 
 	width : 30px;
+	text-align: center;
+	
 }
 
 #virtualclassCont .audioTransmit {
@@ -1386,10 +1393,11 @@ opacity : 0.800000011920928955078125 !important;
 #virtualclassCont.student #virtualclassScreenShare, #virtualclassCont.student #virtualclassWholeScreenShare {
 	margin-left : 5px;
 }
+#virtualclassCont.student #virtualclassScreenShare, #virtualclassCont #virtualclassEditorRich, #virtualclassCont #virtualclassEditorCode{
+	margin-left: 60px;
+}
 
-/*#virtualclassCont.teacher #virtualclassScreenShare, #virtualclassCont.teacher #virtualclassWholeScreenShare {
-    margin-left : 55px;
-}*/
+
 
 .teacher .vmApp {
     margin-left : 55px;
@@ -1421,7 +1429,11 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #usertab_icon {
-	margin : 6px 2px 0 0;
+	margin : 6px 6px 0 0;
+}
+
+#user_list .inner_bt #usertab_text{
+	text-align: left;
 }
 
 #virtualclassCont .ui-widget.disable {
@@ -1514,9 +1526,7 @@ opacity : 0.800000011920928955078125 !important;
 	padding : 7px 13px 0;
 }
 
-#virtualclassCont #virtualclassOptionsCont .appOptions.active {
-	border-top-right-radius : 5px;
-}
+
 
 #virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions.active {
 	border-top-right-radius : 0;
@@ -1734,7 +1744,7 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #containerWb #commandToolsWrapper .tool a {
 	text-decoration: none;
-	padding: 9px 18px 7px;
+	padding: 11px 18px 10px;
 	color:#535151;
 	border-right: #ccc 1px solid;
 	font-size: 25px;
@@ -1826,20 +1836,24 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #virtualclassWhiteboardTool .icon-whiteboard:before {
 	content : "\e604";
+	font-size: 34px;
 }
 
 #virtualclassCont #virtualclassScreenShareTool .icon-screenshare:before {
 	content : "\e602";
+	font-size: 32px;
 }
 
 #virtualclassCont #virtualclassYtsTool .icon-youtubeshare:before {
-
+	font-size: 30px;
 	content : "\ea99";
 }
 
 #virtualclassCont #virtualclassSessionEndTool .icon-sessionend:before {
+	font-size: 30px;
 	content : "\e9b6";
 }
+
 
 #virtualclassCont #speakerPressing .icon-speakerPressing:before {
 	content : "\f130";
@@ -1890,6 +1904,19 @@ opacity : 0.800000011920928955078125 !important;
 	color : #535151;
 	padding-right : 8px;
 	font-size : 107%;
+}
+
+.icon-editorRichImg:before{
+	content : "\e605";
+	font-size: 14px;
+}
+#virtualclassCont.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.teacher #chat_div .controls .icon-assignImg.enable, #virtualclassCont.orginalTeacher #chat_div .controls span{
+	margin-left: 0px;
+}
+
+
+#virtualclassCont.student #virtualclassCont #virtualclassEditorRich{
+	 margin-left: 35px;
 }
 
 #virtualclassCont.teacher.orginalTeacher .icon-audioImg.enable:before, #virtualclassCont.teacher .icon-audioImg.enable:before {
@@ -1956,6 +1983,29 @@ opacity : 0.800000011920928955078125 !important;
 	font-size : 30px;
 	position : relative;
 	top : 10px;
+}
+
+#virtualclassCont .icon-editorRich:before{
+	content : "\e605";
+	font-size : 28px;
+	position : relative;
+	top : 3px;
+}
+
+#virtualclassCont .icon-editorCode:before{
+	content : "\e608";
+	font-size : 28px;
+	position : relative;
+	top : 3px;
+}
+
+.icon-editorCodeImg:before{
+	content : "\e608";
+	font-size : 14px;
+}
+
+#virtualclassCont .appOptions.active a span:before{
+	text-shadow: #FFF 0px 0px 5px;
 }
 
 #virtualclassCont #commandToolsWrapper a {
@@ -2059,9 +2109,7 @@ opacity : 0.800000011920928955078125 !important;
     margin-top : 8px;
 }
 
-#virtualclassCont #chat_div .userImg a {
-    margin-left:4px;
-}
+
 
 @-moz-document url-prefix() {
 	#virtualclassCont.student #chat_div .userImg.ui-memblist-usr a.tooltip:hover:after {
@@ -2104,18 +2152,19 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 .recButton {
+	margin: 0px 6px;
     display:inline;
-    
+    float: left;
 }
 
-#playController {
-    position : relative;
-    left : 40%;
-}
 
 #playProgress {
-    width : 300px;
-    text-align : center;
+  	background-color: #676666;
+    float: left;
+    margin-left: 20px;
+    margin-top: 7px;
+    text-align: center;
+    width: 350px;
 }
 
 #virtualclassCont.playMode #audioWidget {
@@ -2127,16 +2176,9 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 
-/*.icon-youtubeshare:after{*/
-	/*content: 'YT';*/
-	/*width : 60px;*/
-	/*height : 80px;*/
-	/*cursor :pointer;*/
-/*}*/
 
 #virtualclassYts {
-/*    width : 1100px;
-    height : 800px;*/
+	border: #ddd 1px solid;
     margin-left : 60px;
 }
 
@@ -2144,40 +2186,35 @@ opacity : 0.800000011920928955078125 !important;
 	margin-top : 20px;
 }
 
-#virtualclassCont .icon-editorRich:before {
-	content : "edi";
-}
-
-#virtualclassCont .icon-editorCode:before{
-	content : "edc";
-}
 
 #virtualclassCont{
 	width : 100%;
-	/*height : 80%;*/
+}
+
+#virtualclassEditorRich #synchMessageBox, .writeModeBox{
+	background : #EBECC6;
+	font-size : 14px;
+	padding: 12px 8px 12px 12px;
+	border:#e6dda4 1px solid;
 }
 
 #virtualclassEditorRich #synchMessageBox {
 	position : absolute;
 	top : 15px;
 	left : 64%;
-	background : #EBECC6;
-	padding : 8px;
-	padding-left : 12px;
-	font-size : 14px;
 	z-index : 5;
 }
 
 
-
-/*#virtualclassEditorRich {*/
-	/*width : 90%;*/
-	/*height : 95%;*/
-/*}*/
-
-#virtualclassEditorRich {
-	overflow : auto;
+.writeModeBox {
+   	bottom: 99%;
+    left: 86%;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 150px;
 }
+
 
 #virtualclassEditorRich{
 	margin-top : 1.5%;
@@ -2188,3 +2225,229 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 
+.other-client:before {
+	content: attr(data-clientname);
+	background : #137C01;
+	padding: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	position: absolute;
+	left: -6px;
+	top: 15px;
+	color : #ffffff;
+}
+
+
+div.CodeMirror-cursors{
+	visibility : visible !important;
+}
+
+
+.block.editorRichImg {
+	opacity : 0.5;
+}
+
+.block.editorCodeImg {
+	opacity : 0.5;
+}
+
+#alleditorRichContainer, #alleditorCodeContainer {
+  position: relative;
+  bottom: 98.3%;
+  left: 87%;
+  z-index: 5;
+  width: 110px;
+  text-align: center;
+  padding: 10px 0px;
+  font-size: 14px;
+  font-weight: 200;
+  z-index: 1;
+}
+
+#virtualclassYtsTool, #virtualclassEditorCodeTool{
+	border-bottom: none !important;
+}
+
+#alleditorRichContainerAnch{
+  color: #fff;
+  text-decoration: none;
+}
+
+#virtualclassEditorRichBody { 
+	height : 100%;
+}
+
+
+/* New Css */
+#playControllerWrapper{
+	background: #f7f7f8; /* Old browsers */
+	background: -moz-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f8), color-stop(100%,#eeeef0)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f7f7f8 0%,#eeeef0 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f7f7f8 0%,#eeeef0 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #f7f7f8 0%,#eeeef0 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #f7f7f8 0%,#eeeef0 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
+}
+#playControllerWrapper #playProgress, #playController #playProgress #playProgressBar{
+	height: 5px;
+}
+
+a.vceditor-btn{
+	border-bottom-width: 1px !important;
+}
+
+.vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{
+	border-radius: 3px !important;
+}
+
+.vceditor-toolbar{
+	border: 1px solid #c9c9c9;
+	background-color: #f2f2f0;
+}
+
+#playController{
+	margin: 0 auto;
+    position: relative;
+    width: 627px;
+}
+
+.progressBar{
+	height: 5px;
+}
+
+#virtualclassCont #playController{
+	padding: 18px 15px 36px;
+	border-left: #ddd 1px solid;
+	border-right: #ddd 1px solid;
+}
+
+#virtualclassCont #playController #repTimeCont{
+	margin-right: 0;
+	float: right;
+	padding-right: 10px;
+	border-left: #ddd 1px solid;
+	padding-left: 15px;
+	color: #555;
+	font-size: 14px;
+}
+
+#repTimeCont #totalRepTime{
+	color: #888;
+}
+
+#virtualclassCont #playController #recPlayCont #recPlay, #virtualclassCont #playController #recPlayCont #recPause, #virtualclassCont #playController #ff2Cont #ff2, #virtualclassCont #playController #ff8Cont #ff8{
+	background-color: transparent;
+    border: medium none;
+    cursor: pointer;
+    color:#676666;
+}
+
+#virtualclassCont #playController #recPlayCont #recPlay:hover, #virtualclassCont #playController #recPlayCont #recPause:hover, #virtualclassCont #playController #ff2Cont #ff2:hover, #virtualclassCont #playController #ff8Cont #ff8:hover{
+	color:#222222;
+}
+
+#virtualclassCont #playController .icon-pause:before{
+	content:"\f04c";
+	font-size: 14px;
+}
+
+#virtualclassCont #playController .icon-forward:before{
+	content:"\f04e";
+	font-size: 14px;
+}
+
+#virtualclassCont #playController .icon-fast-forward:before{
+	content:"\f050";
+	font-size: 14px;
+}
+#virtualclassCont .icon-play:before{
+	content : "\f04b";
+	font-size: 14px;
+}
+
+.vceditor-toolbar-wrapper div:nth-child(3), .vceditor-toolbar-wrapper div:nth-child(5), .vceditor-toolbar-wrapper div:nth-child(8){
+	margin-right: 20px;
+	padding-right: 20px;
+	border-right: #ccc 1px solid;
+}
+
+
+#alleditorRichContainer{
+	background: #6f9b90; /* Old browsers */
+	background: -moz-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92b0ab), color-stop(100%,#6f9b90)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #92b0ab 0%,#6f9b90 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
+}
+
+#youtubeUrlContainer{
+	position: relative;
+	margin-top: 10px;
+	text-align: left;
+	top: 0%;
+}
+#youtubeUrlContainer #youtubeurl{
+	border:#ddd 1px solid;
+	height: 36px;
+	font-size: 13px;
+	padding: 0px 7px;
+	width: 245px;
+	 text-transform: uppercase;
+}
+
+#youtubeUrlContainer #submitURL{
+	background: #6f9b90; /* Old browsers */
+	background: -moz-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92b0ab), color-stop(100%,#6f9b90)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #92b0ab 0%,#6f9b90 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
+	padding: 10px;
+	border: none;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 200;
+	margin-left: 5px;
+}
+
+#alleditorRichContainer, #alleditorCodeContainer{
+	background: #6f9b90; /* Old browsers */
+	background: -moz-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92b0ab), color-stop(100%,#6f9b90)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #92b0ab 0%,#6f9b90 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
+	
+}
+#alleditorRichContainer:hover, #alleditorCodeContainer:hover, #youtubeUrlContainer #submitURL:hover{
+	background: #6f9b90; /* Old browsers */
+	background: -moz-linear-gradient(top, #6f9b90 0%, #92b0ab 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6f9b90), color-stop(100%,#92b0ab)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #6f9b90 0%,#92b0ab 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f9b90', endColorstr='#92b0ab',GradientType=0 ); /* IE6-9 */
+	
+}
+
+#alleditorRichContainer a, #alleditorCodeContainer a{
+	color:#fff;
+	text-decoration: none;
+}
+
+
+/* Image picker css*/
+
+.vceditor-dialog-div{
+	border:#ccc 1px solid;
+}

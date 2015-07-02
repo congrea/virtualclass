@@ -2087,7 +2087,7 @@
         };
 
         OtherClient.prototype.updateCursor = function (cursor) {
-            this.color = "#df2029";
+            this.color = "#86BA7D";
             this.removeCursor();
             this.cursor = cursor;
             this.mark = this.editorAdapter.setOtherCursor(
@@ -4226,7 +4226,6 @@
             var position = cm.indexFromPos(cursorPos);
             var selectionEnd;
             if (cm.somethingSelected()) {
-
                 var startPos = cm.getCursor(true);
                 var selectionEndPos = posEq(cursorPos, startPos) ? cm.getCursor(false) : startPos;
                 selectionEnd = cm.indexFromPos(selectionEndPos);
@@ -4274,37 +4273,53 @@
                 return;
             }
 
-            if (cursor.position === cursor.selectionEnd) {
-                // show cursor
-                var cursorCoords = this.cm.cursorCoords(cursorPos);
-                var cursorEl = document.createElement('span');
-                cursorEl.className = 'other-client';
-                cursorEl.style.borderLeftWidth = '2px';
-                cursorEl.style.borderLeftStyle = 'solid';
-                cursorEl.style.borderLeftColor = color;
-                cursorEl.style.marginLeft = cursorEl.style.marginRight = '-1px';
-                cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
-                cursorEl.setAttribute('data-clientid', clientId);
-                cursorEl.style.zIndex = 0;
+            //changed by SUMAN
 
-                return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
-            } else {
-                // show selection
-                var selectionClassName = 'selection-' + color.replace('#', '');
-                var rule = '.' + selectionClassName + ' { background: ' + color + '; }';
-                this.addStyleRule(rule);
+            var cursorCoords = this.cm.cursorCoords(cursorPos);
 
-                var fromPos, toPos;
-                if (cursor.selectionEnd > cursor.position) {
-                    fromPos = cursorPos;
-                    toPos = this.cm.posFromIndex(cursor.selectionEnd);
+            var cursorEl = document.createElement('span');
+           // console.log('Coords ' + cursorCoords);
+            cursorEl.className = 'other-client';
+            cursorEl.id = "cursorId" + clientId;
+            cursorEl.style.borderLeftWidth = '3px';
+            cursorEl.style.borderLeftStyle = 'solid';
+            cursorEl.style.borderLeftColor = color;
+            cursorEl.style.marginLeft = cursorEl.style.marginRight = '-3px';
+            cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
+            cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name'  , clientId, virtualclass.connectedUsers)); //display user name with cursor
+            cursorEl.setAttribute('data-clientid', clientId);
+            cursorEl.style.position = 'relative';
+
+            var cursorTag = document.getElementById('cursorId' + clientId);
+            if(cursorTag != null){
+                cursorTag.parentNode.removeChild(cursorTag);
+            }
+
+            if(clientId != virtualclass.gObj.uid){
+                if (cursor.position === cursor.selectionEnd) {
+                    cursorEl.style.zIndex = 0;
+                    return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
                 } else {
-                    fromPos = this.cm.posFromIndex(cursor.selectionEnd);
-                    toPos = cursorPos;
+
+                 this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
+
+                    // show selection
+                    var selectionClassName = 'selection-' + color.replace('#', '');
+                    var rule = '.' + selectionClassName + ' { background: ' + color + '; }';
+                    this.addStyleRule(rule);
+
+                    var fromPos, toPos;
+                    if (cursor.selectionEnd > cursor.position) {
+                        fromPos = cursorPos;
+                        toPos = this.cm.posFromIndex(cursor.selectionEnd);
+                    } else {
+                        fromPos = this.cm.posFromIndex(cursor.selectionEnd);
+                        toPos = cursorPos;
+                    }
+                    return this.cm.markText(fromPos, toPos, {
+                        className: selectionClassName
+                    });
                 }
-                return this.cm.markText(fromPos, toPos, {
-                    className: selectionClassName
-                });
             }
         };
 
@@ -5337,9 +5352,11 @@
             this.options_ = options || {};
 
             if (this.getOption('richTextShortcuts', false)) {
+
                 if (!CodeMirror.keyMap['richtext']) {
                     this.initializeKeyMap_();
                 }
+
                 this.codeMirror_.setOption('keyMap', 'richtext');
                 this.vcEditorWrapper_.className += ' vceditor-richtext';
             }
@@ -5750,24 +5767,35 @@
                 }
             }
 
-            CodeMirror.keyMap["richtext"] = {
-                "Ctrl-B": binder(this.bold),
-                "Cmd-B": binder(this.bold),
-                "Ctrl-I": binder(this.italic),
-                "Cmd-I": binder(this.italic),
-                "Ctrl-U": binder(this.underline),
-                "Cmd-U": binder(this.underline),
-                "Ctrl-H": binder(this.highlight),
-                "Cmd-H": binder(this.highlight),
-                "Enter": binder(this.newline),
-                "Delete": binder(this.deleteRight),
-                "Backspace": binder(this.deleteLeft),
-                "Tab": binder(this.indent),
-                "Shift-Tab": binder(this.unindent),
-                fallthrough: ['default']
-            };
-        };
 
+            //changed by suman
+            //We don't need this handler when the
+            // editor is OFF
+            if(!this.getOption('readOnly')){
+                CodeMirror.keyMap["richtext"] = {
+                    "Ctrl-B": binder(this.bold),
+                    "Cmd-B": binder(this.bold),
+                    "Ctrl-I": binder(this.italic),
+                    "Cmd-I": binder(this.italic),
+                    "Ctrl-U": binder(this.underline),
+                    "Cmd-U": binder(this.underline),
+                    "Ctrl-H": binder(this.highlight),
+                    "Cmd-H": binder(this.highlight),
+                    "Enter": binder(this.newline),
+                    "Delete": binder(this.deleteRight),
+                    "Backspace": binder(this.deleteLeft),
+                    "Tab": binder(this.indent),
+                    "Shift-Tab": binder(this.unindent),
+                    fallthrough: ['default']
+                };
+            }else {
+                CodeMirror.keyMap["richtext"] = {
+                    fallthrough: ['default']
+                };
+            }
+
+
+        };
 
         function colorFromUserId(userId) {
             var a = 1;

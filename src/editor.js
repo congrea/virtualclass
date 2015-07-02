@@ -19,11 +19,11 @@
 
             //TODO this should be dynamic
             if(type == 'editorRich'){
-                var editorType = { lineWrapping: true };
-                var richEditorToolbar =  {richTextToolbar: true, richTextShortcuts: true};
-            } else{
-                var editorType =  {lineNumbers: true, mode : 'markdown'};
-                var richEditorToolbar = {defaultText: 'Markdown Editor '};
+                var editorType = { lineWrapping: true};
+                var editorToolbar =  {richTextToolbar: true, richTextShortcuts: true, readOnly : true}; //For RichText Editor here we need to make readOnly parameter
+            } else {
+                var editorType =  {lineNumbers: true, mode : 'markdown', readOnly : true};
+                var editorToolbar = {defaultText: 'Markdown Editor '};
             }
 
             return {
@@ -48,6 +48,7 @@
                     if(this.stroageData != null){
                         var wrappedOperation = JSON.parse(this.stroageData);
                         var docs = JSON.parse(wrappedOperation.data);
+                        console.log('Current Editor type ' + virtualclass.currAppEditorType);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
                             if(virtualclass.currAppEditorType == this.etype){
                                 this.initialiseDataWithEditor(docs, 'displayEditor', virtualclass.currAppEditorType);
@@ -82,14 +83,53 @@
 
                     if(!this.cm && typeof this.cm != 'object'){
                         this.codemirrorWithLayout(editorType);
-                        this.createEditorClient(richEditorToolbar, docsInfo);
+                        this.createEditorClient(editorToolbar, docsInfo);
 
                     }else {
                         virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                     }
 
                     if(virtualclass.gObj.uRole == 't'){
+                        this.createAllEditorController();
                         io.send({eddata : 'init', et: this.etype});
+                    }
+
+                },
+
+                createAllEditorController : function (){
+                    var editorType = this.etype;
+                    var containerId = 'all' + editorType + 'Container';
+                    if(document.getElementById(containerId) ==  null){
+                        var actionToPerform = 'enable';
+                        var editorControllerCont = document.createElement('div');
+                        editorControllerCont.id  = containerId;
+                        editorControllerCont.class = 'editorController';
+
+                        var editorControllerAnch = document.createElement('a');
+                        editorControllerAnch.id  = editorControllerCont.id + "Anch";
+                        editorControllerAnch.href = "#";
+                        editorControllerAnch.innerHTML = "Enable All";
+                        editorControllerAnch.dataset.action = actionToPerform;
+                        editorControllerCont.appendChild(editorControllerAnch);
+
+                        editorType = virtualclass.vutil.capitalizeFirstLetter(editorType);
+                        document.getElementById('virtualclass' + editorType + 'Body').appendChild(editorControllerCont);
+
+                        editorControllerAnch.addEventListener('click', function (){
+                            var editorControllerAnch = document.getElementById(containerId + 'Anch');
+                            if(editorControllerAnch != null){
+                                actionToPerform = editorControllerAnch.dataset.action;
+                                if(editorControllerAnch.dataset.action == 'enable'){
+                                    editorControllerAnch.dataset.action = 'disable';
+                                    editorControllerAnch.innerHTML = "Disable All";
+                                } else {
+                                    editorControllerAnch.dataset.action = 'enable';
+                                    editorControllerAnch.innerHTML = "Enable All";
+                                }
+                            }
+                            virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
+                        });
+
                     }
 
                 },
@@ -101,11 +141,19 @@
                  * @param docsInfo about docs(operation, revision, etc)
                  */
                 createEditorClient : function (editorType, docsInfo){
+                    //alert('sss');
+                    //debugger;
                     if(virtualclass.isPlayMode){
                         //this.readOnlyMode('disable', 'notCreateSyncBox');
                         this.readOnlyMode('enable', 'notCreateSyncBox');
                     }
+                    if(virtualclass.gObj.uRole == 't'){
+                        this.cm.setOption('readOnly', false);
+                        editorType.readOnly = false;
+                    }
                     Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
+
+
                 },
 
                 /**
@@ -189,8 +237,10 @@
                 receivedOperations : {
                     currAppEditor : function (e){
                         if(e.fromUser.userid != virtualclass.gObj.userid){
+                            console.log('curr app editor');
                             virtualclass.currAppEditor = true;
                             virtualclass.currAppEditorType = e.message.et;
+                            virtualclass.dispvirtualclassLayout(virtualclass.currAppEditorType);
                         }
                         return;
                     },
@@ -272,9 +322,7 @@
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
 
                     //TODO this all if and else condition should be simplyfy
-
                     this.receivedOperations[e.message.eddata].call(this, e, etype);
-
                     if(typeof this.vcAdapter != 'object'){
                         if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
                             virtualclass.makeAppReady(etype);
@@ -282,7 +330,7 @@
                         }
                         console.log("virtualclass adapter is not ready for editor");
                     }
-    },
+                },
 
                 /**
                  * this object is used for user interace of Editor
@@ -441,7 +489,9 @@
 
                     this.removeCodeMirror();
                     this.codemirrorWithLayout(editorType);
+
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp);
+
                     if ((this.cm)) {
                         if (this.cm.getValue() !== doc.str) {
                             var cmElem = document.getElementById(this.UI.edId);
@@ -454,7 +504,7 @@
                             doc.operations = deserialiseOps(doc.operations);
                             doc.doc = doc.str;
 
-                            this.createEditorClient(richEditorToolbar, doc);
+                            this.createEditorClient(editorToolbar, doc);
                             this.prvEdRev = doc.revision;
                         }
                     }
@@ -465,6 +515,50 @@
 
                     this.cm.refresh();
 
+                    var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
+
+                    //if(cmReadOnly != null && !cmReadOnly){
+                    //    this.cm.setOption("readOnly", true);
+                    //    var writeMode = false;
+                    //
+                    //}else {
+                    //    this.cm.setOption("readOnly", false);
+                    //    var writeMode = true;
+                    //}
+
+                    //TODO To be simplyfied
+                    //if(cmReadOnly != null){
+                    //    if(!cmReadOnly){
+                    //        this.cm.setOption("readOnly", true);
+                    //        var writeMode = false;
+                    //    }else {
+                    //        this.cm.setOption("readOnly", false);
+                    //        var writeMode = true;
+                    //    }
+                    //} else {
+                    //    this.cm.setOption("readOnly", true);
+                    //    var writeMode = false;
+                    //}
+
+                    //TODO To be simplyfied
+                    if(localStorage.getItem('orginalTeacherId') == null) {
+                        if(cmReadOnly != null){
+                            if(!cmReadOnly){
+                                this.cm.setOption("readOnly", true);
+                                var writeMode = false;
+                            }else {
+                                this.cm.setOption("readOnly", false);
+                                var writeMode = true;
+                            }
+                        } else {
+                            this.cm.setOption("readOnly", true);
+                            var writeMode = false;
+                        }
+
+                        virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
+                    }
+
+
                     if( virtualclass.currApp == 'EditorRich'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
@@ -474,7 +568,6 @@
                     if(editorTool  != null){
                         editorTool.style.pointerEvents = 'visible';
                     }
-
                 },
 
                 /**

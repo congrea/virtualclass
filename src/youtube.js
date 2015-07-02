@@ -17,18 +17,28 @@
 
         return {
             player: '',
-            init: function (videoId, user) {
-                this.UI.container();
+            init: function (videoId, startFrom) {
+
                 if (virtualclass.gObj.uRole == 's') {
-                    this.onYTIframApi(videoId);
+                    if(typeof videoId == 'undefined'){
+                        this.UI.defaultLayoutForStudent();
+                    } else {
+                        this.UI.container();
+                        (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+                    }
+
                 } else {
+                    this.UI.container();
+                    if(typeof startFrom != 'undefined'){
+                        this.onYTIframApi(videoId, startFrom, 'fromReload');
+                    }
                     this.UI.inputURL();
                 }
             },
 
             destroyYT: function () {
                 if (typeof virtualclass.yts.player == 'object') {
-                    console.log('Player object is DESTROYED.');
+                    //console.log('Player object is DESTROYED.');
                     virtualclass.yts.player.destroy();
                     virtualclass.yts.player = "";
                     if (virtualclass.yts.hasOwnProperty('tsc')) {
@@ -41,19 +51,33 @@
                 id: 'virtualclassYts',
                 class: 'virtualclass',
                 container: function () {
-                    if (document.getElementById(this.id) == null) {
-                        var divYts = document.createElement('div');
-                        divYts.id = this.id;
-                        divYts.className = this.class;
 
-                        var divPlayer = document.createElement('div');
-                        divPlayer.id = "player";
-                        divYts.appendChild(divPlayer);
-
-                        var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                        document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
-
+                    var ytsCont = document.getElementById(this.id);
+                    if (ytsCont != null) {
+                        ytsCont.parentNode.removeChild(ytsCont);
                     }
+
+                    var divYts = document.createElement('div');
+                    divYts.id = this.id;
+                    divYts.className = this.class;
+
+                    var divPlayer = document.createElement('div');
+                    divPlayer.id = "player";
+                    divYts.appendChild(divPlayer);
+
+                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+
+                },
+
+                defaultLayoutForStudent : function (){
+                    var divYts = document.createElement('div');
+                    divYts.id = this.id;
+                    divYts.className = this.class;
+                    divYts.innerHTML = "TEACH MAY SHARE THE YOUTUBE VIDEO";
+
+                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
                 },
 
                 inputURL: function () {
@@ -65,31 +89,30 @@
                         input.id = "youtubeurl";
                         input.cols = 70;
                         input.rows = 3;
-                        var tnode = document.createTextNode("Please paste here youtube url");
-                        input.appendChild(tnode);
+                        input.value =  virtualclass.lang.getString("youTubeUrl");
+
+                        //var tnode = document.createTextNode("Please put here youtube url");
+                        //input.appendChild(tnode);
+
                         document.getElementById('virtualclassYts').appendChild(input);
 
                         uiContainer.appendChild(input);
 
                         var submitURL = document.createElement('button');
                         submitURL.id = 'submitURL';
-                        submitURL.innerHTML = "Share Video";
+                        submitURL.innerHTML = virtualclass.lang.getString('shareYouTubeVideo');
 
                         uiContainer.appendChild(submitURL);
 
                         var ytsCont = document.getElementById('virtualclassYts');
                         var playerTag = document.getElementById('player');
-                        ytsCont.insertBefore(uiContainer, playerTag);
 
-                        //    ytsCont.appendChild(uiContainer);
+                        // referenceNode.nextSibling, insert after
+                        ytsCont.insertBefore(uiContainer, playerTag.nextSibling);
 
-//                            var divPlayer = document.createElement('div');
-//                            divPlayer.id = "player";
-//                            ytsCont.appendChild(divPlayer);
 
-                        //var that = this;
 
-                        //for teachers
+                        //for teachers'
                         submitURL.addEventListener('click', function () {
 
                             var videourl = document.getElementById('youtubeurl').value;
@@ -100,6 +123,7 @@
                                 return;
                             }
 
+                            virtualclass.yts.videoId = videoId;
                             virtualclass.yts.onYTIframApi(videoId);
                             io.send({'yts': {'init': videoId}});
                         });
@@ -129,6 +153,7 @@
 
             onmessage: function (msg) {
                 if (typeof msg.yts == 'string') {
+
                     if (msg.yts == 'play') {
                         this.player.playVideo();
                     } else if (msg.yts == 'pause') {
@@ -138,15 +163,12 @@
                     } else if (msg.yts == 'unmute') {
                         this.player.unMute();
                     }
+
+
+
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
-                        virtualclass.makeAppReady('Yts', undefined, msg.yts.init);
-//                            virtualclass.yts.tsc();
-
-//                            this.init(msg.yts.init, 'student');
-//                            document.getElementById('virtualclassWhiteboard').style.display = 'none';
-//                            document.getElementById('virtualclassYts').style.display = 'block';
-
+                        virtualclass.makeAppReady('Yts', undefined, msg.yts);
                     } else {
                         var seekToNum = parseInt(msg.yts.seekto, 10);
                         //during the replay if player is ready for seek
@@ -157,30 +179,55 @@
                 }
             },
 
-            onYTIframApi: function (videoId) {
-                if (typeof this.player == 'object') {
+            onYTIframApi: function (videoId, playStratFrom, fromReload) {
+                if(typeof videoId != 'undefined'){
+                    this.videoId = videoId;
+                }
+
+                // virtualclass.gObj.uRole == 't', because loadVideoById is not working, find out why
+                if (typeof this.player == 'object' && virtualclass.gObj.uRole == 't') {
                     this.player.loadVideoById(videoId);
                 } else {
-                    var videoObj = {
+                    var playerVarsObj = {
                         height: '390',
                         width: '640',
-                        videoId: videoId,
                         autohide: 0,
                         disablekb: 1,
                         enablejsapi: 1,
                         modestbranding: 1,
-                        events: {
+                        start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
+                        }
+
+                    var videoObj = {
+                        playerVars : playerVarsObj,
+                        videoId :  videoId,
+                        events : {
                             'onReady': this.onPlayerReady
                         }
-                    };
+                    }
+
+                    if(typeof playStratFrom != 'undefined'){
+                        videoObj.start = playStratFrom;
+                    }
 
                     console.log('Player object is CREATED');
-                    this.player = new YT.Player('player', videoObj);
+                    //this.player = new YT.Player('player', videoObj);
 
+                    if(typeof fromReload !=  'undefined'){
+                        var that = this;
+                        // YouTube player is not ready for when the page is being load
+                        // this should should not worked when the user click on youtube share button
+                        window.onYouTubeIframeAPIReady = function() {
+                            that.player = new YT.Player('player', videoObj);
+                        };
+                    }else {
+                        this.player = new YT.Player('player', videoObj);
+                    }
                 }
             },
 
             triggerOnSeekChange: function () {
+                //this.actualCurrentTime = this.player.getCurrentTime();
                 console.log('there should happend something after each 2 second');
                 if (CTpre == 0 || PLState == -2 || PSmute == -1) {
                     CTpre = this.player.getCurrentTime();
@@ -242,8 +289,13 @@
             },
 
             onPlayerReady: function (event) {
-                console.log('Player is ready');
+                if(virtualclass.gObj.uRole == 't'){
+                    var submitURLButton = document.getElementById('submitURL');
+                    submitURLButton.innerHTML = virtualclass.lang.getString('shareAnotherYouTubeVideo');
+                }
+
                 event.target.playVideo();
+
                 virtualclass.yts.player.unMute();
                 virtualclass.yts.player.setVolume(40);
                 if (virtualclass.gObj.uRole == 't') {

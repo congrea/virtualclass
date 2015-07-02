@@ -76,7 +76,7 @@
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
                         var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
-                        virtualclass.wb.utility.beforeSend({'repObj': [obj]});
+                      virtualclass.vutil.beforeSend({'repObj': [obj]});
                     }
                 }
             },
@@ -540,8 +540,8 @@
 
             //setOrginalTeacherContent: function(e) {
             setOrginalTeacherContent: function () {
-                localStorage.setItem('teacherId', virtualclass.gObj.uid);
-                window.virtualclass.wb.view.canvasDrawMsg('Canvas');
+                //localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
+                //window.virtualclass.view.canvasDrawMsg('Canvas');
                 localStorage.setItem('canvasDrwMsg', true);
                 if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
                     if (parseInt(wbUser.dataInfo, 10) == 1) {
@@ -550,39 +550,38 @@
                         virtualclass.wb.utility.initStoredPacketsNumbers();
                     }
                 }
-                localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
+                //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
             },
-            initDefaultInfo: function (role) {
-                if (role == 't') {
-                    if (localStorage.getItem('orginalTeacherId') == null) {
-                        //virtualclass.wb.utility.setOrginalTeacherContent(e);
-                        virtualclass.wb.utility.setOrginalTeacherContent();
-                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-                    }
 
-                    //} else if (role == 's' && newuser == null) {
-                } else if (role == 's') {
-                    vcan.studentId = wbUser.id;
-
-//                        alert('suman bogati');
-//                        debugger;
-
-                    if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
-                        localStorage.setItem('studentId', wbUser.id);
-                    }
-                    virtualclass.vutil.removeSessionTool();
-                }
-
-
-                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-                    virtualclass.gObj.video.init();
-                    virtualclass.gObj.video.isInitiator = true;
-                }
-                //bad way
+//            initDefaultInfo: function (role) {
+//                if (role == 't') {
+//                    if (localStorage.getItem('orginalTeacherId') == null) {
+//                        //virtualclass.wb.utility.setOrginalTeacherContent(e);
+//                        virtualclass.wb.utility.setOrginalTeacherContent();
+//                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+//                    }
+//
+//                    //} else if (role == 's' && newuser == null) {
+//                } else if (role == 's') {
+//                    vcan.studentId = wbUser.id;
+//
+//                    if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
+//                        localStorage.setItem('studentId', wbUser.id);
+//                    }
+//                    virtualclass.vutil.removeSessionTool();
+//                }
+//
+//
+//                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
 //                    virtualclass.gObj.video.init();
 //                    virtualclass.gObj.video.isInitiator = true;
-                vcan.oneExecuted = false;
-            },
+//                }
+//                //bad way
+////                    virtualclass.gObj.video.init();
+////                    virtualclass.gObj.video.isInitiator = true;
+//                vcan.oneExecuted = false;
+//            },
+
             checkWebRtcConnected: function () {
                 if (typeof cthis != 'undefined') {
                     if (cthis.pc[0].hasOwnProperty('iceConnectionState') || typeof cthis.pc[0].iceConnectionState != 'undefined') {
@@ -724,6 +723,8 @@
                     }
                 }
             },
+
+            //TODO remove this function
             existUserWithSameId: function (e) {
                 var myId = e.message.checkUser.wbUser.id;
                 this.userIds.push(e.fromUser.userid);
@@ -824,7 +825,7 @@
             },
 
             replayFromLocalStroage: function (allRepObjs) {
-                if (typeof (Storage) !== "undefined") {
+                 if (typeof (Storage) !== "undefined") {
                     if (virtualclass.storage.reclaim === false) {
                         //virtualclass.wb.utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
@@ -856,8 +857,8 @@
             crateCanvasDrawMesssage: function () {
                 if (typeof localStorage.teacherId != 'undefined') {
                     if (localStorage.getItem('canvasDrwMsg') == null) {
-                        window.virtualclass.wb.view.canvasDrawMsg('Canvas');
-                        window.virtualclass.wb.view.drawLabel('drawArea');
+                        window.virtualclass.view.canvasDrawMsg('Canvas');
+                        window.virtualclass.view.drawLabel('drawArea');
                         localStorage.canvasDrwMsg = true;
                     }
                 }
@@ -912,7 +913,7 @@
             },
 
             sendRequest: function (msg, value) {
-                virtualclass.wb.utility.beforeSend({'reclaimRole': true});
+              virtualclass.vutil.beforeSend({'reclaimRole': true});
             },
             updateSentInformation: function (jobj, createArrow) {
                 if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
@@ -937,33 +938,20 @@
              * @param {type} msg
              * @returns {undefined}
              */
-            audioSend: function (msg, adStatus) {
-                if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
-                    var uid = breakintobytes(virtualclass.gObj.uid, 8);
-                    var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
-                    var sendmsg = new Int8Array(msg.length + scode.length);
-                    sendmsg.set(scode);
-                    sendmsg.set(msg, scode.length); // First element is status code (101)
-                    io.sendBinary(sendmsg);
-                    virtualclass.gObj.video.audio.setAudioStatus(adStatus);
-                } else {
-                    virtualclass.gObj.video.audio.setAudioStatus("stop");
-                }
+            //audioSend: function (msg, adStatus) {
+            //    if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
+            //        var uid = breakintobytes(virtualclass.gObj.uid, 8);
+            //        var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
+            //        var sendmsg = new Int8Array(msg.length + scode.length);
+            //        sendmsg.set(scode);
+            //        sendmsg.set(msg, scode.length); // First element is status code (101)
+            //        io.sendBinary(sendmsg);
+            //        virtualclass.gObj.video.audio.setAudioStatus(adStatus);
+            //    } else {
+            //        virtualclass.gObj.video.audio.setAudioStatus("stop");
+            //    }
+            //},
 
-
-//                    var uid = breakintobytes(virtualclass.gObj.uid, 8);
-//                    var scode = new Int8Array( [ 101,  uid[0], uid[1], uid[2], uid[3]] ); // Status Code Audio
-//                    var sendmsg = new Int8Array(msg.length + scode.length);
-//                    sendmsg.set(scode);
-//                    sendmsg.set(msg, scode.length); // First element is status code (101)
-//
-//                    // Temp change
-//                    if (io.sock.readyState == 1) {
-//                        if(virtualclass.gObj.audMouseDown){
-//                           io.sendBinary(sendmsg);
-//                        }
-//                    }
-            },
             /**
              * the operation before send message to server
              * @param {type} msg
@@ -1027,7 +1015,7 @@
                     virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
                         var label = (localStorage.getItem('teacherId') != null) ? 'msgForReload' : 'msgStudentForReload';
-                        window.virtualclass.wb.view.displayMsgBox('divForReloadMsg', label);
+                        window.virtualclass.view.displayMsgBox('divForReloadMsg', label);
                         //fix me earlierWidth and innerwidth are same
                         window.earlierWidth = window.innerWidth;
                     }
@@ -1065,29 +1053,32 @@
                 virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
             },
 
-            removeClassFromElement: function (prvTool, className) {
-                if (prvTool != "t_reclaim") {
-                    var prvTool = document.getElementById(prvTool).className;
-                    var classes = prvTool.split(" ");
-                    var retClass = [];
-                    for (var i = 0; i < classes.length; i++) {
-                        if (classes[i] != className) {
-                            retClass.push(classes[i]);
-                        }
-                    }
-                    if (retClass.length > 1) {
-                        return retClass.join(" ");
-                    } else {
-                        return retClass[0];
-                    }
-                }
-            },
+            //removeClassFromElement: function (prvTool, className) {
+            //    if (prvTool != "t_reclaim") {
+            //        var prvTool = document.getElementById(prvTool).className;
+            //        var classes = prvTool.split(" ");
+            //        var retClass = [];
+            //        for (var i = 0; i < classes.length; i++) {
+            //            if (classes[i] != className) {
+            //                retClass.push(classes[i]);
+            //            }
+            //        }
+            //        if (retClass.length > 1) {
+            //            return retClass.join(" ");
+            //        } else {
+            //            return retClass[0];
+            //        }
+            //    }
+            //},
 
             makeActiveTool: function (byReload) {
                 var tag = document.getElementById(byReload);
                 var classes;
                 if (virtualclass.wb.hasOwnProperty('prvTool') && virtualclass.wb.prvTool != "t_reclaim") {
-                    classes = virtualclass.wb.utility.removeClassFromElement(virtualclass.wb.prvTool, "active");
+
+                    //classes = virtualclass.wb.utility.removeClassFromElement(virtualclass.wb.prvTool, "active");
+                    classes = virtualclass.vutil.removeClassFromElement(virtualclass.wb.prvTool, "active");
+
                     document.getElementById(virtualclass.wb.prvTool).className = classes;
                 } else {
                     classes = tag.className;
@@ -1123,6 +1114,7 @@
                 virtualclass.user.control.changeAttrToAssign('enable');
             },
 
+            //TODO this should be at virtualclass.js
             enableAppsBar: function () {
                 var appBarCont = document.getElementById('virtualclassOptionsCont');
                 if (appBarCont != null) {
@@ -1132,14 +1124,14 @@
         };
     };
 
-    function breakintobytes(val, l) {
-        var numstring = val.toString();
-        for (var i = numstring.length; i < l; i++) {
-            numstring = '0' + numstring;
-        }
-        var parts = numstring.match(/[\S]{1,2}/g) || [];
-        return parts;
-    }
+    //function breakintobytes(val, l) {
+    //    var numstring = val.toString();
+    //    for (var i = numstring.length; i < l; i++) {
+    //        numstring = '0' + numstring;
+    //    }
+    //    var parts = numstring.match(/[\S]{1,2}/g) || [];
+    //    return parts;
+    //}
 
     window.utility = utility;
 })(window);

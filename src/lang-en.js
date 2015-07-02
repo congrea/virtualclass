@@ -1,5 +1,4 @@
 (function (window) {
-
     /**
      * {virtualclass1} {virtualclass2} are elements you passes with getString function eg:-
      *   virtualclass.lang.getString('operaBrowserIssue', ['opeara', 27]);
@@ -63,6 +62,13 @@
         'chatDisable': "Chat Disabled",
         'assignEnable': "Transfer Controls",
         'assignDisable': "Reclaim Role",
+
+        'editorRichDisable': "Disable Editor Rich",
+        'editorRichEnable': "Enable Editor Rich",
+
+        'editorCodeDisable': "Disable Editor Code",
+        'editorCodeEnable': "Enable Editor Code",
+
         'audioEnable': "Audio Enabled",
         'audioDisable': "Audio Disabled",
         'audioOn': "Audio on",
@@ -105,7 +111,12 @@
         'downloadedFile': "Your files are downloading....,  <br />Number of file has been downloaded is {virtualclass1}",
         'overallprogress': 'Overall Progress',
         'playsessionmsg': 'Click play button to start playing session',
-        'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>'
+        'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>',
+        'youTubeUrl' : 'I want the youTube URL.',
+        'shareYouTubeVideo' : 'Share YouTube Video',
+        'shareAnotherYouTubeVideo' : 'Share Another YouTube Video',
+        'editorCode' : 'Editor Code',
+        'editorRich' : 'Editor Rich'
 
     };
     window.message = message;

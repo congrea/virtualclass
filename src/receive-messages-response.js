@@ -26,7 +26,7 @@
 
 
                     var onlyLatest = true;
-                    virtualclass.wb.view.removeErrorMsg('errorContainer', onlyLatest);
+                    virtualclass.view.removeErrorMsg('errorContainer', onlyLatest);
                 }
             }
         },
@@ -62,7 +62,7 @@
             virtualclass.vutil.attachClickOutSideCanvas();
             if (virtualclass.system.device == 'mobTab') { //mobile or tablet
                 virtualclass.vutil.disableVirtualClass();
-                virtualclass.wb.view.createErrorMsg(virtualclass.lang.getString('supportDesktop'), 'errorContainer', 'chatWidget');
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('supportDesktop'), 'errorContainer', 'chatWidget');
             }
 
         },
@@ -71,7 +71,11 @@
             if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher)) {
                 virtualclass.wb.utility.makeCanvasDisable();
             }
-            virtualclass.wb.utility.initDefaultInfo(e, wbUser.role);
+
+            //  virtualclass.wb.utility.initDefaultInfo(e, wbUser.role);
+            virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
+
+            virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp );
             virtualclass.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
         },
         clearAll: function (formUserId, id, eMessage, orginalTeacherId) {
@@ -120,7 +124,7 @@
                     if (msgRepObj[0].hasOwnProperty('uid') && (!msgRepObj.hasOwnProperty('chunk'))) {
                         if (Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) {
                             var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
-                            virtualclass.wb.utility.beforeSend({'getMsPckt': reqPacket});
+                          virtualclass.vutil.beforeSend({'getMsPckt': reqPacket});
                         }
                     }
                 }

@@ -1,0 +1,5 @@
+VCE2 = Permission denied
+VCE3 = File not found
+VCE4 = No data for recording
+VCE5 = Unable to record data
+VCE6 = Course module id missing

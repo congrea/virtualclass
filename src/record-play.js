@@ -4,6 +4,11 @@
  */
 (function (window) {
 
+    //var  closeButton = document.getElementById('recordingClose');
+    //closeButton.addEventListener('click', function (){
+    //    virtualclass.popup.closeElem();
+    //});
+
     var binData;
     var e = {};
     var reqFile = 1;
@@ -26,6 +31,14 @@
     function destroyClickedElementForFirefox(event) {
         document.body.removeChild(event.target);
     }
+
+    //var  closeButton = document.getElementById('recordingClose');
+    //closeButton.addEventListener('click', function (){
+    //    alert('suman bogati');
+    //    debugger;
+    //    virtualclass.popup.closeElem();
+    //});
+
 
     var fromFille = 0;
     var recorder = {
@@ -75,7 +88,7 @@
                     }
 
                     var tempData = data;
-//                        var tempData =  JSON.parse(data);
+//                  var tempData =  JSON.parse(data);
 
                     //TODO, this should be adjust at below loop
                     for (var m = 0; m < tempData.length; m++) {
@@ -89,7 +102,6 @@
                             } else if (tempData[k].bd == 'c') {
                                 binData = virtualclass.dtCon.base64DecToArrclm(tempData[k].recObjs);
                             }
-
                             this.items[i].recObjs = binData;
                             for (var j = 0; j < binData.length; j++) {
                                 this.items[i].recObjs[j] = binData[j];
@@ -107,8 +119,7 @@
         },
 
         startUploadProcess: function () {
-            virtualclass.recorder.exportData(function () {
-            });
+            virtualclass.recorder.exportData(function () {});
             virtualclass.popup.sendBackOtherElems();
         },
 
@@ -302,7 +313,7 @@
             );
         },
         makeAvailDownloadFile: function () {
-            var pbar = document.getElementById('progressBarContainer');
+            var pbar = document.getElementById('recordingContainer');
             var downloadLinkCont = document.createElement('div');
             downloadLinkCont.id = "downloadFileCont";
 
@@ -386,8 +397,8 @@
             if (this.waitPopup == false) {
                 virtualclass.popup.sendBackOtherElems();
 
-                var progressBarContainer = document.getElementById("progressBarContainer");
-                progressBarContainer.style.display = "none";
+                var recordingContainer = document.getElementById("recordingContainer");
+                recordingContainer.style.display = "none";
 
                 virtualclass.popup.waitBlockAction('block');
 
@@ -647,7 +658,7 @@
             fastForward: function (by) {
                 this.ff = by;
             }
-        },
+        }
     };
     window.recorder = recorder;
 })(window);

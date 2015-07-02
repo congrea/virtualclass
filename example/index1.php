@@ -53,6 +53,7 @@ include('js.debug.php');
 $isplay = false;
 
 $cont_class = '';
+
 if(isset($_GET['play']) && ($_GET['play'] == 'true')){
     $isplay = true;
     $cont_class .=  "playMode ";
@@ -81,7 +82,6 @@ if(isset($_GET['r'])){
     $r = 's';
     $cont_class .= 'student';
 }
-
 
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
@@ -115,11 +115,15 @@ if(isset($_GET['lname'])){
 	<?php echo "wbUser.room='".$room."';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
+	<?php echo "wbUser.vcSid='1';"; ?>
 	<?php // echo "wbUser.fname='".$fname."';"; ?>
+
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
     window.whiteboardPath =  'https://lc.vidya.io/suman-repo/virtualclass/';
+    window.importfilepath = window.whiteboardPath + 'import.php';
+    window.exportfilepath = window.whiteboardPath + 'export.php';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
 </script>
 
@@ -241,13 +245,14 @@ if(isset($_GET['lname'])){
 
 <div id="chatWidget"> 
     <div id = "stickycontainer"> </div>
-</div>   
+</div>
     <div id="popupContainer">
         <div id="about-modal" class="rv-vanilla-modal">
 
-            <div id="progressBarContainer">
+            <div id="recordingContainer">
                 <div class="rv-vanilla-modal-header group">
                     <h2 class="rv-vanilla-modal-title"> <?php echo get_string('uploadsession'); ?> </h2>
+                    <div id="recordingClose">X</div>
                 </div>
 
                 <div class="rv-vanilla-modal-body">
@@ -275,35 +280,34 @@ if(isset($_GET['lname'])){
                         </div>
                     </div>
                 </div>
-                
-                
 
             </div>
             
-                <div id="waitPlay">
-                    <div class="rv-vanilla-modal-body">
-                        <div id="downloadPcCont">
-                            <div id="downloadSessionText"> <?php echo get_string('downloadsession'); ?> </div>
-                            
-                            <div id="downloadPrgressLabel"> <?php echo get_string('overallprogress'); ?>  </div>
-                            <div id="downloadProgress">
-                                <div id="downloadProgressBar" class="progressBar"></div>
-                                <div id="downloadProgressValue" class="progressValue"> 0% </div>
-                            </div>
-                            
+            <div id="recordPlay">
+                <div class="rv-vanilla-modal-body">
+                    <div id="downloadPcCont">
+                        <div id="downloadSessionText"> <?php echo get_string('downloadsession'); ?> </div>
+
+                        <div id="downloadPrgressLabel"> <?php echo get_string('overallprogress'); ?>  </div>
+                        <div id="downloadProgress">
+                            <div id="downloadProgressBar" class="progressBar"></div>
+                            <div id="downloadProgressValue" class="progressValue"> 0% </div>
                         </div>
-                        
-                        <div id="askPlay">
-                            <div id="askplayMessage"> </div>
-                            <button id="playButton">Play</button>
-                        </div>
-                        
+
                     </div>
-                    
+
+                    <div id="askPlay">
+                        <div id="askplayMessage"> </div>
+                        <button id="playButton">Play</button>
+                    </div>
+
+                    <div id="replayButtonCont">
+                        <button id="replayButto">Re-Play</button>
+                    </div>
+
                 </div>
-            
+            </div>
         </div>
-        
     </div>
 </div>
 </body>

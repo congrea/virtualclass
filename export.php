@@ -1,23 +1,16 @@
-<?php 
-   
-if (isset($_POST['record_data'])) {
-    if (isset($_POST['user'])) {
-        $useid = $_POST['user']; 
-        $filenum = $_POST['prvfile'];
+<?php
+	if(!empty($_POST['prvfile'])){
+		$filenum = $_POST['prvfile'];
+		$file = "uploads/user.".$filenum;
 
-//            $filenum =  (int)$_POST['prvfile'];
-//            $filenum = ++$filenum;
-
-        //$filename = "user".$use_id."*.txt";
-        $file = "uploads/user.".$filenum;
-      
-            if(file_exists($file)){
-                $data = file_get_contents($file);
-            }else{
-                $data = "filenotfound";
-            }
-            //echo json_encode($arr);      
-            echo $data;
-    }
-}
+		if(file_exists($file)){
+			$data = file_get_contents($file);
+		}else{
+			$data = "filenotfound";
+		}
+		//echo json_encode($arr);
+		echo $data;
+	}else{
+		echo "some error";
+	}
 ?>

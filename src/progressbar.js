@@ -46,5 +46,13 @@ var progressBar = {
         if (pvalElem != null) {
             pvalElem.innerHTML = totalProgress + '%';
         }
+
+        if(pval >= 100){
+            var  closeButton = document.getElementById('recordingClose');
+            recordingClose.style.display = 'block';
+            closeButton.addEventListener('click', function (){
+                virtualclass.popup.closeElem();
+            });
+        }
     }
 };

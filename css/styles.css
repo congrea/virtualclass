@@ -571,7 +571,7 @@ div.ui-memblist-usr .userVideos {
 	margin-left : 0;
 }
 
-#virtualclassCont #commandToolsWrapper, #virtualclassCont .rv-vanilla-modal-header, #waitPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
+#virtualclassCont #commandToolsWrapper, #virtualclassCont .rv-vanilla-modal-header, #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
 	background-color: #d4d4d4;
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
 	background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
@@ -2451,3 +2451,15 @@ a.vceditor-btn{
 .vceditor-dialog-div{
 	border:#ccc 1px solid;
 }
+
+#recordingClose {
+	margin-left: 40%;
+	cursor: pointer;
+	float: left;
+}
+
+#recordingClose{
+	display : none;
+}
+
+

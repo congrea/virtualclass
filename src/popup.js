@@ -141,7 +141,7 @@ var PopUp = (function (window, undefined) {
     },
 
         PopUp.prototype.waitBlockAction = function (action) {
-            var wait = document.getElementById("waitPlay");
+            var wait = document.getElementById("recordPlay");
             wait.style.display = action;
         };
 

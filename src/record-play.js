@@ -658,7 +658,7 @@
             fastForward: function (by) {
                 this.ff = by;
             }
-        },
+        }
     };
     window.recorder = recorder;
 })(window);

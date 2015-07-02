@@ -53,11 +53,11 @@ include('js.debug.php');
 $isplay = false;
 
 $cont_class = '';
-/*
+
 if(isset($_GET['play']) && ($_GET['play'] == 'true')){
     $isplay = true;
     $cont_class .=  "playMode ";
-} */
+}
     
 if(isset($_GET['id'])){
     $uid = $_GET['id'];
@@ -115,11 +115,15 @@ if(isset($_GET['lname'])){
 	<?php echo "wbUser.room='".$room."';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
+	<?php echo "wbUser.vcSid='1';"; ?>
 	<?php // echo "wbUser.fname='".$fname."';"; ?>
+
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
     window.whiteboardPath =  'https://lc.vidya.io/suman-repo/virtualclass/';
+    window.importfilepath = window.whiteboardPath + 'import.php';
+    window.exportfilepath = window.whiteboardPath + 'export.php';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
 </script>
 

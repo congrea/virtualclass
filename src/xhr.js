@@ -17,6 +17,7 @@
             this.onReadStateChange();
 
             this.httpObj.onerror = function (err) {
+                //TODO Add msg to user
                 virtualclass.recorder.tryForReTransmit();
                 console.log("Error " + err);
             };
@@ -45,7 +46,8 @@
                         if (that.httpObj.status == 200) {
                             that.cb(that.httpObj.responseText);
                         } else {
-                            that.cb("ERROR " + that.httpObj.status);
+                                that.cb("ERROR");
+/*                             that.cb("ERROR " + that.httpObj.status); */
                         }
                     }
                 }
@@ -54,8 +56,8 @@
 
         send: function (data, file, cb) {
             this.cb = cb;
-            this.httpObj.open("POST", window.whiteboardPath + file, true);
-//                this.httpObj.open("POST", 'https://www.testserver.activemoodle.com/vc/' +  file, true);
+            //this.httpObj.open("POST", window.whiteboardPath + file, true);
+            this.httpObj.open("POST", file, true);
             this.httpObj.send(data);
         }
     };

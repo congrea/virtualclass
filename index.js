@@ -123,7 +123,7 @@ $(document).ready(function () {
     if (virtualclass.vutil.isPlayMode()) {
         setTimeout(
             function () {
-                virtualclass.recorder.requestDataFromServer(0);
+                virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
                 clearEverthing();
             },
             10

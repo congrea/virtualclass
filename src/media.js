@@ -563,7 +563,7 @@
                     setTimeout(
                         function () {
                             console.log("testing");
-                            debugger;
+                            
                             audioTestElem.classList.remove("audioIsTesting");
                             that.otherSound = false;
                         }, ((totTestTime * 2) + 1000  )
@@ -960,8 +960,14 @@
                     var chatBoxHeight = sidebarHeight - videoHeight;
                     chatBox.style.height = chatBoxHeight + "px";
                 },
-                 // Send the small video and render it at the receiver's side
+                 /*Send the small video and render it at the receiver's side
+                  * And breaks user id into bytes
+                  * Sets the interval to send small video 
+                  * interval depends on the number of users
+                 */
+                 //TODO function defined in function they can be separately defined
                 send: function () {
+                    debugger;
                     if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
                         clearInterval(virtualclass.gObj.video.smallVid);
                     }

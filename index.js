@@ -21,6 +21,15 @@ $(document).ready(function () {
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
+    if(wbUser.virtualclassPlay){
+        virtualclass.gObj.sessionClear = true;
+        localStorage.removeItem('orginalTeacherId');
+        localStorage.removeItem('teacherId');
+        virtualclass.gObj.uid = 99955551230;
+
+    } else {
+        //alert('should not true');
+    }
 
     var previousApp = JSON.parse(localStorage.getItem('prevApp'));
     if(previousApp != null) {
@@ -30,9 +39,6 @@ $(document).ready(function () {
         if(previousApp.name == 'Yts'){
             var videoObj = previousApp.metaData;
         }
-
-
-
     } else {
         var appIs = "EditorRich";
     }
@@ -42,37 +48,43 @@ $(document).ready(function () {
 
     var alreadyInit = false;
 
-    //TODO this both setinterval functions should be merged into one
-    var tryEditorinit =  setInterval(
-        function (){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
-                if(virtualclass.connectedUsers.length >= 1){
-                    if(!alreadyInit){
-                        virtualclass.editorRich.veryInit();
-                        alreadyInit = true;
-                        clearInterval(tryEditorinit);
-                    }
-                }
-            }
-        },
-        1100
-    );
+    //TODO this both setinterval functions should be merged into one\
 
-    var alreadyEditorCodeInit  = false;
-    var tryEditorCodeinit =  setInterval(
-        function (){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
-                if(virtualclass.connectedUsers.length >= 1){
-                    if(!alreadyEditorCodeInit){
-                        virtualclass.editorCode.veryInit();
-                        alreadyEditorCodeInit = true;
-                        clearInterval(tryEditorCodeinit);
+    if(!wbUser.virtualclassPlay){
+        //Should not perform in play mode
+        var tryEditorinit =  setInterval(
+            function (){
+                if(virtualclass.hasOwnProperty('connectedUsers')){
+                    if(virtualclass.connectedUsers.length >= 1){
+                        if(!alreadyInit){
+                            virtualclass.editorRich.veryInit();
+                            alreadyInit = true;
+                            clearInterval(tryEditorinit);
+                        }
                     }
                 }
-            }
-        },
-        1150
-    );
+            },
+            1100
+        );
+
+        var alreadyEditorCodeInit  = false;
+        var tryEditorCodeinit =  setInterval(
+            function (){
+                if(virtualclass.hasOwnProperty('connectedUsers')){
+                    if(virtualclass.connectedUsers.length >= 1){
+                        if(!alreadyEditorCodeInit){
+                            virtualclass.editorCode.veryInit();
+                            alreadyEditorCodeInit = true;
+                            clearInterval(tryEditorCodeinit);
+                        }
+                    }
+                }
+            },
+            1150
+        );
+    }
+
+
 
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();
@@ -119,14 +131,16 @@ $(document).ready(function () {
         showOverlay: true
     });
 
-    //db transaction of indexeddb is not ready on page onload, 10 ms delay
+    //db transaction of indexeddb is not ready on page onload, 50 ms delay
+    // OR find the alternative for this
+
     if (virtualclass.vutil.isPlayMode()) {
         setTimeout(
             function () {
                 virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
                 clearEverthing();
             },
-            10
+            50
         );
     }
 
@@ -159,10 +173,7 @@ $(document).ready(function () {
         virtualclass.connectedUsers = e.message;
         //virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
-
         memberUpdate(e, 'added');
-
-
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
             virtualclass.gObj.video.updateVidContHeight();
             virtualclass.gObj.updateHeight = true;
@@ -444,13 +455,16 @@ $(document).ready(function () {
 
         this.reclaimRole = function (e) {
             if (localStorage.getItem('teacherId') !== null) {
-                virtualclass.wb.response.reclaimRole(e.fromUser.userid, wbUser.id);
+                virtualclass.vutil.vcResponseAReclaimRole(e.fromUser.userid, wbUser.id);
+                //virtualclass.wb.response.reclaimRole(e.fromUser.userid, wbUser.id);
             }
         };
 
         this.assignRole = function (e) {
             if (e.message.toUser === virtualclass.gObj.uid) {
-                virtualclass.wb.response.assignRole(e.fromUser.userid, wbUser.id);
+                virtualclass.vutil.vcResponseAssignRole(e.fromUser.userid, wbUser.id);
+
+                //virtualclass.wb.response.assignRole(e.fromUser.userid, wbUser.id);
             }
         };
 

@@ -8,7 +8,10 @@
             //TODO function name should be change
             assignRole: function (role, app) {
                 if (role == 't') {
-                    virtualclass.html.leftAppBar();
+                    if(localStorage.getItem('reclaim') == null){
+                        virtualclass.html.leftAppBar();
+                    }
+
                     virtualclass.attachFunction();
 
                     //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
@@ -530,7 +533,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
-                    virtualclass.wb.utility.assignRole();
+                   virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
                         var canvasWrapper = document.getElementById("vcanvas");

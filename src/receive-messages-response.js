@@ -5,6 +5,8 @@
 (function (window) {
     "use strict";
     var response = {
+
+        //not using
         reclaimRole: function (formUserId, id) {
 //                alert(formUserId + ' ' + id);
             if (formUserId != id) {
@@ -30,10 +32,11 @@
                 }
             }
         },
+
+        //not using
         assignRole: function (fromUserId, id, reclaim) {
-//                alert(fromUserId + ' ' + id);
             if (fromUserId != id || typeof reclaim != 'undefined') {
-                virtualclass.wb.utility.assignRole(id);
+               virtualclass.vutil.assignRole(id);
                 virtualclass.wb.utility.uniqueArrOfObjsToTeacher();
                 //create assing button only to student
                 if (localStorage.getItem('orginalTeacherId') == null) {
@@ -64,8 +67,9 @@
                 virtualclass.vutil.disableVirtualClass();
                 virtualclass.view.createErrorMsg(virtualclass.lang.getString('supportDesktop'), 'errorContainer', 'chatWidget');
             }
-
         },
+
+
         checkUser: function (e, id, storageHasTeacher) {
             var joinId = e.message.joinId;
             if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher)) {

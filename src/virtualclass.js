@@ -5,6 +5,7 @@
             apps : ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
+
             //appAudioTestPlay : "virtualclassAudioTestPlay",
             rWidgetConfig: {id: 'audioWidget'},
             wb: "",
@@ -18,7 +19,8 @@
                 uRole: window.wbUser.role,
                 uName: window.wbUser.name,
                 tempReplayObjs : [], //for store temp replayObjs
-                alreadyReplayFromStorage : false
+                alreadyReplayFromStorage : false,
+                commandToolsWrapperId: 'commandToolsWrapper'
             },
 
             clearSession: function (appName) {
@@ -182,6 +184,12 @@
 
                 //TODO this should be created throught the simple html
                 leftAppBar: function () {
+
+                    var appsLen = document.getElementsByClassName('appOptions');
+                    if(appsLen.length > 0){
+                        return; //which means the left app bar is already created
+                    }
+
                     var appCont = document.getElementById(this.id);
                     var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
@@ -365,6 +373,12 @@
                            // }
 
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+
+                            //if (localStorage.getItem('orginalTeacherId') == null) {
+                            //    virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); // after assign role whene refresh there would coming toolbar and reclaimb bar
+                            //}
+
+
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
                         }
 
@@ -374,6 +388,12 @@
                         }
 
 
+                    } else {
+                        //if command tool wrapper is not added
+                        var commandToolsWrapper = document.getElementById('commandToolsWrapper');
+                        if(commandToolsWrapper == null && virtualclass.gObj.uRole == 't' ){
+                            virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                        }
                     }
 
                     if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {

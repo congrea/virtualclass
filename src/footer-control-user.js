@@ -91,7 +91,7 @@
                 } else {
                     controlCont.appendChild(controller);
                 }
-
+				
                 virtualclass.user.control.changeAttribute(userId, assignBlock, aRoleEnable, 'assign', 'aRole');
 
                 if (typeof currTeacher != 'undefined') {
@@ -369,7 +369,8 @@
 
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
-
+					
+					elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     if (control == 'assign') {
                         elem.parentNode.classList.remove('tooltip');
                         this.addCurrTeacherToControl(elem.id);
@@ -388,10 +389,11 @@
                         }
                     } else if (control == 'audio') {
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
-                    } else {
+                    }
+/*					else {
                         elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     }
-
+*/
                     virtualclass.user.control.updateUser(userId, label, false);
                 },
 

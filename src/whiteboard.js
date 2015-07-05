@@ -127,11 +127,13 @@
 
                 this.stHasTeacher = virtualclass.vutil.chkValueInLocalStorage('teacherId');
 
-                if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
+                /*
+				if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
                     var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
                     virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                     virtualclass.gObj.uRole = 's';
-                }
+                } */
+				
                 if (this.stHasTeacher) {
                     virtualclass.gObj.uRole = 't';
                 }

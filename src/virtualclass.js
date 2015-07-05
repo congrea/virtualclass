@@ -78,15 +78,19 @@
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.yts = window.yts();
-
+				virtualclass.vutil.createReclaimButtonIfNeed();
+				
+				if (this.gObj.uRole == 't') {
+                    this.vutil.setOrginalTeacher();
+                }
+				
                 if(typeof videoObj == 'undefined'){
                     this.makeAppReady(app, "byclick");
                 } else {
                     this.makeAppReady(app, "byclick", videoObj);
                 }
-
-
-                //TODO system checking function should be invoked before makeAppReady
+				
+			    //TODO system checking function should be invoked before makeAppReady
 
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
@@ -115,9 +119,11 @@
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
                 }
-
-
-                //To teacher
+			
+				if(virtualclass.vutil.chkValueInLocalStorage('teacherId')){
+					virtualclass.gObj.uRole = 't'; //this done only for whiteboard in _init()
+				}
+		        //To teacher 
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
                 //2
@@ -184,8 +190,7 @@
 
                 //TODO this should be created throught the simple html
                 leftAppBar: function () {
-
-                    var appsLen = document.getElementsByClassName('appOptions');
+			        var appsLen = document.getElementsByClassName('appOptions');
                     if(appsLen.length > 0){
                         return; //which means the left app bar is already created
                     }
@@ -318,10 +323,12 @@
                         this.user.control.toggleDisplayEditorController(editorType, 'none');
                     }
                 }
-
-                if (this.gObj.uRole == 't') {
+				
+				//this should perform only once
+                /*
+				if (this.gObj.uRole == 't') {
                     this.vutil.setOrginalTeacher();
-                }
+                }*/
 
                 //if not screen share
                 if(app != this.apps[1] ){

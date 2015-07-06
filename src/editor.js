@@ -141,16 +141,21 @@
                  * @param docsInfo about docs(operation, revision, etc)
                  */
                 createEditorClient : function (editorType, docsInfo){
-                    //alert('sss');
-                    //debugger;
                     if(virtualclass.isPlayMode){
                         //this.readOnlyMode('disable', 'notCreateSyncBox');
                         this.readOnlyMode('enable', 'notCreateSyncBox');
                     }
-                    if(virtualclass.gObj.uRole == 't'){
+
+                    if(localStorage.getItem('orginalTeacherId') != null){
                         this.cm.setOption('readOnly', false);
                         editorType.readOnly = false;
-                    }
+                    };
+
+                    //if(virtualclass.gObj.uRole == 't'){
+                    //    this.cm.setOption('readOnly', false);
+                    //    editorType.readOnly = false;
+                    //}
+
                     Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
 
 
@@ -476,6 +481,7 @@
                  */
 
                 initialiseDataWithEditor : function (doc, displayEditor, et) {
+
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
@@ -542,6 +548,7 @@
 
                     //TODO To be simplyfied
                     if(localStorage.getItem('orginalTeacherId') == null) {
+
                         if(cmReadOnly != null){
                             if(!cmReadOnly){
                                 this.cm.setOption("readOnly", true);

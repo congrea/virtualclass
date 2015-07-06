@@ -121,6 +121,7 @@ if(isset($_GET['lname'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
+
     window.whiteboardPath =  'https://loc.vidya.io/virtualclass/';
 
     window.importfilepath = window.whiteboardPath + 'import.php';

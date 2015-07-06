@@ -332,6 +332,7 @@
                     }
                 }
             },
+
             assignRole: function (studentId) {
                 virtualclass.wb.tool = "";
                 if (vcan.main.action == 'move') {
@@ -340,7 +341,7 @@
 
                 if (typeof studentId != 'undefined') {
                     if (localStorage.getItem('reclaim') != null) {
-                        var cmdToolsWrapper = document.getElementById(virtualclass.wb.commandToolsWrapperId);
+                        var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
                         localStorage.removeItem('reclaim');
                     }
@@ -369,7 +370,7 @@
 
 
                     virtualclass.gObj.uRole = 's';
-                    var cmdToolsWrapper = document.getElementById(virtualclass.wb.commandToolsWrapperId);
+                    var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     if (cmdToolsWrapper != null) {
                         while (cmdToolsWrapper.hasChildNodes()) {
                             cmdToolsWrapper.removeChild(cmdToolsWrapper.lastChild);
@@ -379,7 +380,7 @@
                     virtualclass.wb.utility.makeCanvasDisable();
 
                     if (typeof localStorage.orginalTeacherId != 'undefined') {
-                        virtualclass.wb.utility.createReclaimButton(cmdToolsWrapper);
+                        virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                         //localStorage.reclaim = true;
                         localStorage.setItem('reclaim', true);
                     } else {
@@ -403,7 +404,6 @@
             },
 
             reclaimRole: function () {
-
                 virtualclass.gObj.controlAssign = false;
                 virtualclass.wb.response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
             },
@@ -454,11 +454,13 @@
                 var cmdWrapper = document.getElementById(vcan.cmdWrapperDiv);
                 cmdWrapper.parentNode.removeChild(cmdWrapper);
             },
+
             createReclaimButton: function (cmdToolsWrapper) {
-                virtualclass.wb.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
+                virtualclass.vutil.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
                 var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
                 aTags[0].addEventListener('click', virtualclass.wb.objInit);
             },
+
             chkValueInLocalStorage: function (property) {
                 if (localStorage.getItem(property) === null) {
                     return false;

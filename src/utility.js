@@ -746,7 +746,9 @@
 
                 virtualclass.gObj.uRole = 't';
 
-                virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
+
+                virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp));
+
                 if(typeof virtualclass.wb == 'object'){
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                 }

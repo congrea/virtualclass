@@ -526,7 +526,7 @@
                    // samples = receivedAudio;
 
 
-                        console.log('receivedAudio ' + receivedAudio.length +' samples ' + samples.length);
+                        //console.log('receivedAudio ' + receivedAudio.length +' samples ' + samples.length);
                     var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 44100); //8100 when sound is being delay
                     newBuffer.getChannelData(0).set(samples);
                     var newSource = this.Html5Audio.audioContext.createBufferSource();
@@ -907,6 +907,7 @@
                 },
 
                 playWithoutSlice: function (uid, msg) {
+                    console.log('uid ' + uid);
                     this.remoteVid = document.getElementById("video" + uid);
                     this.remoteVidCont = this.remoteVid.getContext('2d');
                     var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);

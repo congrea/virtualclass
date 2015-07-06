@@ -8,7 +8,10 @@
             //TODO function name should be change
             assignRole: function (role, app) {
                 if (role == 't') {
-                    virtualclass.html.leftAppBar();
+                    if(localStorage.getItem('reclaim') == null){
+                        virtualclass.html.leftAppBar();
+                    }
+
                     virtualclass.attachFunction();
 
                     //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
@@ -88,7 +91,7 @@
                 } else {
                     controlCont.appendChild(controller);
                 }
-
+				
                 virtualclass.user.control.changeAttribute(userId, assignBlock, aRoleEnable, 'assign', 'aRole');
 
                 if (typeof currTeacher != 'undefined') {
@@ -366,7 +369,8 @@
 
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
-
+					
+					elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     if (control == 'assign') {
                         elem.parentNode.classList.remove('tooltip');
                         this.addCurrTeacherToControl(elem.id);
@@ -385,10 +389,11 @@
                         }
                     } else if (control == 'audio') {
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
-                    } else {
+                    }
+/*					else {
                         elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     }
-
+*/
                     virtualclass.user.control.updateUser(userId, label, false);
                 },
 
@@ -530,7 +535,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
-                    virtualclass.wb.utility.assignRole();
+                   virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
                         var canvasWrapper = document.getElementById("vcanvas");

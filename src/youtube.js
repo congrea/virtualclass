@@ -16,15 +16,32 @@
         var CTpre = 0, PLState = -2, PSmute = -1;
 
         return {
+            retryForPalyer : 1,
             player: '',
-            init: function (videoId, startFrom) {
+            init: function (videoObj, startFrom) {
+                var videoId = videoObj.init;
 
-                if (virtualclass.gObj.uRole == 's') {
+                //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
+                // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
+                if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
                     if(typeof videoId == 'undefined'){
                         this.UI.defaultLayoutForStudent();
                     } else {
                         this.UI.container();
-                        (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+                        // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
+
+                        if (localStorage.getItem('teacherId') != null ){
+                            this.onYTIframApi(videoId, startFrom, 'fromReload');
+                            this.UI.inputURL();
+                        } else {
+                            if(!videoObj.hasOwnProperty('fromReload')){
+                                (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+                            }
+                            //this.onYTIframApi(videoId, startFrom, 'fromReload');
+
+                        }
+
+
                     }
 
                 } else {
@@ -212,17 +229,34 @@
 
                     console.log('Player object is CREATED');
                     //this.player = new YT.Player('player', videoObj);
+                    //if(YT.hasOwnProperty('Player')){
+                        if(typeof fromReload !=  'undefined'){
+                            var that = this;
+                            // YouTube player is not ready for when the page is being load
+                            // this should should not worked when the user click on youtube share button
+                            window.onYouTubeIframeAPIReady = function() {
+                                that.player = new YT.Player('player', videoObj);
+                            };
+                        }else {
+                            this.player = new YT.Player('player', videoObj);
+                        }
+                    //}else {
+                    //    console.log("YT.Player is not ready");
+                    //    //SomeTimes YT.Player is not ready
+                    //    //alert('ss');
+                    //    //debugger;
+                    //    if(virtualclass.yts.retryForPalyer <=3 ){
+                    //        setTimeout(
+                    //            function (){
+                    //
+                    //                virtualclass.yts.retryForPalyer++;
+                    //                virtualclass.yts.init(videoObj.videoId, videoObj.start);
+                    //            },
+                    //            2000
+                    //        );
+                    //    }
+                    //}
 
-                    if(typeof fromReload !=  'undefined'){
-                        var that = this;
-                        // YouTube player is not ready for when the page is being load
-                        // this should should not worked when the user click on youtube share button
-                        window.onYouTubeIframeAPIReady = function() {
-                            that.player = new YT.Player('player', videoObj);
-                        };
-                    }else {
-                        this.player = new YT.Player('player', videoObj);
-                    }
                 }
             },
 

@@ -30,7 +30,7 @@
             receivedPackDivPS: 'receivedNumberPS',
             uid: 0,
             lt: '',
-            commandToolsWrapperId: 'commandToolsWrapper',
+           // commandToolsWrapperId: 'commandToolsWrapper',
             //these are top level object
 //                error: [],
             view: {}, // For display important message to user
@@ -127,11 +127,13 @@
 
                 this.stHasTeacher = virtualclass.vutil.chkValueInLocalStorage('teacherId');
 
-                if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
-                    var cmdToolsWrapper = virtualclass.wb.createCommandWrapper();
-                    virtualclass.wb.utility.createReclaimButton(cmdToolsWrapper);
+                /*
+				if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
+                    var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
+                    virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                     virtualclass.gObj.uRole = 's';
-                }
+                } */
+				
                 if (this.stHasTeacher) {
                     virtualclass.gObj.uRole = 't';
                 }
@@ -158,19 +160,19 @@
              */
             createCommand: function () {
                 var alreadyCreated = virtualclass.wb.utility.alreadyExistToolBar();
-                if (alreadyCreated) {
+                if (alreadyCreated || (localStorage.getItem('reclaim') != null && localStorage.reclaim)) {
                     return true;
                 }
 
-                var cmdToolsWrapper = this.createCommandWrapper();
-                virtualclass.wb.createDiv('t_rectangle', 'rectangle', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_line', 'line', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_freeDrawing', 'freeDrawing', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_oval', 'oval', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_triangle', 'triangle', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_text', 'text', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_activeall', 'activeAll', cmdToolsWrapper, 'tool');
-                virtualclass.wb.createDiv('t_clearall', 'clearAll', cmdToolsWrapper, 'tool');
+                var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
+                virtualclass.vutil.createDiv('t_rectangle', 'rectangle', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_line', 'line', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_freeDrawing', 'freeDrawing', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_oval', 'oval', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_triangle', 'triangle', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_text', 'text', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_activeall', 'activeAll', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_clearall', 'clearAll', cmdToolsWrapper, 'tool');
 
                 virtualclass.wb.socketOn = parseInt(wbUser.socketOn);
                 if (virtualclass.wb.socketOn == 1) {
@@ -178,10 +180,11 @@
                 }
             },
 
+            //not using
             createCommandWrapper: function () {
                 //alert(virtualclass.system.device);
                 var cmdToolsWrapper = document.createElement('div');
-                cmdToolsWrapper.id = virtualclass.wb.commandToolsWrapperId;
+                cmdToolsWrapper.id = virtualclass.gObj.commandToolsWrapperId;
                 var canvasElem = document.getElementById(vcan.canvasWrapperId);
                 if (canvasElem != null) {
                     document.getElementById('containerWb').insertBefore(cmdToolsWrapper, canvasElem);
@@ -198,8 +201,10 @@
              * TODO this shol
              * this whole output process should come by
              * html not javascript
+             *
+             * THIS FUNCTION IS NOT USING ANY MORE
              */
-            createDiv: function (toolId, text, cmdToolsWrapper, cmdClass) {
+            createDiv_old: function (toolId, text, cmdToolsWrapper, cmdClass) {
                 //console.log('class name ' + text);
                 var toolName = text;
                 var text = virtualclass.lang.getString(text);
@@ -260,10 +265,10 @@
                         // for action on reposnse of user, cancel, okay
                         virtualclass.wb.utility.makeActiveTool(this.parentNode.id);
                     }
-
                 }
 
                 var anchorNode = this;
+
                 /**important **/
                 if (anchorNode.parentNode.id == 't_replay') {
                     virtualclass.wb.utility.clearAll(false);
@@ -300,6 +305,7 @@
              * @param id expects the  id of container which contains all the commands of div
              */
             attachToolFunction: function (id, alreadyCreated) {
+
                 virtualclass.wb.createCommand(alreadyCreated);
                 if (typeof alreadyCreated == 'undefined') {
                     var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');

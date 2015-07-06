@@ -38,10 +38,14 @@ $(document).ready(function () {
 
         if(previousApp.name == 'Yts'){
             var videoObj = previousApp.metaData;
+            videoObj.fromReload = true;
         }
     } else {
         var appIs = "EditorRich";
     }
+
+
+
 
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 

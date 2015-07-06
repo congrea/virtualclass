@@ -436,7 +436,8 @@
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
 
                     if (typeof videoObj != 'undefined') {
-                        virtualclass.yts.init(videoObj.init, videoObj.startFrom);
+                        //virtualclass.yts.init(videoObj.init, videoObj.startFrom);
+                        virtualclass.yts.init(videoObj, videoObj.startFrom);
                     } else {
                         virtualclass.yts.init();
                     }

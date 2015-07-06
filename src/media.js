@@ -15,7 +15,7 @@
     * @returns buf : Int16Array buffer
     */
     function convertFloat32ToInt16(buffer) {
-        debugger;
+       
         l = buffer.length;
         buf = new Int16Array(l);
         while (l--) {

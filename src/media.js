@@ -53,6 +53,7 @@
             */
             util: {
                 imageReplaceWithVideo: function (id, vidCont) {
+                    debugger;
                     var chatUser = document.getElementById("ml" + id);
                     if (virtualclass.vutil.elemHasAnyClass("ml" + id)) {
                         chatUser.classList.remove('userImg');
@@ -932,7 +933,7 @@
                         element.parentNode.removeChild(element);
                     }
                 },
-                //createVideo
+                //TO create Video container that replaces user image 
                 createElement: function (user) {
                     var videoWrapper = document.createElement('div');
                     videoWrapper.className = "videoWrapper";
@@ -967,7 +968,7 @@
                  */
                  //TODO function defined in function they can be separately defined
                 send: function () {
-                    debugger;
+                   // debugger;
                     if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
                         clearInterval(virtualclass.gObj.video.smallVid);
                     }
@@ -978,14 +979,17 @@
 
                     function sendSmallVideo() {
                         if (virtualclass.gObj.uRole == 't') {
+                          
                                // this block of code is not producing any output
                             if (typeof graphCanvas == "undefined") {
+                                  
                                 var graphCanvas = document.getElementById("graphCanvas");
                                 if (graphCanvas != null) {
                                     cthis.audio.graph.cvCont = graphCanvas.getContext('2d');
                                 }
                             }
                             if (graphCanvas != null) {
+                         
                                 cthis.audio.graph.cvCont.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
                             }
                         }
@@ -1032,7 +1036,7 @@
                         io.sendBinary(sendmsg);
                         clearInterval(virtualclass.gObj.video.smallVid);
                         var d = 2000 + (virtualclass.gObj.totalUser.length * 2500);
-                        if (totalMembers != virtualclass.gObj.totalUser) {
+                        if (totalMembers != virtualclass.gObj.totalUser) { // BUG : totalUser  is not a number it is an array
                             totalMembers = virtualclass.gObj.totalUser.length;
                             var p = virtualclass.gObj.totalUser.indexOf(virtualclass.gObj.uId);
                             var td = d / totalMembers;

@@ -2,13 +2,20 @@
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
+ * This file provides functionality to capture , transmit and play audio and
+ * video.
+ *  
  */
 (function (window) {
     repMode = false;
     //var io = window.io;
-
+   /*
+    * To convert float to integer
+    * @param  buffer: audio samples a Float32 bit  array
+    * @returns buf : Int16Array buffer
+    */
     function convertFloat32ToInt16(buffer) {
-       
+        debugger;
         l = buffer.length;
         buf = new Int16Array(l);
         while (l--) {
@@ -29,9 +36,15 @@
     var maxthreshold = 0;
     var audiotime = 0;
 //        var AudioContext = AudioContext || webkitAudioContext;
+    /*
+     * this returns an object that contains various Properties
+     * to facilitate the capturing , saving, transmitting and 
+     *  rendering audio or video. 
+     * 
+     */
     var media = function () {
         return {
-            isChannelReady: '',
+            isChannelReady: '',// not being used
             isInitiator: false,
             isStarted: '',
             localStream: '',
@@ -53,7 +66,6 @@
             */
             util: {
                 imageReplaceWithVideo: function (id, vidCont) {
-                    debugger;
                     var chatUser = document.getElementById("ml" + id);
                     if (virtualclass.vutil.elemHasAnyClass("ml" + id)) {
                         chatUser.classList.remove('userImg');
@@ -63,7 +75,10 @@
                     childTag.replaceChild(vidCont, imgTag);
                 }
             },
-
+            /*
+             * This property contains various property and methods to capture,save and tranmit 
+             * and listen audio 
+             */
             audio: {
                 audioStreamArr: [],
                 tempAudioStreamArr: [],
@@ -88,7 +103,7 @@
                         //can be critical
                         //this.clickOnceSpeaker('speakerPressOnce');
                     }
-
+                    //This part in not being used  
                     this.graph = {
                         height: 56,
                         width: 4,
@@ -231,7 +246,10 @@
 //                        this.setAudioStatus(audStatus);
                     return send;
                 },
-                // setting the attribute data-silence-detect to sending or notSending or stop
+                /*
+                 *  Setting the attribute data-silence-detect to sending or notSending or stop
+                 * @param  audStatus audio status such sending , notsending or stop
+                */
                 setAudioStatus: function (audStatus) {
                     if (typeof silenceDetectElem == 'undefined') {
                         var silenceDetectElem = document.getElementById('audioWidget').getElementsByClassName(this.sdElem)[0];
@@ -256,7 +274,7 @@
                 /*
                  * Attaching functions to audioWidget
                  * Adding event listner on clicking audio tools
-                 */
+                */
                 attachFunctionsToAudioWidget: function () {
                     var audioWiget = document.getElementById('audioWidget');
                     var allAudTools = audioWiget.getElementsByClassName('audioTool');
@@ -303,7 +321,7 @@
                  /*
                  * If Push to talk audio tool is pressed down then audio is active
                  * and studentSpeak is invoked.
-                 * And if push to talk audio tool is pressed up audio is dective 
+                 * And if push to talk audio tool is pressed up audio is deactive 
                  * studentNotSpeak function is invoked
                  * @param id Id of the audio tool that is being pressed
                  */
@@ -364,6 +382,10 @@
                             }
                         });
                 },
+                /*
+                 * Attching function to audio press once tool in the audio widget
+                 * 
+                 */
                 attachAudioPressOnce: function () {
                     var speakerPressOnce = document.getElementById('speakerPressOnce');
                     speakerPressOnce.setAttribute('data-audio-playing', "false");
@@ -484,7 +506,7 @@
                 },
                 /*
                  * recorderProcess is bind with the audio 
-                 * downsaples channel data
+                 * downsamples channel data
                  * encodes the samples
                  * Calls silenceDetection function to detect silence
                  * @param e where e is the event object  
@@ -526,8 +548,8 @@
                 },
                  /* 
                  * Encodes the sampled data
-                 *@param audio data
-                 *@return G711 encoded data 
+                 *@param leftSix audio data
+                 *@return encoded  G711 encoded data 
                  */
                 //TODO function name should reflect the action
                 audioInLocalStorage: function (leftSix) {
@@ -544,7 +566,6 @@
                  * 
                  */
                 testInit: function (id) {
-                  
                     var audioTestElem = document.getElementById(id);
                     audioTestElem.classList.add("audioIsTesting");
                     this.studentNotSpeak();
@@ -584,9 +605,7 @@
                     virtualclass.gObj[virtualclass.gObj.uid] = false;
                 },
                   /* 
-                 * Calculating recording length
-                 * and merging buffer recordings in the form of single Float32Array
-                 * And calling the play function if there is testAudio is set to true
+                 * it playes the recoded audio
                  * @param encChuncks encoded channel buffer recordings
                  * @param  uid user id
                  * @param testAudio  boolean value
@@ -613,7 +632,8 @@
                  * And to play the audio
                  * @param  receivedAudio A float32Array of merged recordings
                  * @param  uid User id
-                 * @param  testAudio A boolean value , is true if there is a test audio
+                 * @param  testAudio A boolean value , is true if there is a test audio to be played
+                 * otherwise set to false
                 */
 
                 play: function (receivedAudio, uid, testAudio) {
@@ -724,7 +744,7 @@
                     this.audioToBePlay[uid].push(packets);
                 },
                  /*
-                 * audio associated with the user id is played
+                 * Audio associated with the user id is played
                  * if length of audio is between 1 and 7
                  * the the audio is played
                  * @param  uid user id
@@ -893,7 +913,7 @@
                  /*
                  * To extract user id of sender and data from the receied message 
                  * @param  msg recevied message from online users
-                 * @returns {Array} userid received with the  message and rest of the msz data
+                 * @returns {Array} userid received with the  message plus rest of the msz data
                  */
                 extractData: function (msg) {
                     // the audio sent in Int8Array
@@ -905,6 +925,10 @@
                 }
 
             },
+            /*
+             * video property contains all the properties and methods necessary for the manipulation 
+             * of the video
+             */
             video: {
                 width: 75,
                 height: 56,
@@ -926,14 +950,21 @@
                     this.myVideo.width = this.width;
                     this.myVideo.height = this.height;
                 },
-                  // remove user and corresponding video element
+                  /*
+                   *  remove user and corresponding video element
+                   * @param id userid of the user to be removed
+                   */
                 removeUser: function (id) {
                     var element = document.getElementById('user' + id);
                     if (element != null) {
                         element.parentNode.removeChild(element);
                     }
                 },
-                //TO create Video container that replaces user image 
+                /*
+                 * TO create Video container that replaces user image 
+                 * @param  user user object
+        
+                 */
                 createElement: function (user) {
                     var videoWrapper = document.createElement('div');
                     videoWrapper.className = "videoWrapper";
@@ -963,7 +994,7 @@
                 },
                  /*Send the small video and render it at the receiver's side
                   * And breaks user id into bytes
-                  * Sets the interval to send small video 
+                  * Sets the interval for  send small video 
                   * interval depends on the number of users
                  */
                  //TODO function defined in function they can be separately defined
@@ -1140,7 +1171,7 @@
 //                    },
                   /*
                     * To create canvas element to display video
-                    * @param string beforInsert The element before that video element to be inserted
+                    * @param string beforInsert : The element before that video element to be inserted
                     */
                 insertTempVideo: function (beforeInsert) {
                     var tempVideo = document.createElement('canvas');
@@ -1208,8 +1239,6 @@
               * @param stream object 
              */
             handleUserMedia: function (stream) {
-
-                //latest code
                 var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
 //                    if(virtualclass.vutil.elemHasAnyClass(elem.id)
@@ -1230,7 +1259,6 @@
              * Adding the class student or teacher to the each user's div
              * @param  id User id
              * @param  role user role
-             
              */
             addUserRole: function (id, role) {
                 var userDiv = document.getElementById("ml" + id);
@@ -1240,10 +1268,10 @@
             },
                /* 
               * Creates a video element
-              * @param string userid  
               * and  replaces the image with video
               * manipulates the audio
               * and sends the video
+              * @param string userid  
             */
             _handleUserMedia: function (userid) {
                 var userMainDiv = document.getElementById(userid);
@@ -1277,7 +1305,7 @@
                 }
                 userMedia = true;
             },
-              /*
+             /*
              * Increasing chat container's height as number of users is increased
             */
             updateVidContHeight: function () {
@@ -1286,6 +1314,7 @@
                 var mh = window.innerHeight - (offset.y + 75);
                 document.getElementById("chat_div").style.maxHeight = mh + "px";
             },
+            // Closeing the video
             close: function () {
                 if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
                     clearInterval(virtualclass.gObj.video.smallVid);
@@ -1332,6 +1361,7 @@
              * The function to invoke with the resulting MediaStreamError if the call to getUSerMedia fails.
              * disableing audioWiget
              * Disappearing all containers
+             * @param error error object
             */
             handleUserMediaError: function (error) {
                 var error = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);

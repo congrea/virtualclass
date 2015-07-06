@@ -25,7 +25,7 @@ $(document).ready(function () {
         virtualclass.gObj.sessionClear = true;
         localStorage.removeItem('orginalTeacherId');
         localStorage.removeItem('teacherId');
-        virtualclass.gObj.uid = 99955551230;
+        virtualclass.gObj.uid = 99955551230; // in replay mode the user can not be same which is using on actual program
 
     } else {
         //alert('should not true');

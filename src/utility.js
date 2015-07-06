@@ -479,7 +479,7 @@
                 }
             }
 
-            var prvAppObj = {name : virtualclass.currApp};
+            var prvAppObj = {name : virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp)};
 
             if(virtualclass.currApp == 'ScreenShare'){
                 prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window

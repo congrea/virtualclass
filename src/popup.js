@@ -81,10 +81,11 @@ var PopUp = (function (window, undefined) {
      * @param: {Object} targetElement
      */
     PopUp.prototype.open = function (targetElement) {
-        var playButton = document.getElementById("playButton"); //inject code
-        if (playButton != null) {
-            playButton.style.display = 'none'
-        }
+        // can be critical
+        //var playButton = document.getElementById("playButton"); //inject code
+        //if (playButton != null) {
+        //    playButton.style.display = 'none'
+        //}
 
         this.closeShownModal();
         targetElement.classList.add(this.settings.showModalClassName);
@@ -140,10 +141,16 @@ var PopUp = (function (window, undefined) {
         }
     },
 
-        PopUp.prototype.waitBlockAction = function (action) {
-            var wait = document.getElementById("recordPlay");
-            wait.style.display = action;
-        };
+    PopUp.prototype.waitBlock = function (){
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        virtualclass.popup.replayWindowAction('none');
+    }
+
+    PopUp.prototype.waitBlockAction = function (action) {
+        var wait = document.getElementById("recordPlay");
+        wait.style.display = action;
+    };
 
     PopUp.prototype.sendBackOtherElems = function (action) {
         var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
@@ -171,9 +178,28 @@ var PopUp = (function (window, undefined) {
     PopUp.prototype.openProgressBar = function (nfile) {
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
+
         virtualclass.popup.waitBlockAction('none');
+        virtualclass.popup.replayWindowAction('none');
     };
 
+    PopUp.prototype.replayWindow = function () {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        virtualclass.popup.replayWindowAction('block');
+        virtualclass.popup.waitBlockAction('none');
+        virtualclass.popup.progressBarAction('none');
+    };
+
+    PopUp.prototype.replayWindowAction = function (action){
+        var replayContainer = document.getElementById("replayContainer");
+        replayContainer.style.display = action;
+    }
+
+    PopUp.prototype.progressBarAction  = function (action){
+        var recordingContainer = document.getElementById("recordingContainer");
+        recordingContainer.style.display = action;
+    }
     /**
      * @private: short version of querySelectorAll
      * @param: {string} selector - css-like

@@ -118,6 +118,37 @@
             }
         },
 
+        replayFromStart : function (){
+            var tempItems = [];
+            tempItems = this.items;
+            virtualclass.storage.config.endSession();
+            virtualclass.popup.closeElem();
+
+            this.recImgPlay = false;
+            this.objn = 0;
+            this.playTimeout = "";
+            this.totalSent = 0;
+            this.fileQueue = [];
+            this.rnum = 1;
+            this.storeDone = 0;
+            this.emn= 0;
+            //76this.allFileFound= false;
+            this.waitServer= false;
+            this.waitPopup= false;
+            this.tempRecData= [];
+            this.alreadyAskForPlay= false;
+            this.playStart= false;
+            this.error= 0;
+            this.mkDownloadLink= "";
+            this.tillPlayTime= 0;
+            this.getPlayTotTime= false;
+
+            this.items = tempItems;
+            this.playProgressBar();
+            this.play();
+
+        },
+
         startUploadProcess: function () {
             virtualclass.recorder.exportData(function () {});
             virtualclass.popup.sendBackOtherElems();
@@ -404,8 +435,10 @@
 
                 virtualclass.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
 
-                var element = document.getElementById('about-modal');
-                virtualclass.popup.open(element);
+                virtualclass.popup.waitBlock();
+
+                //var element = document.getElementById('about-modal');
+                //virtualclass.popup.open(element);
 
                 this.waitPopup = true;
             }
@@ -465,14 +498,18 @@
                         }
                     }
 
+
+
                     if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
+                        console.log("request file");
                         virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
                     } else {
-//                            alert('suman bogati');
-//                            debugger;
-                        virtualclass.recorder.allFileFound = true;
-                        if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
 
+                        console.log('Request file  Finished Here');
+
+                        virtualclass.recorder.allFileFound = true;
+
+                        if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
                             virtualclass.storage.config.endSession();
                             var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
                                 return a.concat(b);
@@ -485,8 +522,8 @@
                             virtualclass.popup.closeElem();
 
                         }
+
                     }
-//                        
                 }
             }
         },
@@ -577,7 +614,16 @@
 //                            virtualclass.recorder.ctotalSent = e.data.alldata.totalStore
                         virtualclass.pbar.renderProgressBar(virtualclass.recorder.ctotalStore, virtualclass.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
                     }
+                } else{
+
+                    //Play finished here
+                    if(this.items[this.objn].hasOwnProperty('sessionEnd')){
+                        virtualclass.popup.replayWindow();
+                        virtualclass.popup.sendBackOtherElems();
+                        document.getElementById('replayButton').addEventListener('click', function (){ virtualclass.recorder.replayFromStart.call(virtualclass.recorder); });
+                    }
                 }
+
                 //return;
             } else {
                 that.playTimeout = setTimeout(function () {
@@ -593,6 +639,7 @@
 
                         if ((that.allFileFound) && typeof that.items[that.objn + 1] == 'object') {
                             that.playProgressBar();
+                            virtualclass.popup.sendBackOtherElems();
                         }
                     }
 

@@ -257,6 +257,7 @@ if(isset($_GET['lname'])){
 
                 <div class="rv-vanilla-modal-body">
                     <div style="width:200px; padding:50px;">
+
                         <div id="totProgressCont">
                             <div id="totalProgressLabel"> <?php echo get_string('totalprogress'); ?> </div>
                             
@@ -278,6 +279,7 @@ if(isset($_GET['lname'])){
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -300,14 +302,18 @@ if(isset($_GET['lname'])){
                         <div id="askplayMessage"> </div>
                         <button id="playButton">Play</button>
                     </div>
-
-                    <div id="replayButtonCont">
-                        <button id="replayButto">Re-Play</button>
-                    </div>
-
                 </div>
-            </div>
+             </div>
+
+<div id="replayContainer">
+             <div class="close">X</div>
+             <button id="replayButton">Re-Play</button>
+         </div>
+         
         </div>
+
+        
+         
     </div>
 </div>
 </body>

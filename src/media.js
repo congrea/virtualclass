@@ -907,7 +907,7 @@
                 },
 
                 playWithoutSlice: function (uid, msg) {
-                    console.log('uid ' + uid);
+                  //  console.log('uid ' + uid);
                     this.remoteVid = document.getElementById("video" + uid);
                     this.remoteVidCont = this.remoteVid.getContext('2d');
                     var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
@@ -987,9 +987,9 @@
                     virtualclass.gObj.video.video.playWithoutSlice(uid, recmsg);
                 }
             },
+
             init: function (vbool) {
                 //    alert("hello borther");
-
                 cthis = this; //TODO there should be done work for cthis
                 vcan.oneExecuted = true;
                 var audio = true;
@@ -1000,7 +1000,6 @@
 
                 cthis.video.init();
                 if (!virtualclass.vutil.isPlayMode()) {
-
                     virtualclass.adpt = new virtualclass.adapter();
                     var cNavigator = virtualclass.adpt.init(navigator);
                     cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
@@ -1013,8 +1012,8 @@
                     }
                 }
             },
-            handleUserMedia: function (stream) {
 
+            handleUserMedia: function (stream) {
                 //latest code
                 var audioWiget = document.getElementById('audioWidget');
 //                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){

@@ -307,9 +307,11 @@
 
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
                             //TODO: handle error
-                            //alert(msg);
-                            //debugger;
+
+                            //Recording is finished //upload finished
                             if (msg === "done") {
+                                virtualclass.recorder.afterRecording();
+                                console.log('recording is finished');
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -326,6 +328,19 @@
                     }
                 }
             }, virtualclass.recorder.rnum);
+        },
+
+        afterRecording : function (){
+            virtualclass.storage.config.endSession();
+            //display close button
+            var recordingClose = document.getElementById('recordingClose');
+            recordingClose.style.display = 'block';
+            recordingClose.addEventListener('click',
+                function (){
+                    virtualclass.popup.closeElem();
+                    window.location.reload();
+                }
+            );
         },
 
         tryForReTransmit: function () {
@@ -504,9 +519,7 @@
                         console.log("request file");
                         virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
                     } else {
-
                         console.log('Request file  Finished Here');
-
                         virtualclass.recorder.allFileFound = true;
 
                         if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
@@ -522,7 +535,6 @@
                             virtualclass.popup.closeElem();
 
                         }
-
                     }
                 }
             }
@@ -620,6 +632,12 @@
                     if(this.items[this.objn].hasOwnProperty('sessionEnd')){
                         virtualclass.popup.replayWindow();
                         virtualclass.popup.sendBackOtherElems();
+                        document.getElementById('replayClose').addEventListener('click',
+                            function (){
+                                window.close(); //handle to moodle way
+                            }
+
+                        );
                         document.getElementById('replayButton').addEventListener('click', function (){ virtualclass.recorder.replayFromStart.call(virtualclass.recorder); });
                     }
                 }
@@ -642,7 +660,6 @@
                             virtualclass.popup.sendBackOtherElems();
                         }
                     }
-
                     // && that.totPlayTime > 0
 
                 }, that.playTime);

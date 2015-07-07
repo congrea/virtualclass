@@ -2468,3 +2468,8 @@ a.vceditor-btn{
 	height : 300px;
 	background : #ffffff;
 }
+
+
+#popupContainer .close {
+	cursor : pointer;
+}

@@ -251,12 +251,17 @@ if(isset($_GET['lname'])){
 
             <div id="recordingContainer">
                 <div class="rv-vanilla-modal-header group">
+
                     <h2 class="rv-vanilla-modal-title"> <?php echo get_string('uploadsession'); ?> </h2>
+
+
                     <div id="recordingClose">X</div>
                 </div>
 
                 <div class="rv-vanilla-modal-body">
+
                     <div style="width:200px; padding:50px;">
+
 
                         <div id="totProgressCont">
                             <div id="totalProgressLabel"> <?php echo get_string('totalprogress'); ?> </div>
@@ -305,15 +310,13 @@ if(isset($_GET['lname'])){
                 </div>
              </div>
 
-<div id="replayContainer">
-             <div class="close">X</div>
+         <div id="replayContainer">
+             <p id="replayMessage"><?php echo get_string('replay_message'); ?>  </p>
+             <div id="replayClose" class="close">X</div>
              <button id="replayButton">Re-Play</button>
          </div>
          
         </div>
-
-        
-         
     </div>
 </div>
 </body>

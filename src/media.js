@@ -257,9 +257,16 @@
                     if (this.id == 'speakerPressOnce') {
                         that.clickOnceSpeaker(this.id);
                     } else if (this.id == 'audioTest') {
-                        if (confirm(virtualclass.lang.getString('audioTest'))) {
-                            that.testInit(this.id);
-                        }
+                        //if (confirm(virtualclass.lang.getString('audioTest'), function (){})) {
+                        //    that.testInit(this.id);
+                        //}
+                        var self = this;
+                        virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm){
+                            if(confirm){
+                                that.testInit(self.id);
+                            }
+
+                        });
                     } else if (this.id == 'silenceDetect') {
                         var a = this.getElementsByTagName('a')[0];
 //                            var img = this.getElementsByTagName('img')[0];

@@ -161,9 +161,10 @@ if(isset($_GET['lname'])){
                         <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
                         <div id="repTimeCont"> <span id="tillRepTime">00:00</span> / <span id="totalRepTime">00:00</span> </div>
                    </div>
+                    <div id="replayFromStart"> <button  class="ff icon-replayFromStart"> ReplayFromStart </button> </div>
                </div>
 
-               <div id="replayFromStart"> <button  class="ff icon-replayFromStart"> ReplayFromStart </button> </div>
+
 
     <?php
         }
@@ -265,7 +266,9 @@ if(isset($_GET['lname'])){
     <div id="popupContainer">
         <div id="about-modal" class="rv-vanilla-modal">
 
-            <div id="recordingContainer">
+            <!-- for uploading progress bar -->
+
+            <div id="recordingContainer" class="popupWindow">
                 <div class="rv-vanilla-modal-header group">
 
                     <h2 class="rv-vanilla-modal-title"> <?php echo get_string('uploadsession'); ?> </h2>
@@ -307,8 +310,9 @@ if(isset($_GET['lname'])){
                 </div>
 
             </div>
-            
-            <div id="recordPlay">
+
+            <!-- for play window -->
+            <div id="recordPlay" class="popupWindow">
                 <div class="rv-vanilla-modal-body">
                     <div id="downloadPcCont">
                         <div id="downloadSessionText"> <?php echo get_string('downloadsession'); ?> </div>
@@ -329,13 +333,24 @@ if(isset($_GET['lname'])){
              </div>
 
 
-
-         <div id="replayContainer">
+         <!--for replay window -->
+         <div id="replayContainer" class="popupWindow">
              <p id="replayMessage"><?php echo get_string('replay_message'); ?>  </p>
              <div id="replayClose" class="close">X</div>
              <button id="replayButton">Re-Play</button>
          </div>
-         
+
+         <!--For confirm window-->
+          <div id="confirm" class="popupWindow">
+
+               <!--
+               <div id="confirmMessage" class="confirmChild"></div>
+               <div id="confirmOk" class="confirmButton confirmChild"><button id="confirmOkButton">OK</button></div>
+               <div id="confirmCancel" class="confirmButton confirmChild" id="confirmCancelButton"><button>Cancel</button></div>
+               -->
+
+          </div>
+
         </div>
     </div>
 </div>

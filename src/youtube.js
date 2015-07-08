@@ -182,8 +182,6 @@
                         this.player.unMute();
                     }
 
-
-
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
                         virtualclass.makeAppReady('Yts', undefined, msg.yts);

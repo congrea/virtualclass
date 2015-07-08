@@ -2453,13 +2453,17 @@ a.vceditor-btn{
 }
 
 #recordingClose {
-	margin-left: 40%;
+	margin-left: 10%;
 	cursor: pointer;
 	float: left;
 }
 
 #recordingClose{
-	display : none;
+	/*display : none;*/
+}
+
+#progressContainer {
+	display : block;
 }
 
 
@@ -2472,4 +2476,13 @@ a.vceditor-btn{
 
 #popupContainer .close {
 	cursor : pointer;
+}
+
+#recordFinishedMessage {
+	float : left;
+
+}
+
+#recordFinishedMessageBox {
+	display : none;
 }

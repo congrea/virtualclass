@@ -141,14 +141,30 @@ if(isset($_GET['lname'])){
     <?php
         if($isplay){
             ?>
+<!--
         <div id="playController">
             <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
             <div id="recPlayCont" class="recButton"> <button id="recPlay"> Play </button></div>
-            <div id="recPlayCont" class="recButton"> <button id="recPause"> Pause </button></div> 
+            <div id="recPlayCont" class="recButton"> <button id="recPause"> Pause </button></div>
             <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff"> FF2 </button></div>
             <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff"> FF8 </button></div>
-            <div id="repTimeCont"> <span id="tillRepTime">0 </span> / <span id="totalRepTime">0</span> </div> 
+            <div id="repTimeCont"> <span id="tillRepTime">0 </span> / <span id="totalRepTime">0</span> </div>
         </div>
+
+-->
+                <div id="playControllerCont">
+                    <div id="playController">
+                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play"></button></div>
+                        <div id="recPlayCont" class="recButton "> <button id="recPause" class="icon-pause"></button></div>
+                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward"></button></div>
+                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward"></button></div>
+                        <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
+                        <div id="repTimeCont"> <span id="tillRepTime">00:00</span> / <span id="totalRepTime">00:00</span> </div>
+                   </div>
+               </div>
+
+               <div id="replayFromStart"> <button  class="ff icon-replayFromStart"> ReplayFromStart </button> </div>
+
     <?php
         }
     ?>
@@ -255,13 +271,12 @@ if(isset($_GET['lname'])){
                     <h2 class="rv-vanilla-modal-title"> <?php echo get_string('uploadsession'); ?> </h2>
 
 
-                    <div id="recordingClose">X</div>
+
                 </div>
 
                 <div class="rv-vanilla-modal-body">
 
-                    <div style="width:200px; padding:50px;">
-
+                    <div id="progressContainer" style="width:200px; padding:50px;">
 
                         <div id="totProgressCont">
                             <div id="totalProgressLabel"> <?php echo get_string('totalprogress'); ?> </div>
@@ -270,7 +285,6 @@ if(isset($_GET['lname'])){
                                 <div id="progressBar" class="progressBar"></div>
                                 <div id="progressValue" class="progressValue"> 0%</div>
                             </div>
-                            
                         </div>
                        
                         <div id="indvProgressCont">
@@ -284,7 +298,11 @@ if(isset($_GET['lname'])){
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div id="recordFinishedMessageBox">
+                        <span id="recordFinishedMessage"> You have uploaded the current session. </span>
+                        <span id="recordingClose">X</span>
                     </div>
                 </div>
 
@@ -309,6 +327,8 @@ if(isset($_GET['lname'])){
                     </div>
                 </div>
              </div>
+
+
 
          <div id="replayContainer">
              <p id="replayMessage"><?php echo get_string('replay_message'); ?>  </p>

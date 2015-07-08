@@ -380,8 +380,8 @@
                     //virtualclass.storage.clearStorageData();
                     //virtualclass.wb.prvTool = cmd;
                     //virtualclass.vutil.beforeSend({'clearAll': true});
-                    var label = 'clearallmessage';
-                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm, rlabel){
+
+                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm){
                         if(!confirm || label != rlabel){
                             return true;
                         }
@@ -391,8 +391,7 @@
                         virtualclass.storage.clearStorageData();
                         virtualclass.wb.prvTool = cmd;
                         virtualclass.vutil.beforeSend({'clearAll': true});
-                    },
-                        label
+                         }
                     );
 
                 } else if (cmd == 't_assign') {

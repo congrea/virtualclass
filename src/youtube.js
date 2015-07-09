@@ -41,11 +41,11 @@
                 if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
                     // 
                     if(typeof videoId == 'undefined'){
-                         console.log("video id undefined");
+                         //console.log("video id undefined");
                         this.UI.defaultLayoutForStudent();
                         
                     } else {
-                        console.log("video url  available");
+                        //("video url  available");
                         this.UI.container();
             
                         // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
@@ -126,7 +126,7 @@
                
                 defaultLayoutForStudent : function (){
                    // alert("default layout");
-                    console.log("default layout");
+                    //console.log("default layout");
                     var divYts = document.createElement('div');
                     divYts.id = this.id;
                     divYts.className = this.class;
@@ -222,7 +222,7 @@
              
              */
             onmessage: function (msg) {
-                console.log(msg);
+                //(msg);
           
                 if (typeof msg.yts == 'string') {
 
@@ -260,8 +260,8 @@
             onYTIframApi: function (videoId, playStratFrom, fromReload) {
                 
                
-                 console.log(playStratFrom);
-                 console.log(fromReload);
+                 //console.log(playStratFrom);
+                // console.log(fromReload);
                 if(typeof videoId != 'undefined'){
                     this.videoId = videoId;
                 }

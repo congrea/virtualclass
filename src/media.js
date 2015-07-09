@@ -3,7 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
  * This file provides functionality to capture , transmit and play audio and
- * video.
+ * video for multiple users.
  *  
  */
 (function (window) {

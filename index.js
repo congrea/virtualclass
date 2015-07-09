@@ -485,14 +485,22 @@ $(document).ready(function () {
         };
 
         this.createArrow = function (e) {
-            if (virtualclass.wb.oTeacher) {
-                virtualclass.wb.receivedPackets = virtualclass.wb.receivedPackets + (JSON.stringify(e.message).length);
-            } else {
-                virtualclass.wb.response.createArrow(e.message, virtualclass.wb.oTeacher);
+            if(typeof virtualclass.wb == 'object'){
+                if (virtualclass.wb.oTeacher) {
+                    virtualclass.wb.receivedPackets = virtualclass.wb.receivedPackets + (JSON.stringify(e.message).length);
+                } else {
+                    virtualclass.wb.response.createArrow(e.message, virtualclass.wb.oTeacher);
+                }
             }
         };
 
         this.repObj = function (e) {
+            if(typeof virtualclass.wb != 'object'){
+                virtualclass.makeAppReady(virtualclass.apps[0]);
+                return;
+            }
+
+
             if (!virtualclass.vutil.isPlayMode()) {
                 virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
             }

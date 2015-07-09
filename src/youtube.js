@@ -326,9 +326,10 @@
                 
             },
             /*
-             * It is triggered  on seek position change
-             * It changes the seek time of the video at receiver's end baed on the 
-             * seek position change on sender's side.
+             * Once the player is ready  this is triggered  after every two second to 
+             * find the  video' s state ,position and mute or unmute.
+              * it checks for  the video's current time , state and mute or unmute
+             * and calls the corrending functions to update at the receiver 
              * 
              */
             triggerOnSeekChange: function () {
@@ -343,6 +344,7 @@
                     var difftime = Math.abs(this.player.getCurrentTime() - CTpre);
                     CTpre = this.player.getCurrentTime();
                     console.log(CTpre);
+                    
                     console.log(this.player.getCurrentTime());
                     if (difftime > 4) {
                         this.ytOnSeek(this.player.getCurrentTime());

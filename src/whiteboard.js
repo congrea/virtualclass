@@ -369,21 +369,34 @@
                         virtualclass.wb.t_replayInit(repMode);
                     }
                 } else if (cmd == 't_clearall') {
-                    if (!confirm(virtualclass.lang.getString('clearAllWarnMessage'))) {
-                        return;
-                    }
+                    //if (!virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'))) {
+                    //    return;
+                    //}
 
-                    virtualclass.wb.utility.makeActiveTool(cmd);
-                    //virtualclass.gObj.video.updateVideoInfo();
-                    virtualclass.wb.utility.t_clearallInit();
-                    virtualclass.wb.utility.makeDefaultValue(cmd);
-                    virtualclass.storage.clearStorageData();
-                    virtualclass.wb.prvTool = cmd;
-                  virtualclass.vutil.beforeSend({'clearAll': true});
+                    //virtualclass.wb.utility.makeActiveTool(cmd);
+                    ////virtualclass.gObj.video.updateVideoInfo();
+                    //virtualclass.wb.utility.t_clearallInit();
+                    //virtualclass.wb.utility.makeDefaultValue(cmd);
+                    //virtualclass.storage.clearStorageData();
+                    //virtualclass.wb.prvTool = cmd;
+                    //virtualclass.vutil.beforeSend({'clearAll': true});
+
+                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm){
+                        if(!confirm || label != rlabel){
+                            return true;
+                        }
+                        virtualclass.wb.utility.makeActiveTool(cmd);
+                        virtualclass.wb.utility.t_clearallInit();
+                        virtualclass.wb.utility.makeDefaultValue(cmd);
+                        virtualclass.storage.clearStorageData();
+                        virtualclass.wb.prvTool = cmd;
+                        virtualclass.vutil.beforeSend({'clearAll': true});
+                         }
+                    );
+
                 } else if (cmd == 't_assign') {
                     var toolHeight = localStorage.getItem('toolHeight');
                     if (toolHeight != null) {
-                        alert('hel');
                       virtualclass.vutil.beforeSend({
                             'assignRole': true,
                             'toolHeight': toolHeight,

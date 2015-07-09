@@ -304,14 +304,16 @@ transition:all .2s linear;
 	margin-bottom: 15px;
 }
 
-#playController{
-    display : none; 
-}
+/*#playController{*/
+    /*display : none; */
+/*}*/
 
 #recordingContainer .rv-vanilla-modal-title{
 	float : left;
 }
 
-#recordingClose{
-	margin-top: 10px;
+
+/*added by suman*/
+#virtualclassCont #playControllerCont{
+	display : none;
 }

@@ -25,7 +25,7 @@ $(document).ready(function () {
         virtualclass.gObj.sessionClear = true;
         localStorage.removeItem('orginalTeacherId');
         localStorage.removeItem('teacherId');
-        virtualclass.gObj.uid = 99955551230;
+        virtualclass.gObj.uid = 99955551230; // in replay mode the user can not be same which is using on actual program
 
     } else {
         //alert('should not true');
@@ -359,7 +359,9 @@ $(document).ready(function () {
                 user = virtualclass.user.control.updateUser(e.fromUser.userid, 'ad', false);
                 virtualclass.user.control.audioSign(user, 'remove');
                 anchorTag = document.getElementById(user.id + 'contrAudAnch');
-                anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
+                if(anchorTag != null){
+                    anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
+                }
             }
             return true;
         };

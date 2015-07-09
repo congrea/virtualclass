@@ -118,6 +118,37 @@
             }
         },
 
+        replayFromStart : function (){
+            var tempItems = [];
+            tempItems = this.items;
+            virtualclass.storage.config.endSession();
+            virtualclass.popup.closeElem();
+
+            this.recImgPlay = false;
+            this.objn = 0;
+            this.playTimeout = "";
+            this.totalSent = 0;
+            this.fileQueue = [];
+            this.rnum = 1;
+            this.storeDone = 0;
+            this.emn= 0;
+            //76this.allFileFound= false;
+            this.waitServer= false;
+            this.waitPopup= false;
+            this.tempRecData= [];
+            this.alreadyAskForPlay= false;
+            this.playStart= false;
+            this.error= 0;
+            this.mkDownloadLink= "";
+            this.tillPlayTime= 0;
+            this.getPlayTotTime= false;
+            this.controller.ff = 1;
+            this.items = tempItems;
+            this.playProgressBar();
+            this.play();
+
+        },
+
         startUploadProcess: function () {
             virtualclass.recorder.exportData(function () {});
             virtualclass.popup.sendBackOtherElems();
@@ -246,6 +277,8 @@
                     // this has been performed when all files are stored
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
                         virtualclass.recorder.storeDone = 1;
+                        console.log('From here actuall recorder finished');
+                        virtualclass.recorder.afterRecording();
                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' || virtualclass.recorder.mkDownloadLink != " ") {
                             virtualclass.recorder.mkDownloadLink;
                         }
@@ -276,9 +309,11 @@
 
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
                             //TODO: handle error
-                            //alert(msg);
-                            //debugger;
+
+                            //Recording is finished //upload finished
                             if (msg === "done") {
+                                //virtualclass.recorder.afterRecording();
+                                console.log('recording is finished');
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -295,6 +330,25 @@
                     }
                 }
             }, virtualclass.recorder.rnum);
+        },
+
+        afterRecording : function (){
+            virtualclass.storage.config.endSession();
+            //display close button
+
+            var progressBarContainer =  document.getElementById('progressContainer');
+            progressBarContainer.style.display  =  'none';
+
+            var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
+            recordFinishedMessageBox.style.display = 'block'
+
+            var recordingClose = document.getElementById('recordingClose');
+            recordingClose.addEventListener('click',
+                function (){
+                    //virtualclass.popup.closeElem();
+                    window.location.reload();
+                }
+            );
         },
 
         tryForReTransmit: function () {
@@ -404,8 +458,10 @@
 
                 virtualclass.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
 
-                var element = document.getElementById('about-modal');
-                virtualclass.popup.open(element);
+                virtualclass.popup.waitBlock();
+
+                //var element = document.getElementById('about-modal');
+                //virtualclass.popup.open(element);
 
                 this.waitPopup = true;
             }
@@ -465,14 +521,16 @@
                         }
                     }
 
+
+
                     if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
+                        console.log("request file");
                         virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
                     } else {
-//                            alert('suman bogati');
-//                            debugger;
+                        console.log('Request file  Finished Here');
                         virtualclass.recorder.allFileFound = true;
-                        if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
 
+                        if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
                             virtualclass.storage.config.endSession();
                             var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
                                 return a.concat(b);
@@ -486,7 +544,6 @@
 
                         }
                     }
-//                        
                 }
             }
         },
@@ -577,7 +634,22 @@
 //                            virtualclass.recorder.ctotalSent = e.data.alldata.totalStore
                         virtualclass.pbar.renderProgressBar(virtualclass.recorder.ctotalStore, virtualclass.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
                     }
+                } else{
+
+                    //Play finished here
+                    if(this.items[this.objn].hasOwnProperty('sessionEnd')){
+                        virtualclass.popup.replayWindow();
+                        virtualclass.popup.sendBackOtherElems();
+                        document.getElementById('replayClose').addEventListener('click',
+                            function (){
+                                window.close(); //handle to moodle way
+                            }
+
+                        );
+                        document.getElementById('replayButton').addEventListener('click', function (){ virtualclass.recorder.replayFromStart.call(virtualclass.recorder); });
+                    }
                 }
+
                 //return;
             } else {
                 that.playTimeout = setTimeout(function () {
@@ -593,9 +665,9 @@
 
                         if ((that.allFileFound) && typeof that.items[that.objn + 1] == 'object') {
                             that.playProgressBar();
+                            virtualclass.popup.sendBackOtherElems();
                         }
                     }
-
                     // && that.totPlayTime > 0
 
                 }, that.playTime);
@@ -603,29 +675,35 @@
         },
 
         initController: function () {
-            var playController = document.getElementById('playController');
-            if (playController != null) {
-                playController.style.display = 'block';
+            var playControllerCont = document.getElementById('playControllerCont');
+            if (playControllerCont != null) {
+                playControllerCont.style.display = 'block';
 
+                var that = this;
                 //init fast forward
                 var recButton = document.getElementsByClassName('ff');
                 for (var i = 0; i < recButton.length; i++) {
                     recButton[i].onclick = function () {
                         var ffBy = this.id.split('ff')[1];
-                        virtualclass.recorder.controller.fastForward(parseInt(ffBy, 10));
+                        that.controller.fastForward(parseInt(ffBy, 10));
                     };
                 }
 
                 //init play
                 var recPlay = document.getElementById('recPlay');
                 recPlay.addEventListener('click', function () {
-                    virtualclass.recorder.controller._play();
+                    that.controller._play();
                 });
 
                 //init pause
-                var recPlay = document.getElementById('recPause');
-                recPlay.addEventListener('click', function () {
-                    virtualclass.recorder.controller._pause();
+                var recPause= document.getElementById('recPause');
+                recPause.addEventListener('click', function () {
+                    that.controller._pause();
+                });
+
+                var replayFromStart =  document.getElementById('replayFromStart');
+                replayFromStart.addEventListener('click', function () {
+                    that.replayFromStart();
                 });
             }
         },

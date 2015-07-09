@@ -19,8 +19,9 @@
             retryForPalyer : 1,
             player: '',
             init: function (videoObj, startFrom) {
-                var videoId = videoObj.init;
-
+                if(typeof videoObj != 'undefined'){
+                    var videoId = videoObj.init;
+                }
                 //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
                 // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
                 if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
@@ -180,8 +181,6 @@
                     } else if (msg.yts == 'unmute') {
                         this.player.unMute();
                     }
-
-
 
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {

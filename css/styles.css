@@ -2453,12 +2453,37 @@ a.vceditor-btn{
 }
 
 #recordingClose {
-	margin-left: 40%;
+	margin-left: 10%;
 	cursor: pointer;
 	float: left;
 }
 
 #recordingClose{
+	/*display : none;*/
+}
+
+#progressContainer {
+	display : block;
+}
+
+
+#replayContainer{
+	width : 300px;
+	height : 300px;
+	background : #ffffff;
+}
+
+
+#popupContainer .close {
+	cursor : pointer;
+}
+
+#recordFinishedMessage {
+	float : left;
+
+}
+
+#recordFinishedMessageBox {
 	display : none;
 }
 

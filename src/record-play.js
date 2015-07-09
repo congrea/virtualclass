@@ -675,9 +675,9 @@
         },
 
         initController: function () {
-            var playController = document.getElementById('playController');
-            if (playController != null) {
-                playController.style.display = 'block';
+            var playControllerCont = document.getElementById('playControllerCont');
+            if (playControllerCont != null) {
+                playControllerCont.style.display = 'block';
 
                 var that = this;
                 //init fast forward

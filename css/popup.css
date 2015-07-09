@@ -30,7 +30,7 @@
 	width: 27%;
 	min-height:auto;
 	background:#fff;
-	z-index:10;f
+	z-index:10;
 	-webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
@@ -304,11 +304,16 @@ transition:all .2s linear;
 	margin-bottom: 15px;
 }
 
-#playController{
-    display : none; 
-}
+/*#playController{*/
+    /*display : none; */
+/*}*/
 
 #recordingContainer .rv-vanilla-modal-title{
 	float : left;
 }
 
+
+/*added by suman*/
+#virtualclassCont #playControllerCont{
+	display : none;
+}

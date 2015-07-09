@@ -82,6 +82,8 @@ var PopUp = (function (window, undefined) {
      */
     PopUp.prototype.open = function (targetElement) {
 
+        this.sendBackOtherElems();
+
         // can be critical
         //var playButton = document.getElementById("playButton"); //inject code
         //if (playButton != null) {
@@ -130,9 +132,14 @@ var PopUp = (function (window, undefined) {
                 virtualclassToolCont.style.zIndex = 100;
             }
 
+            var stickBar = document.getElementById('stickybar');
             if (stickBar != null) {
-                var stickBar = document.getElementById('stickybar');
                 stickBar.style.zIndex = 2000;
+            }
+
+            var commandToolsWrapper = document.getElementById('commandToolsWrapper');
+            if (commandToolsWrapper != null) {
+                commandToolsWrapper.style.pointerEvents = 'visible';
             }
 
             var mainPopCont = document.getElementById('about-modal');
@@ -155,10 +162,16 @@ var PopUp = (function (window, undefined) {
 
     PopUp.prototype.sendBackOtherElems = function (action) {
         var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
+
         if (virtualclassToolCont != null) {
-            virtualclassToolCont.style.zIndex = -1;
+            virtualclassToolCont.style.zIndex = 0;
         }
 
+        var commandToolsWrapper = document.getElementById('commandToolsWrapper');
+
+        if (commandToolsWrapper != null) {
+            commandToolsWrapper.style.pointerEvents = 'none';
+        }
 
         var stickBar = document.getElementById('stickybar');
         if (stickBar != null) {

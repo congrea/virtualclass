@@ -523,9 +523,7 @@
                                     window.location.reload();
                                 }
                             )
-
                         } else {
-                            alert('save');
                             io.completeStorage(undefined, undefined, 'sessionend');
                             setTimeout(function () {
                                     virtualclass.getContent = true;

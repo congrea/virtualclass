@@ -19,13 +19,16 @@
             retryForPalyer : 1,
             player: '',
             init: function (videoObj, startFrom) {
+
                 if(typeof videoObj != 'undefined'){
-                    var videoId = videoObj.init;
+                    if(videoObj.init != 'studentlayout'){
+                        var videoId = videoObj.init;
+                    }
                 }
                 //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
                 // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
                 if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
-                    if(typeof videoId == 'undefined'){
+                    if(typeof videoId == 'undefined' && virtualclass.gObj.uRole == 's'){
                         this.UI.defaultLayoutForStudent();
                     } else {
                         this.UI.container();
@@ -41,16 +44,16 @@
                             //this.onYTIframApi(videoId, startFrom, 'fromReload');
 
                         }
-
-
                     }
-
                 } else {
                     this.UI.container();
                     if(typeof startFrom != 'undefined'){
                         this.onYTIframApi(videoId, startFrom, 'fromReload');
                     }
                     this.UI.inputURL();
+
+                    //For student layout
+                    io.send({'yts': {init : 'studentlayout'}});
                 }
             },
 
@@ -89,13 +92,15 @@
                 },
 
                 defaultLayoutForStudent : function (){
-                    var divYts = document.createElement('div');
-                    divYts.id = this.id;
-                    divYts.className = this.class;
-                    divYts.innerHTML = "TEACH MAY SHARE THE YOUTUBE VIDEO";
-
-                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+                    var ytsContainer = document.getElementById(this.id);
+                    if(ytsContainer == null){
+                        ytsContainer = document.createElement('div');
+                        ytsContainer.id = this.id;
+                        ytsContainer.className = this.class;
+                        var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                        document.getElementById(virtualclass.html.id).insertBefore(ytsContainer, beforeAppend);
+                    }
+                    ytsContainer.innerHTML = virtualclass.lang.getString('teachermayshow');
                 },
 
                 inputURL: function () {

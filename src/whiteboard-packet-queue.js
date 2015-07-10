@@ -13,7 +13,16 @@
             }
 
             virtualclass.wb.sentReq = true;
-            var sp = virtualclass.wb.gObj.rcvdPackId;
+            // If there is not dispayed any object yet
+            // Then request for the object from start
+
+            if(virtualclass.wb.gObj.displayedObjId == 0){
+                var sp = 0;
+            } else {
+                var sp = virtualclass.wb.gObj.rcvdPackId;
+            }
+
+
             var ep = msgRepObj[0].uid;
             return [sp, ep];
         },

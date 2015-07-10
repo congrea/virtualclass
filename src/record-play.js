@@ -589,7 +589,10 @@
         },
 
         play: function () {
-
+            if(this.objn >= 62){
+                //alert('suman bogati');
+                //debugger;
+            }
             var that = this;
 
             if (this.controller.pause) {

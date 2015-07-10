@@ -48,9 +48,6 @@ $(document).ready(function () {
         var appIs = "EditorRich";
     }
 
-
-
-
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
 

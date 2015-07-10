@@ -27,7 +27,10 @@
                 }
                 //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
                 // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
-                if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
+                if (localStorage.getItem('orginalTeacherId') ==  null ||
+                        (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null )
+                                        ) {
+
                     if(typeof videoId == 'undefined' && virtualclass.gObj.uRole == 's'){
                         this.UI.defaultLayoutForStudent();
                     } else {
@@ -37,6 +40,7 @@
                         if (localStorage.getItem('teacherId') != null ){
                             this.onYTIframApi(videoId, startFrom, 'fromReload');
                             this.UI.inputURL();
+                            io.send({'yts': {init : 'studentlayout'}});
                         } else {
                             if(!videoObj.hasOwnProperty('fromReload')){
                                 (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
@@ -82,13 +86,20 @@
                     divYts.id = this.id;
                     divYts.className = this.class;
 
-                    var divPlayer = document.createElement('div');
-                    divPlayer.id = "player";
-                    divYts.appendChild(divPlayer);
+                    this.createPlayerTag(divYts);
+
+                    //var divPlayer = document.createElement('div');
+                    //divPlayer.id = "player";
+                    //divYts.appendChild(divPlayer);
 
                     var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
                     document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+                },
 
+                createPlayerTag : function (divYts){
+                    var divPlayer = document.createElement('div');
+                    divPlayer.id = "player";
+                    divYts.appendChild(divPlayer);
                 },
 
                 defaultLayoutForStudent : function (){
@@ -100,10 +111,27 @@
                         var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
                         document.getElementById(virtualclass.html.id).insertBefore(ytsContainer, beforeAppend);
                     }
-                    ytsContainer.innerHTML = virtualclass.lang.getString('teachermayshow');
+
+                    var youtubeUrlContainer =  document.getElementById('youtubeUrlContainer');
+                    if(youtubeUrlContainer != null){
+                        youtubeUrlContainer.parentNode.removeChild(youtubeUrlContainer);
+                    }
+
+                    var messageLayoutId = 'messageLayout';
+                    if(document.getElementById(messageLayoutId) == null){
+                        var studentMessage = document.createElement('p');
+                        studentMessage.id =  messageLayoutId;
+                        studentMessage.innerHTML = virtualclass.lang.getString('teachermayshow');
+                        ytsContainer.appendChild(studentMessage);
+                    }
                 },
 
                 inputURL: function () {
+                    var studentMessage = document.getElementById('messageLayout');
+                    if(studentMessage != null){
+                        studentMessage.parentNode.removeChild(studentMessage);
+                    }
+
                     if (document.getElementById('youtubeUrlContainer') == null) {
                         var uiContainer = document.createElement('div');
                         uiContainer.id = "youtubeUrlContainer";

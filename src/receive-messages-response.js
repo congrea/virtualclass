@@ -126,7 +126,7 @@
             if (virtualclass.wb.gObj.rcvdPackId !== 0 || (virtualclass.wb.uid > 0 && virtualclass.wb.gObj.rcvdPackId === 0)) { //for handle very starting stage
                 if ((typeof msgRepObj === 'object' || msgRepObj instanceof Array)) {
                     if (msgRepObj[0].hasOwnProperty('uid') && (!msgRepObj.hasOwnProperty('chunk'))) {
-                        if (Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) {
+                        if ((Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) || (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId) ) {
                             var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
                           virtualclass.vutil.beforeSend({'getMsPckt': reqPacket});
                         }

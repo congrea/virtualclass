@@ -177,10 +177,15 @@ var PopUp = (function (window, undefined) {
         if (stickBar != null) {
             stickBar.style.zIndex = 0;
         }
-        var chatrm = document.getElementById('chatrm');
 
+        var chatrm = document.getElementById('chatrm');
         if (chatrm != null) {
             chatrm.style.zIndex = 0;
+        }
+
+        var audioWidget = document.getElementById('audioWidget');
+        if (audioWidget != null) {
+            audioWidget.style.zIndex = 0;
         }
     };
 
@@ -270,6 +275,7 @@ var PopUp = (function (window, undefined) {
 
         var confirmOkButton = document.createElement('button');
         confirmOkButton.id = 'confirmOkButton';
+        confirmOkButton.className = 'icon-check';
         confirmOkButton.innerHTML = "OK";
 
         confirmOkDiv.appendChild(confirmOkButton);
@@ -285,6 +291,7 @@ var PopUp = (function (window, undefined) {
 
         var confirmCancelButton = document.createElement('button');
         confirmCancelButton.id = 'confirmCancelButton';
+        confirmCancelButton.className = 'icon-close';
         confirmCancelButton.innerHTML = "Cancel";
 
 

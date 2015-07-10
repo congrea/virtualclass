@@ -21,7 +21,7 @@
 	padding:50px 0;
 }
 #recordingContainer {
-	min-height:240px;
+	min-height:150px;
 }
 .rv-vanilla-modal {
 	position:absolute;
@@ -30,7 +30,7 @@
 	width: 27%;
 	min-height:auto;
 	background:#fff;
-	z-index:10;
+	z-index:10;f
 	-webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
@@ -66,7 +66,7 @@
 .rv-vanilla-modal-body {
 	overflow:auto;
 	color:#555;
-	padding: 40px 25px 40px;
+	padding: 18px 25px 10px;
 }
 .rv-vanilla-modal-body p {
 	line-height:150%;
@@ -159,7 +159,7 @@ transition:all .2s linear;
 	margin-left: 22px;
 }
 .rv-vanilla-modal-body {
-	width : 400px;
+	min-width: 400px;
 }
 /*Hasan css start*/
 
@@ -206,6 +206,7 @@ transition:all .2s linear;
 	margin-left: 165px;
 	margin-top: 10px;
 	margin-bottom: 15px;
+	border:#ddd 1px solid;
 }
 #playButton:hover {
 	background: #dddddd; /* Old browsers */
@@ -222,6 +223,7 @@ transition:all .2s linear;
 	margin-left: 165px;
 	margin-top: 10px;
 	margin-bottom: 15px;
+	border:#ddd 1px solid;
 }
 /*Hasan css start student*/
 
@@ -230,7 +232,7 @@ transition:all .2s linear;
 	width: auto;
 }
 #recordingContainer {
-	min-height: 190px;
+	min-height: 150px;
 }
 #recordingContainer .rv-vanilla-modal-body div {
 	padding: 0px !important;
@@ -254,7 +256,7 @@ transition:all .2s linear;
 	margin-bottom: 7px;
 }
 #progress, #indProgress, #downloadProgress {
-	height: 18px;
+	height: 20px;
 	border:none;
 }
 #indProgress #indProgressValue {
@@ -263,7 +265,7 @@ transition:all .2s linear;
 	top: -25px;
 }
 .rv-vanilla-modal-body {
-	padding: 25px 25px 25px;
+	padding: 18px 25px 18px;
 }
 #totProgressCont {
 	margin-bottom: 15px;
@@ -279,13 +281,13 @@ transition:all .2s linear;
 	border-radius: 10px;
 }
 #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
-	padding-top: 16px;
-	padding-left: 20px;
-	height: 30px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	font-size: 15px;
-	font-weight: 300;
+  	 border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 15px;
+    font-weight: 300;
+    height: 33px;
+    padding-left: 20px;
+    padding-top: 12px;
 }
 
 #downloadPrgressLabel {
@@ -304,16 +306,11 @@ transition:all .2s linear;
 	margin-bottom: 15px;
 }
 
-/*#playController{*/
-    /*display : none; */
-/*}*/
+#playController{
+    display : none; 
+}
 
 #recordingContainer .rv-vanilla-modal-title{
 	float : left;
 }
 
-
-/*added by suman*/
-#virtualclassCont #playControllerCont{
-	display : none;
-}

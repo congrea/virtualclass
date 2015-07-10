@@ -154,17 +154,16 @@ if(isset($_GET['lname'])){
 -->
                 <div id="playControllerCont">
                     <div id="playController">
-                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play"></button></div>
-                        <div id="recPlayCont" class="recButton "> <button id="recPause" class="icon-pause"></button></div>
-                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward"></button></div>
-                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward"></button></div>
+                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play" data-title="Play"></button></div>
+                        <div id="recPlayCont" class="recButton "> <button id="recPause" class="icon-pause" data-title="Pause"></button></div>
+                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward" data-title="Fast Forward 2"></button></div>
+                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward" data-title="Fast Forward 8"></button></div>
                         <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
                         <div id="repTimeCont"> <span id="tillRepTime">00:00</span> / <span id="totalRepTime">00:00</span> </div>
                    </div>
-                    <div id="replayFromStart"> <button  class="ff icon-replayFromStart"> ReplayFromStart </button> </div>
+                   <div id="replayFromStart"> <button  class="ff icon-Replayfromstart" data-title="Replay from Start."></button> </div>
+                    <div style="clear:both;"></div>
                </div>
-
-
 
     <?php
         }
@@ -336,19 +335,13 @@ if(isset($_GET['lname'])){
          <!--for replay window -->
          <div id="replayContainer" class="popupWindow">
              <p id="replayMessage"><?php echo get_string('replay_message'); ?>  </p>
-             <div id="replayClose" class="close">X</div>
-             <button id="replayButton">Re-Play</button>
+             <div id="replayClose" class="close icon-close"></div>
+             <button id="replayButton" class="icon-repeat">Replay</button>
+
          </div>
 
          <!--For confirm window-->
-          <div id="confirm" class="popupWindow">
-
-               <!--
-               <div id="confirmMessage" class="confirmChild"></div>
-               <div id="confirmOk" class="confirmButton confirmChild"><button id="confirmOkButton">OK</button></div>
-               <div id="confirmCancel" class="confirmButton confirmChild" id="confirmCancelButton"><button>Cancel</button></div>
-               -->
-
+          <div id="confirm" class="popupWindow simple-box">
           </div>
 
         </div>

@@ -754,6 +754,15 @@
                 }
 
                 if (virtualclass.currApp == 'Yts') {
+                    var virtualclassYts = document.getElementById('virtualclassYts');
+                    if(virtualclassYts != null){
+                        if(document.getElementById('player') == null){
+                            virtualclass.yts.UI.createPlayerTag(virtualclassYts);
+                        }
+                    } else {
+                        virtualclass.yts.UI.container();
+                    }
+
                     virtualclass.yts.UI.inputURL();
                     virtualclass.yts.seekChangeInterval();
                 }

@@ -19,13 +19,19 @@
             retryForPalyer : 1,
             player: '',
             init: function (videoObj, startFrom) {
+
                 if(typeof videoObj != 'undefined'){
-                    var videoId = videoObj.init;
+                    if(videoObj.init != 'studentlayout'){
+                        var videoId = videoObj.init;
+                    }
                 }
                 //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
                 // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
-                if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
-                    if(typeof videoId == 'undefined'){
+                if (localStorage.getItem('orginalTeacherId') ==  null ||
+                        (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null )
+                                        ) {
+
+                    if(typeof videoId == 'undefined' && virtualclass.gObj.uRole == 's'){
                         this.UI.defaultLayoutForStudent();
                     } else {
                         this.UI.container();
@@ -34,6 +40,7 @@
                         if (localStorage.getItem('teacherId') != null ){
                             this.onYTIframApi(videoId, startFrom, 'fromReload');
                             this.UI.inputURL();
+                            io.send({'yts': {init : 'studentlayout'}});
                         } else {
                             if(!videoObj.hasOwnProperty('fromReload')){
                                 (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
@@ -41,16 +48,16 @@
                             //this.onYTIframApi(videoId, startFrom, 'fromReload');
 
                         }
-
-
                     }
-
                 } else {
                     this.UI.container();
                     if(typeof startFrom != 'undefined'){
                         this.onYTIframApi(videoId, startFrom, 'fromReload');
                     }
                     this.UI.inputURL();
+
+                    //For student layout
+                    io.send({'yts': {init : 'studentlayout'}});
                 }
             },
 
@@ -79,26 +86,52 @@
                     divYts.id = this.id;
                     divYts.className = this.class;
 
+                    this.createPlayerTag(divYts);
+
+                    //var divPlayer = document.createElement('div');
+                    //divPlayer.id = "player";
+                    //divYts.appendChild(divPlayer);
+
+                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+                },
+
+                createPlayerTag : function (divYts){
                     var divPlayer = document.createElement('div');
                     divPlayer.id = "player";
                     divYts.appendChild(divPlayer);
-
-                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
-
                 },
 
                 defaultLayoutForStudent : function (){
-                    var divYts = document.createElement('div');
-                    divYts.id = this.id;
-                    divYts.className = this.class;
-                    divYts.innerHTML = "TEACH MAY SHARE THE YOUTUBE VIDEO";
+                    var ytsContainer = document.getElementById(this.id);
+                    if(ytsContainer == null){
+                        ytsContainer = document.createElement('div');
+                        ytsContainer.id = this.id;
+                        ytsContainer.className = this.class;
+                        var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                        document.getElementById(virtualclass.html.id).insertBefore(ytsContainer, beforeAppend);
+                    }
 
-                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+                    var youtubeUrlContainer =  document.getElementById('youtubeUrlContainer');
+                    if(youtubeUrlContainer != null){
+                        youtubeUrlContainer.parentNode.removeChild(youtubeUrlContainer);
+                    }
+
+                    var messageLayoutId = 'messageLayout';
+                    if(document.getElementById(messageLayoutId) == null){
+                        var studentMessage = document.createElement('p');
+                        studentMessage.id =  messageLayoutId;
+                        studentMessage.innerHTML = virtualclass.lang.getString('teachermayshow');
+                        ytsContainer.appendChild(studentMessage);
+                    }
                 },
 
                 inputURL: function () {
+                    var studentMessage = document.getElementById('messageLayout');
+                    if(studentMessage != null){
+                        studentMessage.parentNode.removeChild(studentMessage);
+                    }
+
                     if (document.getElementById('youtubeUrlContainer') == null) {
                         var uiContainer = document.createElement('div');
                         uiContainer.id = "youtubeUrlContainer";
@@ -227,35 +260,19 @@
                     }
 
                     console.log('Player object is CREATED');
-                    //this.player = new YT.Player('player', videoObj);
-                    //if(YT.hasOwnProperty('Player')){
-                        if(typeof fromReload !=  'undefined'){
-                            var that = this;
-                            // YouTube player is not ready for when the page is being load
-                            // this should should not worked when the user click on youtube share button
-                            window.onYouTubeIframeAPIReady = function() {
-                                that.player = new YT.Player('player', videoObj);
-                            };
-                        }else {
-                            this.player = new YT.Player('player', videoObj);
-                        }
-                    //}else {
-                    //    console.log("YT.Player is not ready");
-                    //    //SomeTimes YT.Player is not ready
-                    //    //alert('ss');
-                    //    //debugger;
-                    //    if(virtualclass.yts.retryForPalyer <=3 ){
-                    //        setTimeout(
-                    //            function (){
-                    //
-                    //                virtualclass.yts.retryForPalyer++;
-                    //                virtualclass.yts.init(videoObj.videoId, videoObj.start);
-                    //            },
-                    //            2000
-                    //        );
-                    //    }
-                    //}
+                    if(typeof fromReload !=  'undefined'){
+                        var that = this;
+                        // YouTube player is not ready for when the page is being load
+                        // this should should not worked when the user click on youtube share button
+                        window.onYouTubeIframeAPIReady = function() {
+                            that.player = new YT.Player('player', videoObj);
+                        };
+                    }else {
+                        this.player = new YT.Player('player', videoObj);
+                    }
 
+                    var youTubeContainer = document.getElementById(this.UI.id);
+                    youTubeContainer.className = youTubeContainer.className + " youTubeSharing";
                 }
             },
 

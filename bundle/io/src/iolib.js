@@ -91,6 +91,7 @@ var io = {
     },
 
     send: function (msg) {
+
         if(this.sock == null){
             console.log("socket is not created");
             return;

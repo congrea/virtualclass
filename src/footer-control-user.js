@@ -361,7 +361,11 @@
 
                 disable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+                    if(elem == null){
+                        return;
+                    }
                     virtualclass.user.control._disable(elem, control, toUser, label);
+
                 },
 
 
@@ -400,6 +404,10 @@
 
                 enable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+                    if(elem == null){
+                        console.log("Element is Null");
+                        return;
+                    }
                     virtualclass.user.control._enable(elem, control, toUser, label);
                 },
                 _enable: function (elem, control, userId, label) {

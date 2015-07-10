@@ -29,13 +29,16 @@
             
              */
             init: function (videoObj, startFrom) {
+
               
                 if(typeof videoObj != 'undefined'){
                     var videoId = videoObj.init;
+                    console.log(videoObj.init);
                 }
                 
              
                     
+
                 //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
                 // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
                 if (localStorage.getItem('orginalTeacherId') ==  null || (localStorage.getItem('orginalTeacherId') !=  null && localStorage.getItem('reclaim') != null)) {
@@ -81,6 +84,7 @@
              * 
              */
             destroyYT: function () {
+               
                if (typeof virtualclass.yts.player == 'object') {
                     //console.log('Player object is DESTROYED.');
                     virtualclass.yts.player.destroy();
@@ -119,8 +123,9 @@
 
                 },
                 /* 
-                 * 
+                 * This function is being called when the teacher's role is assigned to student
                  * A layout to place video is created by this function
+                 * it creates layout to place video and url placeholder
                  */
                  
                
@@ -138,7 +143,8 @@
                 },
                 /*
                  * Creating input  and submit element  for the url
-                 *  on clicking submit button an object is sent to the students
+                 * On clicking submit button an object containing video object is sent to the students
+                 * Calling function to create player object
                  * 
                 */
                 inputURL: function () {
@@ -204,6 +210,7 @@
             },
             /*
              * getting the video id from the url of the video
+             * @param url url of the youtube video
              */
             getVideoId: function (url) {
                 var rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
@@ -218,7 +225,7 @@
             },
             /*
              * It changes the state of the video based on the message received
-             * @param  msg message object 
+             * @param  msg message object to sent information to the receiver
              
              */
             onmessage: function (msg) {
@@ -235,8 +242,6 @@
                     } else if (msg.yts == 'unmute') {
                         this.player.unMute();
                     }
-
-
 
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
@@ -365,7 +370,7 @@
             /*
              * If video at sender's side is muted then an object is sent
              *  to reciver indicating that video is muted else object indicates unmute
-             * @param {boolean} muted 
+             * @param {boolean} muted true if video is muted otherwise false
              
              */
             ytOnMuted: function (muted) {

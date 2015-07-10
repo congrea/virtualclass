@@ -510,21 +510,47 @@
             initlizer: function (elem) {
                 var appName = elem.parentNode.id.split("virtualclass")[1];
                 if (appName == 'SessionEndTool') {
-                    if (!confirm(virtualclass.lang.getString('savesession'))) {
-                        if (!confirm(virtualclass.lang.getString('startnewsession'))) {
-                            return;
+                   virtualclass.popup.confirmInput(virtualclass.lang.getString('savesession'), function (confirm){
+                        if(!confirm){
+                            virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),
+                                function (confirm){
+                                    if(!confirm){
+                                        console.log('Not start new session');
+                                        return;
+                                    }
+                                    console.log('Start new session');
+                                    virtualclass.clearSession(appName);
+                                    window.location.reload();
+                                }
+                            )
+                        } else {
+                            io.completeStorage(undefined, undefined, 'sessionend');
+                            setTimeout(function () {
+                                    virtualclass.getContent = true;
+                                    io.sock.close();
+                                    virtualclass.recorder.startUploadProcess();
+                                }, 300
+                            );
                         }
-                        virtualclass.clearSession(appName);
-                        window.location.reload();
-                    } else {
-                        io.completeStorage(undefined, undefined, 'sessionend');
-                        setTimeout(function () {
-                                virtualclass.getContent = true;
-                                io.sock.close();
-                                virtualclass.recorder.startUploadProcess();
-                            }, 300
-                        );
-                    }
+
+                    });
+
+                    //if (!confirm(virtualclass.lang.getString('savesession'))) {
+                    //    if (!confirm(virtualclass.lang.getString('startnewsession'))) {
+                    //        return;
+                    //    }
+                    //    virtualclass.clearSession(appName);
+                    //    window.location.reload();
+                    //} else {
+                    //    io.completeStorage(undefined, undefined, 'sessionend');
+                    //    setTimeout(function () {
+                    //            virtualclass.getContent = true;
+                    //            io.sock.close();
+                    //            virtualclass.recorder.startUploadProcess();
+                    //        }, 300
+                    //    );
+                    //}
+
                 } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     //  this.currApp = appName; //could be dangerous

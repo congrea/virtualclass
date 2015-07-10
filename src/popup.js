@@ -177,10 +177,15 @@ var PopUp = (function (window, undefined) {
         if (stickBar != null) {
             stickBar.style.zIndex = 0;
         }
-        var chatrm = document.getElementById('chatrm');
 
+        var chatrm = document.getElementById('chatrm');
         if (chatrm != null) {
             chatrm.style.zIndex = 0;
+        }
+
+        var audioWidget = document.getElementById('audioWidget');
+        if (audioWidget != null) {
+            audioWidget.style.zIndex = 0;
         }
     };
 

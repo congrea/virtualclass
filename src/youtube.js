@@ -260,35 +260,19 @@
                     }
 
                     console.log('Player object is CREATED');
-                    //this.player = new YT.Player('player', videoObj);
-                    //if(YT.hasOwnProperty('Player')){
-                        if(typeof fromReload !=  'undefined'){
-                            var that = this;
-                            // YouTube player is not ready for when the page is being load
-                            // this should should not worked when the user click on youtube share button
-                            window.onYouTubeIframeAPIReady = function() {
-                                that.player = new YT.Player('player', videoObj);
-                            };
-                        }else {
-                            this.player = new YT.Player('player', videoObj);
-                        }
-                    //}else {
-                    //    console.log("YT.Player is not ready");
-                    //    //SomeTimes YT.Player is not ready
-                    //    //alert('ss');
-                    //    //debugger;
-                    //    if(virtualclass.yts.retryForPalyer <=3 ){
-                    //        setTimeout(
-                    //            function (){
-                    //
-                    //                virtualclass.yts.retryForPalyer++;
-                    //                virtualclass.yts.init(videoObj.videoId, videoObj.start);
-                    //            },
-                    //            2000
-                    //        );
-                    //    }
-                    //}
+                    if(typeof fromReload !=  'undefined'){
+                        var that = this;
+                        // YouTube player is not ready for when the page is being load
+                        // this should should not worked when the user click on youtube share button
+                        window.onYouTubeIframeAPIReady = function() {
+                            that.player = new YT.Player('player', videoObj);
+                        };
+                    }else {
+                        this.player = new YT.Player('player', videoObj);
+                    }
 
+                    var youTubeContainer = document.getElementById(this.UI.id);
+                    youTubeContainer.className = youTubeContainer.className + " youTubeSharing";
                 }
             },
 

@@ -235,9 +235,14 @@ transition:all .2s linear;
 #recordingContainer .rv-vanilla-modal-body div {
 	padding: 0px !important;
 }
-#about-modal #recordingContainer .rv-vanilla-modal-body div {
-	width: 100% !important;
-}
+
+/*It causing the problem on progress bar
+	#about-modal #recordingContainer .rv-vanilla-modal-body div {
+		width: 100% !important;
+	}
+
+*/
+
 .rv-vanilla-modal-body {
 	padding: 30px 25px 30px;
 }

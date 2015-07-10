@@ -154,14 +154,14 @@ if(isset($_GET['lname'])){
 -->
                 <div id="playControllerCont">
                     <div id="playController">
-                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play"></button></div>
-                        <div id="recPlayCont" class="recButton "> <button id="recPause" class="icon-pause"></button></div>
-                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward"></button></div>
-                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward"></button></div>
+                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play" data-title="Play"></button></div>
+                        <div id="recPlayCont" class="recButton "> <button id="recPause" class="icon-pause" data-title="Pause"></button></div>
+                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward" data-title="Fast Forward 2"></button></div>
+                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward" data-title="Fast Forward 8"></button></div>
                         <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
                         <div id="repTimeCont"> <span id="tillRepTime">00:00</span> / <span id="totalRepTime">00:00</span> </div>
                    </div>
-                    <div id="replayFromStart"> <button  class="ff icon-replayFromStart"> ReplayFromStart </button> </div>
+                    <div id="replayFromStart"> <button  class="ff icon-replayFromStart" data-title="Replay from Start."> ReplayFromStart </button> </div>
                </div>
 
 

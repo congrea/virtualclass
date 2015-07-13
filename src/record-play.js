@@ -694,6 +694,7 @@
                     recButton[i].onclick = function () {
                         var ffBy = this.id.split('ff')[1];
                         that.controller.fastForward(parseInt(ffBy, 10));
+                        that.doControlActive(this)
                     };
                 }
 
@@ -701,12 +702,21 @@
                 var recPlay = document.getElementById('recPlay');
                 recPlay.addEventListener('click', function () {
                     that.controller._play();
+                    that.doControlActive(this);
+
+                    //var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
+                    //for(var i=0; i<controlButtons.length; i++){
+                    //    controlButtons[i].classList.remove("controlActive");
+                    //}
+                    //
+                    //this.classList.add("controlActive");
                 });
 
                 //init pause
                 var recPause= document.getElementById('recPause');
                 recPause.addEventListener('click', function () {
                     that.controller._pause();
+                    that.doControlActive(this)
                 });
 
                 var replayFromStart =  document.getElementById('replayFromStart');
@@ -716,26 +726,45 @@
             }
         },
 
+        doControlActive : function (elem){
+
+            var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
+            for(var i=0; i<controlButtons.length; i++){
+                controlButtons[i].classList.remove("controlActive");
+            }
+
+            elem.parentNode.classList.add("controlActive");
+        },
+
         controller: {
             pause: false,
             ff: 1,
             _play: function () {
 //                    this.pause = false; 
 //                    virtualclass.recorder.play();
-                this.ff = 1; //when click on play it should be normal
+         //       this.ff = 1; //when click on play it should be normal
 
-                if (!this.pause) {
-                    alert('This is in already play mode');
-                } else {
+                //if (!this.pause &&  this.ff == 1){
+                //
+                //    //alert('This is in already play mode');
+                //} else {
+                //
+                //    this.ff = 1;
+                //    this.pause = false;
+                //    virtualclass.recorder.play();
+                //
+                //}
+                this.ff = 1;
+                //if (this.pause){
+
                     this.pause = false;
                     virtualclass.recorder.play();
-
-                }
+                //}
             },
 
             _pause: function () {
                 if (this.puase) {
-                    alert('This is in already pause mode.');
+                  //  alert('This is in already pause mode.');
                 } else {
                     this.pause = true;
                 }
@@ -743,6 +772,9 @@
 
             fastForward: function (by) {
                 this.ff = by;
+                this.pause = false;
+                virtualclass.recorder.play();
+
             }
         }
     };

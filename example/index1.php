@@ -145,7 +145,7 @@ if(isset($_GET['lname'])){
         <div id="playController">
             <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
             <div id="recPlayCont" class="recButton"> <button id="recPlay"> Play </button></div>
-            <div id="recPlayCont" class="recButton"> <button id="recPause"> Pause </button></div>
+            <div id="recPauseCont" class="recButton"> <button id="recPause"> Pause </button></div>
             <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff"> FF2 </button></div>
             <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff"> FF8 </button></div>
             <div id="repTimeCont"> <span id="tillRepTime">0 </span> / <span id="totalRepTime">0</span> </div>
@@ -155,7 +155,7 @@ if(isset($_GET['lname'])){
                 <div id="playControllerCont">
                     <div id="playController">
                         <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play" data-title="Play"></button></div>
-                        <div id="recPlayCont" class="recButton "> <button id="recPause" class="icon-pause" data-title="Pause"></button></div>
+                        <div id="recPauseCont" class="recButton "> <button id="recPause" class="icon-pause" data-title="Pause"></button></div>
                         <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward" data-title="Fast Forward 2"></button></div>
                         <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward" data-title="Fast Forward 8"></button></div>
                         <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
@@ -340,6 +340,8 @@ if(isset($_GET['lname'])){
          <!--For confirm window-->
           <div id="confirm" class="popupWindow simple-box">
           </div>
+
+
 
         </div>
     </div>

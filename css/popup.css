@@ -291,7 +291,7 @@ transition:all .2s linear;
 	margin-right: 20px;
 }
 #downloadPcCont #downloadPrgressLabel {
-	padding: 15px 0px 9px 23px;
+	padding: 15px 0px 9px 3px;
 }
 #downloadPcCont #downloadProgress {
 	width: 90%;

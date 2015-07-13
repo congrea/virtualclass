@@ -150,8 +150,14 @@ var PopUp = (function (window, undefined) {
     },
 
     PopUp.prototype.waitBlock = function (){
+        //
+        // alert('suman bogati');
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
+        this.hideAllPopups();
+
+        var recordPlay = document.getElementById('recordPlay');
+        recordPlay.style.display = 'block';
         virtualclass.popup.replayWindowAction('none');
     }
 
@@ -218,6 +224,8 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.replayWindow = function () {
+        alert('sss');
+        debugger;
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
 

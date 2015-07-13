@@ -593,8 +593,9 @@
 
         play: function () {
             if(this.objn == 0 ){
-                var recPlayCont = document.getElementById("recPlayCont");
-                recPlayCont.classList.add("controlActive");
+                var recPlayCont = document.getElementById("recPlay");
+                //recPlayCont.classList.add("controlActive");
+                this.doControlActive(recPlayCont);
             }
 
             var that = this;
@@ -755,7 +756,6 @@
                 //}
                 this.ff = 1;
                 //if (this.pause){
-
                     this.pause = false;
                     virtualclass.recorder.play();
                 //}

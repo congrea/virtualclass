@@ -160,6 +160,8 @@ var PopUp = (function (window, undefined) {
         wait.style.display = action;
     };
 
+
+    //TODO this function should be improve
     PopUp.prototype.sendBackOtherElems = function (action) {
         var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
 
@@ -186,6 +188,16 @@ var PopUp = (function (window, undefined) {
         var audioWidget = document.getElementById('audioWidget');
         if (audioWidget != null) {
             audioWidget.style.zIndex = 0;
+        }
+
+        var audioWidget = document.getElementById('audioWidget');
+        if (audioWidget != null) {
+            audioWidget.style.zIndex = 0;
+        }
+
+        var chatWidget = document.getElementById('memlist');
+        if (chatWidget != null) {
+            chatWidget.style.zIndex = 0;
         }
     };
 

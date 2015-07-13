@@ -391,6 +391,9 @@
                 if (!virtualclass.hasOwnProperty('notPLayed')) {
                     virtualclass.storage.clearStorageData();
                 }
+                //var prvAppObj = {name : "EditorRich"};
+                virtualclass.currApp = "EditorRich";
+                //localStorage.removeItem('prevApp', prvAppObj);
                 that.config.createNewSession();
             }
         },

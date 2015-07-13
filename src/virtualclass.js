@@ -412,7 +412,9 @@
                     //offset problem have to think about this
                     if (document.getElementById('canvas') != null) {
                         vcan.utility.canvasCalcOffset(vcan.main.canid);
-                        virtualclass.wb.utility.makeCanvasEnable();
+                        if(this.gObj.tempReplayObjs.length == 0){
+                            virtualclass.wb.utility.makeCanvasEnable();
+                        }
                     }
 
                     if (this.previous == 'virtualclassScreenShare' && virtualclass.gObj.uRole == 't') {

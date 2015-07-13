@@ -340,7 +340,12 @@
             progressBarContainer.style.display  =  'none';
 
             var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
-            recordFinishedMessageBox.style.display = 'block'
+            recordFinishedMessageBox.style.display = 'block';
+
+            var recordingContainer = document.getElementById('recordingContainer');
+            recordingContainer.classList.add('recordingFinished');
+
+
 
             var recordingClose = document.getElementById('recordingClose');
             recordingClose.addEventListener('click',

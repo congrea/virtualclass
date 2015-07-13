@@ -268,12 +268,9 @@ if(isset($_GET['lname'])){
             <!-- for uploading progress bar -->
 
             <div id="recordingContainer" class="popupWindow">
-                <div class="rv-vanilla-modal-header group">
 
-                    <h2 class="rv-vanilla-modal-title"> <?php echo get_string('uploadsession'); ?> </h2>
-
-
-
+                <div class="rv-vanilla-modal-header group" id="recordingHeaderContainer">
+                    <h2 class="rv-vanilla-modal-title" id="recordingHeader"> <?php echo get_string('uploadsession'); ?> </h2>
                 </div>
 
                 <div class="rv-vanilla-modal-body">

@@ -463,8 +463,6 @@
                         var action, ctrType, boolVal;
                         //TODO this should be generalise
                         if(control == 'Chat'){
-                            alert('suman bogati');
-                            debugger;
                             tag.className = 'contrChatBlock';
                             ctrType = 'chat'
                         }else if(control == 'Aud'){

@@ -141,27 +141,17 @@ if(isset($_GET['lname'])){
     <?php
         if($isplay){
             ?>
-<!--
-        <div id="playController">
-            <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
-            <div id="recPlayCont" class="recButton"> <button id="recPlay"> Play </button></div>
-            <div id="recPauseCont" class="recButton"> <button id="recPause"> Pause </button></div>
-            <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff"> FF2 </button></div>
-            <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff"> FF8 </button></div>
-            <div id="repTimeCont"> <span id="tillRepTime">0 </span> / <span id="totalRepTime">0</span> </div>
-        </div>
 
--->
                 <div id="playControllerCont">
                     <div id="playController">
-                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play" data-title="Play"></button></div>
-                        <div id="recPauseCont" class="recButton "> <button id="recPause" class="icon-pause" data-title="Pause"></button></div>
-                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward" data-title="Fast Forward 2"></button></div>
-                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward" data-title="Fast Forward 8"></button></div>
+                        <div id="recPlayCont" class="recButton"> <button id="recPlay" class="icon-play tooltip" data-title="Play"></button></div>
+                        <div id="recPauseCont" class="recButton "> <button id="recPause" class="icon-pause tooltip" data-title="Pause"></button></div>
+                        <div id="ff2Cont" class="recButton"> <button id="ff2" class="ff icon-forward tooltip" data-title="Fast Forward 2"></button></div>
+                        <div id="ff8Cont" class="recButton"> <button id="ff8" class="ff icon-fast-forward tooltip" data-title="Fast Forward 8"></button></div>
                         <div id="playProgress"> <div id="playProgressBar" class="progressBar" style="width: 0%;"></div> </div>
                         <div id="repTimeCont"> <span id="tillRepTime">00:00</span> / <span id="totalRepTime">00:00</span> </div>
                    </div>
-                   <div id="replayFromStart"> <button  class="ff icon-Replayfromstart" data-title="Replay from Start."></button> </div>
+                   <div id="replayFromStart"> <button  class="ff icon-Replayfromstart tooltip" data-title="Replay from Start."></button> </div>
                     <div style="clear:both;"></div>
                </div>
 
@@ -275,7 +265,7 @@ if(isset($_GET['lname'])){
 
                 <div class="rv-vanilla-modal-body">
 
-                    <div id="progressContainer" style="width:200px; padding:50px;">
+                    <div id="progressContainer">
 
                         <div id="totProgressCont">
                             <div id="totalProgressLabel"> <?php echo get_string('totalprogress'); ?> </div>

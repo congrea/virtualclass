@@ -278,7 +278,13 @@
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
-                        virtualclass.recorder.afterRecording();
+                        setTimeout(
+                            function (){
+                                virtualclass.recorder.afterRecording();
+                            },
+                            1000
+                        );
+
                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' || virtualclass.recorder.mkDownloadLink != " ") {
                             virtualclass.recorder.mkDownloadLink;
                         }
@@ -339,6 +345,8 @@
 
             var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
             recordFinishedMessageBox.style.display = 'block';
+            recordFinishedMessageBox.classList.add('MessageBoxFinished');
+
 
             var recordingContainer = document.getElementById('recordingContainer');
             recordingContainer.classList.add('recordingFinished');

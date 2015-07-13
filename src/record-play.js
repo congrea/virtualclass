@@ -312,8 +312,6 @@
 
                             //Recording is finished //upload finished
                             if (msg === "done") {
-                                //virtualclass.recorder.afterRecording();
-                                console.log('recording is finished');
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -330,11 +328,11 @@
                     }
                 }
             }, virtualclass.recorder.rnum);
+
         },
 
         afterRecording : function (){
             virtualclass.storage.config.endSession();
-            //display close button
 
             var progressBarContainer =  document.getElementById('progressContainer');
             progressBarContainer.style.display  =  'none';
@@ -594,10 +592,11 @@
         },
 
         play: function () {
-            if(this.objn >= 62){
-                //alert('suman bogati');
-                //debugger;
+            if(this.objn == 0 ){
+                var recPlayCont = document.getElementById("recPlayCont");
+                recPlayCont.classList.add("controlActive");
             }
+
             var that = this;
 
             if (this.controller.pause) {

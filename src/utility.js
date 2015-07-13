@@ -641,7 +641,7 @@
                     virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 }
 
-                if (io.sock.readyState == 1) {
+                if (io.sock != null && io.sock.readyState == 1) {
                     typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
                 }
 

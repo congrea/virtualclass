@@ -381,8 +381,6 @@
                     if(typeof virtualclass.wb == 'object'){
                         virtualclass.wb.utility.t_clearallInit();
                         virtualclass.wb.utility.makeDefaultValue();
-
-
                     }
 
                     virtualclass.vutil.clearAllChat();

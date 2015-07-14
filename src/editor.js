@@ -438,7 +438,7 @@
                  * @returns {boolean}
                  */
                 isEidtorWithTeacher : function(){
-                    return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'Editor' || virtualclass.currApp == 'EditorCode'));
+                    return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
                 },
 
                 /**
@@ -491,10 +491,10 @@
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
                             if(virtualclass.currAppEditorType == et){
-                                virtualclass.currApp = et;
+                                virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
                             }
                         }else{
-                            virtualclass.currApp = et;
+                            virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
                         }
                     }
 
@@ -570,7 +570,7 @@
                     }
 
 
-                    if( virtualclass.currApp == 'EditorRich'){
+                    if( virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp) == 'EditorRich'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
                     }

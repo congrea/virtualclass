@@ -55,7 +55,7 @@
                 this.recorder = window.recorder;
                 this.converter = window.converter;
                 this.clear = "";
-                this.currApp = app;
+                this.currApp = this.vutil.capitalizeFirstLetter(app);
 
                 this.dirtyCorner = window.dirtyCorner;
 
@@ -307,7 +307,7 @@
             makeAppReady: function (app, cusEvent, videoObj) {
 
                 this.view = window.view;
-                this.currApp = app;
+                this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {

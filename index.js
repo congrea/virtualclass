@@ -35,10 +35,14 @@ $(document).ready(function () {
         //alert('should not true');
     }
 
+    var capitalizeFirstLetter  = function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     var previousApp = JSON.parse(localStorage.getItem('prevApp'));
     if(previousApp != null) {
         virtualclass.previousApp = previousApp;
-        var appIs = previousApp.name;
+        var appIs = capitalizeFirstLetter(previousApp.name);
 
         if(previousApp.name == 'Yts'){
             var videoObj = previousApp.metaData;
@@ -186,7 +190,6 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
-
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 } else if (virtualclass.currApp === 'ScreenShare') {

@@ -85,13 +85,16 @@
         setContainerWidth: function (res, app) {
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
-                if('virtualclass'+app != virtualclass.previous){
-                    appId = 'virtualclass'+app;
-                } else {
-                    appId = virtualclass.previous;
-                }
+                //if('virtualclass'+app != virtualclass.previous){
+                //    appId = 'virtualclass'+app;
+                //} else {
+                //    appId = virtualclass.previous;
+                //}
+                appId = virtualclass.previous;
             }
+            var appName = appId.split('virtualclass')[1];
 
+            appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
 
             var appCont = document.getElementById(appId);
             var rightOffSet = 5;

@@ -21,7 +21,7 @@
 	padding:50px 0;
 }
 #recordingContainer {
-	min-height:150px;
+	min-height:80px;
 }
 .rv-vanilla-modal {
 	position:absolute;
@@ -66,7 +66,7 @@
 .rv-vanilla-modal-body {
 	overflow:auto;
 	color:#555;
-	padding: 18px 25px 10px;
+	padding: 23px 25px 10px;
 }
 .rv-vanilla-modal-body p {
 	line-height:150%;
@@ -200,7 +200,7 @@ transition:all .2s linear;
 	background: -ms-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #eeeeee 0%, #dddddd 100%); /* W3C */
  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0 ); /* IE6-9 */
-	padding: 7px 30px;
+	padding: 9px 30px;
 	border-radius: 5px;
 	border: none;
 	margin-left: 165px;
@@ -231,15 +231,7 @@ transition:all .2s linear;
 	min-height: auto;
 	width: auto;
 }
-#recordingContainer {
-	min-height: 150px;
-}
-#recordingContainer .rv-vanilla-modal-body div {
-	padding: 0px !important;
-}
-#about-modal #recordingContainer .rv-vanilla-modal-body div {
-	width: 100% !important;
-}
+
 .rv-vanilla-modal-body {
 	padding: 30px 25px 30px;
 }
@@ -299,16 +291,16 @@ transition:all .2s linear;
 	margin-right: 20px;
 }
 #downloadPcCont #downloadPrgressLabel {
-	padding: 15px 0px 9px 23px;
+	padding: 15px 0px 9px 3px;
 }
 #downloadPcCont #downloadProgress {
 	width: 90%;
 	margin-bottom: 15px;
 }
 
-#playController{
-    display : none; 
-}
+/*#playController{*/
+    /*display : none; */
+/*}*/
 
 #recordingContainer .rv-vanilla-modal-title{
 	float : left;

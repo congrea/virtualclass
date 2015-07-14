@@ -278,7 +278,13 @@
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
-                        virtualclass.recorder.afterRecording();
+                        setTimeout(
+                            function (){
+                                virtualclass.recorder.afterRecording();
+                            },
+                            1000
+                        );
+
                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' || virtualclass.recorder.mkDownloadLink != " ") {
                             virtualclass.recorder.mkDownloadLink;
                         }
@@ -312,8 +318,6 @@
 
                             //Recording is finished //upload finished
                             if (msg === "done") {
-                                //virtualclass.recorder.afterRecording();
-                                console.log('recording is finished');
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -330,17 +334,24 @@
                     }
                 }
             }, virtualclass.recorder.rnum);
+
         },
 
         afterRecording : function (){
             virtualclass.storage.config.endSession();
-            //display close button
 
             var progressBarContainer =  document.getElementById('progressContainer');
             progressBarContainer.style.display  =  'none';
 
             var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
-            recordFinishedMessageBox.style.display = 'block'
+            recordFinishedMessageBox.style.display = 'block';
+            recordFinishedMessageBox.classList.add('MessageBoxFinished');
+
+
+            var recordingContainer = document.getElementById('recordingContainer');
+            recordingContainer.classList.add('recordingFinished');
+
+
 
             var recordingClose = document.getElementById('recordingClose');
             recordingClose.addEventListener('click',
@@ -589,10 +600,12 @@
         },
 
         play: function () {
-            if(this.objn >= 62){
-                //alert('suman bogati');
-                //debugger;
+            if(this.objn == 0 ){
+                var recPlayCont = document.getElementById("recPlay");
+                //recPlayCont.classList.add("controlActive");
+                this.doControlActive(recPlayCont);
             }
+
             var that = this;
 
             if (this.controller.pause) {
@@ -689,6 +702,7 @@
                     recButton[i].onclick = function () {
                         var ffBy = this.id.split('ff')[1];
                         that.controller.fastForward(parseInt(ffBy, 10));
+                        that.doControlActive(this)
                     };
                 }
 
@@ -696,12 +710,21 @@
                 var recPlay = document.getElementById('recPlay');
                 recPlay.addEventListener('click', function () {
                     that.controller._play();
+                    that.doControlActive(this);
+
+                    //var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
+                    //for(var i=0; i<controlButtons.length; i++){
+                    //    controlButtons[i].classList.remove("controlActive");
+                    //}
+                    //
+                    //this.classList.add("controlActive");
                 });
 
                 //init pause
                 var recPause= document.getElementById('recPause');
                 recPause.addEventListener('click', function () {
                     that.controller._pause();
+                    that.doControlActive(this)
                 });
 
                 var replayFromStart =  document.getElementById('replayFromStart');
@@ -711,26 +734,44 @@
             }
         },
 
+        doControlActive : function (elem){
+
+            var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
+            for(var i=0; i<controlButtons.length; i++){
+                controlButtons[i].classList.remove("controlActive");
+            }
+
+            elem.parentNode.classList.add("controlActive");
+        },
+
         controller: {
             pause: false,
             ff: 1,
             _play: function () {
 //                    this.pause = false; 
 //                    virtualclass.recorder.play();
-                this.ff = 1; //when click on play it should be normal
+         //       this.ff = 1; //when click on play it should be normal
 
-                if (!this.pause) {
-                    alert('This is in already play mode');
-                } else {
+                //if (!this.pause &&  this.ff == 1){
+                //
+                //    //alert('This is in already play mode');
+                //} else {
+                //
+                //    this.ff = 1;
+                //    this.pause = false;
+                //    virtualclass.recorder.play();
+                //
+                //}
+                this.ff = 1;
+                //if (this.pause){
                     this.pause = false;
                     virtualclass.recorder.play();
-
-                }
+                //}
             },
 
             _pause: function () {
                 if (this.puase) {
-                    alert('This is in already pause mode.');
+                  //  alert('This is in already pause mode.');
                 } else {
                     this.pause = true;
                 }
@@ -738,6 +779,9 @@
 
             fastForward: function (by) {
                 this.ff = by;
+                this.pause = false;
+                virtualclass.recorder.play();
+
             }
         }
     };

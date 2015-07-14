@@ -586,11 +586,14 @@
                  * and from inline memoery
                  */
                 removeEditorData : function (){
-                    if(typeof this.vcAdapter == 'object' ){
-                         this.vcAdapter.operations.length = 0;
+                    if(typeof this.cm == 'object'){
+                        if(typeof this.vcAdapter == 'object' ){
+                            this.vcAdapter.operations.length = 0;
+                        }
+                        this.cm.setValue("");
+                        localStorage.removeItem(this.etype +'_allEditorOperations');
+                        localStorage.removeItem(this.etype + '_edOperationRev');
                     }
-                    localStorage.removeItem(this.etype +'_allEditorOperations');
-                    localStorage.removeItem(this.etype + '_edOperationRev');
                 },
 
                 /**

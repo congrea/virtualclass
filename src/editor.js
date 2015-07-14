@@ -89,11 +89,16 @@
                         virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                     }
 
-                    if(virtualclass.gObj.uRole == 't'){
-                        this.createAllEditorController();
+                    if(virtualclass.gObj.uRole == 't') {
+                        if (localStorage.getItem('orginalTeacherId') != null) {
+                            this.createAllEditorController();
+                        }
                         io.send({eddata : 'init', et: this.etype});
+                    } else {
+                        if (localStorage.getItem('orginalTeacherId') != null) {
+                            this.createAllEditorController();
+                        }
                     }
-
                 },
 
                 createAllEditorController : function (){
@@ -548,7 +553,6 @@
 
                     //TODO To be simplyfied
                     if(localStorage.getItem('orginalTeacherId') == null) {
-
                         if(cmReadOnly != null){
                             if(!cmReadOnly){
                                 this.cm.setOption("readOnly", true);
@@ -582,11 +586,14 @@
                  * and from inline memoery
                  */
                 removeEditorData : function (){
-                    if(typeof this.vcAdapter == 'object' ){
-                         this.vcAdapter.operations.length = 0;
+                    if(typeof this.cm == 'object'){
+                        if(typeof this.vcAdapter == 'object' ){
+                            this.vcAdapter.operations.length = 0;
+                        }
+                        this.cm.setValue("");
+                        localStorage.removeItem(this.etype +'_allEditorOperations');
+                        localStorage.removeItem(this.etype + '_edOperationRev');
                     }
-                    localStorage.removeItem(this.etype +'_allEditorOperations');
-                    localStorage.removeItem(this.etype + '_edOperationRev');
                 },
 
                 /**

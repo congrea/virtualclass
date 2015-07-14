@@ -25,7 +25,11 @@ $(document).ready(function () {
         virtualclass.gObj.sessionClear = true;
         localStorage.removeItem('orginalTeacherId');
         localStorage.removeItem('teacherId');
-        virtualclass.gObj.uid = 99955551230; // in replay mode the user can not be same which is using on actual program
+        //virtualclass.gObj.uid = 99955551230; // in replay mode the user can not be same which is using on actual program
+        wbUser.id = 99955551230;
+
+        virtualclass.gObj.uid =  wbUser.id;
+
 
     } else {
         //alert('should not true');
@@ -43,9 +47,6 @@ $(document).ready(function () {
     } else {
         var appIs = "EditorRich";
     }
-
-
-
 
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
@@ -475,6 +476,9 @@ $(document).ready(function () {
         };
 
         this.clearAll = function (e) {
+            if(typeof virtualclass.wb != 'object'){
+                virtualclass.makeAppReady(virtualclass.apps[0]);
+            }
             virtualclass.wb.response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb.oTeacher);
         };
 
@@ -485,14 +489,22 @@ $(document).ready(function () {
         };
 
         this.createArrow = function (e) {
-            if (virtualclass.wb.oTeacher) {
-                virtualclass.wb.receivedPackets = virtualclass.wb.receivedPackets + (JSON.stringify(e.message).length);
-            } else {
-                virtualclass.wb.response.createArrow(e.message, virtualclass.wb.oTeacher);
+            if(typeof virtualclass.wb == 'object'){
+                if (virtualclass.wb.oTeacher) {
+                    virtualclass.wb.receivedPackets = virtualclass.wb.receivedPackets + (JSON.stringify(e.message).length);
+                } else {
+                    virtualclass.wb.response.createArrow(e.message, virtualclass.wb.oTeacher);
+                }
             }
         };
 
         this.repObj = function (e) {
+            if(typeof virtualclass.wb != 'object'){
+                virtualclass.makeAppReady(virtualclass.apps[0]);
+                return;
+            }
+
+
             if (!virtualclass.vutil.isPlayMode()) {
                 virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
             }

@@ -290,7 +290,9 @@
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
             },
-
+            /*
+             * 
+             */
             initializeRecorder: function (stream) {
                 virtualclass.vutil.addClass("audioWidget", "fixed");
                 changeonresize = 1;
@@ -334,7 +336,7 @@
                         clearInterval(virtualclass.clear);
                         //that.prevImageSlices = [];
                         that.initPrevImage();
-                      virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type});
+                        virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type});
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same

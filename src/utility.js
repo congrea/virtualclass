@@ -642,7 +642,7 @@
                     virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 }
 
-                if (io.sock.readyState == 1) {
+                if (io.sock != null && io.sock.readyState == 1) {
                     typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
                 }
 
@@ -755,6 +755,15 @@
                 }
 
                 if (virtualclass.currApp == 'Yts') {
+                    var virtualclassYts = document.getElementById('virtualclassYts');
+                    if(virtualclassYts != null){
+                        if(document.getElementById('player') == null){
+                            virtualclass.yts.UI.createPlayerTag(virtualclassYts);
+                        }
+                    } else {
+                        virtualclass.yts.UI.container();
+                    }
+
                     virtualclass.yts.UI.inputURL();
                     virtualclass.yts.seekChangeInterval();
                 }

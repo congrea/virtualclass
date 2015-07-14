@@ -381,8 +381,6 @@
                     if(typeof virtualclass.wb == 'object'){
                         virtualclass.wb.utility.t_clearallInit();
                         virtualclass.wb.utility.makeDefaultValue();
-
-
                     }
 
                     virtualclass.vutil.clearAllChat();
@@ -393,6 +391,9 @@
                 if (!virtualclass.hasOwnProperty('notPLayed')) {
                     virtualclass.storage.clearStorageData();
                 }
+                //var prvAppObj = {name : "EditorRich"};
+                virtualclass.currApp = "EditorRich";
+                //localStorage.removeItem('prevApp', prvAppObj);
                 that.config.createNewSession();
             }
         },

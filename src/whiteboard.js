@@ -382,7 +382,7 @@
                     //virtualclass.vutil.beforeSend({'clearAll': true});
 
                     virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm){
-                        if(!confirm || label != rlabel){
+                        if(!confirm){
                             return true;
                         }
                         virtualclass.wb.utility.makeActiveTool(cmd);

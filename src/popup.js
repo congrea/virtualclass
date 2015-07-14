@@ -150,8 +150,14 @@ var PopUp = (function (window, undefined) {
     },
 
     PopUp.prototype.waitBlock = function (){
+        //
+        // alert('suman bogati');
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
+        this.hideAllPopups();
+
+        var recordPlay = document.getElementById('recordPlay');
+        recordPlay.style.display = 'block';
         virtualclass.popup.replayWindowAction('none');
     }
 
@@ -160,6 +166,8 @@ var PopUp = (function (window, undefined) {
         wait.style.display = action;
     };
 
+
+    //TODO this function should be improve
     PopUp.prototype.sendBackOtherElems = function (action) {
         var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
 
@@ -177,10 +185,25 @@ var PopUp = (function (window, undefined) {
         if (stickBar != null) {
             stickBar.style.zIndex = 0;
         }
-        var chatrm = document.getElementById('chatrm');
 
+        var chatrm = document.getElementById('chatrm');
         if (chatrm != null) {
             chatrm.style.zIndex = 0;
+        }
+
+        var audioWidget = document.getElementById('audioWidget');
+        if (audioWidget != null) {
+            audioWidget.style.zIndex = 0;
+        }
+
+        var audioWidget = document.getElementById('audioWidget');
+        if (audioWidget != null) {
+            audioWidget.style.zIndex = 0;
+        }
+
+        var chatWidget = document.getElementById('memlist');
+        if (chatWidget != null) {
+            chatWidget.style.zIndex = 0;
         }
     };
 
@@ -201,6 +224,8 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.replayWindow = function () {
+        alert('sss');
+        debugger;
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
 
@@ -270,6 +295,7 @@ var PopUp = (function (window, undefined) {
 
         var confirmOkButton = document.createElement('button');
         confirmOkButton.id = 'confirmOkButton';
+        confirmOkButton.className = 'icon-check';
         confirmOkButton.innerHTML = "OK";
 
         confirmOkDiv.appendChild(confirmOkButton);
@@ -285,6 +311,7 @@ var PopUp = (function (window, undefined) {
 
         var confirmCancelButton = document.createElement('button');
         confirmCancelButton.id = 'confirmCancelButton';
+        confirmCancelButton.className = 'icon-close';
         confirmCancelButton.innerHTML = "Cancel";
 
 

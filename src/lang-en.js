@@ -116,7 +116,9 @@
         'shareYouTubeVideo' : 'Share YouTube Video',
         'shareAnotherYouTubeVideo' : 'Share Another YouTube Video',
         'editorCode' : 'Editor Code',
-        'editorRich' : 'Editor Rich'
+        'editorRich' : 'Editor Rich',
+        'teachermayshow' : 'Teacher may show the YouTube video.',
+        'youtubeshare' : 'YouTube Video Share'
 
     };
     window.message = message;

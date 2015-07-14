@@ -17,3 +17,4 @@ todo.txt
 /src/audioworker.js
 *.txt
 .idea*
+.DS_*

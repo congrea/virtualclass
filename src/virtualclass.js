@@ -29,7 +29,7 @@
 
                 virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
                 virtualclass.storage.config.endSession();
-              virtualclass.vutil.beforeSend({sEnd: true});
+                virtualclass.vutil.beforeSend({sEnd: true});
 
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
@@ -412,7 +412,9 @@
                     //offset problem have to think about this
                     if (document.getElementById('canvas') != null) {
                         vcan.utility.canvasCalcOffset(vcan.main.canid);
-                        virtualclass.wb.utility.makeCanvasEnable();
+                        if(this.gObj.tempReplayObjs.length == 0){
+                            virtualclass.wb.utility.makeCanvasEnable();
+                        }
                     }
 
                     if (this.previous == 'virtualclassScreenShare' && virtualclass.gObj.uRole == 't') {
@@ -518,7 +520,6 @@
                                         console.log('Not start new session');
                                         return;
                                     }
-                                    console.log('Start new session');
                                     virtualclass.clearSession(appName);
                                     window.location.reload();
                                 }
@@ -527,6 +528,7 @@
                             io.completeStorage(undefined, undefined, 'sessionend');
                             setTimeout(function () {
                                     virtualclass.getContent = true;
+                                    virtualclass.vutil.beforeSend({sEnd: true}); //before close, clear student virtualclass data
                                     io.sock.close();
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300

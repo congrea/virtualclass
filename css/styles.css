@@ -629,7 +629,7 @@ div.ui-memblist-usr .userVideos {
 	display : inline;
 	position : relative;
 	font-size : 14px;
-	z-index: 0;
+	/*z-index: 0;*/
 }
 
 #virtualclassCont #usertab_text.tooltip {
@@ -2190,14 +2190,18 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 
-#virtualclassEditorRich{
-	margin-top : 1.5%;
+#virtualclassEditorRich, #virtualclassEditorCode{
+	/*margin-top : 1.5%;*/
+	margin-top:  10px;
 }
 
-#virtualclassEditorRich, #virtualclassEditorBody, #virtualclassEditorCode, #virtualclassEditorCodeBody{
+#virtualclassEditorRich, #virtualclassEditorBody{
 	height : 100%;
 }
 
+#virtualclassEditorCode, #virtualclassEditorCodeBody {
+	height : 101%;
+}
 
 .other-client:before {
 	content: attr(data-clientname);
@@ -2248,7 +2252,7 @@ div.CodeMirror-cursors{
 
 #virtualclassEditorRichBody {
 	position: relative;
-	height : 100%;
+	height : 101%;
 }
 
 
@@ -2427,11 +2431,11 @@ a.vceditor-btn{
 
 .youTubeSharing #youtubeUrlContainer{
 	top:0;
-	text-align: center;
+	text-align: left;
 }
 
 .youTubeSharing{
-	text-align: center;
+	text-align: left;
 }
 
 #virtualclassCont #player{
@@ -2444,8 +2448,9 @@ a.vceditor-btn{
 	font-size: 13px;
 	padding: 0px 10px 0px 15px;
 	width: 370px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	color: #777;
+	font-size : 20px;
 }
 
 #youtubeUrlContainer #submitURL{
@@ -2690,4 +2695,32 @@ div#playControllerCont{
 
 .recordingFinished #recordingHeaderContainer{
 	display : none;
+}
+
+
+#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassEditorCodeBody {
+	margin-right : 64px;
+}
+
+#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassEditorCodeBody {
+	margin-right : 20px;
+}
+
+#virtualclassYts {
+	margin-top : 10px;
+}
+
+
+
+#virtualclassCont #virtualclassYts.youTubeSharing #player{
+	display: inline;
+	/*margin-left: -65%;*/
+	margin-top: 1%;
+	margin-left: 22px;
+}
+
+.youTubeSharing #youtubeUrlContainer {
+	top : 0;
+	text-align: left;
+	margin-left: 22px;
 }

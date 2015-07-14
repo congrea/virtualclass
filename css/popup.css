@@ -306,3 +306,6 @@ transition:all .2s linear;
 	float : left;
 }
 
+#field2::-moz-placeholder { color:#00f; }
+
+#youtubeurl::-webkit-input-placeholder { opacity : 0.8}

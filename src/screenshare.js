@@ -56,7 +56,7 @@
             },
 
             initStudentScreen: function (imgData, d, stype, stool) {
-
+                    
 //                io.dataBinaryStore(imgData); //storing received screen
 
                 virtualclass.vutil.addClass('audioWidget', "fixed");
@@ -160,23 +160,41 @@
 
         return {
             prevStream: false,
+            /* 
+             * This function is invoked on clicking screen share icon .
+             * At the teacher's window screen share application is started ,
+             * And on student's window _init function is invoked to inilize screen
+             * @param screen screen object
+              
+             */
             init: function (screen) {
-
+              
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;
+                
                 //if(virtualclass.gObj.uRole == 't' && !virtualclass.hasOwnProperty('repType')){
                 if (virtualclass.gObj.uRole == 't' && !virtualclass.recorder.recImgPlay) {
+                      alert('teacher');
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
                     //}
                 } else {
+                    alert(virtualclass.recorder.recImgPlay);
+                    alert('_init')
+                   
                     this._init();
                 }
             },
 
-            //called when user select the screencall
+            /*
+             * Called when user select the screencall
+             * configuring the screen 
+             * inilizing student screen
+             * 
+             */
             _init: function () {
+               debugger;
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';
                     virtualclass.previous = config.id;
@@ -187,13 +205,13 @@
                     ss.style.display = 'block';
                 }
 
-                if (!this.hasOwnProperty('id')) {
+                if (!this.hasOwnProperty('id'))   {
                     this.dc = virtualclass.dirtyCorner;
                     this.postFix = "Cont";
                     this.id = config.hasOwnProperty('id') ? config.id : "virtualclassScreenShare";
                     this.className = "virtualclass";
                     this.label = "Local",
-                        this.local = this.id + this.label;
+                    this.local = this.id + this.label;
                     this.localTemp = this.id + this.label + "Temp";
                     this.classes = config.hasOwnProperty('class') ? config.classes : "";
 
@@ -214,28 +232,38 @@
                     }
                 }
             },
-
+            /*
+             * This function gets  screen reloaded with the url
+             * @param app it stores the string screenshare
+             */
             readyTostart: function (app) {
                 if (app == virtualclass.apps[1]) {
                     this.getScreen();
                 }
 
             },
-
+            /*
+             * displays the error if any
+             * @param e error
+             * 
+             */
             onError: function (e) {
                 console.log("Error " + e);
             },
-
+            
             getScreen: function (callback) {
-
+                   debugger; 
 //                alert(chrome.desktopCapture);
 //                debugger;
                 if (virtualclass.system.mybrowser.name == 'Chrome') {
                     if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
+                      
                         window.postMessage({type: 'getScreen', id: 1}, '*');
                     } else {
+                        
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
+                           
                             window.location.reload();
                         });
                     }
@@ -424,7 +452,7 @@
 
                     var appCode = (stype == 'ss' ) ? 104 : 204;
                     var scode = new Uint8ClampedArray([appCode, dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
-                    var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+                    var sendmsg = new Uit8ClampedArray(encodedData.length + scode.length);
                     sendmsg.set(scode);
                     sendmsg.set(encodedData, scode.length);
                     if (!!window.Worker) {

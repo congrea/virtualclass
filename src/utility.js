@@ -213,6 +213,7 @@
             }
 
             virtualclass[app].localtempCanvas = document.getElementById(tempVideoId);
+            console.log(virtualclass[app].localtempCanvas);
             virtualclass[app].localtempCont = virtualclass[app].localtempCanvas.getContext('2d');
         },
 

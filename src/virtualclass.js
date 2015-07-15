@@ -78,6 +78,7 @@
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.yts = window.yts();
+
 				virtualclass.vutil.createReclaimButtonIfNeed();
 				
 				if (this.gObj.uRole == 't') {

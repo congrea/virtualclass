@@ -383,6 +383,9 @@
                         virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                         //localStorage.reclaim = true;
                         localStorage.setItem('reclaim', true);
+                        virtualclassCont = document.getElementById('virtualclassCont');
+                        virtualclassCont.className = virtualclassCont.className + ' reclaim';
+
                     } else {
                         if (cmdToolsWrapper != null) {
                             cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);

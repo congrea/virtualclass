@@ -54,6 +54,9 @@ $(document).ready(function () {
 
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
+    if(localStorage.getItem('reclaim') != null){
+        virtualclass.vutil.toggleRoleClass(true);
+    }
 
     var alreadyInit = false;
 
@@ -92,8 +95,6 @@ $(document).ready(function () {
             1150
         );
     }
-
-
 
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();

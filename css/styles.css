@@ -2707,14 +2707,29 @@ div#playControllerCont{
 }
 
 
-#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassEditorCodeBody {
-	margin-right : 64px;
+
+
+
+
+#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {
+	/*margin-right: 3.2%;*/
+	width : 98.8%;
+
+}
+
+#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody {
+	/*margin-right: 3.2%;*/
+	width : 96.8%;
 }
 
 #virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {
 	margin-right : 77px;
+
 }
 
+#virtualclassCont.removedAssign #virtualclassEditorRichBody, #virtualclassCont.removedAssign #virtualclassEditorCodeBody{
+	margin-right :0;
+}
 
 #virtualclassYts, #virtualclassScreenShare {
 	margin-top : 8px;
@@ -2733,3 +2748,20 @@ div#playControllerCont{
 	text-align: left;
 	margin-left: 22px;
 }
+
+
+#virtualclassCont.orginalTeacher #vcanvas{
+	border: #ccc solid 1px;
+}
+
+
+
+#virtualclassCont.reclaim #virtualclassScreenShare, #virtualclassCont.reclaim  #virtualclassEditorRich, #virtualclassCont.reclaim #virtualclassEditorCode {
+	margin-left : 20px;
+}
+
+
+
+/*#virtualclassCont.student #virtualclassScreenShare, #virtualclassCont #virtualclassEditorRich, #virtualclassCont #virtualclassEditorCode {*/
+	/*margin-left: 60px;*/
+/*}*/

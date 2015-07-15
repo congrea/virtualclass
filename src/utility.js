@@ -85,13 +85,16 @@
         setContainerWidth: function (res, app) {
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
-                //if('virtualclass'+app != virtualclass.previous){
-                //    appId = 'virtualclass'+app;
-                //} else {
-                //    appId = virtualclass.previous;
-                //}
-                appId = virtualclass.previous;
+
+                if('virtualclass'+app != virtualclass.previous){
+                    appId = 'virtualclass'+app;
+                } else {
+                    appId = virtualclass.previous;
+                }
+              //  appId = virtualclass.previous;
             }
+            //alert('sss');
+            //debugger;
             var appName = appId.split('virtualclass')[1];
 
             appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
@@ -102,18 +105,12 @@
             var extraWidth = 0;
             var leftSideBarWidth;
 
-            var reduceHeight = 60;
+            //var reduceHeight = 60;
 
             if(app == 'Whiteboard'){
                 leftSideBarWidth = 0;
+                //reduceHeight = 70;
             }else{
-                if(app == 'Yts'){
-                    rightOffSet = 90; //youtube wrapper does not have inner div
-                } else {
-                    rightOffSet = 65;
-                }
-
-
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
                     var offset = vcan.utility.getElementOffset(leftSideBar);
@@ -121,18 +118,22 @@
                 } else {
                     leftSideBarWidth = 0;
                 }
-                reduceHeight = 70;
-            }
 
-            //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
-
-
-            if (virtualclass.currApp == 'EditorRich' ||  virtualclass.currApp == 'EditorCode') {
-                if(leftSideBarWidth > 0){
-                    rightOffSet = 12;
+                if(app == 'Yts'){
+                    rightOffSet = 75; //youtube wrapper does not have inner div, TODO should be handle by css
+                } else if (virtualclass.currApp == 'EditorRich' ||  virtualclass.currApp == 'EditorCode') {
+                    if(leftSideBarWidth > 0){
+                        rightOffSet = 12;
+                    }
+                } else if(app == 'ScreenShare'){
+                    rightOffSet = 70;
+                } else {
+                    rightOffSet = 65;
                 }
                 //reduceHeight = 70;
             }
+
+            var reduceHeight = 70;
 
             res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
             appCont.style.width = res.width + 'px';

@@ -2148,9 +2148,18 @@ opacity : 0.800000011920928955078125 !important;
     pointer-events : none;
 }
 
-#virtualclassYts {
-	border: #ddd 1px solid;
+#virtualclassCont.teacher #virtualclassYts {
     margin-left : 60px;
+}
+
+#virtualclassCont #virtualclassYts {
+	border: #ddd 1px solid;
+}
+
+#virtualclassCont.student #virtualclassYts p{
+	text-align:center;
+	margin-top : 25%;
+
 }
 
 #virtualclassCont #player {
@@ -2702,14 +2711,14 @@ div#playControllerCont{
 	margin-right : 64px;
 }
 
-#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassEditorCodeBody {
-	margin-right : 20px;
+#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {
+	margin-right : 77px;
 }
 
-#virtualclassYts {
-	margin-top : 10px;
-}
 
+#virtualclassYts, #virtualclassScreenShare {
+	margin-top : 8px;
+}
 
 
 #virtualclassCont #virtualclassYts.youTubeSharing #player{

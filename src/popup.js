@@ -16,7 +16,6 @@ var PopUp = (function (window, undefined) {
      */
     function PopUp(options) {
         this.init(options);
-
         return this;
     }
 

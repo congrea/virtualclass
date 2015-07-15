@@ -1,6 +1,5 @@
 <?php 
-function my_curl_request($url, $post_data)
-{
+function my_curl_request($url, $post_data){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -14,7 +13,7 @@ function my_curl_request($url, $post_data)
 		curl_setopt($ch, CURLOPT_SSLVERSION, 1);
 
         $result = @curl_exec($ch);
-		if($result === false){
+		if($result === false){  
 		    echo 'Curl error: ' . curl_error($ch);
 			exit;
 		}

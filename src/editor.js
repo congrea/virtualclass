@@ -486,7 +486,6 @@
                  */
 
                 initialiseDataWithEditor : function (doc, displayEditor, et) {
-
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
@@ -500,7 +499,6 @@
 
                     this.removeCodeMirror();
                     this.codemirrorWithLayout(editorType);
-
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp);
 
                     if ((this.cm)) {
@@ -569,8 +567,9 @@
                         virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
                     }
 
+                    var currApp  = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
 
-                    if( virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp) == 'EditorRich'){
+                    if(currApp == 'EditorRich' || currApp == 'EditorCode'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
                     }

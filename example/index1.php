@@ -329,6 +329,7 @@ if(isset($_GET['lname'])){
          <!--For confirm window-->
           <div id="confirm" class="popupWindow simple-box">
           </div>
+          
         </div>
     </div>
 </div>

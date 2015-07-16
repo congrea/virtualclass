@@ -31,7 +31,7 @@
 	min-height:auto;
 	background:#fff;
 	z-index:10;f
-	-webkit-transition:.3s all ease-out;
+-webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
 	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
@@ -41,7 +41,7 @@
 #virtualclassCont .rv-vanilla-modal-is-open {
 	top: 55%;
 }
-#virtualclassCont .rv-vanilla-modal-overlay {
+.rv-vanilla-modal-overlay {
 	position:absolute;
 	top:0;
 	right:0;
@@ -53,11 +53,10 @@
 	-webkit-transition:.4s opacity linear;
 	transition:.4s opacity linear;
 }
-#virtualclassCont .rv-vanilla-modal-overlay.is-shown {
+.rv-vanilla-modal-overlay.is-shown {
 	opacity:1;
 	display:block;
 }
-
 
 #virtualclassCont .rv-vanilla-modal-body {
 	overflow:auto;
@@ -68,8 +67,8 @@
 	line-height:150%;
 	margin:0 0 1em;
 }
-#virtualclassCont .rv-vanilla-modal-title {    
-    color: #414C46;
+#virtualclassCont .rv-vanilla-modal-title {
+	color: #414C46;
 	font-size: 15px;
 	font-weight: 300;
 	margin: 0;
@@ -77,6 +76,7 @@
 	margin-left: 4%;
 	letter-spacing : 0.01em;
 }
+
 
 #virtualclassCont .rv-vanilla-modal-close .text {
 	position:relative;
@@ -136,6 +136,7 @@
 #virtualclassCont .rv-vanilla-modal-body {
 	min-width: 400px;
 }
+
 /*Hasan css start*/
 
 #virtualclassCont #downloadProgress {
@@ -248,13 +249,13 @@
 	border-radius: 10px;
 }
 #virtualclassCont #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
-  	 border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    font-size: 15px;
-    font-weight: 300;
-    height: 33px;
-    padding-left: 20px;
-    padding-top: 12px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-size: 15px;
+	font-weight: 300;
+	height: 33px;
+	padding-left: 20px;
+	padding-top: 12px;
 }
 
 #virtualclassCont #downloadPrgressLabel {
@@ -273,11 +274,14 @@
 	margin-bottom: 15px;
 }
 
+/*#playController{*/
+/*display : none; */
+/*}*/
 
-#virtualclassCont #recordingContainer .rv-vanilla-modal-title{
+#recordingContainer .rv-vanilla-modal-title{
 	float : left;
 }
 
-#virtualclassCont #field2::-moz-placeholder { color:#00f; }
+#field2::-moz-placeholder { color:#00f; }
 
-#virtualclassCont #youtubeurl::-webkit-input-placeholder { opacity : 0.8}
+#youtubeurl::-webkit-input-placeholder { opacity : 0.8}

@@ -783,11 +783,8 @@
                     virtualclass.yts.UI.inputURL();
                     virtualclass.yts.seekChangeInterval();
                 }
-
                 virtualclass.system.setAppDimension();
-
             } else {
-//                        alert(virtualclass.currApp);
                 if (virtualclass.currApp == 'Yts') {
                     virtualclass.yts.UI.removeinputURL();
                     if (virtualclass.yts.hasOwnProperty('tsc')) {

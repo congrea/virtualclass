@@ -343,7 +343,6 @@
         },
 
         afterRecording : function (){
-           
             virtualclass.storage.config.endSession();
 
             var progressBarContainer =  document.getElementById('progressContainer');
@@ -518,8 +517,7 @@
                     virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
                     virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
 
-                    alert('hello');
-                    debugger;
+
                     virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
 
                     if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {

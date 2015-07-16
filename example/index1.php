@@ -289,7 +289,7 @@ if(isset($_GET['lname'])){
 
                     <div id="recordFinishedMessageBox">
                         <span id="recordFinishedMessage"> You have uploaded the current session. </span>
-                        <span id="recordingClose">X</span>
+                        <span id="recordingClose" class="icon-close"></span>
                     </div>
                 </div>
 
@@ -311,7 +311,8 @@ if(isset($_GET['lname'])){
 
                     <div id="askPlay">
                         <div id="askplayMessage"> </div>
-                        <button id="playButton">Play</button>
+                         <button id="playButton" class="icon-play">Play</button>
+
                     </div>
                 </div>
              </div>

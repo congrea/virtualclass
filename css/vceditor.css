@@ -1,4 +1,4 @@
-.vceditor {
+#virtualclassCont .vceditor {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   line-height: normal;
 }
 
-.vceditor .CodeMirror {
+#virtualclassCont .vceditor .CodeMirror {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -19,18 +19,18 @@
   z-index: 0;
 }
 
-.vceditor-with-toolbar .CodeMirror {
+#virtualclassCont .vceditor-with-toolbar .CodeMirror {
   top: 71px;
   padding-left: 10px;
 }
 
-.vceditor-with-toolbar .CodeMirror-lines {
+#virtualclassCont .vceditor-with-toolbar .CodeMirror-lines {
   padding-top: 10px;
 }
 
 #virtualclassCont.student #virtualclassEditorRich, #virtualclassCont.student #virtualclassEditorCode, #virtualclassCont.student #virtualclassScreenShare{margin:10px 10px 0px 10px;}
 
-.vceditor-toolbar {
+#virtualclassCont .vceditor-toolbar {
   height: 70px;
   line-height: 70px;
   padding-left: 30px;
@@ -45,45 +45,45 @@
   user-select: none;
 }
 
-.vceditor-toolbar-wrapper {
+#virtualclassCont .vceditor-toolbar-wrapper {
   display: inline-block;
   line-height: 14px;
 }
 
-.vceditor-richtext .CodeMirror {
+#virtualclassCont .vceditor-richtext .CodeMirror {
   font-family: Verdana, sans-serif;
   font-size: 14px;
 }
 
-.vceditor-spacer {
+#virtualclassCont .vceditor-spacer {
   height: 10px;
   width: 1px;
 }
 
 /** Styles for all of the rich-text formatting we support. */
-.vceditor-b { font-weight: bold; }
-.vceditor-i { font-style: italic; }
-.vceditor-u { text-decoration: underline; }
-.vceditor-s { text-decoration: line-through; }
-.vceditor-u.vceditor-s { text-decoration: underline line-through; }
+#virtualclassCont .vceditor-b { font-weight: bold; }
+#virtualclassCont .vceditor-i { font-style: italic; }
+#virtualclassCont .vceditor-u { text-decoration: underline; }
+#virtualclassCont .vceditor-s { text-decoration: line-through; }
+#virtualclassCont .vceditor-u.vceditor-s { text-decoration: underline line-through; }
 
-.vceditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
-.vceditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
-.vceditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
-.vceditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
-.vceditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
-.vceditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
+#virtualclassCont .vceditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
+#virtualclassCont .vceditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
+#virtualclassCont .vceditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
+#virtualclassCont .vceditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
+#virtualclassCont .vceditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
+#virtualclassCont .vceditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
 
-.vceditor-la-left { text-align: left; }
-.vceditor-la-center { text-align: center; }
-.vceditor-la-right { text-align: right; }
+#virtualclassCont .vceditor-la-left { text-align: left; }
+#virtualclassCont .vceditor-la-center { text-align: center; }
+#virtualclassCont .vceditor-la-right { text-align: right; }
 
 /** Line Styles */
-pre.vceditor-lt-o, pre.vceditor-lt-u, pre.vceditor-lt-t, pre.vceditor-lt-tc {
+#virtualclassCont pre.vceditor-lt-o, #virtualclassCont pre.vceditor-lt-u, #virtualclassCont pre.vceditor-lt-t, #virtualclassCont pre.vceditor-lt-tc {
   padding-left: 40px;
 }
 
-.vceditor-list-left {
+#virtualclassCont .vceditor-list-left {
   display:inline-block;
   margin-left: -40px;
   width: 40px;
@@ -91,13 +91,13 @@ pre.vceditor-lt-o, pre.vceditor-lt-u, pre.vceditor-lt-t, pre.vceditor-lt-tc {
   text-align: right;
 }
 
-.vceditor-todo-left {
+#virtualclassCont .vceditor-todo-left {
   display:inline-block;
   margin-left: -20px;
   width: 20px;
 }
 
-.powered-by-vceditor {
+#virtualclassCont .powered-by-vceditor {
   position: absolute;
   display: block;
   z-index: 5;
@@ -109,28 +109,28 @@ pre.vceditor-lt-o, pre.vceditor-lt-u, pre.vceditor-lt-t, pre.vceditor-lt-tc {
   opacity: 0.5;
 }
 
-.powered-by-vceditor:hover {
+#virtualclassCont .powered-by-vceditor:hover {
   opacity: 1;
 }
 
-.vceditor-btn-group {
+#virtualclassCont .vceditor-btn-group {
 
   margin: 5px 7px 0 0;
   display: inline-block;
 }
 
-.vceditor-dialog .vceditor-dialog-div .vceditor-btn-group{
+#virtualclassCont .vceditor-dialog .vceditor-dialog-div .vceditor-btn-group{
   float: right;
 }
 
-.vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
+#virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
 	margin-right: 10px;
 }
-.vceditor-btn-group > .vceditor-btn:last-child{
+#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child{
 	margin-right: 0px;
 }
 
-a.vceditor-btn, a.vceditor-btn:visited, a.vceditor-btn:active {
+#virtualclassCont a.vceditor-btn, #virtualclassCont a.vceditor-btn:visited, #virtualclassCont a.vceditor-btn:active {
   font-family: "Arial" sans-serif;
   cursor: pointer;
   text-decoration: none;
@@ -145,20 +145,20 @@ a.vceditor-btn, a.vceditor-btn:visited, a.vceditor-btn:active {
   color: #9c9c9c;
 }
 
-a.vceditor-btn:hover {
+#virtualclassCont a.vceditor-btn:hover {
   color: #fff;
   background-color: #6f9b90;
   border-color: #6f9b90;
   text-decoration: none;
 }
 
-a.vceditor-btn:active {
+#virtualclassCont a.vceditor-btn:active {
   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
 }
 
-.vceditor-btn-group > .vceditor-btn {
+#virtualclassCont .vceditor-btn-group > .vceditor-btn {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -166,7 +166,7 @@ a.vceditor-btn:active {
 }
 
 
-.vceditor-btn-group > .vceditor-btn:first-child {
+#virtualclassCont .vceditor-btn-group > .vceditor-btn:first-child {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
   -webkit-border-bottom-left-radius: 6px;
@@ -176,7 +176,7 @@ a.vceditor-btn:active {
   margin-left: 0px;
 }
 
-.vceditor-btn-group > .vceditor-btn:last-child {
+#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
   -webkit-border-bottom-right-radius: 6px;
@@ -185,11 +185,11 @@ a.vceditor-btn:active {
   -moz-border-radius-topright: 6px;
 }
 
-.vceditor-dropdown {
+#virtualclassCont .vceditor-dropdown {
   position: relative;
 }
 
-.vceditor-dropdown-menu {
+#virtualclassCont .vceditor-dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -215,7 +215,7 @@ a.vceditor-btn:active {
   background-clip: padding-box;
 }
 
-.vceditor-dropdown-menu a {
+#virtualclassCont .vceditor-dropdown-menu a {
   text-align: left;
   display: block;
   padding: 3px 15px;
@@ -226,18 +226,18 @@ a.vceditor-btn:active {
   white-space: nowrap;
 }
 
-.vceditor-dropdown-menu a:hover {
+#virtualclassCont .vceditor-dropdown-menu a:hover {
   color: #fff;
   text-decoration: none;
   background-color: #6f9b90;
 }
 
-.vceditor-color-dropdown-item {
+#virtualclassCont .vceditor-color-dropdown-item {
   height: 25px;
   width: 25px;
 }
 
-.vceditor-dialog {
+#virtualclassCont .vceditor-dialog {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -246,7 +246,7 @@ a.vceditor-btn:active {
   z-index: 1000;
 }
 
-.vceditor-dialog-div {
+#virtualclassCont .vceditor-dialog-div {
   position: relative;
   width: 400px;
   height: 100px;
@@ -256,7 +256,7 @@ a.vceditor-btn:active {
   padding: 15px;
 }
 
-.vceditor-dialog-input {
+#virtualclassCont .vceditor-dialog-input {
   width: 94%;
   display: block;
   padding: 5px 5px;
@@ -292,7 +292,7 @@ a.vceditor-btn:active {
   font-style: normal;
 }
 
-.vceditor-tb-bold, .vceditor-tb-italic, .vceditor-tb-underline, .vceditor-tb-strikethrough, .vceditor-tb-list, .vceditor-tb-list-2, .vceditor-tb-numbered-list, .vceditor-tb-paragraph-left, .vceditor-tb-paragraph-center, .vceditor-tb-paragraph-right, .vceditor-tb-paragraph-justify, .vceditor-tb-menu, .vceditor-tb-link, .vceditor-tb-undo, .vceditor-tb-redo, .vceditor-tb-box-add, .vceditor-tb-box-remove, .vceditor-tb-print, .vceditor-tb-indent-decrease, .vceditor-tb-indent-increase, .vceditor-tb-insert-image, .vceditor-tb-bubble {
+#virtualclassCont .vceditor-tb-bold, #virtualclassCont .vceditor-tb-italic, #virtualclassCont .vceditor-tb-underline, #virtualclassCont .vceditor-tb-strikethrough, #virtualclassCont .vceditor-tb-list, #virtualclassCont .vceditor-tb-list-2, #virtualclassCont .vceditor-tb-numbered-list, #virtualclassCont .vceditor-tb-paragraph-left, #virtualclassCont .vceditor-tb-paragraph-center, #virtualclassCont .vceditor-tb-paragraph-right, #virtualclassCont .vceditor-tb-paragraph-justify, #virtualclassCont .vceditor-tb-menu, #virtualclassCont .vceditor-tb-link, #virtualclassCont .vceditor-tb-undo, #virtualclassCont .vceditor-tb-redo, #virtualclassCont .vceditor-tb-box-add, #virtualclassCont .vceditor-tb-box-remove, #virtualclassCont .vceditor-tb-print, #virtualclassCont .vceditor-tb-indent-decrease, #virtualclassCont .vceditor-tb-indent-increase, #virtualclassCont .vceditor-tb-insert-image, #virtualclassCont .vceditor-tb-bubble {
   font-family: 'vceditor';
   speak: none;
   font-style: normal;
@@ -302,70 +302,71 @@ a.vceditor-btn:active {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 }
-.vceditor-tb-bold:before {
+
+#virtualclassCont .vceditor-tb-bold:before {
   content: "\e000";
 }
-.vceditor-tb-italic:before {
+#virtualclassCont .vceditor-tb-italic:before {
   content: "\e001";
 }
-.vceditor-tb-underline:before {
+#virtualclassCont .vceditor-tb-underline:before {
   content: "\e002";
 }
-.vceditor-tb-strikethrough:before {
+#virtualclassCont .vceditor-tb-strikethrough:before {
   content: "\e003";
 }
-.vceditor-tb-list:before {
+#virtualclassCont .vceditor-tb-list:before {
   content: "\e004";
 }
-.vceditor-tb-list-2:before {
+#virtualclassCont .vceditor-tb-list-2:before {
   content: "\e005";
 }
-.vceditor-tb-numbered-list:before {
+#virtualclassCont .vceditor-tb-numbered-list:before {
   content: "\e006";
 }
-.vceditor-tb-paragraph-left:before {
+#virtualclassCont .vceditor-tb-paragraph-left:before {
   content: "\e007";
 }
-.vceditor-tb-paragraph-center:before {
+#virtualclassCont .vceditor-tb-paragraph-center:before {
   content: "\e008";
 }
-.vceditor-tb-paragraph-right:before {
+#virtualclassCont .vceditor-tb-paragraph-right:before {
   content: "\e009";
 }
-.vceditor-tb-paragraph-justify:before {
+#virtualclassCont .vceditor-tb-paragraph-justify:before {
   content: "\e00a";
 }
-.vceditor-tb-menu:before {
+#virtualclassCont .vceditor-tb-menu:before {
   content: "\e00b";
 }
-.vceditor-tb-link:before {
+#virtualclassCont .vceditor-tb-link:before {
   content: "\e00c";
 }
-.vceditor-tb-undo:before {
+#virtualclassCont .vceditor-tb-undo:before {
   content: "\e00d";
 }
-.vceditor-tb-redo:before {
+#virtualclassCont .vceditor-tb-redo:before {
   content: "\e00e";
 }
-.vceditor-tb-box-add:before {
+#virtualclassCont .vceditor-tb-box-add:before {
   content: "\e010";
 }
-.vceditor-tb-box-remove:before {
+#virtualclassCont .vceditor-tb-box-remove:before {
   content: "\e011";
 }
-.vceditor-tb-print:before {
+#virtualclassCont .vceditor-tb-print:before {
   content: "\e012";
 }
-.vceditor-tb-indent-decrease:before {
+#virtualclassCont .vceditor-tb-indent-decrease:before {
   content: "\e013";
 }
-.vceditor-tb-indent-increase:before {
+#virtualclassCont .vceditor-tb-indent-increase:before {
   content: "\e014";
 }
-.vceditor-tb-insert-image:before {
+#virtualclassCont .vceditor-tb-insert-image:before {
   content: "\e015";
 }
-.vceditor-tb-bubble:before {
+#virtualclassCont .vceditor-tb-bubble:before {
   content: "\e00f";
 }
 

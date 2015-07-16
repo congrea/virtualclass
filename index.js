@@ -21,6 +21,7 @@ $(document).ready(function () {
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
+    wbUser.virtualclassPlay = parseInt(wbUser.virtualclassPlay, 10);
     if(wbUser.virtualclassPlay){
         virtualclass.gObj.sessionClear = true;
         localStorage.removeItem('orginalTeacherId');
@@ -29,10 +30,6 @@ $(document).ready(function () {
         wbUser.id = 99955551230;
 
         virtualclass.gObj.uid =  wbUser.id;
-
-
-    } else {
-        //alert('should not true');
     }
 
     var capitalizeFirstLetter  = function (string) {

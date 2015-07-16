@@ -343,8 +343,7 @@
         },
 
         afterRecording : function (){
-            return true;
-
+           
             virtualclass.storage.config.endSession();
 
             var progressBarContainer =  document.getElementById('progressContainer');

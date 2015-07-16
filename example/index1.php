@@ -68,7 +68,6 @@ if(isset($_GET['id'])){
 }
 
 
-//$r = (isset($_GET['r'])) ? $_GET['r'] : 's';
 if(isset($_GET['r'])){
     $r = $_GET['r'];
     if($r == 't' &&  !$isplay){
@@ -77,7 +76,6 @@ if(isset($_GET['r'])){
         $r = 's';
         $cont_class .= 'student';
     }
-//    $cont_class = ($r == 't' &&  !$isplay) ? "teacher orginalTeacher" : 'student';
 }else{
     $r = 's';
     $cont_class .= 'student';
@@ -330,11 +328,9 @@ if(isset($_GET['lname'])){
          <!--For confirm window-->
           <div id="confirm" class="popupWindow simple-box">
           </div>
-
-
-
         </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -83,28 +83,34 @@
         },
 
         setContainerWidth: function (res, app) {
-            //if(app == 'Editor'){
-            //    var appId = 'virtualclassEditorRich';
-            //}else{
-            //    var appId = 'virtualclassWhiteboard';
-            //}
-
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
-                appId = virtualclass.previous;
 
-           }
-            //alert(appId);
+                if('virtualclass'+app != virtualclass.previous){
+                    appId = 'virtualclass'+app;
+                } else {
+                    appId = virtualclass.previous;
+                }
+              //  appId = virtualclass.previous;
+            }
+            //alert('sss');
+            //debugger;
+            var appName = appId.split('virtualclass')[1];
+
+            appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
+
             var appCont = document.getElementById(appId);
             var rightOffSet = 5;
 
             var extraWidth = 0;
             var leftSideBarWidth;
 
+            //var reduceHeight = 60;
+
             if(app == 'Whiteboard'){
                 leftSideBarWidth = 0;
+                //reduceHeight = 70;
             }else{
-                rightOffSet = 65;
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
                     var offset = vcan.utility.getElementOffset(leftSideBar);
@@ -112,25 +118,31 @@
                 } else {
                     leftSideBarWidth = 0;
                 }
+
+                if(app == 'Yts'){
+                    rightOffSet = 75; //youtube wrapper does not have inner div, TODO should be handle by css
+                } else if (virtualclass.currApp == 'EditorRich' ||  virtualclass.currApp == 'EditorCode') {
+                    if(leftSideBarWidth > 0){
+                        rightOffSet = 12;
+                    }
+                } else if(app == 'ScreenShare'){
+                    rightOffSet = 70;
+                } else {
+                    rightOffSet = 65;
+                }
+            }
+
+            var reduceHeight = 70;
+
+            var containerHeight = document.getElementById('commandToolsWrapper');
+            if(containerHeight != null){
+                reduceHeight =  reduceHeight + containerHeight.clientHeight + 3;
             }
 
 
-            //if (virtualclass.currApp == 'ScreenShare') {
-            //    var leftSideBar = document.getElementById("virtualclassOptionsCont");
-            //    if (leftSideBar != null) {
-            //        var offset = vcan.utility.getElementOffset(leftSideBar);
-            //        leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
-            //    } else {
-            //        leftSideBarWidth = 0;
-            //    }
-            //} else {
-            //    leftSideBarWidth = 0;
-            //}
-
-            //res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth + 5) ;
             res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
             appCont.style.width = res.width + 'px';
-            appCont.style.height = (res.height - 60)  + 'px';
+            appCont.style.height = (res.height - reduceHeight)  + 'px';
 
             if (appId == 'virtualclassScreenShare') {
                 //if(appId != 'virtualclassWhiteboard'){
@@ -355,7 +367,7 @@
 
         removeClass: function (id, className) {
             var elem = document.getElementById(id);
-//                if(elem.hasOwnProperty('classList') && elem.classList.contains(className)){
+
             if (virtualclass.vutil.elemHasAnyClass(id) && elem.classList.contains(className)) {
                 elem.classList.remove(className);
             }
@@ -666,6 +678,7 @@
         setOrginalTeacher : function (){
 		    if(localStorage.getItem('reclaim') ==  null){
                 localStorage.setItem('teacherId', virtualclass.gObj.uid);
+
             }
             localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
         },
@@ -739,13 +752,17 @@
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
                     localStorage.removeItem('reclaim');
+                    virtualclass.vutil.removeClass('virtualclassCont', 'reclaim');
+
+                } else {
+                    virtualclass.vutil.addClass('virtualclassCont', 'assign');
+                    virtualclass.vutil.removeClass('virtualclassCont', 'removedAssign')
                 }
 
                 localStorage.removeItem('studentId');
                 localStorage.setItem('teacherId', studentId);
 
                 virtualclass.gObj.uRole = 't';
-
 
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp));
 
@@ -766,9 +783,8 @@
                     virtualclass.yts.UI.inputURL();
                     virtualclass.yts.seekChangeInterval();
                 }
-
+                virtualclass.system.setAppDimension();
             } else {
-//                        alert(virtualclass.currApp);
                 if (virtualclass.currApp == 'Yts') {
                     virtualclass.yts.UI.removeinputURL();
                     if (virtualclass.yts.hasOwnProperty('tsc')) {
@@ -791,17 +807,27 @@
                     virtualclass.wb.utility.makeCanvasDisable();
                 }
 
-
-
                 if (typeof localStorage.orginalTeacherId != 'undefined') {
+                    var virtualclassCont = document.getElementById('virtualclassCont');
                     virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                     //localStorage.reclaim = true;
                     localStorage.setItem('reclaim', true);
+
+
+                    virtualclass.vutil.addClass('virtualclassCont', 'reclaim');
+
                 } else {
+
+                    virtualclass.vutil.removeClass('virtualclassCont', 'assign');
+                    virtualclass.vutil.addClass('virtualclassCont', 'removedAssign'); //TODO this is tricky handle by better way
+
                     if (cmdToolsWrapper != null) {
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
 
                     }
+
+                    //var virtualclassCont = document.getElementById('virtualclassCont');
+
                 }
 
                 var tid = localStorage.getItem('teacherId');
@@ -811,11 +837,14 @@
                 if(typeof virtualclass.wb == 'object'){
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
                 }
+                virtualclass.system.setAppDimension();
             }
 
-            if (localStorage.getItem('orginalTeacherId') == null) {
+            //if (localStorage.getItem('orginalTeacherId') == null) {
                 virtualclass.vutil.toggleRoleClass(true);
-            }
+            //}
+
+
         },
         createCommandWrapper: function () {
             //alert(virtualclass.system.device);

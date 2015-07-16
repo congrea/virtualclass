@@ -438,7 +438,7 @@
                  * @returns {boolean}
                  */
                 isEidtorWithTeacher : function(){
-                    return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'Editor' || virtualclass.currApp == 'EditorCode'));
+                    return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
                 },
 
                 /**
@@ -486,21 +486,19 @@
                  */
 
                 initialiseDataWithEditor : function (doc, displayEditor, et) {
-
                     if(typeof displayEditor != 'undefined'){
                         //virtualclass.currApp = virtualclass.apps[3];
                         if(virtualclass.currAppEditor){
                             if(virtualclass.currAppEditorType == et){
-                                virtualclass.currApp = et;
+                                virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
                             }
                         }else{
-                            virtualclass.currApp = et;
+                            virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
                         }
                     }
 
                     this.removeCodeMirror();
                     this.codemirrorWithLayout(editorType);
-
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp);
 
                     if ((this.cm)) {
@@ -569,8 +567,9 @@
                         virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
                     }
 
+                    var currApp  = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
 
-                    if( virtualclass.currApp == 'EditorRich'){
+                    if(currApp == 'EditorRich' || currApp == 'EditorCode'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
                     }

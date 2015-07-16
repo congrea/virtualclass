@@ -308,16 +308,21 @@
                         formData.append("cn", chunkNum);
                         formData.append('sesseionkey', virtualclass.recorder.sessionKey);
                         
-                        //TODO: display progress after file save
-                        virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
+                        ////TODO: display progress after file save
+                        //virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
                         virtualclass.recorder.items = []; //empty on each chunk sent
 
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
-                            //TODO: handle error
+
+                            //TODO: display progress after file save
+                            virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
+
+
 
                             //Recording is finished //upload finished
                             if (msg === "done") {
+
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -338,6 +343,8 @@
         },
 
         afterRecording : function (){
+            return true;
+
             virtualclass.storage.config.endSession();
 
             var progressBarContainer =  document.getElementById('progressContainer');
@@ -512,6 +519,8 @@
                     virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
                     virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
 
+                    alert('hello');
+                    debugger;
                     virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
 
                     if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {
@@ -531,7 +540,6 @@
                             virtualclass.recorder.alreadyPlayed = true;
                         }
                     }
-
 
 
                     if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {

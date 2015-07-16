@@ -629,7 +629,7 @@ div.ui-memblist-usr .userVideos {
 	display : inline;
 	position : relative;
 	font-size : 14px;
-	z-index: 0;
+	/*z-index: 0;*/
 }
 
 #virtualclassCont #usertab_text.tooltip {
@@ -2148,9 +2148,18 @@ opacity : 0.800000011920928955078125 !important;
     pointer-events : none;
 }
 
-#virtualclassYts {
-	border: #ddd 1px solid;
+#virtualclassCont.teacher #virtualclassYts {
     margin-left : 60px;
+}
+
+#virtualclassCont #virtualclassYts {
+	border: #ddd 1px solid;
+}
+
+#virtualclassCont.student #virtualclassYts p{
+	text-align:center;
+	margin-top : 25%;
+
 }
 
 #virtualclassCont #player {
@@ -2169,13 +2178,13 @@ opacity : 0.800000011920928955078125 !important;
 }
 #virtualclassEditorRich #synchMessageBox p{
 	margin: 0;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 
 #virtualclassEditorRich #synchMessageBox {
 	position : absolute;
-	top : 95px;
-	right: 70px;
+	top : 24px;
+	right: 268px;
 	z-index : 5;
 }
 
@@ -2190,14 +2199,18 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 
-#virtualclassEditorRich{
-	margin-top : 1.5%;
+#virtualclassEditorRich, #virtualclassEditorCode{
+	/*margin-top : 1.5%;*/
+	margin-top:  10px;
 }
 
-#virtualclassEditorRich, #virtualclassEditorBody, #virtualclassEditorCode, #virtualclassEditorCodeBody{
+#virtualclassEditorRich, #virtualclassEditorBody{
 	height : 100%;
 }
 
+#virtualclassEditorCode, #virtualclassEditorCodeBody {
+	height : 101%;
+}
 
 .other-client:before {
 	content: attr(data-clientname);
@@ -2248,7 +2261,7 @@ div.CodeMirror-cursors{
 
 #virtualclassEditorRichBody {
 	position: relative;
-	height : 100%;
+	height : 101%;
 }
 
 
@@ -2427,11 +2440,11 @@ a.vceditor-btn{
 
 .youTubeSharing #youtubeUrlContainer{
 	top:0;
-	text-align: center;
+	text-align: left;
 }
 
 .youTubeSharing{
-	text-align: center;
+	text-align: left;
 }
 
 #virtualclassCont #player{
@@ -2444,8 +2457,9 @@ a.vceditor-btn{
 	font-size: 13px;
 	padding: 0px 10px 0px 15px;
 	width: 370px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	color: #777;
+	font-size : 20px;
 }
 
 #youtubeUrlContainer #submitURL{
@@ -2691,3 +2705,63 @@ div#playControllerCont{
 .recordingFinished #recordingHeaderContainer{
 	display : none;
 }
+
+
+
+
+
+
+#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {
+	/*margin-right: 3.2%;*/
+	width : 98.8%;
+
+}
+
+#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody {
+	/*margin-right: 3.2%;*/
+	width : 96.8%;
+}
+
+#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {
+	margin-right : 77px;
+
+}
+
+#virtualclassCont.removedAssign #virtualclassEditorRichBody, #virtualclassCont.removedAssign #virtualclassEditorCodeBody{
+	margin-right :0;
+}
+
+#virtualclassYts, #virtualclassScreenShare {
+	margin-top : 8px;
+}
+
+
+#virtualclassCont #virtualclassYts.youTubeSharing #player{
+	display: inline;
+	/*margin-left: -65%;*/
+	margin-top: 1%;
+	margin-left: 22px;
+}
+
+.youTubeSharing #youtubeUrlContainer {
+	top : 0;
+	text-align: left;
+	margin-left: 22px;
+}
+
+
+#virtualclassCont.orginalTeacher #vcanvas{
+	border: #ccc solid 1px;
+}
+
+
+
+#virtualclassCont.reclaim #virtualclassScreenShare, #virtualclassCont.reclaim  #virtualclassEditorRich, #virtualclassCont.reclaim #virtualclassEditorCode {
+	margin-left : 20px;
+}
+
+
+
+/*#virtualclassCont.student #virtualclassScreenShare, #virtualclassCont #virtualclassEditorRich, #virtualclassCont #virtualclassEditorCode {*/
+	/*margin-left: 60px;*/
+/*}*/

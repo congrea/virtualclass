@@ -1,6 +1,6 @@
 /* style sheets */
 /*css for chatbox*/
-.ui-chatbox {
+#virtualclassCont .ui-chatbox {
     position: relative;
     bottom:286px;
     padding: 0px;
@@ -10,23 +10,23 @@
     left: -1px;
 }
 
-.ui-chatbox-titlebar {
+#virtualclassCont .ui-chatbox-titlebar {
     padding: 3px;
     height:20px;
 }
-.ui-chatbox-titlebar span{
+#virtualclassCont .ui-chatbox-titlebar span{
     position: relative;
     font-weight: normal;
     text-transform: capitalize;
 
 }
-.ui-chatbox-content {
+#virtualclassCont .ui-chatbox-content {
     padding: 0px;
     margin: 0px;
     border: 0px;
 }
 
-.ui-chatbox-log {
+#virtualclassCont .ui-chatbox-log {
 	background-color: #fff;	
 	border-top:none;
 	border-bottom: :none;
@@ -35,7 +35,7 @@
     overflow-y: auto;
 }
 
-.ui-chatbox-input {
+#virtualclassCont .ui-chatbox-input {
 	background-color: #fff;
 	border-top:none;
     border-bottom: none;
@@ -43,21 +43,21 @@
     clear: both;
 }
 
-.ui-chatbox-input-box {
+#virtualclassCont .ui-chatbox-input-box {
     margin: 8px 5px;
     height: 24px;
     resize: none;
 }
 
-.ui-chatbox-icon {
+#virtualclassCont .ui-chatbox-icon {
     float: right!important;
 }
 
-.ui-chatbox-input-focus {
+#virtualclassCont .ui-chatbox-input-focus {
     border-color: #6699FF;
 }
 
-.ui-chatbox-msg {
+#virtualclassCont .ui-chatbox-msg {
     clear: both;
     font-size: 12px;
     line-height: 21px;
@@ -72,27 +72,27 @@ ui-memblist-usr
     clear: both;
 }
 
-.ui-memblist {
+#virtualclassCont .ui-memblist {
     position: fixed;
     bottom:32px;
     z-index: 2;
     right: 6px;
 }
-.ui-memblist-titlebar {
+#virtualclassCont .ui-memblist-titlebar {
     padding: 10px 3px 3px;
     height: 20px;
 }
 
-.ui-memblist-icon {
+#virtualclassCont .ui-memblist-icon {
     float: right;
 }
 
-.ui-memblist-content {
+#virtualclassCont .ui-memblist-content {
     padding: 0px;
     margin: 0px;
     border: 0px;
 }
-.ui-memblist-log {
+#virtualclassCont .ui-memblist-log {
 	padding-top:6px;
 	padding-bottom:15px;
     background: #FFFFFF;
@@ -108,17 +108,17 @@ ui-memblist-usr
 	margin-top:8px !important;
 }
 */
-.ui-memblist-log div.teacher:last-child {
+#virtualclassCont .ui-memblist-log div.teacher:last-child {
 	margin-top:5px;
 	margin-bottom:8px;
 }
 
-.ui-memblist-log div.teacher:last-child {
+#virtualclassCont .ui-memblist-log div.teacher:last-child {
 	margin-bottom:8px !important;
 }
 
 /*css for sticky footer bar*/
-#stickybar {
+#virtualclassCont #stickybar {
     font-size:14px;
     font-weight:bold;
     color:#151715;
@@ -127,7 +127,7 @@ ui-memblist-usr
     z-index:2000;
 }
 
-#stickybar a {
+#virtualclassCont #stickybar a {
     color:#000;
     text-decoration:none;
     padding-left: 4px;
@@ -137,7 +137,7 @@ ui-memblist-usr
     font-size:13px;
      text-transform: capitalize;
 }
-#closebtn {
+#virtualclassCont #closebtn {
     border:0;
     width: 40px;
     cursor: pointer;
@@ -147,17 +147,17 @@ ui-memblist-usr
     white-space: pre-wrap;/* some theme require*/
     outline: 0;/* moodle override*/
 }
-#hide_bar input.close{
+#virtualclassCont #hide_bar input.close{
     background:url('../images/close.png') top no-repeat;
     opacity: 1;
     margin-top: 2px;
 }
 
-#hide_bar input.expand{
+#virtualclassCont #hide_bar input.expand{
 	margin-top: 5px;
     background:url('../images/open.png') top no-repeat;
 }
-.vmchat_close_bt{
+#virtualclassCont .vmchat_close_bt{
     color: #333;
     cursor: pointer;
     height: 29px;
@@ -167,7 +167,7 @@ ui-memblist-usr
     z-index: 1026;
     float: right;
 }
-.vmchat_bar_button {
+#virtualclassCont .vmchat_bar_button {
     border-right: 1px solid #bac0cd;
     border-left: 1px solid #bac0cd;
     color: #000;
@@ -181,11 +181,11 @@ ui-memblist-usr
 }
 
 
-#chatroom_bt {
+#virtualclassCont #chatroom_bt {
     padding-right: 5px;
     white-space: nowrap;
 }
-.vmchat_room_bt {
+#virtualclassCont .vmchat_room_bt {
     border-right: 1px solid #BAC0CD;
     border-left: 1px solid transparent;
     color: #000;
@@ -199,23 +199,23 @@ ui-memblist-usr
     float: left;
     width: 203px;
 }
-.inner_bt {
+#virtualclassCont .inner_bt {
     padding: 10px 0;
     line-height: 15px;
 }
 
-#usertab_icon {
+#virtualclassCont #usertab_icon {
     background: url('../images/offline.png') no-repeat top left;
     float: left;
     height: 16px;
-    margin: 0px 2px 0px 0px;
+    margin: 6px 2px 0px 0px;
     width: 16px;
 }
 /*css for sticky footer bar*/
 
 
 /* css for chat romm */
-.ui-chatroom {
+#virtualclassCont .ui-chatroom {
     position: fixed;
     bottom:38px;
     padding: 2px 2px 2px 2px;
@@ -223,58 +223,58 @@ ui-memblist-usr
     z-index: 100;
     left:21px;
 }
-#chatroom_icon {
+#virtualclassCont #chatroom_icon {
     float: left;
 }
 
 
-.ui-chatroom-titlebar, .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header{
+#virtualclassCont .ui-chatroom-titlebar, #virtualclassCont .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, #virtualclassCont .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header{
 	font-weight: normal;
 	padding: 8px 0px;
 	height: 18px;
 }
 
-.ui-chatroom-content {
+#virtualclassCont .ui-chatroom-content {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
     border: 0px;
 }
 
-.ui-chatroom-log {
+#virtualclassCont .ui-chatroom-log {
     padding: 7px 3px 3px 5px;
     height: 150px;
     overflow-y: auto;
     background: #FFFFFF;
 }
 
-.ui-chatroom-input {
+#virtualclassCont .ui-chatroom-input {
     padding: 3px 3px 3px 3px;
     border-top: 1px solid grey;
     overflow: hidden;
 }
 
-.ui-chatroom-input-box {
+#virtualclassCont .ui-chatroom-input-box {
     margin: 5px 5px 5px 5px;
     border: 2px solid lightgrey;/* #6699FF */
     height: 35px;
 }
 
 
-.ui-chatroom-input-focus {
+#virtualclassCont .ui-chatroom-input-focus {
     border-color: #6699FF;
 }
 
-.ui-chatroom-msg {
+#virtualclassCont .ui-chatroom-msg {
     float: left;
     clear: both;
 }
-.minimize{
+#virtualclassCont .minimize{
     left: 96.2%;
      height: 40px;
      right:0;
      width: 40px;
 }
-.maximize{
+#virtualclassCont .maximize{
     left: 0;
     width:100%;
      height: 41px;
@@ -282,7 +282,7 @@ ui-memblist-usr
 
 
 /*custom css for chatroom*/
-.allUser{
+#virtualclassCont .allUser{
     border-left:1px solid #000;
     width:300px;
     height:40px;
@@ -291,46 +291,46 @@ ui-memblist-usr
     height:160px;
     background-color:#fff;
 }
-.mainContainer{
+#virtualclassCont .mainContainer{
     width:500px;
     background:none;
 }
-.mainContainer textarea{
+#virtualclassCont .mainContainer textarea{
     background-color:#ffffd;
 }
-.mainContainer .ui-widget-header{
+#virtualclassCont .mainContainer .ui-widget-header{
     width:500px;
 }
-.msgContainer{
+#virtualclassCont .msgContainer{
     clear:both;
     width:100%;
 }
-#onlineUsers .usrImg{
+#virtualclassCont #onlineUsers .usrImg{
     width:25px;
     height:25px;
     margin:2px 5px 5px 5px;
     float:left;
     clear:both;
 }
-#onlineUsers  a{
+#virtualclassCont#onlineUsers  a{
     text-decoration:none;
     font-size:16px;
     float:left;
 }
 
 /* tab css */
-.ui-tabs,.ui-tabs .ui-tabs-nav{
+#virtualclassCont .ui-tabs,.ui-tabs .ui-tabs-nav{
     padding: 0;
    }
-.ui-tabs .ui-tabs-nav li {
+#virtualclassCont .ui-tabs .ui-tabs-nav li {
     float:right;
     white-space:normal;
 }
-.ui-tabs-panel {
+#virtualclassCont .ui-tabs-panel {
     padding: 0;
 }
 
-.tabs-bottom .ui-tabs-nav li {
+#virtualclassCont .tabs-bottom .ui-tabs-nav li {
     top: auto;
     bottom: 0;
     margin: 0em 1px 0;
@@ -341,7 +341,7 @@ ui-memblist-usr
 
 /*message notification*/
 
-.notify:before{
+#virtualclassCont .notify:before{
   border-top: 6px solid rgba(0, 0, 0, 0.2);
     border-left: 6px solid rgba(0, 0, 0, 0);
     border-right: 6px solid rgba(0, 0, 0, 0);
@@ -351,7 +351,7 @@ ui-memblist-usr
     position: absolute;
     top: 16px;
 }
-.notify:after{
+#virtualclassCont .notify:after{
  border-top: 5px solid #ff0000;
     border-left: 5px solid rgba(0, 0, 0, 0);
     border-right: 5px solid rgba(0, 0, 0, 0);
@@ -361,7 +361,7 @@ ui-memblist-usr
     position: absolute;
     top: 16px;
 }
-.notify{
+#virtualclassCont .notify{
     background-color:#ff0000;
     position:absolute;
     -webkit-border-radius: 3px;
@@ -374,12 +374,12 @@ ui-memblist-usr
 
 }
 
-.vmchat_bar_button .inner_bt #usertab_text, .vmchat_room_bt .inner_bt #chatroom_text{font-weight: normal;}
+#virtualclassCont .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text{font-weight: normal;}
 
 
 
 /*----------------Susmita----------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+#virtualclassCont .ui-state-default, #virtualclassCont .ui-widget-content .ui-state-default, #virtualclassCont .ui-widget-header .ui-state-default{
      height: 40px;
       border: 1px solid #ccc;
       border-top: none;
@@ -391,36 +391,36 @@ ui-memblist-usr
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
 }
-#chat_div.ui-widget-content{border-top:none;}
-.ui-chatbox-input textarea{
+#virtualclassCont #chat_div.ui-widget-content{border-top:none;}
+#virtualclassCont .ui-chatbox-input textarea{
     font-size: 15px;
     border: 1px solid #ccc !important;
     padding: 0; /* override moodle textarea css*/
 }
 
-.ui-widget-header .ui-corner-all{
+#virtualclassCont .ui-widget-header .ui-corner-all{
     border-radius: 2px;
     border:none;
 }
-.ui-widget-content .ui-corner-all{
+#virtualclassCont .ui-widget-content .ui-corner-all{
     border: none;
  
 }
 
 
-.ui-memblist-usr a{
+#virtualclassCont .ui-memblist-usr a{
     text-decoration: none;
 }
 
-.ui-memblist-usr a span{
+#virtualclassCont .ui-memblist-usr a span{
     font-size: 12px;
     text-transform: capitalize;
     margin-left : 5px; 
 }
-.ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
+#virtualclassCont .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
     top: -1px !important;}
 
-.ui-tabs .ui-tabs-nav li.ui-tabs-active{
+#virtualclassCont .ui-tabs .ui-tabs-nav li.ui-tabs-active{
     border: 1px solid #bac0cd;
     border-top: none;
     position: relative;
@@ -431,16 +431,16 @@ ui-memblist-usr
     border-bottom: none;
     margin-right: 2px;
 }
-.ui-icon-close{
+#virtualclassCont .ui-icon-close{
     margin-top: 4px;
 }
-a.ui-tabs-anchor{
+#virtualclassCont a.ui-tabs-anchor{
     width: 160px;
     cursor: pointer !important;
 }
-#stickycontainer{
+#virtualclassCont #stickycontainer{
 }
 
 
-#chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
+#virtualclassCont #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
 

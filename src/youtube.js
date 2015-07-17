@@ -3,7 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
-    var io = window.io;
+    //var io = window.io;
     var i = 0;
     /**
      * This is the main object which has properties and methods

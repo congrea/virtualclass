@@ -278,8 +278,8 @@
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
-                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' || virtualclass.recorder.mkDownloadLink != " ") {
-                            virtualclass.recorder.mkDownloadLink;
+                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
+                             virtualclass.recorder.mkDownloadLink;
                         } else {
                             setTimeout(
                                 function (){
@@ -295,7 +295,6 @@
                         virtualclass.recorder.rnum = frow;
                     }
 
-//                        typeof error != 'undefined'){
                     if (virtualclass.recorder.error == 1) {
                         if (virtualclass.recorder.storeDone == 0) {
                             virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error');
@@ -314,7 +313,6 @@
                         virtualclass.recorder.items = []; //empty on each chunk sent
 
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
-
                             //TODO: display progress after file save
                             virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 

@@ -157,6 +157,7 @@
         },
 
         makeActiveApp: function (app, prvTool) {
+            
             if (app != prvTool && typeof prvTool != 'undefined') {
                 prvTool = prvTool + 'Tool';
                 //document.getElementById(prvTool).className = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');

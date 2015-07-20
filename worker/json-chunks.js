@@ -59,6 +59,6 @@ onmessage = function (e) {
         alldata.rdata = JSON.parse(data);
         postMessage({
             alldata: alldata
-        });
+        })
     }
 };

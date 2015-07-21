@@ -153,6 +153,7 @@
 
                     if(localStorage.getItem('orginalTeacherId') != null){
                         this.cm.setOption('readOnly', false);
+                        this.createAllEditorController();
                         editorType.readOnly = false;
                     };
 
@@ -162,8 +163,6 @@
                     //}
 
                     Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
-
-
                 },
 
                 /**

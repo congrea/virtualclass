@@ -69,8 +69,9 @@
         'editorCodeDisable': "Disable Editor Code",
         'editorCodeEnable': "Enable Editor Code",
 
-        'audioEnable': "Audio Enabled",
-        'audioDisable': "Audio Disabled",
+        'audioEnable': "Audio On",
+        'audioDisable': "Audio Disabled.",
+        'audioOff': "Audio Off.",
         'audioOn': "Audio on",
         'minCommonChat': "Hide Common Chat",
         'maxCommonChat': "Show Common Chat",
@@ -118,7 +119,10 @@
         'editorCode' : 'Editor Code',
         'editorRich' : 'Editor Rich',
         'teachermayshow' : 'Teacher may show the YouTube video.',
-        'youtubeshare' : 'YouTube Video Share'
+        'youtubeshare' : 'YouTube Video Share',
+        'writemode' : 'Write Mode.',
+        'readonlymode' : 'Read Only Mode.'
+
 
     };
     window.message = message;

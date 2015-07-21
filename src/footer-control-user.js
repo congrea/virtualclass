@@ -236,7 +236,7 @@
                     var writeModeBox = document.getElementById(editorType+'writeModeBox');
 
 
-                    var modeMessage = (writeMode)  ? "Write Mode." : "Read Mode Only.";
+                    var modeMessage = (writeMode)  ? virtualclass.lang.getString("writemode") :  virtualclass.lang.getString("readonlymode");
                     if(writeModeBox == null){
                         writeModeBox = document.createElement('div');
                         writeModeBox.id = editorType + 'writeModeBox';
@@ -392,6 +392,8 @@
                             }
                         }
                     } else if (control == 'audio') {
+                        //alert('suman bogati');
+                        //debugger;
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
                     }
 /*					else {
@@ -413,7 +415,7 @@
                 _enable: function (elem, control, userId, label) {
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
                     if (control == 'audio') {
-                        elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
+                        elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
                     }
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';

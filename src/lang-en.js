@@ -69,8 +69,8 @@
         'editorCodeDisable': "Disable Editor Code",
         'editorCodeEnable': "Enable Editor Code",
 
-        'audioEnable': "Audio Enabled",
-        'audioDisable': "Audio Disabled",
+        'audioEnable': "Audio On",
+        'audioDisable': "Audio Off.",
         'audioOn': "Audio on",
         'minCommonChat': "Hide Common Chat",
         'maxCommonChat': "Show Common Chat",

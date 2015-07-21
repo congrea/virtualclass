@@ -20,10 +20,10 @@
              * Calculating the width and height of the student screen according the requirement of the-
              * application to be shared
              * And calling a function with the appropriate data to inilaize student screen
-             * @param data_pack data pack
-             * @param  msg e.message
-             * @param  stype type of the application
-             * @param  sTool tool for the application
+             * @param data_pack data pack contains encoded data to sent receiver
+             * @param  msg  is a unit8clampped array or unit8array based on the protocol saved a the first element in data_Pack
+             * @param  stype type of the application such as "ss
+             * @param  sTool tool for the application here it is screen share 
              */
             ssProcess: function (data_pack, msg, stype, sTool) {
                 var mycase = data_pack[0];
@@ -130,7 +130,7 @@
     };
     /*
      * This function returns an object that contains all the functions necessary to use the application share screen 
-     * such as to initalize screen, get screen on different browsers,
+     * such as to initalize screen, get screen(screen selector window) on different browsers,
      * Creating container,
      * Recording screen ,
      * sharing on student's screen
@@ -140,6 +140,9 @@
      * 
      */
     var screenShare = function (config) {
+        /*
+         *
+         */
         virtualclass.getSceenFirefox = function () {
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
             if (ffver >= 33) {
@@ -282,7 +285,7 @@
                 console.log("Error " + e);
             },
             /*
-             * To Get screen for Firefox and crome, 
+             * To Get screen for Firefox and chrome, 
              * in case of crome if desktop extension is added it is used otherwise
              * it is added from the crome webstore
              * @param callback is unused
@@ -312,7 +315,7 @@
              *  
              */
             unShareScreen: function () {
-                debugger;
+               
                 this.video.src = "";
                 this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
                 clearInterval(virtualclass.clear);
@@ -324,14 +327,14 @@
               virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type});
             },
             /*
-             * To remove stream
+             * It clears the canvas
              */
             removeStream: function () {
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
             },
             /*
-             * Inilizing the recorder to record the scrren that will be shared
+             * Initializing the recorder to record the scrren that will be shared
              * And creating canvas element for the screen share,attaching
              * the media stream to the canvas element
              * it calls sharing function that share's the screen in the form of video to the student screen
@@ -369,7 +372,7 @@
                 }
                 this.currentStream = stream;
                 var that = this;
-                console.log("video changed");
+                //("video changed");
                 virtualclass.adpt.attachMediaStream(this.video, stream);
                 this.prevStream = true;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
@@ -488,7 +491,7 @@
                    
                 };
                 /* Encoded message is sent to student, 
-                 * Getting data to resize full screen
+                 * Getting full video data on resize of the window
                  * @param  stype implies screenshare
                  * @returns {Uint8ClampedArray}
                  */
@@ -545,18 +548,16 @@
                 function breakintobytes(val, l) {
                     
                     var numstring = val.toString();
-                    alert(numstring);
-                    alert(l);
                     for (var i = numstring.length; i < l; i++) {
                         numstring = '0' + numstring;
-                        alert(numstring);
+                    
                     }
                     var parts = numstring.match(/[\S]{1,2}/g) || [];
                     return parts;
                 }
                 /*
-                 * Sending screen 
-                 * if there is change size  resized window  data is sent
+                 * finding out whether previous dimention are same or not to the current  video dimension
+                 * if there is change in dimension   resized window  data is sent
                  * otherwise image data slices will be sent
                  */
                 function sendScreen() {
@@ -575,6 +576,7 @@
                     } else {
                         sendDataImageSlices(that.type);
                     }
+                 
                 }
                 /*
                  * Setting screen interval time based on the size of image to be sent
@@ -604,7 +606,7 @@
                  * Getting the changed width and height of the new screen
                  * Creating image nd calculating bandwidth
                  * And sending binary data of image
-                 * setting the interval of calling function send screen 
+                 * setting the interval for function send screen 
                  */
                 function sendResizeWindow() {
                     console.log('RESIZE');
@@ -630,11 +632,12 @@
                     return parts;
                 }
                 /*
-                 * Sending data in the slices , to send only that part that is schanged in the avideo of screen share
+                 * Sending data in the form of  slices , to send only that part that is changed in the video of screen share
                  * image data is provided to the worker that is calulating change part for the main javascript thread
                  * @param type : type of the application 
                  */
                 function sendDataImageSlices(type) {
+               
                     var localBandwidth = 0;
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
@@ -663,7 +666,7 @@
                         // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
                             if (e.data.needFullScreen == 1) { //sending full screen here
-                                console.log("need full screen");
+                                
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
                                 io.sendBinary(createdImg);
                                 var localBandwidth = (createdImg.length / 128); // In Kbps
@@ -688,7 +691,6 @@
              * @return  an object  containing width and height
              */
             getContainerDimension: function () {
-                alert("get container dimension");
                 var vidCont = document.getElementById(this.id + "Local");
                 return {width: vidCont.offsetWidth, height: vidCont.offsetHeight};
             },
@@ -807,8 +809,6 @@
                  * @return  an object containing modified width and height
                  */
                 getDimension: function (container, aspectRatio) {
-                    alert("wid container");
-                    debugger;
                     var aspectRatio = aspectRatio || (3 / 4),
                         height = (container.width * aspectRatio),
                         res = {};
@@ -819,7 +819,7 @@
                     };
                 }
             },
-            // to inalize previous image
+            // to initialize previous image
             initPrevImage: function () {
                 sworker.postMessage({'initPrevImg': true});
             }

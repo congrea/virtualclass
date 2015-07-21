@@ -1,4 +1,10 @@
+/*
+ * 
+ * 
+ */
 window.addEventListener('message', function (event) {
+ 
+    
     if (event.origin != window.location.origin) {
         return;
     }

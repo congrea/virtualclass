@@ -276,6 +276,7 @@
                 } else {
                     // this has been performed when all files are stored
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
+                        console.log("should invoked download function on ");
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
                          if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
@@ -314,10 +315,10 @@
 
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
                             //TODO: display progress after file save
-                            virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
                             //Recording is finished //upload finished
                             if (msg === "done") {
+                                virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);

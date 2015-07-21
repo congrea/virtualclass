@@ -291,7 +291,6 @@
              * @param callback is unused
              */
             getScreen: function (callback) {
-                alert("getScreen");
                 if (virtualclass.system.mybrowser.name == 'Chrome') {
                     if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
                       

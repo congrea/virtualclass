@@ -223,7 +223,7 @@
             },
 
             /*
-             * Called when user select the screencall
+             * Called when user select the screenshare
              * configuring the screen 
              * inilizing student screen
              * 
@@ -291,7 +291,7 @@
              * @param callback is unused
              */
             getScreen: function (callback) {
-
+                alert("getScreen");
                 if (virtualclass.system.mybrowser.name == 'Chrome') {
                     if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
                       

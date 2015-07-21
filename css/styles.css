@@ -22,17 +22,17 @@
 	 height : auto;
 }
 
-html, body {
-	padding: 0;
-	margin: 0;
-	font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-}
-a, canvas {
-	outline : none;
+#virtualclassCont {
+    font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
-.clear, #conControler, #virtualclassCont #virtualclassOptionsCont, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont #mainContainer {
-	clear : both;
+
+#virtualclassCont a, #virtualclassCont canvas {
+    outline : none;
+}
+
+#virtualclassCont .clear, #virtualclassCont #conControler, #virtualclassCont #virtualclassOptionsCont, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont #mainContainer {
+    clear : both;
 }
 
 #virtualclassCont {
@@ -376,7 +376,7 @@ a, canvas {
 #virtualclassCont #graphCanvas {
 	top : -5px !important;
 }
-div.ui-memblist-usr .userVideos {
+#virtualclassCont div.ui-memblist-usr .userVideos {
 	margin-top : 6px;
 }
 
@@ -636,7 +636,7 @@ div.ui-memblist-usr .userVideos {
 	display : block;
 }
 
-#usertab_text.tooltip.close{
+#virtualclassCont #usertab_text.tooltip.close{
 	line-height: 22px;
 }
 
@@ -1230,7 +1230,7 @@ opacity : 0.800000011920928955078125 !important;
 	font-weight : normal;
 }
 
-#chatroom_text .icon-arrow-down, #chatroom_text .icon-arrow-up{
+#virtualclassCont #chatroom_text .icon-arrow-down, #virtualclassCont #chatroom_text .icon-arrow-up{
 	 padding-left: 7px;
 }
 
@@ -1373,11 +1373,11 @@ opacity : 0.800000011920928955078125 !important;
 
 
 
-.teacher .vmApp {
+#virtualclassCont .teacher .vmApp {
     margin-left : 55px;
 }
 
-.student .vmApp {
+#virtualclassCont .student .vmApp {
 	margin-left : 3px;
 }
 
@@ -1620,7 +1620,7 @@ opacity : 0.800000011920928955078125 !important;
 #virtualclassCont #alwaysPress #speakerPressing a#speakerPressingAnch img {
 	border : none !important;
 }
-#speakerPressingAnch #speakerPressingtext {
+#virtualclassCont #speakerPressingAnch #speakerPressingtext {
 	position : relative;
 	top : -7px;
 }
@@ -1882,7 +1882,7 @@ opacity : 0.800000011920928955078125 !important;
 	font-size : 107%;
 }
 
-.icon-editorRichImg:before{
+#virtualclassCont .icon-editorRichImg:before{
 	content : "\e605";
 	font-size: 14px;
 }
@@ -1975,7 +1975,7 @@ opacity : 0.800000011920928955078125 !important;
 	top : 3px;
 }
 
-.icon-editorCodeImg:before{
+#virtualclassCont .icon-editorCodeImg:before{
 	content : "\e608";
 	font-size : 14px;
 }
@@ -2095,9 +2095,11 @@ opacity : 0.800000011920928955078125 !important;
     }
 }
 
+/*
 #virtualclassCont {
     overflow: hidden;    
 }
+*/
 
 #virtualclassCont #iosAudioTrigger {
     background: #ffffff; /* Old browsers */
@@ -2357,7 +2359,7 @@ opacity : 0.800000011920928955078125 !important;
 	content : "\f04b";
 	font-size: 14px;
 }
-#replayContainer #replayButton{
+#virtualclassCont #replayContainer #replayButton{
 	font-size: 13px;
 }
 
@@ -2676,6 +2678,7 @@ opacity : 0.800000011920928955078125 !important;
 #virtualclassCont #popupContainer #replayContainer.popupWindow #replayMessage{
 	font-size: 14px;
 }
+
 
 /* player box tooltip*/
 

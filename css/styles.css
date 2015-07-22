@@ -2774,6 +2774,6 @@
 }
 
 
-#virtualclassCont .ui-memblist-usr a {
+#virtualclassCont.playMode .ui-memblist-usr a {
 	pointer-events : none;
 }

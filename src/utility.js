@@ -93,8 +93,7 @@
                 }
               //  appId = virtualclass.previous;
             }
-            //alert('sss');
-            //debugger;
+
             var appName = appId.split('virtualclass')[1];
 
             appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
@@ -105,11 +104,9 @@
             var extraWidth = 0;
             var leftSideBarWidth;
 
-            //var reduceHeight = 60;
 
             if(app == 'Whiteboard'){
                 leftSideBarWidth = 0;
-                //reduceHeight = 70;
             }else{
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
@@ -119,11 +116,14 @@
                     leftSideBarWidth = 0;
                 }
 
+
                 if(app == 'Yts'){
                     rightOffSet = 75; //youtube wrapper does not have inner div, TODO should be handle by css
                 } else if (virtualclass.currApp == 'EditorRich' ||  virtualclass.currApp == 'EditorCode') {
                     if(leftSideBarWidth > 0){
                         rightOffSet = 12;
+                    } else {
+                        leftSideBarWidth = 65;
                     }
                 } else if(app == 'ScreenShare'){
                     rightOffSet = 70;
@@ -913,7 +913,6 @@
 
         //equivalent to response.reclaimRole from receive-messages-response.js
         vcResponseAReclaimRole: function (formUserId, id) {
-//                alert(formUserId + ' ' + id);
             if (formUserId != id) {
 
                 virtualclass.user.control._assign(id, 'notsent', formUserId);

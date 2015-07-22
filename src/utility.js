@@ -91,7 +91,7 @@
                 } else {
                     appId = virtualclass.previous;
                 }
-              //  appId = virtualclass.previous;
+                //  appId = virtualclass.previous;
             }
 
             var appName = appId.split('virtualclass')[1];
@@ -123,7 +123,13 @@
                     if(leftSideBarWidth > 0){
                         rightOffSet = 12;
                     } else {
-                        leftSideBarWidth = 70;
+                        alert(virtualclass.gObj.uRole +'s')
+                        if(virtualclass.gObj.uRole == 't'){
+                            leftSideBarWidth = 70;
+                        }else {
+                            leftSideBarWidth = 5;
+                        }
+
                     }
                 } else if(app == 'ScreenShare'){
                     rightOffSet = 70;
@@ -577,7 +583,7 @@
         },
 
         smallizeFirstLetter : function (string) {
-             return string.charAt(0).toLowerCase() + string.slice(1);
+            return string.charAt(0).toLowerCase() + string.slice(1);
         },
 
         capitalizeFirstLetter : function (string) {
@@ -586,7 +592,7 @@
 
 
         initDefaultInfo: function (role, appIs) {
-		    if (role == 't'  && appIs == 'Whiteboard') {
+            if (role == 't'  && appIs == 'Whiteboard') {
                 if (localStorage.getItem('orginalTeacherId') == null) {
                     virtualclass.wb.utility.setOrginalTeacherContent();
                     virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
@@ -676,7 +682,7 @@
         },
 
         setOrginalTeacher : function (){
-		    if(localStorage.getItem('reclaim') ==  null){
+            if(localStorage.getItem('reclaim') ==  null){
                 localStorage.setItem('teacherId', virtualclass.gObj.uid);
 
             }
@@ -685,7 +691,7 @@
 
 
         createReclaimButton: function (cmdToolsWrapper) {
-			
+
             this.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
             var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
             var that = this;
@@ -841,7 +847,7 @@
             }
 
             //if (localStorage.getItem('orginalTeacherId') == null) {
-                virtualclass.vutil.toggleRoleClass(true);
+            virtualclass.vutil.toggleRoleClass(true);
             //}
 
 
@@ -936,16 +942,16 @@
                 }
             }
         },
-		
-		createReclaimButtonIfNeed : function (){
-			if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-				var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
-				virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-				virtualclass.gObj.uRole = 's';
-				return true;
-			}
-			return false;
-		}
+
+        createReclaimButtonIfNeed : function (){
+            if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
+                virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
+                virtualclass.gObj.uRole = 's';
+                return true;
+            }
+            return false;
+        }
     };
     window.vutil = vutil;
 })(window);

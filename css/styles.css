@@ -2772,3 +2772,8 @@
 #virtualclassCont.reclaim #virtualclassScreenShare, #virtualclassCont.reclaim  #virtualclassEditorRich, #virtualclassCont.reclaim #virtualclassEditorCode {
 	margin-left : 20px;
 }
+
+
+#virtualclassCont .ui-memblist-usr a {
+	pointer-events : none;
+}

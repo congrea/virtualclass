@@ -2395,7 +2395,7 @@
 	left: -8px;
 	color:#e2440c;
 }
-#virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before{
+#virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before{
 	content: "\f00d";
 	font-size: 12px;
 	color: #6a8e0b;
@@ -2404,6 +2404,16 @@
 	padding: 3px 5px;
 	background-color: #f9f9f9;
 }
+
+#replayContainer #replayClose{
+	position: absolute;
+	top: -5px;
+	right: -12px;
+}
+#replayContainer #replayClose{
+	opacity: 1 !important;
+}
+
 
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox #recordingClose{
 	top: 20px;
@@ -2762,4 +2772,3 @@
 #virtualclassCont.reclaim #virtualclassScreenShare, #virtualclassCont.reclaim  #virtualclassEditorRich, #virtualclassCont.reclaim #virtualclassEditorCode {
 	margin-left : 20px;
 }
-

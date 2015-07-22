@@ -123,7 +123,7 @@
                     if(leftSideBarWidth > 0){
                         rightOffSet = 12;
                     } else {
-                        leftSideBarWidth = 65;
+                        leftSideBarWidth = 70;
                     }
                 } else if(app == 'ScreenShare'){
                     rightOffSet = 70;

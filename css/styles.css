@@ -7,32 +7,32 @@
 }
 
 [id= "virtualclassCont"] [class^="icon-"], [class*=" icon-"] {
-	 font-family: 'icomoon';
-	 speak: none;
-	 font-style: normal;
-	 font-weight: normal;
-	 font-variant: normal;
-	 text-transform: none;
-	 line-height: 1;
-	
-	 -webkit-font-smoothing: antialiased;
-	 -moz-osx-font-smoothing: grayscale;
-	 background-image : none;
-	 width : auto;
-	 height : auto;
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-image : none;
+	width : auto;
+	height : auto;
 }
 
 #virtualclassCont {
-    font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 
 #virtualclassCont a, #virtualclassCont canvas {
-    outline : none;
+	outline : none;
 }
 
 #virtualclassCont .clear, #virtualclassCont #conControler, #virtualclassCont #virtualclassOptionsCont, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont #mainContainer {
-    clear : both;
+	clear : both;
 }
 
 #virtualclassCont {
@@ -106,7 +106,7 @@
 	background: -o-linear-gradient(left, #feffff 0%, #ccc 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(left, #ffffff 0%, #cccccc 100%); /* IE10+ */
 	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
-  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
+	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
 }
 
 #virtualclassCont #audioTest-box:hover, #virtualclassCont #audioWidget #speakerPressOnce:hover, #virtualclassCont #alwaysPress:hover {
@@ -117,7 +117,7 @@
 	background: -o-linear-gradient(left, #feffff 0%, #ccc 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(left, #ffffff 0%, #cccccc 100%); /* IE10+ */
 	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
- /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
+	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
 }
 
 
@@ -351,7 +351,7 @@
 	border-bottom : 1px solid #d5d5d5;
 	padding-left : 4px;
 	margin-top: 5px;
-  	margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 #virtualclassCont #chat_div .ui-memblist-usr.student, #virtualclassCont #chat_div .ui-memblist-usr {
@@ -1077,7 +1077,7 @@
 	font-size : 20px;
 }
 ::-webkit-input-placeholder, :-moz-placeholder {
-opacity : 0.800000011920928955078125 !important;
+	opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #textInputBox {
@@ -1231,12 +1231,12 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #chatroom_text .icon-arrow-down, #virtualclassCont #chatroom_text .icon-arrow-up{
-	 padding-left: 7px;
+	padding-left: 7px;
 }
 
 #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text {
-  	position: relative;
- 	top: 3px;
+	position: relative;
+	top: 3px;
 	padding-left: 30px;
 }
 
@@ -1299,10 +1299,10 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #chat_div .controleCont, #virtualclassCont #chat_div .controleCont, #virtualclassCont #chat_div .controllereditorCode{
-	float : left; 
+	float : left;
 	width : 30px;
 	text-align: center;
-	
+
 }
 
 #virtualclassCont .audioTransmit {
@@ -1374,7 +1374,7 @@ opacity : 0.800000011920928955078125 !important;
 
 
 #virtualclassCont .teacher .vmApp {
-    margin-left : 55px;
+	margin-left : 55px;
 }
 
 #virtualclassCont .student .vmApp {
@@ -1452,7 +1452,7 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #audioTest-box .audioTool {
 	position: relative;
-    z-index: 0;
+	z-index: 0;
 	border-top : none !important;
 }
 
@@ -1464,7 +1464,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -o-linear-gradient(left, #9e9e9e 0%, #919191 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(left, #9e9e9e 0%, #919191 100%); /* IE10+ */
 	background: linear-gradient(to right, #9e9e9e 0%, #919191 100%); /* W3C */
-  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e9e9e', endColorstr='#919191', GradientType=1 ); /* IE6-9 */
+	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e9e9e', endColorstr='#919191', GradientType=1 ); /* IE6-9 */
 	border:#777 1px solid;
 	border-left-color: #848484;
 	border-right-color: #848484;
@@ -1552,7 +1552,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -o-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
 	background: -ms-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
 	background: linear-gradient(to bottom, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
- /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee9f07', endColorstr='#f3b60f', GradientType=0 );*/
+	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee9f07', endColorstr='#f3b60f', GradientType=0 );*/
 }
 
 #virtualclassCont #speakerPressOnce span i {
@@ -1582,7 +1582,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -o-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Opera 12+ */
 	background: -ms-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* IE10+ */
 	background: radial-gradient(ellipse at center, #ea1717 0%, #b50303 99%); /* W3C */
- /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', endColorstr='#b50303', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', endColorstr='#b50303', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #virtualclassCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel {
@@ -1704,7 +1704,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -o-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* Opera 12+ */
 	background: -ms-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* IE10+ */
 	background: radial-gradient(ellipse at center, #e06f0d 0%, #f4a52e 100%); /* W3C */
-  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06f0d', endColorstr='#f4a52e', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06f0d', endColorstr='#f4a52e', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #virtualclassCont #speakerPressOnce i.silenceDetect[data-silence-detect="sending"] {
@@ -1734,7 +1734,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -o-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #d4d4d4 0%, #fbfbfb 100%); /* W3C */
-  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d4d4', endColorstr='#fbfbfb', GradientType=0 ); /* IE6-9 */
+	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d4d4', endColorstr='#fbfbfb', GradientType=0 ); /* IE6-9 */
 }
 
 #virtualclassCont #containerWb #commandToolsWrapper .tool a:before {
@@ -1760,7 +1760,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -o-linear-gradient(top, #919191 0%, #919191 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, #919191 0%, #919191 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #919191 0%, #919191 100%); /* W3C */
- /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#919191', endColorstr='#919191', GradientType=0 ); /* IE6-9 */
+	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#919191', endColorstr='#919191', GradientType=0 ); /* IE6-9 */
 	text-shadow: 0 1px 14px #eee;
 }
 
@@ -1892,7 +1892,7 @@ opacity : 0.800000011920928955078125 !important;
 
 
 #virtualclassCont.student #virtualclassCont #virtualclassEditorRich{
-	 margin-left: 35px;
+	margin-left: 35px;
 }
 
 #virtualclassCont.teacher.orginalTeacher .icon-audioImg.enable:before, #virtualclassCont.teacher .icon-audioImg.enable:before {
@@ -2062,37 +2062,37 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #errorContainer {
-    position: fixed;
-    bottom: 7%;
-    left: 25%;
-    color : rgba(131, 14, 14, 0.93);
+	position: fixed;
+	bottom: 7%;
+	left: 25%;
+	color : rgba(131, 14, 14, 0.93);
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
 	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
- bottom:16px !important;
- left:0em !important;
-}
+		bottom:16px !important;
+		left:0em !important;
+	}
 }
 
 #virtualclassCont #chatWidget .mySelf {
-    pointer-events: none;
-    
+	pointer-events: none;
+
 }
 
 #virtualclassCont #chatWidget .mySelf span {
-    padding-left : 5px;
-    display : inline-block;
-    margin-top : 8px;
+	padding-left : 5px;
+	display : inline-block;
+	margin-top : 8px;
 }
 
 
 
 @-moz-document url-prefix() {
 	#virtualclassCont.student #chat_div .userImg.ui-memblist-usr a.tooltip:hover:after {
-            bottom:15px;
-            left:-25px;
-    }
+		bottom:15px;
+		left:-25px;
+	}
 }
 
 /*
@@ -2102,61 +2102,61 @@ opacity : 0.800000011920928955078125 !important;
 */
 
 #virtualclassCont #iosAudioTrigger {
-    background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
-    clear: both;
-    position: absolute;
-    top: 88%;
-    left: 40%;
-    border:1px solid 	#ccc;
-    border-radius:10px;
-    padding:15px;
-    -webkit-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
-    -moz-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
-    box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+	clear: both;
+	position: absolute;
+	top: 88%;
+	left: 40%;
+	border:1px solid 	#ccc;
+	border-radius:10px;
+	padding:15px;
+	-webkit-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+	-moz-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
+	box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
 }
 
 
 #virtualclassCont #dummyPlay {
-    position: absolute;
-    top: 17px;
-    left: 150px;
-    z-index: 666666;
+	position: absolute;
+	top: 17px;
+	left: 150px;
+	z-index: 666666;
 }
 
 #virtualclassCont .recButton {
 	margin: 0px 5px;
-    display:inline;
-    float: left;
+	display:inline;
+	float: left;
 }
 
 
 #virtualclassCont #playProgress {
-  	background-color: #676666;
-    float: left;
-    margin-left: 20px;
-    margin-top: 7px;
-    text-align: center;
-    width: 350px;
-    height: 5px;
+	background-color: #676666;
+	float: left;
+	margin-left: 20px;
+	margin-top: 7px;
+	text-align: center;
+	width: 350px;
+	height: 5px;
 }
 
 #virtualclassCont.playMode #audioWidget {
-    display : none;
+	display : none;
 }
 
 #virtualclassCont.playMode .ui-memblist-usr {
-    pointer-events : none;
+	pointer-events : none;
 }
 
 #virtualclassCont.teacher #virtualclassYts {
-    margin-left : 60px;
+	margin-left : 60px;
 }
 
 #virtualclassCont #virtualclassYts {
@@ -2199,10 +2199,10 @@ opacity : 0.800000011920928955078125 !important;
 #virtualclassCont .writeModeBox {
 	top : 15px;
 	right: 15px;
-    position: absolute;
-    text-align: center;
-    text-transform: uppercase;
-    width: 150px;
+	position: absolute;
+	text-align: center;
+	text-transform: uppercase;
+	width: 150px;
 }
 
 
@@ -2246,15 +2246,15 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  width: 110px;
-  text-align: center;
-  padding: 10px 0px;
-  font-size: 14px;
-  font-weight: 200;
-  z-index: 0;
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	width: 110px;
+	text-align: center;
+	padding: 10px 0px;
+	font-size: 14px;
+	font-weight: 200;
+	z-index: 0;
 }
 
 #virtualclassCont #virtualclassYtsTool, #virtualclassCont #virtualclassEditorCodeTool{
@@ -2262,8 +2262,8 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #alleditorRichContainerAnch{
-  color: #fff;
-  text-decoration: none;
+	color: #fff;
+	text-decoration: none;
 }
 
 #virtualclassCont #virtualclassEditorRichBody {
@@ -2302,8 +2302,8 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #playController{
 	margin: 0 auto;
-    position: relative;
-    width: 650px;
+	position: relative;
+	width: 650px;
 }
 
 #virtualclassCont .progressBar{
@@ -2332,9 +2332,9 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #playController #recPlayCont #recPlay, #virtualclassCont #playController #recPauseCont #recPause, #virtualclassCont #playController #ff2Cont #ff2, #virtualclassCont #playController #ff8Cont #ff8{
 	background-color: transparent;
-    border: medium none;
-    cursor: pointer;
-    color:#676666;
+	border: medium none;
+	cursor: pointer;
+	color:#676666;
 }
 
 #virtualclassCont #playController #recPlayCont #recPlay:hover, #virtualclassCont #playController #recPlayCont #recPause:hover, #virtualclassCont #playController #ff2Cont #ff2:hover, #virtualclassCont #playController #ff8Cont #ff8:hover{
@@ -2364,12 +2364,12 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #replayContainer #replayButton.icon-repeat:before{
-	  content: "\f01e";
-	  font-size: 13px;
-	  position: relative;
-	  left: -6px;
-	  top: 1px;
-	  color:#7fa617;
+	content: "\f01e";
+	font-size: 13px;
+	position: relative;
+	left: -6px;
+	top: 1px;
+	color:#7fa617;
 }
 
 
@@ -2381,34 +2381,34 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:before{
-   content: "\f00c";
-   font-size: 12px;
-   position: relative;
-   left: -8px;
-   color:#7fa617;
+	content: "\f00c";
+	font-size: 12px;
+	position: relative;
+	left: -8px;
+	color:#7fa617;
 }
 
 #virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton:before{
 	content: "\f00d";
-   font-size: 12px;
-   position: relative;
-   left: -8px;
-   color:#e2440c;
+	font-size: 12px;
+	position: relative;
+	left: -8px;
+	color:#e2440c;
 }
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before{
-   content: "\f00d";
-   font-size: 12px;
-   color: #6a8e0b;
-   border: #bcd2aa 1px solid;
-   border-radius: 50%;
-   padding: 3px 5px;
-   background-color: #f9f9f9;
+	content: "\f00d";
+	font-size: 12px;
+	color: #6a8e0b;
+	border: #bcd2aa 1px solid;
+	border-radius: 50%;
+	padding: 3px 5px;
+	background-color: #f9f9f9;
 }
 
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox #recordingClose{
 	top: 20px;
-   right: 15px;
-   position: absolute;
+	right: 15px;
+	position: absolute;
 }
 
 
@@ -2485,7 +2485,7 @@ opacity : 0.800000011920928955078125 !important;
 	font-size: 13px;
 	font-weight: 200;
 	margin-left: 5px;
-	
+
 }
 
 #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer{
@@ -2497,7 +2497,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -ms-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #92b0ab 0%,#6f9b90 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
-	
+
 }
 #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
 	background: #6f9b90; /* Old browsers */
@@ -2508,7 +2508,7 @@ opacity : 0.800000011920928955078125 !important;
 	background: -ms-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #6f9b90 0%,#92b0ab 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f9b90', endColorstr='#92b0ab',GradientType=0 ); /* IE6-9 */
-	
+
 }
 
 #virtualclassCont #alleditorRichContainer a, #virtualclassCont #alleditorCodeContainer a{
@@ -2555,10 +2555,10 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #confirm.popupWindow.simple-box{
-  max-width: 350px;
-  background-color: #fff;
-  text-align: center;
-	
+	max-width: 350px;
+	background-color: #fff;
+	text-align: center;
+
 }
 
 #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton,#virtualclassCont  #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont #popupContainer #replayContainer #replayButton{
@@ -2587,13 +2587,13 @@ opacity : 0.800000011920928955078125 !important;
 	background: -ms-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0 ); /* IE6-9 */
-	
+
 }
 #virtualclassCont #virtualclassEditorCodeBody{
 	position: relative;
 }
 #virtualclassCont #confirmCancelButton{
-	padding: 8px 22px; 
+	padding: 8px 22px;
 }
 
 #virtualclassCont #popupContainer #about-modal{
@@ -2625,7 +2625,7 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont div#playControllerCont{
 	margin: 0 auto;
-	width: 860px;	
+	width: 860px;
 }
 
 
@@ -2644,21 +2644,21 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished{
 	color: #6a8a13;
-    background-color: #f9f9f9;
-    border: #d6e9c6 1px solid;
-    margin-top: 10px;
-    border-radius: 5px;
-    clear: both;
-    padding: 20px;
+	background-color: #f9f9f9;
+	border: #d6e9c6 1px solid;
+	margin-top: 10px;
+	border-radius: 5px;
+	clear: both;
+	padding: 20px;
 }
 
 #virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished:after{
-	 visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
 }
 
 #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart{
@@ -2670,7 +2670,7 @@ opacity : 0.800000011920928955078125 !important;
 }
 
 #virtualclassCont #popupContainer #replayContainer.popupWindow{
-	font-size: 14px; 
+	font-size: 14px;
 	padding: 30px;
 	text-align: center;
 }
@@ -2693,7 +2693,7 @@ opacity : 0.800000011920928955078125 !important;
 	border-radius: 4px;
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
 	box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-	
+
 }
 #virtualclassCont #recordPlay .rv-vanilla-modal-body #askPlay #playButton:before{
 	position: relative;
@@ -2703,7 +2703,7 @@ opacity : 0.800000011920928955078125 !important;
 
 #virtualclassCont #recordPlay .rv-vanilla-modal-body #askPlay #playButton{
 	font-size: 14px;
-	
+
 }
 
 #virtualclassCont #playController .controlActive{

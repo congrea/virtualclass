@@ -1,8 +1,8 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
 
-<!--<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/wb.min.js"></script>-->
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
@@ -73,4 +73,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

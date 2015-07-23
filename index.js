@@ -216,7 +216,7 @@ $(document).ready(function () {
     });
 
     $(document).on("authentication_failed", function (e) {
-        virtualclass.chat.removeCookieUserInfo();
+        virtualclass.chat.removeCookieUserInfo(e);
     });
 
     $(document).on("connectionclose", function (e) {

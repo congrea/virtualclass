@@ -116,7 +116,7 @@
                 tabs.tabs( "refresh" );//tabs
             },
             
-            removeCookieUserInfo : function (){
+            removeCookieUserInfo : function (e){
                 //delete cookie
                 document.cookie = "auth_user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
                 document.cookie = "auth_pass=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";

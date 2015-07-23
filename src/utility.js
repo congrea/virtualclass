@@ -123,7 +123,6 @@
                     if(leftSideBarWidth > 0){
                         rightOffSet = 12;
                     } else {
-                        alert(virtualclass.gObj.uRole +'s')
                         if(virtualclass.gObj.uRole == 't'){
                             leftSideBarWidth = 70;
                         }else {

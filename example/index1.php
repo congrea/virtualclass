@@ -36,10 +36,16 @@ $whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 
 
-
 <style>
+
   .CodeMirror { height: auto; border: 1px solid #ddd; }
   .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+
+   /* this should be apply for only core virtualclassm, not with any other software */
+   html, body {
+        margin : 0;
+        padding : 0;
+   }
 </style>
 
 

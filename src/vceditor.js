@@ -7,7 +7,7 @@
  * Version 0.0.1
  */
 
-var Vceditor = ('Vceditor', function () {
+var Vceditor = (function () {
     var vceditor = vceditor || {};
     vceditor.utils = {};
 
@@ -5863,6 +5863,6 @@ var Vceditor = ('Vceditor', function () {
     }
 
         return vceditor.Vceditor;
-}, this);
+})();
 
 

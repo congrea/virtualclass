@@ -538,21 +538,6 @@
 
                     });
 
-                    //if (!confirm(virtualclass.lang.getString('savesession'))) {
-                    //    if (!confirm(virtualclass.lang.getString('startnewsession'))) {
-                    //        return;
-                    //    }
-                    //    virtualclass.clearSession(appName);
-                    //    window.location.reload();
-                    //} else {
-                    //    io.completeStorage(undefined, undefined, 'sessionend');
-                    //    setTimeout(function () {
-                    //            virtualclass.getContent = true;
-                    //            io.sock.close();
-                    //            virtualclass.recorder.startUploadProcess();
-                    //        }, 300
-                    //    );
-                    //}
 
                 } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));

@@ -25,20 +25,19 @@ You will be able to Interact with everyone in your room.
 - [x] Stream Audio in Realtime
 - [x] Stream User photo icons at short Intervals
 - [x] Avoid NAT, Proxy, Firewall Issues
-- [ ] Allow Recording and Playback
-- [ ] Share Brower Tabs
-- [ ] Better UI
+- [x] Allow Recording and Playback
+- [x] Allow Direct Youtube playback
+- [x] Support Native Basic Editor
 - [ ] Better Error Handeling
-- [ ] Unit Tests
 - [ ] Compability with Major Browsers
 - [ ] Compability with Ipad (At least for Students, Viewers)
+- [ ] Unit Tests
+- [ ] Automatic Peer Data Sharing in Local Network
+- [ ] Improve Audio, Noice Suppression, Echo Cancellation
+- [ ] Better UI
+- [ ] Share Brower Tabs
 - [ ] Feedback/Questionnaire at end of session.
-- [ ] Allow Direct Youtube playback
-- [ ] Support Native Basic Editor
 - [ ] Support Native PDF Sharing
 - [ ] Support Native PPT Sharing
 - [ ] Support Native DOC Sharing
 - [ ] Support Native Terminal (On Linux or Mac) Sharing
-- [ ] Improve Whiteboard
-- [ ] Automatic Peer Data Sharing in Local Network
-- [ ] Improve Audio, Noice Suppression, Echo Cancellation

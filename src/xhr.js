@@ -32,9 +32,10 @@
             virtualclass.pbar.currVal = evt.loaded;
             //if(virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined'){
             // first time
-            if (virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined') {
+            if ((virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined') && !virtualclass.isPlayMode) {
                 virtualclass.pbar.progressInit();
             }
+
             virtualclass.pbar.renderProgressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
         },
 

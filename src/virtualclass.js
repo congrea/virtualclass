@@ -55,7 +55,7 @@
                 this.recorder = window.recorder;
                 this.converter = window.converter;
                 this.clear = "";
-                this.currApp = app;
+                this.currApp = this.vutil.capitalizeFirstLetter(app);
 
                 this.dirtyCorner = window.dirtyCorner;
 
@@ -78,6 +78,7 @@
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.yts = window.yts();
+
 				virtualclass.vutil.createReclaimButtonIfNeed();
 				
 				if (this.gObj.uRole == 't') {
@@ -306,7 +307,7 @@
 
             makeAppReady: function (app, cusEvent, videoObj) {
                 this.view = window.view;
-                this.currApp = app;
+                this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {
@@ -536,21 +537,6 @@
 
                     });
 
-                    //if (!confirm(virtualclass.lang.getString('savesession'))) {
-                    //    if (!confirm(virtualclass.lang.getString('startnewsession'))) {
-                    //        return;
-                    //    }
-                    //    virtualclass.clearSession(appName);
-                    //    window.location.reload();
-                    //} else {
-                    //    io.completeStorage(undefined, undefined, 'sessionend');
-                    //    setTimeout(function () {
-                    //            virtualclass.getContent = true;
-                    //            io.sock.close();
-                    //            virtualclass.recorder.startUploadProcess();
-                    //        }, 300
-                    //    );
-                    //}
 
                 } else {
                     appName = appName.substring(0, appName.indexOf("Tool"));

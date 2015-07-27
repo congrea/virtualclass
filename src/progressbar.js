@@ -7,12 +7,13 @@ var progressBar = {
     prvVal: '',
     currVal: '',
     progressInit: function () {
+
         var that = this;
         if (typeof prvTimeout != 'undefined') {
             clearTimeout(prvTimeout);
         }
 
-        prvTimeout = setTimeout(
+        prvTimeout = setTimeout     (
             function () {
                 if (that.prvVal == that.currVal) {
                     console.log("start for download");

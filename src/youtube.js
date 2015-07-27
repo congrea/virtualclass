@@ -5,7 +5,7 @@
  * receiver accordingly updates its state.
  */
 (function (window, document) {
-    var io = window.io;
+    //var io = window.io;
     var i = 0;
     /**
      * This is the main object which has properties and methods
@@ -181,7 +181,7 @@
                         input.id = "youtubeurl";
                         input.cols = 70;
                         input.rows = 3;
-                        input.value =  virtualclass.lang.getString("youTubeUrl");
+                        input.placeholder =  virtualclass.lang.getString("youTubeUrl");
 
                         //var tnode = document.createTextNode("Please put here youtube url");
                         //input.appendChild(tnode);

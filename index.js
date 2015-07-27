@@ -21,6 +21,7 @@ $(document).ready(function () {
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
+    wbUser.virtualclassPlay = parseInt(wbUser.virtualclassPlay, 10);
     if(wbUser.virtualclassPlay){
         virtualclass.gObj.sessionClear = true;
         localStorage.removeItem('orginalTeacherId');
@@ -29,16 +30,16 @@ $(document).ready(function () {
         wbUser.id = 99955551230;
 
         virtualclass.gObj.uid =  wbUser.id;
-
-
-    } else {
-        //alert('should not true');
     }
+
+    var capitalizeFirstLetter  = function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
 
     var previousApp = JSON.parse(localStorage.getItem('prevApp'));
     if(previousApp != null) {
         virtualclass.previousApp = previousApp;
-        var appIs = previousApp.name;
+        var appIs = capitalizeFirstLetter(previousApp.name);
 
         if(previousApp.name == 'Yts'){
             var videoObj = previousApp.metaData;
@@ -50,6 +51,9 @@ $(document).ready(function () {
 
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
+    if(localStorage.getItem('reclaim') != null){
+        virtualclass.vutil.toggleRoleClass(true);
+    }
 
     var alreadyInit = false;
 
@@ -88,8 +92,6 @@ $(document).ready(function () {
             1150
         );
     }
-
-
 
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();
@@ -186,7 +188,6 @@ $(document).ready(function () {
 
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
-
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 } else if (virtualclass.currApp === 'ScreenShare') {
@@ -215,7 +216,7 @@ $(document).ready(function () {
     });
 
     $(document).on("authentication_failed", function (e) {
-        virtualclass.chat.removeCookieUserInfo();
+        virtualclass.chat.removeCookieUserInfo(e);
     });
 
     $(document).on("connectionclose", function (e) {

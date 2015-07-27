@@ -36,17 +36,26 @@ $whiteboardpath = "https://loc.vidya.io/virtualclass/";
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 
 
-
 <style>
+
   .CodeMirror { height: auto; border: 1px solid #ddd; }
   .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+
+   /* this should be apply for only core virtualclassm, not with any other software */
+   html, body {
+        margin : 0;
+        padding : 0;
+   }
 </style>
 
 
 
+
+
 <?php
-include('js.debug.php');
-//include('js.php');
+//include('js.debug.php');
+
+include('js.php');
 // this url should be soemthing like this
 // https://loc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
 
@@ -68,7 +77,6 @@ if(isset($_GET['id'])){
 }
 
 
-//$r = (isset($_GET['r'])) ? $_GET['r'] : 's';
 if(isset($_GET['r'])){
     $r = $_GET['r'];
     if($r == 't' &&  !$isplay){
@@ -77,7 +85,6 @@ if(isset($_GET['r'])){
         $r = 's';
         $cont_class .= 'student';
     }
-//    $cont_class = ($r == 't' &&  !$isplay) ? "teacher orginalTeacher" : 'student';
 }else{
     $r = 's';
     $cont_class .= 'student';
@@ -132,7 +139,6 @@ if(isset($_GET['lname'])){
 </head>
 
 <body>
-
     <!--
     <div id="dummyPlayCont">
 
@@ -293,7 +299,7 @@ if(isset($_GET['lname'])){
 
                     <div id="recordFinishedMessageBox">
                         <span id="recordFinishedMessage"> You have uploaded the current session. </span>
-                        <span id="recordingClose">X</span>
+                        <span id="recordingClose" class="icon-close"></span>
                     </div>
                 </div>
 
@@ -315,7 +321,8 @@ if(isset($_GET['lname'])){
 
                     <div id="askPlay">
                         <div id="askplayMessage"> </div>
-                        <button id="playButton">Play</button>
+                         <button id="playButton" class="icon-play">Play</button>
+
                     </div>
                 </div>
              </div>
@@ -332,11 +339,10 @@ if(isset($_GET['lname'])){
          <!--For confirm window-->
           <div id="confirm" class="popupWindow simple-box">
           </div>
-
-
-
+          
         </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -276,17 +276,18 @@
                 } else {
                     // this has been performed when all files are stored
                     if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
+                        console.log("should invoked download function on ");
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
-                        setTimeout(
-                            function (){
-                                virtualclass.recorder.afterRecording();
-                            },
-                            1000
-                        );
-
-                        if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' || virtualclass.recorder.mkDownloadLink != " ") {
-                            virtualclass.recorder.mkDownloadLink;
+                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
+                             virtualclass.recorder.mkDownloadLink;
+                        } else {
+                            setTimeout(
+                                function (){
+                                   virtualclass.recorder.afterRecording();
+                                },
+                                1000
+                            );
                         }
                         return;
                     }
@@ -295,7 +296,6 @@
                         virtualclass.recorder.rnum = frow;
                     }
 
-//                        typeof error != 'undefined'){
                     if (virtualclass.recorder.error == 1) {
                         if (virtualclass.recorder.storeDone == 0) {
                             virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error');
@@ -308,16 +308,17 @@
                         formData.append("cn", chunkNum);
                         formData.append('sesseionkey', virtualclass.recorder.sessionKey);
                         
-                        //TODO: display progress after file save
-                        virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
+                        ////TODO: display progress after file save
+                        //virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
                         virtualclass.recorder.items = []; //empty on each chunk sent
 
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
-                            //TODO: handle error
+                            //TODO: display progress after file save
 
                             //Recording is finished //upload finished
                             if (msg === "done") {
+                                virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
                                 virtualclass.recorder.rnum++;
                                 chunkNum++;
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -512,6 +513,7 @@
                     virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
                     virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
 
+
                     virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
 
                     if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {
@@ -531,7 +533,6 @@
                             virtualclass.recorder.alreadyPlayed = true;
                         }
                     }
-
 
 
                     if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {

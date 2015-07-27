@@ -16,7 +16,6 @@ var PopUp = (function (window, undefined) {
      */
     function PopUp(options) {
         this.init(options);
-
         return this;
     }
 
@@ -224,8 +223,10 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.replayWindow = function () {
+
        
         var element = document.getElementById('about-modal');
+
         virtualclass.popup.open(element);
 
         this.hideAllPopups();

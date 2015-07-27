@@ -670,7 +670,9 @@
                     if (userObj != null && userObj.ad && userObj.aud) {
                         virtualclass.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
                         var anchorTag = document.getElementById(userObj.id + 'contrAudAnch');
-                        anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
+                        if(anchorTag != null){
+                            anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
+                        }
                     }
                     // To excute when an audio has ended
                     newSource.onended = function () {

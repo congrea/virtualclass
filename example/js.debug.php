@@ -1,8 +1,8 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
 
-<!--<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/wb.min.js"></script>-->
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
@@ -53,12 +53,11 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
 
-<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube-iframe-api.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/lib/codemirror.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-markdown.js"></script>
-
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vceditor.js"></script>
@@ -73,4 +72,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

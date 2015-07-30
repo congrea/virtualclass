@@ -22,7 +22,7 @@ var io = {
 
     wsconnect: function () {
         "use strict";
-        io.wsuri = "wss://" + this.cfg.rid;
+        io.wsuri = this.cfg.rid;
         if ("WebSocket" in window) {
             this.sock = new WebSocket(io.wsuri);
         } else if ("MozWebSocket" in window) {

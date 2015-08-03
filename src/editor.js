@@ -93,7 +93,7 @@
                         if (localStorage.getItem('orginalTeacherId') != null) {
                             this.createAllEditorController();
                         }
-                        io.send({eddata : 'init', et: this.etype});
+                        ioAdapter.mustSend({eddata : 'init', et: this.etype});
                     } else {
                         if (localStorage.getItem('orginalTeacherId') != null) {
                             this.createAllEditorController();
@@ -190,7 +190,7 @@
                             if(virtualclass.connectedUsers[i].role == 't'){
                                 if(typeof withDiffUser != 'undefined'){
                                     if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
-                                        //io.send({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
+                                        //ioAdapter.mustSend({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
                                         toUser = virtualclass.connectedUsers[i].userid;
                                         this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
                                         this.dataReqTry++;
@@ -210,7 +210,7 @@
 
                     if(toUser != '' && typeof toUser != 'undefined' &&  io.sock != null){
                          if(io.sock.readyState == 1){
-                             io.send({'eddata': 'requestForEditorData', et: this.etype}, toUser);
+                             ioAdapter.mustSendUser({'eddata': 'requestForEditorData', et: this.etype}, toUser);
                          }
                         this.readOnlyMode('enable');
                     }
@@ -277,7 +277,7 @@
                     requestForEditorData : function (e){
                         if(e.fromUser.userid != virtualclass.gObj.uid){
                             if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
-                                io.send({'eddata' : 'noDataForEditor'});
+                                ioAdapter.mustSend({'eddata' : 'noDataForEditor'});
                                 return;
                             }
 
@@ -426,9 +426,9 @@
                             initPacket.resFromUser = true;
                         }
 
-                        io.send(initPacket, appIsEditor.toUser);
+                        ioAdapter.mustSendUser(initPacket, appIsEditor.toUser);
                     } else {
-                        io.send(initPacket);
+                        ioAdapter.mustSend(initPacket);
                     }
                 },
 

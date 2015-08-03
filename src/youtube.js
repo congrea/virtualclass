@@ -58,7 +58,7 @@
                             ;
                             this.onYTIframApi(videoId, startFrom, 'fromReload');
                             this.UI.inputURL();
-                            io.send({'yts': {init : 'studentlayout'}});
+                            ioAdapter.mustSend({'yts': {init : 'studentlayout'}});
                         } else {
                             if(!videoObj.hasOwnProperty('fromReload')){
                                 (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
@@ -76,7 +76,7 @@
                     this.UI.inputURL();
 
                     //For student layout
-                    io.send({'yts': {init : 'studentlayout'}});
+                    ioAdapter.mustSend({'yts': {init : 'studentlayout'}});
                 }
                
             },
@@ -215,7 +215,7 @@
 
                             virtualclass.yts.videoId = videoId;
                             virtualclass.yts.onYTIframApi(videoId);
-                            io.send({'yts': {'init': videoId}});
+                            ioAdapter.mustSend({'yts': {'init': videoId}});
                         });
                     }
                 },
@@ -381,9 +381,9 @@
              */
             ytOnMuted: function (muted) {
                 if (muted) {
-                    io.send({'yts': 'mute'});
+                    ioAdapter.mustSend({'yts': 'mute'});
                 } else {
-                    io.send({'yts': 'unmute'});
+                    ioAdapter.mustSend({'yts': 'unmute'});
                 }
 
                 console.log('MUTED ' + muted);
@@ -395,7 +395,7 @@
              */
             // seekto is video in seconds
             ytOnSeek: function (seekto) {
-                io.send({'yts': {'seekto': seekto}});
+                ioAdapter.mustSend({'yts': {'seekto': seekto}});
                 console.log('SEEK CHANGED ' + seekto);
             },
 
@@ -406,9 +406,9 @@
             ytOnChange: function (state) {
                 console.log('STATE CHANGED ' + state);
                 if (state == 1) {
-                    io.send({'yts': 'play'});
+                    ioAdapter.mustSend({'yts': 'play'});
                 } else if (state == 2) {
-                    io.send({'yts': 'pause'});
+                    ioAdapter.mustSend({'yts': 'pause'});
                 }
             },
             /*

@@ -614,7 +614,7 @@
                     resA = Math.round(that.localtempCanvas.height / 12);
                     resB = Math.round(that.localtempCanvas.width / 12);
                     var createdImg = getDataFullScreenResize(that.type);
-                    io.sendBinary(createdImg);
+                    ioAdapter.mustSend(createdImg);
                     calcBandwidth(createdImg.length / 128); // In Kbps
                     changeonresize = 0;
                     clearInterval(virtualclass.clear);
@@ -667,10 +667,10 @@
                             if (e.data.needFullScreen == 1) { //sending full screen here
                                 
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
-                                io.sendBinary(createdImg);
+                                ioAdapter.mustSend(createdImg);
                                 var localBandwidth = (createdImg.length / 128); // In Kbps
                             } else if (e.data.masterSlice != null) {
-                                io.sendBinary(e.data.masterSlice);
+                                ioAdapter.mustSend(e.data.masterSlice);
                                 var localBandwidth = (e.data.masterSlice.length / 128); // In Kbps
                             }
                             calcBandwidth(localBandwidth);

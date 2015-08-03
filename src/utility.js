@@ -661,7 +661,7 @@
                 }
 
                 if (io.sock != null && io.sock.readyState == 1) {
-                    typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
+                    typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
                 }
 
                 //TODO this should be enable

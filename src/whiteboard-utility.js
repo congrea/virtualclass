@@ -958,6 +958,13 @@
             //},
 
             /**
+             * TODO this function should validate either it's using or not
+             * because beforeSend on utility.js is using now
+             *
+             *
+              */
+
+            /**
              * the operation before send message to server
              * @param {type} msg
              * @returns {undefined}
@@ -983,8 +990,9 @@
 
                     virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                     if (io.sock.readyState == 1) {
-                        typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
-//                            io.send(msg);
+
+                        typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
+
                     }
 
                     //TODO this should be enable

@@ -181,7 +181,8 @@
                     msg = $.trim($(this).val());
                     var msgobj = {'receiver':'chatroom','msg':msg};
                     if(msg.length > 0) {
-                        io.send(msgobj);
+                        ioAdapter.mustSend(msgobj);
+
                         $(this).val('');
                         self.options.messageSent({name:io.cfg.userobj.name}, msg);// sent msg to self
                         // store data on browser

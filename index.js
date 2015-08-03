@@ -189,14 +189,14 @@ $(document).ready(function () {
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-                    io.send({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+                    ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 } else if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
                 } else if(virtualclass.currApp === 'Yts'){
                     //virtualclass.yts.player.getCurrentTime();
 
                     //init name should be changed with video id
-                    io.send({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}}, virtualclass.jId);
+                    ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}}, virtualclass.jId);
                     //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
                 }
 
@@ -204,7 +204,7 @@ $(document).ready(function () {
                     //TODO this should be into function
                     sType = virtualclass.getDataFullScreen(sType);
                     var createdImg = virtualclass.getDataFullScreen('ss');
-                    io.sendBinary(createdImg);
+                    ioAdapter.sendBinary(createdImg);
                     sType = null;
                 }
             }

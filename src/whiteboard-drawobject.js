@@ -201,6 +201,7 @@
             } else {
                 if (wb.vcan.main.action != 'move' || ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
                    virtualclass.vutil.beforeSend({'createArrow': true, x: ev.currX, y: ev.currY});
+
                 }
             }
         };

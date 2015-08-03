@@ -20,7 +20,13 @@
                 virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
                     //virutalclass.vutil.beforeSend(JSON.parse(jobj));
-                    io.send(JSON.parse(jobj));
+                    var msg = JSON.parse(jobj);
+
+                    if(msg.hasOwnProperty('createArrow')){
+                        ioAdapter.send(msg);
+                    } else {
+                        ioAdapter.mustSend(msg);
+                    }
                 }
                 virtualclass.wb.utility.updateSentInformation(jobj, true);
                 this.lastarrowtime = new Date().getTime();

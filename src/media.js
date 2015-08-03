@@ -154,7 +154,7 @@
                         var sendmsg = new Int8Array(msg.length + scode.length);
                         sendmsg.set(scode);
                         sendmsg.set(msg, scode.length); // First element is status code (101)
-                        io.sendBinary(sendmsg);
+                        ioAdapter.sendBinary(sendmsg);
                         virtualclass.gObj.video.audio.setAudioStatus(adStatus);
                     } else {
                         virtualclass.gObj.video.audio.setAudioStatus("stop");
@@ -1073,7 +1073,7 @@
                         var sendmsg = new Uint8ClampedArray(encodedframe.length + scode.length);
                         sendmsg.set(scode);
                         sendmsg.set(encodedframe, scode.length);
-                        io.sendBinary(sendmsg);
+                        ioAdapter.sendBinary(sendmsg);
                         clearInterval(virtualclass.gObj.video.smallVid);
                         var d = 2000 + (virtualclass.gObj.totalUser.length * 2500);
                         if (totalMembers != virtualclass.gObj.totalUser) { // BUG : totalUser  is not a number it is an array

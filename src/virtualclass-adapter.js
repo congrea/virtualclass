@@ -122,14 +122,14 @@ virtualclassAdapter = function () {
 		};
 
 
-		ioAdapter.mustSend(sendData);
+		ioAdapter.mustSendAll(sendData);
 		var that = this;
 		console.log("send operation");
 	}
 
 	virtualclassAdapter.prototype.sendSelection = function (selection) {
 		//ioAdapter.mustSend({'selection' : selection});
-		ioAdapter.mustSend({
+		ioAdapter.mustSendAll({
 			eddata: 'selection',
 			data: JSON.stringify(selection)
 		});
@@ -137,7 +137,7 @@ virtualclassAdapter = function () {
 
 	virtualclassAdapter.prototype.sendCursor = function (cursor) {
 		//console.log("Send Cursor");
-		ioAdapter.mustSend({
+		ioAdapter.mustSendAll({
 			eddata: 'virtualclass-editor-cursor',
 			data: JSON.stringify(cursor)
 		});

@@ -93,7 +93,7 @@
                         if (localStorage.getItem('orginalTeacherId') != null) {
                             this.createAllEditorController();
                         }
-                        ioAdapter.mustSend({eddata : 'init', et: this.etype});
+                        ioAdapter.mustSendAll({eddata : 'init', et: this.etype});
                     } else {
                         if (localStorage.getItem('orginalTeacherId') != null) {
                             this.createAllEditorController();
@@ -277,7 +277,7 @@
                     requestForEditorData : function (e){
                         if(e.fromUser.userid != virtualclass.gObj.uid){
                             if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
-                                ioAdapter.mustSend({'eddata' : 'noDataForEditor'});
+                                ioAdapter.mustSendAll({'eddata' : 'noDataForEditor'});
                                 return;
                             }
 

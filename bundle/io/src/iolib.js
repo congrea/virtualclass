@@ -132,7 +132,7 @@ var io = {
             } else {
                 var receivemsg = JSON.parse(e.data);
                 if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') && receivemsg.m.hasOwnProperty('eddata'))) {
-                    io.completeStorage(e.data);
+                    ioStorage.completeStorage(e.data);
                 }
                 var userto = '';
                 switch (receivemsg.type) {

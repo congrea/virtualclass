@@ -108,7 +108,7 @@
                 if (virtualclass.system.indexeddb) {
                     this.storage.init(function () {
                         if (!virtualclass.vutil.isPlayMode()) {
-                            io.completeStorage(JSON.stringify(io.cfg));
+                            ioStorage.completeStorage(JSON.stringify(io.cfg));
                         }
                     });
                 }
@@ -525,7 +525,7 @@
                                 }
                             )
                         } else {
-                            io.completeStorage(undefined, undefined, 'sessionend');
+                            ioStorage.completeStorage(undefined, undefined, 'sessionend');
                             setTimeout(function () {
                                     virtualclass.getContent = true;
                                     virtualclass.vutil.beforeSend({sEnd: true}); //before close, clear student virtualclass data

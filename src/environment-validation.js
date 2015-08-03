@@ -1,24 +1,39 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
+ * This file looks for the environmment support for the virtual claas and its apis 
  */
 (function (window) {
     var system = {
+        /*
+         * Initializing webRtc and browser
+         * @return system object 
+        */
         init: function () {
             this.wbRtc = {};
             this.wbRtc.className = 'webrtcCont';
             this.mybrowser = {};
             return this;
         },
+       //TODO function need to be revised
         isCanvasSupport: function (navigator, browserName, version) {
+         
+            console.log('is canvas support');
+            console.log(navigator);
+            console.log(browserName);
             if (browserName == 'MSIE') {
                 return (version != 9) ? false : true;
             } else {
                 return (!window.CanvasRenderingContext2D) ? false : true;
             }
         },
-
+        /*
+         * To check whether  webSocket is supported  or not 
+         * 
+         */
+        // TODO parameter passed are not being used 
         isWebSocketSupport: function (navigator, browser, version) {
+   
             if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
                 return true;
             } else {
@@ -26,12 +41,20 @@
             }
 
         },
-
+        /*
+         * To check whether local storage is supported or not
+         * 
+         */
         isLocalStorageSupport: function () {
+    
             return (Storage !== void(0));
         },
-
+        /*
+         * to test for getUSerMedia support
+         */
+        // TODO browser and version is not being supported
         isGetUserMediaSupport: function (browser, version) {
+     
             navigator.getUserMedia = ( navigator.getUserMedia ||
             navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia ||
@@ -39,23 +62,38 @@
 
             return (navigator.getUserMedia) ? true : false;
         },
-
+        /*
+         * Test for indexed db support
+         * 
+         */
         isIndexedDbSupport: function () {
+   
             return (window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB) ? true : false;
         },
-
+        /*
+         * function to test  whether worker is supported or not
+         * 
+         */
         isWorkerSupport: function () {
             return !!window.Worker;
         },
-
+        /*
+         * to test wheter audio api is supported
+         */
         isAudioApiSupport: function () {
             return (window.AudioContext || window.webkitAudioContext) ? true : false;
         },
-
+        /*
+         * to check for typed aray support
+         */
         isTypedArraySupport: function () {
             return !!( 'ArrayBuffer' in window );
         },
-
+        /*
+         * 
+         * @param bname browser name
+         * @param bversion browser version
+         */
         isScreenShareSupport: function (bname, bversion) {
             if (bname == 'Firefox') {
                 return (bversion >= 34);
@@ -64,11 +102,20 @@
             }
             return false;
         },
-
+        /*
+         * 
+         * @param key: property of the object
+         * @param value: value of the property
+         */
         setValue: function (key, value) {
             this[key] = value;
         },
-
+        /*
+         * Setting the api properties to true or false based on whether they are supported
+         * or not by the environment 
+         * @param bname browser name
+         * @param bversion browser version
+         */
         checkBrowserFunctions: function (bname, bversion) {
             this.setValue('canvas', this.isCanvasSupport());
             this.setValue('webSocket', this.isWebSocketSupport());
@@ -80,8 +127,12 @@
             this.setValue('screenshare', this.isScreenShareSupport(bname, bversion));
             this.setValue('localstorage', this.isLocalStorageSupport());
         },
-
+        /*
+         * Measuring the resolution of virtual class container
+         * @param resolution : an object containing inner width and inner height of window
+         */
         measureResoultion: function (resolution) {
+         
             var element = document.getElementById('virtualclassCont');
             var offset = vcan.utility.getElementOffset(element);
             var offsetLeft = offset.x;
@@ -89,11 +140,16 @@
                 var width = 1024 - offsetLeft;
             } else {
                 var width = resolution.width - offsetLeft;
+                 
             }
             var height = resolution.height - offset.y;
             return {'width': (width), 'height': (height)};
         },
+        /*
+         * setting dimension of the application
+         */
         setAppDimension: function () {
+           
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             //var mainWrapper =  document.getElementById('virtualclassCont');
             virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
@@ -101,11 +157,13 @@
                 system.setCanvasDimension(measureRes);
             }
         },
+        /*
+         * Setting dimension of the canvas
+         */
         setCanvasDimension: function (measureRes) {
             if (typeof vcan.main.canvas != 'undefined') {
                 var canvas = vcan.main.canvas;
                 ctx = vcan.main.canvas.getContext('2d');
-
                 canvas.width = measureRes.width;
                 var toolWrapperHeight = (virtualclass.gObj.uRole == 't') ? (45 + 20) : 10;
                 canvas.height = measureRes.height - toolWrapperHeight;
@@ -115,6 +173,7 @@
                 vcan.main.offset.x = offset.x;
             }
         },
+        // TODO this function is not being invoked
         getResoultion: function (windowWidth) {
             var resolution = {};
             if (windowWidth < 1280) {
@@ -132,7 +191,10 @@
             }
             return resolution;
         },
-
+        /*
+         *Getting application support for the user and if there  are errors they will be pushed in an array error
+         *@param user user role 
+         */
         reportBrowser: function (user) {
             var errors = this.getErrors(user);
             if (errors.length > 1) {
@@ -141,7 +203,11 @@
                 virtualclass.error.push(errors + ' is disabled in your browser.');
             }
         },
-
+        /*
+         * Test for the apis availability and if test fails corresponding api error will be pused into an array called errors
+         * @param user user role
+         * @return errors : An array of generated errors if apis are not available
+         */
         getErrors: function (user) {
             var errors = [];
             //webSocket to websocket
@@ -157,6 +223,10 @@
             }
             return errors;
         },
+        /*
+         * To check Whether the device is apple device 
+         * @return return apple device version
+         */
         isiOSDevice: function () {
             var iOSVersion = parseFloat(
                     ('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(navigator.userAgent) || [0, ''])[1])
@@ -164,12 +234,20 @@
                 ) || false;
             return iOSVersion;
         },
-
+        /* 
+         * To test for the android device 
+         * @return return true if the device is android device
+         */
         isAndroid: function () {
             var ua = navigator.userAgent.toLowerCase();
             return ua.indexOf("android") > -1;
         },
-
+        /*
+         * to check for  the support of virtual class and it's api in  browsers and versions  
+         * for unsupported browsers virtual class will be disabled and erroe
+         * will be generated
+         * 
+         */
         check: function () {
             var iOS = this.isiOSDevice();
             this.device = "desktop";
@@ -318,6 +396,7 @@
 
     system = system.init();
     // There could be the problem
+    // TODO two event listener for the same event resize
     window.addEventListener('resize',
         function () {
             if (window.earlierWidth != window.innerWidth) {
@@ -333,7 +412,7 @@
             }
         }
     );
-
+    // TODO this function is not being invoked
     system.mybrowser.detectIE = function () {
         var ua = window.navigator.userAgent;
 
@@ -359,6 +438,7 @@
         // other browser
         return false;
     },
+        // TODO this function is not being invoked
         system.mybrowser.detection = function () {
 
             var ua = navigator.userAgent, tem,

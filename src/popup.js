@@ -223,7 +223,10 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.replayWindow = function () {
-       var element = document.getElementById('about-modal');
+
+       
+        var element = document.getElementById('about-modal');
+
         virtualclass.popup.open(element);
 
         this.hideAllPopups();

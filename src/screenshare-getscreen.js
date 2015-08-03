@@ -1,3 +1,11 @@
+/*
+ * Executed when the virtual class is loaded 
+ * Provides an interaction  with desktop selector
+ * messege is posted to desktop selector and and desktop selector
+ * performes the task and posts a message back on receiving the message.
+ * initializes user's screen and recorders 
+ * 
+ */
 window.addEventListener('message', function (event) {
     if (event.origin != window.location.origin) {
         return;

@@ -7,6 +7,7 @@
         return {
             //TODO function name should be change
             assignRole: function (role, app) {
+     
                 if (role == 't') {
                     if(localStorage.getItem('reclaim') == null){
                         virtualclass.html.leftAppBar();
@@ -45,8 +46,9 @@
                 }
                 return false;
             },
-
+          
             createControl: function (userId, controls) {
+                debugger;
                 var controlCont = document.createElement('div');
                 controlCont.id = userId + "ControlContainer";
                 controlCont.className = "controls";
@@ -55,6 +57,7 @@
             },
 
             createControllerElement : function (userId, imgName) {
+                debugger;
                 var elemBlock = document.createElement('span');
                 elemBlock.id = userId + imgName + "Img";
 
@@ -104,9 +107,9 @@
             },
 
 
-            // TODO this function should be normalize with other
-            // should be converted into smaller funciton rather than single
+            
             createControlDivs: function (controlCont, userId, controls) {
+       
                 var that = this;
                 //var userObj = localStorage.getItem(userId);
                 var uObj = false;

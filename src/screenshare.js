@@ -1,6 +1,7 @@
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
+ * This file provides all functionality needed to share screen.
  */
 
 (function (window) {
@@ -9,11 +10,24 @@
     function callback(error) {
         virtualclass.vutil.initInstallChromeExt(error);
     }
-
+    /*
+     * This returns an object that contains methods to initilize student screen
+     * @returns an object to initilize student screen
+     */
     var studentScreen = function () {
         return {
+            /*
+             * Calculating the width and height of the student screen according the requirement of the-
+             * application to be shared
+             * And calling a function with the appropriate data to inilaize student screen
+             * @param data_pack data pack contains encoded data to sent receiver
+             * @param  msg  is a unit8clampped array or unit8array based on the protocol saved a the first element in data_Pack
+             * @param  stype type of the application such as "ss
+             * @param  sTool tool for the application here it is screen share 
+             */
             ssProcess: function (data_pack, msg, stype, sTool) {
                 var mycase = data_pack[0];
+                // uint8
                 data_pack = new Uint8ClampedArray(msg);
                 var x, y, h, w, l, recmsg, dw, dh, vcw, vch, dimObj;
                 switch (mycase) {
@@ -54,9 +68,19 @@
                         break;
                 }
             },
-
+            /*
+             * Initializes the student screen, makes the application ready
+             * calls functions to set dimension of student screen 
+             * setting dimension of student's screen
+             * drwaing image on the screen of student
+             * @param  imgData
+             * @param  d dimension object
+             * @param  stype type of the application such as ss for screen share
+             * @param  stool  screen share 
+             */
+            // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
-
+                    
 //                io.dataBinaryStore(imgData); //storing received screen
 
                 virtualclass.vutil.addClass('audioWidget', "fixed");
@@ -104,8 +128,21 @@
             }
         }
     };
-
+    /*
+     * This function returns an object that contains all the functions necessary to use the application share screen 
+     * such as to initalize screen, get screen(screen selector window) on different browsers,
+     * Creating container,
+     * Recording screen ,
+     * sharing on student's screen
+     * @param  config is an object containg id and class properties of the application to be shared,
+     * on student's screen.
+     * @return  returns an object containing various methods for screen share
+     * 
+     */
     var screenShare = function (config) {
+        /*
+         *
+         */
         virtualclass.getSceenFirefox = function () {
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
             if (ffver >= 33) {
@@ -117,7 +154,6 @@
                 };
                 virtualclass.adpt = new virtualclass.adapter();
                 var navigator2 = virtualclass.adpt.init(navigator);
-
                 navigator2.getUserMedia(constraints, function (stream, err) {
                         //callback(err, stream);
                         virtualclass.ss._init();
@@ -160,23 +196,40 @@
 
         return {
             prevStream: false,
+            /* 
+             * This function is invoked on clicking screen share icon .
+             * At the teacher's window screen share application is started ,
+             * And on student's window _init function is invoked to inilize screen
+             * @param screen screen object
+              
+             */
             init: function (screen) {
-
+              
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;
+                
                 //if(virtualclass.gObj.uRole == 't' && !virtualclass.hasOwnProperty('repType')){
                 if (virtualclass.gObj.uRole == 't' && !virtualclass.recorder.recImgPlay) {
+                   
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
                     //}
                 } else {
+                   
+                   
                     this._init();
                 }
             },
 
-            //called when user select the screencall
+            /*
+             * Called when user select the screenshare
+             * configuring the screen 
+             * inilizing student screen
+             * 
+             */
             _init: function () {
+              
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';
                     virtualclass.previous = config.id;
@@ -187,13 +240,13 @@
                     ss.style.display = 'block';
                 }
 
-                if (!this.hasOwnProperty('id')) {
+                if (!this.hasOwnProperty('id'))   {
                     this.dc = virtualclass.dirtyCorner;
                     this.postFix = "Cont";
                     this.id = config.hasOwnProperty('id') ? config.id : "virtualclassScreenShare";
                     this.className = "virtualclass";
                     this.label = "Local",
-                        this.local = this.id + this.label;
+                    this.local = this.id + this.label;
                     this.localTemp = this.id + this.label + "Temp";
                     this.classes = config.hasOwnProperty('class') ? config.classes : "";
 
@@ -203,8 +256,7 @@
                     if (ssUI != null) {
                         ssUI.parentNode.removeChild(ssUI);
                     }
-//                    alert('suman bogati');
-//                    debugger;
+
                     ssUI = this.html.UI.call(this, virtualclass.gObj.uRole);
                     var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
                     document.getElementById(virtualclass.html.id).insertBefore(ssUI, beforeAppend);
@@ -214,28 +266,40 @@
                     }
                 }
             },
-
+            /*
+             * This function gets  screen reloaded with the url
+             * @param app it stores the string screenshare
+             */
             readyTostart: function (app) {
                 if (app == virtualclass.apps[1]) {
                     this.getScreen();
                 }
 
             },
-
+            /*
+             * Displays the error if any
+             * @param e error
+             * 
+             */
             onError: function (e) {
                 console.log("Error " + e);
             },
-
+            /*
+             * To Get screen for Firefox and chrome, 
+             * in case of crome if desktop extension is added it is used otherwise
+             * it is added from the crome webstore
+             * @param callback is unused
+             */
             getScreen: function (callback) {
-
-//                alert(chrome.desktopCapture);
-//                debugger;
                 if (virtualclass.system.mybrowser.name == 'Chrome') {
                     if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
+                      
                         window.postMessage({type: 'getScreen', id: 1}, '*');
                     } else {
+                        
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
+                           
                             window.location.reload();
                         });
                     }
@@ -243,27 +307,42 @@
                     virtualclass.getSceenFirefox();
                 }
             },
-
+            /*
+             *  clear previous screen from teacher's window
+             *  The operation beforeSend is performed that
+             *  sends data to the student that previous screen is to be unshared
+             *  
+             */
             unShareScreen: function () {
+               
                 this.video.src = "";
                 this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
                 clearInterval(virtualclass.clear);
                 //this.prevImageSlices = [];
                 this.initPrevImage();
-
                 if (this.hasOwnProperty('currentStream')) {
                     this.currentStream.stop();
                 }
-
               virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type});
             },
-
+            /*
+             * It clears the canvas
+             */
             removeStream: function () {
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
             },
-
-            initializeRecorder: function (stream) {
+            /*
+             * Initializing the recorder to record the scrren that will be shared
+             * And creating canvas element for the screen share,attaching
+             * the media stream to the canvas element
+             * it calls sharing function that share's the screen in the form of video to the student screen
+             * clears the screen on cancelling screen share
+             * @param stream 
+             */
+             
+            initializeRecorder: function (stream) 
+            {
                 virtualclass.vutil.addClass("audioWidget", "fixed");
                 changeonresize = 1;
                 resizecalled = 0;
@@ -285,7 +364,6 @@
                     var video = document.createElement('video');
                     video.id = earlierVideo.id;
                     this.video.parentNode.replaceChild(video, this.video);
-
                     this.video = document.getElementById(this.local + "Video");
                     this.video.autoplay = true;
                     virtualclass.vutil.createLocalTempVideo("virtualclassScreenShare", this.local + "Temp");
@@ -293,12 +371,10 @@
                 }
                 this.currentStream = stream;
                 var that = this;
-
-                console.log("video changed");
-
+                //("video changed");
                 virtualclass.adpt.attachMediaStream(this.video, stream);
                 this.prevStream = true;
-
+                // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.onended = function (name) {
                     if (that.ssByClick) {
                         that.video.src = "";
@@ -306,7 +382,7 @@
                         clearInterval(virtualclass.clear);
                         //that.prevImageSlices = [];
                         that.initPrevImage();
-                      virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type});
+                        virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type});
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same
@@ -327,6 +403,12 @@
                 //setStyleToElement(vidContainer, width, height);
                 var that = this;
                 var video;
+                /*
+                 * Event handler on loading meta data of the video
+                 * Setting container width
+                 * calling sharing function to share screen 
+                 * making screenshare active application and removing previous application
+                 */
                 this.video.onloadedmetadata = function () {
 
                     that.width = dimension.width;
@@ -355,7 +437,15 @@
                     virtualclass.previrtualclass = that.id;
                 }
             },
+            /*
+             * sending the video to the student in the form of encoded data
+             * status code is also sent with the encoded data
+             *screen is shared in the form of video
+             *@return sendmsg encoded data and status code together
+             */
+            // function is too large
             sharing: function () {
+               
                 var tempObj, encodedData, stringData, d, matched, imgData;
                 var resA = Math.round(this.localtempCanvas.height / 12);
                 var resB = Math.round(this.localtempCanvas.width / 12);
@@ -375,7 +465,11 @@
 
                 var screenIntervalTime = 1000;
                 var pscreenIntervalTime = 1000;
-
+                /*
+                 * To send full  encoded image data and status code 
+                 * @param  type type of the application
+                 * @returns sendmsg message containg imagedata and encoded data
+                 */
                 virtualclass.getDataFullScreen = function (type) {
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
@@ -383,20 +477,23 @@
 
                     //if(typeof firstTimeDisp == 'undefined'){
                     var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
-
                     var encodedData = that.dc.encodeRGB(imgData.data);
                     var h = breakintobytes(that.localtempCanvas.height, 4);
                     var w = breakintobytes(that.localtempCanvas.width, 4);
                     var statusCode = null;
                     statusCode = (type == 'ss') ? 102 : 202;
                     var scode = new Uint8ClampedArray([statusCode, w[0], w[1], h[0], h[1]]);
-
                     var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
                     sendmsg.set(scode);
                     sendmsg.set(encodedData, scode.length);
                     return sendmsg;
+                   
                 };
-
+                /* Encoded message is sent to student, 
+                 * Getting full video data on resize of the window
+                 * @param  stype implies screenshare
+                 * @returns {Uint8ClampedArray}
+                 */
                 function getDataFullScreenResize(stype) {
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
@@ -441,16 +538,27 @@
                     }
                     return sendmsg;
                 }
-
+                /*
+                 * Breaking  value into parts
+                 * @param  val width or height 
+                 * @param l  length to make of val by appending zero
+                 * @returns returning comma separated string
+                 */
                 function breakintobytes(val, l) {
+                    
                     var numstring = val.toString();
                     for (var i = numstring.length; i < l; i++) {
                         numstring = '0' + numstring;
+                    
                     }
                     var parts = numstring.match(/[\S]{1,2}/g) || [];
                     return parts;
                 }
-
+                /*
+                 * finding out whether previous dimention are same or not to the current  video dimension
+                 * if there is change in dimension   resized window  data is sent
+                 * otherwise image data slices will be sent
+                 */
                 function sendScreen() {
                     clearInterval(virtualclass.clear);
                     if (typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined') {
@@ -467,8 +575,13 @@
                     } else {
                         sendDataImageSlices(that.type);
                     }
+                 
                 }
-
+                /*
+                 * Setting screen interval time based on the size of image to be sent
+                 * @param  localBandwidth image size that is to be sent
+                 * 
+                 */
                 function calcBandwidth(localBandwidth) {
                     if (localBandwidth <= 400 || typeof localBandwidth == 'undefined') {
                         screenIntervalTime = 400;
@@ -488,7 +601,12 @@
                     }
                     pscreenIntervalTime = screenIntervalTime;
                 }
-
+                /*
+                 * Getting the changed width and height of the new screen
+                 * Creating image nd calculating bandwidth
+                 * And sending binary data of image
+                 * setting the interval for function send screen 
+                 */
                 function sendResizeWindow() {
                     console.log('RESIZE');
                     prvVWidth = that.video.offsetWidth;
@@ -503,7 +621,7 @@
 //                    console.log ('RESIZE Bandwidth '+ (createdImg.length / 128)+'Kbps' + 'New Time ' + screenIntervalTime);
                     virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
                 }
-
+                //  TODO this function is unused ,should be removed
                 function w(val, l) {
                     var numstring = val.toString();
                     for (var i = numstring.length; i < l; i++) {
@@ -512,8 +630,13 @@
                     var parts = numstring.match(/[\S]{1,2}/g) || [];
                     return parts;
                 }
-
+                /*
+                 * Sending data in the form of  slices , to send only that part that is changed in the video of screen share
+                 * image data is provided to the worker that is calulating change part for the main javascript thread
+                 * @param type : type of the application 
+                 */
                 function sendDataImageSlices(type) {
+               
                     var localBandwidth = 0;
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
@@ -542,6 +665,7 @@
                         // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
                             if (e.data.needFullScreen == 1) { //sending full screen here
+                                
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
                                 io.sendBinary(createdImg);
                                 var localBandwidth = (createdImg.length / 128); // In Kbps
@@ -555,15 +679,25 @@
                     }
                     clearInterval(virtualclass.clear);
                     virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
+                   
                 }
 
                 clearInterval(virtualclass.clear);
                 virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
             },
+            /*
+             *  returnting  width and height of screen share container
+             * @return  an object  containing width and height
+             */
             getContainerDimension: function () {
                 var vidCont = document.getElementById(this.id + "Local");
                 return {width: vidCont.offsetWidth, height: vidCont.offsetHeight};
             },
+            /*
+             * Drawing the image over the canvas
+             * @param rec image data
+             * @param d dimension of the image
+             */
             drawImages: function (rec, d) {
                 if (typeof d != 'undefined') {
                     var imgData = this.dc.decodeRGBSlice(rec, this.localCont, d);
@@ -573,10 +707,18 @@
                     this.localCont.putImageData(imgData, 0, 0);
                 }
             },
+            // TODO this function is not being invoked
             drawSingleImage: function (rec) {
                 var imgData = this.dc.decodeRGB(rec, this.localCont, this.localCanvas);
                 this.localCont.putImageData(imgData, 0, 0);
             },
+            /*
+             * Setting with and height of container canvas at student's screen
+             * @param cWidth width 
+             * @param cHeight height
+             * 
+             */
+             
             dimensionStudentScreen: function (cWidth, cHeight) {
                 this.localCanvas = document.getElementById(virtualclass[app].local + "Video");
                 this.localCont = virtualclass[app].localCanvas.getContext('2d');
@@ -584,6 +726,12 @@
                 this.localCanvas.height = cHeight;
                 console.log("normal width " + this.localCanvas.width);
             },
+            /*
+             * setting dimension of virtual class container and setting dimension of screen share canvas 
+             * at student's side
+             * @param msg  dimension object for local canvas for screen share and virtual container
+             * @param vtype this variable is not being used
+             */
             dimensionStudentScreenResize: function (msg, vtype) {
                 if (!this.hasOwnProperty('vac')) {
                     this.vac = true;
@@ -606,12 +754,19 @@
                 if (virtualclass.previous == 'virtualclassScreenShare') {
                     virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
                 }
-
+           
                 //if (virtualclass.previous != 'virtualclassWhiteboard') {
                 //    virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
                 //}
             },
+            /*
+             * Creating user interface part for the screen share
+             */
             html: {
+                /*
+                 * Creating main catainer and local container for screen share
+                 * @user role of the user
+                 */
                 UI: function (user) {
                     var mainCont = virtualclass.vutil.createDOM("div", this.id, [this.className]);
                     var locVidCont = virtualclass.vutil.createDOM("div", this.local, [this.label]);
@@ -647,6 +802,11 @@
 
                     return mainCont;
                 },
+                /*
+                 * @param container object containg width and height property
+                 * @aspectRatio a fractional value
+                 * @return  an object containing modified width and height
+                 */
                 getDimension: function (container, aspectRatio) {
                     var aspectRatio = aspectRatio || (3 / 4),
                         height = (container.width * aspectRatio),
@@ -658,7 +818,7 @@
                     };
                 }
             },
-
+            // to initialize previous image
             initPrevImage: function () {
                 sworker.postMessage({'initPrevImg': true});
             }

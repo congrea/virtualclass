@@ -306,7 +306,6 @@
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
-
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 

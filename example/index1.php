@@ -20,7 +20,7 @@ function get_string($phrase){
 
 
 //the www path for virtualclass
-$whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
+$whiteboardpath = "https://loc.vidya.io/virtualclass/";
 
 ?>
 
@@ -57,7 +57,7 @@ $whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
 
 include('js.php');
 // this url should be soemthing like this
-// https://lc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
+// https://loc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
 
 $isplay = false;
 
@@ -128,7 +128,9 @@ if(isset($_GET['lname'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
-    window.whiteboardPath =  'https://lc.vidya.io/suman-repo/virtualclass/';
+
+    window.whiteboardPath =  'https://loc.vidya.io/virtualclass/';
+
     window.importfilepath = window.whiteboardPath + 'import.php';
     window.exportfilepath = window.whiteboardPath + 'export.php';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"

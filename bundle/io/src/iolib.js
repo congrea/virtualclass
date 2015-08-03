@@ -13,10 +13,10 @@ var io = {
     wsuri: null,
     error: null,
     uniquesids: null,
+
     init: function (cfg, callback) {
         "use strict";
         this.cfg = cfg;
-        var that = this;
         this.wsconnect();
     },
 
@@ -66,7 +66,9 @@ var io = {
                 message: e.reason
             });
             console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
-            //  setTimeout(function(){scope.wsconnect()}, 5000);
+            setTimeout(function () {
+                scope.wsconnect()
+            }, 5000);
         };
     },
 
@@ -90,103 +92,34 @@ var io = {
         this.sock.send(jobj);
     },
 
-    send: function (msg) {
+    send: function (msg, cfun, touser) {
+        "use strict";
 
-        if(this.sock == null){
+        if (this.sock == null) {
             console.log("socket is not created");
             return;
         }
-
-        "use strict";
-        var bctype = 'broadcastToAll';
-
-        if(msg.hasOwnProperty('eddata')){
-
-            if(msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation'){
-                if(virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich"){
-                    msg.et = 'editorRich';
-                } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode"){
-                    msg.et = 'editorCode';
-                }else {
-                    msg.et = msg.et;
-                }
-            }
-
-            bctype = 'broadcast';
-        }
-
         var obj = {
-            //cfun : 'broadcast',
-            cfun: bctype,
+            cfun: cfun,
             arg: {'msg': msg}
         };
-
-
-        if (arguments.length > 1) {
-            var uid = arguments[1];// user id to  whom msg is intented
-            obj.arg.touser = this.uniquesids[uid];
+        if (touser) {
+            obj.arg.touser = this.uniquesids[touser];
         }
-
         var jobj = JSON.stringify(obj);
         this.sock.send(jobj);
-
-        if (arguments.length == 1) {
-            // STORAGE
-            var storObj = {
-                //cfun : 'broadcast',
-                type: bctype,
-                m: msg,
-                userto: obj.arg.hasOwnProperty('touser') ? obj.arg.touser : "",
-                user: virtualclass.uInfo.userobj
-            };
-
-            if(storObj.type != 'broadcast'){
-                var storjobj = JSON.stringify(storObj);
-                //getMsPckt, can not request the packets from other user during replay
-                if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
-                    this.completeStorage(storjobj);
-                }
-            }
-        }
 
     },
 
     sendBinary: function (msg) {
         "use strict";
         this.sock.send(msg.buffer);
-        this.dataBinaryStore(msg);
     },
 
-    dataBinaryStore: function (msg) {
-        "use strict";
-        var dtype;
-        if (Object.prototype.toString.call(msg) == "[object Int8Array]") {
-            dtype = 'a';
-            msg = virtualclass.dtCon.base64EncArrInt(msg);
-        } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]") {
-            dtype = 'c';
-            msg = virtualclass.dtCon.base64EncArr(msg);
-        }
-        this.completeStorage(msg, {type: dtype});
-    },
-
-    sendBinary_old: function (msg) {
-        "use strict";
-        this.sock.send(msg.buffer);
-        //2nd parameter about binary data
-        var bcsv = Array.prototype.join.call(msg, ",");
-
-        if (Object.prototype.toString.call(msg) == "[object Int8Array]") {
-            bcsv = 'a,' + msg.length + ',' + bcsv;
-        } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]") {
-            bcsv = 'c,' + msg.length + ',' + bcsv;
-        }
-        this.completeStorage(bcsv, true);
-    },
 
     onRecMessage: function (e) {
         "use strict";
-        //try {
+        try {
             var scope = this;
             if (e.data instanceof ArrayBuffer) {
                 $.event.trigger({
@@ -195,24 +128,11 @@ var io = {
                 });
                 var data_pack = new Uint8Array(e.data);
                 var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
-                this.dataBinaryStore(msg);
+                ioStorage.dataBinaryStore(msg);
             } else {
                 var receivemsg = JSON.parse(e.data);
-                if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') &&  receivemsg.m.hasOwnProperty('eddata'))) {
+                if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') && receivemsg.m.hasOwnProperty('eddata'))) {
                     io.completeStorage(e.data);
-
-                    //////TODO this has to be simpliyfied
-                    //if(receivemsg.hasOwnProperty('m')){
-                    //    if(receivemsg.m.hasOwnProperty('eddata')){
-                    //        if(receivemsg.m.eddata != 'init'){
-                    //            io.completeStorage(e.data);
-                    //        }
-                    //    }else {
-                    //        io.completeStorage(e.data);
-                    //    }
-                    //} else {
-                    //    io.completeStorage(e.data);
-                    //}
                 }
                 var userto = '';
                 switch (receivemsg.type) {
@@ -280,13 +200,13 @@ var io = {
                         break;
                 }
             }
-        //} catch (e) {
-        //    console.log("Error catched   : " + e);
-        //    $.event.trigger({
-        //        type: "error",
-        //        message: e
-        //    });
-        //}
+        } catch (e) {
+            console.log("Error catched   : " + e);
+            $.event.trigger({
+                type: "error",
+                message: e
+            });
+        }
     },
 
     disconnect: function () {
@@ -294,53 +214,7 @@ var io = {
         };
         this.sock.close();
         console.log("i am closing this connection");
-    },
-
-    completeStorage: function (data, bdata, sessionEnd) {
-
-        if (virtualclass.hasOwnProperty('getContent') && virtualclass.getContent == true) {
-            return; // not store when data is fetching from indexeddb
-        }
-
-        if (typeof firstTime == 'undefined') {
-            referenceTime = window.pageEnter;
-            firstTime = true;
-
-            if (!virtualclass.vutil.isPlayMode()) {
-                var t = virtualclass.storage.db.transaction(['allData'], "readwrite");
-                if (typeof t != 'undefined') {
-                    //should check first row is authuser/authpass
-                    // clear if differnt else leave as it is
-                    var objectStore = t.objectStore('allData');
-                    objectStore.openCursor().onsuccess = function (event) {
-                        var cursor = event.target.result;
-                        if (cursor) {
-                            if (cursor.value.hasOwnProperty('recObjs')) {
-                                if (!cursor.value.hasOwnProperty('bd')) {
-                                    var recObs = JSON.parse(cursor.value.recObjs);
-                                    if (!recObs.hasOwnProperty('authuser')) {
-                                        objectStore.clear();
-                                    }
-                                } else {
-                                    objectStore.clear();
-                                }
-                            }
-                        }
-                    };
-                }
-            }
-        }
-
-        var currTime = new Date().getTime();
-        var playTime = currTime - referenceTime;
-
-        if (typeof sessionEnd != 'undefined') {
-            //undefined for data and bindary data
-            virtualclass.storage.completeStorage(playTime, undefined, undefined, sessionEnd)
-        } else {
-            (typeof bdata == 'undefined') ? virtualclass.storage.completeStorage(playTime, data) : virtualclass.storage.completeStorage(playTime, data, bdata);
-        }
-
-        referenceTime = currTime;
     }
+
+
 };

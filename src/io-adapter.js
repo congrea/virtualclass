@@ -1,8 +1,15 @@
 var ioAdapter = {
 
+    adapterMustData : [], // It contains all data that is must for all users to have
+    serial : 0, // It is serial number of packet, normally set to corrent number
+    //TODO - Store adapterMustData and serial to IndexDB
+
     mustSend: function (msg) {
         "use strict";
-        this.send(msg)
+        serial++;
+        msg.serial = serial;
+        adapterMustData[serial] = msg;
+        this.send(msg);
     },
 
     send: function (msg) {
@@ -50,6 +57,16 @@ var ioAdapter = {
         "use strict";
         io.sendBinary(msg);
         ioStorage.dataBinaryStore(msg)
+    },
+
+    /**
+     * TODO
+     * 1) Check if packet is missed, wait for one second and then request for missing packets
+     * 2) If a request is already in queue, do not send more requests.
+     * 3) Finally call, io.onRecMessage function when queue is normal (all missing packets received).
+     */
+    checkMissing : function () {
+
     }
 
 };

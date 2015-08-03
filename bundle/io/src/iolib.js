@@ -13,6 +13,7 @@ var io = {
     wsuri: null,
     error: null,
     uniquesids: null,
+    serial: null,
 
     init: function (cfg, callback) {
         "use strict";
@@ -46,7 +47,11 @@ var io = {
         };
         this.sock.binaryType = 'arraybuffer';
         this.sock.onmessage = function (e) {
-            io.onRecMessage(e);
+            if (e.serial) {
+                ioAdapter.checkMissing(serial);
+            } else {
+                io.onRecMessage(e);
+            }
         };
 
         this.sock.onerror = function (e) {

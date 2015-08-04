@@ -323,7 +323,7 @@
                 if (this.hasOwnProperty('currentStream')) {
                     this.currentStream.stop();
                 }
-              virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type});
+              virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf' : 'unshareScreen' });
             },
             /*
              * It clears the canvas
@@ -382,7 +382,7 @@
                         clearInterval(virtualclass.clear);
                         //that.prevImageSlices = [];
                         that.initPrevImage();
-                        virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type});
+                        virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf' : 'unshareScreen'});
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same

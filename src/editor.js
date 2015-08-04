@@ -93,7 +93,7 @@
                         if (localStorage.getItem('orginalTeacherId') != null) {
                             this.createAllEditorController();
                         }
-                        ioAdapter.mustSendAll({eddata : 'init', et: this.etype});
+                        ioAdapter.mustSendAll({eddata : 'init', et: this.etype, cf : 'eddata'});
                     } else {
                         if (localStorage.getItem('orginalTeacherId') != null) {
                             this.createAllEditorController();
@@ -210,7 +210,7 @@
 
                     if(toUser != '' && typeof toUser != 'undefined' &&  io.sock != null){
                          if(io.sock.readyState == 1){
-                             ioAdapter.mustSendUser({'eddata': 'requestForEditorData', et: this.etype}, toUser);
+                             ioAdapter.mustSendUser({'eddata': 'requestForEditorData', et: this.etype, cf : 'eddata'}, toUser);
                          }
                         this.readOnlyMode('enable');
                     }
@@ -277,7 +277,7 @@
                     requestForEditorData : function (e){
                         if(e.fromUser.userid != virtualclass.gObj.uid){
                             if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
-                                ioAdapter.mustSendAll({'eddata' : 'noDataForEditor'});
+                                ioAdapter.mustSendAll({'eddata' : 'noDataForEditor', cf : 'eddata'});
                                 return;
                             }
 

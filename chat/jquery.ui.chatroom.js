@@ -179,7 +179,7 @@
             .keydown(function(event) {
                 if(event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
                     msg = $.trim($(this).val());
-                    var msgobj = {'receiver':'chatroom','msg':msg};
+                    var msgobj = {'receiver':'chatroom','msg':msg, 'cf' : 'msg'};
                     if(msg.length > 0) {
                         ioAdapter.mustSend(msgobj);
 

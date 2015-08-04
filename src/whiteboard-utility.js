@@ -76,7 +76,7 @@
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
                         var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
-                      virtualclass.vutil.beforeSend({'repObj': [obj]});
+                      virtualclass.vutil.beforeSend({'repObj': [obj],'cf' : 'repObj'});
                     }
                 }
             },
@@ -430,16 +430,17 @@
 
                 }
             },
-            updateRcvdInformation: function (msg) {
-                var receivedMsg = document.getElementById('rcvdMsgInfo');
-                if (receivedMsg != null) {
-                    var compMsg = "";
-                    for (var key in msg) {
-                        compMsg += key + " : " + msg[key] + " <br />";
-                    }
-                    receivedMsg.innerHTML = compMsg;
-                }
-            },
+            // this function is not used any more
+            //updateRcvdInformation: function (msg) {
+            //    var receivedMsg = document.getElementById('rcvdMsgInfo');
+            //    if (receivedMsg != null) {
+            //        var compMsg = "";
+            //        for (var key in msg) {
+            //            compMsg += key + " : " + msg[key] + " <br />";
+            //        }
+            //        receivedMsg.innerHTML = compMsg;
+            //    }
+            //},
             makeCanvasDisable: function () {
                 var canvasElement = vcan.main.canvas;
                 canvasElement.style.position = 'relative';
@@ -917,8 +918,9 @@
                 }
             },
 
-            sendRequest: function (msg, value) {
-              virtualclass.vutil.beforeSend({'reclaimRole': true});
+
+            sendRequest: function () {
+              virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf' : 'reclaimRole'});
             },
             updateSentInformation: function (jobj, createArrow) {
                 if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
@@ -1123,7 +1125,7 @@
             //todo, this shoudl be into user file
             _reclaimRole: function () {
                 virtualclass.wb.utility.reclaimRole();
-                virtualclass.wb.utility.sendRequest('reclaimRole', true);
+                virtualclass.wb.utility.sendRequest();
                 virtualclass.user.control.changeAttrToAssign('enable');
             },
 

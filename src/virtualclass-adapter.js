@@ -117,10 +117,10 @@ virtualclassAdapter = function () {
 				operation: operation,
 				cursor: cursor
 			}),
-			et: editor
+			et: editor,
+			cf : 'eddata'
 
 		};
-
 
 		ioAdapter.mustSendAll(sendData);
 		var that = this;
@@ -131,7 +131,8 @@ virtualclassAdapter = function () {
 		//ioAdapter.mustSend({'selection' : selection});
 		ioAdapter.mustSendAll({
 			eddata: 'selection',
-			data: JSON.stringify(selection)
+			data: JSON.stringify(selection),
+			cf : 'eddata'
 		});
 	};
 
@@ -139,7 +140,8 @@ virtualclassAdapter = function () {
 		//console.log("Send Cursor");
 		ioAdapter.mustSendAll({
 			eddata: 'virtualclass-editor-cursor',
-			data: JSON.stringify(cursor)
+			data: JSON.stringify(cursor),
+			cf : 'eddata'
 		});
 	};
 

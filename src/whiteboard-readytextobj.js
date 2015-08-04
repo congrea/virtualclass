@@ -238,7 +238,7 @@
 //                        virtualclass.recorder.items.push(obj);
                     //  virtualclass.storage.wholeStore(obj);
                     //virutalclass.vutil.beforeSend({'repObj': [obj]});
-                  virtualclass.vutil.beforeSend({'repObj': [obj]});
+                  virtualclass.vutil.beforeSend({'repObj': [obj], 'cf' : 'repObj'});
                     virtualclass.wb.utility.updateSentPackets(obj);
                 }
 

@@ -29,7 +29,7 @@
 
                 virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
                 virtualclass.storage.config.endSession();
-                virtualclass.vutil.beforeSend({sEnd: true});
+                virtualclass.vutil.beforeSend({sEnd: true, 'cf' :  'sEnd'});
 
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
@@ -349,7 +349,7 @@
 
                     if (typeof this.previous != 'undefined') {
                         if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
-                          virtualclass.vutil.beforeSend({'dispWhiteboard': true});
+                          virtualclass.vutil.beforeSend({'dispWhiteboard': true, cf : 'dispWhiteboard'});
                         }
                     }
                     //this.dispvirtualclassLayout(this.wbConfig.id);
@@ -528,7 +528,7 @@
                             ioStorage.completeStorage(undefined, undefined, 'sessionend');
                             setTimeout(function () {
                                     virtualclass.getContent = true;
-                                    virtualclass.vutil.beforeSend({sEnd: true}); //before close, clear student virtualclass data
+                                    virtualclass.vutil.beforeSend({sEnd: true, 'cf' :  'sEnd'}); //before close, clear student virtualclass data
                                     io.sock.close();
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300

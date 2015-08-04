@@ -272,7 +272,7 @@
                 /**important **/
                 if (anchorNode.parentNode.id == 't_replay') {
                     virtualclass.wb.utility.clearAll(false);
-                  virtualclass.vutil.beforeSend({'replayAll': true});
+                    virtualclass.vutil.beforeSend({'replayAll': true, 'cf' : replayAll});
                 } else {
                     virtualclass.wb.toolInit(anchorNode.parentNode.id);
                 }
@@ -290,7 +290,7 @@
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        virtualclass.storage.wholeStore(obj);
 
-                  virtualclass.vutil.beforeSend({'repObj': [obj]}); //after optimized
+                  virtualclass.vutil.beforeSend({'repObj': [obj], 'cf' : 'repObj'}); //after optimized
                 }
                 if (this.parentNode.id != 't_clearall') {
                     virtualclass.wb.prvTool = this.parentNode.id;
@@ -390,7 +390,7 @@
                         virtualclass.wb.utility.makeDefaultValue(cmd);
                         virtualclass.storage.clearStorageData();
                         virtualclass.wb.prvTool = cmd;
-                        virtualclass.vutil.beforeSend({'clearAll': true});
+                        virtualclass.vutil.beforeSend({'clearAll': true, 'cf' : 'clearAll'});
                          }
                     );
 
@@ -403,7 +403,7 @@
                             'socket': virtualclass.wb.socketOn
                         });
                     } else {
-                      virtualclass.vutil.beforeSend({'assignRole': true, 'socket': virtualclass.wb.socketOn});
+                      virtualclass.vutil.beforeSend({'assignRole': true, 'socket': virtualclass.wb.socketOn, 'cf' : 'assignRole'});
                     }
                 } else if (cmd == 't_reclaim') {
                     virtualclass.wb.utility._reclaimRole();

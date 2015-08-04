@@ -869,7 +869,7 @@
         _reclaimRole: function () {
             this.reclaimRole();
             //virtualclass.wb.utility.sendRequest('reclaimRole', true);
-            virtualclass.vutil.beforeSend({'reclaimRole': true});
+            virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf' : 'reclaimRole'});
             virtualclass.user.control.changeAttrToAssign('enable');
         },
 

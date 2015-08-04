@@ -48,7 +48,6 @@
             },
           
             createControl: function (userId, controls) {
-                debugger;
                 var controlCont = document.createElement('div');
                 controlCont.id = userId + "ControlContainer";
                 controlCont.className = "controls";
@@ -57,7 +56,6 @@
             },
 
             createControllerElement : function (userId, imgName) {
-                debugger;
                 var elemBlock = document.createElement('span');
                 elemBlock.id = userId + imgName + "Img";
 
@@ -571,7 +569,7 @@
                     }
 
                     if (typeof notsent == 'undefined') {
-                      virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf' : 'assignRole'});
                     }
                     if (localStorage.getItem('orginalTeacherId') == null) {
                         if (typeof fromUserId == 'undefined') {
@@ -585,7 +583,7 @@
                 },
                 _chat: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'enc': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf' : 'enc'});
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'ch', false);
                       virtualclass.vutil.beforeSend({'dic': true, toUser: userId});
@@ -593,35 +591,35 @@
                 },
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf' : 'ena'});
                     } else {
-                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf' : 'dia'});
                     }
                 },
 
                 _editorRich: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'status': true, control:'editorRich', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': true, control:'editorRich', toUser: userId, 'cf' : 'control'});
                     } else {
-                      virtualclass.vutil.beforeSend({'status': false, control:'editorRich', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': false, control:'editorRich', toUser: userId, 'cf' : 'control'});
                     }
                 },
 
 
                 _editorCode: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'status': true, control:'editorCode', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': true, control:'editorCode', toUser: userId, 'cf' : 'control'});
                     } else {
-                      virtualclass.vutil.beforeSend({'status': false, control:'editorCode', toUser: userId});
+                      virtualclass.vutil.beforeSend({'status': false, control:'editorCode', toUser: userId, 'cf' : 'control'});
                     }
                 },
 
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf' : 'ena'});
                     } else {
-                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId});
+                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf' : 'dia'});
                     }
                 },
 

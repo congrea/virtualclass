@@ -460,7 +460,7 @@
 //                        alert('speak');
 //                        debugger;
                     virtualclass.gObj.audMouseDown = true;
-                  virtualclass.vutil.beforeSend({'sad': true});
+                  virtualclass.vutil.beforeSend({'sad': true, 'cf' : 'sad'});
                 },
                   /* 
                  * Audio tool deactive
@@ -487,7 +487,7 @@
                         tag.className = "audioTool deactive";
                         virtualclass.gObj.audMouseDown = false;
                         virtualclass.gObj.video.audio.setAudioStatus("stop");
-                      virtualclass.vutil.beforeSend({'sad': false});
+                      virtualclass.vutil.beforeSend({'sad': false, 'cf' : 'sad'});
                     }
                 },
                 /*
@@ -1065,7 +1065,9 @@
                         if (virtualclass.gObj.uRole == 't') {
                             user.role = virtualclass.gObj.uRole;
                         }
-                      virtualclass.vutil.beforeSend({videoByImage: user});
+
+                        virtualclass.vutil.beforeSend({videoByImage: user, 'cf' : 'videoByImage'});
+
                         var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
                         var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);
                         var uid = breakintobytes(virtualclass.gObj.uid, 8);

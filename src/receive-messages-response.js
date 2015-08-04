@@ -90,9 +90,9 @@
                 virtualclass.storage.clearStorageData();
             }
 
-            if (orginalTeacherId) {
-                virtualclass.wb.utility.updateRcvdInformation(eMessage);
-            }
+            //if (orginalTeacherId) {
+            //    virtualclass.wb.utility.updateRcvdInformation(eMessage);
+            //}
         },
         // TODO this is not used any more
         // should be deleted
@@ -106,9 +106,9 @@
             var obj = {};
             obj.mp = {x: eMessage.x, y: eMessage.y};
             virtualclass.wb.utility.drawArrowImg(imageElm, obj);
-            if (orginalTeacherId) {
-                virtualclass.wb.utility.updateRcvdInformation(eMessage);
-            }
+            //if (orginalTeacherId) {
+            //    virtualclass.wb.utility.updateRcvdInformation(eMessage);
+            //}
         },
         replayObj: function (repObj) {
             window.virtualclass.wb.vcan.main.replayObjs = [];
@@ -128,7 +128,7 @@
                     if (msgRepObj[0].hasOwnProperty('uid') && (!msgRepObj.hasOwnProperty('chunk'))) {
                         if ((Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) || (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId) ) {
                             var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
-                          virtualclass.vutil.beforeSend({'getMsPckt': reqPacket});
+                          virtualclass.vutil.beforeSend({'getMsPckt': reqPacket, 'cf' : 'getMsPckt'});
                         }
                     }
                 }

@@ -58,7 +58,7 @@
                             ;
                             this.onYTIframApi(videoId, startFrom, 'fromReload');
                             this.UI.inputURL();
-                            ioAdapter.mustSend({'yts': {init : 'studentlayout'}});
+                            ioAdapter.mustSend({'yts': {init : 'studentlayout'}, 'cf' : 'yts'});
                         } else {
                             if(!videoObj.hasOwnProperty('fromReload')){
                                 (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
@@ -76,7 +76,7 @@
                     this.UI.inputURL();
 
                     //For student layout
-                    ioAdapter.mustSend({'yts': {init : 'studentlayout'}});
+                    ioAdapter.mustSend({'yts': {init : 'studentlayout'}, 'cf' : 'yts'});
                 }
                
             },
@@ -215,7 +215,7 @@
 
                             virtualclass.yts.videoId = videoId;
                             virtualclass.yts.onYTIframApi(videoId);
-                            ioAdapter.mustSend({'yts': {'init': videoId}});
+                            ioAdapter.mustSend({'yts': {'init': videoId}, 'cf' : 'yts'});
                         });
                     }
                 },
@@ -381,9 +381,9 @@
              */
             ytOnMuted: function (muted) {
                 if (muted) {
-                    ioAdapter.mustSend({'yts': 'mute'});
+                    ioAdapter.mustSend({'yts': 'mute', 'cf' : 'yts'});
                 } else {
-                    ioAdapter.mustSend({'yts': 'unmute'});
+                    ioAdapter.mustSend({'yts': 'unmute', 'cf' : 'yts'});
                 }
 
                 console.log('MUTED ' + muted);
@@ -395,7 +395,7 @@
              */
             // seekto is video in seconds
             ytOnSeek: function (seekto) {
-                ioAdapter.mustSend({'yts': {'seekto': seekto}});
+                ioAdapter.mustSend({'yts': {'seekto': seekto}, 'cf' : 'yts'});
                 console.log('SEEK CHANGED ' + seekto);
             },
 
@@ -406,9 +406,9 @@
             ytOnChange: function (state) {
                 console.log('STATE CHANGED ' + state);
                 if (state == 1) {
-                    ioAdapter.mustSend({'yts': 'play'});
+                    ioAdapter.mustSend({'yts': 'play', 'cf' : 'yts'});
                 } else if (state == 2) {
-                    ioAdapter.mustSend({'yts': 'pause'});
+                    ioAdapter.mustSend({'yts': 'pause', 'cf' : 'yts'});
                 }
             },
             /*

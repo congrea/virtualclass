@@ -869,7 +869,7 @@
         _reclaimRole: function () {
             this.reclaimRole();
             //virtualclass.wb.utility.sendRequest('reclaimRole', true);
-            virtualclass.vutil.beforeSend({'reclaimRole': true})
+            virtualclass.vutil.beforeSend({'reclaimRole': true});
             virtualclass.user.control.changeAttrToAssign('enable');
         },
 
@@ -952,6 +952,15 @@
                 return true;
             }
             return false;
+        },
+        whoIsTeacher: function () {
+            //TODO this function should call less frequently and may be called on member add function, status could be saved in a variable.
+            for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                if (virtualclass.connectedUsers[i].role == 't') {
+                    return virtualclass.connectedUsers[i].userid;
+                }
+            }
+            return 0;
         }
     };
     window.vutil = vutil;

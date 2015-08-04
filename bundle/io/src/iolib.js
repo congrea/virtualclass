@@ -48,7 +48,11 @@ var io = {
         this.sock.binaryType = 'arraybuffer';
         this.sock.onmessage = function (e) {
             if (e.serial) {
-                ioAdapter.checkMissing(serial);
+                ioMissingPackets.checkMissing(e);
+            } else if (e.reqMissPac) {
+                ioMissingPackets.sendMissedPackets(e);
+            } else if (e.missedpackets) {
+                ioMissingPackets.fillExecutedStore(e);
             } else {
                 io.onRecMessage(e);
             }

@@ -20,7 +20,7 @@ function get_string($phrase){
 
 
 //the www path for virtualclass
-$whiteboardpath = "https://loc.vidya.io/suman-repo/virtualclass/";
+$whiteboardpath = "https://loc.vidya.io/virtualclass/";
 
 ?>
 
@@ -129,7 +129,7 @@ if(isset($_GET['lname'])){
 	window.io = io;
     
 
-    window.whiteboardPath =  'https://loc.vidya.io/suman-repo/virtualclass/';
+    window.whiteboardPath =  'https://loc.vidya.io/virtualclass/';
 
     window.importfilepath = window.whiteboardPath + 'import.php';
     window.exportfilepath = window.whiteboardPath + 'export.php';

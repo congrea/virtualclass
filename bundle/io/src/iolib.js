@@ -13,6 +13,7 @@ var io = {
     wsuri: null,
     error: null,
     uniquesids: null,
+    serial: null,
 
     init: function (cfg, callback) {
         "use strict";
@@ -46,7 +47,15 @@ var io = {
         };
         this.sock.binaryType = 'arraybuffer';
         this.sock.onmessage = function (e) {
-            io.onRecMessage(e);
+            if (e.serial) {
+                ioMissingPackets.checkMissing(e);
+            } else if (e.reqMissPac) {
+                ioMissingPackets.sendMissedPackets(e);
+            } else if (e.missedpackets) {
+                ioMissingPackets.fillExecutedStore(e);
+            } else {
+                io.onRecMessage(e);
+            }
         };
 
         this.sock.onerror = function (e) {

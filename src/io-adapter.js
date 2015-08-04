@@ -1,15 +1,22 @@
 var ioAdapter = {
 
+    adapterMustData: [], // It contains all data that is must for all users to have
+    serial: 0, // It is serial number of sent packet, normally set to current number
+    //TODO - Store to IndexDB
+
     mustSend: function (msg) {
         "use strict";
-        this.send(msg)
+        this.serial++;
+        msg.serial = ioAdapter.serial;
+        this.adapterMustData[this.serial] = msg;
+        this.send(msg);
     },
 
     send: function (msg) {
         "use strict";
         var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
         io.send(msg, cfun, null);
-        ioStorage.sendStore(msg, cfun);
+        this.sendStore(msg, cfun);
     },
 
     mustSendAll: function (msg) {
@@ -51,5 +58,4 @@ var ioAdapter = {
         io.sendBinary(msg);
         ioStorage.dataBinaryStore(msg)
     }
-
 };

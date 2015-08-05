@@ -7,9 +7,11 @@ var ioAdapter = {
     mustSend: function (msg) {
         "use strict";
         this.serial++;
-        msg.serial = ioAdapter.serial;
-        this.adapterMustData[this.serial] = msg;
+        console.log('s.n ' + this.serial);
+        msg.serial = this.serial;
+        this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
         this.send(msg);
+        ioStorage.dataAdapterStore({type:'broadcast',m:msg}, this.serial);
     },
 
     send: function (msg) {
@@ -33,10 +35,14 @@ var ioAdapter = {
             }
         }
 
-        //this.serial++;
-        //msg.serial = ioAdapter.serial;
-        //this.adapterMustData[this.serial] = msg;
-        this.sendAll(msg)
+        this.serial++;
+        console.log('ed serial ' + ioAdapter.serial);
+        msg.serial = ioAdapter.serial;
+
+        this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
+        this.sendAll(msg);
+        var that = this;
+        ioStorage.dataAdapterStore({type:'broadcastToAll',m:msg}, this.serial);
     },
 
     sendAll: function (msg) {

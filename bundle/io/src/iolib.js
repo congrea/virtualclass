@@ -155,7 +155,7 @@ var io = {
 
         onRecBinary: function (e) {
             "use strict";
-            try {
+            //try {
                 var scope = this;
                 if (e.data instanceof ArrayBuffer) {
                     $.event.trigger({
@@ -166,18 +166,18 @@ var io = {
                     var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
                     ioStorage.dataBinaryStore(msg);
                 }
-            } catch (e) {
-                console.log("Error catched   : " + e);
-                $.event.trigger({
-                    type: "error",
-                    message: e
-                });
-            }
+            //} catch (e) {
+            //    console.log("Error catched   : " + e);
+            //    $.event.trigger({
+            //        type: "error",
+            //        message: e
+            //    });
+            //}
         },
 
 
         onRecJson: function (receivemsg) {
-            try {
+        //    try {
                 //if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') && receivemsg.m.hasOwnProperty('eddata'))) {
                 //    ioStorage.completeStorage(savedata);
                 //}
@@ -246,13 +246,13 @@ var io = {
                         });
                         break;
                 }
-            } catch (e) {
-                console.log("Error catched   : " + e);
-                $.event.trigger({
-                    type: "error",
-                    message: e
-                });
-            }
+            //} catch (e) {
+            //    console.log("Error catched   : " + e);
+            //    $.event.trigger({
+            //        type: "error",
+            //        message: e
+            //    });
+            //}
         },
 
         disconnect: function () {

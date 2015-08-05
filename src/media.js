@@ -1066,6 +1066,8 @@
                             user.role = virtualclass.gObj.uRole;
                         }
 
+                        //TODO Find out why the would send each time rather than one
+
                         virtualclass.vutil.beforeSend({videoByImage: user, 'cf' : 'videoByImage'});
 
                         var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
@@ -1119,9 +1121,12 @@
                 playWithoutSlice: function (uid, msg) {
                   //  console.log('uid ' + uid);
                     this.remoteVid = document.getElementById("video" + uid);
-                    this.remoteVidCont = this.remoteVid.getContext('2d');
-                    var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
-                    this.remoteVidCont.putImageData(imgData, 0, 0);
+                    //TODO remove validation
+                    if(this.remoteVid  != null){
+                        this.remoteVidCont = this.remoteVid.getContext('2d');
+                        var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
+                        this.remoteVidCont.putImageData(imgData, 0, 0);
+                    }
                 },
                 //TODO this function is not being used
                 justForDemo: function () {

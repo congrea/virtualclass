@@ -559,7 +559,7 @@ $(document).ready(function () {
             } else {
                 if (virtualclass.wb.gObj.rcvdPackId + 1 === e.message.repObj[0].uid) {
                     for (var i = 0; i < e.message.repObj.length; i++) {
-                        console.log("done rep Obj");
+                        //console.log("done rep Obj");
                         virtualclass.wb.gObj.replayObjs.push(e.message.repObj[i]);
                     }
                 }

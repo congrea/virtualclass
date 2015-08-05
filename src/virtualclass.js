@@ -57,6 +57,17 @@
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
 
+                //this.storage = window.storage;
+                //if (virtualclass.system.indexeddb) {
+                //    console.log('should come first');
+                //    this.storage.init(function () {
+                //
+                //        if (!virtualclass.vutil.isPlayMode()) {
+                //            ioStorage.completeStorage(JSON.stringify(io.cfg));
+                //        }
+                //    });
+                //}
+
                 this.dirtyCorner = window.dirtyCorner;
 
                 this.html.init(this);
@@ -97,15 +108,12 @@
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
 
                 //first this line is befre this.dirtyCorner assigned neard about 51 line number
-                // here because check for old browsers which does not support indexeddb, 
-                //inside storage.init() we are using indexeddb so, by above position there would 
+                // here because check for old browsers which does not support indexeddb,
+                //inside storage.init() we are using indexeddb so, by above position there would
                 // system coampablity error could not be generated.
                 this.storage = window.storage;
-//                virtualclass.storeFirstData = function (){
-//                    alert("hi brother");
-//                }
-                //!virtualclass.vutil.isPlayMode()
                 if (virtualclass.system.indexeddb) {
+                    console.log('should come first');
                     this.storage.init(function () {
                         if (!virtualclass.vutil.isPlayMode()) {
                             ioStorage.completeStorage(JSON.stringify(io.cfg));

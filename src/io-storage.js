@@ -1,6 +1,5 @@
 var ioStorage = {
 
-
     sendStore: function (msg, cfun) {
         "use strict";
         var storObj, storjobj;
@@ -31,6 +30,23 @@ var ioStorage = {
             msg = virtualclass.dtCon.base64EncArr(msg);
         }
         this.completeStorage(msg, {type: dtype});
+    },
+
+    dataAdapterStore : function (allData, serialKey) {
+        if(typeof virtualclass.storage == 'object' && typeof virtualclass.storage.db == 'object'){
+            virtualclass.storage.dataAdapterAllStore(JSON.stringify(allData), serialKey);
+        }else {
+            setTimeout(
+                function (){
+                    ioStorage.dataAdapterStore(allData, serialKey); //if table of indexeddb is not ready yet.
+                },
+                10
+            );
+        }
+    },
+
+    dataExecutedStoreAll : function (DataExecutedAll, serialKey){
+        virtualclass.storage.dataExecutedStoreAll(JSON.stringify(DataExecutedAll), serialKey);
     },
 
     completeStorage: function (data, bdata, sessionEnd) {

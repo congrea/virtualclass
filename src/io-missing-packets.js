@@ -14,17 +14,22 @@ var ioMissingPackets = {
         "use strict";
         if (msg.m.missedpackets == 1) {
             this.fillExecutedStore(msg);
-        } else if (msg.m.serial) {
+        } else if (typeof msg.m.serial != 'undefined' && msg.m.serial != null) {
             if (msg.m.serial == (this.executedSerial + 1)) {
+
                 console.log('Displaying Object ' + msg.m.serial);
                 this.executedSerial = msg.m.serial;
                 this.onRecSave(msg);
                 io.onRecJson(msg);
                 this.executedStore[msg.m.serial] = msg;
 
+                ioStorage.dataExecutedStoreAll(msg, msg.m.serial);
+
             } else if (msg.m.serial > (this.executedSerial + 1)) {
+                console.log('requst miss packet');
                 this.requestMissedPackets(this.executedSerial, msg.m.serial, msg);
             } else { // We will not execute packets that has serial lesser then current packet but let us still store them
+                console.log('no action');
                 this.executedStore[msg.m.serial] = msg;
             }
         } else {
@@ -33,6 +38,7 @@ var ioMissingPackets = {
     },
 
     requestMissedPackets: function (from, till, msg) {
+        //debugger;
         console.log('request packet from ' + from + ' to ' + till);
         "use strict";
         if (this.missRequest == 0) {
@@ -64,12 +70,15 @@ var ioMissingPackets = {
     sendMissedPackets: function (msg) {
         "use strict";
         var senddata = ioAdapter.adapterMustData.slice(msg.m.from, msg.m.till);
-        console.log('send packet ' + ' from ' +  msg.m.from+ ' to ' + msg.m.till + 'for ' + msg.user.userid); //to user
+
         var sendmsg = {
             missedpackets: 1,
             data: senddata
         };
+
         ioAdapter.mustSendUser(sendmsg, msg.user.userid); //to user
+        console.log('total chunk length ' + ioAdapter.adapterMustData.length);
+        console.log('send packet ' + ' from ' +  senddata[0].serial + ' to ' + senddata[senddata.length-1].serial + 'for ' + msg.user.userid); //to user
     },
 
     /**
@@ -84,10 +93,12 @@ var ioMissingPackets = {
         var dataLength = msg.m.data.length,
             i, ex;
         for (i = 0; i < dataLength; i++) {
-            this.executedSerial = msg.m.data[i].serial;
-            this.onRecSave(msg.m.data[i]);
-            io.onRecJson(msg.m.data[i]);
-            this.executedStore[msg.m.data[i].serial] = msg.m.data[i];
+            if(msg.m.data[i] != null){
+                this.executedSerial = msg.m.data[i].serial;
+                this.onRecSave(msg.m.data[i]);
+                io.onRecJson(msg.m.data[i]);
+                this.executedStore[msg.m.data[i].serial] = msg.m.data[i];
+            }
         }
 
         // TODO It is possible that incoming packets are not in order
@@ -99,6 +110,7 @@ var ioMissingPackets = {
         this.missRequest = 0;
     },
 
+    //save for recording process
     onRecSave: function (msg) {
         var edata = JSON.stringify(msg);
         io.onRecSave(msg, edata);

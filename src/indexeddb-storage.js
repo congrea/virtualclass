@@ -1,4 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
+// This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
@@ -27,12 +28,12 @@
     var storage = {
         totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         init: function (firstDataStore) {
-
+             //alert('should come first');
             //this.firstDataStore = firstDataStore;
             this.reclaim = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
             that = this;
             //TODO these are not using because audio and video is not using
-            this.tables = ["wbData", "allData", "audioData", "config"];
+            this.tables = ["wbData", "allData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
             //this.tables = ["wbData", "audioData", "config"];
             //second parameter is versoin of datbase
             var openRequest = window.indexedDB.open("vidya_apps", 1);
@@ -64,6 +65,14 @@
 
                 if (!thisDb.objectStoreNames.contains("chunkData")) {
                     thisDb.createObjectStore("chunkData", {autoIncrement: true});
+                }
+
+                if (!thisDb.objectStoreNames.contains("dataAdapterAll")) {
+                    thisDb.createObjectStore("dataAdapterAll", {keyPath: 'serialKey'});
+                }
+
+                if (!thisDb.objectStoreNames.contains("executedStoreAll")) {
+                    thisDb.createObjectStore("executedStoreAll", {keyPath: 'serialKey'});
                 }
             };
 
@@ -97,6 +106,7 @@
                 firstDataStore();
             };
         },
+
         store: function (data) {
             //console.log("whiteboard data store");
             var t = that.db.transaction(["wbData"], "readwrite");
@@ -105,40 +115,54 @@
             t.objectStore("wbData").add({repObjs: data, timeStamp: new Date().getTime(), id: 1});
             return false;
         },
+
         audioStore: function (data) {
             var t = that.db.transaction(["audioData"], "readwrite");
             t.objectStore("audioData").add({audiostream: data, timeStamp: new Date().getTime(), id: 2});
             return false;
         },
-        wholeStore_working: function (dt, type) {
-            var dtArr = [];
-            var currTime = new Date().getTime();
-            if (typeof dt == "object" && !(dt instanceof Array)) {
-                dtArr.push(dt);
-            } else {
-                dtArr = dt;
-            }
-            for (var i = 0; i < dtArr.length; i++) {
-                var dt = dtArr[i];
-                currTime = dt.mt;
-                dt.peTime = window.pageEnter;
-                var data = JSON.stringify((dt));
-                if (typeof this.prevTime != 'undefined' && currTime == this.prevTime) {
-                    currTime = currTime + 1;
-                }
-                var t = that.db.transaction(["allData"], "readwrite");
-                if (typeof type == 'undefined') {
-                    t.objectStore("allData").add({recObjs: data, timeStamp: currTime, id: 3});
-                } else {
-                    t.objectStore("allData").put({recObjs: data, timeStamp: this.prevTime, id: 3});
-                }
-                this.wholeStoreData = data;
-                this.prevTime = currTime;
-            }
+        //wholeStore_working: function (dt, type) {
+        //    var dtArr = [];
+        //    var currTime = new Date().getTime();
+        //    if (typeof dt == "object" && !(dt instanceof Array)) {
+        //        dtArr.push(dt);
+        //    } else {
+        //        dtArr = dt;
+        //    }
+        //    for (var i = 0; i < dtArr.length; i++) {
+        //        var dt = dtArr[i];
+        //        currTime = dt.mt;
+        //        dt.peTime = window.pageEnter;
+        //        var data = JSON.stringify((dt));
+        //        if (typeof this.prevTime != 'undefined' && currTime == this.prevTime) {
+        //            currTime = currTime + 1;
+        //        }
+        //        var t = that.db.transaction(["allData"], "readwrite");
+        //        if (typeof type == 'undefined') {
+        //            t.objectStore("allData").add({recObjs: data, timeStamp: currTime, id: 3});
+        //        } else {
+        //            t.objectStore("allData").put({recObjs: data, timeStamp: this.prevTime, id: 3});
+        //        }
+        //        this.wholeStoreData = data;
+        //        this.prevTime = currTime;
+        //    }
+        //},
+
+        dataExecutedStoreAll : function (data, serialKey){
+            var t = that.db.transaction(["executedStoreAll"], "readwrite");
+            var objectStore = t.objectStore("executedStoreAll");
+            t.objectStore("executedStoreAll").add({executedData : data, id: 6, serialKey : serialKey});
+        },
+
+        dataAdapterAllStore : function (data, serialKey) {
+            var t = that.db.transaction(["dataAdapterAll"], "readwrite");
+            var objectStore = t.objectStore("dataAdapterAll");
+            t.objectStore("dataAdapterAll").add({adaptData : data, id: 5, serialKey : serialKey});
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
             this.totalStored++;
+
             var t = that.db.transaction(["allData"], "readwrite");
             if (typeof sessionEnd != 'undefined') {
                 t.objectStore("allData").add({recObjs: "", sessionEnd: true, id: 3});
@@ -146,6 +170,7 @@
                 if (typeof bdata == 'undefined') {
                     t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3});
                 } else {
+                    //console.log('data storing ' + this.totalStored);
                     t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3, bd: bdata.type});
                 }
             }
@@ -182,6 +207,7 @@
 
             objectStore.openCursor().onsuccess = that.handleResult;
         },
+
         getAllObjs: function (tables, callback, exludeTable, row) {
             var cb = typeof callback != 'undefined' ? callback : "";
             for (var i = 0; i < tables.length; i++) {
@@ -197,6 +223,7 @@
                             if (typeof row != 'undefined') {
                                 that[tables[val]].handleResult(event, cb, row);
                             } else {
+                                console.log('table name ' + tables[val]);
                                 that[tables[val]].handleResult(event, cb);
                             }
                         } else {
@@ -329,19 +356,35 @@
                         }
                     }
                     cursor.continue();
-                } else {
-                    //initToServer(cb);
+                }
+            }
+        },
 
-//                        if(typeof cb == 'function'){
-//                            virtualclass.recorder.sendDataToServer();
-//                            setTimeout(
-//                                function (){
-//                                    virtualclass.recorder.xhrsenddata();
-//                                }, 100
-//                            );
-//                            virtualclass.recorder.items = [];
-//                            cb.apply(virtualclass.recorder);
-//                        }
+        dataAdapterAll : {
+            handleResult: function (event, cb) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.hasOwnProperty('adaptData')) {
+                        var data = JSON.parse(cursor.value.adaptData);
+                        ioAdapter.serial = cursor.value.serialKey;
+                        ioAdapter.adapterMustData[ioAdapter.serial] = data;
+                    }
+                    cursor.continue();
+                }
+            }
+        },
+
+        executedStoreAll : {
+            handleResult: function (event, cb) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.hasOwnProperty('executedData')) {
+                        var data = JSON.parse(cursor.value.executedData);
+                        ioMissingPackets.executedSerial = cursor.value.serialKey;
+                        ioAdapter.adapterMustData[ioMissingPackets.executedSerial ] = data;
+                        console.log('till now executed ' + ioMissingPackets.executedSerial);
+                    }
+                    cursor.continue();
                 }
             }
         },

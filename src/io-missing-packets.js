@@ -64,12 +64,12 @@ var ioMissingPackets = {
     sendMissedPackets: function (msg) {
         "use strict";
         var senddata = ioAdapter.adapterMustData.slice(msg.m.from, msg.m.till);
-        console.log('send packet ' + ' from ' +  msg.m.from+ ' to ' + msg.m.till + 'for ' + msg.m.userto);
+        console.log('send packet ' + ' from ' +  msg.m.from+ ' to ' + msg.m.till + 'for ' + msg.user.userid); //to user
         var sendmsg = {
             missedpackets: 1,
             data: senddata
         };
-        ioAdapter.mustSendUser(sendmsg, msg.m.userto)
+        ioAdapter.mustSendUser(sendmsg, msg.user.userid); //to user
     },
 
     /**
@@ -81,7 +81,6 @@ var ioMissingPackets = {
     fillExecutedStore: function (msg) {
         "use strict";
         console.log('received packet from ' + msg.m.data[0].serial + ' to ' + msg.m.data[msg.m.data.length-1].serial);
-        this.missRequest = 0;
         var dataLength = msg.m.data.length,
             i, ex;
         for (i = 0; i < dataLength; i++) {
@@ -97,6 +96,7 @@ var ioMissingPackets = {
             this.onRecSave(this.executedStore[ex]);
             io.onRecJson(this.executedStore[ex]);
         }
+        this.missRequest = 0;
     },
 
     onRecSave: function (msg) {

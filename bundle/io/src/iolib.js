@@ -8,155 +8,193 @@
  */
 
 var io = {
-    cfg: {},
-    sock: null,
-    wsuri: null,
-    error: null,
-    uniquesids: null,
-    serial: null,
+        cfg: {},
+        sock: null,
+        wsuri: null,
+        error: null,
+        uniquesids: null,
+        serial: null,
 
-    init: function (cfg, callback) {
-        "use strict";
-        this.cfg = cfg;
-        this.wsconnect();
-    },
+        init: function (cfg, callback) {
+            "use strict";
+            this.cfg = cfg;
+            this.wsconnect();
+        },
 
-    wsconnect: function () {
-        "use strict";
-        io.wsuri = this.cfg.rid;
-        if ("WebSocket" in window) {
-            this.sock = new WebSocket(io.wsuri);
-        } else if ("MozWebSocket" in window) {
-            this.sock = new MozWebSocket(io.wsuri);
-        } else {
-            console.log("Browser does not support WebSocket!");
-            this.error = lang.wserror;
-        }
-        var scope = this;
-        this.sock.onopen = function () {
-            console.log("Connected to " + scope.cfg.rid);
-
-            $.event.trigger({
-                type: "connectionopen"
-            });
-            //authenticate user
-            scope.userauthenticat();
-
-            // user join chat room
-            scope.addclient();
-        };
-        this.sock.binaryType = 'arraybuffer';
-        this.sock.onmessage = function (e) {
-            if (e.serial) {
-                ioMissingPackets.checkMissing(e);
-            } else if (e.reqMissPac) {
-                ioMissingPackets.sendMissedPackets(e);
-            } else if (e.missedpackets) {
-                ioMissingPackets.fillExecutedStore(e);
+        wsconnect: function () {
+            "use strict";
+            io.wsuri = this.cfg.rid;
+            if ("WebSocket" in window) {
+                this.sock = new WebSocket(io.wsuri);
+            } else if ("MozWebSocket" in window) {
+                this.sock = new MozWebSocket(io.wsuri);
             } else {
-                io.onRecMessage(e);
+                console.log("Browser does not support WebSocket!");
+                this.error = lang.wserror;
             }
-        };
-
-        this.sock.onerror = function (e) {
-            scope.error = e;
-            console.log('Error:' + e);
-            $.event.trigger({
-                type: "error",
-                message: e
-            });
-
-        };
-        this.sock.onclose = function (e) {
-            console.log('Connection Closed');
-
-            $.event.trigger({
-                type: "connectionclose",
-                message: e.reason
-            });
-            console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
-            setTimeout(function () {
-                scope.wsconnect()
-            }, 5000);
-        };
-    },
-
-    userauthenticat: function () {
-        "use strict";
-        var obj = {
-            cfun: 'authenticate',
-            arg: {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
-        };
-        var jobj = JSON.stringify(obj);
-        this.sock.send(jobj);
-    },
-
-    addclient: function () {
-        "use strict";
-        var obj = {
-            cfun: 'joinroom',
-            arg: {'client': this.cfg.userid, 'roomname': this.cfg.room, 'user': this.cfg.userobj}
-        };
-        var jobj = JSON.stringify(obj);
-        this.sock.send(jobj);
-    },
-
-    send: function (msg, cfun, touser) {
-        "use strict";
-
-        if (this.sock == null) {
-            console.log("socket is not created");
-            return;
-        }
-        var obj = {
-            cfun: cfun,
-            arg: {'msg': msg}
-        };
-        if (touser) {
-            obj.arg.touser = this.uniquesids[touser];
-        }
-        var jobj = JSON.stringify(obj);
-        this.sock.send(jobj);
-
-    },
-
-    sendBinary: function (msg) {
-        "use strict";
-        this.sock.send(msg.buffer);
-    },
-
-
-    onRecMessage: function (e) {
-        "use strict";
-        try {
             var scope = this;
-            if (e.data instanceof ArrayBuffer) {
+            this.sock.onopen = function () {
+                console.log("Connected to " + scope.cfg.rid);
+
                 $.event.trigger({
-                    type: "binrec",
-                    message: e.data
+                    type: "connectionopen"
                 });
-                var data_pack = new Uint8Array(e.data);
-                var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
-                ioStorage.dataBinaryStore(msg);
-            } else {
-                var receivemsg = JSON.parse(e.data);
-                if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') && receivemsg.m.hasOwnProperty('eddata'))) {
-                    ioStorage.completeStorage(e.data);
+                //authenticate user
+                scope.userauthenticat();
+
+                // user join chat room
+                scope.addclient();
+            };
+            this.sock.binaryType = 'arraybuffer';
+            this.sock.onmessage = function (e) {
+                if (e.data instanceof ArrayBuffer) {
+                    io.onRecBinary(e)
+                } else {
+                    var msg = JSON.parse(e.data);
+                    if (msg.hasOwnProperty('m')) {
+                        if (msg.m.hasOwnProperty('serial')) {
+                            ioMissingPackets.checkMissing(msg);
+                        } else if (msg.m.hasOwnProperty('reqMissPac')) {
+                            ioMissingPackets.sendMissedPackets(msg);
+                        } else if (msg.m.hasOwnProperty('missedpackets')) {
+                            ioMissingPackets.fillExecutedStore(msg);
+                        } else {
+                            io.onRecSave(msg, e.data);
+                            io.onRecJson(msg);
+                        }
+                    } else {
+                        io.onRecSave(msg, e.data);
+                        io.onRecJson(msg);
+                    }
                 }
+
+            };
+
+            this.sock.onerror = function (e) {
+                scope.error = e;
+                console.log('Error:' + e);
+                $.event.trigger({
+                    type: "error",
+                    message: e
+                });
+
+            };
+            this.sock.onclose = function (e) {
+                console.log('Connection Closed');
+
+                $.event.trigger({
+                    type: "connectionclose",
+                    message: e.reason
+                });
+                console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
+                setTimeout(function () {
+                    scope.wsconnect()
+                }, 5000);
+            };
+        },
+
+        userauthenticat: function () {
+            "use strict";
+            var obj = {
+                cfun: 'authenticate',
+                arg: {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
+            };
+            var jobj = JSON.stringify(obj);
+            this.sock.send(jobj);
+        },
+
+        addclient: function () {
+            "use strict";
+            var obj = {
+                cfun: 'joinroom',
+                arg: {'client': this.cfg.userid, 'roomname': this.cfg.room, 'user': this.cfg.userobj}
+            };
+            var jobj = JSON.stringify(obj);
+            this.sock.send(jobj);
+        },
+
+        send: function (msg, cfun, touser) {
+            "use strict";
+
+            if (this.sock == null) {
+                console.log("socket is not created");
+                return;
+            }
+            var obj = {
+                cfun: cfun,
+                arg: {'msg': msg}
+            };
+            if (touser) {
+                obj.arg.touser = this.uniquesids[touser];
+            }
+            var jobj = JSON.stringify(obj);
+            this.sock.send(jobj);
+
+        },
+
+        sendBinary: function (msg) {
+            "use strict";
+            this.sock.send(msg.buffer);
+        },
+
+        onRecMessage: function (e) {
+            if (e.data instanceof ArrayBuffer) {
+                this.onRecBinary(e)
+            } else {
+                var msg = JSON.parse(e.data);
+                this.onRecSave(msg, e.data);
+                io.onRecJson(msg, e.data);
+            }
+        },
+
+        onRecSave: function (msg,edata) {
+            if (!msg.hasOwnProperty('userto') || (msg.hasOwnProperty('userto') && msg.m.hasOwnProperty('eddata'))) {
+                ioStorage.completeStorage(edata);
+            }
+        },
+
+        onRecBinary: function (e) {
+            "use strict";
+            try {
+                var scope = this;
+                if (e.data instanceof ArrayBuffer) {
+                    $.event.trigger({
+                        type: "binrec",
+                        message: e.data
+                    });
+                    var data_pack = new Uint8Array(e.data);
+                    var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
+                    ioStorage.dataBinaryStore(msg);
+                }
+            } catch (e) {
+                console.log("Error catched   : " + e);
+                $.event.trigger({
+                    type: "error",
+                    message: e
+                });
+            }
+        },
+
+
+        onRecJson: function (receivemsg) {
+            try {
+                //if (!receivemsg.hasOwnProperty('userto') || (receivemsg.hasOwnProperty('userto') && receivemsg.m.hasOwnProperty('eddata'))) {
+                //    ioStorage.completeStorage(savedata);
+                //}
                 var userto = '';
                 switch (receivemsg.type) {
                     case "joinroom":
                         console.log("New user join room " + receivemsg.users);
                         /* identifying new user from list*/
                         var newuser = null;
-                        if (scope.uniquesids != null) {
+                        if (io.uniquesids != null) {
                             $.each(receivemsg.clientids, function (i, v) {
-                                if (scope.uniquesids[i] == undefined) {
+                                if (io.uniquesids[i] == undefined) {
                                     newuser = i;
                                 }
                             });
                         }
-                        scope.uniquesids = receivemsg.clientids;
+                        io.uniquesids = receivemsg.clientids;
                         //update users
                         $.event.trigger({
                             type: "member_added",
@@ -180,8 +218,8 @@ var io = {
                         if (receivemsg.userto != undefined) {
                             userto = receivemsg.userto;
                         }
-                        if (scope.uniquesids != null) {
-                            delete scope.uniquesids[receivemsg.user.userid];
+                        if (io.uniquesids != null) {
+                            delete io.uniquesids[receivemsg.user.userid];
                         }
                         $.event.trigger({
                             type: "user_logout",
@@ -208,22 +246,22 @@ var io = {
                         });
                         break;
                 }
+            } catch (e) {
+                console.log("Error catched   : " + e);
+                $.event.trigger({
+                    type: "error",
+                    message: e
+                });
             }
-        } catch (e) {
-            console.log("Error catched   : " + e);
-            $.event.trigger({
-                type: "error",
-                message: e
-            });
+        },
+
+        disconnect: function () {
+            this.sock.onclose = function () {
+            };
+            this.sock.close();
+            console.log("i am closing this connection");
         }
-    },
 
-    disconnect: function () {
-        this.sock.onclose = function () {
-        };
-        this.sock.close();
-        console.log("i am closing this connection");
+
     }
-
-
-};
+    ;

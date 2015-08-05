@@ -1,7 +1,7 @@
 var ioAdapter = {
 
     adapterMustData: [], // It contains all data that is must for all users to have
-    serial: 0, // It is serial number of sent packet, normally set to current number
+    serial: -1, // It is serial number of sent packet, normally set to current number
     //TODO - Store to IndexDB
 
     mustSend: function (msg) {
@@ -16,12 +16,13 @@ var ioAdapter = {
         "use strict";
         var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
         io.send(msg, cfun, null);
-        this.sendStore(msg, cfun);
+        ioStorage.sendStore(msg, cfun);
     },
 
     mustSendAll: function (msg) {
         "use strict";
 
+        //TODO Move editor code below to right place
         if (msg.hasOwnProperty('eddata')) {
             if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
                 if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
@@ -32,6 +33,9 @@ var ioAdapter = {
             }
         }
 
+        //this.serial++;
+        //msg.serial = ioAdapter.serial;
+        //this.adapterMustData[this.serial] = msg;
         this.sendAll(msg)
     },
 
@@ -43,7 +47,6 @@ var ioAdapter = {
 
     mustSendUser: function (msg, touser) {
         "use strict";
-
         this.sendUser(msg, touser);
     },
 

@@ -204,15 +204,17 @@ var io = {
                         break;
                     case "broadcastToAll":
                     case "broadcast":
-                        if (receivemsg.userto != undefined) {
-                            userto = receivemsg.userto;
+                        if (receivemsg !== null) {
+                            if (receivemsg.userto != undefined) {
+                                userto = receivemsg.userto;
+                            }
+                            $.event.trigger({
+                                type: "newmessage",
+                                message: receivemsg.m,
+                                fromUser: receivemsg.user,
+                                toUser: userto
+                            });
                         }
-                        $.event.trigger({
-                            type: "newmessage",
-                            message: receivemsg.m,
-                            fromUser: receivemsg.user,
-                            toUser: userto
-                        });
                         break;
                     case "userleft":
                         if (receivemsg.userto != undefined) {

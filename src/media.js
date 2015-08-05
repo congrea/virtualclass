@@ -487,7 +487,7 @@
                         tag.className = "audioTool deactive";
                         virtualclass.gObj.audMouseDown = false;
                         virtualclass.gObj.video.audio.setAudioStatus("stop");
-                      virtualclass.vutil.beforeSend({'sad': false, 'cf' : 'sad'});
+                        virtualclass.vutil.beforeSend({'sad': false, 'cf': 'sad'}, null, true);
                     }
                 },
                 /*
@@ -1068,7 +1068,7 @@
 
                         //TODO Find out why the would send each time rather than one
 
-                        virtualclass.vutil.beforeSend({videoByImage: user, 'cf' : 'videoByImage'});
+                        //virtualclass.vutil.beforeSend({videoByImage: user, 'cf' : 'videoByImage'});
 
                         var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
                         var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);

@@ -446,9 +446,9 @@
             }
         },
         clearStorageData: function () {
-
             for (var i = 0; i < this.tables.length; i++) {
                 var t = this.db.transaction([this.tables[i]], "readwrite");
+                console.log('cleared' + i);
                 if (typeof t != 'undefined') {
                     var objectStore = t.objectStore(this.tables[i]);
                     if (this.tables[i] == 'allData') {

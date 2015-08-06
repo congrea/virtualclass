@@ -11,7 +11,7 @@ var ioAdapter = {
         msg.serial = this.serial;
         this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
         this.send(msg);
-        ioStorage.dataAdapterStore({type:'broadcast',m:msg}, this.serial);
+        ioStorage.dataAdapterStore({type: 'broadcast', user: wbUser.id, m: msg}, this.serial);
     },
 
     send: function (msg) {
@@ -35,14 +35,12 @@ var ioAdapter = {
             }
         }
 
-        this.serial++;
-        console.log('ed serial ' + ioAdapter.serial);
-        msg.serial = ioAdapter.serial;
-
-        this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
+        //this.serial++;
+        //console.log('ed serial ' + ioAdapter.serial);
+        //msg.serial = ioAdapter.serial;
+        //this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
         this.sendAll(msg);
-        var that = this;
-        ioStorage.dataAdapterStore({type:'broadcastToAll',m:msg}, this.serial);
+        ioStorage.dataAdapterStore({type: 'broadcastToAll', user: wbUser.id, m: msg}, this.serial);
     },
 
     sendAll: function (msg) {

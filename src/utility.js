@@ -641,7 +641,7 @@
          * @param {type} msg
          * @returns {undefined}
          */
-        beforeSend: function (msg, toUser) {
+        beforeSend: function (msg, toUser, notMust) {
             // when we are in replay mode we don't need send the object to other user
             if (msg.hasOwnProperty('createArrow')) {
                 var jobj = JSON.stringify(msg);
@@ -661,7 +661,19 @@
                 }
 
                 if (io.sock != null && io.sock.readyState == 1) {
-                    typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
+                    if (typeof notMust != 'undefined' && notMust === true) {
+                        if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
+                            ioAdapter.send(msg);
+                        } else {
+                            ioAdapter.send(msg, toUser);
+                        }
+                    } else {
+                        if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
+                            ioAdapter.mustSend(msg);
+                        } else {
+                            ioAdapter.mustSend(msg, toUser);
+                        }
+                    }
                 }
 
                 //TODO this should be enable

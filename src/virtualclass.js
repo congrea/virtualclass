@@ -56,10 +56,11 @@
                 this.converter = window.converter;
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
-
+                //alert('hello');
+                //debugger;
                 //this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
-                //    console.log('should come first');
+                //    alert('should first');
                 //    this.storage.init(function () {
                 //
                 //        if (!virtualclass.vutil.isPlayMode()) {
@@ -111,9 +112,9 @@
                 // here because check for old browsers which does not support indexeddb,
                 //inside storage.init() we are using indexeddb so, by above position there would
                 // system coampablity error could not be generated.
+
                 this.storage = window.storage;
                 if (virtualclass.system.indexeddb) {
-                    console.log('should come first');
                     this.storage.init(function () {
                         if (!virtualclass.vutil.isPlayMode()) {
                             ioStorage.completeStorage(JSON.stringify(io.cfg));

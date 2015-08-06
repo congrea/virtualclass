@@ -67,7 +67,6 @@
          * 
          */
         isIndexedDbSupport: function () {
-   
             return (window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB) ? true : false;
         },
         /*

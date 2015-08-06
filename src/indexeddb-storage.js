@@ -27,26 +27,43 @@
 
     var storage = {
         totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
+        dbVersion :1,
         init: function (firstDataStore) {
+
              //alert('should come first');
             //this.firstDataStore = firstDataStore;
             this.reclaim = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
             that = this;
             //TODO these are not using because audio and video is not using
-            this.tables = ["wbData", "allData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
+            this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
+            //this.tables = ["wbData", "allData", "audioData", "config", "executedStoreAll"];
             //this.tables = ["wbData", "audioData", "config"];
             //second parameter is versoin of datbase
-            var openRequest = window.indexedDB.open("vidya_apps", 1);
+
+            //var dbVersion = 1;
+
+            var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
+
+
+            //alert(that.db);
+            //var t = this.db.transaction([this.tables[i]], "readwrite");
 
             openRequest.onerror = function (e) {
                 console.log("Error opening db");
                 console.dir(e);
             };
+
             openRequest.onupgradeneeded = function (e) {
-                //alert("by this there should create");
+                 //alert("by this there should create");
                 var thisDb = e.target.result;
                 var objectStore;
                 //Create Note OS
+                //
+                //for(var i=0; i<that.tables.length; i++){
+                //    that.table.create(thisDb, that.tables[i]);
+                //}
+
+                //
                 if (!thisDb.objectStoreNames.contains("wbData")) {
                     thisDb.createObjectStore("wbData", {keyPath: 'timeStamp', autoIncrement: true});
                 }
@@ -54,8 +71,7 @@
                     thisDb.createObjectStore("audioData", {keyPath: 'timeStamp', autoIncrement: true});
                 }
                 if (!thisDb.objectStoreNames.contains("allData")) {
-                    //thisDb.createObjectStore("allData", { keyPath : 'playTime', autoIncrement:true});
-                    //thisDb.createObjectStore("allData", {autoIncrement:true});
+
                     thisDb.createObjectStore("allData", {autoIncrement: true});
                 }
 
@@ -78,11 +94,23 @@
 
             openRequest.onsuccess = function (e) {
                 that.db = e.target.result;
+                for(var i=0; i< that.tables.length; i++ ){
+                    try {
+                        that.db.transaction([that.tables[i]], "readwrite");
+                    } catch(err) {
+                        var request = indexedDB.deleteDatabase('vidya_apps');
+                        request.onsuccess  = function (){
+                            that.init ();
+                        }
+                        return;
+                        //that.table.create(that.db, that.tables[i]);
+                    }
+                }
+
                 var currTime = new Date().getTime();
                 //meet condition when current and previous user are different
                 if (virtualclass.gObj.sessionClear) {
                     that.config.endSession(true);
-
                 } else {
                     that.getAllObjs(that.tables, function (result) {
                             if (typeof result == 'undefined') {
@@ -121,6 +149,7 @@
             t.objectStore("audioData").add({audiostream: data, timeStamp: new Date().getTime(), id: 2});
             return false;
         },
+
         //wholeStore_working: function (dt, type) {
         //    var dtArr = [];
         //    var currTime = new Date().getTime();
@@ -224,7 +253,9 @@
                                 that[tables[val]].handleResult(event, cb, row);
                             } else {
                                 console.log('table name ' + tables[val]);
-                                that[tables[val]].handleResult(event, cb);
+                                if(tables[val] != 'chunkData'){
+                                    that[tables[val]].handleResult(event, cb);
+                                }
                             }
                         } else {
                             if (typeof row != 'undefined') {
@@ -477,7 +508,26 @@
                 }
                 cursor.continue();
             }
-        }
+        },
+
+//        this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
+
+        //"wbData", "allData", "audioData", "config", "executedStoreAll"
+        //table : {
+        //    wbData : {keyPath: 'timeStamp', autoIncrement: true},
+        //    allData : {autoIncrement: true},
+        //    chunkData : {autoIncrement: true},
+        //    audioData : {keyPath: 'timeStamp', autoIncrement : true},
+        //    config : {keyPath: 'timeStamp', autoIncrement : true},
+        //    dataAdapterAll : {keyPath: 'serialKey'},
+        //    executedStoreAll : {keyPath: 'serialKey'},
+        //
+        //    create : function (dbObject, name){
+        //        if (!dbObject.objectStoreNames.contains("chunkData")) {
+        //            dbObject.createObjectStore(name, this[name]);
+        //        }
+        //    }
+        //}
     };
     window.storage = storage;
 })(window);

@@ -1068,7 +1068,7 @@
 
                         //TODO Find out why the would send each time rather than one
 
-                        //virtualclass.vutil.beforeSend({videoByImage: user, 'cf' : 'videoByImage'});
+                        virtualclass.vutil.beforeSend({videoByImage: user, 'cf' : 'videoByImage'}, null, true);
 
                         var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
                         var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);

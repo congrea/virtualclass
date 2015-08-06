@@ -189,7 +189,9 @@ $(document).ready(function () {
         if (virtualclass.gObj.uRole === 't') {
             if(virtualclass.gObj.uid != virtualclass.jId){
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+
                     ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+
                 } else if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
                 } else if(virtualclass.currApp === 'Yts'){

@@ -51,6 +51,7 @@ var io = {
                     io.onRecBinary(e)
                 } else {
                     var msg = JSON.parse(e.data);
+                    //if (msg.hasOwnProperty('m') && msg.user.userid != wbUser.id) {
                     if (msg.hasOwnProperty('m')) {
                         if (msg.m.hasOwnProperty('serial')) {
                             ioMissingPackets.checkMissing(msg);

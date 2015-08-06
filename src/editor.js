@@ -60,7 +60,7 @@
                         }
                     }else {
                         if(virtualclass.gObj.uRole == 's'){
-                            this.requestData('from_' + virtualclass.gObj.uRole);
+                             this.requestData('from_' + virtualclass.gObj.uRole);
                         }
                     }
                 },

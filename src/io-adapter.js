@@ -40,7 +40,7 @@ var ioAdapter = {
         //msg.serial = ioAdapter.serial;
         //this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
         this.sendAll(msg);
-        ioStorage.dataAdapterStore({type: 'broadcastToAll', user: wbUser.id, m: msg}, this.serial);
+        //ioStorage.dataAdapterStore({type: 'broadcastToAll', user: wbUser.id, m: msg}, this.serial);
     },
 
     sendAll: function (msg) {

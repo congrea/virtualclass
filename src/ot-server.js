@@ -15,7 +15,7 @@ Server = (function (global) {
 		if(revision > 1 ){
 			virtualclass.editorRich.requestData('from_s');
 		}
-		//throw new Error("operation revision not in history");
+		//throw  Ernewror("operation revision not in history");
 		console.log("operation revision " + revision + " not in history");
 			return false ;
 		}

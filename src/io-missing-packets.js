@@ -1,6 +1,6 @@
 var ioMissingPackets = {
     executedStore: [], // It contains all executed data by current user (at receiver side)
-    executedSerial: 0, // It is serial number of received/executed packet.
+    executedSerial: -1, // It is serial number of received/executed packet.
     missRequest: 0, // Status for Request for missed packets
     aheadPackets: [],
     //TODO - Store to IndexDB
@@ -29,7 +29,6 @@ var ioMissingPackets = {
                 console.log('requst miss packet');
                 this.requestMissedPackets(this.executedSerial, msg.m.serial, msg);
             } else { // We will not execute packets that has serial lesser then current packet but let us still store them
-                debugger;
                 console.log('no action current packet ' + this.executedSerial + ' comming at ' + msg.m.serial);
                 this.executedStore[msg.m.serial] = msg;
             }

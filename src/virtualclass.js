@@ -38,6 +38,23 @@
             },
 
             init: function (urole, app, videoObj) {
+                var wbUser = window.wbUser;
+                virtualclass.uInfo = {
+                    'userid': wbUser.id,
+                    'sid': wbUser.sid,
+                    'rid': wbUser.path,
+                    'authuser': wbUser.auth_user,
+                    'authpass': wbUser.auth_pass,
+                    'userobj': {
+                        'userid': wbUser.id,
+                        'name': wbUser.name,
+                        lname: wbUser.lname,
+                        'img': wbUser.imageurl,
+                        role: wbUser.role
+                    },
+                    'room': wbUser.room
+                };
+
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
                 this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
@@ -58,15 +75,14 @@
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
                 //alert('hello');
                 //debugger;
-                //this.storage = window.storage;
+
+                this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
-                //    alert('should first');
-                //    this.storage.init(function () {
-                //
-                //        if (!virtualclass.vutil.isPlayMode()) {
-                //            ioStorage.completeStorage(JSON.stringify(io.cfg));
-                //        }
-                //    });
+                    this.storage.init(function () {
+                        if (!virtualclass.vutil.isPlayMode()) {
+                            ioStorage.completeStorage(JSON.stringify(io.cfg));
+                        }
+                    });
                 //}
 
                 this.dirtyCorner = window.dirtyCorner;
@@ -113,14 +129,14 @@
                 //inside storage.init() we are using indexeddb so, by above position there would
                 // system coampablity error could not be generated.
 
-                this.storage = window.storage;
-                if (virtualclass.system.indexeddb) {
-                    this.storage.init(function () {
-                        if (!virtualclass.vutil.isPlayMode()) {
-                            ioStorage.completeStorage(JSON.stringify(io.cfg));
-                        }
-                    });
-                }
+                //this.storage = window.storage;
+                //if (virtualclass.system.indexeddb) {
+                //    this.storage.init(function () {
+                //        if (!virtualclass.vutil.isPlayMode()) {
+                //            ioStorage.completeStorage(JSON.stringify(io.cfg));
+                //        }
+                //    });
+                //}
 
                 //1
                 //virtualclass.wb.utility.displayCanvas();
@@ -168,24 +184,25 @@
                 },
 
             initSocketConn: function () {
+                //alert('should alert first');
                 if (this.system.webSocket) {
-                    var wbUser = window.wbUser;
-                    //  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
-                    virtualclass.uInfo = {
-                        'userid': wbUser.id,
-                        'sid': wbUser.sid,
-                        'rid': wbUser.path,
-                        'authuser': wbUser.auth_user,
-                        'authpass': wbUser.auth_pass,
-                        'userobj': {
-                            'userid': wbUser.id,
-                            'name': wbUser.name,
-                            lname: wbUser.lname,
-                            'img': wbUser.imageurl,
-                            role: wbUser.role
-                        },
-                        'room': wbUser.room
-                    };
+                    //var wbUser = window.wbUser;
+                    ////  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
+                    //virtualclass.uInfo = {
+                    //    'userid': wbUser.id,
+                    //    'sid': wbUser.sid,
+                    //    'rid': wbUser.path,
+                    //    'authuser': wbUser.auth_user,
+                    //    'authpass': wbUser.auth_pass,
+                    //    'userobj': {
+                    //        'userid': wbUser.id,
+                    //        'name': wbUser.name,
+                    //        lname: wbUser.lname,
+                    //        'img': wbUser.imageurl,
+                    //        role: wbUser.role
+                    //    },
+                    //    'room': wbUser.room
+                    //};
                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;
                 }

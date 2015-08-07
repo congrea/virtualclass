@@ -23,7 +23,6 @@ var ioAdapter = {
 
     mustSendAll: function (msg) {
         "use strict";
-
         //TODO Move editor code below to right place
         if (msg.hasOwnProperty('eddata')) {
             if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
@@ -33,6 +32,10 @@ var ioAdapter = {
                     msg.et = 'editorCode';
                 }
             }
+
+            //this.sendAll(msg);
+            //virtualclass[msg.et].vcAdapter.teacherAck(msg); // mannual acknowledgement
+            //return;
         }
 
         //this.serial++;

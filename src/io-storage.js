@@ -60,6 +60,14 @@ var ioStorage = {
             firstTime = true;
 
             if (!virtualclass.vutil.isPlayMode()) {
+                //TODO this should be handle gracefully
+                try {
+                    var t = virtualclass.storage.db.transaction(['allData'], "readwrite");
+                } catch (error){
+                    setTimeout(function (){ioStorage.completeStorage(data);}, 20);
+                    return;
+                }
+
                 var t = virtualclass.storage.db.transaction(['allData'], "readwrite");
                 if (typeof t != 'undefined') {
                     //should check first row is authuser/authpass
@@ -81,6 +89,7 @@ var ioStorage = {
                         }
                     };
                 }
+
             }
         }
 

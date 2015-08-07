@@ -27,7 +27,7 @@
 
     var storage = {
         totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-        dbVersion :1,
+        dbVersion :3,
         init: function (firstDataStore) {
 
              //alert('should come first');

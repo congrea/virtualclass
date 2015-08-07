@@ -23,27 +23,8 @@ var ioAdapter = {
 
     mustSendAll: function (msg) {
         "use strict";
-        //TODO Move editor code below to right place
-        if (msg.hasOwnProperty('eddata')) {
-            if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
-                if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
-                    msg.et = 'editorRich';
-                } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode") {
-                    msg.et = 'editorCode';
-                }
-            }
-
-            //this.sendAll(msg);
-            //virtualclass[msg.et].vcAdapter.teacherAck(msg); // mannual acknowledgement
-            //return;
-        }
-
-        //this.serial++;
-        //console.log('ed serial ' + ioAdapter.serial);
-        //msg.serial = ioAdapter.serial;
-        //this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
-        this.sendAll(msg);
-        //ioStorage.dataAdapterStore({type: 'broadcastToAll', user: wbUser.id, m: msg}, this.serial);
+        this.mustSend(msg);
+        this.mustSendUser(msg, virtualclass.gObj.uid);
     },
 
     sendAll: function (msg) {

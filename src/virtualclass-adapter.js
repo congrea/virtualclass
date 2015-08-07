@@ -29,11 +29,10 @@ virtualclassAdapter = function () {
 
         this.teacherOT = function (sendData) {
             var msg = this.doOT(sendData);
-            //ioAdapter.mustSendAll(msg);
-            ioAdapter.mustSendAll(msg);
             //if (msg.eddata == 'virtualclass-editor-operation') {
-            //    //this.trigger('ack');
+            //    this.trigger('ack');
             //}
+            this.preSend(msg, true);
         };
 
         this.doOT = function (msg) {
@@ -98,9 +97,10 @@ virtualclassAdapter = function () {
             var wrappedPrime;
             var msg = event.message;
 
-            //if (msg.hasOwnProperty('edFrom') && virtualclass.gObj.uRole == 't' ) {
-            //    return;
-            //}
+            if (msg.hasOwnProperty('edFrom') && virtualclass.gObj.uRole == 't') {
+                this.processOp(event);
+                return;
+            }
 
             // When packet is received by self (Also Teacher) or from forwarded student
             //if ((event.fromUser.userid == virtualclass.gObj.uid &&  !msg.hasOwnProperty('edFrom')) || msg.edFrom == virtualclass.gObj.uid) {
@@ -130,8 +130,8 @@ virtualclassAdapter = function () {
                 var op = this.doOT(msg);
                 event.message=op;
                 op.edFrom=event.fromUser.userid;
-                this.processOp(event);
-                ioAdapter.mustSend(op);
+                this.preSend(op, true);
+                //this.processOp(event);
             }
         }
     }
@@ -163,7 +163,6 @@ virtualclassAdapter = function () {
     };
 
     virtualclassAdapter.prototype.sendSelection = function (selection) {
-        //ioAdapter.mustSend({'selection' : selection});
         this.beforeSend({
             eddata: 'selection',
             data: JSON.stringify(selection),
@@ -191,6 +190,24 @@ virtualclassAdapter = function () {
         } else {
             var teacherId = virtualclass.vutil.whoIsTeacher();
             ioAdapter.sendUser(sendData, teacherId);
+        }
+    };
+
+
+    virtualclassAdapter.prototype.preSend = function (msg, sendall) {
+        if (msg.hasOwnProperty('eddata')) {
+            if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
+                if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
+                    msg.et = 'editorRich';
+                } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode") {
+                    msg.et = 'editorCode';
+                }
+            }
+        }
+        if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
+            ioAdapter.mustSend(msg);
+        } else {
+            ioAdapter.mustSendAll(msg);
         }
     };
 

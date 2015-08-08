@@ -80,7 +80,7 @@ virtualclassAdapter = function () {
             var msg = event.message;
             if (msg.hasOwnProperty('eddata')) {
                 if (msg.eddata == 'virtualclass-editor-cursor') {
-                    this.trigger('cursor', event.fromUser.userid, msg.data);
+	                this.trigger('cursor', event.fromUser.userid, JSON.parse(msg.data)); //we need object for set other cursor
                 } else if (msg.eddata == 'selection') {
                     this.trigger('selection', virtualclass.gObj.uid, msg.data);
                 } else if (msg.eddata == 'virtualclass-editor-operation') {
@@ -108,6 +108,7 @@ virtualclassAdapter = function () {
          */
 
         this.receivedMessage = function (event) {
+		
             var msg = event.message;
             console.log('in');
             // TW : 2
@@ -117,7 +118,8 @@ virtualclassAdapter = function () {
                     if (msg.eddata == 'virtualclass-editor-operation') {
                         console.log('TW : 2a teacher ack');
                         this.trigger('ack'); // TODO If we add delay using settimeout it will cause errors. FIX IT.
-                    }
+						return;
+					}
                 } else {
                     console.log('TW : 2b received @student');
                     // TW : 2b) Msg is received to students - Action : Process
@@ -203,13 +205,13 @@ virtualclassAdapter = function () {
             this.teacherOT(sendData);
         } else {
             var teacherId = virtualclass.vutil.whoIsTeacher();
+			sendData = this.setEditorTypeOnPacket(sendData);
             ioAdapter.sendUser(sendData, teacherId);
         }
     };
 
-
-    virtualclassAdapter.prototype.preSend = function (msg, sendall) {
-        if (msg.hasOwnProperty('eddata')) {
+	virtualclassAdapter.prototype.setEditorTypeOnPacket = function (msg){
+		if (msg.hasOwnProperty('eddata')) {
             if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
                 if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
                     msg.et = 'editorRich';
@@ -218,6 +220,10 @@ virtualclassAdapter = function () {
                 }
             }
         }
+		return msg;
+	}
+    virtualclassAdapter.prototype.preSend = function (msg, sendall) {
+        msg = this.setEditorTypeOnPacket(msg);
         if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
             ioAdapter.mustSend(msg);
         } else {

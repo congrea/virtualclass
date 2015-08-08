@@ -28,12 +28,10 @@ virtualclassAdapter = function () {
 
 
         this.teacherOT = function (sendData) {
+            // TW : 1) Teacher do OT and send to all (Function this.teacherOT)
             var msg = this.doOT(sendData);
-            //ioAdapter.mustSendAll(msg);
-            ioAdapter.mustSendAll(msg);
-            //if (msg.eddata == 'virtualclass-editor-operation') {
-            //    //this.trigger('ack');
-            //}
+            console.log('TW : 1 From Teacher');
+            this.preSend(msg, true);
         };
 
         this.doOT = function (msg) {
@@ -94,44 +92,60 @@ virtualclassAdapter = function () {
             }
         };
 
+        /**
+         * Student Writes
+         * SW : 1) Msg sent to Teacher
+         * SW : 2) Teacher do OT and send to all
+         * SW : 3a) Msg is received to student (self) - Action : ACK
+         * SW : 3b) Msg is received to students (others) - Action : Process
+         * SW : 3c) Msg is received to Teacher (also a broadcaster) - Action : Process
+         *
+         * Teacher Writes
+         * TW : 1) Teacher do OT and send to all (Function this.teacherOT)
+         * TW : 2a) Msg is received to Teacher (self) - Action : ACK
+         * TW : 2b) Msg is received to students - Action : Process
+         * @param event
+         */
+
         this.receivedMessage = function (event) {
-            var wrappedPrime;
             var msg = event.message;
-
-            //if (msg.hasOwnProperty('edFrom') && virtualclass.gObj.uRole == 't' ) {
-            //    return;
-            //}
-
-            // When packet is received by self (Also Teacher) or from forwarded student
-            //if ((event.fromUser.userid == virtualclass.gObj.uid &&  !msg.hasOwnProperty('edFrom')) || msg.edFrom == virtualclass.gObj.uid) {
-            if ((event.fromUser.userid == virtualclass.gObj.uid &&  !msg.hasOwnProperty('edFrom')) || msg.edFrom == virtualclass.gObj.uid) {
-                if (msg.eddata == 'virtualclass-editor-operation') {
-                    this.trigger('ack');
-                }
-            } else if (event.fromUser.role == 't') { // When packet is received by Student From Teacher
-                this.processOp(event);
-            } else { // When packet is received by Teacher Form Student
-                // Do OT, perform OP and send to all
-
-                // TODO : Check if no data
-                if (msg.hasOwnProperty('data')) {
-                    var data = JSON.parse(msg.data);
-                    if (data != null && (data.revision < virtualclass[etype].cmClient.revision)) {
-                        //TODO handle for the older version which is less than 5
-                        //this should be dynamic
-                        if ((virtualclass[etype].cmClient.revision - data.revision) > 5) { //if older version more than 5 revision
-                            console.log("should not update older revision if neweer version is available");
-                            return;
-                        }
+            console.log('in');
+            // TW : 2
+            if (event.fromUser.role == 't' && !msg.hasOwnProperty('edFrom')) {
+                if (virtualclass.gObj.uRole == 't') {
+                    // TW : 2a) Msg is received to Teacher (self) - Action : ACK
+                    if (msg.eddata == 'virtualclass-editor-operation') {
+                        console.log('TW : 2a teacher ack');
+                        this.trigger('ack'); // TODO If we add delay using settimeout it will cause errors. FIX IT.
                     }
                 } else {
-                    console.log('Editor : No Data');
+                    console.log('TW : 2b received @student');
+                    // TW : 2b) Msg is received to students - Action : Process
+                    this.processOp(event);
                 }
+            } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't') {
+                // SW : 1) Msg sent to Teacher
+                console.log('SW : 1 From Student');
+                // SW : 2) Teacher do OT and send to all
                 var op = this.doOT(msg);
-                event.message=op;
-                op.edFrom=event.fromUser.userid;
-                this.processOp(event);
-                ioAdapter.mustSend(op);
+                event.message = op;
+                op.edFrom = event.fromUser.userid; // Adds edFrom message to identify who was original sender of message
+                this.preSend(op, true);
+                return;
+            } else {
+                // SW : 3
+                if (msg.edFrom == virtualclass.gObj.uid) {
+                    console.log('SW : 3a student ack');
+                    //  SW : 3a) Msg is received to student (self)
+                    if (msg.eddata == 'virtualclass-editor-operation') {
+                        this.trigger('ack');
+                    }
+                } else {
+                    console.log('SW : 3bc received @process');
+                    // SW : 3b) Msg is received to students (others)
+                    // SW : 3c) Msg is received to Teacher (also a broadcaster)
+                    this.processOp(event);
+                }
             }
         }
     }
@@ -163,7 +177,6 @@ virtualclassAdapter = function () {
     };
 
     virtualclassAdapter.prototype.sendSelection = function (selection) {
-        //ioAdapter.mustSend({'selection' : selection});
         this.beforeSend({
             eddata: 'selection',
             data: JSON.stringify(selection),
@@ -191,6 +204,24 @@ virtualclassAdapter = function () {
         } else {
             var teacherId = virtualclass.vutil.whoIsTeacher();
             ioAdapter.sendUser(sendData, teacherId);
+        }
+    };
+
+
+    virtualclassAdapter.prototype.preSend = function (msg, sendall) {
+        if (msg.hasOwnProperty('eddata')) {
+            if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
+                if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
+                    msg.et = 'editorRich';
+                } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode") {
+                    msg.et = 'editorCode';
+                }
+            }
+        }
+        if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
+            ioAdapter.mustSend(msg);
+        } else {
+            ioAdapter.mustSendAll(msg);
         }
     };
 

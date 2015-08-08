@@ -155,7 +155,7 @@
                         this.cm.setOption('readOnly', false);
                         this.createAllEditorController();
                         editorType.readOnly = false;
-                    };
+                    }
 
                     //if(virtualclass.gObj.uRole == 't'){
                     //    this.cm.setOption('readOnly', false);

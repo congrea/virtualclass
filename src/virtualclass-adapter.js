@@ -78,6 +78,9 @@ virtualclassAdapter = function () {
 
         this.processOp = function (event) {
             var msg = event.message;
+            if (msg.hasOwnProperty('edFrom')) {
+                event.fromUser.userid = msg.edFrom;
+            }
             if (msg.hasOwnProperty('eddata')) {
                 if (msg.eddata == 'virtualclass-editor-cursor') {
 	                this.trigger('cursor', event.fromUser.userid, JSON.parse(msg.data)); //we need object for set other cursor
@@ -221,7 +224,8 @@ virtualclassAdapter = function () {
             }
         }
 		return msg;
-	}
+	};
+
     virtualclassAdapter.prototype.preSend = function (msg, sendall) {
         msg = this.setEditorTypeOnPacket(msg);
         if (typeof sendall == 'undefined' || sendall == false || sendall == null) {

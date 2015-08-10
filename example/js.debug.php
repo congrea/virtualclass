@@ -6,9 +6,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-missing-packets.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
-
-
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
@@ -65,11 +62,22 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/lib/codemirror.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-markdown.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-rich-toolbar.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-text-op.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-text-operation.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-wrapped-operation.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-cursor.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-undo-manager.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-client.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-editor-client.js"></script>
+
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-codemirror-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass-adapter.js"></script>
+
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vceditor.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/footer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatlist.js"></script>

@@ -73,6 +73,7 @@
                 this.converter = window.converter;
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
+                //this.otClient = window.Client;
                 //alert('hello');
                 //debugger;
 

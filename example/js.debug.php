@@ -72,10 +72,12 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-client.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-editor-client.js"></script>
 
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-span.js"></script>
+<script type="text/javascript" src="<?php  echo $whiteboardpath;?>src/editor-annotation-list.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-attribute-constants.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-codemirror-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass-adapter.js"></script>
-
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vceditor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>

@@ -1,8 +1,8 @@
-virtualclassAdapter = function () {
+otAdapter = function () {
     'use strict';
 
-    //function virtualclassAdapter(revision, doc, operations) {
-    function virtualclassAdapter(editorInfo, etype) {
+    //function otAdapter(revision, doc, operations) {
+    function otAdapter(editorInfo, etype) {
         etype = etype.charAt(0).toLowerCase() + etype.slice(1);
 
 
@@ -156,7 +156,7 @@ virtualclassAdapter = function () {
     }
 
     //sending the opration
-    virtualclassAdapter.prototype.sendOperation = function (revision, operation, cursor, etype) {
+    otAdapter.prototype.sendOperation = function (revision, operation, cursor, etype) {
         if (typeof etype != 'undefined') {
             if (etype == 'richtext') {
                 var editor = "editorRich";
@@ -181,7 +181,7 @@ virtualclassAdapter = function () {
         console.log("send operation");
     };
 
-    virtualclassAdapter.prototype.sendSelection = function (selection) {
+    otAdapter.prototype.sendSelection = function (selection) {
         this.beforeSend({
             eddata: 'selection',
             data: JSON.stringify(selection),
@@ -189,7 +189,7 @@ virtualclassAdapter = function () {
         });
     };
 
-    virtualclassAdapter.prototype.sendCursor = function (cursor) {
+    otAdapter.prototype.sendCursor = function (cursor) {
         //console.log("Send Cursor");
         this.beforeSend({
             eddata: 'virtualclass-editor-cursor',
@@ -198,12 +198,12 @@ virtualclassAdapter = function () {
         });
     };
 
-    virtualclassAdapter.prototype.registerCallbacks = function (cb) {
+    otAdapter.prototype.registerCallbacks = function (cb) {
         this.callbacks = cb;
     };
 
 
-    virtualclassAdapter.prototype.beforeSend = function (sendData) {
+    otAdapter.prototype.beforeSend = function (sendData) {
         if (virtualclass.gObj.uRole == 't') {
             this.teacherOT(sendData);
         } else {
@@ -213,7 +213,7 @@ virtualclassAdapter = function () {
         }
     };
 
-	virtualclassAdapter.prototype.setEditorTypeOnPacket = function (msg){
+	otAdapter.prototype.setEditorTypeOnPacket = function (msg){
 		if (msg.hasOwnProperty('eddata')) {
             if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
                 if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
@@ -226,7 +226,7 @@ virtualclassAdapter = function () {
 		return msg;
 	};
 
-    virtualclassAdapter.prototype.preSend = function (msg, sendall) {
+    otAdapter.prototype.preSend = function (msg, sendall) {
         msg = this.setEditorTypeOnPacket(msg);
         if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
             ioAdapter.mustSend(msg);
@@ -235,7 +235,7 @@ virtualclassAdapter = function () {
         }
     };
 
-    virtualclassAdapter.prototype.teacherAck = function (msg) {
+    otAdapter.prototype.teacherAck = function (msg) {
         if (msg.edddata == 'virtualclass-editor-operation' || msg.edddata == 'selection' ||
             msg.edddata == 'virtualclass-editor-cursor') {
             var that = this;
@@ -245,5 +245,5 @@ virtualclassAdapter = function () {
         }
     };
 
-    return virtualclassAdapter;
+    return otAdapter;
 }();

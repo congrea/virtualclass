@@ -76,8 +76,15 @@
 <script type="text/javascript" src="<?php  echo $whiteboardpath;?>src/editor-annotation-list.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-attribute-constants.js"></script>
 
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-line-formatting.js"></script>
+
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-serialize-html.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-parse-html.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-codemirror-adapter.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass-adapter.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-adapter.js"></script>
+
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vceditor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>

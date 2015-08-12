@@ -285,8 +285,6 @@
        
              */
             onYTIframApi: function (videoId, playStratFrom, fromReload) {
-                
-               
                  //console.log(playStratFrom);
                 // console.log(fromReload);
                 if(typeof videoId != 'undefined'){
@@ -297,6 +295,8 @@
                 if (typeof this.player == 'object' && virtualclass.gObj.uRole == 't') {
                     this.player.loadVideoById(videoId);
                 } else {
+                    //alert('hello how are ');
+                    //debugger;
                     var playerVarsObj = {
                         height: '390',
                         width: '640',
@@ -304,6 +304,7 @@
                         disablekb: 1,
                         enablejsapi: 1,
                         modestbranding: 1,
+                        rel : 0,
                         start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
                         }
 

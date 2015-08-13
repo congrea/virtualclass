@@ -23,8 +23,10 @@ var ioAdapter = {
 
     mustSendAll: function (msg) {
         "use strict";
-        this.mustSend(msg);
+       // var orisend = JSON.parse(JSON.stringify(msg));
         this.mustSendUser(msg, virtualclass.gObj.uid);
+        this.mustSend(msg);
+
     },
 
     sendAll: function (msg) {

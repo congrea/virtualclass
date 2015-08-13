@@ -164,22 +164,6 @@
                     this.initSocketConn();
                 }
 
-
-                //virtualclass.chat = new Chat();
-                //virtualclass.chat.init();
-                //virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
-                //virtualclass.xhr = window.xhr;
-                //virtualclass.xhr.init();
-                //virtualclass.dtCon = virtualclass.converter();
-                //virtualclass.pbar = progressBar;
-                //
-                ////editor which is rich text editor which has various options
-                //
-                //virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorRichBody');
-                //
-                ////simple code editor with markdown
-                //virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
-
                 virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
 
                 },
@@ -187,23 +171,6 @@
             initSocketConn: function () {
                 //alert('should alert first');
                 if (this.system.webSocket) {
-                    //var wbUser = window.wbUser;
-                    ////  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
-                    //virtualclass.uInfo = {
-                    //    'userid': wbUser.id,
-                    //    'sid': wbUser.sid,
-                    //    'rid': wbUser.path,
-                    //    'authuser': wbUser.auth_user,
-                    //    'authpass': wbUser.auth_pass,
-                    //    'userobj': {
-                    //        'userid': wbUser.id,
-                    //        'name': wbUser.name,
-                    //        lname: wbUser.lname,
-                    //        'img': wbUser.imageurl,
-                    //        role: wbUser.role
-                    //    },
-                    //    'room': wbUser.room
-                    //};
                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;
                 }
@@ -351,11 +318,6 @@
                     }
                 }
 				
-				//this should perform only once
-                /*
-				if (this.gObj.uRole == 't') {
-                    this.vutil.setOrginalTeacher();
-                }*/
 
                 //if not screen share
                 if(app != this.apps[1] ){
@@ -364,11 +326,6 @@
 
                 //TODO this should be simplyfy
                 if (app == this.apps[0]) {
-                    //virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
-                    //
-                    //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
-                    //    vcan.utility.canvasCalcOffset(vcan.main.canid);
-                    //}
 
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;

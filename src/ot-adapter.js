@@ -22,6 +22,7 @@ otAdapter = function () {
         // We pretend to be a server
         //var server = new vceditor.Server(editorInfo.doc, this[etype].operations);
         var server = new vceditor.Server(editorInfo.doc, this.operations);
+
         this.trigger = function (func) {
             this.callbacks[func].apply(this, Array.prototype.slice.call(arguments, 1));
         };
@@ -30,7 +31,7 @@ otAdapter = function () {
         this.teacherOT = function (sendData) {
             // TW : 1) Teacher do OT and send to all (Function this.teacherOT)
             var msg = this.doOT(sendData);
-            console.log('TW : 1 From Teacher');
+            //console.log('TW : 1 From Teacher');
             this.preSend(msg, true);
         };
 
@@ -60,6 +61,7 @@ otAdapter = function () {
 
                 if (!wrappedPrime) {
                     console.log('there is some problem on revision of history');
+                    return;
                 }
 
                 msg.data = wrappedPrime.wrapped.toJSON();
@@ -113,24 +115,24 @@ otAdapter = function () {
         this.receivedMessage = function (event) {
 		
             var msg = event.message;
-            console.log('in');
+            //console.log('in');
             // TW : 2
             if (event.fromUser.role == 't' && !msg.hasOwnProperty('edFrom')) {
                 if (virtualclass.gObj.uRole == 't') {
                     // TW : 2a) Msg is received to Teacher (self) - Action : ACK
                     if (msg.eddata == 'virtualclass-editor-operation') {
-                        console.log('TW : 2a teacher ack');
+                        //console.log('TW : 2a teacher ack');
                         this.trigger('ack'); // TODO If we add delay using settimeout it will cause errors. FIX IT.
 						return;
 					}
                 } else {
-                    console.log('TW : 2b received @student');
+                    // console.log('TW : 2b received @student');
                     // TW : 2b) Msg is received to students - Action : Process
                     this.processOp(event);
                 }
             } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't') {
                 // SW : 1) Msg sent to Teacher
-                console.log('SW : 1 From Student');
+               // console.log('SW : 1 From Student');
                 // SW : 2) Teacher do OT and send to all
                 var op = this.doOT(msg);
                 event.message = op;
@@ -140,13 +142,13 @@ otAdapter = function () {
             } else {
                 // SW : 3
                 if (msg.edFrom == virtualclass.gObj.uid) {
-                    console.log('SW : 3a student ack');
+                //    console.log('SW : 3a student ack');
                     //  SW : 3a) Msg is received to student (self)
                     if (msg.eddata == 'virtualclass-editor-operation') {
                         this.trigger('ack');
                     }
                 } else {
-                    console.log('SW : 3bc received @process');
+                 //   console.log('SW : 3bc received @process');
                     // SW : 3b) Msg is received to students (others)
                     // SW : 3c) Msg is received to Teacher (also a broadcaster)
                     this.processOp(event);

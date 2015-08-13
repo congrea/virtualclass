@@ -54,11 +54,17 @@ var io = {
                     //if (msg.hasOwnProperty('m') && msg.user.userid != wbUser.id) {
                     if (msg.hasOwnProperty('m')) {
                         if (msg.m.hasOwnProperty('serial')) {
+                            //if(msg.user.userid != virtualclass.gObj.uid){
+                            //    ioMissingPackets.checkMissing(msg);
+                            //}
                             ioMissingPackets.checkMissing(msg);
+
                         } else if (msg.m.hasOwnProperty('reqMissPac')) {
                             ioMissingPackets.sendMissedPackets(msg);
                         } else if (msg.m.hasOwnProperty('missedpackets')) {
+
                             ioMissingPackets.fillExecutedStore(msg);
+
                         } else {
                             io.onRecSave(msg, e.data);
                             io.onRecJson(msg);

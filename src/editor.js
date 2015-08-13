@@ -45,9 +45,15 @@
                  *  the function requests the data from teacher in case of student
                  */
                 veryInit : function (){
-                    if(this.stroageData != null){
-                        var wrappedOperation = JSON.parse(this.stroageData);
-                        var docs = JSON.parse(wrappedOperation.data);
+                    if(this.stroageData != null && this.stroageData != ""){
+                        var docs = JSON.parse(this.stroageData);
+                        if(virtualclass.vutil.userIsOrginalTeacher()){
+                             docs = JSON.parse(docs.data);
+                        } else {
+                            docs = {clients:[], revision : 0, operations : [], str : docs}
+                        }
+
+
                         console.log('Current Editor type ' + virtualclass.currAppEditorType);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
                             if(virtualclass.currAppEditorType == this.etype){
@@ -335,6 +341,7 @@
                     if(typeof this.vcAdapter != 'object'){
                         if(virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation'){
                             virtualclass.makeAppReady(etype);
+                            //this.vcAdapter should convert into otAdapter
                             this.vcAdapter.receivedMessage(e, onmessage);
                         }
                         console.log("virtualclass adapter is not ready for editor");
@@ -466,6 +473,11 @@
                     return wrappedOperations;
                 },
 
+
+                getStudentAllText : function (){
+                    return this.cm.getValue();
+                },
+
                 /**
                  * Remove the Code Mirror from DOM
                  * and make empty of code mirror object
@@ -517,9 +529,15 @@
                         }
                     }
 
+
                     for(var  i=0; i<doc.operations.length; i++){
                         this.vcAdapter.trigger('operation', doc.operations[i].wrapped.toJSON());
                     }
+
+                    if(virtualclass.gObj.uRole == 's'){
+                        //this.cm.setValue(doc.str);
+                    }
+
 
                     this.cm.refresh();
 
@@ -598,11 +616,18 @@
                  * Save the editor data in to local storage
                  */
                 saveIntoLocalStorage : function (){
-                    if((typeof this.vcAdapter == 'object' && this.vcAdapter.operations.length > 0)){
-                        var wrappedOperations = this.getWrappedOperations();
-                        localStorage.removeItem(this.etype+'_allEditorOperations');
-                        localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(wrappedOperations));
-                        localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
+                    if(virtualclass.vutil.userIsOrginalTeacher(virtualclass.gObj.uid)){
+                        if((typeof this.vcAdapter == 'object' && this.vcAdapter.operations.length > 0)){
+                            var wrappedOperations = this.getWrappedOperations();
+
+                            localStorage.removeItem(this.etype+'_allEditorOperations');
+                            localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(wrappedOperations));
+                            localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
+                        }
+                    } else {
+                            var allText = this.getStudentAllText();
+                            localStorage.removeItem(this.etype+'_allEditorOperations');
+                            localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(allText));
 
                     }
                 }

@@ -27,7 +27,11 @@ var ioMissingPackets = {
 
             } else if (msg.m.serial > (this.executedSerial + 1)) {
                 console.log('requst miss packet');
+                //we should not need the request packet when self packet is recieved
+                //if(msg.user.userid != virtualclass.gObj.uid){
                 this.requestMissedPackets(this.executedSerial, msg.m.serial, msg);
+                //}
+
             } else { // We will not execute packets that has serial lesser then current packet but let us still store them
                 console.log('no action current packet ' + this.executedSerial + ' comming at ' + msg.m.serial);
                 this.executedStore[msg.m.serial] = msg;
@@ -90,8 +94,13 @@ var ioMissingPackets = {
 
     fillExecutedStore: function (msg) {
         "use strict";
-        console.log('received packet');
-        //console.log('received packet from ' + msg.m.data[0].serial + ' to ' + msg.m.data[msg.m.data.length-1].serial);
+        //console.log('received packet');
+        if(msg.m.data.length > 0){
+            console.log('received packet from ' + msg.m.data[0].m.serial + ' to ' + msg.m.data[msg.m.data.length-1].m.serial);
+        } else {
+            console.log('empty data object' );
+        }
+
         var dataLength = msg.m.data.length,
             i, ex;
         for (i = 0; i < dataLength; i++) {

@@ -539,7 +539,7 @@
                     var edState = virtualclass.editorRich.cmClient.state; //TODO make this dynamic
                     // We with till editor is in Sync
                     //TODO "edState is function not a string have to convert into strting first"
-                    if (edState != 'Synchronized') {
+                    if (edState.constructor.name != 'Synchronized') {
                         return 'Editor is not in sync, please wait for few seconds and try again';
                     } else {
                         virtualclass.vutil.beforeLoad();

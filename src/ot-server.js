@@ -10,11 +10,12 @@ Server = (function (global) {
 
 	// Call this method whenever you receive an operation from a client.
 	Server.prototype.receiveOperation = function (revision, operation) {
+		console.log('Operations '+this.operations.length + 'Revision ' + revision);
 		if (revision < 0 || this.operations.length < revision) {
 
-		if(revision > 1 ){
-			virtualclass.editorRich.requestData('from_s');
-		}
+		//if(revision > 1 ){
+		//	virtualclass.editorRich.requestData('from_s');
+		//}
 		//throw  Ernewror("operation revision not in history");
 		console.log("operation revision " + revision + " not in history");
 			return false ;

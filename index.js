@@ -60,6 +60,11 @@ $(document).ready(function () {
     //TODO this both setinterval functions should be merged into one\
 
     if(!wbUser.virtualclassPlay){
+
+        // this setTimeout function is used for
+        // the load of editor data.
+        // for synchronise with other we delay the time
+
         //Should not perform in play mode
         var tryEditorinit =  setInterval(
             function (){

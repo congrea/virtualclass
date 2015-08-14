@@ -252,7 +252,7 @@
                             if (typeof row != 'undefined') {
                                 that[tables[val]].handleResult(event, cb, row);
                             } else {
-                                console.log('table name ' + tables[val]);
+                                //console.log('table name ' + tables[val]);
                                 if(tables[val] != 'chunkData'){
                                     that[tables[val]].handleResult(event, cb);
                                 }
@@ -413,7 +413,7 @@
                         var data = JSON.parse(cursor.value.executedData);
                         ioMissingPackets.executedSerial = cursor.value.serialKey;
                         ioAdapter.adapterMustData[ioMissingPackets.executedSerial ] = data;
-                        console.log('till now executed ' + ioMissingPackets.executedSerial);
+                        //console.log('till now executed ' + ioMissingPackets.executedSerial);
                     }
                     cursor.continue();
                 }

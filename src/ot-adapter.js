@@ -60,6 +60,7 @@ otAdapter = function () {
                 var wrappedPrime = server.receiveOperation(data.revision, wrapped);
 
                 if (!wrappedPrime) {
+                    debugger;
                     console.log('there is some problem on revision of history');
                     return;
                 }
@@ -177,6 +178,8 @@ otAdapter = function () {
             et: editor,
             cf: 'eddata'
         };
+
+        console.log('from send operation ' + revision);
 
         this.beforeSend(sendData);
         var that = this;

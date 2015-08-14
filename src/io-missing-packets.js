@@ -109,7 +109,12 @@ var ioMissingPackets = {
                     this.executedSerial = msg.m.data[i].m.serial;
                     this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
-                    io.onRecJson(msg.m.data[i]);
+
+                    try {
+                        io.onRecJson(msg.m.data[i]);
+                    }catch(error){
+                        console.log("Error " + error);
+                    }
                     this.executedStore[msg.m.data[i].m.serial] = msg.m.data[i];
                 } else {
                     console.log('Recieved Packed missing serial')

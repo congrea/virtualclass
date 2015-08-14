@@ -1620,7 +1620,8 @@ var Vceditor = (function () {
                 this.codeMirror_ = this.editor_ = place;
                 var curValue = this.codeMirror_.getValue();
                 if (curValue !== '') {
-                    throw new Error("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
+                   //throw new Error("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
+                    console.log("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
                 }
             } else if (ace && place && place.session instanceof ace.EditSession) {
                 this.ace_ = this.editor_ = place;
@@ -1675,9 +1676,9 @@ var Vceditor = (function () {
             this.entityManager_ = new EntityManager();
 
             //this.Adapter_ = new Adapter(ref, userId, userColor);
-            var revision = 0;
+            var revision = editorInfo.revision;
             var clients = [];
-            var docs = "";
+            var docs = "hello suman";
             var operations = "";
             //this.vcAdapter =   new otAdapter(revision, docs, operations);
 

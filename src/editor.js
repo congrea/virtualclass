@@ -1,4 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
+// This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**
  * By this file we are creating the Editor
  * It depends on parameters what kind of editor(Rich Text or Code editor would be created)
@@ -34,7 +35,8 @@
                 prvEdRev : 0,
                 dataReqTry : 0,
                 stroageData : localStorage.getItem(this.etype+'_allEditorOperations'),
-                stroageDataRev : localStorage.getItem(this.etype+'_edOperationRev'),
+                tempstroageDataRev : localStorage.getItem(this.etype+'_edOperationRev'),
+
                 readonly : false,
 
 
@@ -45,14 +47,17 @@
                  *  the function requests the data from teacher in case of student
                  */
                 veryInit : function (){
+
                     if(this.stroageData != null && this.stroageData != ""){
+
+                       this.stroageDataRev =  (this.tempstroageDataRev == null) ? 0 : this.tempstroageDataRev;
+
                         var docs = JSON.parse(this.stroageData);
                         if(virtualclass.vutil.userIsOrginalTeacher()){
                              docs = JSON.parse(docs.data);
                         } else {
-                            docs = {clients:[], revision : 0, operations : [], str : docs}
+                            docs = {clients:[], revision : this.stroageDataRev, operations : [], str : docs}
                         }
-
 
                         console.log('Current Editor type ' + virtualclass.currAppEditorType);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
@@ -163,12 +168,8 @@
                         editorType.readOnly = false;
                     }
 
-                    //if(virtualclass.gObj.uRole == 't'){
-                    //    this.cm.setOption('readOnly', false);
-                    //    editorType.readOnly = false;
-                    //}
-
                     Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
+                    console.log('Creating Rich Text Layout');
                 },
 
                 /**
@@ -178,8 +179,8 @@
                 codemirrorWithLayout : function (mode){
                     this.UI.container(this.etype);
                     var edElem = document.getElementById(this.UI.edId);
-
                     if(typeof  this.cm  != 'object'){
+                        console.log('Code mirror instance is created ');
                         this.cm = CodeMirror(document.getElementById(this.UI.edId), mode);
                     }
                 },
@@ -475,7 +476,7 @@
 
 
                 getStudentAllText : function (){
-                    return this.cm.getValue();
+                    return this.cm.getValue('\n');
                 },
 
                 /**
@@ -509,62 +510,47 @@
                     }
 
                     this.removeCodeMirror();
+
+                    if(virtualclass.vutil.userIsOrginalTeacher()){
+                        doc.revision = 0;
+                    } else {
+                        editorType.value = doc.str; //add by suman
+
+                    }
+                    editorType.revision = doc.revision;
+
+                    //if(virtualclass.gObj.uRole == 's'){
+                    //    editorType.value = doc.str; //add by suman
+                    //    editorType.revision = doc.revision;
+                    //}
+
+                    //editorType.value = doc.str;
                     this.codemirrorWithLayout(editorType);
+
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp);
 
                     if ((this.cm)) {
+
                         if (this.cm.getValue() !== doc.str) {
-                            var cmElem = document.getElementById(this.UI.edId);
-
-                            console.log('new string set');
-
                             this.cmClient = "";
                             this.vcAdapter = "";
 
                             doc.operations = deserialiseOps(doc.operations);
                             doc.doc = doc.str;
-
-                            this.createEditorClient(editorToolbar, doc);
-                            this.prvEdRev = doc.revision;
                         }
-                    }
 
+                        //This is need to create for student so is not inside with if condition
+                        this.createEditorClient(editorToolbar, doc);
+                        this.prvEdRev = doc.revision;
+
+                    }
 
                     for(var  i=0; i<doc.operations.length; i++){
                         this.vcAdapter.trigger('operation', doc.operations[i].wrapped.toJSON());
                     }
 
-                    if(virtualclass.gObj.uRole == 's'){
-                        //this.cm.setValue(doc.str);
-                    }
-
-
                     this.cm.refresh();
-
                     var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
-
-                    //if(cmReadOnly != null && !cmReadOnly){
-                    //    this.cm.setOption("readOnly", true);
-                    //    var writeMode = false;
-                    //
-                    //}else {
-                    //    this.cm.setOption("readOnly", false);
-                    //    var writeMode = true;
-                    //}
-
-                    //TODO To be simplyfied
-                    //if(cmReadOnly != null){
-                    //    if(!cmReadOnly){
-                    //        this.cm.setOption("readOnly", true);
-                    //        var writeMode = false;
-                    //    }else {
-                    //        this.cm.setOption("readOnly", false);
-                    //        var writeMode = true;
-                    //    }
-                    //} else {
-                    //    this.cm.setOption("readOnly", true);
-                    //    var writeMode = false;
-                    //}
 
                     //TODO To be simplyfied
                     if(localStorage.getItem('orginalTeacherId') == null) {
@@ -625,9 +611,12 @@
                             localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
                         }
                     } else {
-                            var allText = this.getStudentAllText();
+                        var allText = this.getStudentAllText();
+                        if(allText != " " && allText != ""){
                             localStorage.removeItem(this.etype+'_allEditorOperations');
                             localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(allText));
+                            localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
+                        }
 
                     }
                 }

@@ -16,20 +16,19 @@ var ioMissingPackets = {
             this.fillExecutedStore(msg);
         } else if (typeof msg.m.serial != 'undefined' && msg.m.serial != null) {
             if (msg.m.serial == (this.executedSerial + 1)) {
-
-                console.log('Displaying Object ' + msg.m.serial);
+                console.log('Displaying Object with Serial ' + msg.m.serial);
                 this.executedSerial = msg.m.serial;
                 this.onRecSave(msg);
                 io.onRecJson(msg);
                 this.executedStore[msg.m.serial] = msg;
-
                 ioStorage.dataExecutedStoreAll(msg, msg.m.serial);
 
             } else if (msg.m.serial > (this.executedSerial + 1)) {
                 console.log('requst miss packet');
                 //we should not need the request packet when self packet is recieved
                 //if(msg.user.userid != virtualclass.gObj.uid){
-                this.requestMissedPackets(this.executedSerial, msg.m.serial, msg);
+                var from = this.executedSerial + 1;
+                this.requestMissedPackets(from, msg.m.serial, msg);
                 //}
 
             } else { // We will not execute packets that has serial lesser then current packet but let us still store them
@@ -43,10 +42,17 @@ var ioMissingPackets = {
 
     requestMissedPackets: function (from, till, msg) {
         //debugger;
-        till++;
-        console.log('request packet from ' + from + ' to ' + till);
+        if (from < 0) { // Make sure from is not negative
+            from = 0;
+        }
+
         "use strict";
         if (this.missRequest == 0) {
+            // Save current packet
+            this.aheadPackets.unshift(msg.m.serial);
+            this.executedStore[msg.m.serial] = msg;
+            till--; // We do not need to request current packet.
+            console.log('request packet from ' + from + ' to ' + till);
             this.waitAndResetmissRequest();
             var sendMsg = {
                 reqMissPac: 1,
@@ -74,7 +80,12 @@ var ioMissingPackets = {
 
     sendMissedPackets: function (msg) {
         "use strict";
-        var senddata = ioAdapter.adapterMustData.slice(msg.m.from, msg.m.till);
+        var from = msg.m.from;
+        if (from < 0) { // Make sure from is not negative
+            from = 0;
+        }
+        var till = msg.m.till + 1; // slice extracts up to but not including end.
+        var senddata = ioAdapter.adapterMustData.slice(from, till);
 
         var sendmsg = {
             missedpackets: 1,
@@ -107,10 +118,12 @@ var ioMissingPackets = {
             if(msg.m.data[i] != null){
                 if (typeof msg.m.data[i].m.serial != 'undefined' || msg.m.data[i].m.serial != null) {
                     this.executedSerial = msg.m.data[i].m.serial;
+                    ioStorage.dataExecutedStoreAll(msg.m.data[i], msg.m.data[i].m.serial);
                     this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
 
                     try {
+                        console.log('Displaying Object with Serial ' + msg.m.data[i].m.serial);
                         io.onRecJson(msg.m.data[i]);
                     }catch(error){
                         console.log("Error " + error);
@@ -124,10 +137,12 @@ var ioMissingPackets = {
 
         // TODO It is possible that incoming packets are not in order
         while (ex = this.aheadPackets.pop()) {
-            if (typeof ex.serial != 'undefined' || ex.serial != null) {
-                this.executedSerial = ex.serial;
+            if (typeof ex != 'undefined' || ex != null) {
+                this.executedSerial = ex;
                 this.onRecSave(this.executedStore[ex]);
+                console.log('Displaying Object with Serial ' + this.executedStore[ex].m.serial);
                 io.onRecJson(this.executedStore[ex]);
+                ioStorage.dataExecutedStoreAll(this.executedStore[ex], this.executedStore[ex].m.serial);
             } else {
                 console.log('ahead Packed missing serial')
             }

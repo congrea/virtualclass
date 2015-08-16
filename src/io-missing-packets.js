@@ -116,7 +116,8 @@ var ioMissingPackets = {
             i, ex;
         for (i = 0; i < dataLength; i++) {
             if(msg.m.data[i] != null){
-                if (typeof msg.m.data[i].m.serial != 'undefined' || msg.m.data[i].m.serial != null) {
+				//the serial should not be null and undefined	
+				if (typeof msg.m.data[i].m.serial != 'undefined' && msg.m.data[i].m.serial != null) {
                     this.executedSerial = msg.m.data[i].m.serial;
                     ioStorage.dataExecutedStoreAll(msg.m.data[i], msg.m.data[i].m.serial);
                     this.onRecSave(msg.m.data[i]);
@@ -137,7 +138,7 @@ var ioMissingPackets = {
 
         // TODO It is possible that incoming packets are not in order
         while (ex = this.aheadPackets.pop()) {
-            if (typeof ex != 'undefined' || ex != null) {
+		    if (typeof ex != 'undefined' && ex != null) {
                 this.executedSerial = ex;
                 this.onRecSave(this.executedStore[ex]);
                 console.log('Displaying Object with Serial ' + this.executedStore[ex].m.serial);

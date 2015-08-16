@@ -535,10 +535,11 @@
                 }
             } else {
                 window.onbeforeunload = function () {
-
-                    var edState = virtualclass.editorRich.cmClient.state; //TODO make this dynamic
-                    // We with till editor is in Sync
-                    //TODO "edState is function not a string have to convert into strting first"
+					var editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
+			        var edState = virtualclass[editor].cmClient.state; //TODO make this dynamic
+					
+					// We with till editor is in Sync.
+					// edState is an instance of constructor, to get the name of it 
                     if (edState.constructor.name != 'Synchronized') {
                         return 'Editor is not in sync, please wait for few seconds and try again';
                     } else {

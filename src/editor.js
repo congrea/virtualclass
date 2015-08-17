@@ -50,14 +50,16 @@
 
                     if(this.stroageData != null && this.stroageData != ""){
 
-                       this.stroageDataRev =  (this.tempstroageDataRev == null) ? 0 : this.tempstroageDataRev;
-
+                        this.stroageDataRev =  (this.tempstroageDataRev == null) ? 0 : this.tempstroageDataRev;
                         var docs = JSON.parse(this.stroageData);
-                        if(virtualclass.vutil.userIsOrginalTeacher()){
-                             docs = JSON.parse(docs.data);
-                        } else {
-                            docs = {clients:[], revision : this.stroageDataRev, operations : [], str : docs}
-                        }
+
+                        docs = JSON.parse(docs.data);
+
+                        //if(virtualclass.vutil.userIsOrginalTeacher()){
+                        //     docs = JSON.parse(docs.data);
+                        //} else {
+                        //    docs = {clients:[], revision : this.stroageDataRev, operations : [], str : docs}
+                        //}
 
                         console.log('Current Editor type ' + virtualclass.currAppEditorType);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
@@ -511,18 +513,7 @@
 
                     this.removeCodeMirror();
 
-                    if(virtualclass.vutil.userIsOrginalTeacher()){
-                        doc.revision = 0;
-                    } else {
-                        editorType.value = doc.str; //add by suman
-
-                    }
-                    editorType.revision = doc.revision;
-
-                    //if(virtualclass.gObj.uRole == 's'){
-                    //    editorType.value = doc.str; //add by suman
-                    //    editorType.revision = doc.revision;
-                    //}
+                    doc.revision = 0; //every time page loads, we need to do this, other it would doubles.
 
                     //editorType.value = doc.str;
                     this.codemirrorWithLayout(editorType);
@@ -602,22 +593,11 @@
                  * Save the editor data in to local storage
                  */
                 saveIntoLocalStorage : function (){
-                    if(virtualclass.vutil.userIsOrginalTeacher(virtualclass.gObj.uid)){
-                        if((typeof this.vcAdapter == 'object' && this.vcAdapter.operations.length > 0)){
-                            var wrappedOperations = this.getWrappedOperations();
-
-                            localStorage.removeItem(this.etype+'_allEditorOperations');
-                            localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(wrappedOperations));
-                            localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
-                        }
-                    } else {
-                        var allText = this.getStudentAllText();
-                        if(allText != " " && allText != ""){
-                            localStorage.removeItem(this.etype+'_allEditorOperations');
-                            localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(allText));
-                            localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
-                        }
-
+                    if((typeof this.vcAdapter == 'object' && this.vcAdapter.operations.length > 0)){
+                        var wrappedOperations = this.getWrappedOperations();
+                        localStorage.removeItem(this.etype+'_allEditorOperations');
+                        localStorage.setItem(this.etype+'_allEditorOperations',  JSON.stringify(wrappedOperations));
+                        localStorage.setItem(this.etype+'_edOperationRev',  this.cmClient.revision);
                     }
                 }
             }

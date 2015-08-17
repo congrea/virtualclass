@@ -30,7 +30,9 @@ otAdapter = function () {
 
         this.teacherOT = function (sendData) {
             // TW : 1) Teacher do OT and send to all (Function this.teacherOT)
+            // TODO Possible error at teacher (TRY CATCH)
             var msg = this.doOT(sendData);
+            // TODO Reload Operations and send to all students
             //console.log('TW : 1 From Teacher');
             this.preSend(msg, true);
         };
@@ -66,14 +68,9 @@ otAdapter = function () {
                 }
 
                 msg.data = wrappedPrime.wrapped.toJSON();
+
                 msg.meta = wrappedPrime.meta;
 
-
-                //msg = {
-                //    eddata: 'virtualclass-editor-operation',
-                //    data: wrappedPrime,
-                //    cf : 'eddata'
-                //};
             }
 
             return msg;
@@ -92,9 +89,20 @@ otAdapter = function () {
                 } else if (msg.eddata == 'virtualclass-editor-operation') {
                     this.trigger('operation', msg.data);
                     this.trigger('cursor', event.fromUser.userid, msg.meta);
+                    this.storeOperationIfStudent(msg);
                 }
             } else {
                 console.log('Editor : processOP - No EDDATA');
+            }
+        };
+
+        this.storeOperationIfStudent  = function (msg){
+            var isOrginalTeacher = virtualclass.vutil.userIsOrginalTeacher(virtualclass.gObj.uid);
+            if(virtualclass.gObj.uRole == 's' && !isOrginalTeacher){
+                var wrappedOperation = {};
+                wrappedOperation.wrapped = vceditor.TextOperation.fromJSON(msg.data);
+                wrappedOperation.meta = msg.meta;
+                server.operations.push(wrappedOperation);
             }
         };
 
@@ -152,6 +160,7 @@ otAdapter = function () {
                  //   console.log('SW : 3bc received @process');
                     // SW : 3b) Msg is received to students (others)
                     // SW : 3c) Msg is received to Teacher (also a broadcaster)
+                    // TODO - Possible error on student (TRY Catch)
                     this.processOp(event);
                 }
             }

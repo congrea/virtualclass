@@ -1,5 +1,4 @@
 var ioAdapter = {
-
     adapterMustData: [], // It contains all data that is must for all users to have
     serial: -1, // It is serial number of sent packet, normally set to current number
     //TODO - Store to IndexDB
@@ -35,6 +34,7 @@ var ioAdapter = {
         io.send(msg, cfun, null);
     },
 
+    //TODO Function below still needs to have missing packets functionality
     mustSendUser: function (msg, touser) {
         "use strict";
         this.sendUser(msg, touser);

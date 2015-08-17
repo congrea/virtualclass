@@ -411,9 +411,12 @@
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('executedData')) {
                         var data = JSON.parse(cursor.value.executedData);
-                        ioMissingPackets.executedSerial = cursor.value.serialKey;
-                        ioAdapter.adapterMustData[ioMissingPackets.executedSerial ] = data;
-                        //console.log('till now executed ' + ioMissingPackets.executedSerial);
+                        //ioMissingPackets.executedSerial = cursor.value.serialKey;
+                        var akey = cursor.value.serialKey.split('_'),
+                            uid = akey[0], serial = akey[1];
+                        ioMissingPackets.validateAllVariables(uid);
+                        ioMissingPackets.executedStore[uid][serial] = data;
+                        //console.log('till now executed ' + cursor.value.serialKey);
                     }
                     cursor.continue();
                 }
@@ -477,6 +480,7 @@
             }
         },
         clearStorageData: function () {
+            ioMissingPackets.executedSerial = null;
             for (var i = 0; i < this.tables.length; i++) {
                 var t = this.db.transaction([this.tables[i]], "readwrite");
                 console.log('cleared' + i);

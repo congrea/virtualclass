@@ -473,6 +473,8 @@
 
             localStorage.setItem('totalStored', virtualclass.storage.totalStored);
 
+            localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
+
             localStorage.removeItem('otherRole');
 
             //critical, this can be critical

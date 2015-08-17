@@ -34,6 +34,7 @@ var ioAdapter = {
         io.send(msg, cfun, null);
     },
 
+    //TODO Function below still needs to have missing packets functionality
     mustSendUser: function (msg, touser) {
         "use strict";
         this.sendUser(msg, touser);

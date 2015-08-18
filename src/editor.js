@@ -54,13 +54,6 @@
                         var docs = JSON.parse(this.stroageData);
 
                         docs = JSON.parse(docs.data);
-
-                        //if(virtualclass.vutil.userIsOrginalTeacher()){
-                        //     docs = JSON.parse(docs.data);
-                        //} else {
-                        //    docs = {clients:[], revision : this.stroageDataRev, operations : [], str : docs}
-                        //}
-
                         console.log('Current Editor type ' + virtualclass.currAppEditorType);
                         if(virtualclass.hasOwnProperty('currAppEditor')){
                             if(virtualclass.currAppEditorType == this.etype){
@@ -70,10 +63,6 @@
                             }
                         } else {
                             this.initialiseDataWithEditor(docs);
-                        }
-                    }else {
-                        if(virtualclass.gObj.uRole == 's'){
-                             this.requestData('from_' + virtualclass.gObj.uRole);
                         }
                     }
                 },
@@ -192,37 +181,16 @@
                  * @param byRequest expects from request is coming from
                  * @param withDiffUser is flag for try with different user
                  */
-                requestData : function (byRequest, withDiffUser){
-                    var toUser = '';
-                    for(var i=0; i < virtualclass.connectedUsers.length; i++){
-                        if(virtualclass.gObj.uid != virtualclass.connectedUsers[i].userid) {
-                            if(virtualclass.connectedUsers[i].role == 't'){
-                                if(typeof withDiffUser != 'undefined'){
-                                    if((!this.hasOwnProperty('toAlreadyRequestUser') || (this.toAlreadyRequestUser != virtualclass.connectedUsers[i].userid))){
-                                        //ioAdapter.mustSend({'eddata': 'requestForEditorData'}, virtualclass.connectedUsers[i].userid);
-                                        toUser = virtualclass.connectedUsers[i].userid;
-                                        this.toAlreadyRequestUser = virtualclass.connectedUsers[i].userid;
-                                        this.dataReqTry++;
-                                        break;
-                                    }
-                                }else {
-                                    toUser = virtualclass.connectedUsers[i].userid;
-                                    break;
-                                }
+                requestData: function () {
+                    var toUser = virtualclass.vutil.whoIsTeacher();
 
-                            }else{
-                                toUser = virtualclass.connectedUsers[i].userid;
-                                break;
-                            }
-                        }
-                    }
+                    this.readOnlyMode('enable');
 
-                    if(toUser != '' && typeof toUser != 'undefined' &&  io.sock != null){
-                         if(io.sock.readyState == 1){
-                             ioAdapter.mustSendUser({'eddata': 'requestForEditorData', et: this.etype, cf : 'eddata'}, toUser);
-                         }
-                        this.readOnlyMode('enable');
-                    }
+                    ioAdapter.mustSendUser({
+                        'eddata': 'requestForEditorData',
+                        et: this.etype,
+                        cf: 'eddata'
+                    }, toUser);
                 },
 
                 /**
@@ -260,47 +228,55 @@
                             virtualclass.currAppEditorType = e.message.et;
                             virtualclass.dispvirtualclassLayout(virtualclass.currAppEditorType);
                         }
-                        return;
                     },
 
                     init : function (e, etype){
                         if((e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')){
                             virtualclass.makeAppReady(etype);
                         }
-                        return;
                     },
 
                     initVcEditor : function (e){
+
+                        console.log('received whole data');
+
+                        if(virtualclass.gObj.uRole == 's') {
+                            virtualclass[e.message.et].vcAdapter.removeOperations(e);
+                        }
+
                         if((virtualclass.gObj.uRole != 't') ||
                             (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)){
                             var doc = JSON.parse(e.message.data);
+
+                            //alert('hi hello');
+                            //debugger;
+
                             if(e.message.hasOwnProperty('layoutEd')){
                                 this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
                             } else {
                                 this.initialiseDataWithEditor(doc);
                             }
                         }
-                        return;
                     },
 
                     requestForEditorData : function (e){
                         if(e.fromUser.userid != virtualclass.gObj.uid){
                             if(typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0){
+                                // TODO Check if it is required to send to all
                                 ioAdapter.mustSendAll({'eddata' : 'noDataForEditor', cf : 'eddata'});
                                 return;
                             }
+                            this.responseToRequest(e.fromUser.userid);
 
-                            this.reponseToRequest({toUser : e.fromUser.userid});
-
+                        } else {
+                            console.log('Cannot send requestForEditorData to self');
                         }
-                        return;
                     },
 
                     noDataForEditor : function (){
                         if(virtualclass.gObj.uRole == 't'){
                             // this.requestData('fromTeacher', 'withDifStudent');
                         }
-                        return;
                     },
 
                     'virtualclass-editor-operation' : function (e){
@@ -310,7 +286,6 @@
                             this.readOnlyMode('disable');
                             this.vcAdapter.receivedMessage(e);
                         }
-                        return;
                     },
 
 
@@ -318,14 +293,12 @@
                         if(typeof this.vcAdapter == 'object'){
                             this.vcAdapter.receivedMessage(e);
                         }
-                        return;
                     },
 
                     'select' : function (){
                         if(typeof this.vcAdapter == 'object'){
                             this.vcAdapter.receivedMessage(e);
                         }
-                        return;
                     }
                 },
 
@@ -338,7 +311,8 @@
                 onmessage : function (e, etype){
                     //at student
                     //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
-
+                    //alert('sss');
+                    //debugger;
                     //TODO this all if and else condition should be simplyfy
                     this.receivedOperations[e.message.eddata].call(this, e, etype);
                     if(typeof this.vcAdapter != 'object'){
@@ -423,22 +397,23 @@
                  * Response the requested data to requested user
                  * @param appIsEditor does decide the editor shoudl be shown or not at other user
                  */
-                reponseToRequest : function (appIsEditor){
-                    var initPacket = this.getWrappedOperations();
-                    if(typeof appIsEditor != 'undefined'){
-                        if((appIsEditor.hasOwnProperty('editorRich') || appIsEditor.hasOwnProperty('editorCode')) || this.isEidtorWithTeacher()){
-                            initPacket.layoutEd  = "1";  //this would be for create editor layout
-                            initPacket.cet = virtualclass.currApp;
-                            initPacket.et = this.etype;
-                        }
+                responseToRequest : function (toUser){
+                    var initPacket = this.getWrappedOperations(true);
+                    initPacket.layoutEd  = "1";  //this would be for create editor layout
+                    initPacket.cet = virtualclass.currApp;
+                    initPacket.et = this.etype;
 
-                        if(appIsEditor.hasOwnProperty('toUser')){
-                            initPacket.resFromUser = true;
-                        }
-
-                        ioAdapter.mustSendUser(initPacket, appIsEditor.toUser);
+                    if (toUser) {
+                        initPacket.resFromUser = true;
+                        ioAdapter.mustSendUser(initPacket, toUser);
+                        console.log('Sending responseToRequest to ' + toUser);
                     } else {
                         ioAdapter.mustSend(initPacket);
+                        console.log('Sending responseToRequest to all');
+                        virtualclass[initPacket.et].vcAdapter.removeOperations({message : {et: initPacket.et}});
+                        var operations = JSON.parse(initPacket.data);
+                        virtualclass[initPacket.et].initialiseDataWithEditor(operations); // for display content to self
+                        virtualclass[initPacket.et].vcAdapter.myOTrequestData = 0;
                     }
                 },
 
@@ -454,24 +429,30 @@
                  * Wrapped the text operation with reviion, string etc.
                  * @returns {{eddata: string, data, et: *}}
                  */
-                getWrappedOperations : function (){
-                    var operations = this.vcAdapter && this.vcAdapter.operations ? serialiseOps(this.vcAdapter.operations): [];
+                getWrappedOperations : function (removelast){
+                    var operations;
+                    if (this.vcAdapter && this.vcAdapter.operations) {
+                        operations = serialiseOps(this.vcAdapter.operations);
+                    } else {
+                        operations = [];
+                    }
+                    //var operations = this.vcAdapter && this.vcAdapter.operations ? serialiseOps(this.vcAdapter.operations): [];
                     // We only want the most recent 50 because we can't send too much data
-
-                    //if (operations.length > 50) {
-                    //    operations = operations.slice(operations.length - 50);
-                    //}
 
                     var wrappedOperations = {
                         eddata: 'initVcEditor',
                         data: JSON.stringify({
-                            revision: this.cmClient.revision,
-                            clients: [],
-                            str: this.cm.getValue(), //cm is my code mirror
+                            //revision: this.cmClient.revision,
+                            //revision: 0,
+                            //clients: [],
+                            ////str: this.cm.getValue(), //cm is my code mirror
+                            //str: '',
                             operations: operations
                         }),
-                        et : this.etype
-                    }
+
+                        et : this.etype,
+                        cf : 'eddata'
+                    };
 
                     return wrappedOperations;
                 },
@@ -494,56 +475,7 @@
                     this.cm = "";
                 },
 
-                /**
-                 * After editor packets recived from teacher
-                 * will set with code mirror, and apply the operations agains text transform
-                 */
-
-                initialiseDataWithEditor : function (doc, displayEditor, et) {
-                    if(typeof displayEditor != 'undefined'){
-                        //virtualclass.currApp = virtualclass.apps[3];
-                        if(virtualclass.currAppEditor){
-                            if(virtualclass.currAppEditorType == et){
-                                virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
-                            }
-                        }else{
-                            virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
-                        }
-                    }
-
-                    this.removeCodeMirror();
-
-                    doc.revision = 0; //every time page loads, we need to do this, other it would doubles.
-
-                    //editorType.value = doc.str;
-                    this.codemirrorWithLayout(editorType);
-
-                    virtualclass.dispvirtualclassLayout(virtualclass.currApp);
-
-                    if ((this.cm)) {
-
-                        if (this.cm.getValue() !== doc.str) {
-                            this.cmClient = "";
-                            this.vcAdapter = "";
-
-                            doc.operations = deserialiseOps(doc.operations);
-                            doc.doc = doc.str;
-                        }
-
-                        //This is need to create for student so is not inside with if condition
-                        this.createEditorClient(editorToolbar, doc);
-                        this.prvEdRev = doc.revision;
-
-                    }
-
-                    for(var  i=0; i<doc.operations.length; i++){
-                        this.vcAdapter.trigger('operation', doc.operations[i].wrapped.toJSON());
-                    }
-
-                    this.cm.refresh();
-                    var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
-
-                    //TODO To be simplyfied
+                setReadMode : function (){
                     if(localStorage.getItem('orginalTeacherId') == null) {
                         if(cmReadOnly != null){
                             if(!cmReadOnly){
@@ -560,9 +492,109 @@
 
                         virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
                     }
+                },
+
+                writeBulkDocs : function (doc){
+                    var tempOps = deserialiseOps(doc.operations); // Get deserialize operations
+
+                    // Make ready the default docs for initialize the editor
+                    doc.revision = 0; // Does need every time page loads, else it would doubles.
+                    if ((this.cm)) {
+                        if ((this.cm.getValue() !== doc.str) || (doc.str == "")) {
+                            this.cmClient = "";
+                            this.vcAdapter = "";
+                            doc.operations = [];
+                            doc.doc = "";
+                        }
+
+                        this.createEditorClient(editorToolbar, doc); // creating editor client and virtualclass adapter
+                        this.prvEdRev = doc.revision;
+                    }
+
+                    // Write the text/operation on Editor by triggering the operation
+                    for(var  i=0; i<tempOps.length; i++){
+                        // TODO editorRich shoudl be dynamic
+                        virtualclass.editorRich.vcAdapter.server.receiveOperation(i, tempOps[i]);
+                        this.vcAdapter.trigger('operation', tempOps[i].wrapped.toJSON());
+                    }
+                },
+
+                /**
+                 * After editor packets recived from teacher
+                 * will set with code mirror, and apply the operations agains text transform
+                 */
+
+                initialiseDataWithEditor : function (doc, displayEditor, et) {
+
+                    var tempOps = deserialiseOps(doc.operations); // Get deserialize operations
+
+                    //initializeig the editor to virtualclass current application
+                    if(typeof displayEditor != 'undefined'){
+                        if(virtualclass.currAppEditor){
+                            if(virtualclass.currAppEditorType == et){
+                                virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
+                            }
+                        }else{
+                            virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(et);
+                        }
+                    }
+
+                    this.removeCodeMirror(); // Remove code mirror from dom if exist
+
+                    this.codemirrorWithLayout(editorType); // Create the code mirror instance with layout
+
+                    virtualclass.dispvirtualclassLayout(virtualclass.currApp); // If virtualclass.currApp is editor then display it
+
+                    this.writeBulkDocs(doc);
+
+
+                    // Make ready the default docs for initialize the editor
+                    //doc.revision = 0; // Does need every time page loads, else it would doubles.
+                    //if ((this.cm)) {
+                    //    if ((this.cm.getValue() !== doc.str) || (doc.str == "")) {
+                    //        this.cmClient = "";
+                    //        this.vcAdapter = "";
+                    //        doc.operations = [];
+                    //        doc.doc = "";
+                    //    }
+                    //
+                    //    this.createEditorClient(editorToolbar, doc); // creating editor client and virtualclass adapter
+                    //    this.prvEdRev = doc.revision;
+                    //}
+                    //
+                    //// Write the text/operation on Editor by triggering the operation
+                    //for(var  i=0; i<tempOps.length; i++){
+                    //    if(virtualclass.gObj.uRole == 't'){
+                    //        virtualclass.editorRich.vcAdapter.server.receiveOperation(i, tempOps[i]);
+                    //    }
+                    //    this.vcAdapter.trigger('operation', tempOps[i].wrapped.toJSON());
+                    //}
+
+                    this.cm.refresh();
+
+                    //var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
+                    //
+                    ////TODO To be simplyfied
+                    //if(localStorage.getItem('orginalTeacherId') == null) {
+                    //    if(cmReadOnly != null){
+                    //        if(!cmReadOnly){
+                    //            this.cm.setOption("readOnly", true);
+                    //            var writeMode = false;
+                    //        }else {
+                    //            this.cm.setOption("readOnly", false);
+                    //            var writeMode = true;
+                    //        }
+                    //    } else {
+                    //        this.cm.setOption("readOnly", true);
+                    //        var writeMode = false;
+                    //    }
+                    //
+                    //    virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
+                    //}
+
+                    this.setReadMode(); // Setting the Editor read mode
 
                     var currApp  = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
-
                     if(currApp == 'EditorRich' || currApp == 'EditorCode'){
                         virtualclass.previous = 'virtualclass' + virtualclass.currApp ;
                         virtualclass.system.setAppDimension(virtualclass.currApp);
@@ -572,6 +604,7 @@
                     if(editorTool  != null){
                         editorTool.style.pointerEvents = 'visible';
                     }
+                    otAdapter.myrequestData = 0;
                 },
 
                 /**

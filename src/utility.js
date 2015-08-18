@@ -541,11 +541,10 @@
 			        var edState = virtualclass[editor].cmClient.state; //TODO make this dynamic
 					
 					// We with till editor is in Sync.
-					// edState is an instance of constructor, to get the name of it 
+					// edState is an instance of constructor, to get the name of it
+                    virtualclass.vutil.beforeLoad();
                     if (edState.constructor.name != 'Synchronized') {
                         return 'Editor is not in sync, please wait for few seconds and try again';
-                    } else {
-                        virtualclass.vutil.beforeLoad();
                     }
                 }
             }

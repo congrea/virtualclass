@@ -211,8 +211,8 @@
                 this.ssByClick = true;
                 this.manualStop = false;
 
-                //if(virtualclass.gObj.uRole == 't' && !virtualclass.hasOwnProperty('repType')){
-                if (virtualclass.gObj.uRole == 't' && !virtualclass.recorder.recImgPlay) {
+                //if(virtualclass.vutil.hasControls() && !virtualclass.hasOwnProperty('repType')){
+                if (virtualclass.vutil.hasControls() && !virtualclass.recorder.recImgPlay) {
 
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
@@ -263,7 +263,7 @@
                     var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
                     document.getElementById(virtualclass.html.id).insertBefore(ssUI, beforeAppend);
 
-                    if (virtualclass.gObj.uRole == 't' && !virtualclass.recorder.recImgPlay) {
+                    if (virtualclass.vutil.hasControls() && !virtualclass.recorder.recImgPlay) {
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
                 }
@@ -427,7 +427,7 @@
                     that.sharing();
                     virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
 
-                    if (virtualclass.gObj.uRole == 't') {
+                    if (virtualclass.vutil.hasControls()) {
                         //TODO This should be invoke at one place
                         virtualclass.vutil.makeActiveApp(that.id, virtualclass.previrtualclass);
                         if (virtualclass.previrtualclass == 'virtualclassYts') {

@@ -92,7 +92,7 @@
                         console.log('uid ' + virtualclass.wb.uid);
                         obj.uid = virtualclass.wb.uid;
                         vcan.main.replayObjs.push(obj);
-                      virtualclass.vutil.beforeSend({'repObj': [obj], 'cf' : 'repObj'});
+                        virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                         virtualclass.wb.utility.updateSentPackets(obj);
                     }
 

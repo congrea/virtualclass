@@ -76,7 +76,7 @@
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
                         var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
-                      virtualclass.vutil.beforeSend({'repObj': [obj],'cf' : 'repObj'});
+                        virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                     }
                 }
             },
@@ -831,7 +831,7 @@
             },
 
             replayFromLocalStroage: function (allRepObjs) {
-                 if (typeof (Storage) !== "undefined") {
+                if (typeof (Storage) !== "undefined") {
                     if (virtualclass.storage.reclaim === false) {
                         //virtualclass.wb.utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
@@ -920,7 +920,7 @@
 
 
             sendRequest: function () {
-              virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf' : 'reclaimRole'});
+                virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf': 'reclaimRole'});
             },
             updateSentInformation: function (jobj, createArrow) {
                 if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
@@ -964,7 +964,7 @@
              * because beforeSend on utility.js is using now
              *
              *
-              */
+             */
 
             /**
              * the operation before send message to server

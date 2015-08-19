@@ -36,7 +36,7 @@
         //not using
         assignRole: function (fromUserId, id, reclaim) {
             if (fromUserId != id || typeof reclaim != 'undefined') {
-               virtualclass.vutil.assignRole(id);
+                virtualclass.vutil.assignRole(id);
                 virtualclass.wb.utility.uniqueArrOfObjsToTeacher();
                 //create assing button only to student
                 if (localStorage.getItem('orginalTeacherId') == null) {
@@ -79,7 +79,7 @@
             //  virtualclass.wb.utility.initDefaultInfo(e, wbUser.role);
             virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
 
-            virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp );
+            virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
             virtualclass.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
         },
         clearAll: function (formUserId, id, eMessage, orginalTeacherId) {
@@ -126,9 +126,9 @@
             if (virtualclass.wb.gObj.rcvdPackId !== 0 || (virtualclass.wb.uid > 0 && virtualclass.wb.gObj.rcvdPackId === 0)) { //for handle very starting stage
                 if ((typeof msgRepObj === 'object' || msgRepObj instanceof Array)) {
                     if (msgRepObj[0].hasOwnProperty('uid') && (!msgRepObj.hasOwnProperty('chunk'))) {
-                        if ((Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) || (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId) ) {
+                        if ((Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) || (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId)) {
                             var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
-                          virtualclass.vutil.beforeSend({'getMsPckt': reqPacket, 'cf' : 'getMsPckt'});
+                            virtualclass.vutil.beforeSend({'getMsPckt': reqPacket, 'cf': 'getMsPckt'});
                         }
                     }
                 }

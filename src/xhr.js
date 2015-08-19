@@ -47,8 +47,8 @@
                         if (that.httpObj.status == 200) {
                             that.cb(that.httpObj.responseText);
                         } else {
-                                that.cb("ERROR");
-/*                             that.cb("ERROR " + that.httpObj.status); */
+                            that.cb("ERROR");
+                            /*                             that.cb("ERROR " + that.httpObj.status); */
                         }
                     }
                 }

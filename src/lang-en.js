@@ -113,15 +113,15 @@
         'overallprogress': 'Overall Progress',
         'playsessionmsg': 'Click play button to start playing session',
         'askplayMessage': '<span id="askplaymsg"> Should we start playing session?</span><br /><span id="remaingmsg">Remaining data could be downloaded in background.</span>',
-        'youTubeUrl' : 'I want youTube video URL.',
-        'shareYouTubeVideo' : 'Share YouTube Video',
-        'shareAnotherYouTubeVideo' : 'Share Another YouTube Video',
-        'editorCode' : 'Editor Code',
-        'editorRich' : 'Editor Rich',
-        'teachermayshow' : 'Teacher may show the YouTube video.',
-        'youtubeshare' : 'YouTube Video Share',
-        'writemode' : 'Write Mode.',
-        'readonlymode' : 'Read Only Mode.'
+        'youTubeUrl': 'I want youTube video URL.',
+        'shareYouTubeVideo': 'Share YouTube Video',
+        'shareAnotherYouTubeVideo': 'Share Another YouTube Video',
+        'editorCode': 'Editor Code',
+        'editorRich': 'Editor Rich',
+        'teachermayshow': 'Teacher may show the YouTube video.',
+        'youtubeshare': 'YouTube Video Share',
+        'writemode': 'Write Mode.',
+        'readonlymode': 'Read Only Mode.'
 
 
     };

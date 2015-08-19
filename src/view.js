@@ -21,9 +21,9 @@
          * @param  className of the container
          * @param intoAppend element to which message box is appended
          * @param  imageTag  boolean value
-        */
+         */
         displayMessage: function (msg, id, className, intoAppend, imageTag) {
-            
+
             if (typeof imageTag == 'undefined') {
                 var msgBox = this.createMsgBox(msg, id, className);
             } else {
@@ -108,7 +108,7 @@
          * @returns returns the container for the message
          */
         createMsgBox: function (msg, id, className, imageTag) {
-          
+
             var divTag = this.customCreateElement('div', id, className);
             if (typeof imageTag == 'undefined') {
                 var imageHolder = this.customCreateElement('div', id + 'img', className + 'img');
@@ -124,7 +124,7 @@
          * @param classname classname of the message box that are not needed
          */
         disappearBox: function (className) {
-           
+
             var allDivs = document.getElementsByClassName(this.msgBoxClass + className);
             if (allDivs[0] != null) {
                 allDivs[0].parentNode.removeChild(allDivs[0]);
@@ -135,7 +135,7 @@
          * @param classname class webRtc
          */
         multiMediaMsg: function (className) {
-          
+
             if (virtualclass.system.mybrowser.name == 'Firefox') {
                 var msg = virtualclass.lang.getString('wbrtcMsgFireFox');
                 this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
@@ -164,7 +164,7 @@
         /*
          * Drawing the label
          * @param className class of the label
-   
+
          */
         drawLabel: function (className) {
             var msg = virtualclass.lang.getString('drawArea');
@@ -174,7 +174,7 @@
          * displaying message
          * @param  id   id of the element
          * @param  msg message to be displayed
-        */
+         */
         displayMsgBox: function (id, msg) {
             var div = this.customCreateElement('div', id);
             var p = this.customCreateElement('p', id + "Para");
@@ -195,7 +195,7 @@
          * Displaying server errors
          * @param id    id of the container to display message
          * @param msg   message to be displayed
-         
+
          */
         displayServerError: function (id, msg) {
             var div = this.customCreateElement('div', id);
@@ -308,14 +308,14 @@
                             var canvaContainer = document.getElementById("vcanvas");
                             var rightOffset = virtualclass.wb.utility.getElementRightOffSet(canvaContainer);
                             if (localStorage.getItem('teacherId') != null) {
-                              virtualclass.vutil.beforeSend({
+                                virtualclass.vutil.beforeSend({
                                     'virtualWindow': {
                                         'createVirtualWindow': myBrowser - rightOffset,
                                         'toolHeight': toolBoxHeight
                                     }
                                 });
                             } else {
-                              virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
+                                virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
                             }
                         }
                     }

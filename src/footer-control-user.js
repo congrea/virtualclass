@@ -7,9 +7,9 @@
         return {
             //TODO function name should be change
             assignRole: function (role, app) {
-     
+
                 if (role == 't') {
-                    if(localStorage.getItem('reclaim') == null){
+                    if (localStorage.getItem('reclaim') == null) {
                         virtualclass.html.leftAppBar();
                     }
 
@@ -17,7 +17,7 @@
 
                     //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
 
-                    if(app == 'Whiteboard'){
+                    if (app == 'Whiteboard') {
                         window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     }
 
@@ -28,7 +28,7 @@
                             virtualclass.vutil.makeActiveApp("virtualclass" + app);
                         }
 
-                        if(app == 'Whiteboard'){
+                        if (app == 'Whiteboard') {
                             virtualclass.wb.utility.makeCanvasEnable();
                         }
                     }
@@ -46,7 +46,7 @@
                 }
                 return false;
             },
-          
+
             createControl: function (userId, controls) {
                 var controlCont = document.createElement('div');
                 controlCont.id = userId + "ControlContainer";
@@ -55,7 +55,7 @@
                 return controlCont;
             },
 
-            createControllerElement : function (userId, imgName) {
+            createControllerElement: function (userId, imgName) {
                 var elemBlock = document.createElement('span');
                 elemBlock.id = userId + imgName + "Img";
 
@@ -92,7 +92,7 @@
                 } else {
                     controlCont.appendChild(controller);
                 }
-				
+
                 virtualclass.user.control.changeAttribute(userId, assignBlock, aRoleEnable, 'assign', 'aRole');
 
                 if (typeof currTeacher != 'undefined') {
@@ -105,9 +105,8 @@
             },
 
 
-            
             createControlDivs: function (controlCont, userId, controls) {
-       
+
                 var that = this;
                 //var userObj = localStorage.getItem(userId);
                 var uObj = false;
@@ -189,22 +188,22 @@
                         }
                         virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
 
-                    } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')){
-                        if(localStorage.hasOwnProperty('orginalTeacherId')){
+                    } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
+                        if (localStorage.hasOwnProperty('orginalTeacherId')) {
                             if (uObj && userObj.hasOwnProperty(controls[i])) {
                                 var editorBlockEnable = (userObj[controls[i]]) ? true : false;
                             } else {
                                 var editorBlockEnable = false; //By default it would be false
                             }
 
-                            var elems = this.createControllerElement(userId,  'contr' + controls[i]);
+                            var elems = this.createControllerElement(userId, 'contr' + controls[i]);
                             var controller = elems[0];
                             var editorBlock = elems[1];
                             controller.className += ' controller' + controls[i];
 
                             controlCont.appendChild(controller);
 
-                            if(virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])){
+                            if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                                 controller.style.display = 'none';
                             }
 
@@ -218,8 +217,8 @@
                 }
             },
 
-            closureEditor : function (that, editorBlock){
-                return function(){
+            closureEditor: function (that, editorBlock) {
+                return function () {
                     //alert('you clicked' + i);
                     that.control.init.call(that, editorBlock);
                 }
@@ -232,13 +231,13 @@
                  * @param editorType type of editor
                  * @param writeMode readonly OR write and read mode
                  */
-                toggleDisplayWriteModeMsgBox : function (editorType, writeMode){
+                toggleDisplayWriteModeMsgBox: function (editorType, writeMode) {
 
-                    var writeModeBox = document.getElementById(editorType+'writeModeBox');
+                    var writeModeBox = document.getElementById(editorType + 'writeModeBox');
 
 
-                    var modeMessage = (writeMode)  ? virtualclass.lang.getString("writemode") :  virtualclass.lang.getString("readonlymode");
-                    if(writeModeBox == null){
+                    var modeMessage = (writeMode) ? virtualclass.lang.getString("writemode") : virtualclass.lang.getString("readonlymode");
+                    if (writeModeBox == null) {
                         writeModeBox = document.createElement('div');
                         writeModeBox.id = editorType + 'writeModeBox';
                         document.getElementById('virtualclass' + editorType + 'Body').appendChild(writeModeBox);
@@ -247,7 +246,7 @@
                     writeModeBox.dataset.writeMode = writeMode;
                     writeModeBox.innerHTML = modeMessage;
 
-                    if(editorType == "EditorRich"){
+                    if (editorType == "EditorRich") {
                         this.tooglDisplayEditorToolBar(writeMode);
                     }
                 },
@@ -256,14 +255,14 @@
                  * Either enable or disable toolbar of Editor Rich Text
                  * @param writeMode expects true or flase
                  */
-                tooglDisplayEditorToolBar : function (writeMode){
+                tooglDisplayEditorToolBar: function (writeMode) {
                     var editorToolBars = document.getElementsByClassName('vceditor-toolbar');
                     var editorToolBar = editorToolBars[0];
-                    if(editorToolBars.length > 0){
-                        if(writeMode){
+                    if (editorToolBars.length > 0) {
+                        if (writeMode) {
                             editorToolBar.style.pointerEvents = 'visible';
                             editorToolBar.style.opacity = "1";
-                        }else {
+                        } else {
                             editorToolBar.style.pointerEvents = 'none';
                             editorToolBar.style.opacity = "0.5";
                         }
@@ -272,10 +271,10 @@
                 },
 
                 //TODO this funciton should be improved
-                received_editorRich : function (msg){
+                received_editorRich: function (msg) {
                     var action;
-                    if(msg.status){
-                        if(virtualclass.gObj.uid == msg.toUser){
+                    if (msg.status) {
+                        if (virtualclass.gObj.uid == msg.toUser) {
                             virtualclass.editorRich.cm.setOption('readOnly', false);
                         } else {
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
@@ -283,7 +282,7 @@
                         action = true;
                         localStorage.setItem('editorRich', action);
                     } else {
-                        if(virtualclass.gObj.uid == msg.toUser){
+                        if (virtualclass.gObj.uid == msg.toUser) {
                             virtualclass.editorRich.cm.setOption('readOnly', true);
                         } else {
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
@@ -292,17 +291,17 @@
                         localStorage.setItem('editorRich', action);
                     }
 
-                    if(localStorage.getItem('orginalTeacherId') == null){
+                    if (localStorage.getItem('orginalTeacherId') == null) {
                         this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                     }
 
                 },
 
                 //TODO this funciton should be improved
-                received_editorCode : function (msg){
+                received_editorCode: function (msg) {
                     var action;
-                    if(msg.status){
-                        if(virtualclass.gObj.uid == msg.toUser){
+                    if (msg.status) {
+                        if (virtualclass.gObj.uid == msg.toUser) {
                             virtualclass.editorCode.cm.setOption('readOnly', false);
                         } else {
                             this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
@@ -310,7 +309,7 @@
                         action = true;
                         localStorage.setItem('editorCode', action);
                     } else {
-                        if(virtualclass.gObj.uid == msg.toUser){
+                        if (virtualclass.gObj.uid == msg.toUser) {
                             virtualclass.editorCode.cm.setOption('readOnly', true);
                         } else {
                             this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
@@ -318,18 +317,18 @@
                         action = false;
                         localStorage.setItem('editorCode', action);
                     }
-                    if(localStorage.getItem('orginalTeacherId') == null){
+                    if (localStorage.getItem('orginalTeacherId') == null) {
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
 
                 },
 
-                onmessage : function (e){
-                   this['received_' + e.message.control](e.message);
+                onmessage: function (e) {
+                    this['received_' + e.message.control](e.message);
 
-                   //if(virtualclass.gObj.uid == e.message.toUser){
-                   //    this['received_' + e.message.control](e.message);
-                   //}
+                    //if(virtualclass.gObj.uid == e.message.toUser){
+                    //    this['received_' + e.message.control](e.message);
+                    //}
                 },
 
                 addCurrTeacherToControl: function (id) {
@@ -362,7 +361,7 @@
 
                 disable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    if(elem == null){
+                    if (elem == null) {
                         return;
                     }
                     virtualclass.user.control._disable(elem, control, toUser, label);
@@ -374,8 +373,8 @@
 
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
-					
-					elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
+
+                    elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     if (control == 'assign') {
                         elem.parentNode.classList.remove('tooltip');
                         this.addCurrTeacherToControl(elem.id);
@@ -397,17 +396,17 @@
                         //debugger;
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
                     }
-/*					else {
-                        elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
-                    }
-*/
+                    /*					else {
+                     elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
+                     }
+                     */
                     virtualclass.user.control.updateUser(userId, label, false);
                 },
 
 
                 enable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    if(elem == null){
+                    if (elem == null) {
                         console.log("Element is Null");
                         return;
                     }
@@ -435,7 +434,7 @@
 
                 init: function (tag, defaultAction, searchBy) {
 
-                    if(typeof searchBy != 'undefined'){
+                    if (typeof searchBy != 'undefined') {
                         searchBy = searchBy;
                     } else {
                         searchBy = "Img";
@@ -465,22 +464,22 @@
                     } else {
                         var action, ctrType, boolVal;
                         //TODO this should be generalise
-                        if(control == 'Chat'){
+                        if (control == 'Chat') {
                             tag.className = 'contrChatBlock';
                             ctrType = 'chat'
-                        }else if(control == 'Aud'){
+                        } else if (control == 'Aud') {
                             ctrType = 'audio';
-                        }else {
+                        } else {
                             ctrType = control;
                         }
 
-                        if(typeof defaultAction != 'undefined'){
+                        if (typeof defaultAction != 'undefined') {
                             boolVal = (defaultAction == 'enable') ? true : false;
 
                             action = (boolVal) ? 'enable' : 'block';
 
                         } else {
-                            if (tag.getAttribute('data-'+ctrType+'-disable') == 'true') {
+                            if (tag.getAttribute('data-' + ctrType + '-disable') == 'true') {
                                 action = 'enable';
                                 boolVal = true;
 
@@ -492,7 +491,7 @@
                         }
 
                         this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                        this.control['_'+ctrType].call(this.control, userId, action);
+                        this.control['_' + ctrType].call(this.control, userId, action);
 
                     }
                 },
@@ -544,7 +543,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
-                   virtualclass.vutil.assignRole();
+                    virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
                         var canvasWrapper = document.getElementById("vcanvas");
@@ -569,7 +568,7 @@
                     }
 
                     if (typeof notsent == 'undefined') {
-                      virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf' : 'assignRole'});
+                        virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'});
                     }
                     if (localStorage.getItem('orginalTeacherId') == null) {
                         if (typeof fromUserId == 'undefined') {
@@ -583,43 +582,63 @@
                 },
                 _chat: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf' : 'enc'});
+                        virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'});
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'ch', false);
-                      virtualclass.vutil.beforeSend({'dic': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId});
                     }
                 },
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf' : 'ena'});
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'});
                     } else {
-                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf' : 'dia'});
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'});
                     }
                 },
 
                 _editorRich: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'status': true, control:'editorRich', toUser: userId, 'cf' : 'control'});
+                        virtualclass.vutil.beforeSend({
+                            'status': true,
+                            control: 'editorRich',
+                            toUser: userId,
+                            'cf': 'control'
+                        });
                     } else {
-                      virtualclass.vutil.beforeSend({'status': false, control:'editorRich', toUser: userId, 'cf' : 'control'});
+                        virtualclass.vutil.beforeSend({
+                            'status': false,
+                            control: 'editorRich',
+                            toUser: userId,
+                            'cf': 'control'
+                        });
                     }
                 },
 
 
                 _editorCode: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'status': true, control:'editorCode', toUser: userId, 'cf' : 'control'});
+                        virtualclass.vutil.beforeSend({
+                            'status': true,
+                            control: 'editorCode',
+                            toUser: userId,
+                            'cf': 'control'
+                        });
                     } else {
-                      virtualclass.vutil.beforeSend({'status': false, control:'editorCode', toUser: userId, 'cf' : 'control'});
+                        virtualclass.vutil.beforeSend({
+                            'status': false,
+                            control: 'editorCode',
+                            toUser: userId,
+                            'cf': 'control'
+                        });
                     }
                 },
 
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf' : 'ena'});
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'});
                     } else {
-                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf' : 'dia'});
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'});
                     }
                 },
 
@@ -719,16 +738,16 @@
                  * Is use for either diable/enable provided  editor for all user
                  * @param edType
                  */
-                toggleAllEditorController : function (edType, action){
+                toggleAllEditorController: function (edType, action) {
                     edType = virtualclass.vutil.smallizeFirstLetter(edType);
                     var allUsersDom = document.getElementsByClassName('controleCont');
-                    if(allUsersDom.length > 0){
-                        for(var i=0; i<allUsersDom.length; i++){
-                            if(allUsersDom[i].id.indexOf(edType) > 0){
+                    if (allUsersDom.length > 0) {
+                        for (var i = 0; i < allUsersDom.length; i++) {
+                            if (allUsersDom[i].id.indexOf(edType) > 0) {
                                 var idPartPos = allUsersDom[i].id.indexOf('Cont');
-                                if(idPartPos > 0){
+                                if (idPartPos > 0) {
                                     var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                    var elem = document.getElementById(idPart+'Img');
+                                    var elem = document.getElementById(idPart + 'Img');
                                     this.control.init.call(this, elem, action);
                                 }
                             }
@@ -741,11 +760,11 @@
                  * @param editor editor type
                  * @param action show or hidden
                  */
-               toggleDisplayEditorController : function (editor, action){
+                toggleDisplayEditorController: function (editor, action) {
                     editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
-                    var allEditorController = document.getElementsByClassName('controller'+editor);
-                    for(var i=0; i< allEditorController.length; i++){
+                    var allEditorController = document.getElementsByClassName('controller' + editor);
+                    for (var i = 0; i < allEditorController.length; i++) {
                         allEditorController[i].style.display = action;
                     }
                 },

@@ -13,7 +13,7 @@ var progressBar = {
             clearTimeout(prvTimeout);
         }
 
-        prvTimeout = setTimeout     (
+        prvTimeout = setTimeout(
             function () {
                 if (that.prvVal == that.currVal) {
                     console.log("start for download");
@@ -49,10 +49,10 @@ var progressBar = {
             pvalElem.innerHTML = totalProgress + '%';
         }
 
-        if(pval >= 100){
-            var  closeButton = document.getElementById('recordingClose');
+        if (pval >= 100) {
+            var closeButton = document.getElementById('recordingClose');
             recordingClose.style.display = 'block';
-            closeButton.addEventListener('click', function (){
+            closeButton.addEventListener('click', function () {
                 virtualclass.popup.closeElem();
             });
         }

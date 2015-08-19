@@ -32,12 +32,12 @@ var ioStorage = {
         this.completeStorage(msg, {type: dtype});
     },
 
-    dataAdapterStore : function (allData, serialKey) {
-        if(typeof virtualclass.storage == 'object' && typeof virtualclass.storage.db == 'object'){
+    dataAdapterStore: function (allData, serialKey) {
+        if (typeof virtualclass.storage == 'object' && typeof virtualclass.storage.db == 'object') {
             virtualclass.storage.dataAdapterAllStore(JSON.stringify(allData), serialKey);
-        }else {
+        } else {
             setTimeout(
-                function (){
+                function () {
                     ioStorage.dataAdapterStore(allData, serialKey); //if table of indexeddb is not ready yet.
                 },
                 10
@@ -45,7 +45,7 @@ var ioStorage = {
         }
     },
 
-    dataExecutedStoreAll : function (DataExecutedAll, serialKey){
+    dataExecutedStoreAll: function (DataExecutedAll, serialKey) {
         virtualclass.storage.dataExecutedStoreAll(JSON.stringify(DataExecutedAll), serialKey);
     },
 
@@ -63,8 +63,10 @@ var ioStorage = {
                 //TODO this should be handle gracefully
                 try {
                     var t = virtualclass.storage.db.transaction(['allData'], "readwrite");
-                } catch (error){
-                    setTimeout(function (){ioStorage.completeStorage(data);}, 20);
+                } catch (error) {
+                    setTimeout(function () {
+                        ioStorage.completeStorage(data);
+                    }, 20);
                     return;
                 }
 

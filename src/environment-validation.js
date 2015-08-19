@@ -1,23 +1,23 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
- * This file looks for the environmment support for the virtual claas and its apis 
+ * This file looks for the environmment support for the virtual claas and its apis
  */
 (function (window) {
     var system = {
         /*
          * Initializing webRtc and browser
          * @return system object 
-        */
+         */
         init: function () {
             this.wbRtc = {};
             this.wbRtc.className = 'webrtcCont';
             this.mybrowser = {};
             return this;
         },
-       //TODO function need to be revised
+        //TODO function need to be revised
         isCanvasSupport: function (navigator, browserName, version) {
-         
+
             console.log('is canvas support');
             console.log(navigator);
             console.log(browserName);
@@ -33,7 +33,7 @@
          */
         // TODO parameter passed are not being used 
         isWebSocketSupport: function (navigator, browser, version) {
-   
+
             if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
                 return true;
             } else {
@@ -46,7 +46,7 @@
          * 
          */
         isLocalStorageSupport: function () {
-    
+
             return (Storage !== void(0));
         },
         /*
@@ -54,7 +54,7 @@
          */
         // TODO browser and version is not being supported
         isGetUserMediaSupport: function (browser, version) {
-     
+
             navigator.getUserMedia = ( navigator.getUserMedia ||
             navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia ||
@@ -131,7 +131,7 @@
          * @param resolution : an object containing inner width and inner height of window
          */
         measureResoultion: function (resolution) {
-         
+
             var element = document.getElementById('virtualclassCont');
             var offset = vcan.utility.getElementOffset(element);
             var offsetLeft = offset.x;
@@ -139,7 +139,7 @@
                 var width = 1024 - offsetLeft;
             } else {
                 var width = resolution.width - offsetLeft;
-                 
+
             }
             var height = resolution.height - offset.y;
             return {'width': (width), 'height': (height)};
@@ -148,7 +148,7 @@
          * setting dimension of the application
          */
         setAppDimension: function () {
-           
+
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             //var mainWrapper =  document.getElementById('virtualclassCont');
             virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);

@@ -77,9 +77,9 @@
                     }
                     this.objNo++;
                     var that = this;
-                     //self = this; compile error
+                    //self = this; compile error
                     setTimeout(function () {
-                       /// var temp = self;
+                        /// var temp = self;
                         that.renderObj.call(that);
 
                     }, virtualclass.wb.replayTime);

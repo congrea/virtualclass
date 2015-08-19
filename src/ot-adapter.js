@@ -84,7 +84,7 @@ otAdapter = function () {
                 return msg;
 
             } catch (error) {
-                console.log('ERROR '+ error);
+                console.log('ERROR ' + error);
                 //virtualclass[msg.et].cm.setValue("");
                 if (virtualclass.gObj.uRole == 't') {
                     this.myOTrequestData = 1;
@@ -167,7 +167,7 @@ otAdapter = function () {
                         try {
                             this.trigger('ack');
                         } catch (error) {
-                            console.log('ACK Too Late '+ error);
+                            console.log('ACK Too Late ' + error);
                         }
                     }
                 } else {
@@ -197,13 +197,13 @@ otAdapter = function () {
                             this.storeOperationIfStudent(msg);
                         } catch (error) {
                             // Handle case of missing packets in case previously connected user connects again with no browser date
-                            if(ioMissingPackets.missRequestFlag ===  1){
+                            if (ioMissingPackets.missRequestFlag === 1) {
                                 // TODO make it dynamic
                                 virtualclass.editorRich.cmClient.revision--;
                                 this.processOp(event);
                                 console.log("Failed Acknolwdgement processOp()");
                             }
-                            console.log('ACK Too Late '+ error);
+                            console.log('ACK Too Late ' + error);
                         }
                     }
                 } else {
@@ -221,7 +221,7 @@ otAdapter = function () {
             this.server.operations = [];
             this.server.document = '';
             virtualclass[et].cmClient.revision = 0;
-            if(edom !=  null){
+            if (edom != null) {
                 var edom = document.getElementById('virtualclassEditorRichBody');
                 edom.parentNode.removeChild(edom);
             }

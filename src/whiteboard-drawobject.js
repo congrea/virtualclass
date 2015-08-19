@@ -144,7 +144,7 @@
 //                                            virtualclass.recorder.items.push(dataChunk[i]);
                                     }
 
-                                   virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf' : 'repObj'});
+                                    virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});
                                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
                                     //virtualclass.storage.wholeStore(dataChunk);
                                     wb.utility.updateSentPackets(dataChunk);
@@ -200,7 +200,7 @@
                 }
             } else {
                 if (wb.vcan.main.action != 'move' || ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
-                   virtualclass.vutil.beforeSend({'createArrow': true, x: ev.currX, y: ev.currY, 'cf' : 'createArrow'});
+                    virtualclass.vutil.beforeSend({'createArrow': true, x: ev.currX, y: ev.currY, 'cf': 'createArrow'});
 
                 }
             }
@@ -252,7 +252,7 @@
 //                                    virtualclass.recorder.items.push(dataChunk[i]);
                             }
 
-                           virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf' : 'repObj'});
+                            virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});
 
                             //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));

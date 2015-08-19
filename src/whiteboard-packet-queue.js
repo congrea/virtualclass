@@ -16,7 +16,7 @@
             // If there is not dispayed any object yet
             // Then request for the object from start
 
-            if(virtualclass.wb.gObj.displayedObjId == 0){
+            if (virtualclass.wb.gObj.displayedObjId == 0) {
                 var sp = 0;
             } else {
                 var sp = virtualclass.wb.gObj.rcvdPackId;

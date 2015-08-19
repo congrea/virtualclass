@@ -10,7 +10,7 @@
                 this.lastarrowtime = new Date().getTime();
                 virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
-                  virtualclass.vutil.beforeSend(JSON.parse(jobj));
+                    virtualclass.vutil.beforeSend(JSON.parse(jobj));
                 }
 
                 virtualclass.wb.utility.updateSentInformation(jobj, true);
@@ -22,7 +22,7 @@
                     //virutalclass.vutil.beforeSend(JSON.parse(jobj));
                     var msg = JSON.parse(jobj);
 
-                    if(msg.hasOwnProperty('createArrow')){
+                    if (msg.hasOwnProperty('createArrow')) {
                         ioAdapter.send(msg);
                     } else {
                         ioAdapter.mustSend(msg);
@@ -61,7 +61,7 @@
             virtualclass.wb.uid++;
             obj.uid = virtualclass.wb.uid;
             vcan.main.replayObjs.push(obj);
-          virtualclass.vutil.beforeSend({'repObj': [obj], 'cf' : 'repObj'});
+            virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
             //  virtualclass.storage.wholeStore(obj);
             virtualclass.wb.utility.updateSentPackets(obj);

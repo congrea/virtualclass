@@ -30,7 +30,7 @@
             receivedPackDivPS: 'receivedNumberPS',
             uid: 0,
             lt: '',
-           // commandToolsWrapperId: 'commandToolsWrapper',
+            // commandToolsWrapperId: 'commandToolsWrapper',
             //these are top level object
 //                error: [],
             view: {}, // For display important message to user
@@ -128,12 +128,12 @@
                 this.stHasTeacher = virtualclass.vutil.chkValueInLocalStorage('teacherId');
 
                 /*
-				if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
-                    var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
-                    virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-                    virtualclass.gObj.uRole = 's';
-                } */
-				
+                 if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
+                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
+                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
+                 virtualclass.gObj.uRole = 's';
+                 } */
+
                 if (this.stHasTeacher) {
                     virtualclass.gObj.uRole = 't';
                 }
@@ -272,7 +272,7 @@
                 /**important **/
                 if (anchorNode.parentNode.id == 't_replay') {
                     virtualclass.wb.utility.clearAll(false);
-                    virtualclass.vutil.beforeSend({'replayAll': true, 'cf' : replayAll});
+                    virtualclass.vutil.beforeSend({'replayAll': true, 'cf': replayAll});
                 } else {
                     virtualclass.wb.toolInit(anchorNode.parentNode.id);
                 }
@@ -290,7 +290,7 @@
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        virtualclass.storage.wholeStore(obj);
 
-                  virtualclass.vutil.beforeSend({'repObj': [obj], 'cf' : 'repObj'}); //after optimized
+                    virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
                 }
                 if (this.parentNode.id != 't_clearall') {
                     virtualclass.wb.prvTool = this.parentNode.id;
@@ -381,29 +381,33 @@
                     //virtualclass.wb.prvTool = cmd;
                     //virtualclass.vutil.beforeSend({'clearAll': true});
 
-                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm){
-                        if(!confirm){
-                            return true;
+                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm) {
+                            if (!confirm) {
+                                return true;
+                            }
+                            virtualclass.wb.utility.makeActiveTool(cmd);
+                            virtualclass.wb.utility.t_clearallInit();
+                            virtualclass.wb.utility.makeDefaultValue(cmd);
+                            virtualclass.storage.clearStorageData();
+                            virtualclass.wb.prvTool = cmd;
+                            virtualclass.vutil.beforeSend({'clearAll': true, 'cf': 'clearAll'});
                         }
-                        virtualclass.wb.utility.makeActiveTool(cmd);
-                        virtualclass.wb.utility.t_clearallInit();
-                        virtualclass.wb.utility.makeDefaultValue(cmd);
-                        virtualclass.storage.clearStorageData();
-                        virtualclass.wb.prvTool = cmd;
-                        virtualclass.vutil.beforeSend({'clearAll': true, 'cf' : 'clearAll'});
-                         }
                     );
 
                 } else if (cmd == 't_assign') {
                     var toolHeight = localStorage.getItem('toolHeight');
                     if (toolHeight != null) {
-                      virtualclass.vutil.beforeSend({
+                        virtualclass.vutil.beforeSend({
                             'assignRole': true,
                             'toolHeight': toolHeight,
                             'socket': virtualclass.wb.socketOn
                         });
                     } else {
-                      virtualclass.vutil.beforeSend({'assignRole': true, 'socket': virtualclass.wb.socketOn, 'cf' : 'assignRole'});
+                        virtualclass.vutil.beforeSend({
+                            'assignRole': true,
+                            'socket': virtualclass.wb.socketOn,
+                            'cf': 'assignRole'
+                        });
                     }
                 } else if (cmd == 't_reclaim') {
                     virtualclass.wb.utility._reclaimRole();

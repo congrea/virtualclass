@@ -148,17 +148,17 @@ var PopUp = (function (window, undefined) {
         }
     },
 
-    PopUp.prototype.waitBlock = function (){
-        //
-        // alert('suman bogati');
-        var element = document.getElementById('about-modal');
-        virtualclass.popup.open(element);
-        this.hideAllPopups();
+        PopUp.prototype.waitBlock = function () {
+            //
+            // alert('suman bogati');
+            var element = document.getElementById('about-modal');
+            virtualclass.popup.open(element);
+            this.hideAllPopups();
 
-        var recordPlay = document.getElementById('recordPlay');
-        recordPlay.style.display = 'block';
-        virtualclass.popup.replayWindowAction('none');
-    }
+            var recordPlay = document.getElementById('recordPlay');
+            recordPlay.style.display = 'block';
+            virtualclass.popup.replayWindowAction('none');
+        }
 
     PopUp.prototype.waitBlockAction = function (action) {
         var wait = document.getElementById("recordPlay");
@@ -224,7 +224,7 @@ var PopUp = (function (window, undefined) {
 
     PopUp.prototype.replayWindow = function () {
 
-       
+
         var element = document.getElementById('about-modal');
 
         virtualclass.popup.open(element);
@@ -236,12 +236,12 @@ var PopUp = (function (window, undefined) {
         //virtualclass.popup.progressBarAction('none');
     };
 
-    PopUp.prototype.replayWindowAction = function (action){
+    PopUp.prototype.replayWindowAction = function (action) {
         var replayContainer = document.getElementById("replayContainer");
         replayContainer.style.display = action;
     }
 
-    PopUp.prototype.progressBarAction  = function (action){
+    PopUp.prototype.progressBarAction = function (action) {
         var recordingContainer = document.getElementById("recordingContainer");
         recordingContainer.style.display = action;
     }
@@ -250,7 +250,7 @@ var PopUp = (function (window, undefined) {
      * For confirm dialouge box,
      * @param message expects the message
      */
-    PopUp.prototype.confirmInput  = function (message, cb, label){
+    PopUp.prototype.confirmInput = function (message, cb, label) {
 
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
@@ -267,14 +267,14 @@ var PopUp = (function (window, undefined) {
 
 
         var allConfirmChildrens = confirm.getElementsByClassName('confirmChild');
-        if(allConfirmChildrens.length > 0){
-            while(allConfirmChildrens.length >= 1 ){
+        if (allConfirmChildrens.length > 0) {
+            while (allConfirmChildrens.length >= 1) {
                 allConfirmChildrens[0].parentNode.removeChild(allConfirmChildrens[0]);
             }
         }
 
         var confirmMessage = document.createElement('div');
-        confirmMessage.id = confirmId+'Message';
+        confirmMessage.id = confirmId + 'Message';
         confirmMessage.className = 'confirmChild';
 
         confirmMessage.innerHTML = message;
@@ -285,7 +285,7 @@ var PopUp = (function (window, undefined) {
         var that = this;
 
         //var confirmButtons = document.getElementById('popupContainer').getElementsByClassName('confirmButton');
-        var attachConfirmInit = function (){
+        var attachConfirmInit = function () {
             that.confirmInit(this.id, cb, label);
         }
         var confirmOkDiv = document.createElement('div');
@@ -302,8 +302,6 @@ var PopUp = (function (window, undefined) {
         confirm.appendChild(confirmOkDiv);
 
 
-
-
         var confirmCancelDiv = document.createElement('div');
         confirmCancelDiv.id = 'confirmCancel';
         confirmCancelDiv.className = 'confirmButton confirmChild';
@@ -315,17 +313,14 @@ var PopUp = (function (window, undefined) {
         confirmCancelButton.innerHTML = "Cancel";
 
 
-
         confirmCancelDiv.appendChild(confirmCancelButton);
         confirm.appendChild(confirmCancelDiv);
-
 
 
         //var returnStatement = function (boolVal){
         //    alert(boolVal);
         //    return boolVal
         //}
-
 
 
         //if(!confirmbox){
@@ -338,23 +333,23 @@ var PopUp = (function (window, undefined) {
 
     }
 
-    PopUp.prototype.confirmInit  = function (userInput, cb, label){
+    PopUp.prototype.confirmInit = function (userInput, cb, label) {
         virtualclass.popup.closeElem();
-        var confirm = (userInput ==  'confirmOk') ?  virtualclass.popup.confirmOk() : virtualclass.popup.confirmCancel();
+        var confirm = (userInput == 'confirmOk') ? virtualclass.popup.confirmOk() : virtualclass.popup.confirmCancel();
         cb(confirm, label);
     }
 
-    PopUp.prototype.confirmCancel  = function (){
+    PopUp.prototype.confirmCancel = function () {
         return false;
     }
 
-    PopUp.prototype.confirmOk  = function (){
+    PopUp.prototype.confirmOk = function () {
         return true;
     }
 
-    PopUp.prototype.hideAllPopups = function (){
+    PopUp.prototype.hideAllPopups = function () {
         var allPopuContainer = document.getElementsByClassName('popupWindow');
-        for(var i=0; i<allPopuContainer.length; i++){
+        for (var i = 0; i < allPopuContainer.length; i++) {
             allPopuContainer[i].style.display = 'none';
         }
     }

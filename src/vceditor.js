@@ -39,14 +39,14 @@ var Vceditor = (function () {
     vceditor.Client = window.Client;
     Client = vceditor.Client;
 
-    vceditor.EditorClient  = window.EditorClient;
+    vceditor.EditorClient = window.EditorClient;
 
     vceditor.utils.makeEventEmitter(vceditor.EditorClient, ['synced']);
 
 
     vceditor.AttributeConstants = window.AttributeConstants;
 
-   // vceditor.sentinelConstants = window.sentinelConstants;
+    // vceditor.sentinelConstants = window.sentinelConstants;
 
     //T4
     vceditor.sentinelConstants = {
@@ -170,7 +170,7 @@ var Vceditor = (function () {
     /**
      * Object to represent an Entity.
      */
-    //T5
+        //T5
     vceditor.Entity = (function () {
         var ATTR = vceditor.AttributeConstants;
         var SENTINEL = ATTR.ENTITY_SENTINEL;
@@ -1502,7 +1502,7 @@ var Vceditor = (function () {
 
     vceditor.LineFormatting = window.LineFormatting;
 
- //   var vceditor = vceditor || {};
+    //   var vceditor = vceditor || {};
 
     /**
      * Object to represent Formatted line.
@@ -1586,7 +1586,6 @@ var Vceditor = (function () {
     }
 
 
-
     var vceditor = vceditor || {};
 
     vceditor.Vceditor = (function (global) {
@@ -1620,7 +1619,7 @@ var Vceditor = (function () {
                 this.codeMirror_ = this.editor_ = place;
                 var curValue = this.codeMirror_.getValue();
                 if (curValue !== '') {
-                   //throw new Error("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
+                    //throw new Error("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
                     console.log("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
                 }
             } else if (ace && place && place.session instanceof ace.EditSession) {
@@ -2066,7 +2065,7 @@ var Vceditor = (function () {
             //changed by suman
             //We don't need this handler when the
             // editor is OFF
-            if(!this.getOption('readOnly')){
+            if (!this.getOption('readOnly')) {
                 CodeMirror.keyMap["richtext"] = {
                     "Ctrl-B": binder(this.bold),
                     "Cmd-B": binder(this.bold),
@@ -2083,7 +2082,7 @@ var Vceditor = (function () {
                     "Shift-Tab": binder(this.unindent),
                     fallthrough: ['default']
                 };
-            }else {
+            } else {
                 CodeMirror.keyMap["richtext"] = {
                     fallthrough: ['default']
                 };
@@ -2149,11 +2148,11 @@ var Vceditor = (function () {
     vceditor.Vceditor.LineFormatting = vceditor.LineFormatting;
     vceditor.Vceditor.Line = vceditor.Line;
     vceditor.Vceditor.TextOperation = vceditor.TextOperation;
-   // vceditor.Vceditor.Headless = vceditor.Headless;
+    // vceditor.Vceditor.Headless = vceditor.Headless;
 
 // Export adapters
     vceditor.Vceditor.RichTextCodeMirrorAdapter = vceditor.RichTextCodeMirrorAdapter;
-   // vceditor.Vceditor.ACEAdapter = vceditor.ACEAdapter;
+    // vceditor.Vceditor.ACEAdapter = vceditor.ACEAdapter;
 
     vceditor.Server = Server;
 
@@ -2162,7 +2161,7 @@ var Vceditor = (function () {
         return vceditor;
     }
 
-        return vceditor.Vceditor;
+    return vceditor.Vceditor;
 })();
 
 window.Vceditor = Vceditor;

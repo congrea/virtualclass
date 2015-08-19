@@ -7,9 +7,11 @@
 (function (window) {
     "use strict";
     var changeonresize, resizecalled, prvWidth, prvHeight, prvVWidth, prvVHeight, app, dim;
+
     function callback(error) {
         virtualclass.vutil.initInstallChromeExt(error);
     }
+
     /*
      * This returns an object that contains methods to initilize student screen
      * @returns an object to initilize student screen
@@ -80,7 +82,7 @@
              */
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
-                    
+
 //                io.dataBinaryStore(imgData); //storing received screen
 
                 virtualclass.vutil.addClass('audioWidget', "fixed");
@@ -201,23 +203,23 @@
              * At the teacher's window screen share application is started ,
              * And on student's window _init function is invoked to inilize screen
              * @param screen screen object
-              
+
              */
             init: function (screen) {
-              
+
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;
-                
+
                 //if(virtualclass.gObj.uRole == 't' && !virtualclass.hasOwnProperty('repType')){
                 if (virtualclass.gObj.uRole == 't' && !virtualclass.recorder.recImgPlay) {
-                   
+
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
                     //}
                 } else {
-                   
-                   
+
+
                     this._init();
                 }
             },
@@ -229,7 +231,7 @@
              * 
              */
             _init: function () {
-              
+
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';
                     virtualclass.previous = config.id;
@@ -240,13 +242,13 @@
                     ss.style.display = 'block';
                 }
 
-                if (!this.hasOwnProperty('id'))   {
+                if (!this.hasOwnProperty('id')) {
                     this.dc = virtualclass.dirtyCorner;
                     this.postFix = "Cont";
                     this.id = config.hasOwnProperty('id') ? config.id : "virtualclassScreenShare";
                     this.className = "virtualclass";
                     this.label = "Local",
-                    this.local = this.id + this.label;
+                        this.local = this.id + this.label;
                     this.localTemp = this.id + this.label + "Temp";
                     this.classes = config.hasOwnProperty('class') ? config.classes : "";
 
@@ -293,13 +295,13 @@
             getScreen: function (callback) {
                 if (virtualclass.system.mybrowser.name == 'Chrome') {
                     if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
-                      
+
                         window.postMessage({type: 'getScreen', id: 1}, '*');
                     } else {
-                        
+
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
-                           
+
                             window.location.reload();
                         });
                     }
@@ -314,7 +316,7 @@
              *  
              */
             unShareScreen: function () {
-               
+
                 this.video.src = "";
                 this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
                 clearInterval(virtualclass.clear);
@@ -323,7 +325,7 @@
                 if (this.hasOwnProperty('currentStream')) {
                     this.currentStream.stop();
                 }
-              virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf' : 'unshareScreen' });
+                virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
             },
             /*
              * It clears the canvas
@@ -340,9 +342,8 @@
              * clears the screen on cancelling screen share
              * @param stream 
              */
-             
-            initializeRecorder: function (stream) 
-            {
+
+            initializeRecorder: function (stream) {
                 virtualclass.vutil.addClass("audioWidget", "fixed");
                 changeonresize = 1;
                 resizecalled = 0;
@@ -382,7 +383,7 @@
                         clearInterval(virtualclass.clear);
                         //that.prevImageSlices = [];
                         that.initPrevImage();
-                        virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf' : 'unshareScreen'});
+                        virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same
@@ -445,7 +446,7 @@
              */
             // function is too large
             sharing: function () {
-               
+
                 var tempObj, encodedData, stringData, d, matched, imgData;
                 var resA = Math.round(this.localtempCanvas.height / 12);
                 var resB = Math.round(this.localtempCanvas.width / 12);
@@ -487,7 +488,7 @@
                     sendmsg.set(scode);
                     sendmsg.set(encodedData, scode.length);
                     return sendmsg;
-                   
+
                 };
                 /* Encoded message is sent to student, 
                  * Getting full video data on resize of the window
@@ -538,6 +539,7 @@
                     }
                     return sendmsg;
                 }
+
                 /*
                  * Breaking  value into parts
                  * @param  val width or height 
@@ -545,15 +547,16 @@
                  * @returns returning comma separated string
                  */
                 function breakintobytes(val, l) {
-                    
+
                     var numstring = val.toString();
                     for (var i = numstring.length; i < l; i++) {
                         numstring = '0' + numstring;
-                    
+
                     }
                     var parts = numstring.match(/[\S]{1,2}/g) || [];
                     return parts;
                 }
+
                 /*
                  * finding out whether previous dimention are same or not to the current  video dimension
                  * if there is change in dimension   resized window  data is sent
@@ -575,8 +578,9 @@
                     } else {
                         sendDataImageSlices(that.type);
                     }
-                 
+
                 }
+
                 /*
                  * Setting screen interval time based on the size of image to be sent
                  * @param  localBandwidth image size that is to be sent
@@ -601,6 +605,7 @@
                     }
                     pscreenIntervalTime = screenIntervalTime;
                 }
+
                 /*
                  * Getting the changed width and height of the new screen
                  * Creating image nd calculating bandwidth
@@ -621,6 +626,7 @@
 //                    console.log ('RESIZE Bandwidth '+ (createdImg.length / 128)+'Kbps' + 'New Time ' + screenIntervalTime);
                     virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
                 }
+
                 //  TODO this function is unused ,should be removed
                 function w(val, l) {
                     var numstring = val.toString();
@@ -630,13 +636,14 @@
                     var parts = numstring.match(/[\S]{1,2}/g) || [];
                     return parts;
                 }
+
                 /*
                  * Sending data in the form of  slices , to send only that part that is changed in the video of screen share
                  * image data is provided to the worker that is calulating change part for the main javascript thread
                  * @param type : type of the application 
                  */
                 function sendDataImageSlices(type) {
-               
+
                     var localBandwidth = 0;
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
@@ -665,7 +672,7 @@
                         // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
                             if (e.data.needFullScreen == 1) { //sending full screen here
-                                
+
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
                                 ioAdapter.sendBinary(createdImg);
                                 var localBandwidth = (createdImg.length / 128); // In Kbps
@@ -679,7 +686,7 @@
                     }
                     clearInterval(virtualclass.clear);
                     virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
-                   
+
                 }
 
                 clearInterval(virtualclass.clear);
@@ -718,7 +725,7 @@
              * @param cHeight height
              * 
              */
-             
+
             dimensionStudentScreen: function (cWidth, cHeight) {
                 this.localCanvas = document.getElementById(virtualclass[app].local + "Video");
                 this.localCont = virtualclass[app].localCanvas.getContext('2d');
@@ -754,7 +761,7 @@
                 if (virtualclass.previous == 'virtualclassScreenShare') {
                     virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
                 }
-           
+
                 //if (virtualclass.previous != 'virtualclassWhiteboard') {
                 //    virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
                 //}

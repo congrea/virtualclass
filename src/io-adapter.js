@@ -8,7 +8,7 @@ var ioAdapter = {
         this.serial++;
         console.log('s.n ' + this.serial);
         msg.serial = this.serial;
-        this.adapterMustData[this.serial] = {type:'broadcast',m:msg};
+        this.adapterMustData[this.serial] = {type: 'broadcast', m: msg};
         this.send(msg);
         ioStorage.dataAdapterStore({type: 'broadcast', user: wbUser.id, m: msg}, this.serial);
     },
@@ -22,7 +22,7 @@ var ioAdapter = {
 
     mustSendAll: function (msg) {
         "use strict";
-       // var orisend = JSON.parse(JSON.stringify(msg));
+        // var orisend = JSON.parse(JSON.stringify(msg));
         this.mustSendUser(msg, virtualclass.gObj.uid);
         this.mustSend(msg);
 

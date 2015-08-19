@@ -27,10 +27,10 @@
 
     var storage = {
         totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-        dbVersion :3,
+        dbVersion: 3,
         init: function (firstDataStore) {
 
-             //alert('should come first');
+            //alert('should come first');
             //this.firstDataStore = firstDataStore;
             this.reclaim = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
             that = this;
@@ -54,7 +54,7 @@
             };
 
             openRequest.onupgradeneeded = function (e) {
-                 //alert("by this there should create");
+                //alert("by this there should create");
                 var thisDb = e.target.result;
                 var objectStore;
                 //Create Note OS
@@ -94,13 +94,13 @@
 
             openRequest.onsuccess = function (e) {
                 that.db = e.target.result;
-                for(var i=0; i< that.tables.length; i++ ){
+                for (var i = 0; i < that.tables.length; i++) {
                     try {
                         that.db.transaction([that.tables[i]], "readwrite");
-                    } catch(err) {
+                    } catch (err) {
                         var request = indexedDB.deleteDatabase('vidya_apps');
-                        request.onsuccess  = function (){
-                            that.init ();
+                        request.onsuccess = function () {
+                            that.init();
                         }
                         return;
                         //that.table.create(that.db, that.tables[i]);
@@ -177,16 +177,16 @@
         //    }
         //},
 
-        dataExecutedStoreAll : function (data, serialKey){
+        dataExecutedStoreAll: function (data, serialKey) {
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
             var objectStore = t.objectStore("executedStoreAll");
-            t.objectStore("executedStoreAll").add({executedData : data, id: 6, serialKey : serialKey});
+            t.objectStore("executedStoreAll").add({executedData: data, id: 6, serialKey: serialKey});
         },
 
-        dataAdapterAllStore : function (data, serialKey) {
+        dataAdapterAllStore: function (data, serialKey) {
             var t = that.db.transaction(["dataAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataAdapterAll");
-            t.objectStore("dataAdapterAll").add({adaptData : data, id: 5, serialKey : serialKey});
+            t.objectStore("dataAdapterAll").add({adaptData: data, id: 5, serialKey: serialKey});
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
@@ -253,7 +253,7 @@
                                 that[tables[val]].handleResult(event, cb, row);
                             } else {
                                 //console.log('table name ' + tables[val]);
-                                if(tables[val] != 'chunkData'){
+                                if (tables[val] != 'chunkData') {
                                     that[tables[val]].handleResult(event, cb);
                                 }
                             }
@@ -321,7 +321,7 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
-                        if(typeof virtualclass.wb == 'object'){
+                        if (typeof virtualclass.wb == 'object') {
                             virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
                         } else {
                             virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
@@ -391,7 +391,7 @@
             }
         },
 
-        dataAdapterAll : {
+        dataAdapterAll: {
             handleResult: function (event, cb) {
                 var cursor = event.target.result;
                 if (cursor) {
@@ -405,7 +405,7 @@
             }
         },
 
-        executedStoreAll : {
+        executedStoreAll: {
             handleResult: function (event, cb) {
                 var cursor = event.target.result;
                 if (cursor) {
@@ -443,7 +443,7 @@
             },
             createNewSession: function () {
                 var currTime = new Date().getTime();
-                if(typeof that.db != 'undefined'){
+                if (typeof that.db != 'undefined') {
                     var t = that.db.transaction(["config"], "readwrite");
                     var objectStore = t.objectStore("config");
                     var config = JSON.stringify({createdDate: currTime, room: wbUser.room});
@@ -455,7 +455,7 @@
 
             endSession: function (onlyStoredData) {
                 if (!onlyStoredData) {
-                    if(typeof virtualclass.wb == 'object'){
+                    if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();
                         virtualclass.wb.utility.makeDefaultValue();
                     }

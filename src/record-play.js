@@ -62,10 +62,10 @@
         tillPlayTime: 0,
         getPlayTotTime: false,
         /* improtfilepath : 'import.php' */
-        importfilepath : window.importfilepath,
+        importfilepath: window.importfilepath,
         /* exportfilepath:'export.php', */
-        exportfilepath : window.exportfilepath,
-        sessionKey : randomString(11),
+        exportfilepath: window.exportfilepath,
+        sessionKey: randomString(11),
         init: function (data) {
             //localStorage.removeItem('recObjs');
             var vcan = virtualclass.wb.vcan;
@@ -118,7 +118,7 @@
             }
         },
 
-        replayFromStart : function (){
+        replayFromStart: function () {
             var tempItems = [];
             tempItems = this.items;
             virtualclass.storage.config.endSession();
@@ -131,17 +131,17 @@
             this.fileQueue = [];
             this.rnum = 1;
             this.storeDone = 0;
-            this.emn= 0;
+            this.emn = 0;
             //76this.allFileFound= false;
-            this.waitServer= false;
-            this.waitPopup= false;
-            this.tempRecData= [];
-            this.alreadyAskForPlay= false;
-            this.playStart= false;
-            this.error= 0;
-            this.mkDownloadLink= "";
-            this.tillPlayTime= 0;
-            this.getPlayTotTime= false;
+            this.waitServer = false;
+            this.waitPopup = false;
+            this.tempRecData = [];
+            this.alreadyAskForPlay = false;
+            this.playStart = false;
+            this.error = 0;
+            this.mkDownloadLink = "";
+            this.tillPlayTime = 0;
+            this.getPlayTotTime = false;
             this.controller.ff = 1;
             this.items = tempItems;
             this.playProgressBar();
@@ -150,7 +150,8 @@
         },
 
         startUploadProcess: function () {
-            virtualclass.recorder.exportData(function () {});
+            virtualclass.recorder.exportData(function () {
+            });
             virtualclass.popup.sendBackOtherElems();
         },
 
@@ -279,12 +280,12 @@
                         console.log("should invoked download function on ");
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
-                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
-                             virtualclass.recorder.mkDownloadLink;
+                        if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
+                            virtualclass.recorder.mkDownloadLink;
                         } else {
                             setTimeout(
-                                function (){
-                                   virtualclass.recorder.afterRecording();
+                                function () {
+                                    virtualclass.recorder.afterRecording();
                                 },
                                 1000
                             );
@@ -307,7 +308,7 @@
                         formData.append("user", virtualclass.gObj.uid);
                         formData.append("cn", chunkNum);
                         formData.append('sesseionkey', virtualclass.recorder.sessionKey);
-                        
+
                         ////TODO: display progress after file save
                         //virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
@@ -338,11 +339,11 @@
 
         },
 
-        afterRecording : function (){
+        afterRecording: function () {
             virtualclass.storage.config.endSession();
 
-            var progressBarContainer =  document.getElementById('progressContainer');
-            progressBarContainer.style.display  =  'none';
+            var progressBarContainer = document.getElementById('progressContainer');
+            progressBarContainer.style.display = 'none';
 
             var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
             recordFinishedMessageBox.style.display = 'block';
@@ -353,10 +354,9 @@
             recordingContainer.classList.add('recordingFinished');
 
 
-
             var recordingClose = document.getElementById('recordingClose');
             recordingClose.addEventListener('click',
-                function (){
+                function () {
                     //virtualclass.popup.closeElem();
                     window.location.reload();
                 }
@@ -478,11 +478,11 @@
                 this.waitPopup = true;
             }
         },
-		
-	   /**
-        * vcSessionId =  recording session id
-        * reqFile = File number (starting from 1)
-        **/
+
+        /**
+         * vcSessionId =  recording session id
+         * reqFile = File number (starting from 1)
+         **/
         requestDataFromServer: function (vcSessionId, reqFile) {
             this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
             var formData = new FormData();
@@ -601,7 +601,7 @@
         },
 
         play: function () {
-            if(this.objn == 0 ){
+            if (this.objn == 0) {
                 var recPlayCont = document.getElementById("recPlay");
                 //recPlayCont.classList.add("controlActive");
                 this.doControlActive(recPlayCont);
@@ -651,19 +651,20 @@
 //                            virtualclass.recorder.ctotalSent = e.data.alldata.totalStore
                         virtualclass.pbar.renderProgressBar(virtualclass.recorder.ctotalStore, virtualclass.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
                     }
-                } else{
+                } else {
 
                     //Play finished here
-                    if(this.items[this.objn].hasOwnProperty('sessionEnd')){
+                    if (this.items[this.objn].hasOwnProperty('sessionEnd')) {
                         virtualclass.popup.replayWindow();
                         virtualclass.popup.sendBackOtherElems();
                         document.getElementById('replayClose').addEventListener('click',
-                            function (){
+                            function () {
                                 window.close(); //handle to moodle way
                             }
-
                         );
-                        document.getElementById('replayButton').addEventListener('click', function (){ virtualclass.recorder.replayFromStart.call(virtualclass.recorder); });
+                        document.getElementById('replayButton').addEventListener('click', function () {
+                            virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+                        });
                     }
                 }
 
@@ -722,23 +723,23 @@
                 });
 
                 //init pause
-                var recPause= document.getElementById('recPause');
+                var recPause = document.getElementById('recPause');
                 recPause.addEventListener('click', function () {
                     that.controller._pause();
                     that.doControlActive(this)
                 });
 
-                var replayFromStart =  document.getElementById('replayFromStart');
+                var replayFromStart = document.getElementById('replayFromStart');
                 replayFromStart.addEventListener('click', function () {
                     that.replayFromStart();
                 });
             }
         },
 
-        doControlActive : function (elem){
+        doControlActive: function (elem) {
 
             var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
-            for(var i=0; i<controlButtons.length; i++){
+            for (var i = 0; i < controlButtons.length; i++) {
                 controlButtons[i].classList.remove("controlActive");
             }
 
@@ -751,7 +752,7 @@
             _play: function () {
 //                    this.pause = false; 
 //                    virtualclass.recorder.play();
-         //       this.ff = 1; //when click on play it should be normal
+                //       this.ff = 1; //when click on play it should be normal
 
                 //if (!this.pause &&  this.ff == 1){
                 //
@@ -765,14 +766,14 @@
                 //}
                 this.ff = 1;
                 //if (this.pause){
-                    this.pause = false;
-                    virtualclass.recorder.play();
+                this.pause = false;
+                virtualclass.recorder.play();
                 //}
             },
 
             _pause: function () {
                 if (this.puase) {
-                  //  alert('This is in already pause mode.');
+                    //  alert('This is in already pause mode.');
                 } else {
                     this.pause = true;
                 }

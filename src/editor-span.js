@@ -8,21 +8,20 @@
  *
  *
  */
-(
-    function(window) {
-        "use strict";
-        var Span = (function () {
-            function Span(pos, length) {
-                this.pos = pos;
-                this.length = length;
-            }
+(function (window) {
+    "use strict";
+    var Span = (function () {
+        function Span(pos, length) {
+            this.pos = pos;
+            this.length = length;
+        }
 
-            Span.prototype.end = function () {
-                return this.pos + this.length;
-            };
+        Span.prototype.end = function () {
+            return this.pos + this.length;
+        };
 
-            return Span;
-        }());
-        window.Span = Span;
+        return Span;
+    }());
+    window.Span = Span;
 
-    })(window);
+})(window);

@@ -3,6 +3,7 @@ var ioMissingPackets = {
     executedSerial : JSON.parse(localStorage.getItem('executedSerial')),
     missRequest: [], // Status for Request for missed packets
     aheadPackets: [],
+    missRequestFlag : 0, // Flag to show status of Miss Packet request
     //TODO - Store to IndexDB
 
 
@@ -96,8 +97,10 @@ var ioMissingPackets = {
      */
     waitAndResetmissRequest: function (uid) {
         ioMissingPackets.missRequest[uid] = 1;
+        ioMissingPackets.missRequestFlag = 1;
         setTimeout(function () {
             ioMissingPackets.missRequest[uid] = 0;
+            ioMissingPackets.missRequestFlag = 0;
         }, 10000);
     },
 
@@ -177,6 +180,7 @@ var ioMissingPackets = {
             }
         }
         this.missRequest[uid] = 0;
+        ioMissingPackets.missRequestFlag = 0;
     },
 
     //save for recording process

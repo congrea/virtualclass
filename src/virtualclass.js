@@ -20,7 +20,8 @@
                 uName: window.wbUser.name,
                 tempReplayObjs : [], //for store temp replayObjs
                 alreadyReplayFromStorage : false,
-                commandToolsWrapperId: 'commandToolsWrapper'
+                commandToolsWrapperId: 'commandToolsWrapper',
+                editorInitDone : 0
             },
 
             clearSession: function (appName) {
@@ -161,7 +162,14 @@
                 this.gObj.video = new window.virtualclass.media();
 
                 if (!virtualclass.vutil.isPlayMode()) {
-                    this.initSocketConn();
+                    // Init Socket only after both editor instances are ready.
+                    var that = this;
+                    var initSocket = setInterval(function (){
+                        if(that.gObj.editorInitDone >= 2){
+                            that.initSocketConn();
+                            clearInterval(initSocket);
+                        }
+                    }, 100);
                 }
 
                 virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
@@ -169,7 +177,6 @@
                 },
 
             initSocketConn: function () {
-                //alert('should alert first');
                 if (this.system.webSocket) {
                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;

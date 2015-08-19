@@ -10,7 +10,7 @@ Server = (function (global) {
 
 	// Call this method whenever you receive an operation from a client.
 	Server.prototype.receiveOperation = function (revision, operation) {
-		console.log('Operations '+this.operations.length + 'Revision ' + revision);
+		console.log('Operations '+this.operations.length + ' Revision ' + revision);
 		if (revision < 0 || this.operations.length < revision) {
 
 		//if(revision > 1 ){

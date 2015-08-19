@@ -38,23 +38,6 @@ otAdapter = function () {
             if (typeof msg != 'undefined') {
                 this.preSend(msg, true);
             }
-
-
-            //try {
-            //    var msg = this.doOT(sendData);
-            //
-            //    // TODO Reload Operations and send to all students
-            //    //console.log('TW : 1 From Teacher');
-            //   this.preSend(msg, true);
-            //
-            //} catch (error){
-            //    virtualclass[sendData.et].cm.setValue("");
-            //    virtualclass[sendData.et].responseToRequest();
-            //
-            //  //  var docs =
-            //}
-
-
         };
 
         this.doOT = function (msg) {
@@ -181,26 +164,11 @@ otAdapter = function () {
                     // TW : 2a) Msg is received to Teacher (self) - Action : ACK
                     if (msg.eddata == 'virtualclass-editor-operation') {
                         //console.log('TW : 2a teacher ack');
-
                         try {
                             this.trigger('ack');
                         } catch (error) {
                             console.log('ACK Too Late '+ error);
                         }
-
-                        // var that = this;
-                        //setTimeout(
-                        //    function () {
-                        //        try {
-                        //            that.trigger('ack');
-                        //        } catch (error) {
-                        //            console.log('ACK Too Late '+ error);
-                        //        }
-                        //    },
-                        //    2000
-                        //);
-
-                        return;
                     }
                 } else {
                     // console.log('TW : 2b received @student');
@@ -224,25 +192,19 @@ otAdapter = function () {
                     //    console.log('SW : 3a student ack');
                     //  SW : 3a) Msg is received to student (self)
                     if (msg.eddata == 'virtualclass-editor-operation') {
-
-                    try {
-                        this.trigger('ack');
-                    } catch (error) {
-                        console.log('ACK Too Late '+ error);
-                    }
-
-                       // var that = this;
-                        //setTimeout(
-                        //    function () {
-                        //        try {
-                        //            that.trigger('ack');
-                        //        } catch (error) {
-                        //            console.log('ACK Too Late '+ error);
-                        //        }
-                        //    },
-                        //    4000
-                        //);
-
+                        try {
+                            this.trigger('ack');
+                            this.storeOperationIfStudent(msg);
+                        } catch (error) {
+                            // Handle case of missing packets in case previously connected user connects again with no browser date
+                            if(ioMissingPackets.missRequestFlag ===  1){
+                                // TODO make it dynamic
+                                virtualclass.editorRich.cmClient.revision--;
+                                this.processOp(event);
+                                console.log("Failed Acknolwdgement processOp()");
+                            }
+                            console.log('ACK Too Late '+ error);
+                        }
                     }
                 } else {
                     //   console.log('SW : 3bc received @process');
@@ -252,32 +214,18 @@ otAdapter = function () {
                     this.processOp(event);
                 }
             }
-        },
+        };
 
-            this.removeOperations = function (event) {
-                var et = event.message.et;
-                //delete virtualclass.editorRich.vcAdapter.server;
-                //this.server.operations = [];
-                //this.server.document = '';
-                //virtualclass.editorRich.this.server
-                //if (virtualclass.gObj.uRole == 't') {
-                //    var revision = 0;
-                //    var clients = [];
-                //    var docs = "";
-                //    var operations = "";
-                //    //virtualclass[et].cm.clearHistory(); //clear history if we need
-                //    //virtualclass[et].init(revision, clients, docs, operations);
-                //}
-
-                this.server.operations = [];
-                this.server.document = '';
-                virtualclass[et].cmClient.revision = 0;
-                if(edom !=  null){
-                    var edom = document.getElementById('virtualclassEditorRichBody');
-                    edom.parentNode.removeChild(edom);
-                }
-                //virtualclass[et].cm.setValue("");
+        this.removeOperations = function (event) {
+            var et = event.message.et;
+            this.server.operations = [];
+            this.server.document = '';
+            virtualclass[et].cmClient.revision = 0;
+            if(edom !=  null){
+                var edom = document.getElementById('virtualclassEditorRichBody');
+                edom.parentNode.removeChild(edom);
             }
+        }
 
     }
 
@@ -365,17 +313,6 @@ otAdapter = function () {
             ioAdapter.mustSendAll(msg);
         }
     };
-    //
-    //otAdapter.prototype.teacherAck = function (msg) {
-    //    if (msg.edddata == 'virtualclass-editor-operation' || msg.edddata == 'selection' ||
-    //        msg.edddata == 'virtualclass-editor-cursor') {
-    //        var that = this;
-    //        setTimeout(function () {
-    //            that.trigger('ack');
-    //        }, 2);
-    //    }
-    //};
-
     return otAdapter;
 }
 ();

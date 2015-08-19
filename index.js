@@ -59,43 +59,9 @@ $(document).ready(function () {
 
     //TODO this both setinterval functions should be merged into one\
 
-    if(!wbUser.virtualclassPlay){
-
-        // this setTimeout function is used for
-        // the load of editor data.
-        // for synchronise with other we delay the time
-
-        //Should not perform in play mode
-        var tryEditorinit =  setInterval(
-            function (){
-                if(virtualclass.hasOwnProperty('connectedUsers')){
-                    if(virtualclass.connectedUsers.length >= 1){
-                        if(!alreadyInit){
-                            virtualclass.editorRich.veryInit();
-                            alreadyInit = true;
-                            clearInterval(tryEditorinit);
-                        }
-                    }
-                }
-            },
-            1100
-        );
-
-        var alreadyEditorCodeInit  = false;
-        var tryEditorCodeinit =  setInterval(
-            function (){
-                if(virtualclass.hasOwnProperty('connectedUsers')){
-                    if(virtualclass.connectedUsers.length >= 1){
-                        if(!alreadyEditorCodeInit){
-                            virtualclass.editorCode.veryInit();
-                            alreadyEditorCodeInit = true;
-                            clearInterval(tryEditorCodeinit);
-                        }
-                    }
-                }
-            },
-            1150
-        );
+    if (!wbUser.virtualclassPlay){
+        virtualclass.editorRich.veryInit();
+        virtualclass.editorCode.veryInit();
     }
 
     if (localStorage.getItem('tc') !== null) {
@@ -192,7 +158,9 @@ $(document).ready(function () {
         }
 
         if (virtualclass.gObj.uRole === 't') {
+
             if(virtualclass.gObj.uid != virtualclass.jId){
+                // Greet new student with info
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
 
                     ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
@@ -213,6 +181,19 @@ $(document).ready(function () {
                     var createdImg = virtualclass.getDataFullScreen('ss');
                     ioAdapter.sendBinary(createdImg);
                     sType = null;
+                }
+            } else {
+                // On reload or new connection, make sure all students have same data
+                if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
+                    virtualclass.editorRich.responseToRequest();
+                } else {
+                    console.log('Editor Rich vcAdapter is not ready');
+                }
+
+                if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
+                    virtualclass.editorCode.responseToRequest('editorCode');
+                } else {
+                    console.log('Editor Code vcAdapter is not ready');
                 }
             }
         }

@@ -12,7 +12,6 @@
 (
     function(window) {
         "use strict";
-
         //this is main class
         var  editor = function(type, containerId, editorId) {
             this.etype = type;
@@ -65,6 +64,7 @@
                             this.initialiseDataWithEditor(docs);
                         }
                     }
+                    virtualclass.gObj.editorInitDone++; // Count number of Init done. It should be two for two instances of editors.
                 },
 
                 /**
@@ -217,6 +217,11 @@
 
                         }
                     }
+                },
+
+                // Check if vcAdapter is ready for given Editor
+                isVcAdapterIsReady : function (et){
+                    return (virtualclass[et].hasOwnProperty('vcAdapter') && typeof virtualclass[et].vcAdapter == 'object');
                 },
 
 
@@ -476,6 +481,7 @@
                 },
 
                 setReadMode : function (){
+                    var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
                     if(localStorage.getItem('orginalTeacherId') == null) {
                         if(cmReadOnly != null){
                             if(!cmReadOnly){

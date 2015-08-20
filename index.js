@@ -528,7 +528,8 @@ $(document).ready(function () {
 
 
             if (!virtualclass.vutil.isPlayMode()) {
-                virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
+
+                //virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
             }
 
             if (!e.message.hasOwnProperty('sentObj')) {

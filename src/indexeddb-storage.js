@@ -150,33 +150,6 @@
             return false;
         },
 
-        //wholeStore_working: function (dt, type) {
-        //    var dtArr = [];
-        //    var currTime = new Date().getTime();
-        //    if (typeof dt == "object" && !(dt instanceof Array)) {
-        //        dtArr.push(dt);
-        //    } else {
-        //        dtArr = dt;
-        //    }
-        //    for (var i = 0; i < dtArr.length; i++) {
-        //        var dt = dtArr[i];
-        //        currTime = dt.mt;
-        //        dt.peTime = window.pageEnter;
-        //        var data = JSON.stringify((dt));
-        //        if (typeof this.prevTime != 'undefined' && currTime == this.prevTime) {
-        //            currTime = currTime + 1;
-        //        }
-        //        var t = that.db.transaction(["allData"], "readwrite");
-        //        if (typeof type == 'undefined') {
-        //            t.objectStore("allData").add({recObjs: data, timeStamp: currTime, id: 3});
-        //        } else {
-        //            t.objectStore("allData").put({recObjs: data, timeStamp: this.prevTime, id: 3});
-        //        }
-        //        this.wholeStoreData = data;
-        //        this.prevTime = currTime;
-        //    }
-        //},
-
         dataExecutedStoreAll: function (data, serialKey) {
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
             var objectStore = t.objectStore("executedStoreAll");
@@ -479,25 +452,32 @@
                 virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
             }
         },
-        clearStorageData: function () {
-            ioMissingPackets.executedSerial = null;
-            for (var i = 0; i < this.tables.length; i++) {
-                var t = this.db.transaction([this.tables[i]], "readwrite");
-                console.log('cleared' + i);
-                if (typeof t != 'undefined') {
-                    var objectStore = t.objectStore(this.tables[i]);
-                    if (this.tables[i] == 'allData') {
-                        if (!virtualclass.vutil.isPlayMode()) {
-                            objectStore.clear();
-                        }
 
-                    } else {
-                        objectStore.clear();
-                    }
-
-                }
+        clearSingleTable : function (table){
+            var t = this.db.transaction(table, "readwrite");
+            if (typeof t != 'undefined') {
+                var objectStore = t.objectStore(table);
+                objectStore.clear();
+                console.log('Cleared IDDB Table ' + table);
+            } else {
+                console.log('There is no table '+ table + ' at IDDB.');
             }
         },
+
+        clearStorageData: function () {
+            ioMissingPackets.executedSerial = null;
+            for(var i=0; i<this.tables.length; i++){
+                if (this.tables[i] == 'allData') {
+                    if (!virtualclass.vutil.isPlayMode()) {
+                        this.clearSingleTable(this.tables[i]);
+                    }
+                } else {
+                    this.clearSingleTable(this.tables[i]);
+                }
+            }
+
+        },
+
         handleResultNoUsing: function () {
             var cursor = event.target.result;
             if (cursor) {
@@ -512,9 +492,9 @@
                 }
                 cursor.continue();
             }
-        },
+        }
 
-//        this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
+    //        this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
 
         //"wbData", "allData", "audioData", "config", "executedStoreAll"
         //table : {

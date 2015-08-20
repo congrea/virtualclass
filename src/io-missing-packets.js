@@ -1,6 +1,8 @@
+
 var ioMissingPackets = {
+
     executedStore: [], // It contains all executed data by current user (at receiver side)
-    executedSerial: JSON.parse(localStorage.getItem('executedSerial')),
+    executedSerial: (localStorage.getItem('executedSerial') != null) ? JSON.parse(localStorage.getItem('executedSerial'))  : [],
     missRequest: [], // Status for Request for missed packets
     aheadPackets: [],
     missRequestFlag: 0, // Flag to show status of Miss Packet request

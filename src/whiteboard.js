@@ -386,7 +386,7 @@
                             virtualclass.wb.utility.makeActiveTool(cmd);
                             virtualclass.wb.utility.t_clearallInit();
                             virtualclass.wb.utility.makeDefaultValue(cmd);
-                            virtualclass.storage.clearStorageData();
+                            virtualclass.storage.clearSingleTable('wbData');
                             virtualclass.wb.prvTool = cmd;
                             virtualclass.vutil.beforeSend({'clearAll': true, 'cf': 'clearAll'});
                         }

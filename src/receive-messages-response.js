@@ -88,7 +88,8 @@
                 virtualclass.wb.tool = new virtualclass.wb.tool_obj('t_clearall');
                 virtualclass.wb.utility.t_clearallInit();
                 virtualclass.wb.utility.makeDefaultValue();
-                virtualclass.storage.clearStorageData();
+                //virtualclass.storage.clearStorageData();
+                virtualclass.storage.clearSingleTable('wbData');
             }
 
             //if (orginalTeacherId) {

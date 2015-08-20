@@ -475,7 +475,7 @@
              */
             removeCodeMirror: function () {
                 this.readonly = false;
-                var uiCont = document.getElementById(this.UI.id)
+                var uiCont = document.getElementById(this.UI.id);
                 if (uiCont != null) {
                     uiCont.parentNode.removeChild(uiCont);
                 }

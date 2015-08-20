@@ -185,7 +185,7 @@ otAdapter = function () {
                     op.edFrom = event.fromUser.userid; // Adds edFrom message to identify who was original sender of message
                     this.preSend(op, true);
                 }
-                return;
+
             } else {
                 // SW : 3
                 if (msg.edFrom == virtualclass.gObj.uid) {

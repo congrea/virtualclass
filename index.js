@@ -320,7 +320,7 @@ $(document).ready(function () {
     var receiveFunctions = new function () {
          this.control = function (e){
              virtualclass.user.control.onmessage(e);
-         }
+         };
 
          //this.eddata = function (e){
          //   //virtualclass.editorRich.onmessage(e.message);
@@ -343,7 +343,7 @@ $(document).ready(function () {
                     virtualclass.editorCode.onmessage(e, 'EditorCode');
                 }
             }
-        }
+        };
 
         //youtube share
         this.yts = function (e) {

@@ -541,7 +541,7 @@
             } else {
                 window.onbeforeunload = function () {
                     var editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
-                    var edState = virtualclass[editor].cmClient.state; //TODO make this dynamic
+                    var edState = virtualclass[editor].cmClient.state;
 
                     // We with till editor is in Sync.
                     // edState is an instance of constructor, to get the name of it

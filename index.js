@@ -162,9 +162,7 @@ $(document).ready(function () {
             if(virtualclass.gObj.uid != virtualclass.jId){
                 // Greet new student with info
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-
                     ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-
                 } else if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
                 } else if(virtualclass.currApp === 'Yts'){
@@ -182,6 +180,7 @@ $(document).ready(function () {
                     ioAdapter.sendBinary(createdImg);
                     sType = null;
                 }
+
             } else {
                 // On reload or new connection, make sure all students have same data
                 if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
@@ -196,6 +195,7 @@ $(document).ready(function () {
                     console.log('Editor Code vcAdapter is not ready');
                 }
             }
+
         }
     });
 

@@ -92,7 +92,7 @@
 
                 obj.uid = virtualclass.wb.uid;
 
-                if (virtualclass.gObj.uRole == 's') {
+                if (virtualclass.vutil.isStudent()) {
                     virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 } else {
                     vcan.main.replayObjs.push(obj);
@@ -349,7 +349,8 @@
                     localStorage.removeItem('studentId');
                     localStorage.setItem('teacherId', studentId);
 
-                    virtualclass.gObj.uRole = 't';
+                    debugger;
+                    virtualclass.gObj.uRole = 'p'; // P for Presenter
 
                     virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
                     vcan.utility.canvasCalcOffset(vcan.main.canid);

@@ -155,7 +155,7 @@
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
                 //2
-                //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
+                //if (virtualclass.vutil.hasControls() && app == 'Whiteboard') {
                 //    vcan.utility.canvasCalcOffset(vcan.main.canid);
                 //}
 
@@ -211,7 +211,7 @@
                         virtualclass.view.disableSSUI();
                     }
 
-                    if (virtualclass.gObj.uRole == 't') {
+                    if (virtualclass.vutil.hasControls()) {
                         this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                     if (virtualclass.gObj.hasOwnProperty('errAppBar')) {
@@ -312,7 +312,7 @@
 
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {
-                    if (virtualclass.hasOwnProperty('previrtualclass') && virtualclass.gObj.uRole == 't') {
+                    if (virtualclass.hasOwnProperty('previrtualclass') && virtualclass.vutil.hasControls()) {
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                     }
                 }
@@ -364,7 +364,7 @@
                         this.wb.utility.initUpdateInfo(olddata);
                         virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
 
-                        if (virtualclass.gObj.uRole == 't') {
+                        if (virtualclass.vutil.hasControls()) {
                             // window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
                             //if (localStorage.getItem('orginalTeacherId') == null) {
                             virtualclass.wb.utility.setOrginalTeacherContent(app);
@@ -389,7 +389,7 @@
                     } else {
                         //if command tool wrapper is not added
                         var commandToolsWrapper = document.getElementById('commandToolsWrapper');
-                        if (commandToolsWrapper == null && virtualclass.gObj.uRole == 't') {
+                        if (commandToolsWrapper == null && virtualclass.vutil.hasControls()) {
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                         }
                     }
@@ -408,7 +408,7 @@
                         }
                     }
 
-                    if (this.previous == 'virtualclassScreenShare' && virtualclass.gObj.uRole == 't') {
+                    if (this.previous == 'virtualclassScreenShare' && virtualclass.vutil.hasControls()) {
                         if (!virtualclass.vutil.dimensionMatch("virtualclassWhiteboard", "virtualclassScreenShare")) {
                             virtualclass.wb.utility.lockvirtualclass();
                         }

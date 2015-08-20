@@ -98,7 +98,7 @@
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                 }
 
-                if (virtualclass.gObj.uRole == 't') {
+                if (virtualclass.vutil.hasControls()) {
                     if (localStorage.getItem('orginalTeacherId') != null) {
                         this.createAllEditorController();
                     }
@@ -250,12 +250,13 @@
 
                 initVcEditor: function (e) {
                     console.log('received whole data');
-                    if (virtualclass.gObj.uRole == 's') {
+
+                    if (virtualclass.vutil.hasView()) {
                         virtualclass[e.message.et].vcAdapter.removeOperations(e);
                     }
 
-                    if ((virtualclass.gObj.uRole != 't') ||
-                        (virtualclass.gObj.uRole == 't' && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)) {
+                    if ((! virtualclass.vutil.hasControls()) ||
+                        (virtualclass.vutil.hasControls() && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)) {
                         var doc = JSON.parse(e.message.data);
 
 
@@ -282,7 +283,7 @@
                 },
 
                 noDataForEditor: function () {
-                    if (virtualclass.gObj.uRole == 't') {
+                    if (virtualclass.vutil.hasControls()) {
                         // this.requestData('fromTeacher', 'withDifStudent');
                     }
                 },
@@ -322,7 +323,7 @@
                 //TODO this all if and else condition should be simplyfy
                 this.receivedOperations[e.message.eddata].call(this, e, etype);
                 if (typeof this.vcAdapter != 'object') {
-                    if (virtualclass.gObj.uRole == 't' && e.message.eddata == 'virtualclass-editor-operation') {
+                    if (virtualclass.vutil.hasAdmin() && e.message.eddata == 'virtualclass-editor-operation') {
                         virtualclass.makeAppReady(etype);
                         //this.vcAdapter should convert into otAdapter
                         this.vcAdapter.receivedMessage(e, onmessage);
@@ -428,7 +429,7 @@
              * @returns {boolean}
              */
             isEidtorWithTeacher: function () {
-                return (virtualclass.gObj.uRole == 't' && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
+                return (virtualclass.vutil.hasControls() && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
             },
 
             /**
@@ -474,7 +475,7 @@
              */
             removeCodeMirror: function () {
                 this.readonly = false;
-                var uiCont = document.getElementById(this.UI.id)
+                var uiCont = document.getElementById(this.UI.id);
                 if (uiCont != null) {
                     uiCont.parentNode.removeChild(uiCont);
                 }
@@ -552,6 +553,7 @@
                 virtualclass.dispvirtualclassLayout(virtualclass.currApp); // If virtualclass.currApp is editor then display it
 
                 this.writeBulkDocs(doc);
+
 
                 this.cm.refresh();
                 this.setReadMode(); // Setting the Editor read mode

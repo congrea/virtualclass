@@ -36,14 +36,11 @@
 
                 }
 
-                //if (virtualclass.gObj.uRole == 's' && localStroage.getItem('orginalTeacherId') ==  null) {
-                // should not orginal teacher, If orginal teacher then, he/she should have not teacher role
-
                 if (localStorage.getItem('orginalTeacherId') == null ||
                     (localStorage.getItem('orginalTeacherId') != null && localStorage.getItem('reclaim') != null )
                 ) {
 
-                    if (typeof videoId == 'undefined' && virtualclass.gObj.uRole == 's') {
+                    if (typeof videoId == 'undefined' && virtualclass.vutil.isStudent()) {
 
                         this.UI.defaultLayoutForStudent();
 
@@ -291,8 +288,8 @@
                     this.videoId = videoId;
                 }
 
-                // virtualclass.gObj.uRole == 't', because loadVideoById is not working, find out why
-                if (typeof this.player == 'object' && virtualclass.gObj.uRole == 't') {
+                // virtualclass.vutil.hasControls(), because loadVideoById is not working, find out why
+                if (typeof this.player == 'object' && virtualclass.vutil.hasControls()) {
                     this.player.loadVideoById(videoId);
                 } else {
                     //alert('hello how are ');
@@ -420,7 +417,7 @@
              */
             onPlayerReady: function (event) {
 
-                if (virtualclass.gObj.uRole == 't') {
+                if (virtualclass.vutil.hasControls()) {
                     var submitURLButton = document.getElementById('submitURL');
                     submitURLButton.innerHTML = virtualclass.lang.getString('shareAnotherYouTubeVideo');
                 }
@@ -430,7 +427,7 @@
                 virtualclass.yts.player.unMute();
                 virtualclass.yts.player.setVolume(40);
                 //alert("hello");
-                if (virtualclass.gObj.uRole == 't') {
+                if (virtualclass.vutil.hasControls()) {
                     virtualclass.yts.seekChangeInterval();
                 }
             },

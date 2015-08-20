@@ -86,7 +86,7 @@ otAdapter = function () {
             } catch (error) {
                 console.log('ERROR ' + error);
                 //virtualclass[msg.et].cm.setValue("");
-                if (virtualclass.gObj.uRole == 't') {
+                if (virtualclass.vutil.isTeacher()) {
                     this.myOTrequestData = 1;
                     virtualclass[msg.et].responseToRequest();
                 }
@@ -117,22 +117,22 @@ otAdapter = function () {
                     console.log('Editor : processOP - No EDDATA');
                 }
             } catch (error) {
-                if (virtualclass.gObj.uRole == 's') {
+                if (virtualclass.vutil.hasAdmin()) {
+                    this.myOTrequestData = 1;
+                    virtualclass[event.message.et].responseToRequest();
+                    console.log("Teacher : send whlole editor data ");
+                } else {
                     this.removeOperations(event);
                     virtualclass[event.message.et].requestData();
                     this.myrequestData = 1;
                     console.log("Student : send whlole editor data ");
-                } else {
-                    this.myOTrequestData = 1;
-                    virtualclass[event.message.et].responseToRequest();
-                    console.log("Teacher : send whlole editor data ");
                 }
             }
         };
 
         this.storeOperationIfStudent = function (msg) {
             var isOrginalTeacher = virtualclass.vutil.userIsOrginalTeacher(virtualclass.gObj.uid);
-            if (virtualclass.gObj.uRole == 's' && !isOrginalTeacher) {
+            if (! virtualclass.vutil.hasAdmin() && !isOrginalTeacher) {
                 var wrappedOperation = {};
                 wrappedOperation.wrapped = vceditor.TextOperation.fromJSON(msg.data);
                 wrappedOperation.meta = msg.meta;
@@ -160,7 +160,7 @@ otAdapter = function () {
             //console.log('in');
             // TW : 2
             if (event.fromUser.role == 't' && !msg.hasOwnProperty('edFrom')) {
-                if (virtualclass.gObj.uRole == 't') {
+                if (virtualclass.vutil.hasAdmin()) {
                     // TW : 2a) Msg is received to Teacher (self) - Action : ACK
                     if (msg.eddata == 'virtualclass-editor-operation') {
                         //console.log('TW : 2a teacher ack');
@@ -185,7 +185,7 @@ otAdapter = function () {
                     op.edFrom = event.fromUser.userid; // Adds edFrom message to identify who was original sender of message
                     this.preSend(op, true);
                 }
-                return;
+
             } else {
                 // SW : 3
                 if (msg.edFrom == virtualclass.gObj.uid) {
@@ -282,7 +282,7 @@ otAdapter = function () {
         if (this.myrequestData == 1) {
             return; // Do not send any data unless myrequestData is ready
         }
-        if (virtualclass.gObj.uRole == 't') {
+        if (virtualclass.vutil.hasAdmin()) {
             this.teacherOT(sendData);
         } else {
             var teacherId = virtualclass.vutil.whoIsTeacher();
@@ -313,5 +313,4 @@ otAdapter = function () {
         }
     };
     return otAdapter;
-}
-();
+}();

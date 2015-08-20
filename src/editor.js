@@ -249,10 +249,9 @@
                 },
 
                 initVcEditor: function (e) {
-
                     console.log('received whole data');
 
-                    if (virtualclass.vutil.isStudent()) {
+                    if (virtualclass.vutil.hasView()) {
                         virtualclass[e.message.et].vcAdapter.removeOperations(e);
                     }
 
@@ -260,8 +259,6 @@
                         (virtualclass.vutil.hasControls() && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)) {
                         var doc = JSON.parse(e.message.data);
 
-                        //alert('hi hello');
-                        //debugger;
 
                         if (e.message.hasOwnProperty('layoutEd')) {
                             this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
@@ -323,8 +320,6 @@
             onmessage: function (e, etype) {
                 //at student
                 //second condition is need because e.message.fromuser and virtualclass.gob.uid are same
-                //alert('sss');
-                //debugger;
                 //TODO this all if and else condition should be simplyfy
                 this.receivedOperations[e.message.eddata].call(this, e, etype);
                 if (typeof this.vcAdapter != 'object') {
@@ -526,8 +521,7 @@
 
                 // Write the text/operation on Editor by triggering the operation
                 for (var i = 0; i < tempOps.length; i++) {
-                    // TODO editorRich shoudl be dynamic
-                    virtualclass.editorRich.vcAdapter.server.receiveOperation(i, tempOps[i]);
+                    virtualclass[this.etype].vcAdapter.server.receiveOperation(i, tempOps[i]);
                     this.vcAdapter.trigger('operation', tempOps[i].wrapped.toJSON());
                 }
             },
@@ -561,50 +555,7 @@
                 this.writeBulkDocs(doc);
 
 
-                // Make ready the default docs for initialize the editor
-                //doc.revision = 0; // Does need every time page loads, else it would doubles.
-                //if ((this.cm)) {
-                //    if ((this.cm.getValue() !== doc.str) || (doc.str == "")) {
-                //        this.cmClient = "";
-                //        this.vcAdapter = "";
-                //        doc.operations = [];
-                //        doc.doc = "";
-                //    }
-                //
-                //    this.createEditorClient(editorToolbar, doc); // creating editor client and virtualclass adapter
-                //    this.prvEdRev = doc.revision;
-                //}
-                //
-                //// Write the text/operation on Editor by triggering the operation
-                //for(var  i=0; i<tempOps.length; i++){
-                //    if(virtualclass.vutil.hasControls()){
-                //        virtualclass.editorRich.vcAdapter.server.receiveOperation(i, tempOps[i]);
-                //    }
-                //    this.vcAdapter.trigger('operation', tempOps[i].wrapped.toJSON());
-                //}
-
                 this.cm.refresh();
-
-                //var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
-                //
-                ////TODO To be simplyfied
-                //if(localStorage.getItem('orginalTeacherId') == null) {
-                //    if(cmReadOnly != null){
-                //        if(!cmReadOnly){
-                //            this.cm.setOption("readOnly", true);
-                //            var writeMode = false;
-                //        }else {
-                //            this.cm.setOption("readOnly", false);
-                //            var writeMode = true;
-                //        }
-                //    } else {
-                //        this.cm.setOption("readOnly", true);
-                //        var writeMode = false;
-                //    }
-                //
-                //    virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
-                //}
-
                 this.setReadMode(); // Setting the Editor read mode
 
                 var currApp = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);

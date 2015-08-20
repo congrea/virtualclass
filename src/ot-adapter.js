@@ -198,8 +198,7 @@ otAdapter = function () {
                         } catch (error) {
                             // Handle case of missing packets in case previously connected user connects again with no browser date
                             if (ioMissingPackets.missRequestFlag === 1) {
-                                // TODO make it dynamic
-                                virtualclass.editorRich.cmClient.revision--;
+                                virtualclass[msg.et].cmClient.revision--;
                                 this.processOp(event);
                                 console.log("Failed Acknolwdgement processOp()");
                             }

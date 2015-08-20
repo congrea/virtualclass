@@ -123,7 +123,7 @@
                     if (leftSideBarWidth > 0) {
                         rightOffSet = 12;
                     } else {
-                        if (virtualclass.vutil.hasControls()) {
+                        if (roles.hasControls()) {
                             leftSideBarWidth = 70;
                         } else {
                             leftSideBarWidth = 5;
@@ -513,7 +513,7 @@
 
             // not storing the YouTube status on student's storage
             // Not showing the youtube video is at student if current app is not youtube
-            if (virtualclass.vutil.hasView()) {
+            if (roles.hasView()) {
                 if (virtualclass.currApp != 'Yts') {
                     localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
                 }
@@ -794,7 +794,7 @@
                 localStorage.removeItem('studentId');
                 localStorage.setItem('teacherId', studentId);
 
-                if (! virtualclass.vutil.hasAdmin()) {
+                if (!roles.hasAdmin()) {
                     virtualclass.gObj.uRole = 'p'; // P for Presenter
                 } else {
                     virtualclass.gObj.uRole = 't'; // P for Teacher
@@ -828,7 +828,7 @@
                     }
                 }
 
-                if (! virtualclass.vutil.hasAdmin()) {
+                if (!roles.hasAdmin()) {
                     virtualclass.gObj.uRole = 's';
                 } else {
                     virtualclass.gObj.uRole = 'e';
@@ -993,61 +993,6 @@
                 }
             }
             return 0;
-        },
-        /**
-         * Teacher is super Admin in our app, original Teacher
-         * We should avoid using IS functions and rather use HAS functions, wherever possible
-         * @returns {boolean}
-         */
-        isTeacher: function () {
-            return (virtualclass.gObj.uRole === 't')
-        },
-        /**
-         * Student is student, lease privileged user
-         * We should avoid using IS functions and rather use HAS functions, wherever possible
-         * @returns {boolean}
-         */
-        isStudent: function () {
-            return (virtualclass.gObj.uRole === 's')
-        },
-        /**
-         * Presenter is upgraded Student role
-         * We should avoid using IS functions and rather use HAS functions, wherever possible
-         * @returns {boolean}
-         */
-        isPresenter: function () {
-            return (virtualclass.gObj.uRole === 'p')
-        },
-        /**
-         * Educator is downgraded Teacher role
-         * We should avoid using IS functions and rather use HAS functions, wherever possible
-         * @returns {boolean}
-         */
-        isEducator: function () {
-            return (virtualclass.gObj.uRole === 'e')
-        },
-        /**
-         * Teacher and Presenter should have controls
-         * We should avoid using IS functions and rather use HAS functions, wherever possible
-         * @returns {boolean}
-         */
-        hasControls: function () {
-            return (virtualclass.gObj.uRole === 't' || virtualclass.gObj.uRole === 'p')
-        },
-        /**
-         * Teacher and Educator should have OT.
-         * There should be only one person having OT Permission.
-         * @returns {boolean}
-         */
-        hasAdmin: function () {
-            return (virtualclass.gObj.uRole === 't' || virtualclass.gObj.uRole === 'e')
-        },
-        /**
-         * Student and Educator has View Only Access
-         * @returns {boolean}
-         */
-        hasView: function () {
-        return (virtualclass.gObj.uRole === 's' || virtualclass.gObj.uRole === 'e')
         }
     };
     window.vutil = vutil;

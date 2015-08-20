@@ -164,7 +164,7 @@
                 var canvas = vcan.main.canvas;
                 ctx = vcan.main.canvas.getContext('2d');
                 canvas.width = measureRes.width;
-                var toolWrapperHeight = (virtualclass.vutil.hasControls()) ? (45 + 20) : 10;
+                var toolWrapperHeight = (roles.hasControls()) ? (45 + 20) : 10;
                 canvas.height = measureRes.height - toolWrapperHeight;
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');
@@ -273,7 +273,7 @@
 //                virtualclass.vutil.initDisableVirtualClass();
             if ((typeof androidDevice != 'undefined' && androidDevice)) {
                 this.device = "mobTab";
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
 //                        virtualclass.gObj.errNotDesktop = true;
                     virtualclass.vutil.initDisableVirtualClass();
                     virtualclass.error.push("We support only desktop computer not  any tablet and mobile for teacher.");
@@ -298,22 +298,22 @@
                 }
 
             } else if ((bname == 'Chrome' && bversion >= 40) || (bname == 'Firefox' && bversion >= 35) ||
-                (virtualclass.vutil.isStudent() && bname == 'OPR' > bversion >= 26)) {
+                (roles.isStudent() && bname == 'OPR' > bversion >= 26)) {
                 this.reportBrowser(virtualclass.gObj.uRole);
             } else if ((bname == 'Chrome' && bversion < 40) || (bname == 'Firefox' && bversion < 35) ||
-                (virtualclass.vutil.isStudent() && bname == 'OPR' && bversion < 26)) {
+                (roles.isStudent() && bname == 'OPR' && bversion < 26)) {
                 this.reportBrowser(virtualclass.gObj.uRole);
 
                 virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion]));
             } else if (bname == 'OPR' && bversion >= 26) {
                 this.reportBrowser(virtualclass.gObj.uRole);
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
                     virtualclass.error.push(virtualclass.lang.getString('operaBrowserIssue', [bname, bversion]));
                 }
 
             } else if (bname == 'Safari') {
                 if (bversion >= 8) {
-                    if (virtualclass.vutil.hasControls()) {
+                    if (roles.hasControls()) {
                         virtualclass.vutil.initDisableVirtualClass();
                         virtualclass.error.push(virtualclass.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
 
@@ -331,7 +331,7 @@
             } else if (bname == 'iOS') {
                 var iPad = /(iPad)/g.test(navigator.userAgent);
                 if (iPad) {
-                    if (virtualclass.vutil.isStudent()) {
+                    if (roles.isStudent()) {
                         if (bversion >= 8) {
                             virtualclass.vutil.initDisableAudVid();
                             virtualclass.gObj.iosIpadbAudTrue = false;

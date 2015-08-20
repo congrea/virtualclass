@@ -157,7 +157,7 @@ $(document).ready(function () {
             virtualclass.gObj.updateHeight = true;
         }
 
-        if (virtualclass.vutil.hasControls()) {
+        if (roles.hasControls()) {
 
             if(virtualclass.gObj.uid != virtualclass.jId){
                 // Greet new student with info
@@ -451,7 +451,7 @@ $(document).ready(function () {
 
         // not found
         this.requestPacketBy = function (e) {
-            if (virtualclass.vutil.hasControls()) {
+            if (roles.hasControls()) {
                 var requestBy = e.message.requestPacketBy; //request user
                 virtualclass.gObj.chat.sendPackets(requestBy, e.message.sp);
             }

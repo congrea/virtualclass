@@ -191,6 +191,7 @@
                 },
 
                 //TODO this should be created throught the simple html
+                // Create left virtualclass app bar
                 leftAppBar: function () {
                     var appsLen = document.getElementsByClassName('appOptions');
                     if (appsLen.length > 0) {

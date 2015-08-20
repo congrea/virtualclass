@@ -7,31 +7,31 @@
         return {
             //TODO function name should be change
             assignRole: function (role, app) {
-
-                if (role == 't') {
+                if (roles.hasControls()) {
                     if (localStorage.getItem('reclaim') == null) {
                         virtualclass.html.leftAppBar();
                     }
-
                     virtualclass.attachFunction();
 
-                    //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
+
 
                     if (app == 'Whiteboard') {
                         window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     }
 
-                    if (roles.hasControls()) {
-                        if (virtualclass.hasOwnProperty('previrtualclass')) {
-                            virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
-                        } else {
-                            virtualclass.vutil.makeActiveApp("virtualclass" + app);
-                        }
+                    // This is already Check at above, no need here
+                    //if (roles.hasControls()) {
 
-                        if (app == 'Whiteboard') {
-                            virtualclass.wb.utility.makeCanvasEnable();
-                        }
+                    if (virtualclass.hasOwnProperty('previrtualclass')) {
+                        virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
+                    } else {
+                        virtualclass.vutil.makeActiveApp("virtualclass" + app);
                     }
+
+                    if (app == 'Whiteboard') {
+                        virtualclass.wb.utility.makeCanvasEnable();
+                    }
+                    //}
                 }
             },
 

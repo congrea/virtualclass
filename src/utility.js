@@ -541,13 +541,16 @@
             } else {
                 window.onbeforeunload = function () {
                     var editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
-                    var edState = virtualclass[editor].cmClient.state;
 
-                    // We with till editor is in Sync.
-                    // edState is an instance of constructor, to get the name of it
-                    virtualclass.vutil.beforeLoad();
-                    if (edState.constructor.name != 'Synchronized') {
-                        return 'Editor is not in sync, please wait for few seconds and try again';
+                    if(editor == 'editorRich' || editor == 'editorCode'){
+                        var edState = virtualclass[editor].cmClient.state;
+
+                        // We with till editor is in Sync.
+                        // edState is an instance of constructor, to get the name of it
+                        virtualclass.vutil.beforeLoad();
+                        if (edState.constructor.name != 'Synchronized') {
+                            return 'Editor is not in sync, please wait for few seconds and try again';
+                        }
                     }
                 }
             }

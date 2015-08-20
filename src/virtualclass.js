@@ -108,12 +108,14 @@
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.yts = window.yts();
+                //alert('sss');
+                //debugger;
 
-                virtualclass.vutil.createReclaimButtonIfNeed();
+                //virtualclass.vutil.createReclaimButtonIfNeed();
 
-                if (this.gObj.uRole == 't') {
-                    this.vutil.setOrginalTeacher();
-                }
+                //if (this.gObj.uRole == 't') {
+                //    this.vutil.setOrginalTeacher();
+                //}
 
                 if (typeof videoObj == 'undefined') {
                     this.makeAppReady(app, "byclick");
@@ -152,9 +154,9 @@
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
                 }
 
+                virtualclass.vutil.createReclaimButtonIfNeed();
 
-
-                //To teacher
+                   //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
                 //2

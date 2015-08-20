@@ -36,7 +36,7 @@
 
                 }
 
-                if (!roles.hasAdmin() || (roles.hasAdmin() && localStorage.getItem('reclaim') != null )) {
+                if (!roles.hasAdmin() || (roles.hasAdmin() && roles.isStudent())) {
                     if (typeof videoId == 'undefined' && roles.isStudent()) {
                         this.UI.defaultLayoutForStudent();
 

@@ -32,7 +32,8 @@
 
             //alert('should come first');
             //this.firstDataStore = firstDataStore;
-            this.reclaim = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
+            //JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
+            this.reclaim = roles.isEducator();
             that = this;
             //TODO these are not using because audio and video is not using
             this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];

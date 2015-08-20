@@ -709,14 +709,14 @@
             return parts;
         },
 
-        setOrginalTeacher: function () {
-            virtualclass.gObj.uRole = 't';
-            if (localStorage.getItem('reclaim') == null) {
-                localStorage.setItem('uRole', virtualclass.gObj.uRole);
-            }
-
-            //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid); // SET orginal teacher student
-        },
+        //setOrginalTeacher: function () {
+        //    virtualclass.gObj.uRole = 't';
+        //    if (!roles.isEducator()) {
+        //        localStorage.setItem('uRole', virtualclass.gObj.uRole);
+        //    }
+        //
+        //    //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid); // SET orginal teacher student
+        //},
 
 
         createReclaimButton: function (cmdToolsWrapper) {
@@ -725,8 +725,8 @@
             var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
             var that = this;
             aTags[0].addEventListener('click', function () {
+                debugger;
                 that._reclaimRole();
-                //virtualclass.wb.objInit();
             });
         },
 
@@ -783,10 +783,10 @@
             }
 
             if (typeof studentId != 'undefined') {
-                if (localStorage.getItem('reclaim') != null) {
+                if (roles.isEducator()) {
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                    localStorage.removeItem('reclaim');
+                 //   localStorage.removeItem('reclaim');
                     virtualclass.vutil.removeClass('virtualclassCont', 'reclaim');
 
                 } else {
@@ -857,7 +857,7 @@
                     var virtualclassCont = document.getElementById('virtualclassCont');
                     virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                     //localStorage.reclaim = true;
-                    localStorage.setItem('reclaim', true);
+                    //localStorage.setItem('reclaim', true);
 
 
                     virtualclass.vutil.addClass('virtualclassCont', 'reclaim');
@@ -985,10 +985,11 @@
         },
 
         createReclaimButtonIfNeed: function () {
-            if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
+         //   if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
+              if (roles.isEducator()) {
                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-                virtualclass.gObj.uRole = 's';
+                //virtualclass.gObj.uRole = 's';
                 return true;
             }
             return false;

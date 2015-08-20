@@ -8,12 +8,11 @@
             //TODO function name should be change
             assignRole: function (role, app) {
                 if (roles.hasControls()) {
-                    if (localStorage.getItem('reclaim') == null) {
+                    if (!roles.isEducator()) {
+                    //if (localStorage.getItem('reclaim') == null) {
                         virtualclass.html.leftAppBar();
                     }
                     virtualclass.attachFunction();
-
-
 
                     if (app == 'Whiteboard') {
                         window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
@@ -127,12 +126,14 @@
                 }
 
 
-                var assignDisable = localStorage.getItem('reclaim');
-                if (assignDisable != null && assignDisable) {
-                    var aRoleEnable = false;
-                } else {
-                    var aRoleEnable = true;
-                }
+                //var assignDisable = localStorage.getItem('reclaim');
+                //if (roles.isEducator()) {
+                //    var aRoleEnable = false;
+                //} else {
+                //    var aRoleEnable = true;
+                //}
+
+                var aRoleEnable = roles.isEducator() ? false : true;
 
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 var isUserTeacher = virtualclass.vutil.isUserTeacher(userId);

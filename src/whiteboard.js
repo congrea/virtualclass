@@ -123,16 +123,11 @@
                     virtualclass.view.disappearBox('drawArea');
                 });
 
-                var storageHasReclaim = virtualclass.vutil.chkValueInLocalStorage('reclaim');
+                //var storageHasReclaim = virtualclass.vutil.chkValueInLocalStorage('reclaim');
 
                 this.stHasTeacher = roles.hasControls();
 
-                /*
-                 if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
-                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
-                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-                 virtualclass.gObj.uRole = 's';
-                 } */
+
 
                 if (this.stHasTeacher) {
                     virtualclass.gObj.uRole = 't';

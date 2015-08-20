@@ -340,10 +340,10 @@
                 }
 
                 if (typeof studentId != 'undefined') {
-                    if (localStorage.getItem('reclaim') != null) {
+                    if (roles.isEducator()) {
                         var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                        localStorage.removeItem('reclaim');
+                        //localStorage.removeItem('reclaim');
                     }
 
                     //localStorage.removeItem('studentId');
@@ -385,7 +385,7 @@
                     if (roles.hasAdmin()) {
                         virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                         //localStorage.reclaim = true;
-                        localStorage.setItem('reclaim', true);
+                        //localStorage.setItem('reclaim', true);
                         virtualclassCont = document.getElementById('virtualclassCont');
                         virtualclassCont.className = virtualclassCont.className + ' reclaim';
 
@@ -415,7 +415,7 @@
             },
             dispQueuePacket: function (result) {
                 if ((roles.hasControls()) ||
-                    (roles.hasAdmin() && virtualclass.vutil.chkValueInLocalStorage('reclaim'))) {
+                    (roles.hasAdmin() && roles.isEducator())) {
                     virtualclass.wb.utility.toolWrapperEnable();
 
                 }

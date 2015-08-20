@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-missing-packets.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>

@@ -107,7 +107,7 @@
 
                 // virtualclass.wb.utility.displayCanvas();
 
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
                     window.addEventListener('resize',
                         function () {
                             if (virtualclass.currApp == 'Whiteboard') {
@@ -259,7 +259,7 @@
              * @param expects the mouse down event.
              */
             objInit: function (evt) {
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
                     if (this.parentNode.id != 't_clearall') {
                         //call back function should be used as second parameter
                         // for action on reposnse of user, cancel, okay

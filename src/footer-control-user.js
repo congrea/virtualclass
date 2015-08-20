@@ -21,7 +21,7 @@
                         window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     }
 
-                    if (virtualclass.vutil.hasControls()) {
+                    if (roles.hasControls()) {
                         if (virtualclass.hasOwnProperty('previrtualclass')) {
                             virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                         } else {

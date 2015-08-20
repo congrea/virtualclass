@@ -98,7 +98,7 @@
                     virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
                 }
 
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
                     if (localStorage.getItem('orginalTeacherId') != null) {
                         this.createAllEditorController();
                     }
@@ -251,12 +251,12 @@
                 initVcEditor: function (e) {
                     console.log('received whole data');
 
-                    if (virtualclass.vutil.hasView()) {
+                    if (roles.hasView()) {
                         virtualclass[e.message.et].vcAdapter.removeOperations(e);
                     }
 
-                    if ((! virtualclass.vutil.hasControls()) ||
-                        (virtualclass.vutil.hasControls() && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)) {
+                    if ((!roles.hasControls()) ||
+                        (roles.hasControls() && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)) {
                         var doc = JSON.parse(e.message.data);
 
 
@@ -283,7 +283,7 @@
                 },
 
                 noDataForEditor: function () {
-                    if (virtualclass.vutil.hasControls()) {
+                    if (roles.hasControls()) {
                         // this.requestData('fromTeacher', 'withDifStudent');
                     }
                 },
@@ -323,7 +323,7 @@
                 //TODO this all if and else condition should be simplyfy
                 this.receivedOperations[e.message.eddata].call(this, e, etype);
                 if (typeof this.vcAdapter != 'object') {
-                    if (virtualclass.vutil.hasAdmin() && e.message.eddata == 'virtualclass-editor-operation') {
+                    if (roles.hasAdmin() && e.message.eddata == 'virtualclass-editor-operation') {
                         virtualclass.makeAppReady(etype);
                         //this.vcAdapter should convert into otAdapter
                         this.vcAdapter.receivedMessage(e, onmessage);
@@ -429,7 +429,7 @@
              * @returns {boolean}
              */
             isEidtorWithTeacher: function () {
-                return (virtualclass.vutil.hasControls() && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
+                return (roles.hasControls() && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
             },
 
             /**

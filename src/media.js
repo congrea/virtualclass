@@ -110,7 +110,7 @@
                         average: 0,
                         display: function () {
                             var cvideo = cthis.video;
-                            if (virtualclass.vutil.hasControls()) {
+                            if (roles.hasControls()) {
                                 var avg = this.height - (this.height * this.average) / 100;
                                 this._display(cvideo.tempVidCont, avg);
                             }
@@ -730,7 +730,7 @@
                 //this is not using right now
                 audioInGraph: function () {
                     var cvideo = cthis.video;
-                    if (virtualclass.vutil.hasControls()) {
+                    if (roles.hasControls()) {
                         var avg = this.graph.height - (this.graph.height * this.graph.average) / 100;
                         cvideo.tempVidCont.beginPath();
                         cvideo.tempVidCont.moveTo(cvideo.tempVid.width - this.graph.width, this.graph.height);
@@ -1018,7 +1018,7 @@
                     var totalMembers = -1;
 
                     function sendSmallVideo() {
-                        if (virtualclass.vutil.hasControls()) {
+                        if (roles.hasControls()) {
 
                             // this block of code is not producing any output
                             if (typeof graphCanvas == "undefined") {
@@ -1054,7 +1054,7 @@
                             }
                         }
 
-                        if (virtualclass.vutil.hasControls()) {
+                        if (roles.hasControls()) {
                             cthis.audio.graph.display();
                         }
                         //frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
@@ -1062,7 +1062,7 @@
                             name: virtualclass.gObj.uName,
                             id: virtualclass.gObj.uid
                         };
-                        if (virtualclass.vutil.hasControls()) {
+                        if (roles.hasControls()) {
                             user.role = virtualclass.gObj.uRole;
                         }
 

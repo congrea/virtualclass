@@ -92,7 +92,7 @@
 
                 obj.uid = virtualclass.wb.uid;
 
-                if (virtualclass.vutil.isStudent()) {
+                if (roles.isStudent()) {
                     virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 } else {
                     vcan.main.replayObjs.push(obj);

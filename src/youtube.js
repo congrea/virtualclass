@@ -40,7 +40,7 @@
                     (localStorage.getItem('orginalTeacherId') != null && localStorage.getItem('reclaim') != null )
                 ) {
 
-                    if (typeof videoId == 'undefined' && virtualclass.vutil.isStudent()) {
+                    if (typeof videoId == 'undefined' && roles.isStudent()) {
 
                         this.UI.defaultLayoutForStudent();
 
@@ -52,7 +52,6 @@
 
                         if (localStorage.getItem('teacherId') != null) {
 
-                            ;
                             this.onYTIframApi(videoId, startFrom, 'fromReload');
                             this.UI.inputURL();
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
@@ -288,8 +287,8 @@
                     this.videoId = videoId;
                 }
 
-                // virtualclass.vutil.hasControls(), because loadVideoById is not working, find out why
-                if (typeof this.player == 'object' && virtualclass.vutil.hasControls()) {
+                // roles.hasControls(), because loadVideoById is not working, find out why
+                if (typeof this.player == 'object' && roles.hasControls()) {
                     this.player.loadVideoById(videoId);
                 } else {
                     //alert('hello how are ');
@@ -303,7 +302,7 @@
                         modestbranding: 1,
                         rel: 0,
                         start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
-                    }
+                    };
 
                     var videoObj = {
                         playerVars: playerVarsObj,
@@ -311,7 +310,7 @@
                         events: {
                             'onReady': this.onPlayerReady
                         }
-                    }
+                    };
 
                     if (typeof playStratFrom != 'undefined') {
                         videoObj.start = playStratFrom;
@@ -417,7 +416,7 @@
              */
             onPlayerReady: function (event) {
 
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
                     var submitURLButton = document.getElementById('submitURL');
                     submitURLButton.innerHTML = virtualclass.lang.getString('shareAnotherYouTubeVideo');
                 }
@@ -427,7 +426,7 @@
                 virtualclass.yts.player.unMute();
                 virtualclass.yts.player.setVolume(40);
                 //alert("hello");
-                if (virtualclass.vutil.hasControls()) {
+                if (roles.hasControls()) {
                     virtualclass.yts.seekChangeInterval();
                 }
             },

@@ -279,13 +279,13 @@
                     localStorage.setItem('toolHeight', message.toolHeight);
                 }
 
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     var toolBoxHeight = virtualclass.wb.utility.getWideValueAppliedByCss('commandToolsWrapper');
                     localStorage.setItem('toolHeight', toolBoxHeight);
                 }
 
                 if (e.fromUser.userid != wbUser.id) {
-                    if (localStorage.getItem('teacherId') != null) {
+                    if (roles.hasControls()) {
                         virtualclass.wb.utility.makeCanvasEnable();
                     }
                     otherBrowser = message.browserRes;
@@ -307,7 +307,7 @@
                             // virtualclass.wb.gObj.virtualWindow = true;
                             var canvaContainer = document.getElementById("vcanvas");
                             var rightOffset = virtualclass.wb.utility.getElementRightOffSet(canvaContainer);
-                            if (localStorage.getItem('teacherId') != null) {
+                            if (roles.hasControls()) {
                                 virtualclass.vutil.beforeSend({
                                     'virtualWindow': {
                                         'createVirtualWindow': myBrowser - rightOffset,

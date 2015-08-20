@@ -148,9 +148,12 @@
                     this.system.setAppDimension();
                 }
 
-                if (virtualclass.vutil.chkValueInLocalStorage('teacherId')) {
-                    virtualclass.gObj.uRole = 't'; //this done only for whiteboard in _init()
+                if (localStorage.uRole != null) {
+                    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
                 }
+
+
+
                 //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
@@ -459,7 +462,7 @@
                     var writeMode = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
                     var etType = virtualclass.vutil.smallizeFirstLetter(app);
 
-                    if (localStorage.getItem('orginalTeacherId') == null) {
+                    if (!roles.hasAdmin()) {
                         if (writeMode == null) {
                             this[etType].cm.setOption('readOnly', true);
                             this.user.control.toggleDisplayWriteModeMsgBox(app, false);
@@ -558,7 +561,7 @@
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (this.gObj.uRole == 't') {
-                            localStorage.setItem('teacherId', wbUser.id);
+                            localStorage.setItem('uRole', this.gObj.uRole);
                         }
                     }
                 }

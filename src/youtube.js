@@ -36,12 +36,8 @@
 
                 }
 
-                if (localStorage.getItem('orginalTeacherId') == null ||
-                    (localStorage.getItem('orginalTeacherId') != null && localStorage.getItem('reclaim') != null )
-                ) {
-
+                if (!roles.hasAdmin() || (roles.hasAdmin() && localStorage.getItem('reclaim') != null )) {
                     if (typeof videoId == 'undefined' && roles.isStudent()) {
-
                         this.UI.defaultLayoutForStudent();
 
                     } else {
@@ -50,8 +46,7 @@
 
                         // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
 
-                        if (localStorage.getItem('teacherId') != null) {
-
+                        if (roles.hasControls()) {
                             this.onYTIframApi(videoId, startFrom, 'fromReload');
                             this.UI.inputURL();
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});

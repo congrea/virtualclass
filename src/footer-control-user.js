@@ -189,7 +189,7 @@
                         virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
 
                     } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
-                        if (localStorage.hasOwnProperty('orginalTeacherId')) {
+                        if (roles.hasAdmin()) {
                             if (uObj && userObj.hasOwnProperty(controls[i])) {
                                 var editorBlockEnable = (userObj[controls[i]]) ? true : false;
                             } else {
@@ -291,7 +291,7 @@
                         localStorage.setItem('editorRich', action);
                     }
 
-                    if (localStorage.getItem('orginalTeacherId') == null) {
+                    if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                     }
 
@@ -317,7 +317,7 @@
                         action = false;
                         localStorage.setItem('editorCode', action);
                     }
-                    if (localStorage.getItem('orginalTeacherId') == null) {
+                    if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
 
@@ -458,7 +458,7 @@
                             virtualclass.user.control.changeAttrToAssign('block');
                         }
 
-                        if (localStorage.getItem('orginalTeacherId') == null) {
+                        if (!roles.hasAdmin()) {
                             virtualclass.user.control.removeAudioFromParticipate(userId);
                         }
                     } else {
@@ -514,7 +514,7 @@
                             virtualclass.user.control.changeAttrToAssign('block');
                         }
 
-                        if (localStorage.getItem('orginalTeacherId') == null) {
+                        if (!roles.hasAdmin()) {
                             virtualclass.user.control.removeAudioFromParticipate(userId);
                         }
                     } else if (control == 'Chat') {
@@ -545,7 +545,7 @@
                 _assign: function (userId, notsent, fromUserId) {
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
-                    if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                    if (!roles.hasAdmin()) {
                         var canvasWrapper = document.getElementById("vcanvas");
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
                         canvasWrapper.className = 'student';
@@ -570,7 +570,7 @@
                     if (typeof notsent == 'undefined') {
                         virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'});
                     }
-                    if (localStorage.getItem('orginalTeacherId') == null) {
+                    if (!roles.hasAdmin()) {
                         if (typeof fromUserId == 'undefined') {
                             fromUserId = userId;
                         }

@@ -39,7 +39,7 @@
                 virtualclass.vutil.assignRole(id);
                 virtualclass.wb.utility.uniqueArrOfObjsToTeacher();
                 //create assing button only to student
-                if (localStorage.getItem('orginalTeacherId') == null) {
+                if (!roles.hasAdmin()) {
                     virtualclass.vutil.removeSessionTool();   //
                     var divContainer = document.getElementById("ml" + fromUserId);
                     var controls = ['assign'];
@@ -79,7 +79,8 @@
             //  virtualclass.wb.utility.initDefaultInfo(e, wbUser.role);
             virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
 
-            virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
+            //virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
+
             virtualclass.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
         },
         clearAll: function (formUserId, id, eMessage, orginalTeacherId) {

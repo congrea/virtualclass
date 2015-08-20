@@ -24,7 +24,9 @@ $(document).ready(function () {
     wbUser.virtualclassPlay = parseInt(wbUser.virtualclassPlay, 10);
     if(wbUser.virtualclassPlay){
         virtualclass.gObj.sessionClear = true;
-        localStorage.removeItem('orginalTeacherId');
+        //localStorage.removeItem('orginalTeacherId');
+        virtualclass.gObj.role = 's';
+
         localStorage.removeItem('teacherId');
         //virtualclass.gObj.uid = 99955551230; // in replay mode the user can not be same which is using on actual program
         wbUser.id = 99955551230;
@@ -476,7 +478,8 @@ $(document).ready(function () {
 
         //Reclaim Role
         this.reclaimRole = function (e) {
-            if (localStorage.getItem('teacherId') !== null) {
+            //if (localStorage.getItem('teacherId') !== null) {
+            if (roles.hasControls()) {
                 virtualclass.vutil.vcResponseAReclaimRole(e.fromUser.userid, wbUser.id);
                 //virtualclass.wb.response.reclaimRole(e.fromUser.userid, wbUser.id);
             }
@@ -486,7 +489,6 @@ $(document).ready(function () {
         this.assignRole = function (e) {
             if (e.message.toUser === virtualclass.gObj.uid) {
                 virtualclass.vutil.vcResponseAssignRole(e.fromUser.userid, wbUser.id);
-
                 //virtualclass.wb.response.assignRole(e.fromUser.userid, wbUser.id);
             }
         };

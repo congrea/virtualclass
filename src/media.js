@@ -98,7 +98,7 @@
                  *  calls function to attach functions on audio tools.
                  */
                 init: function () {
-                    if (localStorage.getItem('orginalTeacherId') != null) {
+                    if (roles.hasAdmin()) {
                         virtualclass.gObj.audMouseDown = true;
                         //can be critical
                         //this.clickOnceSpeaker('speakerPressOnce');

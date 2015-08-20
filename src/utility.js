@@ -347,7 +347,7 @@
         },
 
         removeSessionTool: function () {
-            if (localStorage.getItem('orginalTeacherId') == null) {
+            if (!roles.hasAdmin()) {
                 var SessionEndTool = document.getElementById("virtualclassSessionEndTool");
                 if (SessionEndTool != null) {
                     SessionEndTool.parentNode.removeChild(SessionEndTool);
@@ -356,7 +356,7 @@
         },
 
         toggleRoleClass: function (reclaim) {
-            if ((localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null) || reclaim) {
+            if ((roles.hasControls() && !roles.hasAdmin()) || reclaim) {
                 document.getElementById("virtualclassCont").classList.toggle('teacher');
                 document.getElementById("virtualclassCont").classList.toggle('student');
             }
@@ -422,11 +422,11 @@
         },
 
         userIsOrginalTeacher: function (userId) {
-            return localStorage.getItem('orginalTeacherId') != null;
+            return roles.hasAdmin();
         },
 
         isUserTeacher: function (userId) {
-            return localStorage.getItem('teacherId') != null;
+            return roles.hasControls();
         },
 
         initDisableAudVid: function () {
@@ -610,16 +610,17 @@
 
         initDefaultInfo: function (role, appIs) {
             if (role == 't' && appIs == 'Whiteboard') {
-                if (localStorage.getItem('orginalTeacherId') == null) {
+                if (!roles.hasAdmin()) {
                     virtualclass.wb.utility.setOrginalTeacherContent();
                     virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                 }
-                //} else if (role == 's' && newuser == null) {
             } else if (role == 's') {
                 vcan.studentId = wbUser.id;
 
-                if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
-                    localStorage.setItem('studentId', wbUser.id);
+                if (!roles.hasControls()) {
+                    localStorage.setItem('uRole', role);
+                    //localStorage.setItem('studentId', wbUser.id);
+
                 }
                 virtualclass.vutil.removeSessionTool();
             }
@@ -628,9 +629,7 @@
                 virtualclass.gObj.video.init();
                 virtualclass.gObj.video.isInitiator = true;
             }
-            //bad way
-//                    virtualclass.gObj.video.init();
-//                    virtualclass.gObj.video.isInitiator = true;
+
             vcan.oneExecuted = false;
         },
 
@@ -711,11 +710,12 @@
         },
 
         setOrginalTeacher: function () {
+            virtualclass.gObj.uRole = 't';
             if (localStorage.getItem('reclaim') == null) {
-                localStorage.setItem('teacherId', virtualclass.gObj.uid);
-
+                localStorage.setItem('uRole', virtualclass.gObj.uRole);
             }
-            localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
+
+            //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid); // SET orginal teacher student
         },
 
 
@@ -794,14 +794,18 @@
                     virtualclass.vutil.removeClass('virtualclassCont', 'removedAssign')
                 }
 
-                localStorage.removeItem('studentId');
-                localStorage.setItem('teacherId', studentId);
+                //localStorage.removeItem('studentId');
+                //localStorage.setItem('teacherId', studentId);
 
                 if (!roles.hasAdmin()) {
                     virtualclass.gObj.uRole = 'p'; // P for Presenter
                 } else {
-                    virtualclass.gObj.uRole = 't'; // P for Teacher
+                    virtualclass.gObj.uRole = 't'; // T for Teacher
                 }
+
+                localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
+
+
 
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp));
 
@@ -849,7 +853,7 @@
                     virtualclass.wb.utility.makeCanvasDisable();
                 }
 
-                if (typeof localStorage.orginalTeacherId != 'undefined') {
+                if (roles.hasAdmin()) {
                     var virtualclassCont = document.getElementById('virtualclassCont');
                     virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                     //localStorage.reclaim = true;
@@ -871,10 +875,11 @@
                     //var virtualclassCont = document.getElementById('virtualclassCont');
 
                 }
+                //var tid = localStorage.getItem('teacherId');
+                //localStorage.removeItem('teacherId');
+                //localStorage.setItem('studentId', tid);
 
-                var tid = localStorage.getItem('teacherId');
-                localStorage.removeItem('teacherId');
-                localStorage.setItem('studentId', tid);
+                localStorage.setItem('uRole', virtualclass.gObj.uRole); // should be store role student
 
                 if (typeof virtualclass.wb == 'object') {
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
@@ -922,7 +927,7 @@
                 }
 
                 //create assing button only to student
-                if (localStorage.getItem('orginalTeacherId') == null) {
+                if (!roles.hasAdmin()) {
                     virtualclass.vutil.removeSessionTool();   //
                     var divContainer = document.getElementById("ml" + fromUserId);
                     var controls = ['assign'];
@@ -980,7 +985,7 @@
         },
 
         createReclaimButtonIfNeed: function () {
-            if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+            if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                 virtualclass.gObj.uRole = 's';

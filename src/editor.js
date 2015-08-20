@@ -99,12 +99,12 @@
                 }
 
                 if (roles.hasControls()) {
-                    if (localStorage.getItem('orginalTeacherId') != null) {
+                    if (roles.hasAdmin()) {
                         this.createAllEditorController();
                     }
                     ioAdapter.mustSendAll({eddata: 'init', et: this.etype, cf: 'eddata'});
                 } else {
-                    if (localStorage.getItem('orginalTeacherId') != null) {
+                    if (roles.hasAdmin()) {
                         this.createAllEditorController();
                     }
                 }
@@ -160,7 +160,7 @@
                     this.readOnlyMode('enable', 'notCreateSyncBox');
                 }
 
-                if (localStorage.getItem('orginalTeacherId') != null) {
+                if (roles.hasAdmin()) {
                     this.cm.setOption('readOnly', false);
                     this.createAllEditorController();
                     editorType.readOnly = false;
@@ -484,7 +484,7 @@
 
             setReadMode: function () {
                 var cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
-                if (localStorage.getItem('orginalTeacherId') == null) {
+                if (!roles.hasAdmin()) {
                     if (cmReadOnly != null) {
                         if (!cmReadOnly) {
                             this.cm.setOption("readOnly", true);

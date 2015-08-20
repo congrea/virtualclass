@@ -280,7 +280,7 @@
                 ctx.restore();
             },
             calcPsSentPackets: function (oldData) {
-                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (roles.hasAdmin()) {
                     var pacPerSec = virtualclass.wb.sentPackets - oldData;
                     if (pacPerSec < 0) {
                         pacPerSec = 0;
@@ -305,7 +305,7 @@
             //initialize transfred packets from local storage when
             // browser is reloaded.
             initStoredPacketsNumbers: function () {
-                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (roles.hasAdmin()) {
                     if (localStorage.sentPackets) {
                         var totSentPackets = JSON.parse(localStorage.sentPackets);
                         virtualclass.wb.sentPackets = totSentPackets;
@@ -324,7 +324,7 @@
             },
             updateSentPackets: function (obj) {
                 if (virtualclass.wb.dataInfo == 1) {
-                    if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                    if (roles.hasAdmin()) {
                         virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + JSON.stringify(obj).length;
                         if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
                             document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
@@ -346,11 +346,13 @@
                         localStorage.removeItem('reclaim');
                     }
 
-                    localStorage.removeItem('studentId');
-                    localStorage.setItem('teacherId', studentId);
+                    //localStorage.removeItem('studentId');
+                    //localStorage.setItem('teacherId', studentId);
 
-                    debugger;
+
+
                     virtualclass.gObj.uRole = 'p'; // P for Presenter
+                    localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
                     virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
@@ -380,7 +382,7 @@
 
                     virtualclass.wb.utility.makeCanvasDisable();
 
-                    if (typeof localStorage.orginalTeacherId != 'undefined') {
+                    if (roles.hasAdmin()) {
                         virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                         //localStorage.reclaim = true;
                         localStorage.setItem('reclaim', true);
@@ -394,15 +396,15 @@
                         }
                     }
 
-                    var tid = localStorage.getItem('teacherId');
-                    localStorage.removeItem('teacherId');
-                    localStorage.setItem('studentId', tid);
+                    //var tid = localStorage.getItem('teacherId');
+                    //localStorage.removeItem('teacherId');
+                    //localStorage.setItem('studentId', tid);
 
+                    localStorage.setItem('uRole', virtualclass.gObj.uRole);
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
-
                 }
 
-                if (localStorage.getItem('orginalTeacherId') == null) {
+                if (!roles.hasAdmin()) {
                     virtualclass.vutil.toggleRoleClass(true);
                 }
             },
@@ -412,14 +414,14 @@
                 virtualclass.wb.response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
             },
             dispQueuePacket: function (result) {
-                if ((localStorage.getItem('teacherId') != null) ||
-                    (localStorage.getItem('orginalTeacherId') != null && virtualclass.vutil.chkValueInLocalStorage('reclaim'))) {
+                if ((roles.hasControls()) ||
+                    (roles.hasAdmin() && virtualclass.vutil.chkValueInLocalStorage('reclaim'))) {
                     virtualclass.wb.utility.toolWrapperEnable();
 
                 }
                 virtualclass.wb.drawMode = false;
                 //if (localStorage.getItem('teacherId') != null && virtualclass.wb.user.connected) {
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     virtualclass.wb.utility.makeCanvasEnable();
                     virtualclass.wb.utility.enableAppsBar();
                 }
@@ -448,7 +450,7 @@
                 canvasElement.style.pointerEvents = "none";
             },
             makeCanvasEnable: function () {
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     if (!virtualclass.wb.hasOwnProperty('canvasDisable') || !virtualclass.wb.canvasDisable) {
                         var canvasElement = vcan.main.canvas;
                         canvasElement.style.pointerEvents = "visible";
@@ -507,8 +509,8 @@
                 localStorage.setItem('rcvdPackId', 0);
                 //TODO this code should be removed after validate
                 localStorage.removeItem('totalStored');
-                var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
-                var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
+                //var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
+                //var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
                 var wbrtcMsg = virtualclass.vutil.chkValueInLocalStorage('wbrtcMsg');
                 var canvasDrwMsg = virtualclass.vutil.chkValueInLocalStorage('canvasDrwMsg');
                 var toolHeight = virtualclass.vutil.chkValueInLocalStorage('toolHeight');
@@ -615,10 +617,10 @@
                     toolHeight = toolHeight != null ? toolHeight : 0;
                 }
 
-                if (localStorage.getItem('orginalTeacherId') != null) {
+                if (roles.hasAdmin()) {
                     div.style.height = (drawWhiteboard.height + toolHeight) + "px";
                 } else {
-                    if (localStorage.getItem('teacherId') != null) {
+                    if (roles.hasControls()) {
                         div.style.height = (drawWhiteboard.height) + "px";
                     } else {
                         div.style.height = (drawWhiteboard.height - toolHeight) + "px";
@@ -767,7 +769,7 @@
 
             },
             initAll: function (e) {
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     virtualclass.wb.utility.makeCanvasDisable();
                 }
                 var res = virtualclass.system.measureResoultion({
@@ -862,7 +864,8 @@
                 }
             },
             crateCanvasDrawMesssage: function () {
-                if (typeof localStorage.teacherId != 'undefined') {
+                //if (typeof localStorage.teacherId != 'undefined') {
+                if (roles.hasControls()) {
                     if (localStorage.getItem('canvasDrwMsg') == null) {
                         window.virtualclass.view.canvasDrawMsg('Canvas');
                         window.virtualclass.view.drawLabel('drawArea');
@@ -870,31 +873,13 @@
                     }
                 }
             },
-            removeOtherUserExist: function (role) {
-                if (role == 't') { //If i am teacher
-                    if (localStorage.getItem('studentId') != null) {
-                        localStorage.removeItem('studentId');
-                    }
-                } else if (role == 's') { //If i am student
-                    if (localStorage.getItem('orginalTeacherId') != null) {
-                        localStorage.removeItem('orginalTeacherId');
-                        if (localStorage.getItem('teacherId') != null) {
-                            localStorage.removeItem('teacherId');
-                            //virtualclass.wb.utility.removeToolBox();
-                        }
-                        if (localStorage.getItem('reclaim') != null) {
-                            localStorage.removeItem('reclaim');
-                        }
-                        virtualclass.wb.utility.removeToolBox();
-                    }
-                }
-            },
-//important can be critical
-//                canvasEnabelWhenRefresh: function() {
-//                    if (localStorage.getItem('teacherId') != null) {
-//                        virtualclass.wb.utility.makeCanvasEnable();
-//                    }
-//                },
+
+            //important can be critical
+            //                canvasEnabelWhenRefresh: function() {
+            //                    if (localStorage.getItem('teacherId') != null) {
+            //                        virtualclass.wb.utility.makeCanvasEnable();
+            //                    }
+            //                },
             arrayContainsSameValue: function (val, ids) {
                 for (var i = 0; i < ids.length; i++) {
                     if (ids[i] !== val) {
@@ -924,7 +909,7 @@
                 virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf': 'reclaimRole'});
             },
             updateSentInformation: function (jobj, createArrow) {
-                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (roles.hasAdmin()) {
                     var sentObj = JSON.parse(jobj);
                     if (typeof createArrow != 'undefined') {
                         var msg = sentObj;
@@ -1030,7 +1015,7 @@
                     virtualclass.wb.utility.toolWrapperDisable();
                     virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
-                        var label = (localStorage.getItem('teacherId') != null) ? 'msgForReload' : 'msgStudentForReload';
+                        var label = (roles.hasControls()) ? 'msgForReload' : 'msgStudentForReload';
                         window.virtualclass.view.displayMsgBox('divForReloadMsg', label);
                         //fix me earlierWidth and innerwidth are same
                         window.earlierWidth = window.innerWidth;

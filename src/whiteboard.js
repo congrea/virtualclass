@@ -90,14 +90,14 @@
             },
 
             _init: function () {
-                if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (!roles.hasAdmin()) {
                     virtualclass.wb.pageEnteredTime = new Date().getTime();
                     localStorage.setItem('pageEnteredTime', virtualclass.wb.pageEnteredTime);
                 } else {
                     virtualclass.wb.pageEnteredTime = localStorage.getItem('pageEnteredTime');
                 }
 
-                virtualclass.wb.oTeacher = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
+                virtualclass.wb.oTeacher = roles.hasAdmin();
 
                 if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
                     virtualclass.wb.gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
@@ -125,7 +125,7 @@
 
                 var storageHasReclaim = virtualclass.vutil.chkValueInLocalStorage('reclaim');
 
-                this.stHasTeacher = virtualclass.vutil.chkValueInLocalStorage('teacherId');
+                this.stHasTeacher = roles.hasControls();
 
                 /*
                  if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
@@ -305,12 +305,10 @@
              * @param id expects the  id of container which contains all the commands of div
              */
             attachToolFunction: function (id, alreadyCreated) {
-
                 virtualclass.wb.createCommand(alreadyCreated);
                 if (typeof alreadyCreated == 'undefined') {
-                    var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
                     virtualclass.wb.dataInfo = parseInt(wbUser.dataInfo);
-                    if (orginalTeacherId && virtualclass.wb.dataInfo == 1) {
+                    if (roles.hasAdmin() && virtualclass.wb.dataInfo == 1) {
                         if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
                             virtualclass.wb.packContainer.createPacketContainer();
                             virtualclass.wb.packContainer.createPacketInfoContainer();

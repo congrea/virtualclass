@@ -10,6 +10,7 @@ var ioMissingPackets = {
     // Variables for individual messages (usersend)
     executedUserStore: [],
     executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? JSON.parse(localStorage.getItem('executedUserSerial'))  : [],
+
     missUserRequest: [], // Status for Request for missed packets
     aheadUserPackets: [],
     missUserRequestFlag: 0, // Flag to show status of Miss Packet request
@@ -146,7 +147,7 @@ var ioMissingPackets = {
                 till: till
             };
             var tid = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.mustSendUser(sendMsg, tid)
+            ioAdapter.sendUser(sendMsg, tid)
         } else {
             console.log('UID ' + uid + ' ahead packet' + msg.m.serial);
             this.aheadPackets[uid].unshift(msg.m.serial);
@@ -173,8 +174,8 @@ var ioMissingPackets = {
                 from: from,
                 till: till
             };
-            var tid = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.mustSendUser(sendMsg, tid)
+            //var tid = virtualclass.vutil.whoIsTeacher();
+            ioAdapter.sendUser(sendMsg, uid)
         } else {
             console.log('UID ' + uid + ' User ahead packet' + msg.m.userSerial);
             this.aheadUserPackets[uid].unshift(msg.m.userSerial);
@@ -224,7 +225,7 @@ var ioMissingPackets = {
             data: senddata
         };
 
-        ioAdapter.mustSendUser(sendmsg, msg.user.userid); //to user
+        ioAdapter.sendUser(sendmsg, msg.user.userid); //to user
         console.log('UID ' + uid + ' send packet total chunk length ' + senddata.length);
     },
 
@@ -238,7 +239,7 @@ var ioMissingPackets = {
             from = 0;
         }
         var till = msg.m.till + 1; // slice extracts up to but not including end.
-        var senddata = ioAdapter.userAdapterMustData.slice(from, till);
+        var senddata = ioAdapter.userAdapterMustData[uid].slice(from, till);
 
         var sendmsg = {
             userMissedpackets: 1,
@@ -322,9 +323,9 @@ var ioMissingPackets = {
 
         //console.log('received packet');
         if (msg.m.data.length > 0) {
-            console.log('UID ' + uid + ' received packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
+            console.log('UID ' + uid + ' received user packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
         } else {
-            console.log('UID ' + uid + ' empty data object');
+            console.log('UID ' + uid + ' empty user data object');
         }
 
         var dataLength = msg.m.data.length,
@@ -338,9 +339,10 @@ var ioMissingPackets = {
                     //ioStorage.dataexecutedUserStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.userSerial);
                     this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
+                    msg.m.data[i].userto =  msg.userto;
 
                     try {
-                        console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.userSerial);
+                        console.log('UID ' + uid + ' Object with user Serial ' + msg.m.data[i].m.userSerial);
                         io.onRecJson(msg.m.data[i]);
                     } catch (error) {
                         console.log("Error " + error);

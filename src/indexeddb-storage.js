@@ -36,7 +36,8 @@
             this.reclaim = roles.isEducator();
             that = this;
             //TODO these are not using because audio and video is not using
-            this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
+            this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
+
             //this.tables = ["wbData", "allData", "audioData", "config", "executedStoreAll"];
             //this.tables = ["wbData", "audioData", "config"];
             //second parameter is versoin of datbase
@@ -65,6 +66,8 @@
                 //}
 
                 //
+
+                // TODO this should be simplyfy
                 if (!thisDb.objectStoreNames.contains("wbData")) {
                     thisDb.createObjectStore("wbData", {keyPath: 'timeStamp', autoIncrement: true});
                 }
@@ -91,6 +94,11 @@
                 if (!thisDb.objectStoreNames.contains("executedStoreAll")) {
                     thisDb.createObjectStore("executedStoreAll", {keyPath: 'serialKey'});
                 }
+
+                if (!thisDb.objectStoreNames.contains("dataUserAdapterAll")) {
+                    thisDb.createObjectStore("dataUserAdapterAll", {keyPath: 'serialKey'});
+                }
+
             };
 
             openRequest.onsuccess = function (e) {
@@ -167,7 +175,7 @@
             //TODO FIX this function
             var t = that.db.transaction(["dataUserAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataUserAdapterAll");
-            t.objectStore("dataUserAdapterAll").add({adaptData: data, id: 5, serialKey: serialKey});
+            t.objectStore("dataUserAdapterAll").add({adaptUserData: data, id: 7, serialKey: serialKey});
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
@@ -337,6 +345,7 @@
                 }
             }
         },
+
         allData: {
             chunk: 0,
             handleResult: function (event, cb) {
@@ -380,6 +389,24 @@
                         var data = JSON.parse(cursor.value.adaptData);
                         ioAdapter.serial = cursor.value.serialKey;
                         ioAdapter.adapterMustData[ioAdapter.serial] = data;
+                    }
+                    cursor.continue();
+                }
+            }
+        },
+
+
+        dataUserAdapterAll: {
+            handleResult: function (event, cb) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.hasOwnProperty('adaptUserData')) {
+
+                        var data = JSON.parse(cursor.value.adaptUserData);
+                        var usKey = cursor.value.serialKey.split('_'),
+                            uid = usKey[0], serial = usKey[1];
+                            ioMissingPackets.validateAllUserVariables(uid);
+                            ioMissingPackets.userAdapterMustData[uid][serial] = data;
                     }
                     cursor.continue();
                 }
@@ -474,6 +501,8 @@
 
         clearStorageData: function () {
             ioMissingPackets.executedSerial = null;
+            ioMissingPackets.executedUserSerial = null;
+
             for(var i=0; i<this.tables.length; i++){
                 if (this.tables[i] == 'allData') {
                     if (!virtualclass.vutil.isPlayMode()) {

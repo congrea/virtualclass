@@ -258,25 +258,11 @@ $(document).ready(function () {
             }
         }
 
-        if (typeof recMsg === 'string') {
-            messageUpdate(e);  //chat update
-        } else {
-            if(recMsg.hasOwnProperty('cf')){
-                if(typeof receiveFunctions[recMsg.cf] == 'function'){
-                    receiveFunctions[recMsg.cf](e);
-                    return;
-                }
+        if(recMsg.hasOwnProperty('cf')){
+            if(typeof receiveFunctions[recMsg.cf] == 'function'){
+                receiveFunctions[recMsg.cf](e);
+                return;
             }
-
-            //for (key in recMsg) {
-            //    if (recMsg.hasOwnProperty(key)) {
-            //        if (typeof (receiveFunctions[key]) === 'function') {
-            //            receiveFunctions[key](e);
-            //            return;
-            //        }
-            //    }
-            //}
-
         }
 
         //TODO : rewrite following code

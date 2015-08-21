@@ -123,15 +123,12 @@
                     virtualclass.view.disappearBox('drawArea');
                 });
 
-                //var storageHasReclaim = virtualclass.vutil.chkValueInLocalStorage('reclaim');
+                // The user's role is already defined
 
-                this.stHasTeacher = roles.hasControls();
-
-
-
-                if (this.stHasTeacher) {
-                    virtualclass.gObj.uRole = 't';
-                }
+                //this.stHasTeacher = roles.hasControls();
+                //if (this.stHasTeacher) {
+                //    virtualclass.gObj.uRole = 't';
+                //}
 
                 virtualclass.wb.utility.crateCanvasDrawMesssage();
             },

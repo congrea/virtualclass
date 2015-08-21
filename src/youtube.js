@@ -36,7 +36,7 @@
 
                 }
 
-                if (!roles.hasAdmin() || (roles.hasAdmin() && roles.isStudent())) {
+                if (!roles.hasAdmin() || (roles.isEducator())) {
                     if (typeof videoId == 'undefined' && roles.isStudent()) {
                         this.UI.defaultLayoutForStudent();
 

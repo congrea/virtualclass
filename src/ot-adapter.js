@@ -131,8 +131,7 @@ otAdapter = function () {
         };
 
         this.storeOperationIfStudent = function (msg) {
-            var isOrginalTeacher = virtualclass.vutil.userIsOrginalTeacher(virtualclass.gObj.uid);
-            if (!roles.hasAdmin() && !isOrginalTeacher) {
+            if (!roles.hasAdmin()) {
                 var wrappedOperation = {};
                 wrappedOperation.wrapped = vceditor.TextOperation.fromJSON(msg.data);
                 wrappedOperation.meta = msg.meta;

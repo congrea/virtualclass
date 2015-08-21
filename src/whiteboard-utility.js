@@ -415,7 +415,7 @@
             },
             dispQueuePacket: function (result) {
                 if ((roles.hasControls()) ||
-                    (roles.hasAdmin() && roles.isEducator())) {
+                    (roles.isEducator())) {
                     virtualclass.wb.utility.toolWrapperEnable();
 
                 }

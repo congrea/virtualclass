@@ -39,6 +39,7 @@
             },
 
             init: function (urole, app, videoObj) {
+
                 var wbUser = window.wbUser;
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
@@ -117,6 +118,10 @@
                 //    this.vutil.setOrginalTeacher();
                 //}
 
+                if (localStorage.uRole != null) {
+                    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
+                }
+
                 if (typeof videoObj == 'undefined') {
                     this.makeAppReady(app, "byclick");
                 } else {
@@ -150,9 +155,9 @@
                     this.system.setAppDimension();
                 }
 
-                if (localStorage.uRole != null) {
-                    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
-                }
+                //if (localStorage.uRole != null) {
+                //    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
+                //}
 
                 virtualclass.vutil.createReclaimButtonIfNeed();
 

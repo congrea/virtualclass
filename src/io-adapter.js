@@ -1,7 +1,26 @@
 var ioAdapter = {
     adapterMustData: [], // It contains all data that is must for all users to have
     serial: -1, // It is serial number of sent packet, normally set to current number
+    userSerial: [], // It is serial number of sent packet to individual user
+    userAdapterMustData: [], // It contains all data that is must for all users to have for individual users
     //TODO - Store to IndexDB
+
+
+    validateAllVariables: function (uid) {
+        "use strict";
+        if (typeof this.userSerial == 'undefined' || this.userSerial == null) {
+            this.userSerial = [];
+        }
+        if (typeof this.userSerial[uid] == 'undefined') {
+            this.userSerial[uid] = -1;
+        }
+        if (typeof this.userAdapterMustData == 'undefined' || this.userAdapterMustData == null) {
+            this.userAdapterMustData = [];
+        }
+        if (typeof this.userAdapterMustData[uid] == 'undefined') {
+            this.userAdapterMustData[uid] = [];
+        }
+    },
 
     mustSend: function (msg) {
         "use strict";
@@ -37,7 +56,14 @@ var ioAdapter = {
     //TODO Function below still needs to have missing packets functionality
     mustSendUser: function (msg, touser) {
         "use strict";
+        this.validateAllVariables(touser);
+        this.userSerial[touser]++;
+        console.log('s.n ' + this.serial + ' user ' + touser);
+        msg.userSerial = this.userSerial[touser];
+        this.userAdapterMustData[touser][msg.userSerial] = {type: 'broadcastToAll', m: msg};
         this.sendUser(msg, touser);
+        //TODO need to fix following
+        ioStorage.dataUserAdapterMustData({type: 'broadcastToAll', user: wbUser.id, m: msg}, touser + '_' + msg.userSerial);
     },
 
     sendUser: function (msg, touser) {

@@ -51,20 +51,19 @@ var io = {
                     io.onRecBinary(e)
                 } else {
                     var msg = JSON.parse(e.data);
-                    //if (msg.hasOwnProperty('m') && msg.user.userid != wbUser.id) {
                     if (msg.hasOwnProperty('m')) {
                         if (msg.m.hasOwnProperty('serial')) {
-                            //if(msg.user.userid != virtualclass.gObj.uid){
-                            //    ioMissingPackets.checkMissing(msg);
-                            //}
                             ioMissingPackets.checkMissing(msg);
-
                         } else if (msg.m.hasOwnProperty('reqMissPac')) {
                             ioMissingPackets.sendMissedPackets(msg);
                         } else if (msg.m.hasOwnProperty('missedpackets')) {
-
                             ioMissingPackets.fillExecutedStore(msg);
-
+                        }  else if (msg.m.hasOwnProperty('userSerial')) {
+                            ioMissingPackets.userCheckMissing(msg);
+                        } else if (msg.m.hasOwnProperty('userReqMissPac')) {
+                            ioMissingPackets.userSendMissedPackets(msg);
+                        } else if (msg.m.hasOwnProperty('userMissedpackets')) {
+                            ioMissingPackets.userFillExecutedStore(msg);
                         } else {
                             io.onRecSave(msg, e.data);
                             io.onRecJson(msg);

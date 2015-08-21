@@ -356,7 +356,8 @@
         },
 
         toggleRoleClass: function (reclaim) {
-            if ((roles.hasControls() && !roles.hasAdmin()) || reclaim) {
+
+            if (roles.isPresenter() || reclaim) {
                 document.getElementById("virtualclassCont").classList.toggle('teacher');
                 document.getElementById("virtualclassCont").classList.toggle('student');
             }
@@ -465,6 +466,14 @@
         },
 
         beforeLoad: function () {
+            // When user does clear history by browser feature, some data are storing
+            // in that case we are not saving the data by clearing all storage data.
+
+            if(localStorage.length == 0){
+                virtualclass.storage.clearStorageData();
+                return;
+            }
+
             if (typeof virtualclass.storage.wholeStoreData != 'undefined') {
                 var obj = JSON.parse(virtualclass.storage.wholeStoreData);
                 obj.beforeRefresh = true;
@@ -541,13 +550,12 @@
             } else {
                 window.onbeforeunload = function () {
                     var editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
+                    virtualclass.vutil.beforeLoad();
 
                     if(editor == 'editorRich' || editor == 'editorCode'){
                         var edState = virtualclass[editor].cmClient.state;
-
                         // We with till editor is in Sync.
                         // edState is an instance of constructor, to get the name of it
-                        virtualclass.vutil.beforeLoad();
                         if (edState.constructor.name != 'Synchronized') {
                             return 'Editor is not in sync, please wait for few seconds and try again';
                         }

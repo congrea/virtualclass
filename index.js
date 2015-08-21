@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
-    if(localStorage.getItem('reclaim') != null){
+    if(roles.isEducator()){
         virtualclass.vutil.toggleRoleClass(true);
     }
 

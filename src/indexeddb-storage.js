@@ -163,6 +163,13 @@
             t.objectStore("dataAdapterAll").add({adaptData: data, id: 5, serialKey: serialKey});
         },
 
+        dataUserAdapterAllStore: function (data, serialKey) {
+            //TODO FIX this function
+            var t = that.db.transaction(["dataUserAdapterAll"], "readwrite");
+            var objectStore = t.objectStore("dataUserAdapterAll");
+            t.objectStore("dataUserAdapterAll").add({adaptData: data, id: 5, serialKey: serialKey});
+        },
+
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
             this.totalStored++;
 

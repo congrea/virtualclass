@@ -1,11 +1,18 @@
 
 var ioMissingPackets = {
-
-    executedStore: [], // It contains all executed data by current user (at receiver side)
+    // Variables for broadcast messages
+    executedStore: [], // It contains all executed data by current user (at receiver side), used by ahead packets
     executedSerial: (localStorage.getItem('executedSerial') != null) ? JSON.parse(localStorage.getItem('executedSerial'))  : [],
     missRequest: [], // Status for Request for missed packets
     aheadPackets: [],
     missRequestFlag: 0, // Flag to show status of Miss Packet request
+
+    // Variables for individual messages (usersend)
+    executedUserStore: [],
+    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? JSON.parse(localStorage.getItem('executedUserSerial'))  : [],
+    missUserRequest: [], // Status for Request for missed packets
+    aheadUserPackets: [],
+    missUserRequestFlag: 0, // Flag to show status of Miss Packet request
     //TODO - Store to IndexDB
 
 
@@ -27,6 +34,24 @@ var ioMissingPackets = {
             this.aheadPackets[uid] = [];
         }
     },
+    validateAllUserVariables: function (uid) {
+        "use strict";
+        if (typeof this.executedUserSerial == 'undefined' || this.executedUserSerial == null) {
+            this.executedUserSerial = [];
+        }
+        if (typeof this.executedUserSerial[uid] == 'undefined') {
+            this.executedUserSerial[uid] = -1;
+        }
+        if (typeof this.missUserRequest[uid] == 'undefined') {
+            this.missUserRequest[uid] = 0;
+        }
+        if (typeof this.executedUserStore[uid] == 'undefined') {
+            this.executedUserStore[uid] = [];
+        }
+        if (typeof this.aheadUserPackets[uid] == 'undefined') {
+            this.aheadUserPackets[uid] = [];
+        }
+    },
 
     /**
      * 1) Check if packet is missed and request for missing packets
@@ -42,6 +67,7 @@ var ioMissingPackets = {
             this.fillExecutedStore(msg);
         } else if (typeof msg.m.serial != 'undefined' && msg.m.serial != null) {
             if (msg.m.serial == (this.executedSerial[uid] + 1)) {
+                // Everything is good and in order
                 console.log('UID ' + uid + ' Object with Serial ' + msg.m.serial);
                 this.executedSerial[uid] = msg.m.serial;
                 this.onRecSave(msg);
@@ -62,6 +88,41 @@ var ioMissingPackets = {
             }
         } else {
             console.log('UID ' + uid + ' checkMissing should not be called without serial');
+        }
+    },
+
+    /**
+     * Only applicable for messages send individually to a user
+     * 1) Check if packet is missed and request for missing packets
+     * 2) If a request is already in queue, do not send more requests.
+     * 3) Finally call, io.onRecJson function when queue is normal (all missing packets received).
+     */
+    userCheckMissing: function (msg) {
+        "use strict";
+        var uid = msg.user.userid;
+        this.validateAllUserVariables(uid);
+
+        if (msg.m.missedpackets == 1) {
+            this.fillExecutedStore(msg);
+        } else if (typeof msg.m.userSerial != 'undefined' && msg.m.userSerial != null) {
+            if (msg.m.userSerial == (this.executedUserSerial[uid] + 1)) {
+                // Everything is good and in order
+                console.log('UID ' + uid + ' Object with userSerial ' + msg.m.userSerial);
+                this.executedUserSerial[uid] = msg.m.userSerial;
+                this.onRecSave(msg);
+                io.onRecJson(msg);
+                this.executedUserStore[uid][msg.m.userSerial] = msg;
+                ioStorage.dataExecutedStoreAll(msg, uid + '_' + msg.m.userSerial);
+            } else if (msg.m.userSerial > (this.executedUserSerial[uid] + 1)) {
+                console.log('UID ' + uid + ' requst miss packet');
+                var from = this.executedUserSerial[uid] + 1;
+                this.userRequestMissedPackets(from, msg.m.userSerial, msg, uid);
+            } else { // We will not execute packets that has userSerial lesser then current packet but let us still store them
+                console.log('UID ' + uid + ' no action current packet ' + this.executedUserSerial[uid] + ' coming at ' + msg.m.userSerial);
+                this.executedUserStore[uid][msg.m.userSerial] = msg;
+            }
+        } else {
+            console.log('UID ' + uid + ' checkMissing should not be called without userSerial');
         }
     },
 
@@ -93,6 +154,35 @@ var ioMissingPackets = {
         }
     },
 
+    userRequestMissedPackets: function (from, till, msg, uid) {
+        //debugger;
+        if (from < 0) { // Make sure from is not negative
+            from = 0;
+        }
+
+        "use strict";
+        if (this.missUserRequest[uid] == 0) {
+            // Save current packet
+            this.aheadUserPackets[uid].unshift(msg.m.userSerial);
+            this.executedUserStore[uid][msg.m.userSerial] = msg;
+            till--; // We do not need to request current packet.
+            console.log('UID ' + uid + ' User request packet from ' + from + ' to ' + till);
+            this.userWaitAndResetmissUserRequest(uid);
+            var sendMsg = {
+                userReqMissPac: 1,
+                from: from,
+                till: till
+            };
+            var tid = virtualclass.vutil.whoIsTeacher();
+            ioAdapter.mustSendUser(sendMsg, tid)
+        } else {
+            console.log('UID ' + uid + ' User ahead packet' + msg.m.userSerial);
+            this.aheadUserPackets[uid].unshift(msg.m.userSerial);
+            this.executedUserStore[uid][msg.m.userSerial] = msg;
+        }
+    },
+
+
     /**
      * Set missRequest variable and Reset it after delay time so that another attempt could be made
      */
@@ -102,7 +192,19 @@ var ioMissingPackets = {
         setTimeout(function () {
             ioMissingPackets.missRequest[uid] = 0;
             ioMissingPackets.missRequestFlag = 0;
-        }, 10000);
+        }, 15000);
+    },
+
+    /**
+     * Set missUserRequest variable and Reset it after delay time so that another attempt could be made
+     */
+    userWaitAndResetmissUserRequest: function (uid) {
+        ioMissingPackets.missUserRequest[uid] = 1;
+        ioMissingPackets.missUserRequestFlag = 1;
+        setTimeout(function () {
+            ioMissingPackets.missUserRequest[uid] = 0;
+            ioMissingPackets.missUserRequestFlag = 0;
+        }, 15000);
     },
 
     sendMissedPackets: function (msg) {
@@ -123,7 +225,28 @@ var ioMissingPackets = {
         };
 
         ioAdapter.mustSendUser(sendmsg, msg.user.userid); //to user
-        console.log('UID ' + uid + ' send packet total chunk length ' + ioAdapter.adapterMustData.length);
+        console.log('UID ' + uid + ' send packet total chunk length ' + senddata.length);
+    },
+
+    userSendMissedPackets: function (msg) {
+        "use strict";
+        var uid = msg.user.userid;
+        this.validateAllUserVariables(uid);
+
+        var from = msg.m.from;
+        if (from < 0) { // Make sure from is not negative
+            from = 0;
+        }
+        var till = msg.m.till + 1; // slice extracts up to but not including end.
+        var senddata = ioAdapter.userAdapterMustData.slice(from, till);
+
+        var sendmsg = {
+            userMissedpackets: 1,
+            data: senddata
+        };
+
+        ioAdapter.sendUser(sendmsg, msg.user.userid); // Will avoid using 'Must' Send for 'Must' Send miss request
+        console.log('UID ' + uid + ' send packet total chunk length ' + senddata.length);
     },
 
     /**
@@ -163,7 +286,7 @@ var ioMissingPackets = {
                     }
                     this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
                 } else {
-                    console.log('UID ' + uid + ' Relieved Packed missing serial')
+                    console.log('UID ' + uid + ' Received Packed missing serial')
                 }
             }
         }
@@ -184,6 +307,68 @@ var ioMissingPackets = {
         }
         this.missRequest[uid] = 0;
         ioMissingPackets.missRequestFlag = 0;
+    },
+
+    /**
+     * Fill executedUserStore with missing packets and executed them one by one
+     * If aheadUserPackets are available, process them
+     * @param msg
+     */
+
+    userFillExecutedStore: function (msg) {
+        "use strict";
+        var uid = msg.user.userid;
+        this.validateAllUserVariables(uid);
+
+        //console.log('received packet');
+        if (msg.m.data.length > 0) {
+            console.log('UID ' + uid + ' received packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
+        } else {
+            console.log('UID ' + uid + ' empty data object');
+        }
+
+        var dataLength = msg.m.data.length,
+            i, ex;
+        for (i = 0; i < dataLength; i++) {
+            if (msg.m.data[i] != null) {
+                //the serial should not be null and undefined
+                if (typeof msg.m.data[i].m.userSerial != 'undefined' && msg.m.data[i].m.userSerial != null) {
+                    this.executedUserSerial[uid] = msg.m.data[i].m.userSerial;
+                    //TODO Add proper Store
+                    //ioStorage.dataexecutedUserStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.userSerial);
+                    this.onRecSave(msg.m.data[i]);
+                    msg.m.data[i].user = msg.user;
+
+                    try {
+                        console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.userSerial);
+                        io.onRecJson(msg.m.data[i]);
+                    } catch (error) {
+                        console.log("Error " + error);
+                    }
+                    this.executedUserStore[uid][msg.m.data[i].m.userSerial] = msg.m.data[i];
+                } else {
+                    console.log('UID ' + uid + ' Received Packed missing User serial')
+                }
+            }
+        }
+
+        this.aheadUserPackets[uid] = this.aheadUserPackets[uid].sort(function (a, b) {
+            return b - a
+        }); // Make sure packets are in correct order.
+        while (ex = this.aheadUserPackets[uid].pop()) {
+            if (typeof ex != 'undefined' && ex != null) {
+                this.executedUserSerial[uid] = ex;
+                this.onRecSave(this.executedUserStore[uid][ex]);
+                console.log('UID ' + uid + ' Object with Serial ' + this.executedUserStore[uid][ex].m.userSerial);
+                io.onRecJson(this.executedUserStore[uid][ex]);
+                //TODO Add proper Store
+                //ioStorage.dataexecutedUserStoreAll(this.executedUserStore[uid][ex], uid + '_' + this.executedUserStore[uid][ex].m.userSerial);
+            } else {
+                console.log('UID ' + uid + ' ahead Packed missing serial')
+            }
+        }
+        this.missUserRequest[uid] = 0;
+        ioMissingPackets.missUserRequestFlag = 0;
     },
 
     //save for recording process

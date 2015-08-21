@@ -57,6 +57,9 @@ var ioAdapter = {
     mustSendUser: function (msg, touser) {
         "use strict";
         this.validateAllVariables(touser);
+        if (typeof msg.serial != 'undefined' && msg.serial) {
+            msg.serial = null;
+        }
         this.userSerial[touser]++;
         console.log('s.n ' + this.serial + ' user ' + touser);
         msg.userSerial = this.userSerial[touser];

@@ -484,6 +484,8 @@
 
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
 
+            localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+
             localStorage.removeItem('otherRole');
 
             //critical, this can be critical

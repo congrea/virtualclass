@@ -405,8 +405,8 @@
                         var data = JSON.parse(cursor.value.adaptUserData);
                         var usKey = cursor.value.serialKey.split('_'),
                             uid = usKey[0], serial = usKey[1];
-                            ioMissingPackets.validateAllUserVariables(uid);
-                            ioMissingPackets.userAdapterMustData[uid][serial] = data;
+                        ioAdapter.validateAllVariables(uid);
+                        ioAdapter.userAdapterMustData[uid][serial] = data;
                     }
                     cursor.continue();
                 }

@@ -308,6 +308,7 @@ otAdapter = function () {
         if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
             ioAdapter.mustSend(msg);
         } else {
+            //TODO Check if it is possible avoid going through iolib
             ioAdapter.mustSendAll(msg);
         }
     };

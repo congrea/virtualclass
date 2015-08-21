@@ -401,7 +401,6 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('adaptUserData')) {
-
                         var data = JSON.parse(cursor.value.adaptUserData);
                         var usKey = cursor.value.serialKey.split('_'),
                             uid = usKey[0], serial = usKey[1];

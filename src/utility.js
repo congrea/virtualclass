@@ -729,7 +729,6 @@
             var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
             var that = this;
             aTags[0].addEventListener('click', function () {
-                debugger;
                 that._reclaimRole();
             });
         },

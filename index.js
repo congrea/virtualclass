@@ -268,26 +268,7 @@ $(document).ready(function () {
             }
         }
 
-        //TODO : rewrite following code
-        // removed because we don't show the packet informatio now
-        //if (!e.message.hasOwnProperty('replayAll') && !e.message.hasOwnProperty('clearAll') && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('checkUser')) {
-        //    if (typeof e.message.repObj === 'undefined') {
-        //        virtualclass.wb.utility.updateRcvdInformation(e.message.repObj[0]);
-        //    }
-        //}
-
-        if (virtualclass.wb.oTeacher) {
-            if (!e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('checkUser') && !e.message.hasOwnProperty('videoInt')) {
-                virtualclass.wb.receivedPackets = virtualclass.wb.receivedPackets + (JSON.stringify(e.message.repObj).length);
-            }
-            if (document.getElementById(virtualclass.wb.receivedPackDiv) !== null) {
-                document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
-            }
-            if (typeof virtualclass.wb.receivedPackets !== 'undefined') {
-                localStorage.receivedPackets = virtualclass.wb.receivedPackets;
-            }
-        }
-
+    
     });
 
     function clearEverthing() {
@@ -498,11 +479,9 @@ $(document).ready(function () {
         //Create mouse
         this.createArrow = function (e) {
             if(typeof virtualclass.wb == 'object'){
-                if (virtualclass.wb.oTeacher) {
-                    virtualclass.wb.receivedPackets = virtualclass.wb.receivedPackets + (JSON.stringify(e.message).length);
-                } else {
+                if (!virtualclass.wb.oTeacher) {
                     virtualclass.wb.response.createArrow(e.message, virtualclass.wb.oTeacher);
-                }
+                } 
             }
         };
 

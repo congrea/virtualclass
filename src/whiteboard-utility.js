@@ -456,7 +456,7 @@
 
                 localStorage.setItem('rcvdPackId', 0);
                 //TODO this code should be removed after validate
-                localStorage.removeItem('totalStored');
+               // localStorage.removeItem('totalStored');
                 //var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
                 //var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
                 var wbrtcMsg = virtualclass.vutil.chkValueInLocalStorage('wbrtcMsg');
@@ -467,7 +467,7 @@
 
 //                    localStorage.clear();
                 virtualclass.recorder.items = [];
-                virtualclass.storage.totalStored = 0;
+                // virtualclass.storage.totalStored = 0;
                 virtualclass.recorder.totalSent = 0;
 
                 // TODO this should be done by proepr way

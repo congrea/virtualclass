@@ -447,7 +447,7 @@
             if (!!window.Worker) {
                 mvDataWorker.postMessage({
                     rdata: virtualclass.recorder.items,
-                    totalStored: virtualclass.storage.totalStore,
+                  //  totalStored: virtualclass.storage.totalStore,
                     makeChunk: true
                 });
 

@@ -852,12 +852,12 @@
                  */
                 manuPulateStream: function () {
                     var stream = cthis.stream;
-                    if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
+                   /* if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
                         virtualclass.wb.recordStarted = new Date().getTime();
                         localStorage.setItem('recordStart', virtualclass.wb.recordStarted);
                     } else {
                         virtualclass.wb.recordStarted = localStorage.getItem('recordStart');
-                    }
+                    } */
                     var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                     cthis.audio.bufferSize = 16384;
                     //grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
@@ -878,7 +878,7 @@
                  */
                 updateInfo: function () {
                     this.audioStreamArr = [];
-                    virtualclass.wb.pageEnteredTime = virtualclass.wb.recordStarted = new Date().getTime();
+                    //  virtualclass.wb.pageEnteredTime = virtualclass.wb.recordStarted = new Date().getTime();
                     this.recordAudio = false;
                     repMode = false;
                 },

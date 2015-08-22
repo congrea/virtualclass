@@ -356,7 +356,6 @@
         },
 
         toggleRoleClass: function (reclaim) {
-
             if (roles.isPresenter() || reclaim) {
                 document.getElementById("virtualclassCont").classList.toggle('teacher');
                 document.getElementById("virtualclassCont").classList.toggle('student');
@@ -480,7 +479,7 @@
                 virtualclass.storage.wholeStore(obj, "put");
             }
 
-            localStorage.setItem('totalStored', virtualclass.storage.totalStored);
+         //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
 
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
 

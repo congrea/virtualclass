@@ -88,7 +88,7 @@ $(document).ready(function () {
     //virtualclass.wb.utility.initDefaultInfo(wbUser.role);
     virtualclass.vutil.initDefaultInfo(wbUser.role, appIs);
 
-    if (wbUser.role === 's') {
+    if (roles.isStudent()) {
         var audioEnable = localStorage.getItem('audEnable');
         if (audioEnable !== null && audioEnable === 'false') {
             virtualclass.user.control.audioWidgetDisable();

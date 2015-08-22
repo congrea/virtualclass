@@ -79,13 +79,13 @@
             },
 
             _init: function () {
-                if (!roles.hasAdmin()) {
+              /*  if (!roles.hasAdmin()) {
                     virtualclass.wb.pageEnteredTime = new Date().getTime();
                     localStorage.setItem('pageEnteredTime', virtualclass.wb.pageEnteredTime);
                 } else {
                     virtualclass.wb.pageEnteredTime = localStorage.getItem('pageEnteredTime');
                 }
-
+                */
                 virtualclass.wb.oTeacher = roles.hasAdmin();
 
                 if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {

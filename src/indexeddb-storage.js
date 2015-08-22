@@ -10,7 +10,7 @@
     var that;
     var prArr = [];
     var tarr = [];
-    var totalDataStored = localStorage.getItem('totalStored');
+  //  var totalDataStored = localStorage.getItem('totalStored');
 
     function initToServer(cb) {
         if (typeof cb == 'function') {
@@ -26,7 +26,7 @@
     }
 
     var storage = {
-        totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
+      //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         dbVersion: 3,
         init: function (firstDataStore) {
 
@@ -198,7 +198,7 @@
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
-            this.totalStored++;
+        //    this.totalStored++;
 
             var t = that.db.transaction(["allData"], "readwrite");
             if (typeof sessionEnd != 'undefined') {

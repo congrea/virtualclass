@@ -153,6 +153,7 @@ $(document).ready(function () {
         virtualclass.connectedUsers = e.message;
         //virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
+        ioPingPong.ping(e);
         memberUpdate(e, 'added');
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
             virtualclass.gObj.video.updateVidContHeight();
@@ -262,6 +263,8 @@ $(document).ready(function () {
             if(typeof receiveFunctions[recMsg.cf] == 'function'){
                 receiveFunctions[recMsg.cf](e);
                 return;
+            } else {
+                console.log('CF ' + recMsg.cf+ ' is not a function of receiveFunctions');
             }
         }
 
@@ -306,20 +309,18 @@ $(document).ready(function () {
      * @type {receiveFunctions}
      */
     var receiveFunctions = new function () {
-         this.control = function (e){
-             virtualclass.user.control.onmessage(e);
-         };
 
-         //this.eddata = function (e){
-         //   //virtualclass.editorRich.onmessage(e.message);
-         //   if(e.message.hasOwnProperty('et')){
-         //       if(e.message.et == 'editorRich'){
-         //           virtualclass.editorRich.onmessage(e, 'EditorRich');
-         //       }else {
-         //           virtualclass.editorCode.onmessage(e, 'EditorCode');
-         //       }
-         //   }
-         //}
+        this.pong = function (e){
+            ioPingPong.pong(e);
+        };
+
+        this.pongAck = function (e){
+            ioPingPong.pongAck(e);
+        };
+
+        this.control = function (e){
+         virtualclass.user.control.onmessage(e);
+        };
 
         //editor data
         this.eddata = function (e){

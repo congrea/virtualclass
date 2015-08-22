@@ -163,12 +163,23 @@
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
             var objectStore = t.objectStore("executedStoreAll");
             t.objectStore("executedStoreAll").add({executedData: data, id: 6, serialKey: serialKey});
+            
+            t.onerror = function ( e ) {
+                // prevent Firefox from throwing a ConstraintError and aborting (hard)
+                e.preventDefault();
+            }
+             
         },
 
         dataAdapterAllStore: function (data, serialKey) {
             var t = that.db.transaction(["dataAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataAdapterAll");
             t.objectStore("dataAdapterAll").add({adaptData: data, id: 5, serialKey: serialKey});
+            
+             t.onerror = function ( e ) {
+                // prevent Firefox from throwing a ConstraintError and aborting (hard)
+                e.preventDefault();
+            }
         },
 
         dataUserAdapterAllStore: function (data, serialKey) {
@@ -176,6 +187,14 @@
             var t = that.db.transaction(["dataUserAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataUserAdapterAll");
             t.objectStore("dataUserAdapterAll").add({adaptUserData: data, id: 7, serialKey: serialKey});
+            
+            // hack for firefox 
+            // problem https://bugzilla.mozilla.org/show_bug.cgi?id=872873
+            // solution https://github.com/aaronpowell/db.js/issues/98
+            t.onerror = function ( e ) {
+                // prevent Firefox from throwing a ConstraintError and aborting (hard)
+                e.preventDefault();
+            }
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare

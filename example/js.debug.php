@@ -6,6 +6,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-missing-packets.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>

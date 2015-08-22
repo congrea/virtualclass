@@ -102,6 +102,8 @@
                     if (roles.hasAdmin()) {
                         this.createAllEditorController();
                     }
+                    //TODO Check if it is required to send to all
+                    //TODO Check if it is possible avoid going through iolib
                     ioAdapter.mustSendAll({eddata: 'init', et: this.etype, cf: 'eddata'});
                 } else {
                     if (roles.hasAdmin()) {
@@ -271,7 +273,8 @@
                 requestForEditorData: function (e) {
                     if (e.fromUser.userid != virtualclass.gObj.uid) {
                         if (typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0) {
-                            // TODO Check if it is required to send to all
+                            //TODO Check if it is required to send to all
+                            //TODO Check if it is possible avoid going through iolib
                             ioAdapter.mustSendAll({'eddata': 'noDataForEditor', cf: 'eddata'});
                             return;
                         }

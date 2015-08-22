@@ -62,6 +62,17 @@ var ioStorage = {
         virtualclass.storage.dataExecutedStoreAll(JSON.stringify(DataExecutedAll), serialKey);
     },
 
+    ioCompleteStorageInit : function (data) {
+        try {
+            ioStorage.completeStorage(data);
+        } catch (error) {
+            var that = this;
+            setTimeout(function () {
+                that.ioCompleteStorageInit(data);
+            }, 10);
+        }
+    },
+
     completeStorage: function (data, bdata, sessionEnd) {
 
         if (virtualclass.hasOwnProperty('getContent') && virtualclass.getContent == true) {
@@ -77,9 +88,7 @@ var ioStorage = {
                 try {
                     var t = virtualclass.storage.db.transaction(['allData'], "readwrite");
                 } catch (error) {
-                    setTimeout(function () {
-                        ioStorage.completeStorage(data);
-                    }, 20);
+                    this.ioCompleteStorageInit(data);
                     return;
                 }
 

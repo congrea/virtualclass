@@ -239,7 +239,6 @@
                     //  virtualclass.storage.wholeStore(obj);
                     //virutalclass.vutil.beforeSend({'repObj': [obj]});
                     virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
-                    virtualclass.wb.utility.updateSentPackets(obj);
                 }
 
                 var text = virtualclass.wb.canvas.readyObject(textObj);
@@ -251,11 +250,7 @@
                 //this.keyTyped = [];.
                 prvNode.parentNode.removeChild(txtWrapper);
                 vcan.renderAll();
-                if (virtualclass.wb.sentPackets > 0) {
-                    if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
-                        document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
-                    }
-                }
+				
                 virtualclass.wb.utility.toolWrapperEnable(true);
             }
         }

@@ -22,12 +22,12 @@
             obj: {},
             prvObj: '',
             replayTime: 0,
-            sentPackets: 0,
-            sentPackDiv: 'sentPacket',
-            sentPackDivPS: 'sentPacketPS',
-            receivedPackets: 0,
-            receivedPackDiv: 'receivedNumber',
-            receivedPackDivPS: 'receivedNumberPS',
+          //  sentPackets: 0,
+           // sentPackDiv: 'sentPacket',
+           // sentPackDivPS: 'sentPacketPS',
+           // receivedPackets: 0,
+           // receivedPackDiv: 'receivedNumber',
+            // receivedPackDivPS: 'receivedNumberPS',
             uid: 0,
             lt: '',
             // commandToolsWrapperId: 'commandToolsWrapper',
@@ -75,18 +75,7 @@
                 }
 
                 this.arrowInit();
-                var oldData = virtualclass.wb.sentPackets;
-
-                // It's important
-                // Earlier it was virtualclass.clear
-                virtualclass.clear2 = setInterval(function () {
-                    if (document.getElementById(virtualclass.wb.sentPackDivPS) != null) {
-                        oldData = virtualclass.wb.utility.calcPsSentPackets(oldData);
-                        document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;  //update total packets
-                    }
-                }, 1000);
-
-                this._init();
+	            this._init();
             },
 
             _init: function () {
@@ -298,17 +287,7 @@
              */
             attachToolFunction: function (id, alreadyCreated) {
                 virtualclass.wb.createCommand(alreadyCreated);
-                if (typeof alreadyCreated == 'undefined') {
-                    virtualclass.wb.dataInfo = parseInt(wbUser.dataInfo);
-                    if (roles.hasAdmin() && virtualclass.wb.dataInfo == 1) {
-                        if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
-                            virtualclass.wb.packContainer.createPacketContainer();
-                            virtualclass.wb.packContainer.createPacketInfoContainer();
-                            virtualclass.wb.utility.initStoredPacketsNumbers();
-                        }
-                    }
-                }
-
+			
                 var allDivs = document.getElementById(id).getElementsByTagName('div');
                 for (var i = 0; i < allDivs.length; i++) {
                     //TODO this will have to be fixed as it always assigned t_clearall
@@ -325,9 +304,7 @@
                 if (typeof virtualclass.wb.obj.drawTextObj == 'object' && virtualclass.wb.obj.drawTextObj.wmode == true) {
                     var ctx = vcan.main.canvas.getContext('2d');
                 }
-
                 var allChilds = virtualclass.wb.vcan.getStates('children');
-
                 if (allChilds.length > 0) {
                     if (cmd != 't_clearall') {
                         if (typeof multiuser == 'undefined' || cmd != 't_replay') {

@@ -147,7 +147,6 @@
                                     virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});
                                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
                                     //virtualclass.storage.wholeStore(dataChunk);
-                                    wb.utility.updateSentPackets(dataChunk);
                                     dataChunk = [];
                                     lastmousemovetime = new Date().getTime();
                                 }
@@ -256,11 +255,6 @@
 
                             //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-
-
-                            //virtualclass.storage.wholeStore(dataChunk);
-
-                            wb.utility.updateSentPackets(dataChunk);
                             dataChunk = [];
                         }
                     }

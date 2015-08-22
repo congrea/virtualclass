@@ -680,11 +680,6 @@
                     virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
                 }
                 var jobj = JSON.stringify(msg);
-
-                if (typeof virtualclass.wb == 'object') {
-                    virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
-                }
-
                 if (io.sock != null && io.sock.readyState == 1) {
                     if (typeof notMust != 'undefined' && notMust === true) {
                         if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
@@ -707,7 +702,6 @@
                     virtualclass.wb.utility.updateSentInformation(jobj);
                 }
             }
-            localStorage.sentPackets = virtualclass.wb.sentPackets;
         },
 
         breakintobytes: function (val, l) {

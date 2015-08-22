@@ -162,11 +162,8 @@
                         }
                     }
                 }
-                if (typeof pkMode == 'undefined') {
-                    virtualclass.wb.sentPackets = 0;
-                    virtualclass.wb.receivedPackets = 0;
-                }
-
+               
+               
                 //for clear sent and received msg information
                 var sentMsgInfo = document.getElementById('sentMsgInfo');
                 if (sentMsgInfo != null) {
@@ -279,60 +276,11 @@
                 ctx.closePath();
                 ctx.restore();
             },
-            calcPsSentPackets: function (oldData) {
-                if (roles.hasAdmin()) {
-                    var pacPerSec = virtualclass.wb.sentPackets - oldData;
-                    if (pacPerSec < 0) {
-                        pacPerSec = 0;
-                    }
-                    if (document.getElementById(virtualclass.wb.sentPackDivPS != null)) {
-                        document.getElementById(virtualclass.wb.sentPackDivPS).innerHTML = pacPerSec;
-                    }
-                    return virtualclass.wb.sentPackets;
-                }
-
-            },
-            calcPsRecvdPackets: function (oldData2) {
-                var pacPerSec = virtualclass.wb.receivedPackets - oldData2;
-                if (pacPerSec < 0) {
-                    pacPerSec = 0;
-                }
-                if (document.getElementById(virtualclass.wb.receivedPackDivPS) != null) {
-                    document.getElementById(virtualclass.wb.receivedPackDivPS).innerHTML = pacPerSec;
-                }
-                return virtualclass.wb.receivedPackets;
-            },
+			
             //initialize transfred packets from local storage when
             // browser is reloaded.
-            initStoredPacketsNumbers: function () {
-                if (roles.hasAdmin()) {
-                    if (localStorage.sentPackets) {
-                        var totSentPackets = JSON.parse(localStorage.sentPackets);
-                        virtualclass.wb.sentPackets = totSentPackets;
-                        if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
-                            document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = totSentPackets;
-                        }
-                    }
-
-                    if (localStorage.receivedPackets) {
-                        virtualclass.wb.receivedPackets = JSON.parse(localStorage.receivedPackets);
-                        if (document.getElementById(virtualclass.wb.receivedPackDiv) != null) {
-                            document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
-                        }
-                    }
-                }
-            },
-            updateSentPackets: function (obj) {
-                if (virtualclass.wb.dataInfo == 1) {
-                    if (roles.hasAdmin()) {
-                        virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + JSON.stringify(obj).length;
-                        if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
-                            document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
-                        }
-                    }
-                }
-            },
-
+            
+			
             assignRole: function (studentId) {
                 virtualclass.wb.tool = "";
                 if (vcan.main.action == 'move') {
@@ -552,44 +500,8 @@
                 //localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
                 //window.virtualclass.view.canvasDrawMsg('Canvas');
                 localStorage.setItem('canvasDrwMsg', true);
-                if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
-                    if (parseInt(wbUser.dataInfo, 10) == 1) {
-                        virtualclass.wb.packContainer.createPacketContainer();
-                        virtualclass.wb.packContainer.createPacketInfoContainer();
-                        virtualclass.wb.utility.initStoredPacketsNumbers();
-                    }
-                }
                 //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
             },
-
-//            initDefaultInfo: function (role) {
-//                if (role == 't') {
-//                    if (localStorage.getItem('orginalTeacherId') == null) {
-//                        //virtualclass.wb.utility.setOrginalTeacherContent(e);
-//                        virtualclass.wb.utility.setOrginalTeacherContent();
-//                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-//                    }
-//
-//                    //} else if (role == 's' && newuser == null) {
-//                } else if (role == 's') {
-//                    vcan.studentId = wbUser.id;
-//
-//                    if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
-//                        localStorage.setItem('studentId', wbUser.id);
-//                    }
-//                    virtualclass.vutil.removeSessionTool();
-//                }
-//
-//
-//                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-//                    virtualclass.gObj.video.init();
-//                    virtualclass.gObj.video.isInitiator = true;
-//                }
-//                //bad way
-////                    virtualclass.gObj.video.init();
-////                    virtualclass.gObj.video.isInitiator = true;
-//                vcan.oneExecuted = false;
-//            },
 
             checkWebRtcConnected: function () {
                 if (typeof cthis != 'undefined') {
@@ -784,16 +696,6 @@
                     return (allToolDivs.length >= 8) ? true : false;
                 }
             },
-            alreadyExistPacketContainer: function () {
-                var packDiv = document.getElementById('packetContainer');
-                var infoDiv = document.getElementById('informationCont');
-
-                if (packDiv.getElementsByTagName('div').length >= 2 || infoDiv.getElementsByTagName('div').length >= 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-            },
 
             //toolWrapperDisable and toolWrapperEnable should be merged into one function
             toolWrapperDisable: function (innerAnchors) {
@@ -976,7 +878,7 @@
                     }
                     var jobj = JSON.stringify(msg);
 
-                    virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
+                  //  virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                     if (io.sock.readyState == 1) {
 
                         typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
@@ -989,7 +891,7 @@
                         virtualclass.wb.utility.updateSentInformation(jobj);
                     }
                 }
-                localStorage.sentPackets = virtualclass.wb.sentPackets;
+            //    localStorage.sentPackets = virtualclass.wb.sentPackets;
             },
 
             checkCanvasHasParents: function () {
@@ -1034,16 +936,6 @@
                     rightOffSet = window.innerWidth - (elemContainer.clientWidth + (offset.x - rspace));
                 }
                 return rightOffSet;
-            },
-
-            initUpdateInfo: function (oldData2) {
-                oldData2 = virtualclass.wb.receivedPackets;
-                setInterval(function () {
-                    if (document.getElementById(virtualclass.wb.receivedPackDivPS) != null) {
-                        oldData2 = virtualclass.wb.utility.calcPsRecvdPackets(oldData2);
-                        document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
-                    }
-                }, 1000);
             },
 
             // important todo

@@ -371,8 +371,8 @@
 
                         this.wb.bridge = window.bridge;
                         this.wb.response = window.response;
-                        var olddata = "";
-                        this.wb.utility.initUpdateInfo(olddata);
+//                        var olddata = "";
+//                        this.wb.utility.initUpdateInfo(olddata);
                         virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
 
                         if (roles.hasControls()) {

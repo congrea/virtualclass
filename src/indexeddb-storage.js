@@ -29,28 +29,27 @@
       //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         dbVersion: 3,
         init: function (firstDataStore) {
-
-            //alert('should come first');
-            //this.firstDataStore = firstDataStore;
-            //JSON.parse(virtualclass.vutil.chkValueInLocalStorage('reclaim'));
+             
+            /***
+             * Which table, what doing
+             *  allData => For Store all the data of virtualclass for play session at later.
+                executedStoreAll => To store the executed data of users till now
+                dataAdapterAll => To store the must data of all user.
+                dataUserAdapterAll =>  To Store the must data of all user on particular user
+                chunkData => To save chunk data which would be convert into file as later.
+                wbData => To store the whiteboard data. 
+                config => For store the date of created session of particular room, 
+                  By which, we calculate the time(after 48 hour we are 
+                  ending the session for that particular room)
+             */
             this.reclaim = roles.isEducator();
             that = this;
             //TODO these are not using because audio and video is not using
-            this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
-
-            //this.tables = ["wbData", "allData", "audioData", "config", "executedStoreAll"];
-            //this.tables = ["wbData", "audioData", "config"];
-            //second parameter is versoin of datbase
-
-            //var dbVersion = 1;
+              this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
+             //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
             var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
-
-
-            //alert(that.db);
-            //var t = this.db.transaction([this.tables[i]], "readwrite");
-
-            openRequest.onerror = function (e) {
+         openRequest.onerror = function (e) {
                 console.log("Error opening db");
                 console.dir(e);
             };
@@ -71,9 +70,9 @@
                 if (!thisDb.objectStoreNames.contains("wbData")) {
                     thisDb.createObjectStore("wbData", {keyPath: 'timeStamp', autoIncrement: true});
                 }
-                if (!thisDb.objectStoreNames.contains("audioData")) {
-                    thisDb.createObjectStore("audioData", {keyPath: 'timeStamp', autoIncrement: true});
-                }
+//                if (!thisDb.objectStoreNames.contains("audioData")) {
+//                    thisDb.createObjectStore("audioData", {keyPath: 'timeStamp', autoIncrement: true});
+//                }
                 if (!thisDb.objectStoreNames.contains("allData")) {
 
                     thisDb.createObjectStore("allData", {autoIncrement: true});
@@ -153,11 +152,11 @@
             return false;
         },
 
-        audioStore: function (data) {
-            var t = that.db.transaction(["audioData"], "readwrite");
-            t.objectStore("audioData").add({audiostream: data, timeStamp: new Date().getTime(), id: 2});
-            return false;
-        },
+//        audioStore: function (data) {
+//            var t = that.db.transaction(["audioData"], "readwrite");
+//            t.objectStore("audioData").add({audiostream: data, timeStamp: new Date().getTime(), id: 2});
+//            return false;
+//        },
 
         dataExecutedStoreAll: function (data, serialKey) {
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
@@ -344,26 +343,26 @@
                 }
             }
         },
-        audioData: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
-                    if (cursor.value.hasOwnProperty('audiostream')) {
-                        adData.push(JSON.parse(cursor.value.audiostream));
-                    }
-                    cursor.continue();
-                } else {
-                    if (adData.length > 1) {
-                        virtualclass.gObj.video.audio.recordingLength = 0;
-                        if (typeof cb == 'function') {
-                            virtualclass.gObj.video.audio.assignFromLocal(adData, cb);
-                        } else {
-                            virtualclass.gObj.video.audio.assignFromLocal(adData);
-                        }
-                    }
-                }
-            }
-        },
+//        audioData: {
+//            handleResult: function (event, cb) {
+//                var cursor = event.target.result;
+//                if (cursor) {
+//                    if (cursor.value.hasOwnProperty('audiostream')) {
+//                        adData.push(JSON.parse(cursor.value.audiostream));
+//                    }
+//                    cursor.continue();
+//                } else {
+//                    if (adData.length > 1) {
+//                        virtualclass.gObj.video.audio.recordingLength = 0;
+//                        if (typeof cb == 'function') {
+//                            virtualclass.gObj.video.audio.assignFromLocal(adData, cb);
+//                        } else {
+//                            virtualclass.gObj.video.audio.assignFromLocal(adData);
+//                        }
+//                    }
+//                }
+//            }
+//        },
 
         allData: {
             chunk: 0,
@@ -505,6 +504,7 @@
                 virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
             }
         },
+        
 
         clearSingleTable : function (table){
             var t = this.db.transaction(table, "readwrite");

@@ -354,13 +354,18 @@
                 }
             }
         },
-
+        
+        // TODO 
+        /***
+         * Add class at body according to role
+         */
+        /*
         toggleRoleClass: function (reclaim) {
             if (roles.isPresenter() || reclaim) {
                 document.getElementById("virtualclassCont").classList.toggle('teacher');
                 document.getElementById("virtualclassCont").classList.toggle('student');
             }
-        },
+        }, */
 
         addClass: function (elemId, className) {
             var elem = document.getElementById(elemId);
@@ -890,7 +895,7 @@
             }
 
             //if (localStorage.getItem('orginalTeacherId') == null) {
-            virtualclass.vutil.toggleRoleClass(true);
+        //    virtualclass.vutil.toggleRoleClass(true);
             //}
 
 

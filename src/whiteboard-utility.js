@@ -352,9 +352,9 @@
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
                 }
 
-                if (!roles.hasAdmin()) {
-                    virtualclass.vutil.toggleRoleClass(true);
-                }
+//                if (!roles.hasAdmin()) {
+//                    virtualclass.vutil.toggleRoleClass(true);
+//                }
             },
 
             reclaimRole: function () {

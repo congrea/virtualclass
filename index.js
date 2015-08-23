@@ -54,7 +54,7 @@ $(document).ready(function () {
     (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
 
     if(roles.isEducator()){
-        virtualclass.vutil.toggleRoleClass(true);
+      //  virtualclass.vutil.toggleRoleClass(true);
     }
 
     var alreadyInit = false;
@@ -65,12 +65,13 @@ $(document).ready(function () {
         virtualclass.editorRich.veryInit();
         virtualclass.editorCode.veryInit();
     }
-
+    
+    /*
     if (localStorage.getItem('tc') !== null) {
         virtualclass.vutil.toggleRoleClass();
     } else {
         localStorage.setItem('tc', true);
-    }
+    } */
 
     if (virtualclass.vutil.isMiniFileIncluded('wb.min')) {
         virtualclass.gObj.displayError = 0;

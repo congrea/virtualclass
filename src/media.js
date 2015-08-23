@@ -779,12 +779,12 @@
 
                 },
                 //TODO  this function is not being invoked
-                replayInit: function () {
-                    virtualclass.storage.getAllObjs(["audioData"], repCallback);
-                    function repCallback() {
-                        virtualclass.gObj.video.audio.replay(0, 0)
-                    }
-                },
+//                replayInit: function () {
+//                    virtualclass.storage.getAllObjs(["audioData"], repCallback);
+//                    function repCallback() {
+//                        virtualclass.gObj.video.audio.replay(0, 0)
+//                    }
+//                },
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {
                     repMode = true;

@@ -161,7 +161,7 @@
         dataExecutedStoreAll: function (data, serialKey) {
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
             var objectStore = t.objectStore("executedStoreAll");
-            t.objectStore("executedStoreAll").add({executedData: data, id: 6, serialKey: serialKey});
+            t.objectStore("executedStoreAll").put({executedData: data, id: 6, serialKey: serialKey}); // Using add can cause errors
             
             t.onerror = function ( e ) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
@@ -173,7 +173,7 @@
         dataAdapterAllStore: function (data, serialKey) {
             var t = that.db.transaction(["dataAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataAdapterAll");
-            t.objectStore("dataAdapterAll").add({adaptData: data, id: 5, serialKey: serialKey});
+            t.objectStore("dataAdapterAll").put({adaptData: data, id: 5, serialKey: serialKey}); // Using add can cause errors
             
              t.onerror = function ( e ) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
@@ -185,7 +185,7 @@
             //TODO FIX this function
             var t = that.db.transaction(["dataUserAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataUserAdapterAll");
-            t.objectStore("dataUserAdapterAll").add({adaptUserData: data, id: 7, serialKey: serialKey});
+            t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
             
             // hack for firefox 
             // problem https://bugzilla.mozilla.org/show_bug.cgi?id=872873

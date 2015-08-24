@@ -113,7 +113,7 @@
                         var request = indexedDB.deleteDatabase('vidya_apps');
                         request.onsuccess = function () {
                             that.init();
-                        }
+                        };
                         return;
                         //that.table.create(that.db, that.tables[i]);
                     }
@@ -131,8 +131,8 @@
                                 var roomCreatedTime = result.createdDate;
                                 var baseDate = new Date().getTime();
                                 var totalTime = baseDate - roomCreatedTime;
-                                //////////////////////1sec-1min--1hr--48hr/////////
-                                if (totalTime > (1000 * 60 * 60 * 60 * 48) || result.room != wbUser.room) {
+                                //////////////////////1sec-1min--1hr--2hr/////////
+                                if (totalTime > (1000 * 60 * 60 * 2) || result.room != wbUser.room) {
                                     that.config.endSession();
                                 }
                             }

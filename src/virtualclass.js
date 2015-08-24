@@ -567,7 +567,7 @@
                     if (prvUser.id != wbUser.id || prvUser.room != wbUser.room) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
-                        if (this.gObj.uRole == 't') {
+                        if (roles.hasControls()) {
                             localStorage.setItem('uRole', this.gObj.uRole);
                         }
                     }

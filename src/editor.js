@@ -19,9 +19,9 @@
         //TODO this should be dynamic
         if (type == 'editorRich') {
             var editorType = {lineWrapping: true};
-            var editorToolbar = {richTextToolbar: true, richTextShortcuts: true, readOnly: true}; //For RichText Editor here we need to make readOnly parameter
+            var editorToolbar = {richTextToolbar: true, richTextShortcuts: true, readOnly: 'nocursor'}; //For RichText Editor here we need to make readOnly parameter
         } else {
-            var editorType = {lineNumbers: true, mode: 'markdown', readOnly: true};
+            var editorType = {lineNumbers: true, mode: 'markdown', readOnly: 'nocursor'};
             var editorToolbar = {defaultText: 'Markdown Editor '};
         }
 
@@ -211,11 +211,11 @@
                 if (typeof this.cm == 'object') {
                     if (mode == 'enable') {
                         if (!this.readonly) {
-                            this.cm.setOption("readOnly", true);
+                            this.cm.setOption("readOnly", 'nocursor');
                             if (typeof notcreateBox == 'undefined') {
                                 this.UI.createSynchMessageBox();
                             }
-                            this.readonly = true;
+                            this.readonly = 'nocursor';
                         }
                     } else {
                         if (this.readonly && !virtualclass.isPlayMode) {
@@ -490,14 +490,14 @@
                 if (!roles.hasAdmin()) {
                     if (cmReadOnly != null) {
                         if (!cmReadOnly) {
-                            this.cm.setOption("readOnly", true);
+                            this.cm.setOption("readOnly", 'nocursor');
                             var writeMode = false;
                         } else {
                             this.cm.setOption("readOnly", false);
                             var writeMode = true;
                         }
                     } else {
-                        this.cm.setOption("readOnly", true);
+                        this.cm.setOption("readOnly", 'nocursor');
                         var writeMode = false;
                     }
 

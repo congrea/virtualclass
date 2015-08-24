@@ -284,7 +284,7 @@
                         localStorage.setItem('editorRich', action);
                     } else {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            virtualclass.editorRich.cm.setOption('readOnly', true);
+                            virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
                         } else {
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
@@ -311,7 +311,7 @@
                         localStorage.setItem('editorCode', action);
                     } else {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            virtualclass.editorCode.cm.setOption('readOnly', true);
+                            virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
                         } else {
                             this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }

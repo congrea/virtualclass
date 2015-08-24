@@ -471,13 +471,13 @@
 
                     if (!roles.hasAdmin()) {
                         if (writeMode == null) {
-                            this[etType].cm.setOption('readOnly', true);
+                            this[etType].cm.setOption('readOnly', 'nocursor');
                             this.user.control.toggleDisplayWriteModeMsgBox(app, false);
                             console.log('message box is created ' + app);
                         } else {
                             this.user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
                             if (!writeMode) {
-                                this[etType].cm.setOption('readOnly', true);
+                                this[etType].cm.setOption('readOnly', 'nocursor');
                             } else {
                                 this[etType].cm.setOption('readOnly', false);
                             }

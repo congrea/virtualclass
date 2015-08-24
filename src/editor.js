@@ -600,6 +600,8 @@
                     localStorage.setItem(this.etype + '_edOperationRev', this.cmClient.revision);
                 }
             }
+
+
         }
     };
 

@@ -6,10 +6,12 @@
     var user = function (config) {
         return {
             //TODO function name should be change
-            assignRole: function (role, app) {
+            assignRole: function (role, app, toUser) {
+
                 if (roles.hasControls()) {
-                    if (!roles.isEducator()) {
-                    //if (localStorage.getItem('reclaim') == null) {
+                     if (!roles.isEducator()) {
+                         // if role is presentator
+                        virtualclass.vutil.enablePresentatorEditors(toUser);
                         virtualclass.html.leftAppBar();
                     }
                     virtualclass.attachFunction();
@@ -235,17 +237,19 @@
                 toggleDisplayWriteModeMsgBox: function (editorType, writeMode) {
 
                     var writeModeBox = document.getElementById(editorType + 'writeModeBox');
-
-
                     var modeMessage = (writeMode) ? virtualclass.lang.getString("writemode") : virtualclass.lang.getString("readonlymode");
-                    if (writeModeBox == null) {
+                    var editorBody = document.getElementById('virtualclass' + editorType + 'Body');
+
+                    if (writeModeBox == null && editorBody != null) {
                         writeModeBox = document.createElement('div');
                         writeModeBox.id = editorType + 'writeModeBox';
-                        document.getElementById('virtualclass' + editorType + 'Body').appendChild(writeModeBox);
+                        editorBody.appendChild(writeModeBox);
                     }
-                    writeModeBox.className = 'writeModeBox';
-                    writeModeBox.dataset.writeMode = writeMode;
-                    writeModeBox.innerHTML = modeMessage;
+                    if(writeModeBox != null){
+                        writeModeBox.className = 'writeModeBox';
+                        writeModeBox.dataset.writeMode = writeMode;
+                        writeModeBox.innerHTML = modeMessage;
+                    }
 
                     if (editorType == "EditorRich") {
                         this.tooglDisplayEditorToolBar(writeMode);
@@ -271,12 +275,15 @@
                     }
                 },
 
-                //TODO this funciton should be improved
+                // TODO this funciton should be improved received_editorCode
                 received_editorRich: function (msg) {
                     var action;
                     if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            virtualclass.editorRich.cm.setOption('readOnly', false);
+                            if(typeof virtualclass.editorRich.cm == 'object'){
+                                virtualclass.editorRich.cm.setOption('readOnly', false);
+                            }
+
                         } else {
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
@@ -284,7 +291,9 @@
                         localStorage.setItem('editorRich', action);
                     } else {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
+                            if(typeof virtualclass.editorRich.cm == 'object'){
+                                virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
+                            }
                         } else {
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
@@ -298,12 +307,19 @@
 
                 },
 
-                //TODO this funciton should be improved
+                /**
+                 * When enable and disable editor code by footer control
+                 * @param msg infomration about control
+                 */
+                // TODO this function should be improved with received_editorRich
                 received_editorCode: function (msg) {
                     var action;
                     if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            virtualclass.editorCode.cm.setOption('readOnly', false);
+                            if(typeof virtualclass.editorCode.cm == 'object'){
+                                virtualclass.editorCode.cm.setOption('readOnly', false);
+                            }
+
                         } else {
                             this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }
@@ -311,13 +327,17 @@
                         localStorage.setItem('editorCode', action);
                     } else {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
+                            if(typeof virtualclass.editorCode.cm == 'object'){
+                                virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
+                            }
+
                         } else {
                             this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }
                         action = false;
                         localStorage.setItem('editorCode', action);
                     }
+
                     if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }

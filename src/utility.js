@@ -814,7 +814,7 @@
 
 
 
-                virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp));
+                virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp), studentId);
 
                 if (typeof virtualclass.wb == 'object') {
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
@@ -1009,7 +1009,16 @@
                 }
             }
             return 0;
-        }
+        },
+
+        enablePresentatorEditors : function (touser){
+            var msg = {toUser:touser, status : true};
+
+            virtualclass.user.control.received_editorRich(msg);
+            virtualclass.user.control.received_editorCode(msg);
+       }
+
+
     };
     window.vutil = vutil;
 })(window);

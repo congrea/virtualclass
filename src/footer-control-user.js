@@ -589,7 +589,7 @@
                     }
 
                     if (typeof notsent == 'undefined') {
-                        virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'});
+                        virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'}, userId);
                     }
                     if (!roles.hasAdmin()) {
                         if (typeof fromUserId == 'undefined') {
@@ -603,17 +603,17 @@
                 },
                 _chat: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'});
+                        virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'ch', false);
-                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId}, userId);
                     }
                 },
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'});
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
-                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'});
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
                     }
                 },
 
@@ -624,14 +624,14 @@
                             control: 'editorRich',
                             toUser: userId,
                             'cf': 'control'
-                        });
+                        }, userId);
                     } else {
                         virtualclass.vutil.beforeSend({
                             'status': false,
                             control: 'editorRich',
                             toUser: userId,
                             'cf': 'control'
-                        });
+                        }, userId);
                     }
                 },
 
@@ -643,23 +643,23 @@
                             control: 'editorCode',
                             toUser: userId,
                             'cf': 'control'
-                        });
+                        }, userId);
                     } else {
                         virtualclass.vutil.beforeSend({
                             'status': false,
                             control: 'editorCode',
                             toUser: userId,
                             'cf': 'control'
-                        });
+                        }, userId);
                     }
                 },
 
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'});
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
-                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'});
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
                     }
                 },
 

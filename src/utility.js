@@ -676,7 +676,7 @@
                 var jobj = JSON.stringify(msg);
                 virtualclass.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
             } else {
-                if (msg.hasOwnProperty('repObj')) {
+                if (msg.hasOwnProperty('repObj')) { // For Whiteboard
                     if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
                         return;
                     }
@@ -684,27 +684,28 @@
                     virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
                 }
                 var jobj = JSON.stringify(msg);
-                if (io.sock != null && io.sock.readyState == 1) {
-                    if (typeof notMust != 'undefined' && notMust === true) {
-                        if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
-                            ioAdapter.send(msg);
-                        } else {
-                            ioAdapter.send(msg, toUser);
-                        }
+                //if (io.sock != null && io.sock.readyState == 1) {
+
+                if (typeof notMust != 'undefined' && notMust === true) {
+                    if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
+                        ioAdapter.send(msg);
                     } else {
-                        if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
-                            ioAdapter.mustSend(msg);
-                        } else {
-                            ioAdapter.mustSend(msg, toUser);
-                        }
+                        ioAdapter.send(msg, toUser);
+                    }
+                } else {
+                    if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
+                        ioAdapter.mustSend(msg);
+                    } else {
+                        ioAdapter.mustSend(msg, toUser);
                     }
                 }
+                //}
 
-                //TODO this should be enable
-                var tempObj = JSON.parse(jobj);
-                if (tempObj.hasOwnProperty('repObj')) {
-                    virtualclass.wb.utility.updateSentInformation(jobj);
-                }
+                ////TODO this should be enable
+                //var tempObj = JSON.parse(jobj);
+                //if (tempObj.hasOwnProperty('repObj')) {
+                //    virtualclass.wb.utility.updateSentInformation(jobj);
+                //}
             }
         },
 

@@ -27,7 +27,7 @@
 
     var storage = {
       //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-        dbVersion: 3,
+        dbVersion: 4,
         init: function (firstDataStore) {
              
             /***
@@ -41,11 +41,12 @@
                 config => For store the date of created session of particular room, 
                   By which, we calculate the time(after 48 hour we are 
                   ending the session for that particular room)
+                executedUserStoreAll => for store the missed packet of according to user.
              */
             this.reclaim = roles.isEducator();
             that = this;
             //TODO these are not using because audio and video is not using
-              this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
+              this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll"];
              //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
             var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
@@ -90,14 +91,17 @@
                     thisDb.createObjectStore("dataAdapterAll", {keyPath: 'serialKey'});
                 }
 
-                if (!thisDb.objectStoreNames.contains("executedStoreAll")) {
-                    thisDb.createObjectStore("executedStoreAll", {keyPath: 'serialKey'});
-                }
-
                 if (!thisDb.objectStoreNames.contains("dataUserAdapterAll")) {
                     thisDb.createObjectStore("dataUserAdapterAll", {keyPath: 'serialKey'});
                 }
 
+                if (!thisDb.objectStoreNames.contains("executedStoreAll")) {
+                    thisDb.createObjectStore("executedStoreAll", {keyPath: 'serialKey'});
+                }
+
+                if (!thisDb.objectStoreNames.contains("executedUserStoreAll")) {
+                    thisDb.createObjectStore("executedUserStoreAll", {keyPath: 'serialKey'});
+                }
             };
 
             openRequest.onsuccess = function (e) {
@@ -194,6 +198,19 @@
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
+        },
+
+
+        dataExecutedUserStoreAll: function (data, serialKey) {
+            var t = that.db.transaction(["executedUserStoreAll"], "readwrite");
+            var objectStore = t.objectStore("executedUserStoreAll");
+            t.objectStore("executedUserStoreAll").put({executedUserData: data, id: 8, serialKey: serialKey}); // Using add can cause errors
+
+            t.onerror = function ( e ) {
+                // prevent Firefox from throwing a ConstraintError and aborting (hard)
+                e.preventDefault();
+            }
+
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
@@ -405,7 +422,9 @@
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('adaptData')) {
                         var data = JSON.parse(cursor.value.adaptData);
-                        ioAdapter.serial = cursor.value.serialKey;
+                        if (parseInt(cursor.value.serialKey) > ioAdapter.serial) {
+                            ioAdapter.serial = parseInt(cursor.value.serialKey);
+                        }
                         ioAdapter.adapterMustData[ioAdapter.serial] = data;
                     }
                     cursor.continue();
@@ -421,8 +440,11 @@
                     if (cursor.value.hasOwnProperty('adaptUserData')) {
                         var data = JSON.parse(cursor.value.adaptUserData);
                         var usKey = cursor.value.serialKey.split('_'),
-                            uid = usKey[0], serial = usKey[1];
+                            uid = parseInt(usKey[0]), serial = parseInt(usKey[1]);
                         ioAdapter.validateAllVariables(uid);
+                        if (serial > ioAdapter.userSerial[uid]) {
+                            ioAdapter.userSerial[uid] = serial;
+                        }
                         ioAdapter.userAdapterMustData[uid][serial] = data;
                     }
                     cursor.continue();
@@ -438,7 +460,7 @@
                         var data = JSON.parse(cursor.value.executedData);
                         //ioMissingPackets.executedSerial = cursor.value.serialKey;
                         var akey = cursor.value.serialKey.split('_'),
-                            uid = akey[0], serial = akey[1];
+                            uid = parseInt(akey[0]), serial = parseInt(akey[1]);
                         ioMissingPackets.validateAllVariables(uid);
                         ioMissingPackets.executedStore[uid][serial] = data;
                         //console.log('till now executed ' + cursor.value.serialKey);
@@ -447,6 +469,30 @@
                 }
             }
         },
+
+        executedUserStoreAll: {
+            handleResult: function (event, cb) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.hasOwnProperty('executedUserData')) {
+                        var data = JSON.parse(cursor.value.executedUserData);
+
+                        //ioMissingPackets.executedSerial = cursor.value.serialKey;
+                        var akey = cursor.value.serialKey.split('_'),
+                            uid = parseInt(akey[0]), serial = parseInt(akey[1]);
+
+                        ioMissingPackets.validateAllUserVariables(uid);
+
+                        ioMissingPackets.executedUserStore[uid][serial] = data;
+
+                        //console.log('till now executed ' + cursor.value.serialKey);
+                    }
+                    cursor.continue();
+                }
+            }
+        },
+
+
         config: {
             handleResult: function (event, cb) {
                 var cursor = event.target.result;

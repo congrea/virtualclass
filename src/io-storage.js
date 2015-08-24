@@ -62,6 +62,12 @@ var ioStorage = {
         virtualclass.storage.dataExecutedStoreAll(JSON.stringify(DataExecutedAll), serialKey);
     },
 
+    dataExecutedUserStoreAll: function (DataExecutedUserAll, serialKey) {
+        virtualclass.storage.dataExecutedUserStoreAll(JSON.stringify(DataExecutedUserAll), serialKey);
+    },
+
+
+
     ioCompleteStorageInit : function (data) {
         try {
             ioStorage.completeStorage(data);

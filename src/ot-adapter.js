@@ -286,7 +286,7 @@ otAdapter = function () {
         } else {
             var teacherId = virtualclass.vutil.whoIsTeacher();
             sendData = this.setEditorTypeOnPacket(sendData);
-            ioAdapter.sendUser(sendData, teacherId);
+            ioAdapter.mustSendUser(sendData, teacherId);
         }
     };
 

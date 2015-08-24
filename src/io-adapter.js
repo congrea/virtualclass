@@ -61,7 +61,7 @@ var ioAdapter = {
             msg.serial = null;
         }
         this.userSerial[touser]++;
-        console.log('s.n ' + this.serial + ' user ' + touser);
+        console.log('USER s.n ' + this.userSerial[touser] + ' user ' + touser);
         msg.userSerial = this.userSerial[touser];
         this.userAdapterMustData[touser][msg.userSerial] = {type: 'broadcastToAll', m: msg};
         this.sendUser(msg, touser);

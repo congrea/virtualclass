@@ -385,8 +385,9 @@ $(document).ready(function () {
 
         //session end
         this.sEnd = function (e) {
+
             virtualclass.storage.config.endSession();
-            location.reload();
+            //location.reload();
         };
 
         //whiteboard ready

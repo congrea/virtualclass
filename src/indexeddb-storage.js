@@ -512,7 +512,11 @@
                     }
                 }
             },
+
             createNewSession: function () {
+                //virtualclass.editorRich.init(0, [], "", "");
+                virtualclass.makeAppReady(virtualclass.apps[3]);
+
                 var currTime = new Date().getTime();
                 if (typeof that.db != 'undefined') {
                     var t = that.db.transaction(["config"], "readwrite");
@@ -535,14 +539,25 @@
                     virtualclass.editorRich.removeEditorData();
                     virtualclass.editorCode.removeEditorData();
                 }
+
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 if (!virtualclass.hasOwnProperty('notPLayed')) {
                     virtualclass.storage.clearStorageData();
                 }
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = "EditorRich";
-                //localStorage.removeItem('prevApp', prvAppObj);
+
+                if(roles.hasAdmin()){
+                    // For remove the active tool
+                    var sessionEndTool = document.getElementById('virtualclassSessionEndTool');
+                    sessionEndTool.className = virtualclass.vutil.removeClassFromElement('virtualclassSessionEndTool', 'active');
+
+                    //virtualclass.previrtualclass = "virtualclassEditorRichTool";
+                }
+                virtualclass.previous = "virtualclassEditorRich"
+
                 that.config.createNewSession();
+
             }
         },
         shapesData: {

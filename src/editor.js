@@ -583,7 +583,8 @@
                     if (typeof this.vcAdapter == 'object') {
                         this.vcAdapter.operations.length = 0;
                     }
-                    this.cm.setValue("");
+                    //this.cm.setValue("");
+                    this.removeCodeMirror();
                     localStorage.removeItem(this.etype + '_allEditorOperations');
                     localStorage.removeItem(this.etype + '_edOperationRev');
                 }

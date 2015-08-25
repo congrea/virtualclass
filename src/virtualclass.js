@@ -28,14 +28,19 @@
                 window.pageEnter = new Date().getTime();
                 appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
-                virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
+              //  virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
                 virtualclass.storage.config.endSession();
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
 
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
                 }
-                virtualclass.previrtualclass = "virtualclass" + appName;
+
+                //virtualclass.previrtualclass = "virtualclass" + appName;
+
+                virtualclass.previrtualclass = "virtualclassEditorRich";
+
+
             },
 
             init: function (urole, app, videoObj) {
@@ -523,7 +528,7 @@
                                         return;
                                     }
                                     virtualclass.clearSession(appName);
-                                    window.location.reload();
+                                   // window.location.reload();
                                 }
                             )
                         } else {

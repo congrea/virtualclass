@@ -647,20 +647,18 @@
             vcan.oneExecuted = false;
         },
 
+        /**
+         * Remove the given class name from givven element
+         * @param prvTool
+         * @param className
+         * @returns {string}
+         */
         removeClassFromElement: function (prvTool, className) {
             if (prvTool != "t_reclaim") {
-                var prvTool = document.getElementById(prvTool).className;
-                var classes = prvTool.split(" ");
-                var retClass = [];
-                for (var i = 0; i < classes.length; i++) {
-                    if (classes[i] != className) {
-                        retClass.push(classes[i]);
-                    }
-                }
-                if (retClass.length > 1) {
-                    return retClass.join(" ");
-                } else {
-                    return retClass[0];
+                var prvToolElem = document.getElementById(prvTool);
+                if(prvToolElem.classList.length > 0){ // If class list available only
+                    prvToolElem.classList.remove(className);
+                    return prvToolElem.className;
                 }
             }
         },

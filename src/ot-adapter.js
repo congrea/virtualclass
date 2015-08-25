@@ -155,6 +155,11 @@ otAdapter = function () {
          */
 
         this.receivedMessage = function (event) {
+            if (virtualclass.isPlayMode) { // In Play Mode handle packets sent to self
+                if (event.toUser !== '') {
+                    return;
+                }
+            }
             var msg = event.message;
             //console.log('in');
             // TW : 2

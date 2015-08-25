@@ -572,6 +572,9 @@
                 //  so need to do false
                 virtualclass.getContent = false;
                 virtualclass.recorder.storeDone = 0;
+                if (io.sock) {
+                    io.sock.close();
+                }
                 that.config.createNewSession();
 
             }

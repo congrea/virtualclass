@@ -583,6 +583,7 @@
             virtualclass.recorder.init(mainData);
             virtualclass.recorder.playStart = true;
             virtualclass.recorder.tempRecData.length = 0;
+            localStorage.setItem('mySession', 'thisismyplaymode');
             virtualclass.recorder.initController();
 
 //                var playController = document.getElementById('playController');
@@ -686,7 +687,11 @@
                 that.playTimeout = setTimeout(function () {
                     var ev = {};
                     ev.data = that.items[that.objn].recObjs;
-                    io.onRecMessage(that.convertInto(ev));
+                    try {
+                        io.onRecMessage(that.convertInto(ev));
+                    } catch (e) {
+                        console.log('PLAY ERROR ' + e.errorCode);
+                    }
                     that.objn++;
                     that.play.call(that);
 

@@ -69,11 +69,15 @@ var ioPingPong = {
      */
     sessionDestroy : function (session, e) {
         // TODO Finish Session and start gracefully
-        var uid = e.fromUser.userid;
-        localStorage.removeItem('mySession');
-        virtualclass.storage.config.endSession();
-        localStorage.setItem('mySession', session);
-        ioMissingPackets.validateAllVariables(uid);
-        console.log('REFRESH SESSION');
+        if (!virtualclass.isPlayMode) {
+            var uid = e.fromUser.userid;
+            localStorage.removeItem('mySession');
+            virtualclass.storage.config.endSession();
+            localStorage.setItem('mySession', session);
+            ioMissingPackets.validateAllVariables(uid);
+            console.log('REFRESH SESSION');
+        } else {
+            localStorage.setItem('mySession', 'thisismyplaymode');
+        }
     }
 };

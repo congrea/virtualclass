@@ -564,8 +564,20 @@
         },
 
         clearStorageData: function () {
-            ioMissingPackets.executedSerial = null;
-            ioMissingPackets.executedUserSerial = null;
+            ioAdapter.adapterMustData = [];
+            ioAdapter.serial = -1;
+            ioAdapter.userSerial = [];
+            ioAdapter.userAdapterMustData = [];
+            ioMissingPackets.executedStore =  [];
+            ioMissingPackets.executedSerial = [];
+            ioMissingPackets.missRequest =  [];
+            ioMissingPackets.aheadPackets =  [];
+            ioMissingPackets.missRequestFlag =  0;
+            ioMissingPackets.executedUserStore =  [];
+            ioMissingPackets.executedUserSerial =  [];
+            ioMissingPackets.missUserRequest =  [];
+            ioMissingPackets.aheadUserPackets =  [];
+            ioMissingPackets.missUserRequestFlag =  0;
 
             for(var i=0; i<this.tables.length; i++){
                 if (this.tables[i] == 'allData') {

@@ -152,6 +152,7 @@
         startUploadProcess: function () {
             virtualclass.recorder.exportData(function () {
             });
+
             virtualclass.popup.sendBackOtherElems();
         },
 
@@ -340,7 +341,10 @@
         },
 
         afterRecording: function () {
-            virtualclass.storage.config.endSession();
+            console.log('Finished Upload Process.');
+
+            virtualclass.clearSession();
+            //virtualclass.storage.config.endSession();
 
             var progressBarContainer = document.getElementById('progressContainer');
             progressBarContainer.style.display = 'none';
@@ -358,7 +362,16 @@
             recordingClose.addEventListener('click',
                 function () {
                     //virtualclass.popup.closeElem();
-                    window.location.reload();
+                    //window.location.reload();
+                    virtualclass.popup.closeElem();
+
+                    // After clear the default look for progress bar
+                    recordFinishedMessageBox.style.display = 'none';
+                    progressBarContainer.style.display = 'block';
+
+                    virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
+                    virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue')
+
                 }
             );
         },

@@ -24,9 +24,9 @@
                 editorInitDone: 0
             },
 
-            clearSession: function (appName) {
+            clearSession: function () {
                 window.pageEnter = new Date().getTime();
-                appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
+                //appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
               //  virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
                 virtualclass.storage.config.endSession();
@@ -527,7 +527,8 @@
                                         console.log('Not start new session');
                                         return;
                                     }
-                                    virtualclass.clearSession(appName);
+
+                                    virtualclass.clearSession();
                                    // window.location.reload();
                                 }
                             )

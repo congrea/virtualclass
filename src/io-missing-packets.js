@@ -73,10 +73,10 @@ var ioMissingPackets = {
                 // Everything is good and in order
                 console.log('UID ' + uid + ' Object with Serial ' + msg.m.serial);
                 this.executedSerial[uid] = msg.m.serial;
-                this.onRecSave(msg);
-                io.onRecJson(msg);
                 this.executedStore[uid][msg.m.serial] = msg;
                 ioStorage.dataExecutedStoreAll(msg, uid + '_' + msg.m.serial);
+                this.onRecSave(msg);
+                io.onRecJson(msg);
             } else if (msg.m.serial > (this.executedSerial[uid] + 1)) {
                 console.log('UID ' + uid + ' requst miss packet');
                 //we should not need the request packet when self packet is recieved
@@ -281,13 +281,13 @@ var ioMissingPackets = {
                     this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
 
+                    this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
                     try {
                         console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.serial);
                         io.onRecJson(msg.m.data[i]);
                     } catch (error) {
                         console.log("Error " + error);
                     }
-                    this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
                 } else {
                     console.log('UID ' + uid + ' Received Packed missing serial')
                 }
@@ -299,11 +299,19 @@ var ioMissingPackets = {
         }); // Make sure packets are in correct order.
         while (ex = this.aheadPackets[uid].pop()) {
             if (typeof ex != 'undefined' && ex != null) {
-                this.executedSerial[uid] = ex;
-                this.onRecSave(this.executedStore[uid][ex]);
-                console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
-                io.onRecJson(this.executedStore[uid][ex]);
-                ioStorage.dataExecutedStoreAll(this.executedStore[uid][ex], uid + '_' + this.executedStore[uid][ex].m.serial);
+
+                if(typeof this.executedStore[uid][ex] != 'undefined'){
+                    this.executedSerial[uid] = ex;
+
+                    this.onRecSave(this.executedStore[uid][ex]);
+                    console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
+                    ioStorage.dataExecutedStoreAll(this.executedStore[uid][ex], uid + '_' + this.executedStore[uid][ex].m.serial);
+                    io.onRecJson(this.executedStore[uid][ex]);
+                } else {
+                    console.log('fillExecutedStore undefined');
+                    return; //
+                }
+
             } else {
                 console.log('UID ' + uid + ' ahead Packed missing serial')
             }

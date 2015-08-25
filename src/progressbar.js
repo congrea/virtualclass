@@ -54,6 +54,7 @@ var progressBar = {
             recordingClose.style.display = 'block';
             closeButton.addEventListener('click', function () {
                 virtualclass.popup.closeElem();
+
             });
         }
     }

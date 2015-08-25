@@ -384,6 +384,7 @@
         allData: {
             chunk: 0,
             handleResult: function (event, cb) {
+
                 //virtualclass.recorder.item = [];
                 var cursor = event.target.result;
                 if (cursor) {
@@ -394,6 +395,7 @@
                                 recObjs: cursor.value.recObjs,
                                 sessionEnd: true
                             });
+                            console.log('Start Upload Process');
                             initToServer(cb);
                             return;
                         } else {
@@ -529,6 +531,7 @@
             },
 
             endSession: function (onlyStoredData) {
+
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();
@@ -545,7 +548,10 @@
                     virtualclass.storage.clearStorageData();
                 }
                 //var prvAppObj = {name : "EditorRich"};
-                virtualclass.currApp = "EditorRich";
+                virtualclass.currApp = "EditorRich"; // default app
+
+
+
 
                 if(roles.hasAdmin()){
                     // For remove the active tool
@@ -554,8 +560,18 @@
 
                     //virtualclass.previrtualclass = "virtualclassEditorRichTool";
                 }
-                virtualclass.previous = "virtualclassEditorRich"
+                if(typeof virtualclass.yts == 'object'){
+                    clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
+                }
 
+                console.log('Session End.');
+
+                virtualclass.previous = "virtualclassEditorRich";
+
+                // True when fethcing data from indexeddb, there would not data store into table of indexeddb if it is true
+                //  so need to do false
+                virtualclass.getContent = false;
+                virtualclass.recorder.storeDone = 0;
                 that.config.createNewSession();
 
             }

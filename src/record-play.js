@@ -590,11 +590,17 @@
 //                playController.style.display = 'block';
         },
 
+
+        /**
+         * If packet is ready(40% for now) then ask to user for play.
+         * @param downloadFinish is expecting the lable for finishing the download session
+         */
         askToPlay: function (downloadFinish) {
-//                var playMessage = virtualclass.lang.getString('askUser');
             if (typeof downloadFinish != 'undefined') {
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
             } else {
+                var askPlayCont = document.getElementById('askPlay');
+                askPlayCont.style.display = 'block';
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('askplayMessage');
             }
 

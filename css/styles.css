@@ -2777,3 +2777,7 @@
 #virtualclassCont.playMode .ui-memblist-usr a {
 	pointer-events : none;
 }
+
+.playMode #recordPlay #askPlay{
+	display : none;
+}

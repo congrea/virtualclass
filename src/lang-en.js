@@ -121,7 +121,9 @@
         'teachermayshow': 'Teacher may show the YouTube video.',
         'youtubeshare': 'YouTube Video Share',
         'writemode': 'Write Mode.',
-        'readonlymode': 'Read Only Mode.'
+        'readonlymode': 'Read Only Mode.',
+        'msgForDownloadStart' : 'Your data  could not Upload. <br /> Your record is being prepared for download.'
+
 
 
     };

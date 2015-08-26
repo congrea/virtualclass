@@ -21,7 +21,7 @@
 //         errInterval = setInterval(
 //            function (){
 //                if(chunkNum == 2){
-//                    virtualclass.recorder.startDownloadProcess();
+//                    virtualclass.recorder.makeAvailDownloadFile();
 //                    clearInterval(errInterval);
 //                }
 //            }, 1000
@@ -66,6 +66,7 @@
         /* exportfilepath:'export.php', */
         exportfilepath: window.exportfilepath,
         sessionKey: randomString(11),
+        alreadyDownload : false,
         init: function (data) {
             //localStorage.removeItem('recObjs');
             var vcan = virtualclass.wb.vcan;
@@ -282,7 +283,7 @@
                         virtualclass.recorder.storeDone = 1;
                         console.log('From here actuall recorder finished');
                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
-                            virtualclass.recorder.mkDownloadLink;
+                            virtualclass.recorder.mkDownloadLink();
                         } else {
                             setTimeout(
                                 function () {
@@ -326,7 +327,11 @@
                                 virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
                             } else if (msg === "ERROR") {
                                 //TODO Show msg to user
-                                virtualclass.recorder.tryForReTransmit();
+                                //virtualclass.recorder.tryForReTransmit();
+                                if(!virtualclass.recorder.alreadyDownload){
+                                    virtualclass.recorder.makeAvailDownloadFile();
+                                }
+
                                 //alert(msg);
                             } else {
                                 //TODO Show msg to user
@@ -376,48 +381,76 @@
             );
         },
 
-        tryForReTransmit: function () {
-            setTimeout(
-                function () {
-                    // Show Message "Retring [Retry Number]"
-                    //console.log("Trying to connnect " + (++virtualclass.recorder.emn));
-                    if (virtualclass.recorder.emn <= 1) {
-                        virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
-                        virtualclass.recorder.emn++;
-                    } else {
-                        virtualclass.recorder.startDownloadProcess(); //if error occurred
-                    }
-                },
-                1000
-            );
-        },
+        //tryForReTransmit: function () {
+        //    var that = this;
+        //    setTimeout(
+        //        function () {
+        //            // Show Message "Retring [Retry Number]"
+        //            //console.log("Trying to connnect " + (++virtualclass.recorder.emn));
+        //            if (that.emn <= 1) {
+        //                that.xhrsenddata(virtualclass.recorder.rnum);
+        //                that.emn++;
+        //            } else {
+        //                if(!that.alreadyDownload){
+        //                    that.startDownloadProcess(); //if error occurred and is not downloaded the session yet.
+        //                }
+        //            }
+        //        },
+        //        1000
+        //    );
+        //},
+
         makeAvailDownloadFile: function () {
+            console.log('DOWNLLOAD MESSAGE');
             var pbar = document.getElementById('recordingContainer');
             var downloadLinkCont = document.createElement('div');
             downloadLinkCont.id = "downloadFileCont";
 
             var downloadMsg = document.createElement('div');
             downloadMsg.id = "errormsessage";
+            downloadMsg.innerHTML = virtualclass.lang.getString('msgForDownloadStart');
+
+            var progressContainer = document.getElementById('progressContainer');
+            progressContainer.style.display = 'none';
+
 
             downloadLinkCont.appendChild(downloadMsg);
 
-            var downloadButton = document.createElement('button');
-            downloadButton.id = 'downloadButton';
-            downloadButton.innerHTML = "Download File";
-
-
-            var downloadLink = document.createElement('a');
-            downloadLink.id = "dlink";
-            downloadLink.href = "";
-            downloadLink.download = "session.vcp";
+            //var downloadButton = document.createElement('button');
+            //downloadButton.id = 'downloadButton';
+            //downloadButton.innerHTML = "Download File";
+            //
+            //
+            //var downloadLink = document.createElement('a');
+            //downloadLink.id = "dlink";
+            //downloadLink.href = "";
+            //downloadLink.download = "session.vcp";
 
             //downloadLink.innerHTML = "DOWNLOAD";
 
-            downloadLinkCont.appendChild(downloadButton);
+            //downloadLinkCont.appendChild(downloadButton);
 
             pbar.appendChild(downloadLinkCont);
 
+            this.alreadyDownload = true;
+
             virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
+
+                var downloadButton = document.createElement('button');
+                downloadButton.id = 'downloadButton';
+                downloadButton.innerHTML = "Download File";
+
+
+                var downloadLink = document.createElement('a');
+                downloadLink.id = "dlink";
+                downloadLink.href = "";
+                downloadLink.download = "session.vcp";
+                downloadLink.innerHTML = "DOWNLOAD";
+
+                downloadLinkCont.appendChild(downloadButton);
+
+
+
                 var textFileAsBlob = new Blob([data], {type: "application/virtualclass"});
 
                 downloadButton.addEventListener('click', function () {
@@ -437,16 +470,23 @@
             });
         },
 
-        startDownloadProcess: function () {
-            console.log('this should not happend ' + virtualclass.recorder.storeDone);
-            if (!virtualclass.recorder.storeDone) {
-                var that = this;
-                virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error', that.makeAvailDownloadFile);
-            } else {
-                this.makeAvailDownloadFile();
-            }
-            //here we start the download process
-        },
+        //startDownloadProcess: function () {
+        //
+        //    this.makeAvailDownloadFile();
+        //
+        //    //console.log('Problem on upload process. Start Download Process.');
+        //    //
+        //    //if (!virtualclass.recorder.storeDone) {
+        //    //    var that = this;
+        //    //    virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error', that.makeAvailDownloadFile);
+        //    //} else {
+        //    //
+        //    //    this.makeAvailDownloadFile();
+        //    //}
+        //
+        //    //virtualclass.recorder.alreadyDownload = true;
+        //    //here we start the download process
+        //},
 
         sendDataToServer: function () {
             var that = this;

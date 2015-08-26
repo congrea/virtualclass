@@ -119,6 +119,7 @@
 
                 var textNode = document.createElement('textarea');
                 textNode.id = divNode.id + 'textarea';
+
                 textNode.rows = 8;
                 textNode.cols = 41;
                 if (obj.text != undefined && obj.text != '') {
@@ -126,6 +127,10 @@
                 }
 
                 divNode.appendChild(textNode);
+                if(!roles.hasControls()){
+                    textNode.style.display = 'none';
+                }
+
                 document.getElementById(this.boxContainer).appendChild(divNode);
 
                 this.prevTextObj = divNode;

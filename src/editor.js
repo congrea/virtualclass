@@ -157,15 +157,19 @@
              * @param docsInfo about docs(operation, revision, etc)
              */
             createEditorClient: function (editorType, docsInfo) {
-                if (virtualclass.isPlayMode) {
-                    //this.readOnlyMode('disable', 'notCreateSyncBox');
-                    this.readOnlyMode('enable', 'notCreateSyncBox');
-                }
+
 
                 if (roles.hasAdmin()) {
                     this.cm.setOption('readOnly', false);
                     this.createAllEditorController();
                     editorType.readOnly = false;
+
+                }
+
+                if (virtualclass.isPlayMode) {
+                    //this.readOnlyMode('disable', 'notCreateSyncBox');
+                    this.readOnlyMode('enable', 'notCreateSyncBox');
+                    this.cm.setOption('readOnly', 'nocursor');
                 }
 
                 Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);

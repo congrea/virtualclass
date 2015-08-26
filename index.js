@@ -120,6 +120,7 @@ $(document).ready(function () {
             function () {
                 virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
                 clearEverthing();
+
             },
             50
         );
@@ -273,6 +274,10 @@ $(document).ready(function () {
     });
 
     function clearEverthing() {
+
+        localStorage.removeItem('editorRich');
+        localStorage.removeItem('editorCode');
+
         virtualclass.notPLayed = true;
         virtualclass.storage.config.endSession();
         virtualclass.chat.chatroombox = false;

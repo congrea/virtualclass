@@ -1,6 +1,8 @@
 (function (window) {
     window.virtualclass = function () {
         return {
+
+            isPlayMode : wbUser.virtualclassPlay,
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
             appSessionEnd: "virtualclassSessionEnd",
@@ -187,7 +189,7 @@
                     }, 100);
                 }
 
-                virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
+
 
             },
 

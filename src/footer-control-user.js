@@ -275,17 +275,22 @@
                     }
                 },
 
-                // TODO this funciton should be improved received_editorCode
+                // TODO this funciton should be improved with received_editorCode
                 received_editorRich: function (msg) {
                     var action;
-                    if (msg.status) {
+                    if (msg.status ) {
+
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            if(typeof virtualclass.editorRich.cm == 'object'){
+                            if(typeof virtualclass.editorRich.cm == 'object' && !virtualclass.isPlayMode){
                                 virtualclass.editorRich.cm.setOption('readOnly', false);
                             }
 
                         } else {
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
+                        }
+
+                        if(virtualclass.isPlayMode){
+                            virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;
                         localStorage.setItem('editorRich', action);
@@ -316,12 +321,16 @@
                     var action;
                     if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            if(typeof virtualclass.editorCode.cm == 'object'){
+                            if(typeof virtualclass.editorCode.cm == 'object' && !virtualclass.isPlayMode){
                                 virtualclass.editorCode.cm.setOption('readOnly', false);
                             }
 
                         } else {
                             this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
+                        }
+
+                        if(virtualclass.isPlayMode){
+                            virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;
                         localStorage.setItem('editorCode', action);

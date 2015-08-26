@@ -832,7 +832,7 @@
                     virtualclass.yts.UI.inputURL();
                     virtualclass.yts.seekChangeInterval();
                 }
-                virtualclass.system.setAppDimension();
+
             } else {
                 if (virtualclass.currApp == 'Yts') {
                     virtualclass.yts.UI.removeinputURL();
@@ -890,13 +890,13 @@
                 if (typeof virtualclass.wb == 'object') {
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
                 }
-                virtualclass.system.setAppDimension();
+
             }
 
-            //if (localStorage.getItem('orginalTeacherId') == null) {
-        //    virtualclass.vutil.toggleRoleClass(true);
+            // NOTE:- removing below code could be critical for other app than object
+            //if(virtualclass.currApp !==  'Whiteboard'){
+            //    virtualclass.system.setAppDimension();
             //}
-
 
         },
         createCommandWrapper: function () {

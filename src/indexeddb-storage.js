@@ -531,7 +531,7 @@
             },
 
             endSession: function (onlyStoredData) {
-
+                localStorage.clear();
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();

@@ -31,7 +31,7 @@
                 //appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
               //  virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
-                
+
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
                 virtualclass.storage.config.endSession();
 
@@ -131,7 +131,7 @@
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
                 }
 
-                if (typeof videoObj == 'undefined') {
+                if (typeof videoObj == 'undefined' || videoObj == null) {
                     this.makeAppReady(app, "byclick");
                 } else {
                     this.makeAppReady(app, "byclick", videoObj);

@@ -51,7 +51,19 @@ $(document).ready(function () {
         var appIs = "EditorRich";
     }
 
-    (typeof videoObj == 'undefined') ? virtualclass.init(wbUser.role, appIs) : virtualclass.init(wbUser.role, appIs, videoObj);
+    if (typeof videoObj == 'undefined') {
+        var videoObj = null;
+    }
+
+    // If was in play mode before, start with fresh data
+    if (!virtualclass.isPlayMode &&  localStorage.getItem('mySession') === 'thisismyplaymode') {
+        console.log('DELETE PlayMode Data');
+        localStorage.clear();
+        virtualclass.init(wbUser.role, appIs, videoObj);
+        virtualclass.storage.config.endSession();
+    } else {
+        virtualclass.init(wbUser.role, appIs, videoObj);
+    }
 
     if(roles.isEducator()){
       //  virtualclass.vutil.toggleRoleClass(true);

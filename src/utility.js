@@ -536,15 +536,6 @@
                 localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             }
 
-            //editor data save when page is being refreshed
-            //if((typeof virtualclass.editorRich.vcAdapter == 'object' && virtualclass.editorRich.vcAdapter.operations.length > 0)){
-            //    var wrappedOperations = virtualclass.editorRich.getWrappedOperations();
-            //    localStorage.removeItem('allEditorOperations');
-            //    localStorage.setItem('allEditorOperations',  JSON.stringify(wrappedOperations));
-            //    localStorage.setItem('edOperationRev',  virtualclass.editorRich.cmClient.revision);
-            //
-            //}
-            //
             io.disconnect();
         },
 

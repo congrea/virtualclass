@@ -615,7 +615,7 @@
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'ch', false);
-                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId}, userId);
+                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
                     }
                 },
                 _audio: function (userId, action) {

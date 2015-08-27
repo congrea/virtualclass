@@ -518,7 +518,6 @@
             createNewSession: function () {
                 //virtualclass.editorRich.init(0, [], "", "");
                 virtualclass.makeAppReady(virtualclass.apps[3]);
-
                 var currTime = new Date().getTime();
                 if (typeof that.db != 'undefined') {
                     var t = that.db.transaction(["config"], "readwrite");
@@ -550,6 +549,9 @@
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = "EditorRich"; // default app
 
+                virtualclass.user.control.audioWidgetEnable(); // Enable the audio if disabled
+
+                virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
 
 
 
@@ -576,7 +578,6 @@
                     io.sock.close();
                 }
                 that.config.createNewSession();
-
             }
         },
         shapesData: {

@@ -685,8 +685,7 @@
                             if (virtualclass.gObj.video.audio.audioToBePlay[uid].length > 0) {
                                 virtualclass.gObj.video.audio.getChunks(uid);
                             } else {
-                                if (userObj.ad && userObj.aud) {
-
+                                if (userObj  != null && userObj.ad && userObj.aud) {
                                     virtualclass.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange");
                                 }
                             }
@@ -1262,11 +1261,18 @@
                 //latest code
 
                 var audioWiget = document.getElementById('audioWidget');
-//                    if(audioWiget.hasOwnProperty('classList') && audioWiget.classList.contains('deactive')){
-//                    if(virtualclass.vutil.elemHasAnyClass(elem.id)
-                if (virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')) {
+
+                if(localStorage.getItem('audEnable') != null ){
+                    if(localStorage.getItem('audEnable') == 'false'){
+                        virtualclass.user.control.audioWidgetDisable();
+                    }else {
+                        virtualclass.user.control.audioWidgetEnable();
+                    }
+                } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')) {
                     virtualclass.user.control.audioWidgetEnable();
                 }
+
+
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
                 var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);

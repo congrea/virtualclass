@@ -769,8 +769,7 @@
                 UI: function (user) {
                     var mainCont = virtualclass.vutil.createDOM("div", this.id, [this.className]);
                     var locVidCont = virtualclass.vutil.createDOM("div", this.local, [this.label]);
-                    if ((user == 't')) {
-
+                    if (roles.hasControls()) {
                         //if(virtualclass.hasOwnProperty('repType')){
                         if (virtualclass.recorder.recImgPlay) {
                             var vidCont = virtualclass.vutil.createDOM("canvas", this.local + "Video");
@@ -789,7 +788,7 @@
                     locVidCont.appendChild(vidCont);
                     mainCont.appendChild(locVidCont);
 
-                    if (user == 't' && !virtualclass.recorder.recImgPlay) {
+                    if (roles.hasControls() && !virtualclass.recorder.recImgPlay) {
                         virtualclass.vutil.createLocalTempVideo(mainCont, this.localTemp);
                     }
 

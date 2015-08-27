@@ -250,10 +250,12 @@
     })();
 
     view.window.resize = function () {
-
         var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
         virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
-        vcan.renderAll();
+        if(virtualclass.currApp == 'Whiteboard'){
+            vcan.renderAll();
+        }
+
     },
 
 //TODO

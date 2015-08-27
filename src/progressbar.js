@@ -6,6 +6,16 @@
 var progressBar = {
     prvVal: '',
     currVal: '',
+
+
+    /***
+        After each  progress of XHR, there would check difference
+        between current and previous value. Will provide the download link
+        if found the differences, Otherwise initialize function  progressInit()
+        for trigger it after five minute.
+
+   */
+
     progressInit: function () {
 
         var that = this;
@@ -16,10 +26,6 @@ var progressBar = {
         prvTimeout = setTimeout(
             function () {
                 if (that.prvVal == that.currVal) {
-                    //console.log("start for download");
-
-                    //virtualclass.recorder.tryForReTransmit();
-
                     if(!virtualclass.recorder.alreadyDownload){
                         virtualclass.recorder.makeAvailDownloadFile();
                     }

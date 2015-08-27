@@ -24,12 +24,21 @@ var ioStorage = {
         var dtype;
         if (Object.prototype.toString.call(msg) == "[object Int8Array]") {
             dtype = 'a';
-            msg = virtualclass.dtCon.base64EncArrInt(msg);
+
+            //dtConWorker.postMessage({dt:});
+
+            //msg = virtualclass.dtCon.base64EncArrInt(msg);
+
         } else if (Object.prototype.toString.call(msg) == "[object Uint8ClampedArray]") {
             dtype = 'c';
-            msg = virtualclass.dtCon.base64EncArr(msg);
+            //msg = virtualclass.dtCon.base64EncArr(msg);
         }
-        this.completeStorage(msg, {type: dtype});
+
+        dtConWorker.postMessage({dt : dtype, 'msg' : msg});
+        var that = this;
+        dtConWorker.onmessage = function (e){
+            that.completeStorage(e.data.msg, {type: e.data.dt});
+        }
     },
 
     dataAdapterStore: function (allData, serialKey) {

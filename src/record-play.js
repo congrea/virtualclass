@@ -346,6 +346,7 @@
         },
 
         afterRecording: function () {
+
             console.log('Finished Upload Process.');
 
             virtualclass.clearSession();
@@ -364,6 +365,9 @@
 
 
             var recordingClose = document.getElementById('recordingClose');
+
+            //For dont provide the download link (will be available after five minute of XHR progress at progressbar
+            virtualclass.recorder.alreadyDownload = true;
             recordingClose.addEventListener('click',
                 function () {
                     //virtualclass.popup.closeElem();
@@ -560,6 +564,7 @@
                 });
 
                 mvDataWorker.onmessage = function (e) {
+
                     reqFile++;
                     var isUptoBase = virtualclass.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
 
@@ -638,12 +643,14 @@
         askToPlay: function (downloadFinish) {
             if (typeof downloadFinish != 'undefined') {
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
+
             } else {
-                var askPlayCont = document.getElementById('askPlay');
-                askPlayCont.style.display = 'block';
+
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('askplayMessage');
             }
 
+            var askPlayCont = document.getElementById('askPlay');
+            askPlayCont.style.display = 'block';
 
             var that = this;
             var playButton = document.getElementById("playButton");

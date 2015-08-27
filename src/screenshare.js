@@ -465,7 +465,6 @@
                 }
 
                 var screenIntervalTime = 1000;
-                var pscreenIntervalTime = 1000;
                 /*
                  * To send full  encoded image data and status code 
                  * @param  type type of the application
@@ -587,23 +586,19 @@
                  * 
                  */
                 function calcBandwidth(localBandwidth) {
-                    if (localBandwidth <= 400 || typeof localBandwidth == 'undefined') {
-                        screenIntervalTime = 400;
-                    } else if (localBandwidth >= 10000) {
-                        screenIntervalTime = localBandwidth / 2;
+                    switch (true) {
+                        case localBandwidth <= 300 || typeof localBandwidth == 'undefined':
+                            screenIntervalTime = 300;
+                            break;
+                        case localBandwidth <= 3000:
+                            screenIntervalTime = localBandwidth;
+                            break;
+                        case localBandwidth <= 5000:
+                            screenIntervalTime = 3000;
+                            break;
+                        default:
+                            screenIntervalTime = 5000;
                     }
-                    else {
-                        screenIntervalTime = localBandwidth;
-                    }
-                    // Avoid Sharp Curve
-                    if ((pscreenIntervalTime * 4) < screenIntervalTime) {
-                        screenIntervalTime = pscreenIntervalTime * 4;
-                    }
-//                    console.log ('Bandwidth '+ localBandwidth+'Kbps' + 'New Time ' + screenIntervalTime);
-                    if (screenIntervalTime > 400) {
-                        console.trace();
-                    }
-                    pscreenIntervalTime = screenIntervalTime;
                 }
 
                 /*
@@ -643,8 +638,7 @@
                  * @param type : type of the application 
                  */
                 function sendDataImageSlices(type) {
-
-                    var localBandwidth = 0;
+                    //var localBandwidth = 0;
                     that.localtempCanvas.width = that.video.offsetWidth;
                     that.localtempCanvas.height = that.video.offsetHeight;
                     //can be problem for crash
@@ -681,14 +675,12 @@
                                 var localBandwidth = (e.data.masterSlice.length / 128); // In Kbps
                             }
                             calcBandwidth(localBandwidth);
+                            clearInterval(virtualclass.clear);
+                            virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
                         }
-
                     }
                     clearInterval(virtualclass.clear);
-                    virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
-
                 }
-
                 clearInterval(virtualclass.clear);
                 virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
             },

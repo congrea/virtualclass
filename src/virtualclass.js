@@ -107,6 +107,7 @@
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();
+
                 virtualclass.dtCon = virtualclass.converter();
                 virtualclass.pbar = progressBar;
 

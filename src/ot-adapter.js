@@ -49,16 +49,6 @@ otAdapter = function () {
                 if (msg.eddata == 'virtualclass-editor-operation') {
                     //display editor if not
 
-
-                    if (virtualclass.previous != 'EditorRich') {
-                        if (etype == 'editorRich') {
-                            virtualclass.currApp = "EditorRich";
-                            //virtualclass.dispvirtualclassLayout();
-                        } else if (etype == "editorCode") {
-                            virtualclass.currApp = "EditorCode";
-                        }
-                        virtualclass.dispvirtualclassLayout(virtualclass.currApp);
-                    }
                     var data = JSON.parse(msg.data);
                     var wrapped = new vceditor.WrappedOperation(
                         vceditor.TextOperation.fromJSON(data.operation),

@@ -385,24 +385,24 @@
             );
         },
 
-        //tryForReTransmit: function () {
-        //    var that = this;
-        //    setTimeout(
-        //        function () {
-        //            // Show Message "Retring [Retry Number]"
-        //            //console.log("Trying to connnect " + (++virtualclass.recorder.emn));
-        //            if (that.emn <= 1) {
-        //                that.xhrsenddata(virtualclass.recorder.rnum);
-        //                that.emn++;
-        //            } else {
-        //                if(!that.alreadyDownload){
-        //                    that.startDownloadProcess(); //if error occurred and is not downloaded the session yet.
-        //                }
-        //            }
-        //        },
-        //        1000
-        //    );
-        //},
+            //tryForReTransmit: function () {
+            //    var that = this;
+            //    setTimeout(
+            //        function () {
+            //            // Show Message "Retring [Retry Number]"
+            //            //console.log("Trying to connnect " + (++virtualclass.recorder.emn));
+            //            if (that.emn <= 1) {
+            //                that.xhrsenddata(virtualclass.recorder.rnum);
+            //                that.emn++;
+            //            } else {
+            //                if(!that.alreadyDownload){
+            //                    that.startDownloadProcess(); //if error occurred and is not downloaded the session yet.
+            //                }
+            //            }
+            //        },
+            //        1000
+            //    );
+            //},
 
         makeAvailDownloadFile: function () {
             console.log('DOWNLLOAD MESSAGE');

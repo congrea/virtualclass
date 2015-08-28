@@ -1,15 +1,14 @@
-
 var ioMissingPackets = {
     // Variables for broadcast messages
     executedStore: [], // It contains all executed data by current user (at receiver side), used by ahead packets
-    executedSerial: (localStorage.getItem('executedSerial') != null) ? LZString.decompress(JSON.parse(localStorage.getItem('executedSerial')))  : [],
+    executedSerial: (localStorage.getItem('executedSerial') != null) ? JSON.parse(localStorage.getItem('executedSerial'))  : {},
     missRequest: [], // Status for Request for missed packets
     aheadPackets: [],
     missRequestFlag: 0, // Flag to show status of Miss Packet request
 
     // Variables for individual messages (usersend)
     executedUserStore: [],
-    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? LZString.decompress(JSON.parse(localStorage.getItem('executedUserSerial')))  : [],
+    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? JSON.parse(localStorage.getItem('executedUserSerial'))  : {},
 
     missUserRequest: [], // Status for Request for missed packets
     aheadUserPackets: [],
@@ -18,11 +17,10 @@ var ioMissingPackets = {
     missUserRequestFlag: 0, // Flag to show status of Miss Packet request
     //TODO - Store to IndexDB
 
-
     validateAllVariables: function (uid) {
         "use strict";
         if (typeof this.executedSerial == 'undefined' || this.executedSerial == null) {
-            this.executedSerial = [];
+            this.executedSerial = {};
         }
         if (typeof this.executedSerial[uid] == 'undefined') {
             this.executedSerial[uid] = -1;
@@ -40,7 +38,7 @@ var ioMissingPackets = {
     validateAllUserVariables: function (uid) {
         "use strict";
         if (typeof this.executedUserSerial == 'undefined' || this.executedUserSerial == null) {
-            this.executedUserSerial = [];
+            this.executedUserSerial = {};
         }
         if (typeof this.executedUserSerial[uid] == 'undefined') {
             this.executedUserSerial[uid] = -1;

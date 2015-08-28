@@ -2,14 +2,14 @@
 var ioMissingPackets = {
     // Variables for broadcast messages
     executedStore: [], // It contains all executed data by current user (at receiver side), used by ahead packets
-    executedSerial: (localStorage.getItem('executedSerial') != null) ? JSON.parse(localStorage.getItem('executedSerial'))  : [],
+    executedSerial: (localStorage.getItem('executedSerial') != null) ? LZString.decompress(JSON.parse(localStorage.getItem('executedSerial')))  : [],
     missRequest: [], // Status for Request for missed packets
     aheadPackets: [],
     missRequestFlag: 0, // Flag to show status of Miss Packet request
 
     // Variables for individual messages (usersend)
     executedUserStore: [],
-    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? JSON.parse(localStorage.getItem('executedUserSerial'))  : [],
+    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? LZString.decompress(JSON.parse(localStorage.getItem('executedUserSerial')))  : [],
 
     missUserRequest: [], // Status for Request for missed packets
     aheadUserPackets: [],
@@ -148,8 +148,8 @@ var ioMissingPackets = {
                 from: from,
                 till: till
             };
-            var tid = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.sendUser(sendMsg, tid)
+            //var tid = virtualclass.vutil.whoIsTeacher();
+            ioAdapter.sendUser(sendMsg, uid)
         } else {
             console.log('UID ' + uid + ' ahead packet' + msg.m.serial);
             this.aheadPackets[uid].unshift(msg.m.serial);

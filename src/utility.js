@@ -486,9 +486,9 @@
 
          //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
 
-            localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
+            localStorage.setItem('executedSerial', LZString.compress(JSON.stringify(ioMissingPackets.executedSerial)));
 
-            localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+            localStorage.setItem('executedUserSerial', LZString.compress(JSON.stringify(ioMissingPackets.executedUserSerial)));
 
             localStorage.removeItem('otherRole');
 
@@ -537,6 +537,15 @@
             }
 
             io.disconnect();
+        },
+
+        toObject: function (arr) {
+            var rv = {};
+            for (var i = 0; i < arr.length; ++i)
+                if (arr[i] !== undefined || arr[i] !== null) {
+                    rv[i] = arr[i];
+                }
+            return rv;
         },
 
         initOnBeforeUnload: function (bname) {
@@ -679,13 +688,13 @@
                     if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
                         ioAdapter.send(msg);
                     } else {
-                        ioAdapter.send(msg, toUser);
+                        ioAdapter.sendUser(msg, toUser);
                     }
                 } else {
                     if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
                         ioAdapter.mustSend(msg);
                     } else {
-                        ioAdapter.mustSend(msg, toUser);
+                        ioAdapter.mustSendUser(msg, toUser);
                     }
                 }
                 //}

@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     window.virtualclass = virtualclass; //Need virtualclass object in each file
 
+
     virtualclass.gObj.displayError = 1;
 
     // TODO Error when screenShare or YouTube is default application
@@ -21,6 +22,8 @@ $(document).ready(function () {
 
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
+
+
     wbUser.virtualclassPlay = parseInt(wbUser.virtualclassPlay, 10);
     if(wbUser.virtualclassPlay){
         virtualclass.gObj.sessionClear = true;
@@ -571,6 +574,10 @@ $(document).ready(function () {
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
+
+
+
+
     };
 });
 

@@ -90,12 +90,13 @@
 
                 this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
+
                 this.storage.init(function () {
                     if (!virtualclass.vutil.isPlayMode()) {
                         ioStorage.completeStorage(JSON.stringify(io.cfg));
                     }
                 });
-                //}
+
 
                 this.dirtyCorner = window.dirtyCorner;
 
@@ -119,14 +120,7 @@
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
                 virtualclass.yts = window.yts();
-                //alert('sss');
-                //debugger;
 
-                //virtualclass.vutil.createReclaimButtonIfNeed();
-
-                //if (this.gObj.uRole == 't') {
-                //    this.vutil.setOrginalTeacher();
-                //}
 
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()

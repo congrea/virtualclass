@@ -50,7 +50,8 @@
              //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
             var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
-         openRequest.onerror = function (e) {
+
+            openRequest.onerror = function (e) {
                 console.log("Error opening db");
                 console.dir(e);
             };
@@ -104,6 +105,8 @@
                 }
             };
 
+
+
             openRequest.onsuccess = function (e) {
                 that.db = e.target.result;
                 for (var i = 0; i < that.tables.length; i++) {
@@ -145,6 +148,8 @@
                 };
                 firstDataStore();
             };
+
+
         },
 
         store: function (data) {
@@ -155,12 +160,6 @@
             t.objectStore("wbData").add({repObjs: data, timeStamp: new Date().getTime(), id: 1});
             return false;
         },
-
-//        audioStore: function (data) {
-//            var t = that.db.transaction(["audioData"], "readwrite");
-//            t.objectStore("audioData").add({audiostream: data, timeStamp: new Date().getTime(), id: 2});
-//            return false;
-//        },
 
         dataExecutedStoreAll: function (data, serialKey) {
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
@@ -531,6 +530,9 @@
 
             endSession: function (onlyStoredData) {
                 localStorage.clear();
+
+                virtualclass.setPrvUser(); // Set Previous User
+
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();

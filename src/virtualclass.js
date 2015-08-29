@@ -48,7 +48,6 @@
             },
 
             init: function (urole, app, videoObj) {
-
                 var wbUser = window.wbUser;
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
@@ -84,9 +83,6 @@
                 this.converter = window.converter;
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
-                //this.otClient = window.Client;
-                //alert('hello');
-                //debugger;
 
                 this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
@@ -442,14 +438,11 @@
                     this.ss.init({type: 'ss', app: app});
                 } else if (app == this.apps[2]) {
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
-
-                    if (typeof videoObj != 'undefined') {
-                        //virtualclass.yts.init(videoObj.init, videoObj.startFrom);
+                    if (typeof videoObj != 'undefined' && videoObj != null) {
                         virtualclass.yts.init(videoObj, videoObj.startFrom);
                     } else {
                         virtualclass.yts.init();
                     }
-
                     this.previous = virtualclass.ytsConfig.id;
 
                 } else if (app == this.apps[3] || app == this.apps[4]) {
@@ -502,7 +495,8 @@
                 }
 
             },
-
+               
+           
             attachFunction: function () {
                 var allAppOptions = document.getElementsByClassName("appOptions");
                 for (var i = 0; i < allAppOptions.length; i++) {

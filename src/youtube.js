@@ -242,10 +242,7 @@
 
              */
             onmessage: function (msg) {
-                //(msg);
-
                 if (typeof msg.yts == 'string') {
-
                     if (msg.yts == 'play') {
                         this.player.playVideo();
                     } else if (msg.yts == 'pause') {

@@ -472,7 +472,6 @@
         beforeLoad: function () {
             // When user does clear history by browser feature, some data are storing
             // in that case we are not saving the data by clearing all storage data.
-
             if(localStorage.length == 0){
                 virtualclass.storage.clearStorageData();
                 return;
@@ -486,7 +485,7 @@
 
          //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
-            localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+                localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
 
             localStorage.removeItem('otherRole');
 
@@ -518,10 +517,14 @@
             if (virtualclass.currApp == 'ScreenShare') {
                 prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window
             } else if ((virtualclass.currApp == 'Yts')) {
-                prvAppObj.metaData = {
-                    'init': virtualclass.yts.videoId,
-                    startFrom: virtualclass.yts.player.getCurrentTime()
-                };
+                if(typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object'){
+                    prvAppObj.metaData = {
+                        'init': virtualclass.yts.videoId,
+                        startFrom: virtualclass.yts.player.getCurrentTime()
+                    };
+                }else {
+                    prvAppObj.metaData = null; // if video is not started to share.
+                }
             }
 
             // not storing the YouTube status on student's storage

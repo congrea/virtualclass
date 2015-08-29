@@ -47,8 +47,12 @@ $(document).ready(function () {
         var appIs = capitalizeFirstLetter(previousApp.name);
 
         if(previousApp.name == 'Yts'){
-            var videoObj = previousApp.metaData;
-            videoObj.fromReload = true;
+            if(previousApp.metaData == null ){
+               var videoObj = null;
+            } else {
+                var videoObj = previousApp.metaData;
+                videoObj.fromReload = true;
+            }
         }
     } else {
         var appIs = "EditorRich";

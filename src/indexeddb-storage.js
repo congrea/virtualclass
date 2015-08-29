@@ -606,12 +606,12 @@
             ioAdapter.userSerial = [];
             ioAdapter.userAdapterMustData = [];
             ioMissingPackets.executedStore =  [];
-            ioMissingPackets.executedSerial = [];
+            ioMissingPackets.executedSerial = {};
             ioMissingPackets.missRequest =  [];
             ioMissingPackets.aheadPackets =  [];
             ioMissingPackets.missRequestFlag =  0;
             ioMissingPackets.executedUserStore =  [];
-            ioMissingPackets.executedUserSerial =  [];
+            ioMissingPackets.executedUserSerial =  {};
             ioMissingPackets.missUserRequest =  [];
             ioMissingPackets.aheadUserPackets =  [];
             ioMissingPackets.missUserRequestFlag =  0;

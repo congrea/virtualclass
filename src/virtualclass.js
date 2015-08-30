@@ -336,15 +336,29 @@
                     }
                 }
 
-
                 //if not screen share
                 if (app != this.apps[1]) {
                     this.dispvirtualclassLayout(app);
                 }
+                
+                // call the function with passing dynamic variables
+                this.appInitiator[app].apply(virtualclass,  Array.prototype.slice.call(arguments));
 
-                //TODO this should be simplyfy
-                if (app == this.apps[0]) {
+                this.previrtualclass = this.previous;
 
+                if (app != this.apps[0] && app != this.apps[1]) {
+                    virtualclass.system.setAppDimension();
+                }
+
+                if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
+                    virtualclass.yts.destroyYT();
+                }
+
+            },
+            
+            // Helper functions for making the app is ready
+            appInitiator : {
+                Whiteboard : function (app, cusEvent){
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
@@ -426,17 +440,16 @@
                     }
 
                     this.previous = this.wbConfig.id;
-
-                    //    this.previrtualclass = this.previous;
-                    //    currAppId = this.wbConfig.id;
-
-                    //TODO this should be into same varible
-                } else if (app == this.apps[1]) {
+                },
+                
+                ScreenShare : function (app){
                     if (typeof this.ss != 'object') {
                         this.ss = new window.screenShare(virtualclass.ssConfig);
                     }
                     this.ss.init({type: 'ss', app: app});
-                } else if (app == this.apps[2]) {
+                },
+                
+                Yts : function (app, custEvent, videoObj){
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
                     if (typeof videoObj != 'undefined' && videoObj != null) {
                         virtualclass.yts.init(videoObj, videoObj.startFrom);
@@ -445,8 +458,18 @@
                     }
                     this.previous = virtualclass.ytsConfig.id;
 
-                } else if (app == this.apps[3] || app == this.apps[4]) {
-
+                },
+                
+                EditorRich : function (app){
+                    this.appInitiator.editor.call(virtualclass, app);
+                },
+                
+                EditorCode : function (app){
+                    this.appInitiator.editor.call(virtualclass, app);
+                },
+                
+                
+                editor : function (app){
                     //showing controllers from footer
                     this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'), app.length), 'block');
 
@@ -481,22 +504,8 @@
                         }
                     }
                 }
-
-                //this.createDiv(vApp.edConfig.id + "Tool", "editor", appOptCont, vApp.edConfig.classes);
-
-                this.previrtualclass = this.previous;
-
-                if (app != this.apps[0] && app != this.apps[1]) {
-                    virtualclass.system.setAppDimension();
-                }
-
-                if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
-                    virtualclass.yts.destroyYT();
-                }
-
             },
                
-           
             attachFunction: function () {
                 var allAppOptions = document.getElementsByClassName("appOptions");
                 for (var i = 0; i < allAppOptions.length; i++) {

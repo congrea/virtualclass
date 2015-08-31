@@ -60,8 +60,11 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube-iframe-api.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/lib/codemirror.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-markdown.js"></script>
+
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/mode/markdown/markdown.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-rich-toolbar.js"></script>

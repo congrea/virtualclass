@@ -180,12 +180,12 @@
              * Create the code mirror with layout
              * @param mode expect type  of editor
              */
-            codemirrorWithLayout: function (mode) {
+            codemirrorWithLayout: function (options) {
                 this.UI.container(this.etype);
                 var edElem = document.getElementById(this.UI.edId);
                 if (typeof  this.cm != 'object') {
                     console.log('Code mirror instance is created ');
-                    this.cm = CodeMirror(document.getElementById(this.UI.edId), mode);
+                    this.cm = CodeMirror(document.getElementById(this.UI.edId), options);
                 }
             },
 

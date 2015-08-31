@@ -146,7 +146,7 @@
             })
             .click(function(event) {
 	            options.boxManager.toggleBox();
-	            sessionStorage.setItem("chatroom_status", "hidden");
+                    localStorage.setItem("chatroom_status", "hidden");
 		         return false;
             })
             .appendTo(uiChatboxTitlebar),
@@ -187,12 +187,12 @@
                         self.options.messageSent({name:io.cfg.userobj.name}, msg);// sent msg to self
                         // store data on browser
                         var time = new Date().getTime();
-                        if(sessionStorage.getItem('chatroom') != null){
-                            var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
+                        if(localStorage.getItem('chatroom') != null){
+                            var chatroom = JSON.parse(localStorage.getItem('chatroom'));
                             chatroom.push({ userid:io.cfg.userid, name:io.cfg.userobj.name, msg: msg, time: time});
-                            sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
+                            localStorage.setItem('chatroom',JSON.stringify(chatroom));
                         } else {
-                            sessionStorage.setItem('chatroom', JSON.stringify([{ userid:io.cfg.userid, name:io.cfg.userobj.name, msg: msg, time: time}]));
+                            localStorage.setItem('chatroom', JSON.stringify([{ userid:io.cfg.userid, name:io.cfg.userobj.name, msg: msg, time: time}]));
                         }                      
                     }                   
                     return false;

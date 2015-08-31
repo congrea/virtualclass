@@ -51,7 +51,7 @@
 
                 //checking common chat local storage
                 //Data stored inside sessionStorage variable
-                if(sessionStorage.length > 0){
+                if(localStorage.length > 0){
                     displaycomChatHistory();
                     //if(typeof chatEnable != null && chatEnable == "false"){
                     if(chatEnable != null && chatEnable == "false"){

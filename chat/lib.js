@@ -144,13 +144,14 @@ function messageUpdate2(e){
             }
 
             // store data on browser
-            if(sessionStorage.getItem('chatroom') != null){
-                var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
+            var storageChat = localStorage.getItem('chatroom');
+            if(storageChat != null){
+                var chatroom = JSON.parse(localStorage.getItem('chatroom'));
                 var temp = {userid: from.userid, name: from.name, msg: msg, time: time};
                 chatroom.push(temp);
-                sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
+                localStorage.setItem('chatroom',JSON.stringify(chatroom));
             } else {
-                sessionStorage.setItem('chatroom', JSON.stringify([{ userid:from.userid,name:from.name , msg: msg,time: time}]));
+                localStorage.setItem('chatroom', JSON.stringify([{ userid:from.userid,name:from.name , msg: msg,time: time}]));
             }
 
     }else if(to != undefined && to != ""){ // private chat
@@ -256,13 +257,14 @@ function messageUpdate(e){
 //        }
 
             // store data on browser
-            if(sessionStorage.getItem('chatroom') != null){
-                var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
+            var storageChat = localStorage.getItem('chatroom');
+            if(storageChat != null){
+                var chatroom = JSON.parse(storageChat);
                 var temp = {userid: from.userid, name: from.name, msg: msg, time: time};
                 chatroom.push(temp);
-                sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
+                localStorage.setItem('chatroom',JSON.stringify(chatroom));
             } else {
-                sessionStorage.setItem('chatroom', JSON.stringify([{ userid:from.userid,name:from.name , msg: msg,time: time}]));
+                localStorage.setItem('chatroom', JSON.stringify([{ userid:from.userid,name:from.name , msg: msg,time: time}]));
             }
 
     }else if(to != undefined && to != ""){ // private chat
@@ -391,15 +393,19 @@ function browserSupportsLocalStorage()  {
  preserve public chat on page refersh
 */
 function displaycomChatHistory(){
+    //alert('suman bogati');
+    //debugger;
     //common room chat data populated on referesh
-    
+
     //if msglength == 1 and  sessionStorage.getItem('chatroom_status') == 'hidden'
-    if(sessionStorage.length > 1 || (sessionStorage.length == 1 && sessionStorage.getItem('chatroom_status') == null) ){
-        
+
+    //if(sessionStorage.length > 1 || (sessionStorage.length == 1 && sessionStorage.getItem('chatroom_status') == null) ){
+    var storageChat = localStorage.getItem('chatroom');
+    if(storageChat != null) {
             var d = document.createElement('div');
             d.id = 'chat_room';
             document.body.appendChild(d);
-            var data = JSON.parse(sessionStorage.getItem('chatroom'));
+            var data = JSON.parse(storageChat);
             $.each(data, function(id, msgobj) {
                 if(id < 1){
                     virtualclass.chat.chatroombox = $("#chat_room").chatroom({
@@ -412,10 +418,10 @@ function displaycomChatHistory(){
                 }
                 $("#chat_room").chatroom("option").messageSent(msgobj, msgobj.msg);
             });
-        
+
     }
-    
-    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
+
+    if(localStorage.getItem('chatroom_status') == 'hidden'){
         $("#chatrm" ).hide(); //hide box on page refresh
     }
 }

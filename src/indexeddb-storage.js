@@ -531,7 +531,7 @@
             endSession: function (onlyStoredData) {
                 localStorage.clear();
 
-                virtualclass.setPrvUser(); // Set Previous User
+
 
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
@@ -576,6 +576,9 @@
                 //  so need to do false
                 virtualclass.getContent = false;
                 virtualclass.recorder.storeDone = 0;
+
+                virtualclass.setPrvUser(); // Set Previous User
+
                 if (io.sock) {
                     io.sock.close();
                 }

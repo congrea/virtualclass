@@ -323,7 +323,7 @@
 
         clearAllChat: function () {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
-            sessionStorage.clear('chatroom'); //all
+            localStorage.clear('chatroom'); //all
             //idList = [];
 //                idList.length = 0;
             virtualclass.chat.idList.length = 0;

@@ -368,7 +368,7 @@ $(document).ready(function () {
                 virtualclass.user.control.allChatEnable();
                 virtualclass.gObj.chatEnable = true;
             } else {
-                virtualclass.user.control.enable(e.message.toUser, 'chat', 'Chat', 'ch');
+                virtualclass.user.control.enable(e.message.toUser, 'chat', 'Chat', 'chat');
             }
         };
 
@@ -378,7 +378,7 @@ $(document).ready(function () {
                 virtualclass.user.control.allChatDisable();
                 virtualclass.gObj.chatEnable = false;
             } else {
-                virtualclass.user.control.disable(e.message.toUser, 'chat', 'Chat', 'ch');
+                virtualclass.user.control.disable(e.message.toUser, 'chat', 'Chat', 'chat');
             }
         };
 

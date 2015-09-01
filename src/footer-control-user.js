@@ -49,6 +49,7 @@
             },
 
             createControl: function (userId, controls) {
+                debugger;
                 var controlCont = document.createElement('div');
                 controlCont.id = userId + "ControlContainer";
                 controlCont.className = "controls";
@@ -184,12 +185,12 @@
                             });
                         }
 
-                        if (uObj && userObj.hasOwnProperty('ch')) {
-                            var chEnable = (userObj.ch) ? true : false;
+                        if (uObj && userObj.hasOwnProperty('chat')) {
+                            var chEnable = (userObj.chat) ? true : false;
                         } else {
                             var chEnable = true;
                         }
-                        virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
+                        virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'chat');
 
                     } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
                         if (roles.hasAdmin()) {
@@ -553,10 +554,10 @@
                         if (tag.getAttribute('data-chat-disable') == 'true') {
                             tag.className = 'contrChatBlock';
                             action = 'enable';
-                            this.control.changeAttribute(userId, tag, true, 'chat', 'ch');
+                            this.control.changeAttribute(userId, tag, true, 'chat', 'chat');
                         } else {
                             action = 'block';
-                            this.control.changeAttribute(userId, tag, false, 'chat', 'ch');
+                            this.control.changeAttribute(userId, tag, false, 'chat', 'chat');
                         }
                         this.control._chat(userId, action);
                     } else if (control == 'Aud') {
@@ -614,7 +615,7 @@
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
                     } else {
-                        var user = virtualclass.user.control.updateUser(userId, 'ch', false);
+                        var user = virtualclass.user.control.updateUser(userId, 'chat', false);
                         virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
                     }
                 },

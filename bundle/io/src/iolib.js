@@ -50,7 +50,7 @@ var io = {
                 if (e.data instanceof ArrayBuffer) {
                     io.onRecBinary(e)
                 } else {
-                    var msg = JSON.parse(e.data);
+                    var msg = JSON.parse(e.data); //msg.user is from user
                     if (msg.hasOwnProperty('m')) {
                         if (msg.m.hasOwnProperty('serial')) {
                             ioMissingPackets.checkMissing(msg);
@@ -130,11 +130,18 @@ var io = {
                 cfun: cfun,
                 arg: {'msg': msg}
             };
+
             if (touser) {
                 obj.arg.touser = this.uniquesids[touser];
+                if(obj.arg.touser == 'undefined' || typeof obj.arg.touser == 'undefined'){
+                    console.log("Couldn't send packet, " + touser + " " + " is not connected.");
+                    return;
+                }
             }
+
             var jobj = JSON.stringify(obj);
             this.sock.send(jobj);
+
 
         },
 

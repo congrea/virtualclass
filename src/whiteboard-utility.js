@@ -465,10 +465,7 @@
                 var prvUser = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('prvUser'));
                 var toggleRole = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('tc'));
 
-//                    localStorage.clear();
-                virtualclass.recorder.items = [];
-                // virtualclass.storage.totalStored = 0;
-                virtualclass.recorder.totalSent = 0;
+
 
                 // TODO this should be done by proepr way
                 // it has to be done in function

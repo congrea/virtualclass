@@ -73,12 +73,16 @@ var ioAdapter = {
         "use strict";
         var cfun = 'broadcastToAll';
 
-        if (touser) {
-            touser = io.uniquesids[touser];
-            if(touser == 'undefined' || typeof touser == 'undefined'){
-                console.log("Couldn't send packet, " + touser + " " + " is not connected.");
-                return;
+        if(io.sock != null){
+            if (touser) {
+                touser = io.uniquesids[touser];
+                if(touser == 'undefined' || typeof touser == 'undefined'){
+                    console.log("Couldn't send packet, " + touser + " " + " is not connected.");
+                    return;
+                }
             }
+        } else {
+            console.log('Socket is not created.');
         }
 
         io.send(msg, cfun, touser);

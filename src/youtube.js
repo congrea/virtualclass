@@ -285,6 +285,11 @@
                 } else {
                     //alert('hello how are ');
                     //debugger;
+                    var vcontrols = 0;
+                    if (roles.hasControls()) {
+                        vcontrols = 1;
+                    }
+
                     var playerVarsObj = {
                         height: '390',
                         width: '640',
@@ -292,7 +297,10 @@
                         disablekb: 1,
                         enablejsapi: 1,
                         modestbranding: 1,
+                        controls: vcontrols,
                         rel: 0,
+                        fs: 0,
+                        showinfo: 0,
                         start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
                     };
 

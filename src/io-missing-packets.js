@@ -257,6 +257,7 @@ var ioMissingPackets = {
      */
 
     fillExecutedStore: function (msg) {
+
         "use strict";
         var uid = msg.user.userid;
         this.validateAllVariables(uid);
@@ -280,9 +281,14 @@ var ioMissingPackets = {
                     msg.m.data[i].user = msg.user;
 
                     this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
+
                     try {
                         console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.serial);
-                        io.onRecJson(msg.m.data[i]);
+
+                        if(!msg.m.data[i].m.hasOwnProperty('receiver')){
+                            io.onRecJson(msg.m.data[i]);
+                        }
+
                     } catch (error) {
                         console.log("Error " + error);
                     }

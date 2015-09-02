@@ -132,11 +132,7 @@ var io = {
             };
 
             if (touser) {
-                obj.arg.touser = this.uniquesids[touser];
-                if(obj.arg.touser == 'undefined' || typeof obj.arg.touser == 'undefined'){
-                    console.log("Couldn't send packet, " + touser + " " + " is not connected.");
-                    return;
-                }
+                obj.arg.touser = touser;
             }
 
             var jobj = JSON.stringify(obj);

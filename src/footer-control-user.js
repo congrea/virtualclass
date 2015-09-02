@@ -49,7 +49,6 @@
             },
 
             createControl: function (userId, controls) {
-                debugger;
                 var controlCont = document.createElement('div');
                 controlCont.id = userId + "ControlContainer";
                 controlCont.className = "controls";

@@ -72,7 +72,18 @@ var ioAdapter = {
     sendUser: function (msg, touser) {
         "use strict";
         var cfun = 'broadcastToAll';
+
+        if (touser) {
+            touser = io.uniquesids[touser];
+            if(touser == 'undefined' || typeof touser == 'undefined'){
+                console.log("Couldn't send packet, " + touser + " " + " is not connected.");
+                return;
+            }
+        }
+
         io.send(msg, cfun, touser);
+
+
     },
 
     sendBinary: function (msg) {

@@ -125,6 +125,7 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.closeElem = function () {
+        console.log('close popup');
         if (virtualclass.recorder.waitServer == false) {
             var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
             if (virtualclassToolCont != null) {
@@ -224,7 +225,6 @@ var PopUp = (function (window, undefined) {
 
     PopUp.prototype.replayWindow = function () {
 
-
         var element = document.getElementById('about-modal');
 
         virtualclass.popup.open(element);
@@ -234,6 +234,23 @@ var PopUp = (function (window, undefined) {
 
         //virtualclass.popup.waitBlockAction('none');
         //virtualclass.popup.progressBarAction('none');
+    };
+
+
+    PopUp.prototype.sesseionEndWindow = function () {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        this.hideAllPopups();
+        var sessionEndMsg = document.getElementById("sessionEndMsgCont");
+        sessionEndMsg.style.display = 'block';
+
+        var sessionEndClose = document.getElementById("sessionEndClose");
+        sessionEndClose.addEventListener('click',
+            function () {
+                //virtualclass.popup.closeElem();
+                //window.location.reload();
+                virtualclass.popup.closeElem();
+            });
     };
 
     PopUp.prototype.replayWindowAction = function (action) {

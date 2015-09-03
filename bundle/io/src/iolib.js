@@ -47,6 +47,7 @@ var io = {
             };
             this.sock.binaryType = 'arraybuffer';
             this.sock.onmessage = function (e) {
+
                 if (e.data instanceof ArrayBuffer) {
                     io.onRecBinary(e)
                 } else {

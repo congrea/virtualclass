@@ -324,6 +324,7 @@ if(isset($_GET['lname'])){
 
                     <div id="askPlay">
                         <div id="askplayMessage"> </div>
+
                          <button id="playButton" class="icon-play">Play</button>
 
                     </div>
@@ -342,7 +343,16 @@ if(isset($_GET['lname'])){
          <!--For confirm window-->
           <div id="confirm" class="popupWindow simple-box">
           </div>
-          
+
+          <!-- For Session End window -->
+           <div id="sessionEndMsgCont" class="popupWindow">
+           <span id="sessionEndClose" class="icon-close">X</span> <br />
+
+           <span id="sessionEndMsg"> <?php echo get_string('sessionendmsg'); ?> </span>
+
+
+           </div>
+
         </div>
     </div>
 </div>

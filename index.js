@@ -409,8 +409,9 @@ $(document).ready(function () {
 
         //session end
         this.sEnd = function (e) {
-
             virtualclass.storage.config.endSession();
+            virtualclass.popup.sesseionEndWindow();
+
             //location.reload();
         };
 

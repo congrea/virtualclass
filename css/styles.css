@@ -2781,3 +2781,9 @@
 .playMode #recordPlay #askPlay{
 	display : none;
 }
+
+#vcanvas #whiteBoardMsg {
+	position : absolute;
+	top : 50%;
+	left : 40%;
+}

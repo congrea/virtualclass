@@ -518,11 +518,11 @@ $(document).ready(function () {
                 return;
             }
 
+            // Disable the code which request missed packet for whiteboard
+            //if (!virtualclass.vutil.isPlayMode()) {
+            //    //virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
+            //}
 
-            if (!virtualclass.vutil.isPlayMode()) {
-
-                //virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
-            }
 
             if (!e.message.hasOwnProperty('sentObj')) {
                 if (e.message.repObj[0].hasOwnProperty('uid')) {
@@ -560,8 +560,11 @@ $(document).ready(function () {
 
                 if (e.fromUser.userid !== wbUser.id) {
                     //localStorage.setItem('repObjs', JSON.stringify(virtualclass.wb.gObj.replayObjs));
+                    virtualclass.wb.utility.removeWhiteboardMessage();
+
                     virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                     virtualclass.wb.response.replayObj(e.message.repObj);
+
                 } else {
                     if (typeof virtualclass.wb.gObj.rcvdPackId !== 'undefined') {
                         virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
@@ -572,6 +575,8 @@ $(document).ready(function () {
             if (e.message.hasOwnProperty('chunk') && e.fromUser.userid != wbUser.id) {
                 virtualclass.wb.response.chunk(e.fromUser.userid, wbUser.id, e.message.repObj);
             }
+
+
         };
 
         //Replay All, TODO, need to do verify

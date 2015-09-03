@@ -665,6 +665,7 @@
                     }
                 }
             },
+
             displayCanvas: function () {
                 vcan.canvasWrapperId = 'canvasWrapper';
                 if (document.getElementById('canvas') == null) {
@@ -676,7 +677,37 @@
                 virtualclass.wb.utility.makeCanvasDisable();
                 virtualclass.wb.utility.toolWrapperDisable();
 
+                if(!roles.hasControls()){
+                    if(vcan.main.children == 0){
+                        virtualclass.wb.utility.createWhiteboardMessage()
+                    }
+
+                }
             },
+
+            removeWhiteboardMessage : function (){
+                var whiteBoradMsg =    document.getElementById('whiteBoardMsg');
+                if(whiteBoradMsg != null){
+                    whiteBoradMsg.parentNode.removeChild(whiteBoradMsg);
+                }
+
+            },
+
+            // whitebeoard message student at very first
+            createWhiteboardMessage : function (){
+                var whiteboardMsgId = "whiteBoardMsg";
+                if(document.getElementById(whiteboardMsgId) == null){
+                    var whiteBoradMsgContainer = document.createElement('div');
+                    whiteBoradMsgContainer.id = whiteboardMsgId;
+                    whiteBoradMsgContainer.innerHTML = virtualclass.lang.getString('msgForWhiteboard');
+
+                    var containerWb = document.getElementById('canvasWrapper');
+                    if(containerWb != null){
+                        containerWb.appendChild(whiteBoradMsgContainer);
+                    }
+                }
+            },
+
             initAll: function (e) {
                 if (roles.hasControls()) {
                     virtualclass.wb.utility.makeCanvasDisable();

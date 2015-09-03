@@ -618,7 +618,18 @@
                         virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
                     }
                 },
+
                 _audio: function (userId, action) {
+                    if (action == 'enable') {
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
+                    } else {
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
+                    }
+                },
+
+
+                _audioAll : function (userId, action) {
+
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
@@ -907,7 +918,103 @@
                         alwaysPress.style.display = 'none';
                     }
                 }
+            },
+
+            /**
+             * disable/enable all the audio
+             * @param action expect either enable/disable
+             */
+            toggleAllAudio: function (action) {
+                var allUsersDom = document.getElementsByClassName('controleCont');
+                if (allUsersDom.length > 0) {
+                    for (var i = 0; i < allUsersDom.length; i++) {
+                        if (allUsersDom[i].id.indexOf('Aud') > 0) {
+                            var idPartPos = allUsersDom[i].id.indexOf('Cont');
+                            if (idPartPos > 0) {
+                                var idPart = allUsersDom[i].id.substr(0, idPartPos);
+                                var elem = document.getElementById(idPart + 'Img');
+                                this.control.init.call(this, elem, action);
+                            }
+                        }
+                    }
+                }
+            },
+
+            /**
+             * Create Audio all Enable/Disable buttons with
+             * it's helper function
+             * @param mainTagId
+             * @param tagClass
+             * @constructor
+             */
+            UIaudioAll : function (mainTagId, tagClass){
+                var anchorTag = document.createElement('a');
+                anchorTag.id = 'contrAudioAll';
+
+                var spanTag = document.createElement('span');
+                spanTag.id = 'contrAudioAllImg';
+
+                var allAudAction = localStorage.getItem('allAudAction');
+
+                if(allAudAction != null &&  allAudAction == 'disable'){
+                    spanTag.innerHTML = "En Aud All";
+                    spanTag.setAttribute('data-action', 'enable');
+                }else{
+                    spanTag.innerHTML = "Dis Aud All";
+                    spanTag.setAttribute('data-action', 'disable');
+                }
+
+
+
+                var that = this;
+
+                spanTag.addEventListener('click', function (){
+                    var audioController = document.getElementById('contrAudioAllImg');
+
+
+                    var actionToPerform = that.toogleAudioIcon();
+
+                    //if (audioController != null) {
+                    //    actionToPerform = audioController.dataset.action;
+                    //    if (audioController.dataset.action == 'enable') {
+                    //        audioController.dataset.action = 'disable';
+                    //        audioController.innerHTML = "Disable All";
+                    //    } else {
+                    //        audioController.dataset.action = 'enable';
+                    //        audioController.innerHTML = "Enable All";
+                    //    }
+                    //}
+
+                    if(typeof actionToPerform != 'undefined'){
+
+                        localStorage.setItem('allAudAction', actionToPerform);
+                        that.toggleAllAudio.call(virtualclass.user, actionToPerform);
+                    }
+                });
+
+                anchorTag.appendChild(spanTag);
+                var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];
+                parentNode.appendChild(anchorTag);
+            },
+
+            toogleAudioIcon : function (){
+                var audioController = document.getElementById('contrAudioAllImg');
+                if (audioController != null) {
+                    actionToPerform = audioController.dataset.action;
+
+                    if (audioController.dataset.action == 'enable') {
+
+                        audioController.dataset.action = 'disable';
+                        audioController.innerHTML = "Dis Aud All";
+                    } else {
+                        audioController.dataset.action = 'enable';
+                        audioController.innerHTML = "En Aud All";
+                    }
+                    return actionToPerform;
+                }
             }
+
+
         }
     };
     window.user = user;

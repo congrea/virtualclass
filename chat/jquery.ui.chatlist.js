@@ -144,6 +144,7 @@
         },
 
         _create: function(){
+
             var self = this,
             options = self.options,
             offset = options.offset,
@@ -278,8 +279,8 @@
 
             self._setWidth(self.options.width);
             self._position(self.options.offset);
-
             self.options.boxManager.init(self);
+            virtualclass.user.UIaudioAll('memlist', 'ui-memblist-titlebar');
 
         },
 

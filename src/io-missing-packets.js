@@ -285,7 +285,7 @@ var ioMissingPackets = {
                     try {
                         console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.serial);
 
-                        if(!msg.m.data[i].m.hasOwnProperty('receiver')){
+                        if(!msg.m.data[i].m.hasOwnProperty('receiver')){ // if not common chat
                             io.onRecJson(msg.m.data[i]);
                         }
 

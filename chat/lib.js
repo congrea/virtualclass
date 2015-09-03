@@ -59,7 +59,9 @@ function memberUpdate(e, addType){
                 $("#chat_div").memberlist("option", "boxManager").addUsr(user);
             }
         });
-        
+
+        //virtualclass.user.UIaudioAll('memlist', 'ui-memblist-titlebar');
+
         $( '#chat_div .ui-memblist-usr:not(.mySelf)').remove();
         $.each(userlist, function(key, usr) {
             //alert('userId ' +  usr.userid);
@@ -67,23 +69,14 @@ function memberUpdate(e, addType){
                 $("#chat_div").memberlist("option").userSent(usr);
             }
             
-            
             if (usr.userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
-
-                    var vidTag = document.getElementById('video'+usr.userid);
+                var vidTag = document.getElementById('video'+usr.userid);
 
                 if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
-                        
-                    
-//                    if(vidTag == null ){
-                    virtualclass.gObj.video._handleUserMedia(usr.userid);
-                    }
-                        
-//                    }
-                    
-//                }
 
-                //virtualclass.gObj.video._handleUserMedia(usr.userid);
+                    virtualclass.gObj.video._handleUserMedia(usr.userid);
+
+                }
             }
             virtualclass.gObj.video.addUserRole(usr.userid, usr.role);
         });

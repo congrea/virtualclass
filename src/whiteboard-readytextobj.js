@@ -207,9 +207,10 @@
                 var maxWidth = 0;
                 var tempUserTextArr = userText.split(/\r?\n/);
                 maxWidth = ctx.measureText(tempUserTextArr[0]).width;
-                var extHeight = 15; //TODO this should be changed according to font size by selected user
+                //var extHeight = 15; //TODO this should be changed according to font size by selected user
+                var extHeight = 13;
                 for (var i = 1; i < tempUserTextArr.length; i++) {
-                    extHeight += 15;
+                    extHeight += 13;
                     var tempMaxWidth = ctx.measureText(tempUserTextArr[i]).width;
                     if (tempMaxWidth > maxWidth) {
                         maxWidth = tempMaxWidth;

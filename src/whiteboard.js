@@ -64,7 +64,8 @@
 
                 //IMPORTANT  this is changed during the UNIT testing
                 //onkeydown event is working into all browser.
-                canvasObj.onkeydown = virtualclass.wb.utility.keyOperation;
+                //canvasObj.onkeydown = virtualclass.wb.utility.keyOperation;
+                window.onkeydown = virtualclass.wb.utility.keyOperation;
 
                 virtualclass.system.setAppDimension();
                 if (typeof (Storage) !== "undefined") {

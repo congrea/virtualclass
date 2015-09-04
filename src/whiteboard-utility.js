@@ -72,11 +72,16 @@
                 // This is used for removed the selected object.
                 //var currTime = new Date().getTime();
                 //8 is used for delete on mac
+
                 if (evt.keyCode == 8 || evt.keyCode == 46) {
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
                         var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
                         virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                    }
+                } else if(evt.keyCode == 27){ // escape key
+                    if(typeof virtualclass.wb == 'object'){
+                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny();
                     }
                 }
             },

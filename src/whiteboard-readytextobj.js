@@ -79,7 +79,7 @@
                 } else {
 
                     if (virtualclass.wb.utility.clickOutSidebox(this.textWriteMode)) {
-                        //alert('suman bogati khan');
+
                         if (typeof mtext != 'undefined') {
                             virtualclass.wb.obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, mtext);
                         } else {
@@ -118,7 +118,9 @@
                 divNode.style.top = (obj.y) + "px";
 
                 var textNode = document.createElement('textarea');
+
                 textNode.id = divNode.id + 'textarea';
+                textNode.className = 'whiteBoardTextBox';
 
                 textNode.rows = 8;
                 textNode.cols = 41;
@@ -257,6 +259,17 @@
                 vcan.renderAll();
 				
                 virtualclass.wb.utility.toolWrapperEnable(true);
+            },
+
+            finalizeTextIfAny : function (){
+                var canvasWrapper = document.getElementById('canvasWrapper');
+                if(canvasWrapper != null){
+                    var textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
+                    if(textBox != null){
+                        textBox = textBox[0];
+                        virtualclass.wb.obj.drawTextObj.textUtility();
+                    }
+                }
             }
         }
     };

@@ -222,7 +222,6 @@
 
             closureEditor: function (that, editorBlock) {
                 return function () {
-                    //alert('you clicked' + i);
                     that.control.init.call(that, editorBlock);
                 }
             },
@@ -422,8 +421,6 @@
                             }
                         }
                     } else if (control == 'audio') {
-                        //alert('suman bogati');
-                        //debugger;
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
                     }
                     /*					else {
@@ -1012,9 +1009,12 @@
                     }
                     return actionToPerform;
                 }
+            },
+
+            changeRoleOnFooter : function (id, role){
+                var footerDiv = document.getElementById("ml" + id);
+                footerDiv.dataset.role = role;
             }
-
-
         }
     };
     window.user = user;

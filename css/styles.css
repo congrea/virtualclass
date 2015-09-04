@@ -2787,3 +2787,33 @@
 	top : 50%;
 	left : 40%;
 }
+
+.ui-memblist-usr[data-role="s"]{
+	border :2px solid yellow;
+}
+
+
+.ui-memblist-usr.mySelf {
+	border :2px solid #0033CC;
+}
+
+
+.ui-memblist-usr[data-role="e"], .ui-memblist-usr[data-role="t"] {
+	border :2px solid red;
+}
+
+
+.ui-memblist-usr[data-role="p"]{
+	border :2px solid green;
+}
+
+
+
+
+
+
+
+
+
+
+

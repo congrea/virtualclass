@@ -60,7 +60,10 @@
                         'name': wbUser.name,
                         lname: wbUser.lname,
                         'img': wbUser.imageurl,
-                        role: wbUser.role
+
+                        //role: wbUser.role
+                        role : (localStorage.getItem('uRole') != null) ? localStorage.getItem('uRole')  :  wbUser.role
+
                     },
                     'room': wbUser.room
                 };
@@ -176,6 +179,9 @@
                     var that = this;
                     var initSocket = setInterval(function () {
                         if (that.gObj.editorInitDone >= 2) {
+
+
+
                             that.initSocketConn();
                             clearInterval(initSocket);
                         }

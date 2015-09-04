@@ -781,6 +781,7 @@
             }
 
             if (typeof studentId != 'undefined') {
+                //alert('role student');
                 if (roles.isEducator()) {
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
@@ -884,6 +885,19 @@
                 }
 
             }
+
+            if(!roles.hasAdmin()){
+                io.disconnect();
+                setTimeout(
+                    function (){
+                        virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
+                        io.init(virtualclass.uInfo);
+                    }, 500
+                );
+            }
+
+            //virtualclass.user.changeRoleOnFooter(virtualclass.gObj.uid, virtualclass.gObj.uRole);
+
 
             // NOTE:- removing below code could be critical for other app than object
             //if(virtualclass.currApp !==  'Whiteboard'){

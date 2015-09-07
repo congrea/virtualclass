@@ -1,6 +1,8 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
 
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/error_handle.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
@@ -101,3 +103,4 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+

@@ -101,6 +101,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
 

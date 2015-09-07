@@ -2736,16 +2736,30 @@
 }
 
 
-#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {
-	/*margin-right: 3.2%;*/
-	width : 98.8%;
+/*#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {*/
+	/*/!*margin-right: 3.2%;*!/*/
+	/*width : 98.8%;*/
 
+/*}*/
+
+/*#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody,*/
+/*#virtualclassCont.educator #virtualclassEditorRichBody, #virtualclassCont.educator #virtualclassEditorCodeBody{*/
+	/*/!*margin-right: 3.2%;*!/*/
+	/*width : 95.5%;*/
+/*}*/
+
+/*#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody,*/
+/*#virtualclassCont.presentor #virtualclassEditorRichBody, #virtualclassCont.presentor #virtualclassEditorCodeBody{*/
+	/*/!*margin-right: 3.2%;*!/*/
+	/*width : 95.5%;*/
+/*}*/
+
+#virtualclassCont #virtualclassEditorRichBody, #virtualclassCont #virtualclassEditorCodeBody{
+	width : 95%;
 }
 
-#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody {
-	/*margin-right: 3.2%;*/
-	width : 96.8%;
-}
+
+
 
 /*#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {*/
 	/*margin-right : 77px;*/

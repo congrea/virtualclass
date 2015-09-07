@@ -572,6 +572,9 @@
                 _assign: function (userId, notsent, fromUserId) {
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
+                    if(virtualclass.currApp != 'Whiteboard'){
+                        virtualclass.system.setAppDimension();
+                    }
                     if (!roles.hasAdmin()) {
                         var canvasWrapper = document.getElementById("vcanvas");
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');

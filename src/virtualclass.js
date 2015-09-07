@@ -126,6 +126,9 @@
                     var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
 
+
+
+
                 }
 
                 if (typeof videoObj == 'undefined' || videoObj == null) {

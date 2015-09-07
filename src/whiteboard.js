@@ -142,7 +142,7 @@
              */
             createCommand: function () {
                 var alreadyCreated = virtualclass.wb.utility.alreadyExistToolBar();
-                if (alreadyCreated || (localStorage.getItem('reclaim') != null && localStorage.reclaim)) {
+                if (alreadyCreated || (localStorage.getItem('educator') != null && localStorage.reclaim)) {
                     return true;
                 }
 

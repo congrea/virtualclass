@@ -123,6 +123,9 @@
 
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
+                    var vcContainer = document.getElementById('virtualclassCont');
+                    vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
+
                 }
 
                 if (typeof videoObj == 'undefined' || videoObj == null) {

@@ -720,7 +720,7 @@
 
         createReclaimButton: function (cmdToolsWrapper) {
 
-            this.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
+            this.createDiv('t_reclaim', 'educator', cmdToolsWrapper);
             var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
             var that = this;
             aTags[0].addEventListener('click', function () {
@@ -786,11 +786,12 @@
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
                  //   localStorage.removeItem('reclaim');
-                    virtualclass.vutil.removeClass('virtualclassCont', 'reclaim');
+                    virtualclass.vutil.removeClass('virtualclassCont', 'educator');
 
                 } else {
-                    virtualclass.vutil.addClass('virtualclassCont', 'assign');
-                    virtualclass.vutil.removeClass('virtualclassCont', 'removedAssign')
+                    virtualclass.vutil.addClass('virtualclassCont', 'presentor')
+                    //virtualclass.vutil.addClass('virtualclassCont', 'assign');
+                    //virtualclass.vutil.removeClass('virtualclassCont', 'removedAssign')
                 }
 
                 //localStorage.removeItem('studentId');
@@ -859,12 +860,12 @@
                     //localStorage.setItem('reclaim', true);
 
 
-                    virtualclass.vutil.addClass('virtualclassCont', 'reclaim');
+                    virtualclass.vutil.addClass('virtualclassCont', 'educator');
 
                 } else {
 
-                    virtualclass.vutil.removeClass('virtualclassCont', 'assign');
-                    virtualclass.vutil.addClass('virtualclassCont', 'removedAssign'); //TODO this is tricky handle by better way
+                    virtualclass.vutil.removeClass('virtualclassCont', 'presentor');
+                    //virtualclass.vutil.addClass('virtualclassCont', 'removedAssign'); //TODO this is tricky handle by better way
 
                     if (cmdToolsWrapper != null) {
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
@@ -886,6 +887,17 @@
 
             }
 
+            if(virtualclass.currApp != 'Whiteboard'){
+                virtualclass.system.setAppDimension();
+            }
+
+
+
+            /**
+             * After assign the teacher Role, we need disconnect and reconnect
+             * for pass the the reflected role to all other uses.
+             *
+             */
             if(!roles.hasAdmin()){
                 io.disconnect();
                 setTimeout(
@@ -901,7 +913,7 @@
 
             // NOTE:- removing below code could be critical for other app than object
             //if(virtualclass.currApp !==  'Whiteboard'){
-            //    virtualclass.system.setAppDimension();
+            //    if (typeof virtualclass.wb == 'object') {
             //}
 
         },
@@ -1021,9 +1033,22 @@
 
             virtualclass.user.control.received_editorRich(msg);
             virtualclass.user.control.received_editorCode(msg);
-       }
+        },
 
+        getClassName : function (role){
+            var className;
 
+            if(role == 't'){
+                className = 'teacher';
+            }else if(role == 'e'){
+                className = 'educator';
+            }else if(role == 's'){
+                className = 'student';
+            }else if(role == 'p'){
+                className = 'presentor';
+            }
+            return className;
+        }
     };
     window.vutil = vutil;
 })(window);

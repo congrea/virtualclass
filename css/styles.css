@@ -346,9 +346,6 @@
 
 #virtualclassCont #chat_div .ui-memblist-usr.teacher {
 	padding-top : 0;
-	background-color : #f1f1f1;
-	border-top : 1px solid #d5d5d5;
-	border-bottom : 1px solid #d5d5d5;
 	padding-left : 4px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -382,7 +379,7 @@
 
 #virtualclassCont #chat_div .ui-memblist-usr:first-child {
 	margin-top : 0;
-	margin-bottom: 0px;
+	margin-bottom: 3px;
 }
 
 #virtualclassCont #chat_div .ui-memblist-usr:last-child {
@@ -390,7 +387,7 @@
 }
 
 #virtualclassCont #chat_div .ui-memblist-usr.teacher:last-child {
-	margin-top:3px;
+	margin-top:0px;
 }
 
 #virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos {
@@ -398,7 +395,7 @@
 	box-shadow : 0 0 1px #333;
 	border-radius : 2px;
 	outline : none;
-	margin-bottom : 5px;
+	margin-bottom : 3px;
 }
 
 #virtualclassCont #chat_div .ui-memblist-usr span {
@@ -1147,7 +1144,7 @@
 }
 
 #virtualclassCont div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-	margin-top : 5px;
+	margin-top : 3px;
 }
 
 #virtualclassCont #chat_div {
@@ -1212,13 +1209,12 @@
 #virtualclassCont .ui-dialog-header span:first-child {
 	font-size : 14px;
 	padding-left : 3px;
-	vertical-align : top;
 }
 
 #virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
 	outline : none;
-	margin-bottom : 5px;
+	margin-bottom : 3px;
 }
 
 #virtualclassCont #chat_div .ui-memblist-usr span {
@@ -1948,13 +1944,14 @@
 
 #virtualclassCont .ui-widget-header .icon-user:before {
 	content : "\f007";
-	font-size : 18px;
-	position : relative;
-	top : -2px;
+	font-size : 24px;
+	color:#444;
+	position: relative;
+    bottom: -4px;
 }
 
-#virtualclassCont #t_reclaim .icon-reclaim:before {
-	content : "\f112";
+#virtualclassCont #t_reclaim .icon-educator:before {
+	content : "rc";
 	color : #535151;
 	font-size : 30px;
 	position : relative;
@@ -2395,7 +2392,20 @@
 	left: -8px;
 	color:#e2440c;
 }
-#virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before{
+.ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{
+	content: "\e611";
+	font-size: 18px;
+	color: #444;
+}
+
+.ui-dialog-header #contrAudioAll .icon-all-audio-enable:before{
+	content: "\e610";
+	font-size: 18px;
+	color:#444;
+}
+
+
+#virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before{
 	content: "\f00d";
 	font-size: 12px;
 	color: #6a8e0b;
@@ -2652,7 +2662,7 @@
 	margin-top: 12px;
 }
 
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished{
+#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow{
 	color: #6a8a13;
 	background-color: #f9f9f9;
 	border: #d6e9c6 1px solid;
@@ -2737,10 +2747,9 @@
 	width : 96.8%;
 }
 
-#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {
-	margin-right : 77px;
-
-}
+/*#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {*/
+	/*margin-right : 77px;*/
+/*}*/
 
 #virtualclassCont.removedAssign #virtualclassEditorRichBody, #virtualclassCont.removedAssign #virtualclassEditorCodeBody{
 	margin-right :0;
@@ -2769,8 +2778,8 @@
 	border: #ccc solid 1px;
 }
 
-#virtualclassCont.reclaim #virtualclassScreenShare, #virtualclassCont.reclaim  #virtualclassEditorRich, #virtualclassCont.reclaim #virtualclassEditorCode {
-	margin-left : 20px;
+#virtualclassCont.educator #virtualclassScreenShare, #virtualclassCont.educator  #virtualclassEditorRich, #virtualclassCont.educator #virtualclassEditorCode {
+	margin-left : 9px;
 }
 
 
@@ -2788,30 +2797,64 @@
 	left : 40%;
 }
 
-.ui-memblist-usr[data-role="s"]{
-	border :2px solid yellow;
+
+
+a#contrAudioAll {
+	margin-left: 30px;
+	cursor: pointer;
+}
+
+#contrAudioAllImg.tooltip:hover:after{
+	padding: 0.6em 1em;
+	bottom: 2em;
 }
 
 
-.ui-memblist-usr.mySelf {
-	border :2px solid #0033CC;
+/* Chat box css */
+
+
+
+.ui-memblist-usr.teacher[data-role="p"], div#chat_div div.ui-memblist-usr:first-child, div#chat_div div.ui-memblist-usr:last-child{
+	padding-top: 2px !important;
+    padding-bottom: 2px;
 }
+
+.ui-memblist-usr.mySelf.student[data-role="s"]{
+	background-color: #e8e8e8;
+	border-top:#bbbbbb 1px solid;
+	border-bottom:#bbbbbb 1px solid;
+}
+
 
 
 .ui-memblist-usr[data-role="e"], .ui-memblist-usr[data-role="t"] {
-	border :2px solid red;
+	background-color: #fffdc4;
+    border-bottom: 1px solid #bac0cd;
+    border-top: 1px solid #e3ce1d;
+}
+
+
+.ui-memblist-usr.student{
+	border-bottom:#bbbbbb 1px solid; 
 }
 
 
 .ui-memblist-usr[data-role="p"]{
-	border :2px solid green;
+	background-color: #e7f4d8;
+	border-top: #bfd2a9 1px solid;
+	border-bottom: #bbbbbb 1px solid;
 }
 
+#sessionEndMsgCont.popupWindow{
+	margin: 18px 25px;
+}
 
-
-
-
-
+#sessionEndMsgCont #sessionEndClose.icon-close{
+	top: 10px;
+    right: 15px;
+    position: absolute;
+	cursor : pointer;
+}
 
 
 

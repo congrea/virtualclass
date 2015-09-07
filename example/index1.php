@@ -346,7 +346,7 @@ if(isset($_GET['lname'])){
 
           <!-- For Session End window -->
            <div id="sessionEndMsgCont" class="popupWindow">
-           <span id="sessionEndClose" class="icon-close">X</span> <br />
+            <span id="sessionEndClose" class="icon-close"></span>
 
            <span id="sessionEndMsg"> <?php echo get_string('sessionendmsg'); ?> </span>
 

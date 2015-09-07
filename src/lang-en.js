@@ -123,7 +123,8 @@
         'writemode': 'Write Mode.',
         'readonlymode': 'Read Only Mode.',
         'msgForDownloadStart' : 'Your data  could not Upload. <br /> Your record is being prepared for download.',
-        'msgForWhiteboard' : 'Teacher may does draw something on whiteboard.'
+        'msgForWhiteboard' : 'Teacher may does draw something on whiteboard.',
+         'educator' : 'Educator'
 
     };
     window.message = message;

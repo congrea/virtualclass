@@ -340,7 +340,7 @@
                         //localStorage.reclaim = true;
                         //localStorage.setItem('reclaim', true);
                         virtualclassCont = document.getElementById('virtualclassCont');
-                        virtualclassCont.className = virtualclassCont.className + ' reclaim';
+                        virtualclassCont.className = virtualclassCont.className + ' educator';
 
                     } else {
                         if (cmdToolsWrapper != null) {

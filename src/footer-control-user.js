@@ -9,8 +9,8 @@
             assignRole: function (role, app, toUser) {
 
                 if (roles.hasControls()) {
-                     if (!roles.isEducator()) {
-                         // if role is presentator
+                    if (!roles.isEducator()) {
+                        // if role is presentator
                         virtualclass.vutil.enablePresentatorEditors(toUser);
                         virtualclass.html.leftAppBar();
                     }
@@ -948,17 +948,24 @@
                 var anchorTag = document.createElement('a');
                 anchorTag.id = 'contrAudioAll';
 
+
+
                 var spanTag = document.createElement('span');
                 spanTag.id = 'contrAudioAllImg';
+
 
                 var allAudAction = localStorage.getItem('allAudAction');
 
                 if(allAudAction != null &&  allAudAction == 'disable'){
-                    spanTag.innerHTML = "En Aud All";
+                    //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
+                    spanTag.className = 'icon-all-audio-enable tooltip';
+                    spanTag.dataset.title = 'Enable';
                 }else{
-                    spanTag.innerHTML = "Dis Aud All";
+                    //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
+                    spanTag.className = 'icon-all-audio-disable tooltip';
+                    spanTag.dataset.title = 'Disable';
                 }
 
 
@@ -1002,10 +1009,16 @@
                     if (audioController.dataset.action == 'enable') {
 
                         audioController.dataset.action = 'disable';
-                        audioController.innerHTML = "Dis Aud All";
+                        //audioController.innerHTML = "Dis Aud All";
+                        audioController.className = 'icon-all-audio-disable tooltip';
+                        audioController.dataset.title = 'Disable';
+
                     } else {
                         audioController.dataset.action = 'enable';
-                        audioController.innerHTML = "En Aud All";
+                        //audioController.innerHTML = "En Aud All";
+                        audioController.className = 'icon-all-audio-enable tooltip';
+                        audioController.dataset.title = 'Enable';
+
                     }
                     return actionToPerform;
                 }

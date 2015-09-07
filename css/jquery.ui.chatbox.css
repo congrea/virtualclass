@@ -234,6 +234,13 @@ ui-memblist-usr
 	height: 18px;
 }
 
+#virtualclassCont .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header{
+	padding: 5px 0px 15px;
+}
+.ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header span{
+	vertical-align: top;
+}
+
 #virtualclassCont .ui-chatroom-content {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;

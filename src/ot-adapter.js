@@ -153,7 +153,7 @@ otAdapter = function () {
             var msg = event.message;
             //console.log('in');
             // TW : 2
-            if (event.fromUser.role == 't' && !msg.hasOwnProperty('edFrom')) {
+            if ((event.fromUser.role == 't' || event.fromUser.role == 'e') && !msg.hasOwnProperty('edFrom')) {
                 if (roles.hasAdmin()) {
                     // TW : 2a) Msg is received to Teacher (self) - Action : ACK
                     if (msg.eddata == 'virtualclass-editor-operation') {
@@ -169,7 +169,7 @@ otAdapter = function () {
                     // TW : 2b) Msg is received to students - Action : Process
                     this.processOp(event);
                 }
-            } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't') {
+            } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't' &&  event.fromUser.role != 'e') {
                 // SW : 1) Msg sent to Teacher
                 // console.log('SW : 1 From Student');
                 // SW : 2) Teacher do OT and send to all

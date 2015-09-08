@@ -142,6 +142,9 @@
             var containerHeight = document.getElementById('commandToolsWrapper');
             if (containerHeight != null) {
                 reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
+            } else if((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard' ){
+                // when page is refresh the toolbar/reclaim bar is not available so
+                reduceHeight = reduceHeight + 46  + 3;
             }
 
 

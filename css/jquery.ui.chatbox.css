@@ -66,9 +66,9 @@
 
 /*css for userlist*/
 
-.ui-memblist-usr
+#virtualclassCont .ui-memblist-usr
 {
-    float: left;
+
     clear: both;
 }
 

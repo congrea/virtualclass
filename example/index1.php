@@ -38,8 +38,10 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 
 <style>
+ .CodeMirror { height: auto; border: 1px solid #c9c9c9; }
+  .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
-  .CodeMirror { height: auto; border: 1px solid #ddd; }
+.CodeMirror { height: auto; border: 1px solid #ddd; }
   .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
    /* this should be apply for only core virtualclassm, not with any other software */

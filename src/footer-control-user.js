@@ -572,9 +572,11 @@
                 _assign: function (userId, notsent, fromUserId) {
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
-                    if(virtualclass.currApp != 'Whiteboard'){
+                    //if(virtualclass.currApp != 'Whiteboard'){
                         virtualclass.system.setAppDimension();
-                    }
+                        // After resize we need tor render all the drawn object on whiteboard
+                        virtualclass.vutil.renderWhiteboardObjectsIfAny();
+                    //}
                     if (!roles.hasAdmin()) {
                         var canvasWrapper = document.getElementById("vcanvas");
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');

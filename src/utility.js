@@ -736,6 +736,7 @@
          * html not javascript
          */
         createDiv: function (toolId, text, cmdToolsWrapper, cmdClass) {
+
             //console.log('class name ' + text);
             var toolName = text;
             var text = virtualclass.lang.getString(text);
@@ -766,6 +767,7 @@
                 var virtualclassCont = document.getElementById(virtualclass.html.id);
                 cmdToolsWrapper.appendChild(lDiv);
                 virtualclassCont.insertBefore(cmdToolsWrapper, virtualclassCont.firstChild);
+
 
             } else {
                 cmdToolsWrapper.appendChild(lDiv);
@@ -887,11 +889,9 @@
 
             }
 
-            if(virtualclass.currApp != 'Whiteboard'){
-                virtualclass.system.setAppDimension();
-            }
 
-
+            virtualclass.system.setAppDimension();
+            virtualclass.vutil.renderWhiteboardObjectsIfAny();
 
             /**
              * After assign the teacher Role, we need disconnect and reconnect
@@ -916,6 +916,14 @@
             //    if (typeof virtualclass.wb == 'object') {
             //}
 
+        },
+
+        renderWhiteboardObjectsIfAny : function (){
+            if(typeof virtualclass.wb == 'object'){
+                if(virtualclass.wb.vcan.main.children.length > 0){
+                    virtualclass.wb.vcan.renderAll();
+                }
+            }
         },
         createCommandWrapper: function () {
             //alert(virtualclass.system.device);

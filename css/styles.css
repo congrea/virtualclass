@@ -1951,7 +1951,7 @@
 }
 
 #virtualclassCont #t_reclaim .icon-educator:before {
-	content : "rc";
+	content : "\f112";
 	color : #535151;
 	font-size : 30px;
 	position : relative;

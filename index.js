@@ -182,7 +182,6 @@ $(document).ready(function () {
         }
 
         if (roles.hasControls()) {
-
             if(virtualclass.gObj.uid != virtualclass.jId){
                 // Greet new student with info
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
@@ -206,18 +205,22 @@ $(document).ready(function () {
                 }
 
             } else {
-                // On reload or new connection, make sure all students have same data
-                if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
-                    virtualclass.editorRich.responseToRequest();
-                } else {
-                    console.log('Editor Rich vcAdapter is not ready');
+
+                if(roles.hasAdmin()){
+                    // On reload or new connection, make sure all students have same data
+                    if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
+                        virtualclass.editorRich.responseToRequest();
+                    } else {
+                        console.log('Editor Rich vcAdapter is not ready');
+                    }
+
+                    if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
+                        virtualclass.editorCode.responseToRequest('editorCode');
+                    } else {
+                        console.log('Editor Code vcAdapter is not ready');
+                    }
                 }
 
-                if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
-                    virtualclass.editorCode.responseToRequest('editorCode');
-                } else {
-                    console.log('Editor Code vcAdapter is not ready');
-                }
             }
 
         }

@@ -347,8 +347,8 @@
 #virtualclassCont #chat_div .ui-memblist-usr.teacher {
 	padding-top : 0;
 	padding-left : 4px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	/* 	margin-top: 5px; */
+	/* 	margin-bottom: 5px; */
 }
 
 #virtualclassCont #chat_div .ui-memblist-usr.student, #virtualclassCont #chat_div .ui-memblist-usr {
@@ -366,7 +366,7 @@
 #virtualclassCont div.ui-memblist-usr .userVideos {
 	width : 60px;
 	height : 45px;
-	margin : 3px 5px 3px 2px !important;
+	/* 	margin : 3px 5px 3px 2px !important; */
 	outline : 1px solid #5A5757;
 }
 
@@ -379,16 +379,20 @@
 
 #virtualclassCont #chat_div .ui-memblist-usr:first-child {
 	margin-top : 0;
-	margin-bottom: 3px;
+	margin-bottom: 0px;
 }
 
+/*
 #virtualclassCont #chat_div .ui-memblist-usr:last-child {
 	margin-bottom: 5px;
 }
+*/
 
+/*
 #virtualclassCont #chat_div .ui-memblist-usr.teacher:last-child {
 	margin-top:0px;
 }
+*/
 
 #virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
@@ -633,9 +637,11 @@
 	display : block;
 }
 
+/*
 #virtualclassCont #usertab_text.tooltip.close{
 	line-height: 22px;
 }
+*/
 
 
 #virtualclassCont .tooltip:hover {
@@ -1148,7 +1154,7 @@
 }
 
 #virtualclassCont #chat_div {
-	padding-bottom : 5px;
+	padding-bottom : 0px;
 	min-height : 150px;
 }
 
@@ -1264,13 +1270,13 @@
 }
 
 #virtualclassCont .ui-memblist-usr a img {
-	margin-top : 4px;
+	margin-top : 7px;
 	float : left;
-	background-color : #eee;
-	padding : 13px 22px;
+	background-color : #f2f2f2;
+	padding : 12px 20px;
 	border-radius : 3px;
-	border : #ddd solid 1px;
-	margin-bottom : 4px;
+	border : #b3b3b3 solid 1px;
+	margin-bottom : 6px;
 	margin-left: 1px;
 }
 
@@ -1947,7 +1953,7 @@
 	font-size : 24px;
 	color:#444;
 	position: relative;
-    bottom: -4px;
+	bottom: -4px;
 }
 
 #virtualclassCont #t_reclaim .icon-educator:before {
@@ -2265,7 +2271,7 @@
 
 #virtualclassCont #virtualclassEditorRichBody {
 	position: relative;
-	height : 101%;
+	height : 103%;
 }
 
 
@@ -2509,25 +2515,20 @@
 }
 
 #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer{
-	background: #6f9b90; /* Old browsers */
-	background: -moz-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92b0ab), color-stop(100%,#6f9b90)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #92b0ab 0%,#6f9b90 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
+	background: #83c2b2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c2b2), color-stop(100%,#6cad9d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #83c2b2 0%,#6cad9d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83c2b2', endColorstr='#6cad9d',GradientType=0 ); /* IE6-9 */
+	border-radius: 5px;
 
 }
 #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
-	background: #6f9b90; /* Old browsers */
-	background: -moz-linear-gradient(top, #6f9b90 0%, #92b0ab 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6f9b90), color-stop(100%,#92b0ab)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #6f9b90 0%,#92b0ab 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #6f9b90 0%,#92b0ab 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f9b90', endColorstr='#92b0ab',GradientType=0 ); /* IE6-9 */
+	background-color: #92cbbd;
+	background-image: none;
 
 }
 
@@ -2736,33 +2737,19 @@
 }
 
 
-/*#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {*/
-	/*/!*margin-right: 3.2%;*!/*/
-	/*width : 98.8%;*/
+#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {
+	/*margin-right: 3.2%;*/
+	width : 98.8%;
 
-/*}*/
-
-/*#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody,*/
-/*#virtualclassCont.educator #virtualclassEditorRichBody, #virtualclassCont.educator #virtualclassEditorCodeBody{*/
-	/*/!*margin-right: 3.2%;*!/*/
-	/*width : 95.5%;*/
-/*}*/
-
-/*#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody,*/
-/*#virtualclassCont.presentor #virtualclassEditorRichBody, #virtualclassCont.presentor #virtualclassEditorCodeBody{*/
-	/*/!*margin-right: 3.2%;*!/*/
-	/*width : 95.5%;*/
-/*}*/
-
-#virtualclassCont #virtualclassEditorRichBody, #virtualclassCont #virtualclassEditorCodeBody{
-	width : 95%;
 }
 
-
-
+#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody {
+	/*margin-right: 3.2%;*/
+	width : 99.8%;
+}
 
 /*#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {*/
-	/*margin-right : 77px;*/
+/*margin-right : 77px;*/
 /*}*/
 
 #virtualclassCont.removedAssign #virtualclassEditorRichBody, #virtualclassCont.removedAssign #virtualclassEditorCodeBody{
@@ -2828,35 +2815,44 @@ a#contrAudioAll {
 
 
 
+/*
 .ui-memblist-usr.teacher[data-role="p"], div#chat_div div.ui-memblist-usr:first-child, div#chat_div div.ui-memblist-usr:last-child{
 	padding-top: 2px !important;
     padding-bottom: 2px;
 }
+*/
 
 .ui-memblist-usr.mySelf.student[data-role="s"]{
 	background-color: #e8e8e8;
-	border-top:#bbbbbb 1px solid;
-	border-bottom:#bbbbbb 1px solid;
+	border-top:#8f8f8f 1px solid;
+	border-bottom:#8f8f8f 1px solid;
+}
+.ui-memblist-usr.mySelf.teacher[data-role="p"]{
+	border-bottom:#8f8f8f 1px solid;
 }
 
 
-
 .ui-memblist-usr[data-role="e"], .ui-memblist-usr[data-role="t"] {
-	background-color: #fffdc4;
-    border-bottom: 1px solid #bac0cd;
-    border-top: 1px solid #e3ce1d;
+	background-color: #f8f7dc;
+	border-bottom: 1px solid #8f8f8f;
+	border-top: 1px solid #ddda86;
 }
 
 
 .ui-memblist-usr.student{
-	border-bottom:#bbbbbb 1px solid; 
+	border-bottom:#8f8f8f 1px solid;
+}
+#virtualclassCont #chat_div, .ui-widget-content.ui-chatbox-content{
+	border:#8f8f8f 1px solid;
+}
+#virtualclassCont .ui-chatbox-log, #virtualclassCont .ui-chatbox-input{
+	border-color:#8f8f8f;
 }
 
-
 .ui-memblist-usr[data-role="p"]{
-	background-color: #e7f4d8;
-	border-top: #bfd2a9 1px solid;
-	border-bottom: #bbbbbb 1px solid;
+	background-color: #f3fbe8;
+	border-top: #b7d094 1px solid;
+	border-bottom: #8f8f8f 1px solid;
 }
 
 #sessionEndMsgCont.popupWindow{
@@ -2865,12 +2861,30 @@ a#contrAudioAll {
 
 #sessionEndMsgCont #sessionEndClose.icon-close{
 	top: 10px;
-    right: 15px;
-    position: absolute;
+	right: 15px;
+	position: absolute;
 	cursor : pointer;
 }
+.ui-memblist-usr{
+	margin-top: -1px;
+}
 
+#virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos{
+	margin-top: 9px;
+	margin-bottom: 9px;
+}
 
+.userImg.ui-memblist-usr.mySelf.student a img{
+	background-color: #f2f2f2;
+	border: #8f8f8f 1px solid;
+}
 
+/* */
 
+#virtualclassCont #audioWidget{
+	right: 11px;
+}
 
+#virtualclassCont .vmchat_bar_button{
+	border-color:#8f8f8f;
+}

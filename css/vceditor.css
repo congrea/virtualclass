@@ -20,7 +20,7 @@
 }
 
 #virtualclassCont .vceditor-with-toolbar .CodeMirror {
-  top: 71px;
+  top: 70px;
   padding-left: 10px;
 }
 
@@ -127,10 +127,10 @@
 }
 
 #virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
-	margin-right: 10px;
+  margin-right: 10px;
 }
 #virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child{
-	margin-right: 0px;
+  margin-right: 0px;
 }
 
 #virtualclassCont a.vceditor-btn, #virtualclassCont a.vceditor-btn:visited, #virtualclassCont a.vceditor-btn:active {
@@ -145,7 +145,7 @@
   background-color: #fcfcfc;
   border: 1px solid #c9c9c9;
   border-bottom-width: 4px;
-  color: #9c9c9c;
+  color: #606060;
 }
 
 #virtualclassCont a.vceditor-btn:hover {

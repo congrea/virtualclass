@@ -27,17 +27,17 @@
 }
 
 #virtualclassCont .ui-chatbox-log {
-	background-color: #fff;	
-	border-top:none;
-	border-bottom: :none;
+    background-color: #fff;
+    border-top:none;
+    border-bottom: none;
     padding: 10px 3px;
     height: 155px;
     overflow-y: auto;
 }
 
 #virtualclassCont .ui-chatbox-input {
-	background-color: #fff;
-	border-top:none;
+    background-color: #fff;
+    border-top:none;
     border-bottom: none;
     overflow: hidden;
     clear: both;
@@ -66,7 +66,7 @@
 
 /*css for userlist*/
 
-ui-memblist-usr
+.ui-memblist-usr
 {
     float: left;
     clear: both;
@@ -93,8 +93,8 @@ ui-memblist-usr
     border: 0px;
 }
 #virtualclassCont .ui-memblist-log {
-	padding-top:6px;
-	padding-bottom:15px;
+    padding-top:0px;
+    padding-bottom:15px;
     background: #FFFFFF;
 }
 /*
@@ -108,13 +108,15 @@ ui-memblist-usr
 	margin-top:8px !important;
 }
 */
+/*
 #virtualclassCont .ui-memblist-log div.teacher:last-child {
 	margin-top:5px;
 	margin-bottom:8px;
 }
+*/
 
 #virtualclassCont .ui-memblist-log div.teacher:last-child {
-	margin-bottom:8px !important;
+    margin-bottom:0px !important;
 }
 
 /*css for sticky footer bar*/
@@ -135,7 +137,7 @@ ui-memblist-usr
     padding-top: 11px;
     border: none;
     font-size:13px;
-     text-transform: capitalize;
+    text-transform: capitalize;
 }
 #virtualclassCont #closebtn {
     border:0;
@@ -154,7 +156,7 @@ ui-memblist-usr
 }
 
 #virtualclassCont #hide_bar input.expand{
-	margin-top: 5px;
+    margin-top: 5px;
     background:url('../images/open.png') top no-repeat;
 }
 #virtualclassCont .vmchat_close_bt{
@@ -168,8 +170,8 @@ ui-memblist-usr
     float: right;
 }
 #virtualclassCont .vmchat_bar_button {
-    border-right: 1px solid #bac0cd;
-    border-left: 1px solid #bac0cd;
+    border-right: 1px solid #8f8f8f;
+    border-left: 1px solid #8f8f8f;
     color: #000;
     cursor: pointer;
     height: 42px;
@@ -186,7 +188,7 @@ ui-memblist-usr
     white-space: nowrap;
 }
 #virtualclassCont .vmchat_room_bt {
-    border-right: 1px solid #BAC0CD;
+    border-right: 1px solid #8f8f8f;
     border-left: 1px solid transparent;
     color: #000;
     cursor: pointer;
@@ -229,16 +231,16 @@ ui-memblist-usr
 
 
 #virtualclassCont .ui-chatroom-titlebar, #virtualclassCont .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, #virtualclassCont .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header{
-	font-weight: normal;
-	padding: 8px 0px;
-	height: 18px;
+    font-weight: normal;
+    padding: 8px 0px;
+    height: 18px;
 }
 
 #virtualclassCont .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header{
-	padding: 5px 0px 15px;
+    padding: 5px 0px 15px;
 }
 .ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header span{
-	vertical-align: top;
+    vertical-align: top;
 }
 
 #virtualclassCont .ui-chatroom-content {
@@ -277,14 +279,14 @@ ui-memblist-usr
 }
 #virtualclassCont .minimize{
     left: 96.2%;
-     height: 40px;
-     right:0;
-     width: 40px;
+    height: 40px;
+    right:0;
+    width: 40px;
 }
 #virtualclassCont .maximize{
     left: 0;
     width:100%;
-     height: 41px;
+    height: 41px;
 }
 
 
@@ -303,7 +305,7 @@ ui-memblist-usr
     background:none;
 }
 #virtualclassCont .mainContainer textarea{
-    background-color:#ffffd;
+    background-color:#ffffdd;
 }
 #virtualclassCont .mainContainer .ui-widget-header{
     width:500px;
@@ -328,7 +330,7 @@ ui-memblist-usr
 /* tab css */
 #virtualclassCont .ui-tabs,.ui-tabs .ui-tabs-nav{
     padding: 0;
-   }
+}
 #virtualclassCont .ui-tabs .ui-tabs-nav li {
     float:right;
     white-space:normal;
@@ -349,7 +351,7 @@ ui-memblist-usr
 /*message notification*/
 
 #virtualclassCont .notify:before{
-  border-top: 6px solid rgba(0, 0, 0, 0.2);
+    border-top: 6px solid rgba(0, 0, 0, 0.2);
     border-left: 6px solid rgba(0, 0, 0, 0);
     border-right: 6px solid rgba(0, 0, 0, 0);
     content: "";
@@ -359,7 +361,7 @@ ui-memblist-usr
     top: 16px;
 }
 #virtualclassCont .notify:after{
- border-top: 5px solid #ff0000;
+    border-top: 5px solid #ff0000;
     border-left: 5px solid rgba(0, 0, 0, 0);
     border-right: 5px solid rgba(0, 0, 0, 0);
     content: "";
@@ -387,10 +389,10 @@ ui-memblist-usr
 
 /*----------------Susmita----------------*/
 #virtualclassCont .ui-state-default, #virtualclassCont .ui-widget-content .ui-state-default, #virtualclassCont .ui-widget-header .ui-state-default{
-     height: 40px;
-      border: 1px solid #ccc;
-      border-top: none;
-      border-radius: 0;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0;
     -webkit-border-bottom-right-radius: 6px;
     -webkit-border-bottom-left-radius: 6px;
     -moz-border-radius-bottomright: 6px;
@@ -402,7 +404,7 @@ ui-memblist-usr
 #virtualclassCont .ui-chatbox-input textarea{
     font-size: 15px;
     border: 1px solid #ccc !important;
-    padding: 0; /* override moodle textarea css*/
+    padding: 4px 0 0 5px;
 }
 
 #virtualclassCont .ui-widget-header .ui-corner-all{
@@ -411,7 +413,7 @@ ui-memblist-usr
 }
 #virtualclassCont .ui-widget-content .ui-corner-all{
     border: none;
- 
+
 }
 
 
@@ -422,13 +424,13 @@ ui-memblist-usr
 #virtualclassCont .ui-memblist-usr a span{
     font-size: 12px;
     text-transform: capitalize;
-    margin-left : 5px; 
+    margin-left : 5px;
 }
 #virtualclassCont .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
     top: -1px !important;}
 
 #virtualclassCont .ui-tabs .ui-tabs-nav li.ui-tabs-active{
-    border: 1px solid #bac0cd;
+    border: 1px solid #8f8f8f;
     border-top: none;
     position: relative;
     top: 0px;
@@ -450,4 +452,8 @@ ui-memblist-usr
 
 
 #virtualclassCont #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
+
+.ui-widget-content.ui-chatbox-input-box.ui-corner-all{
+    width: 212px !important;
+}
 

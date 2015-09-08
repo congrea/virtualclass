@@ -810,19 +810,19 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-/*
-	 background-color: #d4d4d4;
-     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
-     background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: linear-gradient(#fbfbfb, #d4d4d4);
-*/
-     border:#bac0cd 1px solid;
+	/*
+         background-color: #d4d4d4;
+         background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
+         background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
+         background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
+         background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
+         background-image: linear-gradient(#fbfbfb, #d4d4d4);
+    */
+	border:#bac0cd 1px solid;
 
 }
 #tabs.ui-widget-content{
-	 box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
 }
 
 
@@ -831,18 +831,18 @@ body .ui-tooltip {
 	color: #222222/*{fcContent}*/;
 }
 .ui-widget-header {
-	 background-color: #d4d4d4;
-     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
-     background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: linear-gradient(#fbfbfb, #d4d4d4);
-	border: 1px solid #aaaaaa/*{borderColorHeader}*/;
+	background-color: #d4d4d4;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
+	background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
+	background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
+	background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
+	background-image: linear-gradient(#fbfbfb, #d4d4d4);
+	border: 1px solid #8f8f8f/*{borderColorHeader}*/;
 	color: #222222/*{fcHeader}*/;
 	font-weight: bold;
 }
 #chat_div..ui-widget-content{
-	 box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 .ui-widget-header a {
@@ -910,7 +910,7 @@ body .ui-tooltip {
 	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
 	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
 	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-    background: #e0dcc3 !important; /* Old browsers */
+	background: #e0dcc3 !important; /* Old browsers */
 	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
@@ -933,7 +933,7 @@ body .ui-tooltip {
 	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
 	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
-    border: 1px solid #aaaaaa !important;
+	border: 1px solid #aaaaaa !important;
 
 }
 
@@ -1003,14 +1003,14 @@ body .ui-tooltip {
 }
 .ui-state-default .ui-icon {
 	background-image: url(images/ui-icons_888888_256x240.png);
- }
+}
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
 	background-image: url(images/ui-icons_454545_256x240.png);
- }
+}
 .ui-state-active .ui-icon {
 	background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive}*/;
- }
+}
 .ui-state-highlight .ui-icon {
 	background-image: url(images/ui-icons_2e83ff_256x240.png)/*{iconsHighlight}*/;
 }
@@ -1197,7 +1197,7 @@ body .ui-tooltip {
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
 .ui-icon-minusthick {
-background-position: -64px -128px !important;
+	background-position: -64px -128px !important;
 }
 
 

@@ -52,10 +52,16 @@
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {
                             if (!videoObj.hasOwnProperty('fromReload')) {
-                                (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+
+                                // When student try to share the youtube video
+                                if(typeof videoId == 'undefined'){
+                                   this.UI.defaultLayoutForStudent();
+                                } else{
+                                    (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+                                }
+
                             }
                             //this.onYTIframApi(videoId, startFrom, 'fromReload');
-
                         }
                     }
                 } else {

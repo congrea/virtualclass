@@ -1200,6 +1200,10 @@
 	border-top-color : #aaa;
 }
 
+#virtualclassCont.presentor #vcanvas {
+	border:none;
+}
+
 #virtualclassCont #speakerStudent #speakerPressing a:hover img {
 	opacity : 0.5;
 }
@@ -2160,6 +2164,10 @@
 
 #virtualclassCont.teacher #virtualclassYts {
 	margin-left : 60px;
+}
+
+#virtualclassCont.teacher.educator #virtualclassYts {
+	margin-left : 10px;
 }
 
 #virtualclassCont #virtualclassYts {

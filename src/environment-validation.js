@@ -33,7 +33,6 @@
          */
         // TODO parameter passed are not being used 
         isWebSocketSupport: function (navigator, browser, version) {
-
             if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
                 return true;
             } else {
@@ -198,7 +197,9 @@
         reportBrowser: function (user) {
             var errors = this.getErrors(user);
             if (errors.length > 1) {
+
                 virtualclass.error.push(errors.join(",") + " are disabled in your browser.");
+
             } else if (errors.length == 1) {
                 virtualclass.error.push(errors + ' is disabled in your browser.');
             }
@@ -277,22 +278,26 @@
                 if (roles.hasControls()) {
 //                        virtualclass.gObj.errNotDesktop = true;
                     virtualclass.vutil.initDisableVirtualClass();
-                    virtualclass.error.push("We support only desktop computer not  any tablet and mobile for teacher.");
+                    virtualclass.error.push(virtualclass.lang.getString('supportDesktopOnly'));
 
                 } else {
                     if (androidDevice) {
                         if (bname == 'Chrome') {
                             if (bversion >= 40) {
-
                                 //     DO : Disable Audio Controls and Cam Support for this user
                                 virtualclass.vutil.initDisableAudVid();
 
                             } else {
-                                virtualclass.error.push(bname + ' ' + bversion + ' ' + " is not supported, we support chrome  versoin 40 or newer on Android");
+                                virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
                                 virtualclass.vutil.initDisableVirtualClass();
                             }
                         } else {
-                            virtualclass.error.push(bname + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
+
+                            //virtualclass.error.push(bname + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
+
+                            virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));;
+
+
                             virtualclass.vutil.initDisableVirtualClass();
                         }
                     }
@@ -338,7 +343,7 @@
                             virtualclass.gObj.iosIpadbAudTrue = false;
                             //iosIpadbAudTrue
                             var iosAudTrigger = document.createElement('div');
-                            iosAudTrigger.innerHTML = "Tap here for enable the audio";
+                            iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
                             iosAudTrigger.id = "iosAudioTrigger";
                             iosAudTrigger.addEventListener('click', function () {
                                 virtualclass.vutil.firstiOSaudioCall();
@@ -376,22 +381,6 @@
 //                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
             }
         }
-
-//            check : function (){
-//                var vendeor = this.mybrowser.detection();
-//                bname = vendeor[0];
-//                bversion = parseFloat(vendeor[1]);
-//
-////                this.isCanvasSupport(navigator, browserName, browserVersion);
-////                this.isWebRtcSupport(navigator, browserName, browserVersion);
-////                this.isWebSocketSupport(navigator, browserName, browserVersion);
-//                this.checkBrowserFunctions();
-////                this.isBrowserCompatible(browserName, browserVersion);
-//                if ( this.mybrowser == 'Chrome' &&   bversion  >= 40 ||
-//                        this.mybrowser == 'Firefox' &&   bversion  >= 35)  {
-//                    this.reportBrowser(virtualclass.gObj.uRole);
-//                }    
-//            }
     };
 
     system = system.init();

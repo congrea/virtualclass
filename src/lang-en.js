@@ -46,9 +46,7 @@
         'or click on allow button to share your microphone and camera with other users.',
         'canvasDrawMsg': 'You can click on any tool to draw object ' +
         'with a mouse click, mouse move and mouse up in the Draw Area',
-        //'clearAllWarnMessage': "Do you want to clear the Whiteboard?",
         'clearAllWarnMessage': 'Do you want to remove all objects you have drawn?',
-        //  'con': 'connection on',
         'cof': 'connection off',
         'askForConnect': 'You will be able to perform this action only when other user get connected',
         'msgForReload': "You will be unable to draw the objects after resizing the window. <br />  So, please reload the page for drawing. ",
@@ -124,8 +122,16 @@
         'readonlymode': 'Read Only Mode.',
         'msgForDownloadStart' : 'Your data  could not Upload. <br /> Your record is being prepared for download.',
         'msgForWhiteboard' : 'Teacher may does draw something on whiteboard.',
-         'educator' : 'Educator'
-
-    };
+        'educator' : 'Educator',
+        'supportDesktopOnly' : 'We support only desktop computer not  any tablet and mobile for teacher.',
+        'download' : 'Download',
+        'downloadFile' : 'Download File',
+        'synchMessage' : 'Please wait a while.  Synchronizing with new content.',
+        'iosAudEnable' : 'Tap here for enable the audio',
+        'studentAudEnable' : 'Student Audio Enable',
+        'screensharealready' : "Already the whole screen is being shared.",
+        'editorsynchmsg' : 'Editor is not in sync, please wait for few seconds and try again ',
+        'canvasmissing' : 'Canvas is missing in your browsers. Please update the latest version of your browser'
+};
     window.message = message;
 })(window);

@@ -841,7 +841,8 @@
                             var enAudAnch = document.createElement('a');
                             enAudAnch.id = user.id + imgName + "Anch";
                             enAudAnch.className = "audEnableSign tooltip controleCont";
-                            enAudAnch.setAttribute('data-title', "student audio enable");
+                            enAudAnch.setAttribute('data-title', virtualclass.lang.getString('studentAudEnable'));
+
                             enAudAnch.appendChild(audEnableImg);
                             //audEnableSign.appendChild(audEnableImg);
                             audEnableSign.appendChild(enAudAnch);

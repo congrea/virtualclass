@@ -570,7 +570,7 @@
                     if (!this.PrvAndCurrIsWss(this.previous, appName)) {
                         this.makeAppReady(appName, "byclick");
                     } else {
-                        alert("Already the whole screen is being shared.");
+                        alert(virtualclass.lang.getString('screensharealready'));
                     }
                 }
                 if (appName != "ScreenShare") {

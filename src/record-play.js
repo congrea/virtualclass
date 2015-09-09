@@ -442,14 +442,14 @@
 
                 var downloadButton = document.createElement('button');
                 downloadButton.id = 'downloadButton';
-                downloadButton.innerHTML = "Download File";
+                downloadButton.innerHTML = virtualclass.lang.getString('downloadFile');
 
 
                 var downloadLink = document.createElement('a');
                 downloadLink.id = "dlink";
                 downloadLink.href = "";
                 downloadLink.download = "session.vcp";
-                downloadLink.innerHTML = "DOWNLOAD";
+                downloadLink.innerHTML = virtualclass.lang.getString('download');
 
                 downloadLinkCont.appendChild(downloadButton);
 

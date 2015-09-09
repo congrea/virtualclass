@@ -6,31 +6,33 @@
     var user = function (config) {
         return {
             //TODO function name should be change
-            assignRole: function (role, app) {
-                if (role == 't') {
-                    if(localStorage.getItem('reclaim') == null){
+            assignRole: function (role, app, toUser) {
+
+                if (roles.hasControls()) {
+                    if (!roles.isEducator()) {
+                        // if role is presentator
+                        virtualclass.vutil.enablePresentatorEditors(toUser);
                         virtualclass.html.leftAppBar();
                     }
-
                     virtualclass.attachFunction();
 
-                    //var virtualclassOptionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
-
-                    if(app == 'Whiteboard'){
+                    if (app == 'Whiteboard') {
                         window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     }
 
-                    if (virtualclass.gObj.uRole == 't') {
-                        if (virtualclass.hasOwnProperty('previrtualclass')) {
-                            virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
-                        } else {
-                            virtualclass.vutil.makeActiveApp("virtualclass" + app);
-                        }
+                    // This is already Check at above, no need here
+                    //if (roles.hasControls()) {
 
-                        if(app == 'Whiteboard'){
-                            virtualclass.wb.utility.makeCanvasEnable();
-                        }
+                    if (virtualclass.hasOwnProperty('previrtualclass')) {
+                        virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
+                    } else {
+                        virtualclass.vutil.makeActiveApp("virtualclass" + app);
                     }
+
+                    if (app == 'Whiteboard') {
+                        virtualclass.wb.utility.makeCanvasEnable();
+                    }
+                    //}
                 }
             },
 
@@ -54,7 +56,7 @@
                 return controlCont;
             },
 
-            createControllerElement : function (userId, imgName) {
+            createControllerElement: function (userId, imgName) {
                 var elemBlock = document.createElement('span');
                 elemBlock.id = userId + imgName + "Img";
 
@@ -91,7 +93,7 @@
                 } else {
                     controlCont.appendChild(controller);
                 }
-				
+
                 virtualclass.user.control.changeAttribute(userId, assignBlock, aRoleEnable, 'assign', 'aRole');
 
                 if (typeof currTeacher != 'undefined') {
@@ -104,9 +106,8 @@
             },
 
 
-            // TODO this function should be normalize with other
-            // should be converted into smaller funciton rather than single
             createControlDivs: function (controlCont, userId, controls) {
+
                 var that = this;
                 //var userObj = localStorage.getItem(userId);
                 var uObj = false;
@@ -127,12 +128,14 @@
                 }
 
 
-                var assignDisable = localStorage.getItem('reclaim');
-                if (assignDisable != null && assignDisable) {
-                    var aRoleEnable = false;
-                } else {
-                    var aRoleEnable = true;
-                }
+                //var assignDisable = localStorage.getItem('reclaim');
+                //if (roles.isEducator()) {
+                //    var aRoleEnable = false;
+                //} else {
+                //    var aRoleEnable = true;
+                //}
+
+                var aRoleEnable = roles.isEducator() ? false : true;
 
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 var isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
@@ -181,29 +184,29 @@
                             });
                         }
 
-                        if (uObj && userObj.hasOwnProperty('ch')) {
-                            var chEnable = (userObj.ch) ? true : false;
+                        if (uObj && userObj.hasOwnProperty('chat')) {
+                            var chEnable = (userObj.chat) ? true : false;
                         } else {
                             var chEnable = true;
                         }
-                        virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'ch');
+                        virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'chat');
 
-                    } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')){
-                        if(localStorage.hasOwnProperty('orginalTeacherId')){
+                    } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
+                        if (roles.hasAdmin()) {
                             if (uObj && userObj.hasOwnProperty(controls[i])) {
                                 var editorBlockEnable = (userObj[controls[i]]) ? true : false;
                             } else {
                                 var editorBlockEnable = false; //By default it would be false
                             }
 
-                            var elems = this.createControllerElement(userId,  'contr' + controls[i]);
+                            var elems = this.createControllerElement(userId, 'contr' + controls[i]);
                             var controller = elems[0];
                             var editorBlock = elems[1];
                             controller.className += ' controller' + controls[i];
 
                             controlCont.appendChild(controller);
 
-                            if(virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])){
+                            if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                                 controller.style.display = 'none';
                             }
 
@@ -217,9 +220,8 @@
                 }
             },
 
-            closureEditor : function (that, editorBlock){
-                return function(){
-                    //alert('you clicked' + i);
+            closureEditor: function (that, editorBlock) {
+                return function () {
                     that.control.init.call(that, editorBlock);
                 }
             },
@@ -231,22 +233,24 @@
                  * @param editorType type of editor
                  * @param writeMode readonly OR write and read mode
                  */
-                toggleDisplayWriteModeMsgBox : function (editorType, writeMode){
+                toggleDisplayWriteModeMsgBox: function (editorType, writeMode) {
 
-                    var writeModeBox = document.getElementById(editorType+'writeModeBox');
+                    var writeModeBox = document.getElementById(editorType + 'writeModeBox');
+                    var modeMessage = (writeMode) ? virtualclass.lang.getString("writemode") : virtualclass.lang.getString("readonlymode");
+                    var editorBody = document.getElementById('virtualclass' + editorType + 'Body');
 
-
-                    var modeMessage = (writeMode)  ? virtualclass.lang.getString("writemode") :  virtualclass.lang.getString("readonlymode");
-                    if(writeModeBox == null){
+                    if (writeModeBox == null && editorBody != null) {
                         writeModeBox = document.createElement('div');
                         writeModeBox.id = editorType + 'writeModeBox';
-                        document.getElementById('virtualclass' + editorType + 'Body').appendChild(writeModeBox);
+                        editorBody.appendChild(writeModeBox);
                     }
-                    writeModeBox.className = 'writeModeBox';
-                    writeModeBox.dataset.writeMode = writeMode;
-                    writeModeBox.innerHTML = modeMessage;
+                    if(writeModeBox != null){
+                        writeModeBox.className = 'writeModeBox';
+                        writeModeBox.dataset.writeMode = writeMode;
+                        writeModeBox.innerHTML = modeMessage;
+                    }
 
-                    if(editorType == "EditorRich"){
+                    if (editorType == "EditorRich") {
                         this.tooglDisplayEditorToolBar(writeMode);
                     }
                 },
@@ -255,14 +259,14 @@
                  * Either enable or disable toolbar of Editor Rich Text
                  * @param writeMode expects true or flase
                  */
-                tooglDisplayEditorToolBar : function (writeMode){
+                tooglDisplayEditorToolBar: function (writeMode) {
                     var editorToolBars = document.getElementsByClassName('vceditor-toolbar');
                     var editorToolBar = editorToolBars[0];
-                    if(editorToolBars.length > 0){
-                        if(writeMode){
+                    if (editorToolBars.length > 0) {
+                        if (writeMode) {
                             editorToolBar.style.pointerEvents = 'visible';
                             editorToolBar.style.opacity = "1";
-                        }else {
+                        } else {
                             editorToolBar.style.pointerEvents = 'none';
                             editorToolBar.style.opacity = "0.5";
                         }
@@ -270,20 +274,30 @@
                     }
                 },
 
-                //TODO this funciton should be improved
-                received_editorRich : function (msg){
+                // TODO this funciton should be improved with received_editorCode
+                received_editorRich: function (msg) {
                     var action;
-                    if(msg.status){
-                        if(virtualclass.gObj.uid == msg.toUser){
-                            virtualclass.editorRich.cm.setOption('readOnly', false);
+                    if (msg.status ) {
+
+                        if (virtualclass.gObj.uid == msg.toUser) {
+                            if(typeof virtualclass.editorRich.cm == 'object' && !virtualclass.isPlayMode){
+                                virtualclass.editorRich.cm.setOption('readOnly', false);
+                            }
+
                         } else {
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
+                        }
+
+                        if(virtualclass.isPlayMode){
+                            virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;
                         localStorage.setItem('editorRich', action);
                     } else {
-                        if(virtualclass.gObj.uid == msg.toUser){
-                            virtualclass.editorRich.cm.setOption('readOnly', true);
+                        if (virtualclass.gObj.uid == msg.toUser) {
+                            if(typeof virtualclass.editorRich.cm == 'object'){
+                                virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
+                            }
                         } else {
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
@@ -291,44 +305,59 @@
                         localStorage.setItem('editorRich', action);
                     }
 
-                    if(localStorage.getItem('orginalTeacherId') == null){
+                    if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                     }
 
                 },
 
-                //TODO this funciton should be improved
-                received_editorCode : function (msg){
+                /**
+                 * When enable and disable editor code by footer control
+                 * @param msg infomration about control
+                 */
+                // TODO this function should be improved with received_editorRich
+                received_editorCode: function (msg) {
                     var action;
-                    if(msg.status){
-                        if(virtualclass.gObj.uid == msg.toUser){
-                            virtualclass.editorCode.cm.setOption('readOnly', false);
+                    if (msg.status) {
+                        if (virtualclass.gObj.uid == msg.toUser) {
+                            if(typeof virtualclass.editorCode.cm == 'object' && !virtualclass.isPlayMode){
+                                virtualclass.editorCode.cm.setOption('readOnly', false);
+                            }
+
                         } else {
                             this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
+                        }
+
+                        if(virtualclass.isPlayMode){
+                            virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;
                         localStorage.setItem('editorCode', action);
                     } else {
-                        if(virtualclass.gObj.uid == msg.toUser){
-                            virtualclass.editorCode.cm.setOption('readOnly', true);
+                        if (virtualclass.gObj.uid == msg.toUser) {
+                            if(typeof virtualclass.editorCode.cm == 'object'){
+                                virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
+                            }
+
                         } else {
                             this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }
                         action = false;
                         localStorage.setItem('editorCode', action);
                     }
-                    if(localStorage.getItem('orginalTeacherId') == null){
+
+                    if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
 
                 },
 
-                onmessage : function (e){
-                   this['received_' + e.message.control](e.message);
+                onmessage: function (e) {
+                    this['received_' + e.message.control](e.message);
 
-                   //if(virtualclass.gObj.uid == e.message.toUser){
-                   //    this['received_' + e.message.control](e.message);
-                   //}
+                    //if(virtualclass.gObj.uid == e.message.toUser){
+                    //    this['received_' + e.message.control](e.message);
+                    //}
                 },
 
                 addCurrTeacherToControl: function (id) {
@@ -361,7 +390,7 @@
 
                 disable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    if(elem == null){
+                    if (elem == null) {
                         return;
                     }
                     virtualclass.user.control._disable(elem, control, toUser, label);
@@ -373,8 +402,8 @@
 
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
-					
-					elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
+
+                    elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
                     if (control == 'assign') {
                         elem.parentNode.classList.remove('tooltip');
                         this.addCurrTeacherToControl(elem.id);
@@ -392,21 +421,19 @@
                             }
                         }
                     } else if (control == 'audio') {
-                        //alert('suman bogati');
-                        //debugger;
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
                     }
-/*					else {
-                        elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
-                    }
-*/
+                    /*					else {
+                     elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
+                     }
+                     */
                     virtualclass.user.control.updateUser(userId, label, false);
                 },
 
 
                 enable: function (toUser, control, contIdPart, label) {
                     var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    if(elem == null){
+                    if (elem == null) {
                         console.log("Element is Null");
                         return;
                     }
@@ -434,7 +461,7 @@
 
                 init: function (tag, defaultAction, searchBy) {
 
-                    if(typeof searchBy != 'undefined'){
+                    if (typeof searchBy != 'undefined') {
                         searchBy = searchBy;
                     } else {
                         searchBy = "Img";
@@ -458,28 +485,28 @@
                             virtualclass.user.control.changeAttrToAssign('block');
                         }
 
-                        if (localStorage.getItem('orginalTeacherId') == null) {
+                        if (!roles.hasAdmin()) {
                             virtualclass.user.control.removeAudioFromParticipate(userId);
                         }
                     } else {
                         var action, ctrType, boolVal;
                         //TODO this should be generalise
-                        if(control == 'Chat'){
+                        if (control == 'Chat') {
                             tag.className = 'contrChatBlock';
                             ctrType = 'chat'
-                        }else if(control == 'Aud'){
+                        } else if (control == 'Aud') {
                             ctrType = 'audio';
-                        }else {
+                        } else {
                             ctrType = control;
                         }
 
-                        if(typeof defaultAction != 'undefined'){
+                        if (typeof defaultAction != 'undefined') {
                             boolVal = (defaultAction == 'enable') ? true : false;
 
                             action = (boolVal) ? 'enable' : 'block';
 
                         } else {
-                            if (tag.getAttribute('data-'+ctrType+'-disable') == 'true') {
+                            if (tag.getAttribute('data-' + ctrType + '-disable') == 'true') {
                                 action = 'enable';
                                 boolVal = true;
 
@@ -491,7 +518,7 @@
                         }
 
                         this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                        this.control['_'+ctrType].call(this.control, userId, action);
+                        this.control['_' + ctrType].call(this.control, userId, action);
 
                     }
                 },
@@ -514,7 +541,7 @@
                             virtualclass.user.control.changeAttrToAssign('block');
                         }
 
-                        if (localStorage.getItem('orginalTeacherId') == null) {
+                        if (!roles.hasAdmin()) {
                             virtualclass.user.control.removeAudioFromParticipate(userId);
                         }
                     } else if (control == 'Chat') {
@@ -523,10 +550,10 @@
                         if (tag.getAttribute('data-chat-disable') == 'true') {
                             tag.className = 'contrChatBlock';
                             action = 'enable';
-                            this.control.changeAttribute(userId, tag, true, 'chat', 'ch');
+                            this.control.changeAttribute(userId, tag, true, 'chat', 'chat');
                         } else {
                             action = 'block';
-                            this.control.changeAttribute(userId, tag, false, 'chat', 'ch');
+                            this.control.changeAttribute(userId, tag, false, 'chat', 'chat');
                         }
                         this.control._chat(userId, action);
                     } else if (control == 'Aud') {
@@ -543,9 +570,14 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
-                   virtualclass.vutil.assignRole();
+                    virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
-                    if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                    //if(virtualclass.currApp != 'Whiteboard'){
+                        virtualclass.system.setAppDimension();
+                        // After resize we need tor render all the drawn object on whiteboard
+                        virtualclass.vutil.renderWhiteboardObjectsIfAny();
+                    //}
+                    if (!roles.hasAdmin()) {
                         var canvasWrapper = document.getElementById("vcanvas");
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
                         canvasWrapper.className = 'student';
@@ -568,9 +600,9 @@
                     }
 
                     if (typeof notsent == 'undefined') {
-                      virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'}, userId);
                     }
-                    if (localStorage.getItem('orginalTeacherId') == null) {
+                    if (!roles.hasAdmin()) {
                         if (typeof fromUserId == 'undefined') {
                             fromUserId = userId;
                         }
@@ -582,43 +614,74 @@
                 },
                 _chat: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'enc': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
                     } else {
-                        var user = virtualclass.user.control.updateUser(userId, 'ch', false);
-                      virtualclass.vutil.beforeSend({'dic': true, toUser: userId});
+                        var user = virtualclass.user.control.updateUser(userId, 'chat', false);
+                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
                     }
                 },
+
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
-                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
+                    }
+                },
+
+
+                _audioAll : function (userId, action) {
+
+                    if (action == 'enable') {
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
+                    } else {
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
                     }
                 },
 
                 _editorRich: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'status': true, control:'editorRich', toUser: userId});
+                        virtualclass.vutil.beforeSend({
+                            'status': true,
+                            control: 'editorRich',
+                            toUser: userId,
+                            'cf': 'control'
+                        }, userId);
                     } else {
-                      virtualclass.vutil.beforeSend({'status': false, control:'editorRich', toUser: userId});
+                        virtualclass.vutil.beforeSend({
+                            'status': false,
+                            control: 'editorRich',
+                            toUser: userId,
+                            'cf': 'control'
+                        }, userId);
                     }
                 },
 
 
                 _editorCode: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'status': true, control:'editorCode', toUser: userId});
+                        virtualclass.vutil.beforeSend({
+                            'status': true,
+                            control: 'editorCode',
+                            toUser: userId,
+                            'cf': 'control'
+                        }, userId);
                     } else {
-                      virtualclass.vutil.beforeSend({'status': false, control:'editorCode', toUser: userId});
+                        virtualclass.vutil.beforeSend({
+                            'status': false,
+                            control: 'editorCode',
+                            toUser: userId,
+                            'cf': 'control'
+                        }, userId);
                     }
                 },
 
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                      virtualclass.vutil.beforeSend({'ena': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
-                      virtualclass.vutil.beforeSend({'dia': true, toUser: userId});
+                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
                     }
                 },
 
@@ -718,16 +781,16 @@
                  * Is use for either diable/enable provided  editor for all user
                  * @param edType
                  */
-                toggleAllEditorController : function (edType, action){
+                toggleAllEditorController: function (edType, action) {
                     edType = virtualclass.vutil.smallizeFirstLetter(edType);
                     var allUsersDom = document.getElementsByClassName('controleCont');
-                    if(allUsersDom.length > 0){
-                        for(var i=0; i<allUsersDom.length; i++){
-                            if(allUsersDom[i].id.indexOf(edType) > 0){
+                    if (allUsersDom.length > 0) {
+                        for (var i = 0; i < allUsersDom.length; i++) {
+                            if (allUsersDom[i].id.indexOf(edType) > 0) {
                                 var idPartPos = allUsersDom[i].id.indexOf('Cont');
-                                if(idPartPos > 0){
+                                if (idPartPos > 0) {
                                     var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                    var elem = document.getElementById(idPart+'Img');
+                                    var elem = document.getElementById(idPart + 'Img');
                                     this.control.init.call(this, elem, action);
                                 }
                             }
@@ -740,11 +803,11 @@
                  * @param editor editor type
                  * @param action show or hidden
                  */
-               toggleDisplayEditorController : function (editor, action){
+                toggleDisplayEditorController: function (editor, action) {
                     editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
-                    var allEditorController = document.getElementsByClassName('controller'+editor);
-                    for(var i=0; i< allEditorController.length; i++){
+                    var allEditorController = document.getElementsByClassName('controller' + editor);
+                    for (var i = 0; i < allEditorController.length; i++) {
                         allEditorController[i].style.display = action;
                     }
                 },
@@ -857,6 +920,118 @@
                         alwaysPress.style.display = 'none';
                     }
                 }
+            },
+
+            /**
+             * disable/enable all the audio
+             * @param action expect either enable/disable
+             */
+            toggleAllAudio: function (action) {
+                var allUsersDom = document.getElementsByClassName('controleCont');
+                if (allUsersDom.length > 0) {
+                    for (var i = 0; i < allUsersDom.length; i++) {
+                        if (allUsersDom[i].id.indexOf('Aud') > 0) {
+                            var idPartPos = allUsersDom[i].id.indexOf('Cont');
+                            if (idPartPos > 0) {
+                                var idPart = allUsersDom[i].id.substr(0, idPartPos);
+                                var elem = document.getElementById(idPart + 'Img');
+                                this.control.init.call(this, elem, action);
+                            }
+                        }
+                    }
+                }
+            },
+
+            /**
+             * Create Audio all Enable/Disable buttons with
+             * it's helper function
+             * @param mainTagId
+             * @param tagClass
+             * @constructor
+             */
+            UIaudioAll : function (mainTagId, tagClass){
+                var anchorTag = document.createElement('a');
+                anchorTag.id = 'contrAudioAll';
+
+
+
+                var spanTag = document.createElement('span');
+                spanTag.id = 'contrAudioAllImg';
+
+
+                var allAudAction = localStorage.getItem('allAudAction');
+
+                if(allAudAction != null &&  allAudAction == 'disable'){
+                    //spanTag.innerHTML = "En Aud All";
+                    spanTag.setAttribute('data-action', 'enable');
+                    spanTag.className = 'icon-all-audio-enable tooltip';
+                    spanTag.dataset.title = 'Enable';
+                }else{
+                    //spanTag.innerHTML = "Dis Aud All";
+                    spanTag.setAttribute('data-action', 'disable');
+                    spanTag.className = 'icon-all-audio-disable tooltip';
+                    spanTag.dataset.title = 'Disable';
+                }
+
+
+
+                var that = this;
+
+                spanTag.addEventListener('click', function (){
+                    var audioController = document.getElementById('contrAudioAllImg');
+
+
+                    var actionToPerform = that.toogleAudioIcon();
+
+                    //if (audioController != null) {
+                    //    actionToPerform = audioController.dataset.action;
+                    //    if (audioController.dataset.action == 'enable') {
+                    //        audioController.dataset.action = 'disable';
+                    //        audioController.innerHTML = "Disable All";
+                    //    } else {
+                    //        audioController.dataset.action = 'enable';
+                    //        audioController.innerHTML = "Enable All";
+                    //    }
+                    //}
+
+                    if(typeof actionToPerform != 'undefined'){
+
+                        localStorage.setItem('allAudAction', actionToPerform);
+                        that.toggleAllAudio.call(virtualclass.user, actionToPerform);
+                    }
+                });
+
+                anchorTag.appendChild(spanTag);
+                var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];
+                parentNode.appendChild(anchorTag);
+            },
+
+            toogleAudioIcon : function (){
+                var audioController = document.getElementById('contrAudioAllImg');
+                if (audioController != null) {
+                    actionToPerform = audioController.dataset.action;
+
+                    if (audioController.dataset.action == 'enable') {
+
+                        audioController.dataset.action = 'disable';
+                        //audioController.innerHTML = "Dis Aud All";
+                        audioController.className = 'icon-all-audio-disable tooltip';
+                        audioController.dataset.title = 'Disable';
+
+                    } else {
+                        audioController.dataset.action = 'enable';
+                        //audioController.innerHTML = "En Aud All";
+                        audioController.className = 'icon-all-audio-enable tooltip';
+                        audioController.dataset.title = 'Enable';
+
+                    }
+                    return actionToPerform;
+                }
+            },
+
+            changeRoleOnFooter : function (id, role){
+                var footerDiv = document.getElementById("ml" + id);
+                footerDiv.dataset.role = role;
             }
         }
     };

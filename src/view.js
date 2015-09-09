@@ -4,14 +4,26 @@
  */
 (function (window) {
     var view = {
+        /*
+         * Initializing the view 
+         * @returns view object
+         */
         init: function () {
             this.msgBoxClass = 'msgBox';
             this.window = {};
             this.virtualWindow = {};
             return this;
         },
-
+        /*
+         * 
+         * @param  msg message to be displayed
+         * @param  id id of the container
+         * @param  className of the container
+         * @param intoAppend element to which message box is appended
+         * @param  imageTag  boolean value
+         */
         displayMessage: function (msg, id, className, intoAppend, imageTag) {
+
             if (typeof imageTag == 'undefined') {
                 var msgBox = this.createMsgBox(msg, id, className);
             } else {
@@ -24,9 +36,14 @@
                 parTag.insertBefore(msgBox, parTag.childNodes[0]);
             }
         },
-
+        /*
+         * Generating error message
+         * @param  msg Message to be displayed as an error
+         * @param  contId id of the error container
+         * @param  addBefore id of the containere before which error container to be placed
+         * @return errorCont.id id of the error container
+         */
         createErrorMsg: function (msg, contId, addBefore) {
-
             var errorCont = document.getElementById(contId);
             if (errorCont == null) {
                 var errorCont = document.createElement('div');
@@ -41,7 +58,12 @@
             addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
             return errorCont.id;
         },
-
+        /*
+         * Removes the error message
+         * @param  id of the error container
+         * @param  onlyLatest boolean value  true or false
+         * @returns doesnt return anything
+         */
         removeErrorMsg: function (id, onlyLatest) {
             var delNode = document.getElementById(id);
             if (typeof onlyLatest != 'undefined') {
@@ -54,12 +76,18 @@
             }
             delNode.parentNode.removeChild(delNode);
         },
-
+        // Todo no need of this function
         removeErrorContainer: function (id) {
             var element = document.getElementById(id);
             element.parentNode.removeChild(element);
         },
-
+        /*
+         * Creating HTML element
+         * @param  tagName tag to be created
+         * @param  id id of the tag name
+         * @param className classname of the tag
+         * @returns  tag return tag name
+         */
         customCreateElement: function (tagName, id, className) {
             var tag = document.createElement(tagName);
             if (typeof id != 'undefined') {
@@ -71,28 +99,43 @@
             }
             return tag;
         },
-
+        /*
+         * creating the message box to be displayed
+         * @param  msg message to be displayed 
+         * @param id id of the container
+         * @param  className class of the container
+         * @param imageTag boolean value
+         * @returns returns the container for the message
+         */
         createMsgBox: function (msg, id, className, imageTag) {
+
             var divTag = this.customCreateElement('div', id, className);
             if (typeof imageTag == 'undefined') {
                 var imageHolder = this.customCreateElement('div', id + 'img', className + 'img');
                 divTag.appendChild(imageHolder);
             }
-
             var pTag = this.customCreateElement('p', id + 'Para');
             pTag.innerHTML = msg;
             divTag.appendChild(pTag);
             return divTag;
         },
-
+        /*
+         * Removing  message boxes those are not needed on selection of an api application.
+         * @param classname classname of the message box that are not needed
+         */
         disappearBox: function (className) {
+
             var allDivs = document.getElementsByClassName(this.msgBoxClass + className);
             if (allDivs[0] != null) {
                 allDivs[0].parentNode.removeChild(allDivs[0]);
             }
         },
-
+        /*
+         * Checking for the availability of webRtc
+         * @param classname class webRtc
+         */
         multiMediaMsg: function (className) {
+
             if (virtualclass.system.mybrowser.name == 'Firefox') {
                 var msg = virtualclass.lang.getString('wbrtcMsgFireFox');
                 this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
@@ -102,7 +145,10 @@
                 this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
             }
         },
-
+        /*
+         * displaying the message on canvas drawing
+         * @param  className
+         */
         canvasDrawMsg: function (className) {
             var mainContainer = document.getElementById('vcanvas');
             mainContainer.className = 'canvasMsgBoxParent';
@@ -115,12 +161,20 @@
                 this.displayMessage(msg, "canvasDrawMsgContChrome", this.msgBoxClass + className, 'containerWb');
             }
         },
+        /*
+         * Drawing the label
+         * @param className class of the label
 
+         */
         drawLabel: function (className) {
             var msg = virtualclass.lang.getString('drawArea');
             this.displayMessage(msg, "canvasDrawArea", this.msgBoxClass + className, 'containerWb', false);
         },
-
+        /*
+         * displaying message
+         * @param  id   id of the element
+         * @param  msg message to be displayed
+         */
         displayMsgBox: function (id, msg) {
             var div = this.customCreateElement('div', id);
             var p = this.customCreateElement('p', id + "Para");
@@ -137,21 +191,32 @@
             var virtualclassCont = document.getElementById('virtualclassCont');
             virtualclassCont.insertBefore(div, virtualclassCont.firstChild);
         },
+        /*
+         * Displaying server errors
+         * @param id    id of the container to display message
+         * @param msg   message to be displayed
 
+         */
         displayServerError: function (id, msg) {
             var div = this.customCreateElement('div', id);
             div.innerHTML = msg;
             var vcanvas = document.getElementById('vcanvas');
             vcanvas.parentNode.insertBefore(div, vcanvas);
         },
-
+        /*
+         * 
+         * @param  id id of the element to be removed
+         * @returns 
+         */
         removeElement: function (id) {
             var errorDiv = document.getElementById(id);
             if (errorDiv != null) {
                 errorDiv.parentNode.removeChild(errorDiv);
             }
         },
-
+        /*
+         * Disabling screen share user interface if screen share is not available
+         */
         disableSSUI: function () {
             var sTool = document.getElementById('virtualclassScreenShareTool');
             if (sTool != null) {
@@ -159,7 +224,10 @@
                 sTool.style.pointerEvents = "none";
             }
         },
-
+        /*
+         * Disabling  left application bar if there is an error and virtual class need to be disabled
+         * 
+         */
         disableLeftAppBar: function () {
 
             var lefAppBar = document.getElementById("virtualclassOptionsCont");
@@ -182,10 +250,12 @@
     })();
 
     view.window.resize = function () {
-
         var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
         virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
-        vcan.renderAll();
+        if(virtualclass.currApp == 'Whiteboard'){
+            vcan.renderAll();
+        }
+
     },
 
 //TODO
@@ -211,13 +281,13 @@
                     localStorage.setItem('toolHeight', message.toolHeight);
                 }
 
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     var toolBoxHeight = virtualclass.wb.utility.getWideValueAppliedByCss('commandToolsWrapper');
                     localStorage.setItem('toolHeight', toolBoxHeight);
                 }
 
                 if (e.fromUser.userid != wbUser.id) {
-                    if (localStorage.getItem('teacherId') != null) {
+                    if (roles.hasControls()) {
                         virtualclass.wb.utility.makeCanvasEnable();
                     }
                     otherBrowser = message.browserRes;
@@ -239,15 +309,15 @@
                             // virtualclass.wb.gObj.virtualWindow = true;
                             var canvaContainer = document.getElementById("vcanvas");
                             var rightOffset = virtualclass.wb.utility.getElementRightOffSet(canvaContainer);
-                            if (localStorage.getItem('teacherId') != null) {
-                              virtualclass.vutil.beforeSend({
+                            if (roles.hasControls()) {
+                                virtualclass.vutil.beforeSend({
                                     'virtualWindow': {
                                         'createVirtualWindow': myBrowser - rightOffset,
                                         'toolHeight': toolBoxHeight
                                     }
                                 });
                             } else {
-                              virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
+                                virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
                             }
                         }
                     }

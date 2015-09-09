@@ -73,13 +73,11 @@
                         //virtualclass.user.control.audioSign({id:peer.userid}, "create");
                       //  }
                         
-                        if(localStorage.getItem('teacherId') != null && localStorage.getItem('orginalTeacherId') == null){
+                        if(roles.hasControls() != null && !roles.hasAdmin()){
                             if(peer.userid ==  localStorage.getItem('aId')){
                                 var controls = ['assign'];    
-                                
                                 var controlCont = document.getElementById(peer.userid  + "ControlContainer");
                                 if(controlCont != null){
-
                                     virtualclass.user.createAssignControl(controlCont, peer.userid, true);
                                 }else{
                                     var divContainer = document.getElementById("ml" + peer.userid);
@@ -87,15 +85,9 @@
                                     divContainer.appendChild(divControl);
                                      
                                 }
-//                                var controlDiv = virtualclass.user.createControl(peer.userid, controls);
-//                                e.appendChild(controlDiv);
-                                //localStorage.removeItem('aId');
                             }
                         }
-                        
-                          
-                     //}
-                        
+
                     } else {
                         systemMessage = true;
                     }
@@ -152,6 +144,7 @@
         },
 
         _create: function(){
+
             var self = this,
             options = self.options,
             offset = options.offset,
@@ -286,8 +279,8 @@
 
             self._setWidth(self.options.width);
             self._position(self.options.offset);
-
             self.options.boxManager.init(self);
+            virtualclass.user.UIaudioAll('memlist', 'ui-memblist-titlebar');
 
         },
 

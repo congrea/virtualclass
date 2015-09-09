@@ -22,15 +22,15 @@
             obj: {},
             prvObj: '',
             replayTime: 0,
-            sentPackets: 0,
-            sentPackDiv: 'sentPacket',
-            sentPackDivPS: 'sentPacketPS',
-            receivedPackets: 0,
-            receivedPackDiv: 'receivedNumber',
-            receivedPackDivPS: 'receivedNumberPS',
+          //  sentPackets: 0,
+           // sentPackDiv: 'sentPacket',
+           // sentPackDivPS: 'sentPacketPS',
+           // receivedPackets: 0,
+           // receivedPackDiv: 'receivedNumber',
+            // receivedPackDivPS: 'receivedNumberPS',
             uid: 0,
             lt: '',
-           // commandToolsWrapperId: 'commandToolsWrapper',
+            // commandToolsWrapperId: 'commandToolsWrapper',
             //these are top level object
 //                error: [],
             view: {}, // For display important message to user
@@ -64,7 +64,8 @@
 
                 //IMPORTANT  this is changed during the UNIT testing
                 //onkeydown event is working into all browser.
-                canvasObj.onkeydown = virtualclass.wb.utility.keyOperation;
+                //canvasObj.onkeydown = virtualclass.wb.utility.keyOperation;
+                window.onkeydown = virtualclass.wb.utility.keyOperation;
 
                 virtualclass.system.setAppDimension();
                 if (typeof (Storage) !== "undefined") {
@@ -75,29 +76,18 @@
                 }
 
                 this.arrowInit();
-                var oldData = virtualclass.wb.sentPackets;
-
-                // It's important
-                // Earlier it was virtualclass.clear
-                virtualclass.clear2 = setInterval(function () {
-                    if (document.getElementById(virtualclass.wb.sentPackDivPS) != null) {
-                        oldData = virtualclass.wb.utility.calcPsSentPackets(oldData);
-                        document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;  //update total packets
-                    }
-                }, 1000);
-
-                this._init();
+	            this._init();
             },
 
             _init: function () {
-                if (!virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+              /*  if (!roles.hasAdmin()) {
                     virtualclass.wb.pageEnteredTime = new Date().getTime();
                     localStorage.setItem('pageEnteredTime', virtualclass.wb.pageEnteredTime);
                 } else {
                     virtualclass.wb.pageEnteredTime = localStorage.getItem('pageEnteredTime');
                 }
-
-                virtualclass.wb.oTeacher = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
+                */
+                virtualclass.wb.oTeacher = roles.hasAdmin();
 
                 if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
                     virtualclass.wb.gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
@@ -107,7 +97,7 @@
 
                 // virtualclass.wb.utility.displayCanvas();
 
-                if (virtualclass.gObj.uRole == 't') {
+                if (roles.hasControls()) {
                     window.addEventListener('resize',
                         function () {
                             if (virtualclass.currApp == 'Whiteboard') {
@@ -123,20 +113,12 @@
                     virtualclass.view.disappearBox('drawArea');
                 });
 
-                var storageHasReclaim = virtualclass.vutil.chkValueInLocalStorage('reclaim');
+                // The user's role is already defined
 
-                this.stHasTeacher = virtualclass.vutil.chkValueInLocalStorage('teacherId');
-
-                /*
-				if (virtualclass.vutil.chkValueInLocalStorage('reclaim')) {
-                    var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
-                    virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-                    virtualclass.gObj.uRole = 's';
-                } */
-				
-                if (this.stHasTeacher) {
-                    virtualclass.gObj.uRole = 't';
-                }
+                //this.stHasTeacher = roles.hasControls();
+                //if (this.stHasTeacher) {
+                //    virtualclass.gObj.uRole = 't';
+                //}
 
                 virtualclass.wb.utility.crateCanvasDrawMesssage();
             },
@@ -160,7 +142,7 @@
              */
             createCommand: function () {
                 var alreadyCreated = virtualclass.wb.utility.alreadyExistToolBar();
-                if (alreadyCreated || (localStorage.getItem('reclaim') != null && localStorage.reclaim)) {
+                if (alreadyCreated || (localStorage.getItem('educator') != null && localStorage.reclaim)) {
                     return true;
                 }
 
@@ -259,7 +241,7 @@
              * @param expects the mouse down event.
              */
             objInit: function (evt) {
-                if (virtualclass.gObj.uRole == 't') {
+                if (roles.hasControls()) {
                     if (this.parentNode.id != 't_clearall') {
                         //call back function should be used as second parameter
                         // for action on reposnse of user, cancel, okay
@@ -272,7 +254,7 @@
                 /**important **/
                 if (anchorNode.parentNode.id == 't_replay') {
                     virtualclass.wb.utility.clearAll(false);
-                  virtualclass.vutil.beforeSend({'replayAll': true});
+                    virtualclass.vutil.beforeSend({'replayAll': true, 'cf': replayAll});
                 } else {
                     virtualclass.wb.toolInit(anchorNode.parentNode.id);
                 }
@@ -290,7 +272,7 @@
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        virtualclass.storage.wholeStore(obj);
 
-                  virtualclass.vutil.beforeSend({'repObj': [obj]}); //after optimized
+                    virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
                 }
                 if (this.parentNode.id != 't_clearall') {
                     virtualclass.wb.prvTool = this.parentNode.id;
@@ -305,20 +287,8 @@
              * @param id expects the  id of container which contains all the commands of div
              */
             attachToolFunction: function (id, alreadyCreated) {
-
                 virtualclass.wb.createCommand(alreadyCreated);
-                if (typeof alreadyCreated == 'undefined') {
-                    var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
-                    virtualclass.wb.dataInfo = parseInt(wbUser.dataInfo);
-                    if (orginalTeacherId && virtualclass.wb.dataInfo == 1) {
-                        if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
-                            virtualclass.wb.packContainer.createPacketContainer();
-                            virtualclass.wb.packContainer.createPacketInfoContainer();
-                            virtualclass.wb.utility.initStoredPacketsNumbers();
-                        }
-                    }
-                }
-
+			
                 var allDivs = document.getElementById(id).getElementsByTagName('div');
                 for (var i = 0; i < allDivs.length; i++) {
                     //TODO this will have to be fixed as it always assigned t_clearall
@@ -335,9 +305,7 @@
                 if (typeof virtualclass.wb.obj.drawTextObj == 'object' && virtualclass.wb.obj.drawTextObj.wmode == true) {
                     var ctx = vcan.main.canvas.getContext('2d');
                 }
-
                 var allChilds = virtualclass.wb.vcan.getStates('children');
-
                 if (allChilds.length > 0) {
                     if (cmd != 't_clearall') {
                         if (typeof multiuser == 'undefined' || cmd != 't_replay') {
@@ -381,29 +349,33 @@
                     //virtualclass.wb.prvTool = cmd;
                     //virtualclass.vutil.beforeSend({'clearAll': true});
 
-                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm){
-                        if(!confirm){
-                            return true;
+                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm) {
+                            if (!confirm) {
+                                return true;
+                            }
+                            virtualclass.wb.utility.makeActiveTool(cmd);
+                            virtualclass.wb.utility.t_clearallInit();
+                            virtualclass.wb.utility.makeDefaultValue(cmd);
+                            virtualclass.storage.clearSingleTable('wbData');
+                            virtualclass.wb.prvTool = cmd;
+                            virtualclass.vutil.beforeSend({'clearAll': true, 'cf': 'clearAll'});
                         }
-                        virtualclass.wb.utility.makeActiveTool(cmd);
-                        virtualclass.wb.utility.t_clearallInit();
-                        virtualclass.wb.utility.makeDefaultValue(cmd);
-                        virtualclass.storage.clearStorageData();
-                        virtualclass.wb.prvTool = cmd;
-                        virtualclass.vutil.beforeSend({'clearAll': true});
-                         }
                     );
 
                 } else if (cmd == 't_assign') {
                     var toolHeight = localStorage.getItem('toolHeight');
                     if (toolHeight != null) {
-                      virtualclass.vutil.beforeSend({
+                        virtualclass.vutil.beforeSend({
                             'assignRole': true,
                             'toolHeight': toolHeight,
                             'socket': virtualclass.wb.socketOn
                         });
                     } else {
-                      virtualclass.vutil.beforeSend({'assignRole': true, 'socket': virtualclass.wb.socketOn});
+                        virtualclass.vutil.beforeSend({
+                            'assignRole': true,
+                            'socket': virtualclass.wb.socketOn,
+                            'cf': 'assignRole'
+                        });
                     }
                 } else if (cmd == 't_reclaim') {
                     virtualclass.wb.utility._reclaimRole();

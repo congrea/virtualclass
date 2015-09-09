@@ -203,7 +203,9 @@
                 if(event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
                     msg = $.trim($(this).val());
                     if(msg.length > 0) {
-                        io.send(msg,self.options.id); // userid=self.options.id
+
+                        ioAdapter.mustSendUser({'msg':msg, 'cf' : 'msg'}, self.options.id); // userid=self.options.id
+
                         $(this).val('');
                         $("#" + self.options.id).chatbox("option").messageSent(self.options.id, {name:io.cfg.userobj.name}, msg);// sent msg to self
                         // to avoid error of undefined

@@ -17,7 +17,7 @@
                 var currTime = new Date().getTime();
                 var obj = {'cmd': 't_activeall', mt: currTime};
                 vcan.main.replayObjs.push(obj);
-              virtualclass.vutil.beforeSend({'repObj': [obj]});
+                virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                 virtualclass.wb.vcan.main.action = 'move';
             }
         },
@@ -33,7 +33,7 @@
                 var obj = {'cmd': virtualclass.wb.keyBoard.prvTool, mt: currTime};
                 vcan.main.replayObjs.push(obj);
                 //virutalclass..vutil.beforeSend({'repObj': [obj]}); //after optimized
-              virtualclass.vutil.beforeSend({'repObj': [obj]});
+                virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
             }
         }
     };

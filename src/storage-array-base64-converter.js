@@ -1,6 +1,9 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
+ * @author  Jai Gupta <http://www.vidyamantra.com>
+ * This file used for storing the data in to different base64 format
+ *
  */
 
 (function (window) {

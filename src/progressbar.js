@@ -6,6 +6,16 @@
 var progressBar = {
     prvVal: '',
     currVal: '',
+
+
+    /***
+        After each  progress of XHR, there would check difference
+        between current and previous value. Will provide the download link
+        if found the differences, Otherwise initialize function  progressInit()
+        for trigger it after five minute.
+
+   */
+
     progressInit: function () {
 
         var that = this;
@@ -13,11 +23,13 @@ var progressBar = {
             clearTimeout(prvTimeout);
         }
 
-        prvTimeout = setTimeout     (
+        prvTimeout = setTimeout(
             function () {
                 if (that.prvVal == that.currVal) {
-                    console.log("start for download");
-                    virtualclass.recorder.tryForReTransmit();
+                    if(!virtualclass.recorder.alreadyDownload){
+                        virtualclass.recorder.makeAvailDownloadFile();
+                    }
+
                 } else {
                     that.prvVal = that.currVal;
                     that.progressInit();
@@ -49,11 +61,12 @@ var progressBar = {
             pvalElem.innerHTML = totalProgress + '%';
         }
 
-        if(pval >= 100){
-            var  closeButton = document.getElementById('recordingClose');
+        if (pval >= 100) {
+            var closeButton = document.getElementById('recordingClose');
             recordingClose.style.display = 'block';
-            closeButton.addEventListener('click', function (){
+            closeButton.addEventListener('click', function () {
                 virtualclass.popup.closeElem();
+
             });
         }
     }

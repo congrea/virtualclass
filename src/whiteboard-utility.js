@@ -72,11 +72,16 @@
                 // This is used for removed the selected object.
                 //var currTime = new Date().getTime();
                 //8 is used for delete on mac
+
                 if (evt.keyCode == 8 || evt.keyCode == 46) {
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
                         var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
-                      virtualclass.vutil.beforeSend({'repObj': [obj]});
+                        virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                    }
+                } else if(evt.keyCode == 27){ // escape key
+                    if(typeof virtualclass.wb == 'object'){
+                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny();
                     }
                 }
             },
@@ -92,7 +97,7 @@
 
                 obj.uid = virtualclass.wb.uid;
 
-                if (virtualclass.gObj.uRole == 's') {
+                if (roles.isStudent()) {
                     virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 } else {
                     vcan.main.replayObjs.push(obj);
@@ -162,11 +167,8 @@
                         }
                     }
                 }
-                if (typeof pkMode == 'undefined') {
-                    virtualclass.wb.sentPackets = 0;
-                    virtualclass.wb.receivedPackets = 0;
-                }
-
+               
+               
                 //for clear sent and received msg information
                 var sentMsgInfo = document.getElementById('sentMsgInfo');
                 if (sentMsgInfo != null) {
@@ -279,60 +281,11 @@
                 ctx.closePath();
                 ctx.restore();
             },
-            calcPsSentPackets: function (oldData) {
-                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-                    var pacPerSec = virtualclass.wb.sentPackets - oldData;
-                    if (pacPerSec < 0) {
-                        pacPerSec = 0;
-                    }
-                    if (document.getElementById(virtualclass.wb.sentPackDivPS != null)) {
-                        document.getElementById(virtualclass.wb.sentPackDivPS).innerHTML = pacPerSec;
-                    }
-                    return virtualclass.wb.sentPackets;
-                }
-
-            },
-            calcPsRecvdPackets: function (oldData2) {
-                var pacPerSec = virtualclass.wb.receivedPackets - oldData2;
-                if (pacPerSec < 0) {
-                    pacPerSec = 0;
-                }
-                if (document.getElementById(virtualclass.wb.receivedPackDivPS) != null) {
-                    document.getElementById(virtualclass.wb.receivedPackDivPS).innerHTML = pacPerSec;
-                }
-                return virtualclass.wb.receivedPackets;
-            },
+			
             //initialize transfred packets from local storage when
             // browser is reloaded.
-            initStoredPacketsNumbers: function () {
-                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-                    if (localStorage.sentPackets) {
-                        var totSentPackets = JSON.parse(localStorage.sentPackets);
-                        virtualclass.wb.sentPackets = totSentPackets;
-                        if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
-                            document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = totSentPackets;
-                        }
-                    }
-
-                    if (localStorage.receivedPackets) {
-                        virtualclass.wb.receivedPackets = JSON.parse(localStorage.receivedPackets);
-                        if (document.getElementById(virtualclass.wb.receivedPackDiv) != null) {
-                            document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
-                        }
-                    }
-                }
-            },
-            updateSentPackets: function (obj) {
-                if (virtualclass.wb.dataInfo == 1) {
-                    if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
-                        virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + JSON.stringify(obj).length;
-                        if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
-                            document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
-                        }
-                    }
-                }
-            },
-
+            
+			
             assignRole: function (studentId) {
                 virtualclass.wb.tool = "";
                 if (vcan.main.action == 'move') {
@@ -340,16 +293,19 @@
                 }
 
                 if (typeof studentId != 'undefined') {
-                    if (localStorage.getItem('reclaim') != null) {
+                    if (roles.isEducator()) {
                         var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                        localStorage.removeItem('reclaim');
+                        //localStorage.removeItem('reclaim');
                     }
 
-                    localStorage.removeItem('studentId');
-                    localStorage.setItem('teacherId', studentId);
+                    //localStorage.removeItem('studentId');
+                    //localStorage.setItem('teacherId', studentId);
 
-                    virtualclass.gObj.uRole = 't';
+
+
+                    virtualclass.gObj.uRole = 'p'; // P for Presenter
+                    localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
                     virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
                     vcan.utility.canvasCalcOffset(vcan.main.canid);
@@ -379,12 +335,12 @@
 
                     virtualclass.wb.utility.makeCanvasDisable();
 
-                    if (typeof localStorage.orginalTeacherId != 'undefined') {
+                    if (roles.hasAdmin()) {
                         virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                         //localStorage.reclaim = true;
-                        localStorage.setItem('reclaim', true);
+                        //localStorage.setItem('reclaim', true);
                         virtualclassCont = document.getElementById('virtualclassCont');
-                        virtualclassCont.className = virtualclassCont.className + ' reclaim';
+                        virtualclassCont.className = virtualclassCont.className + ' educator';
 
                     } else {
                         if (cmdToolsWrapper != null) {
@@ -393,17 +349,17 @@
                         }
                     }
 
-                    var tid = localStorage.getItem('teacherId');
-                    localStorage.removeItem('teacherId');
-                    localStorage.setItem('studentId', tid);
+                    //var tid = localStorage.getItem('teacherId');
+                    //localStorage.removeItem('teacherId');
+                    //localStorage.setItem('studentId', tid);
 
+                    localStorage.setItem('uRole', virtualclass.gObj.uRole);
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
-
                 }
 
-                if (localStorage.getItem('orginalTeacherId') == null) {
-                    virtualclass.vutil.toggleRoleClass(true);
-                }
+//                if (!roles.hasAdmin()) {
+//                    virtualclass.vutil.toggleRoleClass(true);
+//                }
             },
 
             reclaimRole: function () {
@@ -411,14 +367,14 @@
                 virtualclass.wb.response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
             },
             dispQueuePacket: function (result) {
-                if ((localStorage.getItem('teacherId') != null) ||
-                    (localStorage.getItem('orginalTeacherId') != null && virtualclass.vutil.chkValueInLocalStorage('reclaim'))) {
+                if ((roles.hasControls()) ||
+                    (roles.isEducator())) {
                     virtualclass.wb.utility.toolWrapperEnable();
 
                 }
                 virtualclass.wb.drawMode = false;
                 //if (localStorage.getItem('teacherId') != null && virtualclass.wb.user.connected) {
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     virtualclass.wb.utility.makeCanvasEnable();
                     virtualclass.wb.utility.enableAppsBar();
                 }
@@ -430,23 +386,24 @@
 
                 }
             },
-            updateRcvdInformation: function (msg) {
-                var receivedMsg = document.getElementById('rcvdMsgInfo');
-                if (receivedMsg != null) {
-                    var compMsg = "";
-                    for (var key in msg) {
-                        compMsg += key + " : " + msg[key] + " <br />";
-                    }
-                    receivedMsg.innerHTML = compMsg;
-                }
-            },
+            // this function is not used any more
+            //updateRcvdInformation: function (msg) {
+            //    var receivedMsg = document.getElementById('rcvdMsgInfo');
+            //    if (receivedMsg != null) {
+            //        var compMsg = "";
+            //        for (var key in msg) {
+            //            compMsg += key + " : " + msg[key] + " <br />";
+            //        }
+            //        receivedMsg.innerHTML = compMsg;
+            //    }
+            //},
             makeCanvasDisable: function () {
                 var canvasElement = vcan.main.canvas;
                 canvasElement.style.position = 'relative';
                 canvasElement.style.pointerEvents = "none";
             },
             makeCanvasEnable: function () {
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     if (!virtualclass.wb.hasOwnProperty('canvasDisable') || !virtualclass.wb.canvasDisable) {
                         var canvasElement = vcan.main.canvas;
                         canvasElement.style.pointerEvents = "visible";
@@ -504,19 +461,16 @@
 
                 localStorage.setItem('rcvdPackId', 0);
                 //TODO this code should be removed after validate
-                localStorage.removeItem('totalStored');
-                var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
-                var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
+               // localStorage.removeItem('totalStored');
+                //var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
+                //var orginalTeacherId = virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId');
                 var wbrtcMsg = virtualclass.vutil.chkValueInLocalStorage('wbrtcMsg');
                 var canvasDrwMsg = virtualclass.vutil.chkValueInLocalStorage('canvasDrwMsg');
                 var toolHeight = virtualclass.vutil.chkValueInLocalStorage('toolHeight');
                 var prvUser = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('prvUser'));
                 var toggleRole = JSON.parse(virtualclass.vutil.chkValueInLocalStorage('tc'));
 
-//                    localStorage.clear();
-                virtualclass.recorder.items = [];
-                virtualclass.storage.totalStored = 0;
-                virtualclass.recorder.totalSent = 0;
+
 
                 // TODO this should be done by proepr way
                 // it has to be done in function
@@ -548,44 +502,8 @@
                 //localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
                 //window.virtualclass.view.canvasDrawMsg('Canvas');
                 localStorage.setItem('canvasDrwMsg', true);
-                if (!virtualclass.wb.utility.alreadyExistPacketContainer()) {
-                    if (parseInt(wbUser.dataInfo, 10) == 1) {
-                        virtualclass.wb.packContainer.createPacketContainer();
-                        virtualclass.wb.packContainer.createPacketInfoContainer();
-                        virtualclass.wb.utility.initStoredPacketsNumbers();
-                    }
-                }
                 //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
             },
-
-//            initDefaultInfo: function (role) {
-//                if (role == 't') {
-//                    if (localStorage.getItem('orginalTeacherId') == null) {
-//                        //virtualclass.wb.utility.setOrginalTeacherContent(e);
-//                        virtualclass.wb.utility.setOrginalTeacherContent();
-//                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-//                    }
-//
-//                    //} else if (role == 's' && newuser == null) {
-//                } else if (role == 's') {
-//                    vcan.studentId = wbUser.id;
-//
-//                    if (localStorage.getItem('studentId') == null && localStorage.getItem('teacherId') == null) {
-//                        localStorage.setItem('studentId', wbUser.id);
-//                    }
-//                    virtualclass.vutil.removeSessionTool();
-//                }
-//
-//
-//                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-//                    virtualclass.gObj.video.init();
-//                    virtualclass.gObj.video.isInitiator = true;
-//                }
-//                //bad way
-////                    virtualclass.gObj.video.init();
-////                    virtualclass.gObj.video.isInitiator = true;
-//                vcan.oneExecuted = false;
-//            },
 
             checkWebRtcConnected: function () {
                 if (typeof cthis != 'undefined') {
@@ -613,10 +531,10 @@
                     toolHeight = toolHeight != null ? toolHeight : 0;
                 }
 
-                if (localStorage.getItem('orginalTeacherId') != null) {
+                if (roles.hasAdmin()) {
                     div.style.height = (drawWhiteboard.height + toolHeight) + "px";
                 } else {
-                    if (localStorage.getItem('teacherId') != null) {
+                    if (roles.hasControls()) {
                         div.style.height = (drawWhiteboard.height) + "px";
                     } else {
                         div.style.height = (drawWhiteboard.height - toolHeight) + "px";
@@ -752,6 +670,7 @@
                     }
                 }
             },
+
             displayCanvas: function () {
                 vcan.canvasWrapperId = 'canvasWrapper';
                 if (document.getElementById('canvas') == null) {
@@ -763,9 +682,39 @@
                 virtualclass.wb.utility.makeCanvasDisable();
                 virtualclass.wb.utility.toolWrapperDisable();
 
+                if(!roles.hasControls()){
+                    if(vcan.main.children == 0){
+                        virtualclass.wb.utility.createWhiteboardMessage()
+                    }
+
+                }
             },
+
+            removeWhiteboardMessage : function (){
+                var whiteBoradMsg =    document.getElementById('whiteBoardMsg');
+                if(whiteBoradMsg != null){
+                    whiteBoradMsg.parentNode.removeChild(whiteBoradMsg);
+                }
+
+            },
+
+            // whitebeoard message student at very first
+            createWhiteboardMessage : function (){
+                var whiteboardMsgId = "whiteBoardMsg";
+                if(document.getElementById(whiteboardMsgId) == null){
+                    var whiteBoradMsgContainer = document.createElement('div');
+                    whiteBoradMsgContainer.id = whiteboardMsgId;
+                    whiteBoradMsgContainer.innerHTML = virtualclass.lang.getString('msgForWhiteboard');
+
+                    var containerWb = document.getElementById('canvasWrapper');
+                    if(containerWb != null){
+                        containerWb.appendChild(whiteBoradMsgContainer);
+                    }
+                }
+            },
+
             initAll: function (e) {
-                if (localStorage.getItem('teacherId') != null) {
+                if (roles.hasControls()) {
                     virtualclass.wb.utility.makeCanvasDisable();
                 }
                 var res = virtualclass.system.measureResoultion({
@@ -778,16 +727,6 @@
                 if (rectDiv != null) {
                     var allToolDivs = rectDiv.parentNode.getElementsByClassName('tool');
                     return (allToolDivs.length >= 8) ? true : false;
-                }
-            },
-            alreadyExistPacketContainer: function () {
-                var packDiv = document.getElementById('packetContainer');
-                var infoDiv = document.getElementById('informationCont');
-
-                if (packDiv.getElementsByTagName('div').length >= 2 || infoDiv.getElementsByTagName('div').length >= 1) {
-                    return true;
-                } else {
-                    return false;
                 }
             },
 
@@ -830,7 +769,7 @@
             },
 
             replayFromLocalStroage: function (allRepObjs) {
-                 if (typeof (Storage) !== "undefined") {
+                if (typeof (Storage) !== "undefined") {
                     if (virtualclass.storage.reclaim === false) {
                         //virtualclass.wb.utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
@@ -860,7 +799,8 @@
                 }
             },
             crateCanvasDrawMesssage: function () {
-                if (typeof localStorage.teacherId != 'undefined') {
+                //if (typeof localStorage.teacherId != 'undefined') {
+                if (roles.hasControls()) {
                     if (localStorage.getItem('canvasDrwMsg') == null) {
                         window.virtualclass.view.canvasDrawMsg('Canvas');
                         window.virtualclass.view.drawLabel('drawArea');
@@ -868,31 +808,13 @@
                     }
                 }
             },
-            removeOtherUserExist: function (role) {
-                if (role == 't') { //If i am teacher
-                    if (localStorage.getItem('studentId') != null) {
-                        localStorage.removeItem('studentId');
-                    }
-                } else if (role == 's') { //If i am student
-                    if (localStorage.getItem('orginalTeacherId') != null) {
-                        localStorage.removeItem('orginalTeacherId');
-                        if (localStorage.getItem('teacherId') != null) {
-                            localStorage.removeItem('teacherId');
-                            //virtualclass.wb.utility.removeToolBox();
-                        }
-                        if (localStorage.getItem('reclaim') != null) {
-                            localStorage.removeItem('reclaim');
-                        }
-                        virtualclass.wb.utility.removeToolBox();
-                    }
-                }
-            },
-//important can be critical
-//                canvasEnabelWhenRefresh: function() {
-//                    if (localStorage.getItem('teacherId') != null) {
-//                        virtualclass.wb.utility.makeCanvasEnable();
-//                    }
-//                },
+
+            //important can be critical
+            //                canvasEnabelWhenRefresh: function() {
+            //                    if (localStorage.getItem('teacherId') != null) {
+            //                        virtualclass.wb.utility.makeCanvasEnable();
+            //                    }
+            //                },
             arrayContainsSameValue: function (val, ids) {
                 for (var i = 0; i < ids.length; i++) {
                     if (ids[i] !== val) {
@@ -917,11 +839,12 @@
                 }
             },
 
-            sendRequest: function (msg, value) {
-              virtualclass.vutil.beforeSend({'reclaimRole': true});
+
+            sendRequest: function () {
+                virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf': 'reclaimRole'});
             },
             updateSentInformation: function (jobj, createArrow) {
-                if (virtualclass.vutil.chkValueInLocalStorage('orginalTeacherId')) {
+                if (roles.hasAdmin()) {
                     var sentObj = JSON.parse(jobj);
                     if (typeof createArrow != 'undefined') {
                         var msg = sentObj;
@@ -958,6 +881,13 @@
             //},
 
             /**
+             * TODO this function should validate either it's using or not
+             * because beforeSend on utility.js is using now
+             *
+             *
+             */
+
+            /**
              * the operation before send message to server
              * @param {type} msg
              * @returns {undefined}
@@ -981,10 +911,11 @@
                     }
                     var jobj = JSON.stringify(msg);
 
-                    virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
+                  //  virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                     if (io.sock.readyState == 1) {
-                        typeof toUser == 'undefined' ? io.send(msg) : io.send(msg, toUser);
-//                            io.send(msg);
+
+                        typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
+
                     }
 
                     //TODO this should be enable
@@ -993,7 +924,7 @@
                         virtualclass.wb.utility.updateSentInformation(jobj);
                     }
                 }
-                localStorage.sentPackets = virtualclass.wb.sentPackets;
+            //    localStorage.sentPackets = virtualclass.wb.sentPackets;
             },
 
             checkCanvasHasParents: function () {
@@ -1019,7 +950,7 @@
                     virtualclass.wb.utility.toolWrapperDisable();
                     virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
-                        var label = (localStorage.getItem('teacherId') != null) ? 'msgForReload' : 'msgStudentForReload';
+                        var label = (roles.hasControls()) ? 'msgForReload' : 'msgStudentForReload';
                         window.virtualclass.view.displayMsgBox('divForReloadMsg', label);
                         //fix me earlierWidth and innerwidth are same
                         window.earlierWidth = window.innerWidth;
@@ -1038,16 +969,6 @@
                     rightOffSet = window.innerWidth - (elemContainer.clientWidth + (offset.x - rspace));
                 }
                 return rightOffSet;
-            },
-
-            initUpdateInfo: function (oldData2) {
-                oldData2 = virtualclass.wb.receivedPackets;
-                setInterval(function () {
-                    if (document.getElementById(virtualclass.wb.receivedPackDivPS) != null) {
-                        oldData2 = virtualclass.wb.utility.calcPsRecvdPackets(oldData2);
-                        document.getElementById(virtualclass.wb.receivedPackDiv).innerHTML = virtualclass.wb.receivedPackets;
-                    }
-                }, 1000);
             },
 
             // important todo
@@ -1115,7 +1036,7 @@
             //todo, this shoudl be into user file
             _reclaimRole: function () {
                 virtualclass.wb.utility.reclaimRole();
-                virtualclass.wb.utility.sendRequest('reclaimRole', true);
+                virtualclass.wb.utility.sendRequest();
                 virtualclass.user.control.changeAttrToAssign('enable');
             },
 

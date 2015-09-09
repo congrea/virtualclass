@@ -48,12 +48,12 @@
 
                      if (virtualclass.chat.chatroombox) {
                     
-				    if(sessionStorage.getItem('chatroom_status') == 'hidden'){
-                       sessionStorage.removeItem('chatroom_status');
+				    if(localStorage.getItem('chatroom_status') == 'hidden'){
+                        localStorage.removeItem('chatroom_status');
                         uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('minCommonChat'));
                       
                    }else{
-                       sessionStorage.setItem("chatroom_status", "hidden");
+                        localStorage.setItem("chatroom_status", "hidden");
                         uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('maxCommonChat'));
                    }
                    

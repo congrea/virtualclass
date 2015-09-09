@@ -92,8 +92,7 @@
                         console.log('uid ' + virtualclass.wb.uid);
                         obj.uid = virtualclass.wb.uid;
                         vcan.main.replayObjs.push(obj);
-                      virtualclass.vutil.beforeSend({'repObj': [obj]});
-                        virtualclass.wb.utility.updateSentPackets(obj);
+                        virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                     }
 
                     //these code run when user is trying to create particular object.

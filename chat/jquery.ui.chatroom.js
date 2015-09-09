@@ -146,7 +146,7 @@
             })
             .click(function(event) {
 	            options.boxManager.toggleBox();
-	            sessionStorage.setItem("chatroom_status", "hidden");
+                    localStorage.setItem("chatroom_status", "hidden");
 		         return false;
             })
             .appendTo(uiChatboxTitlebar),
@@ -179,19 +179,20 @@
             .keydown(function(event) {
                 if(event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
                     msg = $.trim($(this).val());
-                    var msgobj = {'receiver':'chatroom','msg':msg};
+                    var msgobj = {'receiver':'chatroom','msg':msg, 'cf' : 'msg'};
                     if(msg.length > 0) {
-                        io.send(msgobj);
+                        ioAdapter.mustSend(msgobj);
+
                         $(this).val('');
                         self.options.messageSent({name:io.cfg.userobj.name}, msg);// sent msg to self
                         // store data on browser
                         var time = new Date().getTime();
-                        if(sessionStorage.getItem('chatroom') != null){
-                            var chatroom = JSON.parse(sessionStorage.getItem('chatroom'));
+                        if(localStorage.getItem('chatroom') != null){
+                            var chatroom = JSON.parse(localStorage.getItem('chatroom'));
                             chatroom.push({ userid:io.cfg.userid, name:io.cfg.userobj.name, msg: msg, time: time});
-                            sessionStorage.setItem('chatroom',JSON.stringify(chatroom));
+                            localStorage.setItem('chatroom',JSON.stringify(chatroom));
                         } else {
-                            sessionStorage.setItem('chatroom', JSON.stringify([{ userid:io.cfg.userid, name:io.cfg.userobj.name, msg: msg, time: time}]));
+                            localStorage.setItem('chatroom', JSON.stringify([{ userid:io.cfg.userid, name:io.cfg.userobj.name, msg: msg, time: time}]));
                         }                      
                     }                   
                     return false;

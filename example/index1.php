@@ -20,7 +20,8 @@ function get_string($phrase){
 
 
 //the www path for virtualclass
-$whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
+//$whiteboardpath = "https://loc.vidya.io/virtualclass/";
+$whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 ?>
 
@@ -37,8 +38,10 @@ $whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
 
 
 <style>
+ .CodeMirror { height: auto; border: 1px solid #c9c9c9; }
+  .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
-  .CodeMirror { height: auto; border: 1px solid #ddd; }
+.CodeMirror { height: auto; border: 1px solid #ddd; }
   .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
    /* this should be apply for only core virtualclassm, not with any other software */
@@ -53,11 +56,11 @@ $whiteboardpath = "https://lc.vidya.io/suman-repo/virtualclass/";
 
 
 <?php
-//include('js.debug.php');
+include('js.debug.php');
 
-include('js.php');
+//include('js.php');
 // this url should be soemthing like this
-// https://lc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
+// https://loc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
 
 $isplay = false;
 
@@ -112,6 +115,8 @@ if(isset($_GET['lname'])){
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
         var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/json-chunks.js" ?>");
+        var dtConWorker = new Worker("<?php echo $whiteboardpath."worker/storage-array-base64-converter.js" ?>");
+
     }
     
     <?php echo "wbUser.virtualclassPlay='$isplay';"; ?>
@@ -128,7 +133,9 @@ if(isset($_GET['lname'])){
     <?php echo "wbUser.lname='".$lname."';"; ?>
 	window.io = io;
     
-    window.whiteboardPath =  'https://lc.vidya.io/suman-repo/virtualclass/';
+
+    window.whiteboardPath =  'https://local.vidya.io/virtualclass/';
+
     window.importfilepath = window.whiteboardPath + 'import.php';
     window.exportfilepath = window.whiteboardPath + 'export.php';
     wbUser.imageurl = window.whiteboardPath + "images/quality-support.png"
@@ -319,6 +326,7 @@ if(isset($_GET['lname'])){
 
                     <div id="askPlay">
                         <div id="askplayMessage"> </div>
+
                          <button id="playButton" class="icon-play">Play</button>
 
                     </div>
@@ -337,7 +345,16 @@ if(isset($_GET['lname'])){
          <!--For confirm window-->
           <div id="confirm" class="popupWindow simple-box">
           </div>
-          
+
+          <!-- For Session End window -->
+           <div id="sessionEndMsgCont" class="popupWindow">
+            <span id="sessionEndClose" class="icon-close"></span>
+
+           <span id="sessionEndMsg"> <?php echo get_string('sessionendmsg'); ?> </span>
+
+
+           </div>
+
         </div>
     </div>
 </div>

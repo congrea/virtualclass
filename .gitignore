@@ -18,3 +18,7 @@ todo.txt
 *.txt
 .idea*
 .DS_*
+src/editor-sentinel-constants.js
+src/editor-entity.js
+test_cases.txt
+*.txt

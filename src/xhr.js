@@ -18,7 +18,11 @@
 
             this.httpObj.onerror = function (err) {
                 //TODO Add msg to user
-                virtualclass.recorder.tryForReTransmit();
+
+                if(!virtualclass.recorder.alreadyDownload){
+                    virtualclass.recorder.makeAvailDownloadFile();
+                }
+                //virtualclass.recorder.tryForReTransmit();
                 console.log("Error " + err);
             };
 
@@ -47,8 +51,8 @@
                         if (that.httpObj.status == 200) {
                             that.cb(that.httpObj.responseText);
                         } else {
-                                that.cb("ERROR");
-/*                             that.cb("ERROR " + that.httpObj.status); */
+                            that.cb("ERROR");
+                            /*                             that.cb("ERROR " + that.httpObj.status); */
                         }
                     }
                 }

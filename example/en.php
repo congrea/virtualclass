@@ -8,4 +8,5 @@
     $string['overallprogress'] = 'Overall Progress';
     $string['replay_message'] = 'Your recordered session has been played';
     $string['uploadedsession'] = 'You have uploaded the current session.';
+    $string['sessionendmsg'] = 'Teacher has been ended the session.';
 ?>

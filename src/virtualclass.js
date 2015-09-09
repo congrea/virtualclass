@@ -1,8 +1,10 @@
 (function (window) {
     window.virtualclass = function () {
         return {
+
+            isPlayMode : wbUser.virtualclassPlay,
 //            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
-            apps : ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
+            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
 
@@ -18,31 +20,59 @@
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
                 uName: window.wbUser.name,
-                tempReplayObjs : [], //for store temp replayObjs
-                alreadyReplayFromStorage : false,
-                commandToolsWrapperId: 'commandToolsWrapper'
+                tempReplayObjs: [], //for store temp replayObjs
+                alreadyReplayFromStorage: false,
+                commandToolsWrapperId: 'commandToolsWrapper',
+                editorInitDone: 0
             },
 
-            clearSession: function (appName) {
+            clearSession: function () {
                 window.pageEnter = new Date().getTime();
-                appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
+                //appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
 
-                virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
+              //  virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
+
+                virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
                 virtualclass.storage.config.endSession();
-                virtualclass.vutil.beforeSend({sEnd: true});
+
 
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
                 }
-                virtualclass.previrtualclass = "virtualclass" + appName;
+
+                //virtualclass.previrtualclass = "virtualclass" + appName;
+
+                virtualclass.previrtualclass = "virtualclassEditorRich";
+
+
             },
 
             init: function (urole, app, videoObj) {
+                var wbUser = window.wbUser;
+                virtualclass.uInfo = {
+                    'userid': wbUser.id,
+                    'sid': wbUser.sid,
+                    'rid': wbUser.path,
+                    'authuser': wbUser.auth_user,
+                    'authpass': wbUser.auth_pass,
+                    'userobj': {
+                        'userid': wbUser.id,
+                        'name': wbUser.name,
+                        lname: wbUser.lname,
+                        'img': wbUser.imageurl,
+
+                        //role: wbUser.role
+                        role : (localStorage.getItem('uRole') != null) ? localStorage.getItem('uRole')  :  wbUser.role
+
+                    },
+                    'room': wbUser.room
+                };
+
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
                 this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
-                this.edConfig = { id : "virtualclass" + this.apps[3], classes : "appOptions"};
-                this.edCodeConfig = { id : "virtualclass" + this.apps[4], classes : "appOptions"};
+                this.edConfig = {id: "virtualclass" + this.apps[3], classes: "appOptions"};
+                this.edCodeConfig = {id: "virtualclass" + this.apps[4], classes: "appOptions"};
 
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
@@ -57,6 +87,16 @@
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
 
+                this.storage = window.storage;
+                //if (virtualclass.system.indexeddb) {
+
+                this.storage.init(function () {
+                    if (!virtualclass.vutil.isPlayMode()) {
+                        ioStorage.completeStorage(JSON.stringify(io.cfg));
+                    }
+                });
+
+
                 this.dirtyCorner = window.dirtyCorner;
 
                 this.html.init(this);
@@ -67,6 +107,7 @@
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();
+
                 virtualclass.dtCon = virtualclass.converter();
                 virtualclass.pbar = progressBar;
 
@@ -79,39 +120,41 @@
 
                 virtualclass.yts = window.yts();
 
-				virtualclass.vutil.createReclaimButtonIfNeed();
-				
-				if (this.gObj.uRole == 't') {
-                    this.vutil.setOrginalTeacher();
+
+                if (localStorage.uRole != null) {
+                    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
+                    var vcContainer = document.getElementById('virtualclassCont');
+                    vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
+
+
+
+
                 }
-				
-                if(typeof videoObj == 'undefined'){
+
+                if (typeof videoObj == 'undefined' || videoObj == null) {
                     this.makeAppReady(app, "byclick");
                 } else {
                     this.makeAppReady(app, "byclick", videoObj);
                 }
-				
-			    //TODO system checking function should be invoked before makeAppReady
+
+                //TODO system checking function should be invoked before makeAppReady
 
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
 
                 //first this line is befre this.dirtyCorner assigned neard about 51 line number
-                // here because check for old browsers which does not support indexeddb, 
-                //inside storage.init() we are using indexeddb so, by above position there would 
+                // here because check for old browsers which does not support indexeddb,
+                //inside storage.init() we are using indexeddb so, by above position there would
                 // system coampablity error could not be generated.
-                this.storage = window.storage;
-//                virtualclass.storeFirstData = function (){
-//                    alert("hi brother");
-//                }
-                //!virtualclass.vutil.isPlayMode()
-                if (virtualclass.system.indexeddb) {
-                    this.storage.init(function () {
-                        if (!virtualclass.vutil.isPlayMode()) {
-                            io.completeStorage(JSON.stringify(io.cfg));
-                        }
-                    });
-                }
+
+                //this.storage = window.storage;
+                //if (virtualclass.system.indexeddb) {
+                //    this.storage.init(function () {
+                //        if (!virtualclass.vutil.isPlayMode()) {
+                //            ioStorage.completeStorage(JSON.stringify(io.cfg));
+                //        }
+                //    });
+                //}
 
                 //1
                 //virtualclass.wb.utility.displayCanvas();
@@ -120,63 +163,43 @@
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
                 }
-			
-				if(virtualclass.vutil.chkValueInLocalStorage('teacherId')){
-					virtualclass.gObj.uRole = 't'; //this done only for whiteboard in _init()
-				}
-		        //To teacher 
+
+                //if (localStorage.uRole != null) {
+                //    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
+                //}
+
+                virtualclass.vutil.createReclaimButtonIfNeed();
+
+                   //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
                 //2
-                //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
+                //if (roles.hasControls() && app == 'Whiteboard') {
                 //    vcan.utility.canvasCalcOffset(vcan.main.canid);
                 //}
 
                 this.gObj.video = new window.virtualclass.media();
 
                 if (!virtualclass.vutil.isPlayMode()) {
-                    this.initSocketConn();
+                    // Init Socket only after both editor instances are ready.
+                    var that = this;
+                    var initSocket = setInterval(function () {
+                        if (that.gObj.editorInitDone >= 2) {
+
+
+
+                            that.initSocketConn();
+                            clearInterval(initSocket);
+                        }
+                    }, 100);
                 }
 
 
-                //virtualclass.chat = new Chat();
-                //virtualclass.chat.init();
-                //virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
-                //virtualclass.xhr = window.xhr;
-                //virtualclass.xhr.init();
-                //virtualclass.dtCon = virtualclass.converter();
-                //virtualclass.pbar = progressBar;
-                //
-                ////editor which is rich text editor which has various options
-                //
-                //virtualclass.editorRich = window.editor('editorRich', 'virtualclassEditorRich', 'virtualclassEditorRichBody');
-                //
-                ////simple code editor with markdown
-                //virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
-                virtualclass.isPlayMode = virtualclass.vutil.isPlayMode();
-
-                },
+            },
 
             initSocketConn: function () {
                 if (this.system.webSocket) {
-                    var wbUser = window.wbUser;
-                    //  wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
-                    virtualclass.uInfo = {
-                        'userid': wbUser.id,
-                        'sid': wbUser.sid,
-                        'rid': wbUser.path,
-                        'authuser': wbUser.auth_user,
-                        'authpass': wbUser.auth_pass,
-                        'userobj': {
-                            'userid': wbUser.id,
-                            'name': wbUser.name,
-                            lname: wbUser.lname,
-                            'img': wbUser.imageurl,
-                            role: wbUser.role
-                        },
-                        'room': wbUser.room
-                    };
                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;
                 }
@@ -190,9 +213,10 @@
                 },
 
                 //TODO this should be created throught the simple html
+                // Create left virtualclass app bar
                 leftAppBar: function () {
-			        var appsLen = document.getElementsByClassName('appOptions');
-                    if(appsLen.length > 0){
+                    var appsLen = document.getElementsByClassName('appOptions');
+                    if (appsLen.length > 0) {
                         return; //which means the left app bar is already created
                     }
 
@@ -210,7 +234,7 @@
                         virtualclass.view.disableSSUI();
                     }
 
-                    if (virtualclass.gObj.uRole == 't') {
+                    if (roles.hasControls()) {
                         this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
                     }
                     if (virtualclass.gObj.hasOwnProperty('errAppBar')) {
@@ -274,29 +298,29 @@
                     if (this.previous.toUpperCase() != ('virtualclass' + this.currApp).toUpperCase()) {
                         document.getElementById(virtualclass.previous).style.display = 'none';
 
-                        if(typeof appId != 'undefined'){
-                            if (appId.toUpperCase() == "EDITORRICH" ) {
+                        if (typeof appId != 'undefined') {
+                            if (appId.toUpperCase() == "EDITORRICH") {
                                 var editorCode = document.getElementById("virtualclassEditorCode");
                                 if (editorCode != null) {
                                     editorCode.style.display = 'none';
                                 }
                             }
-                            if (appId.toUpperCase() == "EDITORCODE" ) {
+                            if (appId.toUpperCase() == "EDITORCODE") {
                                 var editor = document.getElementById("virtualclassEditorRich");
                                 if (editor != null) {
                                     editor.style.display = 'none';
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         //tricky case  when previous and current are same hide other appilcations but current
                         var allApps = document.getElementsByClassName('virtualclass');
-                        for(var i=0; i<allApps.length; i++){
+                        for (var i = 0; i < allApps.length; i++) {
                             allApps[i].style.display = 'none';
                         }
                     }
                 }
-                if(typeof appId != 'undefined'){
+                if (typeof appId != 'undefined') {
                     appId = "virtualclass" + capitalizeFirstLetter(appId);
                 }
                 var appElement = document.getElementById(appId);
@@ -306,51 +330,54 @@
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
-
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {
-                    if (virtualclass.hasOwnProperty('previrtualclass') && virtualclass.gObj.uRole == 't') {
+                    if (virtualclass.hasOwnProperty('previrtualclass') && roles.hasControls()) {
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                     }
                 }
 
                 //hiding editor controllers from footer
-                if(typeof this.previous != 'undefined'){
-                    if(this.previous == 'virtualclassEditorRich' || this.previous == 'virtualclassEditorCode'){
+                if (typeof this.previous != 'undefined') {
+                    if (this.previous == 'virtualclassEditorRich' || this.previous == 'virtualclassEditorCode') {
                         var editorType = this.previous.split('virtualclass')[1];
                         this.user.control.toggleDisplayEditorController(editorType, 'none');
                     }
                 }
-				
-				//this should perform only once
-                /*
-				if (this.gObj.uRole == 't') {
-                    this.vutil.setOrginalTeacher();
-                }*/
 
                 //if not screen share
-                if(app != this.apps[1] ){
-                   this.dispvirtualclassLayout(app);
+                if (app != this.apps[1]) {
+                    this.dispvirtualclassLayout(app);
+                }
+                
+                // call the function with passing dynamic variables
+                this.appInitiator[app].apply(virtualclass,  Array.prototype.slice.call(arguments));
+
+                this.previrtualclass = this.previous;
+
+                if (app != this.apps[0] && app != this.apps[1]) {
+                    virtualclass.system.setAppDimension();
                 }
 
-                //TODO this should be simplyfy
-                if (app == this.apps[0]) {
-                    //virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
-                    //
-                    //if (virtualclass.gObj.uRole == 't' && app == 'Whiteboard') {
-                    //    vcan.utility.canvasCalcOffset(vcan.main.canid);
-                    //}
+                if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
+                    virtualclass.yts.destroyYT();
+                }
 
+            },
+            
+            // Helper functions for making the app is ready
+            appInitiator : {
+                Whiteboard : function (app, cusEvent){
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
 
                     if (typeof this.previous != 'undefined') {
                         if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
-                          virtualclass.vutil.beforeSend({'dispWhiteboard': true});
+                            virtualclass.vutil.beforeSend({'dispWhiteboard': true, cf: 'dispWhiteboard'});
                         }
                     }
                     //this.dispvirtualclassLayout(this.wbConfig.id);
@@ -370,15 +397,15 @@
 
                         this.wb.bridge = window.bridge;
                         this.wb.response = window.response;
-                        var olddata = "";
-                        this.wb.utility.initUpdateInfo(olddata);
+//                        var olddata = "";
+//                        this.wb.utility.initUpdateInfo(olddata);
                         virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
 
-                        if (virtualclass.gObj.uRole == 't') {
-                         // window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
+                        if (roles.hasControls()) {
+                            // window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
                             //if (localStorage.getItem('orginalTeacherId') == null) {
-                                virtualclass.wb.utility.setOrginalTeacherContent(app);
-                           // }
+                            virtualclass.wb.utility.setOrginalTeacherContent(app);
+                            // }
 
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
 
@@ -391,7 +418,7 @@
                         }
 
                         // Only need to  serve on after page refresh
-                        if(!this.alreadyReplayFromStorage && this.gObj.tempReplayObjs.length > 0){
+                        if (!this.alreadyReplayFromStorage && this.gObj.tempReplayObjs.length > 0) {
                             this.wb.utility.replayFromLocalStroage(this.gObj.tempReplayObjs);
                         }
 
@@ -399,7 +426,7 @@
                     } else {
                         //if command tool wrapper is not added
                         var commandToolsWrapper = document.getElementById('commandToolsWrapper');
-                        if(commandToolsWrapper == null && virtualclass.gObj.uRole == 't' ){
+                        if (commandToolsWrapper == null && roles.hasControls()) {
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                         }
                     }
@@ -413,51 +440,57 @@
                     //offset problem have to think about this
                     if (document.getElementById('canvas') != null) {
                         vcan.utility.canvasCalcOffset(vcan.main.canid);
-                        if(this.gObj.tempReplayObjs.length == 0){
+                        if (this.gObj.tempReplayObjs.length == 0) {
                             virtualclass.wb.utility.makeCanvasEnable();
                         }
                     }
 
-                    if (this.previous == 'virtualclassScreenShare' && virtualclass.gObj.uRole == 't') {
+                    if (this.previous == 'virtualclassScreenShare' && roles.hasControls()) {
                         if (!virtualclass.vutil.dimensionMatch("virtualclassWhiteboard", "virtualclassScreenShare")) {
                             virtualclass.wb.utility.lockvirtualclass();
                         }
                     }
 
                     this.previous = this.wbConfig.id;
-
-                    //    this.previrtualclass = this.previous;
-                    //    currAppId = this.wbConfig.id;
-
-                    //TODO this should be into same varible
-                } else if (app == this.apps[1]) {
+                },
+                
+                ScreenShare : function (app){
                     if (typeof this.ss != 'object') {
                         this.ss = new window.screenShare(virtualclass.ssConfig);
                     }
                     this.ss.init({type: 'ss', app: app});
-                } else if (app == this.apps[2]) {
+                },
+                
+                Yts : function (app, custEvent, videoObj){
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
-
-                    if (typeof videoObj != 'undefined') {
-                        //virtualclass.yts.init(videoObj.init, videoObj.startFrom);
+                    if (typeof videoObj != 'undefined' && videoObj != null) {
                         virtualclass.yts.init(videoObj, videoObj.startFrom);
                     } else {
                         virtualclass.yts.init();
                     }
-
                     this.previous = virtualclass.ytsConfig.id;
 
-                } else if (app == this.apps[3] || app == this.apps[4]) {
-
+                },
+                
+                EditorRich : function (app){
+                    this.appInitiator.editor.call(virtualclass, app);
+                },
+                
+                EditorCode : function (app){
+                    this.appInitiator.editor.call(virtualclass, app);
+                },
+                
+                
+                editor : function (app){
                     //showing controllers from footer
-                    this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'),  app.length), 'block');
+                    this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'), app.length), 'block');
 
                     var revision = 0;
                     var clients = [];
                     var docs = "";
                     var operations = "";
 
-                    if(app == this.apps[3]){
+                    if (app == this.apps[3]) {
                         virtualclass.editorRich.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edConfig.id;
                     } else {
@@ -468,36 +501,23 @@
                     var writeMode = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
                     var etType = virtualclass.vutil.smallizeFirstLetter(app);
 
-                    if(localStorage.getItem('orginalTeacherId') == null){
-                        if(writeMode == null) {
-                            this[etType].cm.setOption('readOnly', true);
+                    if (!roles.hasAdmin()) {
+                        if (writeMode == null) {
+                            this[etType].cm.setOption('readOnly', 'nocursor');
                             this.user.control.toggleDisplayWriteModeMsgBox(app, false);
                             console.log('message box is created ' + app);
                         } else {
                             this.user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
-                            if(!writeMode){
-                                this[etType].cm.setOption('readOnly', true);
+                            if (!writeMode) {
+                                this[etType].cm.setOption('readOnly', 'nocursor');
                             } else {
                                 this[etType].cm.setOption('readOnly', false);
                             }
                         }
                     }
                 }
-
-                //this.createDiv(vApp.edConfig.id + "Tool", "editor", appOptCont, vApp.edConfig.classes);
-
-                this.previrtualclass = this.previous;
-
-                if(app != this.apps[0] && app != this.apps[1] ){
-                    virtualclass.system.setAppDimension();
-                }
-
-                if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
-                    virtualclass.yts.destroyYT();
-                }
-
             },
-
+               
             attachFunction: function () {
                 var allAppOptions = document.getElementsByClassName("appOptions");
                 for (var i = 0; i < allAppOptions.length; i++) {
@@ -513,23 +533,24 @@
             initlizer: function (elem) {
                 var appName = elem.parentNode.id.split("virtualclass")[1];
                 if (appName == 'SessionEndTool') {
-                   virtualclass.popup.confirmInput(virtualclass.lang.getString('savesession'), function (confirm){
-                        if(!confirm){
+                    virtualclass.popup.confirmInput(virtualclass.lang.getString('savesession'), function (confirm) {
+                        if (!confirm) {
                             virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),
-                                function (confirm){
-                                    if(!confirm){
+                                function (confirm) {
+                                    if (!confirm) {
                                         console.log('Not start new session');
                                         return;
                                     }
-                                    virtualclass.clearSession(appName);
-                                    window.location.reload();
+
+                                    virtualclass.clearSession();
+                                   // window.location.reload();
                                 }
                             )
                         } else {
-                            io.completeStorage(undefined, undefined, 'sessionend');
+                            ioStorage.completeStorage(undefined, undefined, 'sessionend');
                             setTimeout(function () {
                                     virtualclass.getContent = true;
-                                    virtualclass.vutil.beforeSend({sEnd: true}); //before close, clear student virtualclass data
+                                    virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}); //before close, clear student virtualclass data
                                     io.sock.close();
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300
@@ -566,8 +587,8 @@
                     if (prvUser.id != wbUser.id || prvUser.room != wbUser.room) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
-                        if (this.gObj.uRole == 't') {
-                            localStorage.setItem('teacherId', wbUser.id);
+                        if (roles.hasControls()) {
+                            localStorage.setItem('uRole', this.gObj.uRole);
                         }
                     }
                 }
@@ -581,7 +602,7 @@
 
             //TODO remove this function
             //the same function is defining at script.js
-        }
+        };
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }

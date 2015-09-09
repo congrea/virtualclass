@@ -8,19 +8,25 @@
         sendPacketWithOptimization: function (jobj, readyState, time) {
             if (typeof this.lastarrowtime == 'undefined') {
                 this.lastarrowtime = new Date().getTime();
-                virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
+               // virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
-                  virtualclass.vutil.beforeSend(JSON.parse(jobj));
+                    virtualclass.vutil.beforeSend(JSON.parse(jobj));
                 }
 
                 virtualclass.wb.utility.updateSentInformation(jobj, true);
             }
             this.presentarrowtime = new Date().getTime();
             if ((this.presentarrowtime - this.lastarrowtime) >= time) {
-                virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
+          //      virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
                     //virutalclass.vutil.beforeSend(JSON.parse(jobj));
-                    io.send(JSON.parse(jobj));
+                    var msg = JSON.parse(jobj);
+
+                    if (msg.hasOwnProperty('createArrow')) {
+                        ioAdapter.send(msg);
+                    } else {
+                        ioAdapter.mustSend(msg);
+                    }
                 }
                 virtualclass.wb.utility.updateSentInformation(jobj, true);
                 this.lastarrowtime = new Date().getTime();
@@ -55,10 +61,10 @@
             virtualclass.wb.uid++;
             obj.uid = virtualclass.wb.uid;
             vcan.main.replayObjs.push(obj);
-          virtualclass.vutil.beforeSend({'repObj': [obj]});
+            virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
             //  virtualclass.storage.wholeStore(obj);
-            virtualclass.wb.utility.updateSentPackets(obj);
+           // virtualclass.wb.utility.updateSentPackets(obj);
         }
     };
     vcan.optimize = optimize;

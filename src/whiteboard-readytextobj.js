@@ -79,7 +79,7 @@
                 } else {
 
                     if (virtualclass.wb.utility.clickOutSidebox(this.textWriteMode)) {
-                        //alert('suman bogati khan');
+
                         if (typeof mtext != 'undefined') {
                             virtualclass.wb.obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, mtext);
                         } else {
@@ -118,7 +118,10 @@
                 divNode.style.top = (obj.y) + "px";
 
                 var textNode = document.createElement('textarea');
+
                 textNode.id = divNode.id + 'textarea';
+                textNode.className = 'whiteBoardTextBox';
+
                 textNode.rows = 8;
                 textNode.cols = 41;
                 if (obj.text != undefined && obj.text != '') {
@@ -126,6 +129,10 @@
                 }
 
                 divNode.appendChild(textNode);
+                if(!roles.hasControls()){
+                    textNode.style.display = 'none';
+                }
+
                 document.getElementById(this.boxContainer).appendChild(divNode);
 
                 this.prevTextObj = divNode;
@@ -200,9 +207,10 @@
                 var maxWidth = 0;
                 var tempUserTextArr = userText.split(/\r?\n/);
                 maxWidth = ctx.measureText(tempUserTextArr[0]).width;
-                var extHeight = 15; //TODO this should be changed according to font size by selected user
+                //var extHeight = 15; //TODO this should be changed according to font size by selected user
+                var extHeight = 13;
                 for (var i = 1; i < tempUserTextArr.length; i++) {
-                    extHeight += 15;
+                    extHeight += 13;
                     var tempMaxWidth = ctx.measureText(tempUserTextArr[i]).width;
                     if (tempMaxWidth > maxWidth) {
                         maxWidth = tempMaxWidth;
@@ -238,8 +246,7 @@
 //                        virtualclass.recorder.items.push(obj);
                     //  virtualclass.storage.wholeStore(obj);
                     //virutalclass.vutil.beforeSend({'repObj': [obj]});
-                  virtualclass.vutil.beforeSend({'repObj': [obj]});
-                    virtualclass.wb.utility.updateSentPackets(obj);
+                    virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                 }
 
                 var text = virtualclass.wb.canvas.readyObject(textObj);
@@ -251,12 +258,19 @@
                 //this.keyTyped = [];.
                 prvNode.parentNode.removeChild(txtWrapper);
                 vcan.renderAll();
-                if (virtualclass.wb.sentPackets > 0) {
-                    if (document.getElementById(virtualclass.wb.sentPackDiv) != null) {
-                        document.getElementById(virtualclass.wb.sentPackDiv).innerHTML = virtualclass.wb.sentPackets;
+				
+                virtualclass.wb.utility.toolWrapperEnable(true);
+            },
+
+            finalizeTextIfAny : function (){
+                var canvasWrapper = document.getElementById('canvasWrapper');
+                if(canvasWrapper != null){
+                    var textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
+                    if(textBox != null){
+                        textBox = textBox[0];
+                        virtualclass.wb.obj.drawTextObj.textUtility();
                     }
                 }
-                virtualclass.wb.utility.toolWrapperEnable(true);
             }
         }
     };

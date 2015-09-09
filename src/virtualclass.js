@@ -333,6 +333,7 @@
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 
+
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && roles.hasControls()) {
@@ -351,6 +352,9 @@
                 //if not screen share
                 if (app != this.apps[1]) {
                     this.dispvirtualclassLayout(app);
+                    //add current app to main container
+                    var vcContainer = document.getElementById('virtualclassCont');
+                    vcContainer.dataset.currapp =  this.currApp;
                 }
                 
                 // call the function with passing dynamic variables
@@ -566,7 +570,7 @@
                     if (!this.PrvAndCurrIsWss(this.previous, appName)) {
                         this.makeAppReady(appName, "byclick");
                     } else {
-                        alert("Already the whole screen is being shared.");
+                        alert(virtualclass.lang.getString('screensharealready'));
                     }
                 }
                 if (appName != "ScreenShare") {

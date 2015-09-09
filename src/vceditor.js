@@ -1677,7 +1677,7 @@ var Vceditor = (function () {
             //this.Adapter_ = new Adapter(ref, userId, userColor);
             var revision = editorInfo.revision;
             var clients = [];
-            var docs = "hello suman";
+            var docs = "";
             var operations = "";
             //this.vcAdapter =   new otAdapter(revision, docs, operations);
 

@@ -24,7 +24,7 @@
 
                 return new vcan.main(canvasId);
             } else {
-                alert("there is a problem with canvas id");
+                console.log("there is a problem with canvas id");
             }
         },
         /**
@@ -33,7 +33,6 @@
          *  @param canvid is canvas's id
          */
         main: function (canvid) {
-            console.log("should first");
             vcan.main.children = []; //vcan.main should be converted into 'this' variable
             vcan.main.id = 0;
             vcan.main.uid = 0;
@@ -74,7 +73,7 @@
                 }
                 return fobj;
             } else {
-                alert("it seems that the arguments you passed are not object");
+                console.log("it seems that the arguments you passed are not object");
             }
         },
         /**

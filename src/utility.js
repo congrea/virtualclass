@@ -558,7 +558,7 @@
                         // We with till editor is in Sync.
                         // edState is an instance of constructor, to get the name of it
                         if (edState.constructor.name != 'Synchronized') {
-                            return 'Editor is not in sync, please wait for few seconds and try again';
+                            return virtualclass.lang.getString('editorinsync');
                         }
                     }
                 }

@@ -382,7 +382,7 @@
 
                         var msg = document.createElement('p');
                         msg.id = 'readOnlyMsg';
-                        msg.innerHTML = "Please wait a while.  Synchronizing with new content.";
+                        msg.innerHTML = virtualclass.lang.getString('synchMessage');
                         msgBox.appendChild(msg);
 
                         var parTag = document.getElementById(this.id);

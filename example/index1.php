@@ -180,7 +180,7 @@ if(isset($_GET['lname'])){
 
         </div>
 
-
+        <!-- this need to be deleted -->
         <div id="mainContainer">
             <div id="packetContainer" >
                 
@@ -303,7 +303,7 @@ if(isset($_GET['lname'])){
                     </div>
 
                     <div id="recordFinishedMessageBox">
-                        <span id="recordFinishedMessage"> You have uploaded the current session. </span>
+                        <span id="recordFinishedMessage">  <?php echo get_string('uploadedsession'); ?>. </span>
                         <span id="recordingClose" class="icon-close"></span>
                     </div>
                 </div>
@@ -327,7 +327,7 @@ if(isset($_GET['lname'])){
                     <div id="askPlay">
                         <div id="askplayMessage"> </div>
 
-                         <button id="playButton" class="icon-play">Play</button>
+                         <button id="playButton" class="icon-play"><?php echo get_string('play'); ?> </button>
 
                     </div>
                 </div>
@@ -338,7 +338,7 @@ if(isset($_GET['lname'])){
          <div id="replayContainer" class="popupWindow">
              <p id="replayMessage"><?php echo get_string('replay_message'); ?>  </p>
              <div id="replayClose" class="close icon-close"></div>
-             <button id="replayButton" class="icon-repeat">Replay</button>
+             <button id="replayButton" class="icon-repeat"><?php echo get_string('replay'); ?> </button>
 
          </div>
 

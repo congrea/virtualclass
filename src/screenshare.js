@@ -231,6 +231,9 @@
              * 
              */
             _init: function () {
+                //add current app to main container
+                var vcContainer = document.getElementById('virtualclassCont');
+                vcContainer.dataset.currapp =  virtualclass.currApp;
 
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';

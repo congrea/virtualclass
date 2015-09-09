@@ -66,9 +66,8 @@
 
 /*css for userlist*/
 
-#virtualclassCont .ui-memblist-usr
+.ui-memblist-usr
 {
-
     clear: both;
 }
 
@@ -192,7 +191,7 @@
     border-left: 1px solid transparent;
     color: #000;
     cursor: pointer;
-    height: 40px;
+    height: 42px;
     padding: 0px 6px;
     position: relative;
     left: 36px;
@@ -223,7 +222,7 @@
     padding: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
     z-index: 100;
-    left:21px;
+    left:21px !important;
 }
 #virtualclassCont #chatroom_icon {
     float: left;

@@ -2170,7 +2170,7 @@
 
 #virtualclassCont.student #virtualclassYts p{
 	text-align:center;
-	margin-top : 25%;
+/* 	margin-top : 25%; */
 
 }
 
@@ -2401,13 +2401,13 @@
 	left: -8px;
 	color:#e2440c;
 }
-.ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{
+#virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{
 	content: "\e611";
 	font-size: 18px;
 	color: #444;
 }
 
-.ui-dialog-header #contrAudioAll .icon-all-audio-enable:before{
+#virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-enable:before{
 	content: "\e610";
 	font-size: 18px;
 	color:#444;
@@ -2755,9 +2755,7 @@
 	width : 99.8%;
 }
 
-/*#virtualclassCont.student #virtualclassEditorRichBody, #virtualclassCont.student #virtualclassEditorCodeBody {*/
-/*margin-right : 77px;*/
-/*}*/
+
 
 #virtualclassCont.removedAssign #virtualclassEditorRichBody, #virtualclassCont.removedAssign #virtualclassEditorCodeBody{
 	margin-right :0;
@@ -2795,11 +2793,11 @@
 	pointer-events : none;
 }
 
-.playMode #recordPlay #askPlay{
+#virtualclassCont .playMode #recordPlay #askPlay{
 	display : none;
 }
 
-#vcanvas #whiteBoardMsg {
+#virtualclassCont #vcanvas #whiteBoardMsg {
 	position : absolute;
 	top : 40%;
 	left : 40%;
@@ -2807,12 +2805,12 @@
 
 
 
-a#contrAudioAll {
+#virtualclassCont a#contrAudioAll {
 	margin-left: 30px;
 	cursor: pointer;
 }
 
-#contrAudioAllImg.tooltip:hover:after{
+#virtualclassCont #contrAudioAllImg.tooltip:hover:after{
 	padding: 0.6em 1em;
 	bottom: 2em;
 }
@@ -2821,24 +2819,24 @@ a#contrAudioAll {
 /* Chat box css */
 
 
-.ui-memblist-usr.mySelf.student[data-role="s"]{
+#virtualclassCont .ui-memblist-usr.mySelf.student[data-role="s"]{
 	background-color: #e8e8e8;
 	border-top:#8f8f8f 1px solid;
 	border-bottom:#8f8f8f 1px solid;
 }
-.ui-memblist-usr.mySelf.teacher[data-role="p"]{
+#virtualclassCont .ui-memblist-usr.mySelf.teacher[data-role="p"]{
 	border-bottom:#8f8f8f 1px solid;
 }
 
 
-.ui-memblist-usr[data-role="e"], .ui-memblist-usr[data-role="t"] {
+#virtualclassCont .ui-memblist-usr[data-role="e"], #virtualclassCont .ui-memblist-usr[data-role="t"] {
 	background-color: #f8f7dc;
 	border-bottom: 1px solid #8f8f8f;
 	border-top: 1px solid #ddda86;
 }
 
 
-.ui-memblist-usr.student{
+#virtualclassCont .ui-memblist-usr.student{
 	border-bottom:#8f8f8f 1px solid;
 }
 #virtualclassCont #chat_div, .ui-widget-content.ui-chatbox-content{
@@ -2848,23 +2846,23 @@ a#contrAudioAll {
 	border-color:#8f8f8f;
 }
 
-.ui-memblist-usr[data-role="p"]{
+#virtualclassCont .ui-memblist-usr[data-role="p"]{
 	background-color: #f3fbe8;
 	border-top: #b7d094 1px solid;
 	border-bottom: #8f8f8f 1px solid;
 }
 
-#sessionEndMsgCont.popupWindow{
+#virtualclassCont #sessionEndMsgCont.popupWindow{
 	margin: 18px 25px;
 }
 
-#sessionEndMsgCont #sessionEndClose.icon-close{
+#virtualclassCont #sessionEndMsgCont #sessionEndClose.icon-close{
 	top: 10px;
 	right: 15px;
 	position: absolute;
 	cursor : pointer;
 }
-.ui-memblist-usr{
+#virtualclassCont .ui-memblist-usr{
 	margin-top: -1px;
 }
 
@@ -2873,13 +2871,13 @@ a#contrAudioAll {
 	margin-bottom: 9px;
 }
 
-.userImg.ui-memblist-usr.mySelf.student a img{
+#virtualclassCont .userImg.ui-memblist-usr.mySelf.student a img{
 	background-color: #f2f2f2;
 	border: #8f8f8f 1px solid;
 }
 
 /* */
-div#virtualclassOptionsCont div#virtualclassEditorRichTool{
+#virtualclassCont div#virtualclassOptionsCont div#virtualclassEditorRichTool{
 	border-bottom: none;
 }
 
@@ -2910,9 +2908,11 @@ div#virtualclassOptionsCont div#virtualclassEditorRichTool{
 	right: 0px;
 }
 
-#virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget{
+#virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget, #virtualclassCont.student[data-currapp="Yts"] #audioWidget{
 	right: 10px;
 }
+
+#virtualclassCont.student[data-currapp="EditorRich"]{right: 0;}
 
 #virtualclassCont #messageLayout{
 	background-color: #f9f9f9;
@@ -2924,13 +2924,22 @@ div#virtualclassOptionsCont div#virtualclassEditorRichTool{
     position: relative;
     top: 40%;
     width: 500px;
+    text-align: center;
+    box-shadow: 0 0 8px #ddd;
+}
+#virtualclassCont #whiteBoardMsg{
+	background-color: #f9f9f9;
+    border: 1px solid #c8ddb8;
+    padding: 20px;
+    color: #3a773c;
+    border-radius: 5px;
 }
 
 #virtualclassCont .vmchat_bar_button{
 	border-color:#8f8f8f;
 }
 
-[placeholder="I want youTube video URL."], [placeholder="Insert image url"] {
+#virtualclassCont [placeholder="I want youTube video URL."], #virtualclassCont [placeholder="Insert image url"] {
     font-weight: lighter;
     font-style: normal;
     font-family: sans-serif;

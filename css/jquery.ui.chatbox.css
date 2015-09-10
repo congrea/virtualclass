@@ -198,7 +198,7 @@
     padding-top: 0px;
     z-index: 1026;
     float: left;
-    width: 203px;
+    width: 202px;
 }
 #virtualclassCont .inner_bt {
     padding: 10px 0;
@@ -222,7 +222,6 @@
     padding: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
     z-index: 100;
-    left:21px !important;
 }
 #virtualclassCont #chatroom_icon {
     float: left;

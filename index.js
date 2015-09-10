@@ -142,7 +142,7 @@ $(document).ready(function () {
                 clearEverthing();
                 virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
             },
-            50
+            150 //increase 100 ms for indexeddb which was not ready till popup was display
         );
     }
 

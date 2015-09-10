@@ -24,6 +24,7 @@
 
 #virtualclassCont {
 	font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	position: relative;
 }
 
 
@@ -2881,6 +2882,11 @@
 	border-bottom: none;
 }
 
+#virtualclassOptionsCont .appOptions a.tooltip:hover:after{
+	line-height: 20px !important;
+	bottom: -20px !important;
+}
+
 #virtualclassCont.teacher #audioWidget{
 	right: 11px;
 }
@@ -2913,6 +2919,18 @@
 }
 
 #virtualclassCont.student[data-currapp="EditorRich"]{right: 0;}
+
+#virtualclassCont.studentplayMode[data-currapp="EditorRich"] #audioWidget{
+	top: 170px;
+	right: 10px;
+}
+
+#virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] #virtualclassEditorCode{
+	margin-left: 0px;
+}
+#virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] .CodeMirror-scroll{
+	margin-right: 0px;
+}
 
 #virtualclassCont #messageLayout{
 	background-color: #f9f9f9;

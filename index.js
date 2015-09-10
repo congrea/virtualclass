@@ -137,9 +137,10 @@ $(document).ready(function () {
     if (virtualclass.vutil.isPlayMode()) {
         setTimeout(
             function () {
-                virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
+                //earlier it was calling after requestDataFromServer
+                // because of which the popup box for replay is not displaying
                 clearEverthing();
-
+                virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
             },
             50
         );

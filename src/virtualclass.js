@@ -1,9 +1,8 @@
 (function (window) {
     window.virtualclass = function () {
+        var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
-
-            isPlayMode : wbUser.virtualclassPlay,
-//            apps : ["Whiteboard", "ScreenShare", "WholeScreenShare"],
+            isPlayMode :playMode,
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",

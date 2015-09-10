@@ -313,7 +313,7 @@
                         }
                     } else {
                         //tricky case  when previous and current are same hide other appilcations but current
-                        var allApps = document.getElementsByClassName('virtualclass');
+                        var allApps = document.getElementById('virtualclassCont').getElementsByClassName('virtualclass');
                         for (var i = 0; i < allApps.length; i++) {
                             allApps[i].style.display = 'none';
                         }

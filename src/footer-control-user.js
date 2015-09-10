@@ -927,7 +927,7 @@
              * disable/enable all the audio
              * @param action expect either enable/disable
              */
-            toggleAllAudio: function (action) {
+                toggleAllAudio: function (action) {
                 var allUsersDom = document.getElementsByClassName('controleCont');
                 if (allUsersDom.length > 0) {
                     for (var i = 0; i < allUsersDom.length; i++) {
@@ -936,7 +936,11 @@
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                 var elem = document.getElementById(idPart + 'Img');
+
+
                                 this.control.init.call(this, elem, action);
+
+
                             }
                         }
                     }
@@ -975,32 +979,20 @@
                 }
 
 
-
-                var that = this;
-
-                spanTag.addEventListener('click', function (){
-                    var audioController = document.getElementById('contrAudioAllImg');
-
-
-                    var actionToPerform = that.toogleAudioIcon();
-
-                    //if (audioController != null) {
-                    //    actionToPerform = audioController.dataset.action;
-                    //    if (audioController.dataset.action == 'enable') {
-                    //        audioController.dataset.action = 'disable';
-                    //        audioController.innerHTML = "Disable All";
-                    //    } else {
-                    //        audioController.dataset.action = 'enable';
-                    //        audioController.innerHTML = "Enable All";
-                    //    }
-                    //}
-
-                    if(typeof actionToPerform != 'undefined'){
-
-                        localStorage.setItem('allAudAction', actionToPerform);
-                        that.toggleAllAudio.call(virtualclass.user, actionToPerform);
-                    }
-                });
+                if(virtualclass.isPlayMode){
+                    anchorTag.pointerEvents = "none";
+                    anchorTag.style.cursor = "default";
+                } else {
+                    var that = this;
+                    spanTag.addEventListener('click', function (){
+                        var audioController = document.getElementById('contrAudioAllImg');
+                        var actionToPerform = that.toogleAudioIcon();
+                        if(typeof actionToPerform != 'undefined'){
+                            localStorage.setItem('allAudAction', actionToPerform);
+                            that.toggleAllAudio.call(virtualclass.user, actionToPerform);
+                        }
+                    });
+                }
 
                 anchorTag.appendChild(spanTag);
                 var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];

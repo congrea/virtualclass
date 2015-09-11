@@ -48,7 +48,7 @@ $(document).ready(function () {
 
         if(previousApp.name == 'Yts'){
             if(previousApp.metaData == null ){
-               var videoObj = null;
+                var videoObj = null;
             } else {
                 var videoObj = previousApp.metaData;
                 videoObj.fromReload = true;
@@ -73,7 +73,7 @@ $(document).ready(function () {
     }
 
     if(roles.isEducator()){
-      //  virtualclass.vutil.toggleRoleClass(true);
+        //  virtualclass.vutil.toggleRoleClass(true);
     }
 
     var alreadyInit = false;
@@ -84,13 +84,13 @@ $(document).ready(function () {
         virtualclass.editorRich.veryInit();
         virtualclass.editorCode.veryInit();
     }
-    
+
     /*
-    if (localStorage.getItem('tc') !== null) {
-        virtualclass.vutil.toggleRoleClass();
-    } else {
-        localStorage.setItem('tc', true);
-    } */
+     if (localStorage.getItem('tc') !== null) {
+     virtualclass.vutil.toggleRoleClass();
+     } else {
+     localStorage.setItem('tc', true);
+     } */
 
     if (virtualclass.vutil.isMiniFileIncluded('wb.min')) {
         virtualclass.gObj.displayError = 0;
@@ -152,7 +152,7 @@ $(document).ready(function () {
 
     $(document).on("member_removed", function (e) {
         // critical removign this can be critical
-      //  virtualclass.wb.utility.userIds = [];
+        //  virtualclass.wb.utility.userIds = [];
         memberUpdate(e, "removed");
     });
 
@@ -182,49 +182,50 @@ $(document).ready(function () {
             virtualclass.gObj.updateHeight = true;
         }
 
-        if (roles.hasControls()) {
-            if(virtualclass.gObj.uid != virtualclass.jId){
-                // Greet new student with info
-                if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-                    ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-                } else if (virtualclass.currApp === 'ScreenShare') {
-                    sType = 'ss';
-                } else if(virtualclass.currApp === 'Yts'){
-                    //virtualclass.yts.player.getCurrentTime();
+        if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
+            // Greet new student with info
+            //if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+            //    ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+            //}
+            if (virtualclass.currApp === 'ScreenShare') {
+                sType = 'ss';
+            } else if(virtualclass.currApp === 'Yts'){
+                //virtualclass.yts.player.getCurrentTime();
 
-                    //init name should be changed with video id
-                    ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
-                    //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
-                }
-
-                if (typeof sType !== 'undefined' && sType !== null) {
-                    //TODO this should be into function
-                    sType = virtualclass.getDataFullScreen(sType);
-                    var createdImg = virtualclass.getDataFullScreen('ss');
-                    ioAdapter.sendBinary(createdImg);
-                    sType = null;
-                }
-
-            } else {
-
-                if(roles.hasAdmin()){
-                    // On reload or new connection, make sure all students have same data
-                    if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
-                        virtualclass.editorRich.responseToRequest();
-                    } else {
-                        console.log('Editor Rich vcAdapter is not ready');
-                    }
-
-                    if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
-                        virtualclass.editorCode.responseToRequest('editorCode');
-                    } else {
-                        console.log('Editor Code vcAdapter is not ready');
-                    }
-                }
-
+                //init name should be changed with video id
+                ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
+                //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
             }
 
+            if (typeof sType !== 'undefined' && sType !== null) {
+                //TODO this should be into function
+                sType = virtualclass.getDataFullScreen(sType);
+                var createdImg = virtualclass.getDataFullScreen('ss');
+                ioAdapter.sendBinary(createdImg);
+                sType = null;
+            }
         }
+
+
+        if(roles.hasAdmin() && virtualclass.gObj.uid == virtualclass.jId){
+            if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+            }
+
+            // On reload or new connection, make sure all students have same editor data
+            if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
+                virtualclass.editorRich.responseToRequest();
+            } else {
+                console.log('Editor Rich vcAdapter is not ready');
+            }
+
+            if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
+                virtualclass.editorCode.responseToRequest();
+            } else {
+                console.log('Editor Code vcAdapter is not ready');
+            }
+        }
+
     });
 
     $(document).on("Multiple_login", function (e) {
@@ -293,7 +294,7 @@ $(document).ready(function () {
             }
         }
 
-    
+
     });
 
     function clearEverthing() {
@@ -329,7 +330,7 @@ $(document).ready(function () {
         };
 
         this.control = function (e){
-         virtualclass.user.control.onmessage(e);
+            virtualclass.user.control.onmessage(e);
         };
 
         //editor data
@@ -504,7 +505,7 @@ $(document).ready(function () {
         this.getMsPckt = function (e) {
             virtualclass.wb.gObj.chunk = [];
             var chunk = virtualclass.wb.bridge.sendPackets(e, virtualclass.wb.gObj.chunk);
-          virtualclass.vutil.beforeSend({'repObj': chunk, 'chunk': true, 'cf' : 'repObj'});
+            virtualclass.vutil.beforeSend({'repObj': chunk, 'chunk': true, 'cf' : 'repObj'});
         };
 
         //Create mouse
@@ -512,7 +513,7 @@ $(document).ready(function () {
             if(typeof virtualclass.wb == 'object'){
                 if (!virtualclass.wb.oTeacher) {
                     virtualclass.wb.response.createArrow(e.message, virtualclass.wb.oTeacher);
-                } 
+                }
             }
         };
 
@@ -594,4 +595,3 @@ $(document).ready(function () {
 
     };
 });
-

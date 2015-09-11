@@ -14,6 +14,7 @@ var io = {
         error: null,
         uniquesids: null,
         serial: null,
+        packetQueue : [],
 
         init: function (cfg, callback) {
             "use strict";
@@ -120,13 +121,9 @@ var io = {
             this.sock.send(jobj);
         },
 
-        send: function (msg, cfun, touser) {
+        send : function (msg, cfun, touser) {
             "use strict";
 
-            if (this.sock == null) {
-                console.log("socket is not created");
-                return;
-            }
             var obj = {
                 cfun: cfun,
                 arg: {'msg': msg}
@@ -136,15 +133,61 @@ var io = {
                 obj.arg.touser = touser;
             }
 
+
+            //if(io.sock != null && io.sock.readyState == 1){
+            //    if (touser) {
+            //        touser = io.uniquesids[touser];
+            //        if(touser == 'undefined' || typeof touser == 'undefined'){
+            //            console.log("Couldn't send packet, " + touser + " " + " is not connected.");
+            //        } else {
+            //            io.send(msg, cfun, touser);
+            //        }
+            //    }
+            //} else {
+            //    console.log('Socket is not created.');
+            //}
+
+            var jobj;
+
+            if (this.sock && this.sock.readyState == 1) { // If Socket is ready
+                if(io.packetQueue.length > 0){
+                    for(var i=0; i<io.packetQueue.length; i++){
+                        var tmp_jobj = JSON.parse(io.packetQueue[i]);
+                        this.realSend(tmp_jobj);
+                    }
+                    io.packetQueue.length = 0;
+                }
+                // Now send requested msg
+                this.realSend(obj);
+            } else { // Save msg in queue
+                console.log("SOCKET is not ready.");
+                jobj = JSON.stringify(obj);
+                io.packetQueue.push(jobj);
+            }
+        },
+
+        realSend: function (obj) {
+            "use strict";
+            if (typeof obj.arg.touser != 'undefined') {
+
+                obj.arg.touser = io.uniquesids[obj.arg.touser];
+
+                if(typeof obj.arg.touser == 'undefined'){
+                    console.log( "User is not connected." + obj.arg.touser);
+                    return;
+                }
+            }
             var jobj = JSON.stringify(obj);
             this.sock.send(jobj);
-
-
         },
+
 
         sendBinary: function (msg) {
             "use strict";
-            this.sock.send(msg.buffer);
+            if((this.sock && this.sock.readyState == 1)){
+                this.sock.send(msg.buffer);
+            }
+
         },
 
         onRecMessage: function (e) {

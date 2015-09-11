@@ -2884,7 +2884,7 @@
 
 #virtualclassOptionsCont .appOptions a.tooltip:hover:after{
 	line-height: 20px !important;
-	bottom: -20px !important;
+	bottom: 0px!important;
 }
 
 #virtualclassCont.teacher #audioWidget{
@@ -2931,6 +2931,11 @@
 #virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] .CodeMirror-scroll{
 	margin-right: 0px;
 }
+
+
+#virtualclassCont.playMode.student #virtualclassEditorRich{margin-top: 0px;}
+
+#virtualclassCont.playMode.student .writeModeBox{top: -60px;}
 
 #virtualclassCont #messageLayout{
 	background-color: #f9f9f9;

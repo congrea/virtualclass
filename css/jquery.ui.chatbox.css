@@ -77,6 +77,8 @@
     z-index: 2;
     right: 6px;
 }
+
+
 #virtualclassCont .ui-memblist-titlebar {
     padding: 10px 3px 3px;
     height: 20px;
@@ -453,5 +455,23 @@
 
 .ui-widget-content.ui-chatbox-input-box.ui-corner-all{
     width: 212px !important;
+}
+
+#virtualclassCont.playMode.student .ui-memblist{
+	bottom:40px;
+}
+#virtualclassCont.playMode.student .ui-chatroom{
+	z-index: 0 !important;
+}
+
+#virtualclassCont.playMode.student #stickybar{
+	z-index: 1 !important;
+}
+#usertab_text.tooltip.close, #usertab_text.tooltip.open {
+	line-height: 20px;
+}
+
+#chatroom_bt2.vmchat_room_bt.tooltip{
+	line-height: 20px;
 }
 

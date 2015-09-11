@@ -184,9 +184,10 @@ $(document).ready(function () {
 
         if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
             // Greet new student with info
-            if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-                ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-            } else if (virtualclass.currApp === 'ScreenShare') {
+            //if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+            //    ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+            //}
+            if (virtualclass.currApp === 'ScreenShare') {
                 sType = 'ss';
             } else if(virtualclass.currApp === 'Yts'){
                 //virtualclass.yts.player.getCurrentTime();
@@ -207,6 +208,9 @@ $(document).ready(function () {
 
 
         if(roles.hasAdmin() && virtualclass.gObj.uid == virtualclass.jId){
+            if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+            }
 
             // On reload or new connection, make sure all students have same editor data
             if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){

@@ -216,7 +216,7 @@ $(document).ready(function () {
             }
 
             if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
-                virtualclass.editorCode.responseToRequest('editorCode');
+                virtualclass.editorCode.responseToRequest();
             } else {
                 console.log('Editor Code vcAdapter is not ready');
             }

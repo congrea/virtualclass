@@ -14,6 +14,7 @@ var io = {
         error: null,
         uniquesids: null,
         serial: null,
+        packetQueue : [],
 
         init: function (cfg, callback) {
             "use strict";
@@ -120,13 +121,9 @@ var io = {
             this.sock.send(jobj);
         },
 
-        send: function (msg, cfun, touser) {
+        send : function (msg, cfun, touser) {
             "use strict";
 
-            if (this.sock == null) {
-                console.log("socket is not created");
-                return;
-            }
             var obj = {
                 cfun: cfun,
                 arg: {'msg': msg}
@@ -135,16 +132,32 @@ var io = {
             if (touser) {
                 obj.arg.touser = touser;
             }
-
             var jobj = JSON.stringify(obj);
-            this.sock.send(jobj);
 
 
+            if (this.sock && this.sock.readyState == 1) {
+                if(io.packetQueue.length > 0){
+                    io.packetQueue.push(jobj);
+                    for(var i=0; i<io.packetQueue.length; i++){
+                        this.sock.send(io.packetQueue[i]);
+                    }
+                    io.packetQueue.length = 0;
+                } else {
+                    this.sock.send(jobj);
+                }
+            } else {
+                console.log("SOCKET is not ready.");
+                io.packetQueue.push(jobj);
+            }
         },
+
 
         sendBinary: function (msg) {
             "use strict";
-            this.sock.send(msg.buffer);
+            if((this.sock && this.sock.readyState == 1)){
+                this.sock.send(msg.buffer);
+            }
+
         },
 
         onRecMessage: function (e) {

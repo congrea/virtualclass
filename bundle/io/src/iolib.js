@@ -132,23 +132,53 @@ var io = {
             if (touser) {
                 obj.arg.touser = touser;
             }
-            var jobj = JSON.stringify(obj);
 
 
-            if (this.sock && this.sock.readyState == 1) {
+            //if(io.sock != null && io.sock.readyState == 1){
+            //    if (touser) {
+            //        touser = io.uniquesids[touser];
+            //        if(touser == 'undefined' || typeof touser == 'undefined'){
+            //            console.log("Couldn't send packet, " + touser + " " + " is not connected.");
+            //        } else {
+            //            io.send(msg, cfun, touser);
+            //        }
+            //    }
+            //} else {
+            //    console.log('Socket is not created.');
+            //}
+
+            var jobj;
+
+            if (this.sock && this.sock.readyState == 1) { // If Socket is ready
                 if(io.packetQueue.length > 0){
-                    io.packetQueue.push(jobj);
                     for(var i=0; i<io.packetQueue.length; i++){
-                        this.sock.send(io.packetQueue[i]);
+                        var tmp_jobj = JSON.parse(io.packetQueue[i]);
+                        this.realSend(tmp_jobj);
                     }
                     io.packetQueue.length = 0;
-                } else {
-                    this.sock.send(jobj);
                 }
-            } else {
+                // Now send requested msg
+                this.realSend(obj);
+            } else { // Save msg in queue
                 console.log("SOCKET is not ready.");
+                jobj = JSON.stringify(obj);
                 io.packetQueue.push(jobj);
             }
+        },
+
+        realSend: function (obj) {
+            "use strict";
+            if (typeof obj.arg.touser != 'undefined') {
+
+                obj.arg.touser = io.uniquesids[obj.arg.touser];
+
+                if(typeof obj.arg.touser == 'undefined'){
+                    console.log( "User is not connected." + obj.arg.touser);
+                    return;
+                }
+            }
+            var jobj = JSON.stringify(obj);
+            this.sock.send(jobj);
         },
 
 

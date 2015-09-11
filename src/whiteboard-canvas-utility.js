@@ -27,7 +27,7 @@
          * @return {Object} Object with "left" and "top" properties
          */
         getElementOffset: function (element) {
-            console.log(element.id + " should second ");
+            //console.log(element.id + " should second ");
             // TODO : need to fix this method
             var valueT = 0, valueL = 0;
             do {

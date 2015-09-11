@@ -262,10 +262,9 @@
                     }
 
                     if ((!roles.hasControls()) ||
-                        (roles.hasControls() && e.message.hasOwnProperty('resFromUser') && e.fromUser.userid != virtualclass.gObj.uid)) {
+                         // allEdData when teacher in educator mode and reponse the data after page refresh
+                        (roles.hasControls() &&  e.fromUser.userid != virtualclass.gObj.uid) && (e.message.hasOwnProperty('resFromUser') || e.message.hasOwnProperty('allEdData'))) {
                         var doc = JSON.parse(e.message.data);
-
-
                         if (e.message.hasOwnProperty('layoutEd')) {
                             this.initialiseDataWithEditor(doc, "displayEditor", e.message.et);
                         } else {
@@ -422,6 +421,7 @@
                     ioAdapter.mustSendUser(initPacket, toUser);
                     console.log('Sending responseToRequest to ' + toUser);
                 } else {
+                    initPacket.allEdData = true;
                     ioAdapter.mustSend(initPacket);
                     console.log('Sending responseToRequest to all');
                     virtualclass[initPacket.et].vcAdapter.removeOperations({message: {et: initPacket.et}});

@@ -190,11 +190,12 @@ $(document).ready(function () {
             if (virtualclass.currApp === 'ScreenShare') {
                 sType = 'ss';
             } else if(virtualclass.currApp === 'Yts'){
-                //virtualclass.yts.player.getCurrentTime();
-
-                //init name should be changed with video id
-                ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
-                //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
+                if(typeof virtualclass.yts.player == 'object'){
+                    ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
+                } else {
+                    ioAdapter.mustSend({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                }
+               //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
             }
 
             if (typeof sType !== 'undefined' && sType !== null) {

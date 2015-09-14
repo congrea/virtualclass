@@ -27,9 +27,6 @@
 
             clearSession: function () {
                 window.pageEnter = new Date().getTime();
-                //appName = appName.substring(0, appName.indexOf("Tool")); //this should be rmove
-
-              //  virtualclass.vutil.makeActiveApp("virtualclass" + appName, virtualclass.previous);
 
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
                 virtualclass.storage.config.endSession();
@@ -39,11 +36,7 @@
                     virtualclass.prevScreen.unShareScreen();
                 }
 
-                //virtualclass.previrtualclass = "virtualclass" + appName;
-
                 virtualclass.previrtualclass = "virtualclassEditorRich";
-
-
             },
 
             init: function (urole, app, videoObj) {
@@ -163,19 +156,10 @@
                     this.system.setAppDimension();
                 }
 
-                //if (localStorage.uRole != null) {
-                //    virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
-                //}
-
                 virtualclass.vutil.createReclaimButtonIfNeed();
 
                    //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
-
-                //2
-                //if (roles.hasControls() && app == 'Whiteboard') {
-                //    vcan.utility.canvasCalcOffset(vcan.main.canid);
-                //}
 
                 this.gObj.video = new window.virtualclass.media();
 
@@ -184,17 +168,11 @@
                     var that = this;
                     var initSocket = setInterval(function () {
                         if (that.gObj.editorInitDone >= 2) {
-
-
-
                             that.initSocketConn();
                             clearInterval(initSocket);
                         }
                     }, 100);
                 }
-
-
-
             },
 
             initSocketConn: function () {
@@ -368,7 +346,6 @@
                 if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
                     virtualclass.yts.destroyYT();
                 }
-
             },
             
             // Helper functions for making the app is ready

@@ -165,7 +165,6 @@ if(isset($_GET['lname'])){
                         <div id="repTimeCont"> <span id="tillRepTime">00:00</span> / <span id="totalRepTime">00:00</span> </div>
                    </div>
                    <div id="replayFromStart"> <button  class="ff icon-Replayfromstart tooltip" data-title="Replay from Start."></button> </div>
-                    <div style="clear:both;"></div>
                </div>
 
     <?php
@@ -299,13 +298,17 @@ if(isset($_GET['lname'])){
                                 <div id="indProgressValue" class="progressValue"> 0%
                                 </div>
                             </div>
+
+
                         </div>
+
                     </div>
 
                     <div id="recordFinishedMessageBox">
                         <span id="recordFinishedMessage">  <?php echo get_string('uploadedsession'); ?>. </span>
                         <span id="recordingClose" class="icon-close"></span>
                     </div>
+
                 </div>
 
             </div>

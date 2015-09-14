@@ -415,7 +415,9 @@
     border: none;
 
 }
-
+#virtualclassCont #chatWidget .mySelf span{
+	 margin-left: 10px;
+}
 
 #virtualclassCont .ui-memblist-usr a{
     text-decoration: none;
@@ -424,7 +426,6 @@
 #virtualclassCont .ui-memblist-usr a span{
     font-size: 12px;
     text-transform: capitalize;
-    margin-left : 5px;
 }
 #virtualclassCont .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
     top: -1px !important;}
@@ -475,3 +476,56 @@
 	line-height: 20px;
 }
 
+#user_list.vmchat_bar_button{
+	width:209px !important
+	border-right:none !important;
+}
+
+#virtualclassCont .vmchat_bar_button{
+	border-right:none;
+	width:210px;
+}
+#virtualclassCont[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont[data-currapp="EditorCode"] .vmchat_bar_button{
+	width: 218px;
+}
+
+#virtualclassCont[data-currapp="EditorRich"] .ui-memblist, #virtualclassCont[data-currapp="EditorCode"] .ui-memblist{
+	right: 11px !important;
+}
+
+
+#virtualclassCont[data-currapp="Whiteboard"] .vmchat_bar_button{
+	width: 210px;
+}
+
+#virtualclassCont[data-currapp="Whiteboard"] .ui-memblist{
+	right: 3px !important;
+}
+
+#virtualclassCont[data-currapp="ScreenShare"] .vmchat_bar_button{
+	width: 214px;
+}
+
+#virtualclassCont[data-currapp="Yts"] .ui-memblist{
+	right: 3px !important;
+}
+
+#virtualclassCont[data-currapp="Yts"] .vmchat_bar_button{
+	width: 210px;
+}
+
+
+#virtualclassCont.student.presentor[data-currapp="EditorRich"] .ui-memblist{
+	right: 15px !important;
+}
+#virtualclassCont.student.presentor[data-currapp="EditorRich"] .vmchat_bar_button{
+	width: 222px;
+}
+
+#virtualclassCont[data-currapp="EditorCode"] .ui-memblist{
+	right: 10px !important;
+}
+
+ #virtualclassCont[data-currapp="EditorCode"] .vmchat_bar_button{
+	width: 222px;
+ }

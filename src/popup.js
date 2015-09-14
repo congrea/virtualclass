@@ -212,7 +212,7 @@ var PopUp = (function (window, undefined) {
 //        document.getElementById('waitMsg').innerHTML = updtMsg;
 //    }
 
-    PopUp.prototype.openProgressBar = function (nfile) {
+    PopUp.prototype.openProgressBar = function (nfile){
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
 

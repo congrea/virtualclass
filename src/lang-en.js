@@ -131,7 +131,9 @@
         'studentAudEnable' : 'Student Audio Enable',
         'screensharealready' : "Already the whole screen is being shared.",
         'editorsynchmsg' : 'Editor is not in sync, please wait for few seconds and try again ',
-        'canvasmissing' : 'Canvas is missing in your browsers. Please update the latest version of your browser'
+        'canvasmissing' : 'Canvas is missing in your browsers. Please update the latest version of your browser',
+        'downloadFile'  : 'Download File',
+        'filenotsave'  : 'Your file could not be saved.'
 };
     window.message = message;
 })(window);

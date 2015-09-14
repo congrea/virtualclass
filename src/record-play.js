@@ -449,10 +449,11 @@
                 downloadLink.href = "";
                 downloadLink.download = "session.vcp";
                 downloadLink.innerHTML = virtualclass.lang.getString('download');
-
+                downloadMsg.innerHTML = virtualclass.lang.getString('filenotsave');
                 downloadLinkCont.appendChild(downloadButton);
 
-
+                var recordingHeaderCont = document.getElementById('recordingHeader');
+                recordingHeaderCont.innerHTML = virtualclass.lang.getString('downloadFile');
 
                 var textFileAsBlob = new Blob([data], {type: "application/virtualclass"});
 

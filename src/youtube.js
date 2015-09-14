@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/**@Copyright 2015  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * this file creates the player object to play video and to send it's state changes to the receiver
  * receiver accordingly updates its state.
@@ -114,9 +114,6 @@
 
                     this.createPlayerTag(divYts);
 
-                    //var divPlayer = document.createElement('div');
-                    //divPlayer.id = "player";
-                    //divYts.appendChild(divPlayer);
 
                     var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
                     document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);

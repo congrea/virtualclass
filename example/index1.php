@@ -299,13 +299,17 @@ if(isset($_GET['lname'])){
                                 <div id="indProgressValue" class="progressValue"> 0%
                                 </div>
                             </div>
+
+
                         </div>
+
                     </div>
 
                     <div id="recordFinishedMessageBox">
                         <span id="recordFinishedMessage">  <?php echo get_string('uploadedsession'); ?>. </span>
                         <span id="recordingClose" class="icon-close"></span>
                     </div>
+
                 </div>
 
             </div>

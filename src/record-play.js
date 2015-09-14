@@ -269,7 +269,6 @@
 
             virtualclass.storage.getrowData(['chunkData'], function (dObj, frow) {
                 if ((typeof dObj == 'string' || typeof dObj == 'undefined')) {
-                    console.log("should invoke only once");
                     earlierTimeout = setTimeout(
                         function () {
                             virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
@@ -347,8 +346,6 @@
 
         afterRecording: function () {
 
-            console.log('Finished Upload Process.');
-
             virtualclass.clearSession();
             //virtualclass.storage.config.endSession();
 
@@ -375,6 +372,8 @@
                     virtualclass.popup.closeElem();
 
                     // After clear the default look for progress bar
+
+                    var progressBarContainer = document.getElementById('progressContainer');
                     recordFinishedMessageBox.style.display = 'none';
                     progressBarContainer.style.display = 'block';
 

@@ -39,7 +39,6 @@ var progressBar = {
     },
 
     renderProgressBar: function (totalVal, portion, pbar, pval) {
-
         if (portion > totalVal) {
             portion = totalVal;
             document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');

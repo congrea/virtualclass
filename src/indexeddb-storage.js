@@ -517,7 +517,7 @@
             createNewSession: function () {
                 //virtualclass.editorRich.init(0, [], "", "");
                 virtualclass.makeAppReady(virtualclass.apps[3]);
-                virtualclass.popup.closeElem();
+//                virtualclass.popup.closeElem();
                 var currTime = new Date().getTime();
                 if (typeof that.db != 'undefined') {
                     var t = that.db.transaction(["config"], "readwrite");

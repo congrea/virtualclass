@@ -30,7 +30,7 @@
 	width: 27%;
 	min-height:auto;
 	background:#fff;
-	z-index:10;f
+	z-index:10;
 -webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
@@ -48,7 +48,7 @@
 	width: 27%;
 	min-height:auto;
 	background:#fff;
-	z-index:10;f
+	z-index:10;
 -webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
@@ -74,6 +74,7 @@
 .rv-vanilla-modal-overlay.is-shown {
 	opacity:1;
 	display:block;
+	z-index : 2;
 }
 /*.rv-vanilla-modal-header {
     background:#d4d4d4;
@@ -326,3 +327,5 @@ transition:all .2s linear;
 #virtualclassCont #field2::-moz-placeholder { color:#00f; }
 
 #virtualclassCont #youtubeurl::-webkit-input-placeholder { opacity : 0.8}
+
+

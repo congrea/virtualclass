@@ -133,7 +133,9 @@
         'editorsynchmsg' : 'Editor is not in sync, please wait for few seconds and try again ',
         'canvasmissing' : 'Canvas is missing in your browsers. Please update the latest version of your browser',
         'downloadFile'  : 'Download File',
-        'filenotsave'  : 'Your file could not be saved.'
+        'filenotsave'  : 'Your file could not be saved.',
+        'muteAll' : 'Mute All',
+        'unmuteAll' : 'Unmute All'
 };
     window.message = message;
 })(window);

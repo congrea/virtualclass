@@ -145,7 +145,8 @@
 	            uiChatboxTitlebarMinimize.removeClass('ui-state-focus');
             })
             .click(function(event) {
-	            options.boxManager.toggleBox();
+	               // options.boxManager.toggleBox();
+                    toggleCommonChatBox();
                     localStorage.setItem("chatroom_status", "hidden");
 		         return false;
             })

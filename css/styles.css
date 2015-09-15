@@ -1302,10 +1302,9 @@
 	margin-bottom : 8px;
 	margin-left: 1px;
 }
-#virtualclassCont .ui-memblist-usr a{
-
+#virtualclassCont .ui-memblist-usr a:first-child span{
+	left: 5px;
 }
-
 
 #virtualclassCont #virtualclassScreenShare, #virtualclassWholeScreenShare {
 	margin-left : 55px;
@@ -1713,8 +1712,13 @@
 }
 
 #virtualclassCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #virtualclassCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom : -24px;
+	bottom : -30px;
 	left : -18px;
+}
+
+#virtualclassCont .ui-memblist-usr a.tooltip[data-title="Disable Writing"]:hover:after, #virtualclassCont .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+	bottom: -30px;
+    left: -40px !important;
 }
 
 #virtualclassCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
@@ -2108,17 +2112,21 @@
 		bottom:-34px;
 		left:0em;
 	}
-
+	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+		left:-3em;
+	}
+	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Disable Writing"]:hover:after{
+		left:-3em;
+	}	
 	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Click to chat"]:hover:after{
-		bottom: 14px;
-		left: 0em;
+	bottom: 14px;
+    left: 0em;
+	}
+
+	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+		left:-20px;
 	}
 }
-#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after, #virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Disable Writing"]:hover:after{
-	left:-30px !important;
-}
-
-
 
 #virtualclassCont #chatWidget .mySelf {
 	pointer-events: none;
@@ -2211,7 +2219,7 @@
 
 #virtualclassCont.student #virtualclassYts p{
 	text-align:center;
-	/* 	margin-top : 25%; */
+/* 	margin-top : 25%; */
 
 }
 
@@ -2558,7 +2566,7 @@
 	margin-left: 5px;
 	border-radius: 5px;
 	top: -2px;
-	position: relative;
+    position: relative;
 }
 
 #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer{
@@ -2991,24 +2999,24 @@
 
 #virtualclassCont #messageLayout{
 	background-color: #f9f9f9;
-	border: 1px solid #c8ddb8;
-	border-radius: 5px;
-	color: #3a773c;
-	margin: 0 auto;
-	padding: 20px;
-	position: relative;
-	top: 40%;
-	width: 500px;
-	text-align: center;
-	box-shadow: 0 0 8px #ddd;
+    border: 1px solid #c8ddb8;
+    border-radius: 5px;
+    color: #3a773c;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    top: 40%;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 0 8px #ddd;
 }
 #virtualclassCont #whiteBoardMsg{
 	background-color: #f9f9f9;
-	border: 1px solid #c8ddb8;
-	padding: 20px;
-	color: #3a773c;
-	border-radius: 5px;
-	box-shadow:#ddd 0px 0px 5px;
+    border: 1px solid #c8ddb8;
+    padding: 20px;
+    color: #3a773c;
+    border-radius: 5px;
+    box-shadow:#ddd 0px 0px 5px;
 }
 
 #virtualclassCont .vmchat_bar_button{
@@ -3016,16 +3024,16 @@
 }
 
 #virtualclassCont [placeholder="I want youTube video URL."], #virtualclassCont [placeholder="Insert image url"] {
-	font-weight: lighter;
-	font-style: normal;
-	font-family: sans-serif;
-	font-size: 18px !important;
-	color:#535151;
-	font-weight: lighter !important;
+    font-weight: lighter;
+    font-style: normal;
+    font-family: sans-serif;
+    font-size: 18px !important;
+    color:#535151;
+    font-weight: lighter !important;
 }
 #virtualclassContuserImg.ui-memblist-usr{
 	left: 5px;
-	top: 2px;
+    top: 2px;
 }
 
 
@@ -3042,25 +3050,27 @@
 }
 #downloadFileCont #downloadButton{
 	margin-top: 10px;
-	padding: 10px 16px;
-	border-radius: 17px;
-	cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 17px;
+    cursor: pointer;
 }
 #downloadFileCont #errormsessage{
 	font-weight: 400;
 	font-size: 15px;
-	color: #555;
+    color: #555;
 }
 
 #downloadFileCont{
-	padding: 10px 20px 25px 20px;
+	padding: 10px 20px 25px 20px; 
 	text-align: center;
-
+	
 }
 
 #virtualclassCont div.ui-memblist-usr:last-child .userVideos{
 	margin-bottom: 16px;
 }
+
+
 
 /* Error massages */
 

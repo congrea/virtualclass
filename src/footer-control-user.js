@@ -970,12 +970,12 @@
                     //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
                     spanTag.className = 'icon-all-audio-enable tooltip';
-                    spanTag.dataset.title = 'Enable';
+                    spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
                 }else{
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
                     spanTag.className = 'icon-all-audio-disable tooltip';
-                    spanTag.dataset.title = 'Disable';
+                    spanTag.dataset.title = virtualclass.lang.getString('muteAll');
                 }
 
 
@@ -1009,13 +1009,14 @@
                         audioController.dataset.action = 'disable';
                         //audioController.innerHTML = "Dis Aud All";
                         audioController.className = 'icon-all-audio-disable tooltip';
-                        audioController.dataset.title = 'Disable';
+
+                        audioController.dataset.title = virtualclass.lang.getString('muteAll');
 
                     } else {
                         audioController.dataset.action = 'enable';
                         //audioController.innerHTML = "En Aud All";
                         audioController.className = 'icon-all-audio-enable tooltip';
-                        audioController.dataset.title = 'Enable';
+                        audioController.dataset.title = virtualclass.lang.getString('unmuteAll');
 
                     }
                     return actionToPerform;

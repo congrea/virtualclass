@@ -72,6 +72,8 @@
                     }
                     var childTag = chatUser.getElementsByTagName('a')[0];
                     var imgTag = childTag.getElementsByTagName('img')[0];
+                    childTag.className += ' hasVideo';
+
                     childTag.replaceChild(vidCont, imgTag);
                 }
             },

@@ -136,17 +136,19 @@
                         
                         $("#usertab_toogle_icon").addClass('icon-arrow-down');
                         $("#usertab_toogle_icon").removeClass('close icon-arrow-up');
+
                         $(this).attr('data-title', virtualclass.lang.getString('miniUserList'));
                         
                     }else{
-//                        $(this).addClass('close icon-arrow-up');
-//                        $(this).removeClass('open icon-arrow-down');
+
                         $(this).addClass('close');
                         $(this).removeClass('open');
                         $("#usertab_toogle_icon").addClass('icon-arrow-up');
                         $("#usertab_toogle_icon").removeClass('icon-arrow-down');
                         $(this).attr('data-title', virtualclass.lang.getString('maxUserList'));
                     }
+
+
                     
                     $("#chat_div").memberlist("option", "boxManager").toggleBox();
                 }

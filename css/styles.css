@@ -363,6 +363,7 @@
 	margin : 0;
 	outline : 1px solid #5A5757;
 	margin-left : 2px;
+	margin-right : 10px;
 }
 
 #virtualclassCont div.ui-memblist-usr .userVideos {
@@ -1137,7 +1138,6 @@
 #virtualclassCont div.ui-memblist-usr video {
 	width : 60px;
 	height : 50px;
-	margin : 0;
 	outline : 1px solid #5A5757;
 	margin-left : 2px;
 }
@@ -1289,6 +1289,10 @@
 	margin-bottom : 8px;
 	margin-left: 1px;
 }
+#virtualclassCont .ui-memblist-usr a{
+	
+}
+
 
 #virtualclassCont #virtualclassScreenShare, #virtualclassWholeScreenShare {
 	margin-left : 55px;
@@ -2086,16 +2090,19 @@
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
 	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
-		bottom:-34px !important;
+		bottom:-34px;
 		left:0em !important;
 	}
+	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+		left:-2em !important;
+	}	
 	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Click to chat"]:hover:after{
-	bottom: 14px !important;
-    left: 0em !important;
+	bottom: 14px;
+    left: 0em;
 	}
 
 	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
-		left:-20px !important;
+		left:-20px;
 	}
 }
 
@@ -2889,6 +2896,7 @@
 #virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos{
 	margin-top: 9px;
 	margin-bottom: 9px;
+	margin-right: 8px;
 }
 
 #virtualclassCont .userImg.ui-memblist-usr.mySelf.student a img{
@@ -3031,6 +3039,20 @@
 	padding: 10px 20px 25px 20px; 
 	text-align: center;
 	
+}
+
+
+#virtualclassCont.student #chat_div .controleCont, #virtualclassCont.student #chat_div .controleCont, #virtualclassCont.student #chat_div .controllereditorCode{
+	text-align: left;
+}
+
+
+#virtualclassCont.teacher #chat_div .controleCont, #virtualclassCont.teacher #chat_div .controleCont, #virtualclassCont.teacher #chat_div .controllereditorCode{
+	width: 27px;
+    text-align: right;
+}
+#virtualclassCont.educator #chat_div .controleCont, #virtualclassCont.educator #chat_div .controleCont, #virtualclassCont.educator #chat_div .controllereditorCode{
+	text-align: left;
 }
 
 

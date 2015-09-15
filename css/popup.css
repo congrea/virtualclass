@@ -31,12 +31,13 @@
 	min-height:auto;
 	background:#fff;
 	z-index:10;
--webkit-transition:.3s all ease-out;
+	-webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
 	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
 	box-shadow:0 0 6px 0 rgba(0,0,0,.3);
 	margin:-300px 0 0 -22.5%;
+	z-index: 1000000;
 }
 #virtualclassCont .rv-vanilla-modal-is-open {
 	top: 55%;
@@ -49,7 +50,7 @@
 	min-height:auto;
 	background:#fff;
 	z-index:10;
--webkit-transition:.3s all ease-out;
+	-webkit-transition:.3s all ease-out;
 	transition:.3s all ease-out;
 	border-radius:4px;
 	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
@@ -70,6 +71,7 @@
 	display:none;
 	-webkit-transition:.4s opacity linear;
 	transition:.4s opacity linear;
+	z-index: 100000;
 }
 .rv-vanilla-modal-overlay.is-shown {
 	opacity:1;

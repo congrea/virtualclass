@@ -79,7 +79,7 @@
         'maxUserList': "Show User List",
         'startnewsession': "Session has not been saved, do you really want to end this session?",
         'DevicesNotFoundError': "Please check your Webcam(camera/microphone) connection.",
-        'PermissionDeniedError': "‘Webcam access has been denied.",
+        'PermissionDeniedError': "Webcam access has been denied.",
         'PERMISSION_DENIED': "You denied to access your Webcam(camera/microphone).",
         'notSupportBrowser': "Firefox {virtualclass1} does not support Screen sharing.",
         'disableSpeaker': "Mute",

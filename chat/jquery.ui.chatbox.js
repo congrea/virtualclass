@@ -155,7 +155,7 @@
                 return false;
             })
             .appendTo(uiChatboxTitlebar),
-            uiChatboxTitlebarCloseText = $("<span data-saction='close'></span>")
+            uiChatboxTitlebarCloseText = $("<span ></span>")
             .addClass('ui-icon ' + 'ui-icon-closethick '  + 'toolTip')
             .text('close')
             .appendTo(uiChatboxTitlebarClose),
@@ -175,7 +175,7 @@
             })
 
             .appendTo(uiChatboxTitlebar),
-            uiChatboxTitlebarMinimizeText = $("<span data-saction='minimize'></span>")
+            uiChatboxTitlebarMinimizeText = $("<span></span>")
             .addClass('ui-icon ' + 'ui-icon-minusthick ' + 'toolTip')
             .text('minimize')
             .appendTo(uiChatboxTitlebarMinimize),

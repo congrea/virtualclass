@@ -230,7 +230,7 @@
                 })
                 .appendTo(uiChatboxTitlebar),
 
-            uiChatboxTitlebarMinimizeText = $("<span data-saction='minimize'></span>")
+            uiChatboxTitlebarMinimizeText = $("<span></span>")
                 .addClass('ui-icon ' + 'ui-icon-minusthick ' + 'toolTip')
                 .text('minimize')
                 .appendTo(uiChatboxTitlebarMinimize),

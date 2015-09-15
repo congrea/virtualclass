@@ -482,3 +482,39 @@ function disCommonChatInput(){
         commonChatInput.disabled = true;
     }
 }
+
+/*
+    Show hide common chatbox, and
+    Do adjustment according to it.
+ */
+
+function toggleCommonChatBox(){
+
+    var  uiFooterbarchatroomtab = $('#chatroom_bt2');
+
+    if(localStorage.getItem('chatroom_status') == 'hidden'){
+        localStorage.removeItem('chatroom_status');
+        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('minCommonChat'));
+
+    }else{
+        localStorage.setItem("chatroom_status", "hidden");
+        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('maxCommonChat'));
+    }
+
+
+    var iconarrowButton = document.getElementById('cc_arrow_button');
+    if(iconarrowButton != null){
+        if (virtualclass.vutil.elemHasAnyClass('cc_arrow_button')) {
+            if(iconarrowButton.classList.contains('icon-arrow-up')){
+                iconarrowButton.classList.add('icon-arrow-down');
+                iconarrowButton.classList.remove('icon-arrow-up');
+            }else{
+                iconarrowButton.classList.add('icon-arrow-up');
+                iconarrowButton.classList.remove('icon-arrow-down');
+            }
+        }else{
+            iconarrowButton.className = 'icon-arrow-up';
+        }
+    }
+    virtualclass.chat.chatroombox.chatroom("option", "boxManager").toggleBox();
+}

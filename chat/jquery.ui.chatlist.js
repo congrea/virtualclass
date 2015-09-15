@@ -200,17 +200,38 @@
                 .attr('role', 'button')
                 .hover(function() {uiChatboxTitlebarMinimize.addClass('ui-state-hover');},
                 function() {uiChatboxTitlebarMinimize.removeClass('ui-state-hover');})
-
                 .click(function(event) {
-
                         $("#chat_div").memberlist("option", "boxManager").toggleBox();// hide header behind footer bar
+
+                        // Duplicate code with footer.js near about lne 30 to 50
+
+                        var elem = $('#usertab_text');
+                        var usertab = $("#usertab_toogle_icon");
+
+                        if(elem.hasClass('close')){
+                            elem.addClass('open' );
+                            elem.removeClass('close');
+                            elem.attr('data-title', virtualclass.lang.getString('miniUserList'));
+
+                            usertab.addClass('icon-arrow-down');
+                            usertab.removeClass('close icon-arrow-up');
+
+                        } else {
+                            elem.addClass('close');
+                            elem.removeClass('open');
+                            elem.attr('data-title', virtualclass.lang.getString('maxUserList'));
+                            usertab.addClass('icon-arrow-up');
+                            usertab.removeClass('icon-arrow-down');
+                        }
+
+
                         return false;
+
                 })
                 .appendTo(uiChatboxTitlebar),
 
-            uiChatboxTitlebarMinimizeText = $('<span></span>')
-                .addClass('ui-icon ' +
-                'ui-icon-minusthick')
+            uiChatboxTitlebarMinimizeText = $("<span data-saction='minimize'></span>")
+                .addClass('ui-icon ' + 'ui-icon-minusthick ' + 'toolTip')
                 .text('minimize')
                 .appendTo(uiChatboxTitlebarMinimize),
 

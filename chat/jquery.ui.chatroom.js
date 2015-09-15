@@ -145,15 +145,16 @@
 	            uiChatboxTitlebarMinimize.removeClass('ui-state-focus');
             })
             .click(function(event) {
-	            options.boxManager.toggleBox();
+	               // options.boxManager.toggleBox();
+                    toggleCommonChatBox();
                     localStorage.setItem("chatroom_status", "hidden");
 		         return false;
             })
             .appendTo(uiChatboxTitlebar),
 
             //minimize button
-            uiChatboxTitlebarMinimizeText = $('<span></span>')
-            .addClass('ui-icon ' + 'ui-icon-minusthick')
+            uiChatboxTitlebarMinimizeText = $("<span data-saction='minimize'></span>")
+            .addClass('ui-icon ' + 'ui-icon-minusthick ' + ' toolTip')
             .text('minimize')
             .appendTo(uiChatboxTitlebarMinimize),
 

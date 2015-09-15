@@ -1,3049 +1,819 @@
-@font-face {
-	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-jjdyd0');
-	src:url('../fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('../fonts/icomoon.woff?-jjdyd0') format('woff'), url('../fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('../fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
 
-[id= "virtualclassCont"] [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background-image : none;
-	width : auto;
-	height : auto;
-}
-
-#virtualclassCont {
-	font-family : "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-	position: relative;
-}
-
-
-#virtualclassCont a, #virtualclassCont canvas {
-	outline : none;
-}
-
-#virtualclassCont .clear, #virtualclassCont #conControler, #virtualclassCont #virtualclassOptionsCont, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont #mainContainer {
-	clear : both;
-}
-
-#virtualclassCont {
-	height : 100%;
-}
-
-#virtualclassCont #divForReloadMsg {
-	border : #8eb9ce solid 1px;
-	width : auto;
-	float : left;
-	background : #ddeef6;
-	border-radius : 5px;
-	padding : 15px;
-	line-height : 120%;
-	letter-spacing : 0.3px;
-	margin : 15px 0;
-}
-
-#virtualclassCont #serverErrorCont, #virtualclassCont #divForReloadMsg {
-	width : auto;
-	float : left;
-	margin-left : 35%;
-	border-radius : 5px;
-	padding : 15px;
-	line-height : 120%;
-	letter-spacing : 0.3px;
-	width : auto;
-	font-size : 12px;
-}
-
-#virtualclassCont #virtualclassOptionsCont {
-	width : 53px;
-	float : left;
-}
-
-#virtualclassCont #virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
-	background : #e9e9e9;
-	position : absolute;
-	top : 120px;
-	border : #e2e2e2 solid 3px;
-	border-left : 0;
-	border-bottom-right-radius : 10px;
-	border-top-right-radius : 10px;
-	z-index : 10;
-}
-
-#virtualclassCont #virtualclassOptionsCont .appOptions a img {
-	padding : 12px;
-	opacity : 0.699999988079071044921875;
-}
-
-#virtualclassCont #virtualclassOptionsCont .appOptions.active a img {
-	opacity : inherit;
-}
-
-#virtualclassCont #virtualclassOptionsCont .appOptions:hover {
-	border-top-right-radius : 0;
-}
-
-#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool {
-	border-top : none;
-	border-bottom : none;
-}
-
-
-#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool:hover,  #virtualclassCont #virtualclassOptionsCont #virtualclassYtsTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool:hover, #virtualclassEditorCodeTool:hover, #virtualclassWhiteboardTool:hover {
-	background: #feffff; /* Old browsers */
-	background: -moz-linear-gradient(left, #feffff 0%, #ddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f0f0f0), color-stop(100%, #ccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #feffff 0%, #ccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #feffff 0%, #ccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #ffffff 0%, #cccccc 100%); /* IE10+ */
-	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
-}
-
-#virtualclassCont #audioTest-box:hover, #virtualclassCont #audioWidget #speakerPressOnce:hover, #virtualclassCont #alwaysPress:hover {
-	background: #feffff; /* Old browsers */
-	background: -moz-linear-gradient(left, #feffff 0%, #ddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f0f0f0), color-stop(100%, #ccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #feffff 0%, #ccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #feffff 0%, #ccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #ffffff 0%, #cccccc 100%); /* IE10+ */
-	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
-}
-
-
-
-#virtualclassCont #virtualclassOptionsCont .appOptions {
-	border : #a7a7a7 solid 1px;
-	border-left : none;
-	padding: 10px 5px;
-}
-
-#virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions {
-	border-top-right-radius : 5px;
-	margin-bottom: -1px;
-}
-
-#virtualclassCont #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions {
-	border-top-right-radius : 0px;
-}
-
-#virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool {
-	border-top-right-radius : 0;
-}
-
-#virtualclassCont #virtualclassOptionsCont div:last-child {
-	border-bottom-right-radius : 5px;
-	border-bottom : 1px solid #a7a7a7 !important;
-}
-
-#virtualclassCont #virtualclassWhiteboardCont {
-	height : 100%;
-	width : 100%;
-}
-
-#virtualclassCont.student #videoMinMize, #virtualclassCont #videoMinMize {
-	background-image : url('../images/min.png') !important;
-	background-position : left top;
-	background-repeat : no-repeat;
-}
-
-#virtualclassCont.student #videoMaxMize, #virtualclassCont #videoMaxMize {
-	background-image : url('../images/max.png') !important;
-	background-position : left top;
-	background-repeat : no-repeat;
-}
-
-#virtualclassCont.student #videos #videoMinMize, #virtualclassCont.student #videos #videoMaxMize {
-	height : 16px;
-	position : absolute;
-	top : 2px;
-	width : 16px;
-	right : -1px;
-}
-
-#virtualclassCont.student #videos #videoMinMize, #virtualclassCont #videoMinMize {
-	border-left : none;
-	border-bottom : none;
-	height : 16px;
-	position : absolute;
-	right : -1px;
-	width : 16px;
-}
-
-#virtualclassCont.student #videos #videoMaxMize, #virtualclassCont #videoMaxMize {
-	border-left : 1px solid #CCCCCC;
-	border-top : 1px solid #ccc;
-	border-right : none;
-	height : 16px;
-	right : 0;
-	top : -33px;
-	width : 16px;
-}
-
-#virtualclassCont.student #videos {
-	top:16px;
-	border-bottom : 1px solid #ccc;
-}
-
-#virtualclassCont.student #informationCont {
-	display : none;
-}
-
-#virtualclassCont #containerWb {
-	margin : 0;
-	padding : 0;
-}
-
-#virtualclassCont #containerWb .tool .tooltip:hover:after {
-	bottom : -2.5em;
-	padding : 0.6em 1em;
-	border-radius : 0;
-}
-
-#virtualclassCont #t_line a img[title]:hover:after {
-	content : attr(title);
-	padding : 4px 8px;
-	color : #333;
-	position : absolute;
-	left : 0;
-	top : 100%;
-	white-space : nowrap;
-	border-radius : 5px;
-	box-shadow : 0 0 4px #222;
-}
-
-#virtualclassCont #t_assign.controlCmd a {
-	background-image : none;
-	padding-right : 15px;
-}
-
-#virtualclassCont #commandToolsWrapper{
-	position: relative;
-	z-index: 0;
-}
-
-#virtualclassCont #commandToolsWrapper, #virtualclassCont #dataInfoHeading {
-	padding-left : 1%;
-	width : 99%;
-}
-
-#virtualclassCont #canvasWrapper {
-	float : left;
-	margin : 0;
-	padding : 0;
-	margin-top : 0;
-}
-
-#virtualclassCont #canvasWrapper #canvas {
-	outline : none;
-}
-
-#virtualclassCont #commandToolsWrapper a {
-	float : left;
-}
-
-#virtualclassCont #commandToolsWrapper a img {
-	padding : 13px 20px;
-}
-
-#virtualclassCont #canvasWrapper #canvas {
-	outline : none;
-}
-
-#virtualclassCont #canvasWrapper {
-	float : left;
-	margin : 0;
-	padding : 0;
-	margin-top : 0;
-}
-
-#virtualclassCont #canvasWrapper #canvas {
-	outline : none;
-}
-
-#virtualclassCont #canvasDrawMsgContFirefox {
-	left : 510px;
-	position : absolute;
-	z-index : 100;
-}
-
-#virtualclassCont #canvasWrapper {
-	float : left;
-	margin : 0;
-	padding : 0;
-	margin-top : 0;
-}
-
-#virtualclassCont #canvas {
-	border : black solid 1px;
-	display : block;
-	border : none;
-}
-
-#virtualclassCont .numbers {
-	float : right;
-}
-
-#virtualclassCont #sentMsgInfo {
-	border : #ccc solid 1px;
-	margin-top : 10px;
-	margin-bottom : 10px;
-	margin-right : 10px;
-	padding : 5px;
-	min-height : 62px;
-	text-align : left;
-}
-
-#virtualclassCont #rcvdMsgInfo {
-	margin-top : 10px;
-	border : #ccc solid 1px;
-	margin-right : 10px;
-	padding : 5px;
-	min-height : 62px;
-	text-align : left;
-}
-
-#virtualclassCont #videos {
-	margin : 0;
-	padding : 0;
-	width : 930px;
-	margin-top : 20px;
-	padding : 15px;
-	clear : both;
-}
-
-#virtualclassCont #localVideo {
-	border : #CCCCCC solid 1px;
-	width : 30%;
-}
-
-#virtualclassCont #remoteVideo {
-	border : #CCCCCC solid 1px;
-	width : 100%;
-}
-
-#virtualclassCont #remoteVideo2 {
-	border : green solid 3px;
-	width : 30%;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr:after {
-	content : ".";
-	display : block;
-	height : 0;
-	clear : both;
-	visibility : hidden;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr.teacher {
-	padding-top : 0;
-	padding-left : 4px;
-	/* 	margin-top: 5px; */
-	/* 	margin-bottom: 5px; */
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr.student, #virtualclassCont #chat_div .ui-memblist-usr {
-	padding-left : 4px;
-}
-
-#virtualclassCont div.ui-memblist-usr video {
-	width : 60px;
-	height : 50px;
-	margin : 0;
-	outline : 1px solid #5A5757;
-	margin-left : 2px;
-}
-
-#virtualclassCont div.ui-memblist-usr .userVideos {
-	width : 60px;
-	height : 45px;
-	/* 	margin : 3px 5px 3px 2px !important; */
-	outline : 1px solid #5A5757;
-}
-
-#virtualclassCont #graphCanvas {
-	top : -5px !important;
-}
-#virtualclassCont div.ui-memblist-usr .userVideos {
-	margin-top : 6px;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr:first-child {
-	margin-top : 0;
-	margin-bottom: 0px;
-}
-
-/*
-#virtualclassCont #chat_div .ui-memblist-usr:last-child {
-	margin-bottom: 5px;
-}
-*/
-
-/*
-#virtualclassCont #chat_div .ui-memblist-usr.teacher:last-child {
-	margin-top:0px;
-}
-*/
-
-#virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos {
-	border : #eee solid 2px;
-	box-shadow : 0 0 1px #333;
-	border-radius : 2px;
-	outline : none;
-	margin-bottom : 3px;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr span {
-	text-transform : uppercase;
-	font-weight : normal;
-	position:relative;
-	top:4px;
-}
-
-
-#virtualclassCont .msgBoxWebRtc p, #virtualclassCont .msgBoxCanvas p {
-	position : relative;
-	background : #ffffff;
-	border : #ccc solid 1px;
-}
-
-#virtualclassCont .msgBoxWebRtc p:after, #virtualclassCont .msgBoxCanvas p:after, #virtualclassCont .msgBoxWebRtc p:before, #virtualclassCont .msgBoxCanvas p:before {
-	bottom : 100%;
-	left : 24%;
-	border : transparent solid;
-	content : " ";
-	height : 0;
-	width : 0;
-	position : absolute;
-}
-
-#virtualclassCont .msgBoxWebRtc p:after, #virtualclassCont .msgBoxCanvas p:after {
-	border-color : rgba(255, 255, 255, 0);
-	border-bottom-color : #ffffff;
-	border-width : 11px;
-	margin-left : -10px;
-}
-
-#virtualclassCont .msgBoxWebRtc p:before, #virtualclassCont .msgBoxCanvas p:before {
-	border-color : rgba(170, 170, 170, 0);
-	border-bottom-color : #aaaaaa;
-	border-width : 12px;
-	margin-left : -11px;
-}
-
-#virtualclassCont #chormeWebrtcCont p:after, #virtualclassCont #chormeWebrtcCont p:before {
-	left : 93%;
-}
-
-#virtualclassCont .msgBoxWebRtc {
-	width : 387px;
-}
-
-#virtualclassCont .msgBoxWebRtc p, #virtualclassCont .msgBoxCanvas p {
-	border : #ddd solid 2px;
-	padding : 5px;
-}
-
-#virtualclassCont .msgBoxCanvas p {
-	margin-top : 25px;
-}
-
-#virtualclassCont #chormeWebrtcCont {
-	position : absolute;
-	right : 2%;
-	top : 0%;
-}
-
-#virtualclassCont #chormeWebrtcContimg {
-	height : 15px;
-}
-
-#virtualclassCont #chormeWebrtcCont p {
-	padding : 12px;
-	z-index : 10000;
-}
-
-#virtualclassCont #fireFoxWebrtcCont {
-	position : absolute;
-	left : 160px;
-	top : 235px;
-	z-index : 100;
-}
-
-#virtualclassCont .msgBoxCanvas {
-	width : 350px;
-}
-
-#virtualclassCont #canvasDrawMsgContFirefox {
-	left : 510px;
-	position : absolute;
-	z-index : 100;
-}
-
-#virtualclassCont #canvasDrawMsgContChrome {
-	position : absolute;
-	left : 225px;
-}
-
-#virtualclassCont #canvasDrawArea {
-	clear : both;
-	position : relative;
-	bottom : 400px;
-	font-size : 50px;
-	color : #ddd;
-}
-
-#virtualclassCont #canvasDrawArea p {
-	text-align : center;
-	color : rgb(197, 161, 161);
-}
-
-#virtualclassCont a[title]:hover:after {
-	content : attr(title);
-	padding : 4px 8px;
-	color : rgba(0, 0, 0, 0.5);
-	position : absolute;
-	left : 0;
-	top : 100%;
-	white-space : nowrap;
-	z-index : 2;
-	border-radius : 5px;
-	background : rgba(0, 0, 0, 0.5);
-}
-
-#virtualclassCont .error {
-	border : #ddd solid 2px;
-	width : 50%;
-	padding : 10px;
-	margin-left : 10%;
-	margin-top : 2%;
-}
-
-#virtualclassCont #commandToolsWrapper #t_line a img[title]:hover:after {
-	content : attr(title);
-	padding : 4px 8px;
-	color : #333;
-	position : absolute;
-	left : 0;
-	top : 100%;
-	white-space : nowrap;
-	border-radius : 5px;
-	box-shadow : 0 0 4px #222;
-}
-
-#virtualclassCont #vcanvas {
-	float : left;
-	border : #ccc solid 1px;
-	margin-left : 0;
-}
-
-#virtualclassCont #commandToolsWrapper, #virtualclassCont .rv-vanilla-modal-header, #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
-	background-color: #d4d4d4;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
-	background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
-	background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
-	background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
-	background-image: linear-gradient(#fbfbfb, #d4d4d4);
-	padding-bottom : 0;
-	border-bottom : 1px solid #aaa;
-	padding-left : 1%;
-	height : 46px;
-	box-shadow : 1px 1px 5px #aaa;
-}
-
-#virtualclassCont #commandToolsWrapper #t_assign.controlCmd a {
-	background-image : none;
-	padding-right : 15px;
-}
-
-#virtualclassCont .teacher #commandToolsWrapper #t_assign.controlCmd a, #virtualclassCont #commandToolsWrapper #t_connectionoff a, .con.controlCmd, .controlCmd.coff {
-	background-image : url(../images/border-img.png);
-	background-position : left center;
-	background-repeat : no-repeat;
-}
-
-#virtualclassCont #commandToolsWrapper #t_connectionoff a, #virtualclassCont #commandToolsWrapper #t_connectionon a {
-	padding-top : 5px;
-}
-
-#virtualclassCont #commandToolsWrapper #t_assign a {
-	padding-top : 2px;
-}
-
-#virtualclassCont #canvasWrapper #canvas {
-	outline : none;
-}
-
-#virtualclassCont #informationCont h4 {
-	margin-top : 5px;
-}
-
-#virtualclassCont #videos #remoteVideo {
-	margin-top : 10px;
-	margin-left : 25px;
-	margin-bottom : 5px;
-	height : 180px;
-}
-
-#virtualclassCont #videos #localVideo {
-	margin-left : 198px;
-	margin-top : 8px;
-	height : 180px;
-	margin-bottom : 5px;
-	padding : 2px;
-}
-
-#virtualclassCont .selfClear:after {
-	content : ".";
-	display : block;
-	height : 0;
-	clear : both;
-	visibility : hidden;
-}
-
-#virtualclassCont .selfClear {
-	display : inline-block;
-}
-
-#virtualclassCont .msgBoxWebRtc p, #virtualclassCont .msgBoxCanvas p {
-	background-color : #fff !important;
-	box-shadow : 0 0 6px rgba(0, 0, 0, 0.2) !important;
-	border : #ccc solid 1px !important;
-	font-size : 12px;
-	padding : 15px;
-	border-radius : 5px;
-	font-weight : 500;
-	color : #333;
-	font-size : 13px;
-	line-height : 21px;
-	font-weight : normal;
-}
-
-#virtualclassCont .tooltip {
-	display : inline;
-	position : relative;
-	font-size : 14px;
-	/*z-index: 0;*/
-}
-
-#virtualclassCont #usertab_text.tooltip {
-	display : block;
-}
-
-/*
-#virtualclassCont #usertab_text.tooltip.close{
-	line-height: 22px;
-}
-*/
-
-
-#virtualclassCont .tooltip:hover {
-	text-decoration : none;
-}
-
-#virtualclassCont .tooltip:hover:after {
-	background : #fff;
-	border : #ccc solid 1px;
-	border-radius : 0.3em;
-	bottom : 3em;
-	color : #fff;
-	content : attr(data-title);
-	display : block;
-	left : 2em;
-	padding : 0.3em 1em;
-	position : absolute;
-	white-space : nowrap;
-	z-index : 100;
-	color : #000;
-	box-shadow : 0 1px 2px rgba(0, 0, 0, 0.2);
-	font-size : 12px;
-	font-weight : normal !important;
-}
-
-#virtualclassCont #audioWidget .Tool .tooltip:hover:after, #virtualclassCont #audioWidget .audioTool .tooltip:hover:after {
-	right : 50px;
-	left : auto;
-	bottom : 1em;
-}
-
-#virtualclassCont #virtualclassOptionsCont .appOptions .tooltip:hover:after {
-	padding : 0.7em 1em;
-	right : auto;
-	left : 45px;
-	bottom : -0.4em;
-}
-
-#virtualclassCont #virtualWindow {
-	border : #ED6B83 dashed 1px;
-	border-left : none;
-	position : absolute;
-}
-
-#virtualclassCont #packetContainer {
-	width : 50%;
-	float : left;
-	box-sizing : border-box;
-}
-
-#virtualclassCont #packetContainer #dataInformation, #virtualclassCont #packetContainer #sendPackCont, #virtualclassCont #packetContainer #receivePackCont {
-	float : left;
-	width : 32%;
-	border : #ccc solid 1px;
-	margin-top : 15px;
-	margin-bottom : 15px;
-}
-
-#virtualclassCont #packetContainer #dataInformation, #virtualclassCont #packetContainer #sendPackCont {
-	border-right : none;
-}
-
-#virtualclassCont #sentPacketsLabel, #virtualclassCont #sendPackPsCont, #virtualclassCont #totSendPackCont, #virtualclassCont #receivedPacketsLabel, #virtualclassCont #receivePackPsCont, #virtualclassCont #totReceivedPackCont, #virtualclassCont #blankDiv, #virtualclassCont #perSecData, #virtualclassCont #totalDataLabel {
-	padding : 7px;
-}
-
-#virtualclassCont #receivedPacketsLabel, #virtualclassCont #receivePackPsCont, #virtualclassCont #sentPacketsLabel, #virtualclassCont #sentPacketsLabel, #virtualclassCont #sendPackPsCont, #virtualclassCont #blankDiv, #virtualclassCont #perSecData {
-	border-bottom : 1px solid #ccc;
-	color : #595A5D;
-}
-
-#virtualclassCont #errorWebSocket, #virtualclassCont #errorWebRtc, #virtualclassCont #errorCanvas, #virtualclassCont #errorPeerConnect {
-	background-color : #F2DEDE;
-	border-color : #FDB9C3;
-	color : #B94A48;
-	font-size : 14px;
-	border-radius : 5px;
-	border-width : 1px;
-}
-
-#virtualclassCont #errorWebSocketPara a, #virtualclassCont #errorWebRtcPara a, #virtualclassCont #errorCanvasPara a {
-	color : #B94A48;
-	font-weight : 600;
-	font-size : 13px;
-	text-decoration : none;
-}
-
-#virtualclassCont #sentPacketsLabel span, #virtualclassCont #receivedPacketsLabel span {
-	margin-left : 15px;
-}
-
-#virtualclassCont #totalDataLabel, #sentPacket, #informationCont {
-	color : #595A5D;
-}
-
-#virtualclassCont #informationCont #sentMsgInfoContainer {
-	width : 50%;
-	float : left;
-	text-align : center;
-}
-
-#virtualclassCont #informationCont #receivedMsgInfoContainer {
-	width : 50%;
-	float : left;
-	text-align : center;
-}
-
-#virtualclassCont #dataInformation {
-	margin-left : 10px;
-}
-
-#virtualclassCont #topContainer {
-	height : 200px;
-}
-
-#virtualclassCont #leftContainer {
-	width : 200px;
-	float : left;
-}
-
-#virtualclassCont #packetContainer, #virtualclassCont #informationCont {
-	font-size : 13px;
-}
-
-#virtualclassCont #informationCont {
-	float : left;
-	width : 50%;
-}
-
-#virtualclassCont #dataInfoHeading {
-	width : 915px;
-	text-align : center;
-}
-
-#virtualclassCont #informationCont {
-	margin-top : 11px;
-}
-
-#virtualclassCont #t_assign.controlCmd a {
-	padding-left : 12px;
-	padding-right : 14px;
-}
-
-#virtualclassCont #commandToolsWrapper, #virtualclassCont #dataInfoHeading {
-	padding-left : 1%;
-	width : 99%;
-}
-
-#virtualclassCont #videos #localVideo {
-	height : auto;
-	margin : 0;
-	position : absolute;
-	right : 3px;
-	margin-top : 48%;
-	width : 35%;
-	z-index : 100;
-}
-
-#virtualclassCont #videos #remoteVideo {
-	margin-left : 0;
-	margin-top : 0;
-	right : -9px;
-	padding : 2px;
-}
-
-#virtualclassCont #videos {
-	width : auto;
-	position : relative;
-	top : 0;
-}
-
-#virtualclassCont #videos #remoteVideo {
-	height : auto;
-	position : absolute;
-	min-height : auto;
-}
-
-#virtualclassCont #remoteVideo {
-	width : 100%;
-}
-
-#virtualclassCont .dynDiv_resizeDiv_tl {
-	padding-bottom : 5px;
-	padding-right : 5px;
-}
-
-#virtualclassCont.student #videoMinMize, #virtualclassCont #videoMinMize {
-	height : 16px;
-	width : 16px;
-	right : 2px;
-	z-index : 100;
-}
-
-#virtualclassCont .dynDiv_resizeDiv_tl, #virtualclassCont .dynDiv_resizeDiv_tr, #virtualclassCont .dynDiv_resizeDiv_bl, #virtualclassCont .dynDiv_resizeDiv_br {
-	background-color : #fff !important;
-	background-image : url('../images/resize.png') !important;
-	background-position : left top;
-	background-repeat : no-repeat;
-	width : 10px;
-	height : 10px;
-	background : #faa;
-	border : #000 solid 1px;
-	position : absolute;
-}
-
-#virtualclassCont .dynDiv_resizeDiv_tl {
-	border : none medium;
-	left : 6px;
-	top : 3px;
-	z-index : 100;
-}
-
-#virtualclassCont #videoContainer {
-	background : transparent;
-	width : 285px;
-	height : 220px;
-	position : absolute;
-	right : 0;
-	bottom : 0;
-	overflow : hidden;
-}
-
-#virtualclassCont.student #videoContainer {
-	top : -237px;
-}
-
-#virtualclassCont #videoMinMize, #virtualclassCont #videoMaxMize {
-	position : absolute;
-}
-
-#virtualclassCont.student #videoMinMize, #virtualclassCont #videoMinMize {
-	background-image : url('../images/min.png') !important;
-	background-position : left top;
-	background-repeat : no-repeat;
-}
-
-#virtualclassCont.student #videoMaxMize, #virtualclassCont #videoMaxMize {
-	background-image : url('../images/max.png') !important;
-	background-position : left top;
-	background-repeat : no-repeat;
-}
-
-#virtualclassCont.student #videos #videoMinMize, #virtualclassCont.student #videos #videoMaxMize {
-	height : 16px;
-	position : absolute;
-	top : 2px;
-	width : 16px;
-	right : -1px;
-}
-
-#virtualclassCont.student #videos #videoMinMize, #virtualclassCont #videoMinMize {
-	border-left : none;
-	border-bottom : none;
-	height : 16px;
-	position : absolute;
-	right : -1px;
-	width : 16px;
-}
-
-#virtualclassCont.student #videos #videoMaxMize, #virtualclassCont #videoMaxMize {
-	border-left : 1px solid #CCCCCC;
-	border-top : 1px solid #ccc;
-	border-right : none;
-	height : 16px;
-	right : 0;
-	top : -33px;
-	width : 16px;
-}
-
-#virtualclassCont.teacher #videoMaxMize {
-	top : -17px;
-}
-
-#virtualclassCont .controlCmd {
-	float : right;
-}
-
-#virtualclassCont #videoContainer {
-	bottom : 45px;
-}
-
-#virtualclassCont .controlCmd.coff, #virtualclassCont .con.controlCmd {
-	padding-left : 20px;
-}
-
-#virtualclassCont .con.controlCmd a {
-	border : #79aa26 solid 1px;
-	padding-left : 4px !important;
-	padding-right : 4px !important;
-	border-radius : 2px;
-}
-
-#virtualclassCont .con {
-	margin-right : 20px;
-	float : right;
-}
-
-#virtualclassCont .controlCmd.coff {
-	margin-right : 10px;
-}
-
-#virtualclassCont #serverErrorCont {
-	border : #9E1333 solid 1px;
-	background : #F2DFE3;
-}
-
-#virtualclassCont #virtualclassWhiteboardCont {
-	height : 100%;
-	width : 100%;
-}
-
-#virtualclassCont #widgetRightSide {
-	float : left;
-	width : 260px;
-	border : #ccc solid 1px;
-	border-left : none;
-}
-
-#virtualclassCont .userVideo {
-	width : 75px;
-	height : 56px;
-}
-
-#virtualclassCont #tempVideo {
-	display : none;
-}
-
-#virtualclassCont video, #virtualclassCont canvas, #virtualclassCont #allVideosCont {
-	float : left;
-}
-
-#virtualclassCont video, #virtualclassCont canvas {
-	margin : 3px;
-	margin-bottom : 2px;
-}
-
-#virtualclassCont .videoWrapper {
-	z-index : 50;
-	position : relative;
-	clear : both;
-}
-
-#virtualclassCont .videoSubWrapper {
-	z-index : 1000;
-}
-
-#virtualclassCont .videoSubWrapper[data-uname]:hover:after {
-	content : attr(data-uname);
-	padding : 2px 5px 2px 5px;
-	color : rgba(48, 39, 2, 1);
-	position : absolute;
-	margin-left : -40px;
-	top : 60%;
-	white-space : nowrap;
-	border-radius : 15px;
-	background : rgba(240, 245, 240, 0.6);
-	font-size : 80%;
-}
-
-#virtualclassCont #allVideosCont {
-	position : relative;
-}
-
-#virtualclassCont #commonChatBoard {
-	clear : both;
-	width : 100%;
-	height : 92%;
-}
-
-#virtualclassCont #textInputBox {
-	width : 100%;
-	height : 5%;
-	padding : 5px 3px 5px 3px;
-	resize : none;
-	border : #ccc solid 1px;
-	border-radius : 3px;
-}
-
-#virtualclassCont #chatBox {
-	font-size : 80%;
-	border-top : 1px solid #ccc;
-}
-
-#virtualclassCont #chatBox .userMsg {
-	letter-spacing : 0.03em;
-	word-break : break-all;
-	white-space : pre-wrap;
-	word-break : break-all;
-	overflow-wrap : break-word;
-}
-
-#virtualclassCont #chatBox {
-	padding : 5px;
-}
-
-#virtualclassCont #chatBox #commonChatBoard {
-	overflow-y : auto;
-}
-
-#virtualclassCont #chatContainer {
-	width : 100%;
-	clear : both;
-	margin-top : 5px;
-}
-
-#virtualclassCont #virtualclassScreenShare, #virtualclassWholeScreenShare {
-	float : left;
-	border : #ccc solid 1px;
-	height : 100%;
-}
-
-#virtualclassCont .vmApp {
-	border-right : none;
-}
-
-#virtualclassCont .Local {
-	margin : 4px 7px 0 7px;
-}
-
-#virtualclassCont #virtualclassScreenShareLocalTempVideo, #virtualclassCont #virtualclasswholescreenShareLocalTempVideo {
-	display : none;
-}
-
-#virtualclassCont #commonChatBoardLabel {
-	position : relative;
-	width : 140px;
-	color : #ccc;
-	font-size : 24px;
-	opacity : 0.800000011920928955078125;
-	left : 50px;
-	top : -55%;
-}
-
-#virtualclassCont #commonChatBoardLabel #firstWord {
-	margin-left : 8%;
-	font-size : 20px;
-}
-::-webkit-input-placeholder, :-moz-placeholder {
-	opacity : 0.800000011920928955078125 !important;
-}
-
-#virtualclassCont #textInputBox {
-	padding-top : 11px;
-	padding-left : 8px;
-}
-
-#virtualclassCont #toggleContainer {
-	font-weight : bold;
-	color : #686464;
-	width : 7px;
-	border : #ccc solid 1px;
-	padding-left : 4px;
-	padding-right : 4px;
-	cursor : pointer;
-}
-
-#virtualclassCont #toggleContainer.display {
-	position : relative;
-	top : 25px;
-	left : 10px;
-}
-
-#virtualclassCont #toggleContainer.hide {
-	margin-left : 4px;
-	padding-right : 6px;
-}
-
-#virtualclassCont #virtualclassWhiteboard, #virtualclassCont {
-	float : left;
-}
-
-#virtualclassCont canvas {
-	padding : 0;
-	margin : 0;
-}
-
-#virtualclassCont #virtualclassOptionsCont {
-	clear : both;
-}
-
-#virtualclassCont #commonChatBoard span {
-	line-height : 125%;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr {
-
-}
-
-#virtualclassCont div.ui-memblist-usr video {
-	width : 60px;
-	height : 50px;
-	margin : 0;
-	outline : 1px solid #5A5757;
-	margin-left : 2px;
-}
-
-#virtualclassCont div.ui-memblist-usr .userVideos {
-	width : 60px;
-	height : 45px;
-	margin : 3px 0 0 2px;
-	outline : 1px solid #5A5757;
-}
-
-#virtualclassCont #graphCanvas {
-	top : -5px !important;
-}
-
-#virtualclassCont div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
-	margin-top : 3px;
-}
-
-#virtualclassCont #chat_div {
-	padding-bottom : 0px;
-	min-height : 144px;
-}
-
-#virtualclassCont #chatWidget {
-	clear : both;
-}
-
-
-
-#virtualclassCont #audioWidget {
-	background : #e9e9e9;
-	position : absolute;
-	cursor : pointer;
-	float : right;
-	height : auto;
-	top : 100px;
-	border-top-left-radius : 10px;
-	border-bottom-left-radius : 10px;
-	border-right : none;
-	right : 0;
-}
-
-#virtualclassCont #audioWidget #speakerPressOnce {
-	border : #a4a4a4 solid 1px;
-	border-top-left-radius : 5px;
-	border-bottom : none;
-	width : 51px;
-	padding-left : 7px;
-}
-
-#virtualclassCont #audioWidget.fixed {
-	position : fixed;
-}
-
-#virtualclassCont #audioWidget #speakerPressOnce .speakerPressonceAnch img {
-	margin-bottom : 10px;
-}
-
-#virtualclassCont #audioWidget #speakerPressOnce .speakerPressonceAnch a img {
-	margin-left : -2px;
-}
-
-#virtualclassCont.student #vcanvas {
-	border-top-width : 5px;
-	border-top-color : #aaa;
-}
-
-#virtualclassCont.student.presentor #vcanvas{
-	border-top-width : 1px;
-}
-
-#virtualclassCont #speakerStudent #speakerPressing a:hover img {
-	opacity : 0.5;
-}
-
-#virtualclassCont #closebtn {
-	width : 35px;
-}
-
-#virtualclassCont #virtualclassOptionsCont {
-	top : 200px;
-}
-
-#virtualclassCont .ui-dialog-header span:first-child {
-	font-size : 14px;
-	padding-left : 3px;
-}
-
-#virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos {
-	border : #eee solid 2px;
-	outline : none;
-	margin-bottom : 3px;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr span {
-	text-transform : capitalize;
-	font-weight : 200;
-}
-
-#virtualclassCont .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text {
-	font-weight : normal;
-}
-
-#virtualclassCont #chatroom_text .icon-arrow-down, #virtualclassCont #chatroom_text .icon-arrow-up{
-	padding-left: 7px;
-}
-
-#virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text {
-	position: relative;
-	top: 3px;
-	padding-left: 30px;
-}
-
-#virtualclassCont .maximize {
-	height : 41px;
-}
-
-#virtualclassCont #stickybar.minimize {
-	width : 50px;
-}
-
-#virtualclassCont .ui-icon-closethick {
-	background-position : -96px -128px !important;
-}
-
-#virtualclassCont .ui-chatbox {
-	width : 231px !important;
-}
-
-#virtualclassCont .ui-tabs .ui-tabs-nav li.ui-state-active {
-	background-image : none;
-	background-color : transparent;
-	border-top : 1px solid #aaa !important;
-}
-
-#virtualclassCont .ui-corner-all.ui-chatbox-icon .ui-icon-close {
-	margin-top : 2px;
-	margin-right : 8px;
-}
-
-#virtualclassCont .ui-memblist-usr a img {
-	margin-top : 8px;
-	float : left;
-	background-color : #f2f2f2;
-	padding : 14px 20px;
-	border-radius : 3px;
-	border : #b3b3b3 solid 1px;
-	margin-bottom : 8px;
-	margin-left: 1px;
-}
-
-#virtualclassCont #virtualclassScreenShare, #virtualclassWholeScreenShare {
-	margin-left : 55px;
-}
-
-#virtualclassCont .ui-widget-content .controls {
-	width : 200px;
-	position : relative;
-}
-
-#virtualclassCont #speakerPressing {
-	width : 32px;
-	padding-left : 13px;
-	padding-right : 13px;
-}
-
-#virtualclassCont #speakerPressOnce {
-	width : 100%;
-	height : 100%;
-}
-
-#virtualclassCont #chat_div .controleCont, #virtualclassCont #chat_div .controleCont, #virtualclassCont #chat_div .controllereditorCode{
-	float : left;
-	width : 30px;
-	text-align: center;
-
-}
-
-#virtualclassCont .audioTransmit {
-	border : green solid 15px;
-	float : left;
-	width : 15px;
-	height : 15px;
-}
-
-#virtualclassCont .audEnableSign {
-	width : 12px;
-	height : 12px;
-	float : left;
-	margin-left : 4px;
-}
-
-#virtualclassCont #audioWidget #audioTest #virtualclassCont.student #audioWidget .audioTool a#speakerPressonceAnch img, #virtualclassCont.student #audioWidget .audioTool a#speakerPressingAnch img {
-	margin-left : -5px;
-	padding : 1px;
-	padding-left : 2px;
-	border : transparent solid 1px;
-}
-
-#virtualclassCont.teacher #audioWidget .active a img, #virtualclassCont.teacher #audioWidget .deactive a img, #virtualclassCont.student #audioWidget .audioTool.active a img, #virtualclassCont.student #audioWidget .audioTool.deactive a img {
-	border : #006CA6 solid 1px !important;
-	padding : 1px;
-	border-radius : 4px;
-	padding-right : 0;
-	padding-left : 2px;
-	margin-left : -3px;
-}
-
-#virtualclassCont.teacher #audioWidget .active a img, #virtualclassCont.teacher #audioWidget .deactive a img, #virtualclassCont.student #audioWidget .audioTool.active a img, #virtualclassCont.student #audioWidget .audioTool.deactive a img {
-	border : #41AA45 solid 1px !important;
-}
-
-#virtualclassCont .ui-memblist-usr.student .controls .controleCont img.assignImg.block, #virtualclassCont .ui-memblist-usr.student .controls .controleCont img.audioImg.block, #virtualclassCont .ui-memblist-usr.student .controls .controleCont img.chatImg.block {
-	opacity : 0.4000000059604644775390625;
-	background-color : transparent;
-	border : none;
-	padding : 0;
-	margin-bottom : 0;
-}
-
-#virtualclassCont .controls .controleCont img.audioImg.block {
-	margin-bottom : 0;
-}
-
-#virtualclassCont.student .ui-widget-content .controls {
-	position : relative;
-	left : 2px;
-}
-
-#virtualclassCont #virtualclassScreenShare {
-	width : 99%;
-}
-
-#virtualclassCont {
-	width : auto;
-}
-
-#virtualclassCont.student #virtualclassScreenShare, #virtualclassCont.student #virtualclassWholeScreenShare {
-	margin-left : 5px;
-}
-#virtualclassCont.student #virtualclassScreenShare, #virtualclassCont #virtualclassEditorRich, #virtualclassCont #virtualclassEditorCode{
-	margin-left: 60px;
-}
-
-
-
-#virtualclassCont .teacher .vmApp {
-	margin-left : 55px;
-}
-
-#virtualclassCont .student .vmApp {
-	margin-left : 3px;
-}
-
-
-#virtualclassCont {
-	height : 99%;
-}
-
-#virtualclassCont .ui-memblist {
-	right : px !important;
-}
-
-#virtualclassCont .controls a.audEnableSign img {
-	margin-left : -2px;
-}
-
-#virtualclassCont #chat_div .mySelf, #virtualclassCont #audioTest.audioIsTesting {
-	opacity : 0.60000002384185791015625;
-}
-
-#virtualclassCont #page-mod-virtualclass-view #page {
-	padding : 0;
-}
-
-#virtualclassCont #usertab_icon {
-	margin : 6px 6px 0 0;
-}
-
-#user_list .inner_bt #usertab_text{
-	text-align: left;
-}
-
-#virtualclassCont .ui-widget.disable {
-	opacity : 0.4000000059604644775390625;
-}
-
-#virtualclassCont .ui-widget.enable {
-	opacity : 1;
-}
-
-#virtualclassCont #virtualclassOptionsCont, .tooltip {
-	text-decoration : none;
-	outline-width : 0;
-	z-index : 990;
-	color : #333;
-	text-align : center;
-	line-height : 15px;
-	display : block;
-}
-
-#virtualclassCont #virtualclassWhiteboardToo.active a span, #virtualclassCont #virtualclassScreenShareTool.active a span, #virtualclassCont #virtualclassSessionEndTool.active a span {
-	color : #fff !important;
-}
-
-#virtualclassCont #virtualclassWhiteboardTool a img, #virtualclassCont #virtualclassScreenShareTool a img, #virtualclassCont #virtualclassSessionEndTool a img {
-	border:none;
-}
-
-#virtualclassCont #alwaysPress .audioTool a {
-	text-align : center;
-	font-size : 12px;
-	position : relative;
-	top : 15px;
-}
-
-#virtualclassCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
-	padding-bottom : 0;
-	padding-top : 7px;
-	border : #a4a4a4 solid 1px;
-	border-bottom-left-radius : 5px;
-}
-
-#virtualclassCont #audioTest-box .audioTool {
-	position: relative;
-	z-index: 0;
-	border-top : none !important;
-}
-
-#virtualclassCont #alwaysPress .audioTool.active, #virtualclassOptionsCont .appOptions.active, #virtualclassCont #virtualclassOptionsCont #virtualclassWhiteboardTool.active:hover #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover {
-	background: #9e9e9e; /* Old browsers */
-	background: -moz-linear-gradient(left, #9e9e9e 0%, #919191 100%)!important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #9e9e9e), color-stop(100%, #919191)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #9e9e9e 0%, #919191 100%) !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #9e9e9e 0%, #919191 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #9e9e9e 0%, #919191 100%); /* IE10+ */
-	background: linear-gradient(to right, #9e9e9e 0%, #919191 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e9e9e', endColorstr='#919191', GradientType=1 ); /* IE6-9 */
-	border:#777 1px solid;
-	border-left-color: #848484;
-	border-right-color: #848484;
-}
-
-#virtualclassCont #alwaysPress .audioTool.active {
-	color:#fff;
-	border-bottom-left-radius: 0px;
-	border-top-left-radius: 0px;
-}
-
-#virtualclassCont #alwaysPress .audioTool.active span.icon-whiteboard:before, #virtualclassCont #virtualclassOptionsCont .appOptions.active span.icon-whiteboard:before, #virtualclassCont #alwaysPress .audioTool.active span.icon-whiteboard:before, #virtualclassCont #audioTest-box .audioTool.audioIsTesting:before {
-	color : #fff;
-}
-
-#virtualclassCont #virtualclassWhiteboardTool, #virtualclassScreenShareTool, #virtualclassSessionEndTool, #virtualclassCont #virtualclassSessionEndTool {
-	padding : 10px 5px;
-}
-
-#virtualclassCont #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
-	text-align : center;
-	padding : 0 13px 0;
-	border-radius : 0;
-}
-
-#virtualclassCont #audioTest-box .audioTool {
-	border-bottom-left-radius : 5px;
-}
-
-#virtualclassCont #audioTest-box .audioTool {
-	padding : 15px 8px 9px;
-}
-
-#virtualclassCont #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive {
-	padding : 7px 13px 0;
-}
-
-
-
-#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions.active {
-	border-top-right-radius : 0;
-}
-
-#virtualclassCont #mainAudioPanel {
-	border : #e2e2e2 solid 3px;
-	border-top-left-radius : 8px;
-	border-bottom : none;
-}
-
-#virtualclassCont #speakerPressonceAnch span {
-	width: 40px;
-	height: 17px;
-	display: inline-block;
-	margin-top: 20px;
-	position: relative;
-	border-radius: 2px;
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding-box;
-	background-clip: padding-box;
-	background: rgb(138,138,138);
-	background: -webkit-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
-	background: -moz-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
-	background: -o-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
-	background: -ms-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
-	background: linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
-	box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-	line-height: 30px;
-	font-style: normal;
-	color: #fff;
-	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-	font-weight: bold;
-	-moz-transition: all 1s ease-in;
-	-webkit-transition: all 1s ease-in;
-	-o-transition: all 1s ease-in;
-	transition: all 1s ease-in;
-	cursor: pointer;
-	right: -2px;
-}
-
-#virtualclassCont #speakerPressonceAnch span.attention:hover {
-	background: rgb(238,159,7);
-	background: -moz-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(238,159,7,1)), color-stop(45%, rgba(240,171,8,1)), color-stop(100%, rgba(243,182,15,1)));
-	background: -webkit-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
-	background: -o-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
-	background: -ms-linear-gradient(top, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
-	background: linear-gradient(to bottom, rgba(238,159,7,1) 0%, rgba(240,171,8,1) 45%, rgba(243,182,15,1) 100%);
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee9f07', endColorstr='#f3b60f', GradientType=0 );*/
-}
-
-#virtualclassCont #speakerPressOnce span i {
-	position: absolute;
-	top: -3px;
-	right: 24px;
-	width: 15px;
-	height: 20px;
-	display: block;
-	border-radius: 2px;
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	transition: all 200ms ease;
-	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,252,252,1) 11%, rgba(228,228,228,1) 50%, rgba(221,221,221,1) 53%, rgba(205,205,205,1) 97%, rgba(191,191,191,1) 100%);
-	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,252,252,1) 11%, rgba(228,228,228,1) 50%, rgba(221,221,221,1) 53%, rgba(205,205,205,1) 97%, rgba(191,191,191,1) 100%);
-	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,252,252,1) 11%, rgba(228,228,228,1) 50%, rgba(221,221,221,1) 53%, rgba(205,205,205,1) 97%, rgba(191,191,191,1) 100%);
-	border: #aaa 1px solid;
-}
-
-#virtualclassCont #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel {
-	background: #ea1717; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ea1717), color-stop(99%, #b50303)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* IE10+ */
-	background: radial-gradient(ellipse at center, #ea1717 0%, #b50303 99%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea1717', endColorstr='#b50303', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
-
-#virtualclassCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel {
-	background: rgb(141,173,51);
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: -moz-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: -o-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: -ms-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-}
-
-#virtualclassCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel i {
-	right : 0;
-	border : #aaa solid 1px;
-}
-
-#virtualclassCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel:before {
-	content : "On";
-	position : absolute;
-	top : -6px;
-	font-weight : normal;
-	font-size : 12px;
-	left : 4px;
-}
-
-#virtualclassCont #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel:before {
-	content : "Off";
-	position : absolute;
-	top : -6px;
-	font-weight : normal;
-	font-size : 11px;
-	left : 18px;
-}
-
-#virtualclassCont #alwaysPress #speakerPressing a#speakerPressingAnch img {
-	border : none !important;
-}
-#virtualclassCont #speakerPressingAnch #speakerPressingtext {
-	position : relative;
-	top : -7px;
-}
-
-#virtualclassCont #speakerPressOnce #speakerPressonceAnch span {
-	margin-top : 11px;
-	margin-bottom : 11px;
-}
-
-#virtualclassCont #audioTest-box {
-	border-radius : 8px;
-	text-align : center;
-	margin-bottom : 0;
-	border : #e2e2e2 solid 3px;
-	border-top-left-radius : 0;
-	border-top-right-radius : 0;
-	border-bottom-right-radius : 0;
-	border-top : none;
-}
-
-#virtualclassCont .vmchat_room_bt.tooltip:hover:after {
-	bottom : 2.7em;
-	z-index : 10000;
-}
-
-#virtualclassCont .close.tooltip:hover:after {
-	bottom : 2em;
-}
-
-#virtualclassCont #usertab_text.tooltip.open:hover:after {
-	bottom : 2em;
-}
-
-#virtualclassCont #speakerPressing .tooltip:hover:after, #virtualclassCont #speakerPressOnce .tooltip:hover:after, #virtualclassCont #audioTest .tooltip:hover:after {
-	line-height : 26px;
-}
-
-#virtualclassCont #speakerPressOnce .tooltip:hover:after {
-	bottom : 5px !important;
-}
-
-#virtualclassCont #speakerPressing .tooltip:hover:after {
-	bottom : -40px !important;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom : 0;
-}
-#contrAudioAllImg.tooltip[data-title="Disable"]:hover:after, #contrAudioAllImg.tooltip[data-title="Enable"]:hover:after{
-	left:0px;
-}
-
-#virtualclassCont.student #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom : -4px;
-	left : 50px;
-}
-
-#virtualclassCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom : -45px;
-	left : -8px;
-}
-
-#virtualclassCont.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #virtualclassCont.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom : -24px;
-	left : -18px;
-}
-
-#virtualclassCont #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
-	bottom: 10px;
-	left: -2px;
-	font-size: 11px;
-	padding-left: 4px;
-	padding-right: 4px;
-}
-
-/* #virtualclassCont #virtualclassOptionsCont .appOptions .tooltip::hover:after {
- bottom: -20px;
-}*/
-#virtualclassCont #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel.silenceDetect[data-silence-detect="notSending"], #virtualclassCont #speakerPressOnce .silenceDetect[data-silence-detect="notSending"] {
-	background: #e06f0d; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #e06f0d), color-stop(100%, #f4a52e)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center, #e06f0d 0%, #f4a52e 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06f0d', endColorstr='#f4a52e', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
-
-#virtualclassCont #speakerPressOnce i.silenceDetect[data-silence-detect="sending"] {
-	background: rgb(141,173,51);
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: -moz-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: -o-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: -ms-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%);
-	border-radius: 3px;
-	border:rgb(119, 149, 35) 1px solid;
-}
-
-#virtualclassCont #containerWb #commandToolsWrapper .tool a {
-	text-decoration: none;
-	padding: 11px 18px 10px;
-	color:#535151;
-	border-right: #ccc 1px solid;
-	font-size: 25px;
-}
-
-#virtualclassCont #containerWb #commandToolsWrapper .tool a:hover {
-	background: #d4d4d4; /* Old browsers */
-	background: -moz-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d4d4d4), color-stop(100%, #fbfbfb)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #d4d4d4 0%, #fbfbfb 100%); /* W3C */
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d4d4', endColorstr='#fbfbfb', GradientType=0 ); /* IE6-9 */
-}
-
-#virtualclassCont #containerWb #commandToolsWrapper .tool a:before {
-	font-family : "icomoon";
-	display : inline-block;
-	vertical-align : middle;
-	font-weight : normal;
-	color : #444;
-}
-
-#virtualclassCont #virtualclassOptionsCont .appOptions a span:before {
-	color:#535151;
-	font-weight: 100;
-	font-variant: normal;
-	-webkit-font-smoothing: antialiased;
-}
-
-#virtualclassCont #commandToolsWrapper .tool.active a, #virtualclassCont #commandToolsWrapper .tool.active a:hover {
-	background: #919191; /* Old browsers */
-	background: -moz-linear-gradient(top, #919191 0%, #919191 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #919191), color-stop(100%, #919191)) !important; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #919191 0%, #919191 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #919191 0%, #919191 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #919191 0%, #919191 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #919191 0%, #919191 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#919191', endColorstr='#919191', GradientType=0 ); /* IE6-9 */
-	text-shadow: 0 1px 14px #eee;
-}
-
-#virtualclassCont #virtualclassOptionsCont .appOptions.active a span:before {
-	color:#fff;
-}
-
-#virtualclassCont .tool.active a span:before {
-	text-shadow : 0 1px 11px #eee;
-	color : #fff !important;
-}
-
-#virtualclassCont #ui-memblist .icon-chatImg:before, #virtualclassCont #ui-memblist .icon-audioEnaGreen:before, #virtualclassCont #ui-memblist .icon-audioImg:before, #virtualclassCont #ui-memblist .icon-audioDisImg:before {
-	font-weight : 100;
-	font-variant : normal;
-}
-
-#virtualclassCont #commandToolsWrapper .icon-rectangle:before {
-	content : "\e60b";
-}
-
-#virtualclassCont #commandToolsWrapper .icon-line:before {
-	content : "\e607";
-}
-
-#virtualclassCont #commandToolsWrapper .icon-freeDrawing:before {
-	content : "\f040";
-}
-
-#virtualclassCont #commandToolsWrapper .icon-oval:before {
-	content : "\f1db";
-}
-
-#virtualclassCont #commandToolsWrapper .icon-triangle:before {
-	content : "\e603";
-}
-
-#virtualclassCont #commandToolsWrapper .icon-text:before {
-	content : "\e60e";
-}
-
-#virtualclassCont #commandToolsWrapper .icon-activeAll:before {
-	content : "\e600";
-}
-
-#virtualclassCont .icon-clearAll:before {
-	content : "\ea0f";
-}
-
-#virtualclassCont #virtualclassWhiteboardTool .icon-whiteboard:before {
-	content : "\e604";
-	font-size: 34px;
-}
-
-#virtualclassCont #virtualclassScreenShareTool .icon-screenshare:before {
-	content : "\e602";
-	font-size: 32px;
-}
-
-#virtualclassCont #virtualclassYtsTool .icon-youtubeshare:before {
-	font-size: 30px;
-	content : "\ea99";
-}
-
-#virtualclassCont #virtualclassSessionEndTool .icon-sessionend:before {
-	font-size: 30px;
-	content : "\e9b6";
-}
-
-
-#virtualclassCont #speakerPressing .icon-speakerPressing:before {
-	content : "\f130";
-	font-size : 38px;
-	position : relative;
-	top : -8px;
-}
-
-#virtualclassCont #audioTest .icon-audiotest:before {
-	content : "\e60d";
-	font-size : 40px;
-}
-
-#virtualclassCont #chatroom_icon .icon-chatroom:before {
-	content : "\f0e6";
-	font-size : 16px;
-}
-
-#virtualclassCont .ui-memblist-usr .icon-assignImg:before {
-	content : "\f064";
-	color : #535151;
-	font-size : 15px;
-	vertical-align : text-top;
-	position : relative;
-	top : -1px;
-}
-
-#virtualclassCont .ui-memblist-usr .icon-assignImg.block.currTeacher:before {
-	color : #94b532;
-}
-
-#virtualclassCont .ui-memblist-usr .icon-chatImg:before {
-	content : "\f075";
-	color : #535151;
-	position : relative;
-	top : -1px;
-}
-
-#virtualclassCont .icon-chatImg.enable:before {
-	color : #94b532;
-	font-size : 12.5px;
-	position : relative;
-	top : -1px;
-}
-
-#virtualclassCont.student .icon-audioImg.enable:before {
-	content : "\f026";
-	color : #535151;
-	padding-right : 0px;
-	font-size : 107%;
-}
-
-#virtualclassCont .icon-editorRichImg:before{
-	content : "\e605";
-	font-size: 14px;
-}
-#virtualclassCont.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.teacher #chat_div .controls .icon-assignImg.enable, #virtualclassCont.orginalTeacher #chat_div .controls span{
-	margin-left: 0px;
-}
-
-
-#virtualclassCont.student #virtualclassCont #virtualclassEditorRich{
-	margin-left: 35px;
-}
-
-#virtualclassCont.teacher.orginalTeacher .icon-audioImg.enable:before, #virtualclassCont.teacher .icon-audioImg.enable:before {
-	content : "\f026";
-	color : #535151;
-	vertical-align : baseline;
-	font-size : 107%;
-	font-weight : normal;
-}
-
-#virtualclassCont .ui-memblist-usr .icon-audioEnaGreen:before {
-	content : "\ea27";
-	color : #94b532;
-	font-variant : normal;
-	font-style : normal;
-	font-size : 112%;
-	font-weight : normal;
-}
-
-#virtualclassCont .ui-memblist-usr .icon-audioEnaOrange:before {
-	content : "\ea27";
-	color : #e55e0d;
-	font-variant : normal;
-	font-style : normal;
-	font-size : 112%;
-	font-weight : normal;
-}
-
-#virtualclassCont .ui-memblist-usr .icon-audioDisImg:before {
-	content : "\ea2a";
-	color : #535151;
-	font-size : 107%;
-	font-weight : normal;
-}
-
-#virtualclassCont #usertab_text .icon-arrow-up:before, #virtualclassCont #chatroom_text .icon-arrow-up:before {
-	content : "\e606";
-	font-size : 18px;
-	position : relative;
-	top : 4px;
-}
-
-#virtualclassCont #usertab_text .icon-arrow-down:after, #virtualclassCont #chatroom_text .icon-arrow-down:after {
-	content : "\e601";
-	font-size : 18px;
-	position : relative;
-	top : 3px;
-}
-
-#virtualclassCont .ui-widget-header .ui-icon-closethick:before {
-	content : "\f026";
-}
-
-#virtualclassCont .ui-widget-header .icon-user:before {
-	content : "\f007";
-	font-size : 24px;
-	color:#444;
-	position: relative;
-	bottom: -4px;
-}
-
-#virtualclassCont #t_reclaim .icon-educator:before {
-	content : "\f112";
-	color : #535151;
-	font-size : 30px;
-	position : relative;
-	top : 10px;
-}
-
-#virtualclassCont .icon-editorRich:before{
-	content : "\e605";
-	font-size : 28px;
-	position : relative;
-	top : 3px;
-}
-
-#virtualclassCont .icon-editorCode:before{
-	content : "\e608";
-	font-size : 28px;
-	position : relative;
-	top : 3px;
-}
-
-#virtualclassCont .icon-editorCodeImg:before{
-	content : "\e608";
-	font-size : 14px;
-}
-
-#virtualclassCont .appOptions.active a span:before{
-	text-shadow: #FFF 0px 0px 5px;
-}
-
-#virtualclassCont #commandToolsWrapper a {
-	text-decoration : none;
-}
-
-#virtualclassCont #speakerPressing.active {
-	cursor : auto;
-}
-
-#virtualclassCont.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.teacher #chat_div .controls .icon-assignImg.enable {
-	cursor : pointer;
-}
-
-#virtualclassCont #alwaysPress .audioTool a {
-	text-transform : uppercase;
-	font-size : 10px;
-	text-align : center;
-}
-
-#virtualclassCont #speakerPressingtext {
-	line-height : 13px;
-}
-
-#virtualclassCont.orginalTeacher .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
-	bottom : -2.7em !important;
-	left : 10px;
-	display : inherit;
-}
-
-#virtualclassCont.orginalTeacher .ui-memblist-log div:last-child .controls .controleCont a.tooltip:hover:after, #virtualclassCont.student .ui-memblist-log div:last-child .controls .controleCont a.tooltip:hover:after {
-	bottom : 1.3em !important;
-}
-
-#virtualclassCont #commandToolsWrapper .tool.active a:hover {
-	color : #000 !important;
-}
-
-#virtualclassCont #chatroom_bt2 .inner_bt {
-	padding : 0;
-	margin-top : 15px;
-	float: left;
-}
-
-#virtualclassCont .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header a.ui-corner-all.ui-chatbox-icon {
-	padding-top : 1px !important;
-}
-
-#virtualclassCont .tabs-bottom a.ui-corner-all.ui-chatbox-icon {
-	padding-top : 11px !important;
-}
-
-#virtualclassCont .ui-icon.ui-icon-minusthick {
-	top : 1px !important;
-}
-
-#virtualclassCont.student .ui-memblist-usr .icon-chatImg:before {
-	left : -4px;
-}
-.ui-corner-top.ui-memblist .ui-dialog-header .ui-corner-all {
-	margin-right : 5px;
-}
-
-#virtualclassCont #mainContainer {
-	display : none;
-}
-.ui-memblist-usr a span.chatImg {
-	margin-left : 0;
-}
-
-#virtualclassCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
-	border-bottom-left-radius: 0px;
-}
-
-#virtualclassCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
-	bottom:-6px;
-	left:6em;
-}
-
-#virtualclassCont #errorContainer {
-	position: fixed;
-	bottom: 7%;
-	left: 44%;
-	color : rgba(131, 14, 14, 0.93);
-}
-
-@media screen and (-webkit-min-device-pixel-ratio:0){
-	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
-		bottom:-34px !important;
-		left:0em !important;
-	}
-	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Click to chat"]:hover:after{
-	bottom: 14px !important;
-    left: 0em !important;
-	}
-
-	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
-		left:-20px !important;
-	}
-}
-
-#virtualclassCont #chatWidget .mySelf {
-	pointer-events: none;
-
-}
-
-#virtualclassCont #chatWidget .mySelf span {
-	padding-left : 0px;
-	display : inline-block;
-	margin-top : 8px;
-}
-
-
-
-@-moz-document url-prefix() {
-	#virtualclassCont.student #chat_div .userImg.ui-memblist-usr a.tooltip:hover:after {
-		bottom:15px;
-		left:-25px;
-	}
-}
-
-/*
-#virtualclassCont {
-    overflow: hidden;    
-}
-*/
-
-#virtualclassCont #iosAudioTrigger {
-	background: #ffffff; /* Old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
-	clear: both;
-	position: absolute;
-	top: 88%;
-	left: 40%;
-	border:1px solid 	#ccc;
-	border-radius:10px;
-	padding:15px;
-	-webkit-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
-	-moz-box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
-	box-shadow: 0px 0px 12px 1px rgba(22,131,199,0.18);
-}
-
-
-#virtualclassCont #dummyPlay {
-	position: absolute;
-	top: 17px;
-	left: 150px;
-	z-index: 666666;
-}
-
-#virtualclassCont .recButton {
-	margin: 0px 5px;
-	display:inline;
-	float: left;
-}
-
-
-#virtualclassCont #playProgress {
-	background-color: #676666;
-	float: left;
-	margin-left: 20px;
-	margin-top: 7px;
-	text-align: center;
-	width: 350px;
-	height: 5px;
-}
-
-#virtualclassCont.playMode #audioWidget {
-	display : none;
-}
-
-#virtualclassCont.playMode .ui-memblist-usr {
-	pointer-events : none;
-}
-
-#virtualclassCont.teacher #virtualclassYts, #virtualclassCont.student.presentor #virtualclassYts, #virtualclassCont.student #virtualclassYts {
-	margin-left : 60px;
-}
-
-#virtualclassCont #virtualclassYts {
-	border: #ccc 1px solid;
-	border-radius: 5px;
-}
-
-#virtualclassCont.student #virtualclassYts p{
-	text-align:center;
-/* 	margin-top : 25%; */
-
-}
-
-#virtualclassCont #player {
-	margin-top : 20px;
-}
-
-#virtualclassCont{
-	width : 100%;
-}
-
-#virtualclassEditorRich #synchMessageBox, .writeModeBox{
-	background : #EBECC6;
-	font-size : 13px;
-	padding: 12px 8px 12px 12px;
-	border:#e6dda4 1px solid;
-}
-#virtualclassEditorRich #synchMessageBox p{
+#page-mod-virtualclass-classroom #virtualclassCont{
 	margin: 0;
-	/*text-transform: uppercase;*/
+	padding: 0;
 }
 
-#virtualclassEditorRich #synchMessageBox {
-	position : absolute;
-	top : 24px;
-	right: 268px;
-	z-index : 5;
+#page-mod-virtualclass-classroom.pagelayout-popup #page.main-content {
+	max-width : none;
+	width : auto !important;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #page {
+	padding-top : 0;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #page-header {
+	margin-bottom : 0;
+	display: none;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup .inner{
+	display: none;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup .container-fluid{
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	max-width: none !important;
 }
 
-
-#virtualclassCont .writeModeBox {
-	top : 15px;
-	right: 15px;
-	position: absolute;
-	text-align: center;
-	text-transform: uppercase;
-	width: 150px;
-	border-radius: 5px;
-}
-
-
-#virtualclassEditorRich, #virtualclassEditorCode{
-	/*margin-top : 1.5%;*/
-	margin-top:  10px;
-}
-
-#virtualclassEditorRich, #virtualclassEditorBody{
-	height : 100%;
-}
-
-#virtualclassEditorCode, #virtualclassEditorCodeBody {
-	height : 101%;
-}
-
-#virtualclassCont .other-client:before {
-	content: attr(data-clientname);
-	background : #137C01;
-	padding: 2px;
-	padding-left: 5px;
-	padding-right: 5px;
-	position: absolute;
-	left: -6px;
-	top: 15px;
-	color : #ffffff;
+#page-mod-virtualclass-classroom #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #page-mod-virtualclass-classroom #virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton{
+	color:#333 !important;
 }
 
 
-#virtualclassCont div.CodeMirror-cursors{
-	visibility : visible !important;
+#page-mod-virtualclass-classroom #page-mod-virtualclass-classroom.pagelayout-popup #page, #page-mod-virtualclass-classroom #page-mod-virtualclass-classroom.pagelayout-popup #page #page-content  {
+	margin-top : 0;
+}
+
+#page-mod-virtualclass-classroom #page #page-content #region-main {
+	padding : 0;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #header-container, #page-mod-virtualclass-classroom.pagelayout-popup #page #page-navbar, 
+#page-mod-virtualclass-classroom.pagelayout-popup #back-to-top,
+#page-mod-virtualclass-classroom.pagelayout-popup #page #page-content h1    {
+	display : none;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #page #page-content {
+	width : auto;
 }
 
 
-#virtualclassCont .block.editorRichImg {
-	opacity : 0.5;
+#page-mod-virtualclass-classroom #page.container-fluid #page-header {
+	display : none !important;
+	margin : 0 !important;
+}
+#page-mod-virtualclass-classroom #page.container-fluid {
+	max-width : none !important;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup .container-fluid, #page-mod-virtualclass-classroom.pagelayout-popup #page.container-fluid  {
+	padding-right : 0;
+	padding-left : 0;
 }
 
-#virtualclassCont .block.editorCodeImg {
-	opacity : 0.5;
+#page-mod-virtualclass-classroom #usertab_text .icon-arrow-down:after,  #page-mod-virtualclass-classroom #chatroom_text .icon-arrow-down:after {
+	top : -2px !important;
+	vertical-align : sub !important;
+}
+#page-mod-virtualclass-classroom .ui-memblist-usr a img {
+	padding : 6px 13px !important;
+}
+#page-mod-virtualclass-classroom .close {
+	float : left !important;
+}
+ #page-mod-virtualclass-classroom #alwaysPress .audioTool a:hover {
+	text-decoration : none;
+}
+ #page-mod-virtualclass-classroom #containerWb #commandToolsWrapper .tool a {
+	padding : 11px 18px 10px !important;
+}
+ #page-mod-virtualclass-classroom #alwaysPress .audioTool.active #speakerPressingAnch #speakerPressingButton,  #page-mod-virtualclass-classroom #alwaysPress .audioTool.active #speakerPressingAnch {
+	color : #fff;
+}
+#page-mod-virtualclass-classroom #speakerPressingAnch #speakerPressingtext {
+	top : -11px;
+}
+ #page-mod-virtualclass-classroom #usertab_text .icon-arrow-up:before,  #page-mod-virtualclass-classroom #chatroom_text .icon-arrow-up:before,  #page-mod-virtualclass-classroom #usertab_text .icon-arrow-down:after,  #page-mod-virtualclass-classroom #chatroom_text .icon-arrow-down:after {
+	top : 0 !important;
+	vertical-align : middle !important;
+}
+ #page-mod-virtualclass-classroom .vmchat_room_bt .inner_bt #chatroom_text {
+	top : 0 !important;
+}
+#page-mod-virtualclass-classroom #chatroom_bt2 .inner_bt #chatroom_text {
+	margin-top : 0 !important;
+}
+#page-mod-virtualclass-classroom #chatroom_bt2 .inner_bt {
+	margin-top : 3px !important;
+}
+ #page-mod-virtualclass-classroom #usertab_icon {
+	margin : 4px 2px 0 0 !important;
+}
+#page-mod-virtualclass-classroom .inner_bt {
+	padding : 9px 0 !important;
+}
+ #page-mod-virtualclass-classroom #chat_div .controleCont {
+	margin-top : 2px;
 }
 
-#virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer {
-	position: absolute;
-	top: 15px;
-	right: 20px;
-	width: 110px;
-	text-align: center;
-	padding: 10px 0px;
-	font-size: 14px;
-	font-weight: 200;
-	z-index: 0;
+#page-mod-virtualclass-classroom .ui-memblist-usr .tooltip:hover:after {
+	bottom : 13px !important;
+}
+ #page-mod-virtualclass-classroom .ui-widget-header .icon-user:before {
+	font-size : 21px !important;
+}
+#page-mod-virtualclass-classroom .ui-memblist-usr a span.chatImg {
+	margin-left : 0 !important;
+}
+ #page-mod-virtualclass-classroom .icon-chatImg.enable:before {
+	font-size : 100% !important;
+	top : 0 !important;
+}
+ #page-mod-virtualclass-classroom .ui-memblist-usr .icon-chatImg:before {
+	top : 0 !important;
+}
+#page-mod-virtualclass-classroom #audioTest-box #audioTest #audiotestAnch.tooltip:hover:after {
+	bottom : -1.3em !important;
+}
+#page-mod-virtualclass-classroom #speakerPressOnce #speakerPressonceAnch.tooltip:hover:after {
+	bottom : 0em !important;
+}
+ #page-mod-virtualclass-classroom #speakerPressing .icon-speakerPressing:before {
+	top : -12px !important;
+}
+#page-mod-virtualclass-classroom .close:focus, #page-mod-virtualclass-classroom .close:hover {
+	opacity : inherit !important;
+}
+#page-mod-virtualclass-classroom .close.tooltip:hover:after {
+	left : 7px !important;
+}
+ #page-mod-virtualclass-classroom #chat_div .ui-memblist-usr span {
+	position : relative;
+	top : 3px !important;
+}
+ #page-mod-virtualclass-classroom #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+	padding-bottom : 7px !important;
+}
+/*
+#page-mod-virtualclass-classroom .student #chat_div .ui-memblist-usr a.tooltip:hover:after:first-child {
+bottom : -3px !important;
+padding : 0.2em 1em !important;
+font-size : 11.5px !important;
 }
 
-#virtualclassCont #virtualclassYtsTool, #virtualclassCont #virtualclassEditorCodeTool{
-	border-bottom: none !important;
+#page-mod-virtualclass-classroom .controleCont a.tooltip:hover:after {
+	bottom : -28px !important;
+	left : -18px !important;
+}
+#page-mod-virtualclass-classroom .student .ui-memblist-usr .icon-chatImg:before {
+	left : 0 !important;
+}
+*/
+
+#page-mod-virtualclass-classroom .ui-memblist-usr .icon-audioEnaOrange:before,  #page-mod-virtualclass-classroom .ui-memblist-usr .icon-audioEnaGreen:before {
+	font-size : 105% !important;
 }
 
-#virtualclassCont #alleditorRichContainerAnch{
-	color: #fff;
+#page-mod-virtualclass-classroom #chat_div .ui-memblist-usr span.block {
+	min-height : inherit !important;
+	padding : inherit !important;
+	margin-bottom : inherit !important;
+	background-color : transparent !important;
+	border : none !important;
+	border-color : transparent !important;
+	border-radius : 0 !important;
+	box-shadow : none !important;
+}
+
+#page-mod-virtualclass-classroom #chat_div .ui-memblist-usr.teacher {
+	pointer-events: visible !important;
+}
+ @media screen and (-webkit-min-device-pixel-ratio:0) {
+ #page-mod-virtualclass-classroom #chat_div .ui-memblist-usr a.tooltip:hover:after {
+	bottom: -5px;
+	left: 0em !important;
+}
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playButton{
+	color:#333 !important;
+}
+
+/* Moodle29 css */
+
+
+/* Azuline29 */
+
+#page-mod-virtualclass-classroom #page-mod-virtualclass-classroom div [role="main"]{
+	padding: 0 !important;
+}
+
+#page-mod-virtualclass-classroom #page-content{
+	max-width: none !important;
+}
+
+
+/* BCU Responsive */
+
+#page-mod-virtualclass-classroom .fullin .container{
+	width: 100% !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont.student{
+	width: 99% !important;
+}
+
+
+#page-mod-virtualclass-classroom .vceditor-toolbar {
+	padding-top: 15px;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool.active a, #page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool a{
 	text-decoration: none;
 }
 
-#virtualclassCont #virtualclassEditorRichBody {
-	position: relative;
-	height : 103%;
+#page-mod-virtualclass-classroom a.vceditor-btn{
+	color:#9c9c9c;
 }
 
-
-/* New Css */
-#virtualclassCont #playControllerWrapper{
-	background: #f7f7f8; /* Old browsers */
-	background: -moz-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f8), color-stop(100%,#eeeef0)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #f7f7f8 0%,#eeeef0 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #f7f7f8 0%,#eeeef0 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #f7f7f8 0%,#eeeef0 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #f7f7f8 0%,#eeeef0 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
-}
-#virtualclassCont #playControllerWrapper #playProgress, #virtualclassCont #playController #playProgress #playProgressBar{
-	height: 5px;
-}
-
-#virtualclassCont a.vceditor-btn{
-	border-bottom-width: 1px !important;
-}
-
-#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{
-	border-radius: 3px !important;
-}
-
-#virtualclassCont .vceditor-toolbar{
-	border: 1px solid #c9c9c9;
-	background-color: #f2f2f0;
-}
-
-#virtualclassCont #playController{
-	margin: 0 auto;
-	position: relative;
-	width: 650px;
-}
-
-#virtualclassCont .progressBar{
-	height: 5px;
-}
-
-#virtualclassCont #playController{
-	padding: 18px 15px 36px;
-	border-left: #ddd 1px solid;
-	border-right: #ddd 1px solid;
-}
-
-#virtualclassCont #playController #repTimeCont{
-	margin-right: 0;
-	float: right;
-	padding-right: 10px;
-	border-left: #ddd 1px solid;
-	padding-left: 15px;
-	color: #555;
-	font-size: 14px;
-}
-
-#virtualclassCont #repTimeCont #totalRepTime{
-	color: #888;
-}
-
-#virtualclassCont #playController #recPlayCont #recPlay, #virtualclassCont #playController #recPauseCont #recPause, #virtualclassCont #playController #ff2Cont #ff2, #virtualclassCont #playController #ff8Cont #ff8{
-	background-color: transparent;
-	border: medium none;
-	cursor: pointer;
-	color:#676666;
-}
-
-#virtualclassCont #playController #recPlayCont #recPlay:hover, #virtualclassCont #playController #recPlayCont #recPause:hover, #virtualclassCont #playController #ff2Cont #ff2:hover, #virtualclassCont #playController #ff8Cont #ff8:hover{
-	color:#222222;
-}
-
-#virtualclassCont #playController .icon-pause:before{
-	content:"\f04c";
-	font-size: 14px;
-}
-
-#virtualclassCont #playController .icon-forward:before{
-	content:"\f04e";
-	font-size: 14px;
-}
-
-#virtualclassCont #playController .icon-fast-forward:before{
-	content:"\f050";
-	font-size: 14px;
-}
-#virtualclassCont .icon-play:before{
-	content : "\f04b";
-	font-size: 14px;
-}
-#virtualclassCont #replayContainer #replayButton{
-	font-size: 13px;
-}
-
-#virtualclassCont #replayContainer #replayButton.icon-repeat:before{
-	content: "\f01e";
-	font-size: 13px;
-	position: relative;
-	left: -6px;
-	top: 1px;
-	color:#7fa617;
-}
-
-
-#virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:before{
-	content : "\e609";
-	font-size: 20px;
-	position: relative;
-	top: 3px;
-}
-
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:before{
-	content: "\f00c";
-	font-size: 12px;
-	position: relative;
-	left: -8px;
-	color:#7fa617;
-}
-
-#virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton:before{
-	content: "\f00d";
-	font-size: 12px;
-	position: relative;
-	left: -8px;
-	color:#e2440c;
-}
-#virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{
-	content: "\e610";
-	font-size: 18px;
-	color: #444;
-}
-
-#virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-enable:before{
-	content: "\e611";
-	font-size: 18px;
-	color:#444;
-}
-
-
-#virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before{
-	content: "\f00d";
-	font-size: 12px;
-	color: #6a8e0b;
-	border: #bcd2aa 1px solid;
-	border-radius: 50%;
-	padding: 3px 5px;
-	background-color: #f9f9f9;
-}
-
-#replayContainer #replayClose{
-	position: absolute;
-	top: -5px;
-	right: -12px;
-}
-#replayContainer #replayClose{
-	opacity: 1 !important;
-}
-
-
-#virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox #recordingClose{
-	top: 20px;
-	right: 15px;
-	position: absolute;
-}
-
-
-
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton{
-	font-size: 12px;
-}
-
-
-
-#virtualclassCont .vceditor-toolbar-wrapper div:nth-child(3), #virtualclassCont .vceditor-toolbar-wrapper div:nth-child(5), #virtualclassCont .vceditor-toolbar-wrapper div:nth-child(8){
-	margin-right: 20px;
-	padding-right: 20px;
-	border-right: #ccc 1px solid;
-}
-
-
-#virtualclassCont #alleditorRichContainer{
-	background: #6f9b90; /* Old browsers */
-	background: -moz-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92b0ab), color-stop(100%,#6f9b90)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #92b0ab 0%,#6f9b90 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #92b0ab 0%,#6f9b90 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
-}
-
-#virtualclassCont #youtubeUrlContainer, #virtualclassCont.student.presentor #youtubeUrlContainer{
-	position: relative;
-	margin-top: 10px;
-	text-align: center;
-	top: 25%;
-}
-
-
-#virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presentor .youTubeSharing #youtubeUrlContainer{
-	top:0;
-	text-align: left;
-}
-
-#virtualclassCont .youTubeSharing{
-	text-align: left;
-}
-
-#virtualclassCont #virtualclassCont #player{
-	margin-top: 7%;
-}
-
-#virtualclassCont #youtubeUrlContainer #youtubeurl{
-	border:#ddd 1px solid;
-	height: 36px;
-	font-size: 13px;
-	padding: 0px 10px 0px 15px;
-	width: 370px;
-	/*text-transform: uppercase;*/
-	color: #777;
-	font-size : 20px;
-	border-radius: 5px;
-}
-
-#virtualclassCont #youtubeUrlContainer #submitURL{
-	background: #83c2b2; /* Old browsers */
-	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c2b2), color-stop(100%,#6cad9d)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #83c2b2 0%,#6cad9d 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83c2b2', endColorstr='#6cad9d',GradientType=0 ); /* IE6-9 */
-	padding: 11px;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 13px;
-	font-weight: 200;
-	margin-left: 5px;
-	border-radius: 5px;
-	top: -2px;
-    position: relative;
-}
-
-#virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer{
-	background: #83c2b2; /* Old browsers */
-	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c2b2), color-stop(100%,#6cad9d)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #83c2b2 0%,#6cad9d 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83c2b2', endColorstr='#6cad9d',GradientType=0 ); /* IE6-9 */
-	border-radius: 5px;
-
-}
-#virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
-	background-color: #68a697;
-	background-image: none;
-
-}
-
-#virtualclassCont #alleditorRichContainer a, #virtualclassCont #alleditorCodeContainer a{
-	color:#fff;
-	text-decoration: none;
-}
-
-
-/* Image picker css*/
-
-#virtualclassCont .vceditor-dialog-div{
-	border-radius: 5px;
-	border:#ccc 1px solid;
-}
-
-#virtualclassCont #recordingClose {
-	margin-left: 3%;
-	cursor: pointer;
-	float: left;
-}
-
-#virtualclassCont #progressContainer {
-	display : block;
-}
-
-
-#virtualclassCont #replayContainer{
-	width : 300px;
-	background : #ffffff;
-}
-
-
-#virtualclassCont #popupContainer .close {
-	cursor : pointer;
-}
-
-#virtualclassCont #recordFinishedMessage {
-	font-weight: bold;
-	float : left;
-
-}
-
-#virtualclassCont #recordFinishedMessageBox {
-	display : none;
-}
-
-#virtualclassCont #confirm.popupWindow.simple-box{
-	max-width: 350px;
-	background-color: #fff;
-	text-align: center;
-
-}
-
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton,#virtualclassCont  #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont #popupContainer #replayContainer #replayButton, #downloadFileCont #downloadButton{
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #eeeeee 0%, #dddddd 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0 ); /* IE6-9 */
-	padding: 8px 25px;
-	border: none;
-	border-radius: 50px;
-	border: #ddd 1px solid;
-	margin-right: 10px;
-
-}
-
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont #confirmCancelButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #downloadFileCont #downloadButton:hover{
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #eeeeee)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #dddddd 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0 ); /* IE6-9 */
-
-}
-#virtualclassCont #virtualclassEditorCodeBody{
-	position: relative;
-}
-#virtualclassCont #confirmCancelButton{
-	padding: 8px 22px;
-}
-
-#virtualclassCont #popupContainer #about-modal{
-	border: #e2e2e2 solid 3px;
-}
-#virtualclassCont #popupContainer #about-modal #confirm #confirmMessage{
-	color:#666;
-	font-size: 14px;
-	margin-bottom: 20px;
-	line-height: 22px;
-}
-
-#virtualclassCont #popupContainer{
-	padding: 30px;
-}
-
-#virtualclassCont #confirm.popupWindow #confirmOk, #virtualclassCont #confirm.popupWindow #confirmCancel{
-	display: inline-block;
-}
-
-#virtualclassCont #confirmCancelButton:after{
-	clear: both;
-}
-
-#virtualclassCont #confirm.popupWindow.simple-box{
-	padding: 30px;
-}
-
-
-#virtualclassCont div#playControllerCont{
-	margin: 0 auto;
-	width: 860px;
+#page-mod-virtualclass-classroom .vceditor-richtext .CodeMirror{
+	border:1px solid #ccc;
 }
-
-
-#virtualclassCont #playController, #virtualclassCont #replayFromStart{
-	float: left;
-}
-#virtualclassCont #playController{
-	padding: 25px 15px 25px;
-}
-
-#virtualclassCont #playControllerCont #replayFromStart{
-	float: left;
-	margin-left: 15px;
-	margin-top: 12px;
-}
-
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow{
-	color: #6a8a13;
-	background-color: #fff;
-	border: #ddd 1px solid;
-	margin-top: 10px;
-	border-radius: 5px;
-	clear: both;
-	padding: 20px;
-}
-
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished:after{
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-}
-
-#virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart{
-	padding: 5px 10px 12px;
-	border: none;
-	font-size: 13px;
-	border: #ddd 1px solid;
-	z-index: 0;
-}
-
-#virtualclassCont #popupContainer #replayContainer.popupWindow{
-	font-size: 14px;
-	padding: 30px;
-	text-align: center;
-}
-
-#virtualclassCont #popupContainer #replayContainer.popupWindow #replayMessage{
-	font-size: 14px;
-}
-
-
-/* player box tooltip*/
-
-#virtualclassCont #virtualclassCont #playControllerCont #playController .tooltip:hover:after, #virtualclassCont #playControllerCont #replayFromStart .tooltip:hover:after{
-	left: 1em;
-	bottom: -3em;
-	padding: 8px;
-}
-
-#virtualclassCont .rv-vanilla-modal-body #progressContainer #totProgressCont #progress, #virtualclassCont .rv-vanilla-modal-body #progressContainer #indvProgressCont #indProgress{
-	background-color: #f5f5f5;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-	box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-
-}
-#virtualclassCont #recordPlay .rv-vanilla-modal-body #askPlay #playButton:before{
-	position: relative;
-	left: -6px;
-	color:#93b42f;
-}
-
-#virtualclassCont #recordPlay .rv-vanilla-modal-body #askPlay #playButton{
-	font-size: 14px;
-
-}
-
-#virtualclassCont #playController .controlActive{
-	pointer-events:  none;
-	opacity : 0.5;
-}
-
-#virtualclassCont .recordingFinished #recordingHeaderContainer{
-	display : none;
-}
-
-
-#virtualclassCont.orginalTeacher #virtualclassEditorRichBody, #virtualclassCont.orginalTeacher #virtualclassEditorCodeBody {
-	/*margin-right: 3.2%;*/
-	width : 98.8%;
-
-}
-
-#virtualclassCont.teacher #virtualclassEditorRichBody, #virtualclassCont.teacher #virtualclassEditorCodeBody {
-	/*margin-right: 3.2%;*/
-	width : 99.8%;
-}
-
-
-
-#virtualclassCont.removedAssign #virtualclassEditorRichBody, #virtualclassCont.removedAssign #virtualclassEditorCodeBody{
-	margin-right :0;
-}
-
-#virtualclassYts, #virtualclassScreenShare {
-	margin-top : 8px;
-}
-
-
-#virtualclassCont #virtualclassYts.youTubeSharing #player{
-	display: inline;
-	/*margin-left: -65%;*/
-	margin-top: 1%;
-	margin-left: 22px;
-}
-
-#virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.educator .youTubeSharing #youtubeUrlContainer {
-	top : 0;
-	text-align: left;
-	margin-left: 22px;
-}
-
-
-#virtualclassCont #virtualclassCont.orginalTeacher #vcanvas{
-	border: #ccc solid 1px;
-}
-
-#virtualclassCont.educator #virtualclassScreenShare, #virtualclassCont.educator  #virtualclassEditorRich, #virtualclassCont.educator #virtualclassEditorCode {
-	margin-left : 9px;
-}
-
-
-#virtualclassCont.playMode .ui-memblist-usr a {
-	pointer-events : none;
-}
-
-#virtualclassCont .playMode #recordPlay #askPlay{
-	display : none;
-}
-
-#virtualclassCont #vcanvas #whiteBoardMsg {
-	position : absolute;
-	top : 40%;
-	left : 40%;
-}
-
-
-
-#virtualclassCont a#contrAudioAll {
-	margin-left: 30px;
-	cursor: pointer;
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool a{
+	color:#444 !important; 
 }
 
-#virtualclassCont #contrAudioAllImg.tooltip:hover:after{
-	padding: 0.6em 1em;
-	bottom: 2em;
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool.active a{
+	color:#fff !important; 
 }
 
-
-/* Chat box css */
-
-
-#virtualclassCont .ui-memblist-usr.mySelf.student[data-role="s"]{
-	background-color: #e8e8e8;
-	border-top:#8f8f8f 1px solid;
-	border-bottom:#8f8f8f 1px solid;
-}
-#virtualclassCont .ui-memblist-usr.mySelf.teacher[data-role="p"]{
-	border-bottom:#8f8f8f 1px solid;
-}
-
-
-#virtualclassCont .ui-memblist-usr[data-role="e"], #virtualclassCont .ui-memblist-usr[data-role="t"] {
-	background-color: #f8f7dc;
-	border-bottom: 1px solid #8f8f8f;
-	border-top: 1px solid #ddda86;
-}
-
-
-#virtualclassCont .ui-memblist-usr.student{
-	border-bottom:#8f8f8f 1px solid;
-}
-#virtualclassCont #chat_div, .ui-widget-content.ui-chatbox-content{
-	border:#8f8f8f 1px solid;
-}
-#virtualclassCont .ui-chatbox-log, #virtualclassCont .ui-chatbox-input{
-	border-color:#8f8f8f;
-}
-
-#virtualclassCont .ui-memblist-usr[data-role="p"]{
-	background-color: #f3fbe8;
-	border-top: #b7d094 1px solid;
-	border-bottom: #8f8f8f 1px solid;
-}
-
-#virtualclassCont #sessionEndMsgCont.popupWindow{
-	margin: 18px 25px;
-}
-
-#virtualclassCont #sessionEndMsgCont #sessionEndClose.icon-close{
-	top: 10px;
-	right: 15px;
-	position: absolute;
-	cursor : pointer;
-}
-#virtualclassCont .ui-memblist-usr{
-	margin-top: -1px;
-}
-
-#virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos{
-	margin-top: 9px;
-	margin-bottom: 9px;
-}
-
-#virtualclassCont .userImg.ui-memblist-usr.mySelf.student a img{
-	background-color: #f2f2f2;
-	border: #8f8f8f 1px solid;
-}
-
-/* */
-#virtualclassCont div#virtualclassOptionsCont div#virtualclassEditorRichTool{
-	border-bottom: none;
-}
-
-#virtualclassOptionsCont .appOptions a.tooltip:hover:after{
-	line-height: 20px !important;
-	bottom: 0px!important;
-}
-
-#virtualclassCont.teacher #audioWidget{
-	right: 11px;
-}
-#virtualclassCont .ui-memblist-usr:last-child a img{
-	padding: 14px 21px;
-	margin-bottom:14px;
-	margin-top: 9px;
-}
-
-#virtualclassCont div.ui-memblist-usr:last-child video{
-	margin-bottom:15px;
-}
-
-#virtualclassCont.student.presentor #audioWidget{
-	right: 15px;
-}
-
-#virtualclassCont.teacher.orginalTeacher.educator #audioWidget{
-	right: 5px;
-	top: 140px;
-}
-#virtualclassCont.teacher.orginalTeacher[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.teacher.orginalTeacher[data-currapp="Yts"] #audioWidget, #virtualclassCont.teacher.orginalTeacher[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.teacher.orginalTeacher.educator[data-currapp="EditorRich"] #audioWidget{
-	right: 0px;
-}
-#virtualclassCont.teacher.orginalTeacher.educator[data-currapp="Yts"] #audioWidget{
-	right: 11px;
-}
-#virtualclassCont.student.presentor[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="Yts"] #audioWidget{
-	right: 0px;
-}
-
-#virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget, #virtualclassCont.student[data-currapp="Yts"] #audioWidget{
-	right: 10px;
-}
-
-#virtualclassCont.student[data-currapp="EditorRich"]{right: 0;}
-/*#virtualclassCont.playMode.student[data-currapp="EditorRich"]{right: 35px;}*/
-/*#virtualclassCont.playMode.student[data-currapp="EditorRich"] #virtualclassEditorRich.vmApp.virtualclass.editorRich{max-width: 2038px;}*/
-
-#virtualclassCont.studentplayMode[data-currapp="EditorRich"] #audioWidget{
-	top: 170px;
-	right: 10px;
-}
-
-#virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] #virtualclassEditorCode{
-	margin-left: 0px;
-}
-#virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] .CodeMirror-scroll{
-	margin-right: 0px;
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool.active, #page-mod-virtualclass-classroom #alwaysPress .audioTool.deactive {
+	padding : 7px 13px !important;
 }
 
-
-#virtualclassCont.playMode.student #virtualclassEditorRich{margin-top: 0px;}
-
-#virtualclassCont.playMode.student .writeModeBox{top: -60px;}
-
-#virtualclassCont #messageLayout{
-	background-color: #f9f9f9;
-    border: 1px solid #c8ddb8;
-    border-radius: 5px;
-    color: #3a773c;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-    top: 40%;
-    width: 500px;
-    text-align: center;
-    box-shadow: 0 0 8px #ddd;
-}
-#virtualclassCont #whiteBoardMsg{
-	background-color: #f9f9f9;
-    border: 1px solid #c8ddb8;
-    padding: 20px;
-    color: #3a773c;
-    border-radius: 5px;
-    box-shadow:#ddd 0px 0px 5px;
-}
-
-#virtualclassCont .vmchat_bar_button{
-	border-color:#8f8f8f;
-}
-
-#virtualclassCont [placeholder="I want youTube video URL."], #virtualclassCont [placeholder="Insert image url"] {
-    font-weight: lighter;
-    font-style: normal;
-    font-family: sans-serif;
-    font-size: 18px !important;
-    color:#535151;
-    font-weight: lighter !important;
-}
-#virtualclassContuserImg.ui-memblist-usr{
-	left: 5px;
-    top: 2px;
-}
-#virtualclassCont .userImg.ui-memblist-usr a.tooltip[data-title="Click to chat"]{
-	left:7px;
-}
-
-#virtualclassCont.teacher.orginalTeacher .ui-memblist-usr.student[data-role="s"] a[data-title="Click to chat"] span{
-	left:4px !important;
-}
-
-#playController div button.tooltip[data-title="Fast Forward 2"]:hover:after, #playController div button.tooltip[data-title="Fast Forward 8"]:hover:after, #playController div button.tooltip[data-title="Play"]:hover:after, #playController div button.tooltip[data-title="Pause"]:hover:after{
-	left:0px;
-	bottom:-27px !important;
-}
-#downloadFileCont #downloadButton:hover{
-	background-color: #a6c24e;
-}
-#downloadFileCont #downloadButton{
-	margin-top: 10px;
-    padding: 10px 16px;
-    border-radius: 17px;
-    cursor: pointer;
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_icon{
+	margin: 7px 15px 0 0 !important; 
 }
-#downloadFileCont #errormsessage{
-	font-weight: 400;
-	font-size: 15px;
-    color: #555;
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-up:before, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-up:before{
+	top:0px !important;
 }
 
-#downloadFileCont{
-	padding: 10px 20px 25px 20px; 
-	text-align: center;
+#page-mod-virtualclass-classroom #virtualclassCont #chatroom_bt2 .inner_bt{
+	margin-top: 6px !important;
 	
 }
 
-
-/* Error massages */
-
-#virtualclassCont #errorContainer,  #virtualclassCont #errorContainer{
-	background-color:#f0f0f0;
-	box-shadow:#ddd 0px 0px 5px;
-	border:#DDD 1px solid;
-	padding:20px;
-	border-radius:5px;
-	text-align:center;
-
+#page-mod-virtualclass-classroom #chatWidget #chatroom_text .icon-arrow-down, #page-mod-virtualclass-classroom #chatWidget #chatroom_text .icon-arrow-up{
+	
 }
 
+#page-mod-virtualclass-classroom #virtualclassCont #chatWidget .mySelf span{
+	margin-top: 3px !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text{
+	padding-left: 35px !important;
+}
+
+
+
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-up::before, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-up::before, #page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-down::after{
+	left:10px;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-down::after{
+	top: 0 !important;
+}
+
+#page-mod-virtualclass-classroom #youtubeUrlContainer #submitURL{
+	margin-bottom: 0px;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #virtualclassOptionsCont, #page-mod-virtualclass-classroom .tooltip{
+	line-height: 25px !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont .ui-memblist{
+	bottom: 40px !important;
+}
+
+#page-mod-virtualclass-classroom .iconsmall.hand, #page-mod-virtualclass-view .iconsmall.hand{
+	cursor: pointer;
+}
+
+#page-mod-virtualclass-classroom #vc{
+	float: left;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController{
+	width: 700px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController button{
+	margin: 0 !important;
+	box-shadow: none !important;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #playController{
+	padding: 20px 15px 20px !important;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #playProgress{
+	margin-top: 14px !important;
+	margin-left: 12px !important;
+	
+}
+
+#page-mod-virtualclass-view .wrapper-button .clear, #page-mod-virtualclass-view .wrapper-record-list .clear{
+	clear: both;
+}
+
+#page-mod-virtualclass-view .wrapper-button{
+	padding: 20px 15px;
+	border:#ddd 1px solid;
+	border-radius: 5px;
+}
+
+#page-mod-virtualclass-view .wrapper-record-list{
+	text-align: right;
+	padding: 15px 10px;
+	border:#ddd 1px solid;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+#page-mod-virtualclass-classroom{ padding-top: 0px;}
+
+/*
+#page-mod-virtualclass-classroom #virtualclassEditorRich{
+	margin-left: 10px;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont.student #virtualclassScreenShare, #page-mod-virtualclass-classroom #virtualclassCont #virtualclassEditorRich, #page-mod-virtualclass-classroom#virtualclassCont #virtualclassEditorCode{
+	margin-left: 60px;
+}
+*/
+
+#page-mod-virtualclass-classroom #virtualclassCont{
+	margin: 0;
+	padding: 0;
+}
+
+#page-mod-virtualclass-classroom.pagelayout-popup #page.main-content {
+	max-width : none;
+	width : auto !important;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #page {
+	padding-top : 0;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #page-header {
+	margin-bottom : 0;
+	display: none;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup .inner{
+	display: none;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup .container-fluid{
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	max-width: none !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #page-mod-virtualclass-classroom #virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton{
+	color:#333 !important;
+}
+
+
+#page-mod-virtualclass-classroom #page-mod-virtualclass-classroom.pagelayout-popup #page, #page-mod-virtualclass-classroom #page-mod-virtualclass-classroom.pagelayout-popup #page #page-content  {
+	margin-top : 0;
+}
+
+#page-mod-virtualclass-classroom #page #page-content #region-main {
+	padding : 0;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #header-container, #page-mod-virtualclass-classroom.pagelayout-popup #page #page-navbar, 
+#page-mod-virtualclass-classroom.pagelayout-popup #back-to-top,
+#page-mod-virtualclass-classroom.pagelayout-popup #page #page-content h1    {
+	display : none;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup #page #page-content {
+	width : auto;
+}
+
+
+#page-mod-virtualclass-classroom #page.container-fluid #page-header {
+	display : none !important;
+	margin : 0 !important;
+}
+#page-mod-virtualclass-classroom #page.container-fluid {
+	max-width : none !important;
+}
+#page-mod-virtualclass-classroom.pagelayout-popup .container-fluid, #page-mod-virtualclass-classroom.pagelayout-popup #page.container-fluid  {
+	padding-right : 0;
+	padding-left : 0;
+}
+
+#page-mod-virtualclass-classroom #usertab_text .icon-arrow-down:after,  #page-mod-virtualclass-classroom #chatroom_text .icon-arrow-down:after {
+	top : -2px !important;
+	vertical-align : sub !important;
+}
+#page-mod-virtualclass-classroom .ui-memblist-usr a img {
+	padding : 6px 13px !important;
+}
+#page-mod-virtualclass-classroom .close {
+	float : left !important;
+}
+ #page-mod-virtualclass-classroom #alwaysPress .audioTool a:hover {
+	text-decoration : none;
+}
+ #page-mod-virtualclass-classroom #containerWb #commandToolsWrapper .tool a {
+	padding : 11px 18px 10px !important;
+}
+ #page-mod-virtualclass-classroom #alwaysPress .audioTool.active #speakerPressingAnch #speakerPressingButton,  #page-mod-virtualclass-classroom #alwaysPress .audioTool.active #speakerPressingAnch {
+	color : #fff;
+}
+#page-mod-virtualclass-classroom #speakerPressingAnch #speakerPressingtext {
+	top : -11px;
+}
+ #page-mod-virtualclass-classroom #usertab_text .icon-arrow-up:before,  #page-mod-virtualclass-classroom #chatroom_text .icon-arrow-up:before,  #page-mod-virtualclass-classroom #usertab_text .icon-arrow-down:after,  #page-mod-virtualclass-classroom #chatroom_text .icon-arrow-down:after {
+	top : 0 !important;
+	vertical-align : middle !important;
+}
+ #page-mod-virtualclass-classroom .vmchat_room_bt .inner_bt #chatroom_text {
+	top : 0 !important;
+}
+#page-mod-virtualclass-classroom #chatroom_bt2 .inner_bt #chatroom_text {
+	margin-top : 0 !important;
+}
+#page-mod-virtualclass-classroom #chatroom_bt2 .inner_bt {
+	margin-top : 3px !important;
+}
+ #page-mod-virtualclass-classroom #usertab_icon {
+	margin : 4px 2px 0 0 !important;
+}
+#page-mod-virtualclass-classroom .inner_bt {
+	padding : 9px 0 !important;
+}
+ #page-mod-virtualclass-classroom #chat_div .controleCont {
+	margin-top : 2px;
+}
+#page-mod-virtualclass-classroom .ui-memblist-usr a span {
+	margin-left : 5px !important;
+}
+#page-mod-virtualclass-classroom .ui-memblist-usr .tooltip:hover:after {
+	bottom : 13px !important;
+}
+ #page-mod-virtualclass-classroom .ui-widget-header .icon-user:before {
+	font-size : 21px !important;
+}
+#page-mod-virtualclass-classroom .ui-memblist-usr a span.chatImg {
+	margin-left : 0 !important;
+}
+ #page-mod-virtualclass-classroom .icon-chatImg.enable:before {
+	font-size : 100% !important;
+	top : 0 !important;
+}
+ #page-mod-virtualclass-classroom .ui-memblist-usr .icon-chatImg:before {
+	top : 0 !important;
+}
+#page-mod-virtualclass-classroom #audioTest-box #audioTest #audiotestAnch.tooltip:hover:after {
+	bottom : -1.3em !important;
+}
+#page-mod-virtualclass-classroom #speakerPressOnce #speakerPressonceAnch.tooltip:hover:after {
+	bottom : 0em !important;
+}
+ #page-mod-virtualclass-classroom #speakerPressing .icon-speakerPressing:before {
+	top : -12px !important;
+}
+#page-mod-virtualclass-classroom .close:focus, #page-mod-virtualclass-classroom .close:hover {
+	opacity : inherit !important;
+}
+#page-mod-virtualclass-classroom .close.tooltip:hover:after {
+	left : 7px !important;
+}
+ #page-mod-virtualclass-classroom #chat_div .ui-memblist-usr span {
+	position : relative;
+	top : 3px !important;
+}
+ #page-mod-virtualclass-classroom #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+	padding-bottom : 7px !important;
+}
+#page-mod-virtualclass-classroom .student #chat_div .ui-memblist-usr a.tooltip:hover:after:first-child {
+bottom : -3px !important;
+padding : 0.2em 1em !important;
+font-size : 11.5px !important;
+}
+
+/*
+#page-mod-virtualclass-classroom .controleCont a.tooltip:hover:after {
+	bottom : -28px !important;
+	left : -18px !important;
+}
+*/
+#page-mod-virtualclass-classroom .student .ui-memblist-usr .icon-chatImg:before {
+	left : 0 !important;
+}
+
+#page-mod-virtualclass-classroom .ui-memblist-usr .icon-audioEnaOrange:before,  #page-mod-virtualclass-classroom .ui-memblist-usr .icon-audioEnaGreen:before {
+	font-size : 105% !important;
+}
+
+#page-mod-virtualclass-classroom #chat_div .ui-memblist-usr span.block {
+	min-height : inherit !important;
+	padding : inherit !important;
+	margin-bottom : inherit !important;
+	background-color : transparent !important;
+	border : none !important;
+	border-color : transparent !important;
+	border-radius : 0 !important;
+	box-shadow : none !important;
+}
+
+#page-mod-virtualclass-classroom #chat_div .ui-memblist-usr.teacher {
+	pointer-events: visible !important;
+}
+ @media screen and (-webkit-min-device-pixel-ratio:0) {
+ #page-mod-virtualclass-classroom #chat_div .ui-memblist-usr a.tooltip:hover:after {
+	bottom: -5px;
+	left: 0em !important;
+}
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playButton{
+	color:#333 !important;
+}
+
+/* 	 css */
+
+/* #virtualclassCont.student[data-currapp="EditorRich"], #virtualclassCont.student[data-currapp="Whiteboard"], #virtualclassCont.student[data-currapp="ScreenShare"]{right: -14px !important;} */
+/* #virtualclassCont.student[data-currapp="ScreenShare"]{right: 30px !important;} */
+
+
+#page-mod-virtualclass-classroom #virtualclassCont.student.presentor[data-currapp="Whiteboard"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student.presentor[data-currapp="ScreenShare"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student.presentor[data-currapp="Yts"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget{
+	right: -10px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont.student[data-currapp="Whiteboard"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student[data-currapp="EditorRich"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student[data-currapp="EditorCode"] #audioWidget{
+	right: -10px !important;
+}
+#page-mod-virtualclass-classroom #virtualclassCont.student[data-currapp="ScreenShare"]{
+	
+}
+ #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.student[data-currapp="Yts"] #audioWidget{
+	 right: 0px !important;
+ }
+ 
+ #page-mod-virtualclass-classroom #virtualclassCont.teacher.orginalTeacher.presentor[data-currapp="EditorCode"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.teacher.orginalTeacher[data-currapp="ScreenShare"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.teacher.orginalTeacher[data-currapp="Yts"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.teacher.orginalTeacher[data-currapp="EditorCode"] #audioWidget{
+	 right: 0 !important;
+ }
+ 
+#page-mod-virtualclass-classroom #virtualclassCont.teacher.orginalTeacher[data-currapp="EditorRich"] #audioWidget, #page-mod-virtualclass-classroom #virtualclassCont.studentplayMode[data-currapp="EditorRich"] #audioWidget{
+	 right: 10px !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont.studentplayMode #virtualclassEditorCode{
+	margin-left: 0 !important;
+}
+#page-mod-virtualclass-classroom #virtualclassCont.studentplayMode #audioWidget{
+	top: 170px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont.studentplayMode .writeModeBox{
+	top: -60px !important;
+}
+
+
+/* Azuline29 */
+
+#page-mod-virtualclass-classroom #page-mod-virtualclass-classroom div [role="main"]{
+	padding: 0 !important;
+}
+
+#page-mod-virtualclass-classroom #page-content{
+	max-width: none !important;
+}
+
+
+/* BCU Responsive */
+
+#page-mod-virtualclass-classroom .fullin .container{
+	width: 100% !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont.student{
+	width: 99% !important;
+}
+
+
+#page-mod-virtualclass-classroom .vceditor-toolbar {
+	padding-top: 15px;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool.active a, #page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool a{
+	text-decoration: none;
+}
+
+#page-mod-virtualclass-classroom a.vceditor-btn{
+	color:#9c9c9c;
+}
+
+#page-mod-virtualclass-classroom .vceditor-richtext .CodeMirror{
+	border:1px solid #ccc;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool a{
+	color:#444 !important; 
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool.active a{
+	color:#fff !important; 
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #alwaysPress .audioTool.active, #page-mod-virtualclass-classroom #alwaysPress .audioTool.deactive {
+	padding : 7px 13px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_icon{
+	margin: 7px 15px 0 0 !important; 
+}
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-up:before, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-up:before{
+	top:0px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #chatroom_bt2 .inner_bt{
+	margin-top: 6px !important;
+	
+}
+
+#page-mod-virtualclass-classroom #chatWidget #chatroom_text .icon-arrow-down, #page-mod-virtualclass-classroom #chatWidget #chatroom_text .icon-arrow-up{
+	
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #chatWidget .mySelf span{
+	margin-top: 3px !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text{
+	padding-left: 35px !important;
+}
+
+
+
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-up::before, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-up::before, #page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-down::after{
+	left:10px;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #usertab_text .icon-arrow-down::after, #page-mod-virtualclass-classroom #virtualclassCont #chatroom_text .icon-arrow-down::after{
+	top: 0 !important;
+}
+
+#page-mod-virtualclass-classroom #youtubeUrlContainer #submitURL{
+	margin-bottom: 0px;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #virtualclassOptionsCont, #page-mod-virtualclass-classroom .tooltip{
+	line-height: 25px !important;
+}
+
+
+#page-mod-virtualclass-classroom #virtualclassCont .ui-memblist{
+	bottom: 40px !important;
+}
+
+#page-mod-virtualclass-classroom .iconsmall.hand, #page-mod-virtualclass-view .iconsmall.hand{
+	cursor: pointer;
+}
+
+#page-mod-virtualclass-classroom #vc{
+	float: left;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController{
+	width: 700px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController button{
+	margin: 0 !important;
+	box-shadow: none !important;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #playController{
+	padding: 20px 15px 20px !important;
+}
+#page-mod-virtualclass-classroom #virtualclassCont #playProgress{
+	margin-top: 14px !important;
+	margin-left: 12px !important;
+	
+}
+
+#page-mod-virtualclass-view .wrapper-button .clear, #page-mod-virtualclass-view .wrapper-record-list .clear{
+	clear: both;
+}
+
+#page-mod-virtualclass-view .wrapper-button{
+	padding: 20px 15px;
+	border:#ddd 1px solid;
+	border-radius: 5px;
+}
+
+#page-mod-virtualclass-view .wrapper-record-list{
+	text-align: right;
+	padding: 15px 10px;
+	border:#ddd 1px solid;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+#page-mod-virtualclass-classroom{ padding-top: 0px;}
+
+#virtualclassCont .ui-widget-header .icon-user:before{
+	bottom:3 !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #downloadProgressValue.progressValue{
+	top: -19px;
+}
+
+#page-mod-virtualclass-classroom #page-mod-virtualclass-view #virtualclassintro.mod_introbox{
+	padding: 0;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont .recButton{
+	margin: 0px 2px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController #repTimeCont{
+	margin-top: 5px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController .tooltip:hover:after{
+	bottom: -3em !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #replayFromStart .tooltip:hover:after{
+	padding: 4px 12px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #replayFromStart  .tooltip:hover:after{
+	bottom: -2em !important;
+}
+
+#virtualclassCont.studentplayMode #virtualclassEditorRich{
+	margin-left: 0px;
+}
+
+#page-mod-virtualclass-classroom #page #page-content, #page-mod-virtualclass-classroom.pagelayout-redirect #page-content, #page-mod-virtualclass-classroom #virtualclassEditorRich{
+	margin-top: 0px;
+}
+
+#page-mod-virtualclass-classroom #page #page-content #region-main, #page-mod-virtualclass-classroom #page #page-content div[role=main], #page-mod-virtualclass-classroom.pagelayout-redirect #page-content #region-main, #page-mod-virtualclass-classroom.pagelayout-redirect #page-content div[role=main]{
+	margin-bottom: 0px;
+}
+#page-mod-virtualclass-classroom .rv-vanilla-modal-title{
+	margin-top: 0px;
+}
+
+#page-mod-virtualclass-classroom #page-mod-virtualclass-view #virtualclassintro.mod_introbox{
+	padding: 0;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont .recButton{
+	margin: 0px 2px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController #repTimeCont{
+	margin-top: 5px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #playController .tooltip:hover:after{
+	bottom: -3em !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #replayFromStart .tooltip:hover:after{
+	padding: 4px 12px !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #replayFromStart  .tooltip:hover:after{
+	bottom: -2em !important;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont.studentplayMode #virtualclassEditorRich{
+	margin-left: 0px;
+}
+
+#page-mod-virtualclass-classroom #page #page-content, #page-mod-virtualclass-classroom.pagelayout-redirect #page-content, #page-mod-virtualclass-classroom #virtualclassEditorRich{
+	margin-top: 0px;
+}
+
+#page-mod-virtualclass-classroom #page #page-content #region-main, #page-mod-virtualclass-classroom #page #page-content div[role=main], #page-mod-virtualclass-classroom.pagelayout-redirect #page-content #region-main, #page-mod-virtualclass-classroom.pagelayout-redirect #page-content div[role=main]{
+	margin-bottom: 0px;
+}
+
+#page-mod-virtualclass-classroom #virtualclassCont #usertab_text.tooltip.open:hover:after{
+	left: 39px;
+}
+#virtualclassCont div.ui-memblist-usr:last-child video{
+	margin-bottom: 10px !important;
+	margin-top: 11px !important;
+}
+#virtualclassCont div.ui-memblist-usr .userVideos {
+	margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+#page-mod-virtualclass-classroom .tooltip[data-action="disable"], #page-mod-virtualclass-classroom .tooltip[data-action="enable"]{
+	line-height: 20px !important;
+}
+/*  Azuline css */
+
+#page-mod-virtualclass-classroom #page #page-content #region-main div[role="main"] {
+	padding: 0px !important;
+}
 

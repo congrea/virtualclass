@@ -45,36 +45,8 @@
             .appendTo(uiFooterbarchatroomContent)
             .html('Chatroom <span id="cc_arrow_button" class="icon-arrow-up"></span>')
             .click(function(){
-
-                     if (virtualclass.chat.chatroombox) {
-                    
-				    if(localStorage.getItem('chatroom_status') == 'hidden'){
-                        localStorage.removeItem('chatroom_status');
-                        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('minCommonChat'));
-                      
-                   }else{
-                        localStorage.setItem("chatroom_status", "hidden");
-                        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('maxCommonChat'));
-                   }
-                   
-                   var iconarrowButton = document.getElementById('cc_arrow_button');
-                   if(iconarrowButton != null){
-                       if (virtualclass.vutil.elemHasAnyClass('cc_arrow_button')) {
-                            if(iconarrowButton.classList.contains('icon-arrow-up')){
-                                iconarrowButton.classList.add('icon-arrow-down');
-                                iconarrowButton.classList.remove('icon-arrow-up');
-                            }else{
-                                iconarrowButton.classList.add('icon-arrow-up');
-                                iconarrowButton.classList.remove('icon-arrow-down');
-                            }
-                        }else{
-                            iconarrowButton.className = 'icon-arrow-up';
-                        }
-                        
-                   }
-                         virtualclass.chat.chatroombox.chatroom("option", "boxManager").toggleBox();
-                   
-                   
+                 if (virtualclass.chat.chatroombox) {
+                       toggleCommonChatBox();
                 }else{
 //                    alert('sss');
                     if($("div#chat_room").length == 0){
@@ -102,7 +74,8 @@
                         }
                         var iconarrowButton = document.getElementById('cc_arrow_button');
                         iconarrowButton.classList.add('icon-arrow-down');
-                        iconarrowButton.classList.remove('icon-arrow-up');
+                        iconarrowButton.classList.remove('icon-arrow-up')
+                        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('minCommonChat'));
                                 
                     }  // if end
                 }//else end
@@ -136,17 +109,19 @@
                         
                         $("#usertab_toogle_icon").addClass('icon-arrow-down');
                         $("#usertab_toogle_icon").removeClass('close icon-arrow-up');
+
                         $(this).attr('data-title', virtualclass.lang.getString('miniUserList'));
                         
                     }else{
-//                        $(this).addClass('close icon-arrow-up');
-//                        $(this).removeClass('open icon-arrow-down');
+
                         $(this).addClass('close');
                         $(this).removeClass('open');
                         $("#usertab_toogle_icon").addClass('icon-arrow-up');
                         $("#usertab_toogle_icon").removeClass('icon-arrow-down');
                         $(this).attr('data-title', virtualclass.lang.getString('maxUserList'));
                     }
+
+
                     
                     $("#chat_div").memberlist("option", "boxManager").toggleBox();
                 }

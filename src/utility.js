@@ -137,7 +137,11 @@
                 }
             }
 
+            
             var reduceHeight = 70;
+            if(virtualclass.isPlayMode){
+                reduceHeight +=  75;
+            }
 
             var containerHeight = document.getElementById('commandToolsWrapper');
             if (containerHeight != null) {

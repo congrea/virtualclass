@@ -217,7 +217,7 @@ if(isset($_GET['lname'])){
     <div id="mainAudioPanel">
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
         
-<a id="speakerPressonceAnch" class="tooltip" data-title="Enable Audio" name="speakerPressonceAnch">
+<a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo get_string('enableAudio') ?>" name="speakerPressonceAnch">
 <span id="speakerPressonceLabel" class="silenceDetect" data-silence-detect="stop"> <i> </i> </span>
 
 </a>
@@ -227,8 +227,8 @@ if(isset($_GET['lname'])){
         
         <div id="alwaysPress">
               <div class="<?php echo $classes; ?>" id="speakerPressing">
-<!--                <a data-title="Press always to speak" class="tooltip" id="speakerPressingAnch"
-                name="speakerPressingAnch">Push To Talk</a>-->
+<!--                <a data-title="<?php echo get_string('pressAlwaysToSpeak') ?>  class="tooltip" id="speakerPressingAnch"
+                name="speakerPressingAnch"><?php echo get_string('pushtotalk') ?></a>-->
                 <a id="speakerPressingAnch" name="speakerPressingAnch">
                     <div id="speakerPressingButton" class="icon-speakerPressing"></div>
                     <div style="clear:both;"></div>
@@ -249,7 +249,7 @@ if(isset($_GET['lname'])){
     </div>-->
     <div id="audioTest-box">
     <div class="audioTool" id="audioTest">
-      <a data-title="Test Audio" class="tooltip" id="audiotestAnch" name=
+      <a data-title="<?php echo get_string('tpAudioTest') ?>" class="tooltip" id="audiotestAnch" name=
       "audiotestAnch">
 <!--          <img src="<?php echo $whiteboardpath.'images/audiotest.png'; ?>" id="audiotestImg" /><br />Test-->
           <span id="audiotestImg" class="icon-audiotest"></span>

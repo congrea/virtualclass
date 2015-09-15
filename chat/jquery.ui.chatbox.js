@@ -156,7 +156,7 @@
             })
             .appendTo(uiChatboxTitlebar),
             uiChatboxTitlebarCloseText = $("<span ></span>")
-            .addClass('ui-icon ' + 'ui-icon-closethick '  + 'toolTip')
+            .addClass('ui-icon ' + 'ui-icon-closethick')
             .text('close')
             .appendTo(uiChatboxTitlebarClose),
             uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))

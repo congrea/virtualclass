@@ -13,6 +13,7 @@
     $string['replay'] = 'Re-play';
     $string['tpAudioTest'] = 'Audio Test';
     $string['enableAudio'] = 'Unmute';
+    $string['disableAudio'] = 'Mute';
     $string['pressAlwaysToSpeak'] = 'Press always to speak.';
     $string['pushtotalk'] = 'Push To Talk';
 ?>

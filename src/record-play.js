@@ -469,6 +469,7 @@
                         document.body.appendChild(downloadLink);
                     }
                     downloadLink.click();
+                    virtualclass.storage.config.endSession();
                 });
             });
         },

@@ -151,9 +151,7 @@
         },
 
         startUploadProcess: function () {
-            virtualclass.recorder.exportData(function () {
-            });
-
+            virtualclass.recorder.exportData(function () {});
             virtualclass.popup.sendBackOtherElems();
         },
 
@@ -345,7 +343,6 @@
         },
 
         afterRecording: function () {
-
             virtualclass.clearSession();
             //virtualclass.storage.config.endSession();
 
@@ -378,7 +375,9 @@
                     progressBarContainer.style.display = 'block';
 
                     virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
-                    virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue')
+                    virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue');
+                    recordingContainer.classList.remove('recordingFinished');
+
 
                 }
             );
@@ -470,6 +469,7 @@
                         document.body.appendChild(downloadLink);
                     }
                     downloadLink.click();
+                    virtualclass.storage.config.endSession();
                 });
             });
         },

@@ -206,18 +206,20 @@ if(isset($_GET['lname'])){
         $classes = "audioTool deactive";
         $speakermsg = "Enable Speaker";
         $speakerimg = $whiteboardpath . "images/speakerpressing.png";
+        $audio_tooltip =  get_string('enableAudio');
     } else {
         $classes = "audioTool active";
         $speakermsg = "Disable Speaker";
         //$dap = "true"; //display audio 
         $dap = "true";
         $speakerimg = $whiteboardpath . "images/speakerpressingactive.png";
+        $audio_tooltip =  get_string('disableAudio');
     }?>
     
     <div id="mainAudioPanel">
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
         
-<a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo get_string('enableAudio') ?>" name="speakerPressonceAnch">
+<a id="speakerPressonceAnch" class="tooltip" data-title="<?php echo $audio_tooltip; ?>" name="speakerPressonceAnch">
 <span id="speakerPressonceLabel" class="silenceDetect" data-silence-detect="stop"> <i> </i> </span>
 
 </a>

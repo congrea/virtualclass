@@ -170,25 +170,26 @@
                
                
                 //for clear sent and received msg information
-                var sentMsgInfo = document.getElementById('sentMsgInfo');
-                if (sentMsgInfo != null) {
-                    //document.getElementById('sentMsgInfo').innerHTML  = "";
-                    sentMsgInfo.innerHTML = "";
-                }
-
-                var receivedMsgInfo = document.getElementById('rcvdMsgInfo');
-                if (receivedMsgInfo != null) {
-                    receivedMsgInfo.innerHTML = "";
-                }
-
-                var allTextBoxContainer = document.getElementsByClassName('textBoxContainer');
-                for (var i = 0; i < allTextBoxContainer.length; i++) {
-                    allTextBoxContainer[i].parentNode.removeChild(allTextBoxContainer[i]);
-                }
+                //var sentMsgInfo = document.getElementById('sentMsgInfo');
+                //if (sentMsgInfo != null) {
+                //    //document.getElementById('sentMsgInfo').innerHTML  = "";
+                //    sentMsgInfo.innerHTML = "";
+                //}
+                //
+                //var receivedMsgInfo = document.getElementById('rcvdMsgInfo');
+                //if (receivedMsgInfo != null) {
+                //    receivedMsgInfo.innerHTML = "";
+                //}
+                //
+                //var allTextBoxContainer = document.getElementsByClassName('textBoxContainer');
+                //for (var i = 0; i < allTextBoxContainer.length; i++) {
+                //    allTextBoxContainer[i].parentNode.removeChild(allTextBoxContainer[i]);
+                //}
 
                 var error = document.getElementById('serverErrorCont');
                 if (error != null) {
-                    error.parentNode.removeChild();
+                    error.parentNode.removeChild(error);
+                    console.log('Some ERROR removed.');
                 }
 
             },

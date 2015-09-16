@@ -1303,9 +1303,11 @@
 	margin-left: 1px;
 	margin-right: 5px;
 }
+/*
 #virtualclassCont .ui-memblist-usr a:first-child span{
 	left: 5px;
 }
+*/
 
 #virtualclassCont .ui-memblist-usr .controls .controleCont a.tooltip span{
 	left: 0px;
@@ -2565,7 +2567,6 @@
 	padding: 11px;
 	border: none;
 	color: #fff;
-	text-transform: uppercase;
 	font-size: 13px;
 	font-weight: 200;
 	margin-left: 5px;

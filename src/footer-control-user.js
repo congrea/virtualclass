@@ -602,12 +602,14 @@
                     if (typeof notsent == 'undefined') {
                         virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'}, userId);
                     }
+                    // if role is student
                     if (!roles.hasAdmin()) {
                         if (typeof fromUserId == 'undefined') {
                             fromUserId = userId;
                         }
                         var controlContainer = document.getElementById(fromUserId + 'ControlContainer').getElementsByClassName('controleCont')[0];
                         controlContainer.removeChild(controlContainer.firstChild);
+                        localStorage.removeItem('aId');
 
                         //controlContainer.parentNode.removeChild(controlContainer);
                     }

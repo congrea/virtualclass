@@ -601,19 +601,21 @@
                     if (typeof notsent == 'undefined') {
                         virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'}, userId);
 
-                        var erContId =  userId + 'contreditorRichImg';
-                        var erContTag = document.getElementById(erContId);
+                        if(roles.hasAdmin()){
+                            var erContId =  userId + 'contreditorRichImg';
+                            var erContTag = document.getElementById(erContId);
 
-                        if(erContTag.dataset.editorrichDisable == 'true'){
-                            virtualclass.user.control.init.call(virtualclass.user, erContTag);
-                        }
+                            if(erContTag.dataset.editorrichDisable == 'true'){
+                                virtualclass.user.control.init.call(virtualclass.user, erContTag);
+                            }
 
 
-                        var ecContId =  userId + 'contreditorCodeImg';
-                        var ecContTag = document.getElementById(ecContId);
+                            var ecContId =  userId + 'contreditorCodeImg';
+                            var ecContTag = document.getElementById(ecContId);
 
-                        if(ecContTag.dataset.editorcodeDisable == 'true'){
-                            virtualclass.user.control.init.call(virtualclass.user, ecContTag);
+                            if(ecContTag.dataset.editorcodeDisable == 'true'){
+                                virtualclass.user.control.init.call(virtualclass.user, ecContTag);
+                            }
                         }
 
                         //var editorEditorSpan = document.getElementById(userId + 'contreditorCodeImg');

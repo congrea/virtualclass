@@ -3090,3 +3090,8 @@
 	text-align:center;
 
 }
+
+#virtualclassCont #virtualclassYts #player {
+	width : 90%;
+	height : 80%;
+}

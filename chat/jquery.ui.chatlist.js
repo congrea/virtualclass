@@ -301,8 +301,9 @@
             self._setWidth(self.options.width);
             self._position(self.options.offset);
             self.options.boxManager.init(self);
-            virtualclass.user.UIaudioAll('memlist', 'ui-memblist-titlebar');
-
+            if(roles.hasAdmin()){
+                virtualclass.user.UIaudioAll('memlist', 'ui-memblist-titlebar');
+            }
         },
 
         _setOption: function(option, value) {

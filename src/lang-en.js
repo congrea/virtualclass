@@ -64,8 +64,8 @@
         'editorRichDisable': "Write Mode",
         'editorRichEnable': "Read Only",
 
-        'editorCodeDisable': "Writable",
-        'editorCodeEnable': "Unwritable",
+        'editorCodeDisable': "Write Mode",
+        'editorCodeEnable': "Read Only",
 
         'audioEnable': "Mute",
         'audioDisable': "Unmute",

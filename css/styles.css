@@ -2032,12 +2032,19 @@
 	text-decoration : none;
 }
 
-#virtualclassCont #speakerPressing.active {
-	cursor : auto;
+
+
+#virtualclassCont.student #chat_div .controls span.enable, #virtualclassCont #speakerPressing.active{
+	cursor : default;
 }
 
-#virtualclassCont.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.teacher #chat_div .controls .icon-assignImg.enable {
+#virtualclassCont.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.orginalTeacher #chat_div .controls span.block, #virtualclassCont.teacher #chat_div .controls .icon-assignImg.enable,
+#virtualclassCont.presentor #chat_div .controls span.assignImg.enable {
 	cursor : pointer;
+}
+
+#virtualclassCont.orginalTeacher #chat_div .controls span.assignImg.block{
+	cursor : default;
 }
 
 #virtualclassCont #alwaysPress .audioTool a {
@@ -3089,4 +3096,9 @@
 	border-radius:5px;
 	text-align:center;
 
+}
+
+#virtualclassCont #virtualclassYts iframe#player {
+ 	width : 90%;
+	height : 80%;
 }

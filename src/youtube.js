@@ -47,7 +47,11 @@
                         // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
 
                         if (roles.hasControls()) {
-                            this.onYTIframApi(videoId, startFrom, 'fromReload');
+                            if(typeof videoId != 'undefined'){
+                                this.onYTIframApi(videoId, startFrom, 'fromReload');
+                            }
+
+
                             this.UI.inputURL();
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {
@@ -286,16 +290,12 @@
                 if (typeof this.player == 'object' && roles.hasControls()) {
                     this.player.loadVideoById(videoId);
                 } else {
-                    //alert('hello how are ');
-                    //debugger;
                     var vcontrols = 0;
                     if (roles.hasControls()) {
                         vcontrols = 1;
                     }
 
                     var playerVarsObj = {
-                        height: '390',
-                        width: '640',
                         autohide: 0,
                         disablekb: 1,
                         enablejsapi: 1,
@@ -418,7 +418,6 @@
              * @param event onready event 
              */
             onPlayerReady: function (event) {
-
                 if (roles.hasControls()) {
                     var submitURLButton = document.getElementById('submitURL');
                     submitURLButton.innerHTML = virtualclass.lang.getString('shareAnotherYouTubeVideo');
@@ -433,6 +432,7 @@
                     virtualclass.yts.seekChangeInterval();
                 }
             },
+
             /*
              * After every two second a function is executed to find the seek position
              * 

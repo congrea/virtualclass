@@ -833,7 +833,11 @@
                     }
 
                     virtualclass.yts.UI.inputURL();
-                    virtualclass.yts.seekChangeInterval();
+                    if(typeof virtualclass.yts.player == 'object'){
+                        virtualclass.yts.seekChangeInterval();
+                    }else {
+                        console.log('Player object is not ready');
+                    }
                 }
 
             } else {

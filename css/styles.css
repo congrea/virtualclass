@@ -3098,7 +3098,7 @@
 
 }
 
-#virtualclassCont #virtualclassYts #player {
-	width : 90%;
+#virtualclassCont #virtualclassYts iframe#player {
+ 	width : 90%;
 	height : 80%;
 }

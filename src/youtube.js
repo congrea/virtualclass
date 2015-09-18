@@ -47,7 +47,11 @@
                         // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
 
                         if (roles.hasControls()) {
-                            this.onYTIframApi(videoId, startFrom, 'fromReload');
+                            if(typeof videoId != 'undefined'){
+                                this.onYTIframApi(videoId, startFrom, 'fromReload');
+                            }
+
+
                             this.UI.inputURL();
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {

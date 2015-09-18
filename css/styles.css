@@ -3122,3 +3122,33 @@
  	width : 90%;
 	height : 80%;
 }
+
+#virtualclassCont #stickybar.minimize  .inner_bt{
+	display : none;
+}
+
+#virtualclassCont.student.presentor #audioWidget #speakerPressOnce{
+	padding-left: 6px;
+	border-right: 0;
+}
+
+#virtualclassCont.student.presentor #speakerPressing{
+	padding-left: 11px;
+	padding-right: 11px;
+	width: 33px;
+}
+#virtualclassCont.student.presentor #mainAudioPanel{
+	border-right: 0px;
+}
+
+#virtualclassCont.student.presentor #audioTest-box{
+	border-right: 0px;
+}
+
+#virtualclassCont.student.presentor #alwaysPress .audioTool.deactive, #virtualclassCont.student.presentor #audioTest-box .audioTool{
+	border-right: 0px;
+}
+
+#virtualclassCont.student.presentor #virtualclassYts {
+	margin-left: 53px;
+}

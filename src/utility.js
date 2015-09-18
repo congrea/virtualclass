@@ -118,7 +118,12 @@
 
 
                 if (app == 'Yts') {
-                    rightOffSet = 75; //youtube wrapper does not have inner div, TODO should be handle by css
+                    if(roles.hasControls()){
+                        rightOffSet = 60; //youtube wrapper does not have inner div, TODO should be handle by css
+                    } else {
+                        rightOffSet = 15;
+                    }
+
                 } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
                     if (leftSideBarWidth > 0) {
                         rightOffSet = 12;

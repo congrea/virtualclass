@@ -135,7 +135,7 @@
             var offset = vcan.utility.getElementOffset(element);
             var offsetLeft = offset.x;
             if (resolution.width < 1024) {
-                var width = 1024 - offsetLeft;
+                var width = 1024 - (offsetLeft + 10);
             } else {
                 var width = resolution.width - offsetLeft;
 

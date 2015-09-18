@@ -2222,8 +2222,22 @@
 	pointer-events : none;
 }
 
-#virtualclassCont.teacher #virtualclassYts, #virtualclassCont.student.presentor #virtualclassYts, #virtualclassCont.student #virtualclassYts {
-	margin-left : 60px;
+#virtualclassCont.teacher #virtualclassYts{
+	margin-left : 55px;
+}
+
+#virtualclassCont.educator #virtualclassYts{
+	margin-left : 7px;
+}
+
+#virtualclassCont.student #virtualclassYts {
+	margin-left : 10px;
+}
+
+
+
+#virtualclassCont.student.presentor #virtualclassYts {
+	margin-left : 55px;
 }
 
 #virtualclassCont #virtualclassYts {
@@ -2980,14 +2994,20 @@
 	right: 0px;
 }
 #virtualclassCont.teacher.orginalTeacher.educator[data-currapp="Yts"] #audioWidget{
-	right: 11px;
+	/*right: 11px;*/
+	right: 2px;
 }
 #virtualclassCont.student.presentor[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="Yts"] #audioWidget{
 	right: 0px;
 }
 
-#virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget, #virtualclassCont.student[data-currapp="Yts"] #audioWidget{
+#virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget{
 	right: 10px;
+}
+
+#virtualclassCont.student[data-currapp="Yts"] #audioWidget{
+	/* right : 10px; */
+	right : 0;
 }
 
 #virtualclassCont.student[data-currapp="EditorRich"]{right: 0;}

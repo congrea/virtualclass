@@ -685,6 +685,17 @@
 	font-weight : normal !important;
 }
 
+#virtualclassCont.student #chatWidget  #memlist  .controleCont .tooltip {
+	pointer-events : none;
+}
+
+/* select the only id which end with contrAssignAnch */
+
+#virtualclassCont.presentor #chatWidget  #memlist  [id $=contrAssignAnch].tooltip {
+	pointer-events : visible;
+}
+
+
 #virtualclassCont #audioWidget .Tool .tooltip:hover:after, #virtualclassCont #audioWidget .audioTool .tooltip:hover:after {
 	right : 50px;
 	left : auto;

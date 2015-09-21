@@ -2942,7 +2942,13 @@
 	background-color: #f3fbe8;
 	border-top: #b7d094 1px solid;
 	border-bottom: #8f8f8f 1px solid;
+
 }
+
+#virtualclassCont .ui-memblist-usr[data-role="p"] .icon-assignImg.block:before {
+	color : #94b532;
+}
+
 
 #virtualclassCont #sessionEndMsgCont.popupWindow{
 	margin: 18px 25px;

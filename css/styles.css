@@ -3169,3 +3169,13 @@
 #virtualclassCont.student.presentor #virtualclassYts {
 	margin-left: 53px;
 }
+
+/** For fix the bug
+	https://github.com/vidyamantra/virtualclass/issues/127
+**/
+
+@-moz-document url-prefix() {
+	#virtualclassCont .CodeMirror span span {
+		padding-right : 0.1px;
+	}
+}

@@ -458,6 +458,7 @@
                 virtualclass.wb.gObj.rcvdPackId = 0;
                 virtualclass.wb.gObj.displayedObjId = 0;
                 virtualclass.wb.gObj.packQueue = [];
+                virtualclass.wb.gObj.queue = [];
                 virtualclass.wb.uid = 0;
 
                 localStorage.setItem('rcvdPackId', 0);

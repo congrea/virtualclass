@@ -15,14 +15,16 @@
                 this.objNo = 0;
                 this.repMode = repMode;
                 this.callBkfunc = "";
+                this.rendering = false;
             },
             renderObj: function (myfunc) {
-                //console.log("browser mode " + this.repMode);
-                virtualclass.wb.drawMode = true;
                 if (typeof this.objs[this.objNo] == 'undefined') {
-                    console.log("is this happend");
+                    console.log(this.objs + "is undefined cannot continue play.");
                     return;
                 }
+
+                virtualclass.wb.drawMode = true; // TODO this should be removed
+                this.rendering = true;
                 if (typeof myfunc != 'undefined') {
                     this.callBkfunc = myfunc;
                 }
@@ -57,10 +59,13 @@
                     virtualclass.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                 }
 
-                if (typeof this.callBkfunc == 'function') {
-                    if (this.objs[this.objs.length - 1].uid == virtualclass.wb.gObj.displayedObjId) {
+                console.log('Whiteboard : Till now play ' + virtualclass.wb.gObj.displayedObjId);
+
+                if (this.objs[this.objs.length - 1].uid == virtualclass.wb.gObj.displayedObjId) {
+                    if (typeof this.callBkfunc == 'function') {
                         this.callBkfunc('callBkfunc');
                     }
+                    this.rendering = false; // Now rendering is finished
                 }
 
                 if (typeof this.objs[this.objNo + 1] == 'object') {

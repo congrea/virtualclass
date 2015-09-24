@@ -539,6 +539,9 @@
                     if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();
                         virtualclass.wb.utility.makeDefaultValue();
+                        if(typeof virtualclass.wb.replay == 'object'){
+                            virtualclass.wb.replay.rendering = false;
+                        }
                     }
 
                     virtualclass.vutil.clearAllChat();

@@ -580,19 +580,19 @@ $(document).ready(function () {
             //}
 
 
-            if (!e.message.hasOwnProperty('sentObj')) {
-                if (e.message.repObj[0].hasOwnProperty('uid')) {
-                    if (virtualclass.previous !== "virtualclass" + virtualclass.apps[0]) {
-                        virtualclass.makeAppReady(virtualclass.apps[0]);
-                    }
-                    virtualclass.wb.uid = e.message.repObj[e.message.repObj.length - 1].uid;
-                }
-
-                //if (virtualclass.wb.gObj.displayedObjId > 0 && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('chunk') && virtualclass.wb.gObj.rcvdPackId !== 0) {
-                //    virtualclass.wb.bridge.makeQueue(e);
-                //
-                //}
-            }
+            //if (!e.message.hasOwnProperty('sentObj')) {
+            //    if (e.message.repObj[0].hasOwnProperty('uid')) {
+            //        if (virtualclass.previous !== "virtualclass" + virtualclass.apps[0]) {
+            //            virtualclass.makeAppReady(virtualclass.apps[0]);
+            //        }
+            //        virtualclass.wb.uid = e.message.repObj[e.message.repObj.length - 1].uid;
+            //    }
+            //
+            //    //if (virtualclass.wb.gObj.displayedObjId > 0 && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('chunk') && virtualclass.wb.gObj.rcvdPackId !== 0) {
+            //    //    virtualclass.wb.bridge.makeQueue(e);
+            //    //
+            //    //}
+            //}
 
 
 
@@ -620,6 +620,7 @@ $(document).ready(function () {
             for(var i=0; i < e.message.repObj.length; i++){
                 virtualclass.wb.bridge.makeQueue(e.message.repObj[i]);
                 if (e.message.repObj[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
+                    virtualclass.wb.uid = e.message.repObj[i].uid;
                     executeWhiteboardData(e.message.repObj[i]);
                 }
             }

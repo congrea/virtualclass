@@ -541,29 +541,30 @@ $(document).ready(function () {
         };
 
         // display given whiteboard object
-        var executeWhiteboardData  =  function (objToDisplay){
-            console.log('received uid ' + objToDisplay.uid);
-            virtualclass.wb.gObj.replayObjs.push(objToDisplay);
-            virtualclass.wb.response.replayObj([objToDisplay]);
-            checkNextQueue(objToDisplay);
-        };
-
-        function checkNextQueue(playedObj){
-            var foundObj = findPacketInQueue(playedObj);
-            if(foundObj){
-                executeWhiteboardData(foundObj);
-            }
-        }
-
-        function findPacketInQueue(playedObj){
-            if(virtualclass.wb.gObj.queue.hasOwnProperty(playedObj.uid + 1)){
-                return virtualclass.wb.gObj.queue[playedObj.uid + 1];
-            } else {
-                console.log("Packet" + (playedObj.uid + 1) +  "not found ");
-            }
-
-            return false;
-        }
+        //var executeWhiteboardData  =  function (objToDisplay){
+        //    console.log('received uid ' + objToDisplay.uid);
+        //    virtualclass.wb.gObj.replayObjs.push(objToDisplay);
+        //    //virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+        //    virtualclass.wb.response.replayObj([objToDisplay]);
+        //    checkNextQueue(objToDisplay);
+        //};
+        //
+        //function checkNextQueue(playedObj){
+        //    var foundObj = findPacketInQueue(playedObj);
+        //    if(foundObj){
+        //        executeWhiteboardData(foundObj);
+        //    }
+        //}
+        //
+        //function findPacketInQueue(playedObj){
+        //    if(virtualclass.wb.gObj.queue.hasOwnProperty(playedObj.uid + 1)){
+        //        return virtualclass.wb.gObj.queue[playedObj.uid + 1];
+        //    } else {
+        //        console.log("Packet" + (playedObj.uid + 1) +  "not found ");
+        //    }
+        //
+        //    return false;
+        //}
 
       //  var sortedQueue = virtualclass.wb.gObj.packQueue.sort(function (a, b) {  return a.uid - b.uid;}
 
@@ -614,16 +615,26 @@ $(document).ready(function () {
             //    }
             //}
 
+            virtualclass.wb.utility.removeWhiteboardMessage();
+            virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
 
+            //replayObjs = function (repObjs){
+            //    for(var i=0; i < repObjs.length; i++){
+            //        virtualclass.wb.bridge.makeQueue(repObjs[i]);
+            //        if (repObjs[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
+            //            virtualclass.wb.uid = repObjs[i].uid;
+            //            executeWhiteboardData(repObjs[i]);
+            //        }
+            //    }
+            //}
 
-
-            for(var i=0; i < e.message.repObj.length; i++){
-                virtualclass.wb.bridge.makeQueue(e.message.repObj[i]);
-                if (e.message.repObj[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
-                    virtualclass.wb.uid = e.message.repObj[i].uid;
-                    executeWhiteboardData(e.message.repObj[i]);
-                }
-            }
+            //for(var i=0; i < e.message.repObj.length; i++){
+            //    virtualclass.wb.bridge.makeQueue(e.message.repObj[i]);
+            //    if (e.message.repObj[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
+            //        virtualclass.wb.uid = e.message.repObj[i].uid;
+            //        executeWhiteboardData(e.message.repObj[i]);
+            //    }
+            //}
 
 
 

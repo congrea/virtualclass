@@ -68,6 +68,13 @@
                     this.rendering = false; // Now rendering is finished
                 }
 
+                if(roles.hasControls()){
+                    if (virtualclass.wb.gObj.tempRepObjs[virtualclass.wb.gObj.tempRepObjs.length-1].uid == virtualclass.wb.gObj.displayedObjId){
+                        vcan.main.replayObjs = virtualclass.wb.gObj.tempRepObjs;
+                    }
+                }
+
+
                 if (typeof this.objs[this.objNo + 1] == 'object') {
                     if (typeof this.repMode != 'undefined' && this.repMode == 'fromBrowser') {
                         //virtualclass.wb.replayTime = 0;

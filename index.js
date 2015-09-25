@@ -540,166 +540,20 @@ $(document).ready(function () {
             }
         };
 
-        // display given whiteboard object
-        //var executeWhiteboardData  =  function (objToDisplay){
-        //    console.log('received uid ' + objToDisplay.uid);
-        //    virtualclass.wb.gObj.replayObjs.push(objToDisplay);
-        //    //virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
-        //    virtualclass.wb.response.replayObj([objToDisplay]);
-        //    checkNextQueue(objToDisplay);
-        //};
-        //
-        //function checkNextQueue(playedObj){
-        //    var foundObj = findPacketInQueue(playedObj);
-        //    if(foundObj){
-        //        executeWhiteboardData(foundObj);
-        //    }
-        //}
-        //
-        //function findPacketInQueue(playedObj){
-        //    if(virtualclass.wb.gObj.queue.hasOwnProperty(playedObj.uid + 1)){
-        //        return virtualclass.wb.gObj.queue[playedObj.uid + 1];
-        //    } else {
-        //        console.log("Packet" + (playedObj.uid + 1) +  "not found ");
-        //    }
-        //
-        //    return false;
-        //}
-
-      //  var sortedQueue = virtualclass.wb.gObj.packQueue.sort(function (a, b) {  return a.uid - b.uid;}
-
         //Display Whiteboard Data
         this.repObj = function (e) {
             if(typeof virtualclass.wb != 'object'){
                 virtualclass.makeAppReady(virtualclass.apps[0]);
-                return;
+            } else {
+                virtualclass.wb.utility.removeWhiteboardMessage();
+                virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
             }
-
-            // Disable the code which request missed packet for whiteboard
-            //if (!virtualclass.vutil.isPlayMode()) {
-            //    //virtualclass.wb.response.repObjForMissedPkts(e.message.repObj);
-            //}
-
-
-            //if (!e.message.hasOwnProperty('sentObj')) {
-            //    if (e.message.repObj[0].hasOwnProperty('uid')) {
-            //        if (virtualclass.previous !== "virtualclass" + virtualclass.apps[0]) {
-            //            virtualclass.makeAppReady(virtualclass.apps[0]);
-            //        }
-            //        virtualclass.wb.uid = e.message.repObj[e.message.repObj.length - 1].uid;
-            //    }
-            //
-            //    //if (virtualclass.wb.gObj.displayedObjId > 0 && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('chunk') && virtualclass.wb.gObj.rcvdPackId !== 0) {
-            //    //    virtualclass.wb.bridge.makeQueue(e);
-            //    //
-            //    //}
-            //}
-
-
-
-
-
-
-            //if(typeof virtualclass.wb.replay == 'object' && virtualclass.wb.replay.rendering){
-            //    virtualclass.wb.bridge.makeQueue(e);
-            //}else {
-            //    for (var i = 0; i < e.message.repObj.length; i++) {
-            //        //console.log("done rep Obj");
-            //        virtualclass.wb.gObj.replayObjs.push(e.message.repObj[i]);
-            //    }
-            //
-            //    if (e.fromUser.userid !== wbUser.id) {
-            //        virtualclass.wb.utility.removeWhiteboardMessage();
-            //        virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
-            //        virtualclass.wb.response.replayObj(e.message.repObj);
-            //    }
-            //}
-
-            virtualclass.wb.utility.removeWhiteboardMessage();
-            virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
-
-            //replayObjs = function (repObjs){
-            //    for(var i=0; i < repObjs.length; i++){
-            //        virtualclass.wb.bridge.makeQueue(repObjs[i]);
-            //        if (repObjs[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
-            //            virtualclass.wb.uid = repObjs[i].uid;
-            //            executeWhiteboardData(repObjs[i]);
-            //        }
-            //    }
-            //}
-
-            //for(var i=0; i < e.message.repObj.length; i++){
-            //    virtualclass.wb.bridge.makeQueue(e.message.repObj[i]);
-            //    if (e.message.repObj[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
-            //        virtualclass.wb.uid = e.message.repObj[i].uid;
-            //        executeWhiteboardData(e.message.repObj[i]);
-            //    }
-            //}
-
-
-
-            //if (!e.message.hasOwnProperty('sentObj')) {
-            //    if (e.message.repObj[0].hasOwnProperty('uid')) {
-            //        if (virtualclass.previous !== "virtualclass" + virtualclass.apps[0]) {
-            //            virtualclass.makeAppReady(virtualclass.apps[0]);
-            //        }
-            //        virtualclass.wb.uid = e.message.repObj[e.message.repObj.length - 1].uid;
-            //    }
-            //
-            //    if (virtualclass.wb.gObj.displayedObjId > 0 && !e.message.hasOwnProperty('getMsPckt') && !e.message.hasOwnProperty('chunk') && virtualclass.wb.gObj.rcvdPackId !== 0) {
-            //        virtualclass.wb.bridge.makeQueue(e);
-            //
-            //    }
-            //}
-            //if (e.message.repObj.length > 1 && e.message.hasOwnProperty('chunk') && e.fromUser.userid === wbUser.id) {
-            //    //TODO this have to be simpliefied.
-            //} else {
-            //    if (virtualclass.wb.gObj.rcvdPackId + 1 === e.message.repObj[0].uid) {
-            //        for (var i = 0; i < e.message.repObj.length; i++) {
-            //            //console.log("done rep Obj");
-            //            virtualclass.wb.gObj.replayObjs.push(e.message.repObj[i]);
-            //        }
-            //    }
-            //
-            //    if (typeof e.message.repObj[e.message.repObj.length - 1] === 'object') {
-            //        if (e.message.repObj[e.message.repObj.length - 1].hasOwnProperty('uid') && !e.message.hasOwnProperty('chunk')) {
-            //            virtualclass.wb.gObj.rcvdPackId = e.message.repObj[e.message.repObj.length - 1].uid;
-            //            localStorage.setItem('rcvdPackId', virtualclass.wb.gObj.rcvdPackId);
-            //        }
-            //        //Missing one id.
-            //        if (virtualclass.wb.gObj.packQueue.length > 0 && !e.message.hasOwnProperty('chunk')) {
-            //            virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.gObj.packQueue[virtualclass.wb.gObj.packQueue.length - 1].uid;
-            //        }
-            //    }
-            //
-            //    if (e.fromUser.userid !== wbUser.id) {
-            //        //localStorage.setItem('repObjs', JSON.stringify(virtualclass.wb.gObj.replayObjs));
-            //        virtualclass.wb.utility.removeWhiteboardMessage();
-            //
-            //        virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
-            //        virtualclass.wb.response.replayObj(e.message.repObj);
-            //
-            //    } else {
-            //        if (typeof virtualclass.wb.gObj.rcvdPackId !== 'undefined') {
-            //            virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
-            //        }
-            //    }
-            //}
-
-            //if (e.message.hasOwnProperty('chunk') && e.fromUser.userid != wbUser.id) {
-            //    virtualclass.wb.response.chunk(e.fromUser.userid, wbUser.id, e.message.repObj);
-            //}
-
-
         };
 
         //Replay All, TODO, need to do verify
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
-
-
-
 
     };
 });

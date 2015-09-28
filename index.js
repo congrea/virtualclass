@@ -233,18 +233,31 @@ $(document).ready(function () {
                     console.log('Editor Code vcAdapter is not ready');
                 }
             } else {
-                if(typeof virtualclass.wb == 'object'){
-                    if(roles.isEducator()){
-                        var objs = virtualclass.wb.gObj.replayObjs;
-                    }else {
-                        var objs = virtualclass.wb.vcan.main.replayObjs;
-                    }
 
-                    if(objs.length > 0){
-                        virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
-                    } else {
-                        console.log('Could not send the whiteboar data');
-                    }
+                //if(typeof virtualclass.wb == 'object'){
+                //
+                //    if(roles.isEducator()){
+                //        var objs = virtualclass.wb.gObj.replayObjs;
+                //    }else {
+                //        var objs = virtualclass.wb.vcan.main.replayObjs;
+                //    }
+                //
+                //    if(objs.length > 0){
+                //        virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
+                //    } else {
+                //        console.log('Could not send the whiteboar data');
+                //    }
+                //}
+            }
+        }
+
+        if(roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId){
+            if(typeof virtualclass.wb == 'object'){
+                var objs = virtualclass.wb.vcan.main.replayObjs;
+                if(objs.length > 0){
+                    virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
+                } else {
+                    console.log('Could not send the whiteboar data');
                 }
             }
         }

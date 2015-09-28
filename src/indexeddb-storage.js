@@ -157,6 +157,8 @@
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
             objectStore.clear();
+            console.log('Whiteboard Total Store ' + JSON.parse(data).length );
+            // localStorage.setItem('repObjs', data); Enable for debugging
             t.objectStore("wbData").add({repObjs: data, timeStamp: new Date().getTime(), id: 1});
             return false;
         },
@@ -345,14 +347,32 @@
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
                         if (typeof virtualclass.wb == 'object') {
+
+                            console.log('Total Whiteboard Length ' + JSON.parse(cursor.value.repObjs).length + ' From indexeddb');
+                            //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
                             virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+
                         } else {
                             virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
                         }
+
+                        virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
                         storeFirstObj = true;
                     }
                     cursor.continue();
                 } else {
+                    //
+                    //if (typeof virtualclass.wb == 'object') {
+                    //
+                    //    console.log('Total Whiteboard Length ' + virtualclass.gObj.tempReplayObjs.length + ' From indexeddb');
+                    //    //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
+                    //    virtualclass.wb.utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs);
+                    //
+                    //} else {
+                    //    virtualclass.gObj.tempReplayObjs = virtualclass.gObj.tempReplayObjs;
+                    //}
+
+
                     if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
                         virtualclass.wb.utility.makeUserAvailable(); //at very first
                     }

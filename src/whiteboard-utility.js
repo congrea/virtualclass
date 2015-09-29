@@ -1078,13 +1078,13 @@
                        // virtualclass.wb.bridge.makeQueue(repObjs[i]);
                     }
                 }
+                console.log('Whiteboard Stored ID ' + virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1].uid);
+                virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
             },
 
             executeWhiteboardData  :  function (objToDisplay){
                 console.log('received uid ' + objToDisplay.uid);
                 virtualclass.wb.gObj.replayObjs.push(objToDisplay);
-                console.log('Whiteboard Stored ID ' + virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1].uid)
-                virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 virtualclass.wb.response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);
             },

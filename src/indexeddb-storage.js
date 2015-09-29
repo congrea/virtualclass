@@ -49,24 +49,29 @@
               this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll"];
              //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
+            //  Try and Catch not supporting here
             var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
 
             openRequest.onerror = function (e) {
                 console.log("Error opening db");
                 console.dir(e);
+
+                if(e.target.error.name == 'InvalidStateError'){
+                    // http://stackoverflow.com/questions/14082932/invalid-state-error-in-firefox-for-indexed-db
+                    alert(virtualclass.lang.getString('enablehistory'));
+                }
+
+                var request = indexedDB.deleteDatabase('vidya_apps');
+                request.onsuccess = function () {
+                    that.init();
+                };
+
             };
 
             openRequest.onupgradeneeded = function (e) {
                 //alert("by this there should create");
                 var thisDb = e.target.result;
                 var objectStore;
-                //Create Note OS
-                //
-                //for(var i=0; i<that.tables.length; i++){
-                //    that.table.create(thisDb, that.tables[i]);
-                //}
-
-                //
 
                 // TODO this should be simplyfy
                 if (!thisDb.objectStoreNames.contains("wbData")) {

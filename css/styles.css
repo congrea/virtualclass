@@ -3179,3 +3179,7 @@
 		padding-right : 0.1px;
 	}
 }
+
+#popupContainer {
+	display : none;
+}

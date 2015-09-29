@@ -81,6 +81,8 @@ var PopUp = (function (window, undefined) {
      */
     PopUp.prototype.open = function (targetElement) {
 
+        document.getElementById('popupContainer').style.display = 'block';
+
         this.sendBackOtherElems();
 
         // can be critical

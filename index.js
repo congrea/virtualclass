@@ -72,9 +72,6 @@ $(document).ready(function () {
         virtualclass.init(wbUser.role, appIs, videoObj);
     }
 
-    if(roles.isEducator()){
-        //  virtualclass.vutil.toggleRoleClass(true);
-    }
 
     var alreadyInit = false;
 
@@ -160,10 +157,10 @@ $(document).ready(function () {
         if (virtualclass.gObj.displayError) {
             virtualclass.view.removeElement('serverErrorCont');
 
-            virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
-
-            if(typeof e.message.stack == 'undefined') {
-                debugger;
+            if(typeof e.message.stack != 'undefined') {
+                virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
+            } else {
+                console.log('Error message ' + e.message.stack + ' could not display');
             }
 
             if (typeof e.message !== 'object') {
@@ -558,7 +555,10 @@ $(document).ready(function () {
             if(typeof virtualclass.wb != 'object'){
                 virtualclass.makeAppReady(virtualclass.apps[0]);
             } else {
-                virtualclass.wb.utility.removeWhiteboardMessage();
+                if(!roles.hasControls()){
+                    // Teacher does not need this message
+                    virtualclass.wb.utility.removeWhiteboardMessage();
+                }
                 virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
             }
         };

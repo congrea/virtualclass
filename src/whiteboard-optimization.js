@@ -55,16 +55,11 @@
 
         calculatePackets: function (time, ac, x, y) {
             var obj = vcan.makeStackObj(time, ac, x, y);
-
-//            console.log(obj);
-
             virtualclass.wb.uid++;
             obj.uid = virtualclass.wb.uid;
             vcan.main.replayObjs.push(obj);
             virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-            //  virtualclass.storage.wholeStore(obj);
-           // virtualclass.wb.utility.updateSentPackets(obj);
         }
     };
     vcan.optimize = optimize;

@@ -379,13 +379,14 @@
                     virtualclass.wb.utility.makeCanvasEnable();
                     virtualclass.wb.utility.enableAppsBar();
                 }
-                if (virtualclass.wb.gObj.packQueue.length > 0) {
-                    window.virtualclass.wb.vcan.main.replayObjs = virtualclass.wb.gObj.packQueue;
-                    virtualclass.wb.gObj.packQueue = [];
-                    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
-                } else {
 
-                }
+                //if (virtualclass.wb.gObj.packQueue.length > 0) {
+                //    window.virtualclass.wb.vcan.main.replayObjs = virtualclass.wb.gObj.packQueue;
+                //    virtualclass.wb.gObj.packQueue = [];
+                //    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                //} else {
+                //
+                //}
             },
             // this function is not used any more
             //updateRcvdInformation: function (msg) {
@@ -458,6 +459,7 @@
                 virtualclass.wb.gObj.rcvdPackId = 0;
                 virtualclass.wb.gObj.displayedObjId = 0;
                 virtualclass.wb.gObj.packQueue = [];
+                virtualclass.wb.gObj.queue = [];
                 virtualclass.wb.uid = 0;
 
                 localStorage.setItem('rcvdPackId', 0);
@@ -775,17 +777,30 @@
                         //virtualclass.wb.utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
                     }
-                    virtualclass.wb.vcan.main.replayObjs = allRepObjs;
+
                     virtualclass.wb.utility.clearAll(false, 'dontClear');
-                    virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(allRepObjs);
+
+                    virtualclass.wb.gObj.tempRepObjs = allRepObjs;
+
+                    //virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(allRepObjs);
+
+                    //virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(allRepObjs);
+
 
                     if (allRepObjs.length > 0) {
                         virtualclass.wb.utility.makeCanvasDisable();
                         virtualclass.wb.utility.toolWrapperDisable();
+                        //virtualclass.wb.vcan.main.replayObjs = allRepObjs;
 
-                        virtualclass.wb.uid = allRepObjs[allRepObjs.length - 1].uid;
-                        virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.uid;
-                        virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                        virtualclass.wb.utility.replayObjsByFilter(allRepObjs, 'fromBrowser');
+
+                        // earlier it was using
+                        //for(var i=0; i<allRepObjs.length; i++){
+                        //    virtualclass.wb.vcan.main.replayObjs = allRepObjs[i];
+                        //    virtualclass.wb.uid = allRepObjs[i].uid;
+                        //    virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.uid;
+                        //    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                        //}
                     }
                 }
             },
@@ -1047,7 +1062,52 @@
                 if (appBarCont != null) {
                     appBarCont.style.pointerEvents = "visible";
                 }
+            },
+
+            replayObjsByFilter : function (repObjs, fromBrowser){
+                for(var i=0; i < repObjs.length; i++){
+                    virtualclass.wb.bridge.makeQueue(repObjs[i]);
+                    if (repObjs[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
+                        virtualclass.wb.uid = repObjs[i].uid;
+                        this.executeWhiteboardData(repObjs[i]);
+                        if(typeof fromBrowser != 'undefined'){
+                            virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.uid;
+                        }
+                    } else {
+                        console.log('Could not display whiteboard object with ' + repObjs[i].uid);
+                       // virtualclass.wb.bridge.makeQueue(repObjs[i]);
+                    }
+                }
+                console.log('Whiteboard Stored ID ' + virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1].uid);
+                virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+            },
+
+            executeWhiteboardData  :  function (objToDisplay){
+                console.log('received uid ' + objToDisplay.uid);
+                virtualclass.wb.gObj.replayObjs.push(objToDisplay);
+                virtualclass.wb.response.replayObj([objToDisplay]);
+                this.checkNextQueue(objToDisplay);
+            },
+
+            checkNextQueue : function (playedObj){
+                var foundObj = this.findPacketInQueue(playedObj);
+                if(foundObj){
+                    this.executeWhiteboardData(foundObj);
+                }
+            },
+
+            findPacketInQueue : function (playedObj){
+                if(virtualclass.wb.gObj.queue.hasOwnProperty(playedObj.uid + 1)){
+                    return virtualclass.wb.gObj.queue[playedObj.uid + 1];
+                } else {
+                    console.log("Packet" + (playedObj.uid + 1) +  "not found ");
+                }
+
+                return false;
             }
+
+
+
         };
     };
 

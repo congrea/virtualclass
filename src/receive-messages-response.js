@@ -112,18 +112,44 @@
             //    virtualclass.wb.utility.updateRcvdInformation(eMessage);
             //}
         },
-        replayObj: function (repObj) {
+
+
+        replayObj2: function (repObj) {
             window.virtualclass.wb.vcan.main.replayObjs = [];
             if (repObj.length > 0) {
                 if (virtualclass.wb.gObj.displayedObjId + 1 == repObj[0].uid) {
                     window.virtualclass.wb.vcan.main.replayObjs = repObj;
+                    console.log('Whiteboard:-  recieved ' + repObj[repObj.length - 1].uid);
                     virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                } else {
+                    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb.gObj.displayedObjId  + ' and recived first packet' + repObj[0].uid);
                 }
             }
         },
+
+        replayObj: function (repObj) {
+            window.virtualclass.wb.vcan.main.replayObjs = [];
+            if (repObj.length > 0) {
+                window.virtualclass.wb.vcan.main.replayObjs = repObj;
+
+                //console.log('Whiteboard:-  recieved From ' + repObj[0].uid + ' To ' +  repObj[repObj.length - 1].uid);
+                virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+
+
+                //if (virtualclass.wb.gObj.displayedObjId + 1 == repObj[0].uid) {
+                //    window.virtualclass.wb.vcan.main.replayObjs = repObj;
+                //    console.log('Whiteboard:-  recieved ' + repObj[repObj.length - 1].uid);
+                //    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                //} else {
+                //    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb.gObj.displayedObjId  + ' and recived first packet' + repObj[0].uid);
+                //}
+            }
+        },
+
         chunk: function (fromUser, id, repObj) {
             virtualclass.wb.bridge.handleMissedPackets(fromUser, id, repObj);
         },
+
         repObjForMissedPkts: function (msgRepObj) {
             if (virtualclass.wb.gObj.rcvdPackId !== 0 || (virtualclass.wb.uid > 0 && virtualclass.wb.gObj.rcvdPackId === 0)) { //for handle very starting stage
                 if ((typeof msgRepObj === 'object' || msgRepObj instanceof Array)) {

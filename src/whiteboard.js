@@ -43,6 +43,7 @@
                 myArr: [],
                 displayedObjId: 0,
                 packQueue: [],
+                queue : [],
                 virtualWindow: false
             }, // For store the global oject
 

@@ -27,10 +27,24 @@
             return [sp, ep];
         },
 
-        makeQueue: function (e) {
+        makeQueue2: function (e) {
             if (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId) {
                 virtualclass.wb.gObj.packQueue = virtualclass.wb.gObj.packQueue.concat(e.message.repObj);
+                //console.log('Making Queue' + e.message.repObj[0].uid + '; Should not come.');
             }
+        },
+
+        makeQueue3: function (e) {
+            for(var i=0; i < e.message.repObj.length; i++){
+                virtualclass.wb.gObj.packQueue[e.message.repObj[i].uid] = e.message.repObj[i];
+            }
+
+           //console.log('Making Queue' + e.message.repObj[0].uid + '; Should not come.');
+        },
+
+        makeQueue: function (rec) {
+                virtualclass.wb.gObj.queue[rec.uid] = rec;
+            //console.log('Making Queue' + e.message.repObj[0].uid + '; Should not come.');
         },
 
         sendPackets: function (e, chunk) {

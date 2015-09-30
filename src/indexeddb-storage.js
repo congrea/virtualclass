@@ -49,24 +49,29 @@
               this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll"];
              //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
+            //  Try and Catch not supporting here
             var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
 
             openRequest.onerror = function (e) {
                 console.log("Error opening db");
                 console.dir(e);
+
+                if(e.target.error.name == 'InvalidStateError'){
+                    // http://stackoverflow.com/questions/14082932/invalid-state-error-in-firefox-for-indexed-db
+                    alert(virtualclass.lang.getString('enablehistory'));
+                }
+
+                var request = indexedDB.deleteDatabase('vidya_apps');
+                request.onsuccess = function () {
+                    that.init();
+                };
+
             };
 
             openRequest.onupgradeneeded = function (e) {
                 //alert("by this there should create");
                 var thisDb = e.target.result;
                 var objectStore;
-                //Create Note OS
-                //
-                //for(var i=0; i<that.tables.length; i++){
-                //    that.table.create(thisDb, that.tables[i]);
-                //}
-
-                //
 
                 // TODO this should be simplyfy
                 if (!thisDb.objectStoreNames.contains("wbData")) {
@@ -157,6 +162,8 @@
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
             objectStore.clear();
+            console.log('Whiteboard Total Store ' + JSON.parse(data).length );
+            // localStorage.setItem('repObjs', data); Enable for debugging
             t.objectStore("wbData").add({repObjs: data, timeStamp: new Date().getTime(), id: 1});
             return false;
         },
@@ -345,14 +352,32 @@
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
                         if (typeof virtualclass.wb == 'object') {
+
+                            console.log('Total Whiteboard Length ' + JSON.parse(cursor.value.repObjs).length + ' From indexeddb');
+                            //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
                             virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+
                         } else {
                             virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
                         }
+
+                        virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
                         storeFirstObj = true;
                     }
                     cursor.continue();
                 } else {
+                    //
+                    //if (typeof virtualclass.wb == 'object') {
+                    //
+                    //    console.log('Total Whiteboard Length ' + virtualclass.gObj.tempReplayObjs.length + ' From indexeddb');
+                    //    //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
+                    //    virtualclass.wb.utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs);
+                    //
+                    //} else {
+                    //    virtualclass.gObj.tempReplayObjs = virtualclass.gObj.tempReplayObjs;
+                    //}
+
+
                     if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
                         virtualclass.wb.utility.makeUserAvailable(); //at very first
                     }
@@ -539,6 +564,9 @@
                     if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();
                         virtualclass.wb.utility.makeDefaultValue();
+                        if(typeof virtualclass.wb.replay == 'object'){
+                            virtualclass.wb.replay.rendering = false;
+                        }
                     }
 
                     virtualclass.vutil.clearAllChat();

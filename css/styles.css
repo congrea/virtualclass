@@ -685,6 +685,17 @@
 	font-weight : normal !important;
 }
 
+#virtualclassCont.student #chatWidget  #memlist  .controleCont .tooltip {
+	pointer-events : none;
+}
+
+/* select the only id which end with contrAssignAnch */
+
+#virtualclassCont.presentor #chatWidget  #memlist  [id $=contrAssignAnch].tooltip {
+	pointer-events : visible;
+}
+
+
 #virtualclassCont #audioWidget .Tool .tooltip:hover:after, #virtualclassCont #audioWidget .audioTool .tooltip:hover:after {
 	right : 50px;
 	left : auto;
@@ -2931,7 +2942,13 @@
 	background-color: #f3fbe8;
 	border-top: #b7d094 1px solid;
 	border-bottom: #8f8f8f 1px solid;
+
 }
+
+#virtualclassCont .ui-memblist-usr[data-role="p"] .icon-assignImg.block:before {
+	color : #94b532;
+}
+
 
 #virtualclassCont #sessionEndMsgCont.popupWindow{
 	margin: 18px 25px;
@@ -3151,4 +3168,18 @@
 
 #virtualclassCont.student.presentor #virtualclassYts {
 	margin-left: 53px;
+}
+
+/** For fix the bug
+	https://github.com/vidyamantra/virtualclass/issues/127
+**/
+
+@-moz-document url-prefix() {
+	#virtualclassCont .CodeMirror span span {
+		padding-right : 0.1px;
+	}
+}
+
+#popupContainer {
+	display : none;
 }

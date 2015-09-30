@@ -482,6 +482,7 @@
         },
 
         beforeLoad: function () {
+
             // When user does clear history by browser feature, some data are storing
             // in that case we are not saving the data by clearing all storage data.
             if(localStorage.length == 0){

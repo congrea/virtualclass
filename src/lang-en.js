@@ -135,7 +135,8 @@
         'downloadFile'  : 'Download File',
         'filenotsave'  : 'Your file could not be saved.',
         'muteAll' : 'Mute All',
-        'unmuteAll' : 'Unmute All'
+        'unmuteAll' : 'Unmute All',
+        'enablehistory' : 'There is need to enable the "Browser History" during the Session.'
 };
     window.message = message;
 })(window);

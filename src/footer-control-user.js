@@ -29,10 +29,10 @@
                         virtualclass.vutil.makeActiveApp("virtualclass" + app);
                     }
 
-                    if (app == 'Whiteboard') {
+                    //if (app == 'Whiteboard') {
+                    if(typeof virtualclass.wb == 'object'){
                         virtualclass.wb.utility.makeCanvasEnable();
                     }
-                    //}
                 }
             },
 

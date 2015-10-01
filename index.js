@@ -220,13 +220,6 @@ $(document).ready(function () {
         // Greet new student with info, When other user join
         if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
             // Greet new student with info
-            if (typeof sType !== 'undefined' && sType !== null) {
-                //TODO this should be into function
-                sType = virtualclass.getDataFullScreen(sType);
-                var createdImg = virtualclass.getDataFullScreen('ss');
-                ioAdapter.sendBinary(createdImg);
-                sType = null;
-            }
 
             if(typeof virtualclass.wb == 'object'){
                 var objs = virtualclass.wb.vcan.main.replayObjs;
@@ -245,6 +238,14 @@ $(document).ready(function () {
                 } else {
                     ioAdapter.mustSend({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
                 }
+            }
+
+            if (typeof sType !== 'undefined' && sType !== null) {
+                //TODO this should be into function
+                sType = virtualclass.getDataFullScreen(sType);
+                var createdImg = virtualclass.getDataFullScreen('ss');
+                ioAdapter.sendBinary(createdImg);
+                sType = null;
             }
         }
     });

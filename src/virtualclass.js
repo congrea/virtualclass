@@ -117,10 +117,6 @@
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
                     var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
-
-
-
-
                 }
 
                 if (typeof videoObj == 'undefined' || videoObj == null) {
@@ -443,12 +439,17 @@
                 
                 Yts : function (app, custEvent, videoObj){
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
-                    if (typeof videoObj != 'undefined' && videoObj != null) {
-                        virtualclass.yts.init(videoObj, videoObj.startFrom);
-                    } else {
-                        virtualclass.yts.init();
-                    }
-                    this.previous = virtualclass.ytsConfig.id;
+                    // if there is not already sharing the youtube video
+
+                        if (typeof videoObj != 'undefined' && videoObj != null) {
+                            virtualclass.yts.init(videoObj, videoObj.startFrom);
+                        } else {
+                            // only display the layout if youtube is not sharing
+                            if(document.querySelector("iframe#player") == null){
+                                virtualclass.yts.init();
+                            }
+                        }
+                        this.previous = virtualclass.ytsConfig.id;
 
                 },
                 

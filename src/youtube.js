@@ -55,16 +55,22 @@
                             this.UI.inputURL();
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {
-                            if (!videoObj.hasOwnProperty('fromReload')) {
+                            if(typeof videoObj != 'undefined'){
+                                if (!videoObj.hasOwnProperty('fromReload')) {
 
-                                // When student try to share the youtube video
-                                if(typeof videoId == 'undefined'){
-                                   this.UI.defaultLayoutForStudent();
-                                } else{
-                                    (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+                                    // When student try to share the youtube video
+                                    if(typeof videoId == 'undefined'){
+                                        this.UI.defaultLayoutForStudent();
+                                    } else{
+                                        (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
+                                    }
+
                                 }
-
+                            } else {
+                                // when user transfered the role refresh during the youtube sharing
+                                this.UI.defaultLayoutForStudent();
                             }
+
                             //this.onYTIframApi(videoId, startFrom, 'fromReload');
                         }
                     }

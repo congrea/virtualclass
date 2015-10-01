@@ -306,6 +306,7 @@
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 
+                console.log('Current App init ' + this.currApp);
 
                 //TODO this should be simplyfied
                 if (app != this.apps[1]) {

@@ -543,12 +543,12 @@
             // not storing the YouTube status on student's storage
             // Not showing the youtube video is at student if current app is not youtube
             if (roles.hasView()) {
-                if (virtualclass.currApp != 'Yts') {
-                    localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+                if (virtualclass.currApp == 'Yts') {
+                    var prvAppObj = {"name":"Yts","metaData":null};
                 }
-            } else {
-                localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             }
+
+            localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
 
             io.disconnect();
         },
@@ -1045,11 +1045,15 @@
         },
         whoIsTeacher: function () {
             //TODO this function should call less frequently and may be called on member add function, status could be saved in a variable.
-            for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                if (virtualclass.connectedUsers[i].role == 't') {
-                    return virtualclass.connectedUsers[i].userid;
+
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if (virtualclass.connectedUsers[i].role == 't') {
+                        return virtualclass.connectedUsers[i].userid;
+                    }
                 }
             }
+            
             return 0;
         },
 

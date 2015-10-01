@@ -185,31 +185,6 @@ $(document).ready(function () {
             virtualclass.gObj.updateHeight = true;
         }
 
-        //if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
-        //    // Greet new student with info
-        //    //if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-        //    //    ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-        //    //}
-        //    if (virtualclass.currApp === 'ScreenShare') {
-        //        sType = 'ss';
-        //    } else if(virtualclass.currApp === 'Yts'){
-        //        if(typeof virtualclass.yts.player == 'object'){
-        //            ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
-        //        } else {
-        //            ioAdapter.mustSend({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
-        //        }
-        //       //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
-        //    }
-        //
-        //    if (typeof sType !== 'undefined' && sType !== null) {
-        //        //TODO this should be into function
-        //        sType = virtualclass.getDataFullScreen(sType);
-        //        var createdImg = virtualclass.getDataFullScreen('ss');
-        //        ioAdapter.sendBinary(createdImg);
-        //        sType = null;
-        //    }
-        //}
-
         if(roles.hasAdmin()){
             if(virtualclass.gObj.uid == virtualclass.jId){
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
@@ -228,13 +203,23 @@ $(document).ready(function () {
                 } else {
                     console.log('Editor Code vcAdapter is not ready');
                 }
+
+                if(virtualclass.currApp === 'Yts') {
+                    if (typeof virtualclass.yts.player == 'object') {
+                        ioAdapter.mustSend({
+                            'yts': {
+                                'init': virtualclass.yts.videoId,
+                                startFrom: virtualclass.yts.player.getCurrentTime()
+                            }, 'cf': 'yts'
+                        }, virtualclass.jId);
+                    }
+                }
             }
         }
 
         // Greet new student with info, When other user join
         if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
             // Greet new student with info
-
             if (typeof sType !== 'undefined' && sType !== null) {
                 //TODO this should be into function
                 sType = virtualclass.getDataFullScreen(sType);
@@ -260,21 +245,8 @@ $(document).ready(function () {
                 } else {
                     ioAdapter.mustSend({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
                 }
-                //io.send({'yts': {'seekto': virtualclass.yts.actualCurrentTime}});
             }
-
         }
-
-        //if(roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId){
-        //    if(typeof virtualclass.wb == 'object'){
-        //        var objs = virtualclass.wb.vcan.main.replayObjs;
-        //        if(objs.length > 0){
-        //            virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
-        //        } else {
-        //            console.log('Could not send the whiteboar data');
-        //        }
-        //    }
-        //}
     });
 
     $(document).on("Multiple_login", function (e) {

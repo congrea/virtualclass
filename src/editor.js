@@ -423,7 +423,10 @@
             responseToRequest: function (toUser) {
                 var initPacket = this.getWrappedOperations(true);
                 initPacket.layoutEd = "1";  //this would be for create editor layout
-                initPacket.capp = virtualclass.currApp;
+                if(roles.isTeacher()){
+                    initPacket.capp = virtualclass.currApp; // this should pass only when user is educator
+                }
+
                 initPacket.et = this.etype;
 
                 if (toUser) {

@@ -1260,20 +1260,26 @@
 
 
             handleUserMedia: function (stream) {
-                //latest code
-
+                localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
+                var audio = localStorage.getItem('audEnable');
 
-                if(localStorage.getItem('audEnable') != null ){
-                    if(localStorage.getItem('audEnable') == 'false'){
-                        virtualclass.user.control.audioWidgetDisable();
+                if(audio != null){
+                    audio = JSON.parse(audio);
+                    if(audio.ac == 'false'){
+                        // if reason is video disabled from browser.
+                        if(audio.r == 'vd'){
+                            virtualclass.user.control.audioWidgetEnable();
+                        } else {
+                            virtualclass.user.control.audioWidgetDisable();
+                        }
+
                     }else {
                         virtualclass.user.control.audioWidgetEnable();
                     }
-                } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')) {
+                } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
                     virtualclass.user.control.audioWidgetEnable();
                 }
-
 
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
@@ -1396,8 +1402,9 @@
             handleUserMediaError: function (error) {
                 var error = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
                 virtualclass.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
-                virtualclass.user.control.audioWidgetDisable();
+                virtualclass.user.control.audioWidgetDisable('vd');
                 virtualclass.view.disappearBox('WebRtc');
+                localStorage.setItem('dvid', true);
                 console.log('navigator.getUserMedia error: ', error);
             }
         }

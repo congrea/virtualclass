@@ -710,16 +710,34 @@
 
 
                 audioWidgetEnable: function () {
-                    localStorage.setItem('audEnable', "true");
-                    var studentSpeaker = document.getElementById('audioWidget');
-                    studentSpeaker.className = 'active';
-                    studentSpeaker.style.opacity = "1";
-                    studentSpeaker.style.pointerEvents = "visible";
+                    localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
+                    if(localStorage.getItem('dvid') == null){
+                        var studentSpeaker = document.getElementById('audioWidget');
+                        studentSpeaker.className = 'active';
+                        studentSpeaker.style.opacity = "1";
+                        studentSpeaker.style.pointerEvents = "visible";
+                    }
+
+
                 },
 
                 //move into media.js
-                audioWidgetDisable: function () {
-                    localStorage.setItem('audEnable', "false");
+                audioWidgetDisable: function (reason) {
+                    var ad = {ac:'false'};
+
+                    var aud = localStorage.getItem('audEnable');
+                    if(aud != null){
+                        aud = JSON.parse(aud);
+                        if(aud.ac != 'false' && typeof reason != 'undefined'){
+                            ad.r = reason;
+                        }
+                    }else if(typeof reason != 'unefined'){
+                        ad.r = reason;
+                    }
+
+
+                    localStorage.setItem('audEnable', JSON.stringify(ad));
+
                     var studentSpeaker = document.getElementById('audioWidget');
                     studentSpeaker.style.opacity = "0.5";
                     studentSpeaker.style.pointerEvents = "none";

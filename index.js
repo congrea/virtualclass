@@ -107,9 +107,11 @@ $(document).ready(function () {
 
     if (roles.isStudent()) {
         var audioEnable = localStorage.getItem('audEnable');
-        if (audioEnable !== null && audioEnable === 'false') {
-            virtualclass.user.control.audioWidgetDisable();
-            virtualclass.gObj.audioEnable = false;
+        if (audioEnable !== null) {
+            if(audioEnable.ac === 'false'){
+                virtualclass.user.control.audioWidgetDisable();
+                virtualclass.gObj.audioEnable = false;
+            }
         }
     }
 

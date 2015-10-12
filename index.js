@@ -394,21 +394,25 @@ $(document).ready(function () {
 
         //enable chat
         this.enc = function (e) {
-            if (e.message.toUser == virtualclass.gObj.uid) {
+            if(e.message.hasOwnProperty('ouser')){
+                virtualclass.user.control.enable(e.message.ouser, 'chat', 'Chat', 'chat');
+            } else {
                 virtualclass.user.control.allChatEnable();
                 virtualclass.gObj.chatEnable = true;
-            } else {
-                virtualclass.user.control.enable(e.message.toUser, 'chat', 'Chat', 'chat');
+                virtualclass.vutil.beforeSend({'enc': true, 'cf' : 'enc', ouser : e.message.toUser});
             }
+
         };
 
         //disable chat
         this.dic = function (e) {
-            if (e.message.toUser == virtualclass.gObj.uid) {
+            //if other user's control should be disabled
+            if(e.message.hasOwnProperty('ouser')){
+                virtualclass.user.control.disable(e.message.ouser, 'chat', 'Chat', 'chat');
+            } else {
                 virtualclass.user.control.allChatDisable();
                 virtualclass.gObj.chatEnable = false;
-            } else {
-                virtualclass.user.control.disable(e.message.toUser, 'chat', 'Chat', 'chat');
+                virtualclass.vutil.beforeSend({'dic': true, 'cf' : 'dic', ouser : e.message.toUser});
             }
         };
 

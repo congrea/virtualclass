@@ -122,7 +122,6 @@
                 'ui-dialog-header' // take advantage of dialog header style
             )
             .click(function(event) {
-             
                 //self.toggleContent(event);
                 self.uiChatboxTitlebar.removeClass("ui-state-highlight");
             })

@@ -206,6 +206,8 @@
 
                         ioAdapter.mustSendUser({'msg':msg, 'cf' : 'msg'}, self.options.id); // userid=self.options.id
 
+                        $("li[aria-controls='tabcb" + self.options.id + "']").removeClass('ui-state-highlight');
+
                         $(this).val('');
                         $("#" + self.options.id).chatbox("option").messageSent(self.options.id, {name:io.cfg.userobj.name}, msg);// sent msg to self
                         // to avoid error of undefined

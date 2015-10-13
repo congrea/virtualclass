@@ -98,15 +98,18 @@
 
                 // virtualclass.wb.utility.displayCanvas();
 
-                if (roles.hasControls()) {
-                    window.addEventListener('resize',
-                        function () {
+
+                window.addEventListener('resize',
+                    function () {
+                        virtualclass.gObj.resize = true;
+                        if (roles.hasControls()) {
                             if (virtualclass.currApp == 'Whiteboard') {
                                 virtualclass.wb.utility.lockvirtualclass();
                             }
                         }
-                    );
-                }
+                    }
+                );
+
 
                 window.addEventListener('click', function () {
                     virtualclass.view.disappearBox('WebRtc');

@@ -966,10 +966,12 @@
                     virtualclass.wb.utility.toolWrapperDisable();
                     virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
+
                         var label = (roles.hasControls()) ? 'msgForReload' : 'msgStudentForReload';
                         window.virtualclass.view.displayMsgBox('divForReloadMsg', label);
                         //fix me earlierWidth and innerwidth are same
                         window.earlierWidth = window.innerWidth;
+
                     }
                 }
             },

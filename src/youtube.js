@@ -50,8 +50,6 @@
                             if(typeof videoId != 'undefined'){
                                 this.onYTIframApi(videoId, startFrom, 'fromReload');
                             }
-
-
                             this.UI.inputURL();
                             ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {

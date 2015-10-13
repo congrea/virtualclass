@@ -209,7 +209,7 @@ $(document).ready(function () {
 
                 if(virtualclass.currApp === 'Yts') {
                     if (typeof virtualclass.yts.player == 'object') {
-                        ioAdapter.mustSend({
+                        ioAdapter.mustSendUser({
                             'yts': {
                                 'init': virtualclass.yts.videoId,
                                 startFrom: virtualclass.yts.player.getCurrentTime()
@@ -237,9 +237,9 @@ $(document).ready(function () {
                 sType = 'ss';
             } else if(virtualclass.currApp === 'Yts'){
                 if(typeof virtualclass.yts.player == 'object'){
-                    ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
+                    ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
                 } else {
-                    ioAdapter.mustSend({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                    ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
                 }
             }
 
@@ -372,7 +372,12 @@ $(document).ready(function () {
 
         //youtube share
         this.yts = function (e) {
-            virtualclass.yts.onmessage(e.message);
+            //nothing to do with self received packet
+            if(e.fromUser.userid != virtualclass.gObj.uid){
+                virtualclass.yts.onmessage(e.message);
+            }
+
+
         };
 
         //silence audio

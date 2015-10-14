@@ -16,4 +16,7 @@
     $string['disableAudio'] = 'Mute';
     $string['pressAlwaysToSpeak'] = 'Press always to speak.';
     $string['pushtotalk'] = 'Push To Talk';
+    $string['waitmsgconnect'] = 'Please wait a whlie. Application is trying to connect.';
+
+
 ?>

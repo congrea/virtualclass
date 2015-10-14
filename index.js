@@ -62,6 +62,13 @@ $(document).ready(function () {
         var videoObj = null;
     }
 
+    virtualclass.popup = new PopUp({
+        showOverlay: true
+    });
+
+    virtualclass.popup.waitMsg();
+
+
     // If was in play mode before, start with fresh data
     if (!virtualclass.isPlayMode &&  localStorage.getItem('mySession') === 'thisismyplaymode') {
         console.log('DELETE PlayMode Data');
@@ -126,9 +133,9 @@ $(document).ready(function () {
     virtualclass.vutil.attachClickOutSideCanvas();
 
     //TODO this should be at virtualclass.js
-    virtualclass.popup = new PopUp({
-        showOverlay: true
-    });
+    //virtualclass.popup = new PopUp({
+    //    showOverlay: true
+    //});
 
     //db transaction of indexeddb is not ready on page onload, 50 ms delay
     // OR find the alternative for this
@@ -262,7 +269,12 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionclose", function (e) {
+        virtualclass.popup.waitMsg();
         virtualclass.chat.makeUserListEmpty();
+    });
+
+    $(document).on("connectionopen", function (e) {
+        virtualclass.popup.closePopup();
     });
 
     /**

@@ -615,6 +615,8 @@
                     io.sock.close();
                 }
                 that.config.createNewSession();
+
+                virtualclass.popup.waitMsg(); // until the web socket is connected.
             }
         },
         shapesData: {

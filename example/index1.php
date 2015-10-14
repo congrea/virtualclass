@@ -351,16 +351,22 @@ if(isset($_GET['lname'])){
           <div id="confirm" class="popupWindow simple-box">
           </div>
 
-          <!-- For Session End window -->
+           <!-- For Session End window -->
            <div id="sessionEndMsgCont" class="popupWindow">
-            <span id="sessionEndClose" class="icon-close"></span>
+           <span id="sessionEndClose" class="icon-close"></span>
 
            <span id="sessionEndMsg"> <?php echo get_string('sessionendmsg'); ?> </span>
-
-
            </div>
 
+            <!--For confirm window-->
+            <div id="waitMsgCont" class="popupWindow">
+                <span id="waitMsg"> <?php echo get_string('waitmsgconnect'); ?> </span>
+            </div>
+
         </div>
+
+         <!--For wait message window-->
+
     </div>
 </div>
 

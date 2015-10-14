@@ -1048,7 +1048,7 @@
 
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if (virtualclass.connectedUsers[i].role == 't') {
+                    if (virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') {
                         return virtualclass.connectedUsers[i].userid;
                     }
                 }

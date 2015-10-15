@@ -17,6 +17,24 @@
                 this.callBkfunc = "";
                 this.rendering = false;
             },
+
+            makeCustomEvent : function (obj, broadCast){
+                if (obj.hasOwnProperty('mtext')) {
+                    var eventObj = {detail: {cevent: {x: obj.x, y: obj.y, mtext: obj.mtext}}};
+                } else {
+                    var eventObj = {detail: {cevent: {x: obj.x, y: obj.y}}};
+                }
+
+                if(typeof broadCast != 'undefined'){
+                     eventObj.detail.broadCast  = true; //For send packet to other.
+                }
+
+                var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
+                vcan.main.canvas.dispatchEvent(eventConstruct);
+
+//                return new CustomEvent(event, eventObj); // This is not supported for ie9 and older ie browsers
+            },
+
             renderObj: function (myfunc) {
                 if (typeof this.objs[this.objNo] == 'undefined') {
                     console.log(this.objs + "is undefined cannot continue play.");
@@ -45,7 +63,10 @@
                         } else if (this.objs[this.objNo].ac == 'u') {
                             event = 'mouseup';
                         }
+
                         var currObj = this.objs[this.objNo];
+
+                        //this.makeCustomEvent(currObj);
 
                         if (currObj.hasOwnProperty('mtext')) {
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};

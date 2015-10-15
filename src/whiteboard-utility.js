@@ -923,6 +923,9 @@
                             return;
                         }
                         virtualclass.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+
+
+
                         virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
                     }
                     var jobj = JSON.stringify(msg);

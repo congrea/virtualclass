@@ -85,7 +85,6 @@
                     }
 
                     if (!e.detail.hasOwnProperty('cevent')) {
-                        //alert('suman bogati');
                         var currTime = new Date().getTime();
                         var obj = vcan.makeStackObj(currTime, 'd', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                         virtualclass.wb.uid++;
@@ -278,7 +277,7 @@
                     if (vcan.main.dragMode == true || vcan.main.scaleMode == true) {
                         var pointer = vcan.utility.actualPointer(e);
                         var currTime = new Date().getTime();
-                        if (!e.detail.hasOwnProperty('cevent')) {
+                        if (!e.detail.hasOwnProperty('cevent') || (e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('broadCast'))) {
                             vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                         }
 
@@ -292,7 +291,8 @@
                             vcan.main.scaleMode = false;
                         }
                     } else {
-                        if (!e.detail.hasOwnProperty('cevent')) {
+
+                        if (!e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('broadCast')) {
                             vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                         }
                     }

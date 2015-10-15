@@ -685,7 +685,9 @@
                     }
                     virtualclass.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                     virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
+                    console.log('Last send data ' + virtualclass.wb.gObj.rcvdPackId);
                 }
+
                 var jobj = JSON.stringify(msg);
                 //if (io.sock != null && io.sock.readyState == 1) {
 
@@ -915,7 +917,7 @@
              * for pass the the reflected role to all other uses.
              *
              */
-            //if(!roles.hasAdmin()){
+
                 io.disconnect();
                 setTimeout(
                     function (){
@@ -923,6 +925,7 @@
                         io.init(virtualclass.uInfo);
                     }, 500
                 );
+
             //}
 
             //virtualclass.user.changeRoleOnFooter(virtualclass.gObj.uid, virtualclass.gObj.uRole);
@@ -956,10 +959,16 @@
         },
 
         _reclaimRole: function () {
-            this.reclaimRole();
-            //virtualclass.wb.utility.sendRequest('reclaimRole', true);
             virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf': 'reclaimRole'});
-            virtualclass.user.control.changeAttrToAssign('enable');
+
+            var that = this;
+            setTimeout(
+                function (){
+                    that.reclaimRole();
+                    virtualclass.user.control.changeAttrToAssign('enable');
+                }, 2000
+            );
+
         },
 
         reclaimRole: function () {
@@ -1011,8 +1020,24 @@
         vcResponseAReclaimRole: function (formUserId, id) {
             if (formUserId != id) {
 
-                virtualclass.user.control._assign(id, 'notsent', formUserId);
+                //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
 
+                var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+                currObj.ac = 'u';
+                if (currObj.hasOwnProperty('mtext')) {
+                    var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
+                } else {
+                    var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
+                }
+
+                eventObj.detail.broadCast = true;
+                var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
+                vcan.main.canvas.dispatchEvent(eventConstruct);
+
+                //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
+                //virtualclass.user.control._assign(id, 'notsent', formUserId);
+
+                virtualclass.user.control._assign(id, 'notsent', formUserId);
                 virtualclass.user.displayStudentSpeaker(true);
                 if (localStorage.getItem('aId') != null) {
                     localStorage.removeItem('aId');

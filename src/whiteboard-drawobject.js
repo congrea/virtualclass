@@ -120,7 +120,7 @@
                     if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
                         wb.obj.freeDrawObj.wb_draw(ev);
 
-                        if (!ev.detail.hasOwnProperty('cevent')) {
+                        if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) {
                             if (typeof mouseup == 'undefined') {
                                 if (((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null))) {
                                     lastmousemovetime = new Date().getTime();
@@ -171,15 +171,16 @@
 
                     if ((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null)) {
                         lastmousemovetime = new Date().getTime();
-                        if (!ev.detail.hasOwnProperty('cevent') && objType != 'text' && wb.tool.cmd != 't_clearall') {
+                        if ((!ev.detail.hasOwnProperty('cevent') ||
+                            (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
                             vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
                         }
                     }
 
                     presentmousemovetime = new Date().getTime();
-
                     if ((presentmousemovetime - lastmousemovetime) >= 2000) { // Optimized
-                        if (!ev.detail.hasOwnProperty('cevent') && objType != 'text' && wb.tool.cmd != 't_clearall') {
+                        if ((!ev.detail.hasOwnProperty('cevent') ||
+                            (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
                             vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
                         }
                         lastmousemovetime = new Date().getTime();
@@ -227,7 +228,8 @@
             lastmousemovetime = null;
             if (tool.started && objType != 'text') {
                 tool.mousemove(ev, 'up');
-                if (!ev.detail.hasOwnProperty('cevent') && objType != 'freeDrawing') {
+                if ((!ev.detail.hasOwnProperty('cevent') ||
+                     (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) && objType != 'freeDrawing') {
 //                        var currTime = new Date().getTime();
 
                     var currTime = new Date().getTime();
@@ -237,9 +239,10 @@
                 if ((wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true)) {
                     if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
                         wb.obj.freeDrawObj.finalizeDraw(ev);
+
                     }
 
-                    if (!ev.detail.hasOwnProperty('cevent')) {
+                    if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) {
                         if (dataChunk.length > 0) {
                             var currTime = new Date().getTime();
                             var obj = vcan.makeStackObj(currTime, 'u', endPosX, endPosY);

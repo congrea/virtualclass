@@ -280,6 +280,7 @@
                 }
                 if (this.parentNode.id != 't_clearall') {
                     virtualclass.wb.prvTool = this.parentNode.id;
+                    virtualclass.wb.prvToolInfo = obj;
                 }
             },
 
@@ -357,12 +358,24 @@
                             if (!confirm) {
                                 return true;
                             }
-                            virtualclass.wb.utility.makeActiveTool(cmd);
+
+                            //virtualclass.wb.utility.makeActiveTool(cmd);
                             virtualclass.wb.utility.t_clearallInit();
                             virtualclass.wb.utility.makeDefaultValue(cmd);
                             virtualclass.storage.clearSingleTable('wbData');
-                            virtualclass.wb.prvTool = cmd;
+
                             virtualclass.vutil.beforeSend({'clearAll': true, 'cf': 'clearAll'});
+
+                            if (virtualclass.wb.hasOwnProperty('prvToolInfo') && typeof virtualclass.wb.prvToolInfo == 'object'){
+                                var cmd = virtualclass.wb.prvToolInfo.cmd;
+                            } else {
+                                var cmd = 't_triangle';
+                            }
+
+                            var anch = document.getElementById(cmd).getElementsByTagName('a')[0];
+                            if(anch != null){
+                                anch.click();
+                            }
                         }
                     );
 

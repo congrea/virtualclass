@@ -41,7 +41,7 @@
                 var role;
                 for (var i = 0; i < allExistedUser.length; i++) {
                     role = allExistedUser[i].getAttribute('data-role');
-                    if (role == 't') {
+                    if (role == 't' || role == 'e') {
                         return true;
                     }
                 }

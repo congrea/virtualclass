@@ -915,7 +915,7 @@
              * for pass the the reflected role to all other uses.
              *
              */
-            if(!roles.hasAdmin()){
+            //if(!roles.hasAdmin()){
                 io.disconnect();
                 setTimeout(
                     function (){
@@ -923,7 +923,7 @@
                         io.init(virtualclass.uInfo);
                     }, 500
                 );
-            }
+            //}
 
             //virtualclass.user.changeRoleOnFooter(virtualclass.gObj.uid, virtualclass.gObj.uRole);
 

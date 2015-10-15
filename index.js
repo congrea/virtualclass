@@ -573,7 +573,11 @@ $(document).ready(function () {
                     // Teacher does not need this message
                     virtualclass.wb.utility.removeWhiteboardMessage();
                 }
-                virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
+
+                // We will not display the objects come from
+                if(e.fromUser.role == 'p' || e.fromUser.role == 't') {
+                    virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
+                }
             }
         };
 

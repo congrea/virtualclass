@@ -97,11 +97,18 @@
 
                 obj.uid = virtualclass.wb.uid;
 
-                if (roles.isStudent()) {
-                    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
-                } else {
+                //if (roles.isStudent()) {
+                //    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+                //} else {
+                //    vcan.main.replayObjs.push(obj);
+                //    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                //}
+
+                if(roles.hasControls()){
                     vcan.main.replayObjs.push(obj);
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                } else {
+                    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 }
 
                 vcan.main.currObj = "";

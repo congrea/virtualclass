@@ -960,6 +960,9 @@
 
         _reclaimRole: function () {
             virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf': 'reclaimRole'});
+            var reclaimButton = document.getElementById('t_reclaim');
+            reclaimButton.style.pointerEvents = 'none';
+            reclaimButton.style.opacity = "0.5";
 
             var that = this;
             setTimeout(
@@ -968,7 +971,6 @@
                     virtualclass.user.control.changeAttrToAssign('enable');
                 }, 2000
             );
-
         },
 
         reclaimRole: function () {

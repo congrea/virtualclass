@@ -49,10 +49,8 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
         margin : 0;
         padding : 0;
    }
-</style>
 
-
-
+ </style>
 
 
 <?php

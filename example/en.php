@@ -11,7 +11,7 @@
     $string['sessionendmsg'] = 'Session has been closed. You may now close your browser.';
     $string['play'] = 'Play';
     $string['replay'] = 'Re-play';
-    $string['tpAudioTest'] = ‘Test Audio';
+    $string['tpAudioTest'] = 'Test Audio';
     $string['enableAudio'] = 'Unmute';
     $string['disableAudio'] = 'Mute';
     $string['pressAlwaysToSpeak'] = 'Press always to speak.';

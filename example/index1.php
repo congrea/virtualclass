@@ -29,11 +29,21 @@ if(isset($_GET['theme'])){
     $theme = 'white';
 }
 
+$pushtotalk = 'disable';
 if(isset($_GET['pt'])){
-    $pushtotalk= $_GET['pt'];
-} else {
-    $pushtotalk = 'disable';
+    if($_GET['pt'] == 'enable' || $_GET['pt'] == 'disable'){
+        $pushtotalk = $_GET['pt'];
+    }
 }
+
+$audactive = 'deactive';
+if(isset($_GET['ad'])){
+    if($_GET['ad'] == 'active' || $_GET['ad'] == 'deactive'){
+        $audactive = $_GET['ad'];
+    }
+}
+
+
 
 ?>
 
@@ -95,6 +105,7 @@ if(isset($_GET['id'])){
     $uid = 100;
     $sid = 100;
 }
+
 
 
 if(isset($_GET['r'])){
@@ -221,18 +232,23 @@ if(isset($_GET['lname'])){
     <?php 
     if($r == 's'){
         $dap = "false";
-        $classes = "audioTool deactive";
+        $classes = "audioTool";
         $speakermsg = "Enable Speaker";
         $speakerimg = $whiteboardpath . "images/speakerpressing.png";
         $audio_tooltip =  get_string('enableAudio');
     } else {
-        $classes = "audioTool active";
+        $classes = "audioTool";
         $speakermsg = "Disable Speaker";
         //$dap = "true"; //display audio 
         $dap = "true";
         $speakerimg = $whiteboardpath . "images/speakerpressingactive.png";
         $audio_tooltip =  get_string('disableAudio');
-    }?>
+
+    }
+
+    $classes .= ' ' .$audactive;
+
+    ?>
     
     <div id="mainAudioPanel">
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">

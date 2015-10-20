@@ -1,11 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-jjdyd0');
-	src:url('../fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('../fonts/icomoon.woff?-jjdyd0') format('woff'), url('../fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('../fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+	src:url('../../fonts/icomoon.eot?-jjdyd0');
+	src:url('../fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('../../fonts/icomoon.woff?-jjdyd0') format('woff'), url('../../fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('../../fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
-
 
 [id= "virtualclassCont"] [class^="icon-"], [class*=" icon-"] {
 	font-family: 'icomoon';
@@ -3296,9 +3295,5 @@
 	background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0 ); /* IE6-9 */
 
-}
-
-.ui-widget-content .ui-icon{
-	background-image : none;
 }
 

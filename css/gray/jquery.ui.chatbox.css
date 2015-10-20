@@ -525,17 +525,37 @@
  }
  
  
- /* white css */
- 
+ /* Gray color */
+  
 
+#virtualclassCont .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text{font-weight: 100;}
 #virtualclassCont .vmchat_room_bt{
-	color:#333;
-}
-#virtualclassCont #stickybar a {
-	color:#333;
+	border-right: 1px solid #5d6b76;
 }
 
+#virtualclassCont .vmchat_bar_button{
+	border-left: 1px solid #5d6b76;
+}
+
+#virtualclassCont .ui-chatbox-input{
+	background-color: #eee;
+}
+
+#virtualclassCont .ui-tabs .ui-tabs-nav li.ui-tabs-active{
+	border: 1px solid #5d6b76;
+}
 
 
-
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a{
+	color:#d3dce5;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active .ui-corner-all.ui-chatbox-icon .ui-icon.ui-icon-close.icon-remove:before{
+	color:#d3dce5;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active a{
+	color: #fff;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a{
+	color: #333 !important;
+}
 

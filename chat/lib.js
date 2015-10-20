@@ -471,7 +471,7 @@ function display_error(msg){
 
 
 function clearAllChatBox(){
-    $(".ui-icon-closethick").trigger("click");
+    $(".icon-close").trigger("click");
     //$("#chatrm .ui-icon-minusthick").trigger("click");
     //  alert("suman bogati chat lib.js");
 }

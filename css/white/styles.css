@@ -1147,6 +1147,10 @@
 	padding-left : 7px;
 }
 
+#virtualclassCont.pt_disable #audioWidget #speakerPressOnce {
+	padding : 9px 0 6px 7px;
+}
+
 #virtualclassCont #audioWidget.fixed {
 	position : fixed;
 }
@@ -3305,4 +3309,9 @@
 
 #virtualclassCont.pt_enable #alwaysPress{
 	display : block;
+}
+
+
+#virtualclassCont.pt_disable #audioTest-box .audioTool{
+	border-top: #a7a7a7 solid 1px !important;
 }

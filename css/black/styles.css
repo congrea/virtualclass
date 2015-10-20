@@ -1147,6 +1147,10 @@
 	padding-left : 7px;
 }
 
+#virtualclassCont.pt_disable #audioWidget #speakerPressOnce {
+	padding : 9px 0 6px 7px;
+}
+
 #virtualclassCont #audioWidget.fixed {
 	position : fixed;
 }
@@ -3106,7 +3110,6 @@
 
 #virtualclassCont #mainAudioPanel, #virtualclassCont #audioTest-box {
 	border : #e2e2e2 solid 3px;
-	border-top:#a4a4a4 solid 1px
 }
 #virtualclassCont #audioTest-box{
 	border-top:none;
@@ -3273,9 +3276,18 @@
 	color:#d5dee7;
 }
 
-#virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
-	background-color: transparent;	
+#virtualclassCont #alwaysPress .audioTool.active{
+	border-top:none !important;
 }
+
+#virtualclassCont.pt_disable #alwaysPress{
+	display : none;
+}
+
+#virtualclassCont.pt_enable #alwaysPress{
+	display : block;
+}
+
 
 :focus {
     outline: none;

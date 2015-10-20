@@ -1146,6 +1146,10 @@
 	padding-left : 7px;
 }
 
+#virtualclassCont.pt_disable #audioWidget #speakerPressOnce {
+	padding : 9px 0 6px 7px;
+}
+
 #virtualclassCont #audioWidget.fixed {
 	position : fixed;
 }
@@ -3286,17 +3290,26 @@
 	color:#d5dee7;
 }
 
-#virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
-	background-color: transparent;	
-}
-
-
 #virtualclassCont #popupContainer #about-modal{
 	border: #e2e2e2 solid 3px;
 }
 #virtualclassCont #popupContainer #about-modal #confirm #confirmMessage{
 	color:#666;
-	}
+}
+
+
+#virtualclassCont.pt_disable #alwaysPress{
+	display : none;
+}
+
+#virtualclassCont.pt_enable #alwaysPress{
+	display : block;
+}
+
+
+#virtualclassCont.pt_disable #audioTest-box .audioTool{
+	border-top: #5d6b76 solid 1px !important;
+}
 
 :focus {
     outline: none;

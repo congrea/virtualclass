@@ -66,7 +66,7 @@
                 privateChatBox : {
                     init : function (){
                         var that = this;
-                        $('#tabs').delegate( "span.ui-icon-close", "click", that.close);
+                        $('#tabs').delegate( "span.icon-close", "click", that.close);
                         $("#tabs").on("click", "li a", that.toggle);
                         
                     }, 

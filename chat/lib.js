@@ -367,7 +367,7 @@ function createTab(id,name){
 function addTab(tabs,id,tabCounter,tabTitle) {
     //var tabTitle = $( "#tab_title" ),
     var tabContent = $( "#tab_content" ),
-    tabTemplate = "<li id = '" + id + "' class = 'ui-state-default ui-corner-bottom ui-tabs-active ui-state-active' aria-controls = '" + id + "'><a href = '#{href}' class = 'ui-tabs-anchor'>#{label}</a> <a href = '#' role = 'button'class = 'ui-corner-all ui-chatbox-icon'><span class = 'ui-icon icon-close'>close</span></a></li>";
+    tabTemplate = "<li id = '" + id + "' class = 'ui-state-default ui-corner-bottom ui-tabs-active ui-state-active' aria-controls = '" + id + "'><a href = '#{href}' class = 'ui-tabs-anchor'>#{label}</a> <a href = '#' role = 'button'class = 'ui-corner-all ui-chatbox-icon'><span class = 'ui-icon icon-close'></span></a></li>";
 
     var label = tabTitle || "Tab " + tabCounter,
     id = id,

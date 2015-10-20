@@ -29,19 +29,27 @@ if(isset($_GET['theme'])){
     $theme = 'white';
 }
 
+if(isset($_GET['pt'])){
+    $pushtotalk= $_GET['pt'];
+} else {
+    $pushtotalk = 'disable';
+}
+
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
 
- <link rel="stylesheet" type="text/css" href= <?php  echo $whiteboardpath."css/".$theme.".min.css" ?> />
+ <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme.".min.css" ?> />
 
+<!--
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/styles.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/popup.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whi //teboardpath."css/vceditor.css" ?> />
+-->
 
-<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/styles.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/popup.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php // echo $whiteboardpath."css/".$theme."/jquery.ui.chatbox.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/jquery.ui.chatbox.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/vceditor.css" ?> />
 
 
 
@@ -102,6 +110,7 @@ if(isset($_GET['r'])){
     $cont_class .= 'student';
 }
 
+ $cont_class  .=  ' pt_' . $pushtotalk;
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 //echo $room;

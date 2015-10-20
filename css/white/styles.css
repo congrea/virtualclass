@@ -3298,3 +3298,11 @@
 
 }
 
+
+#virtualclassCont.pt_disable #alwaysPress{
+	display : none;
+}
+
+#virtualclassCont.pt_enable #alwaysPress{
+	display : block;
+}

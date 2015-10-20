@@ -32,13 +32,18 @@ if(isset($_GET['theme'])){
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
-
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme."/styles.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme."/popup.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme."/jquery.ui.chatbox.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme."/jquery.ui.chatbox.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme."/vceditor.css" ?> />
+
+ <link rel="stylesheet" type="text/css" href= <?php  echo $whiteboardpath."css/".$theme.".min.css" ?> />
+
+
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/styles.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/popup.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php // echo $whiteboardpath."css/".$theme."/jquery.ui.chatbox.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/jquery.ui.chatbox.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php //echo $whiteboardpath."css/".$theme."/vceditor.css" ?> />
+
+
 
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 

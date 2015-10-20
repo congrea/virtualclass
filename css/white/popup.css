@@ -76,7 +76,7 @@
 .rv-vanilla-modal-overlay.is-shown {
 	opacity:1;
 	display:block;
-	z-index : 2;
+	z-index : 10000;
 }
 /*.rv-vanilla-modal-header {
     background:#d4d4d4;

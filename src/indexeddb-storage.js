@@ -607,12 +607,16 @@
                 virtualclass.getContent = false;
                 virtualclass.recorder.storeDone = 0;
 
+                virtualclass.chat.removeChatHighLight('chatrm');
+
                 virtualclass.setPrvUser(); // Set Previous User
 
                 if (io.sock) {
                     io.sock.close();
                 }
                 that.config.createNewSession();
+
+                virtualclass.popup.waitMsg(); // until the web socket is connected.
             }
         },
         shapesData: {

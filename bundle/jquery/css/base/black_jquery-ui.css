@@ -73,6 +73,20 @@
 }
 
 
+/* states and images */
+.ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+.ui-icon.icon-minus, .ui-icon.icon-close{
+	display: inline-block;
+	text-indent:inherit;
+}
+
+
+
 /* Misc visuals
 ----------------------------------*/
 
@@ -821,33 +835,13 @@ body .ui-tooltip {
      border:#bac0cd 1px solid;
 
 }
-#tabs.ui-widget-content{
-	 box-shadow: 0 0 5px #aaa;
-}
 
 
-.ui-widget-content a {
 
-	color: #222222/*{fcContent}*/;
-}
-.ui-widget-header {
-	 background-color: #d4d4d4;
-     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
-     background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
-     background-image: linear-gradient(#fbfbfb, #d4d4d4);
-	border: 1px solid #8f8f8f/*{borderColorHeader}*/;
-	color: #222222/*{fcHeader}*/;
-	font-weight: bold;
-}
 #chat_div..ui-widget-content{
 	 box-shadow: none !important;
 }
 
-.ui-widget-header a {
-	color: #222222/*{fcHeader}*/;
-}
 
 /* Interaction states
 ----------------------------------*/
@@ -857,12 +851,10 @@ body .ui-tooltip {
 	border: 1px solid #d3d3d3/*{borderColorDefault}*/;
 	background: #e6e6e6/*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/;
 	font-weight: normal/*{fwDefault}*/;
-	color: #555555/*{fcDefault}*/;
 }
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-	color: #555555/*{fcDefault}*/;
 	text-decoration: none;
 }
 .ui-state-hover,
@@ -871,10 +863,6 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #999999/*{borderColorHover}*/;
-	background: #dadada/*{bgColorHover}*/ url(images/ui-bg_glass_75_dadada_1x400.png)/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/;
-	font-weight: normal/*{fwDefault}*/;
-	color: #212121/*{fcHover}*/;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -884,7 +872,7 @@ body .ui-tooltip {
 .ui-state-focus a:hover,
 .ui-state-focus a:link,
 .ui-state-focus a:visited {
-	color: #212121/*{fcHover}*/;
+
 	text-decoration: none;
 }
 .ui-state-active,
@@ -893,49 +881,18 @@ body .ui-tooltip {
 	border: 1px solid #aaaaaa/*{borderColorActive}*/;
 	background: #ffffff/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/;
 	font-weight: normal/*{fwDefault}*/;
-	color: #212121/*{fcActive}*/;
+
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #212121/*{fcActive}*/;
+
 	text-decoration: none;
 }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight,
-.ui-widget-content .ui-state-highlight,
-.ui-widget-header .ui-state-highlight {
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
-	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-    background: #e0dcc3 !important; /* Old browsers */
-	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
-	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
-	border: 1px solid #aaaaaa !important;
-}
 
-.ui-chatroom .ui-state-highlight{
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
-	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	background: #e0dcc3 !important; /* Old browsers */
-	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
-	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
-    border: 1px solid #aaaaaa !important;
-
-}
 
 
 .ui-state-highlight a,
@@ -997,10 +954,7 @@ body .ui-tooltip {
 	background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent}*/;
 }
 
-.ui-widget-header .ui-icon {
-	background-image: url(images/ui-icons_222222_256x240.png)/*{iconsHeader}*/  !important;
-	padding-left: 0px !important;
-}
+
 .ui-state-default .ui-icon {
 	background-image: url(images/ui-icons_888888_256x240.png);
  }
@@ -1244,3 +1198,79 @@ background-position: -64px -128px !important;
 	filter: Alpha(Opacity=30)/*{opacityFilterShadow}*/;
 	border-radius: 8px/*{cornerRadiusShadow}*/;
 }
+
+
+/* black color */
+
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
+	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+    background: #e0dcc3 !important; /* Old browsers */
+	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
+	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
+	border: 1px solid #aaaaaa !important;
+}
+
+.ui-chatroom .ui-state-highlight{
+	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
+	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
+	background: #e0dcc3 !important; /* Old browsers */
+	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
+	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
+    border: 1px solid #aaaaaa !important;
+
+}
+
+.ui-widget-header {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#021317+0,333636+100 */
+	background: #021317; /* Old browsers */
+	background: -moz-linear-gradient(top, #021317 0%, #333636 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#021317), color-stop(100%,#333636)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #021317 0%,#333636 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #021317 0%,#333636 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #021317 0%,#333636 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #021317 0%,#333636 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#021317', endColorstr='#333636',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+#tabs.ui-widget-content{
+	 box-shadow: 0 0 5px #aaa;
+}
+
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#333b3c+0,272e30+100 */
+	background: #333b3c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #333b3c 0%, #272e30 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333b3c), color-stop(100%,#272e30)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #333b3c 0%,#272e30 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333b3c', endColorstr='#272e30',GradientType=0 ); /* IE6-9 */
+
+}
+.ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight span{
+	color:#333;
+	
+}
+
+
+

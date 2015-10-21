@@ -97,11 +97,18 @@
 
                 obj.uid = virtualclass.wb.uid;
 
-                if (roles.isStudent()) {
-                    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
-                } else {
+                //if (roles.isStudent()) {
+                //    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+                //} else {
+                //    vcan.main.replayObjs.push(obj);
+                //    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                //}
+
+                if(roles.hasControls()){
                     vcan.main.replayObjs.push(obj);
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                } else {
+                    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 }
 
                 vcan.main.currObj = "";
@@ -923,6 +930,9 @@
                             return;
                         }
                         virtualclass.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+
+
+
                         virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
                     }
                     var jobj = JSON.stringify(msg);
@@ -966,10 +976,12 @@
                     virtualclass.wb.utility.toolWrapperDisable();
                     virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
+
                         var label = (roles.hasControls()) ? 'msgForReload' : 'msgStudentForReload';
                         window.virtualclass.view.displayMsgBox('divForReloadMsg', label);
                         //fix me earlierWidth and innerwidth are same
                         window.earlierWidth = window.innerWidth;
+
                     }
                 }
             },

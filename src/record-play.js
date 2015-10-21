@@ -437,6 +437,8 @@
             this.alreadyDownload = true;
 
             virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
+                // diconnecting with others for prevent to send any unknown packets.
+                virtualclass.gObj.saveSession = true;
 
                 var downloadButton = document.createElement('button');
                 downloadButton.id = 'downloadButton';

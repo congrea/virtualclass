@@ -76,7 +76,7 @@
 .rv-vanilla-modal-overlay.is-shown {
 	opacity:1;
 	display:block;
-	z-index : 2;
+	z-index : 100000;
 }
 /*.rv-vanilla-modal-header {
     background:#d4d4d4;
@@ -226,7 +226,7 @@ transition:all .2s linear;
 	padding: 9px 30px;
 	border-radius: 5px;
 	border: none;
-	margin-left: 165px;
+	margin-left: 150px;
 	margin-top: 10px;
 	margin-bottom: 15px;
 	border:#ddd 1px solid;
@@ -243,7 +243,7 @@ transition:all .2s linear;
 	padding: 9px 30px;
 	border-radius: 5px;
 	border: none;
-	margin-left: 165px;
+	margin-left: 150px;
 	margin-top: 10px;
 	margin-bottom: 15px;
 	border:#ddd 1px solid;
@@ -329,5 +329,94 @@ transition:all .2s linear;
 #virtualclassCont #field2::-moz-placeholder { color:#00f; }
 
 #virtualclassCont #youtubeurl::-webkit-input-placeholder { opacity : 0.8}
+
+
+
+/*Black color */
+
+#virtualclassCont .vceditor-toolbar{
+	background-color:#333636;
+}
+
+
+#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont #popupContainer #replayContainer #replayButton, #virtualclassCont #playButton{
+	background-image: none;
+	background-color: #34404c;
+	color: #fff;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+}
+#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont #confirmCancelButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont #popupContainer #replayContainer #replayButton:hover, #virtualclassCont #playButton:hover{
+	border-radius: 20px;
+}
+
+#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont #confirmCancelButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont #popupContainer #replayContainer #replayButton:hover{
+	background-image: none;
+}
+#confirm #confirmOk #confirmOkButton:hover, #virtualclassCont #playButton:hover, #virtualclassCont #playButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover{
+	background-image: none;
+	background-color:#515e69 !important;
+	border:none;
+}
+
+#virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton:before, #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:before{
+	color:#fff;
+}
+
+#confirmCancel #confirmCancelButton{
+	background-color: #34404c;
+	border-radius: 20px;
+	color: #fff;
+	border: none;
+	background-image: none;
+}
+
+#confirmCancel #confirmCancelButton:hover{
+	background-image: none;
+	background-color:#515e69;
+}
+.rv-vanilla-modal-body, .rv-vanilla-modal-body{
+	color:#fff !important;
+}
+#virtualclassCont #popupContainer #about-modal{
+	border-width: 2px !important;
+}
+
+#virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont .rv-vanilla-modal, #virtualclassCont #confirm.popupWindow.simple-box{
+	border-radius: 13px !important;
+} 
+
+#virtualclassCont #downloadProgress{
+	background-color: #eee;
+}
+#virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer, #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover{
+	background-image: none;
+}
+
+#virtualclassCont #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
+	background-color: #a6c24e;
+	font-weight: normal;
+	padding: 10px 24px;
+	border-radius: 20px !important;
+}
+#virtualclassCont #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
+	background-color: #ccc;
+	font-weight: normal;
+	padding: 10px 22px;
+	border-radius: 20px !important;
+}
+
+#virtualclassCont #speakerPressingAnch #speakerPressingtext{
+	color:#fff;
+}
+#virtualclassCont .rv-vanilla-modal-header{
+	border-radius: 10px 10px 0 0;
+	
+}
+.rv-vanilla-modal-title{
+	color:#fff;
+}
+
 
 

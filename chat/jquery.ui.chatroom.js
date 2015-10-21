@@ -122,7 +122,6 @@
                 'ui-dialog-header' // take advantage of dialog header style
             )
             .click(function(event) {
-             
                 //self.toggleContent(event);
                 self.uiChatboxTitlebar.removeClass("ui-state-highlight");
             })
@@ -154,8 +153,8 @@
 
             //minimize button
             uiChatboxTitlebarMinimizeText = $("<span></span>")
-            .addClass('ui-icon ' + 'ui-icon-minusthick')
-            .text('minimize')
+            .addClass('ui-icon ' + 'icon-minus')
+            .text('')
             .appendTo(uiChatboxTitlebarMinimize),
 
             // content

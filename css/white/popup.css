@@ -1,0 +1,333 @@
+#virtualclassCont #main {
+	width:1000px;
+	margin:0 auto;
+}
+#virtualclassCont .button {
+	color:#3CB3E7;
+	font-family:Raleway, Helvetica, sans-serif;
+	border-radius:4px;
+	border:1px solid #3CB3E7;
+	background:0 0;
+	font-size:14px;
+	cursor:pointer;
+	padding:15px 25px;
+}
+#virtualclassCont .button:hover {
+	color:#fff;
+	background:#3CB3E7;
+}
+#virtualclassCont .center-button-wrapper {
+	text-align:center;
+	padding:50px 0;
+}
+#virtualclassCont #recordingContainer {
+	min-height:80px;
+}
+#virtualclassCont .rv-vanilla-modal {
+	position:absolute;
+	top:-100%;
+	left:58%;
+	width: 27%;
+	min-height:auto;
+	background:#fff;
+	z-index:10;
+	-webkit-transition:.3s all ease-out;
+	transition:.3s all ease-out;
+	border-radius:4px;
+	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
+	box-shadow:0 0 6px 0 rgba(0,0,0,.3);
+	margin:-300px 0 0 -22.5%;
+	z-index: 1000000;
+}
+#virtualclassCont .rv-vanilla-modal-is-open {
+	top: 55%;
+}
+.rv-vanilla-modal {
+	position:absolute;
+	top:-100%;
+	left:58%;
+	width: 27%;
+	min-height:auto;
+	background:#fff;
+	z-index:10;
+	-webkit-transition:.3s all ease-out;
+	transition:.3s all ease-out;
+	border-radius:4px;
+	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
+	box-shadow:0 0 6px 0 rgba(0,0,0,.3);
+	margin:-300px 0 0 -22.5%;
+}
+.rv-vanilla-modal-is-open {
+	top: 55%;
+}
+.rv-vanilla-modal-overlay {
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	background:rgba(0,0,0,.5);
+	opacity:0;
+	display:none;
+	-webkit-transition:.4s opacity linear;
+	transition:.4s opacity linear;
+	z-index: 100000;
+}
+.rv-vanilla-modal-overlay.is-shown {
+	opacity:1;
+	display:block;
+	z-index : 10000;
+}
+/*.rv-vanilla-modal-header {
+    background:#d4d4d4;
+    border-radius:4px 4px 0 0;
+    padding:20px;
+}*/
+
+.rv-vanilla-modal-body {
+	overflow:auto;
+	color:#555;
+	padding: 23px 25px 10px;
+}
+.rv-vanilla-modal-body p {
+	line-height:150%;
+	margin:0 0 1em;
+}
+.rv-vanilla-modal-title {
+	/*    color:#000000;
+    font-size:18px;
+    font-weight:300;
+    margin:0;*/
+
+	color: #414C46;
+	font-size: 15px;
+	font-weight: 300;
+	margin: 0;
+	margin-top: 13px;
+	margin-left: 4%;
+	letter-spacing : 0.01em;
+}
+/*.rv-vanilla-modal-close {
+color:#1a9dd6;
+font-size:16px;
+float:right;
+display:inline-block;
+width:26px;
+height:26px;
+line-height:26px;
+text-align:center;
+border-radius:50%;
+border:0;
+cursor:pointer;
+background:rgba(255,255,255,.4);
+-webkit-transition:all .2s linear;
+transition:all .2s linear;
+}*/
+
+.rv-vanilla-modal-close .text {
+	position:relative;
+	top:-1px;
+}
+.rv-vanilla-modal-close:hover {
+	color:#1996cd;
+	background:rgba(255,255,255,.5);
+}
+.hidden {
+	display:none!important;
+	visibility:hidden;
+}
+.group:after, .group:before {
+	content:"";
+	display:table;
+}
+.group:after {
+	clear:both;
+}
+.centered {
+	text-align:center;
+}
+
+#virtualclassCont .rv-vanilla-modal-header {
+	border-radius:4px 4px 0 0;
+}
+#progress, #indProgress, #downloadProgress {
+	width:100%;
+	height:15px;
+	border:1px solid #000;
+	overflow:hidden;
+}
+.progressBar {
+	width:0;
+	height:15px;
+	border-right: 1px solid #000000;
+	background: #46D65D;
+}
+.progressValue {
+	color: #fff;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: normal;
+	left: 10px;
+	position: relative;
+	top: -25px;
+}
+#indProgressBar {
+	background: #b9db0c;
+}
+#waitMsg {
+	width : 300px;
+	margin-top: 32px;
+	margin-left: 22px;
+}
+.rv-vanilla-modal-body {
+	min-width: 400px;
+}
+
+/*Hasan css start*/
+
+
+#virtualclassCont #downloadProgress {
+	background-color: #f5f5f5;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+	height: 16px;
+	border:none;
+}
+#virtualclassCont .progressBar {
+	background-color: #93b42f;
+	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+	box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+	-webkit-transition: width .6s ease;
+	transition: width .6s ease;
+	height: 20px;
+	border:none;
+}
+#virtualclassCont #askplayMessage {
+	font-size: 14px;
+	text-align: left;
+	margin-top: 7px;
+	margin-bottom: 10px;
+	padding-left: 25px;
+	padding-right: 15px;
+}
+#virtualclassCont #downloadSessionText, #virtualclassCont #downloadPrgressLabel {
+	font-size: 13px;
+}
+#virtualclassCont #playButton {
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #eeeeee 0%, #dddddd 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0 ); /* IE6-9 */
+	padding: 9px 30px;
+	border-radius: 5px;
+	border: none;
+	margin-left: 150px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	border:#ddd 1px solid;
+}
+#virtualclassCont #playButton:hover {
+	background: #dddddd; /* Old browsers */
+	background: -moz-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #eeeeee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0 ); /* IE6-9 */
+	padding: 9px 30px;
+	border-radius: 5px;
+	border: none;
+	margin-left: 150px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	border:#ddd 1px solid;
+}
+/*Hasan css start student*/
+
+#virtualclassCont .rv-vanilla-modal {
+	min-height: auto;
+	width: auto;
+}
+
+#virtualclassCont .rv-vanilla-modal-body {
+	padding: 30px 25px 30px;
+}
+#virtualclassCont .rv-vanilla-modal-title {
+	font-size: 15px;
+}
+
+#virtualclassCont .rv-vanilla-modal-header {
+	height: 42px;
+}
+#virtualclassCont #recordingContainer .rv-vanilla-modal-body div {
+	border-radius: 4px;
+	font-size: 13px;
+	margin-bottom: 7px;
+}
+#virtualclassCont #progress, #virtualclassCont #indProgress, #virtualclassCont #downloadProgress {
+	height: 20px;
+	border:none;
+}
+#virtualclassCont #indProgress #indProgressValue {
+}
+#virtualclassCont #progress .progressValue {
+	top: -25px;
+}
+#virtualclassCont .rv-vanilla-modal-body {
+	padding: 18px 25px 18px;
+}
+#virtualclassCont #totProgressCont {
+	margin-bottom: 15px;
+}
+#virtualclassCont #totProgressCont {
+	margin-bottom: 20px !important;
+}
+#virtualclassCont #downloadProgressValue.progressValue {
+	top: -17px;
+}
+#virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body {
+	padding: 0px;
+	border-radius: 10px;
+}
+#virtualclassCont #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-size: 15px;
+	font-weight: 300;
+	height: 33px;
+	padding-left: 20px;
+	padding-top: 12px;
+}
+
+#virtualclassCont #downloadPrgressLabel {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#virtualclassCont #downloadProgress {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#virtualclassCont #downloadPcCont #downloadPrgressLabel {
+	padding: 15px 0px 9px 3px;
+}
+#virtualclassCont #downloadPcCont #downloadProgress {
+	width: 90%;
+	margin-bottom: 15px;
+}
+
+
+#virtualclassCont #recordingContainer .rv-vanilla-modal-title{
+	float : left;
+}
+
+#virtualclassCont #field2::-moz-placeholder { color:#00f; }
+
+#virtualclassCont #youtubeurl::-webkit-input-placeholder { opacity : 0.8}
+
+

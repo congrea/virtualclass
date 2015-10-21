@@ -23,16 +23,49 @@ function get_string($phrase){
 //$whiteboardpath = "https://loc.vidya.io/virtualclass/";
 $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
+if(isset($_GET['theme'])){
+    $theme = $_GET['theme'];
+} else {
+    $theme = 'white';
+}
+
+$pushtotalk = 'disable';
+if(isset($_GET['pt'])){
+    if($_GET['pt'] == 'enable' || $_GET['pt'] == 'disable'){
+        $pushtotalk = $_GET['pt'];
+    }
+}
+
+
 ?>
 
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/popup.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/jquery-ui.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
-
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/vceditor.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
+
+
+
+<?php
+$cssdebug = 0;
+
+if($cssdebug){
+?>
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/popup.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/vceditor.css" ?> />
+
+<?php
+
+} else {
+?>
+
+
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme.".min.css" ?> />
+<?php
+}
+?>
+
 
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 
@@ -49,10 +82,8 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
         margin : 0;
         padding : 0;
    }
-</style>
 
-
-
+ </style>
 
 
 <?php
@@ -80,6 +111,7 @@ if(isset($_GET['id'])){
 }
 
 
+
 if(isset($_GET['r'])){
     $r = $_GET['r'];
     if($r == 't' &&  !$isplay){
@@ -93,6 +125,7 @@ if(isset($_GET['r'])){
     $cont_class .= 'student';
 }
 
+ $cont_class  .=  ' pt_' . $pushtotalk;
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
 //echo $room;
@@ -199,22 +232,37 @@ if(isset($_GET['lname'])){
         <div id="player"></div>
     </div>-->
 
+<?php
+
+$audactive = 'deactive';
+if(isset($_GET['ad'])){
+    if($_GET['ad'] == 'active' || $_GET['ad'] == 'deactive'){
+        $audactive = $_GET['ad'];
+    }
+}
+?>
+
 <div id="audioWidget">
     <?php 
-    if($r == 's'){
+    if($audactive == 'deactive'){
         $dap = "false";
-        $classes = "audioTool deactive";
+        $classes = "audioTool";
         $speakermsg = "Enable Speaker";
         $speakerimg = $whiteboardpath . "images/speakerpressing.png";
         $audio_tooltip =  get_string('enableAudio');
     } else {
-        $classes = "audioTool active";
+        $classes = "audioTool";
         $speakermsg = "Disable Speaker";
         //$dap = "true"; //display audio 
         $dap = "true";
         $speakerimg = $whiteboardpath . "images/speakerpressingactive.png";
         $audio_tooltip =  get_string('disableAudio');
-    }?>
+
+    }
+
+    $classes .= ' ' .$audactive;
+
+    ?>
     
     <div id="mainAudioPanel">
         <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">
@@ -351,16 +399,22 @@ if(isset($_GET['lname'])){
           <div id="confirm" class="popupWindow simple-box">
           </div>
 
-          <!-- For Session End window -->
+           <!-- For Session End window -->
            <div id="sessionEndMsgCont" class="popupWindow">
-            <span id="sessionEndClose" class="icon-close"></span>
+           <span id="sessionEndClose" class="icon-close"></span>
 
            <span id="sessionEndMsg"> <?php echo get_string('sessionendmsg'); ?> </span>
-
-
            </div>
 
+            <!--For confirm window-->
+            <div id="waitMsgCont" class="popupWindow">
+                <span id="waitMsg"> <?php echo get_string('waitmsgconnect'); ?> </span>
+            </div>
+
         </div>
+
+         <!--For wait message window-->
+
     </div>
 </div>
 

@@ -62,6 +62,13 @@ $(document).ready(function () {
         var videoObj = null;
     }
 
+    virtualclass.popup = new PopUp({
+        showOverlay: true
+    });
+
+    virtualclass.popup.waitMsg();
+
+
     // If was in play mode before, start with fresh data
     if (!virtualclass.isPlayMode &&  localStorage.getItem('mySession') === 'thisismyplaymode') {
         console.log('DELETE PlayMode Data');
@@ -107,9 +114,11 @@ $(document).ready(function () {
 
     if (roles.isStudent()) {
         var audioEnable = localStorage.getItem('audEnable');
-        if (audioEnable !== null && audioEnable === 'false') {
-            virtualclass.user.control.audioWidgetDisable();
-            virtualclass.gObj.audioEnable = false;
+        if (audioEnable !== null) {
+            if(audioEnable.ac === 'false'){
+                virtualclass.user.control.audioWidgetDisable();
+                virtualclass.gObj.audioEnable = false;
+            }
         }
     }
 
@@ -124,9 +133,9 @@ $(document).ready(function () {
     virtualclass.vutil.attachClickOutSideCanvas();
 
     //TODO this should be at virtualclass.js
-    virtualclass.popup = new PopUp({
-        showOverlay: true
-    });
+    //virtualclass.popup = new PopUp({
+    //    showOverlay: true
+    //});
 
     //db transaction of indexeddb is not ready on page onload, 50 ms delay
     // OR find the alternative for this
@@ -207,7 +216,7 @@ $(document).ready(function () {
 
                 if(virtualclass.currApp === 'Yts') {
                     if (typeof virtualclass.yts.player == 'object') {
-                        ioAdapter.mustSend({
+                        ioAdapter.mustSendUser({
                             'yts': {
                                 'init': virtualclass.yts.videoId,
                                 startFrom: virtualclass.yts.player.getCurrentTime()
@@ -235,9 +244,9 @@ $(document).ready(function () {
                 sType = 'ss';
             } else if(virtualclass.currApp === 'Yts'){
                 if(typeof virtualclass.yts.player == 'object'){
-                    ioAdapter.mustSend({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
+                    ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
                 } else {
-                    ioAdapter.mustSend({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                    ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
                 }
             }
 
@@ -260,7 +269,12 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionclose", function (e) {
+        virtualclass.popup.waitMsg();
         virtualclass.chat.makeUserListEmpty();
+    });
+
+    $(document).on("connectionopen", function (e) {
+        virtualclass.popup.closePopup();
     });
 
     /**
@@ -370,7 +384,12 @@ $(document).ready(function () {
 
         //youtube share
         this.yts = function (e) {
-            virtualclass.yts.onmessage(e.message);
+            //nothing to do with self received packet
+            if(e.fromUser.userid != virtualclass.gObj.uid){
+                virtualclass.yts.onmessage(e.message);
+            }
+
+
         };
 
         //silence audio
@@ -392,21 +411,25 @@ $(document).ready(function () {
 
         //enable chat
         this.enc = function (e) {
-            if (e.message.toUser == virtualclass.gObj.uid) {
+            if(e.message.hasOwnProperty('ouser')){
+                virtualclass.user.control.enable(e.message.ouser, 'chat', 'Chat', 'chat');
+            } else {
                 virtualclass.user.control.allChatEnable();
                 virtualclass.gObj.chatEnable = true;
-            } else {
-                virtualclass.user.control.enable(e.message.toUser, 'chat', 'Chat', 'chat');
+                virtualclass.vutil.beforeSend({'enc': true, 'cf' : 'enc', ouser : e.message.toUser});
             }
+
         };
 
         //disable chat
         this.dic = function (e) {
-            if (e.message.toUser == virtualclass.gObj.uid) {
+            //if other user's control should be disabled
+            if(e.message.hasOwnProperty('ouser')){
+                virtualclass.user.control.disable(e.message.ouser, 'chat', 'Chat', 'chat');
+            } else {
                 virtualclass.user.control.allChatDisable();
                 virtualclass.gObj.chatEnable = false;
-            } else {
-                virtualclass.user.control.disable(e.message.toUser, 'chat', 'Chat', 'chat');
+                virtualclass.vutil.beforeSend({'dic': true, 'cf' : 'dic', ouser : e.message.toUser});
             }
         };
 
@@ -550,7 +573,11 @@ $(document).ready(function () {
                     // Teacher does not need this message
                     virtualclass.wb.utility.removeWhiteboardMessage();
                 }
-                virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
+
+                // We will not display the objects come from
+                if(e.fromUser.role == 'p' || e.fromUser.role == 't') {
+                    virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
+                }
             }
         };
 

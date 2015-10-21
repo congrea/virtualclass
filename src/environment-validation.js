@@ -213,7 +213,7 @@
             var errors = [];
             //webSocket to websocket
             var apis = ['canvas', 'webSocket', 'getusermedia', 'webaudio', 'indexeddb', 'localstorage', 'typedarray'];
-            if (user == 't') apis.push('webworker', 'screenshare');
+            if (user == 't'||  user == 'e') apis.push('webworker', 'screenshare');
             for (var i = 0; i < apis.length; i++) {
                 if (!this[apis[i]]) {
                     if (apis[i] == 'screenshare') {

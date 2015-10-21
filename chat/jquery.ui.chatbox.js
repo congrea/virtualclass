@@ -156,8 +156,9 @@
             })
             .appendTo(uiChatboxTitlebar),
             uiChatboxTitlebarCloseText = $("<span ></span>")
-            .addClass('ui-icon ' + 'ui-icon-closethick')
-            .text('close')
+            .addClass('ui-icon ' + 'icon-close')
+            .text('')
+            //.text('close')
             .appendTo(uiChatboxTitlebarClose),
             uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))
             .addClass('ui-corner-all ' + 'ui-chatbox-icon')
@@ -176,8 +177,8 @@
 
             .appendTo(uiChatboxTitlebar),
             uiChatboxTitlebarMinimizeText = $("<span></span>")
-            .addClass('ui-icon ' + 'ui-icon-minusthick')
-            .text('minimize')
+            .addClass('ui-icon ' + 'icon-minus')
+            .text('')
             .appendTo(uiChatboxTitlebarMinimize),
             // content
             uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
@@ -205,6 +206,8 @@
                     if(msg.length > 0) {
 
                         ioAdapter.mustSendUser({'msg':msg, 'cf' : 'msg'}, self.options.id); // userid=self.options.id
+
+                        $("li[aria-controls='tabcb" + self.options.id + "']").removeClass('ui-state-highlight');
 
                         $(this).val('');
                         $("#" + self.options.id).chatbox("option").messageSent(self.options.id, {name:io.cfg.userobj.name}, msg);// sent msg to self

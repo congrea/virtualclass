@@ -22,7 +22,8 @@
                 tempReplayObjs: [], //for store temp replayObjs
                 alreadyReplayFromStorage: false,
                 commandToolsWrapperId: 'commandToolsWrapper',
-                editorInitDone: 0
+                editorInitDone: 0,
+                resize : false
             },
 
             clearSession: function () {
@@ -429,6 +430,10 @@
                     }
 
                     this.previous = this.wbConfig.id;
+                    if(roles.hasControls() && virtualclass.gObj.resize){
+                        virtualclass.wb.utility.lockvirtualclass();
+                    }
+
                 },
                 
                 ScreenShare : function (app){

@@ -6,6 +6,7 @@
 	font-style: normal;
 }
 
+
 [id= "virtualclassCont"] [class^="icon-"], [class*=" icon-"] {
 	font-family: 'icomoon';
 	speak: none;
@@ -69,16 +70,7 @@
 	float : left;
 }
 
-#virtualclassCont #virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
-	background : #e9e9e9;
-	position : absolute;
-	top : 120px;
-	border : #e2e2e2 solid 3px;
-	border-left : 0;
-	border-bottom-right-radius : 10px;
-	border-top-right-radius : 10px;
-	z-index : 10;
-}
+
 
 #virtualclassCont #virtualclassOptionsCont .appOptions a img {
 	padding : 12px;
@@ -99,38 +91,15 @@
 }
 
 
-#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool:hover,  #virtualclassCont #virtualclassOptionsCont #virtualclassYtsTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool:hover, #virtualclassEditorCodeTool:hover, #virtualclassWhiteboardTool:hover {
-	background: #feffff; /* Old browsers */
-	background: -moz-linear-gradient(left, #feffff 0%, #ddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f0f0f0), color-stop(100%, #ccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #feffff 0%, #ccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #feffff 0%, #ccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #ffffff 0%, #cccccc 100%); /* IE10+ */
-	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
-}
-
-#virtualclassCont #audioTest-box:hover, #virtualclassCont #audioWidget #speakerPressOnce:hover, #virtualclassCont #alwaysPress:hover {
-	background: #feffff; /* Old browsers */
-	background: -moz-linear-gradient(left, #feffff 0%, #ddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f0f0f0), color-stop(100%, #ccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #feffff 0%, #ccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #feffff 0%, #ccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #ffffff 0%, #cccccc 100%); /* IE10+ */
-	background: linear-gradient(to right, #feffff 0%, #ccc 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#ccc', GradientType=1 ); /* IE6-9 */
-}
-
 
 
 #virtualclassCont #virtualclassOptionsCont .appOptions {
-	border : #a7a7a7 solid 1px;
 	border-left : none;
 	padding: 10px 5px;
 }
 
 #virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions {
-	border-top-right-radius : 5px;
+	border-top-right-radius : 8px;
 	margin-bottom: -1px;
 }
 
@@ -143,8 +112,7 @@
 }
 
 #virtualclassCont #virtualclassOptionsCont div:last-child {
-	border-bottom-right-radius : 5px;
-	border-bottom : 1px solid #a7a7a7 !important;
+	border-bottom-right-radius : 8px;
 }
 
 #virtualclassCont #virtualclassWhiteboardCont {
@@ -385,17 +353,6 @@
 	margin-bottom: 0px;
 }
 
-/*
-#virtualclassCont #chat_div .ui-memblist-usr:last-child {
-	margin-bottom: 5px;
-}
-*/
-
-/*
-#virtualclassCont #chat_div .ui-memblist-usr.teacher:last-child {
-	margin-top:0px;
-}
-*/
 
 #virtualclassCont div.ui-memblist-usr video, #virtualclassCont div.ui-memblist-usr .userVideos {
 	border : #eee solid 2px;
@@ -411,19 +368,6 @@
 	position:relative;
 	top:4px;
 }
-
-/*
-#virtualclassCont #chat_div .ui-memblist-usr a.tooltip span{
-	position: relative;
-    left: 7px;
-}
-*/
-/*
-#virtualclassCont #chat_div .ui-memblist-usr .controls .controleCont a.tooltip span{
-	position: inherit;
-	left: 0;
-}
-*/
 
 
 #virtualclassCont .msgBoxWebRtc p, #virtualclassCont .msgBoxCanvas p {
@@ -562,19 +506,7 @@
 	margin-left : 0;
 }
 
-#virtualclassCont #commandToolsWrapper, #virtualclassCont .rv-vanilla-modal-header, #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
-	background-color: #d4d4d4;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
-	background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
-	background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
-	background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
-	background-image: linear-gradient(#fbfbfb, #d4d4d4);
-	padding-bottom : 0;
-	border-bottom : 1px solid #aaa;
-	padding-left : 1%;
-	height : 46px;
-	box-shadow : 1px 1px 5px #aaa;
-}
+
 
 #virtualclassCont #commandToolsWrapper #t_assign.controlCmd a {
 	background-image : none;
@@ -655,11 +587,15 @@
 	display : block;
 }
 
-/*
-#virtualclassCont #usertab_text.tooltip.close{
-	line-height: 22px;
+#virtualclassCont #virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
+	position : absolute;
+	top : 120px;
+	border-left : 0;
+	border-bottom-right-radius : 10px;
+	border-top-right-radius : 10px;
+	z-index : 0;
 }
-*/
+
 
 
 #virtualclassCont .tooltip:hover {
@@ -1193,7 +1129,6 @@
 
 
 #virtualclassCont #audioWidget {
-	background : #e9e9e9;
 	position : absolute;
 	cursor : pointer;
 	float : right;
@@ -1206,11 +1141,14 @@
 }
 
 #virtualclassCont #audioWidget #speakerPressOnce {
-	border : #a4a4a4 solid 1px;
-	border-top-left-radius : 5px;
+	border-top-left-radius : 8px;
 	border-bottom : none;
 	width : 51px;
 	padding-left : 7px;
+}
+
+#virtualclassCont.pt_disable #audioWidget #speakerPressOnce {
+	padding : 9px 0 6px 7px;
 }
 
 #virtualclassCont #audioWidget.fixed {
@@ -1314,11 +1252,7 @@
 	margin-left: 1px;
 	margin-right: 5px;
 }
-/*
-#virtualclassCont .ui-memblist-usr a:first-child span{
-	left: 5px;
-}
-*/
+
 
 #virtualclassCont .ui-memblist-usr .controls .controleCont a.tooltip span{
 	left: 0px;
@@ -1468,7 +1402,6 @@
 	text-decoration : none;
 	outline-width : 0;
 	z-index : 990;
-	color : #333;
 	text-align : center;
 	line-height : 15px;
 	display : block;
@@ -1492,7 +1425,6 @@
 #virtualclassCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
 	padding-bottom : 0;
 	padding-top : 7px;
-	border : #a4a4a4 solid 1px;
 	border-bottom-left-radius : 5px;
 }
 
@@ -1502,19 +1434,6 @@
 	border-top : none !important;
 }
 
-#virtualclassCont #alwaysPress .audioTool.active, #virtualclassOptionsCont .appOptions.active, #virtualclassCont #virtualclassOptionsCont #virtualclassWhiteboardTool.active:hover #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover {
-	background: #9e9e9e; /* Old browsers */
-	background: -moz-linear-gradient(left, #9e9e9e 0%, #919191 100%)!important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%, #9e9e9e), color-stop(100%, #919191)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, #9e9e9e 0%, #919191 100%) !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, #9e9e9e 0%, #919191 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, #9e9e9e 0%, #919191 100%); /* IE10+ */
-	background: linear-gradient(to right, #9e9e9e 0%, #919191 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e9e9e', endColorstr='#919191', GradientType=1 ); /* IE6-9 */
-	border:#777 1px solid;
-	border-left-color: #848484;
-	border-right-color: #848484;
-}
 
 #virtualclassCont #alwaysPress .audioTool.active {
 	color:#fff;
@@ -1537,7 +1456,7 @@
 }
 
 #virtualclassCont #audioTest-box .audioTool {
-	border-bottom-left-radius : 5px;
+	border-bottom-left-radius : 8px;
 }
 
 #virtualclassCont #audioTest-box .audioTool {
@@ -1555,7 +1474,6 @@
 }
 
 #virtualclassCont #mainAudioPanel {
-	border : #e2e2e2 solid 3px;
 	border-top-left-radius : 8px;
 	border-bottom : none;
 }
@@ -1680,7 +1598,6 @@
 	border-radius : 8px;
 	text-align : center;
 	margin-bottom : 0;
-	border : #e2e2e2 solid 3px;
 	border-top-left-radius : 0;
 	border-top-right-radius : 0;
 	border-bottom-right-radius : 0;
@@ -1776,20 +1693,9 @@
 	text-decoration: none;
 	padding: 11px 18px 10px;
 	color:#535151;
-	border-right: #ccc 1px solid;
 	font-size: 25px;
 }
 
-#virtualclassCont #containerWb #commandToolsWrapper .tool a:hover {
-	background: #d4d4d4; /* Old browsers */
-	background: -moz-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d4d4d4), color-stop(100%, #fbfbfb)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #d4d4d4 0%, #fbfbfb 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #d4d4d4 0%, #fbfbfb 100%); /* W3C */
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d4d4', endColorstr='#fbfbfb', GradientType=0 ); /* IE6-9 */
-}
 
 #virtualclassCont #containerWb #commandToolsWrapper .tool a:before {
 	font-family : "icomoon";
@@ -1800,23 +1706,12 @@
 }
 
 #virtualclassCont #virtualclassOptionsCont .appOptions a span:before {
-	color:#535151;
 	font-weight: 100;
 	font-variant: normal;
 	-webkit-font-smoothing: antialiased;
 }
 
-#virtualclassCont #commandToolsWrapper .tool.active a, #virtualclassCont #commandToolsWrapper .tool.active a:hover {
-	background: #919191; /* Old browsers */
-	background: -moz-linear-gradient(top, #919191 0%, #919191 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #919191), color-stop(100%, #919191)) !important; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #919191 0%, #919191 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #919191 0%, #919191 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #919191 0%, #919191 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #919191 0%, #919191 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#919191', endColorstr='#919191', GradientType=0 ); /* IE6-9 */
-	text-shadow: 0 1px 14px #eee;
-}
+
 
 #virtualclassCont #virtualclassOptionsCont .appOptions.active a span:before {
 	color:#fff;
@@ -2003,7 +1898,6 @@
 #virtualclassCont .ui-widget-header .icon-user:before {
 	content : "\f007";
 	font-size : 24px;
-	color:#444;
 	position: relative;
 	bottom: -4px;
 }
@@ -2358,6 +2252,7 @@
 #virtualclassCont #alleditorRichContainerAnch{
 	color: #fff;
 	text-decoration: none;
+	white-space : nowrap;
 }
 
 #virtualclassCont #virtualclassEditorRichBody {
@@ -2388,12 +2283,6 @@
 #virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{
 	border-radius: 3px !important;
 }
-
-#virtualclassCont .vceditor-toolbar{
-	border: 1px solid #c9c9c9;
-	background-color: #f2f2f0;
-}
-
 #virtualclassCont #playController{
 	margin: 0 auto;
 	position: relative;
@@ -2471,7 +2360,7 @@
 	content : "\e609";
 	font-size: 20px;
 	position: relative;
-	top: 3px;
+	top: 4px;
 }
 
 #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:before{
@@ -2499,6 +2388,19 @@
 	content: "\e611";
 	font-size: 18px;
 	color:#444;
+}
+
+
+.icon-minus:before {
+    content: "\e60f";
+    color:#d5dee7;
+    font-size: 12px;
+}
+
+.icon-close:before {
+    content: "\f00d";
+    color:#d5dee7;
+    font-size: 15px;
 }
 
 
@@ -2676,34 +2578,7 @@
 
 }
 
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton,#virtualclassCont  #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont #popupContainer #replayContainer #replayButton, #downloadFileCont #downloadButton{
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #eeeeee 0%, #dddddd 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0 ); /* IE6-9 */
-	padding: 8px 25px;
-	border: none;
-	border-radius: 50px;
-	border: #ddd 1px solid;
-	margin-right: 10px;
 
-}
-
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont #confirmCancelButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #downloadFileCont #downloadButton:hover{
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #eeeeee)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #dddddd 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0 ); /* IE6-9 */
-
-}
 #virtualclassCont #virtualclassEditorCodeBody{
 	position: relative;
 }
@@ -2911,6 +2786,7 @@
 /* Chat box css */
 
 
+
 #virtualclassCont .ui-memblist-usr.mySelf.student[data-role="s"]{
 	background-color: #e8e8e8;
 	border-top:#8f8f8f 1px solid;
@@ -2988,6 +2864,7 @@
 
 #virtualclassCont.teacher #audioWidget{
 	right: 11px;
+	z-index: 0;
 }
 #virtualclassCont .ui-memblist-usr:last-child a img{
 	padding: 14px 21px;
@@ -3121,9 +2998,13 @@
 	margin-bottom: 16px;
 }
 
-
-
-/* Error massages */
+#virtualclassCont #commandToolsWrapper, #virtualclassCont .rv-vanilla-modal-header, #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{
+	padding-bottom : 0;
+	border-bottom : 1px solid #aaa;
+	padding-left : 1%;
+	height : 46px;
+	box-shadow : 1px 1px 5px #aaa;
+}
 
 #virtualclassCont #errorContainer,  #virtualclassCont #errorContainer{
 	background-color:#f0f0f0;
@@ -3132,8 +3013,18 @@
 	padding:20px;
 	border-radius:5px;
 	text-align:center;
-
 }
+
+#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton, #virtualclassCont #popupContainer #replayContainer #replayButton, #downloadFileCont #downloadButton{
+	padding: 8px 25px;
+	border: none;
+	border-radius: 50px;
+	border: #ddd 1px solid;
+	margin-right: 10px;
+}
+
+
+/* Error massages */
 
 #virtualclassCont #virtualclassYts iframe#player {
  	width : 90%;
@@ -3180,6 +3071,227 @@
 	}
 }
 
+
+
+
 #popupContainer {
 	display : none;
 }
+#waitMsgCont.popupWindow{
+	padding: 30px 20px;
+	
+}
+#waitMsgCont.popupWindow span{
+	margin-left: 0px;
+}
+
+.icon-minus:before {
+    content: "\e60f";
+    color:#333;
+    font-size: 12px;
+}
+
+.icon-close:before {
+    content: "\f00d";
+    color:#333;
+    font-size: 15px;
+}
+.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight .icon-minus:before, #virtualclassCont #chatWidget .mySelf span{
+	color:#333;
+}
+
+#virtualclassCont.playMode.student #virtualclassEditorCode, #virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
+	margin-top: 70px;
+}
+
+#virtualclassCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+	border : #a4a4a4 solid 1px;
+}
+
+#virtualclassCont #mainAudioPanel, #virtualclassCont #audioTest-box {
+	border : #e2e2e2 solid 3px;
+}
+#virtualclassCont #audioTest-box{
+	border-top:none;
+}
+
+#virtualclassCont #audioWidget #speakerPressOnce {
+	border : #a4a4a4 solid 1px;
+	border-top: none;
+	border-bottom: none;
+}
+
+#virtualclassCont #mainAudioPanel{
+	border-bottom: none;
+}
+
+
+
+/* black color */
+
+#virtualclassCont #popupContainer #replayContainer.popupWindow{
+	border-radius: 10px;
+}
+
+.icon-minus:before {
+    content: "\e60f";
+    color:#d5dee7;
+    font-size: 12px;
+}
+
+.icon-close:before {
+    content: "\f00d";
+    color:#d5dee7;
+    font-size: 15px;
+}
+.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight .icon-minus:before{
+	color:#333;
+}
+#virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-enable:before, #virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{
+	color:#fff;
+}
+
+#virtualclassCont.playMode.student #virtualclassEditorCode, #virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
+	margin-top: 70px;
+}
+
+#virtualclassCont #virtualclassOptionsCont, .tooltip, #virtualclassCont #t_reclaim .icon-educator:before, #virtualclassCont .ui-dialog-header span, #virtualclassCont #chatroom_bt2 .inner_bt, #virtualclassCont #speakerPressing .icon-speakerPressing:before, #virtualclassCont #virtualclassOptionsCont .appOptions a span:before, #virtualclassCont #virtualclassOptionsCont .appOptions a span:before{
+	color:#fff;
+}
+
+#virtualclassCont #virtualclassOptionsCont:first-child, #virtualclassOptionsCont{
+	background: #021317; /* Old browsers */
+	background: -moz-linear-gradient(left,  #021317 0%, #333636 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#021317), color-stop(100%,#333636)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #021317 0%,#333636 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #021317 0%,#333636 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #021317 0%,#333636 100%); /* IE10+ */
+	background: linear-gradient(to right,  #021317 0%,#333636 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#021317', endColorstr='#333636',GradientType=1 ); /* IE6-9 */
+}
+
+#virtualclassCont #audioWidget{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#333636+0,021317+100 */
+	background: #333636; /* Old browsers */
+	background: -moz-linear-gradient(left,  #333636 0%, #021317 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#333636), color-stop(100%,#021317)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #333636 0%,#021317 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #333636 0%,#021317 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #333636 0%,#021317 100%); /* IE10+ */
+	background: linear-gradient(to right,  #333636 0%,#021317 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333636', endColorstr='#021317',GradientType=1 ); /* IE6-9 */
+}
+
+#virtualclassCont #commandToolsWrapper, #virtualclassCont .rv-vanilla-modal-header, #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{
+	background: #333636; /* Old browsers */
+	background: -moz-linear-gradient(top,  #333636 0%, #021317 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333636), color-stop(100%,#021317)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #333636 0%,#021317 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #333636 0%,#021317 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #333636 0%,#021317 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #333636 0%,#021317 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333636', endColorstr='#021317',GradientType=0 ); /* IE6-9 */
+}
+
+#virtualclassCont #commandToolsWrapper .tool.active a, #virtualclassCont #commandToolsWrapper .tool.active a:hover{
+	background: #515e69; /* Old browsers */
+	background: -moz-linear-gradient(top,  #515e69 0%, #34404c 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#515e69), color-stop(100%,#34404c)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #515e69 0%,#34404c 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #515e69 0%,#34404c 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #515e69 0%,#34404c 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #515e69 0%,#34404c 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#515e69', endColorstr='#34404c',GradientType=0 ); /* IE6-9 */
+}
+
+#virtualclassCont #containerWb #commandToolsWrapper .tool a{
+	border-right: 1px solid #555;
+	color:#fff;
+}
+
+#virtualclassCont #mainAudioPanel{
+	border-bottom: none !important;
+}
+
+#virtualclassCont .ui-dialog-header.ui-state-highlight span:first-child, #virtualclassCont #chat_div .ui-memblist-usr span{
+	color:#333;
+}
+
+#virtualclassCont .vmchat_room_bt {
+	border-right: 1px solid #444;
+}
+
+#virtualclassCont #virtualclassOptionsCont .appOptions{
+	border: 1px solid #555;
+}
+
+#virtualclassCont #alwaysPress .audioTool.active, #virtualclassOptionsCont .appOptions.active, #virtualclassCont #virtualclassOptionsCont #virtualclassWhiteboardTool.active:hover #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover, #audioTest-box .audioTool.audioIsTesting{
+	background: #01080a; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #000304 0%, #01080a 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#000304), color-stop(100%,#01080a)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #000304 0%,#01080a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #000304 0%,#01080a 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #000304 0%,#01080a 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #000304 0%,#01080a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000304', endColorstr='#01080a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+#virtualclassCont #containerWb #commandToolsWrapper .tool.active a{
+	background: #01080a; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #000304 0%, #01080a 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#000304), color-stop(100%,#01080a)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #000304 0%,#01080a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #000304 0%,#01080a 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #000304 0%,#01080a 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #000304 0%,#01080a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000304', endColorstr='#01080a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    color: #fff;
+    text-shadow: #fff 0px 0px 11px;
+}
+
+#virtualclassCont #virtualclassOptionsCont #virtualclassScreenShareTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassSessionEndTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassYtsTool:hover, #virtualclassCont #virtualclassOptionsCont #virtualclassEditorRichTool:hover, #virtualclassEditorCodeTool:hover, #virtualclassWhiteboardTool:hover, #virtualclassCont #containerWb #commandToolsWrapper .tool a:hover, #virtualclassCont #audioTest-box:hover, #virtualclassCont #audioWidget #speakerPressOnce:hover, #virtualclassCont #alwaysPress:hover{
+	background: #212121; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #0a0c0d 0%, #212121 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#0a0c0d), color-stop(100%,#212121)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #0a0c0d 0%,#212121 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #0a0c0d 0%,#212121 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #0a0c0d 0%,#212121 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #0a0c0d 0%,#212121 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a0c0d', endColorstr='#212121',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+#virtualclassCont #virtualclassOptionsCont .appOptions a:hover span:before, #virtualclassCont #virtualclassOptionsCont .appOptions.active a span:before, #virtualclassCont #containerWb #commandToolsWrapper .tool a:hover, #virtualclassCont #audioTest-box:hover, #virtualclassCont #audioWidget #speakerPressOnce:hover, #virtualclassCont #alwaysPress:hover, #virtualclassCont #alwaysPress .audioTool:hover, #virtualclassCont #audioTest-box .audioTool a:hover, #virtualclassCont #recordPlay .rv-vanilla-modal-body #askPlay #playButton:before, #virtualclassCont #replayContainer #replayButton.icon-repeat:before{
+    color: #fff !important;
+}
+#virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:before{
+	top: 5px;
+}
+
+#virtualclassCont #alwaysPress .audioTool.active, #virtualclassCont #audioWidget #speakerPressOnce, #virtualclassCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
+	color:#d3dce5;
+	border: #555 solid 1px;
+}
+
+#virtualclassCont .ui-widget-header .icon-user:before, #virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before,{
+	color:#d5dee7;
+}
+
+#virtualclassCont #alwaysPress .audioTool.active{
+	border-top:none !important;
+}
+
+#virtualclassCont.pt_disable #alwaysPress{
+	display : none;
+}
+
+#virtualclassCont.pt_enable #alwaysPress{
+	display : block;
+}
+
+:focus {
+    outline: none;
+}
+
+
+
+

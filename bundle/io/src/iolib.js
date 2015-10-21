@@ -95,8 +95,13 @@ var io = {
                     message: e.reason
                 });
                 console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
+
                 setTimeout(function () {
-                    scope.wsconnect()
+                    // For prevent to send any packet to other during save session
+                    if(!virtualclass.gObj.hasOwnProperty('saveSession')){
+                        scope.wsconnect();
+                    }
+
                 }, 5000);
             };
         },

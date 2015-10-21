@@ -30,6 +30,7 @@
                 this.UI.privateChatBox.init();
                 // new message alert
                 $('ul.tabs').on("click, focus", "li", function(){
+
                     $("li[aria-controls='" + $(this).attr('id') + "']").removeClass('ui-state-highlight');
                 });
             }, 
@@ -53,6 +54,7 @@
                 //Data stored inside sessionStorage variable
                 if(localStorage.length > 0){
                     displaycomChatHistory();
+                    virtualclass.chat.removeChatHighLight('chatrm');
                     //if(typeof chatEnable != null && chatEnable == "false"){
                     if(chatEnable != null && chatEnable == "false"){
                         virtualclass.user.control.disableCommonChat();
@@ -64,7 +66,7 @@
                 privateChatBox : {
                     init : function (){
                         var that = this;
-                        $('#tabs').delegate( "span.ui-icon-close", "click", that.close);
+                        $('#tabs').delegate( "span.icon-close", "click", that.close);
                         $("#tabs").on("click", "li a", that.toggle);
                         
                     }, 
@@ -131,6 +133,16 @@
                 $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>"+lang.whos + " (0) </span> <span id='usertab_toogle_icon' class='icon-arrow-up'></span>");
                 $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (0)");
                 $('div#memlist').css('display','none');
+            },
+
+            removeChatHighLight : function (id){
+                var chatCont = document.getElementById(id);
+                if(chatCont != null){
+                    var hElements = chatCont.getElementsByClassName("ui-state-highlight");
+                    for(var i=0; i<hElements.length; i++){
+                        hElements[i].classList.remove('ui-state-highlight');
+                    }
+                }
             }
         }
     };

@@ -54,6 +54,7 @@ var ioMissingPackets = {
         }
     },
 
+
     /**
      * 1) Check if packet is missed and request for missing packets
      * 2) If a request is already in queue, do not send more requests.
@@ -63,6 +64,22 @@ var ioMissingPackets = {
         "use strict";
         var uid = msg.user.userid;
         this.validateAllVariables(uid);
+
+        if(msg.m.hasOwnProperty('ping') && msg.m.hasOwnProperty('session')){
+            var mySession = localStorage.getItem('mySession');
+            if(mySession != null && msg.m.session != mySession){
+                // TODO Finish Session and start gracefully
+                if (!virtualclass.isPlayMode) {
+                    localStorage.removeItem('mySession');
+                    virtualclass.storage.config.endSession();
+                    localStorage.setItem('mySession', msg.m.session);
+                    console.log('REFRESH SESSION');
+                } else {
+                    localStorage.setItem('mySession', 'thisismyplaymode');
+                }
+                return;
+            }
+        }
 
         if (msg.m.missedpackets == 1) {
             this.fillExecutedStore(msg);

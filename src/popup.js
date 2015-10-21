@@ -148,6 +148,9 @@ var PopUp = (function (window, undefined) {
             if (mainPopCont != null) {
                 virtualclass.popup.close(mainPopCont);
             }
+
+            var sessionEndCont = document.getElementById('sessionEndMsgCont');
+            sessionEndCont.dataset.displaying = 'false';
         }
     },
 
@@ -245,6 +248,7 @@ var PopUp = (function (window, undefined) {
         this.hideAllPopups();
         var sessionEndMsg = document.getElementById("sessionEndMsgCont");
         sessionEndMsg.style.display = 'block';
+        sessionEndMsg.dataset.displaying = true;
 
         var sessionEndClose = document.getElementById("sessionEndClose");
         sessionEndClose.addEventListener('click',
@@ -366,12 +370,34 @@ var PopUp = (function (window, undefined) {
         return true;
     }
 
+    PopUp.prototype.waitMsg = function (){
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+
+        this.hideAllPopups();
+        document.getElementById('waitMsgCont').style.display = 'block';
+
+        //virtualclass.popup.waitBlockAction('none');
+        //virtualclass.popup.replayWindowAction('none');
+    };
+
     PopUp.prototype.hideAllPopups = function () {
         var allPopuContainer = document.getElementsByClassName('popupWindow');
         for (var i = 0; i < allPopuContainer.length; i++) {
             allPopuContainer[i].style.display = 'none';
         }
     }
+
+    PopUp.prototype.closePopup = function () {
+        virtualclass.popup.closeElem();
+        var sessionEndCont = document.getElementById('sessionEndMsgCont');
+        if(sessionEndCont.dataset.displaying == 'true'){
+            this.sesseionEndWindow();
+        }
+        //virtualclass.popup.closeElem();
+    }
+
+
 
     /**
      * @private: short version of querySelectorAll

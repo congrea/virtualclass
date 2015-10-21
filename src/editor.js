@@ -262,7 +262,9 @@
                     console.log('received whole data');
 
                     if (roles.hasView()) {
-                        virtualclass[e.message.et].vcAdapter.removeOperations(e);
+                        if(typeof virtualclass[e.message.et].vcAdapter.removeOperations == 'function'){
+                            virtualclass[e.message.et].vcAdapter.removeOperations(e);
+                        }
                     }
 
                     if ((!roles.hasControls()) ||

@@ -1024,17 +1024,22 @@
 
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
 
-                var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
-                currObj.ac = 'u';
-                if (currObj.hasOwnProperty('mtext')) {
-                    var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
-                } else {
-                    var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
-                }
+                if(typeof virtualclass.wb == 'object'){
+                    // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
+                    if((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move'){
+                        var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+                        currObj.ac = 'u';
+                        if (currObj.hasOwnProperty('mtext')) {
+                            var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
+                        } else {
+                            var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
+                        }
 
-                eventObj.detail.broadCast = true;
-                var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
-                vcan.main.canvas.dispatchEvent(eventConstruct);
+                        eventObj.detail.broadCast = true;
+                        var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
+                        vcan.main.canvas.dispatchEvent(eventConstruct);
+                    }
+                }
 
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
                 //virtualclass.user.control._assign(id, 'notsent', formUserId);

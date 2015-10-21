@@ -2520,7 +2520,7 @@
 	border-radius: 5px;
 
 }
-#virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
+#virtualclassCont #youtubeUrlContainer #submitURL:hover{
 	background-color: #68a697;
 	background-image: none;
 }

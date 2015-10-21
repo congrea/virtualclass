@@ -59,8 +59,6 @@ if($cssdebug){
 
 } else {
 ?>
-
-
     <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme.".min.css" ?> />
 <?php
 }

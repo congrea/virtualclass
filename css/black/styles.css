@@ -2521,15 +2521,22 @@
 	border-radius: 5px;
 
 }
-#virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
+#virtualclassCont #youtubeUrlContainer #submitURL:hover{
 	background-color: #68a697;
 	background-image: none;
 
 }
 
+#virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover{
+	background-image: none;
+	opacity : 0.9;
+}
+
+
 #virtualclassCont #alleditorRichContainer a, #virtualclassCont #alleditorCodeContainer a{
 	color:#fff;
 	text-decoration: none;
+	white-space : nowrap;
 }
 
 

@@ -2521,8 +2521,8 @@
 
 }
 #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover, #virtualclassCont #youtubeUrlContainer #submitURL:hover{
-	background-color: #68a697;
 	background-image: none;
+	opacity : 0.9;
 
 }
 

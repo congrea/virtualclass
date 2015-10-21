@@ -100,12 +100,16 @@
                  *  calls function to attach functions on audio tools.
                  */
                 init: function () {
-                    if (roles.hasAdmin()) {
-                        virtualclass.gObj.audMouseDown = true;
-                        //can be critical
-                        //this.clickOnceSpeaker('speakerPressOnce');
-                    }
-                    //This part in not being used  
+                    //if (roles.hasAdmin()) {
+                    //    virtualclass.gObj.audMouseDown = true;
+                    //    //can be critical
+                    //    //this.clickOnceSpeaker('speakerPressOnce');
+                    //}
+
+                    var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
+                    virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
+
+                    //This part in not being used
                     this.graph = {
                         height: 56,
                         width: 4,

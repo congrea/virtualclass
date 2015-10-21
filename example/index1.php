@@ -36,14 +36,6 @@ if(isset($_GET['pt'])){
     }
 }
 
-$audactive = 'deactive';
-if(isset($_GET['ad'])){
-    if($_GET['ad'] == 'active' || $_GET['ad'] == 'deactive'){
-        $audactive = $_GET['ad'];
-    }
-}
-
-
 
 ?>
 
@@ -240,9 +232,19 @@ if(isset($_GET['lname'])){
         <div id="player"></div>
     </div>-->
 
+<?php
+
+$audactive = 'deactive';
+if(isset($_GET['ad'])){
+    if($_GET['ad'] == 'active' || $_GET['ad'] == 'deactive'){
+        $audactive = $_GET['ad'];
+    }
+}
+?>
+
 <div id="audioWidget">
     <?php 
-    if($r == 's'){
+    if($audactive == 'deactive'){
         $dap = "false";
         $classes = "audioTool";
         $speakermsg = "Enable Speaker";

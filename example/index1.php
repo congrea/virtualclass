@@ -49,11 +49,10 @@ $cssdebug = 0;
 
 if($cssdebug){
 ?>
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/styles.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/popup.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/jquery.ui.chatbox.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/vceditor.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/styles.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/popup.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/jquery.ui.chatbox.css" ?> />
+    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/vceditor.css" ?> />
 
 <?php
 

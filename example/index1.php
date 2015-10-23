@@ -47,21 +47,18 @@ if(isset($_GET['pt'])){
 <?php
 $cssdebug = 0;
 
+//define the script root
+define( 'SCRIPT_ROOT', $whiteboardpath);
 if($cssdebug){
-?>
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/styles.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/popup.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/jquery.ui.chatbox.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."/css/".$theme."/vceditor.css" ?> />
-
-<?php
-
+    echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/styles.css">';
+    echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/popup.css">';
+    echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/jquery.ui.chatbox.css">';
+    echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/vceditor.css">';
 } else {
-?>
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/".$theme.".min.css" ?> />
-<?php
+	 echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'.min.css">';
 }
 ?>
+
 
 
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">

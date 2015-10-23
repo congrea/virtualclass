@@ -150,14 +150,14 @@
     outline: 0;/* moodle override*/
 }
 #virtualclassCont #hide_bar input.close{
-    background:url('../images/close.png') top no-repeat;
+    background:url('/virtualclass/images/close.png') top no-repeat;
     opacity: 1;
     margin-top: 2px;
 }
 
 #virtualclassCont #hide_bar input.expand{
     margin-top: 5px;
-    background:url('../images/open.png') top no-repeat;
+    background:url('/virtualclass/images/open.png') top no-repeat;
 }
 #virtualclassCont .vmchat_close_bt{
     color: #333;
@@ -205,7 +205,7 @@
 }
 
 #virtualclassCont #usertab_icon {
-    background: url('../images/offline.png') no-repeat top left;
+    background: url('/virtualclass/images/offline.png') no-repeat top left;
     float: left;
     height: 16px;
     margin: 6px 2px 0px 0px;

@@ -328,9 +328,23 @@
                         var that = this;
                         // YouTube player is not ready for when the page is being load
                         // this should should not worked when the user click on youtube share button
-                        window.onYouTubeIframeAPIReady = function () {
+
+                        //window.onYouTubeIframeAPIReady = function () {
+                        //    that.player = new YT.Player('player', videoObj);
+                        //};
+
+                        if(yts.hasOwnProperty('ytApiReady')){
                             that.player = new YT.Player('player', videoObj);
-                        };
+                            //window.onYouTubeIframeAPIReady = function () {
+                            //    that.player = new YT.Player('player', videoObj);
+                            //};
+                        } else {
+                            console.log('onYouTubeIframeAPIReady is not ready ');
+                            setTimeout(function (){
+                                that.onYTIframApi(videoId, playStratFrom, fromReload);
+                            }, 300);
+                            return;
+                        }
                     } else {
                         this.player = new YT.Player('player', videoObj);
                     }
@@ -450,5 +464,11 @@
             }
         }
     };
+
+    window.onYouTubeIframeAPIReady = function () {
+        yts.ytApiReady = true;
+        console.log('onYouTubeIframeAPIReady is ready now');
+    };
+
     window.yts = yts;
 })(window, document);

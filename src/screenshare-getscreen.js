@@ -37,11 +37,15 @@ window.addEventListener('message', function (event) {
 
             virtualclass.adpt = new virtualclass.adapter();
             navigator2 = virtualclass.adpt.init(navigator);
-
             navigator2.getUserMedia(constraints, function (stream) {
-                virtualclass.ss._init();
-                virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+                if(roles.hasControls()){
+                    virtualclass.ss._init();
+                    virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+                }
+
             }, function (e) {
+
+                
                 virtualclass.ss.onError.call(virtualclass.ss, e);
             });
             //the stream we can get here with initalizeRecorder()

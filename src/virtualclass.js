@@ -300,10 +300,13 @@
                 var appElement = document.getElementById(appId);
                 if (appElement != null) {
                     appElement.style.display = 'block';
+                    console.log('App ' + appId + ' block');
                 }
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
+                console.log('Application is ready' + app);
+
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 

@@ -99,76 +99,81 @@
             appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
 
             var appCont = document.getElementById(appId);
-            var rightOffSet = 5;
+            if(appCont != null){
+                var rightOffSet = 5;
 
-            var extraWidth = 0;
-            var leftSideBarWidth;
+                var extraWidth = 0;
+                var leftSideBarWidth;
 
 
-            if (app == 'Whiteboard') {
-                leftSideBarWidth = 0;
-            } else {
-                var leftSideBar = document.getElementById("virtualclassOptionsCont");
-                if (leftSideBar != null) {
-                    var offset = vcan.utility.getElementOffset(leftSideBar);
-                    leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
-                } else {
+                if (app == 'Whiteboard') {
                     leftSideBarWidth = 0;
-                }
-
-
-                if (app == 'Yts') {
-                    if(roles.hasControls()){
-                        rightOffSet = 60; //youtube wrapper does not have inner div, TODO should be handle by css
+                } else {
+                    var leftSideBar = document.getElementById("virtualclassOptionsCont");
+                    if (leftSideBar != null) {
+                        var offset = vcan.utility.getElementOffset(leftSideBar);
+                        leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
                     } else {
-                        rightOffSet = 15;
+                        leftSideBarWidth = 0;
                     }
 
-                } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
-                    if (leftSideBarWidth > 0) {
-                        rightOffSet = 12;
-                    } else {
-                        if (roles.hasControls()) {
-                            leftSideBarWidth = 70;
+
+                    if (app == 'Yts') {
+                        if(roles.hasControls()){
+                            rightOffSet = 60; //youtube wrapper does not have inner div, TODO should be handle by css
                         } else {
-                            leftSideBarWidth = 5;
+                            rightOffSet = 15;
                         }
 
+                    } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
+                        if (leftSideBarWidth > 0) {
+                            rightOffSet = 12;
+                        } else {
+                            if (roles.hasControls()) {
+                                leftSideBarWidth = 70;
+                            } else {
+                                leftSideBarWidth = 5;
+                            }
+
+                        }
+                    } else if (app == 'ScreenShare') {
+                        rightOffSet = 70;
+                    } else {
+                        rightOffSet = 65;
                     }
-                } else if (app == 'ScreenShare') {
-                    rightOffSet = 70;
-                } else {
-                    rightOffSet = 65;
                 }
+
+
+                var reduceHeight = 70;
+                if(virtualclass.isPlayMode){
+                    reduceHeight +=  75;
+                }
+
+                var containerHeight = document.getElementById('commandToolsWrapper');
+                if (containerHeight != null) {
+                    reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
+                } else if((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard' ){
+                    // when page is refresh the toolbar/reclaim bar is not available so
+                    reduceHeight = reduceHeight + 46  + 3;
+                }
+
+
+                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
+                appCont.style.width = res.width + 'px';
+                appCont.style.height = (res.height - reduceHeight) + 'px';
+
+                if (appId == 'virtualclassScreenShare') {
+                    //if(appId != 'virtualclassWhiteboard'){
+                    var ssType = document.getElementById(appId + 'Local');
+                    res.width = res.width - 10;
+                    appCont.style.width = res.width;
+                    ssType.style.width = res.width + "px";
+                    virtualclass.vutil.setScreenInnerTagsWidth(appId);
+                }
+            }else {
+                console.log(appCont + ' is not found ');
             }
 
-            
-            var reduceHeight = 70;
-            if(virtualclass.isPlayMode){
-                reduceHeight +=  75;
-            }
-
-            var containerHeight = document.getElementById('commandToolsWrapper');
-            if (containerHeight != null) {
-                reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
-            } else if((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard' ){
-                // when page is refresh the toolbar/reclaim bar is not available so
-                reduceHeight = reduceHeight + 46  + 3;
-            }
-
-
-            res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
-            appCont.style.width = res.width + 'px';
-            appCont.style.height = (res.height - reduceHeight) + 'px';
-
-            if (appId == 'virtualclassScreenShare') {
-                //if(appId != 'virtualclassWhiteboard'){
-                var ssType = document.getElementById(appId + 'Local');
-                res.width = res.width - 10;
-                appCont.style.width = res.width;
-                ssType.style.width = res.width + "px";
-                virtualclass.vutil.setScreenInnerTagsWidth(appId);
-            }
         },
 
         setScreenInnerTagsWidth: function (currAppId) {

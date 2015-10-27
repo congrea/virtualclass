@@ -278,13 +278,21 @@
                                 if (editorCode != null) {
                                     editorCode.style.display = 'none';
                                 }
+                            }else{
+                                console.log('EditorRich can not be display:none ' + appId);
                             }
+
                             if (appId.toUpperCase() == "EDITORCODE") {
                                 var editor = document.getElementById("virtualclassEditorRich");
                                 if (editor != null) {
                                     editor.style.display = 'none';
                                 }
+                            } else {
+                                console.log('EditorCode can not be display:none ' + appId);
                             }
+
+                        } else{
+                            console.log('appId ' + appId + ' undefined');
                         }
                     } else {
                         //tricky case  when previous and current are same hide other appilcations but current
@@ -301,6 +309,7 @@
                 if (appElement != null) {
                     appElement.style.display = 'block';
                     console.log('App ' + appId + ' block');
+
                 }
             },
 

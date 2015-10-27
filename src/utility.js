@@ -605,7 +605,9 @@
             var prvScreen = document.getElementById(virtualclass.previous);
             if (prvScreen != null) {
                 prvScreen.style.display = 'none';
+                console.log('Hide previous screen with display new '  + app);
                 document.getElementById(virtualclass[app].id).style.display = 'block';
+
             }
         },
 

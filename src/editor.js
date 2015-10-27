@@ -588,6 +588,19 @@
                 if (currApp == 'EditorRich' || currApp == 'EditorCode') {
                     virtualclass.previous = 'virtualclass' + virtualclass.currApp;
                     virtualclass.system.setAppDimension(virtualclass.currApp);
+                } else {
+                    // if current app is not editor and, there is displaying editor in browser
+                    // disable that editor
+                    var ediotrRich = document.getElementById('virtualclassEditorRich');
+                    if(ediotrRich != null){
+                        ediotrRich.style.display = 'none';
+                    }
+
+                    var ediotrCode = document.getElementById('virtualclassEditorCode');
+                    if(ediotrCode != null){
+                        ediotrCode.style.display = 'none';
+                    }
+
                 }
 
                 var editorTool = document.getElementById("virtualclassEditorTool");

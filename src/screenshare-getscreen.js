@@ -16,7 +16,10 @@ window.addEventListener('message', function (event) {
         if (event.data.sourceId === '') { // user canceled
             var error = new Error('NavigatorUserMediaError');
             error.name = 'PERMISSION_DENIED';
-            virtualclass.ss.onError(error);
+            if(virtualclass.hasOwnProperty('ss')){
+                virtualclass.ss.onError(error);
+            }
+
         } else {
             constraints = constraints || {
                     audio: false, video: {
@@ -38,8 +41,8 @@ window.addEventListener('message', function (event) {
             virtualclass.adpt = new virtualclass.adapter();
             navigator2 = virtualclass.adpt.init(navigator);
             navigator2.getUserMedia(constraints, function (stream) {
+                virtualclass.ss._init();
                 if(roles.hasControls()){
-                    virtualclass.ss._init();
                     virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
                 }
 

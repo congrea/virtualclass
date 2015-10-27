@@ -93,7 +93,7 @@
                     }
                     virtualclass.makeAppReady(stool);
                 } else {
-
+                    virtualclass.currApp = stool;
                     virtualclass.vutil.hidePrevIcon(app);
 
 //                     var prvScreen = document.getElementById(virtualclass.previous);
@@ -157,9 +157,9 @@
                 virtualclass.adpt = new virtualclass.adapter();
                 var navigator2 = virtualclass.adpt.init(navigator);
                 navigator2.getUserMedia(constraints, function (stream, err) {
+                        virtualclass.ss._init();
                         if(roles.hasControls()){
                             //callback(err, stream);
-                            virtualclass.ss._init();
                             virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
 
                             // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810

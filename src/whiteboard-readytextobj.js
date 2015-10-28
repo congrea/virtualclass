@@ -129,9 +129,6 @@
                 }
 
                 divNode.appendChild(textNode);
-                if(!roles.hasControls()){
-                    textNode.style.display = 'none';
-                }
 
                 document.getElementById(this.boxContainer).appendChild(divNode);
 
@@ -139,6 +136,13 @@
                 this.currTextObjWrapper = obj;
                 this.prevTextObj.measure = obj;
                 virtualclass.wb.utility.toolWrapperDisable(true);
+
+                if(!roles.hasControls()){
+                    textNode.style.display = 'none';
+                    if(roles.hasAdmin()){
+                        virtualclass.wb.utility.toolWrapperEnable(true);
+                    }
+                }
             },
             /**
              * The function renders the text after typed by user into textarea
@@ -258,7 +262,7 @@
                 //this.keyTyped = [];.
                 prvNode.parentNode.removeChild(txtWrapper);
                 vcan.renderAll();
-				
+
                 virtualclass.wb.utility.toolWrapperEnable(true);
             },
 

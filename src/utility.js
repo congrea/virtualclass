@@ -306,7 +306,14 @@
                 var elem = document.getElementById(id);
                 if (elem != null) {
                     elem.onclick = function () {
-                        virtualclass.vutil.clickOutSideCanvas();
+                        if(roles.hasControls()){
+                            virtualclass.vutil.clickOutSideCanvas();
+                        }
+                        //else {
+                        //    if(roles.hasAdmin()){
+                        //        virtualclass.wb.utility.toolWrapperEnable(true);
+                        //    }
+                        //}
                     };
                 }
             }
@@ -921,7 +928,8 @@
 
             /**
              * After assign the teacher Role, we need disconnect and reconnect
-             * for pass the the reflected role to all other uses.
+             * for pass the the reflected role to all other uses, because of problem
+             * https://github.com/vidyamantra/virtualclass/issues/150
              *
              */
 
@@ -1030,10 +1038,11 @@
             if (formUserId != id) {
 
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
-
                 if(typeof virtualclass.wb == 'object'){
                     // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
-                    if((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move'){
+                    if(((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move'))
+
+                    {
                         var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
                         currObj.ac = 'u';
                         if (currObj.hasOwnProperty('mtext')) {
@@ -1045,6 +1054,8 @@
                         eventObj.detail.broadCast = true;
                         var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
                         vcan.main.canvas.dispatchEvent(eventConstruct);
+                    } else if(virtualclass.wb.tool.cmd == 't_text'){
+                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny();
                     }
                 }
 

@@ -143,6 +143,8 @@
                         virtualclass.wb.utility.toolWrapperEnable(true);
                     }
                 }
+
+                console.log('Text Command:- Create text wrapper box');
             },
             /**
              * The function renders the text after typed by user into textarea
@@ -266,14 +268,16 @@
                 virtualclass.wb.utility.toolWrapperEnable(true);
             },
 
-            finalizeTextIfAny : function (){
+            finalizeTextIfAny : function (midReclaim){
                 var canvasWrapper = document.getElementById('canvasWrapper');
                 if(canvasWrapper != null){
                     var textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
                     if(textBox != null){
                         textBox = textBox[0];
-                        virtualclass.wb.obj.drawTextObj.textUtility();
-                    }
+                        if(typeof midReclaim == 'undefined' || (typeof midReclaim != 'undefined') && virtualclass.wb.obj.drawTextObj.textWriteMode % 2 != 0 ){
+                            virtualclass.wb.obj.drawTextObj.textUtility();
+                        }
+                     }
                 }
             }
         }

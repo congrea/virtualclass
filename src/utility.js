@@ -933,13 +933,14 @@
              *
              */
 
-                io.disconnect();
-                setTimeout(
-                    function (){
-                        virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
-                        io.init(virtualclass.uInfo);
-                    }, 500
-                );
+           
+            io.disconnect();
+            setTimeout(
+                function (){
+                    virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
+                    io.init(virtualclass.uInfo);
+                }, 500
+            );
 
             //}
 
@@ -1040,9 +1041,17 @@
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
                 if(typeof virtualclass.wb == 'object'){
                     // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
-                    if(((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move'))
 
-                    {
+                    var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+
+                    if(typeof currObj == 'object' && currObj.ac == 'del'){
+                        console.log("Delete command:- Transferring the delete command");
+                        virtualclass.vutil.beforeSend({'repObj': [currObj], 'cf': 'repObj'});
+                    } else if(virtualclass.wb.tool.cmd == 't_text'){
+                        var midReclaim = true;
+                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny(midReclaim);
+                        console.log("Text command:- Transferring text command");
+                    } else if (((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move')){
                         var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
                         currObj.ac = 'u';
                         if (currObj.hasOwnProperty('mtext')) {
@@ -1054,9 +1063,10 @@
                         eventObj.detail.broadCast = true;
                         var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
                         vcan.main.canvas.dispatchEvent(eventConstruct);
-                    } else if(virtualclass.wb.tool.cmd == 't_text'){
-                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny();
+                        console.log('Whiteboard:- Transfering the assign role to Teacher');
                     }
+
+                    console.log('Role assign with reclaim');
                 }
 
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);

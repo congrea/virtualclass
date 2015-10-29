@@ -76,6 +76,7 @@
                 if (evt.keyCode == 8 || evt.keyCode == 46) {
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
+                        console.log('Delete whiteboard obj:- Invoke the command');
                         var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
                         virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                     }
@@ -105,6 +106,7 @@
                 //}
 
                 if(roles.hasControls()){
+                    console.log('Delete:- Saving the delete command');
                     vcan.main.replayObjs.push(obj);
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
                 } else {
@@ -112,6 +114,7 @@
                 }
 
                 vcan.main.currObj = "";
+                console.log('Delete:- Removing the whitboard object');
                 return obj;
             },
             /**

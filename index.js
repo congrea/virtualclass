@@ -574,8 +574,8 @@ $(document).ready(function () {
                     virtualclass.wb.utility.removeWhiteboardMessage();
                 }
 
-                // We will not display the objects come from
-                if(e.fromUser.role == 'p' || e.fromUser.role == 't') {
+                // The packets came from teacher when he/she does not has control won't be display
+                if(e.fromUser.role == 'p' ||  (e.fromUser.role == 't' && !virtualclass.vutil.isPresenterExist())){
                     virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
                 }
             }
@@ -585,6 +585,8 @@ $(document).ready(function () {
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
+
+
 
     };
 });

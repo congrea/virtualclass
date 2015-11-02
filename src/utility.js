@@ -933,14 +933,17 @@
              *
              */
 
-           
-            io.disconnect();
-            setTimeout(
-                function (){
-                    virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
-                    io.init(virtualclass.uInfo);
-                }, 500
-            );
+            // If teacher is disconnected then
+            // there would come the porblem on editor of assigning role to student while continuous writting by him.
+            if(!roles.hasAdmin()){
+                io.disconnect();
+                setTimeout(
+                    function (){
+                        virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
+                        io.init(virtualclass.uInfo);
+                    }, 500
+                );
+            }
 
             //}
 
@@ -1136,6 +1139,15 @@
                 className = 'presentor';
             }
             return className;
+        },
+
+        isPresenterExist : function (){
+            for(var i=0; i<virtualclass.connectedUsers.length; i++){
+                if(virtualclass.connectedUsers[i].role == 'p'){
+                    return true;
+                }
+            }
+            return false;
         }
     };
     window.vutil = vutil;

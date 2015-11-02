@@ -90,7 +90,7 @@
 
                 var screenCont = document.getElementById('virtualclass' +  virtualclass.apps[1]);
 
-                if (typeof virtualclass[app] != 'object' && screenCont == null) {
+                if (typeof virtualclass[app] != 'object' || screenCont == null) {
                     if (typeof vtype != 'undefined') {
                         virtualclass.recorder.recImgPlay = true;
                     }
@@ -98,6 +98,7 @@
                 } else {
                     virtualclass.currApp = stool;
                     virtualclass.vutil.hidePrevIcon(app);
+
 
 //                     var prvScreen = document.getElementById(virtualclass.previous);
 //                     if(prvScreen != null){

@@ -252,10 +252,12 @@ $(document).ready(function () {
 
             if (typeof sType !== 'undefined' && sType !== null) {
                 //TODO this should be into function
-                sType = virtualclass.getDataFullScreen(sType);
-                var createdImg = virtualclass.getDataFullScreen('ss');
-                ioAdapter.sendBinary(createdImg);
-                sType = null;
+                if(typeof virtualclass.getDataFullScreen == 'function'){
+                    sType = virtualclass.getDataFullScreen(sType);
+                    var createdImg = virtualclass.getDataFullScreen('ss');
+                    ioAdapter.sendBinary(createdImg);
+                    sType = null;
+                }
             }
         }
     });

@@ -575,7 +575,7 @@ $(document).ready(function () {
                 }
 
                 // The packets came from teacher when he/she does not has control won't be display
-                if(e.fromUser.role == 'p' ||  (e.fromUser.role == 't' && !virtualclass.vutil.isPresenterExist())){
+                if(e.fromUser.role == 'p' ||  ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())){
                     virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
                 }
             }

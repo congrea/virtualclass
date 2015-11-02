@@ -87,7 +87,10 @@
 
                 virtualclass.vutil.addClass('audioWidget', "fixed");
                 app = stype;
-                if (typeof virtualclass[app] != 'object') {
+
+                var screenCont = document.getElementById('virtualclass' +  virtualclass.apps[1]);
+
+                if (typeof virtualclass[app] != 'object' && screenCont == null) {
                     if (typeof vtype != 'undefined') {
                         virtualclass.recorder.recImgPlay = true;
                     }

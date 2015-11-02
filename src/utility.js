@@ -191,14 +191,22 @@
         },
 
         makeActiveApp: function (app, prvTool) {
-
             if (app != prvTool && typeof prvTool != 'undefined') {
                 prvTool = prvTool + 'Tool';
                 //document.getElementById(prvTool).className = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
                 document.getElementById(prvTool).className = virtualclass.vutil.removeClassFromElement(prvTool, 'active');
+            } else {
+
+                // If there is remaining any active class on tool
+                var appOptions = document.getElementsByClassName('appOptions');
+                for(var i=0; i<appOptions.length; i++){
+                    if(appOptions[i].classList.contains('active')){
+                        appOptions[i].classList.remove('active');
+                    }
+                }
+                console.log('Whiteboard Tool class:- is ' + prvTool + ' with app ' + app);
             }
             document.getElementById(app + "Tool").className += ' active';
-
         },
 
         initInstallChromeExt: function (error) {
@@ -683,6 +691,8 @@
                 if(prvToolElem.classList.length > 0){ // If class list available only
                     prvToolElem.classList.remove(className);
                     return prvToolElem.className;
+                } else {
+                    console.log('Whiteboard Tool class:- could not remove ' + className);
                 }
             }
         },

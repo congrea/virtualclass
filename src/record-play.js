@@ -151,6 +151,7 @@
         },
 
         startUploadProcess: function () {
+            virtualclass.recorder.startUpload = true;
             virtualclass.recorder.exportData(function () {});
             virtualclass.popup.sendBackOtherElems();
         },

@@ -271,8 +271,15 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionclose", function (e) {
-        virtualclass.popup.waitMsg();
+        //virtualclass.popup.waitMsg();
+        if(virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload){
+            console.log("During the upload process there would not any other popup box.");
+        } else {
+            virtualclass.popup.waitMsg();
+        }
+
         virtualclass.chat.makeUserListEmpty();
+
     });
 
     $(document).on("connectionopen", function (e) {

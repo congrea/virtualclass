@@ -1070,7 +1070,8 @@
                         virtualclass.wb.obj.drawTextObj.finalizeTextIfAny(midReclaim);
                         console.log("Text command:- Transferring text command");
                     } else if (((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move')){
-                        var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+                        var tempObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+                        var currObj = vcan.extend({}, tempObj);
                         currObj.ac = 'u';
                         if (currObj.hasOwnProperty('mtext')) {
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
@@ -1082,6 +1083,7 @@
                         var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
                         vcan.main.canvas.dispatchEvent(eventConstruct);
                         console.log('Whiteboard:- Transfering the assign role to Teacher');
+
                     }
 
                     console.log('Role assign with reclaim');
@@ -1103,8 +1105,6 @@
                     if ((virtualclass.system.mybrowser.name = "iOS" && virtualclass.system.mybrowser.version >= 8) && /(iPad)/g.test(navigator.userAgent)) {
                         virtualclass.vutil.enableVirtualClass();
                     }
-
-
                     var onlyLatest = true;
                     virtualclass.view.removeErrorMsg('errorContainer', onlyLatest);
                 }

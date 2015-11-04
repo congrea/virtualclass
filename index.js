@@ -594,8 +594,5 @@ $(document).ready(function () {
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
-
-
-
     };
 });

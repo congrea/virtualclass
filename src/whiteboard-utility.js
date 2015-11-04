@@ -76,9 +76,11 @@
                 if (evt.keyCode == 8 || evt.keyCode == 46) {
                     var vcan = virtualclass.wb.vcan;
                     if (vcan.main.currObj != "") {
-                        console.log('Delete whiteboard obj:- Invoke the command');
-                        var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
-                        virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                        if(roles.hasControls()){ // can not remove the object when user has not control
+                            console.log('Delete whiteboard obj:- Invoke the command');
+                            var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
+                            virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                        }
                     }
                 } else if(evt.keyCode == 27){ // escape key
                     if(typeof virtualclass.wb == 'object'){
@@ -87,7 +89,7 @@
                 }
             },
 
-            removeSelectedItem: function (obj, notIncrement) {
+            removeSelectedItem: function (obj, notIncrement, notSave) {
                 virtualclass.wb.canvas.removeObject(vcan.main.currObj);
                 var currTime = new Date().getTime();
 
@@ -106,9 +108,13 @@
                 //}
 
                 if(roles.hasControls()){
-                    console.log('Delete:- Saving the delete command');
-                    vcan.main.replayObjs.push(obj);
-                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                    // we will not delete object during the replay
+                    if(typeof notSave == 'undefined'){
+                        console.log('Delete:- Saving the delete command with id ' + obj.uid);
+                        vcan.main.replayObjs.push(obj);
+                        virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                    }
+
                 } else {
                     virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
                 }

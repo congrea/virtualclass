@@ -1065,7 +1065,7 @@
                     if(typeof currObj == 'object' && currObj.ac == 'del'){
                         console.log("Delete command:- Transferring the delete command");
                         virtualclass.vutil.beforeSend({'repObj': [currObj], 'cf': 'repObj'});
-                    } else if(virtualclass.wb.tool.cmd == 't_text'){
+                    } else if(virtualclass.wb.tool.cmd == 't_text' && virtualclass.wb.vcan.main.action == 'create'){
                         var midReclaim = true;
                         virtualclass.wb.obj.drawTextObj.finalizeTextIfAny(midReclaim);
                         console.log("Text command:- Transferring text command");

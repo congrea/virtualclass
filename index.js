@@ -156,7 +156,7 @@ $(document).ready(function () {
 
     $(document).on("user_logout", function (e) {
         virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
-        if(roles.isStudent() || roles.isPresenter()){
+        if((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())){
             localStorage.setItem('oTDisconn', true);
             disableEditor('editorRich');
             disableEditor('editorCode');

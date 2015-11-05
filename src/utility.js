@@ -1163,6 +1163,44 @@
                 }
             }
             return false;
+        },
+
+        setReadModeWhenTeacherIsDisConn : function (eType){
+            if(!roles.hasAdmin()){
+                var teacherDisConn = localStorage.getItem('oTDisconn');
+                if(teacherDisConn != null){
+                    teacherDisConn = JSON.parse(teacherDisConn);
+                    if(teacherDisConn){
+                        if(virtualclass.hasOwnProperty(eType)){
+                            if(typeof virtualclass[eType].cm == 'object'){
+                                virtualclass[eType].cm.setOption('readOnly', 'nocursor');
+                            } else {
+                                console.log('Editor CM is not defined for editor ' + eType);
+                            }
+                        } else {
+                            console.log('Editor type ' + eType + ' is not ready.');
+                        }
+
+                    } else {
+                        console.log('Teacher is connected.');
+                    }
+                }
+            }
+        },
+
+        setReadModeWhenTeacherIsConn : function (eType){
+            localStorage.removeItem('oTDisconn');
+            var writeModeElem = document.getElementById(virtualclass.vutil.capitalizeFirstLetter(eType) +  'writeModeBox');
+            if(writeModeElem != null){
+                var writeMode = writeModeElem.getAttribute('data-write-mode');
+                if(writeMode == 'true'){
+                    virtualclass[eType].cm.setOption('readOnly', false);
+                }else{
+                    virtualclass[eType].cm.setOption('readOnly', 'nocursor');
+                }
+            } else {
+                console.log('Editor:- writemode element is not found for ' + eType);
+            }
         }
     };
     window.vutil = vutil;

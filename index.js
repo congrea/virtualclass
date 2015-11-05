@@ -152,9 +152,29 @@ $(document).ready(function () {
         );
     }
 
+
+
     $(document).on("user_logout", function (e) {
         virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
+        if(roles.isStudent() || roles.isPresenter()){
+            localStorage.setItem('oTDisconn', true);
+            disableEditor('editorRich');
+            disableEditor('editorCode');
+        }
     });
+
+    var disableEditor = function (editor){
+        if(typeof virtualclass.hasOwnProperty(editor) && typeof virtualclass[editor] == 'object'){
+            if(virtualclass[editor].hasOwnProperty('cm') && typeof virtualclass[editor].cm == 'object'){
+                virtualclass[editor].cm.setOption('readOnly', 'nocursor');
+            } else {
+                console.log('CM is not ready for' + editor);
+            }
+        } else {
+            console.log(editor + ' is not ready');
+        }
+    }
+
 
     $(document).on("member_removed", function (e) {
         // critical removign this can be critical
@@ -197,6 +217,7 @@ $(document).ready(function () {
 
         if(roles.hasAdmin()){
             if(virtualclass.gObj.uid == virtualclass.jId){
+
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 }
@@ -224,6 +245,9 @@ $(document).ready(function () {
                         }, virtualclass.jId);
                     }
                 }
+
+
+                ioAdapter.send({'cf': 'tConn'});
             }
         }
 
@@ -283,7 +307,12 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionopen", function (e) {
-        virtualclass.popup.closePopup();
+        setTimeout(
+            function (){
+                virtualclass.popup.closePopup();
+            }, 1000
+        );
+
     });
 
     /**
@@ -390,6 +419,16 @@ $(document).ready(function () {
                 }
             }
         };
+
+        this.tConn = function (e){
+            // Lets Editor be the ready
+            setTimeout(
+                function (){
+                    virtualclass.vutil.setReadModeWhenTeacherIsConn('editorRich');
+                    virtualclass.vutil.setReadModeWhenTeacherIsConn('editorCode');
+                }, 2000
+            );
+        }
 
         //youtube share
         this.yts = function (e) {

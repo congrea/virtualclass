@@ -513,6 +513,7 @@
                                 this[etType].cm.setOption('readOnly', false);
                             }
                         }
+                        virtualclass.vutil.setReadModeWhenTeacherIsDisConn(etType);
                     }
                 }
             },

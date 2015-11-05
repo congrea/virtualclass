@@ -233,6 +233,7 @@
                         }
 
                     }
+                    virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
                 }
             },
 
@@ -519,8 +520,8 @@
                         this.cm.setOption("readOnly", 'nocursor');
                         var writeMode = false;
                     }
-
                     virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
+                    virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
                 }
             },
 

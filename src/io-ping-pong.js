@@ -1,4 +1,5 @@
 var ioPingPong = {
+
     ping: function (e) {
         "use strict";
         // When a new member is added, greet him with both broadcast and individual msg

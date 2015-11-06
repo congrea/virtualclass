@@ -83,9 +83,10 @@
                 this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
 
+                
                 this.storage.init(function () {
                     if (!virtualclass.vutil.isPlayMode()) {
-                        ioStorage.completeStorage(JSON.stringify(io.cfg));
+                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
                     }
                 });
 

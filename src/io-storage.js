@@ -89,7 +89,6 @@ var ioStorage = {
     },
 
     completeStorage: function (data, bdata, sessionEnd) {
-
         if (virtualclass.hasOwnProperty('getContent') && virtualclass.getContent == true) {
             return; // not store when data is fetching from indexeddb
         }
@@ -97,7 +96,6 @@ var ioStorage = {
         if (typeof firstTime == 'undefined') {
             referenceTime = window.pageEnter;
             firstTime = true;
-
             if (!virtualclass.vutil.isPlayMode()) {
                 //TODO this should be handle gracefully
                 try {
@@ -119,10 +117,10 @@ var ioStorage = {
                                 if (!cursor.value.hasOwnProperty('bd')) {
                                     var recObs = JSON.parse(cursor.value.recObjs);
                                     if (!recObs.hasOwnProperty('authuser')) {
-                                        objectStore.clear();
+                                       objectStore.clear();
                                     }
                                 } else {
-                                    objectStore.clear();
+                                      objectStore.clear();
                                 }
                             }
                         }

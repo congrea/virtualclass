@@ -72,6 +72,7 @@
                     wb.obj.drawTextObj.muser = false;
                     if (!ev.detail.hasOwnProperty('cevent') && wb.tool.cmd != 't_clearall') { //creating for other browser
                         if (wb.utility.clickOutSidebox(wb.obj.drawTextObj.textWriteMode)) {
+
                             vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);
                         }
                     } else {

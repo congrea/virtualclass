@@ -99,76 +99,81 @@
             appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
 
             var appCont = document.getElementById(appId);
-            var rightOffSet = 5;
+            if(appCont != null){
+                var rightOffSet = 5;
 
-            var extraWidth = 0;
-            var leftSideBarWidth;
+                var extraWidth = 0;
+                var leftSideBarWidth;
 
 
-            if (app == 'Whiteboard') {
-                leftSideBarWidth = 0;
-            } else {
-                var leftSideBar = document.getElementById("virtualclassOptionsCont");
-                if (leftSideBar != null) {
-                    var offset = vcan.utility.getElementOffset(leftSideBar);
-                    leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
-                } else {
+                if (app == 'Whiteboard') {
                     leftSideBarWidth = 0;
-                }
-
-
-                if (app == 'Yts') {
-                    if(roles.hasControls()){
-                        rightOffSet = 60; //youtube wrapper does not have inner div, TODO should be handle by css
+                } else {
+                    var leftSideBar = document.getElementById("virtualclassOptionsCont");
+                    if (leftSideBar != null) {
+                        var offset = vcan.utility.getElementOffset(leftSideBar);
+                        leftSideBarWidth = leftSideBar.offsetWidth + offset.x;
                     } else {
-                        rightOffSet = 15;
+                        leftSideBarWidth = 0;
                     }
 
-                } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
-                    if (leftSideBarWidth > 0) {
-                        rightOffSet = 12;
-                    } else {
-                        if (roles.hasControls()) {
-                            leftSideBarWidth = 70;
+
+                    if (app == 'Yts') {
+                        if(roles.hasControls()){
+                            rightOffSet = 60; //youtube wrapper does not have inner div, TODO should be handle by css
                         } else {
-                            leftSideBarWidth = 5;
+                            rightOffSet = 15;
                         }
 
+                    } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
+                        if (leftSideBarWidth > 0) {
+                            rightOffSet = 12;
+                        } else {
+                            if (roles.hasControls()) {
+                                leftSideBarWidth = 70;
+                            } else {
+                                leftSideBarWidth = 5;
+                            }
+
+                        }
+                    } else if (app == 'ScreenShare') {
+                        rightOffSet = 70;
+                    } else {
+                        rightOffSet = 65;
                     }
-                } else if (app == 'ScreenShare') {
-                    rightOffSet = 70;
-                } else {
-                    rightOffSet = 65;
                 }
+
+
+                var reduceHeight = 70;
+                if(virtualclass.isPlayMode){
+                    reduceHeight +=  75;
+                }
+
+                var containerHeight = document.getElementById('commandToolsWrapper');
+                if (containerHeight != null) {
+                    reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
+                } else if((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard' ){
+                    // when page is refresh the toolbar/reclaim bar is not available so
+                    reduceHeight = reduceHeight + 46  + 3;
+                }
+
+
+                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
+                appCont.style.width = res.width + 'px';
+                appCont.style.height = (res.height - reduceHeight) + 'px';
+
+                if (appId == 'virtualclassScreenShare') {
+                    //if(appId != 'virtualclassWhiteboard'){
+                    var ssType = document.getElementById(appId + 'Local');
+                    res.width = res.width - 10;
+                    appCont.style.width = res.width;
+                    ssType.style.width = res.width + "px";
+                    virtualclass.vutil.setScreenInnerTagsWidth(appId);
+                }
+            }else {
+                console.log(appCont + ' is not found ');
             }
 
-            
-            var reduceHeight = 70;
-            if(virtualclass.isPlayMode){
-                reduceHeight +=  75;
-            }
-
-            var containerHeight = document.getElementById('commandToolsWrapper');
-            if (containerHeight != null) {
-                reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
-            } else if((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard' ){
-                // when page is refresh the toolbar/reclaim bar is not available so
-                reduceHeight = reduceHeight + 46  + 3;
-            }
-
-
-            res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
-            appCont.style.width = res.width + 'px';
-            appCont.style.height = (res.height - reduceHeight) + 'px';
-
-            if (appId == 'virtualclassScreenShare') {
-                //if(appId != 'virtualclassWhiteboard'){
-                var ssType = document.getElementById(appId + 'Local');
-                res.width = res.width - 10;
-                appCont.style.width = res.width;
-                ssType.style.width = res.width + "px";
-                virtualclass.vutil.setScreenInnerTagsWidth(appId);
-            }
         },
 
         setScreenInnerTagsWidth: function (currAppId) {
@@ -186,14 +191,22 @@
         },
 
         makeActiveApp: function (app, prvTool) {
-
             if (app != prvTool && typeof prvTool != 'undefined') {
                 prvTool = prvTool + 'Tool';
                 //document.getElementById(prvTool).className = virtualclass.wb.utility.removeClassFromElement(prvTool, 'active');
                 document.getElementById(prvTool).className = virtualclass.vutil.removeClassFromElement(prvTool, 'active');
+            } else {
+
+                // If there is remaining any active class on tool
+                var appOptions = document.getElementsByClassName('appOptions');
+                for(var i=0; i<appOptions.length; i++){
+                    if(appOptions[i].classList.contains('active')){
+                        appOptions[i].classList.remove('active');
+                    }
+                }
+                console.log('Whiteboard Tool class:- is ' + prvTool + ' with app ' + app);
             }
             document.getElementById(app + "Tool").className += ' active';
-
         },
 
         initInstallChromeExt: function (error) {
@@ -301,7 +314,14 @@
                 var elem = document.getElementById(id);
                 if (elem != null) {
                     elem.onclick = function () {
-                        virtualclass.vutil.clickOutSideCanvas();
+                        if(roles.hasControls()){
+                            virtualclass.vutil.clickOutSideCanvas();
+                        }
+                        //else {
+                        //    if(roles.hasAdmin()){
+                        //        virtualclass.wb.utility.toolWrapperEnable(true);
+                        //    }
+                        //}
                     };
                 }
             }
@@ -600,7 +620,14 @@
             var prvScreen = document.getElementById(virtualclass.previous);
             if (prvScreen != null) {
                 prvScreen.style.display = 'none';
-                document.getElementById(virtualclass[app].id).style.display = 'block';
+                console.log('Hide previous screen with display new '  + app);
+                if(app == 'ss'){
+                    if(typeof virtualclass[app] == 'object'){
+                        document.getElementById(virtualclass[app].id).style.display = 'block';
+                    }
+                }else {
+                    document.getElementById(virtualclass[app].id).style.display = 'block';
+                }
             }
         },
 
@@ -664,6 +691,8 @@
                 if(prvToolElem.classList.length > 0){ // If class list available only
                     prvToolElem.classList.remove(className);
                     return prvToolElem.className;
+                } else {
+                    console.log('Whiteboard Tool class:- could not remove ' + className);
                 }
             }
         },
@@ -914,10 +943,14 @@
 
             /**
              * After assign the teacher Role, we need disconnect and reconnect
-             * for pass the the reflected role to all other uses.
+             * for pass the the reflected role to all other uses, because of problem
+             * https://github.com/vidyamantra/virtualclass/issues/150
              *
              */
 
+            // If teacher is disconnected then
+            // there would come the porblem on editor of assigning role to student while continuous writting by him.
+            if(!roles.hasAdmin()){
                 io.disconnect();
                 setTimeout(
                     function (){
@@ -925,6 +958,7 @@
                         io.init(virtualclass.uInfo);
                     }, 500
                 );
+            }
 
             //}
 
@@ -1023,11 +1057,21 @@
             if (formUserId != id) {
 
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
-
                 if(typeof virtualclass.wb == 'object'){
                     // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
-                    if((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move'){
-                        var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+
+                    var currObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+
+                    if(typeof currObj == 'object' && currObj.ac == 'del'){
+                        console.log("Delete command:- Transferring the delete command");
+                        virtualclass.vutil.beforeSend({'repObj': [currObj], 'cf': 'repObj'});
+                    } else if(virtualclass.wb.tool.cmd == 't_text' && virtualclass.wb.vcan.main.action == 'create'){
+                        var midReclaim = true;
+                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny(midReclaim);
+                        console.log("Text command:- Transferring text command");
+                    } else if (((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move')){
+                        var tempObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+                        var currObj = vcan.extend({}, tempObj);
                         currObj.ac = 'u';
                         if (currObj.hasOwnProperty('mtext')) {
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
@@ -1038,7 +1082,11 @@
                         eventObj.detail.broadCast = true;
                         var eventConstruct = new CustomEvent('mouseup', eventObj); //this is not supported for ie9 and older ie browsers
                         vcan.main.canvas.dispatchEvent(eventConstruct);
+                        console.log('Whiteboard:- Transfering the assign role to Teacher');
+
                     }
+
+                    console.log('Role assign with reclaim');
                 }
 
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
@@ -1057,8 +1105,6 @@
                     if ((virtualclass.system.mybrowser.name = "iOS" && virtualclass.system.mybrowser.version >= 8) && /(iPad)/g.test(navigator.userAgent)) {
                         virtualclass.vutil.enableVirtualClass();
                     }
-
-
                     var onlyLatest = true;
                     virtualclass.view.removeErrorMsg('errorContainer', onlyLatest);
                 }
@@ -1108,6 +1154,53 @@
                 className = 'presentor';
             }
             return className;
+        },
+
+        isPresenterExist : function (){
+            for(var i=0; i<virtualclass.connectedUsers.length; i++){
+                if(virtualclass.connectedUsers[i].role == 'p'){
+                    return true;
+                }
+            }
+            return false;
+        },
+
+        setReadModeWhenTeacherIsDisConn : function (eType){
+            if(!roles.hasAdmin()){
+                var teacherDisConn = localStorage.getItem('oTDisconn');
+                if(teacherDisConn != null){
+                    teacherDisConn = JSON.parse(teacherDisConn);
+                    if(teacherDisConn){
+                        if(virtualclass.hasOwnProperty(eType)){
+                            if(typeof virtualclass[eType].cm == 'object'){
+                                virtualclass[eType].cm.setOption('readOnly', 'nocursor');
+                            } else {
+                                console.log('Editor CM is not defined for editor ' + eType);
+                            }
+                        } else {
+                            console.log('Editor type ' + eType + ' is not ready.');
+                        }
+
+                    } else {
+                        console.log('Teacher is connected.');
+                    }
+                }
+            }
+        },
+
+        setReadModeWhenTeacherIsConn : function (eType){
+            localStorage.removeItem('oTDisconn');
+            var writeModeElem = document.getElementById(virtualclass.vutil.capitalizeFirstLetter(eType) +  'writeModeBox');
+            if(writeModeElem != null){
+                var writeMode = writeModeElem.getAttribute('data-write-mode');
+                if(writeMode == 'true'){
+                    virtualclass[eType].cm.setOption('readOnly', false);
+                }else{
+                    virtualclass[eType].cm.setOption('readOnly', 'nocursor');
+                }
+            } else {
+                console.log('Editor:- writemode element is not found for ' + eType);
+            }
         }
     };
     window.vutil = vutil;

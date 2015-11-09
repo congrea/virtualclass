@@ -11,7 +11,6 @@
     var prArr = [];
     var tarr = [];
   //  var totalDataStored = localStorage.getItem('totalStored');
-
     function initToServer(cb) {
         if (typeof cb == 'function') {
             virtualclass.recorder.sendDataToServer();
@@ -220,8 +219,6 @@
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
-        //    this.totalStored++;
-
             var t = that.db.transaction(["allData"], "readwrite");
             if (typeof sessionEnd != 'undefined') {
                 t.objectStore("allData").add({recObjs: "", sessionEnd: true, id: 3});
@@ -541,8 +538,12 @@
 
             createNewSession: function () {
                 //virtualclass.editorRich.init(0, [], "", "");
+                if(roles.hasAdmin()){
+                    ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
+                }
+
                 virtualclass.makeAppReady(virtualclass.apps[3]);
-//                virtualclass.popup.closeElem();
+
                 var currTime = new Date().getTime();
                 if (typeof that.db != 'undefined') {
                     var t = that.db.transaction(["config"], "readwrite");
@@ -614,6 +615,7 @@
                 if (io.sock) {
                     io.sock.close();
                 }
+
                 that.config.createNewSession();
 
                 virtualclass.popup.waitMsg(); // until the web socket is connected.

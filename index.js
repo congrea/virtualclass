@@ -152,9 +152,29 @@ $(document).ready(function () {
         );
     }
 
+
+
     $(document).on("user_logout", function (e) {
         virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
+        if((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())){
+            localStorage.setItem('oTDisconn', true);
+            disableEditor('editorRich');
+            disableEditor('editorCode');
+        }
     });
+
+    var disableEditor = function (editor){
+        if(typeof virtualclass.hasOwnProperty(editor) && typeof virtualclass[editor] == 'object'){
+            if(virtualclass[editor].hasOwnProperty('cm') && typeof virtualclass[editor].cm == 'object'){
+                virtualclass[editor].cm.setOption('readOnly', 'nocursor');
+            } else {
+                console.log('CM is not ready for' + editor);
+            }
+        } else {
+            console.log(editor + ' is not ready');
+        }
+    }
+
 
     $(document).on("member_removed", function (e) {
         // critical removign this can be critical
@@ -197,6 +217,7 @@ $(document).ready(function () {
 
         if(roles.hasAdmin()){
             if(virtualclass.gObj.uid == virtualclass.jId){
+
                 if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                     ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                 }
@@ -224,6 +245,9 @@ $(document).ready(function () {
                         }, virtualclass.jId);
                     }
                 }
+
+
+                ioAdapter.send({'cf': 'tConn'});
             }
         }
 
@@ -252,10 +276,12 @@ $(document).ready(function () {
 
             if (typeof sType !== 'undefined' && sType !== null) {
                 //TODO this should be into function
-                sType = virtualclass.getDataFullScreen(sType);
-                var createdImg = virtualclass.getDataFullScreen('ss');
-                ioAdapter.sendBinary(createdImg);
-                sType = null;
+                if(typeof virtualclass.getDataFullScreen == 'function'){
+                    sType = virtualclass.getDataFullScreen(sType);
+                    var createdImg = virtualclass.getDataFullScreen('ss');
+                    ioAdapter.sendBinary(createdImg);
+                    sType = null;
+                }
             }
         }
     });
@@ -269,12 +295,24 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionclose", function (e) {
-        virtualclass.popup.waitMsg();
+        //virtualclass.popup.waitMsg();
+        if(virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload){
+            console.log("During the upload process there would not any other popup box.");
+        } else {
+            virtualclass.popup.waitMsg();
+        }
+
         virtualclass.chat.makeUserListEmpty();
+
     });
 
     $(document).on("connectionopen", function (e) {
-        virtualclass.popup.closePopup();
+        setTimeout(
+            function (){
+                virtualclass.popup.closePopup();
+            }, 1000
+        );
+
     });
 
     /**
@@ -381,6 +419,16 @@ $(document).ready(function () {
                 }
             }
         };
+
+        this.tConn = function (e){
+            // Lets Editor be the ready
+            setTimeout(
+                function (){
+                    virtualclass.vutil.setReadModeWhenTeacherIsConn('editorRich');
+                    virtualclass.vutil.setReadModeWhenTeacherIsConn('editorCode');
+                }, 2000
+            );
+        }
 
         //youtube share
         this.yts = function (e) {
@@ -574,8 +622,8 @@ $(document).ready(function () {
                     virtualclass.wb.utility.removeWhiteboardMessage();
                 }
 
-                // We will not display the objects come from
-                if(e.fromUser.role == 'p' || e.fromUser.role == 't') {
+                // The packets came from teacher when he/she does not has control won't be display
+                if(e.fromUser.role == 'p' ||  ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())){
                     virtualclass.wb.utility.replayObjsByFilter(e.message.repObj);
                 }
             }
@@ -585,6 +633,5 @@ $(document).ready(function () {
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
-
     };
 });

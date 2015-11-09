@@ -309,6 +309,8 @@
                         this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                     }
 
+                    virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorRich');
+
                 },
 
                 /**
@@ -350,6 +352,7 @@
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
 
+                    virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorCode');
                 },
 
                 onmessage: function (e) {

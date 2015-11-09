@@ -87,14 +87,18 @@
 
                 virtualclass.vutil.addClass('audioWidget', "fixed");
                 app = stype;
-                if (typeof virtualclass[app] != 'object') {
+
+                var screenCont = document.getElementById('virtualclass' +  virtualclass.apps[1]);
+
+                if (typeof virtualclass[app] != 'object' || screenCont == null) {
                     if (typeof vtype != 'undefined') {
                         virtualclass.recorder.recImgPlay = true;
                     }
                     virtualclass.makeAppReady(stool);
                 } else {
-
+                    virtualclass.currApp = stool;
                     virtualclass.vutil.hidePrevIcon(app);
+
 
 //                     var prvScreen = document.getElementById(virtualclass.previous);
 //                     if(prvScreen != null){
@@ -157,27 +161,34 @@
                 virtualclass.adpt = new virtualclass.adapter();
                 var navigator2 = virtualclass.adpt.init(navigator);
                 navigator2.getUserMedia(constraints, function (stream, err) {
-                        //callback(err, stream);
                         virtualclass.ss._init();
-                        virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+                        if(roles.hasControls()){
+                            //callback(err, stream);
+                            virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
 
-                        // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810
-                        if (typeof err == 'undefined') {
-                            var lastTime = stream.currentTime;
-                            var polly = window.setInterval(function () {
-                                if (!stream) window.clearInterval(polly);
-                                if (stream.currentTime == lastTime) {
-                                    window.clearInterval(polly);
-                                    if (stream.onended) {
-                                        stream.onended();
+                            // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810
+                            if (typeof err == 'undefined') {
+                                var lastTime = stream.currentTime;
+                                var polly = window.setInterval(function () {
+                                    if (!stream) window.clearInterval(polly);
+                                    if (stream.currentTime == lastTime) {
+                                        window.clearInterval(polly);
+                                        if (stream.onended) {
+                                            stream.onended();
+                                        }
                                     }
-                                }
-                                lastTime = stream.currentTime;
-                            }, 500);
+                                    lastTime = stream.currentTime;
+                                }, 500);
+                            }
+                        }else {
+                            console.log('Set previous app as current app if teacher reclaim role during screen share');
+                            virtualclass.ss.setCurrentApp();
                         }
+
                     },
 
                     function (error) {
+                        virtualclass.ss.setCurrentApp();
                         if (typeof error == 'string') {
                             //PERMISSION_DENIED
                             if (error === 'PERMISSION_DENIED') {
@@ -216,6 +227,7 @@
 
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
+                    //this.tempCurrApp = virtualclass.vutil.capitalizeFirstLetter(screen.app);
                     //}
                 } else {
 
@@ -231,6 +243,9 @@
              * 
              */
             _init: function () {
+
+                this.currApp = this.tempCurrApp;
+
                 //add current app to main container
                 var vcContainer = document.getElementById('virtualclassCont');
                 vcContainer.dataset.currapp =  virtualclass.currApp;
@@ -287,6 +302,7 @@
              * 
              */
             onError: function (e) {
+                virtualclass.ss.setCurrentApp();
                 console.log("Error " + e);
             },
             /*
@@ -612,17 +628,18 @@
                  */
                 function sendResizeWindow() {
                     console.log('RESIZE');
-                    prvVWidth = that.video.offsetWidth;
-                    prvVHeight = that.video.offsetHeight;
-                    resA = Math.round(that.localtempCanvas.height / 12);
-                    resB = Math.round(that.localtempCanvas.width / 12);
-                    var createdImg = getDataFullScreenResize(that.type);
-                    ioAdapter.sendBinary(createdImg);
-                    calcBandwidth(createdImg.length / 128); // In Kbps
-                    changeonresize = 0;
-                    clearInterval(virtualclass.clear);
-//                    console.log ('RESIZE Bandwidth '+ (createdImg.length / 128)+'Kbps' + 'New Time ' + screenIntervalTime);
-                    virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
+                    if(roles.hasControls()){
+                        prvVWidth = that.video.offsetWidth;
+                        prvVHeight = that.video.offsetHeight;
+                        resA = Math.round(that.localtempCanvas.height / 12);
+                        resB = Math.round(that.localtempCanvas.width / 12);
+                        var createdImg = getDataFullScreenResize(that.type);
+                        ioAdapter.sendBinary(createdImg);
+                        calcBandwidth(createdImg.length / 128); // In Kbps
+                        changeonresize = 0;
+                        clearInterval(virtualclass.clear);
+                        virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
+                    }
                 }
 
                 //  TODO this function is unused ,should be removed
@@ -822,6 +839,13 @@
             // to initialize previous image
             initPrevImage: function () {
                 sworker.postMessage({'initPrevImg': true});
+            },
+
+            setCurrentApp : function (){
+                if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
+                    virtualclass.currApp = virtualclass.previousApp.name;
+                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                }
             }
         }
     };

@@ -129,9 +129,6 @@
                 }
 
                 divNode.appendChild(textNode);
-                if(!roles.hasControls()){
-                    textNode.style.display = 'none';
-                }
 
                 document.getElementById(this.boxContainer).appendChild(divNode);
 
@@ -139,6 +136,15 @@
                 this.currTextObjWrapper = obj;
                 this.prevTextObj.measure = obj;
                 virtualclass.wb.utility.toolWrapperDisable(true);
+
+                if(!roles.hasControls()){
+                    textNode.style.display = 'none';
+                    if(roles.hasAdmin()){
+                        virtualclass.wb.utility.toolWrapperEnable(true);
+                    }
+                }
+
+                console.log('Text Command:- Create text wrapper box');
             },
             /**
              * The function renders the text after typed by user into textarea
@@ -258,18 +264,20 @@
                 //this.keyTyped = [];.
                 prvNode.parentNode.removeChild(txtWrapper);
                 vcan.renderAll();
-				
+
                 virtualclass.wb.utility.toolWrapperEnable(true);
             },
 
-            finalizeTextIfAny : function (){
+            finalizeTextIfAny : function (midReclaim){
                 var canvasWrapper = document.getElementById('canvasWrapper');
                 if(canvasWrapper != null){
                     var textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
                     if(textBox != null){
                         textBox = textBox[0];
-                        virtualclass.wb.obj.drawTextObj.textUtility();
-                    }
+                        if(typeof midReclaim == 'undefined' || (typeof midReclaim != 'undefined') && virtualclass.wb.obj.drawTextObj.textWriteMode % 2 != 0 ){
+                            virtualclass.wb.obj.drawTextObj.textUtility();
+                        }
+                     }
                 }
             }
         }

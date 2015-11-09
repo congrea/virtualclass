@@ -917,32 +917,26 @@ body .ui-tooltip {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
-	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-    background: #e0dcc3 !important; /* Old browsers */
-	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
-	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
+	background: #d8e496; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ); /* IE6-9 */
 	border: 1px solid #aaaaaa !important;
 }
 
 .ui-chatroom .ui-state-highlight{
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
-	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	background: #e0dcc3 !important; /* Old browsers */
-	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
-	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0dcc3', endColorstr='#e5deb2',GradientType=0 ); /* IE6-9 */
+	background: #d8e496; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ); /* IE6-9 */
     border: 1px solid #aaaaaa !important;
 
 }
@@ -1024,7 +1018,7 @@ body .ui-tooltip {
 	background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive}*/;
  }
 .ui-state-highlight .ui-icon {
-	background-image: url(images/ui-icons_2e83ff_256x240.png)/*{iconsHighlight}*/;
+	/*background-image: url(images/ui-icons_2e83ff_256x240.png){iconsHighlight};*/
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {

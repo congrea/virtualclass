@@ -83,9 +83,10 @@
                 this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
 
+                
                 this.storage.init(function () {
                     if (!virtualclass.vutil.isPlayMode()) {
-                        ioStorage.completeStorage(JSON.stringify(io.cfg));
+                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
                     }
                 });
 
@@ -278,13 +279,21 @@
                                 if (editorCode != null) {
                                     editorCode.style.display = 'none';
                                 }
+                            }else{
+                                console.log('EditorRich can not be display:none ' + appId);
                             }
+
                             if (appId.toUpperCase() == "EDITORCODE") {
                                 var editor = document.getElementById("virtualclassEditorRich");
                                 if (editor != null) {
                                     editor.style.display = 'none';
                                 }
+                            } else {
+                                console.log('EditorCode can not be display:none ' + appId);
                             }
+
+                        } else{
+                            console.log('appId ' + appId + ' undefined');
                         }
                     } else {
                         //tricky case  when previous and current are same hide other appilcations but current
@@ -300,10 +309,14 @@
                 var appElement = document.getElementById(appId);
                 if (appElement != null) {
                     appElement.style.display = 'block';
+                    console.log('App ' + appId + ' block');
+
                 }
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
+                console.log('Application is ready' + app);
+
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
 
@@ -501,6 +514,7 @@
                                 this[etType].cm.setOption('readOnly', false);
                             }
                         }
+                        virtualclass.vutil.setReadModeWhenTeacherIsDisConn(etType);
                     }
                 }
             },

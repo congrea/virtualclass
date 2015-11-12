@@ -528,7 +528,7 @@
  /* Gray color */
   
 
-#virtualclassCont .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text{font-weight: 100;}
+
 #virtualclassCont .vmchat_room_bt{
 	border-right: 1px solid #5d6b76;
 }

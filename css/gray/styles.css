@@ -592,6 +592,7 @@
 	border-left : 0;
 	border-bottom-right-radius : 10px;
 	border-top-right-radius : 10px;
+	z-index : 0;
 }
 
 
@@ -2165,12 +2166,11 @@
 #virtualclassEditorRich #synchMessageBox, .writeModeBox{
 	background : #EBECC6;
 	font-size : 13px;
-	padding: 12px 8px 12px 12px;
+	padding: 10px 8px 10px 12px;
 	border:#e6dda4 1px solid;
 }
 #virtualclassEditorRich #synchMessageBox p{
 	margin: 0;
-	/*text-transform: uppercase;*/
 }
 
 #virtualclassEditorRich #synchMessageBox {
@@ -2187,7 +2187,7 @@
 	position: absolute;
 	text-align: center;
 	text-transform: uppercase;
-	width: 150px;
+	width: 110px;
 	border-radius: 5px;
 }
 
@@ -2621,6 +2621,9 @@
 	margin: 0 auto;
 	width: 860px;
 }
+#virtualclassCont div#playControllerCont.playMode{
+	min-height: 62px;
+}
 
 
 #virtualclassCont #playController, #virtualclassCont #replayFromStart{
@@ -2935,12 +2938,14 @@
 	border-radius: 5px;
 	color: #3a773c;
 	margin: 0 auto;
-	padding: 20px;
-	position: relative;
+	padding: 30px 20px;
+	position: absolute;
 	top: 40%;
-	width: 500px;
+	width: 480px;
 	text-align: center;
 	box-shadow: 0 0 8px #ddd;
+	left: 0;
+	right: 0;
 }
 #virtualclassCont #whiteBoardMsg{
 	background-color: #f9f9f9;

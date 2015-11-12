@@ -398,13 +398,14 @@ transition:all .2s linear;
 	background-color: #a6c24e;
 	font-weight: normal;
 	padding: 10px 24px;
-	border-radius: 20px !important;
+	border-radius: 10px !important;
 }
 #virtualclassCont #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
 	background-color: #ccc;
 	font-weight: normal;
 	padding: 10px 22px;
-	border-radius: 20px !important;
+	border-radius: 10px !important;
+	color: #555;
 }
 
 #virtualclassCont #speakerPressingAnch #speakerPressingtext{

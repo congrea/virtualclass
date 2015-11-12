@@ -2615,6 +2615,10 @@
 	width: 860px;
 }
 
+#virtualclassCont div#playControllerCont.playMode{
+	min-height: 62px;
+}
+
 
 #virtualclassCont #playController, #virtualclassCont #replayFromStart{
 	float: left;
@@ -2928,12 +2932,14 @@
 	border-radius: 5px;
 	color: #3a773c;
 	margin: 0 auto;
-	padding: 20px;
-	position: relative;
+	padding: 30px 20px;
+	position: absolute;
 	top: 40%;
-	width: 500px;
+	width: 480px;
 	text-align: center;
 	box-shadow: 0 0 8px #ddd;
+	left: 0;
+	right: 0;
 }
 #virtualclassCont #whiteBoardMsg{
 	background-color: #f9f9f9;

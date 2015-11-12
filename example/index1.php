@@ -29,12 +29,16 @@ if(isset($_GET['theme'])){
     $theme = 'white';
 }
 
-$pushtotalk = 'disable';
+$pt = array('0' => 'disable', '1' => 'enable');
+
+$pushtotalk = '0';
 if(isset($_GET['pt'])){
-    if($_GET['pt'] == 'enable' || $_GET['pt'] == 'disable'){
+    if($_GET['pt'] == '0' || $_GET['pt'] == '1'){
         $pushtotalk = $_GET['pt'];
     }
 }
+
+$pushtotalk = $pt[$pushtotalk];
 
 
 ?>
@@ -228,12 +232,17 @@ if(isset($_GET['lname'])){
 
 <?php
 
-$audactive = 'deactive';
+$adarr = array('0' => 'deactive', '1' => 'active');
+$audactive = '0';
 if(isset($_GET['ad'])){
-    if($_GET['ad'] == 'active' || $_GET['ad'] == 'deactive'){
+    if($_GET['ad'] == '0' || $_GET['ad'] == '1'){
         $audactive = $_GET['ad'];
     }
 }
+
+$audactive = $adarr[$audactive];
+
+
 ?>
 
 <div id="audioWidget">

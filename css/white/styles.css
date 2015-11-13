@@ -3319,3 +3319,7 @@
 #virtualclassCont.pt_disable #audioTest-box .audioTool{
 	border-top: #a7a7a7 solid 1px !important;
 }
+
+#virtualclassCont.playMode > div.virtualclass{
+	clear : both;
+}

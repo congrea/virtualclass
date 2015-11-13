@@ -164,7 +164,11 @@
                 var canvas = vcan.main.canvas;
                 ctx = vcan.main.canvas.getContext('2d');
                 canvas.width = measureRes.width;
-                var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? (45 + 20) : 10;
+
+                // for handle the scroll on whiteboard during the play mode
+                var rHeight =  (virtualclass.isPlayMode) ? 75 : 10;
+
+                var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 65 : rHeight;
                 canvas.height = measureRes.height - toolWrapperHeight;
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');

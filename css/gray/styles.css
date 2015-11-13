@@ -3324,3 +3324,7 @@
 :focus {
     outline: none;
 }
+
+#virtualclassCont.playMode > div.virtualclass{
+	clear : both;
+}

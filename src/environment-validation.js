@@ -166,7 +166,7 @@
                 canvas.width = measureRes.width;
 
                 // for handle the scroll on whiteboard during the play mode
-                var rHeight =  (virtualclass.isPlayMode) ? 75 : 10;
+                var rHeight =  (virtualclass.isPlayMode) ? 85 : 10;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 65 : rHeight;
                 canvas.height = measureRes.height - toolWrapperHeight;

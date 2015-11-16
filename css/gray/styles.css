@@ -1230,11 +1230,6 @@
 	width : 231px !important;
 }
 
-#virtualclassCont .ui-tabs .ui-tabs-nav li.ui-state-active {
-	background-image : none;
-	background-color : transparent;
-	border-top : 1px solid #aaa !important;
-}
 
 #virtualclassCont .ui-corner-all.ui-chatbox-icon .ui-icon-close {
 	margin-top : 2px;

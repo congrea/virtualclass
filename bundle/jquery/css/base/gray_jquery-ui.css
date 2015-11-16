@@ -863,14 +863,7 @@ body .ui-tooltip {
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-	border: 1px solid #d3d3d3/*{borderColorDefault}*/;
-	background: #e6e6e6/*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/;
-	font-weight: normal/*{fwDefault}*/;
-	color: #555555/*{fcDefault}*/;
-}
+
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
@@ -883,7 +876,13 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	color:#fff !important;
+	background: #3f4b56; /* Old browsers */
+	background: -moz-linear-gradient(top,  #48545f 0%, #36414c 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #48545f 0%,#36414c 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #48545f 0%,#36414c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48545f', endColorstr='#36414c',GradientType=0 ); /* IE6-9 */
+    border: #444 1px solid;
+
 }
 
 .ui-state-hover a,
@@ -1245,6 +1244,32 @@ background-position: -64px -128px !important;
 
 /* Gray color */
 
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3f4b56+0,34404c+100 */
+	background: #3f4b56; /* Old browsers */
+	background: -moz-linear-gradient(top,  #3f4b56 0%, #34404c 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #3f4b56 0%,#34404c 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #3f4b56 0%,#34404c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4b56', endColorstr='#34404c',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	background: #d8e496; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ); /* IE6-9 */
+    border: 1px solid #aaaaaa !important;
+}
+
 .ui-widget-header {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3f4b56+0,34404c+100 */
 	background: #3f4b56; /* Old browsers */
@@ -1261,20 +1286,6 @@ ui-widget-header a{
 	color:transparent;
 }
 
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default{
-	background: #5a6a7a; /* Old browsers */
-	background: -moz-linear-gradient(top,  #5a6a7a 0%, #455260 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5a6a7a), color-stop(100%,#455260)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #5a6a7a 0%,#455260 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #5a6a7a 0%,#455260 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #5a6a7a 0%,#455260 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #5a6a7a 0%,#455260 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5a6a7a', endColorstr='#455260',GradientType=0 ); /* IE6-9 */
-
-}
-
 .ui-state-default.ui-corner-bottom.ui-tabs-active a{
 	color:#fff;
 }
@@ -1286,5 +1297,4 @@ ui-widget-header a{
 .ui-widget-header{
 	border:#444 1px solid;
 }
-
 

@@ -2860,7 +2860,6 @@
 
 #virtualclassOptionsCont .appOptions a.tooltip:hover:after{
 	line-height: 20px !important;
-	bottom: 0px!important;
 }
 
 #virtualclassCont.teacher #audioWidget{
@@ -3318,8 +3317,4 @@
 
 #virtualclassCont.pt_disable #audioTest-box .audioTool{
 	border-top: #a7a7a7 solid 1px !important;
-}
-
-#virtualclassCont.playMode > div.virtualclass{
-	clear : both;
 }

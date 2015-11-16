@@ -701,11 +701,10 @@
                 virtualclass.wb.utility.makeCanvasDisable();
                 virtualclass.wb.utility.toolWrapperDisable();
 
-                if(!roles.hasControls()){
+                if(!roles.hasControls() && !roles.hasAdmin()){
                     if(vcan.main.children == 0){
                         virtualclass.wb.utility.createWhiteboardMessage()
                     }
-
                 }
             },
 

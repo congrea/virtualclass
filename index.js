@@ -617,10 +617,10 @@ $(document).ready(function () {
             if(typeof virtualclass.wb != 'object'){
                 virtualclass.makeAppReady(virtualclass.apps[0]);
             } else {
-                if(!roles.hasControls()){
+                //if(!roles.hasControls()){
                     // Teacher does not need this message
                     virtualclass.wb.utility.removeWhiteboardMessage();
-                }
+                //}
 
                 // The packets came from teacher when he/she does not has control won't be display
                 if(e.fromUser.role == 'p' ||  ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())){

@@ -870,9 +870,7 @@ body .ui-tooltip {
 	color: #555555/*{fcDefault}*/;
 	text-decoration: none;
 }
-.ui-state-hover,
-.ui-widget-content .ui-state-hover,
-.ui-widget-header .ui-state-hover,
+
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
@@ -883,6 +881,13 @@ body .ui-tooltip {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48545f', endColorstr='#36414c',GradientType=0 ); /* IE6-9 */
     border: #444 1px solid;
 
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover{
+	background-image: none;
+	background-color: transparent;
 }
 
 .ui-state-hover a,
@@ -997,18 +1002,33 @@ body .ui-tooltip {
 }
 
 
+.ui-icon {
+	width: 16px !important;
+	height: 16px !important;
+}
+.ui-icon,
+.ui-widget-content .ui-icon, .ui-widget-header .ui-icon {
+		/*background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent};*/
+		background-image: none !important;
+}
+
+
 .ui-state-default .ui-icon {
-	background-image: url(images/ui-icons_888888_256x240.png);
+	/*background-image: url(images/ui-icons_888888_256x240.png);*/
+	background-image: none;
  }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-	background-image: url(images/ui-icons_454545_256x240.png);
+	/*background-image: url(images/ui-icons_454545_256x240.png);*/
+	background-image: none;
  }
 .ui-state-active .ui-icon {
-	background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive}*/;
+	/*background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive};*/
+	background-image: none;
  }
 .ui-state-highlight .ui-icon {
 	/*background-image: url(images/ui-icons_2e83ff_256x240.png){iconsHighlight};*/
+	background-image: none;
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
@@ -1280,6 +1300,14 @@ background-position: -64px -128px !important;
 	background: -ms-linear-gradient(top,  #3f4b56 0%,#34404c 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #3f4b56 0%,#34404c 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4b56', endColorstr='#34404c',GradientType=0 ); /* IE6-9 */
+}
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before {
+    color: #333;
+}
+
+.ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before{
+	color:#fff !important;
 }
 
 ui-widget-header a{

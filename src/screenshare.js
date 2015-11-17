@@ -320,9 +320,11 @@
 
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
-
                             window.location.reload();
-                        });
+                        }, function (error){
+                                alert(error);
+                           }
+                        );
                     }
                 } else if (virtualclass.system.mybrowser.name == 'Firefox') {
                     virtualclass.getSceenFirefox();

@@ -2184,7 +2184,7 @@
 	position: absolute;
 	text-align: center;
 	text-transform: uppercase;
-	width: 120px;
+	width: 110px;
 	border-radius: 5px;
 }
 
@@ -2519,7 +2519,6 @@
 #virtualclassCont #youtubeUrlContainer #submitURL:hover{
 	background-color: #68a697;
 	background-image: none;
-
 }
 
 #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover{
@@ -2865,7 +2864,7 @@
 
 #virtualclassOptionsCont .appOptions a.tooltip:hover:after{
 	line-height: 20px !important;
-	bottom: 0px!important;
+	bottom: -20px!important;
 }
 
 #virtualclassCont.teacher #audioWidget{
@@ -3115,6 +3114,7 @@
 
 #virtualclassCont #mainAudioPanel, #virtualclassCont #audioTest-box {
 	border : #e2e2e2 solid 3px;
+	border-top:#a4a4a4 solid 1px
 }
 #virtualclassCont #audioTest-box{
 	border-top:none;
@@ -3274,13 +3274,14 @@
 #virtualclassCont #alwaysPress .audioTool.active, #virtualclassCont #audioWidget #speakerPressOnce, #virtualclassCont #alwaysPress .audioTool.deactive, #audioTest-box .audioTool{
 	color:#d3dce5;
 	border: #555 solid 1px;
+	
 }
 
 #virtualclassCont .ui-widget-header .icon-user:before, #virtualclassCont .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before,{
 	color:#d5dee7;
 }
 
-#virtualclassCont #alwaysPress .audioTool.active{
+#virtualclassCont #alwaysPress .audioTool.active, #virtualclassCont #alwaysPress .audioTool.deactive{
 	border-top:none !important;
 }
 
@@ -3290,7 +3291,9 @@
 
 #virtualclassCont.pt_enable #alwaysPress{
 	display : block;
+	 border-bottom: none;
 }
+
 
 :focus {
     outline: none;

@@ -183,6 +183,7 @@ $(document).ready(function () {
     });
 
     $(document).on("error", function (e) {
+
         if (virtualclass.gObj.displayError) {
             virtualclass.view.removeElement('serverErrorCont');
 
@@ -218,7 +219,6 @@ $(document).ready(function () {
 
         overrideRolesFromElem(virtualclassCont);
 
-
     }
 
 
@@ -251,6 +251,7 @@ $(document).ready(function () {
             //    if (e.message[e.message.length - 1].role == 't') {
             veryFirstJoin = true;
                     // disconnect and re-connect
+            virtualclass.view.disappearBox('drawArea'); //remove draw message box
             io.disconnect();
             setTimeout(
                 function () {
@@ -330,9 +331,12 @@ $(document).ready(function () {
                         }
                     }
 
-
-                    ioAdapter.send({'cf': 'tConn'});
                 }
+
+                // Send to everyone that the teacher is connected
+                // for remove for extra cover for read only mode
+                ioAdapter.send({'cf': 'tConn'});
+
             }
 
             // Greet new student with info, When other user join

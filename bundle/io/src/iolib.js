@@ -105,10 +105,6 @@ var io = {
                 }, 5000);
             };
 
-            this.sock.onerror = function (evt){
-                debugger;
-                alert(evt);
-            }
         },
 
         userauthenticat: function () {

@@ -951,7 +951,7 @@
             // If teacher is disconnected then
             // there would come the porblem on editor of assigning role to student while continuous writting by him.
             if(!roles.hasAdmin()){
-                io.disconnect();
+                io. disconnect();
                 setTimeout(
                     function (){
                         virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
@@ -1170,7 +1170,7 @@
                 var teacherDisConn = localStorage.getItem('oTDisconn');
                 if(teacherDisConn != null){
                     teacherDisConn = JSON.parse(teacherDisConn);
-                    if(teacherDisConn){
+                    if(teacherDisConn){ //If orginal teacher is disconnnected
                         if(virtualclass.hasOwnProperty(eType)){
                             if(typeof virtualclass[eType].cm == 'object'){
                                 virtualclass[eType].cm.setOption('readOnly', 'nocursor');
@@ -1201,6 +1201,18 @@
             } else {
                 console.log('Editor:- writemode element is not found for ' + eType);
             }
+        },
+
+        isTeacherAlreadyExist : function(joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joni Id ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     };
     window.vutil = vutil;

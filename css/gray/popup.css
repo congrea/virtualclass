@@ -162,15 +162,18 @@ transition:all .2s linear;
 	border-right: 1px solid #000000;
 	background: #46D65D;
 }
+
 .progressValue {
 	color: #fff;
 	font-size: 12px;
 	font-style: italic;
-	font-weight: normal;
+	font-weight: 600;
 	left: 10px;
 	position: relative;
 	top: -25px;
+	text-shadow: #333 0px 0px 3px;
 }
+
 #indProgressBar {
 	background: #b9db0c;
 }

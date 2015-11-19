@@ -3079,9 +3079,6 @@
 	}
 }
 
-
-
-
 #popupContainer {
 	display : none;
 }
@@ -3179,7 +3176,6 @@
 }
 
 #virtualclassCont #audioWidget{
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#333636+0,021317+100 */
 	background: #333636; /* Old browsers */
 	background: -moz-linear-gradient(left,  #333636 0%, #021317 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#333636), color-stop(100%,#021317)); /* Chrome,Safari4+ */
@@ -3298,6 +3294,14 @@
 
 :focus {
     outline: none;
+}
+
+#virtualclassCont .close {
+	text-shadow: none !important;
+}
+
+#virtualclassCont .close:hover{
+	color:#fff !important;
 }
 
 

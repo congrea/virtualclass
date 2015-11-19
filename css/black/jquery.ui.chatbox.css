@@ -539,12 +539,15 @@
 	border:#555 1px solid;
 }
  
-#virtualclassCont .vmchat_room_bt, .ui-widget-header, .ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight a, 
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a{
-	color:#333 !important;
+.ui-state-default.ui-corner-bottom.ui-tabs-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active a{
+	color: #fff !important;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before{
+	color: #333 !important;
 }
 
-.ui-widget-header a span:before, .ui-state-default.ui-corner-bottom.ui-tabs-active a, .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header.ui-state-focus span{
-	color:#fff;
-} 
+.ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before{
+	color: #fff !important;
+}
+
 

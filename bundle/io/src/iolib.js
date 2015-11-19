@@ -104,6 +104,11 @@ var io = {
 
                 }, 5000);
             };
+
+            this.sock.onerror = function (evt){
+                debugger;
+                alert(evt);
+            }
         },
 
         userauthenticat: function () {
@@ -183,7 +188,17 @@ var io = {
                 }
             }
             var jobj = JSON.stringify(obj);
+
             this.sock.send(jobj);
+            this.sock.onerror = function (error){
+                debugger;
+                alert(error);
+            }
+            //this.sock.onclose = function (e){
+            //    debugger;
+            //    alert('close');
+            //}
+
         },
 
 
@@ -262,6 +277,7 @@ var io = {
                         break;
                     case "broadcastToAll":
                     case "broadcast":
+                     //   console.log('broad cast');
                         if (receivemsg !== null) {
                             if (receivemsg.userto != undefined) {
                                 userto = receivemsg.userto;
@@ -275,6 +291,7 @@ var io = {
                         }
                         break;
                     case "userleft":
+                        console.log('Case:- userleft');
                         if (receivemsg.userto != undefined) {
                             userto = receivemsg.userto;
                         }
@@ -289,18 +306,21 @@ var io = {
                         });
                         break;
                     case "leftroom":
+                        console.log('Case:- leftroom');
                         $.event.trigger({
                             type: "member_removed",
                             message: receivemsg.users
                         });
                         break;
                     case "Unauthenticated":
+                        console.log('Case:- unauthenticated');
                         $.event.trigger({
                             type: "authentication_failed",
                             message: 'Authentication failed'
                         });
                         break;
                     case "Multiple_login":
+                        console.log('Case:- Multiple_login');
                         $.event.trigger({
                             type: "Multiple_login"
                         });

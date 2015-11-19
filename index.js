@@ -202,85 +202,283 @@ $(document).ready(function () {
         }
     });
 
+    var overrideRolesFromElem =  function (elem){
+        elem.classList.remove('teacher');
+        elem.classList.remove('orginalTeacher');
+        virtualclassCont.classList.add('student');
+    }
+    var overrideRoles = function (){
+        virtualclass.uInfo.userobj.role = 's'
+        virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
+        wbUser.role = virtualclass.uInfo.userobj.role;
+        var virtualclassCont = document.getElementById('virtualclassCont');
+
+        //virtualclassCont.classList.remove('teacher');
+        //virtualclassCont.classList.remove('orginalTeacher');
+
+        overrideRolesFromElem(virtualclassCont);
+
+
+    }
+
+
+    var removeAppsDom = function (){
+        // remove whiteboard tool wrapper
+        var commandToolsWrapper = document.getElementById('commandToolsWrapper');
+        if(commandToolsWrapper != null){
+            commandToolsWrapper.parentNode.removeChild(commandToolsWrapper);
+        }
+
+
+        // remove virtualclass app tool
+        var virtualclassAppCont = document.getElementById('virtualclassOptionsCont');
+        if(virtualclassAppCont != null){
+            virtualclassAppCont.parentNode.removeChild(virtualclassAppCont);
+        }
+    }
+
+    var veryFirstJoin = false;
     $(document).on("member_added", function (e) {
         var sType;
         virtualclass.connectedUsers = e.message;
         //virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
-        ioPingPong.ping(e);
-        memberUpdate(e, 'added');
-        if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
-            virtualclass.gObj.video.updateVidContHeight();
-            virtualclass.gObj.updateHeight = true;
-        }
 
+        if((localStorage.getItem('uRole') ==  null && !veryFirstJoin)
+            && (virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)
+            && ((e.message[e.message.length - 1].role == 't')))){
+            //if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)) {
+            //    if (e.message[e.message.length - 1].role == 't') {
+            veryFirstJoin = true;
+                    // disconnect and re-connect
+            io.disconnect();
+            setTimeout(
+                function () {
+                    console.log('connected as STUDENT');
+                    overrideRoles();
+                    removeAppsDom();
+                    //removeAppsDom();
+                    //virtualclass.init(wbUser.role, appIs, videoObj);
 
-        if(roles.hasAdmin()){
-            if(virtualclass.gObj.uid == virtualclass.jId){
+                    io.init(virtualclass.uInfo);
+                }, 0
+            );
 
-                if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-                    ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+            //    }
+            //}
+        } else {
+
+            if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
+                if((e.message[e.message.length - 1].role == 'p')) { // If user is join as presenter
+                    console.log('connected as PRESENTER');
+                    var virtualclassCont = document.getElementById('virtualclassCont');
+                    overrideRolesFromElem(virtualclassCont);
+
+                    // Remove session End if presenter has
+                    var virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
+                    if (virtualclassSessionEndTool != null) {
+                        virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
+                    }
+                }else if((e.message[e.message.length - 1].role == 's')){ //If user is teacher and already joined as student
+                    console.log('connected as Student');
+                    //overrideRoles();
+                    //removeAppsDom();
+                    virtualclass.makeAppReady(virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp));
                 }
 
-                // On reload or new connection, make sure all students have same editor data
-                if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
-                    virtualclass.editorRich.responseToRequest();
-                } else {
-                    console.log('Editor Rich vcAdapter is not ready');
-                }
+            }
 
-                if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
-                    virtualclass.editorCode.responseToRequest();
-                } else {
-                    console.log('Editor Code vcAdapter is not ready');
-                }
 
-                if(virtualclass.currApp === 'Yts') {
-                    if (typeof virtualclass.yts.player == 'object') {
-                        ioAdapter.mustSendUser({
-                            'yts': {
-                                'init': virtualclass.yts.videoId,
-                                startFrom: virtualclass.yts.player.getCurrentTime()
-                            }, 'cf': 'yts'
-                        }, virtualclass.jId);
+
+            ioPingPong.ping(e);
+            memberUpdate(e, 'added');
+            if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
+                virtualclass.gObj.video.updateVidContHeight();
+                virtualclass.gObj.updateHeight = true;
+            }
+
+            if(roles.hasAdmin()){
+                if(virtualclass.gObj.uid == virtualclass.jId){
+
+                    if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                        ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+                    }
+
+                    // On reload or new connection, make sure all students have same editor data
+                    if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
+                        virtualclass.editorRich.responseToRequest();
+                    } else {
+                        console.log('Editor Rich vcAdapter is not ready');
+                    }
+
+                    if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
+                        virtualclass.editorCode.responseToRequest();
+                    } else {
+                        console.log('Editor Code vcAdapter is not ready');
+                    }
+
+
+
+                    if(virtualclass.currApp === 'Yts') {
+                        if (typeof virtualclass.yts.player == 'object') {
+                            ioAdapter.mustSendUser({
+                                'yts': {
+                                    'init': virtualclass.yts.videoId,
+                                    startFrom: virtualclass.yts.player.getCurrentTime()
+                                }, 'cf': 'yts'
+                            }, virtualclass.jId);
+                        }
+                    }
+
+
+                    ioAdapter.send({'cf': 'tConn'});
+                }
+            }
+
+            // Greet new student with info, When other user join
+            if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
+                // Greet new student with info
+                if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
+                    //if(typeof virtualclass.wb == 'object'){
+                    var objs = virtualclass.wb.vcan.main.replayObjs;
+                    if(objs.length > 0){
+                        virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
+                    } else {
+                        console.log('Could not send the whiteboar data');
                     }
                 }
 
+                if (virtualclass.currApp === 'ScreenShare') {
+                    sType = 'ss';
+                } else if(virtualclass.currApp === 'Yts'){
+                    if(typeof virtualclass.yts.player == 'object'){
+                        ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
+                    } else {
+                        ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                    }
+                }
 
-                ioAdapter.send({'cf': 'tConn'});
+                if (typeof sType !== 'undefined' && sType !== null) {
+                    //TODO this should be into function
+                    if(typeof virtualclass.getDataFullScreen == 'function'){
+                        sType = virtualclass.getDataFullScreen(sType);
+                        var createdImg = virtualclass.getDataFullScreen('ss');
+                        ioAdapter.sendBinary(createdImg);
+                        sType = null;
+                    }
+                }
             }
         }
 
-        // Greet new student with info, When other user join
-        if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
-            // Greet new student with info
-            if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
-            //if(typeof virtualclass.wb == 'object'){
-                var objs = virtualclass.wb.vcan.main.replayObjs;
-                if(objs.length > 0){
-                    virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
-                } else {
-                    console.log('Could not send the whiteboar data');
+        if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)
+            && (e.message[e.message.length - 1].role == 't')){
+            // disconnect and re-connect
+            io.disconnect();
+
+            setTimeout(
+                function (){
+                    console.log('connected as STUDENT');
+                    overrideRoles();
+                    removeAppsDom();
+                    //removeAppsDom();
+                    //virtualclass.init(wbUser.role, appIs, videoObj);
+                    io.init(virtualclass.uInfo);
+                }, 0
+            );
+
+        } else {
+
+            // If user is join as presenter
+            if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)
+                && (e.message[e.message.length - 1].role == 'p')){
+                var virtualclassCont = document.getElementById('virtualclassCont');
+                overrideRolesFromElem(virtualclassCont);
+
+                // Remove session End if presenter has
+
+                var virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
+                if(virtualclassSessionEndTool != null){
+                    virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
+                }
+
+            }
+
+
+            console.log('connected as ' + e.message[e.message.length - 1].role);
+            ioPingPong.ping(e);
+            memberUpdate(e, 'added');
+            if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
+                virtualclass.gObj.video.updateVidContHeight();
+                virtualclass.gObj.updateHeight = true;
+            }
+
+            if(roles.hasAdmin()){
+                if(virtualclass.gObj.uid == virtualclass.jId){
+
+                    if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
+                        ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
+                    }
+
+                    // On reload or new connection, make sure all students have same editor data
+                    if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
+                        virtualclass.editorRich.responseToRequest();
+                    } else {
+                        console.log('Editor Rich vcAdapter is not ready');
+                    }
+
+                    if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
+                        virtualclass.editorCode.responseToRequest();
+                    } else {
+                        console.log('Editor Code vcAdapter is not ready');
+                    }
+
+                    if(virtualclass.currApp === 'Yts') {
+                        if (typeof virtualclass.yts.player == 'object') {
+                            ioAdapter.mustSendUser({
+                                'yts': {
+                                    'init': virtualclass.yts.videoId,
+                                    startFrom: virtualclass.yts.player.getCurrentTime()
+                                }, 'cf': 'yts'
+                            }, virtualclass.jId);
+                        }
+                    }
+
+
+                    ioAdapter.send({'cf': 'tConn'});
                 }
             }
 
-            if (virtualclass.currApp === 'ScreenShare') {
-                sType = 'ss';
-            } else if(virtualclass.currApp === 'Yts'){
-                if(typeof virtualclass.yts.player == 'object'){
-                    ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
-                } else {
-                    ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+            // Greet new student with info, When other user join
+            if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
+                // Greet new student with info
+                if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
+                    //if(typeof virtualclass.wb == 'object'){
+                    var objs = virtualclass.wb.vcan.main.replayObjs;
+                    if(objs.length > 0){
+                        virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
+                    } else {
+                        console.log('Could not send the whiteboar data');
+                    }
                 }
-            }
 
-            if (typeof sType !== 'undefined' && sType !== null) {
-                //TODO this should be into function
-                if(typeof virtualclass.getDataFullScreen == 'function'){
-                    sType = virtualclass.getDataFullScreen(sType);
-                    var createdImg = virtualclass.getDataFullScreen('ss');
-                    ioAdapter.sendBinary(createdImg);
-                    sType = null;
+                if (virtualclass.currApp === 'ScreenShare') {
+                    sType = 'ss';
+                } else if(virtualclass.currApp === 'Yts'){
+                    if(typeof virtualclass.yts.player == 'object'){
+                        ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
+                    } else {
+                        ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                    }
+                }
+
+                if (typeof sType !== 'undefined' && sType !== null) {
+                    //TODO this should be into function
+                    if(typeof virtualclass.getDataFullScreen == 'function'){
+                        sType = virtualclass.getDataFullScreen(sType);
+                        var createdImg = virtualclass.getDataFullScreen('ss');
+                        ioAdapter.sendBinary(createdImg);
+                        sType = null;
+                    }
                 }
             }
         }
@@ -310,7 +508,7 @@ $(document).ready(function () {
         setTimeout(
             function (){
                 virtualclass.popup.closePopup();
-            }, 1000
+            }, 2500
         );
 
     });

@@ -3319,3 +3319,11 @@
 :focus {
     outline: none;
 }
+
+#virtualclassCont .close {
+	text-shadow: none !important;
+}
+
+#virtualclassCont .close:hover{
+	color:#fff !important;
+}

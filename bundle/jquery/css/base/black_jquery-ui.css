@@ -1260,7 +1260,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d18a', end
 }
 
 .ui-widget-header {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#021317+0,333636+100 */
 	background: #021317; /* Old browsers */
 	background: -moz-linear-gradient(top, #021317 0%, #333636 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#021317), color-stop(100%,#333636)); /* Chrome,Safari4+ */
@@ -1277,9 +1276,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d18a', end
 	 box-shadow: 0 0 5px #aaa;
 }
 
-
 .ui-state-default.ui-corner-bottom.ui-tabs-active{
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#333b3c+0,272e30+100 */
 	background: #333b3c; /* Old browsers */
 	background: -moz-linear-gradient(top,  #333b3c 0%, #272e30 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333b3c), color-stop(100%,#272e30)); /* Chrome,Safari4+ */
@@ -1288,11 +1285,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d18a', end
 	background: -ms-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #333b3c 0%,#272e30 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333b3c', endColorstr='#272e30',GradientType=0 ); /* IE6-9 */
-
 }
+
 .ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight span{
 	color:#333;
-	
 }
 
 

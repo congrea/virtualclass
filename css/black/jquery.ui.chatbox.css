@@ -524,27 +524,38 @@
 	width: 222px;
  }
  
- /* Black color */
  
- #virtualclassCont .vmchat_bar_button{
-	 border-left: #555 1px solid;
- }
-
+ /* Gray color */
   
+
+
 #virtualclassCont .vmchat_room_bt{
-	border-right: 1px solid #555;
+	border-right: 1px solid #5d6b76;
+}
+
+#virtualclassCont .vmchat_bar_button{
+	border-left: 1px solid #5d6b76;
+}
+
+#virtualclassCont .ui-chatbox-input{
+	background-color: #eee;
 }
 
 #virtualclassCont .ui-tabs .ui-tabs-nav li.ui-tabs-active{
-	border:#555 1px solid;
-}
- 
-#virtualclassCont .vmchat_room_bt, .ui-widget-header, .ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight a, 
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a{
-	color:#333 !important;
+	border: 1px solid #5d6b76;
 }
 
-.ui-widget-header a span:before, .ui-state-default.ui-corner-bottom.ui-tabs-active a, .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header.ui-state-focus span{
-	color:#fff;
-} 
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a{
+	color:#d3dce5;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active .ui-corner-all.ui-chatbox-icon .ui-icon.ui-icon-close.icon-remove:before{
+	color:#d3dce5;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active a{
+	color: #fff;
+}
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a{
+	color: #333 !important;
+}
 

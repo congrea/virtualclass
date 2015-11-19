@@ -1292,4 +1292,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d18a', end
 }
 
 
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before {
+    color: #333;
+}
+
+
 

@@ -162,7 +162,6 @@ transition:all .2s linear;
 	border-right: 1px solid #000000;
 	background: #46D65D;
 }
-
 .progressValue {
 	color: #fff;
 	font-size: 12px;
@@ -173,7 +172,6 @@ transition:all .2s linear;
 	top: -25px;
 	text-shadow: #333 0px 0px 3px;
 }
-
 #indProgressBar {
 	background: #b9db0c;
 }
@@ -335,10 +333,10 @@ transition:all .2s linear;
 
 
 
-/*Gray color */
+/*Black color */
 
 #virtualclassCont .vceditor-toolbar{
-	background-color:#3c4955;
+	background-color:#333636;
 }
 
 
@@ -408,7 +406,7 @@ transition:all .2s linear;
 	font-weight: normal;
 	padding: 10px 22px;
 	border-radius: 10px !important;
-	color: #555;
+	color:#555;
 }
 
 #virtualclassCont #speakerPressingAnch #speakerPressingtext{
@@ -421,5 +419,6 @@ transition:all .2s linear;
 .rv-vanilla-modal-title{
 	color:#fff;
 }
+
 
 

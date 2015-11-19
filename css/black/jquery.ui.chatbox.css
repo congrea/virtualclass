@@ -524,28 +524,21 @@
 	width: 222px;
  }
  
+ /* Black color */
  
- /* Gray color */
+ #virtualclassCont .vmchat_bar_button{
+	 border-left: #555 1px solid;
+ }
+
   
-
-
 #virtualclassCont .vmchat_room_bt{
-	border-right: 1px solid #5d6b76;
-}
-
-#virtualclassCont .vmchat_bar_button{
-	border-left: 1px solid #5d6b76;
-}
-
-#virtualclassCont .ui-chatbox-input{
-	background-color: #eee;
+	border-right: 1px solid #555;
 }
 
 #virtualclassCont .ui-tabs .ui-tabs-nav li.ui-tabs-active{
-	border: 1px solid #5d6b76;
+	border:#555 1px solid;
 }
-
-
+ 
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a{
 	color:#d3dce5;
 }
@@ -558,4 +551,3 @@
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a{
 	color: #333 !important;
 }
-

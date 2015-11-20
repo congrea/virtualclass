@@ -573,6 +573,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
+
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     //if(virtualclass.currApp != 'Whiteboard'){

@@ -203,21 +203,33 @@ $(document).ready(function () {
         }
     });
 
-    var overrideRolesFromElem =  function (elem){
-        elem.classList.remove('teacher');
-        elem.classList.remove('orginalTeacher');
-        virtualclassCont.classList.add('student');
+    var overrideRolesFromElem =  function (elem, role){
+        if(role == 's'){
+            elem.classList.remove('teacher');
+            elem.classList.remove('orginalTeacher');
+            virtualclassCont.classList.add('student');
+        }else if(role == 'e'){
+            elem.classList.remove('teacher');
+            elem.classList.remove('student');
+            elem.classList.add('educator');
+        }else if(role == 't'){
+            elem.classList.remove('student');
+            elem.classList.remove('educator');
+            elem.classList.remove('presenter');
+            elem.classList.add('teacher');
+            elem.classList.add('orginalTeacher');
+        }
+
     }
-    var overrideRoles = function (){
-        virtualclass.uInfo.userobj.role = 's'
+    var overrideRoles = function (role){
+        virtualclass.uInfo.userobj.role = role;
         virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
         wbUser.role = virtualclass.uInfo.userobj.role;
         var virtualclassCont = document.getElementById('virtualclassCont');
 
         //virtualclassCont.classList.remove('teacher');
         //virtualclassCont.classList.remove('orginalTeacher');
-
-        overrideRolesFromElem(virtualclassCont);
+        overrideRolesFromElem(virtualclassCont, role);
 
     }
 
@@ -237,60 +249,87 @@ $(document).ready(function () {
         }
     }
 
-    var veryFirstJoin = false;
+    var getUserId = function (joinId){
+        if(virtualclass.hasOwnProperty('connectedUsers')){
+            for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                if ((virtualclass.connectedUsers[i].role == 'p')
+                    && virtualclass.connectedUsers[i].userid != joinId) {
+                    return virtualclass.connectedUsers[i].userid;
+
+                }
+            }
+        }
+        return false;
+    }
+
+    var checkWithTeacher = function (e){
+        if((virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId))){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+    var isPresenterAlreadyExist = function (e){
+        if((virtualclass.jId  == virtualclass.gObj.uid) && virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) ){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    var overrideOperation  = function (role){
+        if(role == 's'){
+            removeAppsDom();
+        }
+
+        io.disconnect();
+        overrideRoles(role);
+        io.init(virtualclass.uInfo);
+    }
+
+
+
+    var transferControl = function (userId){
+        setTimeout(
+            function (){
+                veryFirstJoin = false;
+                virtualclass.user.control._assign(userId);
+                var elem = document.getElementById(userId+'contrAssignImg');
+                elem.setAttribute('data-assign-disable', false);
+                document.getElementById(userId+'contrAssignImg').click();
+
+            },
+            2000
+        );
+    }
+
+
+    var veryFirstJoin = true;
     $(document).on("member_added", function (e) {
         var sType;
         virtualclass.connectedUsers = e.message;
-        //virtualclass.wb.clientLen = e.message.length;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
-        if((localStorage.getItem('uRole') ==  null && !veryFirstJoin)
-            && (virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)
-            && ((e.message[e.message.length - 1].role == 't')))){
-            //if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)) {
-            //    if (e.message[e.message.length - 1].role == 't') {
-            veryFirstJoin = true;
-                    // disconnect and re-connect
-            virtualclass.view.disappearBox('drawArea'); //remove draw message box
-            io.disconnect();
-            setTimeout(
-                function () {
-                    console.log('connected as STUDENT');
-                    overrideRoles();
-                    removeAppsDom();
-                    //removeAppsDom();
-                    //virtualclass.init(wbUser.role, appIs, videoObj);
-
-                    io.init(virtualclass.uInfo);
-                }, 0
-            );
-
-            //    }
-            //}
-        } else {
-
-            if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
-                if((e.message[e.message.length - 1].role == 'p')) { // If user is join as presenter
-                    console.log('connected as PRESENTER');
-                    var virtualclassCont = document.getElementById('virtualclassCont');
-                    overrideRolesFromElem(virtualclassCont);
-
-                    // Remove session End if presenter has
-                    var virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
-                    if (virtualclassSessionEndTool != null) {
-                        virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
-                    }
-                }else if((e.message[e.message.length - 1].role == 's')){ //If user is teacher and already joined as student
-                    console.log('connected as Student');
-                    //overrideRoles();
-                    //removeAppsDom();
-                    virtualclass.makeAppReady(virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp));
+        if(e.message[e.message.length - 1].role == 't' && (virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin)){
+            if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
+                veryFirstJoin = false;
+                virtualclass.view.disappearBox('drawArea'); //remove draw message box
+                overrideOperation('s');
+            } else if(virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) && veryFirstJoin){
+                overrideOperation('e');
+                var userId = getUserId(virtualclass.jId);
+                if(userId){
+                    transferControl(userId);
                 }
-
+            }else {
+                veryFirstJoin = false;
+                overrideOperation('t');
             }
 
 
-
+        } else {
             ioPingPong.ping(e);
             memberUpdate(e, 'added');
             if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
@@ -372,120 +411,10 @@ $(document).ready(function () {
                     }
                 }
             }
+
         }
 
-        if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)
-            && (e.message[e.message.length - 1].role == 't')){
-            // disconnect and re-connect
-            io.disconnect();
 
-            setTimeout(
-                function (){
-                    console.log('connected as STUDENT');
-                    overrideRoles();
-                    removeAppsDom();
-                    //removeAppsDom();
-                    //virtualclass.init(wbUser.role, appIs, videoObj);
-                    io.init(virtualclass.uInfo);
-                }, 0
-            );
-
-        } else {
-
-            // If user is join as presenter
-            if(virtualclass.jId  == virtualclass.gObj.uid && virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)
-                && (e.message[e.message.length - 1].role == 'p')){
-                var virtualclassCont = document.getElementById('virtualclassCont');
-                overrideRolesFromElem(virtualclassCont);
-
-                // Remove session End if presenter has
-
-                var virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
-                if(virtualclassSessionEndTool != null){
-                    virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
-                }
-
-            }
-
-
-            console.log('connected as ' + e.message[e.message.length - 1].role);
-            ioPingPong.ping(e);
-            memberUpdate(e, 'added');
-            if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
-                virtualclass.gObj.video.updateVidContHeight();
-                virtualclass.gObj.updateHeight = true;
-            }
-
-            if(roles.hasAdmin()){
-                if(virtualclass.gObj.uid == virtualclass.jId){
-
-                    if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
-                        ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
-                    }
-
-                    // On reload or new connection, make sure all students have same editor data
-                    if(virtualclass.editorRich.isVcAdapterIsReady('editorRich')){
-                        virtualclass.editorRich.responseToRequest();
-                    } else {
-                        console.log('Editor Rich vcAdapter is not ready');
-                    }
-
-                    if(virtualclass.editorCode.isVcAdapterIsReady('editorCode')){
-                        virtualclass.editorCode.responseToRequest();
-                    } else {
-                        console.log('Editor Code vcAdapter is not ready');
-                    }
-
-                    if(virtualclass.currApp === 'Yts') {
-                        if (typeof virtualclass.yts.player == 'object') {
-                            ioAdapter.mustSendUser({
-                                'yts': {
-                                    'init': virtualclass.yts.videoId,
-                                    startFrom: virtualclass.yts.player.getCurrentTime()
-                                }, 'cf': 'yts'
-                            }, virtualclass.jId);
-                        }
-                    }
-
-
-                    ioAdapter.send({'cf': 'tConn'});
-                }
-            }
-
-            // Greet new student with info, When other user join
-            if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId ) {
-                // Greet new student with info
-                if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
-                    //if(typeof virtualclass.wb == 'object'){
-                    var objs = virtualclass.wb.vcan.main.replayObjs;
-                    if(objs.length > 0){
-                        virtualclass.vutil.beforeSend({'repObj': objs, 'cf' : 'repObj'});
-                    } else {
-                        console.log('Could not send the whiteboar data');
-                    }
-                }
-
-                if (virtualclass.currApp === 'ScreenShare') {
-                    sType = 'ss';
-                } else if(virtualclass.currApp === 'Yts'){
-                    if(typeof virtualclass.yts.player == 'object'){
-                        ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
-                    } else {
-                        ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
-                    }
-                }
-
-                if (typeof sType !== 'undefined' && sType !== null) {
-                    //TODO this should be into function
-                    if(typeof virtualclass.getDataFullScreen == 'function'){
-                        sType = virtualclass.getDataFullScreen(sType);
-                        var createdImg = virtualclass.getDataFullScreen('ss');
-                        ioAdapter.sendBinary(createdImg);
-                        sType = null;
-                    }
-                }
-            }
-        }
     });
 
     $(document).on("Multiple_login", function (e) {

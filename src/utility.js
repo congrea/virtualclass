@@ -1206,8 +1206,22 @@
         isTeacherAlreadyExist : function(joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if ((virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') && virtualclass.connectedUsers[i].userid != joinId) {
+                    if ((virtualclass.connectedUsers[i].role == 't' ||  virtualclass.connectedUsers[i].role == 'e')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
                         console.log('joni Id ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
+        isPresenterAlreadyExist : function (joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 'p')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joniId ' + joinId);
                         return true;
                     }
                 }

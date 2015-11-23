@@ -386,18 +386,18 @@
                 }
             }
         },
-        
+
         // TODO 
         /***
          * Add class at body according to role
          */
         /*
-        toggleRoleClass: function (reclaim) {
-            if (roles.isPresenter() || reclaim) {
-                document.getElementById("virtualclassCont").classList.toggle('teacher');
-                document.getElementById("virtualclassCont").classList.toggle('student');
-            }
-        }, */
+         toggleRoleClass: function (reclaim) {
+         if (roles.isPresenter() || reclaim) {
+         document.getElementById("virtualclassCont").classList.toggle('teacher');
+         document.getElementById("virtualclassCont").classList.toggle('student');
+         }
+         }, */
 
         addClass: function (elemId, className) {
             var elem = document.getElementById(elemId);
@@ -516,9 +516,9 @@
                 virtualclass.storage.wholeStore(obj, "put");
             }
 
-         //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
+            //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
-                localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+            localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
 
             localStorage.removeItem('otherRole');
 
@@ -831,7 +831,7 @@
                 if (roles.isEducator()) {
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                 //   localStorage.removeItem('reclaim');
+                    //   localStorage.removeItem('reclaim');
                     virtualclass.vutil.removeClass('virtualclassCont', 'educator');
 
                 } else {
@@ -1112,8 +1112,8 @@
         },
 
         createReclaimButtonIfNeed: function () {
-         //   if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
-              if (roles.isEducator()) {
+            //   if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
+            if (roles.isEducator()) {
                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                 //virtualclass.gObj.uRole = 's';
@@ -1228,7 +1228,7 @@
             }
             return false;
         },
-        
+
         isEducatorAlreadyExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
@@ -1241,11 +1241,11 @@
             }
             return false;
         },
-        
+
         isOrginalTeacherExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if ((virtualclass.connectedUsers[i].role == 't')
+                    if ((virtualclass.connectedUsers[i].role == 'e')
                         && virtualclass.connectedUsers[i].userid != joinId) {
                         console.log('joniId ' + joinId);
                         return true;
@@ -1253,8 +1253,8 @@
                 }
             }
             return false;
-        },
-        
+        }
+
     };
     window.vutil = vutil;
 })(window);

@@ -1229,6 +1229,7 @@
             return false;
         },
 
+
         isEducatorAlreadyExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
@@ -1245,7 +1246,7 @@
         isOrginalTeacherExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if ((virtualclass.connectedUsers[i].role == 'e')
+                    if ((virtualclass.connectedUsers[i].role == 't')
                         && virtualclass.connectedUsers[i].userid != joinId) {
                         console.log('joniId ' + joinId);
                         return true;

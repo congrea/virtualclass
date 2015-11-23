@@ -207,10 +207,19 @@ $(document).ready(function () {
         if(role == 's'){
             elem.classList.remove('teacher');
             elem.classList.remove('orginalTeacher');
+            elem.classList.remove('presenter');
+            elem.classList.remove('educator');
             virtualclassCont.classList.add('student');
-        }else if(role == 'e'){
+        } else if(role == 'p'){
+            elem.classList.remove('teacher');
+            elem.classList.remove('orginalTeacher');
+            elem.classList.remove('educator');
+            virtualclassCont.classList.add('student');
+            virtualclassCont.classList.add('presenter');
+        } else if(role == 'e'){
             elem.classList.remove('teacher');
             elem.classList.remove('student');
+            elem.classList.remove('presenter');
             elem.classList.add('educator');
         }else if(role == 't'){
             elem.classList.remove('student');
@@ -221,6 +230,7 @@ $(document).ready(function () {
         }
 
     }
+
     var overrideRoles = function (role){
         virtualclass.uInfo.userobj.role = role;
         virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
@@ -286,6 +296,7 @@ $(document).ready(function () {
 
         io.disconnect();
         overrideRoles(role);
+
         io.init(virtualclass.uInfo);
     }
 
@@ -318,26 +329,40 @@ $(document).ready(function () {
                 veryFirstJoin = false;
                 virtualclass.view.disappearBox('drawArea'); //remove draw message box
                 overrideOperation('s');
+                console.log('Member add :- join as student');
             } else if(virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) && veryFirstJoin){
                 overrideOperation('e');
+                console.log('Member add :- join as educator');
                 var userId = getUserId(virtualclass.jId);
                 if(userId){
                     transferControl(userId);
                 }
             }else {
                 veryFirstJoin = false;
+                console.log('Member add :- join as teacher');
                 overrideOperation('t');
             }
-            // If user try join as Presenter OR Educator
+            // If user try to join as Presenter OR Educator
         }else if((virtualclass.jId  == virtualclass.gObj.uid) 
             && (e.message[e.message.length - 1].role == 'p'  
-                    && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))
-            || (e.message[e.message.length - 1].role == 'e'  && 
-                    (virtualclass.vutil.isEdcatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))){
+                    //&& (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))
+                    && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId))
+            || (e.message[e.message.length - 1].role == 'e'  &&
+                    (virtualclass.vutil.isEducatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))){
                 veryFirstJoin = false;
                 virtualclass.view.disappearBox('drawArea'); //remove draw message box
                 overrideOperation('s');
+            console.log('Member add :- join as student');
         } else {
+            if((virtualclass.jId  == virtualclass.gObj.uid)){
+                // Override the roles for removing Class from virtualclass container.
+                if(e.message[e.message.length - 1].role == 'p' || e.message[e.message.length - 1].role == 'e'){
+                    overrideRoles(e.message[e.message.length - 1].role);
+                }
+            }
+
+            // Handle other thing as usual
+            console.log('Member add :- join as normal');
             ioPingPong.ping(e);
             memberUpdate(e, 'added');
             if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {

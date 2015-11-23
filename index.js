@@ -311,7 +311,8 @@ $(document).ready(function () {
         var sType;
         virtualclass.connectedUsers = e.message;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
-
+        
+        // If user try to join as Teacher
         if(e.message[e.message.length - 1].role == 't' && (virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin)){
             if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
                 veryFirstJoin = false;
@@ -327,8 +328,15 @@ $(document).ready(function () {
                 veryFirstJoin = false;
                 overrideOperation('t');
             }
-
-
+            // If user try join as Presenter OR Educator
+        }else if((virtualclass.jId  == virtualclass.gObj.uid) 
+            && (e.message[e.message.length - 1].role == 'p'  
+                    && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))
+            || (e.message[e.message.length - 1].role == 'e'  && 
+                    (virtualclass.vutil.isEdcatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))){
+                veryFirstJoin = false;
+                virtualclass.view.disappearBox('drawArea'); //remove draw message box
+                overrideOperation('s');
         } else {
             ioPingPong.ping(e);
             memberUpdate(e, 'added');
@@ -339,7 +347,6 @@ $(document).ready(function () {
 
             if(roles.hasAdmin()){
                 if(virtualclass.gObj.uid == virtualclass.jId){
-
                     if(virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE'){
                         ioAdapter.mustSend({'eddata' : 'currAppEditor', et: virtualclass.currApp});
                     }
@@ -356,8 +363,6 @@ $(document).ready(function () {
                     } else {
                         console.log('Editor Code vcAdapter is not ready');
                     }
-
-
 
                     if(virtualclass.currApp === 'Yts') {
                         if (typeof virtualclass.yts.player == 'object') {
@@ -411,10 +416,7 @@ $(document).ready(function () {
                     }
                 }
             }
-
         }
-
-
     });
 
     $(document).on("Multiple_login", function (e) {

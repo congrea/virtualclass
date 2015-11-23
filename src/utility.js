@@ -1227,7 +1227,34 @@
                 }
             }
             return false;
-        }
+        },
+        
+        isEducatorAlreadyExist : function (joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 'e')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joniId ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+        
+        isOrginalTeacherExist : function (joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 't')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joniId ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+        
     };
     window.vutil = vutil;
 })(window);

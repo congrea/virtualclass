@@ -259,6 +259,13 @@ $(document).ready(function () {
         }
     }
 
+    var removeSessionEndTool = function (){
+        var virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
+        if(virtualclassSessionEndTool != null){
+            virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
+        }
+    }
+
     var getUserId = function (joinId){
         if(virtualclass.hasOwnProperty('connectedUsers')){
             for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
@@ -323,6 +330,8 @@ $(document).ready(function () {
                 overrideRoles(e.message[e.message.length - 1].role);
                 if(e.message[e.message.length - 1].role == 's'){
                     removeAppsDom();
+                } else if(e.message[e.message.length - 1].role != 'e') {
+                    removeSessionEndTool(); // remove session tool if there is any
                 }
             }
         }

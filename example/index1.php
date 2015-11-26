@@ -158,6 +158,7 @@ if(isset($_GET['lname'])){
 	<?php echo "wbUser.room='".$room."';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
+	<?php echo "wbUser.actualRole='".$r."';"; ?>
 	<?php echo "wbUser.vcSid='1';"; ?>
 	<?php // echo "wbUser.fname='".$fname."';"; ?>
 

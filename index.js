@@ -45,7 +45,6 @@ $(document).ready(function () {
     if(previousApp != null) {
         virtualclass.previousApp = previousApp;
         var appIs = capitalizeFirstLetter(previousApp.name);
-
         if(previousApp.name == 'Yts'){
             if(previousApp.metaData == null ){
                 var videoObj = null;
@@ -263,6 +262,7 @@ $(document).ready(function () {
         var virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
         if(virtualclassSessionEndTool != null){
             virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
+            console.log("App Tool:- Remove session tool");
         }
     }
 
@@ -296,9 +296,25 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * By this funciton overriding the role and
+     * and adjusting the layout/html according to it
+     * @param role
+     */
     var overrideOperation  = function (role){
         if(role == 's'){
+            virtualclass.view.disappearBox('drawArea'); //remove draw message box
             removeAppsDom();
+            if (typeof virtualclass.wb == 'object') {
+                // make canvas disable if there canvas is disabled
+                virtualclass.wb.utility.makeCanvasDisable();
+            }
+        }else if(role == 'e'){
+            var userId = getUserId(virtualclass.jId);
+            if(userId){
+                transferControl(userId);
+            }
+            console.log('Member add :- join as educator');
         }
 
         io.disconnect();
@@ -307,9 +323,15 @@ $(document).ready(function () {
         io.init(virtualclass.uInfo);
     }
 
-
-
+    /**
+     * If educator role is override then
+     * by this function, transfer the educator role to presenter
+     * @param userId
+     */
     var transferControl = function (userId){
+        // virtualclass.clearSession();
+        // We need handle to the bindary data
+
         setTimeout(
             function (){
                 veryFirstJoin = false;
@@ -323,7 +345,15 @@ $(document).ready(function () {
         );
     }
 
-    var defaultAction = function (e, sType){
+    /**
+     * This is performing default action when member is added
+     * Which means after role overrides/confirmation
+     * @param expect
+     * @param sType
+     *
+     */
+
+    var defaultOperation = function (e, sType){
         if((virtualclass.jId  == virtualclass.gObj.uid)){
             // Override the roles for removing Class from virtualclass container.
             if(e.message[e.message.length - 1].role != 't'){
@@ -426,43 +456,35 @@ $(document).ready(function () {
         virtualclass.connectedUsers = e.message;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
 
-
         // If user try to join as Teacher
-        if(e.message[e.message.length - 1].role == 't' && (virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin)){
+        if((virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin) && e.message[e.message.length - 1].role == 't'){
             if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
                 veryFirstJoin = false;
-                virtualclass.view.disappearBox('drawArea'); //remove draw message box
                 overrideOperation('s');
-                console.log('Member add :- join as student');
-            } else if(virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId) && veryFirstJoin){
+                console.log('Member add :- Join As Student');
+            } else if(veryFirstJoin && virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId)){
                 overrideOperation('e');
-                var userId = getUserId(virtualclass.jId);
-                if(userId){
-                    transferControl(userId);
-                }
-                console.log('Member add :- join as educator');
-            }else {
+            } else {
                 veryFirstJoin = false;
                 overrideOperation('t');
                 console.log('Member add :- join as teacher');
             }
+
             // If user try to join as Presenter OR Educator
-        } else if(((virtualclass.jId  == virtualclass.gObj.uid) && veryFirstJoin)
+        //} else if(((virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin) && userStoreRole == null)
+        } else if(((virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin))
             && (e.message[e.message.length - 1].role == 'p'
                     && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId))
             || (e.message[e.message.length - 1].role == 'e'  &&
                     (virtualclass.vutil.isEducatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))){
+
                 veryFirstJoin = false;
-                virtualclass.view.disappearBox('drawArea'); //remove draw message box
                 overrideOperation('s');
                 console.log('Member add :- join as student. Earlier was educator OR teacher');
-
         } else {
             // this will be the usual case:-
-            defaultAction(e, sType);
-
+            defaultOperation(e, sType);
         }
-
 
     });
 

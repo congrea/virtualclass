@@ -3327,3 +3327,62 @@
 #virtualclassCont .close:hover{
 	color:#fff !important;
 }
+
+
+#virtualclassCont #beTeacher {
+	background: #7bb876 none repeat scroll 0 0;
+	border-radius: 4px;
+	box-shadow: none;
+	color: #ffffff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Arial;
+	font-size: 13px;
+	padding: 10px 25px;
+	position: absolute;
+	text-decoration: none;
+	text-transform: uppercase;
+	border:#70ab6b 1px solid;
+}
+
+#beTeacher:hover{
+	background: #84bd7f;
+	border:#67a462 1px solid;
+}
+
+#virtualclassCont #beTeacher{
+	z-index : 10;
+}
+
+#virtualclassCont[data-currapp="Whiteboard"]  #beTeacher{
+	top : 1%;
+}
+
+#virtualclassCont.student[data-currapp="Whiteboard"]  #beTeacher{
+	top: 2%;
+	right: 1%;
+}
+
+#virtualclassCont.student[data-currapp="ScreenShare"]  #beTeacher{
+	right: 1%;
+	top: 3%;
+}
+
+#virtualclassCont.student[data-currapp="Yts"]  #beTeacher{
+	right: 1%;
+	top: 4%;
+}
+
+#virtualclassCont.student[data-currapp="EditorCode"]  #beTeacher{
+	right: 13%;
+	top: 5%;
+}
+
+#virtualclassCont.presenter[data-currapp="Whiteboard"]  #beTeacher{
+	top : 1%;
+}
+
+#virtualclassCont[data-currapp="EditorRich"]  #beTeacher{
+	right: 13%;
+	top: 3%;
+}

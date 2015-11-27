@@ -49,7 +49,7 @@ $pushtotalk = $pt[$pushtotalk];
 
 
 <?php
-$cssdebug = 0;
+$cssdebug = 1;
 
 //define the script root
 define( 'SCRIPT_ROOT', $whiteboardpath);

@@ -127,7 +127,8 @@
         'filenotsave'  : 'Your file could not be saved.',
         'muteAll' : 'Mute All',
         'unmuteAll' : 'Unmute All',
-        'enablehistory' : '"Browser History" should be enabled during the Session.'
+        'enablehistory' : '"Browser History" should be enabled during the Session.',
+        'becomeTeacher' : 'Become Teacher'
     };
     window.message = message;
 })(window);

@@ -159,6 +159,7 @@ $(document).ready(function () {
             localStorage.setItem('oTDisconn', true);
             disableEditor('editorRich');
             disableEditor('editorCode');
+            //createBecomeTeacherWidget();
         }
     });
 
@@ -175,10 +176,26 @@ $(document).ready(function () {
     }
 
 
+    var isTeacherExistWhenRemoveUser = function(users){
+        if(virtualclass.hasOwnProperty('connectedUsers')){
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].role == 't' ||  users[i].role == 'e') {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     $(document).on("member_removed", function (e) {
         // critical removign this can be critical
         //  virtualclass.wb.utility.userIds = [];
         memberUpdate(e, "removed");
+        if(!isTeacherExistWhenRemoveUser(e.message)){
+            if(virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e'){
+                createBecomeTeacherWidget();
+            }
+        }
     });
 
     $(document).on("error", function (e) {
@@ -330,7 +347,7 @@ $(document).ready(function () {
      */
     var transferControl = function (userId){
         // virtualclass.clearSession();
-        // We need handle to the bindary data
+        // We need handle to     the bindary data
 
         setTimeout(
             function (){
@@ -448,16 +465,55 @@ $(document).ready(function () {
         }
     }
 
+    function removeBecomeTeacherWidget(){
+        var becomeTeacherElem = document.getElementById('beTeacher');
+        if(becomeTeacherElem != null){
+            becomeTeacherElem.parentNode.removeChild(becomeTeacherElem);
+        }
+    }
 
+
+    /**
+     * Create the button element for request the Teacher Role
+     *
+     */
+
+    function createBecomeTeacherWidget(){
+        if(document.getElementById('beTeacher') == null){
+            var beTeacher = document.createElement('div');
+            beTeacher.id = 'beTeacher';
+
+            var beTeacherLink = document.createElement('a');
+            beTeacherLink.id = beTeacher.id + 'Anchor';
+            beTeacherLink.innerHTML = virtualclass.lang.getString('becomeTeacher');
+            beTeacher.appendChild(beTeacherLink);
+
+            var virtualclassContElem = document.getElementById('virtualclassCont');
+            virtualclassContElem.insertBefore(beTeacher, virtualclassContElem.firstChild);
+
+            beTeacher.addEventListener('click', function (){
+                //overrideOperation('t');
+                overrideRoles('t');
+                localStorage.setItem('uRole', 't');
+                window.location.reload();
+            });
+        }
+    }
+
+
+    function selfJoin (jId){
+        return (jId  == virtualclass.gObj.uid);
+    }
 
     var veryFirstJoin = true;
     $(document).on("member_added", function (e) {
         var sType;
         virtualclass.connectedUsers = e.message;
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
+        virtualclass.joinUser = e.message[e.message.length - 1]; // Join User info
 
         // If user try to join as Teacher
-        if((virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin) && e.message[e.message.length - 1].role == 't'){
+        if((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't'){
             if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
                 veryFirstJoin = false;
                 overrideOperation('s');
@@ -472,10 +528,10 @@ $(document).ready(function () {
 
             // If user try to join as Presenter OR Educator
         //} else if(((virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin) && userStoreRole == null)
-        } else if(((virtualclass.jId  == virtualclass.gObj.uid && veryFirstJoin))
-            && (e.message[e.message.length - 1].role == 'p'
+        } else if(((selfJoin(virtualclass.jId) && veryFirstJoin))
+            && (virtualclass.joinUser.role == 'p'
                     && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId))
-            || (e.message[e.message.length - 1].role == 'e'  &&
+            || (virtualclass.joinUser.role == 'e'  &&
                     (virtualclass.vutil.isEducatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))){
 
                 veryFirstJoin = false;
@@ -484,8 +540,14 @@ $(document).ready(function () {
         } else {
             // this will be the usual case:-
             defaultOperation(e, sType);
+            if (selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) && (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
+                createBecomeTeacherWidget();
+            }
         }
 
+        if((virtualclass.joinUser.role == 't' || virtualclass.joinUser.role == 'e') && virtualclass.jId != virtualclass.gObj.uid){
+            removeBecomeTeacherWidget();
+        }
     });
 
     $(document).on("Multiple_login", function (e) {

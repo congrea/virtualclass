@@ -41,6 +41,14 @@ if(isset($_GET['pt'])){
 $pushtotalk = $pt[$pushtotalk];
 
 
+$anyonepresenter = 0;
+if(isset($_GET['anyonepresenter'])){
+    if($_GET['anyonepresenter'] == '0' || $_GET['anyonepresenter'] == '1'){
+        $anyonepresenter = $_GET['anyonepresenter'];
+    }
+}
+
+
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
@@ -49,7 +57,7 @@ $pushtotalk = $pt[$pushtotalk];
 
 
 <?php
-$cssdebug = 0;
+$cssdebug = 1;
 
 //define the script root
 define( 'SCRIPT_ROOT', $whiteboardpath);
@@ -158,7 +166,10 @@ if(isset($_GET['lname'])){
 	<?php echo "wbUser.room='".$room."';"; ?>
 	<?php echo "wbUser.sid='".$sid."';"; ?>
 	<?php echo "wbUser.role='".$r."';"; ?>
+	<?php echo "wbUser.actualRole='".$r."';"; ?>
 	<?php echo "wbUser.vcSid='1';"; ?>
+	<?php echo "wbUser.anyonepresenter='".$anyonepresenter."';"; ?>
+
 	<?php // echo "wbUser.fname='".$fname."';"; ?>
 
     <?php echo "wbUser.lname='".$lname."';"; ?>

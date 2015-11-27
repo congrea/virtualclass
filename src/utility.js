@@ -386,18 +386,18 @@
                 }
             }
         },
-        
+
         // TODO 
         /***
          * Add class at body according to role
          */
         /*
-        toggleRoleClass: function (reclaim) {
-            if (roles.isPresenter() || reclaim) {
-                document.getElementById("virtualclassCont").classList.toggle('teacher');
-                document.getElementById("virtualclassCont").classList.toggle('student');
-            }
-        }, */
+         toggleRoleClass: function (reclaim) {
+         if (roles.isPresenter() || reclaim) {
+         document.getElementById("virtualclassCont").classList.toggle('teacher');
+         document.getElementById("virtualclassCont").classList.toggle('student');
+         }
+         }, */
 
         addClass: function (elemId, className) {
             var elem = document.getElementById(elemId);
@@ -516,9 +516,9 @@
                 virtualclass.storage.wholeStore(obj, "put");
             }
 
-         //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
+            //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
-                localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+            localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
 
             localStorage.removeItem('otherRole');
 
@@ -569,7 +569,8 @@
             }
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
-
+            // TODO this should be enable and should test proper way
+            // localStorage.setItem('uRole', virtualclass.gObj.uRole);
             io.disconnect();
         },
 
@@ -831,7 +832,7 @@
                 if (roles.isEducator()) {
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                 //   localStorage.removeItem('reclaim');
+                    //   localStorage.removeItem('reclaim');
                     virtualclass.vutil.removeClass('virtualclassCont', 'educator');
 
                 } else {
@@ -951,7 +952,7 @@
             // If teacher is disconnected then
             // there would come the porblem on editor of assigning role to student while continuous writting by him.
             if(!roles.hasAdmin()){
-                io.disconnect();
+                io. disconnect();
                 setTimeout(
                     function (){
                         virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
@@ -1112,8 +1113,8 @@
         },
 
         createReclaimButtonIfNeed: function () {
-         //   if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
-              if (roles.isEducator()) {
+            //   if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
+            if (roles.isEducator()) {
                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
                 //virtualclass.gObj.uRole = 's';
@@ -1170,7 +1171,7 @@
                 var teacherDisConn = localStorage.getItem('oTDisconn');
                 if(teacherDisConn != null){
                     teacherDisConn = JSON.parse(teacherDisConn);
-                    if(teacherDisConn){
+                    if(teacherDisConn){ //If orginal teacher is disconnnected
                         if(virtualclass.hasOwnProperty(eType)){
                             if(typeof virtualclass[eType].cm == 'object'){
                                 virtualclass[eType].cm.setOption('readOnly', 'nocursor');
@@ -1201,7 +1202,61 @@
             } else {
                 console.log('Editor:- writemode element is not found for ' + eType);
             }
+        },
+
+        isTeacherAlreadyExist : function(joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 't' ||  virtualclass.connectedUsers[i].role == 'e')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joni Id ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
+        isPresenterAlreadyExist : function (joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 'p')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joniId ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
+
+        isEducatorAlreadyExist : function (joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 'e')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joniId ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
+        isOrginalTeacherExist : function (joinId){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 't')
+                        && virtualclass.connectedUsers[i].userid != joinId) {
+                        console.log('joniId ' + joinId);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
+
     };
     window.vutil = vutil;
 })(window);

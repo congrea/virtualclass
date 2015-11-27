@@ -7,7 +7,6 @@
         return {
             //TODO function name should be change
             assignRole: function (role, app, toUser) {
-
                 if (roles.hasControls()) {
                     if (!roles.isEducator()) {
                         // if role is presentator
@@ -573,6 +572,9 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
+
+
+
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     //if(virtualclass.currApp != 'Whiteboard'){

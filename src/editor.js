@@ -105,10 +105,16 @@
                 if (roles.hasControls()) {
                     if (roles.hasAdmin()) {
                         this.createAllEditorController();
+
+                        //TODO Check if it is required to send to all
+                        //TODO Check if it is possible avoid going through iolib
+
                     }
-                    //TODO Check if it is required to send to all
-                    //TODO Check if it is possible avoid going through iolib
+
+                    //when presenter OR Teacher click on edit button
                     ioAdapter.mustSendAll({eddata: 'init', et: this.etype, cf: 'eddata'});
+
+
                 } else {
                     if (roles.hasAdmin()) {
                         this.createAllEditorController();
@@ -254,7 +260,8 @@
                 },
 
                 init: function (e, etype) {
-                    if ((e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')) {
+                    // Ignore the editor init command received from Student
+                    if ((e.fromUser.role != 's' ) &&  (e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')) {
                         virtualclass.makeAppReady(etype);
                     }
                 },

@@ -23,8 +23,8 @@ function get_string($phrase){
 //$whiteboardpath = "https://loc.vidya.io/virtualclass/";
 $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
-if(isset($_GET['theme'])){
-    $theme = $_GET['theme'];
+if(isset($_GET['themecolor'])){
+    $theme = $_GET['themecolor'];
 } else {
     $theme = 'white';
 }
@@ -32,9 +32,9 @@ if(isset($_GET['theme'])){
 $pt = array('0' => 'disable', '1' => 'enable');
 
 $pushtotalk = '0';
-if(isset($_GET['pt'])){
-    if($_GET['pt'] == '0' || $_GET['pt'] == '1'){
-        $pushtotalk = $_GET['pt'];
+if(isset($_GET['pushtotalk'])){
+    if($_GET['pushtotalk'] == '0' || $_GET['pushtotalk'] == '1'){
+        $pushtotalk = $_GET['pushtotalk'];
     }
 }
 
@@ -118,8 +118,8 @@ if(isset($_GET['id'])){
 
 
 
-if(isset($_GET['r'])){
-    $r = $_GET['r'];
+if(isset($_GET['role'])){
+    $r = $_GET['role'];
     if($r == 't' &&  !$isplay){
         $cont_class .= "teacher orginalTeacher";
     }else{
@@ -244,9 +244,9 @@ if(isset($_GET['lname'])){
 
 $adarr = array('0' => 'deactive', '1' => 'active');
 $audactive = '0';
-if(isset($_GET['ad'])){
-    if($_GET['ad'] == '0' || $_GET['ad'] == '1'){
-        $audactive = $_GET['ad'];
+if(isset($_GET['audio'])){
+    if($_GET['audio'] == '0' || $_GET['audio'] == '1'){
+        $audactive = $_GET['audio'];
     }
 }
 

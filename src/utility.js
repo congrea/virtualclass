@@ -569,7 +569,8 @@
             }
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
-
+            // TODO this should be enable and should test proper way
+            // localStorage.setItem('uRole', virtualclass.gObj.uRole);
             io.disconnect();
         },
 

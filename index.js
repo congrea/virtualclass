@@ -159,7 +159,7 @@ $(document).ready(function () {
             localStorage.setItem('oTDisconn', true);
             disableEditor('editorRich');
             disableEditor('editorCode');
-            //createBecomeTeacherWidget();
+
         }
     });
 
@@ -191,7 +191,7 @@ $(document).ready(function () {
         // critical removign this can be critical
         //  virtualclass.wb.utility.userIds = [];
         memberUpdate(e, "removed");
-        if(!isTeacherExistWhenRemoveUser(e.message)){
+        if(isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(e.message)){
             if(virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e'){
                 createBecomeTeacherWidget();
             }
@@ -505,6 +505,11 @@ $(document).ready(function () {
         return (jId  == virtualclass.gObj.uid);
     }
 
+    function isAnyOnePresenter(){
+        var isPresenter = parseInt(wbUser.anyonepresenter, 10);
+        return (isPresenter == 1);
+    }
+
     var veryFirstJoin = true;
     $(document).on("member_added", function (e) {
         var sType;
@@ -540,14 +545,15 @@ $(document).ready(function () {
         } else {
             // this will be the usual case:-
             defaultOperation(e, sType);
-            if (selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) && (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
+            if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) && (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
                 createBecomeTeacherWidget();
             }
         }
 
-        if((virtualclass.joinUser.role == 't' || virtualclass.joinUser.role == 'e') && virtualclass.jId != virtualclass.gObj.uid){
+        if(isAnyOnePresenter() && (virtualclass.joinUser.role == 't' || virtualclass.joinUser.role == 'e') && virtualclass.jId != virtualclass.gObj.uid){
             removeBecomeTeacherWidget();
         }
+
     });
 
     $(document).on("Multiple_login", function (e) {
@@ -576,7 +582,6 @@ $(document).ready(function () {
                 virtualclass.popup.closePopup();
             }, 2500
         );
-
     });
 
     /**

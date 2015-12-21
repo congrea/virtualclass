@@ -216,6 +216,10 @@
                         virtualclass.view.disableLeftAppBar();
                     }
 
+                    // Fix problem when the role is being reclaimed
+                    // With current active application is whiteboard
+                    appOptCont.style.zIndex = 1;
+
                 },
 
                 createDiv: function (toolId, text, cmdToolsWrapper, cmdClass, toBeReplace) {

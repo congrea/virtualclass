@@ -80,7 +80,7 @@
                     });
 
                 } else {
-                    if (!this.clearPopups('prvNum')) {
+                    if (!this.hasOwnProperty('prvNum')) {
                         var i = 0;
                         //     var totalLength =  0 + tempData.length;
                     } else {
@@ -547,7 +547,6 @@
             this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
             var formData = new FormData();
             //formData.append("record_data", "true");
-            debugger;
             formData.append("prvfile", reqFile);
             formData.append("fileBundelId", vcSessionId);
             //formData.append("user", virtualclass.gObj.uid);

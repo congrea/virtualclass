@@ -60,7 +60,8 @@ if(isset($_GET['anyonepresenter'])){
 $cssdebug = 1;
 
 //define the script root
-define( 'SCRIPT_ROOT', $whiteboardpath);
+define('SCRIPT_ROOT', $whiteboardpath);
+
 if($cssdebug){
     echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/styles.css">';
     echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/popup.css">';
@@ -76,11 +77,22 @@ if($cssdebug){
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 
 
+
+
 <style>
- .CodeMirror { height: auto; border: 1px solid #c9c9c9; }
+
+    @font-face {
+    	font-family: 'icomoon';
+    	src:url('/virtualclass/fonts/icomoon.eot?-jjdyd0');
+    	src:url('/virtualclass/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+    	font-weight: normal;
+    	font-style: normal;
+    }
+
+  .CodeMirror { height: auto; border: 1px solid #c9c9c9; }
   .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
-.CodeMirror { height: auto; border: 1px solid #ddd; }
+  .CodeMirror { height: auto; border: 1px solid #ddd; }
   .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
    /* this should be apply for only core virtualclassm, not with any other software */
@@ -190,7 +202,6 @@ if(isset($_GET['lname'])){
 
     </div>
     -->
-
 <div id="virtualclassCont" class="<?php echo $cont_class; ?>">
     <?php
         if($isplay){

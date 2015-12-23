@@ -665,9 +665,17 @@
                 vcan.studentId = wbUser.id;
 
                 if (!roles.hasControls()) {
-                    localStorage.setItem('uRole', role);
-                    //localStorage.setItem('studentId', wbUser.id);
 
+                    // If student became teacher has educator role at localStorage then
+                    // the user would not join as student but teacher
+
+                    var uRole = localStorage.getItem('uRole');
+
+                    if(uRole != null && uRole == 'e'){
+                        role = e;
+                    }
+
+                    localStorage.setItem('uRrole', role);
                 }
                 virtualclass.vutil.removeSessionTool();
             }

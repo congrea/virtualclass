@@ -672,7 +672,7 @@
                     var uRole = localStorage.getItem('uRole');
 
                     if(uRole != null && uRole == 'e'){
-                        role = e;
+                        role = 'e';
                     }
 
                     localStorage.setItem('uRrole', role);

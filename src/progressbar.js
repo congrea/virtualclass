@@ -26,9 +26,11 @@ var progressBar = {
         prvTimeout = setTimeout(
             function () {
                 if (that.prvVal == that.currVal) {
-                    if(!virtualclass.recorder.alreadyDownload){
-                        virtualclass.recorder.makeAvailDownloadFile();
-                    }
+                    virtualclass.recorder.initMakeAvailDownloadFile();
+                    
+//                    if(!virtualclass.recorder.alreadyDownload){
+//                        virtualclass.recorder.makeAvailDownloadFile();
+//                    }
 
                 } else {
                     that.prvVal = that.currVal;

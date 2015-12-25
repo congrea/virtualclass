@@ -118,6 +118,21 @@
                 }
             }
         },
+        
+        initMakeAvailDownloadFile : function (){
+            virtualclass.recorder.dataCame = setInterval(
+                function (){
+                    if(virtualclass.recorder.hasOwnProperty('recordDone')){
+                        if(!virtualclass.recorder.alreadyDownload){
+                           console.log('Recorder:- From Interval');
+                           virtualclass.recorder.makeAvailDownloadFile();
+                        }
+                        clearInterval(virtualclass.recorder.dataCame);
+                    }
+                }
+
+            ,1500);
+        },
 
         replayFromStart: function () {
             var tempItems = [];
@@ -326,11 +341,7 @@
                             } else if (msg === "ERROR") {
                                 //TODO Show msg to user
                                 //virtualclass.recorder.tryForReTransmit();
-                                if(!virtualclass.recorder.alreadyDownload){
-                                    virtualclass.recorder.makeAvailDownloadFile();
-                                }
-
-                                //alert(msg);
+                                virtualclass.recorder.initMakeAvailDownloadFile();
                             } else {
                                 //TODO Show msg to user
                                 //create function & pass error msg as param
@@ -404,7 +415,7 @@
         //},
 
         makeAvailDownloadFile: function () {
-            console.log('DOWNLLOAD MESSAGE');
+            console.log('Recorder:- DOWNLLOAD MESSAGE');
             var pbar = document.getElementById('recordingContainer');
             var downloadLinkCont = document.createElement('div');
             downloadLinkCont.id = "downloadFileCont";
@@ -514,6 +525,16 @@
                 // Every time the data is sending, the function
                 // is declaring as expression which is not good
                 mvDataWorker.onmessage = function (e) {
+                    if(e.data.hasOwnProperty('done_problem')){
+                        console.log('done problem');
+                    }else if (e.data.hasOwnProperty('sumanrdata')){
+                        console.log('suman rdata');
+                    }else if(e.data.hasOwnProperty('status')){
+                        if(e.data.status == 'done'){
+                            console.log('Recorder:- done');
+                            virtualclass.recorder.recordDone = true;
+                        }
+                    }
                     virtualclass.storage.chunkStorage(e.data);
                 }
             }

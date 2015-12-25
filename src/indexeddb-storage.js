@@ -557,7 +557,6 @@
 
             endSession: function (onlyStoredData) {
                 localStorage.clear();
-
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
 

@@ -560,6 +560,10 @@
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
 
+                if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
+                    delete virtualclass.gObj.downloadProgress;
+                }
+
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb.utility.t_clearallInit();

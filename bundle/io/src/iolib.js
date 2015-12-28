@@ -101,7 +101,8 @@ var io = {
                 // this happens at l.vidya.io
                 setTimeout(function () {
                     // For prevent to send any packet to other during save session
-                    if(!virtualclass.gObj.hasOwnProperty('saveSession') || !virtualclass.gObj.hasOwnProperty('downloadProgress')){
+                    // and download session
+                    if(!virtualclass.gObj.hasOwnProperty('saveSession') && !virtualclass.gObj.hasOwnProperty('downloadProgress')){
                         scope.wsconnect();
                     }
                 }, 5000);

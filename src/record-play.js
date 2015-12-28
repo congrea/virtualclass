@@ -487,6 +487,7 @@
                     }
                     downloadLink.click();
                     virtualclass.storage.config.endSession();
+                    io.init(); // During the download session we don't try for new socket connection but here.
                 });
             });
         },

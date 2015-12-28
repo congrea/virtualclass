@@ -448,6 +448,8 @@
 
             this.alreadyDownload = true;
 
+            virtualclass.gObj.downloadProgress = true;
+
             virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
                 // diconnecting with others for prevent to send any unknown packets.
                 virtualclass.gObj.saveSession = true;

@@ -96,12 +96,14 @@ var io = {
                 });
                 console.log("Connection closed (wasClean = " + e.wasClean + ", code = " + e.code + ", reason = '" + e.reason + "')");
 
+                // downloadProgress is used to validate that the popup box is removing
+                // when download button is suppose to appear
+                // this happens at l.vidya.io
                 setTimeout(function () {
                     // For prevent to send any packet to other during save session
-                    if(!virtualclass.gObj.hasOwnProperty('saveSession')){
+                    if(!virtualclass.gObj.hasOwnProperty('saveSession') || !virtualclass.gObj.hasOwnProperty('downloadProgress')){
                         scope.wsconnect();
                     }
-
                 }, 5000);
             };
 

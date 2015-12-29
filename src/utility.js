@@ -675,7 +675,7 @@
                         role = 'e';
                     }
 
-                    localStorage.setItem('uRrole', role);
+                    localStorage.setItem('uRole', role);
                 }
                 virtualclass.vutil.removeSessionTool();
             }

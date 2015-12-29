@@ -3,42 +3,18 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-
-    //var  closeButton = document.getElementById('recordingClose');
-    //closeButton.addEventListener('click', function (){
-    //    virtualclass.popup.closeElem();
-    //});
-
     var binData;
     var e = {};
     var reqFile = 1;
 
     //this should be include intto recorder function
+
     var sentFile = 0;
-//        var xhrCall = 0;
     var chunkNum = 1;
 
-//         errInterval = setInterval(
-//            function (){
-//                if(chunkNum == 2){
-//                    virtualclass.recorder.makeAvailDownloadFile();
-//                    clearInterval(errInterval);
-//                }
-//            }, 1000
-//        );
-//        var atime = 0;
-//        var btime = 0;
     function destroyClickedElementForFirefox(event) {
         document.body.removeChild(event.target);
     }
-
-    //var  closeButton = document.getElementById('recordingClose');
-    //closeButton.addEventListener('click', function (){
-    //    alert('suman bogati');
-    //    debugger;
-    //    virtualclass.popup.closeElem();
-    //});
-
 
     var fromFille = 0;
     var recorder = {
@@ -396,24 +372,6 @@
             );
         },
 
-        //tryForReTransmit: function () {
-        //    var that = this;
-        //    setTimeout(
-        //        function () {
-        //            // Show Message "Retring [Retry Number]"
-        //            //console.log("Trying to connnect " + (++virtualclass.recorder.emn));
-        //            if (that.emn <= 1) {
-        //                that.xhrsenddata(virtualclass.recorder.rnum);
-        //                that.emn++;
-        //            } else {
-        //                if(!that.alreadyDownload){
-        //                    that.startDownloadProcess(); //if error occurred and is not downloaded the session yet.
-        //                }
-        //            }
-        //        },
-        //        1000
-        //    );
-        //},
 
         makeAvailDownloadFile: function () {
             console.log('Recorder:- DOWNLLOAD MESSAGE');
@@ -431,19 +389,6 @@
 
             downloadLinkCont.appendChild(downloadMsg);
 
-            //var downloadButton = document.createElement('button');
-            //downloadButton.id = 'downloadButton';
-            //downloadButton.innerHTML = "Download File";
-            //
-            //
-            //var downloadLink = document.createElement('a');
-            //downloadLink.id = "dlink";
-            //downloadLink.href = "";
-            //downloadLink.download = "session.vcp";
-
-            //downloadLink.innerHTML = "DOWNLOAD";
-
-            //downloadLinkCont.appendChild(downloadButton);
 
             pbar.appendChild(downloadLinkCont);
 

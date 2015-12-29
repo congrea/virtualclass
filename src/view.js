@@ -181,7 +181,10 @@
             p.innerHTML = virtualclass.lang.getString(msg);
             div.appendChild(p);
             var a = this.customCreateElement('a', id + "Anchor");
-            a.href = window.location;
+            // Given full path on here could be a problem at l.vidya.io
+            // when presenter resize the window with whiteboard and reload the application
+            a.href = "#";
+            //a.href = window.location;
             a.innerHTML = virtualclass.lang.getString('reload');
             a.onclick = function () {
                 window.location.reload();

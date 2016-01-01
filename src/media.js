@@ -1305,7 +1305,14 @@
                 userDiv.setAttribute("data-role", role);
                 var userType = (role == 's') ? 'student' : 'teacher';
                 userDiv.classList.add(userType);
+
+                if(virtualclass.gObj.uRole == 't' && userType == 'student'){
+                    //If there student class on teacher window, remove it
+                    document.getElementById('virtualclassCont').classList.remove('student');
+                    console.log('By removing this can be the pr');
+                }
             },
+
             /*
              * Creates a video element
              * and  replaces the image with video

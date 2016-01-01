@@ -826,6 +826,7 @@
                     virtualclass.wb.utility.removeToolBox();
                     virtualclass.wb.utility.setClass('vcanvas', 'student');
                 } else {
+
                     virtualclass.wb.utility.setClass('vcanvas', 'teacher');
                 }
             },

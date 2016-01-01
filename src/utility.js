@@ -1263,8 +1263,103 @@
                 }
             }
             return false;
-        }
+        },
 
+
+        /**
+         * This time would be set for delay when user(student) does try for teacher.
+         * @param connectedUsers
+         * @returns {number}
+         */
+
+        getMySetTime : function(connectedUsers){
+            for(var i=0; i<connectedUsers.length; i++){
+                if(connectedUsers[i].userid == virtualclass.gObj.uid){
+                    return (((i+1) * 2000));
+                }
+            }
+            return 2000;
+        },
+
+
+        createBecomeTeacherWidget : function(){
+            if(document.getElementById('beTeacher') == null){
+                var beTeacher = document.createElement('div');
+                beTeacher.id = 'beTeacher';
+
+                var beTeacherLink = document.createElement('a');
+                beTeacherLink.id = beTeacher.id + 'Anchor';
+                beTeacherLink.innerHTML = virtualclass.lang.getString('becomeTeacher');
+                beTeacher.appendChild(beTeacherLink);
+
+                var virtualclassContElem = document.getElementById('virtualclassCont');
+                virtualclassContElem.insertBefore(beTeacher, virtualclassContElem.firstChild);
+
+                beTeacher.addEventListener('click', virtualclass.vutil.initTeacherRole);
+            }
+        },
+
+        removeBecomeTeacherWidget : function (){
+            var becomeTeacherElem = document.getElementById('beTeacher');
+            if(becomeTeacherElem != null){
+                becomeTeacherElem.parentNode.removeChild(becomeTeacherElem);
+            }
+        },
+
+        initTeacherRole : function (){
+            ioAdapter.send({'cf': 'bt'}); //become teacher
+            virtualclass.vutil.removeBecomeTeacherWidget();
+            setTimeout(
+                function (){
+                    if(!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)){
+                        virtualclass.vutil.overrideRoles('t');
+                        //localStorage.setItem('uRole',  t);
+                        localStorage.setItem('beTeacher',  true);
+                    }
+                    window.location.reload();
+
+                }, virtualclass.gObj.mySetTime
+            );
+         },
+
+        overrideRoles : function (role){
+            virtualclass.uInfo.userobj.role = role;
+            virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
+            wbUser.role = virtualclass.uInfo.userobj.role;
+            var virtualclassCont = document.getElementById('virtualclassCont');
+
+            //virtualclassCont.classList.remove('teacher');
+            //virtualclassCont.classList.remove('orginalTeacher');
+            virtualclass.vutil.overrideRolesFromElem(virtualclassCont, role);
+        },
+
+        overrideRolesFromElem : function (elem, role){
+            if(role == 's'){
+                elem.classList.remove('teacher');
+                elem.classList.remove('orginalTeacher');
+                elem.classList.remove('presenter');
+                elem.classList.remove('educator');
+                virtualclassCont.classList.add('student');
+            } else if(role == 'p'){
+                elem.classList.remove('teacher');
+                elem.classList.remove('orginalTeacher');
+                elem.classList.remove('educator');
+                virtualclassCont.classList.add('student');
+                virtualclassCont.classList.add('presenter');
+            } else if(role == 'e'){
+                elem.classList.remove('teacher');
+                elem.classList.remove('student');
+                elem.classList.remove('presenter');
+                elem.classList.add('educator');
+            }else if(role == 't'){
+                elem.classList.remove('student');
+                elem.classList.remove('educator');
+                elem.classList.remove('presenter');
+                elem.classList.add('teacher');
+                elem.classList.add('orginalTeacher');
+            }
+
+        }
     };
     window.vutil = vutil;
 })(window);

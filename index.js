@@ -463,8 +463,15 @@ $(document).ready(function () {
                 setTimeout(
                     function (){
                         veryFirstJoin = false;
-                        overrideOperation('t');
-                        console.log('Member add :- join as teacher');
+                        if(!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)){
+                             overrideOperation('t');
+                            console.log('Member add :- join as teacher');
+                        }
+
+                        //else {
+                        //    overrideOperation('s');
+                        //    console.log('Member add :- join as student');
+                        //}
                     },  virtualclass.gObj.mySetTime
                 );
             }

@@ -1359,6 +1359,7 @@
                 elem.classList.remove('presenter');
                 elem.classList.add('teacher');
                 elem.classList.add('orginalTeacher');
+                console.log('add Teacher');
             }
 
         }

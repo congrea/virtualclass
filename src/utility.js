@@ -1347,7 +1347,9 @@
                 virtualclassCont.classList.add('student');
                 virtualclassCont.classList.add('presenter');
             } else if(role == 'e'){
-                elem.classList.remove('teacher');
+                // By removing the teacher class would hide
+                // the audio icon from footer control on reload
+                //elem.classList.remove('teacher');
                 elem.classList.remove('student');
                 elem.classList.remove('presenter');
                 elem.classList.add('educator');

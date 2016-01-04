@@ -844,7 +844,7 @@
                     virtualclass.vutil.removeClass('virtualclassCont', 'educator');
 
                 } else {
-                    virtualclass.vutil.addClass('virtualclassCont', 'presentor')
+                    virtualclass.vutil.addClass('virtualclassCont', 'presenter')
                     //virtualclass.vutil.addClass('virtualclassCont', 'assign');
                     //virtualclass.vutil.removeClass('virtualclassCont', 'removedAssign')
                 }
@@ -923,7 +923,7 @@
 
                 } else {
 
-                    virtualclass.vutil.removeClass('virtualclassCont', 'presentor');
+                    virtualclass.vutil.removeClass('virtualclassCont', 'presenter');
                     //virtualclass.vutil.addClass('virtualclassCont', 'removedAssign'); //TODO this is tricky handle by better way
 
                     if (cmdToolsWrapper != null) {
@@ -1063,8 +1063,8 @@
 
         //equivalent to response.reclaimRole from receive-messages-response.js
         vcResponseAReclaimRole: function (formUserId, id) {
+            console.log('Reclaim role :- Init');
             if (formUserId != id) {
-
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
                 if(typeof virtualclass.wb == 'object'){
                     // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
@@ -1102,6 +1102,7 @@
                 //virtualclass.user.control._assign(id, 'notsent', formUserId);
 
                 virtualclass.user.control._assign(id, 'notsent', formUserId);
+                console.log('Reclaim role :- peforme');
                 virtualclass.user.displayStudentSpeaker(true);
                 if (localStorage.getItem('aId') != null) {
                     localStorage.removeItem('aId');
@@ -1160,7 +1161,7 @@
             }else if(role == 's'){
                 className = 'student';
             }else if(role == 'p'){
-                className = 'presentor';
+                className = 'presenter';
             }
             return className;
         },
@@ -1333,7 +1334,7 @@
             virtualclass.vutil.overrideRolesFromElem(virtualclassCont, role);
         },
 
-        overrideRolesFromElem : function (elem, role){
+         overrideRolesFromElem : function (elem, role){
             if(role == 's'){
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
@@ -1350,9 +1351,11 @@
                 // By removing the teacher class would hide
                 // the audio icon from footer control on reload
                 //elem.classList.remove('teacher');
+                elem.classList.add('teacher');
                 elem.classList.remove('student');
                 elem.classList.remove('presenter');
                 elem.classList.add('educator');
+                elem.classList.add('orginalTeacher');
             }else if(role == 't'){
                 elem.classList.remove('student');
                 elem.classList.remove('educator');

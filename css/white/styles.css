@@ -616,7 +616,7 @@
 
 /* select the only id which end with contrAssignAnch */
 
-#virtualclassCont.presentor #chatWidget  #memlist  [id $=contrAssignAnch].tooltip {
+#virtualclassCont.presenter #chatWidget  #memlist  [id $=contrAssignAnch].tooltip {
 	pointer-events : visible;
 }
 
@@ -1157,7 +1157,7 @@
 	border-top-color : #aaa;
 }
 
-#virtualclassCont.student.presentor #vcanvas{
+#virtualclassCont.student.presenter #vcanvas{
 	border-top-width : 1px;
 }
 
@@ -1933,7 +1933,7 @@
 }
 
 #virtualclassCont.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.orginalTeacher #chat_div .controls span.block, #virtualclassCont.teacher #chat_div .controls .icon-assignImg.enable,
-#virtualclassCont.presentor #chat_div .controls span.assignImg.enable {
+#virtualclassCont.presenter #chat_div .controls span.assignImg.enable {
 	cursor : pointer;
 }
 
@@ -2130,7 +2130,7 @@
 
 
 
-#virtualclassCont.student.presentor #virtualclassYts {
+#virtualclassCont.student.presenter #virtualclassYts {
 	margin-left : 55px;
 }
 
@@ -2444,7 +2444,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92b0ab', endColorstr='#6f9b90',GradientType=0 ); /* IE6-9 */
 }
 
-#virtualclassCont #youtubeUrlContainer, #virtualclassCont.student.presentor #youtubeUrlContainer{
+#virtualclassCont #youtubeUrlContainer, #virtualclassCont.student.presenter #youtubeUrlContainer{
 	position: relative;
 	margin-top: 10px;
 	text-align: center;
@@ -2452,7 +2452,7 @@
 }
 
 
-#virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presentor .youTubeSharing #youtubeUrlContainer{
+#virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presenter .youTubeSharing #youtubeUrlContainer{
 	top:0;
 	text-align: left;
 }
@@ -2867,7 +2867,7 @@
 	margin-bottom:15px;
 }
 
-#virtualclassCont.student.presentor #audioWidget{
+#virtualclassCont.student.presenter #audioWidget{
 	right: 15px;
 }
 
@@ -2882,11 +2882,11 @@
 	/*right: 11px;*/
 	right: 2px;
 }
-#virtualclassCont.student.presentor[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="Yts"] #audioWidget{
+#virtualclassCont.student.presenter[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.student.presenter[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.student.presenter[data-currapp="Yts"] #audioWidget{
 	right: 0px;
 }
 
-#virtualclassCont.student.presentor[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presentor[data-currapp="EditorCode"] #audioWidget{
+#virtualclassCont.student.presenter[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.student.presenter[data-currapp="EditorCode"] #audioWidget{
 	right: 10px;
 }
 
@@ -3028,29 +3028,29 @@
 	display : none;
 }
 
-#virtualclassCont.student.presentor #audioWidget #speakerPressOnce{
+#virtualclassCont.student.presenter #audioWidget #speakerPressOnce{
 	padding-left: 6px;
 	border-right: 0;
 }
 
-#virtualclassCont.student.presentor #speakerPressing{
+#virtualclassCont.student.presenter #speakerPressing{
 	padding-left: 11px;
 	padding-right: 11px;
 	width: 33px;
 }
-#virtualclassCont.student.presentor #mainAudioPanel{
+#virtualclassCont.student.presenter #mainAudioPanel{
 	border-right: 0px;
 }
 
-#virtualclassCont.student.presentor #audioTest-box{
+#virtualclassCont.student.presenter #audioTest-box{
 	border-right: 0px;
 }
 
-#virtualclassCont.student.presentor #alwaysPress .audioTool.deactive, #virtualclassCont.student.presentor #audioTest-box .audioTool{
+#virtualclassCont.student.presenter #alwaysPress .audioTool.deactive, #virtualclassCont.student.presenter #audioTest-box .audioTool{
 	border-right: 0px;
 }
 
-#virtualclassCont.student.presentor #virtualclassYts {
+#virtualclassCont.student.presenter #virtualclassYts {
 	margin-left: 53px;
 }
 

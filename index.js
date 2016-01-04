@@ -294,7 +294,10 @@ $(document).ready(function () {
         }else if(role == 'e'){
             var userId = getUserId(virtualclass.jId);
             if(userId){
+                var virtualclassCont = document.getElementById('virtualclassCont');
+                virtualclassCont.classList.add('orginalTeacher');
                 transferControl(userId);
+
             }
             console.log('Member add :- join as educator');
         }

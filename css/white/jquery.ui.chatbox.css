@@ -510,10 +510,10 @@
 }
 
 
-#virtualclassCont.student.presentor[data-currapp="EditorRich"] .ui-memblist{
+#virtualclassCont.student.presenter[data-currapp="EditorRich"] .ui-memblist{
 	right: 15px !important;
 }
-#virtualclassCont.student.presentor[data-currapp="EditorRich"] .vmchat_bar_button{
+#virtualclassCont.student.presenter[data-currapp="EditorRich"] .vmchat_bar_button{
 	width: 222px;
 }
 

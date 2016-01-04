@@ -31,7 +31,7 @@
 
 #virtualclassCont.student #virtualclassEditorRich, #virtualclassCont.student #virtualclassEditorCode, #virtualclassCont.student #virtualclassScreenShare{margin:10px 10px 0px 10px;}
 
-#virtualclassCont.presentor #virtualclassEditorRich, #virtualclassCont.presentor #virtualclassEditorCode, #virtualclassCont.presentor #virtualclassScreenShare{margin-left : 60px}
+#virtualclassCont.presenter #virtualclassEditorRich, #virtualclassCont.presenter #virtualclassEditorCode, #virtualclassCont.presenter #virtualclassScreenShare{margin-left : 60px}
 
 #virtualclassCont .vceditor-toolbar {
   height: 70px;

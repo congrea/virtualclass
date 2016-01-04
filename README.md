@@ -8,7 +8,7 @@ Teacher would be able to share her Audio, Whiteboard and Screen with all student
 
 ## License : GPLv3
 
-## Browser Compability for Teacher (Presentor)  
+## Browser Compability for Teacher (presenter)
 Firefox V 34  
 Chrome V 40
 

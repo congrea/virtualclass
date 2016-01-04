@@ -117,6 +117,9 @@
             virtualclass.storage.config.endSession();
             virtualclass.popup.closeElem();
 
+            // For disable the common chant on every replay from start
+            disCommonChatInput();
+
             this.recImgPlay = false;
             this.objn = 0;
             this.playTimeout = "";

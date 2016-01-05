@@ -1316,6 +1316,9 @@
                         virtualclass.vutil.overrideRoles('t');
                         //localStorage.setItem('uRole',  t);
                         localStorage.setItem('beTeacher',  true);
+                        console.log('connected teacher');
+                    }else {
+                        console.log('Already connected teacher');
                     }
                     window.location.reload();
 

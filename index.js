@@ -194,11 +194,12 @@ $(document).ready(function () {
     }
 
     $(document).on("member_removed", function (e) {
+        virtualclass.connectedUsers = e.message;
         // critical removign this can be critical
         //  virtualclass.wb.utility.userIds = [];
         memberUpdate(e, "removed");
         if(isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(e.message)){
-            if(virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e' && virtualclass.gObj.uRole != 'p'){
+            if(virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e'){
                 virtualclass.vutil.createBecomeTeacherWidget();
             }
         }
@@ -527,7 +528,8 @@ $(document).ready(function () {
         setTimeout(
             function (){
                 virtualclass.popup.closePopup();
-            }, 2500
+                // 2500
+            }, 4000 // wait for everything is to be ready
         );
     });
 

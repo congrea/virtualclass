@@ -297,6 +297,14 @@ $(document).ready(function () {
             if(userId){
                 var virtualclassCont = document.getElementById('virtualclassCont');
                 virtualclassCont.classList.add('orginalTeacher');
+                // sending flag as new user become educator is joined
+                virtualclass.vutil.beforeSend({
+                    'status': true,
+                    control: 'editorRich',
+                    toUser: userId,
+                    'cf': 'nEd'
+                }, userId);
+
                 transferControl(userId);
 
             }
@@ -325,6 +333,9 @@ $(document).ready(function () {
                 var elem = document.getElementById(userId+'contrAssignImg');
                 elem.setAttribute('data-assign-disable', false);
                 document.getElementById(userId+'contrAssignImg').click();
+
+
+
 
             },
             2000
@@ -636,6 +647,32 @@ $(document).ready(function () {
                     virtualclass.editorCode.onmessage(e, 'EditorCode');
                 }
             }
+        };
+
+        /**
+         * This functioon would invoke when the new user would join as
+         * educator with overriding the role. This would at invoke at presenter window
+         * for handle editor mode(read and write)
+         * @param e.message has various required properties
+         */
+        this.nEd = function (e){
+            localStorage.setItem('nEd', true);
+            //TODO the editor should be dynamic
+            var editorRichWriteModeBox = document.getElementById('EditorRichwriteModeBox');
+
+            if(editorRichWriteModeBox != null){
+                if(editorRichWriteModeBox.dataset.writeMode == 'true' ){
+                    localStorage.removeItem('nEd');
+                }else {
+                    e.message.cf = 'control';
+                    virtualclass.user.control.onmessage(e);
+                }
+
+            } else {
+                console.log('editor mode editorRichWriteModeBox null');
+
+            }
+            console.log('Editor mode save');
         };
 
         this.bt = function (){

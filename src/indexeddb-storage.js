@@ -556,7 +556,9 @@
             },
 
             endSession: function (onlyStoredData) {
+                var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 localStorage.clear();
+
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
 
@@ -619,8 +621,18 @@
                     io.sock.close();
                 }
 
-                that.config.createNewSession();
+                // The new session is trying to open
+                // overriding educator role (new teacher become educator) at where already has presenter
+                if(newEducator != null){
+                    console.log('Editor mode enable');
+                    localStorage.setItem('editorRich', true);
+                    localStorage.setItem('editorCode', true);
+                    localStorage.removeItem('nEd');
+                } else {
+                    console.log('Editor mode disable');
+                }
 
+                that.config.createNewSession();
                 virtualclass.popup.waitMsg(); // until the web socket is connected.
             }
         },

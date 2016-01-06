@@ -68,6 +68,9 @@ $(document).ready(function () {
     virtualclass.popup.waitMsg();
 
     if(localStorage.getItem('beTeacher') != null){
+        // set flag for delete the session when
+        // new student become teacher
+        virtualclass.gObj.doEndSession = true;
         wbUser.role = 't';
         virtualclass.gObj.uRole = 't';
         localStorage.setItem('uRole', 't');

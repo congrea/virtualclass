@@ -665,6 +665,7 @@ $(document).ready(function () {
                     localStorage.removeItem('nEd');
                 }else {
                     e.message.cf = 'control';
+                    localStorage.setItem('editorCode', 'true');
                     virtualclass.user.control.onmessage(e);
                 }
 

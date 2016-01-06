@@ -43,6 +43,11 @@ var ioPingPong = {
     sessionName : function () {
         var session = localStorage.getItem('mySession');
         if (session === null) {
+            // If there is already exisiting session
+            // If new session trying to be create from new teacher become eduactor
+            if(virtualclass.gObj.hasOwnProperty('doEndSession')){
+                virtualclass.storage.config.endSession();
+            }
             session = this.setSession();
         }
         return session;
@@ -50,6 +55,7 @@ var ioPingPong = {
     setSession: function () {
         "use strict";
         var session = randomString(32);
+        console.log('My session is created by setSession');
         localStorage.setItem('mySession', session);
         return session;
     },
@@ -62,6 +68,7 @@ var ioPingPong = {
                 this.sessionDestroy(session, e);
             }
         } else {
+            console.log('My session is created');
             localStorage.setItem('mySession', session);
         }
     },
@@ -78,6 +85,7 @@ var ioPingPong = {
             ioMissingPackets.validateAllVariables(uid);
             console.log('REFRESH SESSION');
         } else {
+            console.log('My session is created');
             localStorage.setItem('mySession', 'thisismyplaymode');
         }
     }

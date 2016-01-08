@@ -1239,6 +1239,22 @@
             return false;
         },
 
+        /**
+         * Get presenter id otherwise false
+         * @returns {*}
+         */
+        getPresenterId :function (){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 'p')){
+                        return virtualclass.connectedUsers[i].userid;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
 
         isEducatorAlreadyExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
@@ -1308,7 +1324,7 @@
                     function (){
                         beTeacher.style.pointerEvents = 'visible';
                         beTeacher.style.opacity = '1';
-                    }, 15000
+                    }, 5000 //60000
                 )
             }
         },

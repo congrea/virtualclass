@@ -471,8 +471,28 @@ $(document).ready(function () {
                 overrideOperation('s');
                 console.log('Member add :- Join As Student');
             } else if(veryFirstJoin && virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId)){
-                overrideOperation('e');
-                console.log('Member add :- join as Educator');
+                    //overrideOperation('e');
+
+                    var presenterId = virtualclass.vutil.getPresenterId();
+                    if(presenterId){
+                        ioAdapter.sendUser({
+                            'cf': 'rpr' // remove presenter role
+                        }, presenterId);
+
+                        overrideRoleTeacher();
+
+                        //setTimeout(
+                        //    function (){
+                        //        overrideRoleTeacher();
+                        //        console.log('Member add :-  join as teacher');
+                        //    }, 1000
+                        //);
+
+
+                    } else {
+                        console.log('There some problem on joining as');
+                    }
+
             } else {
                 setTimeout(
                     function (){
@@ -503,10 +523,10 @@ $(document).ready(function () {
 
         setTimeout(function (){
             if(virtualclass.gObj.hasOwnProperty('doEndSession') && selfJoin(virtualclass.jId) && virtualclass.joinUser.role == 't'){
-                virtualclass.storage.config.endSession();
-                localStorage.setItem('uRole', 't');
-                delete virtualclass.gObj['doEndSession'];
-
+                overrideRoleTeacher();
+                //virtualclass.storage.config.endSession();
+                //localStorage.setItem('uRole', 't');
+                //delete virtualclass.gObj['doEndSession'];
             }
         },  virtualclass.gObj.mySetTime + 200);
 
@@ -516,6 +536,12 @@ $(document).ready(function () {
             virtualclass.vutil.removeBecomeTeacherWidget();
         }
     });
+
+    var overrideRoleTeacher = function (){
+        virtualclass.storage.config.endSession();
+        localStorage.setItem('uRole', 't');
+        delete virtualclass.gObj['doEndSession'];
+    }
 
     $(document).on("Multiple_login", function (e) {
         virtualclass.chat.removedPrvLoggedInDetail();
@@ -542,7 +568,7 @@ $(document).ready(function () {
             function (){
                 virtualclass.popup.closePopup();
                 // 2500 earlier was
-            }, 4000 // wait for everything is to be ready
+            }, 6000 // wait for everything is to be ready
         );
     });
 
@@ -837,10 +863,21 @@ $(document).ready(function () {
         this.reclaimRole = function (e) {
             //if (localStorage.getItem('teacherId') !== null) {
             if (roles.hasControls()) {
+
                 virtualclass.vutil.vcResponseAReclaimRole(e.fromUser.userid, wbUser.id);
+
                 //virtualclass.wb.response.reclaimRole(e.fromUser.userid, wbUser.id);
             }
         };
+
+        /**
+         * remove presenter role when educator is join as teacher
+         * @param e
+         */
+        this.rpr = function (e){
+            this.reclaimRole(e);
+            console.log('reclaim role');
+        }
 
         //Assign Role
         this.assignRole = function (e) {

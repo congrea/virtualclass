@@ -561,6 +561,7 @@
 
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
+                virtualclass.gObj.tempReplayObjs.length = 0;
 
                 if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
                     delete virtualclass.gObj.downloadProgress;
@@ -644,6 +645,7 @@
         
 
         clearSingleTable : function (table){
+
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);

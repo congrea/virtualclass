@@ -288,6 +288,7 @@
                         }
 
                         if(virtualclass.isPlayMode){
+                            //TODO validate this statement
                             virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;

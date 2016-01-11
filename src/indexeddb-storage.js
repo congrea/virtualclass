@@ -627,7 +627,7 @@
                 if(newEducator != null){
                     console.log('Editor mode enable');
                     localStorage.setItem('editorRich', true);
-                    localStorage.setItem('editorCode', true);
+                     localStorage.setItem('editorCode', true);
                     localStorage.removeItem('nEd');
                 } else {
                     console.log('Editor mode disable');

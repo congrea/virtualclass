@@ -564,11 +564,18 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionopen", function (e) {
+        var setTimeReady = 6000;
+        // There will take more time to connect socket when teacher will
+        // Come from become Teacher
+        if(virtualclass.gObj.hasOwnProperty('doEndSession')){
+           console.log('From Become Teacher');
+            setTimeReady  = 10000;
+        }
         setTimeout(
             function (){
                 virtualclass.popup.closePopup();
                 // 2500 earlier was
-            }, 6000 // wait for everything is to be ready
+            }, setTimeReady // Wait for everything is to be ready
         );
     });
 

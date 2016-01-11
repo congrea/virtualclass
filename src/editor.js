@@ -126,6 +126,8 @@
                 var editorType = this.etype;
                 var containerId = 'all' + editorType + 'Container';
                 if (document.getElementById(containerId) == null) {
+                    console.log('For Enable all, Button is creating');
+
                     var actionToPerform = 'enable';
                     var editorControllerCont = document.createElement('div');
                     editorControllerCont.id = containerId;

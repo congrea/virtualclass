@@ -1239,6 +1239,22 @@
             return false;
         },
 
+        /**
+         * Get presenter id otherwise false
+         * @returns {*}
+         */
+        getPresenterId :function (){
+            if(virtualclass.hasOwnProperty('connectedUsers')){
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if ((virtualclass.connectedUsers[i].role == 'p')){
+                        return virtualclass.connectedUsers[i].userid;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
 
         isEducatorAlreadyExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
@@ -1269,6 +1285,7 @@
 
         /**
          * This time would be set for delay when user(student) does try for teacher.
+         * The time is set according to it's position
          * @param connectedUsers
          * @returns {number}
          */
@@ -1276,13 +1293,15 @@
         getMySetTime : function(connectedUsers){
             for(var i=0; i<connectedUsers.length; i++){
                 if(connectedUsers[i].userid == virtualclass.gObj.uid){
-                    return (((i+1) * 2000));
+                    return (((i+1) * 180 ) + 2000);
                 }
             }
-            return 2000;
+            return 2300;
         },
 
-
+        /**
+         * The widget for requset the Teacher Role
+         */
         createBecomeTeacherWidget : function(){
             if(document.getElementById('beTeacher') == null){
                 var beTeacher = document.createElement('div');
@@ -1297,9 +1316,22 @@
                 virtualclassContElem.insertBefore(beTeacher, virtualclassContElem.firstChild);
 
                 beTeacher.addEventListener('click', virtualclass.vutil.initTeacherRole);
+
+                beTeacher.style.pointerEvents = 'none';
+                beTeacher.style.opacity = '0.5';
+                // For handle the case,  on where teacher refresh the page
+                setTimeout(
+                    function (){
+                        beTeacher.style.pointerEvents = 'visible';
+                        beTeacher.style.opacity = '1';
+                    }, 5000 //60000
+                )
             }
         },
 
+        /**
+         * Remove the teacher widget
+         */
         removeBecomeTeacherWidget : function (){
             var becomeTeacherElem = document.getElementById('beTeacher');
             if(becomeTeacherElem != null){
@@ -1307,43 +1339,56 @@
             }
         },
 
+        /**
+         * This function would be trigger when
+         * user try to become teacher and send the become Teacher flag to
+         * other participates for delete the button
+         * and this teacher would join after the time set by virtualclass.gObj.mySetTime
+         */
+
         initTeacherRole : function (){
             ioAdapter.send({'cf': 'bt'}); //become teacher
-            virtualclass.vutil.removeBecomeTeacherWidget();
+            virtualclass.vutil.removeBecomeTeacherWidget(); // remove button from self window
             setTimeout(
                 function (){
                     if(!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)){
                         virtualclass.vutil.overrideRoles('t');
-                        //localStorage.setItem('uRole',  t);
                         localStorage.setItem('beTeacher',  true);
                         console.log('connected teacher');
-                    }else {
+                    } else {
                         console.log('Already connected teacher');
                     }
                     window.location.reload();
-
                 }, virtualclass.gObj.mySetTime
             );
          },
 
+        /**
+         * Override the roles in relative properties and change attributes of
+         * element according to given role
+         * @param role
+         */
         overrideRoles : function (role){
             virtualclass.uInfo.userobj.role = role;
             virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
             wbUser.role = virtualclass.uInfo.userobj.role;
             var virtualclassCont = document.getElementById('virtualclassCont');
-
-            //virtualclassCont.classList.remove('teacher');
-            //virtualclassCont.classList.remove('orginalTeacher');
             virtualclass.vutil.overrideRolesFromElem(virtualclassCont, role);
         },
 
-         overrideRolesFromElem : function (elem, role){
+        /**
+         * Override the class on elements according to given role
+         * @param elem
+         * @param role
+         */
+        overrideRolesFromElem : function (elem, role){
             if(role == 's'){
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
                 elem.classList.remove('presenter');
                 elem.classList.remove('educator');
                 virtualclassCont.classList.add('student');
+                //this.synchEditorTools();
             } else if(role == 'p'){
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
@@ -1359,6 +1404,9 @@
                 elem.classList.remove('presenter');
                 elem.classList.add('educator');
                 elem.classList.add('orginalTeacher');
+
+
+
             }else if(role == 't'){
                 elem.classList.remove('student');
                 elem.classList.remove('educator');
@@ -1368,6 +1416,8 @@
                 console.log('add Teacher');
             }
 
+             //this.synchLocalStorageRole(role);
+            //localStorage.setItem('uRole', role);
         }
     };
     window.vutil = vutil;

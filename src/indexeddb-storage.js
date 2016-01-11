@@ -561,6 +561,7 @@
 
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
+                virtualclass.gObj.tempReplayObjs.length = 0;
 
                 if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
                     delete virtualclass.gObj.downloadProgress;
@@ -626,7 +627,7 @@
                 if(newEducator != null){
                     console.log('Editor mode enable');
                     localStorage.setItem('editorRich', true);
-                    localStorage.setItem('editorCode', true);
+                     localStorage.setItem('editorCode', true);
                     localStorage.removeItem('nEd');
                 } else {
                     console.log('Editor mode disable');
@@ -644,6 +645,7 @@
         
 
         clearSingleTable : function (table){
+
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);

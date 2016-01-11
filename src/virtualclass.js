@@ -548,6 +548,11 @@
                                     }
 
                                     virtualclass.clearSession();
+                                    if(virtualclass.gObj.hasOwnProperty('beTeacher')){
+                                        if(roles.isTeacher()){
+                                            localStorage.setItem('uRole', 't');
+                                        }
+                                    }
                                    // window.location.reload();
                                 }
                             )

@@ -288,6 +288,7 @@
                         }
 
                         if(virtualclass.isPlayMode){
+                            //TODO validate this statement
                             virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;
@@ -804,7 +805,9 @@
                     }
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
                     for (var i = 0; i < allChatDivCont.length; i++) {
-                        allChatDivCont[i].style.pointerEvents = "visible";
+                        if(!allChatDivCont[i].classList.contains('mySelf')){
+                            allChatDivCont[i].style.pointerEvents = "visible";
+                        }
                     }
                 },
 

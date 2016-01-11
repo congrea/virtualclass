@@ -78,6 +78,9 @@ $(document).ready(function () {
         virtualclass.gObj.uRole = 't';
         localStorage.setItem('uRole', 't');
         localStorage.removeItem('beTeacher');
+        console.log('From locastorage:- beteacher found');
+    } else {
+        console.log('From locastorage:- beteacher not found');
     }
 
     // If was in play mode before, start with fresh data
@@ -313,6 +316,8 @@ $(document).ready(function () {
                 // transferControl(userId);
             }
             console.log('Member add :- join as educator');
+        }else {
+            console.log('Member add :- join as ' + role);
         }
 
         io.disconnect();
@@ -351,6 +356,7 @@ $(document).ready(function () {
      */
 
     var defaultOperation = function (e, sType){
+
         if((virtualclass.jId  == virtualclass.gObj.uid)){
             // Override the roles for removing Class from virtualclass container.
             if(e.message[e.message.length - 1].role != 't'){
@@ -361,10 +367,20 @@ $(document).ready(function () {
                     removeSessionEndTool(); // remove session tool if there is any
                 }
             }
+
+            if(virtualclass.gObj.hasOwnProperty('doEndSession') && virtualclass.joinUser.role == 't'){
+                overrideRoleTeacher();
+                console.log('From localStorage, perform the override role action');
+            } else {
+                console.log('From localStorage, cannot perform the override role action');
+            }
         }
 
         // Handle other thing as usual
-        console.log('Member add :- join as normal ' + e.message[e.message.length - 1].role);
+
+        console.log('Member add :- join as normal ' + e.message[e.message.length - 1].role + ' join id ' + virtualclass.jId);
+
+
         ioPingPong.ping(e);
         memberUpdate(e, 'added');
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
@@ -466,6 +482,7 @@ $(document).ready(function () {
         virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
 
         // If user try to join as Teacher
+        console.log('Member add :- join user id ' + virtualclass.joinUser.userid + ' with ' + virtualclass.joinUser.role);
         if((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't'){
             if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
                 veryFirstJoin = false;
@@ -482,26 +499,25 @@ $(document).ready(function () {
 
                         overrideRoleTeacher();
 
-                        //setTimeout(
-                        //    function (){
-                        //        overrideRoleTeacher();
-                        //        console.log('Member add :-  join as teacher');
-                        //    }, 1000
-                        //);
-
-
                     } else {
                         console.log('There some problem on joining as');
                     }
 
             } else {
+                console.log('Member add:- try to init as teacher');
                 setTimeout(
                     function (){
+
                         veryFirstJoin = false;
                         if(!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)){
                              overrideOperation('t');
                             console.log('Member add :- join as teacher');
                         }
+
+                        if(virtualclass.gObj.hasOwnProperty('doEndSession') && roles.isTeacher()){
+                            overrideRoleTeacher();
+                        }
+
                     },  virtualclass.gObj.mySetTime
                 );
             }
@@ -539,6 +555,7 @@ $(document).ready(function () {
     });
 
     var overrideRoleTeacher = function (){
+        console.log('Member add:- End session override teacher');
         virtualclass.storage.config.endSession();
         localStorage.setItem('uRole', 't');
         delete virtualclass.gObj['doEndSession'];

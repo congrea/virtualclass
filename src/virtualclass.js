@@ -548,6 +548,8 @@
                                     }
 
                                     virtualclass.clearSession();
+                                    // set teacher role on localstorage
+                                    // if student become teacher, does session end
                                     if(virtualclass.gObj.hasOwnProperty('beTeacher')){
                                         if(roles.isTeacher()){
                                             localStorage.setItem('uRole', 't');

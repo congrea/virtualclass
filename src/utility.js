@@ -1324,7 +1324,7 @@
                     function (){
                         beTeacher.style.pointerEvents = 'visible';
                         beTeacher.style.opacity = '1';
-                    }, 5000 //60000
+                    }, 60000 //60000
                 )
             }
         },

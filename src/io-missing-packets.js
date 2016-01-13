@@ -65,7 +65,8 @@ var ioMissingPackets = {
         var uid = msg.user.userid;
         this.validateAllVariables(uid);
 
-        if(msg.m.hasOwnProperty('ping') && msg.m.hasOwnProperty('session')){
+        // we would think about sesion clear only when the request would come from teacher
+        if(msg.user.role == 't' && msg.m.hasOwnProperty('ping') && msg.m.hasOwnProperty('session')){
             var mySession = localStorage.getItem('mySession');
             if(mySession != null && msg.m.session != mySession){
                 // TODO Finish Session and start gracefully

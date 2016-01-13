@@ -64,7 +64,8 @@ var ioPingPong = {
         var session = msg.session;
         var localSession = localStorage.getItem('mySession');
         if(localSession != null){
-            if (localSession !== session) { // We are good, if same;
+            // only destroy the session when the request comes from teacher
+            if (localSession !== session &&  e.fromUser.role == 't') { // We are good, if same;
                 this.sessionDestroy(session, e);
             }
         } else {

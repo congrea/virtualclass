@@ -907,6 +907,7 @@ $(document).ready(function () {
         //Assign Role
         this.assignRole = function (e) {
             if (e.message.toUser === virtualclass.gObj.uid) {
+                virtualclass.wb.utility.removeWhiteboardMessage();
                 virtualclass.vutil.vcResponseAssignRole(e.fromUser.userid, wbUser.id);
                 //virtualclass.wb.response.assignRole(e.fromUser.userid, wbUser.id);
             }

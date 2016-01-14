@@ -128,7 +128,10 @@
         'muteAll' : 'Mute All',
         'unmuteAll' : 'Unmute All',
         'enablehistory' : '"Browser History" should be enabled during the Session.',
-        'becomeTeacher' : 'Become Teacher'
+        'becomeTeacher' : 'Become Teacher',
+        'confirmOk' : 'Yes',
+        'confirmCancel' : 'No'
+
     };
     window.message = message;
 })(window);

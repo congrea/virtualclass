@@ -162,6 +162,36 @@
 
             },
 
+            /**
+             * This function remove the scroll from editor which comes on firefox browser
+             * upto paritucular window size
+             * @param etype expects browser name
+             */
+
+            //This is not best way to handle scroll with firefox.
+            removeScrollFromFireFox : function (etype){
+                etype = virtualclass.vutil.capitalizeFirstLetter(etype);
+                setTimeout(
+                    function (){
+                        var codeScrollElem = document.querySelector('#virtualclass' + etype + 'Body .CodeMirror-vscrollbar');
+
+                        var codeMirrorCont = document.querySelector('#virtualclass' + etype + 'Body .CodeMirror');
+
+                        var codeContainer = document.querySelector('#virtualclass' + etype + 'Body .CodeMirror-code');
+
+                        var codeMirrorContHeight = codeMirrorCont.offsetHeight - 25;
+                        var codeContainerHeight =  codeContainer.offsetHeight;
+
+                        if(codeContainerHeight > codeMirrorContHeight){
+                            codeScrollElem.style.display = 'block';
+                        } else{
+                            codeScrollElem.style.display = '';
+                        }
+
+                    },20
+                );
+
+            },
             /*
              * By this function we creating the
              * Editor client and virtualclass adapter in ot.js
@@ -185,6 +215,12 @@
                 }
 
                 Vceditor.fromCodeMirror({}, this.cm, editorType, docsInfo);
+
+
+                var browser = virtualclass.system.mybrowser.detection();
+                if(browser[0] == 'Firefox'){
+                    this.removeScrollFromFireFox(this.etype);
+                }
                 console.log('Creating Rich Text Layout');
             },
 

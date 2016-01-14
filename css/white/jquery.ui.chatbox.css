@@ -326,7 +326,7 @@
 }
 
 /* tab css */
-#virtualclassCont .ui-tabs,.ui-tabs .ui-tabs-nav{
+#virtualclassCont .ui-tabs,#virtualclassCont .ui-tabs .ui-tabs-nav{
     padding: 0;
 }
 #virtualclassCont .ui-tabs .ui-tabs-nav li {
@@ -388,7 +388,7 @@
 /*----------------Susmita----------------*/
 #virtualclassCont .ui-state-default, #virtualclassCont .ui-widget-content .ui-state-default, #virtualclassCont .ui-widget-header .ui-state-default{
     height: 40px;
-    border: 1px solid #ccc;
+    border: 1px solid #8f8f8f;
     border-top: none;
     border-radius: 0;
     -webkit-border-bottom-right-radius: 6px;

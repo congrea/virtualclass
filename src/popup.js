@@ -319,7 +319,8 @@ var PopUp = (function (window, undefined) {
         var confirmOkButton = document.createElement('button');
         confirmOkButton.id = 'confirmOkButton';
         confirmOkButton.className = 'icon-check';
-        confirmOkButton.innerHTML = "OK";
+        //confirmOkButton.innerHTML  = 'Ok';
+        confirmOkButton.innerHTML = virtualclass.lang.getString('confirmOk');
 
         confirmOkDiv.appendChild(confirmOkButton);
         confirm.appendChild(confirmOkDiv);
@@ -333,7 +334,10 @@ var PopUp = (function (window, undefined) {
         var confirmCancelButton = document.createElement('button');
         confirmCancelButton.id = 'confirmCancelButton';
         confirmCancelButton.className = 'icon-close';
-        confirmCancelButton.innerHTML = "Cancel";
+
+        //confirmCancelButton.innerHTML = "Cancel";
+
+        confirmCancelButton.innerHTML = virtualclass.lang.getString('confirmCancel');
 
 
         confirmCancelDiv.appendChild(confirmCancelButton);

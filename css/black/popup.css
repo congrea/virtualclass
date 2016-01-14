@@ -385,7 +385,7 @@ transition:all .2s linear;
 }
 
 #virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont .rv-vanilla-modal, #virtualclassCont #confirm.popupWindow.simple-box{
-	border-radius: 13px !important;
+	border-radius: 10px !important;
 } 
 
 #virtualclassCont #downloadProgress{
@@ -398,15 +398,16 @@ transition:all .2s linear;
 #virtualclassCont #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
 	background-color: #a6c24e;
 	font-weight: normal;
-	padding: 10px 24px;
-	border-radius: 10px !important;
+	padding: 12px 24px;
+	border-radius: 5px !important;
+	color:#fff !important;
 }
 #virtualclassCont #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
 	background-color: #ccc;
 	font-weight: normal;
 	padding: 10px 22px;
-	border-radius: 10px !important;
-	color:#555;
+	border-radius: 5px !important;
+	color:#555 !important;
 }
 
 #virtualclassCont #speakerPressingAnch #speakerPressingtext{

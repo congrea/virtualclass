@@ -22,6 +22,11 @@
 
 #virtualclassCont a, #virtualclassCont canvas {
 	outline : none;
+	
+}
+#virtualclassCont a{
+	color:#333 !important;
+	text-decoration: none;
 }
 
 #virtualclassCont .clear, #virtualclassCont #conControler, #virtualclassCont #virtualclassOptionsCont, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont .msgBoxCanvasimg, #virtualclassCont #mainContainer {
@@ -2009,10 +2014,13 @@
 }
 
 #virtualclassCont #errorContainer {
-	position: fixed;
-	bottom: 7%;
-	left: 44%;
-	color : rgba(131, 14, 14, 0.93);
+    position: fixed;
+    bottom: 7%;
+    color: rgb(207, 39, 39);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 33%;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
@@ -2159,10 +2167,9 @@
 	padding: 12px 8px 12px 12px;
 	border:#e6dda4 1px solid;
 }
-#virtualclassEditorRich #synchMessageBox p{
-	margin: 0;
-	/*text-transform: uppercase;*/
-}
+#virtualclassCont .writeModeBox{padding: 12px 0px; border:#d7cd8e 1px solid;}
+
+#virtualclassEditorRich #synchMessageBox p{margin: 0;}
 
 #virtualclassEditorRich #synchMessageBox {
 	position : absolute;
@@ -2182,19 +2189,11 @@
 	border-radius: 5px;
 }
 
+#virtualclassEditorRich, #virtualclassEditorCode{margin-top:  10px;}
 
-#virtualclassEditorRich, #virtualclassEditorCode{
-	/*margin-top : 1.5%;*/
-	margin-top:  10px;
-}
+#virtualclassEditorRich, #virtualclassEditorBody{height : 100%;}
 
-#virtualclassEditorRich, #virtualclassEditorBody{
-	height : 100%;
-}
-
-#virtualclassEditorCode, #virtualclassEditorCodeBody {
-	height : 101%;
-}
+#virtualclassEditorCode, #virtualclassEditorCodeBody {height : 101%;}
 
 #virtualclassCont .other-client:before {
 	content: attr(data-clientname);
@@ -2209,18 +2208,9 @@
 }
 
 
-#virtualclassCont div.CodeMirror-cursors{
-	visibility : visible !important;
-}
+#virtualclassCont div.CodeMirror-cursors{visibility : visible !important;}
 
-
-#virtualclassCont .block.editorRichImg {
-	opacity : 0.5;
-}
-
-#virtualclassCont .block.editorCodeImg {
-	opacity : 0.5;
-}
+#virtualclassCont .block.editorCodeImg, #virtualclassCont .block.editorRichImg {opacity : 0.5;}
 
 #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer {
 	position: absolute;
@@ -2230,23 +2220,16 @@
 	text-align: center;
 	padding: 10px 0px;
 	font-size: 14px;
-	font-weight: 200;
 	z-index: 0;
 }
 
-#virtualclassCont #virtualclassYtsTool, #virtualclassCont #virtualclassEditorCodeTool{
-	border-bottom: none !important;
-}
+#virtualclassCont #alleditorCodeContainer{top: 5px; right: 2px;}
 
-#virtualclassCont #alleditorRichContainerAnch{
-	color: #fff;
-	text-decoration: none;
-}
+#virtualclassCont #virtualclassYtsTool, #virtualclassCont #virtualclassEditorCodeTool{border-bottom: none !important;}
 
-#virtualclassCont #virtualclassEditorRichBody {
-	position: relative;
-	height : 103%;
-}
+#virtualclassCont #alleditorRichContainerAnch{color: #fff; text-decoration: none;}
+
+#virtualclassCont #virtualclassEditorRichBody {position: relative;height : 103%;}
 
 
 /* New Css */
@@ -2260,26 +2243,20 @@
 	background: linear-gradient(to bottom, #f7f7f8 0%,#eeeef0 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
 }
-#virtualclassCont #playControllerWrapper #playProgress, #virtualclassCont #playController #playProgress #playProgressBar{
-	height: 5px;
-}
 
-#virtualclassCont a.vceditor-btn{
-	border-bottom-width: 1px !important;
-}
+#virtualclassCont #playControllerWrapper #playProgress, #virtualclassCont #playController #playProgress #playProgressBar{height: 5px;}
 
-#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{
-	border-radius: 3px !important;
-}
+#virtualclassCont a.vceditor-btn{border-bottom-width: 1px !important;}
+
+#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{border-radius: 3px !important;}
+
 #virtualclassCont #playController{
 	margin: 0 auto;
 	position: relative;
 	width: 650px;
 }
 
-#virtualclassCont .progressBar{
-	height: 5px;
-}
+#virtualclassCont .progressBar{height: 5px;}
 
 #virtualclassCont #playController{
 	padding: 18px 15px 36px;
@@ -2297,9 +2274,7 @@
 	font-size: 14px;
 }
 
-#virtualclassCont #repTimeCont #totalRepTime{
-	color: #888;
-}
+#virtualclassCont #repTimeCont #totalRepTime{color: #888;}
 
 #virtualclassCont #playController #recPlayCont #recPlay, #virtualclassCont #playController #recPauseCont #recPause, #virtualclassCont #playController #ff2Cont #ff2, #virtualclassCont #playController #ff8Cont #ff8{
 	background-color: transparent;
@@ -2308,9 +2283,7 @@
 	color:#676666;
 }
 
-#virtualclassCont #playController #recPlayCont #recPlay:hover, #virtualclassCont #playController #recPlayCont #recPause:hover, #virtualclassCont #playController #ff2Cont #ff2:hover, #virtualclassCont #playController #ff8Cont #ff8:hover{
-	color:#222222;
-}
+#virtualclassCont #playController #recPlayCont #recPlay:hover, #virtualclassCont #playController #recPlayCont #recPause:hover, #virtualclassCont #playController #ff2Cont #ff2:hover, #virtualclassCont #playController #ff8Cont #ff8:hover{ color:#222222;}
 
 #virtualclassCont #playController .icon-pause:before{
 	content:"\f04c";
@@ -2390,7 +2363,10 @@
     color:#d5dee7;
     font-size: 15px;
 }
-
+#virtualclassCont .ui-dialog-header .icon-close:before {
+	position: relative;
+    top: -2px;
+}
 
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before{
 	content: "\f00d";
@@ -2452,18 +2428,11 @@
 }
 
 
-#virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presenter .youTubeSharing #youtubeUrlContainer{
-	top:0;
-	text-align: left;
-}
+#virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presenter .youTubeSharing #youtubeUrlContainer{top:0; text-align: left;}
 
-#virtualclassCont .youTubeSharing{
-	text-align: left;
-}
+#virtualclassCont .youTubeSharing{text-align: left;}
 
-#virtualclassCont #virtualclassCont #player{
-	margin-top: 7%;
-}
+#virtualclassCont #virtualclassCont #player{margin-top: 7%;}
 
 #virtualclassCont #youtubeUrlContainer #youtubeurl{
 	border:#ddd 1px solid;
@@ -2516,7 +2485,7 @@
 }
 
 #virtualclassCont #alleditorRichContainer a, #virtualclassCont #alleditorCodeContainer a{
-	color:#fff;
+	color:#fff !important;
 	text-decoration: none;
 }
 
@@ -2754,7 +2723,11 @@
 #virtualclassCont #vcanvas #whiteBoardMsg {
 	position : absolute;
 	top : 40%;
-	left : 40%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	max-width: 30%;
+	text-align: center;
 }
 
 
@@ -3001,9 +2974,9 @@
 
 #virtualclassCont #errorContainer,  #virtualclassCont #errorContainer{
 	background-color:#f0f0f0;
-	box-shadow:#ddd 0px 0px 5px;
-	border:#DDD 1px solid;
-	padding:20px;
+	box-shadow:#ccc 0px 0px 5px;
+	border:#ccc 1px solid;
+	padding:24px;
 	border-radius:5px;
 	text-align:center;
 }
@@ -3312,7 +3285,7 @@
 
 
 #virtualclassCont #beTeacher {
-	background: #7bb876 none repeat scroll 0 0;
+	background: #84bd7f;
 	border-radius: 4px;
 	box-shadow: none;
 	color: #ffffff;
@@ -3320,55 +3293,58 @@
 	display: inline-block;
 	font-family: Arial;
 	font-size: 13px;
-	padding: 12px 30px;
+	padding: 11px 20px;
 	position: absolute;
 	text-decoration: none;
 	text-transform: uppercase;
-	border:#70ab6b 1px solid;
+	border:#6dac69 1px solid;
 }
-
+#virtualclassCont #beTeacher a{color: #fff !important;}
 #virtualclassCont #beTeacher:hover{
-	background: #84bd7f;
-	border:#67a462 1px solid;
+	background: #9dd19a;
 }
-
+#virtualclassCont #beTeacher a:hover{text-decoration: none;}
 #virtualclassCont #beTeacher{
 	z-index : 10;
 }
 
 #virtualclassCont[data-currapp="Whiteboard"]  #beTeacher{
-	top : 1%;
-	right: 1%;
+	right: 165px;
+	top: 26px;
 }
 
 #virtualclassCont.student[data-currapp="Whiteboard"]  #beTeacher{
-	top : 3%;
-	right: 1%;
+	top: 26px;
+    right: 5px;
 }
 
 #virtualclassCont.student[data-currapp="ScreenShare"]  #beTeacher{
-	right: 1%;
-	top: 3%;
+	right: 5px;
+	top: 26px;
 }
 
 #virtualclassCont.student[data-currapp="Yts"]  #beTeacher{
-	right: 1%;
-	top: 4%;
+    right: 5px;
+    top: 26px;
 }
 
-#virtualclassCont.student[data-currapp="EditorCode"]  #beTeacher{
-	right: 16%;
-	top: 5%;
+#virtualclassCont.student[data-currapp="EditorCode"] #beTeacher{
+    right: 165px;
+    top: 26px;
 }
 
-#virtualclassCont.presenter[data-currapp="Whiteboard"]  #beTeacher{
-	top : 1%;
+#virtualclassCont.presenter[data-currapp="Whiteboard"] #beTeacher{
+	top: 26px;
 }
 
 #virtualclassCont[data-currapp="EditorRich"] #beTeacher{
-	right: 16%;
-	top: 2.6%;
+	right: 165px;
+	top: 26px;
 }
+
+#virtualclassCont.playMode.student #virtualclassEditorCode{margin-top: 0px; border-top:#ccc 1px solid;}
+
+
 
 
 

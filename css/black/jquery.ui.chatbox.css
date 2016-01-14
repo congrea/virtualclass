@@ -233,6 +233,8 @@
     height: 18px;
 }
 
+.ui-dialog-header .ui-chatbox-icon .icon-close:before{position: relative; top:-2px;}
+
 #virtualclassCont .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header{
     padding: 5px 0px 15px;
 }
@@ -435,6 +437,7 @@
     border-bottom: none;
     margin-right: 2px;
 }
+.ui-tabs .ui-tabs-nav{padding: .0em .2em 0 !important;}
 #virtualclassCont .ui-icon-close{
     margin-top: 4px;
 }
@@ -540,8 +543,11 @@
 }
  
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a{
-	color:#d3dce5;
+	color:#d3dce5 !important;
 }
+#tabs a{color:#fff !important;}
+#tabs .ui-state-highlight a{color:#333 !important;}
+
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active .ui-corner-all.ui-chatbox-icon .ui-icon.ui-icon-close.icon-remove:before{
 	color:#d3dce5;
 }

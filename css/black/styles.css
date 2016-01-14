@@ -2007,11 +2007,15 @@
 }
 
 #virtualclassCont #errorContainer {
-	position: fixed;
-	bottom: 7%;
-	left: 44%;
-	color : rgba(131, 14, 14, 0.93);
+    position: fixed;
+    bottom: 7%;
+    color: rgb(207, 39, 39);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 33%;
 }
+#audioWidget #audioTest-box #audioTest #audiotestAnch{color:#fff !important;}
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
 	#virtualclassCont #chat_div .ui-memblist-usr a.tooltip:hover:after {
@@ -2264,6 +2268,7 @@
 }
 
 #virtualclassCont a.vceditor-btn{
+	color: #fff !important;
 	border-bottom-width: 1px !important;
 }
 
@@ -2649,7 +2654,7 @@
 }
 
 #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart{
-	padding: 5px 10px 12px;
+	padding: 3px 10px 12px;
 	border: none;
 	font-size: 13px;
 	border: #ddd 1px solid;
@@ -2759,10 +2764,12 @@
 #virtualclassCont #vcanvas #whiteBoardMsg {
 	position : absolute;
 	top : 40%;
-	left : 40%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	max-width: 30%;
+	text-align: center;
 }
-
-
 
 #virtualclassCont a#contrAudioAll {
 	margin-left: 30px;
@@ -3095,8 +3102,7 @@
 .ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight .icon-minus:before, #virtualclassCont #chatWidget .mySelf span{
 	color:#333;
 }
-
-#virtualclassCont.playMode.student #virtualclassEditorCode, #virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
+#virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
 	margin-top: 70px;
 }
 
@@ -3151,9 +3157,10 @@
 #virtualclassCont.playMode.student #virtualclassEditorCode, #virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
 	margin-top: 70px;
 }
+.tooltip{color: #fff;}
 
-#virtualclassCont #virtualclassOptionsCont, .tooltip, #virtualclassCont #t_reclaim .icon-educator:before, #virtualclassCont .ui-dialog-header span, #virtualclassCont #chatroom_bt2 .inner_bt, #virtualclassCont #speakerPressing .icon-speakerPressing:before, #virtualclassCont #virtualclassOptionsCont .appOptions a span:before, #virtualclassCont #virtualclassOptionsCont .appOptions a span:before{
-	color:#fff;
+#virtualclassCont #virtualclassOptionsCont, #virtualclassCont #t_reclaim .icon-educator:before, #virtualclassCont .ui-dialog-header span, #virtualclassCont #chatroom_bt2 .inner_bt, #virtualclassCont #speakerPressing .icon-speakerPressing:before, #virtualclassCont #virtualclassOptionsCont .appOptions a span:before, #virtualclassCont #virtualclassOptionsCont .appOptions a span:before{
+	color:#fff !important;
 }
 
 #virtualclassCont #virtualclassOptionsCont:first-child, #virtualclassOptionsCont{
@@ -3202,7 +3209,7 @@
 
 #virtualclassCont #containerWb #commandToolsWrapper .tool a{
 	border-right: 1px solid #555;
-	color:#fff;
+	color:#fff !important;
 }
 
 #virtualclassCont #mainAudioPanel{
@@ -3295,15 +3302,16 @@
 	text-shadow: none !important;
 }
 
+
 #virtualclassCont .close:hover{
 	color:#fff !important;
 }
 
+
 #virtualclassCont #beTeacher {
-	background: #7bb876 none repeat scroll 0 0;
+	background: #84bd7f;
 	border-radius: 4px;
 	box-shadow: none;
-	color: #ffffff;
 	cursor: pointer;
 	display: inline-block;
 	font-family: Arial;
@@ -3312,11 +3320,14 @@
 	position: absolute;
 	text-decoration: none;
 	text-transform: uppercase;
-	border:#70ab6b 1px solid;
+	border:#6dac69 1px solid;
+}
+#virtualclassCont #beTeacher #beTeacherAnchor{
+	color: #ffffff !important;
 }
 
-#beTeacher:hover{
-	background: #84bd7f;
+#virtualclassCont #beTeacher:hover{
+	background: #9dd19a;
 	border:#67a462 1px solid;
 }
 
@@ -3325,34 +3336,40 @@
 }
 
 #virtualclassCont[data-currapp="Whiteboard"]  #beTeacher{
-	top : 1%;
+	right: 157px;
+	top: 25px;
 }
 
 #virtualclassCont.student[data-currapp="Whiteboard"]  #beTeacher{
-	top : 3%;
-	right: 1%;
+	top: 25px;
+    right: 5px;
 }
 
 #virtualclassCont.student[data-currapp="ScreenShare"]  #beTeacher{
-	right: 1%;
-	top: 3%;
+	right: 5px;
+	top: 25px;
 }
 
 #virtualclassCont.student[data-currapp="Yts"]  #beTeacher{
-	right: 1%;
-	top: 4%;
+    right: 5px;
+    top: 25px;
 }
 
-#virtualclassCont.student[data-currapp="EditorCode"]  #beTeacher{
-	right: 13%;
-	top: 5%;
+#virtualclassCont.student[data-currapp="EditorCode"] #beTeacher{
+    right: 157px;
+    top: 25px;
 }
 
-#virtualclassCont.presenter[data-currapp="Whiteboard"]  #beTeacher{
-	top : 1%;
+#virtualclassCont.presenter[data-currapp="Whiteboard"] #beTeacher{
+	top: 25px;
 }
 
 #virtualclassCont[data-currapp="EditorRich"] #beTeacher{
-	right: 13%;
-	top: 3%;
+	right: 157px;
+	top: 25px;
 }
+#audioWidget #audioTest-box #audioTestaudioTest #audiotestAnch{color:#fff !important;}
+#virtualclassCont .ui-dialog-header.ui-state-highlight span:first-child{color:#333 !important;}
+#virtualclassCont.playMode.student #virtualclassEditorCode{margin-top: 0px; border-top:#ccc 1px solid;}
+
+

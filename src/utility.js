@@ -1418,7 +1418,13 @@
 
              //this.synchLocalStorageRole(role);
             //localStorage.setItem('uRole', role);
+        },
+
+        sesionEndMsgBoxIsExisting : function (){
+            var sessionEndCont = document.getElementById('sessionEndMsgCont');
+            return (sessionEndCont.hasAttribute('data-displaying') && sessionEndCont.dataset.displaying == 'true'); // do nothing if there is already sesion end box
         }
+
     };
     window.vutil = vutil;
 })(window);

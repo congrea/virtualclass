@@ -374,12 +374,17 @@ var PopUp = (function (window, undefined) {
         return true;
     }
 
-    PopUp.prototype.waitMsg = function (){
-        var element = document.getElementById('about-modal');
-        virtualclass.popup.open(element);
 
-        this.hideAllPopups();
-        document.getElementById('waitMsgCont').style.display = 'block';
+
+    PopUp.prototype.waitMsg = function (){
+        // If there is already Session End Box,  we are not displaying wait box
+
+        if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
+            var element = document.getElementById('about-modal');
+            virtualclass.popup.open(element);
+            this.hideAllPopups();
+            document.getElementById('waitMsgCont').style.display = 'block';
+        }
 
         //virtualclass.popup.waitBlockAction('none');
         //virtualclass.popup.replayWindowAction('none');

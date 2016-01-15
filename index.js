@@ -602,9 +602,10 @@ $(document).ready(function () {
         }
         setTimeout(
             function (){
-                virtualclass.popup.closePopup();
-                // 2500 earlier was
-            }, setTimeReady // Wait for everything is to be ready
+                if(!virtualclass.vutil.sesionEndMsgBoxIsExisting()){
+                    virtualclass.popup.closePopup();
+                }
+             }, setTimeReady // Wait for everything is to be ready
         );
     });
 

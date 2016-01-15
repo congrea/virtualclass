@@ -23,6 +23,17 @@ $(document).ready(function () {
     virtualclass.gObj.sessionClear = false;
     virtualclass.prvCurrUsersSame();
 
+    var anypresenter = localStorage.getItem('anyp');
+    if(anypresenter == null){
+        localStorage.setItem('anyp', wbUser.anyonepresenter)
+    } else {
+        // If status of anypresenter is switched then we remove the role
+        // from local storage
+        if(anypresenter != wbUser.anyonepresenter){
+            localStorage.removeItem('uRole');
+            localStorage.setItem('anyp', wbUser.anyonepresenter)
+        }
+    }
 
     wbUser.virtualclassPlay = parseInt(wbUser.virtualclassPlay, 10);
     if(wbUser.virtualclassPlay){

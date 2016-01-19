@@ -335,44 +335,26 @@
         },
 
         afterRecording: function () {
-            virtualclass.clearSession();
-            //virtualclass.storage.config.endSession();
-
+            chunkNum = 1;
             var progressBarContainer = document.getElementById('progressContainer');
-            progressBarContainer.style.display = 'none';
+            progressBarContainer.style.display = 'block';
 
-            var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
-            recordFinishedMessageBox.style.display = 'block';
-            recordFinishedMessageBox.classList.add('MessageBoxFinished');
+             setTimeout(
+                function (){
+                    var recordingContainer = document.getElementById('recordingContainer');
+                    recordingContainer.classList.add('recordingFinished');
 
-
-            var recordingContainer = document.getElementById('recordingContainer');
-            recordingContainer.classList.add('recordingFinished');
-
-
-            var recordingClose = document.getElementById('recordingClose');
-
-            //For dont provide the download link (will be available after five minute of XHR progress at progressbar
-            virtualclass.recorder.alreadyDownload = true;
-            recordingClose.addEventListener('click',
-                function () {
-                    //virtualclass.popup.closeElem();
-                    //window.location.reload();
-                    virtualclass.popup.closeElem();
-
-                    // After clear the default look for progress bar
-
-                    var progressBarContainer = document.getElementById('progressContainer');
-                    recordFinishedMessageBox.style.display = 'none';
-                    progressBarContainer.style.display = 'block';
-
+                    console.log('Record :- after recording');
+                    virtualclass.clearSession();
+                    //virtualclass.storage.config.endSession();
                     virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
                     virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue');
                     recordingContainer.classList.remove('recordingFinished');
 
 
-                }
+                }, 2000
             );
+
         },
 
 
@@ -389,15 +371,11 @@
             var progressContainer = document.getElementById('progressContainer');
             progressContainer.style.display = 'none';
 
-
             downloadLinkCont.appendChild(downloadMsg);
-
 
             pbar.appendChild(downloadLinkCont);
 
             this.alreadyDownload = true;
-
-
 
             virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
                 // diconnecting with others for prevent to send any unknown packets.
@@ -484,6 +462,7 @@
                     }else if(e.data.hasOwnProperty('status')){
                         if(e.data.status == 'done'){
                             console.log('Recorder:- done');
+                            delete virtualclass.recorder.startUpload;
                             virtualclass.recorder.recordDone = true;
                         }
                     }

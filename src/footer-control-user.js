@@ -605,6 +605,7 @@
                     }
 
                     if (typeof notsent == 'undefined') {
+                        console.log('role transfer');
                         virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'}, userId);
 
                         if(roles.hasAdmin()){

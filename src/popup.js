@@ -218,6 +218,7 @@ var PopUp = (function (window, undefined) {
 //    }
 
     PopUp.prototype.openProgressBar = function (nfile){
+
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
 

@@ -361,10 +361,10 @@ $audactive = $adarr[$audactive];
                                 <div id="progressValue" class="progressValue"> 0%</div>
                             </div>
                         </div>
-                       
+
                         <div id="indvProgressCont">
                             <div id="indvProgressLabel"> <?php echo get_string('indvprogress'); ?> </div>
-                        
+
                             <div id="indProgress">
                                 <div id="indProgressBar" class="progressBar">
                                 </div>
@@ -377,11 +377,11 @@ $audactive = $adarr[$audactive];
                         </div>
 
                     </div>
-
+                    <!-- we don't need this one
                     <div id="recordFinishedMessageBox">
-                        <span id="recordFinishedMessage">  <?php echo get_string('uploadedsession'); ?>. </span>
+                        <span id="recordFinishedMessage">  <?php //echo get_string('uploadedsession'); ?>. </span>
                         <span id="recordingClose" class="icon-close"></span>
-                    </div>
+                    </div> -->
 
                 </div>
 

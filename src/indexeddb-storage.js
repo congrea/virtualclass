@@ -562,6 +562,15 @@
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
+                //virtualclass.recorder.rnum = 1; // set file to 1
+
+                if(virtualclass.recorder.hasOwnProperty('startUpload')){
+                    delete virtualclass.recorder.startUpload;
+                }
+
+                //var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
+                //recordFinishedMessageBox.style.display = 'none';
+
 
                 if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
                     delete virtualclass.gObj.downloadProgress;

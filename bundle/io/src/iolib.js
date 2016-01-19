@@ -57,13 +57,21 @@ var io = {
                         if (msg.m.hasOwnProperty('serial')) {
                             ioMissingPackets.checkMissing(msg);
                         } else if (msg.m.hasOwnProperty('reqMissPac')) {
-                            ioMissingPackets.sendMissedPackets(msg);
+                            // there is bing upload the content then we will not send miss packet
+                            if(!virtualclass.recorder.hasOwnProperty('startUpload')){
+                                ioMissingPackets.sendMissedPackets(msg);
+                            }
+
                         } else if (msg.m.hasOwnProperty('missedpackets')) {
                             ioMissingPackets.fillExecutedStore(msg);
                         }  else if (msg.m.hasOwnProperty('userSerial')) {
                             ioMissingPackets.userCheckMissing(msg);
                         } else if (msg.m.hasOwnProperty('userReqMissPac')) {
-                            ioMissingPackets.userSendMissedPackets(msg);
+                            // there is bing upload the content then we will not send miss packet
+                            if(!virtualclass.recorder.hasOwnProperty('startUpload')){
+                                ioMissingPackets.userSendMissedPackets(msg);
+                            }
+
                         } else if (msg.m.hasOwnProperty('userMissedpackets')) {
                             ioMissingPackets.userFillExecutedStore(msg);
                         } else {
@@ -190,8 +198,8 @@ var io = {
 
             this.sock.send(jobj);
             this.sock.onerror = function (error){
-                debugger;
-                alert(error);
+                //debugger;
+                //alert(error);
             }
             //this.sock.onclose = function (e){
             //    debugger;

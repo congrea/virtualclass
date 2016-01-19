@@ -602,8 +602,13 @@ $(document).ready(function () {
         }
         setTimeout(
             function (){
-                if(!virtualclass.vutil.sesionEndMsgBoxIsExisting()){
+                // There should not session end message box
+                // Should not Session download box also
+                if(!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)){
                     virtualclass.popup.closePopup();
+                    console.log('Popup box Close All');
+                } else {
+                    console.log('Popup box Could not close');
                 }
              }, setTimeReady // Wait for everything is to be ready
         );
@@ -898,6 +903,7 @@ $(document).ready(function () {
 
         //Reclaim Role
         this.reclaimRole = function (e) {
+            console.log('Role reclaim');
             //if (localStorage.getItem('teacherId') !== null) {
             if (roles.hasControls()) {
 
@@ -919,6 +925,7 @@ $(document).ready(function () {
         //Assign Role
         this.assignRole = function (e) {
             if (e.message.toUser === virtualclass.gObj.uid) {
+                console.log('Role assign');
                 if(typeof virtualclass.wb == 'object'){
                     virtualclass.wb.utility.removeWhiteboardMessage();
                 }

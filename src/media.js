@@ -100,11 +100,6 @@
                  *  calls function to attach functions on audio tools.
                  */
                 init: function () {
-                    //if (roles.hasAdmin()) {
-                    //    virtualclass.gObj.audMouseDown = true;
-                    //    //can be critical
-                    //    //this.clickOnceSpeaker('speakerPressOnce');
-                    //}
 
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
@@ -232,24 +227,19 @@
                         audioWasSent = 9;
 
                     } else if (audioWasSent > 0) {
-
-                        //    console.log('SEND NEXT');
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
                         audioWasSent--;
                     } else if (thdiff < 2) { // We are not ready, send all samples
                         //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                         this.audioSend(send, audStatus);
                     } else {
-//                            if(virtualclass.gObj.audMouseDown){
                         this.setAudioStatus("notSending");
-//                            }
                         // console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                         if (thdiff > 10) { // If diff is huge, reduce max volume in historical signal
                             maxthreshold = maxthreshold * 0.8;
                         }
                         preAudioSamp = send;
                     }
-//                        this.setAudioStatus(audStatus);
                     return send;
                 },
                 /*
@@ -259,12 +249,8 @@
                 setAudioStatus: function (audStatus) {
                     if (typeof silenceDetectElem == 'undefined') {
                         var silenceDetectElem = document.getElementById('audioWidget').getElementsByClassName(this.sdElem)[0];
-
-//                            var silenceDetectElem = document.getElementById(this.sdElem);
                     }
                     silenceDetectElem.setAttribute('data-silence-detect', audStatus);
-//                          silenceDetectElem.setAttribute('data-silence-detect',  'notSending');
-
                 },
                 //TODO not being invoked
                 makeIconNotDraggable: function (id, imgName) {
@@ -306,9 +292,6 @@
                     if (this.id == 'speakerPressOnce') {
                         that.clickOnceSpeaker(this.id);
                     } else if (this.id == 'audioTest') {
-                        //if (confirm(virtualclass.lang.getString('audioTest'), function (){})) {
-                        //    that.testInit(this.id);
-                        //}
                         var self = this;
                         virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
                             if (confirm) {
@@ -318,16 +301,12 @@
                         });
                     } else if (this.id == 'silenceDetect') {
                         var a = this.getElementsByTagName('a')[0];
-//                            var img = this.getElementsByTagName('img')[0];
                         if (that.sd) {
                             that.sd = false;
                             this.className = this.className + " sdDisable";
-//                               img.src = window.whiteboardPath + "images/silencedetectdisable.png";
                         } else {
                             that.sd = true;
                             this.className = this.className + " sdEnable";
-//                               var img = this.getElementsByTagName('img')[0];
-//                               img.src = window.whiteboardPath + "images/silencedetectenable.png";
                         }
                     }
                 },
@@ -346,12 +325,10 @@
                         if (!virtualclass.gObj.audMouseDown) {
                             that.studentSpeak(alwaysPress);
                             beingPress = true;
-
                             var pressOnceLabel = document.getElementById("speakerPressonceLabel");
                             if (pressOnceLabel != null) {
                                 if (virtualclass.vutil.elemHasAnyClass('speakerPressonceLabel')) {
                                     if (pressOnceLabel.classList.contains('silenceDetect')) {
-//                                            pressOnceLabel.setAttribute('data-silence-detect', "false");
                                         pressOnceLabel.removeAttribute('data-silence-detect');
                                         pressOnceLabel.classList.remove('silenceDetect');
                                         if (pressOnceLabel.classList.length <= 0) {
@@ -446,25 +423,9 @@
 
                     if (typeof elem != 'undefined') {
                         var button = document.getElementById(elem.id + "Button");
-                        //    button.src  = window.whiteboardPath + "images/speakerpressingactive.png";
-
-//                          alert(elem.id);
-//
-//                            var silenceDetecElem = document.getElementById('speakerPressOnce').getElementsByClassName('silenceDetect')[0];
-//                            
-//                            if(silenceDetecElem == null){
-//                                var speakerPressonce  = document.getElementById('speakerPressonceLabel')
-//                                speakerPressonce.className = speakerPressonce.className + 'silenceDetect';
-//                                speakerPressonce.setAttribute('data-silence-detect', 'stop');
-//                            }
-
                         elem.classList.remove('deactive');
-
                         elem.classList.add('active');
                     }
-
-//                        alert('speak');
-//                        debugger;
                     virtualclass.gObj.audMouseDown = true;
                     virtualclass.vutil.beforeSend({'sad': true, 'cf': 'sad'});
                 },
@@ -476,15 +437,7 @@
                 studentNotSpeak: function (elem) {
                     if (virtualclass.gObj.hasOwnProperty('audMouseDown') && virtualclass.gObj.audMouseDown) {
                         if (typeof elem != 'undefined') {
-//                                var silenceDetecElem = document.getElementById('speakerPressOnce').getElementsByClassName('silenceDetect')[0];
-
-//                                if(silenceDetecElem != null){
-//                                    silenceDetecElem.classList.remove('silenceDetect');
-//                                    silenceDetecElem.setAttribute('data-silence-detect', '');
-//                                }
-
                             var button = document.getElementById(elem.id + "Button");
-                            // button.src  = window.whiteboardPath + "images/speakerpressing.png";
                             elem.classList.remove('active');
                             elem.classList.add('deactive');
                         }
@@ -528,19 +481,10 @@
                     var currTime = new Date().getTime();
                     if (!repMode) {
                         var left = e.inputBuffer.getChannelData(0);
-//                            alert('hi guys what is up');
-//                            debugger;
                         var samples = this.resampler.resampler(left);
-//                            alert('sumna');
-//                            debugger;
-
                         if (!this.recordAudio) {
                             this.recordingLength += this.bufferSize;
                         }
-
-//                            console.log('recordingLength ' + this.recordingLength);
-
-
                         var leftSix = convertFloat32ToInt16(samples);
 
                         var send = this.audioInLocalStorage(leftSix);
@@ -548,15 +492,10 @@
                         if (this.hasOwnProperty('storeAudio') && this.storeAudio) {
                             this.audioForTesting(leftSix);
                         }
-
-//                            if(this.sd){
                         if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
                             this.slienceDetection(send, leftSix);
                         }
 
-//                            }else{
-//                                this.audioSend(send);
-//                            }
                     }
                 },
                 /*
@@ -655,13 +594,7 @@
                         receivedResampler = new Resampler(8000, 44100, 1, 16384000); // this value increased for large audio chunks
                     }
 
-                    //alert('sss');
-                    //debugger;
-                    // receivedResampler = new Resampler(8000, 44100, 1, 16384000);
-
                     var samples = receivedResampler.resampler(receivedAudio);
-                    // samples = receivedAudio;
-
 
                     //console.log('receivedAudio ' + receivedAudio.length +' samples ' + samples.length);
                     var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 44100); //8100 when sound is being delay
@@ -701,15 +634,14 @@
                      * Starts the audio buffer playing from the beginning
                      */
                     newSource.start(1);
-//                        console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
+                    // console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
                     virtualclass.gObj[uid].isplaying = true;
                     //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
                     if (typeof testAudio == 'undefined') {
                         virtualclass.gObj[uid].out = setTimeout(
                             function () {
-//                                    console.log("Stack length " +  virtualclass.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
-                                //                                console.log("UID " + uid+ " video ended  Duration OUT :"+newSource.buffer.duration);
-
+                                // console.log("Stack length " +  virtualclass.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
+                                // console.log("UID " + uid+ " video ended  Duration OUT :"+newSource.buffer.duration);
                                 virtualclass.gObj[uid].isplaying = false;
                                 if (virtualclass.gObj.video.audio.audioToBePlay[uid].length > 0) {
                                     virtualclass.gObj.video.audio.getChunks(uid);
@@ -767,15 +699,11 @@
                  */
                 // TODO this(getChunks) should be rename into getAudioChunks()
                 getChunks: function (uid, label) {
-//                        alert('suman bogati');
-//                        debugger;
-////                        console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
+                    // console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
                     if (this.audioToBePlay[uid].length > 8) {
                         this.audioToBePlay[uid].length = 0;
                         virtualclass.gObj[uid].isplaying = false;
                     } else if (this.audioToBePlay[uid].length > 0) {
-//                            console.log("play twice time");
-//                            virtualclass.gObj[uid].isplaying = true;
                         this.playRecordedAudio(this.audioToBePlay[uid], uid);
                         this.audioToBePlay[uid].length = 0;
                     } else {
@@ -783,13 +711,7 @@
                     }
 
                 },
-                //TODO  this function is not being invoked
-//                replayInit: function () {
-//                    virtualclass.storage.getAllObjs(["audioData"], repCallback);
-//                    function repCallback() {
-//                        virtualclass.gObj.video.audio.replay(0, 0)
-//                    }
-//                },
+
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {
                     repMode = true;
@@ -821,7 +743,7 @@
                     var lng = channelBuffer.length;
                     for (var i = 0; i < lng; i++) {
                         var buffer = channelBuffer[i];
-//                          console.log("bf Length " + buffer.length);
+                        // console.log("bf Length " + buffer.length);
                         checklength += buffer.length;
                         result.set(buffer, offset);
                         offset += buffer.length;
@@ -829,6 +751,7 @@
                     //console.log (checklength + '   ' + recordingLength);
                     return result;
                 },
+
                 // TODO to verify
                 assignFromLocal: function (arrStream, audioRep) {
                     this.init();
@@ -865,9 +788,9 @@
                     } */
                     var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                     cthis.audio.bufferSize = 16384;
-                    //grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
-                    //https://code.google.com/p/chromium/issues/detail?id=360378
-//                        cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
+                    // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
+                    // https://code.google.com/p/chromium/issues/detail?id=360378
+                    // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                     grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                     grec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
                     var gainNode = cthis.audio.Html5Audio.audioContext.createGain();
@@ -899,9 +822,6 @@
                     }
 
                     var dataArr = this.extractData(msg);// extract data and user id from the message received 
-
-//                        io.dataBinaryStore(dataArr); //for store received audio
-
                     var uid = dataArr[0];
 
                     if (typeof adSign == 'undefined') {
@@ -930,10 +850,7 @@
                  * @returns {Array} userid received with the  message plus rest of the msz data
                  */
                 extractData: function (msg) {
-                    // the audio sent in Int8Array
-//                      var data_pack = new Uint8ClampedArray(msg);
                     var data_pack = new Int8Array(msg);
-
                     var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     return [uid, data_pack.subarray(5, data_pack.length)];
                 }
@@ -1185,12 +1102,7 @@
                     childElement.appendChild(videoTag);
                     return parElement;
                 },
-//                    imageReplaceWithVideo : function (id, vidCont){
-//                        var chatUser = document.getElementById("ml" + id);
-//                        var childTag = chatUser.getElementsByTagName('a')[0];
-//                        var imgTag = childTag.getElementsByTagName('img')[0];
-//                        childTag.replaceChild(vidCont, imgTag);
-//                    },
+
                 /*
                  * To create canvas element to display video
                  * @param string beforInsert : The element before that video element to be inserted
@@ -1216,7 +1128,6 @@
                  */
                 process: function (msg) {
                     var data_pack = new Uint8ClampedArray(msg);
-//                        io.dataBinaryStore(data_pack); // storing received video
                     var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     var recmsg = data_pack.subarray(5, data_pack.length);
                     virtualclass.gObj.video.video.playWithoutSlice(uid, recmsg);
@@ -1323,14 +1234,10 @@
             _handleUserMedia: function (userid) {
                 var userMainDiv = document.getElementById(userid);
                 var stream = cthis.video.tempStream;
-//                    var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
-//                    if(userDiv != null){
-//                       userDiv.classList.add("mySelf");
-//                    }
+
                 if (typeof stream != 'undefined') {
                     var vidContainer = cthis.video.createVideoElement();
                     virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
-//                        cthis.video.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
                     cthis.video.insertTempVideo(vidContainer);
                     cthis.video.tempVideoInit();
@@ -1385,13 +1292,7 @@
                     1040
                 );
             },
-//                sendMessage: function(message) {
-//                    if (arguments.length > 1) {
-//                      virtualclass.vutil.beforeSend({'video': message}, arguments[1]);
-//                    } else {
-//                      virtualclass.vutil.beforeSend({'video': message});
-//                    }
-//                },
+
             /*
              *TODO this function is not being invoked
              */
@@ -1404,6 +1305,7 @@
                 }
                 return false;
             },
+
             /*
              * The function to invoke with the resulting MediaStreamError if the call to getUSerMedia fails.
              * disableing audioWiget

@@ -8,7 +8,6 @@
         sendPacketWithOptimization: function (jobj, readyState, time) {
             if (typeof this.lastarrowtime == 'undefined') {
                 this.lastarrowtime = new Date().getTime();
-               // virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
                     virtualclass.vutil.beforeSend(JSON.parse(jobj));
                 }
@@ -17,7 +16,6 @@
             }
             this.presentarrowtime = new Date().getTime();
             if ((this.presentarrowtime - this.lastarrowtime) >= time) {
-          //      virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
                 if (readyState == 1) {
                     //virutalclass.vutil.beforeSend(JSON.parse(jobj));
                     var msg = JSON.parse(jobj);

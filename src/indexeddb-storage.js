@@ -76,9 +76,7 @@
                 if (!thisDb.objectStoreNames.contains("wbData")) {
                     thisDb.createObjectStore("wbData", {keyPath: 'timeStamp', autoIncrement: true});
                 }
-//                if (!thisDb.objectStoreNames.contains("audioData")) {
-//                    thisDb.createObjectStore("audioData", {keyPath: 'timeStamp', autoIncrement: true});
-//                }
+
                 if (!thisDb.objectStoreNames.contains("allData")) {
 
                     thisDb.createObjectStore("allData", {autoIncrement: true});
@@ -322,10 +320,8 @@
                 objectStore.openCursor().onsuccess = function (event) {
                     var cursor = event.target.result;
                     if (cursor) {
-//                            if(cursor.value.hasOwnProperty('totalSent')){
                         cb(cursor.value, cursor.key);
                         return;
-//                            }
                     }
                     cb("No Such Row");
                 }
@@ -381,26 +377,6 @@
                 }
             }
         },
-//        audioData: {
-//            handleResult: function (event, cb) {
-//                var cursor = event.target.result;
-//                if (cursor) {
-//                    if (cursor.value.hasOwnProperty('audiostream')) {
-//                        adData.push(JSON.parse(cursor.value.audiostream));
-//                    }
-//                    cursor.continue();
-//                } else {
-//                    if (adData.length > 1) {
-//                        virtualclass.gObj.video.audio.recordingLength = 0;
-//                        if (typeof cb == 'function') {
-//                            virtualclass.gObj.video.audio.assignFromLocal(adData, cb);
-//                        } else {
-//                            virtualclass.gObj.video.audio.assignFromLocal(adData);
-//                        }
-//                    }
-//                }
-//            }
-//        },
 
         allData: {
             chunk: 0,
@@ -708,25 +684,6 @@
                 cursor.continue();
             }
         }
-
-    //        this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll"];
-
-        //"wbData", "allData", "audioData", "config", "executedStoreAll"
-        //table : {
-        //    wbData : {keyPath: 'timeStamp', autoIncrement: true},
-        //    allData : {autoIncrement: true},
-        //    chunkData : {autoIncrement: true},
-        //    audioData : {keyPath: 'timeStamp', autoIncrement : true},
-        //    config : {keyPath: 'timeStamp', autoIncrement : true},
-        //    dataAdapterAll : {keyPath: 'serialKey'},
-        //    executedStoreAll : {keyPath: 'serialKey'},
-        //
-        //    create : function (dbObject, name){
-        //        if (!dbObject.objectStoreNames.contains("chunkData")) {
-        //            dbObject.createObjectStore(name, this[name]);
-        //        }
-        //    }
-        //}
     };
     window.storage = storage;
 })(window);

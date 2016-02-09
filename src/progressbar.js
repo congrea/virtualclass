@@ -17,7 +17,6 @@ var progressBar = {
    */
 
     progressInit: function () {
-
         var that = this;
         if (typeof prvTimeout != 'undefined') {
             clearTimeout(prvTimeout);
@@ -27,11 +26,6 @@ var progressBar = {
             function () {
                 if (that.prvVal == that.currVal && virtualclass.gObj.hasOwnProperty('downloadProgress')) {
                     virtualclass.recorder.initMakeAvailDownloadFile();
-                    
-//                    if(!virtualclass.recorder.alreadyDownload){
-//                        virtualclass.recorder.makeAvailDownloadFile();
-//                    }
-
                 } else {
                     that.prvVal = that.currVal;
                     that.progressInit();
@@ -63,7 +57,6 @@ var progressBar = {
         }
 
         if (pval >= 100) {
-
             var closeButton = document.getElementById('recordingClose');
             recordingClose.style.display = 'block';
             closeButton.addEventListener('click', function () {

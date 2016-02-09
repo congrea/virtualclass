@@ -77,10 +77,6 @@
                         var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
                         vcan.main.canvas.dispatchEvent(eventConstruct);
                     }
-
-                    //console.log('Whiteboard objects length ' + this.objs.length);
-
-                    //alert(this.objs[this.objNo].uid);
                     virtualclass.wb.gObj.displayedObjId = this.objs[this.objNo].uid;
                 }
 

@@ -46,9 +46,6 @@
 
             var vcan = wb.vcan;
             lastmousemovetime = null;
-//                if (typeof (Storage) !== "undefined") {
-//                    //localStorage.repObjs = "";
-//                }
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
 
@@ -137,12 +134,9 @@
                                 presentmousemovetime = new Date().getTime();
                                 if ((presentmousemovetime - lastmousemovetime) >= 2000) {	 // Optimized
                                     for (var i = 0; i < dataChunk.length; i++) {
-                                        //below code can be
-                                        //  dataChunk[i].uid = ++wb.uid;
                                         wb.uid++;
                                         dataChunk[i].uid = wb.uid;
                                         vcan.main.replayObjs.push(dataChunk[i]);
-//                                            virtualclass.recorder.items.push(dataChunk[i]);
                                     }
 
                                     virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});
@@ -195,9 +189,6 @@
                      ****/
 
                     wb.prvObj = rCurrObject.coreObj;
-
-                    //prvTime = currTime;
-
                 }
             } else {
                 if (wb.vcan.main.action != 'move' || ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
@@ -231,8 +222,6 @@
                 tool.mousemove(ev, 'up');
                 if ((!ev.detail.hasOwnProperty('cevent') ||
                      (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) && objType != 'freeDrawing') {
-//                        var currTime = new Date().getTime();
-
                     var currTime = new Date().getTime();
                     vcan.optimize.calculatePackets(currTime, 'u', endPosX, endPosY);
                 }
@@ -252,7 +241,6 @@
                                 wb.uid++;
                                 dataChunk[i].uid = wb.uid;
                                 vcan.main.replayObjs.push(dataChunk[i]);
-//                                    virtualclass.recorder.items.push(dataChunk[i]);
                             }
 
                             virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});

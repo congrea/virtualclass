@@ -9,8 +9,6 @@
             assignRole: function (role, app, toUser) {
                 if (roles.hasControls()) {
                     if (!roles.isEducator()) {
-                        // if role is presentator
-                      //  virtualclass.vutil.enablePresentatorEditors(toUser);
                         virtualclass.html.leftAppBar();
                     }
                     virtualclass.attachFunction();
@@ -18,10 +16,7 @@
                     if (app == 'Whiteboard') {
                         window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                     }
-
                     // This is already Check at above, no need here
-                    //if (roles.hasControls()) {
-
                     if (virtualclass.hasOwnProperty('previrtualclass')) {
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                     } else {
@@ -126,13 +121,6 @@
                     }
                 }
 
-
-                //var assignDisable = localStorage.getItem('reclaim');
-                //if (roles.isEducator()) {
-                //    var aRoleEnable = false;
-                //} else {
-                //    var aRoleEnable = true;
-                //}
 
                 var aRoleEnable = roles.isEducator() ? false : true;
 
@@ -357,10 +345,6 @@
 
                 onmessage: function (e) {
                     this['received_' + e.message.control](e.message);
-
-                    //if(virtualclass.gObj.uid == e.message.toUser){
-                    //    this['received_' + e.message.control](e.message);
-                    //}
                 },
 
                 addCurrTeacherToControl: function (id) {
@@ -426,10 +410,7 @@
                     } else if (control == 'audio') {
                         elem.className = "icon-" + control + "DisImg block" + ' ' + control + 'DisImg';
                     }
-                    /*					else {
-                     elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
-                     }
-                     */
+
                     virtualclass.user.control.updateUser(userId, label, false);
                 },
 
@@ -573,16 +554,12 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
-
-
-
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
-                    //if(virtualclass.currApp != 'Whiteboard'){
-                        virtualclass.system.setAppDimension();
-                        // After resize we need tor render all the drawn object on whiteboard
-                        virtualclass.vutil.renderWhiteboardObjectsIfAny();
-                    //}
+                    virtualclass.system.setAppDimension();
+                    // After resize we need tor render all the drawn object on whiteboard
+                    virtualclass.vutil.renderWhiteboardObjectsIfAny();
+
                     if (!roles.hasAdmin()) {
                         var canvasWrapper = document.getElementById("vcanvas");
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
@@ -624,10 +601,6 @@
                                 virtualclass.user.control.init.call(virtualclass.user, ecContTag);
                             }
                         }
-
-                        //var editorEditorSpan = document.getElementById(userId + 'contreditorCodeImg');
-                        //virtualclass.user.control.init.call(virtualclass.user, editorEditorSpan);
-
                     }
 
                     // if role is student
@@ -661,7 +634,6 @@
 
 
                 _audioAll : function (userId, action) {
-
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
@@ -953,7 +925,6 @@
                             allUserElem[i].setAttribute('data-assign-disable', 'false');
                         } else {
                             allUserElem[i].classList.remove('enable');
-//                                allUserElem[i].parentNode.setAttribute('data-title', virtualclass.lang.getString('assignDisable'));
                             allUserElem[i].classList.add('block');
                             allUserElem[i].parentNode.classList.remove('tooltip');
                             allUserElem[i].setAttribute('data-assign-disable', 'true');

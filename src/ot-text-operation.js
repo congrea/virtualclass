@@ -64,19 +64,6 @@
         //   Represented by strings.
         // * Delete ops: Delete the next n characters. Represented by negative ints.
 
-        //var isRetain = TextOperation.isRetain = function (op) {
-        //  return typeof op === 'number' && op > 0;
-        //};
-        //
-        //var isInsert = TextOperation.isInsert = function (op) {
-        //  return typeof op === 'string';
-        //};
-        //
-        //var isDelete = TextOperation.isDelete = function (op) {
-        //  return typeof op === 'number' && op < 0;
-        //};
-
-
         // After an operation is constructed, the user of the library can specify the
         // actions of an operation (skip/insert/delete) with these three builder
         // methods. They all return the operation for convenient chaining.

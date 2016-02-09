@@ -6,7 +6,6 @@
 // RvVanillaModal
 var PopUp = (function (window, undefined) {
     var confirmbox = false;
-//var PopUp = (function(window, undefined) {
     'use strict';
     /**
      * Modal constructor.
@@ -212,34 +211,20 @@ var PopUp = (function (window, undefined) {
         }
     };
 
-//    PopUp.prototype.updLoadedFile = function(nfile){
-//        var updtMsg = virtualclass.lang.getString("downloadedFile",  [nfile]);
-//        document.getElementById('waitMsg').innerHTML = updtMsg;
-//    }
 
     PopUp.prototype.openProgressBar = function (nfile){
-
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
 
         this.hideAllPopups();
         document.getElementById('recordingContainer').style.display = 'block';
-
-        //virtualclass.popup.waitBlockAction('none');
-        //virtualclass.popup.replayWindowAction('none');
     };
 
     PopUp.prototype.replayWindow = function () {
-
         var element = document.getElementById('about-modal');
-
         virtualclass.popup.open(element);
-
         this.hideAllPopups();
         virtualclass.popup.replayWindowAction('block');
-
-        //virtualclass.popup.waitBlockAction('none');
-        //virtualclass.popup.progressBarAction('none');
     };
 
 
@@ -285,9 +270,6 @@ var PopUp = (function (window, undefined) {
 
         var confirm = document.getElementById(confirmId);
         confirm.style.display = 'block';
-
-        //var recordingContainer = document.getElementById("recordingContainer");
-        //recordingContainer.style.display = action;
 
 
         var allConfirmChildrens = confirm.getElementsByClassName('confirmChild');
@@ -344,21 +326,6 @@ var PopUp = (function (window, undefined) {
         confirmCancelDiv.appendChild(confirmCancelButton);
         confirm.appendChild(confirmCancelDiv);
 
-
-        //var returnStatement = function (boolVal){
-        //    alert(boolVal);
-        //    return boolVal
-        //}
-
-
-        //if(!confirmbox){
-        //    for(var i=0; i<confirmButtons.length; i++){
-        //        confirmButtons[i].removeEventListener('click', attachConfirmInit);
-        //        confirmButtons[i].addEventListener('click', attachConfirmInit);
-        //    }
-        //    confirmbox = true;
-        //}
-
     }
 
     PopUp.prototype.confirmInit = function (userInput, cb, label) {
@@ -386,9 +353,6 @@ var PopUp = (function (window, undefined) {
             this.hideAllPopups();
             document.getElementById('waitMsgCont').style.display = 'block';
         }
-
-        //virtualclass.popup.waitBlockAction('none');
-        //virtualclass.popup.replayWindowAction('none');
     };
 
     PopUp.prototype.hideAllPopups = function () {
@@ -404,7 +368,6 @@ var PopUp = (function (window, undefined) {
         if(sessionEndCont.dataset.displaying == 'true'){
             this.sesseionEndWindow();
         }
-        //virtualclass.popup.closeElem();
     }
 
 

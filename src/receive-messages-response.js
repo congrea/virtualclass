@@ -8,11 +8,8 @@
 
         //not using
         reclaimRole: function (formUserId, id) {
-//                alert(formUserId + ' ' + id);
             if (formUserId != id) {
-
                 virtualclass.user.control._assign(id, 'notsent', formUserId);
-
                 virtualclass.user.displayStudentSpeaker(true);
                 if (localStorage.getItem('aId') != null) {
                     localStorage.removeItem('aId');
@@ -75,12 +72,7 @@
             if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher)) {
                 virtualclass.wb.utility.makeCanvasDisable();
             }
-
-            //  virtualclass.wb.utility.initDefaultInfo(e, wbUser.role);
             virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
-
-            //virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
-
             virtualclass.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
         },
         clearAll: function (formUserId, id, eMessage, orginalTeacherId) {
@@ -91,11 +83,8 @@
                 //virtualclass.storage.clearStorageData();
                 virtualclass.storage.clearSingleTable('wbData');
             }
-
-            //if (orginalTeacherId) {
-            //    virtualclass.wb.utility.updateRcvdInformation(eMessage);
-            //}
         },
+
         // TODO this is not used any more
         // should be deleted
         replayAll: function () {
@@ -108,9 +97,6 @@
             var obj = {};
             obj.mp = {x: eMessage.x, y: eMessage.y};
             virtualclass.wb.utility.drawArrowImg(imageElm, obj);
-            //if (orginalTeacherId) {
-            //    virtualclass.wb.utility.updateRcvdInformation(eMessage);
-            //}
         },
 
 
@@ -131,18 +117,7 @@
             window.virtualclass.wb.vcan.main.replayObjs = [];
             if (repObj.length > 0) {
                 window.virtualclass.wb.vcan.main.replayObjs = repObj;
-
-                //console.log('Whiteboard:-  recieved From ' + repObj[0].uid + ' To ' +  repObj[repObj.length - 1].uid);
                 virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
-
-
-                //if (virtualclass.wb.gObj.displayedObjId + 1 == repObj[0].uid) {
-                //    window.virtualclass.wb.vcan.main.replayObjs = repObj;
-                //    console.log('Whiteboard:-  recieved ' + repObj[repObj.length - 1].uid);
-                //    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
-                //} else {
-                //    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb.gObj.displayedObjId  + ' and recived first packet' + repObj[0].uid);
-                //}
             }
         },
 

@@ -7,7 +7,6 @@
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
 
-            //appAudioTestPlay : "virtualclassAudioTestPlay",
             rWidgetConfig: {id: 'audioWidget'},
             wb: "",
             ss: "",
@@ -28,11 +27,8 @@
 
             clearSession: function () {
                 window.pageEnter = new Date().getTime();
-
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
                 virtualclass.storage.config.endSession();
-
-
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
                 }
@@ -132,31 +128,13 @@
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
 
-                //first this line is befre this.dirtyCorner assigned neard about 51 line number
-                // here because check for old browsers which does not support indexeddb,
-                //inside storage.init() we are using indexeddb so, by above position there would
-                // system coampablity error could not be generated.
-
-                //this.storage = window.storage;
-                //if (virtualclass.system.indexeddb) {
-                //    this.storage.init(function () {
-                //        if (!virtualclass.vutil.isPlayMode()) {
-                //            ioStorage.completeStorage(JSON.stringify(io.cfg));
-                //        }
-                //    });
-                //}
-
-                //1
-                //virtualclass.wb.utility.displayCanvas();
-                //virtualclass.yts = window.yts();
-
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
                 }
 
                 virtualclass.vutil.createReclaimButtonIfNeed();
 
-                   //To teacher
+                //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
                 this.gObj.video = new window.virtualclass.media();
@@ -392,23 +370,11 @@
 
                         this.wb.bridge = window.bridge;
                         this.wb.response = window.response;
-//                        var olddata = "";
-//                        this.wb.utility.initUpdateInfo(olddata);
                         virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
 
                         if (roles.hasControls()) {
-                            // window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); //copy from initDefaultInfo at utility.js
-                            //if (localStorage.getItem('orginalTeacherId') == null) {
                             virtualclass.wb.utility.setOrginalTeacherContent(app);
-                            // }
-
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
-
-                            //if (localStorage.getItem('orginalTeacherId') == null) {
-                            //    virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true); // after assign role whene refresh there would coming toolbar and reclaimb bar
-                            //}
-
-
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
                         }
 
@@ -450,7 +416,6 @@
                     if(roles.hasControls() && virtualclass.gObj.resize){
                         virtualclass.wb.utility.lockvirtualclass();
                     }
-
                 },
                 
                 ScreenShare : function (app){
@@ -463,17 +428,15 @@
                 Yts : function (app, custEvent, videoObj){
                     //this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
                     // if there is not already sharing the youtube video
-
-                        if (typeof videoObj != 'undefined' && videoObj != null) {
-                            virtualclass.yts.init(videoObj, videoObj.startFrom);
-                        } else {
-                            // only display the layout if youtube is not sharing
-                            if(document.querySelector("iframe#player") == null){
-                                virtualclass.yts.init();
-                            }
+                    if (typeof videoObj != 'undefined' && videoObj != null) {
+                        virtualclass.yts.init(videoObj, videoObj.startFrom);
+                    } else {
+                        // only display the layout if youtube is not sharing
+                        if(document.querySelector("iframe#player") == null){
+                            virtualclass.yts.init();
                         }
-                        this.previous = virtualclass.ytsConfig.id;
-
+                    }
+                    this.previous = virtualclass.ytsConfig.id;
                 },
                 
                 EditorRich : function (app){
@@ -555,7 +518,6 @@
                                             localStorage.setItem('uRole', 't');
                                         }
                                     }
-                                   // window.location.reload();
                                 }
                             )
                         } else {

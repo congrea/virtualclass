@@ -187,7 +187,6 @@
             var screenShareLocalVideo = document.getElementById(sId + "LocalVideo");
             var screenShareLocalVideoWidth = screenShareLocalVideo.offsetWidth;
             screenShareLocalVideoWidth = screenShareLocalWidth - screenShareLocalVideoWidth;
-            //screenShareLocalVideo.style.marginLeft = (screenShareLocalVideoWidth/2) + "px";
         },
 
         makeActiveApp: function (app, prvTool) {
@@ -261,7 +260,6 @@
         },
 
         videoTeacher2Student: function (sid, notPutImage) {
-            //virtualclassScreenShareLocalVideo
             var app = sid;
             var id = "virtualclass" + sid + "LocalVideo";
 
@@ -287,8 +285,6 @@
                     var imgData = virtualclass[app].localtempCont.getImageData(0, 0, virtualclass[app].localtempCanvas.width, virtualclass[app].localtempCanvas.height);
                     virtualclass[app].localCont.putImageData(imgData, 0, 0);
                 }
-
-                //virtualclass.localtempCont.drawImage(tempVid, 0, 0, tempVid.offsetWidth, tempVid.offsetHeight);
                 virtualclass.vutil.removeTempVideo("virtualclass" + sid + "LocalTemp");
             }
         },
@@ -317,11 +313,6 @@
                         if(roles.hasControls()){
                             virtualclass.vutil.clickOutSideCanvas();
                         }
-                        //else {
-                        //    if(roles.hasAdmin()){
-                        //        virtualclass.wb.utility.toolWrapperEnable(true);
-                        //    }
-                        //}
                     };
                 }
             }
@@ -356,8 +347,6 @@
         clearAllChat: function () {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             localStorage.clear('chatroom'); //all
-            //idList = [];
-//                idList.length = 0;
             virtualclass.chat.idList.length = 0;
             clearAllChatBox();
 
@@ -391,17 +380,9 @@
         /***
          * Add class at body according to role
          */
-        /*
-         toggleRoleClass: function (reclaim) {
-         if (roles.isPresenter() || reclaim) {
-         document.getElementById("virtualclassCont").classList.toggle('teacher');
-         document.getElementById("virtualclassCont").classList.toggle('student');
-         }
-         }, */
 
         addClass: function (elemId, className) {
             var elem = document.getElementById(elemId);
-//                if(elem.hasOwnProperty('classList')){
             if (virtualclass.vutil.elemHasAnyClass(elemId)) {
                 elem.classList.add(className);
             } else {
@@ -482,8 +463,6 @@
             var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 0.6;
             virtualClass.style.pointerEvents = "none";
-            //document.getElementById('commandToolsWrapper').style.poniterEvents =   'none';
-
         },
 
         enableVirtualClass: function () {
@@ -502,7 +481,6 @@
         },
 
         beforeLoad: function () {
-
             // When user does clear history by browser feature, some data are storing
             // in that case we are not saving the data by clearing all storage data.
             if(localStorage.length == 0){
@@ -523,8 +501,6 @@
             localStorage.removeItem('otherRole');
 
             //critical, this can be critical
-
-            //virtualclass.wb.utility.userIds = [];
 
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
                 virtualclass.gObj.video.audio.studentNotSpeak();
@@ -665,12 +641,9 @@
                 vcan.studentId = wbUser.id;
 
                 if (!roles.hasControls()) {
-
                     // If student became teacher has educator role at localStorage then
                     // the user would not join as student but teacher
-
                     var uRole = localStorage.getItem('uRole');
-
                     if(uRole != null && uRole == 'e'){
                         role = 'e';
                     }
@@ -727,7 +700,6 @@
                 }
 
                 var jobj = JSON.stringify(msg);
-                //if (io.sock != null && io.sock.readyState == 1) {
 
                 if (typeof notMust != 'undefined' && notMust === true) {
                     if (typeof toUser == 'undefined' || toUser === false || toUser === null) {
@@ -742,13 +714,7 @@
                         ioAdapter.mustSendUser(msg, toUser);
                     }
                 }
-                //}
 
-                ////TODO this should be enable
-                //var tempObj = JSON.parse(jobj);
-                //if (tempObj.hasOwnProperty('repObj')) {
-                //    virtualclass.wb.utility.updateSentInformation(jobj);
-                //}
             }
         },
 
@@ -760,16 +726,6 @@
             var parts = numstring.match(/[\S]{1,2}/g) || [];
             return parts;
         },
-
-        //setOrginalTeacher: function () {
-        //    virtualclass.gObj.uRole = 't';
-        //    if (!roles.isEducator()) {
-        //        localStorage.setItem('uRole', virtualclass.gObj.uRole);
-        //    }
-        //
-        //    //localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid); // SET orginal teacher student
-        //},
-
 
         createReclaimButton: function (cmdToolsWrapper) {
 
@@ -805,23 +761,14 @@
             var iconButton = document.createElement('span');
             iconButton.className = "icon-" + toolName;
             ancTag.appendChild(iconButton);
-//
-//                    ancTag.appendChild(imgTag);
-//                    ancTag.innerHTML = "&nbsp;";
-            //ancTag.innerHTML = text;
-            //ancTag.title = '';
             ancTag.dataset.title = text;
             ancTag.className = 'tooltip';
-//                    ancTag.className = 'tooltip ' + "icon-" +toolName;
 
             lDiv.appendChild(ancTag);
-
             if (toolId == 't_reclaim') {
                 var virtualclassCont = document.getElementById(virtualclass.html.id);
                 cmdToolsWrapper.appendChild(lDiv);
                 virtualclassCont.insertBefore(cmdToolsWrapper, virtualclassCont.firstChild);
-
-
             } else {
                 cmdToolsWrapper.appendChild(lDiv);
             }
@@ -844,13 +791,8 @@
                     virtualclass.vutil.removeClass('virtualclassCont', 'educator');
 
                 } else {
-                    virtualclass.vutil.addClass('virtualclassCont', 'presenter')
-                    //virtualclass.vutil.addClass('virtualclassCont', 'assign');
-                    //virtualclass.vutil.removeClass('virtualclassCont', 'removedAssign')
+                    virtualclass.vutil.addClass('virtualclassCont', 'presenter');
                 }
-
-                //localStorage.removeItem('studentId');
-                //localStorage.setItem('teacherId', studentId);
 
                 if (!roles.hasAdmin()) {
                     virtualclass.gObj.uRole = 'p'; // P for Presenter
@@ -859,8 +801,6 @@
                 }
 
                 localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
-
-
 
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp), studentId);
 
@@ -915,28 +855,13 @@
                 if (roles.hasAdmin()) {
                     var virtualclassCont = document.getElementById('virtualclassCont');
                     virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-                    //localStorage.reclaim = true;
-                    //localStorage.setItem('reclaim', true);
-
-
                     virtualclass.vutil.addClass('virtualclassCont', 'educator');
-
                 } else {
-
                     virtualclass.vutil.removeClass('virtualclassCont', 'presenter');
-                    //virtualclass.vutil.addClass('virtualclassCont', 'removedAssign'); //TODO this is tricky handle by better way
-
                     if (cmdToolsWrapper != null) {
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-
                     }
-
-                    //var virtualclassCont = document.getElementById('virtualclassCont');
-
                 }
-                //var tid = localStorage.getItem('teacherId');
-                //localStorage.removeItem('teacherId');
-                //localStorage.setItem('studentId', tid);
 
                 localStorage.setItem('uRole', virtualclass.gObj.uRole); // should be store role student
 
@@ -945,7 +870,6 @@
                 }
 
             }
-
 
             virtualclass.system.setAppDimension();
             virtualclass.vutil.renderWhiteboardObjectsIfAny();
@@ -968,11 +892,6 @@
                     }, 500
                 );
             }
-
-            //}
-
-            //virtualclass.user.changeRoleOnFooter(virtualclass.gObj.uid, virtualclass.gObj.uRole);
-
 
             // NOTE:- removing below code could be critical for other app than object
             //if(virtualclass.currApp !==  'Whiteboard'){
@@ -1060,7 +979,6 @@
             }
         },
 
-
         //equivalent to response.reclaimRole from receive-messages-response.js
         vcResponseAReclaimRole: function (formUserId, id) {
             console.log('Reclaim role :- Init');
@@ -1097,9 +1015,6 @@
 
                     console.log('Role assign with reclaim');
                 }
-
-                //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1]);
-                //virtualclass.user.control._assign(id, 'notsent', formUserId);
 
                 virtualclass.user.control._assign(id, 'notsent', formUserId);
                 console.log('Reclaim role :- peforme');
@@ -1415,9 +1330,6 @@
                 elem.classList.add('orginalTeacher');
                 console.log('add Teacher');
             }
-
-             //this.synchLocalStorageRole(role);
-            //localStorage.setItem('uRole', role);
         },
 
         sesionEndMsgBoxIsExisting : function (){

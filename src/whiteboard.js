@@ -22,17 +22,8 @@
             obj: {},
             prvObj: '',
             replayTime: 0,
-          //  sentPackets: 0,
-           // sentPackDiv: 'sentPacket',
-           // sentPackDivPS: 'sentPacketPS',
-           // receivedPackets: 0,
-           // receivedPackDiv: 'receivedNumber',
-            // receivedPackDivPS: 'receivedNumberPS',
             uid: 0,
             lt: '',
-            // commandToolsWrapperId: 'commandToolsWrapper',
-            //these are top level object
-//                error: [],
             view: {}, // For display important message to user
             lang: {},
             system: {},
@@ -81,13 +72,6 @@
             },
 
             _init: function () {
-              /*  if (!roles.hasAdmin()) {
-                    virtualclass.wb.pageEnteredTime = new Date().getTime();
-                    localStorage.setItem('pageEnteredTime', virtualclass.wb.pageEnteredTime);
-                } else {
-                    virtualclass.wb.pageEnteredTime = localStorage.getItem('pageEnteredTime');
-                }
-                */
                 virtualclass.wb.oTeacher = roles.hasAdmin();
 
                 if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
@@ -116,14 +100,6 @@
                     virtualclass.view.disappearBox('Canvas');
                     virtualclass.view.disappearBox('drawArea');
                 });
-
-                // The user's role is already defined
-
-                //this.stHasTeacher = roles.hasControls();
-                //if (this.stHasTeacher) {
-                //    virtualclass.gObj.uRole = 't';
-                //}
-
                 virtualclass.wb.utility.crateCanvasDrawMesssage();
             },
 
@@ -206,14 +182,8 @@
                 var iconButton = document.createElement('span');
                 iconButton.className = "icon-" + toolName;
                 ancTag.appendChild(iconButton);
-//                    
-//                    ancTag.appendChild(imgTag);
-//                    ancTag.innerHTML = "&nbsp;";
-                //ancTag.innerHTML = text;
-                //ancTag.title = '';
                 ancTag.dataset.title = text;
                 ancTag.className = 'tooltip';
-//                    ancTag.className = 'tooltip ' + "icon-" +toolName;
 
                 lDiv.appendChild(ancTag);
 
@@ -342,24 +312,11 @@
                         virtualclass.wb.t_replayInit(repMode);
                     }
                 } else if (cmd == 't_clearall') {
-                    //if (!virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'))) {
-                    //    return;
-                    //}
-
-                    //virtualclass.wb.utility.makeActiveTool(cmd);
-                    ////virtualclass.gObj.video.updateVideoInfo();
-                    //virtualclass.wb.utility.t_clearallInit();
-                    //virtualclass.wb.utility.makeDefaultValue(cmd);
-                    //virtualclass.storage.clearStorageData();
-                    //virtualclass.wb.prvTool = cmd;
-                    //virtualclass.vutil.beforeSend({'clearAll': true});
-
                     virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm) {
                             if (!confirm) {
                                 return true;
                             }
 
-                            //virtualclass.wb.utility.makeActiveTool(cmd);
                             virtualclass.wb.utility.t_clearallInit();
                             virtualclass.wb.utility.makeDefaultValue(cmd);
                             virtualclass.storage.clearSingleTable('wbData');
@@ -427,10 +384,6 @@
                     var linWidth = "3";
                     virtualclass.wb.obj.freeDrawObj = new virtualclass.wb.readyFreeHandObj(borderColor, linWidth);
                     virtualclass.wb.obj.freeDrawObj.init();
-
-                    //below line is commented out during unit testing
-                    //virtualclass.wb.vcan.main.mcanvas = virtualclass.wb.canvas; //TODO this should be control because it is used inside the
-
                 } else if (cmd == 't_text') {
                     //   virtualclass.vutil.attachClickOutSideCanvas();
                     virtualclass.wb.obj.drawTextObj = new virtualclass.wb.readyTextObj();

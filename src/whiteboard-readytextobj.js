@@ -247,11 +247,7 @@
                     virtualclass.wb.uid++;
                     obj.uid = virtualclass.wb.uid;
                     vcan.main.replayObjs.push(obj);
-                    //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-//                        virtualclass.recorder.items.push(obj);
-                    //  virtualclass.storage.wholeStore(obj);
-                    //virutalclass.vutil.beforeSend({'repObj': [obj]});
                     virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                 }
 

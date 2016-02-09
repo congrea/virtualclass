@@ -58,14 +58,11 @@
                 } else {
                     if (!this.hasOwnProperty('prvNum')) {
                         var i = 0;
-                        //     var totalLength =  0 + tempData.length;
                     } else {
                         i = this.prvNum;
-                        //   totalLength =  totalLength + tempData.length;
                     }
 
                     var tempData = data;
-//                  var tempData =  JSON.parse(data);
 
                     //TODO, this should be adjust at below loop
                     for (var m = 0; m < tempData.length; m++) {
@@ -186,14 +183,6 @@
                         return a.playTime;
                     }
                 });
-
-//                    for(var i=0; i<this.items.length; i++){
-//                        if(this.items[i].hasOwnProperty('playTime')){
-//                             atime += this.items[i].playTime;
-//                        }
-//                    }
-
-//                    this.totPlayTime = atime;
                 this.getPlayTotTime = true;
             }
 
@@ -218,18 +207,6 @@
             }
         },
 
-//            convertIntoReadable : function(ms){
-//               	var x = ms / 1000;
-//                var seconds = Math.floor(x % 60);
-//                x /= 60;
-//                var minutes = Math.floor(x % 60);
-//                x /= 60;
-//                var hours = Math.floor(x % 24);
-//                return {s:seconds, m : minutes, h : hours};
-//                
-//                
-//            }, 
-//            
         convertIntoReadable: function (ms) {
             var x = ms / 1000;
             var seconds = Math.floor(x % 60);
@@ -418,24 +395,6 @@
             });
         },
 
-        //startDownloadProcess: function () {
-        //
-        //    this.makeAvailDownloadFile();
-        //
-        //    //console.log('Problem on upload process. Start Download Process.');
-        //    //
-        //    //if (!virtualclass.recorder.storeDone) {
-        //    //    var that = this;
-        //    //    virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error', that.makeAvailDownloadFile);
-        //    //} else {
-        //    //
-        //    //    this.makeAvailDownloadFile();
-        //    //}
-        //
-        //    //virtualclass.recorder.alreadyDownload = true;
-        //    //here we start the download process
-        //},
-
         sendDataToServer: function () {
             var that = this;
 
@@ -483,9 +442,6 @@
                 virtualclass.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
 
                 virtualclass.popup.waitBlock();
-
-                //var element = document.getElementById('about-modal');
-                //virtualclass.popup.open(element);
 
                 this.waitPopup = true;
             }
@@ -750,13 +706,6 @@
                 recPlay.addEventListener('click', function () {
                     that.controller._play();
                     that.doControlActive(this);
-
-                    //var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
-                    //for(var i=0; i<controlButtons.length; i++){
-                    //    controlButtons[i].classList.remove("controlActive");
-                    //}
-                    //
-                    //this.classList.add("controlActive");
                 });
 
                 //init pause
@@ -774,12 +723,10 @@
         },
 
         doControlActive: function (elem) {
-
             var controlButtons = document.getElementById('playControllerCont').getElementsByClassName('recButton');
             for (var i = 0; i < controlButtons.length; i++) {
                 controlButtons[i].classList.remove("controlActive");
             }
-
             elem.parentNode.classList.add("controlActive");
         },
 
@@ -787,25 +734,9 @@
             pause: false,
             ff: 1,
             _play: function () {
-//                    this.pause = false; 
-//                    virtualclass.recorder.play();
-                //       this.ff = 1; //when click on play it should be normal
-
-                //if (!this.pause &&  this.ff == 1){
-                //
-                //    //alert('This is in already play mode');
-                //} else {
-                //
-                //    this.ff = 1;
-                //    this.pause = false;
-                //    virtualclass.recorder.play();
-                //
-                //}
                 this.ff = 1;
-                //if (this.pause){
                 this.pause = false;
                 virtualclass.recorder.play();
-                //}
             },
 
             _pause: function () {

@@ -100,13 +100,6 @@
 
                 obj.uid = virtualclass.wb.uid;
 
-                //if (roles.isStudent()) {
-                //    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
-                //} else {
-                //    vcan.main.replayObjs.push(obj);
-                //    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-                //}
-
                 if(roles.hasControls()){
                     // we will not delete object during the replay
                     if(typeof notSave == 'undefined'){
@@ -184,24 +177,6 @@
                     }
                 }
                
-               
-                //for clear sent and received msg information
-                //var sentMsgInfo = document.getElementById('sentMsgInfo');
-                //if (sentMsgInfo != null) {
-                //    //document.getElementById('sentMsgInfo').innerHTML  = "";
-                //    sentMsgInfo.innerHTML = "";
-                //}
-                //
-                //var receivedMsgInfo = document.getElementById('rcvdMsgInfo');
-                //if (receivedMsgInfo != null) {
-                //    receivedMsgInfo.innerHTML = "";
-                //}
-                //
-                //var allTextBoxContainer = document.getElementsByClassName('textBoxContainer');
-                //for (var i = 0; i < allTextBoxContainer.length; i++) {
-                //    allTextBoxContainer[i].parentNode.removeChild(allTextBoxContainer[i]);
-                //}
-
                 var error = document.getElementById('serverErrorCont');
                 if (error != null) {
                     error.parentNode.removeChild(error);
@@ -366,17 +341,10 @@
                         }
                     }
 
-                    //var tid = localStorage.getItem('teacherId');
-                    //localStorage.removeItem('teacherId');
-                    //localStorage.setItem('studentId', tid);
-
                     localStorage.setItem('uRole', virtualclass.gObj.uRole);
                     virtualclass.wb.utility.uniqueArrOfObjsToStudent();
                 }
 
-//                if (!roles.hasAdmin()) {
-//                    virtualclass.vutil.toggleRoleClass(true);
-//                }
             },
 
             reclaimRole: function () {
@@ -390,31 +358,12 @@
 
                 }
                 virtualclass.wb.drawMode = false;
-                //if (localStorage.getItem('teacherId') != null && virtualclass.wb.user.connected) {
                 if (roles.hasControls()) {
                     virtualclass.wb.utility.makeCanvasEnable();
                     virtualclass.wb.utility.enableAppsBar();
                 }
-
-                //if (virtualclass.wb.gObj.packQueue.length > 0) {
-                //    window.virtualclass.wb.vcan.main.replayObjs = virtualclass.wb.gObj.packQueue;
-                //    virtualclass.wb.gObj.packQueue = [];
-                //    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
-                //} else {
-                //
-                //}
             },
-            // this function is not used any more
-            //updateRcvdInformation: function (msg) {
-            //    var receivedMsg = document.getElementById('rcvdMsgInfo');
-            //    if (receivedMsg != null) {
-            //        var compMsg = "";
-            //        for (var key in msg) {
-            //            compMsg += key + " : " + msg[key] + " <br />";
-            //        }
-            //        receivedMsg.innerHTML = compMsg;
-            //    }
-            //},
+
             makeCanvasDisable: function () {
                 var canvasElement = vcan.main.canvas;
                 canvasElement.style.position = 'relative';
@@ -495,7 +444,6 @@
                 // it has to be done in function
                 virtualclass.gObj.video.audio.bufferSize = 0;
                 virtualclass.gObj.video.audio.encMode = "alaw";
-//                    virtualclass.gObj.video.audio.an = -1;
                 virtualclass.gObj.video.audio.rec = '';
                 virtualclass.gObj.video.audio.audioNodes = [];
 
@@ -805,17 +753,7 @@
                     if (allRepObjs.length > 0) {
                         virtualclass.wb.utility.makeCanvasDisable();
                         virtualclass.wb.utility.toolWrapperDisable();
-                        //virtualclass.wb.vcan.main.replayObjs = allRepObjs;
-
                         virtualclass.wb.utility.replayObjsByFilter(allRepObjs, 'fromBrowser');
-
-                        // earlier it was using
-                        //for(var i=0; i<allRepObjs.length; i++){
-                        //    virtualclass.wb.vcan.main.replayObjs = allRepObjs[i];
-                        //    virtualclass.wb.uid = allRepObjs[i].uid;
-                        //    virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.uid;
-                        //    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
-                        //}
                     }
                 }
             },
@@ -826,7 +764,6 @@
                     virtualclass.wb.utility.removeToolBox();
                     virtualclass.wb.utility.setClass('vcanvas', 'student');
                 } else {
-
                     virtualclass.wb.utility.setClass('vcanvas', 'teacher');
                 }
             },
@@ -841,12 +778,6 @@
                 }
             },
 
-            //important can be critical
-            //                canvasEnabelWhenRefresh: function() {
-            //                    if (localStorage.getItem('teacherId') != null) {
-            //                        virtualclass.wb.utility.makeCanvasEnable();
-            //                    }
-            //                },
             arrayContainsSameValue: function (val, ids) {
                 for (var i = 0; i < ids.length; i++) {
                     if (ids[i] !== val) {
@@ -893,31 +824,6 @@
                     }
                 }
             },
-            /**
-             * the operation before send infor to server
-             * @param {type} msg
-             * @returns {undefined}
-             */
-            //audioSend: function (msg, adStatus) {
-            //    if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
-            //        var uid = breakintobytes(virtualclass.gObj.uid, 8);
-            //        var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
-            //        var sendmsg = new Int8Array(msg.length + scode.length);
-            //        sendmsg.set(scode);
-            //        sendmsg.set(msg, scode.length); // First element is status code (101)
-            //        io.sendBinary(sendmsg);
-            //        virtualclass.gObj.video.audio.setAudioStatus(adStatus);
-            //    } else {
-            //        virtualclass.gObj.video.audio.setAudioStatus("stop");
-            //    }
-            //},
-
-            /**
-             * TODO this function should validate either it's using or not
-             * because beforeSend on utility.js is using now
-             *
-             *
-             */
 
             /**
              * the operation before send message to server
@@ -926,10 +832,6 @@
              */
             beforeSend: function (msg, toUser) {
 
-                // when we are in replay mode we don't need send the object to other user
-//                    if(wbUser.virtualclassPlay != ' ' || wbUser.virtualclassPlay != false){
-//                        return;
-//                    }
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
                     virtualclass.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
@@ -1015,24 +917,6 @@
                 //localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
                 virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
             },
-
-            //removeClassFromElement: function (prvTool, className) {
-            //    if (prvTool != "t_reclaim") {
-            //        var prvTool = document.getElementById(prvTool).className;
-            //        var classes = prvTool.split(" ");
-            //        var retClass = [];
-            //        for (var i = 0; i < classes.length; i++) {
-            //            if (classes[i] != className) {
-            //                retClass.push(classes[i]);
-            //            }
-            //        }
-            //        if (retClass.length > 1) {
-            //            return retClass.join(" ");
-            //        } else {
-            //            return retClass[0];
-            //        }
-            //    }
-            //},
 
             makeActiveTool: function (byReload) {
                 var tag = document.getElementById(byReload);
@@ -1126,20 +1010,7 @@
 
                 return false;
             }
-
-
-
         };
     };
-
-    //function breakintobytes(val, l) {
-    //    var numstring = val.toString();
-    //    for (var i = numstring.length; i < l; i++) {
-    //        numstring = '0' + numstring;
-    //    }
-    //    var parts = numstring.match(/[\S]{1,2}/g) || [];
-    //    return parts;
-    //}
-
     window.utility = utility;
 })(window);

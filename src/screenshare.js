@@ -82,9 +82,6 @@
              */
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
-
-//                io.dataBinaryStore(imgData); //storing received screen
-
                 virtualclass.vutil.addClass('audioWidget', "fixed");
                 app = stype;
 
@@ -98,13 +95,6 @@
                 } else {
                     virtualclass.currApp = stool;
                     virtualclass.vutil.hidePrevIcon(app);
-
-
-//                     var prvScreen = document.getElementById(virtualclass.previous);
-//                     if(prvScreen != null){
-//                         prvScreen.style.display = 'none';
-//                         document.getElementById(virtualclass[app].id).style.display = 'block';
-//                     }
                 }
 
                 if (d.hasOwnProperty('d')) {
@@ -775,10 +765,6 @@
                 if (virtualclass.previous == 'virtualclassScreenShare') {
                     virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
                 }
-
-                //if (virtualclass.previous != 'virtualclassWhiteboard') {
-                //    virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
-                //}
             },
             /*
              * Creating user interface part for the screen share

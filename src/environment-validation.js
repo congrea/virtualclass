@@ -45,7 +45,6 @@
          * 
          */
         isLocalStorageSupport: function () {
-
             return (Storage !== void(0));
         },
         /*
@@ -260,48 +259,34 @@
                 var bname = "iOS";
                 var bversion = iOS;
                 this.device = "mobTab";
-//                    this.mybrowser.name = bname;
-//                    this.mybrowser.version = bversion;
             } else {
-
                 var androidDevice = this.isAndroid();
                 var vendor = this.mybrowser.detection();
                 var bname = vendor[0];
                 var bversion = parseFloat(vendor[1]);
-//                    this.mybrowser.name = bname;
-//                    this.mybrowser.version = bversion;
             }
 
             this.mybrowser.name = bname;
             this.mybrowser.version = bversion;
 
             this.checkBrowserFunctions(bname, bversion);
-//                virtualclass.vutil.initDisableVirtualClass();
             if ((typeof androidDevice != 'undefined' && androidDevice)) {
                 this.device = "mobTab";
                 if (roles.hasControls()) {
-//                        virtualclass.gObj.errNotDesktop = true;
                     virtualclass.vutil.initDisableVirtualClass();
                     virtualclass.error.push(virtualclass.lang.getString('supportDesktopOnly'));
-
                 } else {
                     if (androidDevice) {
                         if (bname == 'Chrome') {
                             if (bversion >= 40) {
                                 //     DO : Disable Audio Controls and Cam Support for this user
                                 virtualclass.vutil.initDisableAudVid();
-
                             } else {
                                 virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
                                 virtualclass.vutil.initDisableVirtualClass();
                             }
                         } else {
-
-                            //virtualclass.error.push(bname + ' ' + " is not supported, we support Chrome 40 or newer on andorid");
-
                             virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));;
-
-
                             virtualclass.vutil.initDisableVirtualClass();
                         }
                     }

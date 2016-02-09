@@ -19,11 +19,6 @@
             this.httpObj.onerror = function (err) {
                 //TODO Add msg to user
                 virtualclass.recorder.initMakeAvailDownloadFile();
-//                if(!virtualclass.recorder.alreadyDownload){
-//                    virtualclass.recorder.makeAvailDownloadFile();
-//                }
-                
-                //virtualclass.recorder.tryForReTransmit();
                 console.log("Error " + err);
             };
 

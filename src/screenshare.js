@@ -334,7 +334,9 @@
                 //this.prevImageSlices = [];
                 this.initPrevImage();
                 if (this.hasOwnProperty('currentStream')) {
-                    this.currentStream.stop();
+                    // this.currentStream.stop(); is depricated from Google Chrome 45
+                    // https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en
+                    this.currentStream.getTracks()[0].stop();
                 }
                 virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
             },

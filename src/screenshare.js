@@ -622,6 +622,7 @@
                  */
                 function sendResizeWindow() {
                     console.log('RESIZE');
+
                     if(roles.hasControls()){
                         prvVWidth = that.video.offsetWidth;
                         prvVHeight = that.video.offsetHeight;

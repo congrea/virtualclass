@@ -632,7 +632,12 @@ $(document).ready(function () {
                 if (!virtualclass.hasOwnProperty('studentScreen')) {
                     virtualclass.studentScreen = new studentScreen();
                 }
-                virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
+
+                // The binary data is coming on teacher when user download the session
+                // which actually should not, workaround for now
+                if(!roles.hasControls()){
+                    virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
+                }
                 break;
             case 101: // Audio
                 if (!virtualclass.gObj.video.audio.otherSound) {

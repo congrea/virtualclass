@@ -80,6 +80,7 @@ var PopUp = (function (window, undefined) {
      */
     PopUp.prototype.open = function (targetElement) {
 
+
         document.getElementById('popupContainer').style.display = 'block';
 
         this.sendBackOtherElems();
@@ -217,6 +218,7 @@ var PopUp = (function (window, undefined) {
         virtualclass.popup.open(element);
 
         this.hideAllPopups();
+
         document.getElementById('recordingContainer').style.display = 'block';
     };
 
@@ -251,6 +253,7 @@ var PopUp = (function (window, undefined) {
     }
 
     PopUp.prototype.progressBarAction = function (action) {
+
         var recordingContainer = document.getElementById("recordingContainer");
         recordingContainer.style.display = action;
     }

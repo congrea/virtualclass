@@ -341,9 +341,22 @@
 
 
         makeAvailDownloadFile: function () {
-
             console.log('Recorder:- DOWNLLOAD MESSAGE');
             var pbar = document.getElementById('recordingContainer');
+            var elemDisp = window.getComputedStyle(pbar).display;
+            if(elemDisp == 'none' || elemDisp != 'block'){
+                // if there is another popup, we displays the download popup
+                // this happens when user is disconnected
+                // and try to reconnect, we do display the popup for download session
+                // set timeout set because there is multiple tries for connection which is a problem
+
+                setTimeout(
+                    function (){
+                        virtualclass.popup.openProgressBar();
+                        io.disconnect();
+                    }, 3000
+                );
+            }
 
 
             var downloadLinkCont = document.getElementById('downloadFileCont');

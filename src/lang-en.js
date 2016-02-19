@@ -130,7 +130,8 @@
         'enablehistory' : '"Browser History" should be enabled during the Session.',
         'becomeTeacher' : 'Become Teacher',
         'confirmOk' : 'Yes',
-        'confirmCancel' : 'No'
+        'confirmCancel' : 'No',
+        'uploadsession' : 'Please wait until processing is complete.'
 
     };
     window.message = message;

@@ -1,5 +1,6 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
+// This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
@@ -19,7 +20,6 @@
                     virtualclass.recorder.xhrsenddata();
                 }, 100
             );
-//                virtualclass.recorder.items = [];
             cb.apply(virtualclass.recorder);
         }
     }
@@ -232,6 +232,7 @@
 
         // chunkStorage : function (value, row, trow, cn, d){
         chunkStorage: function (dobj) {
+            console.log('Chunk Storage');
             var t = that.db.transaction(["chunkData"], "readwrite");
             dobj.id = 4;
             t.objectStore("chunkData").add(dobj);
@@ -306,7 +307,12 @@
                     wholeData.push(cursor.value);
                     cursor.continue();
                 } else {
-                    cb(JSON.stringify(wholeData));
+                    if(wholeData.length > 0){
+                        cb(JSON.stringify(wholeData));
+                    } else {
+                        console.log('No data fetched from indexedDb');
+                    }
+
                 }
 
             }

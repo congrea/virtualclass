@@ -510,6 +510,7 @@
                                         return;
                                     }
 
+
                                     virtualclass.clearSession();
                                     // set teacher role on localstorage
                                     // if student become teacher, does session end
@@ -523,6 +524,11 @@
                         } else {
                             ioStorage.completeStorage(undefined, undefined, 'sessionend');
                             setTimeout(function () {
+                                    if(virtualclass.recorder.hasOwnProperty('recordDone')){
+                                        console.log('deleete recordDone');
+                                        delete virtualclass.recorder.recordDone;
+                                    }
+                                    virtualclass.recorder.alreadyDownload = false;
                                     virtualclass.getContent = true;
                                     virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}); //before close, clear student virtualclass data
                                     io.sock.close();

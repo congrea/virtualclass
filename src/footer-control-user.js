@@ -576,7 +576,10 @@
                         app = 'ss';
 
                         if (virtualclass[app].hasOwnProperty('currentStream')) {
-                            virtualclass[app].currentStream.stop();
+                            // this.currentStream.stop(); is depricated from Google Chrome 45
+                            // https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en
+                            virtualclass[app].currentStream.getTracks()[0].stop();
+                            //virtualclass[app].currentStream.stop();
                         }
                         virtualclass[app] = "";
                     }

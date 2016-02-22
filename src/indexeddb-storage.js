@@ -519,6 +519,7 @@
             },
 
             createNewSession: function () {
+                virtualclass.recorder.sessionKey = randomString(11);
                 //virtualclass.editorRich.init(0, [], "", "");
                 if(roles.hasAdmin()){
                     ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));

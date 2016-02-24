@@ -94,6 +94,10 @@
 
                 virtualclass.chat = new Chat();
                 virtualclass.chat.init();
+                if(!virtualclass.system.mybrowser.hasOwnProperty('name')){
+                    this.system.setBrowserDetails();
+                }
+                
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();

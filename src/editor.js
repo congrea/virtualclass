@@ -232,7 +232,7 @@
                 // id virtualclassEditorRichBody
                 // class CodeMirror cm-s-default CodeMirror-wrap
                 
-                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.CodeMirror-wrap');
+                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.cm-s-default');
                 if(editorElem != null){
                    editorElem.style.pointerEvents = 'none'; 
                 }
@@ -244,7 +244,7 @@
              * This should apply for iOS(ipad) only
              */
             enableEditorByOuterLayer : function (){
-                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.CodeMirror-wrap');
+                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.cm-s-default');
                 if(editorElem != null){
                    editorElem.style.pointerEvents = 'visible'; 
                 }

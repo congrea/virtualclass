@@ -356,9 +356,9 @@
                     //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                     if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                         if(msg.status){
-                            this.enableEditorByOuterLayer();
+                            virtualclass.editorCode.enableEditorByOuterLayer();
                         } else {
-                            this.disableEditorByOuterLayer();
+                            virtualclass.editorCode.disableEditorByOuterLayer();
                         }
                     }
                     virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorCode');

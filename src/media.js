@@ -156,6 +156,7 @@
                         sendmsg.set(scode);
                         sendmsg.set(msg, scode.length); // First element is status code (101)
                         ioAdapter.sendBinary(sendmsg);
+                     
                         virtualclass.gObj.video.audio.setAudioStatus(adStatus);
                     } else {
                         virtualclass.gObj.video.audio.setAudioStatus("stop");
@@ -817,7 +818,7 @@
                  *
                  */
                 receivedAudioProcess: function (msg) {
-                    if (virtualclass.gObj.hasOwnProperty('iosTabAudTrue') && virtualclass.gObj.iosTabAudTrue == false) {
+                    if (virtualclass.gObj.hasOwnProperty('iosIpadbAudTrue') && virtualclass.gObj.iosIpadbAudTrue == false) {
                         return;
                     }
 

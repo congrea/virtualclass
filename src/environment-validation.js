@@ -246,6 +246,29 @@
             var ua = navigator.userAgent.toLowerCase();
             return ua.indexOf("android") > -1;
         },
+        
+        isIPad : function (){
+            return (/(iPad)/g.test(navigator.userAgent));
+        },
+        
+        setBrowserDetails : function (){
+            var iOS = this.isiOSDevice();
+            this.device = "desktop";
+            if (iOS) {
+                var bname = "iOS";
+                var bversion = iOS;
+                this.device = "mobTab";
+            } else {
+                var vendor = this.mybrowser.detection();
+                var bname = vendor[0];
+                var bversion = parseFloat(vendor[1]);
+            }
+
+            this.mybrowser.name = bname;
+            this.mybrowser.version = bversion;
+            
+        },
+        
         /*
          * to check for  the support of virtual class and it's api in  browsers and versions  
          * for unsupported browsers virtual class will be disabled and erroe
@@ -253,8 +276,10 @@
          * 
          */
         check: function () {
+            // TODO this should be normal
             var iOS = this.isiOSDevice();
             this.device = "desktop";
+        
             if (iOS) {
                 var bname = "iOS";
                 var bversion = iOS;
@@ -324,8 +349,9 @@
 
                 //DO : Disable Audio Controls and Cam Support for this user.
             } else if (bname == 'iOS') {
-                var iPad = /(iPad)/g.test(navigator.userAgent);
-                if (iPad) {
+               
+                //var iPad = /(iPad)/g.test(navigator.userAgent);
+                if (this.isIPad()) {
                     if (roles.isStudent()) {
                         if (bversion >= 8) {
                             virtualclass.vutil.initDisableAudVid();

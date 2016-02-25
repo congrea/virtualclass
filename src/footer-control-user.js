@@ -264,14 +264,15 @@
                 // TODO this funciton should be improved with received_editorCode
                 received_editorRich: function (msg) {
                     var action;
-                    if (msg.status ) {
-
+                    // If editor rich is enabled
+                    if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
                             if(typeof virtualclass.editorRich.cm == 'object' && !virtualclass.isPlayMode){
                                 virtualclass.editorRich.cm.setOption('readOnly', false);
                             }
 
                         } else {
+                            // TODO this should be optimized
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
 
@@ -281,12 +282,15 @@
                         }
                         action = true;
                         localStorage.setItem('editorRich', action);
+                        
                     } else {
+                        // If editor rich is disabled
                         if (virtualclass.gObj.uid == msg.toUser) {
                             if(typeof virtualclass.editorRich.cm == 'object'){
                                 virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
                             }
                         } else {
+                            // TODO this should be optimized
                             this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
                         action = false;
@@ -296,9 +300,16 @@
                     if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                     }
-
+                    
+                    //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
+                    if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
+                        if(msg.status){
+                            virtualclass.editorRich.enableEditorByOuterLayer();
+                        } else {
+                            virtualclass.editorRich.disableEditorByOuterLayer();
+                        }
+                    }
                     virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorRich');
-
                 },
 
                 /**
@@ -308,6 +319,7 @@
                 // TODO this function should be improved with received_editorRich
                 received_editorCode: function (msg) {
                     var action;
+                    // If editor code is enabled
                     if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
                             if(typeof virtualclass.editorCode.cm == 'object' && !virtualclass.isPlayMode){
@@ -324,6 +336,7 @@
                         action = true;
                         localStorage.setItem('editorCode', action);
                     } else {
+                        // If editor code is disabled
                         if (virtualclass.gObj.uid == msg.toUser) {
                             if(typeof virtualclass.editorCode.cm == 'object'){
                                 virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
@@ -339,7 +352,15 @@
                     if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
-
+                    
+                    //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
+                    if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
+                        if(msg.status){
+                            virtualclass.editorCode.enableEditorByOuterLayer();
+                        } else {
+                            virtualclass.editorCode.disableEditorByOuterLayer();
+                        }
+                    }
                     virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorCode');
                 },
 
@@ -574,7 +595,6 @@
                     var app;
                     if (virtualclass.currApp == "ScreenShare") {
                         app = 'ss';
-
                         if (virtualclass[app].hasOwnProperty('currentStream')) {
                             // this.currentStream.stop(); is depricated from Google Chrome 45
                             // https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en

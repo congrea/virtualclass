@@ -199,13 +199,10 @@
              * @param docsInfo about docs(operation, revision, etc)
              */
             createEditorClient: function (editorType, docsInfo) {
-
-
                 if (roles.hasAdmin()) {
                     this.cm.setOption('readOnly', false);
                     this.createAllEditorController();
-                    editorType.readOnly = false;
-
+                    editorType.readOnly = false; // editor is enabled
                 }
 
                 if (virtualclass.isPlayMode) {
@@ -221,9 +218,39 @@
                 if(browser[0] == 'Firefox'){
                     this.removeScrollFromFireFox(this.etype);
                 }
-                console.log('Creating Rich Text Layout');
+                
+                
+                
             },
-
+            
+             // TODO its better if disableEditor and enableEditor are removes
+            /**
+             * This function disables the main container of editor 
+             * This should apply for iOS(ipad) only
+             */
+            disableEditorByOuterLayer : function (){
+                // id virtualclassEditorRichBody
+                // class CodeMirror cm-s-default CodeMirror-wrap
+                
+                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.cm-s-default');
+                if(editorElem != null){
+                   editorElem.style.pointerEvents = 'none'; 
+                }
+                console.log('Disable editor for ios');
+            },
+            
+            /**
+             * This function enables the main container of editor 
+             * This should apply for iOS(ipad) only
+             */
+            enableEditorByOuterLayer : function (){
+                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.cm-s-default');
+                if(editorElem != null){
+                   editorElem.style.pointerEvents = 'visible'; 
+                }
+                console.log('Enable editor for ios');
+            },
+            
             /**
              * Create the code mirror with layout
              * @param mode expect type  of editor
@@ -567,6 +594,15 @@
                     }
                     virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
                     virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
+                    
+                    // For handle editor's read only mode on iPad 
+                    if(virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
+                        if(writeMode){
+                            this.enableEditorByOuterLayer();
+                        } else {
+                            this.disableEditorByOuterLayer();
+                        }
+                    }   
                 }
             },
 

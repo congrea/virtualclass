@@ -1540,7 +1540,7 @@ var Vceditor = (function () {
 
     vceditor.ParseHtml = window.ParseHtml;
 
-    vceditor.SerializeHtml = Window.SerializeHtml;
+    vceditor.SerializeHtml = window.SerializeHtml;
 
 
     /**

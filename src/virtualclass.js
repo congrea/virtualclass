@@ -78,15 +78,17 @@
 
                 this.storage = window.storage;
                 //if (virtualclass.system.indexeddb) {
-
                 
-                this.storage.init(function () {
+                if(this.system.isIndexedDbSupport()){
+                    this.storage.init(function () {
                     if (!virtualclass.vutil.isPlayMode()) {
-                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
-                    }
-                });
-
-
+                            ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
+                        }
+                    });
+                }else {
+                    console.log('Indexeddb does not support');
+                }
+               
                 this.dirtyCorner = window.dirtyCorner;
 
                 this.html.init(this);
@@ -94,6 +96,10 @@
 
                 virtualclass.chat = new Chat();
                 virtualclass.chat.init();
+                if(!virtualclass.system.mybrowser.hasOwnProperty('name')){
+                    this.system.setBrowserDetails();
+                }
+                
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();

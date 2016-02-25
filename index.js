@@ -641,6 +641,7 @@ $(document).ready(function () {
                 break;
             case 101: // Audio
                 if (!virtualclass.gObj.video.audio.otherSound) {
+                    virtualclass.gObj.audioPlayMessage = e.message;
                     virtualclass.gObj.video.audio.receivedAudioProcess(e.message);
                 }
                 break;

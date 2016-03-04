@@ -131,8 +131,19 @@
         'becomeTeacher' : 'Become Teacher',
         'confirmOk' : 'Yes',
         'confirmCancel' : 'No',
-        'uploadsession' : 'Please wait until processing is complete.'
-
+        'uploadsession' : 'Please wait until processing is complete.',
+        // 'VCE2', 'VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing'
+        'VCE4' : 'Record data is missing',
+        'VCE5' : 'There is unable to Record Data.', 
+        'VCE6' : 'Course module is missing.',
+        'invalidcmid' : 'Course Module is invalid.',
+        'nomdlroot' : 'There is no url for momodle root.',
+        'usermissing' : 'User is missing',
+        'cnmissing' : 'Chunk number is missing',
+        'sesseionkeymissing' : 'Session key is missing from Front End.', // from javascript
+        'keymissing' :  'Your software(LMS/CMS)\'s key is is missing',
+        'invalidurl' :  'Your url is invalid'
+     
     };
     window.message = message;
 })(window);

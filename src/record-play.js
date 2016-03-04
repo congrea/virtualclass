@@ -15,6 +15,7 @@
     function destroyClickedElementForFirefox(event) {
         document.body.removeChild(event.target);
     }
+    var errorCodes = ['VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing', "invalidurl"];
 
     var fromFille = 0;
     var recorder = {
@@ -43,6 +44,7 @@
         exportfilepath: window.exportfilepath,
         sessionKey: randomString(11),
         alreadyDownload : false,
+        smallData : false,
         init: function (data) {
             //localStorage.removeItem('recObjs');
             var vcan = virtualclass.wb.vcan;
@@ -241,9 +243,14 @@
                 var rnum = 'first';
             }
 
+            
             virtualclass.recorder.rnum = rnum;
-
+            
             virtualclass.storage.getrowData(['chunkData'], function (dObj, frow) {
+                if(chunkNum == 1 && dObj.hasOwnProperty('rdata')){
+                    virtualclass.recorder.rdlength = dObj.rdata.length;
+                }
+                
                 if ((typeof dObj == 'string' || typeof dObj == 'undefined')) {
                     earlierTimeout = setTimeout(
                         function () {
@@ -260,11 +267,12 @@
                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
                             virtualclass.recorder.mkDownloadLink();
                         } else {
+                            var recordSetTimeout = 1000;
                             setTimeout(
                                 function () {
                                     virtualclass.recorder.afterRecording();
                                 },
-                                1000
+                                recordSetTimeout
                             );
                         }
                         return;
@@ -307,7 +315,12 @@
                             } else {
                                 //TODO Show msg to user
                                 //create function & pass error msg as param
-                                alert(msg);
+                               if(errorCodes.indexOf(msg) >= 0){
+                                  alert(virtualclass.lang.getString(msg));
+                                  virtualclass.recorder.initMakeAvailDownloadFile();
+                               } else {
+                                  console.log("Error message not found");
+                               }
                             }
                         });
                     }
@@ -318,6 +331,7 @@
 
         afterRecording: function () {
             chunkNum = 1;
+            virtualclass.recorder.rdlength  = 0;
             var progressBarContainer = document.getElementById('progressContainer');
             progressBarContainer.style.display = 'block';
 

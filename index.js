@@ -582,10 +582,15 @@ $(document).ready(function () {
 
     $(document).on("connectionclose", function (e) {
         //virtualclass.popup.waitMsg();
+        
         if(virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload){
             console.log("During the upload process there would not any other popup box.");
         } else {
-            virtualclass.popup.waitMsg();
+            if(virtualclass.recorder.smallData && virtualclass.recorder.hasOwnProperty('rdlength') && virtualclass.recorder.rdlength < 100000){
+               console.log('Do not show the waiting popupbox if there small chunks of data');
+            } else {
+                 virtualclass.popup.waitMsg();
+            }
         }
 
         virtualclass.chat.makeUserListEmpty();

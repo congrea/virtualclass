@@ -537,7 +537,11 @@
                                     virtualclass.recorder.alreadyDownload = false;
                                     virtualclass.getContent = true;
                                     virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}); //before close, clear student virtualclass data
+                                    
+                                    virtualclass.recorder.smallData = true;
+                                    
                                     io.sock.close();
+                                    
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300
                             );

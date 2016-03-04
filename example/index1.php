@@ -105,9 +105,9 @@ if($cssdebug){
 
 
 <?php
-include('js.debug.php');
+//include('js.debug.php');
 
-//include('js.php');
+include('js.php');
 // this url should be soemthing like this
 // https://loc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
 

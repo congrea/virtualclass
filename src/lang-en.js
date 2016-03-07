@@ -142,9 +142,8 @@
         'cnmissing' : 'Chunk number is missing',
         'sesseionkeymissing' : 'Session key is missing from Front End.', // from javascript
         'keymissing' :  'Your software(LMS/CMS)\'s key is is missing',
-        'invalidurl' :  'Your url is invalid',
-        'uploadsessionfinish'  : 'Your session has been Uploaded.'
-     
+        'invalidurl' :  'Your url is invalid'
+
     };
     window.message = message;
 })(window);

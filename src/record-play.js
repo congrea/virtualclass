@@ -367,6 +367,15 @@
                         virtualclass.recorder.startNewSessionAfterFinish();
                         console.log('Socket ' + io.sock.readyState);
                         io.disconnect();
+                        setTimeout(
+                            function(){
+                                if(io.sock.readyState != 1){
+                                    // wait and see if there application is connected by io
+                                    // if not connect, connect it
+                                    io.wsconnect();
+                                }
+                            }, 1500
+                        );
 
                     }, 300
                 );

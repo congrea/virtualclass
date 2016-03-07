@@ -378,9 +378,9 @@ $audactive = $adarr[$audactive];
                     </div>
 
                     <div id="recordFinishedMessageBox">
-                        <span id="recordFinishedMessage">  <?php echo get_string('uploadedsessionOk'); ?></span>
+                        <span id="recordFinishedMessage">  <?php echo get_string('uploadedsession'); ?></span>
                         <span id="recordingClose" class="icon-close"></span>
-                        <button id="recordingCloseButton">Ok</button>
+
                     </div>
 
                 </div>

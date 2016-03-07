@@ -343,7 +343,8 @@
            var recordingHeaderCont = document.getElementById('recordingHeader');
             //recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsessionfinish'); // reset the value for upload message for next time
             recordingHeaderCont.innerHTML = ''; // reset the value for upload message for next time
-            recordingHeaderCont.classList.add('removeHeader');
+            //recordingHeaderCont.classList.add('removeHeader');
+            recordingHeaderCont.parentNode.classList.add('removeHeader');
 
             // For clear session If user does refresh page without click on close button
             virtualclass.recorder.doSessionClear = true;
@@ -359,7 +360,10 @@
                         var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
                         recordFinishedMessageBox.style.display = 'none';
                         recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsession') //Set default message
-                        recordingHeaderCont.classList.remove('removeHeader');
+
+                        //recordingHeaderCont.classList.remove('removeHeader');
+                        recordingHeaderCont.parentNode.classList.remove('removeHeader');
+
                         virtualclass.recorder.startNewSessionAfterFinish();
                         console.log('Socket ' + io.sock.readyState);
                         io.disconnect();

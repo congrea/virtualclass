@@ -8,6 +8,7 @@
     $string['overallprogress'] = 'Overall Progress';
     $string['replay_message'] = 'Thanks for watching.';
     $string['uploadedsession'] = 'Recording saved successfully';
+    $string['uploadedsessionOk'] = 'Click "Ok" to start a new Session.';
     $string['sessionendmsg'] = 'Session has been closed. You may now close your browser.';
     $string['play'] = 'Play';
     $string['replay'] = 'Re-play';

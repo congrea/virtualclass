@@ -16,6 +16,7 @@ module.exports = function(grunt) {
             ,
             css_g: {
                 src: ['css/gray/styles.css', 'css/gray/popup.css', 'css/gray/jquery.ui.chatbox.css', 'css/gray/vceditor.css'],
+
                 dest: 'css/gray.min.css'
             },
             css_b: {

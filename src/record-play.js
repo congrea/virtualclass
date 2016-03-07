@@ -45,6 +45,7 @@
         sessionKey: randomString(11),
         alreadyDownload : false,
         smallData : false,
+        uploadInProcess : false,
         init: function (data) {
             //localStorage.removeItem('recObjs');
             var vcan = virtualclass.wb.vcan;
@@ -151,6 +152,7 @@
 
         startUploadProcess: function () {
             virtualclass.recorder.startUpload = true;
+            virtualclass.recorder.uploadInProcess=true;
             virtualclass.recorder.exportData(function () {});
             virtualclass.popup.sendBackOtherElems();
         },
@@ -267,6 +269,7 @@
                         if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
                             virtualclass.recorder.mkDownloadLink();
                         } else {
+
                             var recordSetTimeout = 1000;
                             setTimeout(
                                 function () {
@@ -329,27 +332,58 @@
 
         },
 
+        uploadFinishedBox : function (){
+            var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
+            recordFinishedMessageBox.style.display = 'block';
+            this.initRecordFinishEvent('recordingClose');
+            this.initRecordFinishEvent('recordingCloseButton');
+        },
+
+        initRecordFinishEvent : function (id){
+           var recordingHeaderCont = document.getElementById('recordingHeader');
+            recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsessionfinish'); // reset the value for upload message for next time
+
+            // For clear session If user does refresh page without click on close button
+            virtualclass.recorder.doSessionClear = true;
+            var recordingCloseElem = document.getElementById(id);
+            recordingCloseElem.addEventListener('click', function (){
+                    virtualclass.recorder.uploadInProcess = false;
+                setTimeout(
+                    function (){
+                        delete virtualclass.recorder.doSessionClear;
+                        var recordingContainer = document.getElementById('progressContainer');
+                        recordingContainer.style.display = 'block';
+
+                        var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
+                        recordFinishedMessageBox.style.display = 'none';
+                        recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsession') //Set default message
+                        virtualclass.recorder.startNewSessionAfterFinish();
+                        console.log('Socket ' + io.sock.readyState);
+                        io.disconnect();
+
+                    }, 300
+                );
+            });
+        },
+
+        startNewSessionAfterFinish : function (){
+            var recordingContainer = document.getElementById('recordingContainer');
+            recordingContainer.classList.add('recordingFinished');
+
+            console.log('Record :- after recording');
+            virtualclass.clearSession();
+
+            virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
+            virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue');
+            recordingContainer.classList.remove('recordingFinished');
+        },
+
         afterRecording: function () {
             chunkNum = 1;
             virtualclass.recorder.rdlength  = 0;
             var progressBarContainer = document.getElementById('progressContainer');
-            progressBarContainer.style.display = 'block';
-
-             setTimeout(
-                function (){
-                    var recordingContainer = document.getElementById('recordingContainer');
-                    recordingContainer.classList.add('recordingFinished');
-
-                    console.log('Record :- after recording');
-                    virtualclass.clearSession();
-                    //virtualclass.storage.config.endSession();
-                    virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
-                    virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue');
-                    recordingContainer.classList.remove('recordingFinished');
-
-
-                }, 2000
-            );
+            progressBarContainer.style.display = 'none';
+            virtualclass.recorder.uploadFinishedBox();
 
         },
 

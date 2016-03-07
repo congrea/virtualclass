@@ -3395,6 +3395,6 @@
 #virtualclassCont .ui-dialog-header.ui-state-highlight span:first-child{color:#333 !important;}
 #virtualclassCont.playMode.student #virtualclassEditorCode{margin-top: 0px; border-top:#ccc 1px solid;}
 
-#totalProgressLabel, #indvProgressLabel {
+#totalProgressLabel, #indvProgressLabel, #recordFinishedMessageBox {
 	color : #262626;
 }

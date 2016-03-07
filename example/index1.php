@@ -105,9 +105,8 @@ if($cssdebug){
 
 
 <?php
-//include('js.debug.php');
-
-include('js.php');
+include('js.debug.php');
+//include('js.php');
 // this url should be soemthing like this
 // https://loc.vidya.io/virtualclass/example/index.php?id=103&r=t&name=moh&room=1422#
 
@@ -377,11 +376,12 @@ $audactive = $adarr[$audactive];
                         </div>
 
                     </div>
-                    <!-- we don't need this one
+
                     <div id="recordFinishedMessageBox">
-                        <span id="recordFinishedMessage">  <?php //echo get_string('uploadedsession'); ?>. </span>
+                        <span id="recordFinishedMessage">  <?php echo get_string('uploadedsessionOk'); ?></span>
                         <span id="recordingClose" class="icon-close"></span>
-                    </div> -->
+                        <button id="recordingCloseButton">Ok</button>
+                    </div>
 
                 </div>
 

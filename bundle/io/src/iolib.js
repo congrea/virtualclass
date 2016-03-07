@@ -24,6 +24,7 @@ var io = {
 
         wsconnect: function () {
             "use strict";
+            console.log('init for socket connect');
             io.wsuri = this.cfg.rid;
             if ("WebSocket" in window) {
                 this.sock = new WebSocket(io.wsuri);
@@ -110,7 +111,7 @@ var io = {
                 setTimeout(function () {
                     // For prevent to send any packet to other during save session
                     // and download session
-                    if(!virtualclass.gObj.hasOwnProperty('saveSession') && !virtualclass.gObj.hasOwnProperty('downloadProgress')){
+                    if(!virtualclass.gObj.hasOwnProperty('saveSession') && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !virtualclass.recorder.uploadInProcess){
                         scope.wsconnect();
                     }
                 }, 5000);

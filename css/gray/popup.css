@@ -265,9 +265,6 @@ transition:all .2s linear;
 	font-size: 15px;
 }
 
-#virtualclassCont .rv-vanilla-modal-header {
-	height: 42px;
-}
 #virtualclassCont #recordingContainer .rv-vanilla-modal-body div {
 	border-radius: 4px;
 	font-size: 13px;
@@ -415,12 +412,38 @@ transition:all .2s linear;
 #virtualclassCont #speakerPressingAnch #speakerPressingtext{
 	color:#fff;
 }
+
 #virtualclassCont .rv-vanilla-modal-header{
 	border-radius: 10px 10px 0 0;
 	
 }
+
 .rv-vanilla-modal-title{
 	color:#fff;
 }
 
 
+
+/*remove popup header*/
+
+#virtualclassCont #recordingContainer.popupWindow .removeHeader{
+	display: none;
+    text-align: center;
+}
+#virtualclassCont .rv-vanilla-modal-body{
+	padding: 22px 25px 22px;
+}
+
+#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body #recordingClose{
+	top: -5px;
+    right: -5px;
+    position: absolute;
+}
+
+#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body #recordFinishedMessageBox #recordFinishedMessage{
+	font-weight: 500;
+    float: left;
+    font-size: 15px;
+    text-align: center;
+    line-height: 22px;
+}

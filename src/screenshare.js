@@ -140,6 +140,7 @@
          *
          */
         virtualclass.getSceenFirefox = function () {
+
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
             if (ffver >= 33) {
                 var constraints = {
@@ -186,7 +187,8 @@
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
                         } else if (typeof error == 'object') {   //latest firefox
-                            if (error.name === 'PermissionDeniedError') {
+                            // Firefox 45 is providing SecurityError
+                            if (error.name === 'PermissionDeniedError' || error.name == 'SecurityError') {
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
                         }

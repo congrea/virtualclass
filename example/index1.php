@@ -37,10 +37,7 @@ if(isset($_GET['pushtotalk'])){
         $pushtotalk = $_GET['pushtotalk'];
     }
 }
-
 $pushtotalk = $pt[$pushtotalk];
-
-
 $anyonepresenter = 0;
 if(isset($_GET['anyonepresenter'])){
     if($_GET['anyonepresenter'] == '0' || $_GET['anyonepresenter'] == '1'){
@@ -53,8 +50,6 @@ if(isset($_GET['anyonepresenter'])){
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
-
-
 
 <?php
 $cssdebug = 1;
@@ -71,14 +66,7 @@ if($cssdebug){
 	 echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'.min.css">';
 }
 ?>
-
-
-
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
-
-
-
-
 <style>
 
     @font-face {
@@ -102,8 +90,6 @@ if($cssdebug){
    }
 
  </style>
-
-
 <?php
 include('js.debug.php');
 //include('js.php');
@@ -196,12 +182,7 @@ if(isset($_GET['lname'])){
 </head>
 
 <body>
-    <!--
-    <div id="dummyPlayCont">
-
-    </div>
-    -->
-<div id="virtualclassCont" class="<?php echo $cont_class; ?>">
+ <div id="virtualclassCont" class="<?php echo $cont_class; ?>">
     <?php
         if($isplay){
             ?>
@@ -245,6 +226,13 @@ if(isset($_GET['lname'])){
       </div>
 
     </div>
+<!--     <div id = "iframecontainer" style="display:none;"></div>
+        <div id = "urlcontainer" style="display:none;" >
+           
+            <input id ="presentationurl" placeholder ="place presentation url here"  />
+            <input type = "submit" id = "submitpUrl" value = "submit" />
+      
+        </div>-->
     
 <!--    <div id="virtualclassYts" class="virtualclass" width="1400px" height="1200px">
         <div id="player"></div>

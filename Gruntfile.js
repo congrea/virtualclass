@@ -29,5 +29,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+
     grunt.registerTask('default', ['cssmin:css_w', 'cssmin:css_g', 'cssmin:css_b']);
+
 };

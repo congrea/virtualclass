@@ -165,7 +165,7 @@ var ioMissingPackets = {
                 till: till
             };
             //var tid = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.sendUser(sendMsg, uid)
+            ioAdapter.sendUser(sendMsg, uid);
         } else {
             console.log('UID ' + uid + ' ahead packet' + msg.m.serial);
             this.aheadPackets[uid].unshift(msg.m.serial);
@@ -193,7 +193,7 @@ var ioMissingPackets = {
                 till: till
             };
             //var tid = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.sendUser(sendMsg, uid)
+            ioAdapter.sendUser(sendMsg, uid);
         } else {
             console.log('UID ' + uid + ' User ahead packet' + msg.m.userSerial);
             this.aheadUserPackets[uid].unshift(msg.m.userSerial);
@@ -258,7 +258,6 @@ var ioMissingPackets = {
         }
         var till = msg.m.till + 1; // slice extracts up to but not including end.
         var senddata = ioAdapter.userAdapterMustData[uid].slice(from, till);
-
         var sendmsg = {
             userMissedpackets: 1,
             data: senddata
@@ -281,11 +280,11 @@ var ioMissingPackets = {
         this.validateAllVariables(uid);
 
         //console.log('received packet');
-        if (msg.m.data.length > 0) {
-            console.log('UID ' + uid + ' received packet from ' + msg.m.data[0].m.serial + ' to ' + msg.m.data[msg.m.data.length - 1].m.serial);
-        } else {
-            console.log('UID ' + uid + ' empty data object');
-        }
+//        if (msg.m.data.length > 0) {
+//            console.log('UID ' + uid + ' received packet from ' + msg.m.data[0].m.serial + ' to ' + msg.m.data[msg.m.data.length - 1].m.serial);
+//        } else {
+//            console.log('UID ' + uid + ' empty data object');
+//        }
 
         var dataLength = msg.m.data.length,
             i, ex;
@@ -355,7 +354,7 @@ var ioMissingPackets = {
 
         //console.log('received packet');
         if (msg.m.data.length > 0) {
-            console.log('UID ' + uid + ' received user packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
+           // console.log('UID ' + uid + ' received user packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
         } else {
             console.log('UID ' + uid + ' empty user data object');
         }

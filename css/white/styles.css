@@ -2250,6 +2250,7 @@
 
 #virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{border-radius: 3px !important;}
 
+
 #virtualclassCont #playController{
 	margin: 0 auto;
 	position: relative;
@@ -2363,10 +2364,12 @@
     color:#d5dee7;
     font-size: 15px;
 }
+
 #virtualclassCont .ui-dialog-header .icon-close:before {
 	position: relative;
     top: -2px;
 }
+
 
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before{
 	content: "\f00d";
@@ -2428,7 +2431,9 @@
 }
 
 
+
 #virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presenter .youTubeSharing #youtubeUrlContainer{top:0; text-align: left;}
+
 
 #virtualclassCont .youTubeSharing{text-align: left;}
 
@@ -3285,7 +3290,9 @@
 
 
 #virtualclassCont #beTeacher {
+
 	background: #84bd7f;
+
 	border-radius: 4px;
 	box-shadow: none;
 	color: #ffffff;
@@ -3293,6 +3300,7 @@
 	display: inline-block;
 	font-family: Arial;
 	font-size: 13px;
+
 	padding: 11px 20px;
 	position: absolute;
 	text-decoration: none;
@@ -3304,11 +3312,13 @@
 	background: #9dd19a;
 }
 #virtualclassCont #beTeacher a:hover{text-decoration: none;}
+
 #virtualclassCont #beTeacher{
 	z-index : 10;
 }
 
 #virtualclassCont[data-currapp="Whiteboard"]  #beTeacher{
+
 	right: 165px;
 	top: 26px;
 }
@@ -3346,4 +3356,83 @@
 
 #totalProgressLabel, #indvProgressLabel, #recordFinishedMessageBox {
 	color : #262626;
+}
+
+
+
+#virtualclassCont.teacher #virtualclassYts, #virtualclassCont.teacher #virtualclassSharePresentation{
+	margin-left : 55px;
+}
+
+#virtualclassCont #virtualclassYts, #virtualclassSharePresentation{
+	border: #ccc 1px solid;
+	border-radius: 5px;
+}
+
+#virtualclassSharePresentation iframe{border:none;}
+
+#virtualclassCont #virtualclassSharePresentation #urlcontainer, #virtualclassCont.student.presenter #virtualclassSharePresentation #urlcontainer{
+	position: absolute;
+	margin-top: 10px;
+	text-align: center;
+	top: 40%;
+	left: 0;
+	right: 0;
+
+}
+
+#virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer{
+	top:auto;
+	bottom:0%;
+	left: 55px;
+	right: auto;
+}/*
+
+*/#virtualclassCont #virtualclassSharePresentation #urlcontainer #presentationurl, #virtualclassCont.student.presenter #virtualclassSharePresentation #urlcontainer #presentationurl{
+	border: #ddd 1px solid;
+    height: 36px;
+    font-size: 13px;
+    padding: 0px 10px 0px 15px;
+    width: 370px;
+     text-transform: uppercase; 
+    color: #777;
+    font-size: 20px;
+    border-radius: 5px;
+	
+}
+
+#virtualclassCont #virtualclassSharePresentation #urlcontainer.pptSharing{
+	bottom: 0%;
+	left: 55px;
+}
+
+#virtualclassCont #youtubeUrlContainer #submitURL, #virtualclassCont #virtualclassSharePresentation #submitpurl{
+	background: #83c2b2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c2b2), color-stop(100%,#6cad9d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #83c2b2 0%,#6cad9d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83c2b2', endColorstr='#6cad9d',GradientType=0 ); /* IE6-9 */
+	padding: 11px 30px;
+	border: none;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 200;
+	margin-left: 5px;
+	border-radius: 5px;
+	top: -2px;
+	position: relative;
+}
+#virtualclassCont.teacher.orginalTeacher[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.teacher.orginalTeacher[data-currapp="Yts"] #audioWidget, #virtualclassCont.teacher.orginalTeacher[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.teacher.orginalTeacher.educator[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.teacher.orginalTeacher.pt_enable[data-currapp="SharePresentation"] #audioWidget{
+	right: 0px;
+}
+
+.icon-sharePresentation:before{
+	content: "\e900";
+	font-size: 30px;
+	color:#444;
+	position: relative;
+    top: 2px;
 }

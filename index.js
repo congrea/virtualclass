@@ -391,7 +391,6 @@ $(document).ready(function () {
 
         console.log('Member add :- join as normal ' + e.message[e.message.length - 1].role + ' join id ' + virtualclass.jId);
 
-
         ioPingPong.ping(e);
         memberUpdate(e, 'added');
         if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
@@ -425,6 +424,15 @@ $(document).ready(function () {
                                 'init': virtualclass.yts.videoId,
                                 startFrom: virtualclass.yts.player.getCurrentTime()
                             }, 'cf': 'yts'
+                        }, virtualclass.jId);
+                    }
+                } else if(virtualclass.currApp ==='SharePresentation') {
+                    if (typeof virtualclass.sharePt == 'object') {
+                        ioAdapter.mustSendUser({
+                            'ppt': {
+                                'init': virtualclass.sharePt.pptUrl,
+                                startFrom: virtualclass.state
+                            }, 'cf': 'ppt'
                         }, virtualclass.jId);
                     }
                 }
@@ -491,8 +499,6 @@ $(document).ready(function () {
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
         virtualclass.joinUser = e.message[e.message.length - 1]; // Join User info
         virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
-
-        // If user try to join as Teacher
         console.log('Member add :- join user id ' + virtualclass.joinUser.userid + ' with ' + virtualclass.joinUser.role);
         if((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't'){
             if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
@@ -515,7 +521,6 @@ $(document).ready(function () {
                     }
 
             } else {
-                console.log('Member add:- try to init as teacher');
                 setTimeout(
                     function (){
 
@@ -581,8 +586,6 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionclose", function (e) {
-        //virtualclass.popup.waitMsg();
-        
         if(virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload){
             console.log("During the upload process there would not any other popup box.");
         } else {
@@ -607,8 +610,7 @@ $(document).ready(function () {
         }
         setTimeout(
             function (){
-                // There should not session end message box
-                // Should not Session download box also
+
                 if(!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)){
                     virtualclass.popup.closePopup();
                     console.log('Popup box Close All');
@@ -616,6 +618,7 @@ $(document).ready(function () {
                     console.log('Popup box Could not close');
                 }
              }, setTimeReady // Wait for everything is to be ready
+
         );
     });
 
@@ -678,12 +681,9 @@ $(document).ready(function () {
                 console.log('CF ' + recMsg.cf+ ' is not a function of receiveFunctions');
             }
         }
-
-
     });
 
     function clearEverthing() {
-
         localStorage.removeItem('editorRich');
         localStorage.removeItem('editorCode');
 
@@ -860,6 +860,17 @@ $(document).ready(function () {
         this.dispWhiteboard = function (e) {
             virtualclass.makeAppReady(virtualclass.apps[0]);
         };
+        this.ppt = function(e) {
+            //debugger;
+            if(e.fromUser.userid != virtualclass.gObj.uid){
+                 if (e.message.hasOwnProperty('init')) {
+                   
+                    virtualclass.makeAppReady(virtualclass.apps[5]);
+                }else if(e.message.presentation) 
+                //virtualclass.makeAppReady(virtualclass.apps[5]); 
+               virtualclass.sharePt.onmessage(e.message);
+            }
+        };
 
         //unshare schreen
         this.unshareScreen = function (e) {
@@ -991,7 +1002,5 @@ $(document).ready(function () {
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
-
-
     };
 });

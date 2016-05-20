@@ -23,6 +23,7 @@ var ioAdapter = {
     },
 
     mustSend: function (msg) {
+        //debugger;
         "use strict";
         this.serial++;
         console.log('s.n ' + this.serial);

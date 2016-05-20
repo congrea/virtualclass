@@ -15,7 +15,10 @@ var ioStorage = {
         storjobj = JSON.stringify(storObj);
         //getMsPckt, can not request the packets from other user during replay
         if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
-            this.completeStorage(storjobj);
+            // this part need to be verified
+            if(msg.onrefresh != true) {
+              this.completeStorage(storjobj);
+            }
         }
     },
 

@@ -90,7 +90,7 @@
              * 
              */
             destroyYT: function () {
-
+                //debugger;
                 if (typeof virtualclass.yts.player == 'object') {
                     //console.log('Player object is DESTROYED.');
                     virtualclass.yts.player.destroy();
@@ -110,7 +110,7 @@
                  * Creates container for the video and appends the container before audio widget
                  */
                 container: function () {
-
+                    //debugger;
                     var ytsCont = document.getElementById(this.id);
                     if (ytsCont != null) {
                         ytsCont.parentNode.removeChild(ytsCont);
@@ -253,6 +253,7 @@
 
              */
             onmessage: function (msg) {
+                //debugger;
                 if (typeof msg.yts == 'string') {
                     if (msg.yts == 'play') {
                         this.player.playVideo();
@@ -266,6 +267,7 @@
 
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
+                        //debugger;
                         virtualclass.makeAppReady('Yts', undefined, msg.yts);
                     } else {
                         var seekToNum = parseInt(msg.yts.seekto, 10);

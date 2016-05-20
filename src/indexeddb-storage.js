@@ -545,6 +545,7 @@
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
+
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
                 if(virtualclass.recorder.hasOwnProperty('startUpload')){
@@ -575,6 +576,7 @@
 
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 if (!virtualclass.hasOwnProperty('notPLayed')) {
+                    //debugger;
                     virtualclass.storage.clearStorageData();
                 }
                 //var prvAppObj = {name : "EditorRich"};
@@ -595,6 +597,12 @@
                 }
                 if(typeof virtualclass.yts == 'object'){
                     clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
+                }
+                if(typeof virtualclass.sharePt == 'object') {
+                    var elem = document.getElementById('pptiframe')
+                    if(elem) {
+                    elem.parentNode.removeChild(elem);
+                }
                 }
 
                 console.log('Session End.');
@@ -637,7 +645,6 @@
         
 
         clearSingleTable : function (table){
-
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);

@@ -2006,6 +2006,7 @@
 }
 
 #virtualclassCont #errorContainer {
+
     position: fixed;
     bottom: 7%;
     color: rgb(207, 39, 39);
@@ -2267,7 +2268,9 @@
 }
 
 #virtualclassCont a.vceditor-btn{
+
 	color: #fff !important;
+
 	border-bottom-width: 1px !important;
 }
 
@@ -2652,7 +2655,9 @@
 }
 
 #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart{
+
 	padding: 3px 10px 12px;
+
 	border: none;
 	font-size: 13px;
 	border: #ddd 1px solid;
@@ -2762,6 +2767,7 @@
 #virtualclassCont #vcanvas #whiteBoardMsg {
 	position : absolute;
 	top : 40%;
+
 	left: 0;
 	right: 0;
 	margin: 0 auto;
@@ -2769,6 +2775,7 @@
 	text-align: center;
 }
 	
+
 #virtualclassCont a#contrAudioAll {
 	margin-left: 30px;
 	cursor: pointer;
@@ -3103,7 +3110,9 @@
 .ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight .icon-minus:before, #virtualclassCont #chatWidget .mySelf span{
 	color:#333;
 }
+
 #virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
+
 	margin-top: 70px;
 }
 
@@ -3151,6 +3160,7 @@
 #virtualclassCont.playMode.student #virtualclassEditorCode, #virtualclassCont.playMode.student[data-currapp="Yts"] #virtualclassEditorCode{
 	margin-top: 70px;
 }
+
 
 
 .tooltip{color: #fff;}
@@ -3214,7 +3224,9 @@
 
 #virtualclassCont #containerWb #commandToolsWrapper .tool a{
 	border-right: 1px solid #5d6b76;
+
 	color:#c5cfd8 !important;
+
 }
 
 #virtualclassCont #speakerPressing .icon-speakerPressing::before{
@@ -3334,6 +3346,7 @@
 	background: #84bd7f;
 	border-radius: 4px;
 	box-shadow: none;
+
 	cursor: pointer;
 	display: inline-block;
 	font-family: Arial;
@@ -3342,6 +3355,7 @@
 	position: absolute;
 	text-decoration: none;
 	text-transform: uppercase;
+
 	border:#6dac69 1px solid;
 }
 
@@ -3351,6 +3365,7 @@
 
 #beTeacher:hover{
 	background: #9dd19a;
+
 	border:#67a462 1px solid;
 }
 
@@ -3359,6 +3374,7 @@
 }
 
 #virtualclassCont[data-currapp="Whiteboard"]  #beTeacher{
+
 	right: 157px;
 	top: 25px;
 }
@@ -3397,4 +3413,86 @@
 
 #totalProgressLabel, #indvProgressLabel, #recordFinishedMessageBox {
 	color : #262626;
+}
+
+ SharePresentation  gray color
+
+
+#virtualclassCont.teacher #virtualclassYts, #virtualclassCont.teacher #virtualclassSharePresentation{
+	margin-left : 55px;
+}
+
+
+#virtualclassCont #virtualclassYts, #virtualclassSharePresentation{
+	border: #ccc 1px solid;
+	border-radius: 5px;
+}
+
+/**/#virtualclassSharePresentation iframe{border:none;}
+
+#virtualclassCont #virtualclassSharePresentation #urlcontainer, #virtualclassCont.student.presenter #virtualclassSharePresentation #urlcontainer{
+	position: relative;
+	margin-top: 10px;
+	text-align: center;
+	//top: 40%;
+	left: 0;
+	right: 0;
+
+}
+
+#virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer{
+	top:auto;
+	bottom:0%;
+	left: 55px;
+	right: auto;
+}
+/**/#virtualclassCont #virtualclassSharePresentation #urlcontainer #presentationurl, #virtualclassCont.student.presenter #virtualclassSharePresentation #urlcontainer #presentationurl{
+	border: #ddd 1px solid;
+    height: 36px;
+    font-size: 13px;
+    padding: 0px 10px 0px 15px;
+    width: 370px;
+     text-transform: uppercase; 
+    color: #777;
+    font-size: 20px;
+    border-radius: 5px;
+	
+}
+
+#virtualclassCont #virtualclassSharePresentation #urlcontainer.pptSharing{
+	bottom: 0%;
+	left: 55px;
+}
+
+#virtualclassCont #youtubeUrlContainer #submitURL, #virtualclassCont #virtualclassSharePresentation #submitpurl{
+	background: #83c2b2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c2b2), color-stop(100%,#6cad9d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #83c2b2 0%,#6cad9d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83c2b2', endColorstr='#6cad9d',GradientType=0 ); /* IE6-9 */
+	padding: 11px 30px;
+	border: none;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 200;
+	margin-left: 5px;
+	border-radius: 5px;
+	top: -2px;
+	position: relative;
+}
+
+#virtualclassCont.teacher.orginalTeacher[data-currapp="Whiteboard"] #audioWidget, #virtualclassCont.teacher.orginalTeacher[data-currapp="Yts"] #audioWidget, #virtualclassCont.teacher.orginalTeacher[data-currapp="ScreenShare"] #audioWidget, #virtualclassCont.teacher.orginalTeacher.educator[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.teacher.orginalTeacher.pt_enable[data-currapp="SharePresentation"] #audioWidget{
+	right: 0px;
+}
+
+
+.icon-sharePresentation:before{
+	content: "\e900";
+	font-size: 30px;
+	color:#444;
+	position: relative;
+    top: 2px;
 }

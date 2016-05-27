@@ -345,7 +345,7 @@ $(document).ready(function () {
     var transferControl = function (userId){
         // virtualclass.clearSession();
         // We need handle to     the bindary data
-
+         //debugger;
         setTimeout(
             function (){
                 veryFirstJoin = false;
@@ -431,7 +431,7 @@ $(document).ready(function () {
                         ioAdapter.mustSendUser({
                             'ppt': {
                                 'init': virtualclass.sharePt.pptUrl,
-                                startFrom: virtualclass.state
+                                startFrom: virtualclass.sharePt.state
                             }, 'cf': 'ppt'
                         }, virtualclass.jId);
                     }
@@ -465,6 +465,14 @@ $(document).ready(function () {
                     ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
                 } else {
                     ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                }
+            }else if(virtualclass.currApp === 'SharePresentation'){
+                console.log("sharePPt");
+                //debugger;
+                if(typeof virtualclass.sharePt== 'object'){
+                    ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
+                } else {
+                    ioAdapter.mustSendUser({'ppt': {'init' : 'studentlayout'}, 'cf': 'ppt'}, virtualclass.jId);
                 }
             }
 
@@ -861,12 +869,12 @@ $(document).ready(function () {
             virtualclass.makeAppReady(virtualclass.apps[0]);
         };
         this.ppt = function(e) {
-            //debugger;
+            debugger;
             if(e.fromUser.userid != virtualclass.gObj.uid){
                  if (e.message.hasOwnProperty('init')) {
                    
                     virtualclass.makeAppReady(virtualclass.apps[5]);
-                }else if(e.message.presentation) 
+                }else if(e.message.cf="ppt") 
                 //virtualclass.makeAppReady(virtualclass.apps[5]); 
                virtualclass.sharePt.onmessage(e.message);
             }
@@ -925,6 +933,7 @@ $(document).ready(function () {
 
         //Reclaim Role
         this.reclaimRole = function (e) {
+           // debugger;
             console.log('Role reclaim');
             //if (localStorage.getItem('teacherId') !== null) {
             if (roles.hasControls()) {
@@ -946,6 +955,7 @@ $(document).ready(function () {
 
         //Assign Role
         this.assignRole = function (e) {
+            //debugger;
             if (e.message.toUser === virtualclass.gObj.uid) {
                 console.log('Role assign');
                 if(typeof virtualclass.wb == 'object'){

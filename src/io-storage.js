@@ -58,11 +58,13 @@ var ioStorage = {
     },
 
     dataUserAdapterMustData: function (allData, serialKey) {
+        //debugger;
         if (typeof virtualclass.storage == 'object' && typeof virtualclass.storage.db == 'object') {
             virtualclass.storage.dataUserAdapterAllStore(JSON.stringify(allData), serialKey);
         } else {
             setTimeout(
                 function () {
+                    //debugger;
                     ioStorage.dataUserAdapterMustData(allData, serialKey); //if table of indexeddb is not ready yet.
                 },
                 10

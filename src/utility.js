@@ -539,6 +539,7 @@
                         'init': virtualclass.sharePt.pptUrl,
                         startFrom: virtualclass.sharePt.state
                     };
+                    console.log("start From"+virtualclass.sharePt.state);
                     virtualclass.sharePt.saveIntoLocalStorage(prvAppObj, virtualclass.sharePt.pptUrl, virtualclass.sharePt.state);
                 } else {
                     prvAppObj.metaData = null; // if video is not started to share.
@@ -551,6 +552,9 @@
                 if (virtualclass.currApp == 'Yts') {
                     var prvAppObj = {"name": "Yts", "metaData": null};
                 }
+//                if (virtualclass.currApp == 'Yts') {
+//                    var prvAppObj = {"name": "SharePresentation", "metaData": null};
+//                }
             }
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
@@ -861,8 +865,6 @@
                         virtualclass.sharePt.eventsObj = [];
                     }
                     if (roles.hasView()) {
-                        if (document.getElementById("pptiframe") != null) {
-                        }
                         virtualclass.sharePt.eventsObj = [];
                     }
                     var btn = document.getElementById("submitpurl");

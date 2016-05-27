@@ -249,6 +249,25 @@ var io = {
         //}
     },
     onRecJson: function(receivemsg) {
+//        if( typeof receivemsg.m !='undefined') {
+//            if( typeof receivemsg.m.ppt !='undefined') {
+//                if( typeof receivemsg.m.ppt.startFrom !='undefined') {
+//                    virtualclass.sharePt.startFromFlag=1;
+//                    var frame= document.getElementById('pptiframe') 
+//                    if(frame !=null){
+//                     if (receivemsg.m.ppt.init.search("postMessage") < 0) {
+//                    frame.setAttribute("src", receivemsg.m.ppt.init+ "?postMessage=true&postMessageEvents=true");
+//                } else {
+//                   frame.setAttribute("src", receivemsg.m.ppt.init);
+//                }   
+//                   setTimeout(function(){
+//                     frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:[receivemsg.m.ppt.startFrom.indexh,receivemsg.m.ppt.startFrom.indexv,receivemsg.m.ppt.startFrom.indexf] }), '*'); 
+//                   },2000)
+//                    
+//                   }
+//                }
+//            }
+//        }
         var userto = '';
         switch (receivemsg.type) {
             case "joinroom":

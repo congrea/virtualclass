@@ -26,31 +26,48 @@
                 virtualclass.sharePt.state = pptData.state;
             }
             if (pptData.eventName == 'ready') {
+                if(virtualclass.sharePt.localStoragFlag&& !virtualclass.sharePt.startFromFlag) {
+                    //debugger;
+                    var state=virtualclass.sharePt.stateLocalStorage
+                    frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args: [state.indexh,state.indexv,state.indexf]}), '*');
+                    virtualclass.sharePt.localStoragFlag=0;
+                }
+                if(virtualclass.sharePt.startFromFlag){
+                    //debugger;
+                    frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:virtualclass.sharePt.startFrom }), '*'); 
+                }
                 setTimeout(function() {
                     if (frame != null) {
                         frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
                     }
                 }, 1500)
+                
             }
             if (roles.hasView()) {
                 if (pptData.eventName == 'ready') {
                     virtualclass.sharePt.studentPptReadyFlag = 1;
+                    
                     setTimeout(function() {
                    virtualclass.sharePt.removeControls();
                 }, 100)
-                    
+                  
                 }
                 if (virtualclass.sharePt.studentPptReadyFlag && virtualclass.sharePt.studentPpt) {
                     virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
                     virtualclass.sharePt.studentPpt = 0;
                     virtualclass.sharePt.studentPptReadyFlag = 0;
-                }
+               }
+//               else if(virtualclass.sharePt.localStoragFlag) {
+//                    virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
+//                    sharePt.localStoragFlag=0;
+//                }
             }
 
             if (roles.hasControls()) {
                 console.log(pptData.eventName);
                 if (typeof pptData.eventName != 'undefined') {
                     virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
+                    virtualclass.sharePt.state=pptData.state;
                 }
             }
         } else {
@@ -58,6 +75,7 @@
                 frame.removeAttribute("src");
             }
         }
+        
     });
 
 
@@ -75,6 +93,8 @@
             autoSlideResumed: 0,
             studentPptReadyFlag: 0,
             studentPpt: 0,
+            startFromFlag:0,
+            startFrom:0,
             /*
              * Initalizes and creates ppt layout at student's and teacheh's ends 
              * @param app sharePresentation
@@ -89,7 +109,7 @@
                 if (typeof virtualclass.previous != 'undefined') {
                     if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
                         if (roles.hasControls()) {
-                            virtualclass.vutil.beforeSend({'ppt': true, cf: 'ppt', presentation: true});
+                            ioAdapter.mustSend({'ppt': true, cf: 'ppt', presentation: true});
                         }
                     }
                 }
@@ -155,19 +175,19 @@
                                 this.localStoragFlag = true;
                                 this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
                                 if (roles.hasControls()) {
-                                    virtualclass.vutil.beforeSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", presentation: true, onrefresh: true});
+                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", presentation: true, onrefresh: true});
                                 }
                                 if (typeof mdata != 'undefined') {
                                     var startFrom = mdata['startFrom'];
                                     if (startFrom != null) {
                                         this.localStoragFlag = true;
-                                        var state = startFrom;
+                                        virtualclass.sharePt.stateLocalStorage = startFrom;
                                     }
                                 }
                             }
                         }
                         if (this.localStoragFlag) {
-                            this.fromLocalStorage(state);
+                            this.fromLocalStorage(virtualclass.sharePt.state);
                         }
                     }
                 }
@@ -204,15 +224,6 @@
                 if (pos < 0) {
                     pptContainer.className = pptContainer.className + " pptSharing";
                 }
-                if (typeof state != 'undefined') {
-                    setTimeout(
-                            function() {
-                                if (iframe != null && iframe.contentWindow != null) {
-                                    iframe.contentWindow.postMessage(JSON.stringify({method: 'slide', args: [state.indexh, state.indexv, state.indexf]}), '*');
-                                }
-                            }, 2000
-                            );
-                }
 
             },
             /*
@@ -241,6 +252,7 @@
              
              */
             onmessage: function(msg) {
+                debugger;
                 if (msg.hasOwnProperty('autoSlide')) {
                     //debugger;
                     this.autoSlideTime = msg.autoSlide;
@@ -248,7 +260,7 @@
                 if (typeof virtualclass.sharePt != 'undefined') {
                     var mszCont = document.getElementById('pptMessageLayout');
                     if (mszCont != null) {
-                        document.getElementById('pptMessageLayout').innerHTML = "";
+                       // document.getElementById('pptMessageLayout').innerHTML = "";
                     }
                     virtualclass.system.setAppDimension(virtualclass.currApp);
                     this.onPptMsgReceive(msg);
@@ -261,7 +273,7 @@
             },
             ready: function(pptData) {
                 console.log("teacher ready for ppt ");
-                // virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
             },
             /*
              * function to be called when slidechange event fired at teacher's end
@@ -275,7 +287,7 @@
 
                     }
                 }
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, autoSlide: this.autoSlideTime, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, autoSlide: this.autoSlideTime, presentation: true});
 
             },
             /*
@@ -308,7 +320,7 @@
                 this.autoSlideFlag = 1;
                 this.autoSlideResumed = 0;
                 console.log(this.pause);
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
             },
             /*
              * function to be called when auto slide resumed at teacher's end
@@ -320,7 +332,7 @@
                 this.autoSlideResumed = 1;
                 this.eventsObj = [];
                 this.eventsObj.push({name: pptData.eventName, time: Date.now()});
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
 
             },
             /*
@@ -328,28 +340,28 @@
              * @param  pptData event data
              */
             fragmentshown: function(pptData) {
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
             },
             /*
              * function to be called when fragment hidden event fired  at teacher's end
              * @param  pptData event data
              */
             fragmenthidden: function(pptData) {
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
             },
             /*
              * function to be called when overview shown event fired at  teacher's end
              * @param  pptData event data
              */
             overviewshown: function(pptData) {
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
             },
             /*
              * function to be called when overview hidden event fired  at teacher's end
              * @param  pptData event data
              */
             overviewhidden: function(pptData) {
-                virtualclass.vutil.beforeSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
             },
             /*
              *Removes control from student's end 
@@ -369,6 +381,26 @@
              * @param receivemsg  received message by the student 
              */
             onPptMsgReceive: function(receivemsg) {
+                      
+            if( typeof receivemsg.ppt !='undefined') {
+                if( typeof receivemsg.ppt.startFrom !='undefined') {
+                    virtualclass.sharePt.startFromFlag=1;
+                    var frame= document.getElementById('pptiframe') 
+                    if(frame !=null){
+                     if (receivemsg.ppt.init.search("postMessage") < 0) {
+                    frame.setAttribute("src", receivemsg.ppt.init+ "?postMessage=true&postMessageEvents=true");
+                } else {
+                   frame.setAttribute("src", receivemsg.ppt.init);
+                }   
+                virtualclass.sharePt.startFrom=[receivemsg.ppt.startFrom.indexh,receivemsg.ppt.startFrom.indexv,receivemsg.ppt.startFrom.indexf];
+                  // setTimeout(function(){
+                     //frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:[receivemsg.ppt.startFrom.indexh,receivemsg.ppt.startFrom.indexv,receivemsg.ppt.startFrom.indexf] }), '*'); 
+                   //},2000)
+                    
+                   }
+                }
+            }
+        
                 if (typeof receivemsg.pptMsg != 'undefined') {
                     var frame = document.getElementById("pptiframe");
                     var msgLayout = document.getElementById('pptMessageLayout');
@@ -390,6 +422,7 @@
                         this.displayFrame(receivemsg);
 
                     } else if (typeof receivemsg.urlFlag != 'undefined') {
+                        virtualclass.sharePt.localStoragFlag=0;
                         this.setSlideUrl(receivemsg);
                         var frame = document.getElementById("pptiframe");
                         frame.onload = function() {
@@ -403,10 +436,14 @@
                         }
                     } else if (typeof receivemsg.pptMsg.eventName != 'undefined') {
                         if (frame != null) {
+                           // debugger;
+                           
                             virtualclass.sharePt.setSlideState(receivemsg.pptMsg);
                         }
                         this.state = receivemsg.pptMsg.state;
                     }
+                    //else if(receivemsg.m.ppt.startFrom)
+                    
                 }
             },
             /*
@@ -414,6 +451,7 @@
              * @param  receivemsg ppt data recevied from the teacher
              */
             displayFrame: function(receivemsg) {
+                //virtualclass.sharePt.localStoragFlag=0;
                 virtualclass.system.setAppDimension(virtualclass.currApp);
                 var pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
                 var pos = pptContainer.className.search("pptSharing");
@@ -455,6 +493,7 @@
              
              */
             setSlideState: function(msg) {
+                debugger;
                 var frame = document.getElementById("pptiframe").contentWindow;
                 var indexArg = [msg.state.indexh, msg.state.indexv, msg.state.indexf];
                 var stateArg = [msg.state];
@@ -503,7 +542,10 @@
                 virtualclass.sharePt.autoSlideTime = 0;
                 virtualclass.sharePt.eventsObj = [];
                 virtualclass.sharePt.autoSlideFlag = 0;
+                virtualclass.sharePt.state=[];
+                virtualclass.sharePt.localStoragFlag=0;
                 localStorage.removeItem('autoSlideTime');
+                localStorage.removeItem('autoSlideFlag');
                 localStorage.removeItem('autoSlideFlag');
                 var ct = document.getElementById("iframecontainer");
                 if (ct == null) {
@@ -569,8 +611,8 @@
                 virtualclass.sharePt.pptUrl = urlValue + "?postMessage=true&postMessageEvents=true";
                 //https://192.168.1.105/revealjs/index.html#/?postMessage=true&postMessageEvents=true
                 frame.setAttribute("src", virtualclass.sharePt.pptUrl);
-                virtualclass.vutil.beforeSend({pptMsg: "displayframe", cf: 'ppt', uid: wbUser.id, user: "all", presentation: true});
-                virtualclass.vutil.beforeSend({pptMsg: urlValue, cf: 'ppt', uid: wbUser.id, user: "all", urlFlag: "url", presentation: true});
+                ioAdapter.mustSend({pptMsg: "displayframe", cf: 'ppt', uid: wbUser.id, user: "all", presentation: true});
+                ioAdapter.mustSend({pptMsg: urlValue, cf: 'ppt', uid: wbUser.id, user: "all", urlFlag: "url", presentation: true});
                 frame.style.display = "visible";
 
             },
@@ -695,6 +737,10 @@
                  * Creates iframecontainer and iframe for the ppt
                  */
                 createIframe: function() {
+                    var ct = document.getElementById("iframecontainer");
+                    if(ct !=null) {
+                        ct.parentNode.removeChild(ct);
+                    }
                     console.log("test create ppt  iframe");
                     //debugger;
                     var pptCtr = document.getElementById("virtualclassSharePresentation");
@@ -763,6 +809,7 @@
                  * display message on student's screen that ppt is going to be shared
                  */
                 messageDisplay: function() {
+                    debugger;
                     var pptContainer = document.getElementById("virtualclassSharePresentation");
                     var messageLayoutId = 'pptMessageLayout';
                     if (document.getElementById(messageLayoutId) == null) {

@@ -430,6 +430,7 @@
                         if (parseInt(cursor.value.serialKey) > ioAdapter.serial) {
                             ioAdapter.serial = parseInt(cursor.value.serialKey);
                         }
+                        //debugger;
                         ioAdapter.adapterMustData[ioAdapter.serial] = data;
                     }
                     cursor.continue();
@@ -450,6 +451,7 @@
                         if (serial > ioAdapter.userSerial[uid]) {
                             ioAdapter.userSerial[uid] = serial;
                         }
+                        //debugger;
                         ioAdapter.userAdapterMustData[uid][serial] = data;
                     }
                     cursor.continue();
@@ -627,7 +629,7 @@
                 if(newEducator != null){
                     console.log('Editor mode enable');
                     localStorage.setItem('editorRich', true);
-                     localStorage.setItem('editorCode', true);
+                    localStorage.setItem('editorCode', true);
                     localStorage.removeItem('nEd');
                 } else {
                     console.log('Editor mode disable');

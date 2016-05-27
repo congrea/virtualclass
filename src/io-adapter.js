@@ -7,6 +7,7 @@ var ioAdapter = {
 
 
     validateAllVariables: function (uid) {
+        //debugger;
         "use strict";
         if (typeof this.userSerial == 'undefined' || this.userSerial == null) {
             this.userSerial = [];
@@ -57,6 +58,7 @@ var ioAdapter = {
 
     //TODO Function below still needs to have missing packets functionality
     mustSendUser: function (msg, touser) {
+        //debugger;
         "use strict";
         this.validateAllVariables(touser);
         if (typeof msg.serial != 'undefined' && msg.serial) {

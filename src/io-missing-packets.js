@@ -62,6 +62,7 @@ var ioMissingPackets = {
      */
     checkMissing: function (msg) {
         "use strict";
+        //debugger;
         var uid = msg.user.userid;
         this.validateAllVariables(uid);
 
@@ -94,6 +95,7 @@ var ioMissingPackets = {
                 this.onRecSave(msg);
                 io.onRecJson(msg);
             } else if (msg.m.serial > (this.executedSerial[uid] + 1)) {
+                //debugger;
                 console.log('UID ' + uid + ' requst miss packet');
                 //we should not need the request packet when self packet is recieved
                 //if(msg.user.userid != virtualclass.gObj.uid){
@@ -227,6 +229,7 @@ var ioMissingPackets = {
     },
 
     sendMissedPackets: function (msg) {
+        //debugger;
         "use strict";
         var uid = msg.user.userid;
         this.validateAllVariables(uid);
@@ -249,6 +252,7 @@ var ioMissingPackets = {
 
     userSendMissedPackets: function (msg) {
         "use strict";
+        //debugger;
         var uid = msg.user.userid;
         this.validateAllUserVariables(uid);
 

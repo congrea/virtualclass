@@ -574,6 +574,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
+                    //debugger;
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     virtualclass.system.setAppDimension();

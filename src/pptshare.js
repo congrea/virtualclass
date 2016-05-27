@@ -423,6 +423,8 @@
 
                     } else if (typeof receivemsg.urlFlag != 'undefined') {
                         virtualclass.sharePt.localStoragFlag=0;
+                        virtualclass.sharePt.stateLocalStorage=[];
+                        virtualclass.sharePt.state=[];
                         this.setSlideUrl(receivemsg);
                         var frame = document.getElementById("pptiframe");
                         frame.onload = function() {
@@ -544,6 +546,7 @@
                 virtualclass.sharePt.autoSlideFlag = 0;
                 virtualclass.sharePt.state=[];
                 virtualclass.sharePt.localStoragFlag=0;
+                 virtualclass.sharePt.stateLocalStorage=[];
                 localStorage.removeItem('autoSlideTime');
                 localStorage.removeItem('autoSlideFlag');
                 localStorage.removeItem('autoSlideFlag');

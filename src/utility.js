@@ -559,7 +559,7 @@
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
-            // localStorage.setItem('uRole', virtualclass.gObj.uRole);
+           // localStorage.setItem('uRole', virtualclass.gObj.uRole);
             io.disconnect();
         },
         initOnBeforeUnload: function(bname) {
@@ -640,6 +640,7 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         },
         initDefaultInfo: function(role, appIs) {
+            //debugger;
             if (role == 't' && appIs == 'Whiteboard') {
                 if (!roles.hasAdmin()) {
                     virtualclass.wb.utility.setOrginalTeacherContent();
@@ -871,7 +872,7 @@
                     if (btn != null) {
                         btn.addEventListener("click", virtualclass.sharePt.playPpt);
                     }
-
+                   // localStorage.setItem('uRole', virtualclass.gObj.uRole);
                 }
 
             } else {
@@ -898,6 +899,7 @@
                                 frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: false,autoSlide: 0,autoSlideStoppable: true,keyboard: false,progress: false,touch: false}]}), '*');
                             }
                            if (document.getElementById('urlcontainer') != null) {
+                               //debugger;
                             document.getElementById('urlcontainer').style.display = "none";
                           }
                     }
@@ -965,16 +967,22 @@
 
             // If teacher is disconnected then
             // there would come the porblem on editor of assigning role to student while continuous writting by him.
-
+            
             if(!roles.hasAdmin()){
                 io. disconnect();
-
                 setTimeout(
                         function() {
                             virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
                             io.init(virtualclass.uInfo);
                         }, 500
-                        );
+                );
+            } else {
+                /** We need to  update  the role at teacher side with virtualclass.uInfo.userobj.role
+                * because the older role is existing while new session is being created.
+                * TEST CASE:- assign role, page refresh both side, reclaim role, see io.cfg.userobj.role, you get the older role
+                * This happens only on teacher side, below st
+                * **/
+                virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
             }
 
         },
@@ -1359,6 +1367,7 @@
 
 
         initTeacherRole : function (){
+           // debugger;
             ioAdapter.send({'cf': 'bt'}); //become teacher
             virtualclass.vutil.removeBecomeTeacherWidget(); // remove button from self window
             setTimeout(

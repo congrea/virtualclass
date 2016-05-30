@@ -521,6 +521,7 @@
             },
 
             createNewSession: function () {
+                //debugger;
                 virtualclass.recorder.sessionKey = randomString(11);
                 //virtualclass.editorRich.init(0, [], "", "");
                 if(roles.hasAdmin()){
@@ -541,6 +542,7 @@
             },
 
             endSession: function (onlyStoredData) {
+                //debugger;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 localStorage.clear();
 
@@ -634,8 +636,11 @@
                 } else {
                     console.log('Editor mode disable');
                 }
-
+                
+                console.log('New role before clear ' + virtualclass.gObj.uRole);
+                //virtualclass.gObj.uRole // update the role at 
                 that.config.createNewSession();
+                console.log('New role after clear ' + virtualclass.gObj.uRole);
                 virtualclass.popup.waitMsg(); // until the web socket is connected.
             }
         },

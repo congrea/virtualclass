@@ -38,7 +38,9 @@
                 }
                 setTimeout(function() {
                     if (frame != null) {
-                        frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
+                        if(frame.contentWindow !=null) {
+                            frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
+                        }
                     }
                 }, 1500)
                 
@@ -61,9 +63,7 @@
 //                    virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
 //                    sharePt.localStoragFlag=0;
 //                }
-            }
-
-            if (roles.hasControls()) {
+            }else if (roles.hasControls()) {
                 console.log(pptData.eventName);
                 if (typeof pptData.eventName != 'undefined') {
                     virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
@@ -109,7 +109,7 @@
                 if (typeof virtualclass.previous != 'undefined') {
                     if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
                         if (roles.hasControls()) {
-                            ioAdapter.mustSend({'ppt': true, cf: 'ppt', presentation: true});
+                            ioAdapter.mustSend({'ppt': true, cf: 'ppt'});
                         }
                     }
                 }
@@ -118,10 +118,10 @@
                 if (elem != null) {
                     elem.parentNode.removeChild(elem);
                 }
-                var frame = document.getElementById('pptiframe');
-                if (frame != null) {
-                    frame.parentNode.removeChild(frame);
-                }
+//                var frame = document.getElementById('pptiframe');
+//                if (frame != null) {
+//                    frame.parentNode.removeChild(frame);
+//                }
                 this.UI.container();
                 var msz = document.getElementById('pptMessageLayout');
 
@@ -137,8 +137,7 @@
                     var btn = document.getElementById("submitpurl");
                     btn.addEventListener("click", that.playPpt);
 
-                }
-                if (roles.hasView()) {
+                }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');
                     this.UI.messageDisplay();
                     document.getElementById('pptMessageLayout').style.display = "block";
@@ -146,12 +145,12 @@
                         urlCont.style.display = "none";
                     }
                 }
-                var frame = document.getElementById('pptiframe');
-                if (frame != null) {
-                    frame.contentWindow.addEventListener('message', function(event) {
-                        console.log("event" + event);
-                    });
-                }
+//                var frame = document.getElementById('pptiframe');
+//                if (frame != null) {
+//                    frame.contentWindow.addEventListener('message', function(event) {
+//                        console.log("event" + event);
+//                    });
+//                }
                 this.findInStorage();
             },
             /* 
@@ -175,15 +174,15 @@
                                 this.localStoragFlag = true;
                                 this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
                                 if (roles.hasControls()) {
-                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", presentation: true, onrefresh: true});
+                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
                                 }
-                                if (typeof mdata != 'undefined') {
+                               // if (typeof mdata != 'undefined') {
                                     var startFrom = mdata['startFrom'];
                                     if (startFrom != null) {
-                                        this.localStoragFlag = true;
+                                        //this.localStoragFlag = true;
                                         virtualclass.sharePt.stateLocalStorage = startFrom;
                                     }
-                                }
+                               // }
                             }
                         }
                         if (this.localStoragFlag) {
@@ -216,7 +215,8 @@
 
                 var mszCont = document.getElementById('pptMessageLayout');
                 if (mszCont != null) {
-                    document.getElementById('pptMessageLayout').innerHTML = "";
+                    console.log("message block");
+                    //document.getElementById('pptMessageLayout').innerHTML = "";
                     mszCont.style.display = "none";
                 }
                 var pptContainer = document.getElementById(this.UI.id);
@@ -230,6 +230,7 @@
              *Sets configuration and auto slide time in case slide state, url and autoslide time is retrived from the local storage 
              
              */
+            
             slideConfig: function() {
                 document.getElementById("pptiframe").onload = function() {
                     if (localStorage.getItem('autoSlideTime')) {
@@ -237,13 +238,14 @@
                         virtualclass.sharePt.autoSlideTime = JSON.parse(localStorage.getItem('autoSlideTime'));
                         virtualclass.sharePt.autoSlideFlag = JSON.parse(localStorage.getItem('autoSlideFlag'));
                     }
-                    if (roles.hasView()) {
-                        var frame = document.getElementById("pptiframe")
-                        if (virtualclass.sharePt.viewFlag == 0) {
-                            frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: false,autoSlide: 0,keyboard: false,progress: false,touch: false}]}), '*');
-                            virtualclass.sharePt.viewFlag = 1;
-                        }
-                    }
+                    //not needed
+//                    if (roles.hasView()) {
+//                        var frame = document.getElementById("pptiframe")
+//                        if (virtualclass.sharePt.viewFlag == 0) {
+//                            frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: false,autoSlide: 0,keyboard: false,progress: false,touch: false}]}), '*');
+//                            virtualclass.sharePt.viewFlag = 1;
+//                        }
+//                    }
                 }
             },
             /*
@@ -252,7 +254,7 @@
              
              */
             onmessage: function(msg) {
-                debugger;
+               
                 if (msg.hasOwnProperty('autoSlide')) {
                     //debugger;
                     this.autoSlideTime = msg.autoSlide;
@@ -273,7 +275,7 @@
             },
             ready: function(pptData) {
                 console.log("teacher ready for ppt ");
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
             },
             /*
              * function to be called when slidechange event fired at teacher's end
@@ -287,7 +289,7 @@
 
                     }
                 }
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, autoSlide: this.autoSlideTime, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, autoSlide: this.autoSlideTime});
 
             },
             /*
@@ -320,7 +322,7 @@
                 this.autoSlideFlag = 1;
                 this.autoSlideResumed = 0;
                 console.log(this.pause);
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
             },
             /*
              * function to be called when auto slide resumed at teacher's end
@@ -332,7 +334,7 @@
                 this.autoSlideResumed = 1;
                 this.eventsObj = [];
                 this.eventsObj.push({name: pptData.eventName, time: Date.now()});
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
 
             },
             /*
@@ -340,28 +342,28 @@
              * @param  pptData event data
              */
             fragmentshown: function(pptData) {
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
             },
             /*
              * function to be called when fragment hidden event fired  at teacher's end
              * @param  pptData event data
              */
             fragmenthidden: function(pptData) {
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
             },
             /*
              * function to be called when overview shown event fired at  teacher's end
              * @param  pptData event data
              */
             overviewshown: function(pptData) {
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
             },
             /*
              * function to be called when overview hidden event fired  at teacher's end
              * @param  pptData event data
              */
             overviewhidden: function(pptData) {
-                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id, presentation: true});
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', uid: wbUser.id});
             },
             /*
              *Removes control from student's end 
@@ -495,7 +497,6 @@
              
              */
             setSlideState: function(msg) {
-                debugger;
                 var frame = document.getElementById("pptiframe").contentWindow;
                 var indexArg = [msg.state.indexh, msg.state.indexv, msg.state.indexf];
                 var stateArg = [msg.state];
@@ -614,8 +615,8 @@
                 virtualclass.sharePt.pptUrl = urlValue + "?postMessage=true&postMessageEvents=true";
                 //https://192.168.1.105/revealjs/index.html#/?postMessage=true&postMessageEvents=true
                 frame.setAttribute("src", virtualclass.sharePt.pptUrl);
-                ioAdapter.mustSend({pptMsg: "displayframe", cf: 'ppt', uid: wbUser.id, user: "all", presentation: true});
-                ioAdapter.mustSend({pptMsg: urlValue, cf: 'ppt', uid: wbUser.id, user: "all", urlFlag: "url", presentation: true});
+                ioAdapter.mustSend({pptMsg: "displayframe", cf: 'ppt', uid: wbUser.id, user: "all"});
+                ioAdapter.mustSend({pptMsg: urlValue, cf: 'ppt', uid: wbUser.id, user: "all", urlFlag: "url"});
                 frame.style.display = "visible";
 
             },
@@ -812,7 +813,7 @@
                  * display message on student's screen that ppt is going to be shared
                  */
                 messageDisplay: function() {
-                    debugger;
+                    //debugger;
                     var pptContainer = document.getElementById("virtualclassSharePresentation");
                     var messageLayoutId = 'pptMessageLayout';
                     if (document.getElementById(messageLayoutId) == null) {

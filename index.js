@@ -378,7 +378,8 @@ $(document).ready(function () {
                     removeSessionEndTool(); // remove session tool if there is any
                 }
             }
-
+            
+            
             if(virtualclass.gObj.hasOwnProperty('doEndSession') && virtualclass.joinUser.role == 't'){
                 overrideRoleTeacher();
                 console.log('From localStorage, perform the override role action');
@@ -869,7 +870,7 @@ $(document).ready(function () {
             virtualclass.makeAppReady(virtualclass.apps[0]);
         };
         this.ppt = function(e) {
-            debugger;
+            //debugger;
             if(e.fromUser.userid != virtualclass.gObj.uid){
                  if (e.message.hasOwnProperty('init')) {
                    

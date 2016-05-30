@@ -870,7 +870,7 @@
                     }
                     var btn = document.getElementById("submitpurl");
                     if (btn != null) {
-                        btn.addEventListener("click", virtualclass.sharePt.playPpt);
+                        btn.addEventListener("click", virtualclass.sharePt.initNewPpt);
                     }
                    // localStorage.setItem('uRole', virtualclass.gObj.uRole);
                 }
@@ -914,7 +914,7 @@
                     }
                     var btn = document.getElementById("submitpurl");
                     if (btn != null) {
-                        btn.addEventListener("click", virtualclass.sharePt.playPpt);
+                        btn.addEventListener("click", virtualclass.sharePt.initNewPpt);
                     }
                 }
                 if (!roles.hasAdmin()) {

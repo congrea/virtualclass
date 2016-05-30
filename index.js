@@ -870,14 +870,13 @@ $(document).ready(function () {
             virtualclass.makeAppReady(virtualclass.apps[0]);
         };
         this.ppt = function(e) {
-            //debugger;
             if(e.fromUser.userid != virtualclass.gObj.uid){
-                 if (e.message.hasOwnProperty('init')) {
-                   
+                if (e.message.hasOwnProperty('init')) {
                     virtualclass.makeAppReady(virtualclass.apps[5]);
-                }else if(e.message.cf="ppt") 
-                //virtualclass.makeAppReady(virtualclass.apps[5]); 
-               virtualclass.sharePt.onmessage(e.message);
+                }else {
+                    virtualclass.sharePt.onmessage(e.message);
+                } 
+                    
             }
         };
 

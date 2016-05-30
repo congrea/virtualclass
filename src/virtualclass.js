@@ -478,15 +478,16 @@
                     if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
                         this.prevScreen.unShareScreen();
                     }
-                    if (typeof this.previous != 'undefined') {
-                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
-                            virtualclass.vutil.beforeSend({'ppt': true,init:'makeAppReady', cf: 'ppt'});
-                        }
-                    }
+                    
+//                    if (typeof this.previous != 'undefined') {
+//                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
+//                            virtualclass.vutil.beforeSend({'ppt': true,init:'makeAppReady', cf: 'ppt'});
+//                        }
+//                    }
                     this.sharePt = new window.sharePt();
-                    //this.sharePt.pptS();
+                    
                     console.log(virtualclass.sharePt.pptUrl);
-                    this.sharePt.init();
+                    this.sharePt.init(app, cusEvent);
                     console.log(virtualclass.sharePt.pptUrl);
                     this.previous = virtualclass.ptConfig.id;
                 },

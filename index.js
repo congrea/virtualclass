@@ -874,9 +874,14 @@ $(document).ready(function () {
                 if (e.message.hasOwnProperty('init')) {
                     virtualclass.makeAppReady(virtualclass.apps[5]);
                 }else {
+                    if(typeof virtualclass.sharePt != 'object'){
+                        //If virtualclass.ssharePt is not ready at participate side, then we
+                        // will create it first then only proceed to next ppt packet
+                        virtualclass.makeAppReady(virtualclass.apps[5]);
+                        virtualclass.sharePt.onmessage({pptMsg: e.message.ppt.init,  cf: 'ppt',  user: "all", cfpt : 'setUrl'});
+                    } 
                     virtualclass.sharePt.onmessage(e.message);
                 } 
-                    
             }
         };
 

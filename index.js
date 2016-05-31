@@ -470,9 +470,10 @@ $(document).ready(function () {
             }else if(virtualclass.currApp === 'SharePresentation'){
                 console.log("sharePPt");
                 //debugger;
-                if(typeof virtualclass.sharePt== 'object'){
+                if(typeof virtualclass.sharePt == 'object'){
                     ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
                 } else {
+                    // TODO Need more validation  from nirmala
                     ioAdapter.mustSendUser({'ppt': {'init' : 'studentlayout'}, 'cf': 'ppt'}, virtualclass.jId);
                 }
             }

@@ -604,7 +604,7 @@
                 }
                 
                 if(typeof virtualclass.sharePt == 'object') {
-                    virtualclass.sharePt.removeIframe();
+                    virtualclass.sharePt.UI.removeIframe();
                 }
 
                 console.log('Session End.');

@@ -511,6 +511,15 @@
                 }
             },
             
+            toProtocolRelativeUrl : function (){
+                var url = virtualclass.sharePt.urlValue;
+                if(url.indexOf('http') >= 0){
+                    return url.replace(/http:\/\/|https:\/\//, '//');
+                } else {
+                    return ('//' + url);
+                }
+                
+            },
             
             /*
              *event handler on click of submit button of the url at teacher's end
@@ -518,8 +527,7 @@
              *calls function to validate the entered url 
              * @param receivemsg  received message by the student 
              */
-            initNewPpt : function(event) {
-                var that = this;
+            initNewPpt : function() {
                 
                 virtualclass.sharePt.autoSlideTime = 0;
                 virtualclass.sharePt.autoSlideFlag = 0;
@@ -545,35 +553,16 @@
                
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
                 
+                virtualclass.sharePt.urlValue =   virtualclass.sharePt.toProtocolRelativeUrl();
                 
-                // ip , with or without https
-                // embeded
-                // Normal with or without https
-                // Nomal specail character, add post message
                 if (virtualclass.sharePt.isUrlip(virtualclass.sharePt.urlValue)) {
-                    
-                    var posHttps = virtualclass.sharePt.urlValue.search("https");
-                    var posHttp = virtualclass.sharePt.urlValue.search("http");
-                    if (posHttp >= 0 && posHttps < 0) {
-                        virtualclass.sharePt.urlValue = virtualclass.sharePt.urlValue.replace("http", "https");
-                    } else {
-                        virtualclass.sharePt.urlValue = "https://" + virtualclass.sharePt.urlValue;
-                    }
-                    if (/\/$/.test(virtualclass.sharePt.urlValue)) {
-                        var urlValue = virtualclass.sharePt.urlValue;
-                    } else {
-                         var urlValue = virtualclass.sharePt.urlValue + "/";
-                    }
-                        virtualclass.sharePt.setPptUrl(urlValue);
-                } else if (virtualclass.sharePt.validURL(virtualclass.sharePt.urlValue)) {
-                  
-                    var cleanedUrl = virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue);
-                    var urlValue = virtualclass.sharePt.completeUrl(cleanedUrl);
-                    virtualclass.sharePt.setPptUrl(urlValue);
-                } else if (virtualclass.sharePt.urlValue.search("iframe") > 0) {
+                    virtualclass.sharePt.setPptUrl(virtualclass.sharePt.urlValue);
+                } else if (virtualclass.sharePt.urlValue.search("<iframe") > 0) {
                     var etUrl = virtualclass.sharePt.extractUrl(virtualclass.sharePt.urlValue);
-                    var urlValue = "https:" + etUrl;
-                    virtualclass.sharePt.setPptUrl(urlValue);
+                    virtualclass.sharePt.setPptUrl(etUrl);
+                }  else if (virtualclass.sharePt.validURLWithDomain(virtualclass.sharePt.urlValue)) {
+                    var cleanedUrl = virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue);
+                    virtualclass.sharePt.setPptUrl(virtualclass.sharePt.completeUrl(cleanedUrl));
                 } else {
                     alert("Invalid URL");
                 }
@@ -597,10 +586,11 @@
                 console.log("test+set ppt url function");
                 var elem = document.getElementById("iframecontainer");
                 elem.style.display = "block";
+                
                 var frame = document.getElementById("pptiframe");
                 console.log("completeurl" + urlValue);
                 virtualclass.sharePt.pptUrl = urlValue + "?postMessage=true&postMessageEvents=true";
-                //https://192.168.1.105/revealjs/index.html#/?postMessage=true&postMessageEvents=true
+                
                 frame.setAttribute("src", virtualclass.sharePt.pptUrl);
                 ioAdapter.mustSend({pptMsg: "displayframe", cf: 'ppt', user: "all", cfpt : 'displayframe'});
                 ioAdapter.mustSend({pptMsg: urlValue, cf: 'ppt',  user: "all", cfpt : 'setUrl'});
@@ -611,81 +601,45 @@
              * Validate url 
              * @param str url to validate
              */
-            validURL: function(str) {
-                //debugger;
-                var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-                if (!regex.test(str)) {
-                    return false;
-                } else {
-                    return true;
-                }
+            validURLWithDomain: function(str) {
+                var regex = /^\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+                return regex.test(str);
             },
             /*
              * adding embed and https if not present in the url
              * @param str completing the url 
              */
             completeUrl: function(str) {
-                //debugger;
-                var posHttps = str.search("https");
-                var posHttp = str.search("http");
-                if (posHttps >= 0) {
-                    if (str.search("slides.com") > 0) {
-                        var posEmbed = str.search("embed");
-                        if (posEmbed < 0) {
-                            var str = str + "/embed";
-                            return str;
-                        }
-                    } else {
-                        return str;
-                    }
-                } else if (posHttp >= 0) {
-                    var str = str.replace("http", "https");
-                    if (str.search("slides.com") > 0) {
-                        var posEmbed = str.search("embed");
-                        if (posEmbed < 0) {
-                            var str = str + "/embed";
-                        }
-                        return str;
-                    } else {
-                        return str;
-                    }
+                if (str.search("slides.com") > 0 && str.search("embed") < 0) {
+                    str = str + "/embed";
                 }
+                return str;
             },
+            
+           
             /*
              * extract url from the complete iframe text
              * @param str complete embedded iframe text is entered in the textbox
              */
+            
             extractUrl: function(str) {
-                var posSrc = str.search("src");
-                if (posSrc > 2) {
+                if (str.search("src") > 0) {
                     var pos = str.match(/"(.*?)"/);
+                    if(pos.length > 0){
+                        return JSON.parse(pos[0]);
+                    }
                 }
-                if (typeof pos != 'undefined') {
-                    var str1 = pos[0];
-                    str1 = JSON.parse(str1);
-                    return str1;
-                }
+                return str;
             },
+           
             /*
              * if entered url is an ip address return true else return false
              * @param str to check for an ip 
              */
             isUrlip: function(str) {
-                //;
-                var posHttps = str.search("https");
-                var posHttp = str.search("http");
-                if (posHttps >= 0) {
-                    str.slice(0, 5);
-                }
-                else if (posHttp >= 0)
-                {
-                    str.slice(0, 4);
-                }
-                if (/(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(str))
-                {
-                    return (true);
-                }
-                return (false);
+                // removing // from url
+                str.slice(0, 2);
+                return (/(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(str));
             },
             /*
              * Save the previous  objet in the localstorag on page refresh
@@ -693,7 +647,7 @@
              */
             saveIntoLocalStorage: function(prvAppObj) {
                 //debugger;
-                if (this.validURL(prvAppObj.metaData.init)) {
+                if (this.validURLWithDomain(prvAppObj.metaData.init) || this.isUrlip(prvAppObj.metaData.init)) {
                     localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
                     console.log(prvAppObj);
                     localStorage.setItem('ppt' + '_state', JSON.stringify(prvAppObj.metaData.startFrom));
@@ -853,25 +807,7 @@
                         urlc.appendChild(btn);
                     }
                 },
-                /*
-                 * 
-                 * remove url container
-                 */
-//                removeUrlContainer: function() {
-//                    var child = document.getElementById('urlcontainer');
-//                    if (child != null) {
-//                        var target = document.getElementById(this.id);
-//                        if (target.hasChildNodes())
-//                        {
-//                            var children = new Array();
-//                            children = target.childNodes;
-//                            for (child in children)
-//                            {
-//                                target.removeChild[child];
-//                            }
-//                        }
-//                    }
-//                },
+          
                 /*
                  * 
                  * display message on student's screen that ppt is going to be shared
@@ -894,25 +830,6 @@
                     }
                 }
                 
-                /*
-                 * remove the message from the student's screen that ppt is going to be shared
-                 */
-//                removeMessage: function() {
-//                    //debugger;
-//                    var child = document.getElementById('pptMessageLayout');
-//                    if (child != null) {
-//                        var target = document.getElementById("virtualclassSharePresentation");
-//                        if (target.hasChildNodes())
-//                        {
-//                            var children = new Array();
-//                            children = target.childNodes;
-//                            for (child in children)
-//                            {
-//                                target.removeChild[child];
-//                            }
-//                        }
-//                    }
-//                }
             }
         };
     }

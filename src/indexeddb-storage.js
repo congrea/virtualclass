@@ -602,11 +602,9 @@
                 if(typeof virtualclass.yts == 'object'){
                     clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
                 }
+                
                 if(typeof virtualclass.sharePt == 'object') {
-                    var elem = document.getElementById('pptiframe')
-                    if(elem) {
-                    elem.parentNode.removeChild(elem);
-                }
+                    virtualclass.sharePt.removeIframe();
                 }
 
                 console.log('Session End.');

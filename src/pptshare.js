@@ -133,9 +133,10 @@
                         messageContainer.style.display = "none";
                     }
                     urlCont.style.display = "block";
-
-                    var btn = document.getElementById("submitpurl");
-                    btn.addEventListener("click", that.initNewPpt);
+                    
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                    
+                    
 
                 }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');
@@ -424,7 +425,9 @@
                         msgLayout.style.display = "none";
                     }
                     
-                    if(receivemsg.hasOwnProperty('cfpt') && typeof receivemsg.cfpt != 'undefined'){
+                    
+                    
+                    if(receivemsg.hasOwnProperty('cfpt') && typeof receivemsg.cfpt != 'undefined' && typeof virtualclass.sharePt.cfpt[receivemsg.cfpt] != 'undefined'){
                         virtualclass.sharePt.cfpt[receivemsg.cfpt].call(virtualclass.sharePt, receivemsg);
                     }
                 }
@@ -701,6 +704,79 @@
                     localStorage.setItem('autoSlideFlag', JSON.stringify(virtualclass.sharePt.autoSlideFlag));
                 }
             },
+            initTeacherLayout : function (){
+                var frame = document.getElementById("pptiframe");
+                if (document.getElementById("pptiframe") != null) {
+                    var configValues = {controls: true,keyboard:true,progress:true,touch:true};
+                    var autoSlideTime;
+                    
+                    if(virtualclass.sharePt.autoSlideTime && virtualclass.sharePt.autoSlideFlag){
+                        autoSlideTime = virtualclass.sharePt.autoSlideTime;
+                    } else if(virtualclass.sharePt.autoSlideFlag){
+                       autoSlideTime =  6000;
+                    }
+                    
+                    if(typeof autoSlideTime != 'undefined' && autoSlideTime > 1000){
+                        configValues.autoSlide = autoSlideTime;
+                    }
+                    
+                    
+                    //frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: true,keyboard:true,progress:true,touch:true}]}), '*');
+
+                    frame.contentWindow.postMessage(JSON.stringify({method: "configure", args : [configValues]}), '*');
+                    
+                    frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
+                }
+                var pptMessageLayout = document.getElementById('pptMessageLayout');
+                if (pptMessageLayout != null) {
+                    pptMessageLayout.style.display = "none";
+                }
+                virtualclass.sharePt.UI.createUrlContainer();
+                document.getElementById('urlcontainer').style.display = "block";
+                virtualclass.sharePt.eventsObj = [];
+            },
+            
+            
+            initStudentLayout : function (){
+                var frame = document.getElementById("pptiframe");
+                virtualclass.sharePt.eventsObj = [];
+                virtualclass.sharePt.UI.messageDisplay();
+
+
+                if (document.getElementById("pptiframe") != null) {
+                    if(frame.src !=""){
+                       virtualclass.sharePt.hideElement('pptMessageLayout');
+                    }
+                    frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: false,autoSlide: 0,autoSlideStoppable: true,keyboard: false,progress: false,touch: false}]}), '*');
+                }else {
+                    virtualclass.sharePt.displayElement('pptMessageLayout');
+                }
+                virtualclass.sharePt.hideElement('urlcontainer');
+            },
+            
+            
+            hideElement : function (id){
+                var element = document.getElementById(id);
+                if(element != null){
+                    element.style.display = 'none';
+                }
+            },
+            
+            displayElement : function (id){
+                var element = document.getElementById(id);
+                if(element != null){
+                    element.style.display = 'block';
+                }
+            },
+            
+            
+            attachEvent : function (id, eventName, handler){
+              var  elem = document.getElementById(id);
+                if(elem != null){
+                    elem.addEventListener(eventName, handler)
+                }
+            },
+            
             UI: {
                 id: 'virtualclassSharePresentation',
                 class: 'virtualclass',
@@ -738,6 +814,7 @@
                         pptCtr.appendChild(contDiv);
                         contDiv.style.display = "none";
                     }
+                    
                     var elem = document.createElement("div");
                     elem.setAttribute("id", "iframecontainer");
                     elem.style.height = '100%';
@@ -809,6 +886,14 @@
                         pptContainer.appendChild(studentMessage);
                     }
                 },
+                
+                removeIframe : function (){
+                    var elem = document.getElementById('pptiframe')
+                    if(elem) {
+                        elem.parentNode.removeChild(elem);
+                    }
+                }
+                
                 /*
                  * remove the message from the student's screen that ppt is going to be shared
                  */

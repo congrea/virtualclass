@@ -540,7 +540,7 @@
                         startFrom: virtualclass.sharePt.state
                     };
                     console.log("start From"+virtualclass.sharePt.state);
-                    virtualclass.sharePt.saveIntoLocalStorage(prvAppObj, virtualclass.sharePt.pptUrl, virtualclass.sharePt.state);
+                    virtualclass.sharePt.saveIntoLocalStorage(prvAppObj);
                 } else {
                     prvAppObj.metaData = null; // if video is not started to share.
                 }
@@ -552,9 +552,6 @@
                 if (virtualclass.currApp == 'Yts') {
                     var prvAppObj = {"name": "Yts", "metaData": null};
                 }
-//                if (virtualclass.currApp == 'Yts') {
-//                    var prvAppObj = {"name": "SharePresentation", "metaData": null};
-//                }
             }
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
@@ -790,24 +787,16 @@
             }
 
             if (typeof studentId != 'undefined') {
-                //alert('role student');
                 if (roles.isEducator()) {
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                    //   localStorage.removeItem('reclaim');
                     virtualclass.vutil.removeClass('virtualclassCont', 'educator');
-
                 } else {
-
                     virtualclass.vutil.addClass('virtualclassCont', 'presenter')
 
                 }
-
-                if (!roles.hasAdmin()) {
-                    virtualclass.gObj.uRole = 'p'; // P for Presenter
-                } else {
-                    virtualclass.gObj.uRole = 't'; // T for Teacher
-                }
+                
+                virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 'p' : 't';
 
                 localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
 
@@ -834,9 +823,8 @@
                     } else {
                         console.log('Player object is not ready');
                     }
-                }
-                if (virtualclass.currApp == 'SharePresentation') {
-                    //debugger;
+                } else if (virtualclass.currApp == 'SharePresentation') {
+                    
                     var virtualclassppt = document.getElementById('virtualclassSharePresentation');
                     if (virtualclassppt != null) {
                         if (document.getElementById('iframecontainer') == null) {
@@ -845,34 +833,17 @@
                     } else {
                         virtualclass.sharePt.UI.container();
                     }
-                    var frame = document.getElementById("pptiframe");
+                    
                     if (roles.hasControls()) {
-                        if (document.getElementById("pptiframe") != null) {
-                            frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: true,keyboard:true,progress:true,touch:true}]}), '*');
-                            if(virtualclass.sharePt.autoSlideTime && virtualclass.sharePt.autoSlideFlag){
-                                frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{autoSlide:virtualclass.sharePt.autoSlideTime}]}), '*');
-                            }else {
-                                if(virtualclass.sharePt.autoSlideFlag) {
-                                 frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{autoSlide:6000}]}), '*');
-                               }
-                            }
-                            frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
-                        }
-                        if (document.getElementById('pptMessageLayout') != null) {
-                            document.getElementById('pptMessageLayout').style.display = "none";
-                        }
-                        virtualclass.sharePt.UI.createUrlContainer();
-                        document.getElementById('urlcontainer').style.display = "block";
-                        virtualclass.sharePt.eventsObj = [];
+                        virtualclass.sharePt.initTeacherLayout();
                     }
+                    
                     if (roles.hasView()) {
                         virtualclass.sharePt.eventsObj = [];
                     }
-                    var btn = document.getElementById("submitpurl");
-                    if (btn != null) {
-                        btn.addEventListener("click", virtualclass.sharePt.initNewPpt);
-                    }
-                   // localStorage.setItem('uRole', virtualclass.gObj.uRole);
+                    
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                   
                 }
 
             } else {
@@ -884,44 +855,23 @@
                 }
 
                 if (virtualclass.currApp == 'SharePresentation') {
-                    //debugger;
-                    var frame = document.getElementById("pptiframe");
+                    
                     if (roles.hasControls()) {
-                            virtualclass.sharePt.eventsObj = [];
-                            virtualclass.sharePt.UI.messageDisplay();
-                            document.getElementById('pptMessageLayout').style.display="block";
-                            if (document.getElementById("pptiframe") != null) {
-                                if(frame.src !=""){
-                                   if(document.getElementById('pptMessageLayout') !=null){
-                                        document.getElementById('pptMessageLayout').style.display="none";
-                                    }
-                                }
-                                frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: false,autoSlide: 0,autoSlideStoppable: true,keyboard: false,progress: false,touch: false}]}), '*');
-                            }
-                           if (document.getElementById('urlcontainer') != null) {
-                               //debugger;
-                            document.getElementById('urlcontainer').style.display = "none";
-                          }
+                         virtualclass.sharePt.initStudentLayout();
                     }
+                    
                     if (roles.hasView()) {
-                         virtualclass.sharePt.eventsObj = [];
-                        if (document.getElementById('pptMessageLayout') != null) {
-                            document.getElementById('pptMessageLayout').style.display = "none";
-                        }
+                        virtualclass.sharePt.eventsObj = [];
+                        virtualclass.sharePt.hideElement('pptMessageLayout');
                         virtualclass.sharePt.UI.createUrlContainer();
-                        document.getElementById('urlcontainer').style.display = "block";
-
+                        virtualclass.sharePt.displayElement('urlcontainer');
                     }
-                    var btn = document.getElementById("submitpurl");
-                    if (btn != null) {
-                        btn.addEventListener("click", virtualclass.sharePt.initNewPpt);
-                    }
+                    
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
                 }
-                if (!roles.hasAdmin()) {
-                    virtualclass.gObj.uRole = 's';
-                } else {
-                    virtualclass.gObj.uRole = 'e';
-                }
+                
+                virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 's' : 'e';
+                
                 var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                 if (cmdToolsWrapper != null) {
                     while (cmdToolsWrapper.hasChildNodes()) {

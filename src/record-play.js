@@ -16,7 +16,6 @@
         document.body.removeChild(event.target);
     }
     var errorCodes = ['VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing', "invalidurl"];
-
     var fromFille = 0;
     var recorder = {
         items: [],
@@ -442,12 +441,9 @@
             pbar.appendChild(downloadLinkCont);
 
             this.alreadyDownload = true;
-
             virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
-
                 // diconnecting with others for prevent to send any unknown packets.
                 virtualclass.gObj.saveSession = true;
-
                 var downloadButton = document.createElement('button');
                 downloadButton.id = 'downloadButton';
                 downloadButton.innerHTML = virtualclass.lang.getString('downloadFile');
@@ -460,7 +456,6 @@
                 downloadLink.innerHTML = virtualclass.lang.getString('download');
                 downloadMsg.innerHTML = virtualclass.lang.getString('filenotsave');
                 downloadLinkCont.appendChild(downloadButton);
-
                 var recordingHeaderCont = document.getElementById('recordingHeader');
                 recordingHeaderCont.innerHTML = virtualclass.lang.getString('downloadFile');
 
@@ -484,6 +479,7 @@
                         document.body.appendChild(downloadLink);
                     }
                     downloadLink.click();
+
 
                     recordingHeaderCont = document.getElementById('recordingHeader');
                     recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsession'); // reset the value for upload message for next time
@@ -530,6 +526,7 @@
                         if(e.data.status == 'done'){
                             console.log('Recorder:- done');
                             delete virtualclass.recorder.startUpload;
+
                             virtualclass.recorder.recordDone = true;
                         }
                     }

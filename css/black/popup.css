@@ -341,9 +341,9 @@ transition:all .2s linear;
 
 
 #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont #popupContainer #replayContainer #replayButton, #virtualclassCont #playButton{
-	background-image: none;
-	background-color: #34404c;
-	color: #fff;
+    background-image: none;
+    background-color: #34404c;
+    color: #fff;
     font-weight: bold;
     border-radius: 20px;
     border: none;
@@ -385,7 +385,9 @@ transition:all .2s linear;
 }
 
 #virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont .rv-vanilla-modal, #virtualclassCont #confirm.popupWindow.simple-box{
+
 	border-radius: 10px !important;
+
 } 
 
 #virtualclassCont #downloadProgress{
@@ -398,16 +400,18 @@ transition:all .2s linear;
 #virtualclassCont #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
 	background-color: #a6c24e;
 	font-weight: normal;
-	padding: 12px 24px;
+        padding: 12px 24px;
 	border-radius: 5px !important;
 	color:#fff !important;
+
 }
 #virtualclassCont #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
 	background-color: #ccc;
 	font-weight: normal;
 	padding: 10px 22px;
-	border-radius: 5px !important;
+        border-radius: 5px !important;
 	color:#555 !important;
+
 }
 
 #virtualclassCont #speakerPressingAnch #speakerPressingtext{

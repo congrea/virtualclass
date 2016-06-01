@@ -3,7 +3,7 @@
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
             isPlayMode :playMode,
-            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode'],
+            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode','SharePresentation'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
 
@@ -37,6 +37,7 @@
             },
 
             init: function (urole, app, videoObj) {
+             
                 var wbUser = window.wbUser;
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
@@ -62,23 +63,27 @@
                 this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
                 this.edConfig = {id: "virtualclass" + this.apps[3], classes: "appOptions"};
                 this.edCodeConfig = {id: "virtualclass" + this.apps[4], classes: "appOptions"};
+                this.ptConfig = {id: "virtualclass" + this.apps[5], classes: "appOptions"};
 
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
                 this.lang.getString = window.getString;
                 this.lang.message = window.message;
                 this.vutil = window.vutil;
-                this.media = window.media;
-                //    this.chat = window.chat;
+                this.media = window.media
+                this.sharePt= window.sharePt;
                 this.system = window.system;
                 this.recorder = window.recorder;
                 this.converter = window.converter;
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
-
                 this.storage = window.storage;
-                //if (virtualclass.system.indexeddb) {
-                
+//                this.storage.init(function () {
+//                    if (!virtualclass.vutil.isPlayMode()) {
+//                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
+//                    }
+//                });
+     
                 if(this.system.isIndexedDbSupport()){
                     this.storage.init(function () {
                     if (!virtualclass.vutil.isPlayMode()) {
@@ -88,9 +93,8 @@
                 }else {
                     console.log('Indexeddb does not support');
                 }
-               
-                this.dirtyCorner = window.dirtyCorner;
 
+                this.dirtyCorner = window.dirtyCorner;
                 this.html.init(this);
                 this.adapter = window.adapter;
 
@@ -174,6 +178,7 @@
                 //TODO this should be created throught the simple html
                 // Create left virtualclass app bar
                 leftAppBar: function () {
+                    //debugger;
                     var appsLen = document.getElementsByClassName('appOptions');
                     if (appsLen.length > 0) {
                         return; //which means the left app bar is already created
@@ -188,6 +193,7 @@
                     this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
                     this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
                     this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
+                    this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
 
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.view.disableSSUI();
@@ -219,8 +225,6 @@
                     var iconButton = document.createElement('span');
                     iconButton.className = "icon-" + text;
                     ancTag.appendChild(iconButton);
-
-
                     ancTag.dataset.title = virtualclass.lang.getString(text);
                     ancTag.className = 'tooltip';
 
@@ -232,6 +236,8 @@
                     } else {
                         cmdToolsWrapper.appendChild(lDiv);
                     }
+                    
+                   
                 },
 
                 //todo transfered into vutility
@@ -254,13 +260,15 @@
 
             //TODO dispvirtualclassLayout should be renamed it with dispvirtualclassLayout
             dispvirtualclassLayout: function (appId) {
-                //appId =
                 if (typeof this.previous != 'undefined') {
                     //TODO this should be handle by better way, this is very rough
                     // remove case situation
                     if (this.previous.toUpperCase() != ('virtualclass' + this.currApp).toUpperCase()) {
+                        //try{
                         document.getElementById(virtualclass.previous).style.display = 'none';
-
+//                        }catch(e){
+//                            
+//                        }
                         if (typeof appId != 'undefined') {
                             if (appId.toUpperCase() == "EDITORRICH") {
                                 var editorCode = document.getElementById("virtualclassEditorCode");
@@ -298,19 +306,14 @@
                 if (appElement != null) {
                     appElement.style.display = 'block';
                     console.log('App ' + appId + ' block');
-
                 }
             },
 
             makeAppReady: function (app, cusEvent, videoObj) {
                 console.log('Application is ready' + app);
-
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
-
                 console.log('Current App init ' + this.currApp);
-
-                //TODO this should be simplyfied
                 if (app != this.apps[1]) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && roles.hasControls()) {
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
@@ -334,11 +337,25 @@
                 }
                 
                 // call the function with passing dynamic variables
-                this.appInitiator[app].apply(virtualclass,  Array.prototype.slice.call(arguments));
-
+                if (app == "SharePresentation") {
+                    //debugger;
+                    if ("virtualclass" + app != virtualclass.previous) {
+                        this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+                    }
+                } else {
+                    var prevapp = localStorage.getItem('prevApp');
+                    if (prevapp != null) {
+                        var preapp = JSON.parse(prevapp);
+                        if (preapp['name'] == "SharePresentation") {
+                            preapp['name'] = "";
+                            localStorage.setItem("prevApp", JSON.stringify(preapp));
+                        }
+                    }
+                    this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+                }
                 this.previrtualclass = this.previous;
 
-                if (app != this.apps[0] && app != this.apps[1]) {
+                if (app != this.apps[0] && app != this.apps[1] ) {
                     virtualclass.system.setAppDimension();
                 }
 
@@ -350,6 +367,7 @@
             // Helper functions for making the app is ready
             appInitiator : {
                 Whiteboard : function (app, cusEvent){
+                   // debugger;
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
@@ -365,20 +383,18 @@
                         this.wb = new window.whiteboard(this.wbConfig);
                         this.wb.utility = new window.utility();
                         this.wb.alreadyReplay = false;
-                        //this.view = window.view;
-
                         this.wb.packContainer = new window.packContainer();
                         this.wb.draw_object = window.draw_object;
                         this.wb.makeobj = window.makeobj;
                         this.wb.readyFreeHandObj = window.readyFreeHandObj;
                         this.wb._replay = _replay;
                         this.wb.readyTextObj = window.readyTextObj;
-
                         this.wb.bridge = window.bridge;
                         this.wb.response = window.response;
                         virtualclass.wb.utility.displayCanvas(); // TODO this should be invoke only once
 
                         if (roles.hasControls()) {
+                            //debugger;
                             virtualclass.wb.utility.setOrginalTeacherContent(app);
                             virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
@@ -422,6 +438,7 @@
                     if(roles.hasControls() && virtualclass.gObj.resize){
                         virtualclass.wb.utility.lockvirtualclass();
                     }
+
                 },
                 
                 ScreenShare : function (app){
@@ -453,8 +470,29 @@
                     this.appInitiator.editor.call(virtualclass, app);
                 },
                 
+                SharePresentation: function(app, cusEvent) {
+                    if (typeof this.ss == 'object') {
+                        this.ss.prevStream = false;
+                    }
+                    
+                    if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
+                        this.prevScreen.unShareScreen();
+                    }
+                    
+//                    if (typeof this.previous != 'undefined') {
+//                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
+//                            virtualclass.vutil.beforeSend({'ppt': true,init:'makeAppReady', cf: 'ppt'});
+//                        }
+//                    }
+                    this.sharePt = new window.sharePt();
+                    
+                    console.log(virtualclass.sharePt.pptUrl);
+                    this.sharePt.init(app, cusEvent);
+                    console.log(virtualclass.sharePt.pptUrl);
+                    this.previous = virtualclass.ptConfig.id;
+                },
                 
-                editor : function (app){
+                editor: function(app) {
                     //showing controllers from footer
                     this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'), app.length), 'block');
 
@@ -493,6 +531,7 @@
             },
                
             attachFunction: function () {
+               //debugger;
                 var allAppOptions = document.getElementsByClassName("appOptions");
                 for (var i = 0; i < allAppOptions.length; i++) {
                     var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
@@ -518,13 +557,12 @@
 
 
                                     virtualclass.clearSession();
-                                    // set teacher role on localstorage
-                                    // if student become teacher, does session end
                                     if(virtualclass.gObj.hasOwnProperty('beTeacher')){
                                         if(roles.isTeacher()){
                                             localStorage.setItem('uRole', 't');
                                         }
                                     }
+
                                 }
                             )
                         } else {
@@ -550,6 +588,7 @@
 
 
                 } else {
+                    
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     //  this.currApp = appName; //could be dangerous
                     if (!this.PrvAndCurrIsWss(this.previous, appName)) {

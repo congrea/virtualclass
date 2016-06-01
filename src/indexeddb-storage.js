@@ -430,6 +430,7 @@
                         if (parseInt(cursor.value.serialKey) > ioAdapter.serial) {
                             ioAdapter.serial = parseInt(cursor.value.serialKey);
                         }
+                        //debugger;
                         ioAdapter.adapterMustData[ioAdapter.serial] = data;
                     }
                     cursor.continue();
@@ -450,6 +451,7 @@
                         if (serial > ioAdapter.userSerial[uid]) {
                             ioAdapter.userSerial[uid] = serial;
                         }
+                        //debugger;
                         ioAdapter.userAdapterMustData[uid][serial] = data;
                     }
                     cursor.continue();
@@ -519,6 +521,7 @@
             },
 
             createNewSession: function () {
+                //debugger;
                 virtualclass.recorder.sessionKey = randomString(11);
                 //virtualclass.editorRich.init(0, [], "", "");
                 if(roles.hasAdmin()){
@@ -539,12 +542,14 @@
             },
 
             endSession: function (onlyStoredData) {
+                //debugger;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 localStorage.clear();
 
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
+
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
                 if(virtualclass.recorder.hasOwnProperty('startUpload')){
@@ -575,6 +580,7 @@
 
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 if (!virtualclass.hasOwnProperty('notPLayed')) {
+                    //debugger;
                     virtualclass.storage.clearStorageData();
                 }
                 //var prvAppObj = {name : "EditorRich"};
@@ -595,6 +601,10 @@
                 }
                 if(typeof virtualclass.yts == 'object'){
                     clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
+                }
+                
+                if(typeof virtualclass.sharePt == 'object') {
+                    virtualclass.sharePt.UI.removeIframe();
                 }
 
                 console.log('Session End.');
@@ -619,13 +629,16 @@
                 if(newEducator != null){
                     console.log('Editor mode enable');
                     localStorage.setItem('editorRich', true);
-                     localStorage.setItem('editorCode', true);
+                    localStorage.setItem('editorCode', true);
                     localStorage.removeItem('nEd');
                 } else {
                     console.log('Editor mode disable');
                 }
-
+                
+                console.log('New role before clear ' + virtualclass.gObj.uRole);
+                //virtualclass.gObj.uRole // update the role at 
                 that.config.createNewSession();
+                console.log('New role after clear ' + virtualclass.gObj.uRole);
                 virtualclass.popup.waitMsg(); // until the web socket is connected.
             }
         },
@@ -637,7 +650,6 @@
         
 
         clearSingleTable : function (table){
-
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);

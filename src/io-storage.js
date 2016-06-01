@@ -15,7 +15,10 @@ var ioStorage = {
         storjobj = JSON.stringify(storObj);
         //getMsPckt, can not request the packets from other user during replay
         if (!msg.hasOwnProperty('sEnd') && !msg.hasOwnProperty('getMsPckt')) {
-            this.completeStorage(storjobj);
+            // this part need to be verified
+            if(msg.onrefresh != true) {
+              this.completeStorage(storjobj);
+            }
         }
     },
 
@@ -55,11 +58,13 @@ var ioStorage = {
     },
 
     dataUserAdapterMustData: function (allData, serialKey) {
+        //debugger;
         if (typeof virtualclass.storage == 'object' && typeof virtualclass.storage.db == 'object') {
             virtualclass.storage.dataUserAdapterAllStore(JSON.stringify(allData), serialKey);
         } else {
             setTimeout(
                 function () {
+                    //debugger;
                     ioStorage.dataUserAdapterMustData(allData, serialKey); //if table of indexeddb is not ready yet.
                 },
                 10

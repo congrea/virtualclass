@@ -300,7 +300,7 @@
                     if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorRich', action);
                     }
-                    
+
                     //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                     if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                         if(msg.status){
@@ -352,7 +352,6 @@
                     if (!roles.hasAdmin()) {
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
-                    
                     //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                     if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                         if(msg.status){
@@ -575,6 +574,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
+                    //debugger;
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
                     virtualclass.system.setAppDimension();

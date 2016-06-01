@@ -594,7 +594,7 @@
                     }
                     virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
                     virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
-                    
+      
                     // For handle editor's read only mode on iPad 
                     if(virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
                         if(writeMode){

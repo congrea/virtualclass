@@ -1214,7 +1214,7 @@ background-position: -64px -128px !important;
 	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
 	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
 	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-    background: #e0dcc3 !important; /* Old browsers */
+        background: #e0dcc3 !important; /* Old browsers */
 	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
@@ -1242,15 +1242,15 @@ background-position: -64px -128px !important;
 }
 
 .ui-widget-header {
-	 background-color: #d4d4d4 !important;
+     background-color: #d4d4d4 !important;
      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4)) !important;
      background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4) !important;
      background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4) !important;
      background-image: -o-linear-gradient(#fbfbfb, #d4d4d4) !important;
      background-image: linear-gradient(#fbfbfb, #d4d4d4) !important;
-	border: 1px solid #8f8f8f/*{borderColorHeader}*/ !important;
-	color: #222222/*{fcHeader}*/ !important;
-	font-weight: bold;
+     border: 1px solid #8f8f8f/*{borderColorHeader}*/ !important;
+     color: #222222/*{fcHeader}*/ !important;
+        font-weight: bold;
 }
 
 #tabs.ui-widget-content{

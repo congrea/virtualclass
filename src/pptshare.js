@@ -18,13 +18,13 @@
         if (virtualclass.currApp == "SharePresentation") {
             var frame = document.getElementById("pptiframe");
             var pptData = event.data;
-            var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;
+            var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;                                                                                                                                                                                                                                                                                                                                                                           
             
             
             
-            if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
-                   virtualclass.sharePt.state = pptData.state;
-            }
+                                                                                                                                                                                                                                                                                if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
+                                                                                                                                                                                                                                                                                       virtualclass.sharePt.state = pptData.state;
+                                                                                                                                                                                                                                                                                }
                 // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
             // we need to add over here 
    
@@ -539,6 +539,7 @@
                 virtualclass.sharePt.autoSlideTime = 0;
                 virtualclass.sharePt.autoSlideFlag = 0;
                 virtualclass.sharePt.localStoragFlag = 0;
+                virtualclass.sharePt.startFromFlag=0;
                 
                 virtualclass.sharePt.eventsObj = [];
                 virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};

@@ -93,7 +93,7 @@ $(document).ready(function () {
     } else {
         console.log('From locastorage:- beteacher not found');
     }
-
+    virtualclass.gObj.fromPageRefresh = true;
     // If was in play mode before, start with fresh data
     if (!virtualclass.isPlayMode &&  localStorage.getItem('mySession') === 'thisismyplaymode') {
         console.log('DELETE PlayMode Data');

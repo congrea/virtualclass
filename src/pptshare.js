@@ -19,8 +19,15 @@
             var frame = document.getElementById("pptiframe");
             var pptData = event.data;
             var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;
-            virtualclass.sharePt.state = pptData.state;
             
+            
+            
+            if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
+                   virtualclass.sharePt.state = pptData.state;
+            }
+                // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
+            // we need to add over here 
+   
             if (pptData.eventName == 'ready') {
                 
                 //TODO validate startFromFlag and localStoragFlag nirmala 
@@ -358,9 +365,9 @@
                 
                 setUrl : function (receivemsg){
                     
-                    virtualclass.sharePt.localStoragFlag=0;
-                    virtualclass.sharePt.stateLocalStorage=[];
-                    virtualclass.sharePt.state=[];
+                    virtualclass.sharePt.localStoragFlag = 0;
+                    virtualclass.sharePt.stateLocalStorage = {};
+                    virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
                     this.setSlideUrl(receivemsg);
                     var frame = document.getElementById("pptiframe");
                     frame.onload = function() {
@@ -534,8 +541,8 @@
                 virtualclass.sharePt.localStoragFlag = 0;
                 
                 virtualclass.sharePt.eventsObj = [];
-                virtualclass.sharePt.state=[];
-                virtualclass.sharePt.stateLocalStorage=[];
+                virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
+                virtualclass.sharePt.stateLocalStorage = {};
                  
                 localStorage.removeItem('autoSlideTime');
                 localStorage.removeItem('autoSlideFlag');
@@ -564,6 +571,7 @@
                     var cleanedUrl = virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue);
                     virtualclass.sharePt.setPptUrl(virtualclass.sharePt.completeUrl(cleanedUrl));
                 } else {
+                    console.log("Invalid Url");
                     alert("Invalid URL");
                 }
             },
@@ -649,8 +657,8 @@
                 //debugger;
                 if (this.validURLWithDomain(prvAppObj.metaData.init) || this.isUrlip(prvAppObj.metaData.init)) {
                     localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
-                    console.log(prvAppObj);
-                    localStorage.setItem('ppt' + '_state', JSON.stringify(prvAppObj.metaData.startFrom));
+                    console.log('ppt_state', prvAppObj.metaData.startFrom);
+                    localStorage.setItem('ppt_state', JSON.stringify(prvAppObj.metaData.startFrom));
                     console.log("savinlocal");
                     
                     localStorage.setItem('pptUrl', JSON.stringify(prvAppObj.metaData.init));

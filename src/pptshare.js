@@ -18,19 +18,18 @@
         if (virtualclass.currApp == "SharePresentation") {
             var frame = document.getElementById("pptiframe");
             var pptData = event.data;
-            var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;                                                                                                                                                                                                                                                                                                                                                                           
-            
-            
-            
-                                                                                                                                                                                                                                                                                if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
-                                                                                                                                                                                                                                                                                       virtualclass.sharePt.state = pptData.state;
-                                                                                                                                                                                                                                                                                }
-                // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
+            var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;
+
+
+            if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
+                   virtualclass.sharePt.state = pptData.state;
+            }
+            // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
             // we need to add over here 
-   
+
             if (pptData.eventName == 'ready') {
-                
-                //TODO validate startFromFlag and localStoragFlag nirmala 
+
+                //TODO validate startFromFlag and localStoragFlag nirmala
                 if(virtualclass.sharePt.localStoragFlag && !virtualclass.sharePt.startFromFlag) {
                     var state=virtualclass.sharePt.stateLocalStorage;
                     frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args: [state.indexh,state.indexv,state.indexf]}), '*');
@@ -75,7 +74,7 @@
 //                    virtualclass.sharePt.studentPpt = 0;
 //                    virtualclass.sharePt.studentPptReadyFlag = 0;
 //                }
-            }else if (roles.hasControls()) {
+            } else if (roles.hasControls()) {
                 console.log(pptData.eventName);
                 if (typeof pptData.eventName != 'undefined') {
                     virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
@@ -535,7 +534,8 @@
              * @param receivemsg  received message by the student 
              */
             initNewPpt : function() {
-                
+
+
                 virtualclass.sharePt.autoSlideTime = 0;
                 virtualclass.sharePt.autoSlideFlag = 0;
                 virtualclass.sharePt.localStoragFlag = 0;
@@ -575,6 +575,7 @@
                     console.log("Invalid Url");
                     alert("Invalid URL");
                 }
+                virtualclass.system.setAppDimension(); // add just the height of screen container
             },
             /*
              * Removes unnessary characters from the entered url, url copied from slides.com may contain hash  

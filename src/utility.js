@@ -132,6 +132,7 @@
                         }
 
                     } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
+
                         if (leftSideBarWidth > 0) {
                             rightOffSet = 12;
                         } else {
@@ -150,11 +151,14 @@
                 }
 
 
+
+                var reduceHeight = 70;
                 if (app == 'SharePresentation') {
-                    var reduceHeight = 120;
-                } else {
-                    var reduceHeight = 70;
+                    if(document.querySelector('#virtualclass' + app + '.pptSharing') != null){
+                        reduceHeight = 120;
+                    }
                 }
+
                 if (virtualclass.isPlayMode) {
                     reduceHeight += 75;
                 }

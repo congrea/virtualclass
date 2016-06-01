@@ -808,7 +808,7 @@
                         var url = document.createElement("input");
                         url.setAttribute("id", "presentationurl");
 
-                        url.setAttribute("placeholder", virtualclass.lang.getString('ppturl '));
+                        url.setAttribute("placeholder", virtualclass.lang.getString('ppturl'));
                         urlc.appendChild(url);
                      
                         var btn = document.createElement("input");

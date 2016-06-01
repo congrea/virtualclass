@@ -144,7 +144,8 @@
         'cnmissing' : 'Chunk number is missing',
         'sesseionkeymissing' : 'Session key is missing from Front End.', // from javascript
         'keymissing' :  'Your software(LMS/CMS)\'s key is is missing',
-        'invalidurl' :  'Your url is invalid'
+        'invalidurl' :  'Your url is invalid',
+        'ppturl' : 'Enter HTML5 Presentation Url.'
 
     };
     window.message = message;

@@ -226,17 +226,7 @@ if(isset($_GET['lname'])){
       </div>
 
     </div>
-<!--     <div id = "iframecontainer" style="display:none;"></div>
-        <div id = "urlcontainer" style="display:none;" >
-           
-            <input id ="presentationurl" placeholder ="place presentation url here"  />
-            <input type = "submit" id = "submitpUrl" value = "submit" />
-      
-        </div>-->
-    
-<!--    <div id="virtualclassYts" class="virtualclass" width="1400px" height="1200px">
-        <div id="player"></div>
-    </div>-->
+
 
 <?php
 

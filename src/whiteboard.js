@@ -46,7 +46,6 @@
              *
              */
             init: function () {
-
                 virtualclass.wb.vcan = window.vcan; //this would be done because of possibility of conflict
                 var vcan = virtualclass.wb.vcan;
                 virtualclass.wb.canvas = vcan.create('#canvas');
@@ -72,6 +71,7 @@
             },
 
             _init: function () {
+
                 virtualclass.wb.oTeacher = roles.hasAdmin();
 
                 if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
@@ -200,6 +200,7 @@
              * this funciton does create the canvas
              */
             createCanvas: function () {
+                //debugger;
                 var cmdToolsWrapper = document.createElement('div');
                 cmdToolsWrapper.id = vcan.canvasWrapperId;
                 vcan.canvasWrapperId = cmdToolsWrapper.id;
@@ -215,6 +216,7 @@
              * @param expects the mouse down event.
              */
             objInit: function (evt) {
+                //debugger;
                 if (roles.hasControls()) {
                     if (this.parentNode.id != 't_clearall') {
                         //call back function should be used as second parameter
@@ -262,6 +264,7 @@
              * @param id expects the  id of container which contains all the commands of div
              */
             attachToolFunction: function (id, alreadyCreated) {
+               // debugger;
                 virtualclass.wb.createCommand(alreadyCreated);
 			
                 var allDivs = document.getElementById(id).getElementsByTagName('div');
@@ -277,11 +280,13 @@
              *
              */
             toolInit: function (cmd, repMode, multiuser, myfunc) {
+                //debugger;
                 if (typeof virtualclass.wb.obj.drawTextObj == 'object' && virtualclass.wb.obj.drawTextObj.wmode == true) {
                     var ctx = vcan.main.canvas.getContext('2d');
                 }
                 var allChilds = virtualclass.wb.vcan.getStates('children');
                 if (allChilds.length > 0) {
+                   // debugger;
                     if (cmd != 't_clearall') {
                         if (typeof multiuser == 'undefined' || cmd != 't_replay') {
                             virtualclass.wb.utility.deActiveFrmDragDrop(); //after optimization NOTE:- this should have to be enable
@@ -291,6 +296,7 @@
                         }
                     }
                 } else {
+                    //debugger;
                     virtualclass.wb.vcan.main.action = "create";
                 }
 
@@ -313,6 +319,7 @@
                     }
                 } else if (cmd == 't_clearall') {
                     virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm) {
+                            //debugger;
                             if (!confirm) {
                                 return true;
                             }
@@ -337,6 +344,7 @@
                     );
 
                 } else if (cmd == 't_assign') {
+                    //debugger;
                     var toolHeight = localStorage.getItem('toolHeight');
                     if (toolHeight != null) {
                         virtualclass.vutil.beforeSend({
@@ -352,11 +360,13 @@
                         });
                     }
                 } else if (cmd == 't_reclaim') {
+                    //debugger;
                     virtualclass.wb.utility._reclaimRole();
                 }
 
                 if (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
                     && cmd != 't_reclaim') {
+                    //debugger;
                     virtualclass.wb.tool = new virtualclass.wb.tool_obj(cmd);
                     virtualclass.wb.utility.attachEventHandlers();
                 }
@@ -368,6 +378,7 @@
              * text and free draw are different case than other object
              */
             tool_obj: function (cmd) {
+                //debugger;
                 this.cmd = cmd;
                 //when other objecti.
                 if (cmd != 't_freeDrawing') {
@@ -399,7 +410,8 @@
              * it replays all the object the user would drawn
              */
             t_replayInit: function (repMode, myfunc) {
-                //virtualclass.wb.replay = virtualclass.wb._replay();
+                //debugger;
+                //virtual0class.wb.replay = virtualclass.wb._replay();
                 if (repMode == 'fromFile') {
                     virtualclass.gObj.chat.removeAllChat();
                     virtualclass.wb.recordAudio = true;

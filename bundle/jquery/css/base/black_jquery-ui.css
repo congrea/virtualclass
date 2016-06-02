@@ -868,10 +868,9 @@ body .ui-tooltip {
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover{
-	background-image: none !important;
+        background-image: none !important;
 	background-color: transparent !important;
 }
-
 
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -1223,7 +1222,7 @@ background-position: -64px -128px !important;
 	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
 	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
 	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-    background: #F7D18A !important; /* Old browsers */
+        background: #F7D18A !important; /* Old browsers */
 	background: -moz-linear-gradient(top,  #F7D18A 0%, #F4C161 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F7D18A), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #F7D18A 0%,#F4C161 100%) !important !important; /* Chrome10+,Safari5.1+ */
@@ -1243,7 +1242,7 @@ background-position: -64px -128px !important;
 }
 
 .ui-chatroom .ui-state-highlight{
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset !important;
+        -webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset !important;
 	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset) !important;
 	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset !important;
 	background: #f7d18a !important; /* Old browsers */
@@ -1254,12 +1253,12 @@ background-position: -64px -128px !important;
 	background: -ms-linear-gradient(top,  #f7d18a 0%,#f4c161 100%) !important; /* IE10+ */
 	background: linear-gradient(to bottom,  #f7d18a 0%,#f4c161 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d18a', endColorstr='#f4c161',GradientType=0 ) !important; /* IE6-9 */
-    border: 1px solid #aaaaaa !important;
+        border: 1px solid #aaaaaa !important;
 
 }
 
 .ui-widget-header {
-	background: #021317 !important; /* Old browsers */
+        background: #021317 !important; /* Old browsers */
 	background: -moz-linear-gradient(top, #021317 0%, #333636 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#021317), color-stop(100%,#333636)) !important; /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #021317 0%,#333636 100%) !important; /* Chrome10+,Safari5.1+ */
@@ -1269,7 +1268,6 @@ background-position: -64px -128px !important;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#021317', endColorstr='#333636',GradientType=0 ) !important; /* IE6-9 */
 	border: 1px solid #333636 !important;
 }
-
 
 #tabs.ui-widget-content{
 	 box-shadow: 0 0 5px #aaa;

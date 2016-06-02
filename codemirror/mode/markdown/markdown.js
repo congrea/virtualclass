@@ -2,6 +2,7 @@
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
+
   // We disabled this because there is already we are adding codemirror.js by script tag
   // so we can not add it through here by require and define
   // For more information about error, http://requirejs.org/docs/errors.html
@@ -86,7 +87,6 @@
         tokenTypes[tokenType] = modeCfg.tokenTypeOverrides[tokenType];
       }
     }
-
     var hrRE = /^([*\-_])(?:\s*\1){2,}\s*$/
         ,   ulRE = /^[*\-+]\s+/
         ,   olRE = /^[0-9]+([.)])\s+/
@@ -223,7 +223,6 @@
         state.code = true;
         return getType(state);
       }
-
       return switchInline(stream, state, state.inline);
     }
 
@@ -391,6 +390,7 @@
           return type ? type + " " + formattingEscape : formattingEscape;
         }
       }
+
 
       // Matches link titles present on next line
       if (state.linkTitle) {

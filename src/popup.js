@@ -356,6 +356,7 @@ var PopUp = (function (window, undefined) {
             this.hideAllPopups();
             document.getElementById('waitMsgCont').style.display = 'block';
         }
+
     };
 
     PopUp.prototype.hideAllPopups = function () {
@@ -371,6 +372,8 @@ var PopUp = (function (window, undefined) {
         if(sessionEndCont.dataset.displaying == 'true'){
             this.sesseionEndWindow();
         }
+
+
     }
 
 

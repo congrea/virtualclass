@@ -45,6 +45,7 @@
         'reload': "Reload",
         'whiteboard': 'Whiteboard',
         'screenshare': 'Screen Share',
+        'sharePresentation':'share presentation',
         'sessionend': "Close Session.",
         'audioTest': "Your voice will be recorded and played back to you. \n Press Ok and speak something for few seconds.",
         'chatEnable': "Disable Chat",
@@ -107,7 +108,7 @@
         'shareAnotherYouTubeVideo': 'Share Another YouTube Video',
         'editorCode': 'Code Editor',
         'editorRich': 'Text Editor',
-    'teachermayshow': 'YouTube video will be shared shortly.',
+         'teachermayshow': 'YouTube video will be shared shortly.',
         'youtubeshare': 'YouTube Video Share',
         'writemode': 'Write Mode',
         'readonlymode': 'Read Only',
@@ -129,6 +130,7 @@
         'unmuteAll' : 'Unmute All',
         'enablehistory' : '"Browser History" should be enabled during the Session.',
         'becomeTeacher' : 'Become Teacher',
+        'pptscreenstudent':"Presentation will be shared shortly",
         'confirmOk' : 'Yes',
         'confirmCancel' : 'No',
         'uploadsession' : 'Please wait until processing is complete.',
@@ -142,7 +144,8 @@
         'cnmissing' : 'Chunk number is missing',
         'sesseionkeymissing' : 'Session key is missing from Front End.', // from javascript
         'keymissing' :  'Your software(LMS/CMS)\'s key is is missing',
-        'invalidurl' :  'Your url is invalid'
+        'invalidurl' :  'Your url is invalid',
+        'ppturl' : 'Enter HTML5 Presentation Url.'
 
     };
     window.message = message;

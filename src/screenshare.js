@@ -82,6 +82,7 @@
              */
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
+                //debugger;
                 virtualclass.vutil.addClass('audioWidget', "fixed");
                 app = stype;
 
@@ -95,6 +96,7 @@
                 } else {
                     virtualclass.currApp = stool;
                     virtualclass.vutil.hidePrevIcon(app);
+
                 }
 
                 if (d.hasOwnProperty('d')) {
@@ -140,7 +142,6 @@
          *
          */
         virtualclass.getSceenFirefox = function () {
-
             var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
             if (ffver >= 33) {
                 var constraints = {
@@ -187,7 +188,6 @@
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
                         } else if (typeof error == 'object') {   //latest firefox
-                            // Firefox 45 is providing SecurityError
                             if (error.name === 'PermissionDeniedError' || error.name == 'SecurityError') {
                                 window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                             }
@@ -329,7 +329,6 @@
              *  
              */
             unShareScreen: function () {
-
                 this.video.src = "";
                 this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
                 clearInterval(virtualclass.clear);
@@ -426,7 +425,6 @@
                  * making screenshare active application and removing previous application
                  */
                 this.video.onloadedmetadata = function () {
-
                     that.width = dimension.width;
                     that.height = dimension.height;
 
@@ -461,7 +459,6 @@
              */
             // function is too large
             sharing: function () {
-
                 var tempObj, encodedData, stringData, d, matched, imgData;
                 var resA = Math.round(this.localtempCanvas.height / 12);
                 var resB = Math.round(this.localtempCanvas.width / 12);

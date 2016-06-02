@@ -370,6 +370,7 @@
                 canvasElement.style.pointerEvents = "none";
             },
             makeCanvasEnable: function () {
+                // debugger;
                 if (roles.hasControls()) {
                     if (!virtualclass.wb.hasOwnProperty('canvasDisable') || !virtualclass.wb.canvasDisable) {
                         var canvasElement = vcan.main.canvas;
@@ -764,6 +765,7 @@
                     virtualclass.wb.utility.removeToolBox();
                     virtualclass.wb.utility.setClass('vcanvas', 'student');
                 } else {
+
                     virtualclass.wb.utility.setClass('vcanvas', 'teacher');
                 }
             },

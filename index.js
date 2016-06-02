@@ -93,7 +93,7 @@ $(document).ready(function () {
     } else {
         console.log('From locastorage:- beteacher not found');
     }
-
+    virtualclass.gObj.fromPageRefresh = true;
     // If was in play mode before, start with fresh data
     if (!virtualclass.isPlayMode &&  localStorage.getItem('mySession') === 'thisismyplaymode') {
         console.log('DELETE PlayMode Data');
@@ -345,7 +345,7 @@ $(document).ready(function () {
     var transferControl = function (userId){
         // virtualclass.clearSession();
         // We need handle to     the bindary data
-
+         //debugger;
         setTimeout(
             function (){
                 veryFirstJoin = false;
@@ -378,7 +378,8 @@ $(document).ready(function () {
                     removeSessionEndTool(); // remove session tool if there is any
                 }
             }
-
+            
+            
             if(virtualclass.gObj.hasOwnProperty('doEndSession') && virtualclass.joinUser.role == 't'){
                 overrideRoleTeacher();
                 console.log('From localStorage, perform the override role action');
@@ -390,7 +391,6 @@ $(document).ready(function () {
         // Handle other thing as usual
 
         console.log('Member add :- join as normal ' + e.message[e.message.length - 1].role + ' join id ' + virtualclass.jId);
-
 
         ioPingPong.ping(e);
         memberUpdate(e, 'added');
@@ -427,6 +427,15 @@ $(document).ready(function () {
                             }, 'cf': 'yts'
                         }, virtualclass.jId);
                     }
+                } else if(virtualclass.currApp ==='SharePresentation') {
+                    if (typeof virtualclass.sharePt == 'object') {
+                        ioAdapter.mustSendUser({
+                            'ppt': {
+                                'init': virtualclass.sharePt.pptUrl,
+                                startFrom: virtualclass.sharePt.state
+                            }, 'cf': 'ppt'
+                        }, virtualclass.jId);
+                    }
                 }
 
             }
@@ -457,6 +466,15 @@ $(document).ready(function () {
                     ioAdapter.mustSendUser({'yts': {'init': virtualclass.yts.videoId, startFrom : virtualclass.yts.player.getCurrentTime()}, 'cf' : 'yts'}, virtualclass.jId);
                 } else {
                     ioAdapter.mustSendUser({'yts': {'init' : 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                }
+            }else if(virtualclass.currApp === 'SharePresentation'){
+                console.log("sharePPt");
+                //debugger;
+                if(typeof virtualclass.sharePt == 'object'){
+                    ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
+                } else {
+                    // TODO Need more validation  from nirmala
+                    ioAdapter.mustSendUser({'ppt': {'init' : 'studentlayout'}, 'cf': 'ppt'}, virtualclass.jId);
                 }
             }
 
@@ -491,8 +509,6 @@ $(document).ready(function () {
         virtualclass.jId = e.message[e.message.length - 1].userid; // JoinID
         virtualclass.joinUser = e.message[e.message.length - 1]; // Join User info
         virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
-
-        // If user try to join as Teacher
         console.log('Member add :- join user id ' + virtualclass.joinUser.userid + ' with ' + virtualclass.joinUser.role);
         if((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't'){
             if(virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)){
@@ -515,7 +531,6 @@ $(document).ready(function () {
                     }
 
             } else {
-                console.log('Member add:- try to init as teacher');
                 setTimeout(
                     function (){
 
@@ -581,8 +596,6 @@ $(document).ready(function () {
     });
 
     $(document).on("connectionclose", function (e) {
-        //virtualclass.popup.waitMsg();
-        
         if(virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload){
             console.log("During the upload process there would not any other popup box.");
         } else {
@@ -607,8 +620,7 @@ $(document).ready(function () {
         }
         setTimeout(
             function (){
-                // There should not session end message box
-                // Should not Session download box also
+
                 if(!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)){
                     virtualclass.popup.closePopup();
                     console.log('Popup box Close All');
@@ -616,6 +628,7 @@ $(document).ready(function () {
                     console.log('Popup box Could not close');
                 }
              }, setTimeReady // Wait for everything is to be ready
+
         );
     });
 
@@ -678,12 +691,9 @@ $(document).ready(function () {
                 console.log('CF ' + recMsg.cf+ ' is not a function of receiveFunctions');
             }
         }
-
-
     });
 
     function clearEverthing() {
-
         localStorage.removeItem('editorRich');
         localStorage.removeItem('editorCode');
 
@@ -860,6 +870,21 @@ $(document).ready(function () {
         this.dispWhiteboard = function (e) {
             virtualclass.makeAppReady(virtualclass.apps[0]);
         };
+        this.ppt = function(e) {
+            if(e.fromUser.userid != virtualclass.gObj.uid){
+                if (e.message.hasOwnProperty('init')) {
+                    virtualclass.makeAppReady(virtualclass.apps[5]);
+                }else {
+                    if(typeof virtualclass.sharePt != 'object'){
+                        //If virtualclass.ssharePt is not ready at participate side, then we
+                        // will create it first then only proceed to next ppt packet
+                        virtualclass.makeAppReady(virtualclass.apps[5]);
+                        virtualclass.sharePt.onmessage({pptMsg: e.message.ppt.init,  cf: 'ppt',  user: "all", cfpt : 'setUrl'});
+                    } 
+                    virtualclass.sharePt.onmessage(e.message);
+                } 
+            }
+        };
 
         //unshare schreen
         this.unshareScreen = function (e) {
@@ -914,6 +939,7 @@ $(document).ready(function () {
 
         //Reclaim Role
         this.reclaimRole = function (e) {
+           // debugger;
             console.log('Role reclaim');
             //if (localStorage.getItem('teacherId') !== null) {
             if (roles.hasControls()) {
@@ -935,6 +961,7 @@ $(document).ready(function () {
 
         //Assign Role
         this.assignRole = function (e) {
+            //debugger;
             if (e.message.toUser === virtualclass.gObj.uid) {
                 console.log('Role assign');
                 if(typeof virtualclass.wb == 'object'){
@@ -991,7 +1018,5 @@ $(document).ready(function () {
         this.replayAll =    function (e) {
             virtualclass.wb.response.replayAll();
         };
-
-
     };
 });

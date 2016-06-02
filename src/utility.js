@@ -7,10 +7,10 @@
  * and open the template in the editor.
  */
 
-(function (window) {
+(function(window) {
     "use strict";
     var vutil = {
-        createDOM: function (tag, id, _class) {
+        createDOM: function(tag, id, _class) {
             var elem = document.createElement(tag);
             if (typeof id != 'undefined') {
                 elem.id = id;
@@ -29,12 +29,10 @@
 
             return elem;
         },
-
-        ab2str: function (buf) {
+        ab2str: function(buf) {
             return String.fromCharCode.apply(null, new Uint8ClampedArray(buf));
         },
-
-        str2ab: function (str) {
+        str2ab: function(str) {
             var buf = new ArrayBuffer(str.length); // 2 bytes for each char
             var bufView = new Uint8ClampedArray(buf);
             for (var i = 0, strLen = str.length; i < strLen; i++) {
@@ -42,14 +40,12 @@
             }
             return bufView;
         },
-
-        sidebarHeightInit: function () {
+        sidebarHeightInit: function() {
             var sidebar = document.getElementById("widgetRightSide");
             sidebar.style.height = (window.innerHeight) + "px";
         },
-
         //there function name should be change
-        isSystemCompatible: function () {
+        isSystemCompatible: function() {
             if (virtualclass.error.length > 0) {
 
                 var errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join("<br />")) : virtualclass.error[0];
@@ -73,16 +69,14 @@
                 }
             }
         },
-
-        chkValueInLocalStorage: function (property) {
+        chkValueInLocalStorage: function(property) {
             if (localStorage.getItem(property) === null) {
                 return false;
             } else {
                 return localStorage[property];
             }
         },
-
-        setContainerWidth: function (res, app) {
+        setContainerWidth: function(res, app) {
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
 
@@ -99,7 +93,9 @@
             appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
 
             var appCont = document.getElementById(appId);
+
             if(appCont != null){
+
                 var rightOffSet = 5;
 
                 var extraWidth = 0;
@@ -119,13 +115,24 @@
 
 
                     if (app == 'Yts') {
-                        if(roles.hasControls()){
+
+                        if (roles.hasControls()) {
                             rightOffSet = 60; //youtube wrapper does not have inner div, TODO should be handle by css
                         } else {
                             rightOffSet = 15;
                         }
 
+                    } else if (app == 'SharePresentation') {
+
+                        if(roles.hasControls()){
+
+                            rightOffSet = 50; //youtube wrapper does not have inner div, TODO should be handle by css
+                        } else {
+                            rightOffSet = 15;
+                        }
+
                     } else if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode') {
+
                         if (leftSideBarWidth > 0) {
                             rightOffSet = 12;
                         } else {
@@ -144,17 +151,25 @@
                 }
 
 
+
                 var reduceHeight = 70;
-                if(virtualclass.isPlayMode){
-                    reduceHeight +=  75;
+                if (app == 'SharePresentation') {
+                    if(document.querySelector('#virtualclass' + app + '.pptSharing') != null){
+                        reduceHeight = 120;
+                    }
+                }
+
+                if (virtualclass.isPlayMode) {
+                    reduceHeight += 75;
                 }
 
                 var containerHeight = document.getElementById('commandToolsWrapper');
                 if (containerHeight != null) {
                     reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
-                } else if((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard' ){
+                } else if ((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard') {
                     // when page is refresh the toolbar/reclaim bar is not available so
-                    reduceHeight = reduceHeight + 46  + 3;
+                    reduceHeight = reduceHeight + 46 + 3;
+
                 }
 
 
@@ -170,20 +185,21 @@
                     ssType.style.width = res.width + "px";
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
                 }
+
             }else {
                 console.log(appCont + ' is not found ');
             }
 
-        },
 
-        setScreenInnerTagsWidth: function (currAppId) {
+
+        },
+        setScreenInnerTagsWidth: function(currAppId) {
             var sId = currAppId;
             var screenShare = document.getElementById(sId);
             var screenShareWidth = screenShare.offsetWidth;
             var screenShareLocal = document.getElementById(sId + "Local");
             var screenShareLocalWidth = screenShareLocal.offsetWidth;
             var toBeLeft = screenShareWidth - screenShareLocalWidth;
-
             var screenShareLocalVideo = document.getElementById(sId + "LocalVideo");
             var screenShareLocalVideoWidth = screenShareLocalVideo.offsetWidth;
             screenShareLocalVideoWidth = screenShareLocalWidth - screenShareLocalVideoWidth;
@@ -207,35 +223,31 @@
             }
             document.getElementById(app + "Tool").className += ' active';
         },
-
-        initInstallChromeExt: function (error) {
+        initInstallChromeExt: function(error) {
             if (error.name == 'EXTENSION_UNAVAILABLE') {
                 console.log('ask for inline installation');
                 //alert('ss' + chrome);
                 chrome.webstore.install('https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl',
-                    function (arg) {
-                        window.location.reload();
-                    },
-                    function (e) {
-                        alert(e);
-                    }
+                        function(arg) {
+                            window.location.reload();
+                        },
+                        function(e) {
+                            alert(e);
+                        }
                 )
             }
         },
-
-        removeAppPanel: function () {
+        removeAppPanel: function() {
             var appPanel = document.getElementById('virtualclassOptionsCont');
             if (appPanel != null) {
                 appPanel.parentNode.removeChild(appPanel);
             }
         },
-
-        removeTempVideo: function (id) {
+        removeTempVideo: function(id) {
             var toBeRemove = document.getElementById(id);
             toBeRemove.parentNode.removeChild(toBeRemove)
         },
-
-        createLocalTempVideo: function (mainCont, localTemp) {
+        createLocalTempVideo: function(mainCont, localTemp) {
             if (typeof mainCont == "string" || typeof mainCont == "String") {
                 mainCont = document.getElementById(mainCont);
             }
@@ -245,8 +257,7 @@
             locVidContTemp.appendChild(vidContTemp);
             mainCont.appendChild(locVidContTemp);
         },
-
-        initLocCanvasCont: function (tempVideoId) {
+        initLocCanvasCont: function(tempVideoId) {
             var app;
             if (virtualclass.currApp == "ScreenShare") {
                 app = 'ss';
@@ -260,6 +271,7 @@
         },
 
         videoTeacher2Student: function (sid, notPutImage) {
+
             var app = sid;
             var id = "virtualclass" + sid + "LocalVideo";
 
@@ -288,19 +300,16 @@
                 virtualclass.vutil.removeTempVideo("virtualclass" + sid + "LocalTemp");
             }
         },
-
-        clickOutSideCanvas: function () {
+        clickOutSideCanvas: function() {
             if (this.exitTextWrapper()) {
                 virtualclass.wb.obj.drawTextObj.textUtility(virtualclass.wb.gObj.spx, virtualclass.wb.gObj.spy);
             }
         },
-
-        exitTextWrapper: function () {
+        exitTextWrapper: function() {
             var textBoxContainer = document.getElementsByClassName('textBoxContainer');
             return textBoxContainer.length > 0;
         },
-
-        attachClickOutSideCanvas: function () {
+        attachClickOutSideCanvas: function() {
             _attachClickOutSideCanvas('commandToolsWrapper');
             _attachClickOutSideCanvas('virtualclassOptionsCont');
             _attachClickOutSideCanvas('audioWidget');
@@ -309,30 +318,29 @@
             function _attachClickOutSideCanvas(id) {
                 var elem = document.getElementById(id);
                 if (elem != null) {
+
                     elem.onclick = function () {
                         if(roles.hasControls()){
                             virtualclass.vutil.clickOutSideCanvas();
                         }
+
                     };
                 }
             }
         },
-
-        dimensionMatch: function (wbc, ssc) {
+        dimensionMatch: function(wbc, ssc) {
             var wbcWidth = document.getElementById(wbc).offsetWidth;
             var optionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
             var sscWidth = document.getElementById(ssc).offsetWidth + optionsContWidth;
             return (sscWidth == wbcWidth);
         },
-
-        disableAppsBar: function () {
+        disableAppsBar: function() {
             var appBarCont = document.getElementById('virtualclassOptionsCont');
             if (appBarCont != null) {
                 appBarCont.style.pointerEvents = "none";
             }
         },
-
-        isMiniFileIncluded: function (src) {
+        isMiniFileIncluded: function(src) {
 //                var filePatt = new RegExp(src+".js$");
             var filePatt = new RegExp(src + ".js?=\*([0-9]*)"); //matched when src is mid of path, todo find it at end of path
             var scripts = document.getElementsByTagName("script");
@@ -343,8 +351,7 @@
             }
             return false;
         },
-
-        clearAllChat: function () {
+        clearAllChat: function() {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             localStorage.clear('chatroom'); //all
             virtualclass.chat.idList.length = 0;
@@ -357,8 +364,7 @@
                 }
             }
         },
-
-        isObjectEmpty: function (obj) {
+        isObjectEmpty: function(obj) {
             for (var prop in obj) {
                 if (obj.hasOwnProperty(prop))
                     return false;
@@ -366,8 +372,7 @@
 
             return true;
         },
-
-        removeSessionTool: function () {
+        removeSessionTool: function() {
             if (!roles.hasAdmin()) {
                 var SessionEndTool = document.getElementById("virtualclassSessionEndTool");
                 if (SessionEndTool != null) {
@@ -389,24 +394,21 @@
                 elem.className = className;
             }
         },
-
-        removeClass: function (id, className) {
+        removeClass: function(id, className) {
             var elem = document.getElementById(id);
 
             if (virtualclass.vutil.elemHasAnyClass(id) && elem.classList.contains(className)) {
                 elem.classList.remove(className);
             }
         },
-
-        breakIntoBytes: function (val, l) {
+        breakIntoBytes: function(val, l) {
             var numstring = val.toString();
             for (var i = numstring.length; i < l; i++) {
                 numstring = '0' + numstring;
             }
             return numstring.match(/[\S]{1,2}/g) || [];
         },
-
-        numValidateFour: function (n1, n2, n3, n4) {
+        numValidateFour: function(n1, n2, n3, n4) {
             n1 = this.preNumValidateTwo(n1);
             n2 = this.preNumValidateTwo(n2);
             n3 = this.preNumValidateTwo(n3);
@@ -414,15 +416,13 @@
             var nres = n1 + n2 + n3 + n4;
             return parseInt(nres);
         },
-
-        numValidateTwo: function (n1, n2) {
+        numValidateTwo: function(n1, n2) {
             n1 = this.preNumValidateTwo(n1);
             n2 = this.preNumValidateTwo(n2);
             var nres = n1 + n2;
             return parseInt(nres);
         },
-
-        preNumValidateTwo: function (n) {
+        preNumValidateTwo: function(n) {
             var numstring = n.toString();
             if (numstring.length == 1) {
                 return '0' + numstring;
@@ -430,49 +430,42 @@
                 return numstring;
             }
         },
-
-        elemHasAnyClass: function (elemId) {
+        elemHasAnyClass: function(elemId) {
             var elem = document.getElementById(elemId);
             if (elem != null) {
                 return (typeof elem.classList != 'undefined');
             }
             return false;
         },
-
-        userIsOrginalTeacher: function (userId) {
+        userIsOrginalTeacher: function(userId) {
             return roles.hasAdmin();
         },
-
-        isUserTeacher: function (userId) {
+        isUserTeacher: function(userId) {
             return roles.hasControls();
         },
-
-        initDisableAudVid: function () {
+        initDisableAudVid: function() {
             virtualclass.gObj.audIntDisable = true;
             virtualclass.gObj.vidIntDisable = true;
         },
-
-        initDisableVirtualClass: function () {
+        initDisableVirtualClass: function() {
             this.initDisableAudVid();
             virtualclass.gObj.errNotDesktop = true;
             virtualclass.gObj.errNotScreenShare = true;
             virtualclass.gObj.errAppBar = true;
         },
+        disableVirtualClass: function() {
 
-        disableVirtualClass: function () {
             var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 0.6;
             virtualClass.style.pointerEvents = "none";
         },
-
-        enableVirtualClass: function () {
+        enableVirtualClass: function() {
             var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 1;
             virtualClass.style.pointerEvents = "visible";
 
         },
-
-        firstiOSaudioCall: function () {
+        firstiOSaudioCall: function() {
             if (virtualclass.gObj.hasOwnProperty('audioPlayMessage')) {
                 //virtualclass.gObj.iosTabAudTrue = true;
                 virtualclass.gObj.iosIpadbAudTrue = true;
@@ -491,6 +484,7 @@
             // in that case we are not saving the data by clearing all storage data.
 
             if(localStorage.length == 0){
+
                 virtualclass.storage.clearStorageData();
                 return;
             }
@@ -529,16 +523,29 @@
             }
 
             var prvAppObj = {name: virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp)};
-
+            console.log(virtualclass.currApp);
             if (virtualclass.currApp == 'ScreenShare') {
                 prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window
             } else if ((virtualclass.currApp == 'Yts')) {
-                if(typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object'){
+                if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
                     prvAppObj.metaData = {
                         'init': virtualclass.yts.videoId,
                         startFrom: virtualclass.yts.player.getCurrentTime()
                     };
-                }else {
+                }
+            } else if ((virtualclass.currApp == 'SharePresentation')) {
+
+                //virtualclass.sharePt.saveIntoLocalStorage();
+                if (typeof virtualclass.sharePt != 'undefined' && typeof virtualclass.sharePt == 'object') {
+
+                    console.log("beforeloadS" + virtualclass.sharePt.pptUrl);
+                    prvAppObj.metaData = {
+                        'init': virtualclass.sharePt.pptUrl,
+                        startFrom: virtualclass.sharePt.state
+                    };
+                    console.log("start From"+virtualclass.sharePt.state);
+                    virtualclass.sharePt.saveIntoLocalStorage(prvAppObj);
+                } else {
                     prvAppObj.metaData = null; // if video is not started to share.
                 }
             }
@@ -547,27 +554,27 @@
             // Not showing the youtube video is at student if current app is not youtube
             if (roles.hasView()) {
                 if (virtualclass.currApp == 'Yts') {
-                    var prvAppObj = {"name":"Yts","metaData":null};
+                    var prvAppObj = {"name": "Yts", "metaData": null};
                 }
             }
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
-            // localStorage.setItem('uRole', virtualclass.gObj.uRole);
+           // localStorage.setItem('uRole', virtualclass.gObj.uRole);
             io.disconnect();
         },
-
-        initOnBeforeUnload: function (bname) {
+        initOnBeforeUnload: function(bname) {
+            //debugger;
             if (bname == 'iOS') {
-                document.body.onunload = function () {
+                document.body.onunload = function() {
                     virtualclass.vutil.beforeLoad();
                 }
             } else {
-                window.onbeforeunload = function () {
+                window.onbeforeunload = function() {
                     var editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
                     virtualclass.vutil.beforeLoad();
 
-                    if(editor == 'editorRich' || editor == 'editorCode'){
+                    if (editor == 'editorRich' || editor == 'editorCode') {
                         var edState = virtualclass[editor].cmClient.state;
                         // We with till editor is in Sync.
                         // edState is an instance of constructor, to get the name of it
@@ -578,12 +585,10 @@
                 }
             }
         },
-
-        isPlayMode: function () {
+        isPlayMode: function() {
             return (window.wbUser.virtualclassPlay == true);
         },
-
-        progressBar: function (totalVal, portion, pbar, pval) {
+        progressBar: function(totalVal, portion, pbar, pval) {
             if (portion > totalVal) {
                 portion = totalVal;
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
@@ -599,46 +604,44 @@
             document.getElementById(pval).innerHTML = totalProgress + '%';
 
         },
-
-        hidePrevIcon: function (app) {
+        hidePrevIcon: function(app) {
+            //debugger;
             var prvScreen = document.getElementById(virtualclass.previous);
             if (prvScreen != null) {
                 prvScreen.style.display = 'none';
+
                 console.log('Hide previous screen with display new '  + app);
                 if(app == 'ss'){
                     if(typeof virtualclass[app] == 'object'){
                         document.getElementById(virtualclass[app].id).style.display = 'block';
                     }
                 }else {
+
                     document.getElementById(virtualclass[app].id).style.display = 'block';
                 }
             }
         },
-
         /**
          * Return the value of provided key of particular user from prvovided user list
          * @param users user list
          * @param key kew of which return value
          * @param userId the user
          */
-        getUserInfo: function (key, userId, users) {
+        getUserInfo: function(key, userId, users) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].userid == userId) {
                     return users[i][key];
                 }
             }
         },
-
-        smallizeFirstLetter: function (string) {
+        smallizeFirstLetter: function(string) {
             return string.charAt(0).toLowerCase() + string.slice(1);
         },
-
-        capitalizeFirstLetter: function (string) {
+        capitalizeFirstLetter: function(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         },
-
-
-        initDefaultInfo: function (role, appIs) {
+        initDefaultInfo: function(role, appIs) {
+            //debugger;
             if (role == 't' && appIs == 'Whiteboard') {
                 if (!roles.hasAdmin()) {
                     virtualclass.wb.utility.setOrginalTeacherContent();
@@ -648,6 +651,7 @@
                 vcan.studentId = wbUser.id;
 
                 if (!roles.hasControls()) {
+
                     // If student became teacher has educator role at localStorage then
                     // the user would not join as student but teacher
                     var uRole = localStorage.getItem('uRole');
@@ -667,17 +671,16 @@
 
             vcan.oneExecuted = false;
         },
-
         /**
          * Remove the given class name from givven element
          * @param prvTool
          * @param className
          * @returns {string}
          */
-        removeClassFromElement: function (prvTool, className) {
+        removeClassFromElement: function(prvTool, className) {
             if (prvTool != "t_reclaim") {
                 var prvToolElem = document.getElementById(prvTool);
-                if(prvToolElem.classList.length > 0){ // If class list available only
+                if (prvToolElem.classList.length > 0) { // If class list available only
                     prvToolElem.classList.remove(className);
                     return prvToolElem.className;
                 } else {
@@ -685,13 +688,13 @@
                 }
             }
         },
-
         /**
          * the operation before send message to server
          * @param {type} msg
          * @returns {undefined}
          */
-        beforeSend: function (msg, toUser, notMust) {
+        beforeSend: function(msg, toUser, notMust) {
+            ////debugger;
             // when we are in replay mode we don't need send the object to other user
             if (msg.hasOwnProperty('createArrow')) {
                 var jobj = JSON.stringify(msg);
@@ -724,8 +727,7 @@
 
             }
         },
-
-        breakintobytes: function (val, l) {
+        breakintobytes: function(val, l) {
             var numstring = val.toString();
             for (var i = numstring.length; i < l; i++) {
                 numstring = '0' + numstring;
@@ -736,14 +738,14 @@
 
         createReclaimButton: function (cmdToolsWrapper) {
 
+
             this.createDiv('t_reclaim', 'educator', cmdToolsWrapper);
             var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
             var that = this;
-            aTags[0].addEventListener('click', function () {
+            aTags[0].addEventListener('click', function() {
                 that._reclaimRole();
             });
         },
-
         /**
          * this function does create the div
          * toolId expect id for command
@@ -751,7 +753,7 @@
          * this whole output process should come by
          * html not javascript
          */
-        createDiv: function (toolId, text, cmdToolsWrapper, cmdClass) {
+        createDiv: function(toolId, text, cmdToolsWrapper, cmdClass) {
 
             //console.log('class name ' + text);
             var toolName = text;
@@ -780,8 +782,7 @@
                 cmdToolsWrapper.appendChild(lDiv);
             }
         },
-
-        assignRole: function (studentId) {
+        assignRole: function(studentId) {
             if (typeof virtualclass.wb == 'object') {
                 virtualclass.wb.tool = "";
                 if (vcan.main.action == 'move') {
@@ -790,22 +791,16 @@
             }
 
             if (typeof studentId != 'undefined') {
-                //alert('role student');
                 if (roles.isEducator()) {
                     var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                     cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-                    //   localStorage.removeItem('reclaim');
                     virtualclass.vutil.removeClass('virtualclassCont', 'educator');
-
                 } else {
-                    virtualclass.vutil.addClass('virtualclassCont', 'presenter');
-                }
+                    virtualclass.vutil.addClass('virtualclassCont', 'presenter')
 
-                if (!roles.hasAdmin()) {
-                    virtualclass.gObj.uRole = 'p'; // P for Presenter
-                } else {
-                    virtualclass.gObj.uRole = 't'; // T for Teacher
                 }
+                
+                virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 'p' : 't';
 
                 localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
 
@@ -816,6 +811,7 @@
                 }
 
                 if (virtualclass.currApp == 'Yts') {
+                   
                     var virtualclassYts = document.getElementById('virtualclassYts');
                     if (virtualclassYts != null) {
                         if (document.getElementById('player') == null) {
@@ -826,11 +822,32 @@
                     }
 
                     virtualclass.yts.UI.inputURL();
-                    if(typeof virtualclass.yts.player == 'object'){
+                    if (typeof virtualclass.yts.player == 'object') {
                         virtualclass.yts.seekChangeInterval();
-                    }else {
+                    } else {
                         console.log('Player object is not ready');
                     }
+                } else if (virtualclass.currApp == 'SharePresentation') {
+                    
+                    var virtualclassppt = document.getElementById('virtualclassSharePresentation');
+                    if (virtualclassppt != null) {
+                        if (document.getElementById('iframecontainer') == null) {
+                            virtualclass.sharePt.UI.createIframe();
+                        }
+                    } else {
+                        virtualclass.sharePt.UI.container();
+                    }
+                    
+                    if (roles.hasControls()) {
+                        virtualclass.sharePt.initTeacherLayout();
+                    }
+                    
+                    if (roles.hasView()) {
+                        virtualclass.sharePt.eventsObj = [];
+                    }
+                    
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                   
                 }
 
             } else {
@@ -841,11 +858,24 @@
                     }
                 }
 
-                if (!roles.hasAdmin()) {
-                    virtualclass.gObj.uRole = 's';
-                } else {
-                    virtualclass.gObj.uRole = 'e';
+                if (virtualclass.currApp == 'SharePresentation') {
+                    
+                    if (roles.hasControls()) {
+                         virtualclass.sharePt.initStudentLayout();
+                    }
+                    
+                    if (roles.hasView()) {
+                        virtualclass.sharePt.eventsObj = [];
+                        virtualclass.sharePt.hideElement('pptMessageLayout');
+                        virtualclass.sharePt.UI.createUrlContainer();
+                        virtualclass.sharePt.displayElement('urlcontainer');
+                    }
+                    
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
                 }
+                
+                virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 's' : 'e';
+                
                 var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
                 if (cmdToolsWrapper != null) {
                     while (cmdToolsWrapper.hasChildNodes()) {
@@ -865,6 +895,7 @@
                     virtualclass.vutil.addClass('virtualclassCont', 'educator');
                 } else {
                     virtualclass.vutil.removeClass('virtualclassCont', 'presenter');
+
                     if (cmdToolsWrapper != null) {
                         cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
                     }
@@ -890,31 +921,33 @@
 
             // If teacher is disconnected then
             // there would come the porblem on editor of assigning role to student while continuous writting by him.
+            
             if(!roles.hasAdmin()){
                 io. disconnect();
                 setTimeout(
-                    function (){
-                        virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
-                        io.init(virtualclass.uInfo);
-                    }, 500
+                        function() {
+                            virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
+                            io.init(virtualclass.uInfo);
+                        }, 500
                 );
+            } else {
+                /** We need to  update  the role at teacher side with virtualclass.uInfo.userobj.role
+                * because the older role is existing while new session is being created.
+                * TEST CASE:- assign role, page refresh both side, reclaim role, see io.cfg.userobj.role, you get the older role
+                * This happens only on teacher side, below st
+                * **/
+                virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
             }
 
-            // NOTE:- removing below code could be critical for other app than object
-            //if(virtualclass.currApp !==  'Whiteboard'){
-            //    if (typeof virtualclass.wb == 'object') {
-            //}
-
         },
-
-        renderWhiteboardObjectsIfAny : function (){
-            if(typeof virtualclass.wb == 'object'){
-                if(virtualclass.wb.vcan.main.children.length > 0){
+        renderWhiteboardObjectsIfAny: function() {
+            if (typeof virtualclass.wb == 'object') {
+                if (virtualclass.wb.vcan.main.children.length > 0) {
                     virtualclass.wb.vcan.renderAll();
                 }
             }
         },
-        createCommandWrapper: function () {
+        createCommandWrapper: function() {
             //alert(virtualclass.system.device);
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = virtualclass.gObj.commandToolsWrapperId;
@@ -928,6 +961,7 @@
         },
 
         _reclaimRole: function () {
+
             virtualclass.vutil.beforeSend({'reclaimRole': true, 'cf': 'reclaimRole'});
             var reclaimButton = document.getElementById('t_reclaim');
             reclaimButton.style.pointerEvents = 'none';
@@ -942,13 +976,12 @@
             );
         },
 
-        reclaimRole: function () {
+        reclaimRole: function() {
             virtualclass.gObj.controlAssign = false;
             this.vcResponseAssignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
         },
-
         //equivalent to response.assignRole from receive-messages-response.js//equivalen
-        vcResponseAssignRole: function (fromUserId, id, reclaim) {
+        vcResponseAssignRole: function(fromUserId, id, reclaim) {
             if (fromUserId != id || typeof reclaim != 'undefined') {
                 virtualclass.vutil.assignRole(id);
                 if (typeof virtualclass.wb == 'object') {
@@ -986,6 +1019,7 @@
             }
         },
 
+
         //equivalent to response.reclaimRole from receive-messages-response.js
         vcResponseAReclaimRole: function (formUserId, id) {
             console.log('Reclaim role :- Init');
@@ -1005,6 +1039,7 @@
                         console.log("Text command:- Transferring text command");
                     } else if (((virtualclass.wb.tool.hasOwnProperty('started') && virtualclass.wb.tool.started == true) || virtualclass.wb.vcan.main.action == 'move')){
                         var tempObj = virtualclass.wb.vcan.main.replayObjs[virtualclass.wb.vcan.main.replayObjs.length-1];
+
                         var currObj = vcan.extend({}, tempObj);
                         currObj.ac = 'u';
                         if (currObj.hasOwnProperty('mtext')) {
@@ -1022,6 +1057,7 @@
 
                     console.log('Role assign with reclaim');
                 }
+
 
                 virtualclass.user.control._assign(id, 'notsent', formUserId);
                 console.log('Reclaim role :- peforme');
@@ -1044,7 +1080,6 @@
         },
 
         createReclaimButtonIfNeed: function () {
-            //   if (virtualclass.vutil.chkValueInLocalStorage('reclaim') && roles.hasAdmin()) {
             if (roles.isEducator()) {
                 var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
                 virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
@@ -1053,10 +1088,10 @@
             }
             return false;
         },
-        whoIsTeacher: function () {
+        whoIsTeacher: function() {
             //TODO this function should call less frequently and may be called on member add function, status could be saved in a variable.
 
-            if(virtualclass.hasOwnProperty('connectedUsers')){
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if (virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') {
                         return virtualclass.connectedUsers[i].userid;
@@ -1065,37 +1100,40 @@
             }
             return 0;
         },
-
-        enablePresentatorEditors : function (touser){
-            var msg = {toUser:touser, status : true};
+        enablePresentatorEditors: function(touser) {
+            var msg = {toUser: touser, status: true};
 
             virtualclass.user.control.received_editorRich(msg);
             virtualclass.user.control.received_editorCode(msg);
         },
-
-        getClassName : function (role){
+        getClassName: function(role) {
             var className;
 
-            if(role == 't'){
+            if (role == 't') {
                 className = 'teacher';
-            }else if(role == 'e'){
+            } else if (role == 'e') {
                 className = 'educator';
-            }else if(role == 's'){
+            } else if (role == 's') {
                 className = 'student';
+
             }else if(role == 'p'){
+
                 className = 'presenter';
             }
             return className;
         },
 
+
         isPresenterExist : function (){
             for(var i=0; i<virtualclass.connectedUsers.length; i++){
                 if(virtualclass.connectedUsers[i].role == 'p'){
+
                     return true;
                 }
             }
             return false;
         },
+
 
         setReadModeWhenTeacherIsDisConn : function (eType){
             if(!roles.hasAdmin()){
@@ -1105,6 +1143,7 @@
                     if(teacherDisConn){ //If orginal teacher is disconnnected
                         if(virtualclass.hasOwnProperty(eType)){
                             if(typeof virtualclass[eType].cm == 'object'){
+
                                 virtualclass[eType].cm.setOption('readOnly', 'nocursor');
                             } else {
                                 console.log('Editor CM is not defined for editor ' + eType);
@@ -1128,6 +1167,7 @@
                 if(writeMode == 'true'){
                     virtualclass[eType].cm.setOption('readOnly', false);
                 }else{
+
                     virtualclass[eType].cm.setOption('readOnly', 'nocursor');
                 }
             } else {
@@ -1135,11 +1175,13 @@
             }
         },
 
+
         isTeacherAlreadyExist : function(joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 't' ||  virtualclass.connectedUsers[i].role == 'e')
                         && virtualclass.connectedUsers[i].userid != joinId) {
+
                         console.log('joni Id ' + joinId);
                         return true;
                     }
@@ -1153,6 +1195,7 @@
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 'p')
                         && virtualclass.connectedUsers[i].userid != joinId) {
+
                         console.log('joniId ' + joinId);
                         return true;
                     }
@@ -1165,10 +1208,12 @@
          * Get presenter id otherwise false
          * @returns {*}
          */
+
         getPresenterId :function (){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 'p')){
+
                         return virtualclass.connectedUsers[i].userid;
                         return true;
                     }
@@ -1177,12 +1222,12 @@
             return false;
         },
 
-
         isEducatorAlreadyExist : function (joinId){
             if(virtualclass.hasOwnProperty('connectedUsers')){
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 'e')
                         && virtualclass.connectedUsers[i].userid != joinId) {
+
                         console.log('joniId ' + joinId);
                         return true;
                     }
@@ -1196,6 +1241,7 @@
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 't')
                         && virtualclass.connectedUsers[i].userid != joinId) {
+
                         console.log('joniId ' + joinId);
                         return true;
                     }
@@ -1204,7 +1250,6 @@
             return false;
         },
 
-
         /**
          * This time would be set for delay when user(student) does try for teacher.
          * The time is set according to it's position
@@ -1212,20 +1257,24 @@
          * @returns {number}
          */
 
+
         getMySetTime : function(connectedUsers){
             for(var i=0; i<connectedUsers.length; i++){
                 if(connectedUsers[i].userid == virtualclass.gObj.uid){
                     return (((i+1) * 180 ) + 2000);
+
                 }
             }
             return 2300;
         },
+
 
         /**
          * The widget for requset the Teacher Role
          */
         createBecomeTeacherWidget : function(){
             if(document.getElementById('beTeacher') == null){
+
                 var beTeacher = document.createElement('div');
                 beTeacher.id = 'beTeacher';
 
@@ -1243,6 +1292,7 @@
                 beTeacher.style.opacity = '0.5';
                 // For handle the case,  on where teacher refresh the page
                 setTimeout(
+
                     function (){
                         beTeacher.style.pointerEvents = 'visible';
                         beTeacher.style.opacity = '1';
@@ -1261,6 +1311,7 @@
             }
         },
 
+
         /**
          * This function would be trigger when
          * user try to become teacher and send the become Teacher flag to
@@ -1268,7 +1319,9 @@
          * and this teacher would join after the time set by virtualclass.gObj.mySetTime
          */
 
+
         initTeacherRole : function (){
+           // debugger;
             ioAdapter.send({'cf': 'bt'}); //become teacher
             virtualclass.vutil.removeBecomeTeacherWidget(); // remove button from self window
             setTimeout(
@@ -1285,12 +1338,9 @@
             );
          },
 
-        /**
-         * Override the roles in relative properties and change attributes of
-         * element according to given role
-         * @param role
-         */
+
         overrideRoles : function (role){
+
             virtualclass.uInfo.userobj.role = role;
             virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
             wbUser.role = virtualclass.uInfo.userobj.role;
@@ -1303,21 +1353,27 @@
          * @param elem
          * @param role
          */
+
         overrideRolesFromElem : function (elem, role){
             if(role == 's'){
+
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
                 elem.classList.remove('presenter');
                 elem.classList.remove('educator');
                 virtualclassCont.classList.add('student');
                 //this.synchEditorTools();
+
             } else if(role == 'p'){
+
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
                 elem.classList.remove('educator');
                 virtualclassCont.classList.add('student');
                 virtualclassCont.classList.add('presenter');
+
             } else if(role == 'e'){
+
                 // By removing the teacher class would hide
                 // the audio icon from footer control on reload
                 //elem.classList.remove('teacher');
@@ -1328,8 +1384,8 @@
                 elem.classList.add('orginalTeacher');
 
 
-
             }else if(role == 't'){
+
                 elem.classList.remove('student');
                 elem.classList.remove('educator');
                 elem.classList.remove('presenter');
@@ -1342,6 +1398,7 @@
         sesionEndMsgBoxIsExisting : function (){
             var sessionEndCont = document.getElementById('sessionEndMsgCont');
             return (sessionEndCont.hasAttribute('data-displaying') && sessionEndCont.dataset.displaying == 'true'); // do nothing if there is already sesion end box
+
         }
 
     };

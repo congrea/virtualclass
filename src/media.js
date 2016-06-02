@@ -101,6 +101,7 @@
                  */
                 init: function () {
 
+
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
 

@@ -21,11 +21,12 @@ var progressBar = {
         if (typeof prvTimeout != 'undefined') {
             clearTimeout(prvTimeout);
         }
-
         prvTimeout = setTimeout(
             function () {
+
                 if (that.prvVal == that.currVal && virtualclass.gObj.hasOwnProperty('downloadProgress')) {
                     virtualclass.recorder.initMakeAvailDownloadFile();
+
                 } else {
                     that.prvVal = that.currVal;
                     that.progressInit();

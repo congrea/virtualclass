@@ -265,6 +265,9 @@ transition:all .2s linear;
 	font-size: 15px;
 }
 
+#virtualclassCont .rv-vanilla-modal-header {
+	height: 42px;
+}
 #virtualclassCont #recordingContainer .rv-vanilla-modal-body div {
 	border-radius: 4px;
 	font-size: 13px;
@@ -384,7 +387,7 @@ transition:all .2s linear;
 }
 
 #virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont .rv-vanilla-modal, #virtualclassCont #confirm.popupWindow.simple-box{
-	border-radius: 10px !important;
+	border-radius: 13px !important;
 } 
 
 #virtualclassCont #downloadProgress{
@@ -397,53 +400,26 @@ transition:all .2s linear;
 #virtualclassCont #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
 	background-color: #a6c24e;
 	font-weight: normal;
-	padding: 12px 24px;
-	border-radius: 5px !important;
-	color:#fff !important;
+	padding: 10px 24px;
+	border-radius: 10px !important;
 }
 #virtualclassCont #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
 	background-color: #ccc;
 	font-weight: normal;
 	padding: 10px 22px;
-	border-radius: 5px !important;
-	color:#555 !important;
+	border-radius: 10px !important;
+	color: #555;
 }
 
 #virtualclassCont #speakerPressingAnch #speakerPressingtext{
 	color:#fff;
 }
-
 #virtualclassCont .rv-vanilla-modal-header{
 	border-radius: 10px 10px 0 0;
 	
 }
-
 .rv-vanilla-modal-title{
 	color:#fff;
 }
 
 
-
-/*remove popup header*/
-
-#virtualclassCont #recordingContainer.popupWindow .removeHeader{
-	display: none;
-    text-align: center;
-}
-#virtualclassCont .rv-vanilla-modal-body{
-	padding: 22px 25px 22px;
-}
-
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body #recordingClose{
-	top: -5px;
-    right: -5px;
-    position: absolute;
-}
-
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body #recordFinishedMessageBox #recordFinishedMessage{
-	font-weight: 500;
-    float: left;
-    font-size: 15px;
-    text-align: center;
-    line-height: 22px;
-}

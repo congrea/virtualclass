@@ -536,11 +536,11 @@
 #virtualclassCont .vmchat_bar_button{
 	border-left: 1px solid #5d6b76;
 }
-
+/*
 #virtualclassCont .ui-chatbox-input{
 	background-color: #eee;
 }
-
+*/
 #virtualclassCont .ui-tabs .ui-tabs-nav li.ui-tabs-active{
 	border: 1px solid #5d6b76;
 }

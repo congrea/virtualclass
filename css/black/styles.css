@@ -2138,7 +2138,7 @@
 
 
 
-#virtualclassCont.student.presenter #virtualclassYts {
+#virtualclassCont.student.presenter #virtualclassYts, #virtualclassCont.student.presenter #virtualclassSharePresentation{
     margin-left : 55px;
 }
 
@@ -2464,6 +2464,18 @@
     top: 25%;
 }
 
+#virtualclassCont #virtualclassSharePresentation #urlcontainer #presentationurl, #virtualclassCont.student.presenter #virtualclassSharePresentation #urlcontainer #presentationurl{
+	border: #ddd 1px solid;
+    height: 36px;
+    font-size: 13px;
+    padding: 0px 10px 0px 15px;
+    width: 370px;
+    color: #777;
+    font-size: 20px;
+    border-radius: 5px;
+	
+}
+
 
 #virtualclassCont .youTubeSharing #youtubeUrlContainer, #virtualclassCont.student.presenter .youTubeSharing #youtubeUrlContainer{
     top:0;
@@ -2569,6 +2581,8 @@
 }
 
 #virtualclassCont #recordFinishedMessage {
+	color:#000;
+	text-align: center;
     font-weight: bold;
     float : left;
 
@@ -2936,7 +2950,7 @@
 
 #virtualclassCont.playMode.student .writeModeBox{top: -60px;}
 
-#virtualclassCont #messageLayout{
+#virtualclassCont #messageLayout, #virtualclassCont #pptMessageLayout{
     background-color: #f9f9f9;
     border: 1px solid #c8ddb8;
     border-radius: 5px;
@@ -3160,7 +3174,7 @@
     right: 0;
 	
 }
-#virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer{
+#virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer, #virtualclassCont.student.presenter #virtualclassSharePresentation.pptSharing #urlcontainer{
 	top:auto;
 	bottom:0%;
 	left: 55px;
@@ -3425,3 +3439,16 @@
 #submitpurl {
     margin-left: 5px;
 }
+
+
+/* Play mode */
+
+
+#virtualclassCont.playMode .vceditor-toolbar{
+	background-color: transparent;
+}
+
+#virtualclassCont.educator #virtualclassSharePresentation {
+   margin-left : 7px;
+}
+

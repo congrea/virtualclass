@@ -344,6 +344,14 @@
             overviewhidden: function(pptData) {
                 ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', cfpt : 'setPEvent'});
             },
+
+            paused:function(pptData) {
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', cfpt : 'setPEvent'});
+            },
+            resumed:function(pptData) {
+                ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', cfpt : 'setPEvent'});
+            },
+            
             /*
              *Removes control from student's end 
              *and removes auto slide also 

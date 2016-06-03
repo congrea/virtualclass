@@ -2465,7 +2465,6 @@
 
 #virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer, #virtualclassCont.student.presenter #virtualclassSharePresentation.pptSharing #urlcontainer{
 	top:auto;
-	bottom:0;
 	left: 55px;
 	right: auto;
 	z-index: 7;

@@ -351,7 +351,7 @@
             resumed:function(pptData) {
                 ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', cfpt : 'setPEvent'});
             },
-            
+
             /*
              *Removes control from student's end 
              *and removes auto slide also 
@@ -534,56 +534,62 @@
                 }
                 
             },
-            
-            /*
+
+            /**
+             * validate the url and return validated url
+             * @returns {*}
+             */
+            validUrl : function (){
+                if (virtualclass.sharePt.isUrlip(virtualclass.sharePt.urlValue)) {
+                    return virtualclass.sharePt.urlValue;
+                } else if (virtualclass.sharePt.urlValue.search("<iframe") > 0) {
+                    return virtualclass.sharePt.extractUrl(virtualclass.sharePt.urlValue);
+                }  else if (virtualclass.sharePt.validURLWithDomain(virtualclass.sharePt.urlValue)) {
+                    return virtualclass.sharePt.completeUrl(virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue));
+                }
+                return false;
+            },
+
+              /*
              *event handler on click of submit button of the url at teacher's end
              *Calls function to set up the url 
              *calls function to validate the entered url 
              * @param receivemsg  received message by the student 
              */
             initNewPpt : function() {
-
-
-                virtualclass.sharePt.autoSlideTime = 0;
-                virtualclass.sharePt.autoSlideFlag = 0;
-                virtualclass.sharePt.localStoragFlag = 0;
-                virtualclass.sharePt.startFromFlag=0;
-                
-                virtualclass.sharePt.eventsObj = [];
-                virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
-                virtualclass.sharePt.stateLocalStorage = {};
-                 
-                localStorage.removeItem('autoSlideTime');
-                localStorage.removeItem('autoSlideFlag');
-                
-                var iframecontainer = document.getElementById("iframecontainer");
-                if (iframecontainer == null) {
-                    console.log("call of iframe creater from onclick event handler");
-                    virtualclass.sharePt.UI.createIframe();
-                }
-                
-                var pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
-                if (!pptContainer.classList.contains("pptSharing")) {
-                    pptContainer.classList.add("pptSharing");
-                }
-               
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
-                
                 virtualclass.sharePt.urlValue =   virtualclass.sharePt.toProtocolRelativeUrl();
-                
-                if (virtualclass.sharePt.isUrlip(virtualclass.sharePt.urlValue)) {
-                    virtualclass.sharePt.setPptUrl(virtualclass.sharePt.urlValue);
-                } else if (virtualclass.sharePt.urlValue.search("<iframe") > 0) {
-                    var etUrl = virtualclass.sharePt.extractUrl(virtualclass.sharePt.urlValue);
-                    virtualclass.sharePt.setPptUrl(etUrl);
-                }  else if (virtualclass.sharePt.validURLWithDomain(virtualclass.sharePt.urlValue)) {
-                    var cleanedUrl = virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue);
-                    virtualclass.sharePt.setPptUrl(virtualclass.sharePt.completeUrl(cleanedUrl));
+
+                var vUrl = virtualclass.sharePt.validUrl();
+                if(vUrl){
+                    virtualclass.sharePt.autoSlideTime = 0;
+                    virtualclass.sharePt.autoSlideFlag = 0;
+                    virtualclass.sharePt.localStoragFlag = 0;
+                    virtualclass.sharePt.startFromFlag=0;
+
+                    virtualclass.sharePt.eventsObj = [];
+                    virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
+                    virtualclass.sharePt.stateLocalStorage = {};
+
+                    localStorage.removeItem('autoSlideTime');
+                    localStorage.removeItem('autoSlideFlag');
+
+                    var iframecontainer = document.getElementById("iframecontainer");
+                    if (iframecontainer == null) {
+                        console.log("call of iframe creater from onclick event handler");
+                        virtualclass.sharePt.UI.createIframe();
+                    }
+
+                    var pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
+                    if (!pptContainer.classList.contains("pptSharing")) {
+                        pptContainer.classList.add("pptSharing");
+                    }
+                    virtualclass.sharePt.setPptUrl(vUrl);
+
+                    virtualclass.system.setAppDimension(); // add just the height of screen container
                 } else {
-                    console.log("Invalid Url");
-                    alert("Invalid URL");
+                    alert('Invalid Url');
                 }
-                virtualclass.system.setAppDimension(); // add just the height of screen container
             },
             /*
              * Removes unnessary characters from the entered url, url copied from slides.com may contain hash  

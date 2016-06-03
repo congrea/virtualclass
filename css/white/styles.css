@@ -2417,8 +2417,8 @@
 
 
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox #recordingClose{
-	top: 13px;
-	right: 15px;
+	top: 10px;
+	right: 10px;
 	position: absolute;
 }
 
@@ -2465,9 +2465,10 @@
 
 #virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer, #virtualclassCont.student.presenter #virtualclassSharePresentation.pptSharing #urlcontainer{
 	top:auto;
-	bottom:0%;
+	bottom:3%;
 	left: 55px;
 	right: auto;
+	z-index: 7;
 }
 
 
@@ -2581,12 +2582,6 @@
 	cursor : pointer;
 }
 
-#virtualclassCont #recordFinishedMessage {
-	font-weight: bold;
-	float : left;
-
-}
-
 #virtualclassCont #recordFinishedMessageBox {
 	display : none;
 }
@@ -2656,7 +2651,7 @@
 	margin-top: 12px;
 }
 
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow{
+#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow, #virtualclassCont #recordingContainer .rv-vanilla-modal-body{
 	color: #6a8a13;
 	background-color: #fff;
 	border: #ddd 1px solid;
@@ -2665,6 +2660,14 @@
 	clear: both;
 	padding: 20px;
 }
+#virtualclassCont #recordingContainer .rv-vanilla-modal-body{
+	 margin: 10px;
+}
+#virtualclassCont #recordingContainer .rv-vanilla-modal-body #recordFinishedMessage{
+	font-size: 16px;
+	text-align: center;
+}
+#virtualclassCont #recordingContainer .rv-vanilla-modal-body #recordFinishedMessageBox #recordingClose{top: 10px; right: 10px;}
 
 #virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished:after{
 	visibility: hidden;
@@ -2851,12 +2854,14 @@
 
 
 #virtualclassCont #sessionEndMsgCont.popupWindow{
-	margin: 18px 25px;
+	margin: 10px;
 }
+
+#virtualclassCont .rv-vanilla-modal-header.group.removeHeader{ display: none;}
 
 #virtualclassCont #sessionEndMsgCont #sessionEndClose.icon-close{
 	top: 10px;
-	right: 15px;
+	right: 10px;
 	position: absolute;
 	cursor : pointer;
 }
@@ -3047,6 +3052,7 @@
 	border: #ddd 1px solid;
 	margin-right: 10px;
 }
+#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton, button{color:#333 !important;}
 
 
 /* Error massages */
@@ -3415,13 +3421,6 @@
 
 
 /* Play mode */
-
-
-#virtualclassCont.playMode .vceditor-toolbar{
-	background-color: transparent;
-}
-
-#virtualclassCont #recordFinishedMessage{color:#000; text-align: center;}
 #virtualclassCont.educator #virtualclassSharePresentation { margin-left : 7px;}
 
 

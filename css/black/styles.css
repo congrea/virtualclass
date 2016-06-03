@@ -2426,8 +2426,8 @@
 
 
 #virtualclassCont .rv-vanilla-modal-body #recordFinishedMessageBox #recordingClose{
-    top: 20px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     position: absolute;
 }
 
@@ -2657,7 +2657,7 @@
     margin-top: 12px;
 }
 
-#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow{
+#virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow, #virtualclassCont #recordingContainer .rv-vanilla-modal-body{
     color: #6a8a13;
     background-color: #fff;
     border: #ddd 1px solid;
@@ -2665,6 +2665,10 @@
     border-radius: 5px;
     clear: both;
     padding: 20px;
+}
+
+#virtualclassCont #recordingContainer .rv-vanilla-modal-body{
+	 margin: 10px;
 }
 
 #virtualclassCont #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished:after{
@@ -2852,15 +2856,17 @@
 
 
 #virtualclassCont #sessionEndMsgCont.popupWindow{
-    margin: 18px 25px;
+    margin: 10px;
 }
 
 #virtualclassCont #sessionEndMsgCont #sessionEndClose.icon-close{
     top: 10px;
-    right: 15px;
+    right: 10px;
     position: absolute;
     cursor : pointer;
 }
+#virtualclassCont .rv-vanilla-modal-header.group.removeHeader{ display: none;}
+
 #virtualclassCont .ui-memblist-usr{
     margin-top: -1px;
 }
@@ -3175,10 +3181,11 @@
 	
 }
 #virtualclassCont #virtualclassSharePresentation.pptSharing #urlcontainer, #virtualclassCont.student.presenter #virtualclassSharePresentation.pptSharing #urlcontainer{
-	top:auto;
-	bottom:0%;
-	left: 55px;
-	right: auto;
+    top: auto;
+    bottom: 2%;
+    left: 30px;
+    right: auto;
+    z-index: 7;
 }
 
 #virtualclassCont #popupContainer #replayContainer.popupWindow{
@@ -3443,12 +3450,10 @@
 
 /* Play mode */
 
-
-#virtualclassCont.playMode .vceditor-toolbar{
-	background-color: transparent;
-}
+#virtualclassCont #recordFinishedMessage{color:#6a8a13; text-align: center; font-weight: normal; font-size: 14px;}
 
 #virtualclassCont.educator #virtualclassSharePresentation {
    margin-left : 7px;
 }
+
 

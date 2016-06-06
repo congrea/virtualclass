@@ -2640,7 +2640,7 @@
 }
 
 #virtualclassCont div#playControllerCont.playMode{
-    min-height: 62px;
+    min-height: 60px;
 }
 
 
@@ -3455,6 +3455,6 @@
 #virtualclassCont.educator #virtualclassSharePresentation {
    margin-left : 7px;
 }
+#virtualclassCont #popupContainer #recordingContainer .rv-vanilla-modal-body #progressContainer #totProgressCont #totalProgressLabel, #virtualclassCont #popupContainer #recordingContainer .rv-vanilla-modal-body #progressContainer #indvProgressCont #indvProgressLabel{color:#333 !important;}
 
 
-#virtualclassCont #popupContainer #recordingContainer .rv-vanilla-modal-body #progressContainer #totProgressCont #totalProgressLabel, #virtualclassCont #popupContainer #recordingContainer .rv-vanilla-modal-body #progressContainer #indvProgressCont #indvProgressLabel{color:#333;}

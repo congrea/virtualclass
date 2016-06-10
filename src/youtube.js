@@ -90,9 +90,11 @@
              * 
              */
             destroyYT: function () {
-                //debugger;
+
                 if (typeof virtualclass.yts.player == 'object') {
-                    //console.log('Player object is DESTROYED.');
+                    if(virtualclass.currApp == 'ScreenShare'){
+                        ioAdapter.mustSend({'yts': 'destroyYT', 'cf': 'yts'});
+                    }
                     virtualclass.yts.player.destroy();
                     virtualclass.yts.player = "";
                     if (virtualclass.yts.hasOwnProperty('tsc')) {
@@ -263,6 +265,8 @@
                         this.player.mute();
                     } else if (msg.yts == 'unmute') {
                         this.player.unMute();
+                    } else if(msg.yts == 'destroyYT'){
+                        virtualclass.yts.destroyYT();
                     }
 
                 } else {

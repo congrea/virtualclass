@@ -541,7 +541,7 @@
              */
             validUrl : function (){
                 if (virtualclass.sharePt.isUrlip(virtualclass.sharePt.urlValue)) {
-                    return virtualclass.sharePt.urlValue;
+                    return virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue);
                 } else if (virtualclass.sharePt.urlValue.search("<iframe") > 0) {
                     return virtualclass.sharePt.extractUrl(virtualclass.sharePt.urlValue);
                 }  else if (virtualclass.sharePt.validURLWithDomain(virtualclass.sharePt.urlValue)) {
@@ -584,6 +584,7 @@
                     if (!pptContainer.classList.contains("pptSharing")) {
                         pptContainer.classList.add("pptSharing");
                     }
+
                     virtualclass.sharePt.setPptUrl(vUrl);
 
                     virtualclass.system.setAppDimension(); // add just the height of screen container

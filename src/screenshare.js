@@ -209,7 +209,7 @@
 
              */
             init: function (screen) {
-
+                
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;

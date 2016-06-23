@@ -6,7 +6,7 @@
 
 (function(window) {
     "use strict";
-    io = window.io;
+    var  io = window.io;
     /*
      * It handles  message event fired on changing state of the slides
      * Message event  can be fired by  using postMessage or by changing 
@@ -14,78 +14,79 @@
      *and teacher  broadcasts the state to the students
      *@param  message event received
      */
-    window.addEventListener('message', function(event) {
-        if (virtualclass.currApp == "SharePresentation") {
-            var frame = document.getElementById("pptiframe");
-            var pptData = event.data;
-            var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;
 
-
-            if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
-                   virtualclass.sharePt.state = pptData.state;
-            }
-            // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
-            // we need to add over here 
-
-            if (pptData.eventName == 'ready') {
-
-                //TODO validate startFromFlag and localStoragFlag nirmala
-                if(virtualclass.sharePt.localStoragFlag && !virtualclass.sharePt.startFromFlag) {
-                    var state=virtualclass.sharePt.stateLocalStorage;
-                    frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args: [state.indexh,state.indexv,state.indexf]}), '*');
-                    virtualclass.sharePt.localStoragFlag=0;
-                }else if(virtualclass.sharePt.startFromFlag){
-                    //debugger;
-                    frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:virtualclass.sharePt.startFrom }), '*'); 
-                }
-                
-                /** 
-                 * To know the auto slide is enable or not 
-                 * There is no good way to find this, will explore it about later
-                 * TODO remove time and test properly Nirmala
-                 * **/
-                setTimeout(function() {
-                    if (frame != null) {
-                        if(frame.contentWindow != null) {
-                            frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
-                        }
-                    }
-                }, 1500);
-                
-            }
-            
-            if (roles.hasView()) {
-                if (pptData.eventName == 'ready') {
-                    //virtualclass.sharePt.studentPptReadyFlag = 1;
-                    /** Need bit delay **/
-                    setTimeout(function() {
-                       virtualclass.sharePt.removeControls();
-                    }, 100);
-                    
-                    if(virtualclass.sharePt.studentPpt){
-                        virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
-                        virtualclass.sharePt.studentPpt = 0;
-                        //virtualclass.sharePt.studentPptReadyFlag = 0;
-                    }
-                }
-                /** TODO need proper test NIRMALA **/
-//                if (virtualclass.sharePt.studentPptReadyFlag && virtualclass.sharePt.studentPpt) {
-//                    virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
-//                    virtualclass.sharePt.studentPpt = 0;
-//                    virtualclass.sharePt.studentPptReadyFlag = 0;
+//    window.addEventListener('message', function(event) {
+//        if (virtualclass.currApp == "SharePresentation") {
+//            var frame = document.getElementById("pptiframe");
+//            var pptData = event.data;
+//            var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;
+//
+//
+//            if(pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal'){
+//                   virtualclass.sharePt.state = pptData.state;
+//            }
+//            // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
+//            // we need to add over here 
+//
+//            if (pptData.eventName == 'ready') {
+//
+//                //TODO validate startFromFlag and localStoragFlag nirmala
+//                if(virtualclass.sharePt.localStoragFlag && !virtualclass.sharePt.startFromFlag) {
+//                    var state=virtualclass.sharePt.stateLocalStorage;
+//                    frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args: [state.indexh,state.indexv,state.indexf]}), '*');
+//                    virtualclass.sharePt.localStoragFlag=0;
+//                }else if(virtualclass.sharePt.startFromFlag){
+//                    //debugger;
+//                    frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:virtualclass.sharePt.startFrom }), '*'); 
 //                }
-            } else if (roles.hasControls()) {
-                console.log(pptData.eventName);
-                if (typeof pptData.eventName != 'undefined') {
-                    virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
-                    virtualclass.sharePt.state = pptData.state;
-                }
-            }
-        } else if(frame != null){
-            frame.removeAttribute("src");
-        }
-        
-    });
+//                
+//                /** 
+//                 * To know the auto slide is enable or not 
+//                 * There is no good way to find this, will explore it about later
+//                 * TODO remove time and test properly Nirmala
+//                 * **/
+//                setTimeout(function() {
+//                    if (frame != null) {
+//                        if(frame.contentWindow != null) {
+//                            frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
+//                        }
+//                    }
+//                }, 1500);
+//                
+//            }
+//            
+//            if (roles.hasView()) {
+//                if (pptData.eventName == 'ready') {
+//                    //virtualclass.sharePt.studentPptReadyFlag = 1;
+//                    /** Need bit delay **/
+//                    setTimeout(function() {
+//                       virtualclass.sharePt.removeControls();
+//                    }, 100);
+//                    
+//                    if(virtualclass.sharePt.studentPpt){
+//                        virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
+//                        virtualclass.sharePt.studentPpt = 0;
+//                        //virtualclass.sharePt.studentPptReadyFlag = 0;
+//                    }
+//                }
+//                /** TODO need proper test NIRMALA **/
+////                if (virtualclass.sharePt.studentPptReadyFlag && virtualclass.sharePt.studentPpt) {
+////                    virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
+////                    virtualclass.sharePt.studentPpt = 0;
+////                    virtualclass.sharePt.studentPptReadyFlag = 0;
+////                }
+//            } else if (roles.hasControls()) {
+//                console.log(pptData.eventName);
+//                if (typeof pptData.eventName != 'undefined') {
+//                    virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
+//                    virtualclass.sharePt.state = pptData.state;
+//                }
+//            }
+//        } else if(frame != null){
+//            frame.removeAttribute("src");
+//        }
+//        
+//    });
 
 
     var sharePt = function() {
@@ -139,10 +140,10 @@
                         messageContainer.style.display = "none";
                     }
                     urlCont.style.display = "block";
-                    
+
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-                    
-                    
+
+
 
                 }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');
@@ -156,6 +157,7 @@
                 }
 
                 this.findInStorage();
+                virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
             },
             /* 
              *if there is refresh/reload find url and state from the localStorage and sets the control
@@ -177,16 +179,16 @@
                                 //  debugger;
                                 this.localStoragFlag = true;
                                 this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
-                                
-                                  // TODO nirmala do more testing
+
+                                // TODO nirmala do more testing
 //                                if (roles.hasControls()) {
 //                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
 //                                }
-                               
+
                                 if (mdata['startFrom'] != null) {
                                     virtualclass.sharePt.stateLocalStorage = mdata['startFrom'];
                                 }
-                               
+
                             }
                         }
                         // TODO this should be checked propery and should located inside nested function
@@ -213,7 +215,7 @@
                 var iframe = document.getElementById("pptiframe");
                 var pptUrl = (this.pptUrl.search("postMessage") < 0) ? this.pptUrl + "?postMessage=true&postMessageEvents=true" : this.pptUrl;
                 iframe.setAttribute("src", pptUrl);
-                
+
                 this.setAutoSlideConfig();
 
                 var msgCont = document.getElementById('pptMessageLayout');
@@ -226,11 +228,78 @@
                     pptContainer.classList.add("pptSharing");
                 }
             },
-            
+
             /*
-            * Set the autoslide configation value from local storage to iniline variables 
-            */
-            
+             * Set the autoslide configation value from local storage to iniline variables
+             */
+            pptMessageEventHandler: function(event) {
+                if (virtualclass.currApp == "SharePresentation") {
+                    var frame = document.getElementById("pptiframe");
+                    var pptData = event.data;
+                    var pptData = (typeof pptData == 'string') ? JSON.parse(event.data) : event.data;
+
+                    if (typeof pptData != 'undefined') {
+                        if (pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal') {
+                            virtualclass.sharePt.state = pptData.state;
+                        }
+                        // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
+                        // we need to add over here 
+
+                        if (pptData.eventName == 'ready') {
+
+                            //TODO validate startFromFlag and localStoragFlag nirmala
+                            if (virtualclass.sharePt.localStoragFlag && !virtualclass.sharePt.startFromFlag) {
+                                var state = virtualclass.sharePt.stateLocalStorage;
+                                frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args: [state.indexh, state.indexv, state.indexf]}), '*');
+                                virtualclass.sharePt.localStoragFlag = 0;
+                            } else if (virtualclass.sharePt.startFromFlag) {
+                                //debugger;
+                                frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args: virtualclass.sharePt.startFrom}), '*');
+                            }
+
+                            /**
+                             * To know the auto slide is enable or not
+                             * There is no good way to find this, will explore it about later
+                             * TODO remove time and test properly Nirmala
+                             * **/
+                            setTimeout(function() {
+                                if (frame != null) {
+                                    if (frame.contentWindow != null) {
+                                        frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
+                                    }
+                                }
+                            }, 1500);
+
+                        }
+
+                        if (roles.hasView()) {
+                            if (pptData.eventName == 'ready') {
+                                //virtualclass.sharePt.studentPptReadyFlag = 1;
+                                /** Need bit delay **/
+                                setTimeout(function() {
+                                    virtualclass.sharePt.removeControls();
+                                }, 100);
+
+                                if (virtualclass.sharePt.studentPpt) {
+                                    virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
+                                    virtualclass.sharePt.studentPpt = 0;
+                                    //virtualclass.sharePt.studentPptReadyFlag = 0;
+                                }
+                            }
+
+                        } else if (roles.hasControls()) {
+                            console.log(pptData.eventName);
+                            if (typeof pptData.eventName != 'undefined') {
+                                virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
+                                virtualclass.sharePt.state = pptData.state;
+                            }
+                        }
+                    }
+                } else if (frame != null) {
+                    frame.removeAttribute("src");
+                }
+
+            },
             setAutoSlideConfig: function() {
                 if (localStorage.getItem('autoSlideTime')) {
                     virtualclass.sharePt.autoSlideTime = JSON.parse(localStorage.getItem('autoSlideTime'));
@@ -240,7 +309,7 @@
             /*
              * student receives ppt message
              * @param  msg ppt msg from the sender
-             
+
              */
             onmessage: function(msg) {
                 if (msg.hasOwnProperty('autoSlide')) {
@@ -269,13 +338,13 @@
                 }
                 ioAdapter.mustSend({pptMsg: pptData, cf: 'ppt', autoSlide: this.autoSlideTime, cfpt : 'setPEvent'});
             },
-            
+
             /*
              * We are calculating the autoslide time based on automatic slide changed
-                for example at very first, the auto slide is paused, after that if presenter resume the auto slide and slidechanged event
-                is occured then the below function caculated autoslide time, It does not caculate the time when autolide is paused and
-                use click on next/prev slide button to change the slide, in that time we give the default time is 6 second.
-                This time is required when student become presenter, we are storing two time stamps for compare
+             for example at very first, the auto slide is paused, after that if presenter resume the auto slide and slidechanged event
+             is occured then the below function caculated autoslide time, It does not caculate the time when autolide is paused and
+             use click on next/prev slide button to change the slide, in that time we give the default time is 6 second.
+             This time is required when student become presenter, we are storing two time stamps for compare
              */
             calculateAutoSlideTime: function(pptData) {
                 this.eventsObj.push({name: pptData.eventName, time: Date.now()});
@@ -295,7 +364,7 @@
             /*
              * function to be called when auto slide paused
              * @param  pptData paused event data
-             
+
              */
             autoslidepaused: function(pptData) {
                 this.autoSlideFlag = 1; // To find that autoSlide is enabled or not
@@ -309,7 +378,7 @@
              */
             autoslideresumed: function(pptData) {
                 //this.autoSlideResumed
-                this.autoSlideFlag = 1; 
+                this.autoSlideFlag = 1;
                 this.autoSlideResumed = 1;
                 this.eventsObj = [];
                 this.eventsObj.push({name: pptData.eventName, time: Date.now()});
@@ -369,9 +438,9 @@
                 displayFrame : function (){
                     this.displayFrame();
                 },
-                
+
                 setUrl : function (receivemsg){
-                    
+
                     virtualclass.sharePt.localStoragFlag = 0;
                     virtualclass.sharePt.stateLocalStorage = {};
                     virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
@@ -387,41 +456,41 @@
                         }
                     }
                 },
-                
+
                 setPEvent : function (receivemsg){
-                    var frame= document.getElementById('pptiframe') 
+                    var frame= document.getElementById('pptiframe')
                     if (frame != null) {
                         virtualclass.sharePt.setSlideState(receivemsg.pptMsg);
                     }
                     this.state = receivemsg.pptMsg.state;
                 }
             },
-         
+
             /*
              * Creates the layout at the  student's side
              * Sets Url of the slide and after that sets state on receiveing changed state from the sender
              * @param receivemsg  received message by the student 
              */
             onPptMsgReceive: function(receivemsg) {
-                      
+
                 if( typeof receivemsg.ppt != 'undefined') {
                     if( typeof receivemsg.ppt.startFrom != 'undefined') {
                         virtualclass.sharePt.startFromFlag=1;
-                        var frame= document.getElementById('pptiframe') 
+                        var frame= document.getElementById('pptiframe')
                         if(frame !=null){
                             if (receivemsg.ppt.init.search("postMessage") < 0) {
-                                    frame.setAttribute("src", receivemsg.ppt.init+ "?postMessage=true&postMessageEvents=true");
+                                frame.setAttribute("src", receivemsg.ppt.init+ "?postMessage=true&postMessageEvents=true");
                             } else {
                                 frame.setAttribute("src", receivemsg.ppt.init);
-                            }   
+                            }
                             virtualclass.sharePt.startFrom=[receivemsg.ppt.startFrom.indexh,receivemsg.ppt.startFrom.indexv,receivemsg.ppt.startFrom.indexf];
-                       }
+                        }
                     }
-                    
+
                 }
 
                 if (typeof receivemsg.pptMsg != 'undefined') {
-                    
+
                     var frame = document.getElementById("pptiframe");
                     var msgLayout = document.getElementById('pptMessageLayout');
                     if (frame != null) {
@@ -438,9 +507,9 @@
                     if (msgLayout != null) {
                         msgLayout.style.display = "none";
                     }
-                    
-                    
-                    
+
+
+
                     if(receivemsg.hasOwnProperty('cfpt') && typeof receivemsg.cfpt != 'undefined' && typeof virtualclass.sharePt.cfpt[receivemsg.cfpt] != 'undefined'){
                         virtualclass.sharePt.cfpt[receivemsg.cfpt].call(virtualclass.sharePt, receivemsg);
                     }
@@ -484,7 +553,7 @@
             /*
              * sets state at student's end as it is changed on teacher's end
              * @param  receivemsg contains event received corresponding to state change on teacher's side
-             
+
              */
             setSlideState: function(msg) {
                 var frame = document.getElementById("pptiframe").contentWindow;
@@ -520,11 +589,11 @@
                     case 'overviewhidden':
                         frame.postMessage(JSON.stringify({method: 'setState', args: stateArg}), '*');
                         frame.postMessage(JSON.stringify({method: 'slide', args: indexArg}), '*');
-                    default : 
+                    default :
                         console.log('There is no event is occured');
                 }
             },
-            
+
             toProtocolRelativeUrl : function (){
                 var url = virtualclass.sharePt.urlValue;
                 if(url.indexOf('http') >= 0){
@@ -532,9 +601,7 @@
                 } else {
                     return ('//' + url);
                 }
-                
             },
-
             /**
              * validate the url and return validated url
              * @returns {*}
@@ -547,10 +614,10 @@
                 }  else if (virtualclass.sharePt.validURLWithDomain(virtualclass.sharePt.urlValue)) {
                     return virtualclass.sharePt.completeUrl(virtualclass.sharePt.cleanupUrl(virtualclass.sharePt.urlValue));
                 }
-                return false;
+                return false ;
             },
 
-              /*
+            /*
              *event handler on click of submit button of the url at teacher's end
              *Calls function to set up the url 
              *calls function to validate the entered url 
@@ -559,7 +626,6 @@
             initNewPpt : function() {
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
                 virtualclass.sharePt.urlValue =   virtualclass.sharePt.toProtocolRelativeUrl();
-
                 var vUrl = virtualclass.sharePt.validUrl();
                 if(vUrl){
                     virtualclass.sharePt.autoSlideTime = 0;
@@ -611,11 +677,11 @@
                 console.log("test+set ppt url function");
                 var elem = document.getElementById("iframecontainer");
                 elem.style.display = "block";
-                
+
                 var frame = document.getElementById("pptiframe");
                 console.log("completeurl" + urlValue);
                 virtualclass.sharePt.pptUrl = urlValue + "?postMessage=true&postMessageEvents=true";
-                
+
                 frame.setAttribute("src", virtualclass.sharePt.pptUrl);
                 ioAdapter.mustSend({pptMsg: "displayframe", cf: 'ppt', user: "all", cfpt : 'displayframe'});
                 ioAdapter.mustSend({pptMsg: urlValue, cf: 'ppt',  user: "all", cfpt : 'setUrl'});
@@ -627,7 +693,7 @@
              * @param str url to validate
              */
             validURLWithDomain: function(str) {
-                var regex = /^\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+                var regex = /((http|https)?:\/\/)?([a-z\d\-]{1,63}\.)*[a-z\d\-]{1,255}\.[a-z]{2,6}\/{1,255}\s*/;
                 return regex.test(str);
             },
             /*
@@ -640,13 +706,13 @@
                 }
                 return str;
             },
-            
-           
+
+
             /*
              * extract url from the complete iframe text
              * @param str complete embedded iframe text is entered in the textbox
              */
-            
+
             extractUrl: function(str) {
                 if (str.search("src") > 0) {
                     var pos = str.match(/"(.*?)"/);
@@ -656,7 +722,7 @@
                 }
                 return str;
             },
-           
+
             /*
              * if entered url is an ip address return true else return false
              * @param str to check for an ip 
@@ -677,7 +743,7 @@
                     console.log('ppt_state', prvAppObj.metaData.startFrom);
                     localStorage.setItem('ppt_state', JSON.stringify(prvAppObj.metaData.startFrom));
                     console.log("savinlocal");
-                    
+
                     localStorage.setItem('pptUrl', JSON.stringify(prvAppObj.metaData.init));
                     localStorage.setItem('autoSlideTime', JSON.stringify(virtualclass.sharePt.autoSlideTime));
                     localStorage.setItem('autoSlideFlag', JSON.stringify(virtualclass.sharePt.autoSlideFlag));
@@ -688,22 +754,22 @@
                 if (document.getElementById("pptiframe") != null) {
                     var configValues = {controls: true,keyboard:true,progress:true,touch:true};
                     var autoSlideTime;
-                    
+
                     if(virtualclass.sharePt.autoSlideTime && virtualclass.sharePt.autoSlideFlag){
                         autoSlideTime = virtualclass.sharePt.autoSlideTime;
                     } else if(virtualclass.sharePt.autoSlideFlag){
-                       autoSlideTime =  6000;
+                        autoSlideTime =  6000;
                     }
-                    
+
                     if(typeof autoSlideTime != 'undefined' && autoSlideTime > 1000){
                         configValues.autoSlide = autoSlideTime;
                     }
-                    
-                    
+
+
                     //frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: true,keyboard:true,progress:true,touch:true}]}), '*');
 
                     frame.contentWindow.postMessage(JSON.stringify({method: "configure", args : [configValues]}), '*');
-                    
+
                     frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
                 }
                 var pptMessageLayout = document.getElementById('pptMessageLayout');
@@ -714,8 +780,8 @@
                 document.getElementById('urlcontainer').style.display = "block";
                 virtualclass.sharePt.eventsObj = [];
             },
-            
-            
+
+
             initStudentLayout : function (){
                 var frame = document.getElementById("pptiframe");
                 virtualclass.sharePt.eventsObj = [];
@@ -724,7 +790,7 @@
 
                 if (document.getElementById("pptiframe") != null) {
                     if(frame.src !=""){
-                       virtualclass.sharePt.hideElement('pptMessageLayout');
+                        virtualclass.sharePt.hideElement('pptMessageLayout');
                     }
                     frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: false,autoSlide: 0,autoSlideStoppable: true,keyboard: false,progress: false,touch: false}]}), '*');
                 }else {
@@ -732,30 +798,34 @@
                 }
                 virtualclass.sharePt.hideElement('urlcontainer');
             },
-            
-            
+
+
             hideElement : function (id){
                 var element = document.getElementById(id);
                 if(element != null){
                     element.style.display = 'none';
                 }
             },
-            
+
             displayElement : function (id){
                 var element = document.getElementById(id);
                 if(element != null){
                     element.style.display = 'block';
                 }
             },
-            
-            
+
+
             attachEvent : function (id, eventName, handler){
-              var  elem = document.getElementById(id);
+                var  elem = document.getElementById(id);
+                var  elem = document.getElementById(id);
                 if(elem != null){
                     elem.addEventListener(eventName, handler)
                 }
             },
-            
+            attachMessageEvent:function(eventName,messageHandler) {
+                window.addEventListener(eventName, messageHandler)
+            },
+
             UI: {
                 id: 'virtualclassSharePresentation',
                 class: 'virtualclass',
@@ -793,14 +863,14 @@
                         pptCtr.appendChild(contDiv);
                         contDiv.style.display = "none";
                     }
-                    
+
                     var elem = document.createElement("div");
                     elem.setAttribute("id", "iframecontainer");
                     elem.style.height = '100%';
                     elem.style.width = '100%';
                     pptCtr.insertBefore(elem, pptCtr.firstChild);
                     elem.style.display = "none";
-                    
+
                     var ct = document.getElementById("iframecontainer");
                     var frame = document.createElement("iframe");
                     ct.appendChild(frame);
@@ -816,16 +886,14 @@
                     var pptCont = document.getElementById("virtualclassSharePresentation");
                     if (document.getElementById('urlcontainer') == null) {
                         var urlc = document.createElement("div");
-                        
+
                         urlc.setAttribute("id", "urlcontainer");
                         pptCont.appendChild(urlc);
-                        
+
                         var url = document.createElement("input");
                         url.setAttribute("id", "presentationurl");
-
                         url.setAttribute("placeholder", virtualclass.lang.getString('ppturl'));
                         urlc.appendChild(url);
-                     
                         var btn = document.createElement("input");
                         btn.setAttribute("type", "submit");
                         btn.setAttribute("id", "submitpurl");
@@ -833,7 +901,7 @@
                         urlc.appendChild(btn);
                     }
                 },
-          
+
                 /*
                  * 
                  * display message on student's screen that ppt is going to be shared
@@ -848,14 +916,14 @@
                         pptContainer.appendChild(studentMessage);
                     }
                 },
-                
+
                 removeIframe : function (){
                     var elem = document.getElementById('pptiframe')
                     if(elem) {
                         elem.parentNode.removeChild(elem);
                     }
                 }
-                
+
             }
         };
     }

@@ -847,7 +847,7 @@
                     }
                     
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-                   
+                    virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 }
 
             } else {
@@ -872,6 +872,7 @@
                     }
                     
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                    virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 }
                 
                 virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 's' : 'e';

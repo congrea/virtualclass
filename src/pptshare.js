@@ -476,6 +476,8 @@
                 iframe.setAttribute("src", (receivemsg.pptMsg.search("postMessage") < 0) ? receivemsg.pptMsg + "?postMessage=true&postMessageEvents=true" : receivemsg.pptMsg);
                 console.log("test url is set");
                 this.pptUrl = receivemsg.pptMsg;
+                virtualclass.sharePt.localStoragFlag=0;
+                virtualclass.sharePt.startFromFlag=0
             },
             /*
              * sets state at student's end as it is changed on teacher's end

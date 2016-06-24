@@ -490,6 +490,7 @@
                     this.sharePt.init(app, cusEvent);
                     console.log(virtualclass.sharePt.pptUrl);
                     this.previous = virtualclass.ptConfig.id;
+                    virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 },
                 
                 editor: function(app) {

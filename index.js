@@ -344,7 +344,7 @@ $(document).ready(function () {
      */
     var transferControl = function (userId){
         // virtualclass.clearSession();
-        // We need handle to     the bindary data
+        // We need handle to   the bindary data
          //debugger;
         setTimeout(
             function (){
@@ -394,7 +394,8 @@ $(document).ready(function () {
 
         ioPingPong.ping(e);
         memberUpdate(e, 'added');
-        if (typeof virtualclass.gObj.hasOwnProperty('updateHeight')) {
+       
+        if (typeof virtualclass.gObj.updateHeight == 'undefined') {
             virtualclass.gObj.video.updateVidContHeight();
             virtualclass.gObj.updateHeight = true;
         }

@@ -1058,6 +1058,7 @@
                     var num = 0;
                     var videoCont = document.getElementById("allVideosCont");
                     videoCont.style.maxHeight = maxHeight + "px";
+
                     setInterval(
                         function () {
                             if (++num <= 20) {
@@ -1265,10 +1266,15 @@
              * Increasing chat container's height as number of users is increased
              */
             updateVidContHeight: function () {
+                console.log('Updating User');
                 var elem = document.getElementById("virtualclassCont");
                 var offset = vcan.utility.getElementOffset(elem);
                 var mh = window.innerHeight - (offset.y + 75);
-                document.getElementById("chat_div").style.maxHeight = mh + "px";
+                var chatDiv = document.getElementById("chat_div");
+                if(chatDiv.offsetHeight >= mh){
+                    chatDiv.style.overflowY = "scroll";
+                }
+                chatDiv.style.maxHeight = mh + "px";
             },
             // Closeing the video
             close: function () {

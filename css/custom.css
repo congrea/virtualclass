@@ -1,0 +1,66 @@
+
+#virtualclassCont.congrea #virtualclassPreCheck #browserNext {width: 100%;}
+#virtualclassCont.congrea  #virtualclassPreCheck.bootstrap .btn {margin-top: 15px; border-color: #c2c2c2;}
+
+#virtualclassCont.congrea #virtualclassPreCheck .testName {
+    font-size: 20px; 
+    text-align: center; 
+    margin-bottom: 30px; 
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck .result div {
+    background: rgba(0, 128, 0, 0.01) none;
+    border: 1px dotted rgba(0,128,0,0.4);
+    border-radius: 3px;
+    padding: 12px;
+    text-align: center;
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck .result div.errorMsg {
+    text-align: left;
+    padding-left: 15px;
+    line-height: 160%;
+}
+#virtualclassCont.congrea #virtualclassPreCheck .result .error div {
+    background: rgba(255,148,148,0.012) none;
+    border: 1px dotted rgba(255,148,148,0.5);
+}
+#virtualclassCont.congrea #virtualclassPreCheck .result div.screenImages {margin-top: 3px;}
+
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn-default:hover {
+    background-color: #eee;
+    border-color: #aaa !important;
+}
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
+    line-height: 1.684;
+    padding: 7px 12px 4px;
+}
+#virtualclassCont.congrea .bootstrap .modal-body {padding: 15px 16px 24px;}
+#virtualclassCont.congrea .bootstrap .progress {
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
+    color: #666;
+    font-size: 12px;
+    height: 26px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 5px 6px;
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .next.btn {float: right;}
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .prev.btn {margin-right: 10px; float: left;}
+
+@media (min-width: 768px) {
+    #virtualclassCont.congrea .bootstrap .modal-dialog {
+       width: 600px;
+       margin: 30px auto;
+    }
+    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 8% auto;}
+}
+
+@media (min-width: 992px) {
+    #virtualclassCont.congrea .bootstrap .modal-lg {width: 900px;}
+}

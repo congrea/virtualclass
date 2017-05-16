@@ -131,12 +131,14 @@
         measureResoultion: function (resolution) {
 
             var element = document.getElementById('virtualclassCont');
-            var offset = vcan.utility.getElementOffset(element);
+            var offset = virtualclass.vutil.getElementOffset(element);
             var offsetLeft = offset.x;
             if (resolution.width < 1024) {
                 var width = 1024 - (offsetLeft + 10);
             } else {
-                var width = resolution.width - offsetLeft;
+                // Suman latest
+                // shrink width
+                var width = resolution.width - (offsetLeft + 350);
 
             }
             var height = resolution.height - offset.y;
@@ -145,32 +147,44 @@
         /*
          * setting dimension of the application
          */
-        setAppDimension: function () {
+        setAppDimension: function (id) {
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
 
             //var mainWrapper =  document.getElementById('virtualclassCont');
-            virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
+                virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
             if (virtualclass.currApp == 'Whiteboard') {
-                system.setCanvasDimension(measureRes);
+                var id = virtualclass.gObj.currWb;
+                system.setCanvasDimension(measureRes, id);
+
             }
         },
+
+        setDocCanvasDimension : function (width, height, id){
+            var elem = document.querySelector('#canvas'+id);
+            if(elem != null){
+                elem.width = width;
+                elem.height = height;
+            }
+        },
+
         /*
          * Setting dimension of the canvas
          */
-        setCanvasDimension: function (measureRes) {
+        setCanvasDimension: function (measureRes, id) {
+            var vcan = virtualclass.wb[id].vcan;
             if (typeof vcan.main.canvas != 'undefined') {
                 var canvas = vcan.main.canvas;
                 ctx = vcan.main.canvas.getContext('2d');
                 canvas.width = measureRes.width;
 
                 // for handle the scroll on whiteboard during the play mode
-                var rHeight =  (virtualclass.isPlayMode) ? 85 : 10;
+                var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
-                var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 65 : rHeight;
+                var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 canvas.height = measureRes.height - toolWrapperHeight;
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');
-                var offset = vcan.utility.getElementOffset(document.getElementById('canvas'));
+                var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
                 vcan.main.offset.x = offset.x;
             }
         },
@@ -275,6 +289,8 @@
          * 
          */
         check: function () {
+
+
             // TODO this should be normal
             var iOS = this.isiOSDevice();
             this.device = "desktop";
@@ -394,6 +410,135 @@
                 }
 //                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
             }
+        },
+
+
+        mediaDevices : {
+            webcamErr : [],
+            getMediaDeviceInfo : function (){
+                if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+                    // Firefox 38+ seems having support of enumerateDevicesx
+                    navigator.enumerateDevices = function(callback) {
+                        navigator.mediaDevices.enumerateDevices().then(callback);
+                    };
+                }
+
+                var MediaDevices = [];
+                var isHTTPs = location.protocol === 'https:';
+                var canEnumerate = false;
+
+                if (typeof MediaStreamTrack !== 'undefined' && 'getSources' in MediaStreamTrack) {
+                    canEnumerate = true;
+                } else if (navigator.mediaDevices && !!navigator.mediaDevices.enumerateDevices) {
+                    canEnumerate = true;
+                }
+
+                this.hasMicrophone = false;
+                this.hasSpeakers = false;
+                this.hasWebcam = false;
+
+                var isMicrophoneAlreadyCaptured = false;
+                var isWebcamAlreadyCaptured = false;
+
+                var that = this;
+
+                function checkDeviceSupport(callback) {
+                    if (!canEnumerate) {
+                        return;
+                    }
+
+                    if (!navigator.enumerateDevices && window.MediaStreamTrack && window.MediaStreamTrack.getSources) {
+                        navigator.enumerateDevices = window.MediaStreamTrack.getSources.bind(window.MediaStreamTrack);
+                    }
+
+                    if (!navigator.enumerateDevices && navigator.enumerateDevices) {
+                        navigator.enumerateDevices = navigator.enumerateDevices.bind(navigator);
+                    }
+
+                    if (!navigator.enumerateDevices) {
+                        if (callback) {
+                            callback();
+                        }
+                        return;
+                    }
+
+                    MediaDevices = [];
+
+                    navigator.enumerateDevices(function(devices) {
+                        devices.forEach(function(_device) {
+                            var device = {};
+                            for (var d in _device) {
+                                device[d] = _device[d];
+                            }
+
+                            if (device.kind === 'audio') {
+                                device.kind = 'audioinput';
+                            }
+
+                            if (device.kind === 'video') {
+                                device.kind = 'videoinput';
+                            }
+
+                            var skip;
+                            MediaDevices.forEach(function(d) {
+                                if (d.id === device.id && d.kind === device.kind) {
+                                    skip = true;
+                                }
+                            });
+
+                            if (skip) {
+                                return;
+                            }
+
+                            if (!device.deviceId) {
+                                device.deviceId = device.id;
+                            }
+
+                            if (!device.id) {
+                                device.id = device.deviceId;
+                            }
+
+                            if (!device.label) {
+                                device.label = 'Please invoke getUserMedia once.';
+                                if (!isHTTPs) {
+                                    device.label = 'HTTPs is required to get label of this ' + device.kind + ' device.';
+                                }
+                            } else {
+                                if (device.kind === 'videoinput' && !isWebcamAlreadyCaptured) {
+                                    isWebcamAlreadyCaptured = true;
+                                }
+
+                                if (device.kind === 'audioinput' && !isMicrophoneAlreadyCaptured) {
+                                    isMicrophoneAlreadyCaptured = true;
+                                }
+                            }
+
+                            if (device.kind === 'audioinput') {
+                                that.hasMicrophone = true;
+                            }
+
+                            if (device.kind === 'audiooutput') {
+                                that.hasSpeakers = true;
+                            }
+
+                            if (device.kind === 'videoinput') {
+                                that.hasWebcam = true;
+                            }
+
+                            // there is no 'videoouput' in the spec.
+
+                            MediaDevices.push(device);
+                        });
+
+                        if (callback) {
+                            callback();
+                        }
+                    });
+                }
+
+                checkDeviceSupport();
+
+            }
         }
     };
 
@@ -404,17 +549,30 @@
         function () {
             if (window.earlierWidth != window.innerWidth) {
                 system.setAppDimension();
+                 virtualclass.view.window.resize();
             }
         }
     );
 
-    window.addEventListener('resize',
-        function () {
-            if (window.earlierWidth != window.innerWidth) {
-                virtualclass.view.window.resize();
-            }
-        }
-    );
+
+
+
+
+    // window.addEventListener('resize',
+    //     function () {
+    //         if (window.earlierWidth != window.innerWidth) {
+    //             system.setAppDimension();
+    //         }
+    //     }
+    // );
+
+    // window.addEventListener('resize',
+    //     function () {
+    //         if (window.earlierWidth != window.innerWidth) {
+    //             virtualclass.view.window.resize();
+    //         }
+    //     }
+    // );
     // TODO this function is not being invoked
     system.mybrowser.detectIE = function () {
         var ua = window.navigator.userAgent;
@@ -441,29 +599,35 @@
         // other browser
         return false;
     },
-        // TODO this function is not being invoked
-        system.mybrowser.detection = function () {
 
-            var ua = navigator.userAgent, tem,
-                M = ua.match(/(opera|opr|OPR(?=\/))\/?\s*([\d\.]+)/i) || []; //for opera especially
-            if (M.length <= 0) {
-                M = ua.match(/(chrome|safari|firefox|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
-                if (M[1] == 'Safari') {
-                    var version = ua.match(/(version(?=\/))\/?\s*([\d\.]+)/i) || [];
-                    M[2] = version[2];
-                }
-            }
-            if (/trident/i.test(M[1])) {
-                tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
-                return 'IE ' + (tem[1] || '');
-            }
+    // TODO this function is not being invoked
+    system.mybrowser.detection = function () {
 
-            M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-            if ((tem = ua.match(/version\/([\.\d]+)/i)) != null) {
-                M[2] = tem[1];
+        var ua = navigator.userAgent, tem,
+            M = ua.match(/(opera|opr|OPR(?=\/))\/?\s*([\d\.]+)/i) || []; //for opera especially
+        if (M.length <= 0) {
+            M = ua.match(/(chrome|safari|firefox|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
+            if (M[1] == 'Safari') {
+                var version = ua.match(/(version(?=\/))\/?\s*([\d\.]+)/i) || [];
+                M[2] = version[2];
             }
-            // return M.join(' ');
-            return M;
-        },
-        window.system = system;
+        }
+        if (/trident/i.test(M[1])) {
+            tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
+            return 'IE ' + (tem[1] || '');
+        }
+
+        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+        if ((tem = ua.match(/version\/([\.\d]+)/i)) != null) {
+            M[2] = tem[1];
+        }
+        // return M.join(' ');
+        return M;
+    }
+
+
+
+
+
+    window.system = system;
 })(window);

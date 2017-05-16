@@ -16,13 +16,14 @@
                         this.RTCPeerConnection = mozRTCPeerConnection;
                         this.RTCSessionDescription = mozRTCSessionDescription;
                         this.RTCIceCandidate = mozRTCIceCandidate;
-                        navigator.getUserMedia = navigator.mozGetUserMedia;
+                        navigator.getUserMedia = navigator.getUserMedia  || navigator.mozGetUserMedia;
 
                         this.attachMediaStream = function (element, stream) {
+
                             this.videoAdd = true;
                             var url = window.URL || window.webkitURL;
                             element.src = url ? url.createObjectURL(stream) : stream;
-                            //element.mozSrcObject = stream;
+                           // element.mozSrcObject = stream;
                             element.play();
                         };
 
@@ -32,14 +33,22 @@
                             to.play();
                         };
 
-                        // Fake get{Video,Audio}Tracks
-                        MediaStream.prototype.getVideoTracks = function () {
-                            return [];
-                        };
 
-                        MediaStream.prototype.getAudioTracks = function () {
-                            return [];
-                        };
+                        /**
+                         * It seems that there is no need of doing this
+                         * in latest version of firefox, this is disabled
+                         * because we need to get the video track (var mediaStreamTrack = stream.getVideoTracks()[0];) in media.js for check
+                         * that webcam is being used by
+                         * It can be tricky, need proper test
+                         */
+                        // Fake get{Video,Audio}Tracks
+                        //MediaStream.prototype.getVideoTracks = function () {
+                        //    return [];
+                        //};
+                        //
+                        //MediaStream.prototype.getAudioTracks = function () {
+                        //    return [];
+                        //};
 
                     } else if (navigator.webkitGetUserMedia) {
 //                            alert('this is for chrome');
@@ -48,7 +57,7 @@
                         this.RTCPeerConnection = webkitRTCPeerConnection;
                         this.RTCSessionDescription = RTCSessionDescription;
                         this.RTCIceCandidate = RTCIceCandidate;
-                        navigator.getUserMedia = navigator.webkitGetUserMedia;
+                        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
                         this.attachMediaStream = function (element, stream) {
                             var url = window.URL || window.webkitURL;

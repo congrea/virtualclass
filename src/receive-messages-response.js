@@ -34,7 +34,7 @@
         assignRole: function (fromUserId, id, reclaim) {
             if (fromUserId != id || typeof reclaim != 'undefined') {
                 virtualclass.vutil.assignRole(id);
-                virtualclass.wb.utility.uniqueArrOfObjsToTeacher();
+                virtualclass.wb[virtualclass.gObj.currWb].utility.uniqueArrOfObjsToTeacher();
                 //create assing button only to student
                 if (!roles.hasAdmin()) {
                     virtualclass.vutil.removeSessionTool();   //
@@ -70,16 +70,16 @@
         checkUser: function (e, id, storageHasTeacher) {
             var joinId = e.message.joinId;
             if ((typeof vcan.teacher == 'undefined') && (!storageHasTeacher)) {
-                virtualclass.wb.utility.makeCanvasDisable();
+                virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasDisable();
             }
             virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
-            virtualclass.wb.utility.makeUserAvailable(e.message.checkUser.e.clientLen);
+            virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(e.message.checkUser.e.clientLen);
         },
         clearAll: function (formUserId, id, eMessage, orginalTeacherId) {
             if (formUserId != id) {
-                virtualclass.wb.tool = new virtualclass.wb.tool_obj('t_clearall');
-                virtualclass.wb.utility.t_clearallInit();
-                virtualclass.wb.utility.makeDefaultValue();
+                virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].tool_obj('t_clearall');
+                virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
+                virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
                 //virtualclass.storage.clearStorageData();
                 virtualclass.storage.clearSingleTable('wbData');
             }
@@ -88,49 +88,49 @@
         // TODO this is not used any more
         // should be deleted
         replayAll: function () {
-            window.virtualclass.wb.vcan.main.replayObjs = virtualclass.wb.gObj.replayObjs;
-            virtualclass.wb.utility.clearAll(false);
-            virtualclass.wb.toolInit('t_replay', 'fromFile');
+            window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs;
+            virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(false);
+            virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromFile');
         },
-        createArrow: function (eMessage, orginalTeacherId) {
-            var imageElm = virtualclass.wb.arrImg;
+        createArrow: function (eMessage) {
+            var imageElm = virtualclass.wb[virtualclass.gObj.currWb].arrImg;
             var obj = {};
             obj.mp = {x: eMessage.x, y: eMessage.y};
-            virtualclass.wb.utility.drawArrowImg(imageElm, obj);
+            virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
         },
 
 
         replayObj2: function (repObj) {
-            window.virtualclass.wb.vcan.main.replayObjs = [];
+            window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = [];
             if (repObj.length > 0) {
-                if (virtualclass.wb.gObj.displayedObjId + 1 == repObj[0].uid) {
-                    window.virtualclass.wb.vcan.main.replayObjs = repObj;
+                if (virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId + 1 == repObj[0].uid) {
+                    window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = repObj;
                     console.log('Whiteboard:-  recieved ' + repObj[repObj.length - 1].uid);
-                    virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                    virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.dispQueuePacket);
                 } else {
-                    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb.gObj.displayedObjId  + ' and recived first packet' + repObj[0].uid);
+                    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId  + ' and recived first packet' + repObj[0].uid);
                 }
             }
         },
 
         replayObj: function (repObj) {
-            window.virtualclass.wb.vcan.main.replayObjs = [];
+            window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = [];
             if (repObj.length > 0) {
-                window.virtualclass.wb.vcan.main.replayObjs = repObj;
-                virtualclass.wb.toolInit('t_replay', 'fromBrowser', true, virtualclass.wb.utility.dispQueuePacket);
+                window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = repObj;
+                virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.dispQueuePacket);
             }
         },
 
         chunk: function (fromUser, id, repObj) {
-            virtualclass.wb.bridge.handleMissedPackets(fromUser, id, repObj);
+            virtualclass.wb[virtualclass.gObj.currWb].bridge.handleMissedPackets(fromUser, id, repObj);
         },
 
         repObjForMissedPkts: function (msgRepObj) {
-            if (virtualclass.wb.gObj.rcvdPackId !== 0 || (virtualclass.wb.uid > 0 && virtualclass.wb.gObj.rcvdPackId === 0)) { //for handle very starting stage
+            if (virtualclass.wb[virtualclass.gObj.currWb].gObj.rcvdPackId !== 0 || (virtualclass.wb[virtualclass.gObj.currWb].uid > 0 && virtualclass.wb[virtualclass.gObj.currWb].gObj.rcvdPackId === 0)) { //for handle very starting stage
                 if ((typeof msgRepObj === 'object' || msgRepObj instanceof Array)) {
                     if (msgRepObj[0].hasOwnProperty('uid') && (!msgRepObj.hasOwnProperty('chunk'))) {
-                        if ((Number(virtualclass.wb.gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) || (virtualclass.wb.gObj.rcvdPackId != virtualclass.wb.gObj.displayedObjId)) {
-                            var reqPacket = virtualclass.wb.bridge.requestPackets(msgRepObj);
+                        if ((Number(virtualclass.wb[virtualclass.gObj.currWb].gObj.rcvdPackId + 1) < Number(msgRepObj[0].uid)) || (virtualclass.wb[virtualclass.gObj.currWb].gObj.rcvdPackId != virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId)) {
+                            var reqPacket = virtualclass.wb[virtualclass.gObj.currWb].bridge.requestPackets(msgRepObj);
                             virtualclass.vutil.beforeSend({'getMsPckt': reqPacket, 'cf': 'getMsPckt'});
                         }
                     }

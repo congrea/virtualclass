@@ -1,6 +1,7 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
+// This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
@@ -11,6 +12,7 @@
     var that;
     var prArr = [];
     var tarr = [];
+        var dataStore = false;
   //  var totalDataStored = localStorage.getItem('totalStored');
     function initToServer(cb) {
         if (typeof cb == 'function') {
@@ -26,7 +28,7 @@
 
     var storage = {
       //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-        dbVersion: 4,
+        dbVersion: 6,
         init: function (firstDataStore) {
              
             /***
@@ -45,7 +47,9 @@
             this.reclaim = roles.isEducator();
             that = this;
             //TODO these are not using because audio and video is not using
-              this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll"];
+
+            this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData"];
+
              //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
             //  Try and Catch not supporting here
@@ -74,7 +78,7 @@
 
                 // TODO this should be simplyfy
                 if (!thisDb.objectStoreNames.contains("wbData")) {
-                    thisDb.createObjectStore("wbData", {keyPath: 'timeStamp', autoIncrement: true});
+                    thisDb.createObjectStore("wbData", {keyPath: 'did'});
                 }
 
                 if (!thisDb.objectStoreNames.contains("allData")) {
@@ -105,9 +109,19 @@
                 if (!thisDb.objectStoreNames.contains("executedUserStoreAll")) {
                     thisDb.createObjectStore("executedUserStoreAll", {keyPath: 'serialKey'});
                 }
+
+                if (!thisDb.objectStoreNames.contains("dstdata")) {
+                    thisDb.createObjectStore("dstdata", {keyPath: 'timeStamp', autoIncrement: true});
+                    
+                }
+                if (!thisDb.objectStoreNames.contains("pollStorage")) {
+                    thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp',autoIncrement: true});
+                }
+                
+                if (!thisDb.objectStoreNames.contains("quizData")) {
+                    thisDb.createObjectStore("quizData", {keyPath: 'quizkey'});
+                }
             };
-
-
 
             openRequest.onsuccess = function (e) {
                 that.db = e.target.result;
@@ -129,7 +143,15 @@
                 if (virtualclass.gObj.sessionClear) {
                     that.config.endSession(true);
                 } else {
-                    that.getAllObjs(that.tables, function (result) {
+
+                    var pos = that.tables.indexOf('wbData');
+                    if(pos > -1 ){
+                        var tables = that.tables.slice(pos+1);
+                    } else {
+                        var tables = that.tables;
+                    }
+
+                    that.getAllObjs(tables, function (result) {
                             if (typeof result == 'undefined') {
                                 that.config.createNewSession();
                             } else {
@@ -150,19 +172,36 @@
                 };
                 firstDataStore();
             };
-
-
         },
 
         store: function (data) {
             //console.log("whiteboard data store");
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
-            objectStore.clear();
-            console.log('Whiteboard Total Store ' + JSON.parse(data).length );
-            // localStorage.setItem('repObjs', data); Enable for debugging
-            t.objectStore("wbData").add({repObjs: data, timeStamp: new Date().getTime(), id: 1});
+                // objectStore.clear();
+                //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
+                // localStorage.setItem('repObjs', data); Enable for debugging
+                t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
+
+           // t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
             return false;
+        },
+        
+        //related poll
+        pollStore:function(store){
+            var t = that.db.transaction(["pollStorage"], "readwrite");
+            var objectStore = t.objectStore("pollStorage");
+            //objectStore.clear();
+            console.log('poll result data length' + JSON.parse(store).length );
+            // localStorage.setItem('repObjs', data); Enable for debugging
+            t.objectStore("pollStorage").add({pollResult:store, currTime:new Date().getTime(), id: 1});
+            return false;    
+        },
+
+        wbDataRemove : function (key){
+            var t = that.db.transaction(["wbData"], "readwrite");
+            var objectStore = t.objectStore("wbData");
+            objectStore.delete(key);
         },
 
         dataExecutedStoreAll: function (data, serialKey) {
@@ -174,7 +213,6 @@
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
-             
         },
 
         dataAdapterAllStore: function (data, serialKey) {
@@ -255,6 +293,13 @@
             this.wholeStoreData = data;
             this.prevTime = currTime;
         },
+		quizStorage: function(quizkey, data){
+			var t = that.db.transaction(["quizData"], "readwrite");
+            var objectStore = t.objectStore("quizData");
+            //objectStore.clear();
+
+			t.objectStore("quizData").put({qzData: data, quizkey: quizkey});
+		},
 
         displayData: function () {
             var transaction = that.db.transaction(["virtualclass"], "readonly");
@@ -279,7 +324,7 @@
                                 that[tables[val]].handleResult(event, cb, row);
                             } else {
                                 //console.log('table name ' + tables[val]);
-                                if (tables[val] != 'chunkData') {
+                                if (tables[val] != 'chunkData' && tables[val] != 'quizData'&& tables[val] != 'pollStorage') {
                                     that[tables[val]].handleResult(event, cb);
                                 }
                             }
@@ -317,6 +362,31 @@
 
             }
         },
+             // related poll 
+        getAllDataOfPoll: function (table, cb) {
+
+            var wholeData = [];
+            var transaction = that.db.transaction(table, "readonly");
+            var objectStore = transaction.objectStore(table[0]);
+
+            objectStore.openCursor().onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    wholeData.push(cursor.value);
+                    cursor.continue();
+                } else {
+                    if(wholeData.length > 0){
+                        cb(wholeData);
+                    } else {
+                        console.log('No data fetched from indexedDb');
+                    }
+
+                }
+
+            }
+        },
+        
+        
 
         getrowData: function (table, cb, row) {
             var transaction = that.db.transaction(table, "readonly");
@@ -354,13 +424,13 @@
 
                             console.log('Total Whiteboard Length ' + JSON.parse(cursor.value.repObjs).length + ' From indexeddb');
                             //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
-                            virtualclass.wb.utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
+                            virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
 
                         } else {
-                            virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
+                            virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
                         }
 
-                        virtualclass.gObj.tempReplayObjs = JSON.parse(cursor.value.repObjs);
+                        virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
                         storeFirstObj = true;
                     }
                     cursor.continue();
@@ -370,7 +440,7 @@
                     //
                     //    console.log('Total Whiteboard Length ' + virtualclass.gObj.tempReplayObjs.length + ' From indexeddb');
                     //    //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
-                    //    virtualclass.wb.utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs);
+                    //    virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs);
                     //
                     //} else {
                     //    virtualclass.gObj.tempReplayObjs = virtualclass.gObj.tempReplayObjs;
@@ -378,7 +448,7 @@
 
 
                     if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
-                        virtualclass.wb.utility.makeUserAvailable(); //at very first
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(); //at very first
                     }
                 }
             }
@@ -387,7 +457,6 @@
         allData: {
             chunk: 0,
             handleResult: function (event, cb) {
-
                 //virtualclass.recorder.item = [];
                 var cursor = event.target.result;
                 if (cursor) {
@@ -544,11 +613,13 @@
             endSession: function (onlyStoredData) {
                 //debugger;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
+                var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
 
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
+                virtualclass.wb = ""; // make white board empty
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
@@ -566,10 +637,10 @@
 
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
-                        virtualclass.wb.utility.t_clearallInit();
-                        virtualclass.wb.utility.makeDefaultValue();
-                        if(typeof virtualclass.wb.replay == 'object'){
-                            virtualclass.wb.replay.rendering = false;
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
+                        if(typeof virtualclass.wb[virtualclass.gObj.currWb].replay == 'object'){
+                            virtualclass.wb[virtualclass.gObj.currWb].replay.rendering = false;
                         }
                     }
 
@@ -624,6 +695,11 @@
                     io.sock.close();
                 }
 
+
+                if(precheck != null ){
+                    localStorage.setItem('precheck', JSON.parse(precheck));
+                }
+
                 // The new session is trying to open
                 // overriding educator role (new teacher become educator) at where already has presenter
                 if(newEducator != null){
@@ -639,17 +715,58 @@
                 //virtualclass.gObj.uRole // update the role at 
                 that.config.createNewSession();
                 console.log('New role after clear ' + virtualclass.gObj.uRole);
-                virtualclass.popup.waitMsg(); // until the web socket is connected.
+                if(!virtualclass.enablePreCheck){
+                    // Only popup the message, if the precheck is not enabled
+                    virtualclass.popup.waitMsg();
+                }
+
+                if(typeof virtualclass.dts == 'object' && virtualclass.dts != null){
+                    virtualclass.dts.destroyDts();
+                }
             }
         },
+
         shapesData: {
             handleResult: function () {
                 virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
             }
         },
-        
+
+        dstStore : function (data){
+            var t = that.db.transaction(["dstdata"], "readwrite");
+            var objectStore = t.objectStore("dstdata");
+            objectStore.clear();
+
+            // localStorage.setItem('repObjs', data); Enable for debugging
+            t.objectStore("dstdata").add({alldocs: data, timeStamp: new Date().getTime(), id: 9});
+        },
+
+
+        // Store for document sharing data
+        dstdata : {
+            handleResult : function(event){
+                //alert('document share init');
+
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.hasOwnProperty('alldocs')) {
+                        console.log('document share store suman');
+                        dataStore = true;
+                        virtualclass.gObj.docs = JSON.parse(cursor.value.alldocs);
+
+                    }
+                    cursor.continue();
+                } else {
+                    if(!dataStore){
+                        console.log('document share store init');
+                        virtualclass.gObj.docs = 'init';
+                    }
+                }
+            }
+        },
 
         clearSingleTable : function (table){
+
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);
@@ -657,6 +774,11 @@
                 console.log('Cleared IDDB Table ' + table);
             } else {
                 console.log('There is no table '+ table + ' at IDDB.');
+            }
+            // if we clear the indexed db then we need to
+            // that docs to be init
+            if(table == 'dstdata'){
+                virtualclass.gObj.docs = 'init';
             }
         },
 
@@ -693,7 +815,7 @@
             if (cursor) {
                 if (cursor.value.hasOwnProperty('repObjs')) {
                     var allObjs = JSON.parse(cursor.value.repObjs);
-                    virtualclass.wb.utility.replayFromLocalStroage(allObjs);
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(allObjs);
                 } else if (cursor.value.hasOwnProperty('audiostream')) {
                     var allObjs = JSON.parse(cursor.value.audiostream);
                     virtualclass.gObj.video.audio.assignFromLocal(allObjs);
@@ -701,6 +823,77 @@
                     virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
                 }
                 cursor.continue();
+            }
+        },
+        
+        // Get quiz data, store in array based on 
+        // key and then return array of object
+        getQuizData : function (cb){
+            var dbDefined = false;
+            try {
+                that.db.transaction(["quizData"], "readonly");
+                dbDefined = true;
+            } catch (err) {
+                setTimeout(
+                    function (){
+                        that.getQuizData(cb);
+                    }, 500
+                );
+            }
+            if(dbDefined){                
+                var t = that.db.transaction(["quizData"], "readonly");
+                var objectStore = t.objectStore("quizData");
+                var dataArr = [];
+                
+                objectStore.openCursor().onsuccess = function (event) {
+                    var cursor = event.target.result;
+                    if (cursor) {
+                        var qdata = cursor.value;
+                        dataArr[cursor.value.quizkey] = cursor.value.qzData;
+                        cursor.continue();
+                    } else {
+                        cb(dataArr);    
+                    }                    
+                }
+            }
+        },
+        
+        // Clear all data from given table
+        clearTableData: function (table) {
+            var t = that.db.transaction([table], "readwrite");
+            var objectStore = t.objectStore(table);
+            objectStore.clear();
+        },
+        
+        // get whiteboard data accoring to whieboard id
+        getWbData : function (wbId, cb){
+            var dbDefined = false;
+            try {
+                that.db.transaction(["wbData"], "readwrite");
+                dbDefined = true;
+            } catch (err) {
+
+                setTimeout(
+                    function (){
+                        that.getWbData(wbId, cb);
+                    }, 500
+                );
+
+            }
+
+            if(dbDefined){
+                console.log('GET DATA FROM LOCAL STORAGE');
+                var t = that.db.transaction(["wbData"], "readwrite");
+                //tx = db.transaction("MyObjectStore", "readwrite");
+                var row = t.objectStore("wbData");
+                var wb = row.get(wbId);
+                wb.onsuccess = function (e){
+                    if(typeof wb.result != 'undefined'){
+
+                        virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
+                        cb();
+                    }
+                }
             }
         }
     };

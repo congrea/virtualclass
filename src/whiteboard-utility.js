@@ -16,8 +16,9 @@
              * TODO This function is not used any more can be removed from here
              */
             isObjExistRE: function (obj) {
-                if (virtualclass.wb.replay.removeElements.length >= 0) {
-                    var objPos = virtualclass.wb.vcan.ArrayIndexOf(virtualclass.wb.replay.removeElements, function (pobj) {
+                var id = virtualclass.gObj.currWb;
+                if (virtualclass.wb[id].replay.removeElements.length >= 0) {
+                    var objPos = virtualclass.wb[id].vcan.ArrayIndexOf(virtualclass.wb[id].replay.removeElements, function (pobj) {
                         return pobj.id == obj.id
                     });
                     if (objPos >= 0) {
@@ -69,36 +70,39 @@
              * @param evt expects key down event
              */
             keyOperation: function (evt) {
+                var id = virtualclass.gObj.currWb;
                 // This is used for removed the selected object.
                 //var currTime = new Date().getTime();
                 //8 is used for delete on mac
 
                 if (evt.keyCode == 8 || evt.keyCode == 46) {
-                    var vcan = virtualclass.wb.vcan;
+                    var vcan = virtualclass.wb[id].vcan;
                     if (vcan.main.currObj != "") {
                         if(roles.hasControls()){ // can not remove the object when user has not control
                             console.log('Delete whiteboard obj:- Invoke the command');
-                            var obj = virtualclass.wb.utility.removeSelectedItem(vcan.main.currObj);
+                            var obj = virtualclass.wb[id].utility.removeSelectedItem(vcan.main.currObj);
                             virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                         }
                     }
                 } else if(evt.keyCode == 27){ // escape key
-                    if(typeof virtualclass.wb == 'object'){
-                        virtualclass.wb.obj.drawTextObj.finalizeTextIfAny();
+                    if(typeof virtualclass.wb[id] == 'object'){
+                        virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny();
                     }
                 }
             },
 
             removeSelectedItem: function (obj, notIncrement, notSave) {
-                virtualclass.wb.canvas.removeObject(vcan.main.currObj);
+                var id = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[id].vcan;
+                virtualclass.wb[id].canvas.removeObject(vcan.main.currObj);
                 var currTime = new Date().getTime();
 
                 var obj = {'mt': currTime, 'ac': 'del'};
                 if (typeof notIncrement == 'undefined') {
-                    virtualclass.wb.uid++;
+                    virtualclass.wb[id].uid++;
                 }
 
-                obj.uid = virtualclass.wb.uid;
+                obj.uid = virtualclass.wb[id].uid;
 
                 if(roles.hasControls()){
                     // we will not delete object during the replay
@@ -109,7 +113,7 @@
                     }
 
                 } else {
-                    virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+                    virtualclass.storage.store(JSON.stringify(virtualclass.wb[id].gObj.replayObjs));
                 }
 
                 vcan.main.currObj = "";
@@ -121,10 +125,10 @@
              *  the canvas there are three kinds of event handlers
              *  mouse down, up and move
              */
-            attachEventHandlers: function () {
-                virtualclass.wb.canvas.bind('mousedown', virtualclass.wb.utility.ev_canvas);
-                virtualclass.wb.canvas.bind('mousemove', virtualclass.wb.utility.ev_canvas);
-                virtualclass.wb.canvas.bind('mouseup', virtualclass.wb.utility.ev_canvas);
+            attachEventHandlers: function (id) {
+                virtualclass.wb[id].canvas.bind('mousedown', virtualclass.wb[id].utility.ev_canvas);
+                virtualclass.wb[id].canvas.bind('mousemove', virtualclass.wb[id].utility.ev_canvas);
+                virtualclass.wb[id].canvas.bind('mouseup', virtualclass.wb[id].utility.ev_canvas);
             },
             /**
              * Call the function through which
@@ -132,7 +136,7 @@
              */
             t_clearallInit: function () {
                 var delRpNode = true;
-                virtualclass.wb.utility.clearAll(delRpNode);
+                virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(delRpNode);
             },
             /**
              * By this function  all drawn object over the canvas would be erased
@@ -140,27 +144,28 @@
              * @param delRpNode
              */
             clearAll: function (delRpNode, pkMode) {
+                var wid = virtualclass.gObj.currWb;
                 //TODO this should be done in proper way
                 //virtualclass.recorder.items = [];
 
-                virtualclass.wb.uid = 0; //this should be done with proper way
-                virtualclass.wb.lt = "";
-                var vcan = virtualclass.wb.vcan;
+                virtualclass.wb[wid].uid = 0; //this should be done with proper way
+                virtualclass.wb[wid].lt = "";
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 while (vcan.main.children.length > 0) {
-                    virtualclass.wb.canvas.removeObject(vcan.main.children[0]);
+                    virtualclass.wb[wid].canvas.removeObject(vcan.main.children[0]);
                 }
 
                 //removing all the elements from replayObjs
                 if (delRpNode == true) {
                     /*****
                      This would I have disbaled can be critical
-                     virtualclass.wb.repObj.replayObjs.splice(0, virtualclass.wb.repObj.replayObjs);
+                     virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs.splice(0, virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs);
                      *****/
                     vcan.main.replayObjs.splice(0, vcan.main.replayObjs.length);
                 }
 
-                if (virtualclass.wb.replay != undefined) {
-                    virtualclass.wb.replay.objNo = 0;
+                if (virtualclass.wb[wid].replay != undefined) {
+                    virtualclass.wb[wid].replay.objNo = 0;
                 }
 
                 if (vcan.getStates('action') == 'move') {
@@ -191,7 +196,8 @@
              * @returns {Boolean}
              */
             deActiveFrmDragDrop: function () {
-                var vcan = virtualclass.wb.vcan;
+                var wid = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[wid].vcan;
                 var allChildren = vcan.main.children;
                 var currState = vcan.getStates('action');
                 if (currState == 'move') {
@@ -234,13 +240,14 @@
              * which means the mouse is downed/created for create the rectangle
              */
             ev_canvas: function (ev) {
+                var wbId = virtualclass.gObj.currWb;
                 //NOTE:- this have been done during the unit testing
-                var posMous = virtualclass.wb.vcan.utility.getReltivePoint(ev);
+                var posMous = virtualclass.wb[wbId].vcan.utility.getReltivePoint(ev);
                 ev.currX = posMous.x;
                 ev.currY = posMous.y;
 
                 // Here the particular function is calling according to mouse event.
-                var func = virtualclass.wb.tool[ev.type];
+                var func = virtualclass.wb[wbId].tool[ev.type];
                 if (func) {
                     func(ev);
                     return this.ev_canvas;
@@ -252,7 +259,7 @@
              * they can be selectable, draggable, rotateable etc
              */
             t_activeallInit: function () {
-                var vcan = virtualclass.wb.vcan;
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var allChildren = vcan.getStates('children');
                 if (allChildren.length >= 1) {
                     /* TODO this should not contain here */
@@ -263,8 +270,10 @@
                 }
             },
             drawArrowImg: function (img, obj) {
-                var ctx = virtualclass.wb.vcan.main.canvas.getContext('2d');
-                ctx.clearRect(0, 0, virtualclass.wb.vcan.main.canvas.width, virtualclass.wb.vcan.main.canvas.height);
+                var wid = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[wid].vcan;
+                var ctx = vcan.main.canvas.getContext('2d');
+                ctx.clearRect(0, 0, vcan.main.canvas.width, vcan.main.canvas.height);
                 vcan.renderAll();
                 ctx.save();
                 ctx.beginPath();
@@ -279,9 +288,10 @@
             
 			
             assignRole: function (studentId) {
-                virtualclass.wb.tool = "";
+                var wid = virtualclass.gObj.currWb;
+                virtualclass.wb[wid].tool = "";
                 if (vcan.main.action == 'move') {
-                    virtualclass.wb.utility.deActiveFrmDragDrop();
+                    virtualclass.wb[wid].utility.deActiveFrmDragDrop();
                 }
 
                 if (typeof studentId != 'undefined') {
@@ -325,7 +335,7 @@
                         }
                     }
 
-                    virtualclass.wb.utility.makeCanvasDisable();
+                    virtualclass.wb[wid].utility.makeCanvasDisable();
 
                     if (roles.hasAdmin()) {
                         virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
@@ -342,51 +352,58 @@
                     }
 
                     localStorage.setItem('uRole', virtualclass.gObj.uRole);
-                    virtualclass.wb.utility.uniqueArrOfObjsToStudent();
+                    virtualclass.wb[wid].utility.uniqueArrOfObjsToStudent();
                 }
 
             },
 
             reclaimRole: function () {
+                var wid = virtualclass.gObj.currWb;
                 virtualclass.gObj.controlAssign = false;
-                virtualclass.wb.response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
+                virtualclass.wb[wid].response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
             },
             dispQueuePacket: function (result) {
+                var wid = virtualclass.gObj.currWb;
                 if ((roles.hasControls()) ||
                     (roles.isEducator())) {
-                    virtualclass.wb.utility.toolWrapperEnable();
+                    virtualclass.wb[wid].utility.toolWrapperEnable();
 
                 }
-                virtualclass.wb.drawMode = false;
+                virtualclass.wb[wid].drawMode = false;
                 if (roles.hasControls()) {
-                    virtualclass.wb.utility.makeCanvasEnable();
-                    virtualclass.wb.utility.enableAppsBar();
+                    virtualclass.wb[wid].utility.makeCanvasEnable();
+                    virtualclass.wb[wid].utility.enableAppsBar();
                 }
             },
 
             makeCanvasDisable: function () {
+                var wid = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[wid].vcan
                 var canvasElement = vcan.main.canvas;
                 canvasElement.style.position = 'relative';
                 canvasElement.style.pointerEvents = "none";
             },
             makeCanvasEnable: function () {
+                var wid = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[wid].vcan
                 // debugger;
                 if (roles.hasControls()) {
-                    if (!virtualclass.wb.hasOwnProperty('canvasDisable') || !virtualclass.wb.canvasDisable) {
+                    if (!virtualclass.wb[wid].hasOwnProperty('canvasDisable') || !virtualclass.wb[wid].canvasDisable) {
                         var canvasElement = vcan.main.canvas;
                         canvasElement.style.pointerEvents = "visible";
                     }
                 }
             },
-            removeToolBox: function () {
-                var cmdWrapper = document.getElementById(vcan.cmdWrapperDiv);
+            removeToolBox: function (id) {
+                var cmdWrapper = document.getElementById('commandToolsWrapper' +id);
                 cmdWrapper.parentNode.removeChild(cmdWrapper);
             },
 
             createReclaimButton: function (cmdToolsWrapper) {
+                var wid = virtualclass.gObj.currWb;
                 virtualclass.vutil.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
                 var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
-                aTags[0].addEventListener('click', virtualclass.wb.objInit);
+                aTags[0].addEventListener('click', virtualclass.wb[wid].objInit);
             },
 
             chkValueInLocalStorage: function (property) {
@@ -399,34 +416,40 @@
             // The uniqueArrOfObjsToStudent and.
             // uniqueArrOfObjsToTeacher can be into sign.
             uniqueArrOfObjsToStudent: function () {
+                var wid = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[wid].vcan;
                 //  alert('toStudent');
                 var tempRepObjs = "";
-                virtualclass.wb.gObj.replayObjs = [];
+                virtualclass.wb[wid].gObj.replayObjs = [];
                 for (var i = 0; i < vcan.main.replayObjs.length; i++) {
                     tempRepObjs = vcan.extend({}, vcan.main.replayObjs[i]);
-                    virtualclass.wb.gObj.replayObjs.push(tempRepObjs);
+                    virtualclass.wb[wid].gObj.replayObjs.push(tempRepObjs);
                 }
             },
             uniqueArrOfObjsToTeacher: function () {
+                var wid = virtualclass.gObj.currWb;
+                var vcan = virtualclass.wb[wid].vcan;
                 vcan.main.replayObjs = [];
                 var tempRepObjs = "";
-                for (var i = 0; i < virtualclass.wb.gObj.replayObjs.length; i++) {
-                    tempRepObjs = vcan.extend({}, virtualclass.wb.gObj.replayObjs[i]);
+                for (var i = 0; i < virtualclass.wb[wid].gObj.replayObjs.length; i++) {
+                    tempRepObjs = vcan.extend({}, virtualclass.wb[wid].gObj.replayObjs[i]);
                     vcan.main.replayObjs.push(tempRepObjs);
                 }
             },
             makeDefaultValue: function (cmd) {
+                var wid = virtualclass.gObj.currWb;
+
                 if (typeof cmd == 'undefined' || cmd != 't_clearall') {
-                    virtualclass.wb.utility.makeDeActiveTool();
+                    virtualclass.wb[wid].utility.makeDeActiveTool();
                 }
 
-                virtualclass.wb.gObj.myrepObj = [];
-                virtualclass.wb.gObj.replayObjs = [];
-                virtualclass.wb.gObj.rcvdPackId = 0;
-                virtualclass.wb.gObj.displayedObjId = 0;
-                virtualclass.wb.gObj.packQueue = [];
-                virtualclass.wb.gObj.queue = [];
-                virtualclass.wb.uid = 0;
+                virtualclass.wb[wid].gObj.myrepObj = [];
+                virtualclass.wb[wid].gObj.replayObjs = [];
+                virtualclass.wb[wid].gObj.rcvdPackId = 0;
+                virtualclass.wb[wid].gObj.displayedObjId = 0;
+                virtualclass.wb[wid].gObj.packQueue = [];
+                virtualclass.wb[wid].gObj.queue = [];
+                virtualclass.wb[wid].uid = 0;
 
                 localStorage.setItem('rcvdPackId', 0);
                 //TODO this code should be removed after validate
@@ -448,6 +471,8 @@
                 virtualclass.gObj.video.audio.rec = '';
                 virtualclass.gObj.video.audio.audioNodes = [];
 
+                var vcan =  virtualclass.wb[wid].vcan;
+
                 if (typeof vcan.objTxt != 'undefined') {
                     vcan.objTxt.removeTextNode();
                 }
@@ -460,8 +485,9 @@
             },
 
             clearCurrentTool: function () {
-                if (virtualclass.wb.hasOwnProperty("tool")) {
-                    virtualclass.wb.tool = ""
+                var wid = virtualclass.gObj.currWb;
+                if (virtualclass.wb[wid].hasOwnProperty("tool")) {
+                    virtualclass.wb[wid].tool = ""
                 }
             },
 
@@ -482,9 +508,11 @@
                 return false;
             },
             createVirtualWindow: function (resolution) {
-                virtualclass.wb.gObj.virtualWindow = true;
+                var wid = virtualclass.gObj.currWb;
+
+                virtualclass.wb[wid].gObj.virtualWindow = true;
                 var div = document.createElement('div');
-                virtualclass.wb.utility.removeVirtualWindow('virtualWindow');
+                virtualclass.wb[wid].utility.removeVirtualWindow('virtualWindow');
                 var divId = 'virtualWindow';
                 div.setAttribute('id', divId);
                 var offset = vcan.main.offset;
@@ -512,9 +540,10 @@
                 containerWhiteBoard.insertBefore(div, containerWhiteBoard.firstChild);
             },
             removeVirtualWindow: function (id) {
+                var wid = virtualclass.gObj.currWb;
                 var virtualWindow = document.getElementById(id);
                 if (virtualWindow != null) {
-                    virtualclass.wb.gObj.virtualWindow = false;
+                    virtualclass.wb[wid].gObj.virtualWindow = false;
                     virtualWindow.parentNode.removeChild(virtualWindow);
                 }
             },
@@ -617,11 +646,12 @@
 
             //TODO remove this function
             existUserWithSameId: function (e) {
+                var wid = virtualclass.gObj.currWb;
                 var myId = e.message.checkUser.wbUser.id;
                 this.userIds.push(e.fromUser.userid);
 
                 if (this.userIds.length > 1) {
-                    var userSameId = virtualclass.wb.utility.arrayContainsSameValue(this.userIds[0], this.userIds);
+                    var userSameId = virtualclass.wb[wid].utility.arrayContainsSameValue(this.userIds[0], this.userIds);
                     if (userSameId) {
                         return true;
                     }
@@ -631,28 +661,31 @@
             //important TODO have to think tabout this function
             //makeUserAvailable: function(browerLength) {
             makeUserAvailable: function () {
+                var wid = virtualclass.gObj.currWb;
                 if (localStorage.getItem('repObjs') == null) {
-                    virtualclass.wb.utility.toolWrapperEnable();
+                    virtualclass.wb[wid].utility.toolWrapperEnable();
                     if (vcan.main.canvas != null) {
-                        virtualclass.wb.utility.makeCanvasEnable();
+                        virtualclass.wb[wid].utility.makeCanvasEnable();
                     }
                 }
             },
 
-            displayCanvas: function () {
-                vcan.canvasWrapperId = 'canvasWrapper';
-                if (document.getElementById('canvas') == null) {
-                    virtualclass.wb.createCanvas();
+            displayCanvas: function (id) {
+                var vcan = virtualclass.wb[id].vcan;
+
+                vcan.canvasWrapperId = 'canvasWrapper' + id;
+                if (document.getElementById('canvas' + id) == null) {
+                    virtualclass.wb[id].createCanvas(id);
                 }
 
-                window.virtualclass.wb.init();
+                window.virtualclass.wb[id].init(id);
 
-                virtualclass.wb.utility.makeCanvasDisable();
-                virtualclass.wb.utility.toolWrapperDisable();
+                virtualclass.wb[id].utility.makeCanvasDisable();
+                virtualclass.wb[id].utility.toolWrapperDisable();
 
                 if(!roles.hasControls() && !roles.hasAdmin()){
                     if(vcan.main.children == 0){
-                        virtualclass.wb.utility.createWhiteboardMessage()
+                   //     virtualclass.wb[id].utility.createWhiteboardMessage()
                     }
                 }
             },
@@ -673,7 +706,7 @@
                     whiteBoradMsgContainer.id = whiteboardMsgId;
                     whiteBoradMsgContainer.innerHTML = virtualclass.lang.getString('msgForWhiteboard');
 
-                    var containerWb = document.getElementById('canvasWrapper');
+                    var containerWb = document.getElementById('canvasWrapper' + virtualclass.gObj.currWb);
                     if(containerWb != null){
                         containerWb.appendChild(whiteBoradMsgContainer);
                     }
@@ -681,20 +714,22 @@
             },
 
             initAll: function (e) {
+                var wid = virtualclass.gObj.currWb;
                 if (roles.hasControls()) {
-                    virtualclass.wb.utility.makeCanvasDisable();
+                    virtualclass.wb[wid].utility.makeCanvasDisable();
                 }
                 var res = virtualclass.system.measureResoultion({
                     'width': window.outerWidth,
                     'height': window.innerHeight
                 });
             },
-            alreadyExistToolBar: function () {
-                var rectDiv = document.getElementById('t_rectangle');
+            alreadyExistToolBar: function (id) {
+                var rectDiv = document.getElementById('t_rectangle' + id);
                 if (rectDiv != null) {
                     var allToolDivs = rectDiv.parentNode.getElementsByClassName('tool');
                     return (allToolDivs.length >= 8) ? true : false;
                 }
+                return false;
             },
 
             //toolWrapperDisable and toolWrapperEnable should be merged into one function
@@ -736,45 +771,47 @@
             },
 
             replayFromLocalStroage: function (allRepObjs) {
+                var wid = virtualclass.gObj.currWb;
                 if (typeof (Storage) !== "undefined") {
                     if (virtualclass.storage.reclaim === false) {
-                        //virtualclass.wb.utility.disableAppsBar();
+                        //virtualclass.wb[virtualclass.gObj.currWb].utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
                     }
 
-                    virtualclass.wb.utility.clearAll(false, 'dontClear');
+                    virtualclass.wb[wid].utility.clearAll(false, 'dontClear');
 
-                    virtualclass.wb.gObj.tempRepObjs = allRepObjs;
+                    virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
 
-                    //virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(allRepObjs);
+                    //virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.concat(allRepObjs);
 
-                    //virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(allRepObjs);
+                    //virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.concat(allRepObjs);
 
 
                     if (allRepObjs.length > 0) {
-                        virtualclass.wb.utility.makeCanvasDisable();
-                        virtualclass.wb.utility.toolWrapperDisable();
-                        virtualclass.wb.utility.replayObjsByFilter(allRepObjs, 'fromBrowser');
+                        virtualclass.wb[wid].utility.makeCanvasDisable();
+                        virtualclass.wb[wid].utility.toolWrapperDisable();
+                        virtualclass.wb[wid].utility.replayObjsByFilter(allRepObjs, 'fromBrowser');
                     }
                 }
             },
 
             setUserStatus: function (storageHasTeacher, storageHasReclaim) {
+                var wid = virtualclass.gObj.currWb;
                 //TODO storageHasTeacher check with null rather than style of now.
                 if (!storageHasTeacher && !storageHasReclaim) {
-                    virtualclass.wb.utility.removeToolBox();
-                    virtualclass.wb.utility.setClass('vcanvas', 'student');
+                    virtualclass.wb[wid].utility.removeToolBox(wid);
+                    virtualclass.wb[wid].utility.setClass('vcanvas', 'student');
                 } else {
 
-                    virtualclass.wb.utility.setClass('vcanvas', 'teacher');
+                    virtualclass.wb[wid].utility.setClass('vcanvas', 'teacher');
                 }
             },
-            crateCanvasDrawMesssage: function () {
+            crateCanvasDrawMesssage: function (id) {
                 //if (typeof localStorage.teacherId != 'undefined') {
                 if (roles.hasControls()) {
                     if (localStorage.getItem('canvasDrwMsg') == null) {
-                        window.virtualclass.view.canvasDrawMsg('Canvas');
-                        window.virtualclass.view.drawLabel('drawArea');
+                        //window.virtualclass.view.canvasDrawMsg('Canvas', id);
+                        // window.virtualclass.view.drawLabel('drawArea', id);
                         localStorage.canvasDrwMsg = true;
                     }
                 }
@@ -790,10 +827,11 @@
             },
 
             actionAfterRemovedUser: function () {
-                virtualclass.wb.utility.makeCanvasDisable();
-                virtualclass.wb.utility.setStyleUserConnetion('con', 'coff');
-                virtualclass.wb.utility.removeVirtualWindow('virtualWindow');
-                virtualclass.wb.user.connected = false;
+                var wid = virtualclass.gObj.currWb;
+                virtualclass.wb[wid].utility.makeCanvasDisable();
+                virtualclass.wb[wid].utility.setStyleUserConnetion('con', 'coff');
+                virtualclass.wb[wid].utility.removeVirtualWindow('virtualWindow');
+                virtualclass.wb[wid].user.connected = false;wb[wid]
                 localStorage.removeItem('otherRole');
 
                 if (typeof cthis != 'undefined') {
@@ -833,24 +871,24 @@
              * @returns {undefined}
              */
             beforeSend: function (msg, toUser) {
-
+                var wid = virtualclass.gObj.currWb;
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
-                    virtualclass.wb.vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
+                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
                 } else {
                     if (msg.hasOwnProperty('repObj')) {
                         if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
                             return;
                         }
-                        virtualclass.wb.gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+                        virtualclass.wb[wid].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
 
 
 
-                        virtualclass.wb.gObj.displayedObjId = virtualclass.wb.gObj.rcvdPackId;
+                        virtualclass.wb[wid].gObj.displayedObjId = virtualclass.wb[wid].gObj.rcvdPackId;
                     }
                     var jobj = JSON.stringify(msg);
 
-                  //  virtualclass.wb.sentPackets = virtualclass.wb.sentPackets + jobj.length;
+                  //  virtualclass.wb[virtualclass.gObj.currWb].sentPackets = virtualclass.wb[virtualclass.gObj.currWb].sentPackets + jobj.length;
                     if (io.sock.readyState == 1) {
 
                         typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
@@ -860,10 +898,10 @@
                     //TODO this should be enable
                     var tempObj = JSON.parse(jobj);
                     if (tempObj.hasOwnProperty('repObj')) {
-                        virtualclass.wb.utility.updateSentInformation(jobj);
+                        virtualclass.wb[wid].utility.updateSentInformation(jobj);
                     }
                 }
-            //    localStorage.sentPackets = virtualclass.wb.sentPackets;
+            //    localStorage.sentPackets = virtualclass.wb[virtualclass.gObj.currWb].sentPackets;
             },
 
             checkCanvasHasParents: function () {
@@ -883,10 +921,11 @@
 
             //TODO lockvirtualclass should be lockWhiteboard
             lockvirtualclass: function () {
+                var wid = virtualclass.gObj.currWb;
                 if (window.earlierWidth != window.innerWidth) {
-                    virtualclass.wb.canvasDisable = true;
-                    virtualclass.wb.utility.makeCanvasDisable();
-                    virtualclass.wb.utility.toolWrapperDisable();
+                    virtualclass.wb[wid].canvasDisable = true;
+                    virtualclass.wb[wid].utility.makeCanvasDisable();
+                    virtualclass.wb[wid].utility.toolWrapperDisable();
                     virtualclass.vutil.disableAppsBar();
                     if (document.getElementById('divForReloadMsg') == null) {
 
@@ -921,14 +960,15 @@
             },
 
             makeActiveTool: function (byReload) {
+                var wid = virtualclass.gObj.currWb;
                 var tag = document.getElementById(byReload);
                 var classes;
-                if (virtualclass.wb.hasOwnProperty('prvTool') && virtualclass.wb.prvTool != "t_reclaim") {
+                if (virtualclass.wb[wid].hasOwnProperty('prvTool') && virtualclass.wb[wid].prvTool != "t_reclaim"+wid) {
 
-                    //classes = virtualclass.wb.utility.removeClassFromElement(virtualclass.wb.prvTool, "active");
-                    classes = virtualclass.vutil.removeClassFromElement(virtualclass.wb.prvTool, "active");
+                    //classes = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(virtualclass.wb[virtualclass.gObj.currWb].prvTool, "active");
+                    classes = virtualclass.vutil.removeClassFromElement(virtualclass.wb[wid].prvTool, "active");
 
-                    document.getElementById(virtualclass.wb.prvTool).className = classes;
+                    document.getElementById(virtualclass.wb[wid].prvTool).className = classes;
                 } else {
                     classes = tag.className;
                     //classes =  this.parentNode.className;
@@ -938,7 +978,8 @@
             },
 
             makeDeActiveTool: function () {
-                virtualclass.wb.tool = "";//unselect any selected tool
+                var wid = virtualclass.gObj.currWb;
+                virtualclass.wb[wid].tool = "";//unselect any selected tool
 
                 var toolsWrapper = document.getElementById("commandToolsWrapper");
                 var activeTool = document.getElementsByClassName('tool active');
@@ -958,8 +999,9 @@
             },
             //todo, this shoudl be into user file
             _reclaimRole: function () {
-                virtualclass.wb.utility.reclaimRole();
-                virtualclass.wb.utility.sendRequest();
+                var wid = virtualclass.gObj.currWb;
+                virtualclass.wb[wid].utility.reclaimRole();
+                virtualclass.wb[wid].utility.sendRequest();
                 virtualclass.user.control.changeAttrToAssign('enable');
             },
 
@@ -972,27 +1014,29 @@
             },
 
             replayObjsByFilter : function (repObjs, fromBrowser){
+                var wid = virtualclass.gObj.currWb;
                 for(var i=0; i < repObjs.length; i++){
-                    virtualclass.wb.bridge.makeQueue(repObjs[i]);
-                    if (repObjs[i].uid  ==  virtualclass.wb.gObj.displayedObjId + 1) {
-                        virtualclass.wb.uid = repObjs[i].uid;
+                    virtualclass.wb[wid].bridge.makeQueue(repObjs[i]);
+                    if (repObjs[i].uid  ==  virtualclass.wb[wid].gObj.displayedObjId + 1) {
+                        virtualclass.wb[wid].uid = repObjs[i].uid;
                         this.executeWhiteboardData(repObjs[i]);
                         if(typeof fromBrowser != 'undefined'){
-                            virtualclass.wb.gObj.rcvdPackId = virtualclass.wb.uid;
+                            virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
                         }
                     } else {
                         console.log('Could not display whiteboard object with ' + repObjs[i].uid);
-                       // virtualclass.wb.bridge.makeQueue(repObjs[i]);
+                       // virtualclass.wb[virtualclass.gObj.currWb].bridge.makeQueue(repObjs[i]);
                     }
                 }
-                console.log('Whiteboard Stored ID ' + virtualclass.wb.gObj.replayObjs[virtualclass.wb.gObj.replayObjs.length-1].uid);
-                virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+                console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
+                virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
             },
 
             executeWhiteboardData  :  function (objToDisplay){
+                var wid = virtualclass.gObj.currWb;
                 console.log('received uid ' + objToDisplay.uid);
-                virtualclass.wb.gObj.replayObjs.push(objToDisplay);
-                virtualclass.wb.response.replayObj([objToDisplay]);
+                virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
+                virtualclass.wb[wid].response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);
             },
 
@@ -1004,8 +1048,9 @@
             },
 
             findPacketInQueue : function (playedObj){
-                if(virtualclass.wb.gObj.queue.hasOwnProperty(playedObj.uid + 1)){
-                    return virtualclass.wb.gObj.queue[playedObj.uid + 1];
+                var wid = virtualclass.gObj.currWb;
+                if(virtualclass.wb[wid].gObj.queue.hasOwnProperty(playedObj.uid + 1)){
+                    return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
                 } else {
                     console.log("Packet" + (playedObj.uid + 1) +  "not found ");
                 }

@@ -47,7 +47,9 @@
         uploadInProcess : false,
         init: function (data) {
             //localStorage.removeItem('recObjs');
-            var vcan = virtualclass.wb.vcan;
+            if(typeof virtualclass.wb == 'object' ){
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+            }
             if (typeof myfunc != 'undefined') {
                 this.objs = vcan.getStates('replayObjs');
             } else {
@@ -300,10 +302,15 @@
                         //virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
 
                         virtualclass.recorder.items = []; //empty on each chunk sent
-
+                        if(roles.isStudent() && virtualclass.gObj.has_ts_capability){
+                            //this fake path is for let technical support download the file
+                            var importfilepath = "https://local.vidya.io/fake.php";  
+                        } else {
+                            var importfilepath = this.importfilepath;
+                        } 
+                        
                         virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
                             //TODO: display progress after file save
-
                             //Recording is finished //upload finished
                             if (msg === "done") {
                                 virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
@@ -405,7 +412,8 @@
 
         makeAvailDownloadFile: function () {
             console.log('Recorder:- DOWNLLOAD MESSAGE');
-            var pbar = document.getElementById('recordingContainer');
+            // var pbar = document.getElementById('recordingContainer');
+            var pbar = document.getElementById('recordingContainer')
             var elemDisp = window.getComputedStyle(pbar).display;
             if(elemDisp == 'none' || elemDisp != 'block'){
                 // if there is another popup, we displays the download popup
@@ -437,10 +445,12 @@
             progressContainer.style.display = 'none';
 
             downloadLinkCont.appendChild(downloadMsg);
-
-            pbar.appendChild(downloadLinkCont);
+            var pbar2 = document.querySelector('#recordingContainer .rv-vanilla-modal-body');
+            pbar2.appendChild(downloadLinkCont);
 
             this.alreadyDownload = true;
+            var that = this;
+            
             virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
                 // diconnecting with others for prevent to send any unknown packets.
                 virtualclass.gObj.saveSession = true;
@@ -454,7 +464,13 @@
                 downloadLink.href = "";
                 downloadLink.download = "session.vcp";
                 downloadLink.innerHTML = virtualclass.lang.getString('download');
-                downloadMsg.innerHTML = virtualclass.lang.getString('filenotsave');
+                if(roles.isStudent() && virtualclass.gObj.has_ts_capability){
+                     downloadMsg.innerHTML = virtualclass.lang.getString('filetsaveTS');
+                } else {
+                    downloadMsg.innerHTML = virtualclass.lang.getString('filenotsave');
+                }
+                
+                
                 downloadLinkCont.appendChild(downloadButton);
                 var recordingHeaderCont = document.getElementById('recordingHeader');
                 recordingHeaderCont.innerHTML = virtualclass.lang.getString('downloadFile');
@@ -488,14 +504,25 @@
                     if(virtualclass.recorder.hasOwnProperty('dataCame')){
                         clearTimeout(virtualclass.recorder.dataCame);
                     }
-
-
-                    virtualclass.clearSession();
-                    //virtualclass.storage.config.endSession();
+                    
                     delete virtualclass.gObj.saveSession;
-                    io.disconnect(); // there was not completely disconnected
-                    io.init(virtualclass.uInfo); // During the download session we don't try for new socket connection but here.
+                    
+                    if(!virtualclass.gObj.has_ts_capability){
+                        virtualclass.clearSession();
+                        io.disconnect(); // there was not completely disconnected
+                        io.init(virtualclass.uInfo); // During the download session we don't try for new socket connection but here.
+                    }else {
+                        that.alreadyDownload = false;
+                        if(virtualclass.recorder.hasOwnProperty('startUpload')){
+                            delete virtualclass.recorder.startUpload;
+                        }
 
+                        if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
+                            delete virtualclass.gObj.downloadProgress;
+                        }
+                        virtualclass.recorder.storeDone = 0;
+                        virtualclass.popup.closeElem();
+                    }
                 });
             });
         },

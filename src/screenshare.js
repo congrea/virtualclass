@@ -83,7 +83,7 @@
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
                 //debugger;
-                virtualclass.vutil.addClass('audioWidget', "fixed");
+            //    virtualclass.vutil.addClass('audioWidget', "fixed");
                 app = stype;
 
                 var screenCont = document.getElementById('virtualclass' +  virtualclass.apps[1]);
@@ -270,8 +270,12 @@
                     }
 
                     ssUI = this.html.UI.call(this, virtualclass.gObj.uRole);
-                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    document.getElementById(virtualclass.html.id).insertBefore(ssUI, beforeAppend);
+
+                    //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                    //beforeAppend.parentNode.insertBefore(ssUI, beforeAppend);
+
+                    virtualclass.vutil.insertIntoLeftBar(ssUI);
+                    // document.getElementById(virtualclass.html.id).insertBefore(ssUI, beforeAppend);
 
                     if (roles.hasControls() && !virtualclass.recorder.recImgPlay) {
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
@@ -358,7 +362,7 @@
              */
 
             initializeRecorder: function (stream) {
-                virtualclass.vutil.addClass("audioWidget", "fixed");
+                //virtualclass.vutil.addClass("audioWidget", "fixed");
                 changeonresize = 1;
                 resizecalled = 0;
 

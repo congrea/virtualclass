@@ -19,5 +19,13 @@
     $string['pushtotalk'] = 'Push To Talk';
     $string['waitmsgconnect'] = 'Please wait a whlie. Application is trying to connect.';
 
+    $string['testingbrowser'] = 'Testing Browser Compatibility';
+    $string['testinginternetspeed'] = 'Testing Internet Speed';
+    $string['testingspeaker'] = 'Testing Speaker';
+    $string['testingmichrophone'] = 'Testing Microphone';
+    $string['testingwebcam'] = 'Testing Webcam Connection';
+    $string['proposedspeed'] = 'Proposed Speed';
+    $string['audiolatency'] = 'Audio Latency';
+    $string['videoquality'] = 'Video Quality';
 
 ?>

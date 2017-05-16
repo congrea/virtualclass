@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    var doit;
     var view = {
         /*
          * Initializing the view 
@@ -22,16 +23,16 @@
          * @param intoAppend element to which message box is appended
          * @param  imageTag  boolean value
          */
-        displayMessage: function (msg, id, className, intoAppend, imageTag) {
+        displayMessage: function (msg, id, className, intoAppend, imageTag, wid) {
 
             if (typeof imageTag == 'undefined') {
                 var msgBox = this.createMsgBox(msg, id, className);
             } else {
                 var msgBox = this.createMsgBox(msg, id, className, imageTag);
             }
-            var parTag = document.getElementById('vcanvas');
+            var parTag = document.getElementById('vcanvas'+wid);
             if (typeof intoAppend != 'undefined') {
-                document.getElementById(intoAppend).appendChild(msgBox);
+                document.getElementById(intoAppend+wid).appendChild(msgBox);
             } else {
                 parTag.insertBefore(msgBox, parTag.childNodes[0]);
             }
@@ -90,7 +91,7 @@
          */
         customCreateElement: function (tagName, id, className) {
             var tag = document.createElement(tagName);
-            if (typeof id != 'undefined') {
+            if (typeof id != 'undefined' && id != '') {
                 tag.id = id;
             }
 
@@ -138,27 +139,29 @@
 
             if (virtualclass.system.mybrowser.name == 'Firefox') {
                 var msg = virtualclass.lang.getString('wbrtcMsgFireFox');
-                this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
+                // Todo handle this is in better way
+                // this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
 
             } else if (virtualclass.system.mybrowser.name == 'Chrome') {
                 var msg = virtualclass.lang.getString('wbrtcMsgChrome');
-                this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
+                // Todo handle this is in better way
+                //this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
             }
         },
         /*
          * displaying the message on canvas drawing
          * @param  className
          */
-        canvasDrawMsg: function (className) {
-            var mainContainer = document.getElementById('vcanvas');
-            mainContainer.className = 'canvasMsgBoxParent';
+        canvasDrawMsg: function (className, id) {
+            var mainContainer = document.getElementById('vcanvas' + id);
+            mainContainer.classList.add('canvasMsgBoxParent');
             if (virtualclass.system.mybrowser.name == 'Firefox') {
                 var msg = virtualclass.lang.getString('canvasDrawMsg');
                 this.displayMessage(msg, "canvasDrawMsgContFirefox", this.msgBoxClass + className, 'containerWb');
 
             } else if (virtualclass.system.mybrowser.name == 'Chrome') {
                 var msg = virtualclass.lang.getString('canvasDrawMsg');
-                this.displayMessage(msg, "canvasDrawMsgContChrome", this.msgBoxClass + className, 'containerWb');
+                this.displayMessage(msg, "canvasDrawMsgContChrome", this.msgBoxClass + className, 'containerWb', null, id);
             }
         },
         /*
@@ -166,9 +169,9 @@
          * @param className class of the label
 
          */
-        drawLabel: function (className) {
+        drawLabel: function (className, id) {
             var msg = virtualclass.lang.getString('drawArea');
-            this.displayMessage(msg, "canvasDrawArea", this.msgBoxClass + className, 'containerWb', false);
+            this.displayMessage(msg, "canvasDrawArea", this.msgBoxClass + className, 'containerWb', false, id);
         },
         /*
          * displaying message
@@ -190,8 +193,8 @@
                 window.location.reload();
             };
             div.appendChild(a);
-
-            var virtualclassCont = document.getElementById('virtualclassCont');
+            var panelId = (id == 'divForReloadMsg') ? 'virtualclassCont' :   'virtualclassAppLeftPanel';
+            var virtualclassCont = document.getElementById(panelId);
             virtualclassCont.insertBefore(div, virtualclassCont.firstChild);
         },
         /*
@@ -244,6 +247,8 @@
     view = view.init();
 
     count = 0;
+
+
     view.window.resizeFinished = (function () {
         var timer = 0;
         return function (callback, ms) {
@@ -253,13 +258,48 @@
     })();
 
     view.window.resize = function () {
+
         var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
         virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
+        console.log('Window resize event ');
         if(virtualclass.currApp == 'Whiteboard'){
             vcan.renderAll();
         }
 
+        view.windowResizeFinished();
+
     },
+
+    // this funciton is triggered when
+    // resize is finished
+    //nirmala
+    view.windowResizeFinished = function () {
+        clearTimeout(doit);
+        doit = setTimeout(function () {
+            view._windowResizeFinished();
+        }, 100)
+    }
+    //change by nirmala
+    view._windowResizeFinished = function () {
+        var height = virtualclass.vutil.calculateChatHeight();
+        if (!roles.hasControls()) {
+            
+            if (!virtualclass.videoHost.gObj.videoSwitch) {
+                height = height+230;
+            }
+        } 
+        console.log("heightinview" + height);
+        virtualclass.vutil.setChatContHeight(height);
+        //$('#chatWidget').height(height);
+        
+        if(virtualclass.isPlayMode){
+               var height = height+64;
+        }
+        
+        $('#chat_div').css('max-height', height + 'px');
+        
+        virtualclass.chat.boxHeight = height;
+    }
 
 //TODO
 // this code is not using should be removed
@@ -267,7 +307,7 @@
             var message = e.message.virtualWindow;
             if (message.hasOwnProperty('removeVirtualWindow')) {
                 if (e.fromUser.userid != wbUser.id) {
-                    virtualclass.wb.utility.removeVirtualWindow('virtualWindow');
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.removeVirtualWindow('virtualWindow');
                 }
 
             } else if (message.hasOwnProperty('createVirtualWindow')) {
@@ -276,7 +316,7 @@
                 }
 
                 if (e.fromUser.userid != wbUser.id) {
-                    virtualclass.wb.utility.createVirtualWindow(message.createVirtualWindow);
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(message.createVirtualWindow);
 
                 }
             } else if (message.hasOwnProperty('shareBrowserWidth')) {
@@ -285,13 +325,13 @@
                 }
 
                 if (roles.hasControls()) {
-                    var toolBoxHeight = virtualclass.wb.utility.getWideValueAppliedByCss('commandToolsWrapper');
+                    var toolBoxHeight = virtualclass.wb[virtualclass.gObj.currWb].utility.getWideValueAppliedByCss('commandToolsWrapper');
                     localStorage.setItem('toolHeight', toolBoxHeight);
                 }
 
                 if (e.fromUser.userid != wbUser.id) {
                     if (roles.hasControls()) {
-                        virtualclass.wb.utility.makeCanvasEnable();
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
                     }
                     otherBrowser = message.browserRes;
                 } else {
@@ -303,15 +343,15 @@
 
                 if (typeof myBrowser == 'object' && typeof otherBrowser == 'object') {
                     if (myBrowser.width > otherBrowser.width) {
-                        if (!virtualclass.wb.gObj.virtualWindow) {
-                            virtualclass.wb.utility.createVirtualWindow(otherBrowser);
-                            virtualclass.wb.gObj.virtualWindow = true;
+                        if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
+                            virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(otherBrowser);
+                            virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
                         }
                     } else if (myBrowser.width < otherBrowser.width) {
-                        if (!virtualclass.wb.gObj.virtualWindow) {
-                            // virtualclass.wb.gObj.virtualWindow = true;
+                        if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
+                            // virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
                             var canvaContainer = document.getElementById("vcanvas");
-                            var rightOffset = virtualclass.wb.utility.getElementRightOffSet(canvaContainer);
+                            var rightOffset = virtualclass.wb[virtualclass.gObj.currWb].utility.getElementRightOffSet(canvaContainer);
                             if (roles.hasControls()) {
                                 virtualclass.vutil.beforeSend({
                                     'virtualWindow': {

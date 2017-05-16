@@ -445,8 +445,13 @@
 
                         divEditor.appendChild(editor);
 
-                        var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                        document.getElementById(virtualclass.html.id).insertBefore(divEditor, beforeAppend);
+                        //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                        //var parentNode = beforeAppend.parentNode;
+                        ////document.getElementById(virtualclass.html.id).insertBefore(divEditor, beforeAppend);
+                        //parentNode.insertBefore(divEditor, beforeAppend);
+
+                        virtualclass.vutil.insertIntoLeftBar(divEditor);
+
                     }
                 },
 
@@ -718,9 +723,20 @@
                     localStorage.setItem(this.etype + '_allEditorOperations', JSON.stringify(wrappedOperations));
                     localStorage.setItem(this.etype + '_edOperationRev', this.cmClient.revision);
                 }
+            },
+            
+            undoManager : function (keycode){
+                // Setitmeout is used  to produce the dealy for firefox 
+                setTimeout(
+                     function (){
+                         if(keycode == 90){
+                            document.querySelector('.vceditor-tb-undo').parentNode.click();
+                         }else if (keycode == 89){
+                             document.querySelector('.vceditor-tb-redo').parentNode.click();
+                         }
+                     },0
+                );
             }
-
-
         }
     };
 

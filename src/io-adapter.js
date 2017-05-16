@@ -24,6 +24,7 @@ var ioAdapter = {
     },
 
     mustSend: function (msg) {
+
         //debugger;
         "use strict";
         this.serial++;
@@ -37,7 +38,7 @@ var ioAdapter = {
     send: function (msg) {
         "use strict";
         var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
-        console.log('Packet sending');
+        //console.log('Packet sending');
         io.send(msg, cfun, null);
         ioStorage.sendStore(msg, cfun);
     },
@@ -50,11 +51,12 @@ var ioAdapter = {
 
     },
 
-    sendAll: function (msg) {
-        "use strict";
-        var cfun = 'broadcast'; // Broadcast (send to self) - Editor
-        io.send(msg, cfun, null);
-    },
+    // not using any where
+    //sendAll: function (msg) {
+    //    "use strict";
+    //    var cfun = 'broadcast'; // Broadcast (send to self) - Editor
+    //    io.send(msg, cfun, null);
+    //},
 
     //TODO Function below still needs to have missing packets functionality
     mustSendUser: function (msg, touser) {
@@ -77,6 +79,18 @@ var ioAdapter = {
         "use strict";
         var cfun = 'broadcastToAll';
         io.send(msg, cfun, touser);
+    },
+
+    sendPing: function () {
+        "use strict";
+        var cfun = 'ping';
+        io.send(Date.now(), cfun);
+    },
+
+    sendSpeed: function (msg) {
+        "use strict";
+        var cfun = 'speed';
+        io.send(msg, cfun);
     },
 
     sendBinary: function (msg) {

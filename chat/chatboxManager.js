@@ -67,7 +67,7 @@ var chatboxManager = function() {
     };
 
     // caller should guarantee the uniqueness of id
-    var addBox = function(id, user, name) {
+    var addBox = function(id, user,name) {
         var idx1 = showList.indexOf(id);
         var idx2 = boxList.indexOf(id);
         if(idx1 != -1) {
@@ -106,6 +106,19 @@ var chatboxManager = function() {
               });
             boxList.push(id);
             showList.push(id);
+        }
+   
+        if (user.class == "support") {
+            if (($(('#cb' + id) + '.support')).length == 0) {
+                $('#cb' + id).addClass("support").removeClass("privateChat");
+            }
+        }
+        else if (user.class == "privateChat") {
+
+            if ($('#cb' + id + '.privateChat').length == 0) {
+                $('#cb' + id).addClass("privateChat").removeClass("support");
+            }
+
         }
     };
 

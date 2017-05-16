@@ -60,7 +60,18 @@
             //this.httpObj.open("POST", window.whiteboardPath + file, true);
             this.httpObj.open("POST", file, true);
             this.httpObj.send(data);
+             // TODO this should handle in right ways
+            // this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        },
+        
+        sendFormData: function (data, file, cb) {
+            this.cb = cb;
+            this.httpObj.open("POST", file, true);
+            this.httpObj.send(data);
         }
+        
+        
     };
     window.xhr = xhr;
 })(window);

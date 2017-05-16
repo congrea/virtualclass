@@ -151,6 +151,12 @@ var PopUp = (function (window, undefined) {
 
             var sessionEndCont = document.getElementById('sessionEndMsgCont');
             sessionEndCont.dataset.displaying = 'false';
+   
+            var chatRoom = document.getElementById('chatrm');
+            if(chatRoom  != null){
+                console.log('zIndex performing');
+                chatRoom.style.zIndex = 1;
+            }
         }
     },
 
@@ -193,7 +199,10 @@ var PopUp = (function (window, undefined) {
 
         var chatrm = document.getElementById('chatrm');
         if (chatrm != null) {
-            chatrm.style.zIndex = 0;
+            if(!virtualclass.isPlayMode){
+                chatrm.style.zIndex = 0;
+            }
+            
         }
 
         var audioWidget = document.getElementById('audioWidget');
@@ -262,7 +271,7 @@ var PopUp = (function (window, undefined) {
      * For confirm dialouge box,
      * @param message expects the message
      */
-    PopUp.prototype.confirmInput = function (message, cb, label) {
+    PopUp.prototype.confirmInput = function (message, cb, label,type,index,id) {
 
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
@@ -289,13 +298,10 @@ var PopUp = (function (window, undefined) {
         confirmMessage.innerHTML = message;
 
         confirm.appendChild(confirmMessage);
-
-
         var that = this;
-
-        //var confirmButtons = document.getElementById('popupContainer').getElementsByClassName('confirmButton');
+        
         var attachConfirmInit = function () {
-            that.confirmInit(this.id, cb, label);
+            that.confirmInit(this.id, cb, label,type,index,id);
         }
         var confirmOkDiv = document.createElement('div');
         confirmOkDiv.id = 'confirmOk';
@@ -320,21 +326,77 @@ var PopUp = (function (window, undefined) {
         var confirmCancelButton = document.createElement('button');
         confirmCancelButton.id = 'confirmCancelButton';
         confirmCancelButton.className = 'icon-close';
-
-        //confirmCancelButton.innerHTML = "Cancel";
-
         confirmCancelButton.innerHTML = virtualclass.lang.getString('confirmCancel');
-
-
         confirmCancelDiv.appendChild(confirmCancelButton);
         confirm.appendChild(confirmCancelDiv);
 
     }
+        PopUp.prototype.pollPopUp= function(cb,label){
 
-    PopUp.prototype.confirmInit = function (userInput, cb, label) {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+
+        this.hideAllPopups();
+
+        var confirmId = 'editPollCont';
+
+        var confirm = document.getElementById(confirmId);
+        confirm.style.display = 'block';
+
+        var that = this;
+
+        var attachConfirmInit = function () {
+            console.log(this.id);
+            that.action(this.id, cb, label);
+        }
+      
+        var elem = document.getElementById("pollCancel");
+        if(elem==null) {
+
+        var confirmCancelDiv = document.createElement('div');
+        confirmCancelDiv.id = 'pollCancel';
+        confirmCancelDiv.className = 'cancelBtn';
+        confirmCancelDiv.addEventListener('click', attachConfirmInit);
+
+        var confirmCancelButton = document.createElement('button');
+        confirmCancelButton.id = 'confirmCancelButton';
+        confirmCancelButton.className = 'icon-close';
+  
+        //confirmCancelButton.innerHTML = "Cancel";
+
+        confirmCancelButton.innerHTML = virtualclass.lang.getString('pollCancel');
+
+
+        confirmCancelDiv.appendChild(confirmCancelButton);
+        confirm.appendChild(confirmCancelDiv);
+    
+      
+    }
+        
+        var reset = document.getElementById("resetPoll");
+        reset.addEventListener('click',attachConfirmInit);
+        
+        var addOpt = document.getElementById("addMoreOption");
+        addOpt.addEventListener('click',attachConfirmInit);
+        
+        var save = document.getElementById("etSave");
+        save.addEventListener('click',attachConfirmInit);
+        var publish= document.getElementById("saveNpublish");
+        publish.addEventListener('click',attachConfirmInit);  
+        
+         
+    }
+    
+    PopUp.prototype.action = function (userInput, cb,label,type,index,id) {
+
+        cb(userInput);
+
+    }
+
+    PopUp.prototype.confirmInit = function (userInput, cb, label,type,index,id) {
         virtualclass.popup.closeElem();
         var confirm = (userInput == 'confirmOk') ? virtualclass.popup.confirmOk() : virtualclass.popup.confirmCancel();
-        cb(confirm, label);
+        cb(confirm, label,type,index,id);
     }
 
     PopUp.prototype.confirmCancel = function () {
@@ -348,7 +410,7 @@ var PopUp = (function (window, undefined) {
 
 
     PopUp.prototype.waitMsg = function (){
-        // If there is already Session End Box,  we are not displaying wait box
+     
 
         if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
             var element = document.getElementById('about-modal');

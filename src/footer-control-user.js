@@ -14,7 +14,8 @@
                     virtualclass.attachFunction();
 
                     if (app == 'Whiteboard') {
-                        window.virtualclass.wb.attachToolFunction(vcan.cmdWrapperDiv, true);
+                        var vcan =  window.virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                        window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
                     }
                     // This is already Check at above, no need here
                     if (virtualclass.hasOwnProperty('previrtualclass')) {
@@ -25,7 +26,7 @@
 
                     //if (app == 'Whiteboard') {
                     if(typeof virtualclass.wb == 'object'){
-                        virtualclass.wb.utility.makeCanvasEnable();
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
                     }
                 }
             },
@@ -101,7 +102,6 @@
 
 
             createControlDivs: function (controlCont, userId, controls) {
-
                 var that = this;
                 //var userObj = localStorage.getItem(userId);
                 var uObj = false;
@@ -156,6 +156,14 @@
                             });
                         }
 
+                        if(roles.hasAdmin()){
+                            if(audBlock.dataset.audioDisable == 'false'){
+                                var allAudAction = localStorage.getItem('allAudAction');
+                                if(allAudAction != null && allAudAction == 'disable'){
+                                    audBlock.click();
+                                }
+                            }
+                        }
                     } else if (controls[i] == 'chat') {
 
                         var elems = this.createControllerElement(userId, "contrChat");
@@ -444,6 +452,7 @@
                     virtualclass.user.control._enable(elem, control, toUser, label);
                 },
                 _enable: function (elem, control, userId, label) {
+
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
                     if (control == 'audio') {
                         elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
@@ -480,17 +489,20 @@
                     var control = restString.substring(0, imgPos);
                     //TODO this function should be generalise
                     if (control == 'Assign') {
-                        virtualclass.gObj.controlAssign = true;
-                        virtualclass.gObj.controlAssignId = userId;
-                        var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
-                        if (!assignDisable) {
-                            this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
-                            virtualclass.user.control._assign(userId);
-                            virtualclass.user.control.changeAttrToAssign('block');
-                        }
+                        // this condition only true when the app is not quiz, poll, docs, and video
+                        if(virtualclass.vutil.appIsForEducator(virtualclass.currApp)){
+                            virtualclass.gObj.controlAssign = true;
+                            virtualclass.gObj.controlAssignId = userId;
+                            var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
+                            if (!assignDisable) {
+                                this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
+                                virtualclass.user.control._assign(userId);
+                                virtualclass.user.control.changeAttrToAssign('block');
+                            }
 
-                        if (!roles.hasAdmin()) {
-                            virtualclass.user.control.removeAudioFromParticipate(userId);
+                            if (!roles.hasAdmin()) {
+                                virtualclass.user.control.removeAudioFromParticipate(userId);
+                            }
                         }
                     } else {
                         var action, ctrType, boolVal;
@@ -574,6 +586,7 @@
                 },
 
                 _assign: function (userId, notsent, fromUserId) {
+
                     //debugger;
                     virtualclass.vutil.assignRole();
                     virtualclass.vutil.removeAppPanel();
@@ -795,7 +808,8 @@
                     if (div != null) {
                         this.makeElemEnable(div);
                     }
-                    var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
+                    //var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
+                    var allChatBoxes = document.getElementById('stickycontainer').getElementsByClassName('ui-chatbox');
                     for (var i = 0; i < allChatBoxes.length; i++) {
                         this.makeElemEnable(allChatBoxes[i]);
                     }
@@ -804,6 +818,18 @@
                         if(!allChatDivCont[i].classList.contains('mySelf')){
                             allChatDivCont[i].style.pointerEvents = "visible";
                         }
+                    }
+                    var listTab = document.querySelector("#user_list");
+                    if(!listTab.classList.contains("active")){
+                        listTab.classList.add("active")
+                    }
+                    var supportTab = document.querySelector("#congreaSupport");
+                    if(supportTab.classList.contains("active")){
+                        supportTab.classList.remove("active")
+                    }
+                   var chatroomTab = document.querySelector("#chatroom_bt2");
+                    if(chatroomTab.classList.contains("active")){
+                        chatroomTab.classList.remove("active")
                     }
                 },
 
@@ -971,7 +997,7 @@
              * disable/enable all the audio
              * @param action expect either enable/disable
              */
-                toggleAllAudio: function (action) {
+            toggleAllAudio: function (action) {
                 var allUsersDom = document.getElementsByClassName('controleCont');
                 if (allUsersDom.length > 0) {
                     for (var i = 0; i < allUsersDom.length; i++) {
@@ -980,11 +1006,7 @@
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                 var elem = document.getElementById(idPart + 'Img');
-
-
                                 this.control.init.call(this, elem, action);
-
-
                             }
                         }
                     }
@@ -1037,12 +1059,55 @@
                         }
                     });
                 }
+               
 
-                anchorTag.appendChild(spanTag);
-                var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];
+                 anchorTag.appendChild(spanTag);
+                // var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];
+                // parentNode.appendChild(anchorTag);
+                var parentNode=document.querySelector("#"+mainTagId+" ."+tagClass);
                 parentNode.appendChild(anchorTag);
+                
+                
             },
+            
+            chatBoxesSwitch: function () {
+                //debugger;
+                if (virtualclass.chat.chatroombox) {
+                    toggleCommonChatBox();
+                } else {
+                    if ($("div#chat_room").length == 0) {
+                        var d = document.createElement('div');
+                        d.id = 'chat_room';
+                        document.body.appendChild(d);
 
+                        virtualclass.chat.chatroombox = $("#chat_room").chatroom({
+                            id: "chat_room",
+                            user: {'name': 'test'},
+                            title: lang.chatroom_header,
+                            offset: '20px',
+                            messageSent: function (user, msg) {
+                                $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg);
+                            }});
+
+                        if (virtualclass.gObj.hasOwnProperty('chatEnable')) {
+                            if (!virtualclass.gObj.chatEnable) {
+                                var chatCont = document.getElementById('chatrm');
+                                if (chatCont != null) {
+                                    virtualclass.user.control.makeElemDisable(chatCont);
+                                }
+                            }
+                        }
+                        var iconarrowButton = document.getElementById('cc_arrow_button');
+                        iconarrowButton.classList.add('icon-arrow-down');
+                        iconarrowButton.classList.remove('icon-arrow-up')
+
+                    }
+                    
+                }
+
+            },
+            
+            
             toogleAudioIcon : function (){
                 var audioController = document.getElementById('contrAudioAllImg');
                 if (audioController != null) {

@@ -98,6 +98,7 @@
         'teacherSafariBrowserIssue': 'Safari does not support presenter functionality. Please switch to Chrome or Firefox.',
         'safariBrowserIssue': 'Your browser Safari {virtualclass1} is not supported, We fully support Chrome  and Firefox',
         'savesession': 'Do you want to save current Session?',
+        'savesessionTechSupport' : "Do you want to save current Session? <br /> Once you download the session, Updates won't be avaiable on re-downloading of same session.",
         'plswaitwhile': 'Please wait....',
         'downloadedFile': "Your files are downloading....,  <br />File, {virtualclass1}, has been downloaded",
         'overallprogress': 'Overall Progress',
@@ -126,6 +127,7 @@
         'canvasmissing' : 'Canvas is missing in your browsers. Please update the latest version of your browser',
         'downloadFile'  : 'Download File',
         'filenotsave'  : 'Your file could not be saved.',
+        'filetsaveTS'  : 'The Session is ready to Save.',
         'muteAll' : 'Mute All',
         'unmuteAll' : 'Unmute All',
         'enablehistory' : '"Browser History" should be enabled during the Session.',
@@ -145,8 +147,80 @@
         'sesseionkeymissing' : 'Session key is missing from Front End.', // from javascript
         'keymissing' :  'Your software(LMS/CMS)\'s key is is missing',
         'invalidurl' :  'Your url is invalid',
-        'ppturl' : 'Enter HTML5 Presentation Url.'
+        'ppturl' : 'Enter HTML5 Presentation Url.',
 
+        // start pretest from here
+        'speakerTest' : 'If you can hear music, speakers are working.',
+        'webcamerainfo' : 'If video is visible, webcam is working.',
+        'mictesting' : 'Above audio bar shall fluctuate while you speak if your microphone is connected properly.',
+        'nowebcam' : 'Webcam is not available, or not connected properly.',
+        'NotFoundError' : 'Webcam is not available, or not connected properly.',
+        'DevicesNotFoundError' : 'Webcam is not available, or not connected properly.',
+
+        'highBandWidthSpeed' : 'Your bandwidth is good enough.',
+        'mediumBandWidthSpeed' : 'Your bandwidth is limited, we are reducing video quality based on your available bandwidth.',
+        'lowBandWidthSpeed' : 'Your bandwidth is too low, we are stopping video playback. You will still be able to hear audio and view screen.',
+
+        'SourceUnavailableError' : 'Another application on your computer might be using your webcam. Kindly close all other applications that might be using your webcam.',
+        'congreainchrome' : "Your browser is compatible.",
+        'notsupportbrowser' : '{virtualclass1} is not fully compatible. For the best experience, use Google Chrome.',
+
+        'rejected' : 'Another application on your computer might be using your webcam. Kindly close all other applications that might be using your webcam.',
+        /*For Chrome */
+        'PermissionDeniedErrorExt' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
+        'Go to camera icon on top right of the screen <br /> ' +
+        'Click on "Always allow..." option and select the camera option <br />  ' +
+        'Click on done and refresh the screen  </div> <div class="screenImages">' +
+        ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" > <figcaption>Chrome</figcaption> </figure></div>',
+
+        'SecurityErrorExt' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
+        'Go to camera icon on top right of the screen <br /> ' +
+        'Click on "Always allow..." option and select the camera option <br />  ' +
+        'Click on done and refresh the screen  </div> <div class="screenImages">' +
+        ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" > <figcaption>Chrome</figcaption> </figure></div>',
+
+        'nopermissionExt' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
+        'Go to camera icon on top right of the screen <br /> ' +
+        'Click on "Always allow..." option and select the camera option <br />  ' +
+        'Click on done and refresh the screen  </div> <div class="screenImages">' +
+        ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" > <figcaption>Chrome</figcaption> </figure></div>',
+
+
+        /*For Firefox */
+        'PermissionDeniedErrorExtFF' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
+        'Go to camera icon on top left of the screen <br /> ' +
+        'Click on "Share Selected Device." option.' +
+        '<div class="screenImages">' +
+        '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" > <figcaption>Chrome</figcaption> </figure></div>',
+
+        'SecurityErrorExtFF' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
+        'Go to camera icon on top left of the screen <br /> ' +
+        'Click on "Share Selected Device." option.' +
+        '<div class="screenImages">' +
+        '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" > <figcaption>Chrome</figcaption> </figure></div>',
+
+        'nopermissionExtFF' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
+        'Go to camera icon on top left of the screen <br /> ' +
+        'Click on "Share Selected Device." option.' +
+        '<div class="screenImages">' +
+        '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" > <figcaption>Chrome</figcaption> </figure></div>',
+
+        'poll':'Poll',
+        'pollCancel':'close',
+        'pollmaybeshown':'Poll may be published ...',
+        'videoUpload':"Share Video",
+        'documentShare' : 'Document Sharing',
+        'congreavideo' : 'This video is already installed, please upload new file.',
+        'duplicateUploadMsg' : 'This file is already installed, please upload new file.',
+        'someproblem' : 'There is some problem',
+
+        'quiz':'Quiz',
+        'quizreviewpublish': 'Review & publish Quiz',
+        'quizmayshow' : 'Quiz will be appeared shortly.',
+        'techsupport' : "Tech Support",
+        'commonChat': "Common Chat",
+        'privateChat':"Pivate Chat",
+        'support':"Tech Support",
     };
     window.message = message;
 })(window);

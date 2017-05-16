@@ -9,17 +9,17 @@
         requestPackets: function (msgRepObj) {
             //more than one packets comes after connection on
             if (msgRepObj.length > 1) {
-                virtualclass.wb.gObj.myArr = msgRepObj;
+                virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr = msgRepObj;
             }
 
-            virtualclass.wb.sentReq = true;
+            virtualclass.wb[virtualclass.gObj.currWb].sentReq = true;
             // If there is not dispayed any object yet
             // Then request for the object from start
 
-            if (virtualclass.wb.gObj.displayedObjId == 0) {
+            if (virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId == 0) {
                 var sp = 0;
             } else {
-                var sp = virtualclass.wb.gObj.rcvdPackId;
+                var sp = virtualclass.wb[virtualclass.gObj.currWb].gObj.rcvdPackId;
             }
 
 
@@ -28,7 +28,7 @@
         },
 
         makeQueue: function (rec) {
-                virtualclass.wb.gObj.queue[rec.uid] = rec;
+                virtualclass.wb[virtualclass.gObj.currWb].gObj.queue[rec.uid] = rec;
             //console.log('Making Queue' + e.message.repObj[0].uid + '; Should not come.');
         },
 
@@ -38,8 +38,8 @@
             } else {
                 var fs = e.message.getMsPckt[0].uid;
                 //TODO myrepObj should be changed into another name.
-                for (var i = 0; i < virtualclass.wb.gObj.myrepObj.length; i++) {
-                    if (e.message.getMsPckt[0] == virtualclass.wb.gObj.myrepObj[i].uid) {
+                for (var i = 0; i < virtualclass.wb[virtualclass.gObj.currWb].gObj.myrepObj.length; i++) {
+                    if (e.message.getMsPckt[0] == virtualclass.wb[virtualclass.gObj.currWb].gObj.myrepObj[i].uid) {
                         fs = e.message.getMsPckt[0];
                         break;
                     }
@@ -47,47 +47,47 @@
             }
 
             for (var j = i + 1; j < e.message.getMsPckt[1]; j++) {
-                chunk.push(virtualclass.wb.gObj.myrepObj[j]);
+                chunk.push(virtualclass.wb[virtualclass.gObj.currWb].gObj.myrepObj[j]);
             }
             return chunk;
         },
 
         handleMissedPackets: function (fromUserId, id, repObj) {
             var repObj = this.removeDupObjs(repObj);
-            virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.concat(repObj);
+            virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.concat(repObj);
             packetQueue.sortingReplyObjs();
 
             if (fromUserId != id) {
-                virtualclass.storage.store(JSON.stringify(virtualclass.wb.gObj.replayObjs));
+                virtualclass.storage.store(JSON.stringify(virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs));
             }
-            this.containsIfQueuePacks(fromUserId, id, virtualclass.wb.gObj.displayedObjId, repObj);
+            this.containsIfQueuePacks(fromUserId, id, virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId, repObj);
         },
 
         removeDupObjs: function (repObj) {
-            if (virtualclass.wb.gObj.myArr.length > 0) {
-                if (repObj[repObj.length - 1].uid == virtualclass.wb.gObj.myArr[0].uid) {
-                    if (!virtualclass.wb.gObj.myArr[0].hasOwnProperty('cmd')) {
-                        virtualclass.wb.gObj.myArr.shift();
+            if (virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr.length > 0) {
+                if (repObj[repObj.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr[0].uid) {
+                    if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr[0].hasOwnProperty('cmd')) {
+                        virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr.shift();
                     }
                 }
-                repObj = repObj.concat(virtualclass.wb.gObj.myArr);
-                virtualclass.wb.gObj.myArr = [];
+                repObj = repObj.concat(virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr);
+                virtualclass.wb[virtualclass.gObj.currWb].gObj.myArr = [];
             }
             return repObj;
         },
 
         containsIfQueuePacks: function (fromUserId, id, dispId, repObj) {
             if (fromUserId != id && (dispId + 1 != repObj[0].uid)) {
-                if (virtualclass.wb.gObj.packQueue.length > 0) {
-                    if (repObj[repObj.length - 1].uid == virtualclass.wb.gObj.packQueue[0].uid) {
+                if (virtualclass.wb[virtualclass.gObj.currWb].gObj.packQueue.length > 0) {
+                    if (repObj[repObj.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.packQueue[0].uid) {
                         var fArr = repObj;
-                        virtualclass.wb.gObj.packQueue = fArr.concat(virtualclass.wb.gObj.packQueue);
+                        virtualclass.wb[virtualclass.gObj.currWb].gObj.packQueue = fArr.concat(virtualclass.wb[virtualclass.gObj.currWb].gObj.packQueue);
                     }
                 }
             }
         },
         sortingReplyObjs: function () {
-            virtualclass.wb.gObj.replayObjs = virtualclass.wb.gObj.replayObjs.sort(function (a, b) {
+            virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.sort(function (a, b) {
                 return a.uid - b.uid;
             });
         }

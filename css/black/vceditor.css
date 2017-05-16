@@ -1,4 +1,4 @@
-#virtualclassCont .vceditor {
+#virtualclassCont.congrea .vceditor {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   line-height: normal;
 }
 
-#virtualclassCont .vceditor .CodeMirror {
+#virtualclassCont.congrea .vceditor .CodeMirror {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -19,24 +19,24 @@
   z-index: 0;
 }
 
-#virtualclassCont .vceditor-with-toolbar .CodeMirror {
+#virtualclassCont.congrea .vceditor-with-toolbar .CodeMirror {
   top: 70px;
   padding-left: 10px;
 }
 
-#virtualclassCont .vceditor-with-toolbar .CodeMirror-lines {
+#virtualclassCont.congrea .vceditor-with-toolbar .CodeMirror-lines {
   padding-top: 10px;
 }
 
 
-#virtualclassCont.student #virtualclassEditorRich, #virtualclassCont.student #virtualclassEditorCode, #virtualclassCont.student #virtualclassScreenShare{margin:10px 10px 0px 10px;}
+#virtualclassCont.congrea.student #virtualclassEditorRich, #virtualclassCont.congrea.student #virtualclassEditorCode, #virtualclassCont.congrea.student #virtualclassScreenShare{margin:10px 10px 0px 10px;}
 
-#virtualclassCont.presenter #virtualclassEditorRich, #virtualclassCont.presenter #virtualclassEditorCode, #virtualclassCont.presenter #virtualclassScreenShare{margin-left : 60px}
+#virtualclassCont.congrea.presenter #virtualclassEditorRich, #virtualclassCont.congrea.presenter #virtualclassEditorCode, #virtualclassCont.congrea.presenter #virtualclassScreenShare{margin-left : 60px}
 
-#virtualclassCont .vceditor-toolbar {
-  height: 70px;
-  line-height: 70px;
-  padding-left: 30px;
+#virtualclassCont.congrea .vceditor-toolbar {
+  height: 64px;
+  line-height: 60px;
+  padding-left: 22px;
   border-bottom: 1px solid #c9c9c9;
 
   /* Don't select text when double-clicking in toolbar */
@@ -46,49 +46,49 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
-#virtualclassCont .vceditor-toolbar-wrapper {
+#virtualclassCont.congrea .vceditor-toolbar-wrapper {
   display: inline-block;
   line-height: 14px;
 }
 
-#virtualclassCont .vceditor-richtext .CodeMirror {
+#virtualclassCont.congrea .vceditor-richtext .CodeMirror {
   font-family: Verdana, sans-serif;
   font-size: 14px;
 }
 
-#virtualclassCont .vceditor-spacer {
+#virtualclassCont.congrea .vceditor-spacer {
   height: 10px;
   width: 1px;
 }
 
 /** Styles for all of the rich-text formatting we support. */
-#virtualclassCont .vceditor-b { font-weight: bold; }
-#virtualclassCont .vceditor-i { font-style: italic; }
-#virtualclassCont .vceditor-u { text-decoration: underline; }
-#virtualclassCont .vceditor-s { text-decoration: line-through; }
-#virtualclassCont .vceditor-u.vceditor-s { text-decoration: underline line-through; }
+#virtualclassCont.congrea .vceditor-b { font-weight: bold; }
+#virtualclassCont.congrea .vceditor-i { font-style: italic; }
+#virtualclassCont.congrea .vceditor-u { text-decoration: underline; }
+#virtualclassCont.congrea .vceditor-s { text-decoration: line-through; }
+#virtualclassCont.congrea .vceditor-u.vceditor-s { text-decoration: underline line-through; }
 
-#virtualclassCont .vceditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
-#virtualclassCont .vceditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
-#virtualclassCont .vceditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
-#virtualclassCont .vceditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
-#virtualclassCont .vceditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
-#virtualclassCont .vceditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
+#virtualclassCont.congrea .vceditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
+#virtualclassCont.congrea .vceditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
+#virtualclassCont.congrea .vceditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
+#virtualclassCont.congrea .vceditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
+#virtualclassCont.congrea .vceditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
+#virtualclassCont.congrea .vceditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
 
-#virtualclassCont .vceditor-la-left { text-align: left; }
-#virtualclassCont .vceditor-la-center { text-align: center; }
-#virtualclassCont .vceditor-la-right { text-align: right; }
+#virtualclassCont.congrea .vceditor-la-left { text-align: left; }
+#virtualclassCont.congrea .vceditor-la-center { text-align: center; }
+#virtualclassCont.congrea .vceditor-la-right { text-align: right; }
 
 /** Line Styles */
-#virtualclassCont pre.vceditor-lt-o, #virtualclassCont pre.vceditor-lt-u, #virtualclassCont pre.vceditor-lt-t, #virtualclassCont pre.vceditor-lt-tc {
+#virtualclassCont.congrea pre.vceditor-lt-o, #virtualclassCont.congrea pre.vceditor-lt-u, #virtualclassCont.congrea pre.vceditor-lt-t, #virtualclassCont.congrea pre.vceditor-lt-tc {
   padding-left: 40px;
 }
 
-#virtualclassCont .vceditor-list-left {
+#virtualclassCont.congrea .vceditor-list-left {
   display:inline-block;
   margin-left: -40px;
   width: 40px;
@@ -96,13 +96,13 @@
   text-align: right;
 }
 
-#virtualclassCont .vceditor-todo-left {
+#virtualclassCont.congrea .vceditor-todo-left {
   display:inline-block;
   margin-left: -20px;
   width: 20px;
 }
 
-#virtualclassCont .powered-by-vceditor {
+#virtualclassCont.congrea .powered-by-vceditor {
   position: absolute;
   display: block;
   z-index: 5;
@@ -114,21 +114,21 @@
   opacity: 0.5;
 }
 
-#virtualclassCont .powered-by-vceditor:hover {
+#virtualclassCont.congrea .powered-by-vceditor:hover {
   opacity: 1;
 }
 
-#virtualclassCont .vceditor-btn-group {
+#virtualclassCont.congrea .vceditor-btn-group {
 
   margin: 5px 7px 0 0;
   display: inline-block;
 }
 
-#virtualclassCont .vceditor-dialog .vceditor-dialog-div .vceditor-btn-group{
+#virtualclassCont.congrea .vceditor-dialog .vceditor-dialog-div .vceditor-btn-group{
   float: right;
 }
 
-#virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
 
 	background: #83c2b2; /* Old browsers */
 	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
@@ -145,16 +145,16 @@
     font-weight: 200;
 }
 
-#virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover{
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover{
 	background-image: none;
 	background-color: #68a697;
 }
 
-#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child{
+#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child{
   margin-right: 0px;
 }
 
-#virtualclassCont a.vceditor-btn, #virtualclassCont a.vceditor-btn:visited, #virtualclassCont a.vceditor-btn:active {
+#virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
   font-family: inherit;
   cursor: pointer;
   text-decoration: none;
@@ -169,20 +169,20 @@
   color: #535151;
 }
 
-#virtualclassCont a.vceditor-btn:hover {
+#virtualclassCont.congrea a.vceditor-btn:hover {
   color: #fff;
   background-color: #6cad9d;
   border-color: #6f9b90;
   text-decoration: none;
 }
 
-#virtualclassCont a.vceditor-btn:active {
+#virtualclassCont.congrea a.vceditor-btn:active {
   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
 }
 
-#virtualclassCont .vceditor-btn-group > .vceditor-btn {
+#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -190,7 +190,7 @@
 }
 
 
-#virtualclassCont .vceditor-btn-group > .vceditor-btn:first-child {
+#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
   -webkit-border-bottom-left-radius: 6px;
@@ -200,7 +200,7 @@
   margin-left: 0px;
 }
 
-#virtualclassCont .vceditor-btn-group > .vceditor-btn:last-child {
+#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
   -webkit-border-bottom-right-radius: 6px;
@@ -209,11 +209,11 @@
   -moz-border-radius-topright: 6px;
 }
 
-#virtualclassCont .vceditor-dropdown {
+#virtualclassCont.congrea .vceditor-dropdown {
   position: relative;
 }
 
-#virtualclassCont .vceditor-dropdown-menu {
+#virtualclassCont.congrea .vceditor-dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -239,7 +239,7 @@
   background-clip: padding-box;
 }
 
-#virtualclassCont .vceditor-dropdown-menu a {
+#virtualclassCont.congrea .vceditor-dropdown-menu a {
   text-align: left;
   display: block;
   padding: 3px 15px;
@@ -250,18 +250,18 @@
   white-space: nowrap;
 }
 
-#virtualclassCont .vceditor-dropdown-menu a:hover {
+#virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
   color: #fff;
   text-decoration: none;
   background-color: #6cad9d;
 }
 
-#virtualclassCont .vceditor-color-dropdown-item {
+#virtualclassCont.congrea .vceditor-color-dropdown-item {
   height: 25px;
   width: 25px;
 }
 
-#virtualclassCont .vceditor-dialog {
+#virtualclassCont.congrea .vceditor-dialog {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -270,7 +270,7 @@
   z-index: 1000;
 }
 
-#virtualclassCont .vceditor-dialog-div {
+#virtualclassCont.congrea .vceditor-dialog-div {
   position: relative;
   width: 400px;
   height: 100px;
@@ -280,7 +280,7 @@
   padding: 15px;
 }
 
-#virtualclassCont .vceditor-dialog-input {
+#virtualclassCont.congrea .vceditor-dialog-input {
   width: 94%;
   display: block;
   padding: 5px 5px;
@@ -315,7 +315,7 @@
   font-style: normal;
 }
 
-#virtualclassCont .vceditor-tb-bold, #virtualclassCont .vceditor-tb-italic, #virtualclassCont .vceditor-tb-underline, #virtualclassCont .vceditor-tb-strikethrough, #virtualclassCont .vceditor-tb-list, #virtualclassCont .vceditor-tb-list-2, #virtualclassCont .vceditor-tb-numbered-list, #virtualclassCont .vceditor-tb-paragraph-left, #virtualclassCont .vceditor-tb-paragraph-center, #virtualclassCont .vceditor-tb-paragraph-right, #virtualclassCont .vceditor-tb-paragraph-justify, #virtualclassCont .vceditor-tb-menu, #virtualclassCont .vceditor-tb-link, #virtualclassCont .vceditor-tb-undo, #virtualclassCont .vceditor-tb-redo, #virtualclassCont .vceditor-tb-box-add, #virtualclassCont .vceditor-tb-box-remove, #virtualclassCont .vceditor-tb-print, #virtualclassCont .vceditor-tb-indent-decrease, #virtualclassCont .vceditor-tb-indent-increase, #virtualclassCont .vceditor-tb-insert-image, #virtualclassCont .vceditor-tb-bubble {
+#virtualclassCont.congrea .vceditor-tb-bold, #virtualclassCont.congrea .vceditor-tb-italic, #virtualclassCont.congrea .vceditor-tb-underline, #virtualclassCont.congrea .vceditor-tb-strikethrough, #virtualclassCont.congrea .vceditor-tb-list, #virtualclassCont.congrea .vceditor-tb-list-2, #virtualclassCont.congrea .vceditor-tb-numbered-list, #virtualclassCont.congrea .vceditor-tb-paragraph-left, #virtualclassCont.congrea .vceditor-tb-paragraph-center, #virtualclassCont.congrea .vceditor-tb-paragraph-right, #virtualclassCont.congrea .vceditor-tb-paragraph-justify, #virtualclassCont.congrea .vceditor-tb-menu, #virtualclassCont.congrea .vceditor-tb-link, #virtualclassCont.congrea .vceditor-tb-undo, #virtualclassCont.congrea .vceditor-tb-redo, #virtualclassCont.congrea .vceditor-tb-box-add, #virtualclassCont.congrea .vceditor-tb-box-remove, #virtualclassCont.congrea .vceditor-tb-print, #virtualclassCont.congrea .vceditor-tb-indent-decrease, #virtualclassCont.congrea .vceditor-tb-indent-increase, #virtualclassCont.congrea .vceditor-tb-insert-image, #virtualclassCont.congrea .vceditor-tb-bubble {
   font-family: 'vceditor';
   speak: none;
   font-style: normal;
@@ -326,108 +326,105 @@
   -webkit-font-smoothing: antialiased;
 }
 
-#virtualclassCont .vceditor-tb-bold:before {
+#virtualclassCont.congrea .vceditor-tb-bold:before {
   content: "\e000";
 }
-#virtualclassCont .vceditor-tb-italic:before {
+#virtualclassCont.congrea .vceditor-tb-italic:before {
   content: "\e001";
 }
-#virtualclassCont .vceditor-tb-underline:before {
+#virtualclassCont.congrea .vceditor-tb-underline:before {
   content: "\e002";
 }
-#virtualclassCont .vceditor-tb-strikethrough:before {
+#virtualclassCont.congrea .vceditor-tb-strikethrough:before {
   content: "\e003";
 }
-#virtualclassCont .vceditor-tb-list:before {
+#virtualclassCont.congrea .vceditor-tb-list:before {
   content: "\e004";
 }
-#virtualclassCont .vceditor-tb-list-2:before {
+#virtualclassCont.congrea .vceditor-tb-list-2:before {
   content: "\e005";
 }
-#virtualclassCont .vceditor-tb-numbered-list:before {
+#virtualclassCont.congrea .vceditor-tb-numbered-list:before {
   content: "\e006";
 }
-#virtualclassCont .vceditor-tb-paragraph-left:before {
+#virtualclassCont.congrea .vceditor-tb-paragraph-left:before {
   content: "\e007";
 }
-#virtualclassCont .vceditor-tb-paragraph-center:before {
+#virtualclassCont.congrea .vceditor-tb-paragraph-center:before {
   content: "\e008";
 }
-#virtualclassCont .vceditor-tb-paragraph-right:before {
+#virtualclassCont.congrea .vceditor-tb-paragraph-right:before {
   content: "\e009";
 }
-#virtualclassCont .vceditor-tb-paragraph-justify:before {
+#virtualclassCont.congrea .vceditor-tb-paragraph-justify:before {
   content: "\e00a";
 }
-#virtualclassCont .vceditor-tb-menu:before {
+#virtualclassCont.congrea .vceditor-tb-menu:before {
   content: "\e00b";
 }
-#virtualclassCont .vceditor-tb-link:before {
+#virtualclassCont.congrea .vceditor-tb-link:before {
   content: "\e00c";
 }
-#virtualclassCont .vceditor-tb-undo:before {
+#virtualclassCont.congrea .vceditor-tb-undo:before {
   content: "\e00d";
 }
-#virtualclassCont .vceditor-tb-redo:before {
+#virtualclassCont.congrea .vceditor-tb-redo:before {
   content: "\e00e";
 }
-#virtualclassCont .vceditor-tb-box-add:before {
+#virtualclassCont.congrea .vceditor-tb-box-add:before {
   content: "\e010";
 }
-#virtualclassCont .vceditor-tb-box-remove:before {
+#virtualclassCont.congrea .vceditor-tb-box-remove:before {
   content: "\e011";
 }
-#virtualclassCont .vceditor-tb-print:before {
+#virtualclassCont.congrea .vceditor-tb-print:before {
   content: "\e012";
 }
-#virtualclassCont .vceditor-tb-indent-decrease:before {
+#virtualclassCont.congrea .vceditor-tb-indent-decrease:before {
   content: "\e013";
 }
-#virtualclassCont .vceditor-tb-indent-increase:before {
+#virtualclassCont.congrea .vceditor-tb-indent-increase:before {
   content: "\e014";
 }
-#virtualclassCont .vceditor-tb-insert-image:before {
+#virtualclassCont.congrea .vceditor-tb-insert-image:before {
   content: "\e015";
 }
-#virtualclassCont .vceditor-tb-bubble:before {
+#virtualclassCont.congrea .vceditor-tb-bubble:before {
   content: "\e00f";
 }
 
 
+/* Gray color */
 
 
-/* black color */
-#virtualclassCont.playMode.student #virtualclassEditorCode
-{
-	margin-top: 70px;
-}
-
-
-#virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover{
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover{
 	background-color: #62e47d;
 }
 
-#virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child{
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child{
 	 background-color: #fb8a1c;
 }
-#virtualclassCont .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child:hover{
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child:hover{
 	background-color: #ff9f41;
 }
 
 
-#virtualclassCont .vceditor-dialog-input{
+#virtualclassCont.congrea .vceditor-dialog-input{
 	border-radius: 6px;
 }
 
-#virtualclassCont a.vceditor-btn:hover, #virtualclassCont .vceditor-dropdown-menu a:hover{
+#virtualclassCont.congrea a.vceditor-btn:hover, #virtualclassCont.congrea .vceditor-dropdown-menu a:hover{
 	background-color: #6e7780;
 }
 
-#virtualclassCont a.vceditor-btn, #virtualclassCont a.vceditor-btn:visited, #virtualclassCont a.vceditor-btn:active{
+#virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active{
 	background-color: #01080a;
-    border: 1px solid #777;;
+    border: 1px solid #555;
     color: #fff;
 }
+
+
+
 
 
 

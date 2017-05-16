@@ -1,4 +1,4 @@
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
+    // This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
@@ -11,11 +11,32 @@
      * eg:- creating, storing and replaying the objects
      */
 
-    var whiteboard = function (config) {
+    var whiteboard = function (config, currWb) {
         var id = config.hasOwnProperty('id') ? config.id : "appWhitebaordCont";
         var classes = config.hasOwnProperty('class');
+        //virtualclass.gObj.currWb = currWb;
+        //
+            if(typeof virtualclass.wb[currWb].vcan != 'object'){
+            virtualclass.wb[currWb].vcan  = new window.Vcan();
+
+            window.vcanUtility(currWb);
+            window.vcanMain(currWb);
+            window.Events(currWb);
+            window.Virtualbox(currWb);
+            window.Interact(currWb);
+            window.Rectangle(currWb);
+            window.Oval(currWb);
+            window.Triangle(currWb);
+            window.Text(currWb);
+            window.Line(currWb);
+            window.FreeHandDrawing(currWb);
+            window.Path(currWb);
+            window.Mouse(currWb);
+            window.Optimize(currWb);
+        }
 
         return {
+          //  currWb : currWb,
             id: id,
             classes: classes,
             tool: '',
@@ -38,6 +59,8 @@
                 virtualWindow: false
             }, // For store the global oject
 
+            vcan:virtualclass.wb[currWb].vcan,
+
 
             /**
              * This function basically does create the canvas on which
@@ -45,50 +68,66 @@
              * @param window the function gets the window object as parameter
              *
              */
-            init: function () {
-                virtualclass.wb.vcan = window.vcan; //this would be done because of possibility of conflict
-                var vcan = virtualclass.wb.vcan;
-                virtualclass.wb.canvas = vcan.create('#canvas');
+            init: function (id) {
+
+                //this would be done because of possibility of conflict
+                //if(typeof virtualclass.wb[id].vcan != 'object'){
+                //    virtualclass.wb[id].vcan = new Vcan();
+                //    vanUtility(id);
+                //    vcanMain(id);
+                //    Events(id);
+                //    Virtualbox(id);
+                //    Interact(id);
+                //    Rectangle(id);
+                //    Oval(id);
+                //    Triangle(id);
+                //    Text(id);
+                //    Line(id);
+                //    FreeHandDrawing(id);
+                //    Optimize(id);
+                //}
+
+                var vcan = virtualclass.wb[id].vcan;
+                virtualclass.wb[id].canvas = vcan.create('#canvas'+id);
                 var canvasObj = vcan.main.canvas;
                 canvasObj.setAttribute('tabindex', '0');  //this does for set chrome
                 canvasObj.focus();
 
                 //IMPORTANT  this is changed during the UNIT testing
                 //onkeydown event is working into all browser.
-                //canvasObj.onkeydown = virtualclass.wb.utility.keyOperation;
-                window.onkeydown = virtualclass.wb.utility.keyOperation;
+                //canvasObj.onkeydown = virtualclass.wb[id].utility.keyOperation;
+                window.onkeydown = virtualclass.wb[id].utility.keyOperation;
 
-                virtualclass.system.setAppDimension();
+                virtualclass.system.setAppDimension(id);
                 if (typeof (Storage) !== "undefined") {
                     if (localStorage.repObjs) {
                         // var replayObjs = JSON.parse(localStorage.repObjs);
                     }
-                    window.virtualclass.wb = virtualclass.wb;
+                    window.virtualclass.wb[id] = virtualclass.wb[id];
                 }
 
                 this.arrowInit();
-	            this._init();
+                this._init(id);
             },
 
-            _init: function () {
+            _init: function (id) {
 
-                virtualclass.wb.oTeacher = roles.hasAdmin();
+                virtualclass.wb[id].oTeacher = roles.hasAdmin();
 
                 if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
-                    virtualclass.wb.gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
+                    virtualclass.wb[id].gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
                 } else {
-                    virtualclass.wb.gObj.rcvdPackId = 0;
+                    virtualclass.wb[id].gObj.rcvdPackId = 0;
                 }
 
-                // virtualclass.wb.utility.displayCanvas();
-
+                // virtualclass.wb[id].utility.displayCanvas();
 
                 window.addEventListener('resize',
                     function () {
                         virtualclass.gObj.resize = true;
                         if (roles.hasControls()) {
                             if (virtualclass.currApp == 'Whiteboard') {
-                                virtualclass.wb.utility.lockvirtualclass();
+                                virtualclass.wb[id].utility.lockvirtualclass();
                             }
                         }
                     }
@@ -100,7 +139,31 @@
                     virtualclass.view.disappearBox('Canvas');
                     virtualclass.view.disappearBox('drawArea');
                 });
-                virtualclass.wb.utility.crateCanvasDrawMesssage();
+                virtualclass.wb[id].utility.crateCanvasDrawMesssage(id);
+            },
+
+            UI : {
+                createToolBar : function (){
+
+                },
+                mainContainer : function (container, id){
+                    var container = document.querySelector('#' + container);
+                    if(container != null){
+                        var vcanvas = document.createElement('div');
+                        vcanvas.id = 'vcanvas'+id;
+                        vcanvas.className = 'vcanvas';
+                        vcanvas.dataset.wbId = id;
+
+                        var containerWb = document.createElement('div');
+                        containerWb.id =  'containerWb' + id;
+                        containerWb.className = 'containerWb';
+
+                        vcanvas.appendChild(containerWb);
+                        container.appendChild(vcanvas);
+                    }else{
+                        alert('container is null');
+                    }
+                }
             },
 
 
@@ -120,25 +183,25 @@
             /**
              * this function does create the command interface
              */
-            createCommand: function () {
-                var alreadyCreated = virtualclass.wb.utility.alreadyExistToolBar();
+            createCommand: function (alreadyCreated, id) {
+                var alreadyCreated = virtualclass.wb[id].utility.alreadyExistToolBar(id);
                 if (alreadyCreated || (localStorage.getItem('educator') != null && localStorage.reclaim)) {
                     return true;
                 }
 
-                var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper();
-                virtualclass.vutil.createDiv('t_rectangle', 'rectangle', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_line', 'line', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_freeDrawing', 'freeDrawing', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_oval', 'oval', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_triangle', 'triangle', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_text', 'text', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_activeall', 'activeAll', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_clearall', 'clearAll', cmdToolsWrapper, 'tool');
+                var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
+                virtualclass.vutil.createDiv('t_rectangle' + id, 'rectangle', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_line'+ id, 'line', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_freeDrawing' + id, 'freeDrawing', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_oval' + id, 'oval', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_triangle' + id, 'triangle', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_text' + id, 'text', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_activeall' + id, 'activeAll', cmdToolsWrapper, 'tool');
+                virtualclass.vutil.createDiv('t_clearall' + id, 'clearAll', cmdToolsWrapper, 'tool');
 
-                virtualclass.wb.socketOn = parseInt(wbUser.socketOn);
-                if (virtualclass.wb.socketOn == 1) {
-                    virtualclass.wb.utility.setClass('vcanvas', 'socketon');
+                virtualclass.wb[id].socketOn = parseInt(wbUser.socketOn);
+                if (virtualclass.wb[id].socketOn == 1) {
+                    virtualclass.wb[id].utility.setClass('vcanvas' + id, 'socketon');
                 }
             },
 
@@ -166,49 +229,50 @@
              *
              * THIS FUNCTION IS NOT USING ANY MORE
              */
-            createDiv_old: function (toolId, text, cmdToolsWrapper, cmdClass) {
-                //console.log('class name ' + text);
-                var toolName = text;
-                var text = virtualclass.lang.getString(text);
-                var ancTag = document.createElement('a');
-                ancTag.href = '#';
-
-                var lDiv = document.createElement('div');
-                lDiv.id = toolId;
-                if (typeof cmdClass != 'undefined') {
-                    lDiv.className = cmdClass;
-                }
-
-                var iconButton = document.createElement('span');
-                iconButton.className = "icon-" + toolName;
-                ancTag.appendChild(iconButton);
-                ancTag.dataset.title = text;
-                ancTag.className = 'tooltip';
-
-                lDiv.appendChild(ancTag);
-
-                if (toolId == 't_reclaim') {
-                    var virtualclassCont = document.getElementById(virtualclass.html.id);
-                    cmdToolsWrapper.appendChild(lDiv);
-                    virtualclassCont.insertBefore(cmdToolsWrapper, virtualclassCont.firstChild);
-
-                } else {
-                    cmdToolsWrapper.appendChild(lDiv);
-                }
-            },
+            //createDiv_old: function (toolId, text, cmdToolsWrapper, cmdClass) {
+            //    //console.log('class name ' + text);
+            //    var toolName = text;
+            //    var text = virtualclass.lang.getString(text);
+            //    var ancTag = document.createElement('a');
+            //    ancTag.href = '#';
+            //
+            //    var lDiv = document.createElement('div');
+            //    lDiv.id = toolId;
+            //    if (typeof cmdClass != 'undefined') {
+            //        lDiv.className = cmdClass;
+            //    }
+            //
+            //    var iconButton = document.createElement('span');
+            //    iconButton.className = "icon-" + toolName;
+            //    ancTag.appendChild(iconButton);
+            //    ancTag.dataset.title = text;
+            //    ancTag.className = 'tooltip';
+            //
+            //    lDiv.appendChild(ancTag);
+            //
+            //    if (toolId == 't_reclaim') {
+            //        var virtualclassCont = document.getElementById(virtualclass.html.id);
+            //        cmdToolsWrapper.appendChild(lDiv);
+            //        virtualclassCont.insertBefore(cmdToolsWrapper, virtualclassCont.firstChild);
+            //
+            //    } else {
+            //        cmdToolsWrapper.appendChild(lDiv);
+            //    }
+            //},
             /**
              * this funciton does create the canvas
              */
-            createCanvas: function () {
+            createCanvas: function (id) {
+                var vcan = virtualclass.wb[id].vcan;
                 //debugger;
                 var cmdToolsWrapper = document.createElement('div');
                 cmdToolsWrapper.id = vcan.canvasWrapperId;
                 vcan.canvasWrapperId = cmdToolsWrapper.id;
                 var canvas = document.createElement('canvas');
-                canvas.id = 'canvas';
+                canvas.id = 'canvas' + id;
                 canvas.innerHTML = 'Canvas is missing in your browsers. Please update the latest version of your browser';
                 cmdToolsWrapper.appendChild(canvas);
-                document.getElementById('containerWb').appendChild(cmdToolsWrapper);
+                document.getElementById('containerWb' + id).appendChild(cmdToolsWrapper);
             },
 
             /**
@@ -216,43 +280,50 @@
              * @param expects the mouse down event.
              */
             objInit: function (evt) {
-                //debugger;
+                var wbId = virtualclass.vutil.getWhiteboardId(this.parentNode);
+                var vcan = virtualclass.wb[wbId].vcan;
+
                 if (roles.hasControls()) {
-                    if (this.parentNode.id != 't_clearall') {
+                    if (this.parentNode.id != 't_clearall'+wbId) {
                         //call back function should be used as second parameter
                         // for action on reposnse of user, cancel, okay
-                        virtualclass.wb.utility.makeActiveTool(this.parentNode.id);
+                        //virtualclass.wb[id].utility.makeActiveTool();
+
+                        virtualclass.wb[wbId].utility.makeActiveTool(this.parentNode.id);
                     }
                 }
 
                 var anchorNode = this;
 
                 /**important **/
-                if (anchorNode.parentNode.id == 't_replay') {
-                    virtualclass.wb.utility.clearAll(false);
+                if (anchorNode.parentNode.id == 't_replay'+wbId) {
+                    virtualclass.wb[wbId].utility.clearAll(false);
                     virtualclass.vutil.beforeSend({'replayAll': true, 'cf': replayAll});
                 } else {
-                    virtualclass.wb.toolInit(anchorNode.parentNode.id);
+                    virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
                 }
 
-                if (anchorNode.parentNode.id != 't_replay' && anchorNode.parentNode.id != 't_clearall'
-                    && anchorNode.parentNode.id != 't_reclaim' && anchorNode.parentNode.id != 't_assign') {
+                if (anchorNode.parentNode.id != 't_replay'+wbId && anchorNode.parentNode.id != 't_clearall'+wbId
+                    && anchorNode.parentNode.id != 't_reclaim'+wbId && anchorNode.parentNode.id != 't_assign'+wbId) {
                     var currTime = new Date().getTime();
-                    virtualclass.wb.lt = anchorNode.parentNode.id;
-                    var obj = {'cmd': anchorNode.parentNode.id, mt: currTime};
-                    virtualclass.wb.uid++;
-                    obj.uid = virtualclass.wb.uid;
+                    virtualclass.wb[wbId].lt = anchorNode.parentNode.id;
+                    // fetching command t_triangle from  t_traingle_doc_1_1
+                    var cmd = anchorNode.parentNode.id.split(/_doc_*/)[0];
+                    var obj = {'cmd': cmd, mt: currTime};
+                    virtualclass.wb[wbId].uid++;
+                    obj.uid = virtualclass.wb[wbId].uid;
                     vcan.main.replayObjs.push(obj);
                     //recorder.items.push(obj);
 
                     virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        virtualclass.storage.wholeStore(obj);
 
+
                     virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
                 }
-                if (this.parentNode.id != 't_clearall') {
-                    virtualclass.wb.prvTool = this.parentNode.id;
-                    virtualclass.wb.prvToolInfo = obj;
+                if (this.parentNode.id != 't_clearall'+wbId) {
+                    virtualclass.wb[wbId].prvTool = this.parentNode.id;
+                    virtualclass.wb[wbId].prvToolInfo = obj;
                 }
             },
 
@@ -263,14 +334,14 @@
              * object would triggered for create the rectangle object
              * @param id expects the  id of container which contains all the commands of div
              */
-            attachToolFunction: function (id, alreadyCreated) {
-               // debugger;
-                virtualclass.wb.createCommand(alreadyCreated);
-			
-                var allDivs = document.getElementById(id).getElementsByTagName('div');
+            attachToolFunction: function (contId, alreadyCreated, id) {
+
+                virtualclass.wb[id].createCommand(alreadyCreated, id);
+
+                var allDivs = document.getElementById(contId).getElementsByTagName('div');
                 for (var i = 0; i < allDivs.length; i++) {
                     //TODO this will have to be fixed as it always assigned t_clearall
-                    allDivs[i].getElementsByTagName('a')[0].addEventListener('click', virtualclass.wb.objInit);
+                    allDivs[i].getElementsByTagName('a')[0].addEventListener('click', virtualclass.wb[id].objInit);
                 }
             },
             /**
@@ -280,60 +351,78 @@
              *
              */
             toolInit: function (cmd, repMode, multiuser, myfunc) {
-                //debugger;
-                if (typeof virtualclass.wb.obj.drawTextObj == 'object' && virtualclass.wb.obj.drawTextObj.wmode == true) {
+                var wbId = virtualclass.gObj.currWb;
+
+                if(cmd.indexOf('_doc_') <= -1){
+                    cmd = cmd + wbId;
+                }
+
+                var vcan = virtualclass.wb[wbId].vcan;
+                if (typeof virtualclass.wb[wbId].obj.drawTextObj == 'object' && virtualclass.wb[wbId].obj.drawTextObj.wmode == true) {
                     var ctx = vcan.main.canvas.getContext('2d');
                 }
-                var allChilds = virtualclass.wb.vcan.getStates('children');
+                var allChilds = vcan.getStates('children');
                 if (allChilds.length > 0) {
-                   // debugger;
-                    if (cmd != 't_clearall') {
-                        if (typeof multiuser == 'undefined' || cmd != 't_replay') {
-                            virtualclass.wb.utility.deActiveFrmDragDrop(); //after optimization NOTE:- this should have to be enable
+                    // debugger;
+                    if (cmd != 't_clearall' + wbId) {
+                        if (typeof multiuser == 'undefined' || cmd != 't_replay' + wbId) {
+                            virtualclass.wb[wbId].utility.deActiveFrmDragDrop(); //after optimization NOTE:- this should have to be enable
                         }
                         if (multiuser != true && cmd != 't_replay') {
-                            virtualclass.wb.vcan.renderAll();
+                           vcan.renderAll();
                         }
                     }
                 } else {
                     //debugger;
-                    virtualclass.wb.vcan.main.action = "create";
+                    vcan.main.action = "create";
                 }
 
-                if (!virtualclass.wb.utility.IsObjEmpty(virtualclass.wb.obj.freeDrawObj && multiuser == false)) {
-                    virtualclass.wb.obj.freeDrawObj.freesvg = false;
+                if (!virtualclass.wb[wbId].utility.IsObjEmpty(virtualclass.wb[wbId].obj.freeDrawObj && multiuser == false)) {
+                    virtualclass.wb[wbId].obj.freeDrawObj.freesvg = false;
                 }
 
-                virtualclass.wb.vcan.main.currUserCommand = cmd + 'Init';
+                vcan.main.currUserCommand = cmd + 'Init';
 
-                if (cmd == 't_activeall') {
-                    virtualclass.wb.utility.t_activeallInit();
-                } else if (cmd == 't_replay') {
+                if(roles.isStudent()){
+                    console.log(' cmd ' + cmd);
+                }
+
+                //if (cmd == 't_activeall'+ wbId) {
+                if (cmd  ==  't_activeall'+ wbId) {
+                    console.log('command active');
+                    virtualclass.wb[wbId].utility.t_activeallInit();
+                //} else if (cmd == 't_replay') {
+                } else if (cmd == 't_replay'+ wbId) {
                     if (typeof multiuser == 'undefined') {
                         vcan.setValInMain('id', 0);
                     }
                     if (typeof myfunc != 'undefined') {
-                        virtualclass.wb.t_replayInit(repMode, myfunc);
+                        virtualclass.wb[wbId].t_replayInit(repMode, myfunc);
                     } else {
-                        virtualclass.wb.t_replayInit(repMode);
+                        virtualclass.wb[wbId].t_replayInit(repMode);
                     }
-                } else if (cmd == 't_clearall') {
+                //  } else if (cmd == 't_clearall'+ wbId) {
+                } else if (cmd == 't_clearall'+ wbId) {
                     virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm) {
                             //debugger;
                             if (!confirm) {
                                 return true;
                             }
 
-                            virtualclass.wb.utility.t_clearallInit();
-                            virtualclass.wb.utility.makeDefaultValue(cmd);
+                            virtualclass.wb[wbId].utility.t_clearallInit();
+                            virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
                             virtualclass.storage.clearSingleTable('wbData');
 
                             virtualclass.vutil.beforeSend({'clearAll': true, 'cf': 'clearAll'});
 
-                            if (virtualclass.wb.hasOwnProperty('prvToolInfo') && typeof virtualclass.wb.prvToolInfo == 'object'){
-                                var cmd = virtualclass.wb.prvToolInfo.cmd;
+                            if (virtualclass.wb[wbId].hasOwnProperty('prvToolInfo') && typeof virtualclass.wb[wbId].prvToolInfo == 'object'){
+                                var cmd = virtualclass.wb[wbId].prvToolInfo.cmd;
                             } else {
                                 var cmd = 't_triangle';
+                            }
+
+                            if(cmd.indexOf('_doc_') <= -1){
+                                cmd += virtualclass.gObj.currWb;
                             }
 
                             var anch = document.getElementById(cmd).getElementsByTagName('a')[0];
@@ -343,32 +432,35 @@
                         }
                     );
 
-                } else if (cmd == 't_assign') {
+                } else if (cmd == 't_assign'+ wbId) {
                     //debugger;
                     var toolHeight = localStorage.getItem('toolHeight');
                     if (toolHeight != null) {
                         virtualclass.vutil.beforeSend({
                             'assignRole': true,
                             'toolHeight': toolHeight,
-                            'socket': virtualclass.wb.socketOn
+                            'socket': virtualclass.wb[wbId].socketOn
                         });
                     } else {
                         virtualclass.vutil.beforeSend({
                             'assignRole': true,
-                            'socket': virtualclass.wb.socketOn,
+                            'socket': virtualclass.wb[wbId].socketOn,
                             'cf': 'assignRole'
                         });
                     }
                 } else if (cmd == 't_reclaim') {
                     //debugger;
-                    virtualclass.wb.utility._reclaimRole();
+                    virtualclass.wb[wbId].utility._reclaimRole();
                 }
 
-                if (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
-                    && cmd != 't_reclaim') {
+                // Removed t_activeall, because we need to show mouse movent while user click on Active all
+                // This is window for after assigned the role
+                // If (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
+                if ((cmd != 't_replay' + wbId)  && (cmd != 't_clearallInit' + wbId) && (cmd != 't_assign'+wbId)
+                    && (cmd != 't_reclaim'+wbId)) {
                     //debugger;
-                    virtualclass.wb.tool = new virtualclass.wb.tool_obj(cmd);
-                    virtualclass.wb.utility.attachEventHandlers();
+                    virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].tool_obj(cmd);
+                    virtualclass.wb[wbId].utility.attachEventHandlers(wbId);
                 }
             },
             /**
@@ -378,52 +470,72 @@
              * text and free draw are different case than other object
              */
             tool_obj: function (cmd) {
+                //alert("Suman bogati");
+                //debugger;
+                //var wbId = this.currWb;
+                if(cmd.indexOf('_doc_') > -1){
+                    var elem = document.querySelector('#'+cmd);
+                    if(elem == null){
+                        var wbId = virtualclass.gObj.currWb;
+                    } else{
+                        var wbId = virtualclass.vutil.getWhiteboardId(elem);
+                    }
+                } else {
+                    // When this is executed from student side
+                    var wbId = virtualclass.gObj.currWb;
+                    cmd += wbId;
+                }
+
+
                 //debugger;
                 this.cmd = cmd;
                 //when other objecti.
-                if (cmd != 't_freeDrawing') {
-                    virtualclass.wb.obj.freeDrawObj = "";
+                if (cmd != 't_freeDrawing' + wbId) {
+                    virtualclass.wb[wbId].obj.freeDrawObj = "";
                 }
 
-                if (cmd != 't_text' && !virtualclass.vutil.exitTextWrapper()) {
-                    virtualclass.wb.obj.drawTextObj = "";
+                if (cmd != 't_text'+wbId && !virtualclass.vutil.exitTextWrapper()) {
+                    virtualclass.wb[wbId].obj.drawTextObj = "";
                 }
 
-                if (cmd == 't_freeDrawing') {
+                if (cmd == 't_freeDrawing'+wbId) {
                     //NOTE:- this is added during the UNIT testing
                     var borderColor = "#424240";
                     var linWidth = "3";
-                    virtualclass.wb.obj.freeDrawObj = new virtualclass.wb.readyFreeHandObj(borderColor, linWidth);
-                    virtualclass.wb.obj.freeDrawObj.init();
-                } else if (cmd == 't_text') {
+                    virtualclass.wb[wbId].obj.freeDrawObj = new virtualclass.wb[wbId].readyFreeHandObj(borderColor, linWidth);
+                    virtualclass.wb[wbId].obj.freeDrawObj.init();
+                } else if (cmd == 't_text'+wbId) {
                     //   virtualclass.vutil.attachClickOutSideCanvas();
-                    virtualclass.wb.obj.drawTextObj = new virtualclass.wb.readyTextObj();
-                    virtualclass.wb.obj.drawTextObj.init("canvasWrapper");
+                    virtualclass.wb[wbId].obj.drawTextObj = new virtualclass.wb[wbId].readyTextObj();
+                    virtualclass.wb[wbId].obj.drawTextObj.init("canvasWrapper" + wbId);
                 }
 
                 var mCmd = cmd.slice(2, cmd.length);
-
-                virtualclass.wb.draw_object(mCmd, virtualclass.wb.canvas, this)
+                    if(mCmd.indexOf('_doc_') > -1){
+                        mCmd = mCmd.substring(0, (mCmd.indexOf("_")));
+                    }
+                virtualclass.wb[wbId].draw_object(mCmd, virtualclass.wb[wbId].canvas, this)
             },
             /**
              * This function does initiates replay function after click on replay button
              * it replays all the object the user would drawn
              */
             t_replayInit: function (repMode, myfunc) {
+                var wid = virtualclass.gObj.currWb;
                 //debugger;
-                //virtual0class.wb.replay = virtualclass.wb._replay();
+                //virtual0class.wb.replay = virtualclass.wb[id]._replay();
                 if (repMode == 'fromFile') {
                     virtualclass.gObj.chat.removeAllChat();
-                    virtualclass.wb.recordAudio = true;
+                    virtualclass.wb[wid].recordAudio = true;
                     virtualclass.recorder.init();
                 } else {
-                    virtualclass.wb.replay = virtualclass.wb._replay();
+                    virtualclass.wb[wid].replay = virtualclass.wb[wid]._replay();
                     if (typeof myfunc != 'undefined') {
-                        virtualclass.wb.replay.init(repMode, myfunc);
-                        virtualclass.wb.replay.renderObj(myfunc);
+                        virtualclass.wb[wid].replay.init(repMode, myfunc);
+                        virtualclass.wb[wid].replay.renderObj(myfunc);
                     } else {
-                        virtualclass.wb.replay.init(repMode);
-                        virtualclass.wb.replay.renderObj();
+                        virtualclass.wb[wid].replay.init(repMode);
+                        virtualclass.wb[wid].replay.renderObj();
                     }
                 }
             }

@@ -49,9 +49,13 @@ var io = {
         this.sock.binaryType = 'arraybuffer';
         this.sock.onmessage = function(e) {
             if (e.data instanceof ArrayBuffer) {
+                //return;
                 io.onRecBinary(e)
             } else {
-                var msg = JSON.parse(e.data); //msg.user is from user
+                var msg = JSON.parse(e.data); //msg.user is from user/*
+                //io.onRecJson(msg);
+
+                //return;
                 if (msg.hasOwnProperty('m')) {
                     if (msg.m.hasOwnProperty('serial')) {
                         ioMissingPackets.checkMissing(msg);
@@ -74,10 +78,12 @@ var io = {
                     } else if (msg.m.hasOwnProperty('userMissedpackets')) {
                         ioMissingPackets.userFillExecutedStore(msg);
                     } else {
+                        //return; // for temporary
                         io.onRecSave(msg, e.data);
                         io.onRecJson(msg);
                     }
                 } else {
+                    //return; // for temporary
                     io.onRecSave(msg, e.data);
                     io.onRecJson(msg);
                 }
@@ -118,20 +124,14 @@ var io = {
     },
     userauthenticat: function() {
         "use strict";
-        var obj = {
-            cfun: 'authenticate',
-            arg: {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
-        };
-        var jobj = JSON.stringify(obj);
+        var obj = {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
+        var jobj = 'F-AH-'+JSON.stringify(obj);
         this.sock.send(jobj);
     },
     addclient: function() {
         "use strict";
-        var obj = {
-            cfun: 'joinroom',
-            arg: {'client': this.cfg.userid, 'roomname': this.cfg.room, 'user': this.cfg.userobj}
-        };
-        var jobj = JSON.stringify(obj);
+        var obj = {'client': this.cfg.userid, 'roomname': this.cfg.room, 'user': this.cfg.userobj}
+        var jobj = 'F-JR-'+JSON.stringify(obj);
         this.sock.send(jobj);
     },
     send: function(msg, cfun, touser) {
@@ -139,7 +139,6 @@ var io = {
         if (msg.hasOwnProperty('m')) {
             if (msg.m.user == 'all') {
                 alert('som packet are sending');
-                
             }
         }
         var obj = {
@@ -150,20 +149,6 @@ var io = {
         if (touser) {
             obj.arg.touser = touser;
         }
-
-
-        //if(io.sock != null && io.sock.readyState == 1){
-        //    if (touser) {
-        //        touser = io.uniquesids[touser];
-        //        if(touser == 'undefined' || typeof touser == 'undefined'){
-        //            console.log("Couldn't send packet, " + touser + " " + " is not connected.");
-        //        } else {
-        //            io.send(msg, cfun, touser);
-        //        }
-        //    }
-        //} else {
-        //    console.log('Socket is not created.');
-        //}
 
         var jobj;
 
@@ -186,15 +171,65 @@ var io = {
     realSend: function(obj) {
         "use strict";
         if (typeof obj.arg.touser != 'undefined') {
+			if(io.uniquesids == null){
+				console.log('uniqueid is null');
+			}else {
+				obj.arg.touser = io.uniquesids[obj.arg.touser];
 
-            obj.arg.touser = io.uniquesids[obj.arg.touser];
-
-            if (typeof obj.arg.touser == 'undefined') {
-                console.log("User is not connected." + obj.arg.touser);
-                return;
-            }
+				if (typeof obj.arg.touser == 'undefined') {
+					console.log("User is not connected." + obj.arg.touser);
+					return;
+				}
+			}
+			
+            
         }
-        var jobj = JSON.stringify(obj);
+
+        // earlier the below information sent by server
+        var userObj = { name : wbUser.name, lname : wbUser.lname, role:wbUser.role, userid : wbUser.id};
+
+        switch (obj.cfun) {
+            case "broadcastToAll":
+                if (typeof obj.arg.touser == "undefined") {
+                    var sobj = {
+                        type: 'broadcastToAll',
+                        user: userObj,
+                        m: obj.arg.msg
+                    };
+                    var jobj = 'F-BR-'+JSON.stringify(sobj);
+                } else {
+                    var sobj = {
+                        type: 'broadcastToAll',
+                        //user: virtualclass.gObj.uid,
+                        user: userObj,
+                        m: obj.arg.msg,
+                        userto: obj.arg.touser
+                    };
+                    var touser = obj.arg.touser;
+                    while (touser.length < 12) {
+                        touser = '0'+touser;
+                    }
+                    var jobj = 'F-BRU-{"'+touser+JSON.stringify(sobj);
+                }
+                break;
+            case "ping":
+                var sobj = {
+                    type: 'PONG',
+                    m: obj.arg.msg
+                };
+                var jobj = 'F-PI-'+JSON.stringify(sobj);
+                break;
+
+            case "speed":
+                var jobj = 'F-SPE-{"'+obj.arg.msg;
+                break;
+
+            default:
+                var jobj = JSON.stringify(obj);
+        }
+
+
+
 
         this.sock.send(jobj);
         this.sock.onerror = function(error) {
@@ -249,21 +284,22 @@ var io = {
         //}
     },
     onRecJson: function(receivemsg) {
+
 //        if( typeof receivemsg.m !='undefined') {
 //            if( typeof receivemsg.m.ppt !='undefined') {
 //                if( typeof receivemsg.m.ppt.startFrom !='undefined') {
 //                    virtualclass.sharePt.startFromFlag=1;
-//                    var frame= document.getElementById('pptiframe') 
+//                    var frame= document.getElementById('pptiframe')
 //                    if(frame !=null){
 //                     if (receivemsg.m.ppt.init.search("postMessage") < 0) {
 //                    frame.setAttribute("src", receivemsg.m.ppt.init+ "?postMessage=true&postMessageEvents=true");
 //                } else {
 //                   frame.setAttribute("src", receivemsg.m.ppt.init);
-//                }   
+//                }
 //                   setTimeout(function(){
-//                     frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:[receivemsg.m.ppt.startFrom.indexh,receivemsg.m.ppt.startFrom.indexv,receivemsg.m.ppt.startFrom.indexf] }), '*'); 
+//                     frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:[receivemsg.m.ppt.startFrom.indexh,receivemsg.m.ppt.startFrom.indexv,receivemsg.m.ppt.startFrom.indexf] }), '*');
 //                   },2000)
-//                    
+//
 //                   }
 //                }
 //            }
@@ -286,13 +322,14 @@ var io = {
                 $.event.trigger({
                     type: "member_added",
                     message: receivemsg.users,
-                    newuser: newuser
+                    newuser: newuser,
+                    newJoinId : receivemsg.action
                 });
-                
+
                 break;
             case "broadcastToAll":
             case "broadcast":
-
+                //return;
                 //   console.log('broad cast');
                 if (receivemsg !== null) {
                     if (receivemsg.userto != undefined) {
@@ -302,9 +339,10 @@ var io = {
                         type: "newmessage",
                         message: receivemsg.m,
                         fromUser: receivemsg.user,
-                        toUser: userto
+                        //   toUser: userto
+                        toUser:  virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                     });
-                   
+
                 }
                 break;
             case "userleft":
@@ -319,7 +357,8 @@ var io = {
                     type: "user_logout",
                     fromUser: receivemsg.user,
                     message: 'offline',
-                    toUser: userto
+                    // toUser: userto
+                    toUser : virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                 });
                 break;
             case "leftroom":
@@ -342,6 +381,13 @@ var io = {
                     type: "Multiple_login"
                 });
                 break;
+            case "PONG":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "PONG",
+                    message: receivemsg.m
+                });
+                break;
         }
         //} catch (e) {
         //    console.log("Error catched   : " + e);
@@ -358,4 +404,3 @@ var io = {
         console.log("i am closing this connection");
     }
 };
-

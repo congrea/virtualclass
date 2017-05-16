@@ -305,10 +305,10 @@ var ioMissingPackets = {
 
                     try {
                         console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.serial);
+                        io.onRecJson(msg.m.data[i]);
 
-                        if(!msg.m.data[i].m.hasOwnProperty('receiver')){ // if not common chat
-                            io.onRecJson(msg.m.data[i]);
-                        }
+                        // for checking common chat
+                        //if(!msg.m.data[i].m.hasOwnProperty('receiver'))
 
                     } catch (error) {
                         console.log("Error " + error);

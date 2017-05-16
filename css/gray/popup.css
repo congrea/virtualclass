@@ -1,8 +1,9 @@
-#virtualclassCont #main {
+
+#virtualclassCont.congrea #main {
 	width:1000px;
 	margin:0 auto;
 }
-#virtualclassCont .button {
+#virtualclassCont.congrea .button {
 	color:#3CB3E7;
 	font-family:Raleway, Helvetica, sans-serif;
 	border-radius:4px;
@@ -12,18 +13,25 @@
 	cursor:pointer;
 	padding:15px 25px;
 }
-#virtualclassCont .button:hover {
+#virtualclassCont.congrea #virtualclassPreCheck .button {
+    border-width: 0;
+    padding: 0;
+}
+#virtualclassCont.congrea .button:hover {
 	color:#fff;
 	background:#3CB3E7;
 }
-#virtualclassCont .center-button-wrapper {
+#virtualclassCont.congrea #virtualclassPreCheck .button:hover {
+    background-color: transparent;
+}
+#virtualclassCont.congrea .center-button-wrapper {
 	text-align:center;
 	padding:50px 0;
 }
-#virtualclassCont #recordingContainer {
+#virtualclassCont.congrea #recordingContainer {
 	min-height:80px;
 }
-#virtualclassCont .rv-vanilla-modal {
+#virtualclassCont.congrea .rv-vanilla-modal {
 	position:absolute;
 	top:-100%;
 	left:58%;
@@ -39,7 +47,7 @@
 	margin:-300px 0 0 -22.5%;
 	z-index: 1000000;
 }
-#virtualclassCont .rv-vanilla-modal-is-open {
+#virtualclassCont.congrea .rv-vanilla-modal-is-open {
 	top: 55%;
 }
 .rv-vanilla-modal {
@@ -132,38 +140,38 @@ transition:all .2s linear;
 	color:#1996cd;
 	background:rgba(255,255,255,.5);
 }
-.hidden {
+#virtualclassCont.congrea .hidden {
 	display:none!important;
 	visibility:hidden;
 }
-.group:after, .group:before {
+#virtualclassCont.congrea .group:after, #virtualclassCont.congrea .group:before {
 	content:"";
 	display:table;
 }
-.group:after {
+#virtualclassCont.congrea .group:after {
 	clear:both;
 }
-.centered {
+#virtualclassCont.congrea .centered {
 	text-align:center;
 }
 
-#virtualclassCont .rv-vanilla-modal-header {
+#virtualclassCont.congrea .rv-vanilla-modal-header {
 	border-radius:4px 4px 0 0;
 }
-#progress, #indProgress, #downloadProgress {
+#virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress,#virtualclassCont.congrea #downloadProgress {
 	width:100%;
 	height:15px;
 	border:1px solid #000;
 	overflow:hidden;
 }
-.progressBar {
+#virtualclassCont.congrea .progressBar {
 	width:0;
 	height:15px;
 	border-right: 1px solid #000000;
 	background: #46D65D;
 }
 
-.progressValue {
+#virtualclassCont.congrea .progressValue {
 	color: #fff;
 	font-size: 12px;
 	font-style: italic;
@@ -174,10 +182,10 @@ transition:all .2s linear;
 	text-shadow: #333 0px 0px 3px;
 }
 
-#indProgressBar {
-	background: #b9db0c;
+#virtualclassCont.congrea #indProgressBar {
+	background: #93b42f;
 }
-#waitMsg {
+#virtualclassCont.congrea #waitMsg {
 	width : 300px;
 	margin-top: 32px;
 	margin-left: 22px;
@@ -189,7 +197,7 @@ transition:all .2s linear;
 /*Hasan css start*/
 
 
-#virtualclassCont #downloadProgress {
+#virtualclassCont.congrea #downloadProgress {
 	background-color: #f5f5f5;
 	border-radius: 4px;
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
@@ -197,8 +205,9 @@ transition:all .2s linear;
 	height: 16px;
 	border:none;
 }
-#virtualclassCont .progressBar {
-	background-color: #93b42f;
+/* modify this  in  moodle css  ***    */
+#virtualclassCont.congrea .progressBar {
+        background-color: #93b42f;
 	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
 	box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
 	-webkit-transition: width .6s ease;
@@ -206,7 +215,7 @@ transition:all .2s linear;
 	height: 20px;
 	border:none;
 }
-#virtualclassCont #askplayMessage {
+#virtualclassCont.congrea #askplayMessage {
 	font-size: 14px;
 	text-align: left;
 	margin-top: 7px;
@@ -214,10 +223,10 @@ transition:all .2s linear;
 	padding-left: 25px;
 	padding-right: 15px;
 }
-#virtualclassCont #downloadSessionText, #virtualclassCont #downloadPrgressLabel {
+#virtualclassCont.congrea #downloadSessionText, #virtualclassCont.congrea #downloadPrgressLabel {
 	font-size: 13px;
 }
-#virtualclassCont #playButton {
+#virtualclassCont.congrea #playButton {
 	background: #eeeeee; /* Old browsers */
 	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd)); /* Chrome,Safari4+ */
@@ -234,7 +243,7 @@ transition:all .2s linear;
 	margin-bottom: 15px;
 	border:#ddd 1px solid;
 }
-#virtualclassCont #playButton:hover {
+#virtualclassCont.congrea #playButton:hover {
 	background: #dddddd; /* Old browsers */
 	background: -moz-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #eeeeee)); /* Chrome,Safari4+ */
@@ -253,52 +262,52 @@ transition:all .2s linear;
 }
 /*Hasan css start student*/
 
-#virtualclassCont .rv-vanilla-modal {
+#virtualclassCont.congrea .rv-vanilla-modal {
 	min-height: auto;
 	width: auto;
 }
 
-#virtualclassCont .rv-vanilla-modal-body {
+#virtualclassCont.congrea .rv-vanilla-modal-body {
 	padding: 30px 25px 30px;
 }
-#virtualclassCont .rv-vanilla-modal-title {
+#virtualclassCont.congrea .rv-vanilla-modal-title {
 	font-size: 15px;
 }
 
-#virtualclassCont .rv-vanilla-modal-header {
+#virtualclassCont.congrea .rv-vanilla-modal-header {
 	height: 42px;
 }
-#virtualclassCont #recordingContainer .rv-vanilla-modal-body div {
+#virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body div {
 	border-radius: 4px;
 	font-size: 13px;
 	margin-bottom: 7px;
 }
-#virtualclassCont #progress, #virtualclassCont #indProgress, #virtualclassCont #downloadProgress {
+#virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress, #virtualclassCont.congrea #downloadProgress {
 	height: 20px;
 	border:none;
 }
-#virtualclassCont #indProgress #indProgressValue {
+#virtualclassCont.congrea #indProgress #indProgressValue {
 }
-#virtualclassCont #progress .progressValue {
+#virtualclassCont.congrea #progress .progressValue {
 	top: -25px;
 }
-#virtualclassCont .rv-vanilla-modal-body {
+#virtualclassCont.congrea .rv-vanilla-modal-body {
 	padding: 18px 25px 18px;
 }
-#virtualclassCont #totProgressCont {
+#virtualclassCont.congrea #totProgressCont {
 	margin-bottom: 15px;
 }
-#virtualclassCont #totProgressCont {
+#virtualclassCont.congrea #totProgressCont {
 	margin-bottom: 20px !important;
 }
-#virtualclassCont #downloadProgressValue.progressValue {
+#virtualclassCont.congrea #downloadProgressValue.progressValue {
 	top: -17px;
 }
-#virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body {
+#virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body {
 	padding: 0px;
 	border-radius: 10px;
 }
-#virtualclassCont #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
+#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	font-size: 15px;
@@ -308,41 +317,41 @@ transition:all .2s linear;
 	padding-top: 12px;
 }
 
-#virtualclassCont #downloadPrgressLabel {
+#virtualclassCont.congrea #downloadPrgressLabel {
 	margin-left: 20px;
 	margin-right: 20px;
 }
-#virtualclassCont #downloadProgress {
+#virtualclassCont.congrea #downloadProgress {
 	margin-left: 20px;
 	margin-right: 20px;
 }
-#virtualclassCont #downloadPcCont #downloadPrgressLabel {
+#virtualclassCont.congrea #downloadPcCont #downloadPrgressLabel {
 	padding: 15px 0px 9px 3px;
 }
-#virtualclassCont #downloadPcCont #downloadProgress {
+#virtualclassCont.congrea #downloadPcCont #downloadProgress {
 	width: 90%;
 	margin-bottom: 15px;
 }
 
 
-#virtualclassCont #recordingContainer .rv-vanilla-modal-title{
+#virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-title{
 	float : left;
 }
 
-#virtualclassCont #field2::-moz-placeholder { color:#00f; }
+#virtualclassCont.congrea #field2::-moz-placeholder { color:#00f; }
 
-#virtualclassCont #youtubeurl::-webkit-input-placeholder { opacity : 0.8}
+#virtualclassCont.congrea #youtubeurl::-webkit-input-placeholder { opacity : 0.8}
 
 
 
 /*Gray color */
 
-#virtualclassCont .vceditor-toolbar{
+#virtualclassCont.congrea .vceditor-toolbar{
 	background-color:#3c4955;
 }
 
 
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont #confirmCancelButton, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont #popupContainer #replayContainer #replayButton, #virtualclassCont #playButton{
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirmCancelButton, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton, #virtualclassCont.congrea #playButton{
 	background-image: none;
 	background-color: #34404c;
 	color: #fff;
@@ -350,24 +359,24 @@ transition:all .2s linear;
     border-radius: 20px;
     border: none;
 }
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont #confirmCancelButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont #popupContainer #replayContainer #replayButton:hover, #virtualclassCont #playButton:hover{
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #confirmCancelButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover, #virtualclassCont.congrea #playButton:hover{
 	border-radius: 20px;
 }
 
-#virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont #confirmCancelButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont #popupContainer #replayContainer #replayButton:hover{
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #confirmCancelButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover{
 	background-image: none;
 }
-#confirm #confirmOk #confirmOkButton:hover, #virtualclassCont #playButton:hover, #virtualclassCont #playButton:hover, #virtualclassCont #playControllerCont #replayFromStart .icon-Replayfromstart:hover{
+#confirm #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #playButton:hover, #virtualclassCont.congrea #playButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover{
 	background-image: none;
 	background-color:#515e69 !important;
 	border:none;
 }
 
-#virtualclassCont #confirm.popupWindow #confirmCancel #confirmCancelButton:before, #virtualclassCont #confirm.popupWindow #confirmOk #confirmOkButton:before{
+#virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton:before, #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:before{
 	color:#fff;
 }
 
-#confirmCancel #confirmCancelButton{
+#virtualclassCont.congrea #confirmCancel #confirmCancelButton{
 	background-color: #34404c;
 	border-radius: 20px;
 	color: #fff;
@@ -375,35 +384,35 @@ transition:all .2s linear;
 	background-image: none;
 }
 
-#confirmCancel #confirmCancelButton:hover{
+#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover{
 	background-image: none;
-	background-color:#515e69;
+	background-color:#515e69 !important;
 }
 .rv-vanilla-modal-body, .rv-vanilla-modal-body{
 	color:#fff !important;
 }
-#virtualclassCont #popupContainer #about-modal{
+#virtualclassCont.congrea #popupContainer #about-modal{
 	border-width: 2px !important;
 }
 
-#virtualclassCont #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont .rv-vanilla-modal, #virtualclassCont #confirm.popupWindow.simple-box{
+#virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont.congrea .rv-vanilla-modal, #virtualclassCont.congrea #confirm.popupWindow.simple-box{
 	border-radius: 13px !important;
 } 
 
-#virtualclassCont #downloadProgress{
+#virtualclassCont.congrea #downloadProgress{
 	background-color: #eee;
 }
-#virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorRichContainer, #virtualclassCont #alleditorCodeContainer, #virtualclassCont #alleditorRichContainer:hover, #virtualclassCont #alleditorCodeContainer:hover{
+#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{
 	background-image: none;
 }
 
-#virtualclassCont #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
+#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
 	background-color: #a6c24e;
 	font-weight: normal;
 	padding: 10px 24px;
-	border-radius: 10px !important;
+	border-radius: 5px !important;
 }
-#virtualclassCont #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
 	background-color: #ccc;
 	font-weight: normal;
 	padding: 10px 22px;
@@ -411,15 +420,14 @@ transition:all .2s linear;
 	color: #555;
 }
 
-#virtualclassCont #speakerPressingAnch #speakerPressingtext{
+#virtualclassCont.congrea #speakerPressingAnch #speakerPressingtext{
 	color:#fff;
 }
-#virtualclassCont .rv-vanilla-modal-header{
+#virtualclassCont.congrea .rv-vanilla-modal-header{
 	border-radius: 10px 10px 0 0;
 	
 }
 .rv-vanilla-modal-title{
 	color:#fff;
 }
-
 

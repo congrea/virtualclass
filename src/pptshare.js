@@ -771,9 +771,11 @@
                     var divppt = document.createElement('div');
                     divppt.id = that.id;
                     divppt.className = that.class;
-                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    console.log(beforeAppend.parentNode);
-                    beforeAppend.parentNode.insertBefore(divppt, beforeAppend);
+
+                    virtualclass.vutil.insertIntoLeftBar(divppt);
+                    //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                    //console.log(beforeAppend.parentNode);
+                    //beforeAppend.parentNode.insertBefore(divppt, beforeAppend);
                 },
                 /*
                  * 

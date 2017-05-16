@@ -125,8 +125,11 @@
                     this.createPlayerTag(divYts);
 
 
-                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+                    virtualclass.vutil.insertIntoLeftBar(divYts);
+                    //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                    //beforeAppend.parentNode.insertBefore(divYts, beforeAppend);
+                    //document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+
                 },
 
                 createPlayerTag: function (divYts) {
@@ -148,7 +151,9 @@
                         ytsContainer.id = this.id;
                         ytsContainer.className = this.class;
                         var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                        document.getElementById(virtualclass.html.id).insertBefore(ytsContainer, beforeAppend);
+                        beforeAppend.parentNode.insertBefore(ytsContainer, beforeAppend);
+
+                        //document.getElementById(virtualclass.html.id).insertBefore(ytsContainer, beforeAppend);
                     }
 
                     var youtubeUrlContainer = document.getElementById('youtubeUrlContainer');

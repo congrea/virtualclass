@@ -3128,10 +3128,17 @@ var CodeMirror = (function() {
   // Wraps a function in an operation. Returns the wrapped function.
   function operation(cm, f) {
     return function() {
-      if (cm.curOp) return f.apply(cm, arguments);
-      startOperation(cm);
-      try { return f.apply(cm, arguments); }
-      finally { endOperation(cm); }
+      // hack by suman,
+      // To fix the bug comes when ctrl+z after deleting the text
+      // with selecting all
+      if((virtualclass.currApp == "EditorRich" && f.name == 'onKeyDown' && arguments[0].ctrlKey) && (arguments[0].keyCode == 90 || arguments[0].keyCode == 89)){
+            virtualclass.editorRich.undoManager(arguments[0].keyCode);
+      } else{
+          if (cm.curOp) return f.apply(cm, arguments);
+            startOperation(cm);
+            try { return f.apply(cm, arguments); }
+            finally { endOperation(cm); }
+      } 
     };
   }
   // Used to add methods to editor and doc instances, wrapping them in

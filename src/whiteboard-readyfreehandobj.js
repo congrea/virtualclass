@@ -30,9 +30,9 @@
              */
 
             drawStart: function (ev) {
-                var vcan = virtualclass.wb.vcan;
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 //if(vcan.main.freesvg == true){
-                if (virtualclass.wb.obj.freeDrawObj.freesvg == true) {
+                if (virtualclass.wb[virtualclass.gObj.currWb].obj.freeDrawObj.freesvg == true) {
                     var ctx = vcan.main.canvas.getContext('2d');
                     //borderColor = "red";
                     //this.fdObj = vcan.main.freeHandDrawing(ev, {borderColor: borderColor});
@@ -55,22 +55,23 @@
              * @returns nothing
              */
             wb_draw: function (ev) {
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var pointer = vcan.utility.getReltivePoint(ev);
                 this.fdObj.fhRendering(pointer);
             },
             finalizeDraw: function (ev) {
-                var vcan = virtualclass.wb.vcan;
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 //TODO this(finalizeDrawingPath) should be called over the object.
                 //prvObj =  vcan.main.freeDraw.finalizeDrawingPath();
 
-                virtualclass.wb.prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb.canvas);
+                virtualclass.wb[virtualclass.gObj.currWb].prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb[virtualclass.gObj.currWb].canvas);
                 var lastChild = vcan.main.children[vcan.main.children.length - 1];
-                lastChild.mt = virtualclass.wb.utility.stringToNumber(virtualclass.wb.prvObj.path[virtualclass.wb.prvObj.path.length - 1][3]);
+                lastChild.mt = virtualclass.wb[virtualclass.gObj.currWb].utility.stringToNumber(virtualclass.wb[virtualclass.gObj.currWb].prvObj.path[virtualclass.wb[virtualclass.gObj.currWb].prvObj.path.length - 1][3]);
 
                 /****
                  *
                  * This would I have disbaled can be critical
-                 * virtualclass.wb.repObj.replayObjs.push(virtualclass.wb.prvObj);
+                 * virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs.push(virtualclass.wb[virtualclass.gObj.currWb].prvObj);
                  *
                  ****/
             }

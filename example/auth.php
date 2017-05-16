@@ -32,18 +32,29 @@ function my_curl_request($url, $post_data){
 // 100-1139e6899fdeda0db594a5
 // 100-193dbd7a54da898a52f969
 
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-193dbd7a54da898a52f969');
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-77087b83dcd4c4f7779587');
+
+//$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-193dbd7a54da898a52f969');
 // $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-5454676903fc3060e4849a');
- 
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-193dbd7a54da898a52f969');
+
  $post_data = json_encode($post_data);
  
 if (true) { // False for local server deployment
- $rid = my_curl_request("https://c.vidya.io", $post_data); // REMOVE HTTP
+ // for local server
+//   $rid = my_curl_request("https://c.vidya.io", $post_data); // REMOVE HTTP
+
+// for online server
+ $rid = my_curl_request("https://c.congrea.com", $post_data); // REMOVE HTTP
+
  //$rid = "8000.vidya.io";
 //print_r( $rid);exit;//8000.vidya.io
  
  //$rid = "8002.vidya.io";
 // $rid = "8002.vidya.io";
+
+// for run with local chat server, enable below line
+//  $rid = "76876876.vidya.io";
  
  if(empty($rid) or strlen($rid) > 32){
   	echo "Chat server is unavailable!";

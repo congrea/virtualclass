@@ -14,6 +14,7 @@
      */
 
     var draw_object = function (objType, canvas, thisobj) {
+
         var wb = this;
 
         var tool = thisobj;
@@ -24,6 +25,7 @@
         var endPosX;
         var endPosY;
         var dataChunk = [];
+        var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
 
         /**
          * This function sets up the situation for draw the particular object
@@ -31,8 +33,9 @@
          *
          */
         tool.mousedown = function (ev, cobj) {
+                var wId = virtualclass.gObj.currWb;
             var ct = new Date().getTime();
-            //  console.log("sumanbogati" + (ct - virtualclass.wb.pageEnteredTime));
+            //  console.log("sumanbogati" + (ct - virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime));
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
@@ -49,13 +52,13 @@
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
 
-            virtualclass.wb.gObj.spx = tool.startPosX;
-            virtualclass.wb.gObj.spy = tool.startPosY;
+            virtualclass.wb[wId].gObj.spx = tool.startPosX;
+            virtualclass.wb[wId].gObj.spy = tool.startPosY;
 
             var currState = vcan.getStates('action');
             if (currState == 'create') {
                 var currTime = new Date().getTime();
-                if (objType != 'text' && wb.tool.cmd != 't_clearall') {
+                if (objType != 'text' && wb.tool.cmd != 't_clearall'+wId) {
                     var currTransformState = vcan.getStates('currentTransform');
                     if (currTransformState == "" || currTransformState == null) {
                         //	if(!ev.detail.hasOwnProperty('cevent') && objType != 'freeDrawing'){
@@ -67,7 +70,7 @@
                     }
                 } else {
                     wb.obj.drawTextObj.muser = false;
-                    if (!ev.detail.hasOwnProperty('cevent') && wb.tool.cmd != 't_clearall') { //creating for other browser
+                    if (!ev.detail.hasOwnProperty('cevent') && wb.tool.cmd != 't_clearall'+wId) { //creating for other browser
                         if (wb.utility.clickOutSidebox(wb.obj.drawTextObj.textWriteMode)) {
 
                             vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);
@@ -102,6 +105,7 @@
          * @param expects mousemove event
          */
         tool.mousemove = function (ev, mouseup) {
+
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
@@ -191,9 +195,9 @@
                     wb.prvObj = rCurrObject.coreObj;
                 }
             } else {
-                if (wb.vcan.main.action != 'move' || ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
+                if ((wb.vcan.main.action != 'move') ||
+                        ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
                     virtualclass.vutil.beforeSend({'createArrow': true, x: ev.currX, y: ev.currY, 'cf': 'createArrow'});
-
                 }
             }
         };

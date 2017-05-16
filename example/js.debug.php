@@ -1,4 +1,4 @@
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
@@ -88,5 +88,14 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/precheck.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-host.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/poll.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/upload-video.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
-

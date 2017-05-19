@@ -340,7 +340,10 @@
                             questionHTML.append('<a href="#" class="button ' + nextQuestionClass + '">' + plugin.config.nextQuestionText + '</a>');
                             questionHTML.append('<a href="#" class="button ' + checkAnswerClass + '">' + plugin.config.checkAnswerText + '</a>');
                         }
-
+                        // IF question per page is not specified
+                        if(plugin.config.questionPerPage < 1 ){
+                            plugin.config.questionPerPage = quizValues.questions.length;
+                        }
                         if(count == quizValues.questions.length){
                                 questionHTML.append('<a href="#" class="button ' + nextQuestionClass + ' ' + checkAnswerClass + '">' + plugin.config.submitQuestionText + '</a>');
                          } else if(count == plugin.config.questionPerPage || (count % plugin.config.questionPerPage == 0)) {
@@ -853,12 +856,13 @@
                 //score = score * marksPerQust;
                 var currectAns = $(_element + ' ' + _correct).length;
                 var score = currectAns * marksPerQust;
+                var totalMarks = parseInt(quizValues.info.results);
 
                 if (plugin.config.disableScore) {
                     $(_quizScore).remove()
                 } else {
                     $(_quizScore + ' span').html(plugin.config.scoreTemplateText
-                        .replace('%score', score.toFixed(3)).replace('%total', quizValues.info.results));
+                        .replace('%score', score.toFixed(2)).replace('%total', totalMarks.toFixed(2)));
                        /*$(_quizScore + ' span').html(plugin.config.scoreTemplateText
                         .replace('%score', score).replace('%total', questionCount));*/
                 }
@@ -909,7 +913,7 @@
                         $quizResults.prepend($('<h4>Correct answers: <span>' 
                             + currectAns +'</span></h4>'));
                         $quizResults.prepend($('<h4>Maximum mark: <span>' 
-                            + quizValues.info.results +'</span></h4>'));
+                            + totalMarks.toFixed(2) +'</span></h4>'));
                         $quizResults.prepend($('<h4>Time taken: <span>' 
                             + tt +'</span></h4>'));
                         $(_element + ' ' +'#timeText').hide();

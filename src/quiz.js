@@ -173,16 +173,21 @@
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_quiz", function (data) {
 
                     var getContent = JSON.parse(data);
-                    for (var i = 0; i <= getContent.length - 1; i++) {
-                        var options = getContent[i].options;
-                        for (var j in options) {
-                            getContent[i].options[j] = options[j].options;
-                            //console.log("getContent " + getContent[i]);
+                    if(getContent['status'] == 0) {
+                        var cont = document.getElementById("bootstrapQzCont");
+                        cont.innerHTML = getContent['message'];
+                    } else {                    
+                        for (var i = 0; i <= getContent.length - 1; i++) {
+                            var options = getContent[i].options;
+                            for (var j in options) {
+                                getContent[i].options[j] = options[j].options;
+                                //console.log("getContent " + getContent[i]);
+                            }
                         }
+                        //console.log(getContent);
+                        scope.coursequiz = getContent;
+                        scope.displayQuizList();
                     }
-                    //console.log(getContent);
-                    scope.coursequiz = getContent;
-                    scope.displayQuizList();
                 });
             },
             /*
@@ -291,15 +296,22 @@
                 formData.append("user", this.uid);
                 formData.append("qid", quizitem.id);
                 scope = this;
-                virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_get_quizdata", function (data) {//TODO Handle more situations
-                    scope.quizJSON = data;
-                    $('#slickQuiz').slickQuiz({
-                        json: scope.quizJSON,
-                        questionPerPage : quizDetail.questionsperpage,
-                        questionMode : quizDetail.preferredbehaviour,
-                        quizTime : quizDetail.timelimit,
-                        displayDetailResult : false
-                    });
+                virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_get_quizdata", function (data) {
+                    if(scope.isJson(data)) {
+                        scope.quizJSON = data;
+                        $('#slickQuiz').slickQuiz({
+                            json: scope.quizJSON,
+                            questionPerPage : quizDetail.questionsperpage,
+                            questionMode : quizDetail.preferredbehaviour,
+                            quizTime : quizDetail.timelimit,
+                            displayDetailResult : false
+                        });
+                    } else {
+                        var pbBt = document.getElementById("publishQzBt");
+                        pbBt.parentNode.removeChild(pbBt);
+                        var msgCont = document.getElementById('contQzBody');
+                        msgCont.innerHTML = data;
+                    }
                 });
             },
 
@@ -535,7 +547,7 @@
                         var attemptPercent = (correctAns / totalAttptedUsers)*100;
                     }
                     var pBar = document.getElementById('qPb_'+msg.quiz.questionId);
-                    pBar.innerHTML = attemptPercent + '% complete';
+                    pBar.innerHTML = attemptPercent + '% currect';
                     pBar.style.width = attemptPercent + '%';
 
                     if(typeof this.quizAttempted[msg.quiz.questionId] == 'undefined'){
@@ -614,7 +626,7 @@
                         var attemptPercent = attemptPt.toFixed(2);
 
                         var pBar = document.getElementById('qPb_'+key);
-                        pBar.innerHTML = attemptPercent + '% complete';
+                        pBar.innerHTML = attemptPercent + '% currect';
                         pBar.style.width = attemptPercent + '%';
                     }
                 }
@@ -652,8 +664,8 @@
                     var quesNoDiv = virtualclass.view.customCreateElement('span', '', 'q-no');
                     quesNoDiv.innerHTML = qcount;
                     quesDiv.appendChild(quesNoDiv);
-                    
-                    var quesTxtDiv = virtualclass.view.customCreateElement('div', '', 'qscolor');                    
+
+                    var quesTxtDiv = virtualclass.view.customCreateElement('div', '', 'qscolor');
                     quesTxtDiv.innerHTML =  questionArr[i].q;
                     quesDiv.appendChild(quesTxtDiv);
                     // no of users attempted question
@@ -854,6 +866,19 @@
                     return seconds;
                 }
                 return 0;
+            },
+            /**
+             * Function to check json string
+             * @param {string} json strin
+             * @return {boolean} true/false
+            */
+            isJson: function (str) {
+                try {
+                    JSON.parse(str);
+                } catch (e) {
+                    return false;
+                }
+                return true;
             },
 
             /**
@@ -1100,11 +1125,11 @@
                     pbarinnerdiv.setAttribute("aria-valuemin", "0");
                     pbarinnerdiv.setAttribute("aria-valuemax", "100");
                     pbarinnerdiv.style = "width:"+value+"%";
-                    pbarinnerdiv.innerHTML = value+"% Complete";
+                    pbarinnerdiv.innerHTML = value+"% Currect";
                     pbarOuterdiv.appendChild(pbarinnerdiv);
                     return pbarOuterdiv;
                 },
-                
+
                 /**
                  * Create grade report layout, in later
                  * stage value will populated

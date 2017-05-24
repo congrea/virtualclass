@@ -47,15 +47,7 @@
                     this.allNotes = this.documents;
                 }
 
-                if(typeof docsObj != 'undefined'){
-                    for(var key in docsObj.docs) {
-                        this.afterUploadFile(docsObj.docs[key].rid, 'fromReload',  docsObj);
-                    }
-
-                    if(docsObj.hasOwnProperty('order')){
-                        this.order = JSON.parse(docsObj.order);
-                    }
-                }
+                this.initAfterUpload(docsObj);
 
                 if (roles.hasControls()) {
                     if(typeof docsObj == 'undefined'){
@@ -82,19 +74,50 @@
                 if(typeof docsObj != 'undefined' ){
                     if(docsObj.init != 'layout' && docsObj.init != 'studentlayout'){
                         // docsObj.init = layout means first layout
-                        //var doc = docsObj.init;
-                        var doc = this.getDocId(docsObj.slideNumber);
-                        this.docs.executeScreen(doc, 'fromreload', undefined, docsObj.slideNumber);
-                        this.setScreenByOrder();
-
+                        this.setNoteScreen(docsObj);
                     }
-                }else {
+                } else {
+                  // Check if there is already docs in local storage
+                  var docsObj = JSON.parse(localStorage.getItem('dtsdocs'))
+                  if(docsObj != null){
+                    this.initAfterUpload(docsObj);
+                    this.setNoteScreen(docsObj);
+                  }else{
+                    // Only send the request to server
+                    // when the docs is not in storage
                     if(roles.hasControls()){
-                        this.firstRequestDocs();
+                      this.firstRequestDocs();
                     }
+                  }
                 }
-             },
+            },
 
+           /**
+           * This function initiate the docs order
+           * and the function which should be performed
+           * after uploading the docs
+           */
+            initAfterUpload : function (docsObj){
+                if(typeof docsObj != 'undefined'){
+                  for(var key in docsObj.docs) {
+                    this.afterUploadFile(docsObj.docs[key].rid, 'fromReload',  docsObj);
+                  }
+
+                  if(docsObj.hasOwnProperty('order')){
+                    this.order = JSON.parse(docsObj.order);
+                  }
+                }
+            },
+
+          /**
+           * This function displays the current note on screen
+           * and highlight the naviation of that screen
+           */
+          setNoteScreen : function (docsObj){
+            var doc = this.getDocId(docsObj.slideNumber);
+            this.docs.executeScreen(doc, 'fromreload', undefined, docsObj.slideNumber);
+            this.setScreenByOrder();
+          },
 
             /**
              * This display the notes acorrding to order

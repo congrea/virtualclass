@@ -883,10 +883,37 @@
                 localStorage.clear();
                 var prvUser = {id: wbUser.id, room: wbUser.room};
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
-            }
+            },
 
             //TODO remove this function
             //the same function is defining at script.js
+            createMainContainer : function (){
+                // TODO this should be used from language file
+                var contLang = {
+                  'testingbrowser' : 'Testing Browser Compatibility',
+                  'testinginternetspeed' : 'Testing Internet Speed',
+                  'testingspeaker' :  'Testing Speaker',
+                  'testingmichrophone' : 'Testing Microphone',
+                  'testingwebcam' : 'Testing Webcam Connection',
+                  'whiteboardPath' : whiteboardPath
+                }
+              // Precheck element
+              var mainContainer = document.querySelector('#'+virtualclass.html.id);
+
+              var preCheckTemplate = JST['templates/precheck.hbs'];
+              var preCheckHtml = preCheckTemplate(contLang);
+              mainContainer.insertAdjacentHTML('afterbegin', preCheckHtml);
+
+              // Teacher video element
+              var vCon = {hasControl : roles.hasControls()};
+              var tvTemplate = JST['templates/teacherVideo.hbs'];
+              var tvHtml = tvTemplate(vCon);
+              var audioWidget = document.querySelector('#audioWidget');
+              audioWidget.insertAdjacentHTML('afterend', tvHtml);
+
+
+
+           },
         };
 
         function capitalizeFirstLetter(string) {

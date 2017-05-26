@@ -24,12 +24,40 @@ module.exports = function(grunt) {
 
                 dest: 'css/black.min.css'
             }
-        }
-    });
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
+        },
 
-    grunt.registerTask('default', ['cssmin:css_w', 'cssmin:css_g', 'cssmin:css_b']);
+        handlebars: {
+            all: {
+
+              files: {
+
+                // converting all .hbs(handlerbar template file ) into all.js file
+                // you can change the directory according to your requirement
+                "src/templates_view.js": ["templates/**/*.hbs"]
+              }
+            }
+          },
+
+          watch: {
+            /** the grunt is waching if any changes in .hbs files
+             *  if so there will be peform the task hanldebars which does precompile (.hbs to .js)
+             *  **/
+            templates : {
+              files: ["templates/*.hbs"],
+              tasks: ['handlebars']
+            },
+
+            tasks: ['handlebars']
+          }
+
+
+    });
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.registerTask('default', ['handlebars']);
+  grunt.registerTask('default', ['handlebars']);
 
 };

@@ -20,6 +20,7 @@ $(document).ready(function () {
 
 
     virtualclass.gObj.displayError = 1;
+    virtualclass.createMainContainer();
 
     // TODO Error when screenShare or YouTube is default application
     //  var appIs = "EditorRich";

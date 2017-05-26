@@ -632,6 +632,20 @@
                 }
             }
 
+          /**
+           * This object is storing for retain the data
+           * while user refresh the page at other App(eg:- video)
+           * rather than document sharing
+           */
+          if(virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
+                && (typeof virtualclass.dts.pages == 'object')){
+                var docsObj = {};
+                docsObj.docs = virtualclass.dts.pages;
+                docsObj.order = JSON.stringify(virtualclass.dts.order);
+                docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
+                localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+            }
+
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
            // localStorage.setItem('uRole', virtualclass.gObj.uRole);

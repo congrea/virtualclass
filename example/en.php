@@ -28,4 +28,8 @@
     $string['audiolatency'] = 'Audio Latency';
     $string['videoquality'] = 'Video Quality';
 
+
+
+
+
 ?>

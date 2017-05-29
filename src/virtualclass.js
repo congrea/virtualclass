@@ -895,57 +895,114 @@
                   'testingspeaker' :  'Testing Speaker',
                   'testingmichrophone' : 'Testing Microphone',
                   'testingwebcam' : 'Testing Webcam Connection',
-                  'whiteboardPath' : whiteboardPath
+                  'whiteboardPath' : whiteboardPath,
                 }
+
+                contLang['uploadsession'] = 'Please wait until processing is complete.';
+                contLang['totalprogress'] = 'Total Progress';
+                contLang['indvprogress'] = 'Current Task';
+                contLang['downloadsession'] = 'Please wait while the recording is downloaded.';
+                contLang['askplaymsg'] = '<span id="askplaymsg"> "Downloading in process, click Play to begin </span>"';
+                contLang['overallprogress'] = 'Overall Progress';
+                contLang['replay_message'] = 'Thanks for watching.';
+                contLang['uploadedsession'] = 'Your session has ended, you may now close the window. <br /> Or close this popup to start a new session.';
+                contLang['sessionendmsg'] = 'Session has been closed. You may now close your browser.';
+                contLang['play'] = 'Play';
+                contLang['replay'] = 'Re-play';
+                contLang['tpAudioTest'] = 'Test Audio';
+                contLang['enableAudio'] = 'Unmute';
+                contLang['disableAudio'] = 'Mute';
+                contLang['pressAlwaysToSpeak'] = 'Press always to speak.';
+                contLang['pushtotalk'] = 'Push To Talk';
+                contLang['waitmsgconnect'] = 'Please wait a whlie. Application is trying to connect.';
+
+                contLang['testingbrowser'] = 'Testing Browser Compatibility';
+                contLang['testinginternetspeed'] = 'Testing Internet Speed';
+                contLang['testingspeaker'] = 'Testing Speaker';
+                contLang['testingmichrophone'] = 'Testing Microphone';
+                contLang['testingwebcam'] = 'Testing Webcam Connection';
+                contLang['proposedspeed'] = 'Proposed Speed';
+                contLang['audiolatency'] = 'Audio Latency';
+                contLang['videoquality'] = 'Video Quality';
+
               // Precheck element
                 var mainContainer = document.querySelector('#'+virtualclass.html.id);
 
-                var preCheckTemplate = JST['templates/precheck.hbs'];
-                var preCheckHtml = preCheckTemplate(contLang);
-                Handlebars.registerPartial("precheck", preCheckHtml);
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'rightBar',
+                    'recordingControl', 'appTools', 'whiteboard','leftBar', 'popupCont', 'main'];
 
-                // Teacher video element
+                var adCont = virtualclassSetting;
+                adCont.proposedspeed = contLang['proposedspeed'];
+                adCont.audiolatency = contLang['audiolatency'];
+                adCont.videoquality = contLang['videoquality'];
+
                 var isControl = {hasControl : roles.hasControls()};
+                var context;
+                for(var i=0; i<initTemplates.length; i++){
+                    context = null;
+                    if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
+                        context = contLang;
+                    }else if(initTemplates[i] == 'audioWidget'){
+                        context = adCont;
+                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                        context = isControl;
+                    }
+                    this.makeReadyTemplate(initTemplates[i], context);
+                }
 
-                var tvTemplate = JST['templates/teacherVideo.hbs'];
-                var tvHtml = tvTemplate(isControl);
-                Handlebars.registerPartial("teacherVideo", tvHtml);
-
-                var adTemplate = JST['templates/audioWidget.hbs'];
-                var adHtml = adTemplate();
-                Handlebars.registerPartial("audioWidget", adHtml);
-
-                var rbTemplate = JST['templates/rightBar.hbs'];
-                var rbHtml = rbTemplate();
-                Handlebars.registerPartial("rightBar", rbHtml);
-
-
-                var rdTemplate = JST['templates/recordingControl.hbs'];
-                var rdHtml = rbTemplate();
-                Handlebars.registerPartial("recordingControl", rdHtml);
-
-
-
-                var atTemplate = JST['templates/appTools.hbs'];
-                var atHtml = atTemplate(isControl);
-                Handlebars.registerPartial("appTools", atHtml);
-
-
-                var wbTemplate = JST['templates/whiteboard.hbs'];
-                var wbtHtml = wbTemplate();
-                Handlebars.registerPartial("whiteboard", wbtHtml);
-
-                var lbTemplate = JST['templates/leftBar.hbs'];
-                var lbHtml = lbTemplate();
-                Handlebars.registerPartial("leftBar", lbHtml);
-
-                var pcTemplate = JST['templates/popupCont.hbs'];
-                var pctHtml = pcTemplate();
-                Handlebars.registerPartial("popupCont", pctHtml);
+                //var preCheckTemplate = JST['templates/precheck.hbs'];
+                //var preCheckHtml = preCheckTemplate(contLang);
+                //Handlebars.registerPartial("precheck", preCheckHtml);
+                //
+                //// Teacher video element
+                //
+                //
+                //var tvTemplate = JST['templates/teacherVideo.hbs'];
+                //var tvHtml = tvTemplate(isControl);
+                //Handlebars.registerPartial("teacherVideo", tvHtml);
+                //
+                //
+                //var adTemplate = JST['templates/audioWidget.hbs'];
+                //var adHtml = adTemplate(adCont);
+                //Handlebars.registerPartial("audioWidget", adHtml);
+                //
+                //var rbTemplate = JST['templates/rightBar.hbs'];
+                //var rbHtml = rbTemplate();
+                //Handlebars.registerPartial("rightBar", rbHtml);
+                //
+                //
+                //var rdTemplate = JST['templates/recordingControl.hbs'];
+                //var rdHtml = rbTemplate();
+                //Handlebars.registerPartial("recordingControl", rdHtml);
+                //
+                //
+                //
+                //var atTemplate = JST['templates/appTools.hbs'];
+                //var atHtml = atTemplate(isControl);
+                //Handlebars.registerPartial("appTools", atHtml);
+                //
+                //
+                //var wbTemplate = JST['templates/whiteboard.hbs'];
+                //var wbtHtml = wbTemplate();
+                //Handlebars.registerPartial("whiteboard", wbtHtml);
+                //
+                //var lbTemplate = JST['templates/leftBar.hbs'];
+                //var lbHtml = lbTemplate();
+                //Handlebars.registerPartial("leftBar", lbHtml);
+                //
+                //var pcTemplate = JST['templates/popupCont.hbs'];
+                //var pctHtml = pcTemplate(contLang);
+                //Handlebars.registerPartial("popupCont", pctHtml);
 
                 var mainTemplate = JST['templates/main.hbs'];
                 var mainHtml = mainTemplate();
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
+           },
+
+           makeReadyTemplate : function (tempname, context){
+               var template = JST['templates/'+tempname+'.hbs'];
+               var html = (context != null) ? template(context) : template();
+               Handlebars.registerPartial(tempname, html);
            }
         };
 

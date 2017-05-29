@@ -898,22 +898,55 @@
                   'whiteboardPath' : whiteboardPath
                 }
               // Precheck element
-              var mainContainer = document.querySelector('#'+virtualclass.html.id);
+                var mainContainer = document.querySelector('#'+virtualclass.html.id);
 
-              var preCheckTemplate = JST['templates/precheck.hbs'];
-              var preCheckHtml = preCheckTemplate(contLang);
-              mainContainer.insertAdjacentHTML('afterbegin', preCheckHtml);
+                var preCheckTemplate = JST['templates/precheck.hbs'];
+                var preCheckHtml = preCheckTemplate(contLang);
+                Handlebars.registerPartial("precheck", preCheckHtml);
 
-              // Teacher video element
-              var vCon = {hasControl : roles.hasControls()};
-              var tvTemplate = JST['templates/teacherVideo.hbs'];
-              var tvHtml = tvTemplate(vCon);
-              var audioWidget = document.querySelector('#audioWidget');
-              audioWidget.insertAdjacentHTML('afterend', tvHtml);
+                // Teacher video element
+                var isControl = {hasControl : roles.hasControls()};
+
+                var tvTemplate = JST['templates/teacherVideo.hbs'];
+                var tvHtml = tvTemplate(isControl);
+                Handlebars.registerPartial("teacherVideo", tvHtml);
+
+                var adTemplate = JST['templates/audioWidget.hbs'];
+                var adHtml = adTemplate();
+                Handlebars.registerPartial("audioWidget", adHtml);
+
+                var rbTemplate = JST['templates/rightBar.hbs'];
+                var rbHtml = rbTemplate();
+                Handlebars.registerPartial("rightBar", rbHtml);
+
+
+                var rdTemplate = JST['templates/recordingControl.hbs'];
+                var rdHtml = rbTemplate();
+                Handlebars.registerPartial("recordingControl", rdHtml);
 
 
 
-           },
+                var atTemplate = JST['templates/appTools.hbs'];
+                var atHtml = atTemplate(isControl);
+                Handlebars.registerPartial("appTools", atHtml);
+
+
+                var wbTemplate = JST['templates/whiteboard.hbs'];
+                var wbtHtml = wbTemplate();
+                Handlebars.registerPartial("whiteboard", wbtHtml);
+
+                var lbTemplate = JST['templates/leftBar.hbs'];
+                var lbHtml = lbTemplate();
+                Handlebars.registerPartial("leftBar", lbHtml);
+
+                var pcTemplate = JST['templates/popupCont.hbs'];
+                var pctHtml = pcTemplate();
+                Handlebars.registerPartial("popupCont", pctHtml);
+
+                var mainTemplate = JST['templates/main.hbs'];
+                var mainHtml = mainTemplate();
+                mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
+           }
         };
 
         function capitalizeFirstLetter(string) {

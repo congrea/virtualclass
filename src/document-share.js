@@ -26,18 +26,10 @@
 
                 this.UI.container();
 
-                var elem = document.getElementById('docScreenContainer');
+             //   var elem = document.getElementById('docScreenContainer');
 
                 if(roles.hasControls()){
-                    var docListId = 'docsListContainer';
-                    var docsListContainer = document.querySelector('#'+docListId);
-
-                    if(docsListContainer == null){
-                        var docsListContainer = document.createElement('div');
-                        docsListContainer.id = docListId;
-                        elem.appendChild(docsListContainer);
-                        virtualclass.vutil.showUploadTab(docsListContainer, virtualclass.vutil.modalPopup, 'docs', ["dtsPopupContainer"], true);
-                    }
+                  virtualclass.vutil.attachEventToUploadTab('docs', ["dtsPopupContainer"], virtualclass.vutil.modalPopup);
                 }
 
                 this.pages = {};
@@ -528,30 +520,21 @@
                     var docShareCont = document.getElementById(this.id);
 
                     if(docShareCont == null){
-                        var divDts = document.createElement('div');
-                        divDts.id = this.id;
-                        divDts.className = this.class;
+                        var control= roles.hasAdmin()?true:false;
+                        var data ={"control":control};
+                        var template = JST['templates/docShare.hbs'];
+                        $('#virtualclassAppLeftPanel').append(template(data));
 
-                        //divDts.innerHTML = "div hello";
-                        var dtsPopCont = document.createElement('div');
-                        dtsPopCont.id = 'docsPopupCont';
-                        dtsPopCont.className = 'bootstrap';
-                        divDts.appendChild(dtsPopCont);
-
-
-                        divDts.dataset.screen = '1';
-                        var docScreenContainer = document.createElement('div');
-                        docScreenContainer.id = 'docScreenContainer';
-
-                        var documentScreen = document.createElement('div');
-                        documentScreen.id = 'documentScreen';
-                        documentScreen.className = 'container';
-
-                        documentScreen.appendChild(docScreenContainer);
-                        divDts.appendChild(documentScreen);
-
-                        // TODO this should be converted into JavaScript
-                        virtualclass.vutil.insertIntoLeftBar(divDts);
+                        //
+                        //
+                        //
+                        // var elemArr = ["dtsPopupContainer"];
+                        //
+                        // var btn = document.getElementById("newDocBtn")
+                        // // this.showUploadTab(videoCont);
+                        // btn.addEventListener("click", function () {
+                        //   virtualclass.vutil.modalPopup(type, elemArr);
+                        // })
                     }
                 },
 

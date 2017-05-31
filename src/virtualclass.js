@@ -895,7 +895,7 @@
                   'testingspeaker' :  'Testing Speaker',
                   'testingmichrophone' : 'Testing Microphone',
                   'testingwebcam' : 'Testing Webcam Connection',
-                  'whiteboardPath' : whiteboardPath,
+                  'whiteboardPath' : whiteboardPath
                 }
 
                 contLang['uploadsession'] = 'Please wait until processing is complete.';
@@ -929,7 +929,7 @@
                 var mainContainer = document.querySelector('#'+virtualclass.html.id);
 
                 var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'rightBar',
-                    'recordingControl', 'appTools', 'whiteboard','leftBar', 'popupCont', 'main'];
+                    'recordingControl', 'appTools', 'leftBar', 'popupCont', 'main', 'whiteboard'];
 
                 var adCont = virtualclassSetting;
                 adCont.proposedspeed = contLang['proposedspeed'];
@@ -950,49 +950,6 @@
                     this.makeReadyTemplate(initTemplates[i], context);
                 }
 
-                //var preCheckTemplate = JST['templates/precheck.hbs'];
-                //var preCheckHtml = preCheckTemplate(contLang);
-                //Handlebars.registerPartial("precheck", preCheckHtml);
-                //
-                //// Teacher video element
-                //
-                //
-                //var tvTemplate = JST['templates/teacherVideo.hbs'];
-                //var tvHtml = tvTemplate(isControl);
-                //Handlebars.registerPartial("teacherVideo", tvHtml);
-                //
-                //
-                //var adTemplate = JST['templates/audioWidget.hbs'];
-                //var adHtml = adTemplate(adCont);
-                //Handlebars.registerPartial("audioWidget", adHtml);
-                //
-                //var rbTemplate = JST['templates/rightBar.hbs'];
-                //var rbHtml = rbTemplate();
-                //Handlebars.registerPartial("rightBar", rbHtml);
-                //
-                //
-                //var rdTemplate = JST['templates/recordingControl.hbs'];
-                //var rdHtml = rbTemplate();
-                //Handlebars.registerPartial("recordingControl", rdHtml);
-                //
-                //
-                //
-                //var atTemplate = JST['templates/appTools.hbs'];
-                //var atHtml = atTemplate(isControl);
-                //Handlebars.registerPartial("appTools", atHtml);
-                //
-                //
-                //var wbTemplate = JST['templates/whiteboard.hbs'];
-                //var wbtHtml = wbTemplate();
-                //Handlebars.registerPartial("whiteboard", wbtHtml);
-                //
-                //var lbTemplate = JST['templates/leftBar.hbs'];
-                //var lbHtml = lbTemplate();
-                //Handlebars.registerPartial("leftBar", lbHtml);
-                //
-                //var pcTemplate = JST['templates/popupCont.hbs'];
-                //var pctHtml = pcTemplate(contLang);
-                //Handlebars.registerPartial("popupCont", pctHtml);
 
                 var mainTemplate = JST['templates/main.hbs'];
                 var mainHtml = mainTemplate();

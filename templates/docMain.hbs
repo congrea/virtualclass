@@ -1,30 +1,13 @@
 {{!-- cn == currNote, cd == currDoc--}}
 <div id="screen-docs" data-doc="{{cd}}" class="screen page_wrapper current">
+  {{debug}}
   <div class="pageContainer" style="width: 730px; height: 810px;">
-    <div class="notes" id="notesContainer">
-      <div id="{{cn}}" class="note current" data-slide="{{cn}}" data-status="1">
-        {{!-- whiteboard for each note --}}
-        <div id="cont_doc_{{cn}}_{{cn}}" class="whiteboard" data-wid="_doc_{{cn}}_{{cn}}">
-          {{> whiteboard }}
-        </div>
-
-        {{!-- image for each note --}}
-        <div class="imageContainer">
-          <img />
-        </div>
-
-      </div>
-    </div>
-
-    {{#if hasControls}}
-      <span class="nvgt prev" id="docsprev"></span>
-      <span class="nvgt next" id="docsnext"></span>
-    {{/if}}
-
+    {{> docNotesMain }}
+    <span class="nvgt prev" id="docsprev"></span>
+    <span class="nvgt next" id="docsnext"></span>
   </div>
-
   {{#if hasControls}}
     <div id="listnotes" class="listPages pages"></div>
   {{/if}}
-
 </div>
+

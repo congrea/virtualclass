@@ -102,7 +102,7 @@
         this.UI.controller.init(this, lid);
 
       } else if (this.type == 'notes') {
-          var nstemplate = JST['templates/docNotes.hbs'];
+          var nstemplate = JST['templates/docNotesNav.hbs'];
           var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
           context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
           context.thumbCount++;
@@ -309,8 +309,7 @@
 
       if (screenElem == null) {
         // var obj = {"doc": cthis, "cd": virtualclass.dts.docs.currDoc, "cn" : virtualclass.dts.docs.currNote};
-        var obj = {hasControls: roles.hasControls(), "cd": virtualclass.dts.docs.currDoc, "cn" : virtualclass.dts.docs.currNote};
-        //$('#documentScreen').append(template(obj));
+        var obj = {hasControls: roles.hasControls(), "cd": virtualclass.dts.docs.currDoc};
         var template = JST['templates/docMain.hbs'];
         $('#documentScreen').append(template(obj));
 

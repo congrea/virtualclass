@@ -260,19 +260,20 @@
             //    }
             //},
             /**
-             * this funciton does create the canvas
+             * this funciton does create the canvasdd
              */
             createCanvas: function (id) {
                 var vcan = virtualclass.wb[id].vcan;
-                //debugger;
-                var cmdToolsWrapper = document.createElement('div');
-                cmdToolsWrapper.id = vcan.canvasWrapperId;
                 vcan.canvasWrapperId = cmdToolsWrapper.id;
-                var canvas = document.createElement('canvas');
-                canvas.id = 'canvas' + id;
-                canvas.innerHTML = 'Canvas is missing in your browsers. Please update the latest version of your browser';
-                cmdToolsWrapper.appendChild(canvas);
-                document.getElementById('containerWb' + id).appendChild(cmdToolsWrapper);
+                //debugger;
+                // var cmdToolsWrapper = document.createElement('div');
+                // cmdToolsWrapper.id = vcan.canvasWrapperId;
+                // vcan.canvasWrapperId = cmdToolsWrapper.id;
+                // var canvas = document.createElement('canvas');
+                // canvas.id = 'canvas' + id;
+                // canvas.innerHTML = 'Canvas is missing in your browsers. Please update the latest version of your browser';
+                // cmdToolsWrapper.appendChild(canvas);
+                // document.getElementById('containerWb' + id).appendChild(cmdToolsWrapper);
             },
 
             /**
@@ -336,7 +337,7 @@
              */
             attachToolFunction: function (contId, alreadyCreated, id) {
 
-                virtualclass.wb[id].createCommand(alreadyCreated, id);
+                // virtualclass.wb[id].createCommand(alreadyCreated, id);
 
                 var allDivs = document.getElementById(contId).getElementsByTagName('div');
                 for (var i = 0; i < allDivs.length; i++) {

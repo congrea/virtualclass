@@ -1674,11 +1674,14 @@
         // },
 
         attachEventToUploadTab : function (type, elemArr, cb) {
+            var tempName = function (){
+                 console.log('something happend ajay');
+             //    cb(type, elemArr);
+
+             }
             var btn = document.getElementById("newDocBtn")
             if(btn != null){
-              btn.addEventListener("click", function () {
-                cb(type, elemArr);
-              })
+              btn.addEventListener("click", tempName)
             }
         },
 

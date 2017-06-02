@@ -515,38 +515,55 @@
                             this.wb[id] = {};
                             virtualclass.gObj.tempReplayObjs[id] = [];
 
+
                             this.wb[id] = new window.whiteboard(this.wbConfig, id);
 
-                            this.wb[id].UI.mainContainer(container, id);
+                            // this.wb[id].UI.mainContainer(container, id);
+                            debugger;
+                            if(virtualclass.currApp == 'Whiteboard'){
+                              var whiteboardContainer = document.getElementById('virtualclassWhiteboard');
+                            }else {
+                              var whiteboardContainer = document.getElementById('cont' + id);
+                            }
 
-                            this.wb[id].utility = new window.utility();
-                            this.wb[id].alreadyReplay = false;[id]
-                            this.wb[id].packContainer = new window.packContainer();
-                            this.wb[id].draw_object = window.draw_object;
-                            this.wb[id].makeobj = window.makeobj;
-                            this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
-                            this.wb[id]._replay = _replay;
-                            this.wb[id].readyTextObj = window.readyTextObj;
-                            this.wb[id].bridge = window.bridge;
-                            this.wb[id].response = window.response;
-                            virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
+                            if(whiteboardContainer != null){
+                              if(document.querySelector('vcanvas'+id) == null){
+                                var wbTemplate = JST['templates/whiteboard.hbs'];
+                                var wbHtml = wbTemplate({cn:id});
+                                whiteboardContainer.innerHTML  = wbHtml;
+                              }
+
+                              this.wb[id].utility = new window.utility();
+                              this.wb[id].alreadyReplay = false;
+                              this.wb[id].packContainer = new window.packContainer();
+                              this.wb[id].draw_object = window.draw_object;
+                              this.wb[id].makeobj = window.makeobj;
+                              this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
+                              this.wb[id]._replay = _replay;
+                              this.wb[id].readyTextObj = window.readyTextObj;
+                              this.wb[id].bridge = window.bridge;
+                              this.wb[id].response = window.response;
+                              virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
 
 
-                            var vcan = virtualclass.wb[id].vcan;
-                            if (roles.hasControls()) {
+                              var vcan = virtualclass.wb[id].vcan;
+                              if (roles.hasControls()) {
                                 virtualclass.wb[id].utility.setOrginalTeacherContent(app);
                                 virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                                 vcan.utility.canvasCalcOffset(vcan.main.canid);
-                            }
+                              }
 
-                            // Only need to  serve on after page refresh
-                            var that = this;
-                            virtualclass.storage.getWbData(id, function (){
+                              // Only need to  serve on after page refresh
+                              var that = this;
+                              virtualclass.storage.getWbData(id, function (){
                                 // if (!that.alreadyReplayFromStorage && that.gObj.tempReplayObjs[id].length > 0) {
                                 if (that.gObj.tempReplayObjs[id].length > 0) {
-                                    that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
+                                  that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
                                 }
-                            });
+                              });
+                            }else{
+                                alert('whiteboard container is null');
+                            }
                         } else {
                             //if command tool wrapper is not added
                             var commonWrapperId = 'commandToolsWrapper'+id;
@@ -950,14 +967,29 @@
                     this.makeReadyTemplate(initTemplates[i], context);
                 }
 
+                // This should handle with function
+                Handlebars.registerPartial('docNotesMain', JST['templates/docNotesMain.hbs']);
 
                 var mainTemplate = JST['templates/main.hbs'];
                 var mainHtml = mainTemplate();
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
+
+              Handlebars.registerHelper("debug", function(optionalValue) {
+                console.log("Current Context");
+                console.log("====================");
+                console.log(this);
+
+                if (optionalValue) {
+                  console.log("Value");
+                  console.log("====================");
+                  console.log(optionalValue);
+                }
+              });
            },
 
            makeReadyTemplate : function (tempname, context){
                var template = JST['templates/'+tempname+'.hbs'];
+
                var html = (context != null) ? template(context) : template();
                Handlebars.registerPartial(tempname, html);
            }

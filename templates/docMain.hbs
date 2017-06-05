@@ -5,8 +5,10 @@
     <div id="notesContainer" class="notes">
       {{> docNotesMain }}
     </div>
-    <span class="nvgt prev" id="docsprev"></span>
-    <span class="nvgt next" id="docsnext"></span>
+    {{#if hasControls}}
+        <span class="nvgt prev" id="docsprev"></span>
+        <span class="nvgt next" id="docsnext"></span>
+    {{/if}}
   </div>
   {{#if hasControls}}
     <div id="listnotes" class="listPages pages"></div>

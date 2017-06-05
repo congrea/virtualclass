@@ -529,7 +529,7 @@
                             if(whiteboardContainer != null){
                               if(document.querySelector('vcanvas'+id) == null){
                                 var wbTemplate = JST['templates/whiteboard.hbs'];
-                                var wbHtml = wbTemplate({cn:id});
+                                var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
                                 whiteboardContainer.innerHTML  = wbHtml;
                               }
 

@@ -104,6 +104,8 @@
       } else if (this.type == 'notes') {
           var nstemplate = JST['templates/docNotesNav.hbs'];
           var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
+          var note  = virtualclass.dts.getNote(this.rid);
+          context.content_path = note.content_path;
           context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
           context.thumbCount++;
           docNav.insertAdjacentHTML('beforeend', nstemplate(context));

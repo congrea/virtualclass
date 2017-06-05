@@ -1,8 +1,10 @@
 {{!-- cn == currNote, cd == currDoc--}}
 <div id="screen-docs" data-doc="{{cd}}" class="screen page_wrapper current">
   {{debug}}
-  <div class="pageContainer" style="width: 730px; height: 810px;">
-    {{> docNotesMain }}
+  <div class="pageContainer">
+    <div id="notesContainer" class="notes">
+      {{> docNotesMain }}
+    </div>
     <span class="nvgt prev" id="docsprev"></span>
     <span class="nvgt next" id="docsnext"></span>
   </div>

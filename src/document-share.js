@@ -127,31 +127,32 @@
                     // remove if there is already pages before render the ordering elements
                     var alreadyElements = document.querySelectorAll('#notesContainer .note');
 
-                    if(allNotes.length > 0){
-                        var pageContainer = document.querySelector('#screen-docs .pageContainer');
-                        //this.UI.createSlides(pageContainer, allNotes);
-                        if(pageContainer == null){
-                          var noteObj = {notes : allNotes, hasControls : roles.hasControls(), cd : currDoc};
-                          var docTemplate = JST['templates/docMain.hbs'];
-                          var docHtml =  docTemplate(noteObj);
-
-                          var docScreenContainer  = document.querySelector('#docScreenContainer');
-                          if(docScreenContainer != null){
-                            // var earlierHTML = docScreenContainer.innerHTML;
-                            docScreenContainer.insertAdjacentHTML('beforeend', docHtml);
-
-                            // docScreenContainer.innerHTML = earlierHTML  + docHtml;
-                          }else{
-                            alert('there is null');
-                          }
-                        }else{
-                          var noteObj = {notes :  allNotes};
-                          var notesTemplate = JST['templates/docNotesMain.hbs'];
-                          var notesHtml =  notesTemplate(noteObj);
-                          pageContainer.innerHTML = notesHtml;
-                        }
-                    }
+                    // if(allNotes.length > 0){
+                    //     var pageContainer = document.querySelector('#screen-docs .pageContainer');
+                    //     //this.UI.createSlides(pageContainer, allNotes);
+                    //     if(pageContainer == null){
+                    //       var noteObj = {notes : allNotes, hasControls : roles.hasControls(), cd : currDoc};
+                    //       var docTemplate = JST['templates/docMain.hbs'];
+                    //       var docHtml =  docTemplate(noteObj);
                     //
+                    //       var docScreenContainer  = document.querySelector('#docScreenContainer');
+                    //       if(docScreenContainer != null){
+                    //         // var earlierHTML = docScreenContainer.innerHTML;
+                    //         docScreenContainer.insertAdjacentHTML('beforeend', docHtml);
+                    //
+                    //         // docScreenContainer.innerHTML = earlierHTML  + docHtml;
+                    //       }else{
+                    //         alert('there is null');
+                    //       }
+                    //     }else{
+                    //       var noteObj = {notes :  allNotes};
+                    //       var notesTemplate = JST['templates/docNotesMain.hbs'];
+                    //       var notesHtml =  notesTemplate(noteObj);
+                    //       pageContainer.innerHTML = notesHtml;
+                    //     }
+                    // }
+
+                    this.createNoteLayout(allNotes, currDoc);
                     this.reArrangeNotes(this.order);
 
                     // TODO This should be improve at later, should handle at function createNoteNav
@@ -159,6 +160,32 @@
                         this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
                     }
                 }
+            },
+
+            createNoteLayout : function (allNotes, currDoc){
+              var mainContainer, tempCont, objTemp, template, tempHtml;
+              if(allNotes.length > 0){
+                var pageContainer = document.querySelector('#screen-docs .pageContainer');
+                //this.UI.createSlides(pageContainer, allNotes);
+                if(pageContainer == null){
+                  var tempCont = {notes : allNotes, hasControls : roles.hasControls(), cd : currDoc};
+                  template =  'docMain.hbs';
+                  mainContainer = document.querySelector('#docScreenContainer');
+
+                }else{
+                  tempCont = {notes :  allNotes};
+                  template = 'docNotesMain.hbs';
+                  mainContainer =  document.querySelector('#screen-docs #notesContainer');
+                }
+                template =  JST['templates/'+template];
+                tempHtml = template(tempCont);
+
+                if(mainContainer != null){
+                  mainContainer.insertAdjacentHTML('beforeend', tempHtml);
+                }else{
+                  alert('there is no such element');
+                }
+              }
             },
 
             /**
@@ -565,20 +592,21 @@
                // suman new,
                //  var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
                //  this.UI.createMainContent(pageContainer, slides, doc);
+               this.createNoteLayout(slides, docId);
 
-                var noteObj = {notes :  slides, hasControls : roles.hasControls(), cd : docId};
-                var docTemplate = JST['templates/docMain.hbs'];
-                var docHtml =  docTemplate(noteObj);
-                var docScreenContainer  = document.querySelector('#docScreenContainer');
-                if(docScreenContainer != null){
-                  // var earlierHtml = docScreenContainer.innerHTML;
-                  // docScreenContainer.innerHTML = earlierHtml+docHtml;
-                  docScreenContainer.insertAdjacentHTML('beforeend', docHtml);
-
-                  // docScreenContainer.innerHTML = docHtml;
-                }else{
-                  alert('there is null');
-                }
+                // var noteObj = {notes :  slides, hasControls : roles.hasControls(), cd : docId};
+                // var docTemplate = JST['templates/docMain.hbs'];
+                // var docHtml =  docTemplate(noteObj);
+                // var docScreenContainer  = document.querySelector('#docScreenContainer');
+                // if(docScreenContainer != null){
+                //   // var earlierHtml = docScreenContainer.innerHTML;
+                //   // docScreenContainer.innerHTML = earlierHtml+docHtml;
+                //   docScreenContainer.insertAdjacentHTML('beforeend', docHtml);
+                //
+                //   // docScreenContainer.innerHTML = docHtml;
+                // }else{
+                //   alert('there is null');
+                // }
 
                 if(typeof slide != 'undefined'){
                   this.docs.displayScreen(docId, slide);
@@ -1049,9 +1077,9 @@
                             var currElem = document.querySelector('#documentScreen #note' + id);
                             if(currElem  != null){
                                 if(which == 'next'){
-                                    var activeSlide = currElem.nextSibling;
+                                    var activeSlide = currElem.nextElementSibling;
                                 } else {
-                                    var activeSlide = currElem.previousSibling;
+                                    var activeSlide = currElem.previousElementSibling;
                                 }
 
                                 if(activeSlide != null){
@@ -1078,7 +1106,7 @@
                             if(currNodeId != lastElement){
                                 var currElem = document.querySelector('#documentScreen #note' + currNodeId);
                                 if(currElem  != null){
-                                    nextSlide = currElem.nextSibling;
+                                    nextSlide = currElem.nextElementSibling;
                                     if(nextSlide != null){
                                         if((+nextSlide.dataset.status) == 0){
                                             var activeSlide = this.getActiveSlide(cthis, currNodeId, 'next');

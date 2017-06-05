@@ -1,9 +1,7 @@
-<div id="notesContainer" class="notes">
-  {{#each notes}}
-    <div id="note{{id}}" class="note current" data-slide="notes{{id}}" data-status="1">
-      <div class="imageContainer">
-        <img src= {{content_path}} />
-      </div>
+{{#each notes}}
+  <div id="note{{id}}" class="note" data-slide="{{id}}" data-status={{status}} >
+    <div class="imageContainer">
+      <img src= {{content_path}} />
     </div>
-  {{/each}}
-</div>
+  </div>
+{{/each}}

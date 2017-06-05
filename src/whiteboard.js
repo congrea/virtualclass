@@ -189,20 +189,29 @@
                     return true;
                 }
 
-                var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
-                virtualclass.vutil.createDiv('t_rectangle' + id, 'rectangle', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_line'+ id, 'line', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_freeDrawing' + id, 'freeDrawing', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_oval' + id, 'oval', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_triangle' + id, 'triangle', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_text' + id, 'text', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_activeall' + id, 'activeAll', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_clearall' + id, 'clearAll', cmdToolsWrapper, 'tool');
+                // var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
+                var toolTemplate = JST['templates/whiteboardToolbar.hbs'];
+                var cmdToolsWrapper = toolTemplate({cn:id});
 
-                virtualclass.wb[id].socketOn = parseInt(wbUser.socketOn);
-                if (virtualclass.wb[id].socketOn == 1) {
-                    virtualclass.wb[id].utility.setClass('vcanvas' + id, 'socketon');
+                var whiteboardCont = document.getElementById('containerWb'+id);
+                if(whiteboardCont != null){
+                  whiteboardCont.insertAdjacentHTML('afterbegin', cmdToolsWrapper);
                 }
+
+                //
+                // virtualclass.vutil.createDiv('t_rectangle' + id, 'rectangle', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_line'+ id, 'line', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_freeDrawing' + id, 'freeDrawing', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_oval' + id, 'oval', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_triangle' + id, 'triangle', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_text' + id, 'text', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_activeall' + id, 'activeAll', cmdToolsWrapper, 'tool');
+                // virtualclass.vutil.createDiv('t_clearall' + id, 'clearAll', cmdToolsWrapper, 'tool');
+                //
+                // virtualclass.wb[id].socketOn = parseInt(wbUser.socketOn);
+                // if (virtualclass.wb[id].socketOn == 1) {
+                //     virtualclass.wb[id].utility.setClass('vcanvas' + id, 'socketon');
+                // }
             },
 
             //not using
@@ -336,9 +345,7 @@
              * @param id expects the  id of container which contains all the commands of div
              */
             attachToolFunction: function (contId, alreadyCreated, id) {
-
-                // virtualclass.wb[id].createCommand(alreadyCreated, id);
-
+                virtualclass.wb[id].createCommand(alreadyCreated, id);
                 var allDivs = document.getElementById(contId).getElementsByTagName('div');
                 for (var i = 0; i < allDivs.length; i++) {
                     //TODO this will have to be fixed as it always assigned t_clearall

@@ -148,6 +148,38 @@ this["JST"]["templates/docShare.hbs"] = Handlebars.template({"1":function(contai
     + "    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
+this["JST"]["templates/document/mainContainer.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return "        <div id=\"docsListContainer\">\n          <div id=\"newdocsBtnCont\">\n            <button id=\"newDocBtn\">Upload Documents</button>\n          </div>\n          <div id=\"listdocs\" class=\"listPages pages\"></div>\n        </div>\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    return "        <span id=\"docMsgStudent\">There might be share the Docs</span>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div id=\"virtualclassDocumentShare\" class=\"virtualclass container\" data-screen=\"1\">\n  <div id=\"docsPopupCont\" class=\"bootstrap\"></div>\n  <div id=\"documentScreen\" class=\"container\">\n    <div id=\"docScreenContainer\">\n"
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
+    + "    </div>\n  </div>\n</div>\n";
+},"useData":true});
+
+this["JST"]["templates/document/screen.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return "        <span class=\"nvgt prev\" id=\"docsprev\"></span>\n        <span class=\"nvgt next\" id=\"docsnext\"></span>\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    return "    <div id=\"listnotes\" class=\"listPages pages\"></div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"screen-docs\" data-doc=\""
+    + alias4(((helper = (helper = helpers.cd || (depth0 != null ? depth0.cd : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cd","hash":{},"data":data}) : helper)))
+    + "\" class=\"screen page_wrapper current\">\n  "
+    + alias4(((helper = (helper = helpers.debug || (depth0 != null ? depth0.debug : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"debug","hash":{},"data":data}) : helper)))
+    + "\n  <div class=\"pageContainer\">\n    <div id=\"notesContainer\" class=\"notes\">\n"
+    + ((stack1 = container.invokePartial(partials.docNotesMain,depth0,{"name":"docNotesMain","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "    </div>\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "  </div>\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\n\n";
+},"usePartial":true,"useData":true});
+
 this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -253,27 +285,9 @@ this["JST"]["templates/teacherVideo.hbs"] = Handlebars.template({"1":function(co
 },"useData":true});
 
 this["JST"]["templates/whiteboard.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var stack1;
 
-  return "      <div id=\"commandToolsWrapper"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"commandToolsWrapper\">\n        <div id=\"t_rectangle"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"rectangle\">\n          <a href=\"#\" data-title=\"Rectangle\" class=\"tooltip\"><span class=\"icon-rectangle\"></span></a>\n        </div>\n        <div id=\"t_line"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"line\">\n          <a href=\"#\" data-title=\"Line\" class=\"tooltip\">\n            <span class=\"icon-line\"></span>\n          </a></div>\n\n        <div id=\"t_freeDrawing"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"freeDrawing\">\n          <a href=\"#\" data-title=\"Free hand\" class=\"tooltip\">\n            <span class=\"icon-freeDrawing\"></span>\n          </a>\n        </div>\n\n        <div id=\"t_oval"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"oval\">\n          <a href=\"#\" data-title=\"Oval\" class=\"tooltip\">\n            <span class=\"icon-oval\"></span>\n          </a>\n        </div>\n\n        <div id=\"t_triangle"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"triangle\">\n          <a href=\"#\" data-title=\"Triangle\" class=\"tooltip\">\n            <span class=\"icon-triangle\"></span>\n          </a>\n        </div>\n\n        <div id=\"t_text"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"text\"><a href=\"#\" data-title=\"Text\" class=\"tooltip\">\n          <span class=\"icon-text\"></span></a>\n        </div>\n\n        <div id=\"t_activeall"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"activeAll\">\n          <a href=\"#\" data-title=\"Active All\" class=\"tooltip\">\n            <span class=\"icon-activeAll\"></span>\n          </a>\n        </div>\n\n        <div id=\"t_clearall"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"clearAll\">\n          <a href=\"#\" data-title=\"Clear All\" class=\"tooltip\">\n            <span class=\"icon-clearAll\"></span>\n          </a>\n        </div>\n      </div>\n";
+  return ((stack1 = container.invokePartial(partials.whiteboardToolbar,depth0,{"name":"whiteboardToolbar","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -285,9 +299,33 @@ this["JST"]["templates/whiteboard.hbs"] = Handlebars.template({"1":function(cont
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"containerWb\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n      <div id=\"canvasWrapper"
+    + "      <div id=\"canvasWrapper"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\">\n      <canvas id=\"canvas"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" tabindex=\"0\" width=\"730\" height=\"750\">\n        Canvas is missing in your browsers. Please update the latest version of your browser\n      </canvas>\n    </div>\n  </div>\n</div>";
+},"usePartial":true,"useData":true});
+
+this["JST"]["templates/whiteboardToolbar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"commandToolsWrapper"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"commandToolsWrapper\">\n  <div id=\"t_rectangle"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"rectangle\">\n    <a href=\"#\" data-title=\"Rectangle\" class=\"tooltip\"><span class=\"icon-rectangle\"></span></a>\n  </div>\n  <div id=\"t_line"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"line\">\n    <a href=\"#\" data-title=\"Line\" class=\"tooltip\">\n      <span class=\"icon-line\"></span>\n    </a></div>\n\n  <div id=\"t_freeDrawing"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"freeDrawing\">\n    <a href=\"#\" data-title=\"Free hand\" class=\"tooltip\">\n      <span class=\"icon-freeDrawing\"></span>\n    </a>\n  </div>\n\n  <div id=\"t_oval"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"oval\">\n    <a href=\"#\" data-title=\"Oval\" class=\"tooltip\">\n      <span class=\"icon-oval\"></span>\n    </a>\n  </div>\n\n  <div id=\"t_triangle"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"triangle\">\n    <a href=\"#\" data-title=\"Triangle\" class=\"tooltip\">\n      <span class=\"icon-triangle\"></span>\n    </a>\n  </div>\n\n  <div id=\"t_text"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"text\"><a href=\"#\" data-title=\"Text\" class=\"tooltip\">\n    <span class=\"icon-text\"></span></a>\n  </div>\n\n  <div id=\"t_activeall"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"activeAll\">\n    <a href=\"#\" data-title=\"Active All\" class=\"tooltip\">\n      <span class=\"icon-activeAll\"></span>\n    </a>\n  </div>\n\n  <div id=\"t_clearall"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"clearAll\">\n    <a href=\"#\" data-title=\"Clear All\" class=\"tooltip\">\n      <span class=\"icon-clearAll\"></span>\n    </a>\n  </div>\n</div>";
 },"useData":true});

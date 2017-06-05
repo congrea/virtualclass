@@ -968,7 +968,11 @@
                 }
 
                 // This should handle with function
-                Handlebars.registerPartial('docNotesMain', JST['templates/docNotesMain.hbs']);
+                // Handlebars.registerPartial('docNotesMain', JST['templates/docNotesMain.hbs']);
+                Handlebars.registerPartial({
+                    docNotesMain: JST['templates/docNotesMain.hbs'],
+                    whiteboardToolbar: JST['templates/whiteboardToolbar.hbs'],
+                });
 
                 var mainTemplate = JST['templates/main.hbs'];
                 var mainHtml = mainTemplate();

@@ -519,7 +519,6 @@
                             this.wb[id] = new window.whiteboard(this.wbConfig, id);
 
                             // this.wb[id].UI.mainContainer(container, id);
-                            debugger;
                             if(virtualclass.currApp == 'Whiteboard'){
                               var whiteboardContainer = document.getElementById('virtualclassWhiteboard');
                             }else {

@@ -1053,7 +1053,7 @@
                             var currNodeId = cthis.docs.currNote;
                             var currElem = document.querySelector('#documentScreen #note' + currNodeId);
                             if(currElem != null){
-                                var prevSlide = currElem.previousSibling;
+                                var prevSlide = currElem.previousElementSibling;
                                 if(prevSlide != null){
                                     if((+prevSlide.dataset.status) == 0){
                                         var activeSlide = this.getActiveSlide(cthis, currNodeId, 'prev');

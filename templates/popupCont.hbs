@@ -1,11 +1,9 @@
 <div id="popupContainer">
   <div id="about-modal" class="rv-vanilla-modal">
-
-
     <div id="recordingContainer" class="popupWindow">
 
       <div class="rv-vanilla-modal-header group" id="recordingHeaderContainer">
-        <h2 class="rv-vanilla-modal-title" id="recordingHeader"> {{uploadsession}}</h2>
+        <h2 class="rv-vanilla-modal-title" id="recordingHeader"> {{getString 'uploadsession'}}</h2>
       </div>
 
       <div class="rv-vanilla-modal-body">
@@ -13,7 +11,7 @@
         <div id="progressContainer">
 
           <div id="totProgressCont">
-            <div id="totalProgressLabel"> {{totalprogress}} </div>
+            <div id="totalProgressLabel"> {{getString 'totalprogress'}} </div>
 
             <div id="progress">
               <div id="progressBar" class="progressBar"></div>
@@ -22,7 +20,7 @@
           </div>
 
           <div id="indvProgressCont">
-            <div id="indvProgressLabel"> {{indvprogress}} </div>
+            <div id="indvProgressLabel"> {{getString 'indvprogress'}} </div>
 
             <div id="indProgress">
               <div id="indProgressBar" class="progressBar">
@@ -36,7 +34,7 @@
         </div>
 
         <div id="recordFinishedMessageBox">
-          <span id="recordFinishedMessage">  {{uploadedsession}} </span>
+          <span id="recordFinishedMessage">  {{getString 'uploadedsession'}} </span>
           <span id="recordingClose" class="icon-close"></span>
 
         </div>
@@ -49,9 +47,9 @@
     <div id="recordPlay" class="popupWindow">
       <div class="rv-vanilla-modal-body">
         <div id="downloadPcCont">
-          <div id="downloadSessionText">{{downloadsession}}</div>
+          <div id="downloadSessionText">{{getString 'downloadsession'}}</div>
 
-          <div id="downloadPrgressLabel"> {{overallprogress}} </div>
+          <div id="downloadPrgressLabel"> {{getString 'overallprogress'}} </div>
           <div id="downloadProgress">
             <div id="downloadProgressBar" class="progressBar"></div>
             <div id="downloadProgressValue" class="progressValue"> 0% </div>
@@ -62,7 +60,7 @@
         <div id="askPlay">
           <div id="askplayMessage"> </div>
 
-          <button id="playButton" class="icon-play">{{play}}</button>
+          <button id="playButton" class="icon-play">{{getString 'play'}}</button>
 
         </div>
       </div>
@@ -71,9 +69,9 @@
 
      {{!-- for replay window --}}
     <div id="replayContainer" class="popupWindow">
-      <p id="replayMessage">{{replay_message}}</p>
+      <p id="replayMessage">{{getString 'replay_message'}}</p>
       <div id="replayClose" class="close icon-close"></div>
-      <button id="replayButton" class="icon-repeat">{{replay}} </button>
+      <button id="replayButton" class="icon-repeat">{{getString 'replay'}} </button>
 
     </div>
 
@@ -85,13 +83,13 @@
     <div id="sessionEndMsgCont" class="popupWindow">
       <span id="sessionEndClose" class="icon-close"></span>
 
-      <span id="sessionEndMsg"> {{sessionendmsg}} </span>
+      <span id="sessionEndMsg"> {{getString 'sessionendmsg'}} </span>
     </div>
 
-     {{!-- For confirm window --}}
-    <div id="waitMsgCont" class="popupWindow">
-      <span id="waitMsg"> {{waitmsgconnect}} </span>
-    </div>
+  {{!-- For confirm window  --}}
+<div id="waitMsgCont" class="popupWindow">
+  <span id="waitMsg"> {{getString 'waitmsgconnect'}} </span>
+</div>
 
-  </div>
+</div>
 </div>

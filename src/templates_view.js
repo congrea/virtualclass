@@ -10,21 +10,21 @@ this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">
   return "<div id=\"audioWidget\">\n  <div id=\"mainAudioPanel\">\n    <div id=\"speakerPressOnce\" class=\""
     + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
     + "\" data-audio-playing="
-    + alias4(((helper = (helper = helpers.dap || (depth0 != null ? depth0.dap : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dap","hash":{},"data":data}) : helper)))
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dap",{"name":"getString","hash":{},"data":data}))
     + ">\n      <a id=\"speakerPressonceAnch\" class=\"tooltip\" data-title=\""
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
     + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </div>\n    <div id=\"videoPacketInfo\">\n      <span id=\"videoSpeed\">\n      <span id=\"videSpeedNumber\" class=\"suggestion tooltip\" data-suggestion=\""
     + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
     + "\"\n            data-title=\""
-    + alias4(((helper = (helper = helpers.proposedspeed || (depth0 != null ? depth0.proposedspeed : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"proposedspeed","hash":{},"data":data}) : helper)))
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
     + "\">  </span>\n      <span id=\"videLatency\" class=\"latency  tooltip\" data-latency=\""
     + alias4(((helper = (helper = helpers.latency || (depth0 != null ? depth0.latency : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"latency","hash":{},"data":data}) : helper)))
     + "\"\n            data-title=\""
-    + alias4(((helper = (helper = helpers.audiolatency || (depth0 != null ? depth0.audiolatency : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audiolatency","hash":{},"data":data}) : helper)))
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audiolatency",{"name":"getString","hash":{},"data":data}))
     + "\">  </span>\n      <span id=\"videoFrameRate\" class=\"quality  tooltip\" data-quality=\""
     + alias4(((helper = (helper = helpers.quality || (depth0 != null ? depth0.quality : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"quality","hash":{},"data":data}) : helper)))
     + "\"\n            data-title=\""
-    + alias4(((helper = (helper = helpers.videoquality || (depth0 != null ? depth0.videoquality : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"videoquality","hash":{},"data":data}) : helper)))
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoquality",{"name":"getString","hash":{},"data":data}))
     + "\"> </span>\n      </span>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
@@ -148,38 +148,6 @@ this["JST"]["templates/docShare.hbs"] = Handlebars.template({"1":function(contai
     + "    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
-this["JST"]["templates/document/mainContainer.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "        <div id=\"docsListContainer\">\n          <div id=\"newdocsBtnCont\">\n            <button id=\"newDocBtn\">Upload Documents</button>\n          </div>\n          <div id=\"listdocs\" class=\"listPages pages\"></div>\n        </div>\n";
-},"3":function(container,depth0,helpers,partials,data) {
-    return "        <span id=\"docMsgStudent\">There might be share the Docs</span>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"virtualclassDocumentShare\" class=\"virtualclass container\" data-screen=\"1\">\n  <div id=\"docsPopupCont\" class=\"bootstrap\"></div>\n  <div id=\"documentScreen\" class=\"container\">\n    <div id=\"docScreenContainer\">\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + "    </div>\n  </div>\n</div>\n";
-},"useData":true});
-
-this["JST"]["templates/document/screen.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "        <span class=\"nvgt prev\" id=\"docsprev\"></span>\n        <span class=\"nvgt next\" id=\"docsnext\"></span>\n";
-},"3":function(container,depth0,helpers,partials,data) {
-    return "    <div id=\"listnotes\" class=\"listPages pages\"></div>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "<div id=\"screen-docs\" data-doc=\""
-    + alias4(((helper = (helper = helpers.cd || (depth0 != null ? depth0.cd : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cd","hash":{},"data":data}) : helper)))
-    + "\" class=\"screen page_wrapper current\">\n  "
-    + alias4(((helper = (helper = helpers.debug || (depth0 != null ? depth0.debug : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"debug","hash":{},"data":data}) : helper)))
-    + "\n  <div class=\"pageContainer\">\n    <div id=\"notesContainer\" class=\"notes\">\n"
-    + ((stack1 = container.invokePartial(partials.docNotesMain,depth0,{"name":"docNotesMain","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "    </div>\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  </div>\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</div>\n\n";
-},"usePartial":true,"useData":true});
-
 this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -210,31 +178,31 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"popupContainer\">\n  <div id=\"about-modal\" class=\"rv-vanilla-modal\">\n\n\n    <div id=\"recordingContainer\" class=\"popupWindow\">\n\n      <div class=\"rv-vanilla-modal-header group\" id=\"recordingHeaderContainer\">\n        <h2 class=\"rv-vanilla-modal-title\" id=\"recordingHeader\"> "
-    + alias4(((helper = (helper = helpers.uploadsession || (depth0 != null ? depth0.uploadsession : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"uploadsession","hash":{},"data":data}) : helper)))
+  return "<div id=\"popupContainer\">\n  <div id=\"about-modal\" class=\"rv-vanilla-modal\">\n    <div id=\"recordingContainer\" class=\"popupWindow\">\n\n      <div class=\"rv-vanilla-modal-header group\" id=\"recordingHeaderContainer\">\n        <h2 class=\"rv-vanilla-modal-title\" id=\"recordingHeader\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadsession",{"name":"getString","hash":{},"data":data}))
     + "</h2>\n      </div>\n\n      <div class=\"rv-vanilla-modal-body\">\n\n        <div id=\"progressContainer\">\n\n          <div id=\"totProgressCont\">\n            <div id=\"totalProgressLabel\"> "
-    + alias4(((helper = (helper = helpers.totalprogress || (depth0 != null ? depth0.totalprogress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"totalprogress","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"totalprogress",{"name":"getString","hash":{},"data":data}))
     + " </div>\n\n            <div id=\"progress\">\n              <div id=\"progressBar\" class=\"progressBar\"></div>\n              <div id=\"progressValue\" class=\"progressValue\"> 0%</div>\n            </div>\n          </div>\n\n          <div id=\"indvProgressCont\">\n            <div id=\"indvProgressLabel\"> "
-    + alias4(((helper = (helper = helpers.indvprogress || (depth0 != null ? depth0.indvprogress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"indvprogress","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"indvprogress",{"name":"getString","hash":{},"data":data}))
     + " </div>\n\n            <div id=\"indProgress\">\n              <div id=\"indProgressBar\" class=\"progressBar\">\n              </div>\n\n              <div id=\"indProgressValue\" class=\"progressValue\"> 0%\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div id=\"recordFinishedMessageBox\">\n          <span id=\"recordFinishedMessage\">  "
-    + alias4(((helper = (helper = helpers.uploadedsession || (depth0 != null ? depth0.uploadedsession : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"uploadedsession","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadedsession",{"name":"getString","hash":{},"data":data}))
     + " </span>\n          <span id=\"recordingClose\" class=\"icon-close\"></span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div id=\"recordPlay\" class=\"popupWindow\">\n      <div class=\"rv-vanilla-modal-body\">\n        <div id=\"downloadPcCont\">\n          <div id=\"downloadSessionText\">"
-    + alias4(((helper = (helper = helpers.downloadsession || (depth0 != null ? depth0.downloadsession : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"downloadsession","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"downloadsession",{"name":"getString","hash":{},"data":data}))
     + "</div>\n\n          <div id=\"downloadPrgressLabel\"> "
-    + alias4(((helper = (helper = helpers.overallprogress || (depth0 != null ? depth0.overallprogress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"overallprogress","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"overallprogress",{"name":"getString","hash":{},"data":data}))
     + " </div>\n          <div id=\"downloadProgress\">\n            <div id=\"downloadProgressBar\" class=\"progressBar\"></div>\n            <div id=\"downloadProgressValue\" class=\"progressValue\"> 0% </div>\n          </div>\n\n        </div>\n\n        <div id=\"askPlay\">\n          <div id=\"askplayMessage\"> </div>\n\n          <button id=\"playButton\" class=\"icon-play\">"
-    + alias4(((helper = (helper = helpers.play || (depth0 != null ? depth0.play : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"play","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"play",{"name":"getString","hash":{},"data":data}))
     + "</button>\n\n        </div>\n      </div>\n    </div>\n\n\n    <div id=\"replayContainer\" class=\"popupWindow\">\n      <p id=\"replayMessage\">"
-    + alias4(((helper = (helper = helpers.replay_message || (depth0 != null ? depth0.replay_message : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"replay_message","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay_message",{"name":"getString","hash":{},"data":data}))
     + "</p>\n      <div id=\"replayClose\" class=\"close icon-close\"></div>\n      <button id=\"replayButton\" class=\"icon-repeat\">"
-    + alias4(((helper = (helper = helpers.replay || (depth0 != null ? depth0.replay : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"replay","hash":{},"data":data}) : helper)))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay",{"name":"getString","hash":{},"data":data}))
     + " </button>\n\n    </div>\n\n    <div id=\"confirm\" class=\"popupWindow simple-box\">\n    </div>\n\n    <div id=\"sessionEndMsgCont\" class=\"popupWindow\">\n      <span id=\"sessionEndClose\" class=\"icon-close\"></span>\n\n      <span id=\"sessionEndMsg\"> "
-    + alias4(((helper = (helper = helpers.sessionendmsg || (depth0 != null ? depth0.sessionendmsg : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sessionendmsg","hash":{},"data":data}) : helper)))
-    + " </span>\n    </div>\n\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\"> "
-    + alias4(((helper = (helper = helpers.waitmsgconnect || (depth0 != null ? depth0.waitmsgconnect : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"waitmsgconnect","hash":{},"data":data}) : helper)))
-    + " </span>\n    </div>\n\n  </div>\n</div>\n";
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionendmsg",{"name":"getString","hash":{},"data":data}))
+    + " </span>\n    </div>\n\n<div id=\"waitMsgCont\" class=\"popupWindow\">\n  <span id=\"waitMsg\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
+    + " </span>\n</div>\n\n</div>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

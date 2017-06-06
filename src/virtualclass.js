@@ -16,7 +16,7 @@
             rw: "",
             poll:"",
             quiz:"",
-            lang: {},
+            //lang: {},
             error: [],
             gObj: {
                 uid: window.wbUser.id,
@@ -91,8 +91,8 @@
 
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
-                this.lang.getString = window.getString;
-                this.lang.message = window.message;
+                // this.lang.getString = window.getString;
+                // this.lang.message = window.message;
                 this.vutil = window.vutil;
                 this.media = window.media
                 this.sharePt= window.sharePt;
@@ -901,82 +901,51 @@
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
 
-            //TODO remove this function
+
             //the same function is defining at script.js
             createMainContainer : function (){
-                // TODO this should be used from language file
-                var contLang = {
-                  'testingbrowser' : 'Testing Browser Compatibility',
-                  'testinginternetspeed' : 'Testing Internet Speed',
-                  'testingspeaker' :  'Testing Speaker',
-                  'testingmichrophone' : 'Testing Microphone',
-                  'testingwebcam' : 'Testing Webcam Connection',
-                  'whiteboardPath' : whiteboardPath
-                }
+                Handlebars.registerHelper("getString", function(string) {
+                   console.log('Language ' + string);
+                   return virtualclass.lang.getString(string);
+                });
 
-                contLang['uploadsession'] = 'Please wait until processing is complete.';
-                contLang['totalprogress'] = 'Total Progress';
-                contLang['indvprogress'] = 'Current Task';
-                contLang['downloadsession'] = 'Please wait while the recording is downloaded.';
-                contLang['askplaymsg'] = '<span id="askplaymsg"> "Downloading in process, click Play to begin </span>"';
-                contLang['overallprogress'] = 'Overall Progress';
-                contLang['replay_message'] = 'Thanks for watching.';
-                contLang['uploadedsession'] = 'Your session has ended, you may now close the window. <br /> Or close this popup to start a new session.';
-                contLang['sessionendmsg'] = 'Session has been closed. You may now close your browser.';
-                contLang['play'] = 'Play';
-                contLang['replay'] = 'Re-play';
-                contLang['tpAudioTest'] = 'Test Audio';
-                contLang['enableAudio'] = 'Unmute';
-                contLang['disableAudio'] = 'Mute';
-                contLang['pressAlwaysToSpeak'] = 'Press always to speak.';
-                contLang['pushtotalk'] = 'Push To Talk';
-                contLang['waitmsgconnect'] = 'Please wait a whlie. Application is trying to connect.';
+                var contPara = {'whiteboardPath' : whiteboardPath};
 
-                contLang['testingbrowser'] = 'Testing Browser Compatibility';
-                contLang['testinginternetspeed'] = 'Testing Internet Speed';
-                contLang['testingspeaker'] = 'Testing Speaker';
-                contLang['testingmichrophone'] = 'Testing Microphone';
-                contLang['testingwebcam'] = 'Testing Webcam Connection';
-                contLang['proposedspeed'] = 'Proposed Speed';
-                contLang['audiolatency'] = 'Audio Latency';
-                contLang['videoquality'] = 'Video Quality';
-
-              // Precheck element
+                /** Registering the partials which have setting paramter **/
                 var mainContainer = document.querySelector('#'+virtualclass.html.id);
-
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'rightBar',
-                    'recordingControl', 'appTools', 'leftBar', 'popupCont', 'main', 'whiteboard'];
-
-                var adCont = virtualclassSetting;
-                adCont.proposedspeed = contLang['proposedspeed'];
-                adCont.audiolatency = contLang['audiolatency'];
-                adCont.videoquality = contLang['videoquality'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;
                 for(var i=0; i<initTemplates.length; i++){
                     context = null;
                     if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
-                        context = contLang;
+                        context = contPara;
                     }else if(initTemplates[i] == 'audioWidget'){
-                        context = adCont;
+                        context = virtualclassSetting;
                     }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
                         context = isControl;
                     }
                     this.makeReadyTemplate(initTemplates[i], context);
                 }
 
-                // This should handle with function
-                // Handlebars.registerPartial('docNotesMain', JST['templates/docNotesMain.hbs']);
+                /** Registering the partials which does not have context **/
                 Handlebars.registerPartial({
                     docNotesMain: JST['templates/docNotesMain.hbs'],
                     whiteboardToolbar: JST['templates/whiteboardToolbar.hbs'],
+                    rightBar: JST['templates/rightBar.hbs'],
+                    recordingControl: JST['templates/recordingControl.hbs'],
+                    leftBar: JST['templates/leftBar.hbs'],
+                    main: JST['templates/main.hbs'],
+                    whiteboard: JST['templates/whiteboard.hbs']
                 });
 
+                /** inserting the main container of virtualclass **/
                 var mainTemplate = JST['templates/main.hbs'];
                 var mainHtml = mainTemplate();
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
 
+              /** For debugging the handlebars code **/
               Handlebars.registerHelper("debug", function(optionalValue) {
                 console.log("Current Context");
                 console.log("====================");
@@ -992,10 +961,8 @@
 
            makeReadyTemplate : function (tempname, context){
                var template = JST['templates/'+tempname+'.hbs'];
-
-               var html = (context != null) ? template(context) : template();
-               Handlebars.registerPartial(tempname, html);
-           }
+               Handlebars.registerPartial(tempname, template(context));
+           },
         };
 
         function capitalizeFirstLetter(string) {

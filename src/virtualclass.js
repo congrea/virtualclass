@@ -901,49 +901,47 @@
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
 
+            registerPartial : function (){
+              var contPara = {'whiteboardPath' : whiteboardPath};
 
-            //the same function is defining at script.js
-            createMainContainer : function (){
-                Handlebars.registerHelper("getString", function(string) {
-                   console.log('Language ' + string);
-                   return virtualclass.lang.getString(string);
-                });
+              /** Registering the partials which have setting paramter **/
+              var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
 
-                var contPara = {'whiteboardPath' : whiteboardPath};
-
-                /** Registering the partials which have setting paramter **/
-                var mainContainer = document.querySelector('#'+virtualclass.html.id);
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
-
-                var isControl = {hasControl : roles.hasControls()};
-                var context;
-                for(var i=0; i<initTemplates.length; i++){
-                    context = null;
-                    if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
-                        context = contPara;
-                    }else if(initTemplates[i] == 'audioWidget'){
-                        context = virtualclassSetting;
-                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
-                        context = isControl;
-                    }
-                    this.makeReadyTemplate(initTemplates[i], context);
+              var isControl = {hasControl : roles.hasControls()};
+              var context;
+              for(var i=0; i<initTemplates.length; i++){
+                context = null;
+                if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
+                  context = contPara;
+                }else if(initTemplates[i] == 'audioWidget'){
+                  context = virtualclassSetting;
+                }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                  context = isControl;
                 }
+                this.makeReadyTemplate(initTemplates[i], context);
+              }
 
-                /** Registering the partials which does not have context **/
-                Handlebars.registerPartial({
-                    docNotesMain: JST['templates/docNotesMain.hbs'],
-                    whiteboardToolbar: JST['templates/whiteboardToolbar.hbs'],
-                    rightBar: JST['templates/rightBar.hbs'],
-                    recordingControl: JST['templates/recordingControl.hbs'],
-                    leftBar: JST['templates/leftBar.hbs'],
-                    main: JST['templates/main.hbs'],
-                    whiteboard: JST['templates/whiteboard.hbs']
-                });
+              /** Registering the partials which does not have context **/
+              Handlebars.registerPartial({
+                docNotesMain: JST['templates/docNotesMain.hbs'],
+                whiteboardToolbar: JST['templates/whiteboardToolbar.hbs'],
+                rightBar: JST['templates/rightBar.hbs'],
+                recordingControl: JST['templates/recordingControl.hbs'],
+                leftBar: JST['templates/leftBar.hbs'],
+                main: JST['templates/main.hbs'],
+                whiteboard: JST['templates/whiteboard.hbs']
+              });
 
-                /** inserting the main container of virtualclass **/
-                var mainTemplate = JST['templates/main.hbs'];
-                var mainHtml = mainTemplate();
-                mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
+            },
+
+            registerHelper : function (){
+              /** helper who returns the language String For template**/
+              Handlebars.registerHelper("getString", function(string) {
+                console.log('Language ' + string);
+                return virtualclass.lang.getString(string);
+              });
+
+
 
               /** For debugging the handlebars code **/
               Handlebars.registerHelper("debug", function(optionalValue) {
@@ -957,6 +955,17 @@
                   console.log(optionalValue);
                 }
               });
+            },
+
+            //the same function is defining at script.js
+            createMainContainer : function (){
+                var mainContainer = document.querySelector('#'+virtualclass.html.id);
+                this.registerHelper();
+                this.registerPartial();
+                /** inserting the main container of virtualclass **/
+                var mainTemplate = JST['templates/main.hbs'];
+                var mainHtml = mainTemplate();
+                mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
            },
 
            makeReadyTemplate : function (tempname, context){

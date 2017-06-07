@@ -4,10 +4,8 @@
       <!-- Modal -->
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
-
           <!-- Modal content-->
           <div class="modal-content">
-
             <div class="modal-body">
               <div id="preCheckProgress">
                 <ul class="progressbar" id="congProgressbar">
@@ -21,11 +19,8 @@
 
               <div id="vcBrowserCheck" class="precheck browser">
                 <div class="testName"> {{testingbrowser}}  </div>
-
                 <!-- <div class="progress"> Progressing .... </div> -->
-
                 <div class="result"></div>
-
                 <div id="browserButtons" class="button clearfix">
                   <button type="button" class="next btn btn-default">Next</button>
                 </div>
@@ -33,16 +28,13 @@
 
               <div id="vcBandWidthCheck" class="precheck bandwidth">
                 <div class="testName"> {{testinginternetspeed}} </div>
-
                 <!-- <div class="progress"> Progressing....</div> -->
-
                 <div class="result"><img src="{{whiteboardPath}}images/progressbar.gif" /></div>
                 <div id="bandwidthButtons" class="button clearfix">
                   <button type="button" class="prev btn btn-default">Prev</button>
                   <button type="button" class="next btn btn-default">Next</button>
                 </div>
               </div>
-
 
               <div id="vcSpeakerCheck" class="precheck speaker">
                 <div class="testName"> {{testingspeaker}} </div>
@@ -51,12 +43,13 @@
                   <source src="{{whiteboardPath}}audio/audio_music.ogg">
                   <source src="{{whiteboardPath}}audio/audio-music.mp3">
                 </audio>
+
                 <div class="result"></div>
+
                 <div id="speakerButtons" class="button clearfix">
                   <button type="button" class="prev btn btn-default">Prev</button>
                   <button type="button" class="next btn btn-default">Next</button>
                 </div>
-
               </div>
 
               <div id="vcMicCheck" class="precheck mic">
@@ -72,7 +65,6 @@
                   <button type="button" class="prev btn btn-default">Prev</button>
                   <button type="button" class="next btn btn-default">Next</button>
                 </div>
-
               </div>
 
               <div id="vcWebCamCheck" class="precheck webcam">
@@ -81,15 +73,14 @@
                 <div id="webcamTempVideoCon">
                   <video id="webcamTempVideo"></video>
                 </div>
+
                 <div class="result"></div>
 
                 <div id="joinSession" class="button clearfix">
                   <button type="button" class="prev btn btn-default">Prev</button>
                   <button type="button" class="next btn btn-default">Join Session</button>
                 </div>
-
               </div>
-
             </div>
           </div>
         </div>

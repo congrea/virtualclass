@@ -248,7 +248,7 @@ this["JST"]["templates/teacherVideo.hbs"] = Handlebars.template({"1":function(co
     + "</div>\n\n";
 },"useData":true});
 
-this["JST"]["templates/whiteboard.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["JST"]["templates/whiteboard/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.whiteboardToolbar,depth0,{"name":"whiteboardToolbar","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
@@ -270,7 +270,7 @@ this["JST"]["templates/whiteboard.hbs"] = Handlebars.template({"1":function(cont
     + "\" tabindex=\"0\" width=\"730\" height=\"750\">\n        Canvas is missing in your browsers. Please update the latest version of your browser\n      </canvas>\n    </div>\n  </div>\n</div>";
 },"usePartial":true,"useData":true});
 
-this["JST"]["templates/whiteboardToolbar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["JST"]["templates/whiteboard/toolbar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div id=\"commandToolsWrapper"

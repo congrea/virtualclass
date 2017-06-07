@@ -69,24 +69,6 @@
              *
              */
             init: function (id) {
-
-                //this would be done because of possibility of conflict
-                //if(typeof virtualclass.wb[id].vcan != 'object'){
-                //    virtualclass.wb[id].vcan = new Vcan();
-                //    vanUtility(id);
-                //    vcanMain(id);
-                //    Events(id);
-                //    Virtualbox(id);
-                //    Interact(id);
-                //    Rectangle(id);
-                //    Oval(id);
-                //    Triangle(id);
-                //    Text(id);
-                //    Line(id);
-                //    FreeHandDrawing(id);
-                //    Optimize(id);
-                //}
-
                 var vcan = virtualclass.wb[id].vcan;
                 virtualclass.wb[id].canvas = vcan.create('#canvas'+id);
                 var canvasObj = vcan.main.canvas;
@@ -190,28 +172,13 @@
                 }
 
                 // var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
-                var toolTemplate = JST['templates/whiteboardToolbar.hbs'];
+                var toolTemplate = virtualclass.getTemplate('toolbar', 'whiteboard');
                 var cmdToolsWrapper = toolTemplate({cn:id});
 
                 var whiteboardCont = document.getElementById('containerWb'+id);
                 if(whiteboardCont != null){
                   whiteboardCont.insertAdjacentHTML('afterbegin', cmdToolsWrapper);
                 }
-
-                //
-                // virtualclass.vutil.createDiv('t_rectangle' + id, 'rectangle', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_line'+ id, 'line', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_freeDrawing' + id, 'freeDrawing', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_oval' + id, 'oval', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_triangle' + id, 'triangle', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_text' + id, 'text', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_activeall' + id, 'activeAll', cmdToolsWrapper, 'tool');
-                // virtualclass.vutil.createDiv('t_clearall' + id, 'clearAll', cmdToolsWrapper, 'tool');
-                //
-                // virtualclass.wb[id].socketOn = parseInt(wbUser.socketOn);
-                // if (virtualclass.wb[id].socketOn == 1) {
-                //     virtualclass.wb[id].utility.setClass('vcanvas' + id, 'socketon');
-                // }
             },
 
             //not using
@@ -228,61 +195,13 @@
                 return cmdToolsWrapper;
             },
 
-            /**
-             * this function does create the div
-             * toolId expect id for command
-             * text expects the text used for particular command
-             * TODO this shol
-             * this whole output process should come by
-             * html not javascript
-             *
-             * THIS FUNCTION IS NOT USING ANY MORE
-             */
-            //createDiv_old: function (toolId, text, cmdToolsWrapper, cmdClass) {
-            //    //console.log('class name ' + text);
-            //    var toolName = text;
-            //    var text = virtualclass.lang.getString(text);
-            //    var ancTag = document.createElement('a');
-            //    ancTag.href = '#';
-            //
-            //    var lDiv = document.createElement('div');
-            //    lDiv.id = toolId;
-            //    if (typeof cmdClass != 'undefined') {
-            //        lDiv.className = cmdClass;
-            //    }
-            //
-            //    var iconButton = document.createElement('span');
-            //    iconButton.className = "icon-" + toolName;
-            //    ancTag.appendChild(iconButton);
-            //    ancTag.dataset.title = text;
-            //    ancTag.className = 'tooltip';
-            //
-            //    lDiv.appendChild(ancTag);
-            //
-            //    if (toolId == 't_reclaim') {
-            //        var virtualclassCont = document.getElementById(virtualclass.html.id);
-            //        cmdToolsWrapper.appendChild(lDiv);
-            //        virtualclassCont.insertBefore(cmdToolsWrapper, virtualclassCont.firstChild);
-            //
-            //    } else {
-            //        cmdToolsWrapper.appendChild(lDiv);
-            //    }
-            //},
+
             /**
              * this funciton does create the canvasdd
              */
             createCanvas: function (id) {
                 var vcan = virtualclass.wb[id].vcan;
                 vcan.canvasWrapperId = cmdToolsWrapper.id;
-                //debugger;
-                // var cmdToolsWrapper = document.createElement('div');
-                // cmdToolsWrapper.id = vcan.canvasWrapperId;
-                // vcan.canvasWrapperId = cmdToolsWrapper.id;
-                // var canvas = document.createElement('canvas');
-                // canvas.id = 'canvas' + id;
-                // canvas.innerHTML = 'Canvas is missing in your browsers. Please update the latest version of your browser';
-                // cmdToolsWrapper.appendChild(canvas);
-                // document.getElementById('containerWb' + id).appendChild(cmdToolsWrapper);
             },
 
             /**

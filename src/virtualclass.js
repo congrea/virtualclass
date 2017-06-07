@@ -527,7 +527,7 @@
 
                             if(whiteboardContainer != null){
                               if(document.querySelector('vcanvas'+id) == null){
-                                var wbTemplate = virtualclass.getTemplate('whiteboard');
+                                var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
                                 var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
                                 whiteboardContainer.innerHTML = wbHtml;
                               }
@@ -924,12 +924,12 @@
               /** Registering the partials which does not have context **/
               Handlebars.registerPartial({
                 docNotesMain: this.getTemplate('notesMain', 'documentSharing') ,
-                whiteboardToolbar: this.getTemplate('whiteboardToolbar') ,
+                whiteboardToolbar: this.getTemplate('toolbar', 'whiteboard') ,
                 rightBar: this.getTemplate('rightBar') ,
                 recordingControl: this.getTemplate('recordingControl') ,
                 leftBar: this.getTemplate('leftBar') ,
                 main: this.getTemplate('main') ,
-                whiteboard: this.getTemplate('whiteboard')
+                whiteboard: this.getTemplate('main', 'whiteboard')
               });
             },
 
@@ -970,6 +970,11 @@
                Handlebars.registerPartial(tempname, template(context));
            },
 
+           /**
+            *  This function returns the template
+            *  name expects the template name
+            *  submodule expects the sub folder
+            */
            getTemplate : function (name, submodule){
                if(typeof submodule == 'undefined'){
                  var template = JST['templates/'+name+'.hbs'];

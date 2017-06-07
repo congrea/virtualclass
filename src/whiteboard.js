@@ -69,24 +69,6 @@
              *
              */
             init: function (id) {
-
-                //this would be done because of possibility of conflict
-                //if(typeof virtualclass.wb[id].vcan != 'object'){
-                //    virtualclass.wb[id].vcan = new Vcan();
-                //    vanUtility(id);
-                //    vcanMain(id);
-                //    Events(id);
-                //    Virtualbox(id);
-                //    Interact(id);
-                //    Rectangle(id);
-                //    Oval(id);
-                //    Triangle(id);
-                //    Text(id);
-                //    Line(id);
-                //    FreeHandDrawing(id);
-                //    Optimize(id);
-                //}
-
                 var vcan = virtualclass.wb[id].vcan;
                 virtualclass.wb[id].canvas = vcan.create('#canvas'+id);
                 var canvasObj = vcan.main.canvas;
@@ -189,19 +171,13 @@
                     return true;
                 }
 
-                var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
-                virtualclass.vutil.createDiv('t_rectangle' + id, 'rectangle', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_line'+ id, 'line', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_freeDrawing' + id, 'freeDrawing', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_oval' + id, 'oval', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_triangle' + id, 'triangle', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_text' + id, 'text', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_activeall' + id, 'activeAll', cmdToolsWrapper, 'tool');
-                virtualclass.vutil.createDiv('t_clearall' + id, 'clearAll', cmdToolsWrapper, 'tool');
+                // var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
+                var toolTemplate = virtualclass.getTemplate('toolbar', 'whiteboard');
+                var cmdToolsWrapper = toolTemplate({cn:id});
 
-                virtualclass.wb[id].socketOn = parseInt(wbUser.socketOn);
-                if (virtualclass.wb[id].socketOn == 1) {
-                    virtualclass.wb[id].utility.setClass('vcanvas' + id, 'socketon');
+                var whiteboardCont = document.getElementById('containerWb'+id);
+                if(whiteboardCont != null){
+                  whiteboardCont.insertAdjacentHTML('afterbegin', cmdToolsWrapper);
                 }
             },
 
@@ -219,60 +195,13 @@
                 return cmdToolsWrapper;
             },
 
+
             /**
-             * this function does create the div
-             * toolId expect id for command
-             * text expects the text used for particular command
-             * TODO this shol
-             * this whole output process should come by
-             * html not javascript
-             *
-             * THIS FUNCTION IS NOT USING ANY MORE
-             */
-            //createDiv_old: function (toolId, text, cmdToolsWrapper, cmdClass) {
-            //    //console.log('class name ' + text);
-            //    var toolName = text;
-            //    var text = virtualclass.lang.getString(text);
-            //    var ancTag = document.createElement('a');
-            //    ancTag.href = '#';
-            //
-            //    var lDiv = document.createElement('div');
-            //    lDiv.id = toolId;
-            //    if (typeof cmdClass != 'undefined') {
-            //        lDiv.className = cmdClass;
-            //    }
-            //
-            //    var iconButton = document.createElement('span');
-            //    iconButton.className = "icon-" + toolName;
-            //    ancTag.appendChild(iconButton);
-            //    ancTag.dataset.title = text;
-            //    ancTag.className = 'tooltip';
-            //
-            //    lDiv.appendChild(ancTag);
-            //
-            //    if (toolId == 't_reclaim') {
-            //        var virtualclassCont = document.getElementById(virtualclass.html.id);
-            //        cmdToolsWrapper.appendChild(lDiv);
-            //        virtualclassCont.insertBefore(cmdToolsWrapper, virtualclassCont.firstChild);
-            //
-            //    } else {
-            //        cmdToolsWrapper.appendChild(lDiv);
-            //    }
-            //},
-            /**
-             * this funciton does create the canvas
+             * this funciton does create the canvasdd
              */
             createCanvas: function (id) {
                 var vcan = virtualclass.wb[id].vcan;
-                //debugger;
-                var cmdToolsWrapper = document.createElement('div');
-                cmdToolsWrapper.id = vcan.canvasWrapperId;
                 vcan.canvasWrapperId = cmdToolsWrapper.id;
-                var canvas = document.createElement('canvas');
-                canvas.id = 'canvas' + id;
-                canvas.innerHTML = 'Canvas is missing in your browsers. Please update the latest version of your browser';
-                cmdToolsWrapper.appendChild(canvas);
-                document.getElementById('containerWb' + id).appendChild(cmdToolsWrapper);
             },
 
             /**
@@ -335,9 +264,7 @@
              * @param id expects the  id of container which contains all the commands of div
              */
             attachToolFunction: function (contId, alreadyCreated, id) {
-
                 virtualclass.wb[id].createCommand(alreadyCreated, id);
-
                 var allDivs = document.getElementById(contId).getElementsByTagName('div');
                 for (var i = 0; i < allDivs.length; i++) {
                     //TODO this will have to be fixed as it always assigned t_clearall

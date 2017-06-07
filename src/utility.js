@@ -1652,25 +1652,35 @@
            return element.closest(selector);
         },
 
-        showUploadTab : function (cont, cb, type, elemArr, inserBefore) {
-            var elem = document.createElement("div");
-            elem.id = "new"+type+"BtnCont";
-            if(typeof inserBefore == 'undefined'){
-                cont.appendChild(elem);
-            }else{
-                cont.insertBefore(elem, cont.firstChild);
-            }
+        // showUploadTab : function (cont, cb, type, elemArr, inserBefore) {
+        //     var elem = document.createElement("div");
+        //     elem.id = "new"+type+"BtnCont";
+        //     if(typeof inserBefore == 'undefined'){
+        //         cont.appendChild(elem);
+        //     }else{
+        //         cont.insertBefore(elem, cont.firstChild);
+        //     }
+        //
+        //
+        //     var btn = document.createElement("button");
+        //     btn.id = "newVideoBtn";
+        //     elem.appendChild(btn);
+        //
+        //     btn.innerHTML = "Upload Documents";
+        //
+        //     btn.addEventListener("click", function () {
+        //         cb(type, elemArr);
+        //     })
+        // },
 
-
-            var btn = document.createElement("button");
-            btn.id = "newVideoBtn";
-            elem.appendChild(btn);
-
-            btn.innerHTML = "Upload Documents";
-
-            btn.addEventListener("click", function () {
+        attachEventToUploadTab : function (type, elemArr, cb) {
+            var btn = document.getElementById("newDocBtn")
+            if(btn != null){
+              btn.addEventListener("click", function (){
+                console.log('Upload button is clicked');
                 cb(type, elemArr);
-            })
+              })
+            }
         },
 
         modalPopup: function (type, elemArr) {

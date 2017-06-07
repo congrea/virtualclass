@@ -16,7 +16,7 @@
             rw: "",
             poll:"",
             quiz:"",
-            lang: {},
+            //lang: {},
             error: [],
             gObj: {
                 uid: window.wbUser.id,
@@ -91,8 +91,8 @@
 
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
-                this.lang.getString = window.getString;
-                this.lang.message = window.message;
+                // this.lang.getString = window.getString;
+                // this.lang.message = window.message;
                 this.vutil = window.vutil;
                 this.media = window.media
                 this.sharePt= window.sharePt;
@@ -515,38 +515,54 @@
                             this.wb[id] = {};
                             virtualclass.gObj.tempReplayObjs[id] = [];
 
+
                             this.wb[id] = new window.whiteboard(this.wbConfig, id);
 
-                            this.wb[id].UI.mainContainer(container, id);
+                            // this.wb[id].UI.mainContainer(container, id);
+                            if(virtualclass.currApp == 'Whiteboard'){
+                              var whiteboardContainer = document.getElementById('virtualclassWhiteboard');
+                            }else {
+                              var whiteboardContainer = document.getElementById('cont' + id);
+                            }
 
-                            this.wb[id].utility = new window.utility();
-                            this.wb[id].alreadyReplay = false;[id]
-                            this.wb[id].packContainer = new window.packContainer();
-                            this.wb[id].draw_object = window.draw_object;
-                            this.wb[id].makeobj = window.makeobj;
-                            this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
-                            this.wb[id]._replay = _replay;
-                            this.wb[id].readyTextObj = window.readyTextObj;
-                            this.wb[id].bridge = window.bridge;
-                            this.wb[id].response = window.response;
-                            virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
+                            if(whiteboardContainer != null){
+                              if(document.querySelector('vcanvas'+id) == null){
+                                var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
+                                var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
+                                whiteboardContainer.innerHTML = wbHtml;
+                              }
+
+                              this.wb[id].utility = new window.utility();
+                              this.wb[id].alreadyReplay = false;
+                              this.wb[id].packContainer = new window.packContainer();
+                              this.wb[id].draw_object = window.draw_object;
+                              this.wb[id].makeobj = window.makeobj;
+                              this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
+                              this.wb[id]._replay = _replay;
+                              this.wb[id].readyTextObj = window.readyTextObj;
+                              this.wb[id].bridge = window.bridge;
+                              this.wb[id].response = window.response;
+                              virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
 
 
-                            var vcan = virtualclass.wb[id].vcan;
-                            if (roles.hasControls()) {
+                              var vcan = virtualclass.wb[id].vcan;
+                              if (roles.hasControls()) {
                                 virtualclass.wb[id].utility.setOrginalTeacherContent(app);
                                 virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                                 vcan.utility.canvasCalcOffset(vcan.main.canid);
-                            }
+                              }
 
-                            // Only need to  serve on after page refresh
-                            var that = this;
-                            virtualclass.storage.getWbData(id, function (){
+                              // Only need to  serve on after page refresh
+                              var that = this;
+                              virtualclass.storage.getWbData(id, function (){
                                 // if (!that.alreadyReplayFromStorage && that.gObj.tempReplayObjs[id].length > 0) {
                                 if (that.gObj.tempReplayObjs[id].length > 0) {
-                                    that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
+                                  that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
                                 }
-                            });
+                              });
+                            }else{
+                                alert('whiteboard container is null');
+                            }
                         } else {
                             //if command tool wrapper is not added
                             var commonWrapperId = 'commandToolsWrapper'+id;
@@ -883,10 +899,90 @@
                 localStorage.clear();
                 var prvUser = {id: wbUser.id, room: wbUser.room};
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
-            }
+            },
 
-            //TODO remove this function
+            registerPartial : function (){
+              var contPara = {'whiteboardPath' : whiteboardPath};
+
+              /** Registering the partials which have setting paramter **/
+              var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
+
+              var isControl = {hasControl : roles.hasControls()};
+              var context;
+              for(var i=0; i<initTemplates.length; i++){
+                context = null;
+                if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
+                  context = contPara;
+                }else if(initTemplates[i] == 'audioWidget'){
+                  context = virtualclassSetting;
+                }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                  context = isControl;
+                }
+                this.makeReadyTemplate(initTemplates[i], context);
+              }
+
+              /** Registering the partials which does not have context **/
+              Handlebars.registerPartial({
+                docNotesMain: this.getTemplate('notesMain', 'documentSharing') ,
+                whiteboardToolbar: this.getTemplate('toolbar', 'whiteboard') ,
+                rightBar: this.getTemplate('rightBar') ,
+                recordingControl: this.getTemplate('recordingControl') ,
+                leftBar: this.getTemplate('leftBar') ,
+                main: this.getTemplate('main') ,
+                whiteboard: this.getTemplate('main', 'whiteboard')
+              });
+            },
+
+            registerHelper : function (){
+              /** helper who returns the language String For template**/
+              Handlebars.registerHelper("getString", function(string) {
+                console.log('Language ' + string);
+                return virtualclass.lang.getString(string);
+              });
+
+              /** For debugging the handlebars code **/
+              Handlebars.registerHelper("debug", function(optionalValue) {
+                console.log("Current Context");
+                console.log("====================");
+                console.log(this);
+
+                if (optionalValue) {
+                  console.log("Value");
+                  console.log("====================");
+                  console.log(optionalValue);
+                }
+              });
+            },
+
             //the same function is defining at script.js
+            createMainContainer : function (){
+                var mainContainer = document.querySelector('#'+virtualclass.html.id);
+                this.registerHelper();
+                this.registerPartial();
+                /** inserting the main container of virtualclass **/
+                var mainTemplate = this.getTemplate('main');
+                var mainHtml = mainTemplate();
+                mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
+           },
+
+           makeReadyTemplate : function (tempname, context){
+               var template = JST['templates/'+tempname+'.hbs'];
+               Handlebars.registerPartial(tempname, template(context));
+           },
+
+           /**
+            *  This function returns the template
+            *  name expects the template name
+            *  submodule expects the sub folder
+            */
+           getTemplate : function (name, submodule){
+               if(typeof submodule == 'undefined'){
+                 var template = JST['templates/'+name+'.hbs'];
+               } else {
+                 var template = JST['templates/'+submodule+'/'+name+'.hbs'];
+               }
+               return template;
+           }
         };
 
         function capitalizeFirstLetter(string) {

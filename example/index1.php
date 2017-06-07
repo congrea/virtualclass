@@ -18,7 +18,7 @@
         }
 
 //the www path for virtualclass
-        $whiteboardpath = "https://local.vidya.io/virtualclass/";
+        $whiteboardpath = "https://local.vidya.io/congrea_te_online/";
 //$whiteboardpath = "http://local.vidya.io/virtualclass/";
 
         if (isset($_GET['themecolor'])) {
@@ -73,8 +73,8 @@
 
             @font-face {
                 font-family: 'icomoon';
-                src:url('/virtualclass/fonts/icomoon.eot?-jjdyd0');
-                src:url('/virtualclass/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+                src:url('/congrea_te_online/fonts/icomoon.eot?-jjdyd0');
+                src:url('/congrea_te_online/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/congrea_te_online/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/congrea_te_online/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/congrea_te_online/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -198,7 +198,7 @@ $ts = (isset($_GET['ts'])) ? $_GET['ts'] : false;
             window.io = io;
 
 
-            window.whiteboardPath = 'https://local.vidya.io/virtualclass/';
+            window.whiteboardPath = 'https://local.vidya.io/congrea_te_online/';
 
             window.importfilepath = window.whiteboardPath + 'import.php';
             window.exportfilepath = window.whiteboardPath + 'export.php';

@@ -1,0 +1,17 @@
+<div id="audioWidget">
+  <div id="mainAudioPanel">
+    <div id="speakerPressOnce" class="{{classes}}" data-audio-playing={{getString 'dap'}}>
+      <a id="speakerPressonceAnch" class="tooltip" data-title="{{audio_tooltip}}" name="speakerPressonceAnch">
+        <span id="speakerPressonceLabel" class="silenceDetect" data-silence-detect="stop"> <i> </i> </span>
+      </a>
+    </div>
+
+    <div id="videoPacketInfo">
+      <span id="videoSpeed">
+      <span id="videSpeedNumber" class="suggestion tooltip" data-suggestion="{{suggestion}}" data-title="{{getString 'proposedspeed'}}"> </span>
+      <span id="videLatency" class="latency  tooltip" data-latency="{{latency}}" data-title="{{getString 'audiolatency'}}">  </span>
+      <span id="videoFrameRate" class="quality  tooltip" data-quality="{{quality}}" data-title="{{getString 'videoquality'}}"> </span>
+      </span>
+    </div>
+  </div>
+</div>

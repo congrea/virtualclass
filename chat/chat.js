@@ -51,7 +51,7 @@ function (window, $) {
                 virtualclass.xhr.send(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_get_enrolled_users", function (msg) {
                     //debugger;
                     virtualclass.chat.userList = JSON.parse(msg);
-                    console.log(virtualclass.chat.userList);
+                    // console.log(virtualclass.chat.userList);
                     virtualclass.chat.showChatListUsers();
                     virtualclass.chat.setChatDisplay();
 

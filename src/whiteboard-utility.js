@@ -675,7 +675,7 @@
 
                 vcan.canvasWrapperId = 'canvasWrapper' + id;
                 if (document.getElementById('canvas' + id) == null) {
-                    virtualclass.wb[id].createCanvas(id);
+                      virtualclass.wb[id].createCanvas(id);
                 }
 
                 window.virtualclass.wb[id].init(id);

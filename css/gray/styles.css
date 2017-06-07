@@ -5041,3 +5041,14 @@ border-radius: 6px;
 #virtualclassCont.congrea #docScreenContainer .note canvas{
 	margin : -7px;
 }
+
+#virtualclassCont.congrea #screen-docs .linknotes img{
+	border : 	1px solid gray;
+	width : 70px;
+	height : 40px;
+	padding : 5px;
+}
+
+
+
+

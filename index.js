@@ -17,10 +17,12 @@ $(document).ready(function () {
     var virtualclass = new window.virtualclass();
 
     window.virtualclass = virtualclass; //Need virtualclass object in each file
-
-
     virtualclass.gObj.displayError = 1;
+    virtualclass.lang = {};
+    virtualclass.lang.getString = window.getString;
+    virtualclass.lang.message = window.message;
 
+    virtualclass.createMainContainer();
     // TODO Error when screenShare or YouTube is default application
     //  var appIs = "EditorRich";
     // var appIs = "Whiteboard";

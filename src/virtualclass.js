@@ -527,9 +527,9 @@
 
                             if(whiteboardContainer != null){
                               if(document.querySelector('vcanvas'+id) == null){
-                                var wbTemplate = JST['templates/whiteboard.hbs'];
+                                var wbTemplate = virtualclass.getTemplate('whiteboard');
                                 var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
-                                whiteboardContainer.innerHTML  = wbHtml;
+                                whiteboardContainer.innerHTML = wbHtml;
                               }
 
                               this.wb[id].utility = new window.utility();
@@ -923,15 +923,14 @@
 
               /** Registering the partials which does not have context **/
               Handlebars.registerPartial({
-                docNotesMain: JST['templates/docNotesMain.hbs'],
-                whiteboardToolbar: JST['templates/whiteboardToolbar.hbs'],
-                rightBar: JST['templates/rightBar.hbs'],
-                recordingControl: JST['templates/recordingControl.hbs'],
-                leftBar: JST['templates/leftBar.hbs'],
-                main: JST['templates/main.hbs'],
-                whiteboard: JST['templates/whiteboard.hbs']
+                docNotesMain: this.getTemplate('notesMain', 'documentSharing') ,
+                whiteboardToolbar: this.getTemplate('whiteboardToolbar') ,
+                rightBar: this.getTemplate('rightBar') ,
+                recordingControl: this.getTemplate('recordingControl') ,
+                leftBar: this.getTemplate('leftBar') ,
+                main: this.getTemplate('main') ,
+                whiteboard: this.getTemplate('whiteboard')
               });
-
             },
 
             registerHelper : function (){
@@ -940,8 +939,6 @@
                 console.log('Language ' + string);
                 return virtualclass.lang.getString(string);
               });
-
-
 
               /** For debugging the handlebars code **/
               Handlebars.registerHelper("debug", function(optionalValue) {
@@ -963,7 +960,7 @@
                 this.registerHelper();
                 this.registerPartial();
                 /** inserting the main container of virtualclass **/
-                var mainTemplate = JST['templates/main.hbs'];
+                var mainTemplate = this.getTemplate('main');
                 var mainHtml = mainTemplate();
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
            },
@@ -972,6 +969,15 @@
                var template = JST['templates/'+tempname+'.hbs'];
                Handlebars.registerPartial(tempname, template(context));
            },
+
+           getTemplate : function (name, submodule){
+               if(typeof submodule == 'undefined'){
+                 var template = JST['templates/'+name+'.hbs'];
+               } else {
+                 var template = JST['templates/'+submodule+'/'+name+'.hbs'];
+               }
+               return template;
+           }
         };
 
         function capitalizeFirstLetter(string) {

@@ -16,6 +16,7 @@
             allDocs : null, // This contains all docs received from server
             notes : null,
             order : [],
+            tempFolder : "documentSharing",
             init: function(docsObj) {
                 firstTime = true;
                 if(virtualclass.gObj.hasOwnProperty('docs') &&  typeof virtualclass.gObj.docs == 'string'){
@@ -169,15 +170,15 @@
                 //this.UI.createSlides(pageContainer, allNotes);
                 if(pageContainer == null){
                   var tempCont = {notes : allNotes, hasControls : roles.hasControls(), cd : currDoc};
-                  template =  'docMain.hbs';
+                  template =  'screen';
                   mainContainer = document.querySelector('#docScreenContainer');
 
                 }else{
                   tempCont = {notes :  allNotes};
-                  template = 'docNotesMain.hbs';
+                  template = 'notesMain';
                   mainContainer =  document.querySelector('#screen-docs #notesContainer');
                 }
-                template =  JST['templates/'+template];
+                template =  virtualclass.getTemplate(template, 'documentSharing');
                 tempHtml = template(tempCont);
 
                 if(mainContainer != null){
@@ -667,11 +668,10 @@
                  */
                 container : function () {
                     var docShareCont = document.getElementById(this.id);
-
                     if(docShareCont == null){
                         var control= roles.hasAdmin()?true:false;
                         var data ={"control":control};
-                        var template = JST['templates/docShare.hbs'];
+                        var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         $('#virtualclassAppLeftPanel').append(template(data));
 
                         //
@@ -692,7 +692,6 @@
                 },
 
                 createSlides : function (pageContainer, allNotes){
-
                     var notes = document.querySelector('#notesContainer');
                     if(notes == null){
                         notes = document.createElement('div');

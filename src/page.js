@@ -97,12 +97,12 @@
         this.UI.controller.init(this, lid);
 
       } else if (this.type == 'docs') {
-        var dsTemplate = JST['templates/docDocs.hbs'];
+        var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
         docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
         this.UI.controller.init(this, lid);
 
       } else if (this.type == 'notes') {
-          var nstemplate = JST['templates/docNotesNav.hbs'];
+          var nstemplate = virtualclass.getTemplate('notesNav', virtualclass.dts.tempFolder);
           var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
           var note  = virtualclass.dts.getNote(this.rid);
           context.content_path = note.content_path;

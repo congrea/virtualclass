@@ -1,0 +1,24 @@
+<div id="virtualclassScreenShare" class="virtualclass ">
+  {{#if control}}
+    {{#if recImg}}
+      <div id="virtualclassScreenShareLocalTemp">
+        <canvas id="virtualclassScreenShareLocalTempVideo" width="1440" height="738"></canvas>
+      </div>
+    {{else}}
+      <div id="virtualclassScreenShareLocal" class="Local " style="position: relative; width: 1536px; height: 677px;">
+        <video id="virtualclassScreenShareLocalVideo" autoplay="true" src=" "></video>
+      </div>
+    {{/if}}
+  {{else}}
+    <div id="virtualclassScreenShareLocal" class="Local">
+      <canvas id="virtualclassScreenShareLocalVideo" width="886" height="724"></canvas>
+    </div>
+  {{/if}}
+  {{#if control}}
+    {{#unless recImg}}
+      <div id="virtualclassScreenShareLocalTemp">
+        <canvas id="virtualclassScreenShareLocalTempVideo" width="900" height="740"></canvas>
+      </div>
+    {{/unless}}
+  {{/if}}
+</div>

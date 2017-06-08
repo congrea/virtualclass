@@ -235,6 +235,31 @@ this["JST"]["templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4
     + "  <div id=\"chatWidget\">\n    <div id=\"stickycontainer\"></div>\n    <div id=\"congreaChatCont\"></div>\n  </div>\n</div>";
 },"usePartial":true,"useData":true});
 
+this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.recImg : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "");
+},"2":function(container,depth0,helpers,partials,data) {
+    return "      <div id=\"virtualclassScreenShareLocalTemp\">\n        <canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"1440\" height=\"738\"></canvas>\n      </div>\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "      <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative; width: 1536px; height: 677px;\">\n        <video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video>\n      </div>\n";
+},"6":function(container,depth0,helpers,partials,data) {
+    return "    <div id=\"virtualclassScreenShareLocal\" class=\"Local\">\n      <canvas id=\"virtualclassScreenShareLocalVideo\" width=\"886\" height=\"724\"></canvas>\n    </div>\n";
+},"8":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.recImg : depth0),{"name":"unless","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"9":function(container,depth0,helpers,partials,data) {
+    return "      <div id=\"virtualclassScreenShareLocalTemp\">\n        <canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"900\" height=\"740\"></canvas>\n      </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+
+  return "<div id=\"virtualclassScreenShare\" class=\"virtualclass \">\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</div>";
+},"useData":true});
+
 this["JST"]["templates/teacherVideo.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "    <video id=\"videoHostSource\" autoplay=\"\"></video>\n    <canvas id=\"videoHost\"></canvas>\n    <canvas id=\"videoHostSlice\"></canvas>\n";
 },"3":function(container,depth0,helpers,partials,data) {

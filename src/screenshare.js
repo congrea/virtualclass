@@ -25,7 +25,7 @@
              * @param data_pack data pack contains encoded data to sent receiver
              * @param  msg  is a unit8clampped array or unit8array based on the protocol saved a the first element in data_Pack
              * @param  stype type of the application such as "ss
-             * @param  sTool tool for the application here it is screen share 
+             * @param  sTool tool for the application here it is screen share
              */
             ssProcess: function (data_pack, msg, stype, sTool) {
                 var mycase = data_pack[0];
@@ -72,13 +72,13 @@
             },
             /*
              * Initializes the student screen, makes the application ready
-             * calls functions to set dimension of student screen 
+             * calls functions to set dimension of student screen
              * setting dimension of student's screen
              * drwaing image on the screen of student
              * @param  imgData
              * @param  d dimension object
              * @param  stype type of the application such as ss for screen share
-             * @param  stool  screen share 
+             * @param  stool  screen share
              */
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
@@ -127,7 +127,7 @@
         }
     };
     /*
-     * This function returns an object that contains all the functions necessary to use the application share screen 
+     * This function returns an object that contains all the functions necessary to use the application share screen
      * such as to initalize screen, get screen(screen selector window) on different browsers,
      * Creating container,
      * Recording screen ,
@@ -135,7 +135,7 @@
      * @param  config is an object containg id and class properties of the application to be shared,
      * on student's screen.
      * @return  returns an object containing various methods for screen share
-     * 
+     *
      */
     var screenShare = function (config) {
         /*
@@ -201,7 +201,7 @@
 
         return {
             prevStream: false,
-            /* 
+            /*
              * This function is invoked on clicking screen share icon .
              * At the teacher's window screen share application is started ,
              * And on student's window _init function is invoked to inilize screen
@@ -209,7 +209,7 @@
 
              */
             init: function (screen) {
-                
+
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;
@@ -230,9 +230,9 @@
 
             /*
              * Called when user select the screenshare
-             * configuring the screen 
+             * configuring the screen
              * inilizing student screen
-             * 
+             *
              */
             _init: function () {
 
@@ -295,14 +295,14 @@
             /*
              * Displays the error if any
              * @param e error
-             * 
+             *
              */
             onError: function (e) {
                 virtualclass.ss.setCurrentApp();
                 console.log("Error " + e);
             },
             /*
-             * To Get screen for Firefox and chrome, 
+             * To Get screen for Firefox and chrome,
              * in case of crome if desktop extension is added it is used otherwise
              * it is added from the crome webstore
              * @param callback is unused
@@ -330,7 +330,7 @@
              *  clear previous screen from teacher's window
              *  The operation beforeSend is performed that
              *  sends data to the student that previous screen is to be unshared
-             *  
+             *
              */
             unShareScreen: function () {
                 this.video.src = "";
@@ -358,7 +358,7 @@
              * the media stream to the canvas element
              * it calls sharing function that share's the screen in the form of video to the student screen
              * clears the screen on cancelling screen share
-             * @param stream 
+             * @param stream
              */
 
             initializeRecorder: function (stream) {
@@ -425,7 +425,7 @@
                 /*
                  * Event handler on loading meta data of the video
                  * Setting container width
-                 * calling sharing function to share screen 
+                 * calling sharing function to share screen
                  * making screenshare active application and removing previous application
                  */
                 this.video.onloadedmetadata = function () {
@@ -482,7 +482,7 @@
 
                 var screenIntervalTime = 1000;
                 /*
-                 * To send full  encoded image data and status code 
+                 * To send full  encoded image data and status code
                  * @param  type type of the application
                  * @returns sendmsg message containg imagedata and encoded data
                  */
@@ -505,7 +505,7 @@
                     return sendmsg;
 
                 };
-                /* Encoded message is sent to student, 
+                /* Encoded message is sent to student,
                  * Getting full video data on resize of the window
                  * @param  stype implies screenshare
                  * @returns {Uint8ClampedArray}
@@ -557,7 +557,7 @@
 
                 /*
                  * Breaking  value into parts
-                 * @param  val width or height 
+                 * @param  val width or height
                  * @param l  length to make of val by appending zero
                  * @returns returning comma separated string
                  */
@@ -599,7 +599,7 @@
                 /*
                  * Setting screen interval time based on the size of image to be sent
                  * @param  localBandwidth image size that is to be sent
-                 * 
+                 *
                  */
                 function calcBandwidth(localBandwidth) {
                     switch (true) {
@@ -621,7 +621,7 @@
                  * Getting the changed width and height of the new screen
                  * Creating image nd calculating bandwidth
                  * And sending binary data of image
-                 * setting the interval for function send screen 
+                 * setting the interval for function send screen
                  */
                 function sendResizeWindow() {
                     console.log('RESIZE');
@@ -653,7 +653,7 @@
                 /*
                  * Sending data in the form of  slices , to send only that part that is changed in the video of screen share
                  * image data is provided to the worker that is calulating change part for the main javascript thread
-                 * @param type : type of the application 
+                 * @param type : type of the application
                  */
                 function sendDataImageSlices(type) {
                     //var localBandwidth = 0;
@@ -680,7 +680,7 @@
                             type: that.type
                         }, [masterImgData.data.buffer]);
 
-                        // Every time the data is sending the function 
+                        // Every time the data is sending the function
                         // is declaring as expression which is not good
                         sworker.onmessage = function (e) {
                             if (e.data.needFullScreen == 1) { //sending full screen here
@@ -731,9 +731,9 @@
             },
             /*
              * Setting with and height of container canvas at student's screen
-             * @param cWidth width 
+             * @param cWidth width
              * @param cHeight height
-             * 
+             *
              */
 
             dimensionStudentScreen: function (cWidth, cHeight) {
@@ -744,7 +744,7 @@
                 console.log("normal width " + this.localCanvas.width);
             },
             /*
-             * setting dimension of virtual class container and setting dimension of screen share canvas 
+             * setting dimension of virtual class container and setting dimension of screen share canvas
              * at student's side
              * @param msg  dimension object for local canvas for screen share and virtual container
              * @param vtype this variable is not being used

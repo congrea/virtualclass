@@ -1,0 +1,9 @@
+<div id="virtualclassYts" class="virtualclass">
+  <div id="player"></div>
+  {{#if hascontrol}}
+    {{> ytscontrol}}
+  {{/if}}
+  {{#if createMsg}}
+    <p id="messageLayout">YouTube video will be shared shortly.</p>
+  {{/if}}
+</div>

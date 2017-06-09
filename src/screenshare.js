@@ -379,6 +379,8 @@
                     this.video.parentNode.replaceChild(video, this.video);
                     this.video = document.getElementById(this.local + "Video");
                     this.video.autoplay = true;
+                    // TODO very critical to check this diabled portion, need to verify
+                    //virtualclass.vutil.createLocalTempVideo("virtualclassScreenShare", this.local + "Temp");
                     virtualclass.vutil.initLocCanvasCont(this.local + "Temp" + "Video");
                 }
                 this.currentStream = stream;

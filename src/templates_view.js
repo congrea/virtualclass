@@ -200,6 +200,24 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + " </span>\n    </div>\n\n  </div>\n</div>";
 },"useData":true});
 
+this["JST"]["templates/ppt/mszdisplay.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<p id=\"pptMessageLayout\">Presentation will be shared shortly</p>";
+},"useData":true});
+
+this["JST"]["templates/ppt/ppt.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return "    <div id=\"urlcontainer\" style=\"display: block;\">\n      <input id=\"presentationurl\" placeholder=\"Enter HTML5 Presentation Url.\">\n      <input type=\"submit\" id=\"submitpurl\" value=\"submit\">\n    </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div id=\"virtualclassSharePresentation\" class=\"virtualclass\">\n"
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</div>";
+},"useData":true});
+
+this["JST"]["templates/ppt/pptiframe.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"iframecontainer\" style=\"height: 90%; width: 100%; display: block;\">\n  <iframe id=\"pptiframe\" style=\"height: 100%; width: 100%;\">\n  </iframe>\n</div>\n";
+},"useData":true});
+
 this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 

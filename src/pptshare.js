@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,7 +9,7 @@
     var  io = window.io;
     /*
      * It handles  message event fired on changing state of the slides
-     * Message event  can be fired by  using postMessage or by changing 
+     * Message event  can be fired by  using postMessage or by changing
      * state of the slides.
      *and teacher  broadcasts the state to the students
      *@param  message event received
@@ -33,9 +33,9 @@
             startFromFlag:0,
             startFrom:0,
             /*
-             * Initalizes and creates ppt layout at student's and teacheh's ends 
+             * Initalizes and creates ppt layout at student's and teacheh's ends
              * @param app sharePresentation
-             * @param cusEvent byclick event 
+             * @param cusEvent byclick event
              */
             init: function(app, cusEvent) {
                 //debugger;
@@ -61,7 +61,7 @@
 
                 if (roles.hasControls()) {
                     var that = this;
-                    this.UI.createUrlContainer();
+
                     var urlCont = document.getElementById('urlcontainer');
                     if (messageContainer != null) {
                         messageContainer.style.display = "none";
@@ -86,7 +86,7 @@
                 this.findInStorage();
                 virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
             },
-            /* 
+            /*
              *if there is refresh/reload find url and state from the localStorage and sets the control
              */
             findInStorage: function() {
@@ -128,7 +128,7 @@
                 virtualclass.previrtualclass = 'virtualclass' + virtualclass.currApp;
             },
             /*
-             * set state ,state retrieved from localStorage   
+             * set state ,state retrieved from localStorage
              * @param  state ,saved state in local storage
              */
 
@@ -170,7 +170,7 @@
                             virtualclass.sharePt.state = pptData.state;
                         }
                         // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
-                        // we need to add over here 
+                        // we need to add over here
 
                         if (pptData.eventName == 'ready') {
 
@@ -277,7 +277,7 @@
                 this.eventsObj.push({name: pptData.eventName, time: Date.now()});
                 if (this.eventsObj.length >= 2) {
                     if (this.eventsObj[0].name == 'slidechanged' && this.eventsObj[1].name == 'slidechanged') {
-                        // perform only in rearest case, 
+                        // perform only in rearest case,
                         this.autoSlideTime = this.eventsObj[1].time - this.eventsObj[0].time;
                         console.log("auto slide time withoutpause" + this.autoSlideTime);
                     } else if (this.eventsObj[0].name == 'autoslideresumed' && this.eventsObj[1].name == 'slidechanged') {
@@ -349,9 +349,9 @@
             },
 
             /*
-             *Removes control from student's end 
-             *and removes auto slide also 
-             * 
+             *Removes control from student's end
+             *and removes auto slide also
+             *
              */
             removeControls: function() {
                 setTimeout(function() {
@@ -396,7 +396,7 @@
             /*
              * Creates the layout at the  student's side
              * Sets Url of the slide and after that sets state on receiveing changed state from the sender
-             * @param receivemsg  received message by the student 
+             * @param receivemsg  received message by the student
              */
             onPptMsgReceive: function(receivemsg) {
 
@@ -443,7 +443,7 @@
                 }
             },
             /*
-             * calls function to create the ppt container at students end 
+             * calls function to create the ppt container at students end
              * @param  receivemsg ppt data recevied from the teacher
              */
             displayFrame: function() {
@@ -548,9 +548,9 @@
 
             /*
              *event handler on click of submit button of the url at teacher's end
-             *Calls function to set up the url 
-             *calls function to validate the entered url 
-             * @param receivemsg  received message by the student 
+             *Calls function to set up the url
+             *calls function to validate the entered url
+             * @param receivemsg  received message by the student
              */
             initNewPpt : function() {
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
@@ -588,7 +588,7 @@
                 }
             },
             /*
-             * Removes unnessary characters from the entered url, url copied from slides.com may contain hash  
+             * Removes unnessary characters from the entered url, url copied from slides.com may contain hash
              * @param hashedUrl url entered by the user
              */
             cleanupUrl: function(hashedUrl) {
@@ -599,7 +599,7 @@
                 return hashedUrl;
             },
             /*
-             * Assign frame's src as the url of the slide 
+             * Assign frame's src as the url of the slide
              * @param urlValue of the slide to be set in appropriate format
              */
             setPptUrl: function(urlValue) {
@@ -618,7 +618,7 @@
 
             },
             /*
-             * Validate url 
+             * Validate url
              * @param str url to validate
              */
             validURLWithDomain: function(str) {
@@ -627,7 +627,7 @@
             },
             /*
              * adding embed and https if not present in the url
-             * @param str completing the url 
+             * @param str completing the url
              */
             completeUrl: function(str) {
                 if (str.search("slides.com") > 0 && str.search("embed") < 0) {
@@ -654,7 +654,7 @@
 
             /*
              * if entered url is an ip address return true else return false
-             * @param str to check for an ip 
+             * @param str to check for an ip
              */
             isUrlip: function(str) {
                 // removing // from url
@@ -663,7 +663,7 @@
             },
             /*
              * Save the previous  objet in the localstorag on page refresh
-             * @param prvAppObj previous object it shareppt object 
+             * @param prvAppObj previous object it shareppt object
              */
             saveIntoLocalStorage: function(prvAppObj) {
                 //debugger;
@@ -705,7 +705,7 @@
                 if (pptMessageLayout != null) {
                     pptMessageLayout.style.display = "none";
                 }
-                virtualclass.sharePt.UI.createUrlContainer();
+                //virtualclass.sharePt.UI.createUrlContainer();
                 document.getElementById('urlcontainer').style.display = "block";
                 virtualclass.sharePt.eventsObj = [];
             },
@@ -759,93 +759,43 @@
                 id: 'virtualclassSharePresentation',
                 class: 'virtualclass',
                 /*
-                 * Creates container for the ppt 
+                 * Creates container for the ppt
                  */
                 container: function() {
-                    console.log("test create main  container with id virtualclassSharePresentation");
-                    var that = this;
-                    var pptCont = document.getElementById(that.id);
-                    if (pptCont != null) {
-                        pptCont.parentNode.removeChild(pptCont);
-                    }
-                    var divppt = document.createElement('div');
-                    divppt.id = that.id;
-                    divppt.className = that.class;
-
-                    virtualclass.vutil.insertIntoLeftBar(divppt);
-                    //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    //console.log(beforeAppend.parentNode);
-                    //beforeAppend.parentNode.insertBefore(divppt, beforeAppend);
+                    var control= roles.hasAdmin()?true:false;
+                    var data ={"control":control};
+                    var template = JST['templates/ppt/ppt.hbs'];
+                    $('#virtualclassAppLeftPanel').append(template(data));
                 },
                 /*
-                 * 
+                 *
                  * Creates iframecontainer and iframe for the ppt
                  */
                 createIframe: function() {
                     var ct = document.getElementById("iframecontainer");
-                    if(ct !=null) {
+                    if (ct != null) {
                         ct.parentNode.removeChild(ct);
                     }
                     console.log("test create ppt  iframe");
-                    //debugger;
-                    var pptCtr = document.getElementById("virtualclassSharePresentation");
-                    if (pptCtr != null) {
-                        var contDiv = document.createElement("div");
-                        pptCtr.appendChild(contDiv);
-                        contDiv.style.display = "none";
-                    }
-
-                    var elem = document.createElement("div");
-                    elem.setAttribute("id", "iframecontainer");
-                    elem.style.height = '100%';
-                    elem.style.width = '100%';
-                    pptCtr.insertBefore(elem, pptCtr.firstChild);
-                    elem.style.display = "none";
-
-                    var ct = document.getElementById("iframecontainer");
-                    var frame = document.createElement("iframe");
-                    ct.appendChild(frame);
-                    frame.setAttribute("id", "pptiframe");
-                    frame.style.height = '100%';
-                    frame.style.width = '100%';
-                },
-                /*
-                 * 
-                 * Create container for the text box to enter url and for submit button
-                 */
-                createUrlContainer: function() {
-                    var pptCont = document.getElementById("virtualclassSharePresentation");
-                    if (document.getElementById('urlcontainer') == null) {
-                        var urlc = document.createElement("div");
-
-                        urlc.setAttribute("id", "urlcontainer");
-                        pptCont.appendChild(urlc);
-
-                        var url = document.createElement("input");
-                        url.setAttribute("id", "presentationurl");
-                        url.setAttribute("placeholder", virtualclass.lang.getString('ppturl'));
-                        urlc.appendChild(url);
-                        var btn = document.createElement("input");
-                        btn.setAttribute("type", "submit");
-                        btn.setAttribute("id", "submitpurl");
-                        btn.setAttribute("value", "submit");
-                        urlc.appendChild(btn);
-                    }
+                  //debugger;
+                  // var iframe = $('#template-ppt-iframe').html();
+                    var template = JST['templates/ppt/pptiframe.hbs'];
+                    $('#virtualclassSharePresentation').children().before(template)
                 },
 
+
                 /*
-                 * 
+                 *
                  * display message on student's screen that ppt is going to be shared
                  */
                 messageDisplay: function() {
-                    var messageLayoutId = 'pptMessageLayout';
-                    if (document.getElementById(messageLayoutId) == null) {
-                        var pptContainer = document.getElementById("virtualclassSharePresentation");
-                        var studentMessage = document.createElement('p');
-                        studentMessage.id = messageLayoutId;
-                        studentMessage.innerHTML = virtualclass.lang.getString('pptscreenstudent');
-                        pptContainer.appendChild(studentMessage);
+
+                    var msg = document.getElementById('pptMessageLayout')
+                    if(msg) {
+                        msg.parentNode.removeChild(msg)
                     }
+                    var template = JST['templates/ppt/mszdisplay.hbs'];
+                    $('#virtualclassSharePresentation').append(template())
                 },
 
                 removeIframe : function (){

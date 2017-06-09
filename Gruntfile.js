@@ -43,7 +43,7 @@ module.exports = function(grunt) {
              *  if so there will be peform the task hanldebars which does precompile (.hbs to .js)
              *  **/
             templates : {
-              files: ["templates/*.hbs"],
+              files: ["templates/**/*.hbs"],
               tasks: ['handlebars']
             },
 

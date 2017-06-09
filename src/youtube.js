@@ -21,9 +21,9 @@
             retryForPalyer: 1, // Not being used
             player: '',
             /*
-             * it creates the the necessary layout and containers to place 
-             * video and to input url 
-             * Call to the function to create player object 
+             * it creates the the necessary layout and containers to place
+             * video and to input url
+             * Call to the function to create player object
              * @param  videoObj
              * @param  startFrom the position from where to start playing video in second
 
@@ -86,8 +86,8 @@
 
             },
             /*
-             * this function is called  when we leave  the video player's page 
-             * 
+             * this function is called  when we leave  the video player's page
+             *
              */
             destroyYT: function () {
 
@@ -117,27 +117,18 @@
                     if (ytsCont != null) {
                         ytsCont.parentNode.removeChild(ytsCont);
                     }
+                    var ytscntrl = virtualclass.getTemplate('ytscontrol','youtube');
+                    var ytscntrlhtml = ytscntrl();
+                    Handlebars.registerPartial("ytscontrol", ytscntrlhtml);
 
-                    var divYts = document.createElement('div');
-                    divYts.id = this.id;
-                    divYts.className = this.class;
-
-                    this.createPlayerTag(divYts);
-
-
-                    virtualclass.vutil.insertIntoLeftBar(divYts);
-                    //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                    //beforeAppend.parentNode.insertBefore(divYts, beforeAppend);
-                    //document.getElementById(virtualclass.html.id).insertBefore(divYts, beforeAppend);
+                    var ytsVd = virtualclass.getTemplate('yts','youtube');
+                    var context = {createMsg : false, hascontrol : roles.hasControls()};
+                    var ytshtml = ytsVd(context);
+                    $('#virtualclassAppLeftPanel').append(ytshtml);
 
                 },
 
-                createPlayerTag: function (divYts) {
-                    var divPlayer = document.createElement('div');
-                    divPlayer.id = "player";
-                    divYts.appendChild(divPlayer);
-                },
-                /* 
+                /*
                  * This function is being called when the teacher's role is assigned to student
                  * A layout to place video is created by this function
                  * it creates layout to place video and url placeholder
@@ -145,28 +136,25 @@
 
 
                 defaultLayoutForStudent: function () {
+
                     var ytsContainer = document.getElementById(this.id);
-                    if (ytsContainer == null) {
-                        ytsContainer = document.createElement('div');
-                        ytsContainer.id = this.id;
-                        ytsContainer.className = this.class;
-                        var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                        beforeAppend.parentNode.insertBefore(ytsContainer, beforeAppend);
-
-                        //document.getElementById(virtualclass.html.id).insertBefore(ytsContainer, beforeAppend);
+                    if (ytsContainer != null) {
+                        ytsContainer.parentNode.removeChild(ytsContainer);
                     }
-
+                    var ytsVd = virtualclass.getTemplate('yts','youtube');
+                    var context = {createMsg : (roles.hasControls() ? false : true), hascontrol : roles.hasControls()};
+                    var ytshtml = ytsVd(context);
+                    $('#virtualclassAppLeftPanel').append(ytshtml);
+                    var ytsContainer = document.getElementById('virtualclassYts');
                     var youtubeUrlContainer = document.getElementById('youtubeUrlContainer');
                     if (youtubeUrlContainer != null) {
                         youtubeUrlContainer.parentNode.removeChild(youtubeUrlContainer);
                     }
 
+                    //
                     var messageLayoutId = 'messageLayout';
                     if (document.getElementById(messageLayoutId) == null) {
-                        var studentMessage = document.createElement('p');
-                        studentMessage.id = messageLayoutId;
-                        studentMessage.innerHTML = virtualclass.lang.getString('teachermayshow');
-                        ytsContainer.appendChild(studentMessage);
+                        var studentMessage = document.getElementById('messageLayout');
                     }
 
                 },
@@ -174,59 +162,40 @@
                  * Creating input  and submit element  for the url
                  * On clicking submit button an object containing video object is sent to the students
                  * Calling function to create player object
-                 * 
+                 *
                  */
                 inputURL: function () {
                     var studentMessage = document.getElementById('messageLayout');
                     if (studentMessage != null) {
                         studentMessage.parentNode.removeChild(studentMessage);
                     }
-
-                    if (document.getElementById('youtubeUrlContainer') == null) {
-                        var uiContainer = document.createElement('div');
-                        uiContainer.id = "youtubeUrlContainer";
-
-                        var input = document.createElement("input");
-                        input.id = "youtubeurl";
-                        input.cols = 70;
-                        input.rows = 3;
-                        input.placeholder = virtualclass.lang.getString("youTubeUrl");
-
-                        //var tnode = document.createTextNode("Please put here youtube url");
-                        //input.appendChild(tnode);
-
-                        document.getElementById('virtualclassYts').appendChild(input);
-
-                        uiContainer.appendChild(input);
-
-                        var submitURL = document.createElement('button');
-                        submitURL.id = 'submitURL';
-                        submitURL.innerHTML = virtualclass.lang.getString('shareYouTubeVideo');
-
-                        uiContainer.appendChild(submitURL);
-
-                        var ytsCont = document.getElementById('virtualclassYts');
-                        var playerTag = document.getElementById('player');
-
-                        // referenceNode.nextSibling, insert after
-                        ytsCont.insertBefore(uiContainer, playerTag.nextSibling);
-
-                        //for teachers'
-                        submitURL.addEventListener('click', function () {
-
-                            var videourl = document.getElementById('youtubeurl').value;
-                            var videoId = virtualclass.yts.getVideoId(videourl);
-
-                            if (typeof videoId == 'boolean') {
-                                alert('Invalid YouTube URL.');
-                                return;
-                            }
-
-                            virtualclass.yts.videoId = videoId;
-                            virtualclass.yts.onYTIframApi(videoId);
-                            ioAdapter.mustSend({'yts': {'init': videoId}, 'cf': 'yts'});
-                        });
+                    var ytsctrl = document.getElementById('youtubeUrlContainer');
+                    if(typeof ytsctrl == 'undefined' || ytsctrl == null){
+                        console.log('yts url container create');
+                        //var ytscntrl = JST['templates/ytscontrol.hbs'];
+                        var ytscntrl = virtualclass.getTemplate('ytscontrol','youtube');
+                        var ytscntrlhtml = ytscntrl();
+                        Handlebars.registerPartial("ytscontrol", ytscntrlhtml);
+                        $('#virtualclassYts').append(ytscntrlhtml);
                     }
+                    //for teachers'
+
+                    var submitURL = document.getElementById('submitURL');
+                    submitURL.addEventListener('click', function () {
+
+                        var videourl = document.getElementById('youtubeurl').value;
+                        var videoId = virtualclass.yts.getVideoId(videourl);
+
+                        if (typeof videoId == 'boolean') {
+                            alert('Invalid YouTube URL.');
+                            return;
+                        }
+
+                        virtualclass.yts.videoId = videoId;
+                        virtualclass.yts.onYTIframApi(videoId);
+                        ioAdapter.mustSend({'yts': {'init': videoId}, 'cf': 'yts'});
+                    });
+
                 },
                 /*
                  * removeing the video url container
@@ -289,7 +258,7 @@
             },
             /*
              * Creates player object
-             * @param  videoId 
+             * @param  videoId
              * @param  playStratFrom If page is reloaded it starts from the last left position
              * @param  fromReload If video is reloaded due to page refresh then it is defined otherwise it is undefined
 
@@ -366,11 +335,11 @@
 
             },
             /*
-             * Once the player is ready  this is triggered  after every two second to 
+             * Once the player is ready  this is triggered  after every two second to
              * find the  video' s state ,position and mute or unmute.
              * it checks for  the video's current time , state and mute or unmute
-             * and calls the corrending functions to update at the receiver 
-             * 
+             * and calls the corrending functions to update at the receiver
+             *
              */
             triggerOnSeekChange: function () {
                 //this.actualCurrentTime = this.player.getCurrentTime();
@@ -447,7 +416,7 @@
              * this event handler is called when the player is ready
              * plays video, unmute video, sets it volume
              * and if the role is teacher he would be able to seek change
-             * @param event onready event 
+             * @param event onready event
              */
             onPlayerReady: function (event) {
                 if (roles.hasControls()) {
@@ -467,7 +436,7 @@
 
             /*
              * After every two second a function is executed to find the seek position
-             * 
+             *
              */
             seekChangeInterval: function () {
                 virtualclass.yts.tsc = setInterval(

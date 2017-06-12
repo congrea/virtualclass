@@ -129,9 +129,9 @@
                     console.log('For Enable all, Button is creating');
 
                     var actionToPerform = 'enable';
-                    var template1 = JST['templates/editor/edenableall.hbs'];
-                    var html1 = template1({'type1':editorType});
-                    $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(html1);
+                    var editortemplate = virtualclass.getTemplate('edenableall', 'editor');
+                    var editorhtml = editortemplate({'type1':editorType});
+                    $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
 
                     var editorControllerAnch = document.getElementById(containerId + 'Anch');
 
@@ -428,9 +428,9 @@
                  */
                 container: function (classes) {
                     if (document.getElementById(this.id) == null) {
-                        var template = JST['templates/editor/editorrich.hbs'];
-                        var html = template({"type":virtualclass.vutil.capitalizeFirstLetter(classes), "class":classes});
-                        $('#virtualclassAppLeftPanel').append(html);
+                        var containertemplate = virtualclass.getTemplate('editorrich', 'editor');
+                        var containerhtml = containertemplate({"type":virtualclass.vutil.capitalizeFirstLetter(classes), "class":classes});
+                        $('#virtualclassAppLeftPanel').append(containerhtml);
                     }
                 },
 
@@ -442,10 +442,10 @@
                     if (document.getElementById('synchMessageBox') != null) {
                         this.showSynchMessageBox();
                     } else {
-                        var template2 = JST['templates/editor/messagebox.hbs'];
-                        var html2 = template2();
+                        var msgtemplate = virtualclass.getTemplate('messagebox', 'editor');
+                        var msghtml = msgtemplate();
                         var parTag = document.getElementById(this.id);
-                        parTag.insertBefore(html2,parTag.firstChild);
+                        parTag.insertAdjacentHTML('afterbegin', msghtml);
                     }
                 },
 

@@ -929,7 +929,7 @@
                 recordingControl: this.getTemplate('recordingControl') ,
                 leftBar: this.getTemplate('leftBar') ,
                 main: this.getTemplate('main') ,
-                whiteboard: this.getTemplate('main', 'whiteboard')
+                whiteboard: this.getTemplate('main', 'whiteboard'),
               });
             },
 

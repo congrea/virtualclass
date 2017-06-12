@@ -1,0 +1,20 @@
+<div id="stdPollContainer" class="container">
+  <div id="stdContHead" class="row">
+    <label id="timerLabel"></label>
+    <div id="timerCont"></div>
+  </div>
+  <div id="stdContBody" class="row">
+    <div id="stdQnCont" class="row">{{poll.question}}</div>
+    <div id="stdOptionCont" class="row">
+      {{#each poll.options}}
+        <div>
+          <input class="opt" name="option" value="{{@key}}" type="radio" id="{{@key}}">
+          <label>{{this}}</label>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div id="stdContFooter" class="row">
+    <input id="btnVote" class="btn btn-primary">
+  </div>
+</div>

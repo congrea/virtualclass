@@ -144,6 +144,32 @@ this["JST"]["templates/documentSharing/screen.hbs"] = Handlebars.template({"1":f
     + "</div>\n\n";
 },"usePartial":true,"useData":true});
 
+this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id = \"all"
+    + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
+    + "Container\" class = \"editorController\">\n    <a id =\"all"
+    + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
+    + "ContainerAnch\" href = \"#\" data-action = \"enable\">\n        Enable All\n    </a>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/editor/editorrich.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"virtualclass"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "\" class=\"vmApp virtualclass "
+    + alias4(((helper = (helper = helpers["class"] || (depth0 != null ? depth0["class"] : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data}) : helper)))
+    + "\">\n<div id=\"virtualclass"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "Body\">\n\n</div>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/editor/messagebox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id = \"synchMessageBox\" width = \"340px\" height = \"15px\">\n    <p id=\"readOnlyMsg\">\n        Please wait a while.  Syncing new content.\n    </p>\n</div>";
+},"useData":true});
+
 this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 

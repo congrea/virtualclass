@@ -129,19 +129,24 @@
                     console.log('For Enable all, Button is creating');
 
                     var actionToPerform = 'enable';
-                    var editorControllerCont = document.createElement('div');
-                    editorControllerCont.id = containerId;
-                    editorControllerCont.class = 'editorController';
+                    var template1 = JST['templates/editor/edenableall.hbs'];
+                    var html1 = template1({'type1':editorType});
+                    $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(html1);
+                    // var editorControllerCont = document.createElement('div');
+                    // editorControllerCont.id = containerId;
+                    // editorControllerCont.class = 'editorController';
+                    //
+                    // var editorControllerAnch = document.createElement('a');
+                    // editorControllerAnch.id = editorControllerCont.id + "Anch";
+                    // editorControllerAnch.href = "#";
+                    // editorControllerAnch.innerHTML = "Enable All";
+                    // editorControllerAnch.dataset.action = actionToPerform;
+                    // editorControllerCont.appendChild(editorControllerAnch);
+                    //
+                    // editorType = virtualclass.vutil.capitalizeFirstLetter(editorType);
+                    // document.getElementById('virtualclass' + editorType + 'Body').appendChild(editorControllerCont);
 
-                    var editorControllerAnch = document.createElement('a');
-                    editorControllerAnch.id = editorControllerCont.id + "Anch";
-                    editorControllerAnch.href = "#";
-                    editorControllerAnch.innerHTML = "Enable All";
-                    editorControllerAnch.dataset.action = actionToPerform;
-                    editorControllerCont.appendChild(editorControllerAnch);
-
-                    editorType = virtualclass.vutil.capitalizeFirstLetter(editorType);
-                    document.getElementById('virtualclass' + editorType + 'Body').appendChild(editorControllerCont);
+                    var editorControllerAnch = document.getElementById(containerId + 'Anch');
 
                     editorControllerAnch.addEventListener('click', function () {
                         var editorControllerAnch = document.getElementById(containerId + 'Anch');
@@ -436,21 +441,24 @@
                  */
                 container: function (classes) {
                     if (document.getElementById(this.id) == null) {
-                        var divEditor = document.createElement('div');
-                        divEditor.id = this.id;
-                        divEditor.className = this.class + ' ' + classes;
+                        var template = JST['templates/editor/editorrich.hbs'];
+                        var html = template({"type":virtualclass.vutil.capitalizeFirstLetter(classes), "class":classes});
+                        $('#virtualclassAppLeftPanel').append(html);
 
-                        var editor = document.createElement('div');
-                        editor.id = this.edId;
-
-                        divEditor.appendChild(editor);
-
-                        //var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                        //var parentNode = beforeAppend.parentNode;
-                        ////document.getElementById(virtualclass.html.id).insertBefore(divEditor, beforeAppend);
-                        //parentNode.insertBefore(divEditor, beforeAppend);
-
-                        virtualclass.vutil.insertIntoLeftBar(divEditor);
+                        // var divEditor = document.createElement('div');
+                        // divEditor.id = this.id;
+                        // divEditor.className = this.class + ' ' + classes;
+                        //
+                        // var editor = document.createElement('div');
+                        // editor.id = this.edId;
+                        //
+                        // divEditor.appendChild(editor);
+                        //
+                        // // var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
+                        // // var parentNode = beforeAppend.parentNode;
+                        // // parentNode.insertBefore(divEditor, beforeAppend);
+                        //
+                        // virtualclass.vutil.insertIntoLeftBar(divEditor);
 
                     }
                 },
@@ -463,19 +471,24 @@
                     if (document.getElementById('synchMessageBox') != null) {
                         this.showSynchMessageBox();
                     } else {
-                        var msgBox = document.createElement('div');
-                        msgBox.id = 'synchMessageBox';
-                        msgBox.style.width = "340px";
-                        msgBox.style.height = "15px";
-
-
-                        var msg = document.createElement('p');
-                        msg.id = 'readOnlyMsg';
-                        msg.innerHTML = virtualclass.lang.getString('synchMessage');
-                        msgBox.appendChild(msg);
-
+                        var template2 = JST['templates/editor/messagebox.hbs'];
+                        var html2 = template2();
                         var parTag = document.getElementById(this.id);
-                        parTag.insertBefore(msgBox, parTag.firstChild);
+                        parTag.insertBefore(html2,parTag.firstChild);
+
+                        // var msgBox = document.createElement('div');
+                        // msgBox.id = 'synchMessageBox';
+                        // msgBox.style.width = "340px";
+                        // msgBox.style.height = "15px";
+                        //
+                        //
+                        // var msg = document.createElement('p');
+                        // msg.id = 'readOnlyMsg';
+                        // msg.innerHTML = virtualclass.lang.getString('synchMessage');
+                        // msgBox.appendChild(msg);
+                        //
+                        // var parTag = document.getElementById(this.id);
+                        // parTag.insertBefore(msgBox, parTag.firstChild);
                     }
                 },
 

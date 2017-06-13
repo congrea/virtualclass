@@ -1,0 +1,148 @@
+#virtualclassCont.congrea #virtualclassQuiz{
+  margin-left: 60px;
+}
+
+/* congrea quiz */
+#virtualclassQuiz {margin-right: 6px;}
+
+
+#virtualclassCont.congrea .bootstrap .quizNavBar{
+  border-bottom: none !important;
+  margin-left: 20px;
+}
+#virtualclassCont.congrea .bootstrap .quizNavBar li{
+  margin-top: 15px;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+#virtualclassCont.congrea .bootstrap .quizNavBar > li > a{
+  text-shadow: none;
+  color: #fff;
+}
+#virtualclassCont.congrea #virtualclassQuiz .quizNavBar > li.active > a{
+  color:#000;
+}
+
+#virtualclassCont.congrea #layoutQuizBody{
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 1px;
+  height: 86vh;
+}
+#virtualclassCont.congrea #layoutQuizBody .quizList{
+  margin: 0;
+}
+#virtualclassCont.congrea #layoutQuizBody h4#quizListHead{
+
+  color: #969696;
+  letter-spacing: 1px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  font-weight: normal;
+  padding: 10px;
+}
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont{
+  background-color: #eee;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  padding: 0;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont,
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont .col-md-4{
+  padding: 0;
+  text-align: center;
+}
+
+
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont,
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont .qnText,
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont .creator{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont a span[data-toggle="tooltip"]:before{
+  font-size: 18px !important;
+}
+#virtualclassCont.congrea #layoutQuizBody .createBtnCont{
+  margin-top: 20px;
+}
+
+#virtualclassCont.congrea .quizCtrContainer{
+  width: 100px;
+  margin: 0 20px;
+}
+#virtualclassCont.congrea .quizCtrContainer .editCont,
+#virtualclassCont.congrea .quizCtrContainer .deleteCont,
+#virtualclassCont.congrea .quizCtrContainer .publishCont{
+  margin: 0 6px;
+}
+#virtualclassCont.congrea label.quizLabel{
+  font-size: 15px;
+  margin-bottom: 10px !important;
+  color: #303030;
+}
+#virtualclassCont.congrea #stdQuizContainer{
+  margin:70px !important;
+
+}
+
+#virtualclassCont.congrea #virtuaclassQuiz i{
+  float:right;
+}
+
+#virtualclassCont.congrea .quizList .quizPreview{
+  max-width: 90%;
+  width:500px; /* Max Width of the popover (depending on the container!) */
+  padding:10px
+}
+
+#virtualclassCont.congrea .quizList #popupCont{
+  margin:10px;
+}
+
+#virtualclassCont.congrea .quizList #qnTxCont{
+  padding:10px;
+}
+
+#virtualclassCont.congrea .quizList #optsTxCont{
+  padding:10px;
+}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #optsTxCont.row {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont input[type="radio"] + label, #layoutQuizBody.quizMainCont input[type="checkbox"] + label {
+  padding-left: 0.5em;
+}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #mode label {margin: 6px 3px;}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row input[type="radio"], #layoutQuizBody.quizMainCont
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row .form-group {margin-top: 5px; margin-bottom: 10px;}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row select {margin-right: 2px;}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #resultLayoutBody.row {margin-left: 0; margin-right: 0;}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #resultLayoutBody.row #qnLabelCont {
+  border: 1px dashed #f8eace;
+  padding: 6px;
+  border-radius: 3px;
+  background: #fcf7ed;
+  margin: 10px 1px 21px;
+}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdQnCont.row {
+  padding: 6px;
+  border-radius: 3px;
+  margin: 10px 0;
+}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdOptionCont.row,#virtualclassCont.congrea #layoutQuizBody.quizMainCont
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdContBody.row {
+  border-top: 1px solid #e5e5e5;
+  width: auto;
+  margin-top: 12px;
+}
+#virtualclassCont.congrea .bootstrap #stdQuizContainer.container {width: 100%;}
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #resultLayoutBody.row #chartMenuCont {margin: 20px 0;}
+#virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row,#virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {margin-left: 0; margin-right: 0;}

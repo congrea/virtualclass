@@ -599,6 +599,7 @@
                         canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
                         canvasWrapper.className = 'student';
                     }
+
                     localStorage.setItem('canvasDrwMsg', true);
                     var ssVideo = document.getElementById('virtualclassScreenShareLocalVideo');
                     if (ssVideo != null && ssVideo.tagName == "VIDEO") {

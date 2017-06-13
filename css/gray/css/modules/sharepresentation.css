@@ -1,0 +1,82 @@
+#virtualclassCont.congrea.teacher #virtualclassSharePresentation {
+  margin-left: 55px;
+}
+
+#virtualclassCont.congrea.student.presenter #virtualclassSharePresentation {
+  margin-left: 55px;
+}
+
+#virtualclassSharePresentation iframe {
+  border: none;
+  min-height: 80vh;
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer, #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer {
+  position: absolute;
+  margin-top: 10px;
+  text-align: center;
+  top: 40%;
+  left: 0;
+  right: 0;
+
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing #urlcontainer, #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation.pptSharing #urlcontainer {
+  top: auto;
+  left: 55px;
+  right: auto;
+  z-index: 7;
+  margin-bottom: 35px;
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer #presentationurl, #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer #presentationurl {
+  border: #ddd 1px solid;
+  height: 36px;
+  font-size: 16px;
+  padding: 0px 10px;
+  width: 350px;
+  color: #777;
+  border-radius: 5px;
+
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer.pptSharing {
+  bottom: 0%;
+  left: 55px;
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation #submitpurl {
+  background: #83c2b2; /* Old browsers */
+  background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
+  padding: 11px 15px;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 200;
+  margin-left: 5px;
+  border-radius: 5px;
+  top: -2px;
+  position: relative;
+}
+
+#virtualclassCont.congrea.teacher.orginalTeacher.pt_enable[data-currapp="SharePresentation"] #audioWidget {
+  right: 0px;
+}
+
+#virtualclassCont.congrea.student.presenter #virtualclassSharePresentation {
+  margin-left: 55px;
+}
+
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions {
+  border-bottom: medium none;
+}
+
+#virtualclassCont.congrea.educator #virtualclassSharePresentation {
+  margin-left: 7px;
+}

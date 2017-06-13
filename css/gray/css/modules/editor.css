@@ -1,0 +1,228 @@
+
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions {
+  border-top-right-radius: 0px;
+  margin-bottom: -1px;
+  margin-top: -1px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {
+  margin-left: 60px;
+}
+
+
+#virtualclassCont.congrea.student #virtualclassCont.congrea #virtualclassEditorRich {
+  margin-left: 35px;
+}
+
+#virtualclassCont.congrea .icon-editorCodeImg:before {
+  content: "\e608";
+  font-size: 14px;
+}
+
+#virtualclassEditorRich #synchMessageBox, .writeModeBox {
+  background: #EBECC6;
+  font-size: 13px;
+  padding: 10px 8px 10px 12px;
+  border: #e6dda4 1px solid;
+}
+
+#virtualclassEditorRich #synchMessageBox p {
+  margin: 0;
+}
+
+#virtualclassEditorRich #synchMessageBox {
+  position: absolute;
+  top: 24px;
+  right: 268px;
+  z-index: 5;
+}
+
+#virtualclassCont.congrea .writeModeBox {
+  top: 12px;
+  right: 15px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 110px;
+  border-radius: 5px;
+}
+
+#virtualclassEditorRich, #virtualclassEditorCode {
+  margin-top: 0px;
+}
+
+#virtualclassEditorRich, #virtualclassEditorBody {
+  height: 100%;
+}
+
+#virtualclassEditorCode, #virtualclassEditorCodeBody {
+  height: 101%;
+}
+
+#virtualclassCont.congrea div.CodeMirror-cursors {
+  visibility: visible !important;
+}
+
+#virtualclassCont.congrea .block.editorRichImg {
+  opacity: 0.5;
+}
+
+#virtualclassCont.congrea .block.editorCodeImg {
+  opacity: 0.5;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  width: 110px;
+  text-align: center;
+  padding: 10px 0px;
+  font-size: 14px;
+  font-weight: 200;
+  z-index: 0;
+}
+
+#virtualclassCont.congrea #virtualclassYtsTool, #virtualclassCont.congrea #virtualclassEditorCodeTool {
+  border-bottom: none !important;
+}
+
+#virtualclassCont.congrea #alleditorRichContainerAnch {
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRichBody {
+  position: relative;
+  height: 100%;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer {
+  background: #6f9b90; /* Old browsers */
+  background: -moz-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #92b0ab), color-stop(100%, #6f9b90)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #92b0ab 0%, #6f9b90 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#92b0ab', endColorstr='#6f9b90', GradientType=0); /* IE6-9 */
+}
+
+#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
+  background: #83c2b2; /* Old browsers */
+  background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
+  border-radius: 5px;
+
+}
+
+#virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover {
+  background-image: none;
+  opacity: 0.9;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer a, #virtualclassCont.congrea #alleditorCodeContainer a {
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#virtualclassCont.congrea #virtualclassEditorCodeBody {
+  position: relative;
+}
+
+#virtualclassCont.congrea.orginalTeacher #virtualclassEditorRichBody,
+#virtualclassCont.congrea.orginalTeacher #virtualclassEditorCodeBody,
+#virtualclassCont.congrea.teacher #virtualclassEditorRichBody,
+#virtualclassCont.congrea.teacher #virtualclassEditorCodeBody {
+  width: 100%;
+
+}
+
+#virtualclassCont.congrea.removedAssign #virtualclassEditorRichBody, #virtualclassCont.congrea.removedAssign #virtualclassEditorCodeBody {
+  margin-right: 0;
+}
+
+#virtualclassCont.congrea.educator #virtualclassEditorRich, #virtualclassCont.congrea.educator #virtualclassEditorCode {
+  margin-left: 9px;
+}
+
+#virtualclassCont.congrea div#virtualclassOptionsCont div#virtualclassEditorRichTool {
+  border-bottom: none;
+}
+
+#virtualclassCont.congrea.teacher.orginalTeacher.educator[data-currapp="EditorRich"] #audioWidget {
+  right: 0px;
+}
+
+#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] #audioWidget, #virtualclassCont.congrea.student.presenter[data-currapp="EditorCode"] #audioWidget {
+  right: 10px;
+}
+
+#virtualclassCont.congrea.student[data-currapp="EditorRich"] {
+  right: 0;
+}
+
+#virtualclassCont.congrea.studentplayMode[data-currapp="EditorRich"] #audioWidget {
+  top: 170px;
+  right: 10px;
+}
+
+#virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] #virtualclassEditorCode {
+  margin-left: 0px;
+}
+
+#virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] .CodeMirror-scroll {
+  margin-right: 0px;
+}
+
+#virtualclassCont.congrea.playMode.student #virtualclassEditorRich {
+  margin-top: 0px;
+}
+
+#virtualclassCont.congrea.student[data-currapp="EditorCode"]  #beTeacher {
+  right: 13%;
+  top: 5%;
+}
+
+#virtualclassCont.congrea[data-currapp="EditorRich"]  #beTeacher {
+  right: 13%;
+  top: 3%;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich {
+  margin-right: 6px;
+}
+
+#virtualclassCont.congrea.student.pt_enable #virtualclassAppLeftPanel #virtualclassEditorRich {
+  float: none;
+  margin: 0 6px 0;
+}
+
+#virtualclassCont.congrea.student.pt_enable.presenter #virtualclassAppLeftPanel #virtualclassEditorRich {
+  margin-left: 60px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {
+  height: 95vh;
+}
+
+#virtualclassCont.congrea.educator #virtualclassEditorCode, #virtualclassCont.congrea.educator #virtualclassEditorRich {
+  height: 93vh;
+}
+
+#virtualclassCont.congrea #chat_div .controllereditorCode {
+  float: left;
+  width: 25px;
+  text-align: center;
+}
+
+#virtualclassCont.congrea.playMode.student #virtualclassEditorCode, #virtualclassCont.congrea.playMode.student[data-currapp="Yts"] #virtualclassEditorCode {
+  margin-top: 70px;
+}

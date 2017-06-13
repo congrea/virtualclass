@@ -1,0 +1,159 @@
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool {
+  border-top: none;
+  border-bottom: none;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShare {
+  float: left;
+  border: #ccc solid 1px;
+  height: 100%;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareLocalTempVideo {
+  display: none;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShare {
+  margin-left: 55px;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShare {
+  width: 99%;
+}
+
+#virtualclassCont.congrea.student #virtualclassScreenShare {
+  margin-left: 5px;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareTool.active a span {
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareTool a img {
+  border: none;
+}
+
+#virtualclassScreenShareTool {
+  padding: 10px 5px;
+}
+
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions.active {
+  border-top-right-radius: 0;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {
+  content: "\e602";
+  font-size: 32px;
+}
+
+#virtualclassScreenShare {
+  margin-top: 8px;
+}
+
+#virtualclassCont.congrea.educator #virtualclassScreenShare {
+  margin-left: 9px;
+}
+
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover {
+  background: #28323c; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #323e49), color-stop(100%, #28323c)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, #323e49 0%, #28323c 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#323e49', endColorstr='#28323c', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+}
+
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover {
+  background: #8d98a4; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, #8d98a4 0%, #646d76 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+}
+
+#virtualclassCont.congrea #virtualclassScreenShare {
+  height: 95vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

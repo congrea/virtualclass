@@ -1,0 +1,171 @@
+#virtualclassCont.congrea.teacher #virtualclassYts, #virtualclassCont.congrea.student.presenter #virtualclassYts {
+  margin-left: 55px;
+}
+
+#virtualclassCont.congrea.educator #virtualclassYts {
+  margin-left: 7px;
+}
+
+#virtualclassCont.congrea.student #virtualclassYts {
+  margin-left: 10px;
+}
+
+#virtualclassCont.congrea.student #virtualclassYts p {
+  text-align: center;
+}
+
+#virtualclassCont.congrea #virtualclassYtsTool {
+  border-bottom: none !important;
+}
+
+#virtualclassYts {
+  margin-top: 8px;
+}
+
+#virtualclassCont.congrea #virtualclassYts.youTubeSharing #player {
+  display: inline;
+  margin-top: 1%;
+  margin-left: 22px;
+}
+
+#virtualclassCont.congrea .youTubeSharing #youtubeUrlContainer, #virtualclassCont.congrea.student.educator .youTubeSharing #youtubeUrlContainer {
+  top: 0;
+  text-align: left;
+  margin-left: 22px;
+}
+
+#virtualclassCont.congrea #virtualclassYts iframe#player {
+  width: 90%;
+  height: 80%;
+  min-height: 85vh;
+}
+
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover {
+  background: #8d98a4; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, #8d98a4 0%, #646d76 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+}
+
+#virtualclassCont.congrea #virtualclassYtsTool .icon-youtubeshare:before {
+  font-size: 30px;
+  content: "\ea99";
+}
+
+#virtualclassCont.congrea #youtubeUrlContainer {
+  position: absolute;
+}
+
+#virtualclassCont.congrea #youtubeUrlContainer, #virtualclassCont.congrea.student.presenter #youtubeUrlContainer {
+  left: 0;
+  margin-top: 10px;
+  right: 0;
+  text-align: center;
+  top: 40%;
+}
+
+#virtualclassCont.congrea .youTubeSharing #youtubeUrlContainer, #virtualclassCont.congrea.student.presenter .youTubeSharing #youtubeUrlContainer {
+  top: 0;
+  text-align: left;
+}
+
+#virtualclassCont.congrea .youTubeSharing {
+  text-align: left;
+}
+
+#virtualclassCont.congrea #virtualclassCont.congrea #player {
+  margin-top: 7%;
+}
+
+#virtualclassCont.congrea #youtubeUrlContainer #youtubeurl {
+  border: #ddd 1px solid;
+  height: 36px;
+  font-size: 16px;
+  padding: 0px 10px;
+  width: 340px;
+  color: #777;
+  border-radius: 5px;
+}
+
+#virtualclassCont.congrea #youtubeUrlContainer #submitURL {
+  background: #83c2b2; /* Old browsers */
+  background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
+  padding: 11px 15px;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 200;
+  margin-left: 5px;
+  border-radius: 5px;
+  top: -2px;
+  position: relative;
+}
+
+#virtualclassCont.congrea #youtubeUrlContainer #submitURL:hover {
+  background-color: #68a697;
+  background-image: none;
+}
+
+#youtubeUrlContainer {
+  z-index: 40;
+}
+
+#virtualclassCont.congrea #youtubeUrlContainer {
+  position: relative;
+  margin-top: 25%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#virtualclassCont.congrea .youTubeSharing #youtubeUrlContainer {
+  margin-top: 10px;
+}
+
+#virtualclassCont.congrea.student.presenter .youTubeSharing #youtubeUrlContainer {
+  top: 87%;
+  left: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

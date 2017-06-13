@@ -1,0 +1,24 @@
+<div id="contQn{{pollQn.pollType}}{{pollQn.index}}" class="row vcPollCont col-md-12">
+  <div id="ctrQn{{pollQn.pollType}}{{pollQn.index}}" class="col-md-2 pollCtrCont">
+    <div class="pollCtrContainer">
+      <div id="contQn{{pollQn.pollType}}{{pollQn.index}}E" class="editCont pull-left">
+        <a href="#" data-target="#editPollModal" id="editQn{{pollQn.pollType}}{{pollQn.index}}">
+          <span class="icon-pencil2" data-toggle="tooltip" title="edit poll"></span>
+        </a>
+      </div>
+      <div id="contQn{{pollQn.pollType}}{{pollQn.index}}" class="deleteCont pull-left">
+        <a href="#" id="deleteQn{{pollQn.pollType}}{{pollQn.index}}">
+          <span class="icon-bin22" data-toggle="tooltip" title="delete poll"></span>
+        </a>
+      </div>
+      <div class="publishCont pull-left" id="contQn{{pollQn.pollType}}{{pollQn.index}}P">
+        <a href="#" id="publishQn{{pollQn.pollType}}{{pollQn.index}}">
+          <span class="icon-publish2" data-toggle="tooltip" title="publish poll"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div id="qnText{{pollQn.pollType}}{{pollQn.index}}" class="qnText col-md-8" data-toggle="popover" data-trigger="hover"
+       data-original-title="" title="">{{pollQn.questiontext}}</div>
+  <div class="creator col-md-2">{{pollQn.creator}}</div>
+</div>

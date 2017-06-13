@@ -1,0 +1,28 @@
+<div id="editPollModal" class="modal in" tab-index="-1" area-hidden="true" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content" id="pollModalBody">
+      <div id="contHead" class="modal-header">
+        <button type="button" class="close" id="modalClose" data-dismiss="modal">×</button>
+        <div id="publishTx" class="row modalHeaderTx">Publish Poll</div>
+      </div>
+      <div id="contBody" class="modal-body">
+        <div id="qnTxCont" class="row previewTxCont">{{poll.questiontext}}</div>
+        <div id="optsTxCont" class="row previewTxCont">
+          {{#each poll.options}}
+            <div>
+              <input class="opt" name="option" value="1" type="radio" id="1"><label>{{this}}</label>
+            </div>
+
+          {{/each}}
+        </div>
+      </div>
+      <div id="contFooter" class="modal-footer">
+        <div id="footerCtrCont">
+          <button id="goBack" data-dismiss="modal" class="btn btn-default controls">&lt; Back<i class="icon-back"></i>
+          </button>
+          <button id="next" class="btn btn-default controls">Go to Publish<i class="icon-publish"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

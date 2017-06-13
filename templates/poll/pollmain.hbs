@@ -1,0 +1,57 @@
+<div id="virtualclassPoll" class="virtualclass">
+  <div id="layoutPoll" class="bootstrap container-fluid pollLayout">
+    <nav id="navigator" class="nav navbar">
+      <ul class="nav nav-tabs pollNavBar">
+        {{#if control}}
+          <li role="presentation" id="coursePollTab" class="navListTab active" data-toggle="popover" data-trigger="hover" data-content="Polls you will create are course specific" data-original-title="" title="">
+            <a href="#">Course Poll</a>
+          </li>
+          <li role="presentation" id="sitePollTab" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="Polls created here are of site level" data-original-title="" title="">
+            <a href="# ">Site Poll</a>
+          </li>
+        {{else}}
+          <li role="presentation" id="pollResult" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="show result" data-original-title="" title="">
+            <a href="# ">Poll Result</a>
+          </li>
+        {{/if}}
+      </ul>
+
+    </nav>
+    <div id="layoutPollBody" class="pollMainCont">
+      {{#if  control}}
+        <div id="mszBoxPoll" class="row">
+          <div class="emptyList" id="emptyListcourse">Create Your course Poll </div>
+        </div>
+        <div id="bootstrapCont" class="modalCont">
+
+        </div>
+
+        <div id="listQnContcourse" class="row pollList" style="display:block;">
+          <div class="row headerContainer col-md-12" id="headerContainercourse">
+            <div class="controlsHeader col-md-2">Controls<i class="icon-setting"></i></div>
+            <div class="qnTextHeader col-md-8">Poll Questions<i class="icon-help"></i></div>
+            <div class="creatorHeader col-md-2">Creator<i class="icon-creator"></i></div>
+          </div>
+        </div>
+        <div id="listQnContsite" class="row pollList" style="display: none;">
+          <div class="row headerContainer col-md-12" id="headerContainersite">
+            <div class="controlsHeader col-md-2">Controls<i class="icon-setting"></i></div>
+            <div class="qnTextHeader col-md-8">Poll Questions<i class="icon-help"></i></div>
+            <div class="creatorHeader col-md-2">Creator<i class="icon-creator"></i></div>
+          </div>
+        </div>
+
+        <div id="createPollCont" class="createBtnCont">
+          <button id="newPollBtnsite" class="btn btn-default site" data-toogle="modal" data-target="#editPollModal" style="display: none;">Create New<i class="icon-create-new"></i></button>
+          <button id="newPollBtncourse" class="btn btn-default course" data-toogle="modal" data-target="#editPollModal" style="display: block;">Create New<i class="icon-create-new"></i></button>
+        </div>
+      {{else}}
+        <div id="mszBoxPoll" class="row">
+          <div id="stdPollMszLayout">Poll may be published ...</div>
+        </div>
+        <div id="bootstrapCont" class="modalCont">
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

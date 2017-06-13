@@ -98,10 +98,10 @@
                 }
             },
             /*
-             * 
+             *
              * @param {object} create poll data
              * @param {type} category
-             * @response text  {object}  
+             * @response text  {object}
              * poll interface to save poll in moodle database
              */
             interfaceToSave: function (data, category) {
@@ -146,10 +146,10 @@
                 });
             },
             /*
-             * 
+             *
              * @param {object}  edited poll data
              *
-             * @response text : updated poll with database ids 
+             * @response text : updated poll with database ids
              * poll saved in the database and database poll with new option id is returned
              accordingly poll list is updated.
              */
@@ -168,10 +168,10 @@
             },
             // to simplify later with weblib *********rem
             /*
-             * 
+             *
              * @param {object} new created poll or updated poll  with ids returned from database
-             *  
-             * poll list is updated 
+             *
+             * poll list is updated
              */
             updatePollList: function (content) {
                 var options = content.options;
@@ -205,7 +205,7 @@
                 virtualclass.recorder.items = []; //empty on each chunk sent
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=poll_data_retrieve", function (msg) { //TODO Handle more situations
                     //console.log("fetched" + msg);
-                    // to change later in php file 
+                    // to change later in php file
                     var getContent = JSON.parse(msg);
                     for (var i = 0; i <= getContent.length - 1; i++) {
                         var options = getContent[i].options;
@@ -233,10 +233,8 @@
                 formData.append("qid", JSON.stringify(qid));
                 formData.append("user", virtualclass.gObj.uid);
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=poll_delete", function (msg) {
-                    // var getContent = JSON.parse(msg);
-                    //virtualclass.poll.interfaceToFetchList(getContent);
-
-
+                     var getContent = JSON.parse(msg);
+                     virtualclass.poll.interfaceToFetchList(getContent);
                 })
             },
             interfaceToDelOption: function (optionId) {
@@ -513,7 +511,7 @@
                 }
 
                 virtualclass.poll.count = storedData.data.count;
-                // virtualclass.poll.testNoneVoted(); 
+                // virtualclass.poll.testNoneVoted();
                 virtualclass.poll.pollState["currScreen"] = "teacherPublish";
 
             },
@@ -532,7 +530,7 @@
                 virtualclass.popup.confirmInput(message, virtualclass.poll.resultCloseConfirm, pollType);
             },
             resultCloseConfirm: function (opted) {
-                //
+
                 if (opted) {
 
                     $('#editPollModal').modal('hide');
@@ -578,7 +576,7 @@
                 var obj = {'result': virtualclass.poll.count, qid: data.qId, pollData: data};
                 virtualclass.poll.uid++;
                 obj.uid = virtualclass.poll.uid;
-          
+
                 // to generlize
                 if (!roles.hasControls()) {
                     virtualclass.storage.pollStore(JSON.stringify(obj));
@@ -654,13 +652,13 @@
                 virtualclass.poll.dispList("course");
                 var listcont = document.getElementById("listQnContcourse");
                 // *****reminder**change
-                while (listcont.hasChildNodes()) {
+                while (listcont.childNodes.length>2) {
                     listcont.removeChild(listcont.lastChild);
                 }
 
                 // to modify parameters ...********
                 virtualclass.poll.coursePoll.forEach(function (item, index) {
-                    virtualclass.poll.forEachPoll(item, index, "course", item.creatorname, item.createdby, item.questionid, item.isPublished);
+                    virtualclass.poll.forEachPoll(item, index, "course");
                 });
 
                 var elem = document.getElementById("emptyListsite");
@@ -668,9 +666,7 @@
                     elem.parentNode.removeChild(elem);
                 }
 
-                if (virtualclass.poll.coursePoll.length > 0) {
-                    virtualclass.poll.listHeader("course");
-                } else {
+                if (!virtualclass.poll.coursePoll.length) {
                     virtualclass.poll.dispEmptyListMsg("course")
                 }
 
@@ -683,11 +679,11 @@
 
                 virtualclass.poll.dispList("site");
                 var listcont = document.getElementById("listQnContsite");
-                while (listcont.hasChildNodes()) {
+                while (listcont.childNodes.length>2) {
                     listcont.removeChild(listcont.lastChild);
                 }
                 virtualclass.poll.sitePoll.forEach(function (item, index) {
-                    virtualclass.poll.forEachPoll(item, index, "site", item.creatorname, item.createdby, item.questionid, item.isPublished, isAdmin);
+                    virtualclass.poll.forEachPoll(item, index, "site", isAdmin);
                 });
 
                 var elem = document.getElementById("emptyListcourse");
@@ -695,10 +691,9 @@
                     elem.parentNode.removeChild(elem);
                 }
 
-                if (virtualclass.poll.sitePoll.length > 0) {
-                    virtualclass.poll.listHeader("site");
-                } else {
-                    virtualclass.poll.dispEmptyListMsg("site")
+                if (!virtualclass.poll.sitePoll.length) {
+                  virtualclass.poll.dispEmptyListMsg("site")
+
                 }
 
                 this.dispNewPollBtn("site", isAdmin);
@@ -724,46 +719,6 @@
                     }
 
                 }
-
-            },
-            listHeader: function (polltype) {
-                var cont = document.getElementById("listQnCont" + polltype)
-
-                var headCont = document.createElement("div");
-                headCont.classList.add("row", "headerContainer", "col-md-12")
-                headCont.id = "headerContainer" + polltype;
-
-                cont.insertBefore(headCont, cont.firstChild)
-                var elem = document.createElement("div");
-                elem.classList.add("controlsHeader", "col-md-2")
-                elem.innerHTML = "Controls";
-                headCont.appendChild(elem);
-
-                var iconCtr = document.createElement('i');
-                iconCtr.className = "icon-setting";
-                elem.appendChild(iconCtr);
-
-                var elem = document.createElement("div");
-                elem.classList.add("qnTextHeader", "col-md-8")
-                elem.innerHTML = "Poll Questions";
-                headCont.appendChild(elem);
-
-
-                var iconHelp = document.createElement('i');
-                iconHelp.className = "icon-help";
-                elem.appendChild(iconHelp);
-
-
-                var elem = document.createElement("div");
-                elem.classList.add("creatorHeader", "col-md-2")
-                elem.innerHTML = "Creator";
-                headCont.appendChild(elem);
-
-                var iconCreator = document.createElement('i');
-                iconCreator.className = "icon-creator";
-                elem.appendChild(iconCreator);
-
-
 
             },
             dispList: function (pollType) {
@@ -792,10 +747,7 @@
 
             },
             dispNewPollBtn: function (pollType, isAdmin) {
-                if (!document.getElementById("newPollBtn" + pollType)) {
-                    virtualclass.poll.UI.newPollBtn(pollType);
-                }
-
+                virtualclass.poll.attachEvent("newPollBtn" + pollType, "click", virtualclass.poll.newPollHandler, pollType)
                 var btn = document.getElementById("newPollBtn" + pollType);
                 if (pollType == "site") {
 
@@ -810,27 +762,52 @@
                         elem.style.display = "none";
                     }
 
-
                 } else {
-
                     btn.style.display = "block";
-
                     var elem = document.getElementById("newPollBtnsite");
                     if (elem) {
                         elem.style.display = "none";
                     }
-
                 }
-
             },
-            forEachPoll: function (item, index, pollType, creator, crtrId, id, isPublished, isAdmin) {
-                //console.log(item);
-                virtualclass.poll.UI.qnCont(index, pollType);
-                virtualclass.poll.UI.qnCtrCont(index, pollType, crtrId, isPublished, isAdmin);
-                virtualclass.poll.UI.qnTextCont(item, index, pollType, creator);
-                virtualclass.poll.attachEvent("editQn" + pollType + index, "click", virtualclass.poll.editHandler, pollType, index, crtrId, id);
-                virtualclass.poll.attachEvent("publishQn" + pollType + index, "click", virtualclass.poll.publishHandler, item, pollType, index, crtrId, id, isPublished);
-                virtualclass.poll.attachEvent("deleteQn" + pollType + index, "click", virtualclass.poll.deleteHandler, pollType, index, crtrId, id);
+            forEachPoll: function (item, index, pollType,isAdmin) {
+
+                  var pollQn = {};
+                  pollQn.questiontext = item.questiontext;
+                  pollQn.creator = item.creatorname;
+                  pollQn.pollType = pollType;
+                  pollQn.index = index;
+
+                  var template=virtualclass.getTemplate("qn","poll");
+                  $("#listQnCont" + pollType).append(template({"pollQn": pollQn}));
+
+                  if (((pollType == "course" && item.createdby == wbUser.id) || (pollType == "site" && isAdmin == "true"))) {
+                        if(!item.isPublished){
+                            virtualclass.poll.attachEvent("editQn" + pollType + index, "click", virtualclass.poll.editHandler, item, pollType, index, item.createdby, item.questionid);
+
+                        }else{
+                              var link1= document.querySelector("#editQn"+pollType+index+" span")
+                              // link1.setAttribute("data-toggle", "tooltip")
+                              if(link1){
+                                link1.setAttribute("title", "cannt edit,poll attempted ");
+                                link1.style.cursor="default";
+                              }
+                        }
+                        virtualclass.poll.attachEvent("deleteQn" + pollType + index, "click", virtualclass.poll.deleteHandler, item, pollType, index);
+                  }else{
+                        var link1= document.querySelector("#editQn"+pollType+index+" span");
+                        if(link1){
+                              link1.setAttribute("title", "cannt edit, can be edited by creator of the poll");
+                              link1.style.cursor="default";
+                        }
+
+                        var link3 = document.querySelector("#deleteQn"+pollType + index+" span");
+                        link3.setAttribute("title", "cannt delete, can be deleted  by creator of the poll");
+                        link3.style.cursor="default";
+
+                  }
+
+                  virtualclass.poll.attachEvent("publishQn" + pollType + index, "click", virtualclass.poll.publishHandler, item, pollType, index);
 
 
             },
@@ -855,70 +832,61 @@
                 }
 
             },
-            editHandler: function (pollType, index) {
-
+            editHandler: function (item, pollType, index) {
                 var mszbox = document.getElementById("mszBoxPoll");
                 if (mszbox.childNodes.length > 0) {
                     mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
                 }
+                var data = {};
+                if (pollType == 'course') {
+                    poll = virtualclass.poll.coursePoll[index];
+                } else {
+                    poll = virtualclass.poll.sitePoll[index];
+                 }
+                data.options = poll.options;
+                data.questiontext = poll.questiontext;
 
+                var template=virtualclass.getTemplate("edit-modal","poll");
+                $("#bootstrapCont").append(template({"data": data}));
 
-                var data = {
-                    type: "course",
-                    qid: index
-                }
-
-                var bsCont = document.getElementById("editPollModal");
-
-                if (bsCont == null) {
-                    var cont = document.getElementById("bootstrapCont");
-
-                    virtualclass.poll.UI.generateModal("editPollModal", cont, pollType, index);
-                    virtualclass.poll.UI.modalContentUI(pollType, index);
-
-                }
                 virtualclass.poll.UI.editPoll(pollType, index);
-
                 $('#editPollModal').modal({
                     show: true,
                     backdrop: 'static',
                     keyboard: false
                 })
 
-
                 $("#editPollModal").on('hidden.bs.modal', function () {
-                    $("#editPollModal").remove();
-                });
+                $("#editPollModal").remove();
+              });
+
             },
             stdResponse: function (response, fromUser) {
-                console.log(response);
-//                if (typeof response != "undefined") {
-//
-//                }
                 this.updateResponse(response, fromUser);
 
             },
             newPollHandler: function (pollType) {
-
                 var bsCont = document.getElementById("createPollCont");
-                virtualclass.poll.UI.generateModal("editPollModal", bsCont, pollType);
-                // virtualclass.poll.UI.newPollContentUI("newPollModal");
+                if ($('#editPollModal').length) {
+                    $('#editPollModal').remove();
+                }
+
+                var template=virtualclass.getTemplate("modal","poll");
+                $(bsCont).append(template());
+
                 $('#editPollModal').modal({
                     backdrop: 'static',
                     keyboard: false
                 })
                 $('#editPollModal').modal({
                     show: true
-                });
+                 });
 
                 $("#editPollModal").on('hidden.bs.modal', function () {
                     $("#editPollModal").remove();
                 });
 
-                virtualclass.poll.UI.layoutNewPoll(pollType);
-                virtualclass.poll.UI.newPollTextUI();
-                virtualclass.poll.UI.footerBtns();
-                virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, undefined, pollType);
+              virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, undefined, pollType);
 
             },
             //******************
@@ -1170,7 +1138,7 @@
 
             },
             addMoreOption: function (index, pollType) {
-                
+
                 virtualclass.poll.UI.createOption(index, pollType);
 
             },
@@ -1193,8 +1161,8 @@
                     mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
                 }
 
-                var isPublished = arguments[5];
-                console.log(arguments[4]);
+                var isPublished = item.isPublished;
+
                 if (isPublished) {
                     virtualclass.poll.duplicatePoll(item);
 
@@ -1222,25 +1190,24 @@
                 virtualclass.poll.interfaceToSave(saveQn, item.category);
             },
             publishPoll: function (item, type) {
-
-
-                //var obj = virtualclass.poll[pollType][index];
                 virtualclass.poll.dataToStd.question = item.questiontext;
                 virtualclass.poll.dataToStd.qId = item.questionid;
                 virtualclass.poll.dataToStd.options = item.options;
-                // to add here
 
                 var cont = document.getElementById("layoutPollBody");
                 var elem = document.createElement('div');
-                elem.className = "container";
+                 elem.className = "container";
                 cont.appendChild(elem);
                 var modal = document.getElementById("editPollModal");
-                if (modal) {
+                 if (modal) {
                     modal.remove();
                 }
-                // to change this to 
-                var cont = document.getElementById("bootstrapCont");
-                virtualclass.poll.UI.generateModal("editPollModal", cont, type);
+                var obj = {};
+                obj.questiontext = item.questiontext;
+                obj.options = item.options;
+                var template=virtualclass.getTemplate("preview-modal","poll");
+                $("#virtualclassApp #bootstrapCont").append(template({"poll": obj}));
+
                 $('#editPollModal').modal({
                     backdrop: 'static',
                     keyboard: false
@@ -1249,69 +1216,40 @@
                     show: true
                 });
                 virtualclass.poll.pollPreview(type);
-
                 $("#editPollModal").on('hidden.bs.modal', function () {
-                    //virtualclass.poll.test(type)
                     $("#editPollModal").remove();
                 });
-
             },
             pollPreview: function (pollType) {
-
-                virtualclass.poll.UI.modalContentUI();
-                var header = document.getElementById("contHead");
-
-                var text = document.createElement('div');
-                text.id = "publishTx";
-                text.classList.add("row", "modalHeaderTx");
-                // text.className = "row";
-                text.innerHTML = "Publish Poll";
-                header.appendChild(text);
-
-                var cont = document.getElementById("qnTxCont")
-                virtualclass.poll.showQn(cont);
-                var cont = document.getElementById("optsTxCont")
-                virtualclass.poll.showOption(cont);
                 var cont = document.getElementById("contFooter");
                 virtualclass.poll.UI.previewFooterBtns(cont, pollType);
 
             },
-            pollPreviewAlt: function (pollType, item) {
-                virtualclass.poll.UI.modalContentUI();
-                var cont = document.getElementById("qnTxCont")
-                virtualclass.poll.showPreviewQn(cont, item.questiontext);
-                cont = document.getElementById("optsTxCont")
-                virtualclass.poll.showPreviewOption(cont, item);
 
-            },
             publishHandler2: function () {
-
+                alert("pollhandler2test");
+                debugger;
                 var message = "poll published";
                 virtualclass.poll.showMsg("mszBoxPoll", message, "alert-success");
 
             },
-            deleteHandler: function (pollType, index, actionid, qid) {
+            deleteHandler: function (item,pollType, index) {
                 var mszbox = document.getElementById("mszBoxPoll");
                 var notify = mszbox.querySelectorAll(":scope .alert")
                 if (notify.length > 0) {
                     notify[0].parentNode.removeChild(notify[0]);
                 }
                 var message = "<span>Are u sure to delete this Poll</span>";
-                virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirm, pollType, index, actionid);
+                virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirm, pollType, index);
             },
             showMsg: function (contId, msg, type) {
-
                 var mszCont = document.getElementById(contId);
                 if(!mszCont){
                      var layout = document.getElementById("layoutPollBody");
                      mszCont = document.createElement("div");
                      mszCont.id=contId
                      layout.appendChild(mszCont);
-                    
-                   
-                    
                 }
-
                 var elem = document.createElement("div");
                 elem.className = "alert  alert-dismissable";
                 elem.classList.add(type)
@@ -1324,11 +1262,11 @@
                 btn.setAttribute("data-dismiss", "alert")
                 btn.innerHTML = "&times";
                 elem.appendChild(btn);
-                    
-                
-             
+
+
+
             },
-            askConfirm: function (opted, pollType, index, id) {
+            askConfirm: function (opted, pollType, index) {
 
                 if (opted) {
                     var cont = document.getElementById("contQn" + pollType + index);
@@ -1461,7 +1399,10 @@
                 if (layoutPoll) {
                     layoutPoll.style.display = "block";
                 }
+                var obj={};
 
+                var template=virtualclass.getTemplate("pollStd","poll");
+                $("#layoutPollBody").append(template({"poll": obj}));
                 this.UI.stdPublishUI();
 
                 var isTimer = virtualclass.poll.dataRec.setting.timer;
@@ -1474,10 +1415,10 @@
                     var msg = "Teacher may close this poll at any time";
                     virtualclass.poll.showMsg("stdContHead", msg, "alert-success")
                 }
-                
+
                 var qnCont = document.getElementById("stdQnCont");
                 this.showQn(qnCont);
-                
+
                 var optionCont = document.getElementById("stdOptionCont");
                 this.showOption(optionCont);
 
@@ -1496,7 +1437,7 @@
                 if(nav){
                     nav.style.display="none";
                 }
-                
+
                 virtualclass.poll.pollState["currScreen"] = "stdPublish";
                 virtualclass.poll.pollState["data"] = data;
             },
@@ -1596,10 +1537,8 @@
 
 
                 } else {
-                    var timerWrapper = document.getElementById("timerWrapper");
-                    var elem = document.createElement("div");
-                    elem.id = "timerCont";
-                    timerWrapper.appendChild(elem);
+                  var elem = document.getElementById("timerCont")
+
                 }
 
                 var handler = function () {
@@ -1631,29 +1570,14 @@
                 if (virtualclass.poll.timer) {
                     clearInterval(virtualclass.poll.timer);
                 }
-
-                if (!roles.hasControls()) {
-
-                    var head = document.getElementById("stdContHead");
-                    if (head) {
-                        var elem = document.createElement("div");
-                        elem.id = "timerCont";
-                        head.appendChild(elem);
-                    }
-                } else {
-                    var timerWrapper = document.getElementById("timerWrapper");
-                    if (timerWrapper) {
-                        var elem = document.createElement("div");
-                        elem.id = "timerCont";
-                        timerWrapper.appendChild(elem);
-                    }
+                var elem = document.getElementById("timerCont");
+               if(roles.hasControls()) {
                     if (virtualclass.poll.pollState.data) {
                         virtualclass.poll.pollState["data"].newTime = virtualclass.poll.newUserTime;
                         console.log("test" + virtualclass.poll.pollState["data"].newTime);
                     }
 
-
-                }
+               }
                 var min = 0;
                 var sec = 0;
                 if (roles.hasControls()) {
@@ -1677,7 +1601,6 @@
 
                 if (!roles.hasControls()) {
                     if (virtualclass.poll.newTimer.min || virtualclass.poll.newTimer.sec) {
-
                         min = virtualclass.poll.newTimer.min;
                         sec = virtualclass.poll.newTimer.sec;
                         virtualclass.poll.newTimer = {};
@@ -1734,10 +1657,6 @@
                         },
                         'cf': 'poll'
                     });
-//                    if (roles.hasControls()) {
-//                        virtualclass.poll.resultToStorage();
-//                    }
-
 
                     if (virtualclass.poll.timer) {
 
@@ -1819,7 +1738,7 @@
                 // virtualclass.poll.resultToStorage();
 
             },
-            
+
             resultDisplay: function (count) {
 
                 var layout = document.getElementById("layoutPoll");
@@ -1847,10 +1766,6 @@
 
 
                 }
-
-
-                //var notify = document.getElementsByClassName("alert");
-
 
                 var cont = document.getElementById("chartMenuCont");
                 if (cont) {
@@ -1915,10 +1830,21 @@
             },
             noneVoted: function () {
 
-                // noresult display to be called when polll is closed
                 this.noResultDisplay();
-                var resultCont = document.getElementById("resultLayoutBody");
+                var head= document.querySelector("#resultLayoutHead");
+                if(head){
+                    head.style.display="none";
+                }
+                var qnLabel= document.querySelector("#qnLabelCont");
+                if(qnLabel){
+                    qnLabel.style.display="none";
+                }
+                var chartMenu= document.querySelector("#chartMenuCont");
+                if(chartMenu){
+                    chartMenu.style.display="none";
+                }
 
+                var resultCont = document.getElementById("resultLayoutBody");
                 var elem = document.createElement("div");
                 elem.className = "pollResultNotify";
                 elem.id = "resultNote"
@@ -1931,8 +1857,14 @@
                 elem.id = "congreaPollNote";
                 elem.innerHTML = "No vote Received for this poll";
                 resultCont.appendChild(elem);
+
                 var item = virtualclass.poll.dataRec;
                 this.showPollText(resultCont, item)
+
+                var modalClose = document.getElementById("modalClose");
+                if (modalClose) {
+                    modalClose.setAttribute("data-dismiss", "modal");
+                }
 
             },
             showPollText: function (resultCont) {
@@ -1954,14 +1886,6 @@
 
                 }
             },
-            showPreviewQn: function (qnCont, item) {
-
-                // virtualclass.poll.dataToStd.question = virtualclass.poll[pollType][index].questiontext;
-                var cont = document.createElement("div");
-                qnCont.appendChild(cont)
-                cont.innerHTML = item.questiontext;
-
-            },
             showOption: function (optionCont) {
                 var data = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
                 var options = data.options;
@@ -1980,29 +1904,7 @@
                     label.innerHTML = data.options[i];
                 }
             },
-            //redundent code 
-            showPreviewOption: function (optionCont, item) {
-                while (optionCont.childElementCount > 1) {
-                    optionCont.removeChild(optionCont.lastChild);
-                }
 
-                var data = item
-                var options = item.options;
-                for (var i in options) {
-                    var optCont = document.createElement("div");
-                    optionCont.appendChild(optCont);
-                    var elem = document.createElement("input");
-                    elem.className = "opt";
-                    elem.setAttribute("name", "option");
-                    elem.setAttribute("value", i);
-                    elem.setAttribute("type", "radio");
-                    elem.id = i;
-                    optCont.appendChild(elem);
-                    var label = document.createElement("label");
-                    optCont.appendChild(label);
-                    label.innerHTML = data.options[i];
-                }
-            },
             pollSetting: function (pollType, index, next) {
 
                 virtualclass.poll.UI.hidePrevious(index);
@@ -2145,7 +2047,7 @@
                     virtualclass.poll.updateListResult();
                 }
             },
-            // to divide this code no of user part to be separated
+
             noOfVotes: function (pt) {
 
                 var joinedUsers = 0;
@@ -2335,6 +2237,7 @@
             },
             listView: function () {
                 virtualclass.poll.currResultView = "list";
+
                 var chart = document.getElementById("chart");
                 chart.style.display = "none";
 
@@ -2342,52 +2245,25 @@
 
                 var list = document.getElementById("listCont")
                 if (list) {
-                    list.parentNode.removeChild(list);
+                    list.style.display = "block";
+                }
+                if (list.hasChildNodes()) {
+                    list.removeChild(list.childNodes[0]);
                 }
                 if (virtualclass.poll.list.length > 0) {
-                    virtualclass.poll.createResponseTable(cont);
-                    var msz = document.getElementById("pollResultMsz");
-                    if (msz) {
-                        msz.parentNode.removeChild(msz)
-                    }
-
-
+                  virtualclass.poll.createResponseTable(cont);
+                  var msz = document.getElementById("pollResultMsz");
+                  if (msz) {
+                    msz.parentNode.removeChild(msz)
+                  }
                 }
-
 
             },
             createResponseTable: function (cont) {
+                var template=virtualclass.getTemplate("pollresultlist","poll");
+                var control = roles.hasAdmin() ? true : false;
+                $("#virtualclassApp #listCont").append(template({}));
 
-                var tablecont = document.createElement('div');
-                tablecont.className = "table-responsive"
-                tablecont.id = "listCont"
-                cont.appendChild(tablecont);
-
-                var list = document.createElement("table");
-                list.id = "listViewTable";
-                list.className = "table table-bordered";
-                tablecont.appendChild(list);
-
-                var thead = document.createElement("thead");
-                list.appendChild(thead);
-
-                var tbody = document.createElement("tbody");
-                tbody.id = "resultList";
-                list.appendChild(tbody);
-
-                var listItem = document.createElement("tr");
-
-                thead.appendChild(listItem);
-
-                var elem = document.createElement("th");
-
-                elem.innerHTML = "NAME";
-                listItem.appendChild(elem);
-
-                var elem = document.createElement("th");
-                //elem.className = "col-md-2";
-                elem.innerHTML = "OPTION SELECTED";
-                listItem.appendChild(elem);
                 virtualclass.poll.list.forEach(function (item, i) {
                     virtualclass.poll.addResultListItem(item, i);
 
@@ -2400,7 +2276,6 @@
                     virtualclass.poll.pollState["data"].list = virtualclass.poll.list;
 
                 }
-
 
             },
             addResultListItem: function (item) {
@@ -2498,186 +2373,33 @@
                  * Creates container for the poll and appends the container before audio widget
                  */
                 container: function () {
-                    console.log("layout check");
                     var pollCont = document.getElementById(this.id);
                     if (pollCont != null) {
                         pollCont.parentNode.removeChild(pollCont);
                     }
 
-                    var divPoll = document.createElement('div');
-                    divPoll.id = this.id;
-                    divPoll.className = this.class;
-                    virtualclass.vutil.insertIntoLeftBar(divPoll);
-//                    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-//                    document.getElementById(virtualclass.html.id).insertBefore(divPoll, beforeAppend);
+                    var template=virtualclass.getTemplate("pollmain","poll");
+                    var control = roles.hasAdmin() ? true : false;
+                    $("#virtualclassApp #virtualclassAppLeftPanel").append(template({"control": control}));
 
-                    this.layout(divPoll, "course")
-                },
-                layout: function (divPoll, pollType) {
+                    if (roles.hasAdmin()) {
+                        var coursePollNav = document.querySelector("#coursePollTab");
+                        var sitePollNav = document.querySelector("#sitePollTab")
+                        sitePollNav.addEventListener('click', function () {
+                        var category = 0;
+                        coursePollNav.classList.remove('active');
+                        sitePollNav.classList.add('active');
+                        virtualclass.poll.interfaceToFetchList(category);
+                    });
 
-                    var contPoll = document.createElement('div');
-                    contPoll.id = "layoutPoll";
-                    contPoll.className = "bootstrap container-fluid pollLayout";
-                    divPoll.appendChild(contPoll);
-                    // this.listNav(contPoll);
-
-                    this.createNav(contPoll);
-
-                    var contPollBody = document.createElement('div');
-                    contPollBody.id = "layoutPollBody";
-                    contPollBody.className = "pollMainCont";
-                    contPoll.appendChild(contPollBody);
-
-                    this.createMszBox(contPollBody);
-                    this.createModalCont(contPollBody);
-
-
-
-                },
-                createNewBtnCont: function (ctr) {
-
-                    var btncont = document.getElementById("createPollCont");
-                    if (btncont) {
-                        btncont.parentNode.removeChild(btncont);
-                    }
-                    var ct = document.createElement('div');
-                    ct.id = "createPollCont";
-                    ct.className = "createBtnCont";
-                    ctr.appendChild(ct);
-
-                },
-                createModalCont: function (contPoll) {
-                    var bsCont = document.createElement("div");
-                    bsCont.id = "bootstrapCont";
-                    bsCont.className = "modalCont";
-                    contPoll.appendChild(bsCont);
-
-                },
-//                createListHeader: function (cont, pollType) {
-//
-//                    var contHead = document.createElement("span");
-//                    contHead.className = "pollListHeader"
-//                    cont.appendChild(contHead);
-//                    var header = document.createElement("h4");
-//                    header.id = "pollListHead";
-//                    contHead.appendChild(header);
-//
-//
-//                },
-                layout2: function (contPoll, pollType) {
-                    var ctr = document.getElementById(contPoll);
-
-                    var text = pollType == "course" ? "Available course polls" : "Available site Polls";
-
-                    var e = document.getElementById("listQnCont" + pollType);
-                    if (e == null) {
-
-                        var e = document.createElement('div');
-                        e.id = "listQnCont" + pollType;
-                        e.className = "row pollList";
-                        ctr.appendChild(e);
-
-                    }
-
-                    this.createNewBtnCont(ctr);
-
-                },
-                layoutNewPoll: function () {
-
-                    var head = document.getElementById(("contHead"));
-                    var headerTx = document.createElement('div');
-
-
-
-                    var text = document.createElement('div');
-                    text.id = "editTx";
-                    text.classList.add("row", "modalHeaderTx");
-                    //text.className = "row";
-                    text.innerHTML = "Create New Poll";
-                    head.appendChild(text);
-
-                    var body = document.getElementById("contBody");
-                    //var footer = document.getElementById("newPollFooter");
-                    var txCont = document.getElementById("qnTxCont");
-                    if (!txCont) {
-                        var qncont = document.createElement("div");
-                        qncont.id = "qnTxCont";
-                        qncont.classList.add("row", "pollTxCont")
-                        body.appendChild(qncont);
-                    }
-                    var optsCont = document.getElementById("optsTxCont");
-                    if (!optsCont) {
-                        var opscont = document.createElement("div");
-                        opscont.id = "optsTxCont";
-                        opscont.classList.add("row", "pollTxCont")
-                        body.appendChild(opscont);
+                        coursePollNav.addEventListener('click', function () {
+                            sitePollNav.classList.remove('active');
+                            coursePollNav.classList.add('active');
+                            virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
+                        });
                     }
                 },
-                newPollTextUI: function () {
-                    var qncont = document.getElementById("qnTxCont");
-                    var opscont = document.getElementById("optsTxCont");
-                    var label = document.createElement('label');
-                    label.innerHTML = "Question :";
-                    label.className = "pollLabel";
-                    qncont.appendChild(label);
 
-                    var cont = document.createElement("div")
-                    cont.className = "inputWrapper clearfix clearfix";
-                    qncont.appendChild(cont);
-
-                    var qnText = document.createElement('textArea');
-                    qnText.id = "q";
-                    qnText.className = "qn form-control";
-                    qnText.rows = "1";
-                    qnText.placeholder = "Type question";
-                    cont.appendChild(qnText);
-
-                    var label = document.createElement('label');
-                    label.innerHTML = "Options :";
-                    label.className = "optionLabel";
-                    opscont.appendChild(label);
-
-                    var cont = document.createElement("div")
-                    cont.className = "inputWrapper clearfix";
-                    opscont.appendChild(cont);
-
-                    var optnText = document.createElement('textArea');
-                    optnText.id = "1";
-                    optnText.className = "opt form-control";
-                    optnText.placeholder = "Type option";
-                    optnText.rows = "1";
-                    cont.appendChild(optnText);
-
-                    var cont = document.createElement("div")
-                    cont.className = "inputWrapper clearfix";
-                    opscont.appendChild(cont);
-                    var optnText = document.createElement('textArea');
-
-                    optnText.id = "2";
-                    optnText.className = "opt form-control";
-                    optnText.rows = "1";
-                    optnText.placeholder = "Type option";
-                    cont.appendChild(optnText);
-
-                    var addMoreCont = document.createElement("div");
-                    addMoreCont.id = "addMoreCont";
-                    addMoreCont.className = "addMoreCont";
-                    opscont.appendChild(addMoreCont);
-
-                    var addIcon = document.createElement("span");
-                    addIcon.className = "icon-plus-circle";
-                    addMoreCont.appendChild(addIcon);
-
-                    var addMore = document.getElementById("AddMoreOption");
-                    if (!addMore) {
-                        var anc = document.createElement("a");
-                        anc.href = "#";
-                        anc.id = "addMoreOption";
-                        anc.innerHTML = "Add Option"
-                        anc.classList.add("addMoreOption", "controls");
-                        addMoreCont.appendChild(anc);
-                    }
-                },
                 resultView: function (istimer, pollType) {
                     var layout = document.getElementById("layoutPoll");
 
@@ -2703,13 +2425,10 @@
                     }
                     var modalClose = document.getElementById("modalClose");
                     modalClose.removeAttribute("data-dismiss");
-
                     modalClose.addEventListener("click", function () {
                         virtualclass.poll.pollModalClose(pollType);
 
                     });
-
-
                     virtualclass.poll.count = {};
                     virtualclass.poll.list = [];
 
@@ -2722,52 +2441,20 @@
                     }
 
                     if (roles.hasControls()) {
-
-                        var head = document.getElementById(("contHead"));
-                        var resultTx = document.getElementById(("resultTx"));
-                        if (!resultTx) {
-                            var text = document.createElement('div');
-                            text.id = "resultTx";
-                            text.classList.add("row", "modalHeaderTx");
-                            //text.className = "row";
-                            text.innerHTML = "Poll Result";
-                            head.appendChild(text);
-
-
+                        var control = roles.hasControls() ? true : false;
+                        var template=virtualclass.getTemplate("result-modal","poll");
+                        if ($("#editPollModal").length) {
+                            $("#editPollModal").empty();
                         }
 
-                        var cont = document.getElementById("pollModalBody");
-                        if (cont) {
-                            while (cont.childElementCount > 1) {
-                                cont.removeChild(cont.lastChild);
-                            }
+                        $("#editPollModal").append(template({"control": control}));
+                        } else {
+                            var template=virtualclass.getTemplate("stdResult","poll");
+                            $("#virtualclassPoll").append(template({"control": control}));
                         }
 
-                        var settingTx = document.getElementById("settingTx");
-                        if (settingTx) {
-                            settingTx.parentNode.removeChild(settingTx);
-                        }
-                        var elem = document.createElement("div");
-                        elem.id = "resultLayout";
-                        // elem.className = "bootstrap container";
+                    this.resultLayoutBody();
 
-                        cont.appendChild(elem);
-
-
-                    } else {
-
-                        var cont = document.getElementById("virtualclassPoll");
-                        var elem = document.createElement("div");
-                        elem.id = "resultLayout";
-                        elem.className = "bootstrap container";
-                        cont.appendChild(elem);
-
-
-                    }
-
-                    this.resultLayoutHeader(elem);
-                    this.resultLayoutBody(elem);
-    this.resultLayoutFooter(elem);
 
                 },
                 resultNotShownUI: function (header) {
@@ -2778,91 +2465,29 @@
                         while (mszbox.childNodes.length > 0) {
                             mszbox.removeChild(mszbox.childNodes[i]);
                         }
-
-
                     }
-
-
                     header.appendChild(elem);
                     var msg = "<b>Poll Closed </b><br/>You wont be able to see the result<br/> As you are not permitted";
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                 },
-                resultLayoutHeader: function (cont) {
-                    var elem = document.createElement("div");
-                    elem.id = "resultLayoutHead";
-                    elem.className = "row";
-                    cont.appendChild(elem);
 
-                    var tw = document.createElement("div");
-                    tw.id = "timerWrapper";
-                    tw.className = "col-md-6";
-                    elem.appendChild(tw);
-
-                    var label = document.createElement('label');
-                    label.innerHTML = "Remaining Time";
-                    label.id = "timerLabel";
-                    tw.appendChild(label);
-
-                    var tw = document.createElement("div");
-                    tw.id = "votesWrapper";
-                    tw.className = "col-md-6";
-                    elem.appendChild(tw);
-
-                    if (roles.hasControls()) {
-                        var label = document.createElement('label');
-                        label.innerHTML = "Voted So Far";
-                        label.id = "congreaPollVoters";
-                        tw.appendChild(label);
-
-                        var votes = document.createElement("div");
-                        votes.id = "receivedVotes";
-                        tw.appendChild(votes);
-
-                    }
-
-                },
                 resultLayoutBody: function (cont) {
-                    var elem = document.createElement("div");
-                    elem.id = "resultLayoutBody";
-                    elem.className = "row";
-                    cont.appendChild(elem);
-
-                    var qnLabel = document.createElement("div");
-                    qnLabel.id = "qnLabelCont"
-                    qnLabel.className = "row";
-                    elem.appendChild(qnLabel);
+                    var qnLabel = document.querySelector("#qnLabelCont");
                     if (roles.hasControls()) {
                         qnLabel.innerHTML = virtualclass.poll.dataToStd.question;
                     } else {
                         qnLabel.innerHTML = virtualclass.poll.dataRec.question;
                     }
 
-                    var chartMenu = document.createElement("div");
-                    chartMenu.id = "chartMenuCont";
-                    chartMenu.className = "row";
-                    elem.appendChild(chartMenu);
                     if (roles.hasControls()) {
-                        this.chartMenu(chartMenu);
-                        this.createResultMsgCont(cont);
-                    }
-
-                    this.createChartCont(elem);
+                        this.chartMenu();
+                        this.createResultMsgCont();
+                     }
 
                 },
                 createResultMsgCont: function (cont) {
-                    var elem = document.createElement("div");
-                    elem.id = "pollResultMsz";
-                    elem.className = "pollResultMsz";
-                    elem.innerHTML = "Waiting for student response....."
-                    cont.appendChild(elem);
-
-                },
-                createChartCont: function (cont) {
-
-                    var chart = document.createElement("div");
-                    chart.id = "chart";
-                    chart.className = "row";
-                    cont.appendChild(chart);
+                  var elem = document.getElementById("pollResultMsz")
+                  elem.innerHTML = "Waiting for student response....."
 
                 },
                 pollClosedUI: function () {
@@ -2884,64 +2509,15 @@
                 },
                 chartMenu: function (cont) {
 
-                    var elem = document.createElement("div");
-                    elem.id = "bar ";
-                    elem.className = "col-sm-1";
-                    cont.appendChild(elem);
-
-
-                    var bar = document.createElement("a");
-                    //bar.innerHTML = "bar graph ";
-                    bar.href = "#"
-                    bar.id = "barView";
-                    // elem.className="glyphicon glyphicon-stats";
-                    elem.appendChild(bar);
-
-                    var baricon = document.createElement("span");
-                    baricon.className = "icon-stats-bars";
-                    bar.appendChild(baricon);
-
-
+                    var elem = document.querySelector("#chartMenuCont #bar");
                     elem.addEventListener('click', virtualclass.poll.barGraph)
 
+                    var pi = document.querySelector("#chartMenuCont #piView");
+                     pi.addEventListener('click', virtualclass.poll.createPiChart);
 
-                    var elem = document.createElement("div");
-                    elem.id = "pi";
-                    elem.className = "col-sm-1";
-                    cont.appendChild(elem);
-
-
-                    var pi = document.createElement("a");
-                    // pi.innerHTML = "pi chart ";
-                    pi.href = "#"
-                    pi.id = "piView";
-                    // elem.className="glyphicon glyphicon-stats";
-                    elem.appendChild(pi);
-                    var piicon = document.createElement("span");
-                    piicon.className = "icon-pie-chart";
-                    pi.appendChild(piicon);
-
-
-                    pi.addEventListener('click', virtualclass.poll.createPiChart);
-
-                    var elem = document.createElement("div");
-                    elem.id = "list view";
-                    elem.className = "col-sm-1";
-                    cont.appendChild(elem);
-
-                    // a to replace with span
                     if (roles.hasControls()) {
 
-                        var list = document.createElement("a");
-                        //list.innerHTML = "list view ";
-                        list.href = "#"
-                        list.id = "listView"
-
-                        var listicon = document.createElement("span");
-                        listicon.className = "icon-list-ul";
-                        list.appendChild(listicon);
-
-                        elem.appendChild(list);
+                        var elem = document.querySelector("#chartMenuCont #rList");
                         elem.addEventListener('click', virtualclass.poll.listView)
                     }
 
@@ -2952,101 +2528,19 @@
                     chart.className = "row";
                     cont.appendChild(chart);
                 },
-                resultLayoutFooter: function (cont) {
-                    var elem = document.createElement("div");
-                    elem.id = "resultLayoutFooter";
-                    elem.className = "row";
-                    cont.appendChild(elem);
 
-                },
                 createNav: function (pollCont) {
-//               
-                    var nav = document.createElement('nav');
-                    nav.id = "navigator";
-                    nav.className = "nav navbar";
-                    pollCont.appendChild(nav);
-//                    if (!roles.hasControls()) {
-//                        nav.style.display = "none";
-//                    }
-                    var ul = document.createElement('ul');
-                    ul.classList.add("nav", "nav-tabs", "pollNavBar");
-                    nav.appendChild(ul);
-
-                    if (roles.hasControls()) {
-                        var li1 = document.createElement('li');
-                        li1.setAttribute("role", "presentation");
-                        li1.id = "coursePollTab";
-                        li1.classList.add("navListTab", "active")
-                        li1.setAttribute("data-toggle", "popover");
-                        li1.setAttribute("data-trigger", "hover");
-                        //li1.setAttribute("title","Polls you will create are course specific");
-                        li1.setAttribute("data-content", "Polls you will create are course specific");
-
-                        ul.appendChild(li1);
-
-                        var a = document.createElement("a")
-                        a.href = "#";
-                        a.innerHTML = "Course Poll";
-                        li1.appendChild(a);
-
-                        var li = document.createElement('li');
-                        a.addEventListener('click', function () {
-
-                            li.classList.remove('active');
-                            li1.classList.add('active');
-                            virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
-                        })
-                        ul.appendChild(li);
-
-                        li.setAttribute("role", "presentation");
-                        li.id = "sitePollTab";
-                        li.classList.add("navListTab");
-                        li.setAttribute("data-toggle", "popover");
-                        li.setAttribute("data-trigger", "hover");
-                        // li.setAttribute("title","Polls created here are of site level");
-                        li.setAttribute("data-content", "Polls created here are of site level");
-                        var a = document.createElement("a")
-                        a.href = "# ";
-                        a.innerHTML = "Site Poll";
-                        li.appendChild(a);
-                        //virtualclass.poll.attachEvent('click','coursePollNav',virtualclass.poll.coursePollHandler);
-                        a.addEventListener('click', function () {
-                            var category = 0;
-                            li1.classList.remove('active');
-                            li.classList.add('active');
-                            virtualclass.poll.interfaceToFetchList(category);
-                        });
-
-
-                    } else {
-
-                        li = document.createElement('li');
-                        li.setAttribute("role", "presentation");
-                        li.id = "pollResult";
-                        li.classList.add("navListTab");
-                        li.setAttribute("data-toggle", "popover");
-                        li.setAttribute("data-trigger", "hover");
-                        //li.classList.remove('active');
-                        // li.setAttribute("title","Polls created here are of site level");
-                        li.setAttribute("data-content", "show result");
-                        ul.appendChild(li);
-                        var a = document.createElement("a")
-                        a.href = "# ";
-                        a.innerHTML = "Poll Result";
-                        li.appendChild(a);
-                        //virtualclass.poll.attachEvent('click','coursePollNav',virtualclass.poll.coursePollHandler);
-                        a.addEventListener('click', function () {
-//                        var category = 0;
-//                        li1.classList.remove('active');
-//                        li.classList.add('active');
+                    if (roles.hasControls())  {
+                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a')
+                        stdNav.addEventListener('click', function () {
                             virtualclass.poll.showStudentPollReport();
                         });
 
                     }
-
-                    $(function () {
+                   $(function () {
                         $('[data-toggle="popover"]').popover()
-                    })
+                   })
+
                 },
                 createMszBox: function (cont) {
                     var elem = document.createElement('div');
@@ -3055,24 +2549,7 @@
                     cont.appendChild(elem);
 
                 },
-                newPollBtn: function (pollType) {
 
-                    var ct = document.getElementById("createPollCont")
-                    var btn = document.createElement('button');
-                    btn.id = "newPollBtn" + pollType;
-                    btn.className = "btn btn-default";
-                    btn.classList.add(pollType);
-                    btn.innerHTML = "Create New";
-                    btn.setAttribute("data-toogle", "modal");
-                    btn.setAttribute("data-target", "#editPollModal")
-                    ct.appendChild(btn);
-                    virtualclass.poll.attachEvent(btn.id, "click", virtualclass.poll.newPollHandler, pollType)
-
-                    var iconNew = document.createElement('i');
-                    iconNew.className = "icon-create-new";
-                    btn.appendChild(iconNew);
-
-                },
                 addAnc: function (navId, text, active) {
 
                     var elem = document.getElementById(navId);
@@ -3099,7 +2576,6 @@
                     }
                 },
                 createOption: function (qIndex, type) {
-
                     var optsCont = document.getElementById('optsTxCont');
                     var elem = optsCont.querySelectorAll(':scope .opt');
                     var count = 0;
@@ -3115,45 +2591,16 @@
                     } else {
                         y = "0";
                     }
+
+                    var template=virtualclass.getTemplate("optioninput","poll");
+                    var html = template({"seq": y})
                     var addMore = document.getElementById("addMoreCont");
-                    var cont = document.createElement("div");
-                    cont.className = "inputWrapper clearfix";
+                    $("#addMoreCont").before(html)
+                    var close = document.getElementById("remove" + y);
+                    close.addEventListener("click", function () {
+                        virtualclass.poll.removeOption(type, qIndex, "remove" + y);
+                    })
 
-
-                    optsCont.insertBefore(cont, addMore)
-
-                    var option = document.createElement("textArea");
-
-                    option.rows = "1";
-                    option.id = "option" + y;
-                    option.className = "opt form-control";
-                    option.placeholder = "Type option";
-                    option.style.width = "97%";
-                    option.style.float = "left";
-                    cont.appendChild(option)
-                    if (newIndex > 1) {
-                        var close = document.createElement("a");
-                        close.id = "remove" + y;
-                        close.className = "close";
-                        close.innerHTML = "&times";
-                        cont.appendChild(close);
-                        // cont.appendChild(close);
-                        close.addEventListener("click", function () {
-                            virtualclass.poll.removeOption(type, qIndex, close.id);
-
-                        })
-
-                    }
-
-                },
-                qnCont: function (index, pollType) {
-                    var list = document.getElementById("listQnCont" + pollType);
-                    var elem = document.createElement("div");
-                    elem.id = "contQn" + pollType + index;
-                    elem.className = "row vcPollCont col-md-12";
-                    if (list != null) {
-                        list.insertBefore(elem, list.firstChild);
-                    }
                 },
                 hidePrevious: function (index) {
                     var cont = document.getElementById("optsTxCont");
@@ -3169,273 +2616,16 @@
                     footer.parentNode.removeChild(footer)
 
                 },
-                generateModal: function (id, bsCont, pollType) {
-
-                    var modal = document.createElement("div");
-
-                    modal.id = id;
-                    modal.className = "modal";
-                    modal.role = "dialog";
-                    modal.style.display = "none";
-                    modal.setAttribute("tab-index", "-1");
-                    modal.setAttribute("area-hidden", "true");
-                    bsCont.appendChild(modal);
-
-                    var dialog = document.createElement("div");
-                    dialog.className = "modal-dialog";
-                    modal.appendChild(dialog);
-
-                    var content = document.createElement("div");
-                    content.className = "modal-content";
-                    content.id = "pollModalBody"
-                    dialog.appendChild(content);
-
-                    var head = document.createElement("div");
-                    head.id = "contHead";
-                    head.className = "modal-header";
-                    content.appendChild(head);
-
-                    var el = document.createElement('button');
-                    el.type = "button";
-                    el.className = "close";
-                    el.id = "modalClose";
-                    el.setAttribute("data-dismiss", "modal");
-//                   el.addEventListener("click",function(){
-//                       virtualclass.poll.test(pollType);
-//                       
-//                   })
-                    //virtualclass.poll.attachEvent("modalClose", "click", virtualclass.poll.test,pollType);
-                    el.innerHTML = "&times";
-                    head.appendChild(el);
-
-                    var body = document.createElement("div");
-                    body.id = "contBody";
-                    body.className = "modal-body";
-                    content.appendChild(body);
-
-                    var footer = document.createElement("div");
-                    footer.id = "contFooter";
-                    footer.className = "modal-footer";
-                    content.appendChild(footer);
-                },
-                modalContentUI: function () {
-
-                    var body = document.getElementById("contBody");
-                    var qncont = document.createElement("div");
-                    qncont.id = "qnTxCont";
-                    qncont.classList.add("row", "previewTxCont")
-                    body.appendChild(qncont);
-
-                    var opscont = document.createElement("div");
-                    opscont.id = "optsTxCont";
-                    opscont.classList.add("row", "previewTxCont");
-                    body.appendChild(opscont);
-
-                },
-                qnCtrCont: function (index, pollType, id, isPublished, isAdmin) {
-
-                    var e = document.getElementById("contQn" + pollType + index);
-
-                    var ctrCont = document.createElement("div");
-                    ctrCont.id = "ctrQn" + pollType + index;
-                    ctrCont.className = "col-md-2 pollCtrCont";
-                    e.appendChild(ctrCont);
-
-                    var cont = document.createElement("div");
-                    cont.className = "pollCtrContainer";
-                    ctrCont.appendChild(cont);
-
-                    var editCont = document.createElement("div");
-                    editCont.id = "contQn" + pollType + index + "E";
-                    editCont.className = "editCont pull-left";
-                    cont.appendChild(editCont);
-
-                    var deleteCont = document.createElement("div");
-                    deleteCont.id = "contQn" + pollType + index;
-                    deleteCont.className = "deleteCont pull-left";
-                    cont.appendChild(deleteCont);
-
-                    if ((pollType == "course" && id == wbUser.id) || (pollType == "site" && isAdmin == "true")) {
-
-                        if (!isPublished) {
-                            var link1 = document.createElement("a");
-                            //link1.innerHTML = "edit";
-                            link1.href = "#";
-
-                            link1.setAttribute("data-target", "#editPollModal")
-                            link1.setAttribute("id", "editQn" + pollType + index);
-//                           
-                            editCont.appendChild(link1);
-
-                            var sp = document.createElement("span");
-                            sp.className = "icon-pencil2";
-                            sp.setAttribute("data-toggle", "tooltip")
-                            sp.setAttribute("title", "edit poll");
-                            link1.appendChild(sp);
-
-                        } else {
-                            var link1 = document.createElement("span");
-                            link1.className = "icon-pencil2";
-                            link1.setAttribute("data-toggle", "tooltip")
-                            link1.setAttribute("title", "cannt edit,poll attempted ");
-                            editCont.appendChild(link1);
-
-                        }
-                        var link3 = document.createElement("a");
-                        link3.href = "#";
-                        link3.id = "deleteQn" + pollType + index;
-
-
-                        //link3.innerHTML = "delete";
-                        // link3.className= "icon-bin"
-                        var sp = document.createElement("span");
-                        sp.className = "icon-bin22";
-                        sp.setAttribute("data-toggle", "tooltip")
-                        sp.setAttribute("title", "delete poll");
-
-
-                        link3.appendChild(sp);
-
-                        deleteCont.appendChild(link3);
-
-
-                    } else {
-
-                        var link1 = document.createElement("span");
-                        link1.className = "icon-pencil2";
-                        link1.setAttribute("data-toggle", "tooltip")
-                        link1.setAttribute("title", "cannt edit, can be edited by creator of the poll");
-                        editCont.appendChild(link1);
-
-                        var link3 = document.createElement("span");
-                        link3.setAttribute("data-toggle", "tooltip")
-                        link3.setAttribute("title", "cannt delete, can be deleted  by creator of the poll");
-                        link3.className = "icon-bin22"
-                        deleteCont.appendChild(link3);
-
-                    }
-                    var e = document.createElement("div");
-                    e.className = "publishCont pull-left";
-                    e.id = "contQn" + pollType + index + "P";
-                    cont.appendChild(e);
-
-                    var link2 = document.createElement("a");
-                    link2.href = "#";
-                    link2.id = "publishQn" + pollType + index;
-
-                    e.appendChild(link2);
-
-                    var sp = document.createElement("span");
-                    sp.className = "icon-publish2";
-                    sp.setAttribute("data-toggle", "tooltip")
-                    sp.setAttribute("title", "publish poll");
-
-                    link2.appendChild(sp);
-                },
-                qnTextCont: function (item, index, pollType, creator) {
-
-                    var option = "";
-                    for (var i in item.options) {
-                        option = option + item.options[i] + " ";
-                    }
-
-                    var e = document.getElementById("contQn" + pollType + index);
-                    var qnCont = document.createElement("div");
-
-                    qnCont.id = "qnText" + pollType + index;
-                    qnCont.classList.add("qnText", "col-md-8")
-                    qnCont.innerHTML = item.questiontext;
-                    e.appendChild(qnCont);
-
-                    qnCont.setAttribute("data-toggle", "popover");
-                    qnCont.setAttribute("data-trigger", "hover");
-
-                    var preview = document.createElement('div');
-                    preview.id = "popover" + pollType + index;
-                    preview.classList.add("pollPreview");
-                    virtualclass.poll.UI.pollPreviewCont(preview, item);
-
-
-                    $(function () {
-                        $('[data-toggle="popover"]').popover({content: preview, html: true, delay: {show: 1000}})
-                    })
-
-
-
-                    var elem = document.createElement("div");
-                    elem.classList.add("creator", "col-md-2")
-
-                    elem.innerHTML = creator;
-                    e.appendChild(elem);
-
-
-
-                },
-                pollPreviewCont: function (cont, item) {
-
-                    var popUpcont = document.createElement("div");
-                    cont.id = "popupCont";
-                    cont.appendChild(popUpcont);
-
-                    var qncont = document.createElement("div");
-                    qncont.id = "qnTxCont";
-                    qncont.classList.add("row", "previewTxCont")
-                    popUpcont.appendChild(qncont);
-
-
-                    var l = document.createElement("label");
-                    l.innerHTML = "Question";
-                    qncont.appendChild(l);
-                    virtualclass.poll.showPreviewQn(qncont, item);
-
-                    var opscont = document.createElement("div");
-                    opscont.id = "optsTxCont";
-                    opscont.classList.add("row", "previewTxCont");
-                    popUpcont.appendChild(opscont);
-
-                    var label = document.createElement("label");
-                    label.innerHTML = "Options";
-                    opscont.appendChild(label);
-                    virtualclass.poll.showPreviewOption(opscont, item);
-
-
-                },
                 editPoll: function (pollType, index) {
-
-//                    var text = document.getElementById(("modalHeaderTx"));
-//                    if (text == null) {
-//                        var head = document.getElementById(("contHead"));
-//                        var el = document.createElement('');
-//                        el.href = "#";
-//                        el.type = "button";
-//                        el.id = "reset";
-//                        el.className = "controls";
-//                        el.innerHTML = "reset";
-//                        head.appendChild(el);
-//                    }
-                    var header = document.getElementById("contHead");
-                    var text = document.createElement('div');
-                    text.id = "editTx";
-                    text.classList.add("row", "modalHeaderTx");
-                    //text.className = "row";
-                    text.innerHTML = "Poll Edit";
-                    header.appendChild(text);
-
-
                     virtualclass.poll.UI.loadContent(pollType, index);
+                    virtualclass.poll.UI.footerBtns(pollType, index);
                 },
                 //to change this  temp**
                 loadContent: function (pollType, index) {
-
                     var opts = [];
                     var el = document.getElementById('qnTxCont');
-                    el.style.display = "block";
+
                     virtualclass.poll.UI.editQn(pollType, index);
-                    if (pollType == 'course') {
-                        poll = virtualclass.poll.coursePoll[index];
-                    } else {
-                        poll = virtualclass.poll.sitePoll[index];
-                    }
                     opts = poll.options;
                     var optsCount = 0;
                     if (typeof opts == 'object') {
@@ -3447,150 +2637,36 @@
                     } else {
                         for (var i = 0; i < opts.length; i++) {
                             virtualclass.poll.UI.editOptions(pollType, index, i, optsCount);
-                        }
                     }
-                    var optsCont = document.getElementById("optsTxCont");
-
-                    var addMoreCont = document.createElement("div");
-                    addMoreCont.id = "addMoreCont";
-                    addMoreCont.className = "addMoreCont";
-                    optsCont.appendChild(addMoreCont);
-
-                    var addIcon = document.createElement("span");
-                    addIcon.className = "icon-plus";
-                    addMoreCont.appendChild(addIcon);
-
-                    var addMore = document.getElementById("AddMoreOption");
-                    if (!addMore) {
-                        var anc = document.createElement("a");
-                        anc.href = "#";
-                        anc.id = "addMoreOption";
-                        anc.innerHTML = "Add Option"
-                        anc.classList.add("addMoreOption", "controls");
-                        addMoreCont.appendChild(anc);
-                    }
-
-                    virtualclass.poll.UI.footerBtns(pollType, index);
+                  }
 
                 },
                 previewFooterBtns: function (footerCont, pollType, index) {
 
                     var cont = document.getElementById("footerCtrCont");
-                    if (!cont) {
-                        var ctrCont = document.createElement("div");
-                        ctrCont.id = "footerCtrCont"
-
-                        footerCont.appendChild(ctrCont);
-
-                        var btn = document.createElement('button');
-                        btn.id = "goBack";
-
-                        btn.setAttribute("data-dismiss", "modal");
-                        btn.innerHTML = "< Back";
-                        btn.classList.add("btn", "btn-default", "controls");
-                        ctrCont.appendChild(btn);
-
-                        var iconBack = document.createElement('i');
-                        iconBack.className = "icon-back";
-                        btn.appendChild(iconBack);
-
-                        var btn = document.createElement('button');
-                        btn.id = "next";
-                        btn.classList.add("btn", "btn-default", "controls")
-                        btn.innerHTML = "Go to Publish";
-                        ctrCont.appendChild(btn)
+                    if (cont) {
                         virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, index, pollType);
-
-                        var iconPublish = document.createElement('i');
-                        iconPublish.className = "icon-publish";
-                        btn.appendChild(iconPublish);
                     }
                 },
                 footerBtns: function (pollType, index) {
-
-                    var footerCont = document.getElementById("contFooter");
-                    var ctrCont = document.createElement("div");
-                    ctrCont.id = "footerCtrCont";
-                    footerCont.appendChild(ctrCont);
-
-                    var cont = document.getElementById("etSave");
-                    if (cont == null) {
-//                        var anc = document.createElement("a");
-//                        anc.href = "#";
-//                        anc.id = "addMoreOption";
-//                        anc.innerHTML = "AddMoreOption"
-//                        anc.classList.add("addMoreOption", "controls");
-//                        ctrCont.appendChild(anc);
-                        var btn = document.createElement("button");
-
-                        btn.id = "reset";
-                        btn.classList.add("btn", "btn-default", "pull-left", "controls");
-                        btn.type = "button";
-                        btn.innerHTML = "Reset";
-                        ctrCont.appendChild(btn);
-
-                        var iconReset = document.createElement('i');
-                        iconReset.className = "icon-reset";
-                        btn.appendChild(iconReset);
-
-
-                        var btn = document.createElement('button');
-                        btn.id = "etSave";
-                        btn.innerHTML = "Save";
-                        btn.classList.add("btn", "btn-default", "controls");
-                        ctrCont.appendChild(btn);
-
-                        var iconSave = document.createElement('i');
-                        iconSave.className = "icon-save";
-                        btn.appendChild(iconSave);
-
-
-                        var btn = document.createElement('button');
-                        btn.id = "saveNdPublish";
-                        btn.classList.add("btn", "btn-default", "controls");
-                        btn.innerHTML = "Save and Publish";
-                        ctrCont.appendChild(btn)
-
-                        var savePublish = document.createElement('i');
-                        savePublish.className = "icon-publish";
-                        btn.appendChild(savePublish);
-
-
-                        if (pollType) {
-                            virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, index, pollType);
-                        }
-                    }
+                   if (pollType) {
+                     virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, index, pollType);
+                   }
                 },
                 editQn: function (pollType, index) {
-                    var el = document.getElementById('qnTxCont')
-                    var qn = document.getElementById('q')
-                    // el.style.display="block";
-                    if (qn == null) {
-                        var label = document.createElement('label');
-                        label.innerHTML = "Question :";
-                        label.className = "pollLabel";
-                        el.appendChild(label);
+                   var qn = document.querySelector("#qnTxCont #q")
+                   if (qn == null) {
+                      qn.value = document.getElementById("qnText" + pollType + index).innerHTML;
 
-                        var qncont = document.createElement("div")
-                        qncont.className = "inputWrapper clearfix";
-                        el.appendChild(qncont);
+                   }
 
-                        var qnText = document.createElement('textArea');
-                        qnText.id = "q";
-                        qnText.className = "qn form-control";
-                        qnText.rows = "1";
-                        qnText.value = document.getElementById("qnText" + pollType + index).innerHTML;
-                        qncont.appendChild(qnText);
-                    }
-                    var elem = document.getElementById('q')
-
-                    if (elem != null && !elem.value) {
-                        if (pollType = 'course') {
-                            elem.value = virtualclass.poll.coursePoll[index].questiontext;
-                        } else {
-                            elem.value = virtualclass.poll.sitePoll[index].questiontext;
-                        }
-                    }
+                   if (qn != null && !qn.value) {
+                      if (pollType = 'course') {
+                         qn.value = virtualclass.poll.coursePoll[index].questiontext;
+                      } else {
+                         qn.value = virtualclass.poll.sitePoll[index].questiontext;
+                      }
+                   }
 
                 },
                 editOptions: function (pollType, qIndex, prop, optsCount) {
@@ -3598,99 +2674,49 @@
                     el.style.display = "block";
 
                     var opt = document.getElementById("opt" + qIndex + prop);
-                    if (opt == null) {
-                        var l = document.getElementById("pollOptLabel");
-                        if (l == null) {
-                            var label = document.createElement('label');
-                            label.innerHTML = "Options :";
-                            label.id = "pollOptLabel";
-                            label.className = "pollLabel";
+                    if (optsCount > 2) {
+                        var close = document.createElement("a");
+                        close.id = "remove" + prop;
+                        close.className = "close";
+                        close.innerHTML = "&times";
+                        var cont = document.querySelector("#optsTxCont .inputWrapper #option" + prop).parentNode;
 
-                            el.appendChild(label);
-                        }
-                        var cont = document.createElement("div");
-                        cont.className = "inputWrapper clearfix";
-                        el.appendChild(cont);
-
-                        var option = document.createElement("textArea");
-
-                        option.rows = "1";
-                        option.id = "option" + prop;
-                        option.className = "opt form-control";
-
-                        option.style.width = "97%";
-                        option.style.float = "left";
-                        cont.appendChild(option)
-                        if (optsCount > 2) {
-                            var close = document.createElement("a");
-                            close.id = "remove" + prop;
-                            close.className = "close";
-                            close.innerHTML = "&times";
-
-                            cont.appendChild(close);
-                            close.addEventListener("click", function () {
-                                virtualclass.poll.removeOption(pollType, qIndex, close.id);
-
-                            })
-
-
-                        }
-
-//                        virtualclass.poll.attachEvent(close.id, "click", virtualclass.poll.removeOption, pollType, qIndex);
-
-
-                        if (pollType == "course") {
-                            var courseOpts = virtualclass.poll.coursePoll[qIndex].options[prop];
-                            option.value = (typeof courseOpts == 'object') ? courseOpts.options : courseOpts;
-                        } else {
-                            var siteOpts = virtualclass.poll.sitePoll[qIndex].options[prop];
-                            option.value = (typeof siteOpts == 'object') ? siteOpts.options : siteOpts;
-                        }
+                        cont.appendChild(close);
+                        close.addEventListener("click", function () {
+                            virtualclass.poll.removeOption(pollType, qIndex, close.id);
+                        })
 
                     }
+
+                    var option = document.getElementById("option" + prop);
+                    if (pollType == "course") {
+                        var courseOpts = virtualclass.poll.coursePoll[qIndex].options[prop];
+                        option.value = (typeof courseOpts == 'object') ? courseOpts.options : courseOpts;
+                    } else {
+                        var siteOpts = virtualclass.poll.sitePoll[qIndex].options[prop];
+                        option.value = (typeof siteOpts == 'object') ? siteOpts.options : siteOpts;
+                    }
+
                 },
                 pollSettingUI: function (index, label) {
-                    this.settingUIHeader(index, label)
+                    function range(lowEnd, highEnd) {
+                        var arr = [],
+                         c = highEnd - lowEnd + 1;
+                        while (c--) {
+                        arr[c] = highEnd--
+                    }
+                        return arr;
+                    }
+
+                    var template=virtualclass.getTemplate("setting-modal","poll");
+                    $("#editPollModal").empty();
+                    $("#editPollModal").append(template({"time": range(1, 60)}));
+
                     this.settingUIBody(index, label);
-                    this.settingUIFooter(index, label)
-
                 },
-                settingUIHeader: function (index, label) {
-                    var header = document.getElementById("contHead");
-                    var editTx = document.getElementById("editTx");
-                    if (editTx) {
-                        editTx.parentNode.removeChild(editTx);
-                    }
-                    var publishTx = document.getElementById("publishTx");
-                    if (publishTx) {
-                        publishTx.parentNode.removeChild(publishTx);
-                    }
 
-                    var text = document.createElement('div');
-                    text.id = "settingTx";
-                    text.classList.add("row", "modalHeaderTx");
-                    // text.className = "row";
-                    text.innerHTML = "Poll Setting";
-                    header.appendChild(text);
-
-                },
                 settingUIBody: function (index, label) {
-
-                    var body = document.getElementById("contBody");
-                    for (var i = 0; i < body.childNodes.length; i++) {
-                        body.childNodes[i].parentNode.removeChild(body.childNodes[i]);
-                    }
-
-                    var elem = document.createElement('div');
-                    elem.id = "settingCont";
-                    elem.className = "row";
-                    body.appendChild(elem);
-
-                    this.modeSetting(elem);
-                    this.enTimer(elem);
-                    this.ckShowRt(elem)
                     this.addSettingHandlers();
-
 
                 },
                 addSettingHandlers: function () {
@@ -3713,171 +2739,7 @@
 
                     });
                 },
-                settingUIFooter: function (index, label) {
-                    var footer = document.getElementById("contFooter");
-                    var settingBtn = document.createElement('div');
-                    settingBtn.id = "settingBtn";
-                    footer.appendChild(settingBtn);
 
-                    var cancel = document.createElement('button');
-                    cancel.id = "cacelSetting";
-                    cancel.className = "btn btn-default";
-                    cancel.setAttribute("data-dismiss", "modal");
-                    cancel.innerHTML = "cancel";
-                    settingBtn.appendChild(cancel);
-
-                    var iconCancel = document.createElement('i');
-                    iconCancel.className = "icon-publish-cancel";
-                    cancel.appendChild(iconCancel);
-
-                    var publish = document.createElement('button');
-                    publish.id = "publish";
-                    publish.className = "btn btn-default";
-                    // save.setAttribute("data-dismiss", "modal");
-                    publish.innerHTML = "Publish";
-
-                    var iconPublish = document.createElement('i');
-                    iconPublish.className = "icon-publish";
-                    publish.appendChild(iconPublish);
-                    settingBtn.appendChild(publish);
-
-                },
-                modeSetting: function (cont) {
-                    var modeLabel = document.createElement('div');
-                    modeLabel.innerHTML = "Mode of closing Poll :";
-                    modeLabel.className = "pollLabel"
-                    cont.appendChild(modeLabel);
-
-                    var mode = document.createElement('div');
-                    mode.id = "mode";
-                    mode.className = "custom-controls-stacked";
-                    cont.appendChild(mode);
-
-                    var label = document.createElement('label');
-                    label.className = "custom-control custom-radio";
-                    mode.appendChild(label);
-
-                    var el = document.createElement('input');
-                    el.type = "radio";
-                    el.name = "option"
-                    el.value = "BY Instructor";
-                    el.id = "radioBtn1";
-                    el.className = "custom-control-input";
-                    label.appendChild(el);
-
-                    var span = document.createElement("span");
-                    span.className = "custom-control-indicator";
-                    label.appendChild(span)
-
-                    var span = document.createElement("span");
-                    span.className = "custom-control-description";
-                    span.innerHTML = "By Instructor";
-                    label.appendChild(span);
-
-                    var labelTimer = document.createElement('label');
-                    labelTimer.className = "custom-control custom-radio";
-                    mode.appendChild(labelTimer);
-                    var el = document.createElement('input');
-                    el.type = "radio";
-                    el.name = "option"
-                    el.value = "BY Timer";
-                    el.id = "radioBtn2";
-                    el.checked = "checked";
-                    el.className = "custom-control-input";
-                    labelTimer.appendChild(el);
-
-                    var span = document.createElement("span");
-                    span.className = "custom-control-indicator";
-                    labelTimer.appendChild(span)
-
-                    var span = document.createElement("span");
-                    span.className = "custom-control-description";
-                    span.innerHTML = "By Timer";
-                    labelTimer.appendChild(span);
-                },
-                enTimer: function (setting) {
-                    var enTimer = document.createElement('div');
-                    enTimer.id = "enTimer";
-                    setting.appendChild(enTimer);
-
-                    var timerTx = document.createElement('div');
-                    timerTx.id = "timerTx";
-                    timerTx.innerHTML = "Set Timer"
-                    timerTx.className = "pollLabel"
-                    enTimer.appendChild(timerTx);
-
-                    var sel = document.createElement('div');
-                    sel.id = "selTime";
-                    enTimer.appendChild(sel);
-
-                    var time = document.createElement('select');
-                    time.type = "select";
-                    time.id = "timer";
-                    time.name = "timer"
-                    time.className = "form-control";
-                    time.style.width = "100px";
-                    time.style.display = "inline";
-                    sel.appendChild(time);
-                    selectOne();
-
-                    function selectOne() {
-                        var select = document.getElementById('timer');
-                        for (var i = 0; i < 60; i++) {
-
-                            select.options[select.options.length] = new Option(i + 1, i + 1);
-                        }
-                    }
-
-                    var unit = document.createElement('select');
-                    unit.type = "select";
-                    unit.id = "ut";
-                    unit.name = "unit";
-                    unit.className = "form-control";
-                    unit.style.width = "100px";
-                    unit.style.display = "inline";
-                    sel.appendChild(unit);
-
-                    var op = document.createElement('option');
-                    op.id = "op1";
-                    op.name = "unit";
-                    op.value = "minut";
-                    op.innerHTML = "minut";
-                    unit.appendChild(op);
-
-                    var op = document.createElement('option');
-                    op.id = "op2";
-                    op.name = "unit";
-                    op.value = "second";
-                    op.innerHTML = "second";
-                    unit.appendChild(op);
-
-                },
-                ckShowRt: function (setting) {
-                    var showRt = document.createElement('div');
-                    showRt.id = "showRt";
-                    showRt.className = "form-group";
-                    setting.appendChild(showRt);
-
-                    var label = document.createElement('label');
-                    label.id = "labelCk";
-                    label.className = "custom-control custom-checkbox ";
-                    showRt.appendChild(label);
-
-                    var ckbox = document.createElement('input');
-                    ckbox.type = "checkbox";
-                    ckbox.id = "pollCkbox";
-                    ckbox.className = "custom-control-input ";
-                    ckbox.checked = "checked";
-                    label.appendChild(ckbox);
-
-                    var span = document.createElement('span');
-                    span.id = "labelCk";
-                    span.classList.add("custom-control-description", "pollLabel")
-                    // span.className = "custom-control-description";
-                    span.innerHTML = "show result to students";
-                    label.appendChild(span);
-
-                },
                 defaultLayoutForStudent: function () {
                     this.container();
                     var mszCont = document.getElementById("mszBoxPoll");
@@ -3891,83 +2753,13 @@
                 },
                 stdPublishUI: function () {
 
-                    this.stdPublishLayout();
                     var msz = document.getElementById("stdPollMszLayout");
                     if (msz) {
                         msz.parentNode.removeChild(msz);
                     }
-
-
                 },
-                stdPollDisplay: function () {
 
-                    this.stdPollHeader();
-                    this.stdPollContent();
-                    this.stdPollFooter();
 
-                },
-                stdPollHeader: function () {
-                    var head = document.getElementById("stdContHead");
-                    var label = document.createElement('label');
-                    label.innerHTML = "Remaining Time";
-                    label.id = "timerLabel";
-                    head.appendChild(label);
-
-                },
-                stdPollContent: function () {
-                    var body = document.getElementById("stdContBody");
-                    var elem = document.createElement("div");
-                    elem.id = "stdQnCont";
-                    elem.className = "row";
-                    body.appendChild(elem);
-
-                    var elem = document.createElement("div");
-                    elem.id = "stdOptionCont";
-                    elem.className = "row";
-                    body.appendChild(elem);
-                    // elem.innerHTML="option container";
-                },
-                stdPollFooter: function () {
-                    var footer = document.getElementById("stdContFooter");
-                    var btn = document.createElement("input");
-                    btn.id = "btnVote";
-                    btn.className = "btn btn-primary";
-                    btn.value = "VOTE"
-                    footer.appendChild(btn);
-
-                },
-                stdPublishLayout: function () {
-
-                    var cont = document.getElementById("layoutPollBody");
-                    var elem = document.getElementById("stdPollContainer");
-                    if (elem) {
-                        elem.parentNode.removeChild(elem);
-                    }
-                    var elem = document.createElement('div');
-                    elem.id = "stdPollContainer";
-                    elem.className = "container";
-                    cont.appendChild(elem);
-                    this.stdLayoutTemp(elem);
-
-                },
-                stdLayoutTemp: function (cont) {
-                    var elem = document.createElement('div');
-                    elem.id = "stdContHead";
-                    elem.className = "row";
-                    cont.appendChild(elem);
-
-                    var elem = document.createElement('div');
-                    elem.id = "stdContBody";
-                    elem.className = "row";
-                    cont.appendChild(elem);
-
-                    var elem = document.createElement('div');
-                    elem.id = "stdContFooter";
-                    elem.className = "row";
-                    cont.appendChild(elem);
-                    this.stdPollDisplay();
-
-                },
                 disableClose: function () {
                     var close = document.getElementById("pollClose");
                     close.style.display = "none";

@@ -764,7 +764,7 @@
                 container: function() {
                     var control= roles.hasAdmin()?true:false;
                     var data ={"control":control};
-                    var template = JST['templates/ppt/ppt.hbs'];
+                    var template=virtualclass.getTemplate("ppt","poll");
                     $('#virtualclassAppLeftPanel').append(template(data));
                 },
                 /*
@@ -776,10 +776,8 @@
                     if (ct != null) {
                         ct.parentNode.removeChild(ct);
                     }
-                    console.log("test create ppt  iframe");
-                  //debugger;
-                  // var iframe = $('#template-ppt-iframe').html();
-                    var template = JST['templates/ppt/pptiframe.hbs'];
+
+                    var template=virtualclass.getTemplate("pptiframe","poll");
                     $('#virtualclassSharePresentation').children().before(template)
                 },
 
@@ -794,7 +792,8 @@
                     if(msg) {
                         msg.parentNode.removeChild(msg)
                     }
-                    var template = JST['templates/ppt/mszdisplay.hbs'];
+
+                    var template=virtualclass.getTemplate("mszdisplay","poll");
                     $('#virtualclassSharePresentation').append(template())
                 },
 

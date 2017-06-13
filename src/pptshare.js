@@ -764,7 +764,7 @@
                 container: function() {
                     var control= roles.hasAdmin()?true:false;
                     var data ={"control":control};
-                    var template=virtualclass.getTemplate("ppt","poll");
+                    var template=virtualclass.getTemplate("ppt","ppt");
                     $('#virtualclassAppLeftPanel').append(template(data));
                 },
                 /*
@@ -777,7 +777,7 @@
                         ct.parentNode.removeChild(ct);
                     }
 
-                    var template=virtualclass.getTemplate("pptiframe","poll");
+                    var template=virtualclass.getTemplate("pptiframe","ppt");
                     $('#virtualclassSharePresentation').children().before(template)
                 },
 
@@ -793,7 +793,7 @@
                         msg.parentNode.removeChild(msg)
                     }
 
-                    var template=virtualclass.getTemplate("mszdisplay","poll");
+                    var template=virtualclass.getTemplate("mszdisplay","ppt");
                     $('#virtualclassSharePresentation').append(template())
                 },
 

@@ -40,22 +40,16 @@ function (window, $) {
                     $("li[aria-controls='" + $(this).attr('id') + "']").removeClass('ui-state-highlight');
                 });
 
-                //nirmala
-                //  this.fetchChatUsers();
-
             },
-            //nirmala
+
             fetchChatUsers: function () {
                 var data = new FormData();
                 data.append("action", "fetchUser");
                 virtualclass.xhr.send(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_get_enrolled_users", function (msg) {
-                    //debugger;
                     virtualclass.chat.userList = JSON.parse(msg);
-                    // console.log(virtualclass.chat.userList);
                     virtualclass.chat.showChatListUsers();
                     virtualclass.chat.setChatDisplay();
 
-                    // virtualclass.gObj.video.updateVideoContHeight();
                 });
             },
             setChatDisplay: function () {
@@ -98,18 +92,16 @@ function (window, $) {
                         listBtn.classList.add("active");
                     }
 
-
                 }
 
             },
 
 
-            //nirmala
+
             showChatListUsers: function () {
                 var userlist = virtualclass.chat.userList;
-//        
-                $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users" + "(" + count + ")</span>");
-
+                //$("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users" + "(" + count + ")</span>");
+                $('#onlineusertext').text("Users" + "(" + count + ")");
                 if (userlist.length > 0) {
                    this. _showChatUserList(userlist);
 
@@ -130,36 +122,36 @@ function (window, $) {
 
                     //todo change it
                     if (roles.hasAdmin()) {
-                        $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users" + "(" + virtualclass.connectedUsers.length + "/" + virtualclass.chat.userList.length + ")</span>");
+                       // $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users" + "(" + virtualclass.connectedUsers.length + "/" + virtualclass.chat.userList.length + ")</span>");
+                        $('#onlineusertext').text("Users" + "(" + virtualclass.connectedUsers.length + "/" + virtualclass.chat.userList.length + ")");
                     }
                 }
-                },
+            },
             _showChatUserList:function(userlist){
-                    if (!document.getElementById('chat_div')) { // prevent creating div on each update
-                        var cd = document.createElement('div');
-                        cd.id = 'chat_div';
-                        document.body.appendChild(cd);
-                    }
+               if (!document.getElementById('chat_div')) { // prevent creating div on each update
+                  var cd = document.createElement('div');
+                  cd.id = 'chat_div';
+                  document.body.appendChild(cd);
+               }
 
-                    var height = virtualclass.vutil.calculateChatHeight();
-                    if (!roles.hasControls()) {
-                        if (!virtualclass.videoHost.gObj.videoSwitch) {
-                            height = height + 230;
-                        }
-                    }
-                    virtualclass.vutil.setChatContHeight(height);
-                    virtualclass.chat.boxHeight = height;
+               var height = virtualclass.vutil.calculateChatHeight();
+               if (!roles.hasControls()) {
+                  if (!virtualclass.videoHost.gObj.videoSwitch) {
+                     height = height + 230;
+                  }
+               }
+               virtualclass.vutil.setChatContHeight(height);
+               virtualclass.chat.boxHeight = height;
 
-
-                    $("#chat_div").memberlist({
-                        id: "chat_div",
-                        user: userlist,
-                        offset: '-1px',
-                        title: lang.online,
-                        userSent: function (user) {
-                            $("#chat_div").memberlist("option", "boxManager").addUsr(user);
-                        }
-                    });
+               $("#chat_div").memberlist({
+                  id: "chat_div",
+                  user: userlist,
+                  offset: '-1px',
+                  title: lang.online,
+                  userSent: function (user) {
+                     $("#chat_div").memberlist("option", "boxManager").addUsr(user);
+                  }
+               });
 
             },
             history: function () {

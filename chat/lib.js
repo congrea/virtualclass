@@ -88,7 +88,7 @@ function memberUpdate(e, addType) {
     }
 
     if (!roles.hasAdmin()) {
-        $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>");
+        $('#onlineusertext').text("Users (" + virtualclass.connectedUsers.length + ")");
     }
     virtualclass.connectedUsers.forEach(function (elem) {
         $('#ml' + elem.userid).addClass("online").removeClass("offline");

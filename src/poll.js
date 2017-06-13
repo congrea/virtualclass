@@ -1227,8 +1227,6 @@
             },
 
             publishHandler2: function () {
-                alert("pollhandler2test");
-                debugger;
                 var message = "poll published";
                 virtualclass.poll.showMsg("mszBoxPoll", message, "alert-success");
 
@@ -1341,8 +1339,6 @@
                 }
             },
             showStudentPollReport: function () {
-
-
                 virtualclass.storage.getAllDataOfPoll(['pollStorage'], function (obj) {
                     virtualclass.poll.studentReportLayout(obj)
 
@@ -1358,7 +1354,6 @@
                 while (layout.childElementCount > 1) {
                     layout.removeChild(layout.lastChild);
                 }
-
 
                 var elem = document.createElement("div");
                 layout.appendChild(elem)
@@ -1825,8 +1820,6 @@
                     }
 
                 }
-
-
             },
             noneVoted: function () {
 
@@ -1961,13 +1954,10 @@
 
                 }
 
-
                 if (typeof next != 'undefined') {
                     virtualclass.poll.dataToStd.qId = virtualclass.poll.currQid;
                     virtualclass.poll.dataToStd.options = virtualclass.poll.currOption;
                 }
-
-
 
                 var data = {
                     question: virtualclass.poll.dataToStd.question,
@@ -1982,18 +1972,13 @@
 
                 };
 
-
                 if (typeof virtualclass.poll.afterReload != "undefined") {
 
                     data.newTime = virtualclass.poll.afterReload;
                     delete virtualclass.poll.afterReload;
                 }
 
-
-                // to change this nd to stop sending on page refresh************************Reminder
-
                 if (time) {
-
                     ioAdapter.mustSend({
                         'poll': {
                             pollMsg: 'stdPublish',
@@ -2020,13 +2005,10 @@
                     chart.style.display = "block";
                 }
 
-
-
                 var msz = document.getElementById("pollResultMsz");
                 if (msz) {
                     msz.style.display = "none";
                 }
-
 
                 var obj = {};
                 //var options = virtualclass.poll.dataToStd.options;
@@ -2056,8 +2038,6 @@
                     console.log(i)
                     joinedUsers++;
                 }
-                //var columns = [];
-                //  var data = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
                 for (var i in virtualclass.poll.count) {
                     usersVote = usersVote + virtualclass.poll.count[i];
                 }
@@ -2098,8 +2078,6 @@
 
                 var columns = [];
                 var data = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
-
-
                 for (var i in virtualclass.poll.count) {
                     var optedVal = data.options[i];
                     columns.push([optedVal, virtualclass.poll.count[i]]);
@@ -2114,14 +2092,12 @@
                     }
                 }
 
-
                 for (var i in data.options) {
                     if (!virtualclass.poll.count.hasOwnProperty(i)) {
                         columns.push([data.options[i], "0"]);
                         virtualclass.poll.count[i] = 0;
                     }
                 }
-
 
                 if (virtualclass.poll.chart) {
                     virtualclass.poll.chart.load({
@@ -2130,7 +2106,6 @@
                 }
                 if (roles.hasControls()) {
                     this.noOfVotes();
-
                 }
             },
             updatePiChart: function () {
@@ -2161,7 +2136,6 @@
                         virtualclass.poll.count[i] = 0;
                     }
                 }
-
 
                 if (virtualclass.poll.piChart) {
                     virtualclass.poll.piChart.load({
@@ -2226,8 +2200,6 @@
                     });
                 });
 
-
-
                 virtualclass.poll.currResultView = "pi"
                 if (typeof virtualclass.poll.pollState["data"] != 'undefined') {
 
@@ -2237,12 +2209,9 @@
             },
             listView: function () {
                 virtualclass.poll.currResultView = "list";
-
                 var chart = document.getElementById("chart");
                 chart.style.display = "none";
-
                 var cont = document.getElementById("resultLayoutBody")
-
                 var list = document.getElementById("listCont")
                 if (list) {
                     list.style.display = "block";
@@ -2270,7 +2239,6 @@
                 });
 
                 virtualclass.poll.currResultView = "list";
-
                 if (typeof virtualclass.poll.pollState["data"] != 'undefined') {
                     virtualclass.poll.pollState["data"].view = "list";
                     virtualclass.poll.pollState["data"].list = virtualclass.poll.list;
@@ -2329,8 +2297,6 @@
                     var users = io.uniquesids.length;
                 }
 
-                console.log(users);
-                console.log(virtualclass.poll.count.length);
                 var graphdata = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
                 var columns = [];
                 for (var i in virtualclass.poll.count) {
@@ -2343,8 +2309,6 @@
                 Data.columns = columns;
                 var chart = document.getElementById("chart");
                 if (chart) {
-
-                    // temporary .. to look for alternative
                     require.config({
                         // baseUrl: '/js',
                         paths: {
@@ -2454,8 +2418,6 @@
                         }
 
                     this.resultLayoutBody();
-
-
                 },
                 resultNotShownUI: function (header) {
                     var elem = document.createElement("div");
@@ -2551,7 +2513,6 @@
                 },
 
                 addAnc: function (navId, text, active) {
-
                     var elem = document.getElementById(navId);
                     var anc = document.createElement('a');
                     anc.id = navId + "Anch";
@@ -2680,7 +2641,6 @@
                         close.className = "close";
                         close.innerHTML = "&times";
                         var cont = document.querySelector("#optsTxCont .inputWrapper #option" + prop).parentNode;
-
                         cont.appendChild(close);
                         close.addEventListener("click", function () {
                             virtualclass.poll.removeOption(pollType, qIndex, close.id);
@@ -2752,14 +2712,11 @@
                     }
                 },
                 stdPublishUI: function () {
-
                     var msz = document.getElementById("stdPollMszLayout");
                     if (msz) {
                         msz.parentNode.removeChild(msz);
                     }
                 },
-
-
                 disableClose: function () {
                     var close = document.getElementById("pollClose");
                     close.style.display = "none";

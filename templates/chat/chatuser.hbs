@@ -1,0 +1,14 @@
+<div class="userImg ui-memblist-usr offline student" id="ml{{peer.userid}}" data-role="student">
+  <a href="#{{peer.userid}}" class="tooltip" data-title="Click to chat">
+    <img src="{{peer.img}}">
+  </a>
+  <div class="user-details">
+    <div class="usern">
+      <span>{{peer.name}} {{ peer.lname}}</span>
+    </div>
+    {{#if peer.notSelf}}
+      <div id="{{peer.userid}}ControlContainer" class="controls">
+      </div>
+    {{/if}}
+  </div>
+</div>

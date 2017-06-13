@@ -16,31 +16,17 @@
         widget: function () {
             return this.uiFooterbar
         },
-        //nirmala
+
         _create: function () {
             var self = this,
                 options = self.options,
                 offset = options.offset,
-                title = options.title || "No Title",
+                title = options.title || "No Title";
+                var template=virtualclass.getTemplate("stickycont","chat");
+                $("#stickycontainer").append(template);
                 // footerbar
-                uiFooterbar = (self.uiFooterbar = $('<div></div>'))
-                .appendTo(document.getElementById('stickycontainer'))
-                .prop("id", 'stickybar')
-                .addClass('maximize'),
-                //chatroom tab
-                uiChatbar = (self.uiChatbar = $('<div></div>'))
-                .addClass("chatBarTab")
-                .insertBefore(uiFooterbar);
-            uiFooterbarchatroomtab = (self.uiFooterbarchatroomtab = $('<div></div>'))
-                .addClass('vmchat_room_bt tooltip')
 
-                .attr('data-title', virtualclass.lang.getString('commonChat'))
-                .prop('id', 'chatroom_bt2')
-
-                .appendTo(uiChatbar),
-                uiFooterbarchatroomContent = (self.uiFooterbarchatroomContent = $('<div class = "inner_bt"></div>'))
-                .appendTo(uiFooterbarchatroomtab)
-                .click(function () {
+                 $('#chatroom_bt2 .inner_bt').click(function () {
                     $('#chatroom_bt2').addClass('active');
                     $('#user_list').removeClass('active');
                     $('#congreaSupport').removeClass("active")
@@ -69,7 +55,7 @@
                             }
                         }
 
-                        uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('commonChat'));
+                        $('#chatwidget .vmchat_room_bt').attr('data-title', virtualclass.lang.getString('commonChat'));
 
                     }
 
@@ -84,59 +70,27 @@
                         chatroom.style.display = "block";
                     }
 
-
                 });
-            uiFooterbarchatroomIcon = (self.uiFooterbarchatroomIcon = $('<div id = "chatroom_icon"><span class="icon-chatroom"></span></div>'))
-                    .appendTo(uiFooterbarchatroomContent);
-            uiFooterbarchatroomText = (self.uiFooterbarchatroomText = $('<div id = "chatroom_text"></div>'))
-                    .appendTo(uiFooterbarchatroomContent)
-                    // disable minimize icon, for disbaling the chat box
-                    .html('Chatroom')
 
-            uiFooterbarUserlisttab = (self.uiFooterbarUserlisttab = $('<div></div>'))
-                    .addClass('vmchat_bar_button tooltip')
-                    .prop('id', 'user_list')
-                    .appendTo(uiChatbar).click(function () {
-                $('#chatroom_bt2').removeClass('active');
-                $('#congreaSupport').removeClass('active');
-                $('#user_list').addClass('active');
+                $('#user_list').click(function () {
+                    $('#chatroom_bt2').removeClass('active');
+                    $('#congreaSupport').removeClass('active');
+                    $('#user_list').addClass('active');
 //                $('#chatrm').addClass("hide").removeClass('show');
 //                $('#memlist').addClass('show').removeClass('hide');
-                virtualclass.chat.chatWindow="private";
-                this.classList.add("active");
-                var chatroom = document.getElementById("chatrm");
-                if (chatroom) {
-                    chatroom.style.display = "none";
-                }
+                    virtualclass.chat.chatWindow="private";
+                    this.classList.add("active");
+                    var chatroom = document.getElementById("chatrm");
+                    if (chatroom) {
+                        chatroom.style.display = "none";
+                    }
 
-                var memlist = document.getElementById("memlist");
-                if (memlist) {
-                    memlist.style.display = "block";
-                }
-              
-              
-            }),
-            uiFooterbarUserlistContent = (self.uiFooterbarUserlistContent = $('<div class="inner_bt"></div>'))
-                    .appendTo(uiFooterbarUserlisttab);
+                    var memlist = document.getElementById("memlist");
+                    if (memlist) {
+                        memlist.style.display = "block";
+                    }
+                }),
 
-            uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="usertab_text">privateChat</div>'))
-                    .appendTo(uiFooterbarUserlistContent)
-                    .text('Private Chat')
-            uiFooterbarUserlisttab.attr('data-title', virtualclass.lang.getString('privateChat'))
-            uiSupportTab = (self.uiSupportTab = $('<div></div>'))
-                    .addClass('vmchat_support notavailable tooltip')
-                    .prop('id', 'congreaSupport')
-                    .appendTo(uiChatbar),
-                    uiSupportContent = (self.uiFooterbarUserlistContent = $('<div class="support_bt"></div>'))
-                    .appendTo(uiSupportTab);
-
-            uiSupportIcon = (self.uiFooterbarUserlistIcon = $('<div id="supporttab_icon"></div>'))
-                    .appendTo(uiSupportContent);
-
-            uiFooterbarUserlistText = (self.uiFooterbarUserlistText = $('<div id="supporttab_text"></div>'))
-                    .appendTo(uiSupportContent)      
-                    .text('support');
-            uiSupportTab.attr('data-title', virtualclass.lang.getString('support'))
             $(document).on("click", '#congreaSupport', function (event) {
                 $('#chatroom_bt2').removeClass('active');
                 $('#user_list').removeClass('active');
@@ -186,46 +140,9 @@
 
             });
 
-            uiFooterbartabCont = (self.uiFooterbartabCont = $('<div></div>'))
-                    .attr('id', 'tabs')
-                    .addClass("tabs-bottom", "privateChat")
-                    .appendTo(uiFooterbar);
-
-            uiFooterbartabs = (self.uiFooterbartabs = $('<ul class="tabs"></ul>'))
-                    .appendTo(uiFooterbartabCont);
-
-            uiFooterCtrCont = (self.uiFooterCtrCont = $('<div></div>'))
-                    .addClass('footerCtr')
-                    .prop('id', 'congFooterCtr')
-                    .appendTo(document.getElementById('stickybar')),
-                    uiMuteAll = (self.uiMuteAll = $('<div></div>'))
-                    .addClass('uiMuteAll')
-                   //.prop('id', 'precheckTest')
-                    .appendTo(uiFooterCtrCont),
-                    uiPrecheckTab = (self.uiPrecheckTab = $('<div></div>'))
-                    .addClass('prechk')
-                    .prop('id', 'precheckTest')
-                    .appendTo(uiFooterCtrCont),
-                    uiPrecheck = (self.uiPrecheckTab = $('<span></span>'))
-                    .addClass('precheck tooltip')
-                    .prop('id', 'precheckSetting')
-                    .prop('data-title', 'precheck test')
-                    .text("precheck")
-                    .appendTo(uiPrecheckTab),
-                    uiVideoSwitchTab = (self.uiVideoSwitchTab = $('<div></div>'))
-                    .addClass('videoSwitchCont')
-                    .prop('id', 'congCtrBar')
-                    .appendTo(uiFooterCtrCont),
-                    uiSearchTab = (self.uiSearchTab = $('<div></div>'))
-                    .addClass('vmchat_search')
-                    .prop('id', 'congUserSearch')
-                    .appendTo(uiFooterCtrCont),
-                    uiSearchContent = (self.uisearchContent = $('<input type ="text" id="congreaUserSearch" class="search" placeholder="search user ...">'))
-                    .appendTo(uiSearchTab).keyup(function () {
+            $('#congreaUserSearch').keyup(function () {
                 var text = this.value;
                 searchUser(text);
-
-
 
             });
             //todo to change this code later

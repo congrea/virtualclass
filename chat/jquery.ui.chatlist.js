@@ -40,54 +40,25 @@
                     if (userAlready != null) {
                         userAlready.parentNode.removeChild(userAlready);
                     }
-
-
-                    var e = document.createElement('div');
-                    e.className = e.className + "userImg";
-                    box.append(e);
+                    var usr = peer;
+                    if (peer.userid != wbUser.id) {
+                        usr.notSelf = true;
+                    }
+                    usr.class = "ui-memblist-usr offline"
+                    //usr.id = peer.userid;
+                    var template=virtualclass.getTemplate("chatuser","chat");
+                    $(box).append(template({"peer": usr}));
 
                     var systemMessage = false;
 
                     if (peer) {
-                        var peerlink = document.createElement("a");
-                        peerlink.href = '#' + peer.userid;
-                        peerlink.classList.add('tooltip');
-                        peerlink.setAttribute('data-title', 'Click to chat');
-
-                        var peerName = document.createElement("img");
-                        peerName.src = peer.img;
-                        peerlink.appendChild(peerName);
-
-                        var usrElement = document.createElement("span");
-                        if (peer.lname == undefined) {
-                            peer.lname = '';
-                        }
-
-                        var username = peer.name + " " + peer.lname;
-
-                        $(usrElement).text(peer.name + " " + peer.lname);
-                        e.appendChild(peerlink);
                         var controls = ['assign', 'audio', 'chat', 'editorRich', 'editorCode'];
-                        var divCont = document.createElement('div');
-                        divCont.appendChild(usrElement);
-                        divCont.className = "usern";
-
-                        //e.appendChild(divCont);
-
-                        var mainDiv = document.createElement('div');
-                        mainDiv.className = 'user-details';
-                        mainDiv.appendChild(divCont);
-
                         if (peer.userid != wbUser.id) {
                             var controlDiv = virtualclass.user.createControl(peer.userid, controls);
-                            mainDiv.appendChild(controlDiv);
                             virtualclass.user.control.shouldApply.call(virtualclass.user, peer.userid); //checking audio
                         }
 
-                        e.appendChild(mainDiv);
-
-
-                        if (roles.hasControls() != null && !roles.hasAdmin()) {
+                       if (roles.hasControls() != null && !roles.hasAdmin()) {
                             if (peer.userid == localStorage.getItem('aId')) {
                                 var controls = ['assign'];
                                 var controlCont = document.getElementById(peer.userid + "ControlContainer");
@@ -106,14 +77,6 @@
                         systemMessage = true;
                     }
 
-                    $(e).addClass("ui-memblist-usr");
-                    $(e).attr("id", 'ml' + peer.userid);
-
-                    //temp 
-                    $(e).addClass("offline");
-                    $(e).fadeIn();
-
-                    self._scrollToBottom();
                     var chatEnable = localStorage.getItem('chatEnable');
                     if (chatEnable != null && chatEnable == "false") {
                         virtualclass.user.control.disableOnLineUser();

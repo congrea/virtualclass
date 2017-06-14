@@ -269,3 +269,305 @@
   font-size: 23px;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper .icon-rectangle:before {
+  content : "\e60b";
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .icon-line:before {
+  content : "\e607";
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .icon-freeDrawing:before {
+  content : "\f040";
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .icon-oval:before {
+  content : "\f1db";
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .icon-triangle:before {
+  content : "\e603";
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .icon-text:before {
+  content : "\e60e";
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .icon-activeAll:before {
+  content : "\e600";
+}
+
+#virtualclassCont.congrea .icon-clearAll:before {
+  content : "\ea0f";
+}
+
+#virtualclassCont.congrea #speakerPressing .icon-speakerPressing:before {
+  content : "\f130";
+  font-size : 34px;
+  position : relative;
+  top : -14px;
+}
+
+#virtualclassCont.congrea #usertab_text .icon-arrow-up:before, #virtualclassCont.congrea #chatroom_text .icon-arrow-up:before {
+  content : "\e606";
+  font-size : 18px;
+  position : relative;
+  top : 4px;
+}
+
+#virtualclassCont.congrea #usertab_text .icon-arrow-down:after, #virtualclassCont.congrea #chatroom_text .icon-arrow-down:after {
+  content : "\e601";
+  font-size : 18px;
+  position : relative;
+  top : 3px;
+}
+
+#virtualclassCont.congrea .ui-widget-header .ui-icon-closethick:before {
+  content : "\f026";
+}
+
+#virtualclassCont.congrea .ui-widget-header .icon-user:before {
+  content : "\f007";
+  font-size : 24px;
+  position: relative;
+  bottom: -4px;
+}
+
+#virtualclassCont.congrea #t_reclaim .icon-educator:before {
+  content : "\f112";
+  color : #535151;
+  font-size : 30px;
+  position : relative;
+  top : 14px;
+}
+
+#virtualclassCont.congrea #playController .icon-pause:before{
+  content:"\f04c";
+  font-size: 14px;
+}
+
+#virtualclassCont.congrea #playController .icon-forward:before{
+  content:"\f04e";
+  font-size: 14px;
+}
+
+#virtualclassCont.congrea #playController .icon-fast-forward:before{
+  content:"\f050";
+  font-size: 14px;
+}
+#virtualclassCont.congrea .icon-play:before{
+  content : "\f04b";
+  font-size: 14px;
+}
+#virtualclassCont.congrea #replayContainer #replayButton , #virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before {
+  font-size: 13px;
+}
+
+#virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before{
+  content: "\f01e";
+  position: relative;
+  left: -6px;
+  top: 1px;
+  color:#7fa617;
+}
+
+
+#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:before{
+  content : "\e609";
+  font-size: 20px;
+  position: relative;
+  top: 4px;
+}
+
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:before{
+  content: "\f00c";
+  font-size: 12px;
+  position: relative;
+  left: -8px;
+  color:#7fa617;
+}
+
+#virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton:before{
+  content: "\f00d";
+  font-size: 12px;
+  position: relative;
+  left: -8px;
+  color:#e2440c;
+}
+
+.icon-minus:before {
+  content: "\e60f";
+  color:#d5dee7;
+  font-size: 12px;
+}
+
+.icon-close:before {
+  content: "\f00d";
+  color:#d5dee7;
+  font-size: 15px;
+}
+
+#virtualclassCont.congrea .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before, #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before{
+  content: "\f00d";
+  font-size: 12px;
+  color: #6a8e0b;
+  border: #bcd2aa 1px solid;
+  border-radius: 50%;
+  padding: 3px 5px;
+  background-color: #f9f9f9;
+}
+
+.icon-minus:before {
+  content: "\e60f";
+  color:#333;
+  font-size: 12px;
+}
+
+.icon-close:before {
+  content: "\f00d";
+  color:#333;
+  font-size: 15px;
+}
+
+.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight .icon-minus:before, #virtualclassCont.congrea #chatWidget .mySelf span{
+  color:#333;
+}
+
+.icon-sharePresentation:before{
+  content: "\e904";
+  font-size: 30px;
+  color:#444;
+  position: relative;
+  top: 2px;
+}
+
+#virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
+  content : "\e903";
+  font-family: 'icomoon';
+  font-size: 44px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before {
+  content : "\e902";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen3.webcam::before {
+  content : "\e900";
+  font-family: 'icomoon';
+  font-size: 50px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen5.speaker::before {
+  content : "\e901";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen4.mic::before
+{
+  content : "\f130";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 4px;
+}
+
+#virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
+  content : "\e903";
+  font-family: 'icomoon';
+  font-size: 44px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before {
+  content : "\e902";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen3.webcam::before {
+  content : "\e900";
+  font-family: 'icomoon';
+  font-size: 50px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen5.speaker::before {
+  content : "\e901";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 4px;
+}
+#virtualclassCont.congrea #preCheckcontainer .screen4.mic::before
+{
+  content : "\f130";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 4px;
+}
+
+#virtualclassCont.congrea #videoList .linkvideo .mainpreview::before {
+  content: "\ea1c";
+  font-family: 'icomoon';
+  font-size: 18px;
+  padding-top: 2px;
+  color: #606060;
+}
+
+#virtualclassCont.congrea #videoList .linkvideo .controlCont div[data-status="0"]::before {
+  content: "\e9d1";
+  font-family: 'icomoon';
+  font-size: 16px;
+  padding-top: 0px;
+  color: #606060;
+}
+
+#virtualclassCont.congrea #videoList .linkvideo .controlCont div[data-status="1"]::before {
+  content: "\e9ce";
+  font-family: 'icomoon';
+  font-size: 16px;
+  padding-top: 0px;
+  color: #606060;
+}
+#virtualclassCont.congrea #videoList .linkvideo .controls.delete::before {
+  content: "\ea0f";
+  font-family: 'icomoon';
+  font-size: 18px;
+  padding-top: 0px;
+  color: #606060;
+}
+
+.vjs-autoPlay-button.vjs-control.on::before {
+  content: "\e90e";
+  font-family: 'icomoon';
+  font-size: 28px;
+  line-height: 32px;
+  padding-top: 0px;
+  color: green;
+}
+
+.vjs-autoPlay-button.vjs-control.off::before {
+  content: "\e90e";
+  font-family: 'icomoon';
+  font-size: 28px;
+  line-height: 32px;
+  padding-top: 0px;
+  color: darkgray;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.off:before {
+  content : "\e912";
+  font-weight : normal;
+  font-size : 11px;
+  color:gray;
+  font-family: 'icomoon';
+  font-size: 23px;
+  color:red;
+}
+
+#virtualclassCont.congrea #virtualclassCont .icon-chatImg.enable:before {
+  content : "\f075";
+  color: #34b532;
+  font-size: 14px;
+  position: relative;
+  top: -1px;
+}

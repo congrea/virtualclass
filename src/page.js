@@ -50,7 +50,7 @@
     }
 
     var lid = 'link' + this.type + this.rid;
-    var linkNav = this.UI.createPageNavLink.call(this);
+    var linkNav = this.UI.createPageNavLink.call(this,docNav);
     docNav.appendChild(linkNav);
 
     if (this.type == 'video') {
@@ -88,7 +88,7 @@
       var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: cthis.title};
       if (cthis.type == "video") {
         this.UI.createPageNavLink.call(this, docNav);
-        var template = JST['templates/linkvideo.hbs'];
+        var template=virtualclass.getTemplate("linkvideo","videoupload");
         $(docNav).append(template(elem));
 
         var label = document.getElementById(this.type + "Title" + this.rid);
@@ -291,7 +291,7 @@
       elem.dataset.status = this.status
 
       if (cthis.type == "video") {
-        var template = JST['templates/linkvideo.hbs'];
+        var template=virtualclass.getTemplate("linkvideo","videoupload");
         $(docNav).append(template(elem))
 
       } else {

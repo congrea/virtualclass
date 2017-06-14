@@ -166,7 +166,7 @@
                 });
 
             },
-            // to simplify later with weblib *********rem
+
             /*
              *
              * @param {object} new created poll or updated poll  with ids returned from database
@@ -567,17 +567,10 @@
                 }
             },
             resultToStorage: function () {
-                //debugger;
-                //console.log("nirmala");
-                // only for student
                 var data = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
-                //var currTime=new Date().getTime();
-               // virtualclass.poll.result = virtualclass.poll.count;
                 var obj = {'result': virtualclass.poll.count, qid: data.qId, pollData: data};
                 virtualclass.poll.uid++;
                 obj.uid = virtualclass.poll.uid;
-
-                // to generlize
                 if (!roles.hasControls()) {
                     virtualclass.storage.pollStore(JSON.stringify(obj));
                 }

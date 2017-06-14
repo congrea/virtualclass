@@ -1019,15 +1019,15 @@
              * @constructor
              */
             UIaudioAll : function (mainTagId, tagClass){
-                var anchorTag = document.createElement('a');
-                anchorTag.id = 'contrAudioAll';
+                // var anchorTag = document.createElement('a');
+                // anchorTag.id = 'contrAudioAll';
+                //
+                //
+                //
+                // var spanTag = document.createElement('span');
+                // spanTag.id = 'contrAudioAllImg';
 
-
-
-                var spanTag = document.createElement('span');
-                spanTag.id = 'contrAudioAllImg';
-
-
+                var spanTag= document.getElementById("contrAudioAllImg")
                 var allAudAction = localStorage.getItem('allAudAction');
 
                 if(allAudAction != null &&  allAudAction == 'disable'){
@@ -1059,11 +1059,11 @@
                 }
                
 
-                 anchorTag.appendChild(spanTag);
+                 //anchorTag.appendChild(spanTag);
                 // var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];
                 // parentNode.appendChild(anchorTag);
                 var parentNode=document.querySelector("#"+mainTagId+" ."+tagClass);
-                parentNode.appendChild(anchorTag);
+               // parentNode.appendChild(anchorTag);
                 
                 
             },

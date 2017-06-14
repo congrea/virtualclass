@@ -1,0 +1,95 @@
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions {
+  border-top-right-radius: 0px;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboardCont {
+  height: 100%;
+  width: 100%;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboardCont {
+  height: 100%;
+  width: 100%;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboard {
+  float: left;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboardToo.active a span {
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboardTool a img {
+  border: none;
+}
+
+#virtualclassCont.congrea #alwaysPress .audioTool.active span.icon-whiteboard:before,
+#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active span.icon-whiteboard:before,
+#virtualclassCont.congrea #alwaysPress .audioTool.active span.icon-whiteboard:before {
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboardTool {
+  padding: 10px 5px;
+}
+
+#virtualclassCont.congrea #vcanvas #whiteBoardMsg {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+#virtualclassCont.congrea.teacher.orginalTeacher[data-currapp="Whiteboard"] #audioWidget {
+  right: 0px;
+}
+
+#virtualclassCont.congrea.student.presenter[data-currapp="Whiteboard"] #audioWidget {
+  right: 0px;
+}
+
+#virtualclassCont.congrea #whiteBoardMsg {
+  background-color: #f9f9f9;
+  border: 1px solid #c8ddb8;
+  padding: 20px;
+  color: #3a773c;
+  border-radius: 5px;
+  box-shadow: #ddd 0px 0px 5px;
+}
+
+#virtualclassCont.congrea[data-currapp="Whiteboard"]  #beTeacher {
+  top: 1%;
+}
+
+#virtualclassCont.congrea.student[data-currapp="Whiteboard"]  #beTeacher {
+  top: 2%;
+  right: 1%;
+}
+
+#virtualclassCont.congrea.presenter[data-currapp="Whiteboard"]  #beTeacher {
+  top: 1%;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassWhiteboard, #virtualclassCont.congrea.presenter #virtualclassWhiteboard {
+  margin-left: 60px;
+}
+
+#virtualclassCont.congrea.educator #virtualclassWhiteboard {
+  margin-left: 3px;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassWhiteboard {
+  float: left;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard {
+  float: none;
+  overflow: hidden;
+  width: auto;
+  margin-right: 6px;
+}
+
+#virtualclassCont.congrea #screen-docs .whiteboard {
+  margin-left: 0px;
+  margin-right: 20px;
+}

@@ -1,0 +1,203 @@
+#virtualclassCont.congrea #virtualclassPoll {
+  margin-left: 60px;
+}
+
+#virtualclassCont.congrea #virtualclassPoll {
+  margin-right: 6px;
+}
+
+#virtualclassCont .icon-close-poll:before {
+  font-size: 28px;
+  margin-left: 5px;
+}
+
+#virtualclassCont.congrea .bootstrap .pollNavBar {
+  border-bottom: none !important;
+  margin-left: 20px;
+}
+
+#virtualclassCont.congrea .bootstrap .pollNavBar li {
+  margin-top: 15px;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+#virtualclassCont.congrea .bootstrap .pollNavBar > li > a {
+  text-shadow: none;
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassPoll .pollNavBar > li.active > a {
+  color: #000;
+}
+
+#virtualclassCont.congrea #navigator.nav.navbar {
+  margin-bottom: 0;
+}
+
+#virtualclassCont.congrea #layoutPollBody {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 1px;
+  height: 86vh;
+}
+
+#virtualclassCont.congrea #layoutPollBody .pollList {
+  margin: 0;
+}
+
+#virtualclassCont.congrea #layoutPollBody h4#pollListHead {
+  text-transform: uppercase;
+  color: #969696;
+  letter-spacing: 1px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  font-weight: normal;
+  padding: 10px;
+}
+
+#virtualclassCont.congrea #layoutPollBody .vcPollCont {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  padding: 0;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
+#virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont .col-md-4 {
+  padding: 0;
+  text-align: center;
+}
+
+#virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
+#virtualclassCont.congrea #layoutPollBody .vcPollCont .qnText,
+#virtualclassCont.congrea #layoutPollBody .vcPollCont .creator {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="tooltip"] {
+  color: #505050;
+}
+
+#virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="tooltip"]:before {
+  font-size: 18px !important;
+}
+
+#virtualclassCont.congrea #layoutPollBody .createBtnCont {
+  margin-top: 20px;
+}
+
+#virtualclassCont.congrea .pollCtrContainer {
+  width: 100px;
+  margin: 0 20px;
+}
+
+#virtualclassCont.congrea .pollCtrContainer .editCont,
+#virtualclassCont.congrea .pollCtrContainer .deleteCont,
+#virtualclassCont.congrea .pollCtrContainer .publishCont {
+  margin: 0 6px;
+}
+
+#virtualclassCont.congrea label.pollLabel {
+  font-size: 15px;
+  margin-bottom: 10px !important;
+  color: #303030;
+}
+
+#virtualclassCont.congrea #stdPollContainer {
+  margin: 70px !important;
+
+}
+
+#virtualclassCont.congrea #virtuaclassPoll i {
+  float: right;
+}
+
+#virtualclassCont.congrea .pollList .pollPreview {
+  max-width: 90%;
+  width: 500px; /* Max Width of the popover (depending on the container!) */
+  padding: 10px
+}
+
+#virtualclassCont.congrea .pollList #popupCont {
+  margin: 10px;
+  padding: 50px;
+}
+
+#virtualclassCont.congrea .pollList #qnTxCont, #virtualclassCont.congrea .pollList #optsTxCont {
+  padding: 50px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #optsTxCont.row {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont input[type="radio"] + label, #layoutPollBody.pollMainCont input[type="checkbox"] + label {
+  padding-left: 0.5em;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #mode label {
+  margin: 6px 3px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #settingCont.row input[type="radio"], #layoutPollBody.pollMainCont #settingCont.row input[type="checkbox"] {
+  margin: -3px 4px 0 0px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #settingCont.row .form-group {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #settingCont.row select {
+  margin-right: 2px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #resultLayoutBody.row #qnLabelCont {
+  border: 1px dashed #f8eace;
+  padding: 6px;
+  border-radius: 3px;
+  background: #fcf7ed;
+  margin: 10px 1px 21px;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #stdQnCont.row {
+  padding: 6px;
+  border-radius: 3px;
+  margin: 10px 0;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #stdOptionCont.row,
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #stdContFooter.row {
+  margin: 12px 0;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #stdContBody.row {
+  border-top: 1px solid #e5e5e5;
+  width: auto;
+  margin-top: 12px;
+}
+
+#virtualclassCont.congrea .bootstrap #stdPollContainer.container {
+  width: 100%;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #resultLayoutBody.row #chartMenuCont {
+  margin: 20px 0;
+}
+
+#virtualclassCont.congrea .bootstrap #layoutPollBody #stdPollContainer .row, #virtualclassCont.congrea .bootstrap #layoutPollBody.pollMainCont .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#virtualclassCont.congrea #layoutPollBody.pollMainCont #resultLayoutBody.row {
+  margin-left: 0;
+  margin-right: 0;
+}

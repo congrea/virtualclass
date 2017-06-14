@@ -22,8 +22,9 @@
                 options = self.options,
                 offset = options.offset,
                 title = options.title || "No Title";
+                var control= roles.hasAdmin();
                 var template=virtualclass.getTemplate("stickycont","chat");
-                $("#stickycontainer").append(template);
+                $("#stickycontainer").append(template({"control":control}));
                 // footerbar
 
                  $('#chatroom_bt2 .inner_bt').click(function () {

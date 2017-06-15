@@ -18,7 +18,7 @@
               </div>
 
               <div id="vcBrowserCheck" class="precheck browser">
-                <div class="testName"> {{testingbrowser}}  </div>
+                <div class="testName"> {{getString 'testingbrowser'}}  </div>
                 <!-- <div class="progress"> Progressing .... </div> -->
                 <div class="result"></div>
                 <div id="browserButtons" class="button clearfix">
@@ -27,9 +27,9 @@
               </div>
 
               <div id="vcBandWidthCheck" class="precheck bandwidth">
-                <div class="testName"> {{testinginternetspeed}} </div>
+                <div class="testName"> {{getString 'testinginternetspeed'}} </div>
                 <!-- <div class="progress"> Progressing....</div> -->
-                <div class="result"><img src="{{whiteboardPath}}images/progressbar.gif" /></div>
+                <div class="result"><img src="{{getString 'whiteboardPath'}}images/progressbar.gif" /></div>
                 <div id="bandwidthButtons" class="button clearfix">
                   <button type="button" class="prev btn btn-default">Prev</button>
                   <button type="button" class="next btn btn-default">Next</button>
@@ -37,11 +37,11 @@
               </div>
 
               <div id="vcSpeakerCheck" class="precheck speaker">
-                <div class="testName"> {{testingspeaker}} </div>
+                <div class="testName"> {{getString 'testingspeaker'}} </div>
                 <!-- <div class="progress"> Progressing....</div> -->
                 <audio id="vcSpeakerCheckAudio">
-                  <source src="{{whiteboardPath}}audio/audio_music.ogg">
-                  <source src="{{whiteboardPath}}audio/audio-music.mp3">
+                  <source src="{{getString 'whiteboardPath'}}audio/audio_music.ogg">
+                  <source src="{{getString 'whiteboardPath'}}audio/audio-music.mp3">
                 </audio>
 
                 <div class="result"></div>
@@ -53,7 +53,7 @@
               </div>
 
               <div id="vcMicCheck" class="precheck mic">
-                <div class="testName"> {{testingmichrophone}}</div>
+                <div class="testName"> {{getString 'testingmichrophone'}}</div>
                 <!-- <div class="progress"> Progressing....</div> -->
                 <div id="audioVisualaizerCont">
                   <canvas id="audioVisualaizer" class="visualizer" width="60"></canvas>
@@ -68,7 +68,7 @@
               </div>
 
               <div id="vcWebCamCheck" class="precheck webcam">
-                <div class="testName">  {{testingwebcam}} </div>
+                <div class="testName">  {{getString 'testingwebcam'}} </div>
                 <!-- <div class="progress"> Progressing....</div> -->
                 <div id="webcamTempVideoCon">
                   <video id="webcamTempVideo"></video>

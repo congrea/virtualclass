@@ -7,22 +7,20 @@
             videoId: "",
             videoUrl: "",
             isfullscreen: false,
-            videos:[],
+            videos: [],
             order: [],
             currPlaying: "",
             autoPlayFlag: 1,
             status: 0,
-            
-              /*
-             * it creates the the necessary layout and containers to place 
-             * video 
-             * Call to the function to create player object 
+
+            /*
+             * it creates the the necessary layout and containers to place
+             * video
+             * Call to the function to create player object
              * @param  videoObj
              * @param  startFrom the position from where to start playing video in second
 
              */
-            
-            
             init: function (videoObj, startFrom) {
                 this.videoInit = true;
                 this.currPlaying = "";
@@ -44,8 +42,12 @@
                         this.UI.container();
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
-                            ioAdapter.mustSend({'videoUl': {'init': {id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl},
-                                    startFrom: virtualclass.videoUl.player.currentTime()}, 'cf': 'videoUl'})
+                            ioAdapter.mustSend({
+                                'videoUl': {
+                                    'init': {id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl},
+                                    startFrom: virtualclass.videoUl.player.currentTime()
+                                }, 'cf': 'videoUl'
+                            })
                         } else {
                             if (typeof videoObj != 'undefined') {
                                 // this.UI.defaultLayoutForStudent();
@@ -62,7 +64,7 @@
                                 this.UI.defaultLayoutForStudent();
                                 var msz = document.getElementById("messageLayoutVideo");
                                 if (msz) {
-                                   msz.style.display = "block";
+                                    msz.style.display = "block";
                                 }
                             }
                         }
@@ -76,21 +78,21 @@
                     }
                 }
                 if (roles.hasControls()) {
-                   this.videoListFromLocalStr(videoObj);
+                    this.videoListFromLocalStr(videoObj);
                 }
             },
-            
-              /*
+
+            /*
              * on reload if videolist is stored in localstorage, it would be fetched from there
              * @param  videoobj from localstorage, if stored as a metadata in prevapp
 
              */
-            
+
             videoListFromLocalStr: function (videoObj) {
                 // if data available in localstorage
                 if (typeof videoObj != 'undefined' && videoObj.hasOwnProperty('fromReload')) {
                     this.videos = JSON.parse(localStorage.getItem("videoList"));
-                  
+
                     // if videos available
                     if (this.videos && this.videos.length > 0) {
 
@@ -101,7 +103,7 @@
                         localStorage.removeItem("videoList");
                         localStorage.removeItem("videoOrder");
                     } else {
-                       // if videolist is empty
+                        // if videolist is empty
                         var type = "video";
                         var firstId = "congrea" + type + "ContBody";
                         var secondId = "congreaShareVideoUrlCont";
@@ -116,33 +118,30 @@
                     this.getVideoList(list);
                 }
             },
-            
-              /*
+
+            /*
              * rearranges  videos in playlist based on  updated order
              * @param  order of videolist element ,to be called each time,when
              * order changes or videolist to be displayed
 
              */
-            
+
             reArrangeElements: function (order) {
                 var container = document.getElementById('listvideo'),
-                        tmpdiv = document.createElement('div');
+                    tmpdiv = document.createElement('div');
                 tmpdiv.id = "listvideo";
                 tmpdiv.className = "videos";
 
                 for (var i = 0; i < order.length; i++) {
                     var elem = document.getElementById('linkvideo' + order[i])
-                    debugger;
-                    if(elem){
+                    if (elem) {
                         tmpdiv.appendChild(elem);
                     }
-                    
                 }
                 container.parentNode.replaceChild(tmpdiv, container);
-
             },
-            
-              /*
+
+            /*
              * after reload video state is retrived from localstorage
              * @param  id id of video
              * @param  url of the video
@@ -152,12 +151,12 @@
             fromReload: function (id, url, startFrom) {
                 virtualclass.videoUl.UI.displayVideo(id, url, startFrom);
             },
-            
-              /*
+
+            /*
              * saves current list and current order in localstorage on reload
-          
+
              */
-            
+
             saveVideosInLocalStr: function () {
                 var order = virtualclass.videoUl.order;
                 console.log(order)
@@ -166,63 +165,62 @@
                 localStorage.setItem('videoList', JSON.stringify(virtualclass.videoUl.videos));
                 localStorage.setItem('videoOrder', JSON.stringify(virtualclass.videoUl.order));
             },
-            
-            
-             /*
+
+            /*
              * request order from database to rearrange videolist
              * @param  id id of video
-            
+
              */
-            requestOrder : function (rdata){
+            requestOrder: function (rdata) {
                 virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
                     var content = JSON.parse(msg);
                     if (content.message == "Failed") {
                         console.log("page order retrieve failed");
                     } else {
                         if (content) {
-                            virtualclass.videoUl.order=[]; 
+                            virtualclass.videoUl.order = [];
                             virtualclass.videoUl.order = content.split(',');
                             console.log('From database ' + virtualclass.videoUl.order.join(','));
                         }
-                        if(virtualclass.videoUl.order.length > 0){
-                             virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
+                        if (virtualclass.videoUl.order.length > 0) {
+                            virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
                         }
                     }
                 });
             },
-            
-             /*
+
+            /*
              * after upload video callbback function to update  order of videolist
-             * and new order to save in dabase 
+             * and new order to save in dabase
              * @param response message
-            
+
              */
-            
-             afterUploadVideo : function (id, xhr,res){
-            
-                if(res.message == "success"){
+
+            afterUploadVideo: function (id, xhr, res) {
+
+                if (res.message == "success") {
                     virtualclass.videoUl.order.push(res.resultdata.id);
-                   virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-                }else if(res.message == "Failed"){
+                    virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                } else if (res.message == "Failed") {
                     alert("video upload failed");
-                }else if(res.message == "duplicate"){
-                     alert("video is already uploaded");
-                }else{
+                } else if (res.message == "duplicate") {
+                    alert("video is already uploaded");
+                } else {
                     //fallback
                     //debugger
                     alert("video upload failed");
                 }
-               
+
             },
 
-            retrieveOrder : function (){
+            retrieveOrder: function () {
                 var rdata = new FormData();
                 rdata.append("live_class_id", virtualclass.gObj.congCourse);
                 rdata.append("content_order_type", "2");
                 this.requestOrder(rdata);
             },
-            
-             /*
+
+            /*
              * retrieve videolist from database
 
              */
@@ -250,9 +248,7 @@
                     }
                 });
             },
-            
-            
-            
+
             afterUploadFile: function (vidObj) {
                 var idPostfix = vidObj.id;
                 // var docId = 'docs' + doc;
@@ -278,14 +274,13 @@
 
                 var upload = {}
                 upload.wrapper = document.getElementById(elemArr[0]);
-                
-                upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
+                upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id=" + virtualclass.gObj.congCourse + "&status=1&content_type_id=2&user=" + virtualclass.gObj.uid;
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.validation = ['mp4', 'webm']
-              
-                virtualclass.vutil.modalPopup('video', ["congreavideoContBody","congreaShareVideoUrlCont"]);
+
+                virtualclass.vutil.modalPopup('video', ["congreavideoContBody", "congreaShareVideoUrlCont"]);
             },
-            
+
             showVideos: function (content, storedId) {
                 if (roles.hasControls()) {
                     virtualclass.videoUl.showVideoList();
@@ -295,18 +290,21 @@
                     virtualclass.videoUl.activeVideoClass(currId);
                 }
             },
-            
+
             showVideoList: function () {
                 var list = document.getElementById("videoList");
                 var elem = document.getElementById("listvideo");
                 if (elem) {
-                    elem.parentNode.removeChild(elem)
+                    for (var i = 0; i < elem.childNodes.length - 1; i++) {
+                        elem.childNodes[i].parentNode.removeChild(elem.childNodes[i])
+                    }
                 }
+
                 virtualclass.videoUl.videos.forEach(function (vidObj, i) {
                     virtualclass.videoUl.afterUploadFile(vidObj);
                 });
             },
-            
+
             videoDisplayHandler: function (vidObj) {
                 var video = document.getElementById("mainpvideo" + vidObj.id);
                 if (!vidObj.status) {
@@ -326,7 +324,7 @@
                     virtualclass.videoUl.videoId = vidObj.id;
                 });
             },
-            
+
             activeVideoClass: function (currId) {
                 var otherElems = document.getElementsByClassName("controlCont");
                 for (var i = 0; i < otherElems.length; i++) {
@@ -353,7 +351,7 @@
                     currentVideo.classList.add("playing");
                 }
             },
-            
+
             shareVideo: function (videoUrl) {
                 var videoObj = {};
                 var id = "no";
@@ -362,8 +360,8 @@
                 videoObj.content_path = videoUrl;
                 virtualclass.videoUl.videoToStudent(videoObj);
             },
-          
-            
+
+
             destroyPl: function () {
                 if (typeof virtualclass.videoUl.player == 'object') {
                     if (virtualclass.currApp == 'ScreenShare') {
@@ -373,23 +371,25 @@
                     //virtualclass.videoUl.player = "";
                 }
             },
-            
-              
+
+
             _rearrange: function (order) {
                 this.order = order;
                 this.reArrangeElements(order);
                 this.sendOrder(this.order);
-                
+
             },
-            
-             
-            
-            sendOrder : function(order){
-                var data = {'content_order': order.toString(), content_order_type: 2, live_class_id : virtualclass.gObj.congCourse};
-                virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order', function (response){
+
+            sendOrder: function (order) {
+                var data = {
+                    'content_order': order.toString(),
+                    content_order_type: 2,
+                    live_class_id: virtualclass.gObj.congCourse
+                };
+                virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order', function (response) {
                 });
             },
-            
+
             onNewUser: function (msg) {
                 console.log("videoUl");
                 virtualclass.videoUl.videoId = msg.videoUl.init.id;
@@ -397,11 +397,11 @@
                 // setTimeout(function(){
                 virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
             },
-             /*
+            /*
              * message  handled at student's end
-             * and new order to save in dabase 
+             * and new order to save in dabase
              * @param message from teacher
-            
+
              */
             onmessage: function (msg) {
                 if (typeof msg.videoUl == 'string') {
@@ -425,14 +425,14 @@
 
                 }
             },
-            
-             /*
+
+            /*
              * message  handled at student's end
-             * and new order to save in dabase 
+             * and new order to save in dabase
              * @param message from teacher
-            
+
              */
-            
+
             onmessageObj: function (msg) {
                 if (msg.videoUl.hasOwnProperty('init')) {
                     virtualclass.videoUl.rec = msg.videoUl;
@@ -458,14 +458,14 @@
                     this.playVideo(msg.videoUl.play);
                 }
             },
- 
+
             enablePlayer: function () {
                 var stdVideo = document.getElementById("videoPlayerCont");
                 if (stdVideo) {
                     stdVideo.style.display = "block";
                 }
             },
-            
+
             disablePlayer: function () {
                 var stdVideo = document.getElementById("videoPlayerCont");
                 if (stdVideo) {
@@ -473,26 +473,26 @@
                 }
 
             },
-            
+
             destroyPlayer: function () {
                 virtualclass.videoUl.player.dispose();
 
             },
-            
+
             playVideo: function (seekVal) {
                 virtualclass.videoUl.player.play();
                 virtualclass.videoUl.player.currentTime(seekVal);
             },
-            
+
             pauseVideo: function () {
                 virtualclass.videoUl.player.pause();
             },
-            
-             /*
+
+            /*
              * to play next video from the  the playlist
              * @param index  of next enabled video in the videolist array
              */
-            
+
             autoPlayList: function (index) {
                 var nextIndex = index;
                 //var nextId = virtualclass.videoUl.order[index + 1];
@@ -513,12 +513,12 @@
                             virtualclass.videoUl.player.play();
                         }
                         this.activeVideoClass(currVideoObj.id);
-                      }
+                    }
                 }
             },
-             /*
+            /*
              * to find next video from the videolist
-            
+
              */
             findNextObj: function (index) {
                 var nextId = virtualclass.videoUl.order[index];
@@ -536,11 +536,11 @@
                     }
                 }
             },
-            
-             /*
+
+            /*
              * to disable  video in the videolist
              */
-            
+
             _disable: function (_id) {
                 var video = document.getElementById("mainpvideo" + _id);
                 video.style.opacity = .3;
@@ -551,8 +551,8 @@
                     }
                 })
             },
-            
-             /*
+
+            /*
              * to enable  video in the videolist
              */
             _enable: function (_id) {
@@ -565,19 +565,19 @@
                     }
                 })
             },
-            
-             /*
+
+            /*
              * to delete  video from list and from the database
              */
             _delete: function (id) {
                 var form_data = new FormData();
-                var data = {lc_content_id : id, action : 'delete', user : virtualclass.gObj.uid};
+                var data = {lc_content_id: id, action: 'delete', user: virtualclass.gObj.uid};
                 var form_data = new FormData();
                 for (var key in data) {
                     form_data.append(key, data[key]);
                     console.log(data[key]);
                 }
-    
+
                 virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content", function (msg) {
                     if (msg != "ERROR") {
                         var elem = document.getElementById("linkvideo" + id);
@@ -585,7 +585,7 @@
                             elem.parentNode.removeChild(elem);
                             //virtualclass.videoUl.order=[];
 
-                           virtualclass.videoUl.videos.forEach(function (video, index) {
+                            virtualclass.videoUl.videos.forEach(function (video, index) {
                                 if (video["id"] == id) {
                                     var index = virtualclass.videoUl.videos.indexOf(video)
                                     if (index >= 0) {
@@ -604,8 +604,8 @@
                     }
                 });
             },
-             /*
-             * to retrive order from data base 
+            /*
+             * to retrive order from data base
              */
             xhrOrderSend: function (order) {
                 var data = {'content_order': order.toString(), content_order_type: 2}
@@ -622,11 +622,11 @@
                     virtualclass.videoUl.getVideoList();
                 });
             },
-            
+
             videoToStudent: function (videoObj) {
                 ioAdapter.mustSend({'videoUl': videoObj, 'cf': 'videoUl'});
             },
-            
+
             /*
              * this object is for user interface
              */
@@ -638,95 +638,39 @@
                  */
                 container: function () {
                     var videoCont = document.getElementById(this.id);
-
                     if (!videoCont) {
-                        videoCont = document.createElement("div");
-                        videoCont.id = this.id;
-                        videoCont.className = this.class;
-                        virtualclass.vutil.insertIntoLeftBar(videoCont);
 
-                        if (roles.hasControls()) {
-                            this.createModalCont(videoCont);
-                            this.videoListCont(videoCont);
-                            this.createPlayerCont(videoCont);
-                            // this.showUploadTab(videoCont);
+                        var control = roles.hasAdmin() ? true : false;
+                        var data = {"control": control};
+                        var template = JST['templates/videoupload/videoupload.hbs'];
+                        ;
+                        $('#virtualclassAppLeftPanel').append(template(data));
+
+                        videoCont = document.getElementById(this.id);
+
+                        var type = "video";
+                        var firstId = "congrea" + type + "ContBody";
+                        var secondId = "congreaShareVideoUrlCont";
+                        var elemArr = [firstId, secondId];
+
+                        var btn = document.getElementById("newVideoBtn")
+                        // this.showUploadTab(videoCont);
+                        if (btn) {
+                            btn.addEventListener("click", function () {
+                                virtualclass.videoUl.modalPopup(type, elemArr);
+                            })
                         }
-                        else {
-                            this.createPlayerCont(videoCont);
-                        }
+
 
                     }
 
                 },
-                createPlayerCont: function (vidCont) {
-                    var elem = document.createElement("div");
-                    elem.id = "videoPlayerCont";
-                    //  elem.classList.add("embed-responsive","embed-responsive-16by9")
-                    vidCont.appendChild(elem);
-
-
-                },
-                createModalCont: function (videoCont) {
-//                    var cont = document.getElementById("videoPopupCont");
-//                    if (!cont) {
-                    var elem = document.createElement("div");
-                    elem.id = "videoPopupCont";
-                    videoCont.appendChild(elem);
-//                    /}
-                },
-                videoListCont: function (cont) {
-
-                    var list = document.createElement("div");
-                    list.id = "videoList";
-                    cont.appendChild(list);
-
-                    this.showUploadTab(list);
-
-                },
-                showUploadTab: function (cont) {
-                    var type = "video";
-                    var firstId = "congrea" + type + "ContBody";
-                    var secondId = "congreaShareVideoUrlCont";
-                    var elemArr = [firstId, secondId];
-                    var elem = document.createElement("div");
-                    elem.id = "newVideoBtnCont";
-                    cont.appendChild(elem);
-
-                    var btn = document.createElement("button");
-                    btn.id = "newVideoBtn";
-                    elem.appendChild(btn);
-
-                    btn.innerHTML = "upload/share video";
-                    btn.addEventListener("click", function () {
-                        virtualclass.videoUl.modalPopup(type, elemArr);
-                    })
-              
-                },
-                
-                createVideoCont: function (listCont, vidObj) {
-                    var videoObj = {};
-                    var cont = document.createElement("div");
-                    cont.id = vidObj.id;
-                    listCont.appendChild(cont);
-
-                    var url = document.createElement("a");
-                    cont.appendChild(url);
-                    url.innerHTML = vidObj.title;
-                    url.addEventListener("click", function () {
-                        virtualclass.videoUl.UI.displayVideo(vidObj.id, vidObj.content_path);
-                        virtualclass.videoUl.videoToStudent(vidObj);
-                        virtualclass.videoUl.videoId = vidObj.id;
-                    });
-                },
-                
                 defaultLayoutForStudent: function () {
                     var videoContainer = document.getElementById(this.id);
                     if (videoContainer == null) {
                         videoContainer = document.createElement('div');
                         videoContainer.id = this.id;
                         videoContainer.className = this.class;
-                    //    var beforeAppend = document.getElementById(virtualclass.rWidgetConfig.id);
-                      //      beforeAppend.parentNode.insertBefore(videoContainer, beforeAppend);
                         virtualclass.vutil.insertIntoLeftBar(videoContainer);
 
                     }
@@ -749,8 +693,7 @@
                     }
 
                 },
-                
-                // todo small
+
                 displayVideo: function (vidId, videoUrl, startFrom) {
                     if (typeof virtualclass.videoUl.player == 'object') {
                         if (virtualclass.videoUl.player.hasOwnProperty('dispose')) {
@@ -769,7 +712,7 @@
                         videoCont = document.getElementById("videoPlayerCont");
                         // videoCont = document.getElementById("virtualclassVideo");
                     } else {
-                        // todo to add condition for reload 
+                        // todo to add condition for reload
                         videoCont.style.display = "block";
                     }
 
@@ -846,7 +789,7 @@
                         if (msz) {
                             msz.style.display = "block";
                         } else {
-                           
+
                             var elem = document.createElement("div");
                             elem.id = "messageLayoutVideo";
                         }
@@ -903,7 +846,6 @@
                             id: "autoPlayListBtn",
                             role: 'button',
                             onclick: function () {
-
                                 virtualclass.videoUl.UI.autoPlayFn(this);
 
                             }
@@ -928,7 +870,7 @@
                     }
 
                 },
-           
+
                 onEnded: function (player, vidId, videoUrl) {
                     player.reset();
                     // needed to replay same video after resett
@@ -951,13 +893,9 @@
                     }
 
                 },
-                //todo placeholder text from language directory
 
                 inputUrl: function () {
-          
                     var videocont = document.getElementById("congreaShareVideoUrlCont");
-
-                    // todo change this conflicting with youtube message
                     var studentMessage = document.getElementById('messageLayout');
                     if (studentMessage != null) {
                         studentMessage.parentNode.removeChild(studentMessage);
@@ -972,21 +910,15 @@
                         input.cols = 70;
                         input.rows = 3;
                         input.placeholder = "Share video with Online Video Url";
-
                         videocont.appendChild(input);
-
                         uiContainer.appendChild(input);
                         videocont.appendChild(uiContainer);
 
                         var submitURL = document.createElement('button');
                         submitURL.id = 'submitURL';
                         submitURL.innerHTML = "share video"
-                        submitURL.setAttribute("data-dismiss", 'modal')
-
+                        submitURL.setAttribute("data-dismiss", 'modal');
                         uiContainer.appendChild(submitURL);
-
-
-                        //todo generlize event handler function
                         submitURL.addEventListener("click", function () {
                             virtualclass.videoUl.shareVideo(input.value);
                         });

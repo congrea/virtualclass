@@ -495,19 +495,22 @@ var videoHost = {
     //nirmala
     UI: {
         controller: function () {
-            var mainctr = document.getElementById("congCtrBar");
-            var swcont = document.createElement("div");
-            swcont.id = "rightCtlr";
-            mainctr.appendChild(swcont);
+            // var mainctr = document.getElementById("congCtrBar");
+            // var swcont = document.createElement("div");
+            // swcont.id = "rightCtlr";
+            // mainctr.appendChild(swcont);
+            //
+            // var elem = document.createElement("span");
+            // elem.id = "videoSwitch";
+            // elem.className = "video on"
+            // swcont.appendChild(elem);
+            var elem = document.getElementById("videoSwitch");
+            if(elem){
+                elem.addEventListener("click", function () {
+                    virtualclass.videoHost.videoHandler(this);
 
-            var elem = document.createElement("span");
-            elem.id = "videoSwitch";
-            elem.className = "video on"
-            swcont.appendChild(elem);
-            elem.addEventListener("click", function () {
-                virtualclass.videoHost.videoHandler(this);
-
-            })
+                })
+            }
 
         },
         displayVideo: function () {

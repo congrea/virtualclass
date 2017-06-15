@@ -23,15 +23,17 @@
         role="tablist"></ul>
   </div>
   <div class="footerCtr" id="congFooterCtr">
-    <div class="uiMuteAll">
-      <a id="contrAudioAll">
+    {{#if control}}
+      <div class="uiMuteAll">
+        <a id="contrAudioAll">
           <span id="contrAudioAllImg" data-action="disable"
                 class="icon-all-audio-disable tooltip"
                 data-title="Mute All">
 
           </span>
-      </a>
-    </div>
+        </a>
+      </div>
+    {{/if}}
     <div class="prechk" id="precheckTest">
       <span class="precheck tooltip" id="precheckSetting">precheck</span>
     </div>

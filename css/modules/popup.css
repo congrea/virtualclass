@@ -86,11 +86,6 @@
 	display:block;
 	z-index : 100000;
 }
-/*.rv-vanilla-modal-header {
-    background:#d4d4d4;
-    border-radius:4px 4px 0 0;
-    padding:20px;
-}*/
 
 .rv-vanilla-modal-body {
 	overflow:auto;
@@ -102,11 +97,6 @@
 	margin:0 0 1em;
 }
 .rv-vanilla-modal-title {
-	/*    color:#000000;
-    font-size:18px;
-    font-weight:300;
-    margin:0;*/
-
 	color: #414C46;
 	font-size: 15px;
 	font-weight: 300;
@@ -115,22 +105,6 @@
 	margin-left: 4%;
 	letter-spacing : 0.01em;
 }
-/*.rv-vanilla-modal-close {
-color:#1a9dd6;
-font-size:16px;
-float:right;
-display:inline-block;
-width:26px;
-height:26px;
-line-height:26px;
-text-align:center;
-border-radius:50%;
-border:0;
-cursor:pointer;
-background:rgba(255,255,255,.4);
--webkit-transition:all .2s linear;
-transition:all .2s linear;
-}*/
 
 .rv-vanilla-modal-close .text {
 	position:relative;
@@ -407,7 +381,6 @@ transition:all .2s linear;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
-	background-color: #a6c24e;
 	font-weight: normal;
 	padding: 10px 24px;
 	border-radius: 5px !important;

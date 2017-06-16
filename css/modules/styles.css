@@ -1349,7 +1349,7 @@
 
 #virtualclassCont.congrea .tool.active a span:before {
 	text-shadow : 0 1px 11px #eee;
-	color : #fff !important;
+	color : #a3a3a3 !important;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg.block.currTeacher:before , #virtualclassCont.congrea .icon-chatImg.enable:before  {
@@ -1357,7 +1357,6 @@
 }
 
 #virtualclassCont.congrea .icon-chatImg.enable:before {
-	/*color : #94b532;*/
 	font-size : 14px;
 	position : relative;
 	top : -1px;
@@ -2650,7 +2649,7 @@
 	margin: 15px;
 	font-size: 1.2em;
 	text-shadow: none;
-	color: #fff;
+	color: #515151;
 }
 /* congrea quiz end*/
 

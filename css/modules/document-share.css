@@ -120,14 +120,6 @@
     opacity: 0.5;
 }
 
-/*#virtualclassDocumentShare.virtualclass #documentScreen {*/
-/*width: 100%;*/
-/*float: left;*/
-/*margin: 0;*/
-/*padding: 0;*/
-/*border-width: 0;*/
-/*}*/
-
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .next, #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .prev {
     z-index: 20;
 }
@@ -346,9 +338,6 @@
     z-index: -1;
     position: relative;
     height: auto;
-    /* the would not be repsonsive from now **/
-    /*max-height: 586px;*/
-    /*width: 76%;*/
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.status[data-status="1"]::before {

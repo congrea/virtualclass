@@ -99,7 +99,6 @@
     right: 6px;
 }
 
-
 #virtualclassCont.congrea .ui-memblist-titlebar {
     padding: 10px 3px 3px;
     height: 20px;
@@ -122,23 +121,6 @@
 #virtualclassCont.congrea .ui-memblist-log .userImg.ui-memblist-usr.teacher a img {
     padding: 4px 10px !important;
 }
-/*
-.ui-memblist-log div.student:first-child {
-	margin-top:5px !important;
-}
-*/
-
-/*
-.ui-memblist-log div.teacher:first-child {
-	margin-top:8px !important;
-}
-*/
-/*
-#virtualclassCont.congrea .ui-memblist-log div.teacher:last-child {
-	margin-top:5px;
-	margin-bottom:8px;
-}
-*/
 
 #virtualclassCont.congrea .ui-memblist-log div.teacher:last-child {
     margin-bottom:0px !important;
@@ -182,10 +164,9 @@
     height: 25px;
     margin: -2px 10px 10px 5px;
     width: 200px;
-    color: #ddd;
-    border: 1px solid rgba(254,254,254,0.2);
+    color: #383838;
+    border : 1px solid rgba(0,0,0,0.8);
 }
-
 #virtualclassCont.congrea #stickybar a {
     text-decoration:none;
     padding-left: 4px;
@@ -227,7 +208,6 @@
 }
 #virtualclassCont.congrea .vmchat_bar_button {
     color: #000;
-    /*cursor: pointer;*/
     height: 42px;
     padding: 0px 12px;
     position: relative;
@@ -491,7 +471,6 @@
     margin-left: 5px;
 }
 
-
 #virtualclassCont.congrea .ui-memblist-usr.mySelf .user-details .usern {margin-top: 15px;}
 
 #virtualclassCont.congrea .ui-memblist-usr a span{
@@ -511,9 +490,7 @@
     border-bottom: none;
     margin-right: 2px;
 }
-/*#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li:first-child.ui-tabs-active {
-    margin-right: 328px;
-}*/
+
 #virtualclassCont.congrea .ui-icon-close{
     margin-top: 4px;
 }
@@ -550,7 +527,7 @@
 }
 
 #user_list.vmchat_bar_button{
-    width:209px !important
+    width:209px !important;
 border-right:none !important;
 }
 
@@ -635,11 +612,7 @@ border-right:none !important;
     float: left;
     width: 100px !important;
 }
-/*
-#virtualclassCont.congrea .ui-chatbox-input{
-	background-color: #eee;
-}
-*/
+
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active{
     border: 1px solid #5d6b76;
 }
@@ -657,7 +630,7 @@ border-right:none !important;
 }
 #virtualclassCont.congrea #usertab_text {
     margin-top : 5px;
-    color : #fff;
+    color : #333;
 }
 #virtualclassCont.congrea .ui-chatroom {top: 50px;}
 

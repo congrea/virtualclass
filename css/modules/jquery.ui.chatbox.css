@@ -130,7 +130,7 @@
 #virtualclassCont.congrea #stickybar {
     font-size:14px;
     font-weight:bold;
-    color:#151715;
+    /*color:#151715;*/
     position:fixed;
     bottom:0;
     z-index:2000;
@@ -601,7 +601,7 @@ border-right:none !important;
 #virtualclassCont.congrea .vmchat_support {
     float: right;
     width: 52px;
-    color: #fff;
+    /*color: #fff;*/
     padding: 11px 22px;
 }
 #page-mod-congrea-classroom #virtualclassCont #usertab_icon {
@@ -630,7 +630,7 @@ border-right:none !important;
 }
 #virtualclassCont.congrea #usertab_text {
     margin-top : 5px;
-    color : #333;
+    /*color : #333;*/
 }
 #virtualclassCont.congrea .ui-chatroom {top: 50px;}
 

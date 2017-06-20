@@ -222,13 +222,13 @@
 #virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{
   content: "\e610";
   font-size: 17px;
-  color: rgba(0,0,0,1.0);
+  /*color: rgba(0,0,0,1.0);*/
 }
 
 #virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {
   content: "\e611";
   font-size: 18px;
-  color: rgba(0,0,0,1.0);
+  /*color: rgba(0,0,0,1.0);*/
 }
 
 #virtualclassCont.congrea a#contrAudioAll {

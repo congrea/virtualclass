@@ -196,6 +196,13 @@
                     virtualclass.makeReadySocket();
                 }
 
+                //For change color uncomment this and give the appropriate values
+                // var editorbtn={color : 'blue'}
+                // var allbg = {fcolor : '#777999', scolor : '#666999'};
+                // var active = {fcolor : '#459878', scolor : '#698568'};
+                // var hover = {fcolor : '#989655', scolor : '#837394'};
+                // virtualclass.makeThemeReady(editorbtn, allbg,active,hover);
+
                 // For initialize the Teacher Video
                 virtualclass.videoHost.init(320 , 240);
 
@@ -229,6 +236,50 @@
                     }, 100);
 
                 }
+            },
+
+            makeThemeReady : function (editorbtn,allbg,active,hover){
+
+                var css="#virtualclassCont.congrea a.vceditor-btn{background-color: "+editorbtn.color+"} " +
+                    "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,#virtualclassCont.congrea #navigator,#virtualclassCont.congrea #layoutQuiz .navbar," +
+                    "#virtualclassCont.congrea .vceditor-toolbar,#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget," +
+                    "#virtualclassCont.congrea #chatWidget .chatBarTab, #virtualclassCont.congrea .commandToolsWrapper," +
+                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #playButton," +
+                    "#virtualclassCont.congrea #confirmCancel #confirmCancelButton,#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,#virtualclassCont.congrea .commandToolsWrapper .tool.active a," +
+                    "#virtualclassCont.congrea .vmchat_room_bt.active,#virtualclassCont.congrea[data-currapp="+"EditorRich"+"] .vmchat_bar_button.active," +
+                    "#virtualclassCont.congrea .vmchat_support.active {background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover," +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover , " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover," +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover," +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover, " +
+                    "#virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover, " +
+                    "#virtualclassCont.congrea #audioTest-box:hover, #virtualclassCont.congrea a.vceditor-btn:hover," +
+                    "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover, #virtualclassCont.congrea #playButton:hover," +
+                    "#virtualclassCont.congrea #alwaysPress:hover,#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
+                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, " +
+                    "#virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}";
+                function addcss(css){
+                    var head = document.getElementsByTagName('head')[0];
+                    var s = document.createElement('style');
+                    s.setAttribute('type', 'text/css');
+                    if (s.styleSheet) {   // IE
+                        s.styleSheet.cssText = css;
+                    } else {                // the world
+                        s.appendChild(document.createTextNode(css));
+                    }
+                    head.appendChild(s);
+                }
+                addcss(css);
+
             },
 
             initSocketConn: function () {

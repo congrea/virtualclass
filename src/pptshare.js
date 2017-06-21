@@ -59,18 +59,14 @@
                 this.UI.container();
                 var messageContainer = document.getElementById('pptMessageLayout');
 
-                if (roles.hasControls()) {
+                if (roles.hasControls()){
                     var that = this;
-
                     var urlCont = document.getElementById('urlcontainer');
                     if (messageContainer != null) {
                         messageContainer.style.display = "none";
                     }
                     urlCont.style.display = "block";
-
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-
-
 
                 }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');
@@ -133,10 +129,14 @@
              */
 
             fromLocalStorage: function(state) {
-                var elemIframe = document.getElementById('pptiframe');
-                if (elemIframe == null) {
-                    this.UI.createIframe();
-                }
+                // var elemIframe = document.getElementById('pptiframe');
+                // if (elemIframe == null) {
+                //     this.UI.createIframe();
+                // }
+
+                if ( document.getElementById("iframecontainer") == null) {
+                     this.UI.createIframe();
+                 }
                 var iframeContainer = document.getElementById("iframecontainer");
                 iframeContainer.style.display = "block";
                 var iframe = document.getElementById("pptiframe");
@@ -706,7 +706,10 @@
                     pptMessageLayout.style.display = "none";
                 }
                 //virtualclass.sharePt.UI.createUrlContainer();
-                document.getElementById('urlcontainer').style.display = "block";
+                if(document.getElementById('urlcontainer')){
+                    document.getElementById('urlcontainer').style.display = "block";
+                }
+
                 virtualclass.sharePt.eventsObj = [];
             },
 
@@ -762,7 +765,7 @@
                  * Creates container for the ppt
                  */
                 container: function() {
-                    var control= roles.hasAdmin()?true:false;
+                    var control= roles.hasControls()?true:false;
                     var data ={"control":control};
                     var template=virtualclass.getTemplate("ppt","ppt");
                     $('#virtualclassAppLeftPanel').append(template(data));

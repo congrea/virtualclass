@@ -476,6 +476,8 @@
                     if (dispVideo) {
                         dispVideo.style.display = "none";
                     }
+                    $('.congrea #listvideo .playing').removeClass('playing');
+                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
                     if (typeof virtualclass.videoUl.player == 'object') {
                         // debugger;

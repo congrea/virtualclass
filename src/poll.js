@@ -801,9 +801,22 @@
                   }
 
                   virtualclass.poll.attachEvent("publishQn" + pollType + index, "click", virtualclass.poll.publishHandler, item, pollType, index);
-
+                  virtualclass.poll.previewOnHover(item,pollType,index)
 
             },
+
+            previewOnHover: function (item,pollType,index) {
+                var data={};
+                data.questiontext= item.questiontext;
+                data.options=item.options;
+                var template=virtualclass.getTemplate("previewPopup","poll");
+                var preview = (template({"data":data}));
+                $(function () {
+                    $('[data-toggle="popover"]').popover({content:preview,html: true, delay: {show: 1000}})
+                })
+
+            },
+
             attachEvent: function (actionid, eventName, handler, item, pollType, index, qid, temp, isPublished) {
 
                 var elem = document.getElementById(actionid);
@@ -1220,6 +1233,7 @@
             },
 
             publishHandler2: function () {
+                var message = "poll published";
                 var message = "poll published";
                 virtualclass.poll.showMsg("mszBoxPoll", message, "alert-success");
 

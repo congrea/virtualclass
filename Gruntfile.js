@@ -38,6 +38,14 @@ module.exports = function(grunt) {
             }
           },
 
+        sass: {
+            dev: {
+                src: 'scss/theme-black.scss',
+                dest: 'css/theme/black.css'
+            },
+
+        },
+
           watch: {
             /** the grunt is waching if any changes in .hbs files
              *  if so there will be peform the task hanldebars which does precompile (.hbs to .js)
@@ -46,8 +54,11 @@ module.exports = function(grunt) {
               files: ["templates/**/*.hbs"],
               tasks: ['handlebars']
             },
-
-            tasks: ['handlebars']
+              css: {
+                  files: '**/*.scss',
+                  tasks: ['sass']
+              },
+            tasks: ['handlebars','sass']
           }
 
 
@@ -55,9 +66,10 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
 
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.registerTask('default', ['handlebars']);
+  grunt.registerTask('default', ['handlebars','sass']);
 
 
 };

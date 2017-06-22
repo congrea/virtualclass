@@ -1,198 +1,204 @@
-body #virtualclassCont.congrea #virtualclassOptionsCont {
-    border: #E2E2E4 3px solid; }
-body #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont,
-body #virtualclassCont.congrea #videoList #newVideoBtnCont {
+/* black */
+/* black end */
+#virtualclassCont.congrea {
+  /*bottom bar*/
+  /*poll*/
+  /*editor */
+  /*whiteboard*/
+  /*Session save popup*/ }
+  #virtualclassCont.congrea #virtualclassOptionsCont {
+    border: #E2E2E4 5px solid; }
+  #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont,
+  #virtualclassCont.congrea #videoList #newVideoBtnCont {
     border-bottom: 1px solid #aaa;
     background: #fff; }
-body #virtualclassCont.congrea #virtualclassOptionsCont:first-child, body #virtualclassOptionsCont {
+  #virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassCont.congrea #virtualclassOptionsCont {
     background: -moz-linear-gradient(left, #021317 0%, #333636 100%);
-
+    /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #021317), color-stop(100%, #333636));
-
+    /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(left, #021317 0%, #333636 100%);
-
+    /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(left, #021317 0%, #333636 100%);
-
+    /* Opera 11.10+ */
     background: -ms-linear-gradient(left, #021317 0%, #333636 100%);
-
+    /* IE10+ */
     background: linear-gradient(to right, #021317 0%, #333636 100%);
-
-   }
-body #virtualclassCont.congrea #audioWidget {
+    /* W3C */ }
+  #virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassCont.congrea #virtualclassOptionsCont {
+    background: -moz-linear-gradient(left, #021317 0%, #333636 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #021317), color-stop(100%, #333636));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #021317 0%, #333636 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #021317 0%, #333636 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #021317 0%, #333636 100%);
+    /* IE10+ */
+    background: linear-gradient(to right, #021317 0%, #333636 100%);
+    /* W3C */ }
+  #virtualclassCont.congrea #audioWidget {
     background: -moz-linear-gradient(left, #333636 0%, #021317 100%);
-
+    /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #333636), color-stop(100%, #021317));
-
+    /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(left, #333636 0%, #021317 100%);
-
+    /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(left, #333636 0%, #021317 100%);
-
+    /* Opera 11.10+ */
     background: -ms-linear-gradient(left, #333636 0%, #021317 100%);
-
+    /* IE10+ */
     background: linear-gradient(to right, #333636 0%, #021317 100%);
-   }
-body #virtualclassCont.congrea #chatWidget .chatBarTab {
-    background: #021317;
-    }
-body #virtualclassCont.congrea .vmchat_room_bt {
+    /* W3C */ }
+  #virtualclassCont.congrea #chatWidget .chatBarTab {
+    background: #021317; }
+  #virtualclassCont.congrea .vmchat_room_bt {
     border-right: 1px solid #555; }
-body #virtualclassCont.congrea .vmchat_bar_button {
+  #virtualclassCont.congrea .vmchat_bar_button {
     border-right: 1px solid #555; }
-body #virtualclassCont.congrea .ui-widget-header {
+  #virtualclassCont.congrea .ui-widget-header {
     background: -moz-linear-gradient(top, #333636 0%, #021317 100%) !important;
-
+    /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333636), color-stop(100%, #021317)) !important;
-
+    /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, #333636 0%, #021317 100%) !important;
-
+    /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(top, #333636 0%, #021317 100%) !important;
-
+    /* Opera 11.10+ */
     background: -ms-linear-gradient(top, #333636 0%, #021317 100%) !important;
-
+    /* IE10+ */
     background: linear-gradient(to bottom, #333636 0%, #021317 100%) !important;
-
-    }
-body #virtualclassCont.congrea #tabs.ui-widget-content {
+    /* W3C */ }
+  #virtualclassCont.congrea #tabs.ui-widget-content {
     box-shadow: 0 0 5px #aaa; }
-body #virtualclassCont.congrea #navigator,
-body #layoutQuiz .navbar {
-
+  #virtualclassCont.congrea #navigator,
+  #virtualclassCont.congrea #layoutQuiz .navbar {
     background: -moz-linear-gradient(top, #021317 0%, #333636);
-
+    /* FF3.6-15 */
     background: -webkit-linear-gradient(top, #021317 0%, #333636);
-
+    /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, #021317 0%, #333636);
- }
-body #virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="tooltip"] {
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+  #virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="tooltip"] {
     color: #555; }
-body #virtualclassCont.congrea .vceditor-toolbar {
-   }
-body #virtualclassCont.congrea a.vceditor-btn:hover,
-body #virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
+  #virtualclassCont.congrea a.vceditor-btn:hover,
+  #virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
     background-color: #212121;
     border-color: #555; }
-body #virtualclassCont.congrea a.vceditor-btn,
-body #virtualclassCont.congrea a.vceditor-btn:visited,
-body #virtualclassCont.congrea a.vceditor-btn:active {
+  #virtualclassCont.congrea a.vceditor-btn,
+  #virtualclassCont.congrea a.vceditor-btn:visited,
+  #virtualclassCont.congrea a.vceditor-btn:active {
     background-color: #01080a;
     border: 1px solid #555;
     color: #fff; }
-body #virtualclassCont.congrea a.vceditor-btn, body #virtualclassCont.congrea a.vceditor-btn:visited, body #virtualclassCont.congrea a.vceditor-btn:active {
-    }
-body #virtualclassCont.congrea .vceditor-toolbar {
+  #virtualclassCont.congrea .vceditor-toolbar {
     background-color: #021317; }
-body #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
-    background: #021317 none;
-   }
-body #virtualclassCont.congrea .commandToolsWrapper,
-body #virtualclassCont.congrea .rv-vanilla-modal-header,
-body #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
-
-    border-bottom: 0px solid #aaa;
-   }
-body #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
+  #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
+    background: #021317 none; }
+  #virtualclassCont.congrea .commandToolsWrapper,
+  #virtualclassCont.congrea .rv-vanilla-modal-header,
+  #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
+    border-bottom: 0px solid #aaa; }
+  #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
     border-right: 1px solid #555;
     color: #fff; }
-body #virtualclassCont.congrea .commandToolsWrapper,
-body #virtualclassCont.congrea .rv-vanilla-modal-header,
-body #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText,
-body #virtualclassCont.congrea .commandToolsWrapper .tool.active a, body #virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover {
-
+  #virtualclassCont.congrea .commandToolsWrapper,
+  #virtualclassCont.congrea .rv-vanilla-modal-header,
+  #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText,
+  #virtualclassCont.congrea .commandToolsWrapper .tool.active a,
+  #virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover {
     background: -moz-linear-gradient(top, #333636 0%, #021317 100%);
-
+    /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333636), color-stop(100%, #021317));
-
+    /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, #333636 0%, #021317 100%);
-
+    /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(top, #333636 0%, #021317 100%);
-
+    /* Opera 11.10+ */
     background: -ms-linear-gradient(top, #333636 0%, #021317 100%);
-
+    /* IE10+ */
     background: linear-gradient(to bottom, #333636 0%, #021317 100%);
-
-    }
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover,
-body #virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover,
-body #virtualclassCont.congrea #audioTest-box:hover,
-body #virtualclassCont.congrea #audioWidget #speakerPressOnce:hover,
-body #virtualclassCont.congrea #alwaysPress:hover {
-
+    /* W3C */ }
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover,
+  #virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover,
+  #virtualclassCont.congrea #audioTest-box:hover,
+  #virtualclassCont.congrea #audioWidget #speakerPressOnce:hover,
+  #virtualclassCont.congrea #alwaysPress:hover {
     background: -moz-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
-
+    /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #0a0c0d), color-stop(100%, #212121));
-
+    /* Chrome,Safari4+ */
     background: -webkit-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
-
+    /* Chrome10+,Safari5.1+ */
     background: -o-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
-
+    /* Opera 12+ */
     background: -ms-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
-
+    /* IE10+ */
     background: radial-gradient(ellipse at center, #0a0c0d 0%, #212121 100%);
-
-    }
-body #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
-body #virtualclassCont.congrea #confirmCancelButton,
-body #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart,
-body #virtualclassCont.congrea #popupContainer #replayContainer #replayButton,
-body #virtualclassCont.congrea #playButton {
-
+    /* W3C */ }
+  #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
+  #virtualclassCont.congrea #confirmCancelButton,
+  #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart,
+  #virtualclassCont.congrea #popupContainer #replayContainer #replayButton,
+  #virtualclassCont.congrea #playButton {
     background-color: #021317;
-    color: #fff;
-   }
-body #confirm #confirmOk #confirmOkButton:hover,
-body #virtualclassCont.congrea #playButton:hover,
-body #virtualclassCont.congrea #playButton:hover,
-body #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover {
-
-    background-color: #333636 !important;
-    }
-body #virtualclassCont.congrea #confirmCancel #confirmCancelButton {
-    background-color: #021317;
-
-    color: #fff;
-}
-body #virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover {
-    background-color: #333636 !important; }
-body #virtualclassCont.congrea .vmchat_room_bt.active,
-body #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active,
-body #virtualclassCont.congrea .vmchat_support.active {
-    background-color: #323e49; }
-body #virtualclassCont.congrea #virtualclassOptionsCont,
-body .tooltip,
-body #virtualclassCont.congrea #t_reclaim .icon-educator:before,
-body #virtualclassCont.congrea .ui-dialog-header span,
-body #virtualclassCont.congrea #chatroom_bt2 .inner_bt,
-body #virtualclassCont.congrea #speakerPressing .icon-speakerPressing:before,
-body #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a span:before,
-body #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a span:before {
     color: #fff; }
-body #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
+  #virtualclassCont.congrea #confirm #confirmOk #confirmOkButton:hover,
+  #virtualclassCont.congrea #playButton:hover,
+  #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover {
+    background-color: #333636 !important; }
+  #virtualclassCont.congrea #confirmCancel #confirmCancelButton {
+    background-color: #021317;
+    color: #fff; }
+  #virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover {
+    background-color: #333636 !important; }
+  #virtualclassCont.congrea .vmchat_room_bt.active,
+  #virtualclassCont.congrea [data-currapp="EditorRich"] .vmchat_bar_button.active,
+  #virtualclassCont.congrea .vmchat_support.active {
+    background-color: #323e49; }
+  #virtualclassCont.congrea #virtualclassOptionsCont,
+  #virtualclassCont.congrea .tooltip,
+  #virtualclassCont.congrea #t_reclaim .icon-educator:before,
+  #virtualclassCont.congrea .ui-dialog-header span,
+  #virtualclassCont.congrea #chatroom_bt2 .inner_bt,
+  #virtualclassCont.congrea #speakerPressing .icon-speakerPressing:before,
+  #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a span:before,
+  #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a span:before,
+  #virtualclassCont.congrea #stickybar,
+  #virtualclassCont.congrea .vchead, #virtualclassCont.congrea .bootstrap .pollNavBar > li > a {
+    color: #fff; }
+  #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
     border: 1px solid #555; }
-body #virtualclassCont.congrea #alwaysPress .audioTool.active,
-body #virtualclassOptionsCont .appOptions.active,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.active:hover,
-body #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover,
-body #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover,
-body #audioTest-box .audioTool.audioIsTesting {
+  #virtualclassCont.congrea #alwaysPress .audioTool.active,
+  #virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.active:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover,
+  #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover,
+  #virtualclassCont.congrea #audioTest-box .audioTool.audioIsTesting {
     background: -moz-radial-gradient(center, ellipse cover, #323e49 0%, #01080a 100%);
-
+    /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #323e49), color-stop(100%, #01080a));
-
+    /* Chrome,Safari4+ */
     background: -webkit-radial-gradient(center, ellipse cover, #323e49 0%, #01080a 100%);
-
+    /* Chrome10+,Safari5.1+ */
     background: -o-radial-gradient(center, ellipse cover, #323e49 0%, #01080a 100%);
-
+    /* Opera 12+ */
     background: -ms-radial-gradient(center, ellipse cover, #323e49 0%, #01080a 100%);
-
+    /* IE10+ */
     background: radial-gradient(ellipse at center, #323e49 0%, #01080a 100%);
-}
+    /* W3C */ }
+  #virtualclassCont.congrea .bootstrap .pollNavBar > li > a:hover {
+    color: #555; }
+
+/*# sourceMappingURL=black.css.map */

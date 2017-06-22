@@ -335,7 +335,7 @@
                 }
 
                 var controlElem = document.getElementById("controlContvideo" + currId);
-                if (!controlElem.classList.contains("removeCtr")) {
+                if ( controlElem && !controlElem.classList.contains("removeCtr")) {
                     controlElem.classList.add("removeCtr");
                 }
 
@@ -347,7 +347,7 @@
                 }
 
                 var currentVideo = document.getElementById("linkvideo" + currId);
-                if (!currentVideo.classList.contains("playing")) {
+                if (currentVideo && !currentVideo.classList.contains("playing")) {
                     currentVideo.classList.add("playing");
                 }
             },
@@ -921,6 +921,9 @@
                         uiContainer.appendChild(submitURL);
                         submitURL.addEventListener("click", function () {
                             virtualclass.videoUl.shareVideo(input.value);
+                            $('.congrea #listvideo .playing').removeClass('playing');
+                            $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
+
                         });
                     }
                 },

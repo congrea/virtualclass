@@ -545,7 +545,7 @@
                             },
                             'cf': 'poll'
                         });
-                        //virtualclass.poll.resultToStorage();
+                        virtualclass.poll.resultToStorage();
                         var saveResult = {
                             "qid": virtualclass.poll.dataToStd.qId,
                             "list": virtualclass.poll.list
@@ -1287,7 +1287,7 @@
                         'cf': 'poll'
                     });
 
-                   // virtualclass.poll.resultToStorage();
+                    virtualclass.poll.resultToStorage();
                     virtualclass.poll.UI.pollClosedUI();
                     var saveResult = {
                         "qid": virtualclass.poll.dataToStd.qId,
@@ -1723,7 +1723,7 @@
                         virtualclass.poll.pollState["data"] = "noResult"
                     }
                 }
-                // virtualclass.poll.resultToStorage();
+                virtualclass.poll.resultToStorage();
 
             },
 
@@ -2354,7 +2354,18 @@
                             coursePollNav.classList.add('active');
                             virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
                         });
+                    }else{
+
+                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a')
+                        stdNav.addEventListener('click', function () {
+                            virtualclass.poll.showStudentPollReport();
+                        });
+
                     }
+                    $(function () {
+                        $('[data-toggle="popover"]').popover()
+                    })
+
                 },
 
                 resultView: function (istimer, pollType) {
@@ -2485,7 +2496,7 @@
                 },
 
                 createNav: function (pollCont) {
-                    if (roles.hasControls())  {
+                    if (!roles.hasControls())  {
                         var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a')
                         stdNav.addEventListener('click', function () {
                             virtualclass.poll.showStudentPollReport();
@@ -2615,7 +2626,7 @@
                    }
 
                    if (qn != null && !qn.value) {
-                      if (pollType = 'course') {
+                      if (pollType =='course') {
                          qn.value = virtualclass.poll.coursePoll[index].questiontext;
                       } else {
                          qn.value = virtualclass.poll.sitePoll[index].questiontext;

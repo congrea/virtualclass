@@ -310,7 +310,7 @@
                     var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
                     var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     appCont.insertBefore(appOptCont, appCont.firstChild);
-                    
+
                     if(roles.hasAdmin()){
                         this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
                         this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
@@ -407,7 +407,7 @@
                         //try{
                         document.getElementById(virtualclass.previous).style.display = 'none';
 //                        }catch(e){
-//                            
+//
 //                        }
                         if (typeof appId != 'undefined') {
                             if (appId.toUpperCase() == "EDITORRICH") {
@@ -527,8 +527,6 @@
                     if (dispVideo) {
                         dispVideo.style.display = "none";
                     }
-                    $('.congrea #listvideo .playing').removeClass('playing');
-                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
                     if (typeof virtualclass.videoUl.player == 'object') {
                         // debugger;
@@ -706,16 +704,16 @@
                     this.previous = virtualclass.ptConfig.id;
                     virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 },
-                
+
                Poll : function (app){
-                    
+
                     //alert("init Poll");
                     virtualclass.poll.init();
                 },
                 Quiz : function (app) {
                 	virtualclass.quiz.init();
                 },
-                
+
                 Video: function (app, custEvent, videoObj) {
 
                     if (typeof videoObj != 'undefined' && videoObj != null) {
@@ -880,7 +878,7 @@
                                         console.log('Not start new session');
                                         return;
                                     }
-                                    
+
                                     virtualclass.clearSession();
                                     if(virtualclass.gObj.hasOwnProperty('beTeacher')){
                                         if(roles.isTeacher()){
@@ -1013,8 +1011,13 @@
                 this.registerHelper();
                 this.registerPartial();
                 /** inserting the main container of virtualclass **/
+                /*Main hbs*/
                 var mainTemplate = this.getTemplate('main');
-                var mainHtml = mainTemplate();
+                context={
+                    isPlay: virtualclass.isPlayMode,
+                    hasControl: roles.hasControls()
+                }
+                var mainHtml = mainTemplate(context);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
            },
 

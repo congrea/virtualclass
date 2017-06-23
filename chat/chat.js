@@ -77,12 +77,12 @@ function (window, $) {
                             listBtn.classList.add("active");
                         }
                     }
-                } else if (chat != null && chat == "support") {
-                    var supportBtn = document.getElementById("congreaSupport");
-                    if (supportBtn) {
-                        // support.style.display = "none";
-                        supportBtn.classList.add("active");
-                    }
+                // } else if (chat != null && chat == "support") {
+                //     var supportBtn = document.getElementById("congreaSupport");
+                //     if (supportBtn) {
+                //         // support.style.display = "none";
+                //         supportBtn.classList.add("active");
+                //     }
 
                 } else {
                     var list = document.getElementById("memlist");
@@ -272,27 +272,27 @@ function (window, $) {
                 }
             },
 
-            enableTechSupport : function (uid){
-                var techSupport = document.querySelector('#congreaSupport');
-                techSupport.setAttribute('data-tsid', uid);
-                techSupport.classList.remove('notavailable');
-                techSupport.classList.add('available');
-            },
-
-            disableTechSupport : function (uid){
-                var techSupport = document.querySelector('#congreaSupport');
-                techSupport.classList.add('notavailable');
-                techSupport.classList.remove('available');
-                var closeElement = document.querySelector('#tabcb' + uid + ' .icon-close');
-                if(closeElement != null){
-                    closeElement.click();
-                }
-            },
-
-            isTechSupportExist  :  function (uid){
-                var techSupport = document.querySelector('#congreaSupport');
-                return ((+techSupport.dataset.tsid) == (+uid))
-            }
+            // enableTechSupport : function (uid){
+            //     var techSupport = document.querySelector('#congreaSupport');
+            //     techSupport.setAttribute('data-tsid', uid);
+            //     techSupport.classList.remove('notavailable');
+            //     techSupport.classList.add('available');
+            // },
+            //
+            // disableTechSupport : function (uid){
+            //     var techSupport = document.querySelector('#congreaSupport');
+            //     techSupport.classList.add('notavailable');
+            //     techSupport.classList.remove('available');
+            //     var closeElement = document.querySelector('#tabcb' + uid + ' .icon-close');
+            //     if(closeElement != null){
+            //         closeElement.click();
+            //     }
+            // },
+            //
+            // isTechSupportExist  :  function (uid){
+            //     var techSupport = document.querySelector('#congreaSupport');
+            //     return ((+techSupport.dataset.tsid) == (+uid))
+            // }
         }
     };
     window.Chat = Chat;

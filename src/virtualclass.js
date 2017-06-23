@@ -41,7 +41,7 @@
 
                     }
                 }
-         
+
                 virtualclass.storage.config.endSession();
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
@@ -71,12 +71,12 @@
                     },
                     'room': wbUser.room
                 };
-                
+
                 // this actually is particular session, it can be anything like course, particular activity on course
                 // for example, in moodle this is course moodle id, 
                 // with other sysytem it might differ.
-                
-                this.gObj.congCourse = typeof (window.congCourse != 'undefiend') ? window.congCourse : 0; 
+
+                this.gObj.congCourse = typeof (window.congCourse != 'undefiend') ? window.congCourse : 0;
 
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
@@ -123,7 +123,7 @@
                 this.html.init(this);
                 this.adapter = window.adapter;
 
-              
+
                 if(!virtualclass.system.mybrowser.hasOwnProperty('name')){
                     this.system.setBrowserDetails();
                 }
@@ -149,7 +149,7 @@
                 virtualclass.poll= window.poll();
                 virtualclass.quiz= window.quiz();
                 virtualclass.videoUl= window.videoUl();
-                
+
                 virtualclass.videoHost = window.videoHost;
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
@@ -196,13 +196,6 @@
                     virtualclass.makeReadySocket();
                 }
 
-                //For change color uncomment this and give the appropriate values
-                // var editorbtn={color : 'blue'}
-                // var allbg = {fcolor : '#777999', scolor : '#666999'};
-                // var active = {fcolor : '#459878', scolor : '#698568'};
-                // var hover = {fcolor : '#989655', scolor : '#837394'};
-                // virtualclass.makeThemeReady(editorbtn, allbg,active,hover);
-
                 // For initialize the Teacher Video
                 virtualclass.videoHost.init(320 , 240);
 
@@ -210,16 +203,16 @@
                 //virtualclass.dts  = window.documentShare();
 
                 //virtualclass.documentShare.init();
-                
+
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
                 }
                 //nirmala
                 var precheck = document.getElementById("precheckSetting");
                 precheck.addEventListener("click",function(){
-                    
-                 virtualclass.precheck.init(virtualclass.precheck);
-                    
+
+                    virtualclass.precheck.init(virtualclass.precheck);
+
                 })
             },
 
@@ -236,50 +229,6 @@
                     }, 100);
 
                 }
-            },
-
-            makeThemeReady : function (editorbtn,allbg,active,hover){
-
-                var css="#virtualclassCont.congrea a.vceditor-btn{background-color: "+editorbtn.color+"} " +
-                    "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
-                    "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,#virtualclassCont.congrea #navigator,#virtualclassCont.congrea #layoutQuiz .navbar," +
-                    "#virtualclassCont.congrea .vceditor-toolbar,#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget," +
-                    "#virtualclassCont.congrea #chatWidget .chatBarTab, #virtualclassCont.congrea .commandToolsWrapper," +
-                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #playButton," +
-                    "#virtualclassCont.congrea #confirmCancel #confirmCancelButton,#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
-                    "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,#virtualclassCont.congrea .commandToolsWrapper .tool.active a," +
-                    "#virtualclassCont.congrea .vmchat_room_bt.active,#virtualclassCont.congrea[data-currapp="+"EditorRich"+"] .vmchat_bar_button.active," +
-                    "#virtualclassCont.congrea .vmchat_support.active {background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover," +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover , " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover," +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover," +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover, " +
-                    "#virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover, " +
-                    "#virtualclassCont.congrea #audioTest-box:hover, #virtualclassCont.congrea a.vceditor-btn:hover," +
-                    "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover, #virtualclassCont.congrea #playButton:hover," +
-                    "#virtualclassCont.congrea #alwaysPress:hover,#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
-                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, " +
-                    "#virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}";
-                function addcss(css){
-                    var head = document.getElementsByTagName('head')[0];
-                    var s = document.createElement('style');
-                    s.setAttribute('type', 'text/css');
-                    if (s.styleSheet) {   // IE
-                        s.styleSheet.cssText = css;
-                    } else {                // the world
-                        s.appendChild(document.createTextNode(css));
-                    }
-                    head.appendChild(s);
-                }
-                addcss(css);
-
             },
 
             initSocketConn: function () {
@@ -307,28 +256,28 @@
 
                     //var appCont = document.getElementById(this.id);
 
-                    var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
-                    var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
-                    appCont.insertBefore(appOptCont, appCont.firstChild);
-                    
-                    if(roles.hasAdmin()){
-                        this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
-                        this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
-                        this.createDiv(virtualclass.qzConfig.id + "Tool", "quiz", appOptCont, virtualclass.qzConfig.classes);
-                    }
-
-
-                    this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
-                    this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
-                    this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
-                    this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
-                    this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
-                    this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
-
-                    if(roles.hasAdmin()){
-                        this.createDiv(virtualclass.dtsConfig.id + "Tool", "documentShare", appOptCont, virtualclass.dtsConfig.classes);
-                        this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    }
+                    // var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
+                    // var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
+                    // appCont.insertBefore(appOptCont, appCont.firstChild);
+                    //
+                    // if(roles.hasAdmin()){
+                    //     this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
+                    //     this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
+                    //     this.createDiv(virtualclass.qzConfig.id + "Tool", "quiz", appOptCont, virtualclass.qzConfig.classes);
+                    // }
+                    //
+                    //
+                    // this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
+                    // this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
+                    // this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
+                    // this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
+                    // this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
+                    // this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
+                    //
+                    // if(roles.hasAdmin()){
+                    //     this.createDiv(virtualclass.dtsConfig.id + "Tool", "documentShare", appOptCont, virtualclass.dtsConfig.classes);
+                    //     this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    // }
 
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.view.disableSSUI();
@@ -341,7 +290,7 @@
 
                     // Fix problem when the role is being reclaimed
                     // With current active application is whiteboard
-                    appOptCont.style.zIndex = 1;
+                    // appOptCont.style.zIndex = 1;
 
                 },
 
@@ -407,7 +356,7 @@
                         //try{
                         document.getElementById(virtualclass.previous).style.display = 'none';
 //                        }catch(e){
-//                            
+//
 //                        }
                         if (typeof appId != 'undefined') {
                             if (appId.toUpperCase() == "EDITORRICH") {
@@ -573,46 +522,46 @@
 
                             // this.wb[id].UI.mainContainer(container, id);
                             if(virtualclass.currApp == 'Whiteboard'){
-                              var whiteboardContainer = document.getElementById('virtualclassWhiteboard');
+                                var whiteboardContainer = document.getElementById('virtualclassWhiteboard');
                             }else {
-                              var whiteboardContainer = document.getElementById('cont' + id);
+                                var whiteboardContainer = document.getElementById('cont' + id);
                             }
 
                             if(whiteboardContainer != null){
-                              if(document.querySelector('vcanvas'+id) == null){
-                                var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
-                                var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
-                                whiteboardContainer.innerHTML = wbHtml;
-                              }
-
-                              this.wb[id].utility = new window.utility();
-                              this.wb[id].alreadyReplay = false;
-                              this.wb[id].packContainer = new window.packContainer();
-                              this.wb[id].draw_object = window.draw_object;
-                              this.wb[id].makeobj = window.makeobj;
-                              this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
-                              this.wb[id]._replay = _replay;
-                              this.wb[id].readyTextObj = window.readyTextObj;
-                              this.wb[id].bridge = window.bridge;
-                              this.wb[id].response = window.response;
-                              virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
-
-
-                              var vcan = virtualclass.wb[id].vcan;
-                              if (roles.hasControls()) {
-                                virtualclass.wb[id].utility.setOrginalTeacherContent(app);
-                                virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
-                                vcan.utility.canvasCalcOffset(vcan.main.canid);
-                              }
-
-                              // Only need to  serve on after page refresh
-                              var that = this;
-                              virtualclass.storage.getWbData(id, function (){
-                                // if (!that.alreadyReplayFromStorage && that.gObj.tempReplayObjs[id].length > 0) {
-                                if (that.gObj.tempReplayObjs[id].length > 0) {
-                                  that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
+                                if(document.querySelector('vcanvas'+id) == null){
+                                    var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
+                                    var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
+                                    whiteboardContainer.innerHTML = wbHtml;
                                 }
-                              });
+
+                                this.wb[id].utility = new window.utility();
+                                this.wb[id].alreadyReplay = false;
+                                this.wb[id].packContainer = new window.packContainer();
+                                this.wb[id].draw_object = window.draw_object;
+                                this.wb[id].makeobj = window.makeobj;
+                                this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
+                                this.wb[id]._replay = _replay;
+                                this.wb[id].readyTextObj = window.readyTextObj;
+                                this.wb[id].bridge = window.bridge;
+                                this.wb[id].response = window.response;
+                                virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
+
+
+                                var vcan = virtualclass.wb[id].vcan;
+                                if (roles.hasControls()) {
+                                    virtualclass.wb[id].utility.setOrginalTeacherContent(app);
+                                    virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
+                                    vcan.utility.canvasCalcOffset(vcan.main.canid);
+                                }
+
+                                // Only need to  serve on after page refresh
+                                var that = this;
+                                virtualclass.storage.getWbData(id, function (){
+                                    // if (!that.alreadyReplayFromStorage && that.gObj.tempReplayObjs[id].length > 0) {
+                                    if (that.gObj.tempReplayObjs[id].length > 0) {
+                                        that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
+                                    }
+                                });
                             }else{
                                 alert('whiteboard container is null');
                             }
@@ -706,16 +655,16 @@
                     this.previous = virtualclass.ptConfig.id;
                     virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 },
-                
-               Poll : function (app){
-                    
+
+                Poll : function (app){
+
                     //alert("init Poll");
                     virtualclass.poll.init();
                 },
                 Quiz : function (app) {
-                	virtualclass.quiz.init();
+                    virtualclass.quiz.init();
                 },
-                
+
                 Video: function (app, custEvent, videoObj) {
 
                     if (typeof videoObj != 'undefined' && videoObj != null) {
@@ -880,7 +829,7 @@
                                         console.log('Not start new session');
                                         return;
                                     }
-                                    
+
                                     virtualclass.clearSession();
                                     if(virtualclass.gObj.hasOwnProperty('beTeacher')){
                                         if(roles.isTeacher()){
@@ -892,7 +841,7 @@
                             )
                         } else {
                             ioStorage.completeStorage(undefined, undefined, 'sessionend');
-                                setTimeout(function () {
+                            setTimeout(function () {
                                     virtualclass.enablePreCheck = false; // to hanlde popup on session end
                                     if(virtualclass.recorder.hasOwnProperty('recordDone')){
                                         console.log('deleete recordDone');
@@ -955,56 +904,56 @@
             },
 
             registerPartial : function (){
-              var contPara = {'whiteboardPath' : whiteboardPath};
+                var contPara = {'whiteboardPath' : whiteboardPath};
 
-              /** Registering the partials which have setting paramter **/
-              var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
+                /** Registering the partials which have setting paramter **/
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
 
-              var isControl = {hasControl : roles.hasControls()};
-              var context;
-              for(var i=0; i<initTemplates.length; i++){
-                context = null;
-                if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
-                  context = contPara;
-                }else if(initTemplates[i] == 'audioWidget'){
-                  context = virtualclassSetting;
-                }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
-                  context = isControl;
+                var isControl = {hasControl : roles.hasControls()};
+                var context;
+                for(var i=0; i<initTemplates.length; i++){
+                    context = null;
+                    if(initTemplates[i] == 'precheck' || initTemplates[i] == 'popupCont'){
+                        context = contPara;
+                    }else if(initTemplates[i] == 'audioWidget'){
+                        context = virtualclassSetting;
+                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                        context = isControl;
+                    }
+                    this.makeReadyTemplate(initTemplates[i], context);
                 }
-                this.makeReadyTemplate(initTemplates[i], context);
-              }
 
-              /** Registering the partials which does not have context **/
-              Handlebars.registerPartial({
-                docNotesMain: this.getTemplate('notesMain', 'documentSharing') ,
-                whiteboardToolbar: this.getTemplate('toolbar', 'whiteboard') ,
-                rightBar: this.getTemplate('rightBar') ,
-                recordingControl: this.getTemplate('recordingControl') ,
-                leftBar: this.getTemplate('leftBar') ,
-                main: this.getTemplate('main') ,
-                whiteboard: this.getTemplate('main', 'whiteboard'),
-              });
+                /** Registering the partials which does not have context **/
+                Handlebars.registerPartial({
+                    docNotesMain: this.getTemplate('notesMain', 'documentSharing') ,
+                    whiteboardToolbar: this.getTemplate('toolbar', 'whiteboard') ,
+                    rightBar: this.getTemplate('rightBar') ,
+                    recordingControl: this.getTemplate('recordingControl') ,
+                    leftBar: this.getTemplate('leftBar') ,
+                    main: this.getTemplate('main') ,
+                    whiteboard: this.getTemplate('main', 'whiteboard'),
+                });
             },
 
             registerHelper : function (){
-              /** helper who returns the language String For template**/
-              Handlebars.registerHelper("getString", function(string) {
-                console.log('Language ' + string);
-                return virtualclass.lang.getString(string);
-              });
+                /** helper who returns the language String For template**/
+                Handlebars.registerHelper("getString", function(string) {
+                    console.log('Language ' + string);
+                    return virtualclass.lang.getString(string);
+                });
 
-              /** For debugging the handlebars code **/
-              Handlebars.registerHelper("debug", function(optionalValue) {
-                console.log("Current Context");
-                console.log("====================");
-                console.log(this);
+                /** For debugging the handlebars code **/
+                Handlebars.registerHelper("debug", function(optionalValue) {
+                    console.log("Current Context");
+                    console.log("====================");
+                    console.log(this);
 
-                if (optionalValue) {
-                  console.log("Value");
-                  console.log("====================");
-                  console.log(optionalValue);
-                }
-              });
+                    if (optionalValue) {
+                        console.log("Value");
+                        console.log("====================");
+                        console.log(optionalValue);
+                    }
+                });
             },
 
             //the same function is defining at script.js
@@ -1014,28 +963,29 @@
                 this.registerPartial();
                 /** inserting the main container of virtualclass **/
                 var mainTemplate = this.getTemplate('main');
-                var mainHtml = mainTemplate();
+                var mainCont = {hasControls : roles.hasControls()}
+                var mainHtml = mainTemplate(mainCont);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
-           },
+            },
 
-           makeReadyTemplate : function (tempname, context){
-               var template = JST['templates/'+tempname+'.hbs'];
-               Handlebars.registerPartial(tempname, template(context));
-           },
+            makeReadyTemplate : function (tempname, context){
+                var template = JST['templates/'+tempname+'.hbs'];
+                Handlebars.registerPartial(tempname, template(context));
+            },
 
-           /**
-            *  This function returns the template
-            *  name expects the template name
-            *  submodule expects the sub folder
-            */
-           getTemplate : function (name, submodule){
-               if(typeof submodule == 'undefined'){
-                 var template = JST['templates/'+name+'.hbs'];
-               } else {
-                 var template = JST['templates/'+submodule+'/'+name+'.hbs'];
-               }
-               return template;
-           }
+            /**
+             *  This function returns the template
+             *  name expects the template name
+             *  submodule expects the sub folder
+             */
+            getTemplate : function (name, submodule){
+                if(typeof submodule == 'undefined'){
+                    var template = JST['templates/'+name+'.hbs'];
+                } else {
+                    var template = JST['templates/'+submodule+'/'+name+'.hbs'];
+                }
+                return template;
+            }
         };
 
         function capitalizeFirstLetter(string) {

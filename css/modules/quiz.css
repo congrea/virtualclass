@@ -64,7 +64,7 @@
   padding-bottom: 10px;
 }
 
-#virtualclassCont.congrea #layoutQuizBody .vcQuizCont a span[data-toggle="tooltip"]:before{
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont a span[data-toggle="congtooltip"]:before{
   font-size: 18px !important;
 }
 #virtualclassCont.congrea #layoutQuizBody .createBtnCont{

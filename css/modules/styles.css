@@ -136,7 +136,7 @@
 	padding : 0;
 }
 
-#virtualclassCont.congrea #containerWb .tool .tooltip:hover:after {
+#virtualclassCont.congrea #containerWb .tool .congtooltip:hover:after {
 	bottom : -2.5em;
 	padding : 0.6em 1em;
 	border-radius : 0;
@@ -493,7 +493,7 @@
 	font-weight : normal;
 }
 
-#virtualclassCont.congrea .tooltip {
+#virtualclassCont.congrea .congtooltip {
 	display : inline;
 	position : relative;
 	font-size : 14px;
@@ -510,11 +510,11 @@
 
 
 
-#virtualclassCont.congrea .tooltip:hover {
+#virtualclassCont.congrea .congtooltip:hover {
 	text-decoration : none;
 }
 
-#virtualclassCont.congrea .tooltip:hover:after {
+#virtualclassCont.congrea .congtooltip:hover:after {
 	background : #fff;
 	border : #ccc solid 0px;
 	border-radius : 0.25em;
@@ -532,18 +532,18 @@
 	font-size : 12px;
 	font-weight : normal !important;
 }
-#virtualclassCont.congrea #t_reclaim .tooltip:hover::after {bottom: -1em; left: 3em;}
-#virtualclassCont.congrea.student #chatWidget  #memlist  .controleCont .tooltip {
+#virtualclassCont.congrea #t_reclaim .congtooltip:hover::after {bottom: -1em; left: 3em;}
+#virtualclassCont.congrea.student #chatWidget  #memlist  .controleCont .congtooltip {
 	pointer-events : none;
 }
 
 /* select the only id which end with contrAssignAnch */
 
-#virtualclassCont.congrea.presenter #chatWidget  #memlist  [id $=contrAssignAnch].tooltip {
+#virtualclassCont.congrea.presenter #chatWidget  #memlist  [id $=contrAssignAnch].congtooltip {
 	pointer-events : visible;
 }
 
-#virtualclassCont.congrea #virtualclassOptionsCont .appOptions .tooltip:hover:after {
+#virtualclassCont.congrea #virtualclassOptionsCont .appOptions .congtooltip:hover:after {
 	padding : 0.7em 1em;
 	right : auto;
 	left : 45px;
@@ -1082,7 +1082,7 @@
 }
 
 
-#virtualclassCont.congrea .ui-memblist-usr .controls .controleCont a.tooltip span{
+#virtualclassCont.congrea .ui-memblist-usr .controls .controleCont a.congtooltip span{
 	left: 0px;
 }
 #virtualclassWholeScreenShare {
@@ -1184,7 +1184,7 @@
 	opacity : 1;
 }
 
-#virtualclassCont.congrea #virtualclassOptionsCont, .tooltip {
+#virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
 	text-decoration : none;
 	outline-width : 0;
 	z-index : 990;
@@ -1251,44 +1251,44 @@
 	margin-bottom : 21px;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt.tooltip:hover:after, #virtualclassCont.congrea .vmchat_bar_button.tooltip:hover:after {
+#virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover:after {
 	bottom : 2.7em;
 	left: 0.2em;
 	z-index : 10000;
 }
 
-#virtualclassCont.congrea .close.tooltip:hover:after , #virtualclassCont.congrea #usertab_text.tooltip.open:hover:after {
+#virtualclassCont.congrea .close.congtooltip:hover:after , #virtualclassCont.congrea #usertab_text.congtooltip.open:hover:after {
 	bottom : 2em;
 }
 
-#virtualclassCont.congrea #speakerPressing .tooltip:hover:after {
+#virtualclassCont.congrea #speakerPressing .congtooltip:hover:after {
 	bottom : -40px !important;
 }
 
-#virtualclassCont.congrea #chat_div .ui-memblist-usr a.tooltip:hover:after {
+#virtualclassCont.congrea #chat_div .ui-memblist-usr a.congtooltip:hover:after {
 	bottom : 1.5em;
 }
-#contrAudioAllImg.tooltip[data-title="Disable"]:hover:after, #contrAudioAllImg.tooltip[data-title="Enable"]:hover:after{
+#contrAudioAllImg.congtooltip[data-title="Disable"]:hover:after, #contrAudioAllImg.congtooltip[data-title="Enable"]:hover:after{
 	left:0px;
 }
 
-#virtualclassCont.congrea #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
+#virtualclassCont.congrea #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.congtooltip:hover:after {
 	bottom : -45px;
 	left : -8px;
 }
 
-#virtualclassCont.congrea.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after, #virtualclassCont.congrea.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.tooltip:hover:after {
+#virtualclassCont.congrea.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.congtooltip:hover:after, #virtualclassCont.congrea.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.congtooltip:hover:after {
 	bottom : -30px;
 	left : auto;
 	right: -8px;
 }
 
-#virtualclassCont.congrea .ui-memblist-usr a.tooltip[data-title="Disable Writing"]:hover:after, #virtualclassCont.congrea .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+#virtualclassCont.congrea .ui-memblist-usr a.congtooltip[data-title="Disable Writing"]:hover:after, #virtualclassCont.congrea .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover:after{
 	bottom: -30px;
 	left: -40px !important;
 }
 
-#virtualclassCont.congrea #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.tooltip:hover:after {
+#virtualclassCont.congrea #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.congtooltip:hover:after {
 	bottom: 10px;
 	left: -2px;
 	font-size: 11px;
@@ -1387,7 +1387,7 @@
 	line-height : 3px;
 }
 
-#virtualclassCont.congrea.orginalTeacher .ui-memblist-log div:last-child .controls .controleCont a.tooltip:hover:after, #virtualclassCont.congrea.student .ui-memblist-log div:last-child .controls .controleCont a.tooltip:hover:after {
+#virtualclassCont.congrea.orginalTeacher .ui-memblist-log div:last-child .controls .controleCont a.congtooltip:hover:after, #virtualclassCont.congrea.student .ui-memblist-log div:last-child .controls .controleCont a.congtooltip:hover:after {
 	bottom : 1.3em !important;
 }
 
@@ -1433,22 +1433,22 @@
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
-	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.tooltip:hover:after {
+	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.congtooltip:hover:after {
 		bottom:-34px;
 		left:0em;
 	}
-	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover:after{
 		left:-3em;
 	}
-	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.tooltip[data-title="Disable Writing"]:hover:after{
+	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.congtooltip[data-title="Disable Writing"]:hover:after{
 		left:-3em;
 	}
-	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.tooltip[data-title="Click to chat"]:hover:after{
+	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.congtooltip[data-title="Click to chat"]:hover:after{
 		bottom: 14px;
 		left: 0em;
 	}
 
-	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.tooltip[data-title="Enable Writing"]:hover:after{
+	#virtualclassCont.congrea #chat_div .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover:after{
 		left:-20px;
 	}
 }
@@ -1602,7 +1602,7 @@
 #virtualclassCont.congrea #progressContainer ,
 #virtualclassCont.congrea.pt_enable #alwaysPress,
 #virtualclassCont.congrea #preCheckcontainer .browser,
-#virtualclassCont.congrea #usertab_text.tooltip {
+#virtualclassCont.congrea #usertab_text.congtooltip {
 	display : block;
 }
 
@@ -1739,9 +1739,9 @@
 }
 
 
-/* player box tooltip*/
+/* player box congtooltip*/
 
-#virtualclassCont.congrea #virtualclassCont.congrea #playControllerCont #playController .tooltip:hover:after, #virtualclassCont.congrea #playControllerCont #replayFromStart .tooltip:hover:after{
+#virtualclassCont.congrea #virtualclassCont.congrea #playControllerCont #playController .congtooltip:hover:after, #virtualclassCont.congrea #playControllerCont #replayFromStart .congtooltip:hover:after{
 	left: 1em;
 	bottom: -3em;
 	padding: 8px;
@@ -1837,7 +1837,7 @@
 	border: #8f8f8f 1px solid;
 }
 
-#virtualclassOptionsCont .appOptions a.tooltip:hover:after{
+#virtualclassOptionsCont .appOptions a.congtooltip:hover:after{
 	line-height: 20px !important;
 	bottom: -20px!important;
 }
@@ -1900,7 +1900,7 @@
 	left:4px !important;
 }
 
-#playController div button.tooltip[data-title="Fast Forward 2"]:hover:after, #playController div button.tooltip[data-title="Fast Forward 8"]:hover:after, #playController div button.tooltip[data-title="Play"]:hover:after, #playController div button.tooltip[data-title="Pause"]:hover:after{
+#playController div button.congtooltip[data-title="Fast Forward 2"]:hover:after, #playController div button.congtooltip[data-title="Fast Forward 8"]:hover:after, #playController div button.tooltip[data-title="Play"]:hover:after, #playController div button.tooltip[data-title="Pause"]:hover:after{
 	left:0px;
 	bottom:-27px !important;
 }
@@ -2257,7 +2257,7 @@
 	}
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videSpeedNumber.tooltip {
+#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videSpeedNumber.congtooltip {
 	display: inline;
 	position: relative;
 	font-size: 14px;

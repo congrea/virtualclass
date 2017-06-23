@@ -80,11 +80,11 @@
   padding-bottom: 10px;
 }
 
-#virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="tooltip"] {
+#virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="congtooltip"] {
   color: #505050;
 }
 
-#virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="tooltip"]:before {
+#virtualclassCont.congrea #layoutPollBody .vcPollCont a span[data-toggle="congtooltip"]:before {
   font-size: 18px !important;
 }
 

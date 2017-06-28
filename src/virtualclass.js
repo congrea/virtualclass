@@ -219,8 +219,10 @@
                 precheck.addEventListener("click",function(){
                     
                  virtualclass.precheck.init(virtualclass.precheck);
-                    
+
                 })
+
+
             },
 
             makeReadySocket : function (){
@@ -537,7 +539,12 @@
                     }
 
                 }
-
+                if(virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||
+                    virtualclass.currApp == 'DocumentShare'){
+                    virtualclass.vutil.initDashboardNav();
+                }else{
+                    virtualclass.vutil.removeDashboardNav();
+                }
             },
 
             // Helper functions for making the app is ready
@@ -674,6 +681,7 @@
                         }
                     }
                     this.previous = virtualclass.ytsConfig.id;
+
                 },
 
                 EditorRich : function (app){
@@ -721,9 +729,7 @@
                     if (typeof videoObj != 'undefined' && videoObj != null) {
                         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
                     } else {
-
                         virtualclass.videoUl.init();
-
                     }
 
                 },
@@ -792,6 +798,7 @@
                         }
                     }
 
+
                     virtualclass.previous = virtualclass.dtsConfig.id;
                 },
 
@@ -853,6 +860,8 @@
                             clearTimeout(dstData);
                         }
                     }
+
+
                 }
             },
 
@@ -983,6 +992,8 @@
                 leftBar: this.getTemplate('leftBar') ,
                 main: this.getTemplate('main') ,
                 whiteboard: this.getTemplate('main', 'whiteboard'),
+                dashboardCont: this.getTemplate('dashboardCont'),
+
               });
             },
 

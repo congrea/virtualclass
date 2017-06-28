@@ -821,10 +821,10 @@
                     if(!listTab.classList.contains("active")){
                         listTab.classList.add("active")
                     }
-                    var supportTab = document.querySelector("#congreaSupport");
-                    if(supportTab.classList.contains("active")){
-                        supportTab.classList.remove("active")
-                    }
+                    // var supportTab = document.querySelector("#congreaSupport");
+                    // if(supportTab.classList.contains("active")){
+                    //     supportTab.classList.remove("active")
+                    // }
                    var chatroomTab = document.querySelector("#chatroom_bt2");
                     if(chatroomTab.classList.contains("active")){
                         chatroomTab.classList.remove("active")
@@ -1033,12 +1033,12 @@
                 if(allAudAction != null &&  allAudAction == 'disable'){
                     //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
-                    spanTag.className = 'icon-all-audio-enable tooltip';
+                    spanTag.className = 'icon-all-audio-enable congtooltip';
                     spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
                 }else{
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
-                    spanTag.className = 'icon-all-audio-disable tooltip';
+                    spanTag.className = 'icon-all-audio-disable congtooltip';
                     spanTag.dataset.title = virtualclass.lang.getString('muteAll');
                 }
 
@@ -1115,14 +1115,14 @@
 
                         audioController.dataset.action = 'disable';
                         //audioController.innerHTML = "Dis Aud All";
-                        audioController.className = 'icon-all-audio-disable tooltip';
+                        audioController.className = 'icon-all-audio-disable congtooltip';
 
                         audioController.dataset.title = virtualclass.lang.getString('muteAll');
 
                     } else {
                         audioController.dataset.action = 'enable';
                         //audioController.innerHTML = "En Aud All";
-                        audioController.className = 'icon-all-audio-enable tooltip';
+                        audioController.className = 'icon-all-audio-enable congtooltip';
                         audioController.dataset.title = virtualclass.lang.getString('unmuteAll');
 
                     }

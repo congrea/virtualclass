@@ -164,7 +164,7 @@
     height: 25px;
     margin: -2px 10px 10px 5px;
     width: 200px;
-    color: #383838;
+    color: #f5f5f5;
     border : 1px solid rgba(0,0,0,0.8);
 }
 #virtualclassCont.congrea #stickybar a {
@@ -518,11 +518,11 @@
 #virtualclassCont.congrea.playMode.student #stickybar{
     z-index: 1 !important;
 }
-#usertab_text.tooltip.close, #usertab_text.tooltip.open {
+#usertab_text.congtooltip.close, #usertab_text.congtooltip.open {
     line-height: 20px;
 }
 
-#chatroom_bt2.vmchat_room_bt.tooltip{
+#chatroom_bt2.vmchat_room_bt.congtooltip{
     line-height: 20px;
 }
 
@@ -630,7 +630,7 @@ border-right:none !important;
 }
 #virtualclassCont.congrea #usertab_text {
     margin-top : 5px;
-    /*color : #333;*/
+    color : #f5f5f5;
 }
 #virtualclassCont.congrea .ui-chatroom {top: 50px;}
 

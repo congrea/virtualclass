@@ -1824,6 +1824,62 @@
                 }
             }
             return true;
+        },
+
+        initDashboardNav : function (){
+            var dashboardnav = document.querySelector('#dashboardnav button');
+
+            if(dashboardnav == null){
+                var dbNavTemp = virtualclass.getTemplate('dashboardNav');
+                var context = {app : virtualclass.currApp};
+                var dbNavHtml = dbNavTemp(context);
+
+                var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
+                virtualclassOptionsCont.insertAdjacentHTML('afterend', dbNavHtml);
+
+                var dashboardnav =  document.querySelector('#dashboardnav button');
+                if(dashboardnav != null){
+                    dashboardnav.addEventListener('click', function (){virtualclass.vutil.initDashboard(virtualclass.currApp)});
+                }
+            }
+        },
+
+        initDashboard : function (currApp){
+            var mainContainer = document.querySelector('#mainContainer')
+            // if(mainContainer == null){
+            //     var dashboard = virtualclass.getTemplate('dashboard');
+            //     var context = {app : virtualclass.currApp};
+            //     var dbHtml = dashboard(context);
+            //     var appContainer = document.querySelector('#virtualclassApp');
+            //     appContainer.insertAdjacentHTML('beforeend', dbHtml);
+            // }
+
+           // $("#myModal").modal();
+
+            var dashboardTemp = virtualclass.getTemplate('dashboard');
+            var dbHtml = dashboardTemp({app:currApp});
+            document.querySelector('#dashboardContainer').innerHTML = dbHtml;
+            $('#congdashboard').modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
+            // in any other application we can handle
+            // dashoard content in own style
+            if(currApp == 'DocumentShare'){
+                document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDashBoard(currApp);
+            }
+        },
+
+        getDashBoard : function (app){
+            return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
+        },
+
+        removeDashboardNav : function (){
+            var dashboardnav = document.querySelector('#dashboardnav');
+            if(dashboardnav != null){
+                dashboardnav.parentNode.removeChild(dashboardnav);
+            }
         }
     };
     window.vutil = vutil;

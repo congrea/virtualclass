@@ -30,7 +30,7 @@
                  $('#chatroom_bt2 .inner_bt').click(function () {
                     $('#chatroom_bt2').addClass('active');
                     $('#user_list').removeClass('active');
-                    $('#congreaSupport').removeClass("active")
+                    // $('#congreaSupport').removeClass("active")
                     $('#chatroom_bt2').removeClass('ui-state-highlight');
                     virtualclass.chat.chatWindow="common";
                     if ($("div#chat_room").length == 0) {
@@ -75,7 +75,7 @@
 
                 $('#user_list').click(function () {
                     $('#chatroom_bt2').removeClass('active');
-                    $('#congreaSupport').removeClass('active');
+                    // $('#congreaSupport').removeClass('active');
                     $('#user_list').addClass('active');
 //                $('#chatrm').addClass("hide").removeClass('show');
 //                $('#memlist').addClass('show').removeClass('hide');
@@ -92,54 +92,54 @@
                     }
                 }),
 
-            $(document).on("click", '#congreaSupport', function (event) {
-                $('#chatroom_bt2').removeClass('active');
-                $('#user_list').removeClass('active');
-                $('#congreaSupport').addClass("active")
-                virtualclass.chat.chatWindow="support";
-                // support  id to be dynamic  
-                var str = $(this);
-                var ahref = str.attr('href');
-                var name = virtualclass.lang.getString('techsupport');
-                var id = $(this).attr("data-tsid")
-               // var id = "7";
-                if ($.inArray(id, virtualclass.chat.idList) == -1) {
-                    virtualclass.chat.counter++;
-                    virtualclass.chat.idList.push(id);
-                    virtualclass.chat.vmstorage[id] = [];
-                    virtualclass.chat.vmstorage[id].push({userid: id, name: name});
-                }
-
-                chatboxManager.addBox(id,
-                    {
-                        dest: "dest" + virtualclass.chat.counter, // not used in demo
-                        title: "box" + virtualclass.chat.counter,
-                        first_name: name,
-                        class: "support",
-                        //you can add your own options too
-                    });
-
-                chatboxManager.init({
-                    user: {'name': name},
-                    messageSent: function (id, user, msg) {
-                        $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
-                    }
-                });
-                id = null;
-                name = null;
-                var height = virtualclass.vutil.calculateChatHeight();
-                if (!roles.hasControls()) {
-
-                    if (!virtualclass.videoHost.gObj.videoSwitch) {
-                        height = height + 230;
-                        $('#chat_div').height(height);
-                    }
-
-                }
-               
-                virtualclass.vutil.setChatContHeight();
-
-            });
+            // $(document).on("click", '#congreaSupport', function (event) {
+            //     $('#chatroom_bt2').removeClass('active');
+            //     $('#user_list').removeClass('active');
+            //     $('#congreaSupport').addClass("active")
+            //     virtualclass.chat.chatWindow="support";
+            //     // support  id to be dynamic
+            //     var str = $(this);
+            //     var ahref = str.attr('href');
+            //     var name = virtualclass.lang.getString('techsupport');
+            //     var id = $(this).attr("data-tsid")
+            //    // var id = "7";
+            //     if ($.inArray(id, virtualclass.chat.idList) == -1) {
+            //         virtualclass.chat.counter++;
+            //         virtualclass.chat.idList.push(id);
+            //         virtualclass.chat.vmstorage[id] = [];
+            //         virtualclass.chat.vmstorage[id].push({userid: id, name: name});
+            //     }
+            //
+            //     chatboxManager.addBox(id,
+            //         {
+            //             dest: "dest" + virtualclass.chat.counter, // not used in demo
+            //             title: "box" + virtualclass.chat.counter,
+            //             first_name: name,
+            //             class: "support",
+            //             //you can add your own options too
+            //         });
+            //
+            //     chatboxManager.init({
+            //         user: {'name': name},
+            //         messageSent: function (id, user, msg) {
+            //             $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
+            //         }
+            //     });
+            //     id = null;
+            //     name = null;
+            //     var height = virtualclass.vutil.calculateChatHeight();
+            //     if (!roles.hasControls()) {
+            //
+            //         if (!virtualclass.videoHost.gObj.videoSwitch) {
+            //             height = height + 230;
+            //             $('#chat_div').height(height);
+            //         }
+            //
+            //     }
+            //
+            //     virtualclass.vutil.setChatContHeight();
+            //
+            // });
 
             $('#congreaUserSearch').keyup(function () {
                 var text = this.value;

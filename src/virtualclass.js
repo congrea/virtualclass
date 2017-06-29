@@ -1030,7 +1030,9 @@
                 /** inserting the main container of virtualclass **/
                 var mainTemplate = this.getTemplate('main');
 
-                var mainCont = {hasControls : roles.hasControls()}
+                var mainCont = {
+                    isPlay : virtualclass.isPlayMode,
+                    hasControls : roles.hasControls()}
                 var mainHtml = mainTemplate(mainCont);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
             },

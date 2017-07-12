@@ -108,7 +108,7 @@
                     function () {
                         virtualclass.gObj.resize = true;
                         if (roles.hasControls()) {
-                            if (virtualclass.currApp == 'Whiteboard') {
+                            if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
                                 virtualclass.wb[id].utility.lockvirtualclass();
                             }
                         }

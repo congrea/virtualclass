@@ -5696,13 +5696,28 @@
                                 }
                             });
                         }
+                        if(!e.target.classList.contains("linkvideo")) {
+                            $('#listvideo').css({
+                                "z-index": 1
+
+                            })
+                            $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                                "z-index": 55
+
+                            })
+                        }
+
                     });
                 }
             });
             disposeSupport.attach(document, "dragleave", function(e) {
+
+
                 if (leavingDocumentOut(e)) {
                     maybeHideDropZones();
                 }
+
+
             });
             disposeSupport.attach(qq(document).children()[0], "mouseenter", function(e) {
                 maybeHideDropZones();
@@ -5710,6 +5725,10 @@
             disposeSupport.attach(document, "drop", function(e) {
                 e.preventDefault();
                 maybeHideDropZones();
+
+
+
+
             });
             disposeSupport.attach(document, HIDE_ZONES_EVENT_NAME, maybeHideDropZones);
         }
@@ -5745,6 +5764,7 @@
             },
             dropLog: function(message, level) {
                 qq.log(message, level);
+                console.log("drophere");
             }
         };
     };
@@ -5824,6 +5844,18 @@
                 }
                 e.stopPropagation();
                 e.preventDefault();
+                if(!e.target.classList.contains("linkvideo")) {
+                    $('#listvideo').css({
+                        "z-index": 1
+
+                    })
+                    $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                        "z-index": 55
+
+                    })
+
+                }
+
             });
             disposeSupport.attach(element, "dragenter", function(e) {
                 if (!isOrSetDropDisabled()) {
@@ -5831,6 +5863,17 @@
                         return;
                     }
                     options.onEnter(e);
+                    if(!e.target.classList.contains("linkvideo")) {
+                        $('#listvideo').css({
+                            "z-index": 1
+
+                        })
+                        $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                            "z-index": 55
+
+                        })
+                    }
+
                 }
             });
             disposeSupport.attach(element, "dragleave", function(e) {
@@ -5853,6 +5896,18 @@
                     e.stopPropagation();
                     options.onDrop(e);
                     triggerHidezonesEvent();
+                    console.log("nirmala");
+
+                    $('#listvideo').css({
+                        "z-index":55
+
+                    })
+                    $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                        "z-index":1
+
+                    })
+
+
                 }
             });
         }

@@ -570,21 +570,33 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-          
-                 if(virtualclass.videoUl.player){
-                     var start=virtualclass.videoUl.player.currentTime();
-                 }
-         
-                    prvAppObj.metaData = {
-                        'init': {
-                            videoId:virtualclass.videoUl.videoId,
-                            videoUrl:virtualclass.videoUl.videoUrl
-                        },
-                        startFrom: start
-                    };
+                  if(virtualclass.videoUl.yts){
+                      if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
+                          prvAppObj.metaData = {
+                              'init': virtualclass.yts.videoId,
+                              startFrom: virtualclass.yts.player.getCurrentTime(),
+                              type:'yts'
+                          };
+                      }
 
-                
-                 virtualclass.videoUl.saveVideosInLocalStr();
+                  }else{
+                      if(virtualclass.videoUl.player){
+                          var start=virtualclass.videoUl.player.currentTime();
+                      }
+
+                      prvAppObj.metaData = {
+                          'init': {
+                              videoId:virtualclass.videoUl.videoId,
+                              videoUrl:virtualclass.videoUl.videoUrl
+                          },
+                          startFrom: start
+                      };
+
+
+                      virtualclass.videoUl.saveVideosInLocalStr();
+
+                  }
+
             } else if(virtualclass.currApp == 'DocumentShare'){
                 console.log('previous app success ' + virtualclass.currApp);
                 if(virtualclass.dts.docs.hasOwnProperty('currDoc')){
@@ -1868,6 +1880,12 @@
             // dashoard content in own style
             if(currApp == 'DocumentShare'){
                 document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDashBoard(currApp);
+            }else if(currApp == 'Video'){
+
+                var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                var dbHtml = videoDashboard();
+                document.querySelector('#'+currApp+'Dashboard').innerHTML=dbHtml;
+                    virtualclass.videoUl.UI.popup();
             }
         },
 

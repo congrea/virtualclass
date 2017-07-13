@@ -137,7 +137,7 @@
 }
 
 #virtualclassCont.congrea #docScreenContainer .note canvas {
-    margin: -7px;
+    /*margin: -7px;*/
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShareTool {
@@ -535,4 +535,21 @@
     padding-top: 0px;
     margin: 2px 36% 6px;
     float: left;
+}
+
+/*#virtualclassCont.congrea .note {*/
+    /*width : 85%;*/
+/*}*/
+
+#screen-docs .pageContainer {
+    margin : auto;
+}
+
+#virtualclassCont.congrea .note canvas{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
 }

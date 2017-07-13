@@ -520,7 +520,7 @@
                     virtualclass.system.setAppDimension();
                 }
 
-                if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
+                if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
                     virtualclass.yts.destroyYT();
                 }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {

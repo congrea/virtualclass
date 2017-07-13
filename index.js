@@ -243,9 +243,9 @@ $(document).ready(function () {
         virtualclass.gObj.video.video.removeUser(e.fromUser);
         // TODO this should be update accordiing to new user
 
-        if(virtualclass.chat.isTechSupportExist(e.fromUser)){
-            virtualclass.chat.disableTechSupport(e.fromUser);
-        }
+        // if(virtualclass.chat.isTechSupportExist(e.fromUser)){
+        //     virtualclass.chat.disableTechSupport(e.fromUser);
+        // }
 
         if ((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())) {
             localStorage.setItem('oTDisconn', true);

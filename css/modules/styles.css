@@ -2696,3 +2696,19 @@
 	padding: 3px 9px;
 	border-radius: 3px;
 }
+#listvideo{
+  position:absolute;
+	overflow-y: scroll;
+	width:97%;
+
+}
+.congrea .linkvideo{
+	display:inline-block;
+	margin:5px;
+	height:150px;
+	position:relative;
+
+}
+.congrea #videoUrlContainer{
+	float:right;
+}

@@ -368,14 +368,18 @@
                     virtualclass.videoUl.afterUploadFile(vidObj);
                 });
 
-                $('#listvideo').css({
-                    "z-index":55
 
-                })
-                $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                    "z-index":1
+              virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              virtualclass.vutil.makeElementActive('#listvideo');
 
-                })
+                // $('#listvideo').css({
+                //     "z-index":55
+                //
+                // })
+                // $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                //     "z-index":1
+                //
+                // })
 
             },
 
@@ -568,7 +572,7 @@
                 }else if (msg.videoUl.hasOwnProperty('ytsInit')){
                     virtualclass.videoUl.yts=true;
                     virtualclass.yts.init(msg);
-                    alert("ytsinit");
+                    // alert("ytsinit");
 
                 }
             },

@@ -423,6 +423,9 @@
                 },
 
                 handleDragStart: function (e) {
+                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementActive('#listvideo');
+
                     //   source = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
                     if (e.target.classList.contains('link' + this.cthis.type)) {
                         this.source = e.target;
@@ -434,6 +437,8 @@
                 },
 
                 handleDragEnter: function (e) {
+                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementActive('#listvideo');
                     //       var etarget = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
                     if(this.source) {
                         var etarget = e.target.closest('.link' + this.cthis.type);
@@ -462,14 +467,19 @@
                 },
                 handleDragEnd: function () {
                     this.cthis.rearrange();
-                    $('#listvideo').css({
-                        "z-index":55
 
-                    })
-                    $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                        "z-index":1
+                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementActive('#listvideo');
 
-                    })
+
+                    //   $('#listvideo').css({
+                    //     "z-index":55
+                    //
+                    // })
+                    // $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                    //     "z-index":1
+                    //
+                    // })
 
 
                 }

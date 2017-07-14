@@ -109,6 +109,7 @@
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData); 
                              }
                         }
+
                     },
 
                     validation: {
@@ -124,6 +125,13 @@
                     dataObj.allowedExtensions = obj.validation;
                 }
                 var galleryUploader = new qq.FineUploader(dataObj);
+            },
+
+            onDragEnter : function (e){
+              if(e.srcElement.classList.contains('dashboardContainer')){
+                virtualclass.vutil.makeElementDeactive('#listvideo');
+                virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              }
             }
         }
     }();

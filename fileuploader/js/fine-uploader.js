@@ -5696,17 +5696,12 @@
                                 }
                             });
                         }
-                        if(!e.target.classList.contains("linkvideo")) {
-                            $('#listvideo').css({
-                                "z-index": 1
 
-                            })
-                            $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                                "z-index": 55
-
-                            })
-                        }
-
+                        /* Hack for handling drag and drop of outside element (file uploader)
+                            and inside element (eg:Video list), we need to disable exlsuively
+                            one drag-drop element while ohter is being dragged
+                        eg: */
+                        virtualclass.fineUploader.onDragEnter(e);
                     });
                 }
             });
@@ -5844,17 +5839,20 @@
                 }
                 e.stopPropagation();
                 e.preventDefault();
-                if(!e.target.classList.contains("linkvideo")) {
-                    $('#listvideo').css({
-                        "z-index": 1
+               //  if(!e.target.classList.contains("linkvideo")) {
+                    // $('#listvideo').css({
+                    //     "z-index": 1
+                    //
+                    // })
+                    // $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                    //     "z-index": 55
+                    //
+                    // })
 
-                    })
-                    $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                        "z-index": 55
+                  // virtualclass.vutil.makeElementDeactive('#listvideo');
+                  // virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
 
-                    })
-
-                }
+                // }
 
             });
             disposeSupport.attach(element, "dragenter", function(e) {
@@ -5863,16 +5861,19 @@
                         return;
                     }
                     options.onEnter(e);
-                    if(!e.target.classList.contains("linkvideo")) {
-                        $('#listvideo').css({
-                            "z-index": 1
+                    // if(!e.target.classList.contains("linkvideo")) {
+                    //     $('#listvideo').css({
+                    //         "z-index": 1
+                    //
+                    //     })
+                    //     $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                    //         "z-index": 55
+                    //
+                    //     })
+                    // }
 
-                        })
-                        $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                            "z-index": 55
-
-                        })
-                    }
+                  virtualclass.vutil.makeElementDeactive('#listvideo');
+                  virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
 
                 }
             });
@@ -5898,14 +5899,17 @@
                     triggerHidezonesEvent();
                     console.log("nirmala");
 
-                    $('#listvideo').css({
-                        "z-index":55
+                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementActive('#listvideo');
 
-                    })
-                    $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                        "z-index":1
-
-                    })
+                    // $('#listvideo').css({
+                    //     "z-index":55
+                    //
+                    // })
+                    // $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                    //     "z-index":1
+                    //
+                    // })
 
 
                 }

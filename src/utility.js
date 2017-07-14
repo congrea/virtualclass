@@ -1898,7 +1898,23 @@
             if(dashboardnav != null){
                 dashboardnav.parentNode.removeChild(dashboardnav);
             }
-        }
+        },
+
+        makeElementDeactive : function (selector){
+          var element = document.querySelector(selector);
+          if(element != null){
+            element.style.pointerEvents = 'none';
+          }
+        },
+
+       makeElementActive : function (selector){
+         var element = document.querySelector(selector);
+         if(element != null){
+           element.style.pointerEvents = 'visible';
+         }
+       }
+
+
     };
     window.vutil = vutil;
 })(window);

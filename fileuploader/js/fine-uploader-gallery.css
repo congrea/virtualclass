@@ -31,6 +31,7 @@
     0 -2px 12px rgba(0, 0, 0, 0.08) inset;
     position:fixed!important;
     bottom:30px !important;
+    pointer-events:visible;
 
 }
 .qq-gallery .qq-upload-button-hover {
@@ -290,7 +291,7 @@
     box-shadow: 0 0 1px 0 red;
     border: 0;
 }
-.qq-gallery .qq-progress-bar {
+ .qq-progress-bar {
     display: block;
     background: #00abc7;
     width: 0%;
@@ -299,12 +300,12 @@
     margin-bottom: 3px;
 }
 
-.qq-gallery .qq-total-progress-bar {
+.qq-total-progress-bar {
     height: 25px;
     border-radius: 9px;
 }
 
-.qq-gallery .qq-total-progress-bar-container {
+ .qq-total-progress-bar-container {
     margin-left: 9px;
     display: inline;
     float: right;
@@ -364,7 +365,7 @@
     height: 15px;
     vertical-align: text-bottom;
 }
-.qq-gallery .qq-delete-icon {
+ .qq-delete-icon {
     background: url("trash.gif");
     width: 15px;
     height: 15px;

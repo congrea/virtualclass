@@ -30,12 +30,15 @@
              */
             init: function (videoObj, startFrom) {
                 debugger;
+
                 if (typeof videoObj != 'undefined') {
                     if (videoObj.init != 'studentlayout') {
-                        var videoId = videoObj.init || videoObj.yts.init;
+                        var videoId = videoObj.init ||(videoObj.yts && videoObj.yts.init);
                     }
+                    startFrom=startFrom||(videoObj.yts && videoObj.yts.startFrom);
 
                 }
+
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
                     if (typeof videoId == 'undefined' && roles.isStudent()) {
@@ -97,7 +100,7 @@
                     //For student layout
                    // ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                 }
-
+                $('#videoPlayerCont').css({"display": "none"});
             },
             /*
              * this function is called  when we leave  the video player's page
@@ -255,6 +258,18 @@
              */
             onmessage: function (msg) {
 
+                if(typeof virtualclass.yts.player != 'object'){
+                    virtualclass.yts.init(msg);
+                }
+
+                // var cont = document.querySelector("#virtualclassVideo");
+                // var div = document.createElement("div");
+                // div.id="player";
+                // cont.appendChild(div) ;
+
+
+
+
                 if (typeof msg.yts == 'string') {
                     if (msg.yts == 'play') {
                         this.player.playVideo();
@@ -272,8 +287,20 @@
                     if (msg.yts.hasOwnProperty('init')) {
                         virtualclass.videoUl.yts = true;
                         if(typeof virtualclass.yts.player == 'object'){
-                            virtualclass.yts.player.destroy()
+                            // virtualclass.yts.player.destroy()
+                            virtualclass.yts.player="";
                         }
+                        var player = document.querySelector("#virtualclassVideo #player");
+                        if(player){
+                            player.parentNode.removeChild(player)
+                        }
+
+
+                        var cont = document.querySelector("#virtualclassVideo");
+                        var div = document.createElement("div");
+                        div.id="player";
+                        cont.appendChild(div) ;
+
                         virtualclass.yts.init(msg);
                         //virtualclass.makeAppReady('Yts', undefined, msg.yts);
                     } else {

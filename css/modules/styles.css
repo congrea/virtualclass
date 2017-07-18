@@ -2519,23 +2519,23 @@
 	border-radius: 0;
 }
 
-#congreaShareVideoUrlCont.upload #videoUrlContainer {
-	border-radius: 6px;
-	border: 1px dashed #CCCCCC;
-	background-color: #FAFAFA;
-	padding: 40px 25%;
-}
-#congreaShareVideoUrlCont.upload #videoUrlContainer input {
-	padding: 10px 12px;
-	border-radius: 3px;
-	border: 1px solid #ddd;
-	width: 249px;
-	margin-left: -38px;
-}
-#congreaShareVideoUrlCont.upload #videoUrlContainer button {
-	margin-left: 6px;
-	padding: 8px 15px;
-}
+/*#congreaShareVideoUrlCont.upload #videoUrlContainer {*/
+	/*border-radius: 6px;*/
+	/*border: 1px dashed #CCCCCC;*/
+	/*background-color: #FAFAFA;*/
+	/*padding: 40px 25%;*/
+/*}*/
+/*#congreaShareVideoUrlCont.upload #videoUrlContainer input {*/
+	/*padding: 10px 12px;*/
+	/*border-radius: 3px;*/
+	/*border: 1px solid #ddd;*/
+	/*width: 249px;*/
+	/*margin-left: -38px;*/
+/*}*/
+/*#congreaShareVideoUrlCont.upload #videoUrlContainer button {*/
+	/*margin-left: 6px;*/
+	/*padding: 8px 15px;*/
+/*}*/
 #videoPlayerCont{
 	height:90vh;
 }
@@ -2662,7 +2662,7 @@
 	font-family: 'icomoon';
 	font-size: 18px;
 	padding-top: 0px;
-	color:"green";
+	color:green;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget.enable {
 	position: absolute;
@@ -2712,3 +2712,10 @@
 .congrea #videoUrlContainer{
 	float:right;
 }
+.qq-upload-list-selector.qq-upload-list{
+
+
+
+}
+
+

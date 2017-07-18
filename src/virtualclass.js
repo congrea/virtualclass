@@ -80,7 +80,7 @@
 
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
-                this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
+               // this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
                 this.edConfig = {id: "virtualclass" + this.apps[3], classes: "appOptions"};
                 this.edCodeConfig = {id: "virtualclass" + this.apps[4], classes: "appOptions"};
                 this.ptConfig = {id: "virtualclass" + this.apps[5], classes: "appOptions"};
@@ -539,11 +539,14 @@
                     }
 
                 }
-                if(virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||
-                    virtualclass.currApp == 'DocumentShare'){
-                    virtualclass.vutil.initDashboardNav();
-                }else{
-                    virtualclass.vutil.removeDashboardNav();
+                if(roles.hasControls()) {
+
+                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||
+                        virtualclass.currApp == 'DocumentShare') {
+                        virtualclass.vutil.initDashboardNav();
+                    } else {
+                        virtualclass.vutil.removeDashboardNav();
+                    }
                 }
             },
 
@@ -727,13 +730,46 @@
                 },
 
                 Video: function (app, custEvent, videoObj) {
+                    if(typeof videoObj != 'undefined' && videoObj != null){
+                        if (typeof videoObj.type == 'undefined'){
+                            virtualclass.videoUl.init(videoObj, videoObj.startFrom);
 
-                    if (typeof videoObj != 'undefined' && videoObj != null) {
-                        virtualclass.videoUl.init(videoObj, videoObj.startFrom);
-                    } else {
+                        }else if(videoObj.type == 'yts'){
+                            virtualclass.videoUl.init();
+                            virtualclass.yts.init(videoObj, videoObj.startFrom);
+
+                        }else{
+
+                            virtualclass.videoUl.init();
+
+                        }
+
+                    }else{
                         virtualclass.videoUl.init();
                     }
 
+                    // if (typeof videoObj.type == 'undefined') {
+                    //     if (typeof videoObj != 'undefined' && videoObj != null) {
+                    //         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
+                    //     } else {
+                    //         virtualclass.videoUl.init();
+                    //     }
+                    // }else if(typeof videoObj.type == 'yts'){
+                    //     if (typeof videoObj != 'undefined' && videoObj != null) {
+                    //         virtualclass.yts.init(videoObj, videoObj.startFrom);
+                    //     } else {
+                    //         virtualclass.yts.init();
+                    //     }
+                    //
+                    // }else{
+                    //
+                    //     if (typeof videoObj != 'undefined' && videoObj != null) {
+                    //         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
+                    //     } else {
+                    //         virtualclass.videoUl.init();
+                    //     }
+                    //
+                    // }
 
                 },
 

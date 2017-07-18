@@ -595,17 +595,33 @@ $(document).ready(function () {
                     console.log('Document share send :- Layout');
                 }
             }else if(virtualclass.currApp === 'Video'){
-               
-                if(typeof virtualclass.videoUl.player == 'object'){
-                    if(virtualclass.videoUl.videoUrl){
-                          ioAdapter.mustSend({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl }, 
-                          startFrom : virtualclass.videoUl.player.currentTime(),isPaused:virtualclass.videoUl.player.paused()}, 'cf' : 'videoUl'}, virtualclass.jId);
-                          
-                    } 
-                  
-                } else {
-                    ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout',name:"nirmala"}, 'cf': 'videoUl'}, virtualclass.jId);
+                if(virtualclass.videoUl.yts){
+                    if (typeof virtualclass.yts.player == 'object') {
+                        ioAdapter.mustSendUser({
+                            'yts': {
+                                'init': virtualclass.yts.videoId,
+                                startFrom: virtualclass.yts.player.getCurrentTime()
+                            }, 'cf': 'yts'
+                        }, virtualclass.jId);
+                    } else {
+                        ioAdapter.mustSendUser({'yts': {'init': 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
+                    }
+
+                }else{
+
+                    if(typeof virtualclass.videoUl.player == 'object'){
+                        if(virtualclass.videoUl.videoUrl){
+                            ioAdapter.mustSend({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl },
+                                startFrom : virtualclass.videoUl.player.currentTime(),isPaused:virtualclass.videoUl.player.paused()}, 'cf' : 'videoUl'}, virtualclass.jId);
+
+                        }
+
+                    } else {
+                        ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout',name:"nirmala"}, 'cf': 'videoUl'}, virtualclass.jId);
+                    }
+
                 }
+
             }
 
             if (typeof sType !== 'undefined' && sType !== null) {

@@ -19,28 +19,28 @@
 }
 
 #virtualclassCont .icon-pencil2:before {
-  content: "\e90a";
-  font-size: 18px;
+  content: "\e91c";
+  font-size: 28px;
 }
 
 #virtualclassCont .icon-bin22:before {
-  content: "\e9ae";
+  content: "\e91a";
   font-size: 28px;
 }
 
 #virtualclassCont .icon-stats-bars:before {
   content: "\e99c";
-  font-size: 28px;
+  font-size: 18px;
 }
 
 #virtualclassCont .icon-pie-chart:before {
   content: "\f200";
-  font-size: 28px;
+  font-size: 18px;
 }
 
 #virtualclassCont .icon-list-ul:before {
   content: "\f0ca";
-  font-size: 28px;
+  font-size: 18px;
 }
 
 #virtualclassCont .icon-quiz:before {
@@ -49,7 +49,7 @@
 }
 
 #virtualclassCont .icon-publish2:before {
-  content: "\e909";
+  content: "\e91b";
   font-size: 28px;
 }
 

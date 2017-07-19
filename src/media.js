@@ -451,7 +451,9 @@
                     } else {
                         this.studentNotSpeak();
                         tag.setAttribute('data-audio-playing', "false");
-                        anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                        if(anchor){
+                            anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                        }
                         tag.className = "audioTool deactive";
                     }
                 },

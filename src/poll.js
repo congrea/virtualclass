@@ -450,7 +450,7 @@
 
                 var pollType = storedData.data.pollType;
                 var cont = document.getElementById("bootstrapCont");
-                virtualclass.poll.UI.generateModal("editPollModal", cont, pollType);
+                //virtualclass.poll.UI.generateModal("editPollModal", cont, pollType);
                 $('#editPollModal').modal({
                     backdrop: 'static',
                     keyboard: false
@@ -643,7 +643,8 @@
             displaycoursePollList: function () {
 
                 virtualclass.poll.dispList("course");
-                var listcont = document.getElementById("listQnContcourse");
+
+                var listcont = document.querySelector("#listQnContcourse tbody")
                 // *****reminder**change
                 while (listcont.childNodes.length>2) {
                     listcont.removeChild(listcont.lastChild);
@@ -668,10 +669,11 @@
                     virtualclass.poll.pollState["currScreen"] = "displaycoursePollList";
                 }
             },
+
             displaysitePollList: function (isAdmin) {
 
                 virtualclass.poll.dispList("site");
-                var listcont = document.getElementById("listQnContsite");
+                var listcont = document.querySelector("#listQnContsite tbody")
                 while (listcont.childNodes.length>2) {
                     listcont.removeChild(listcont.lastChild);
                 }
@@ -725,7 +727,7 @@
                 virtualclass.poll.hidePollList(hide);
                 var listCont = document.getElementById("listQnCont" + pollType);
                 if (listCont) {
-                    listCont.style.display = "block";
+                    listCont.style.display = "table";
                     var elem = document.getElementById("newPollBtn" + pollType);
                     if (elem) {
                         if (elem.classList.contains(hide)) {
@@ -745,7 +747,7 @@
                 if (pollType == "site") {
 
                     if (typeof isAdmin != 'undefined' && isAdmin == "true") {
-                        btn.style.display = "block";
+                        btn.style.display = "table";
                     } else {
                         btn.style.display = "none";
                     }
@@ -756,7 +758,7 @@
                     }
 
                 } else {
-                    btn.style.display = "block";
+                    btn.style.display = "table";
                     var elem = document.getElementById("newPollBtnsite");
                     if (elem) {
                         elem.style.display = "none";
@@ -1233,6 +1235,7 @@
                 var message = "<span>Are u sure to delete this Poll</span>";
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirm, pollType, index);
             },
+
             showMsg: function (contId, msg, type) {
                 var mszCont = document.getElementById(contId);
                 if(!mszCont){
@@ -1245,16 +1248,13 @@
                 elem.className = "alert  alert-dismissable";
                 elem.classList.add(type)
                 elem.innerHTML = msg;
-                mszCont.appendChild(elem);
-                elem.style.width = "100%";
+                mszCont.insertBefore(elem , mszCont.firstChild);
 
                 var btn = document.createElement("button");
                 btn.className = "close";
                 btn.setAttribute("data-dismiss", "alert")
                 btn.innerHTML = "&times";
                 elem.appendChild(btn);
-
-
 
             },
             askConfirm: function (opted, pollType, index) {
@@ -1388,7 +1388,7 @@
                     layoutPoll.style.display = "block";
                 }
                 var obj={};
-
+                obj.question= virtualclass.poll.dataRec.options;
                 var template=virtualclass.getTemplate("pollStd","poll");
                 $("#layoutPollBody").append(template({"poll": obj}));
                 this.UI.stdPublishUI();
@@ -1398,10 +1398,15 @@
                     var updatedTime = virtualclass.poll.dataRec.newTime;
                     virtualclass.poll.newTimer = updatedTime;
                     this.showTimer(updatedTime);
+                    var label = document.querySelector("#timerLabel");
+                    label.innerHTML="Remaining time"
+
                 } else {
                     this.elapsedTimer();
                     var msg = "Teacher may close this poll at any time";
                     virtualclass.poll.showMsg("stdContHead", msg, "alert-success")
+                    var label = document.querySelector("#timerLabel");
+                    label.innerHTML="Elapsed Time";
                 }
 
                 var qnCont = document.getElementById("stdQnCont");
@@ -1792,10 +1797,10 @@
                     layout.parentNode.removeChild(layout);
                 }
 
-                var resultLayout = document.getElementById("resultLayout")
-                if (resultLayout) {
-                    resultLayout.parentNode.removeChild(resultLayout);
-                }
+                // var resultLayout = document.getElementById("resultLayout")
+                // if (resultLayout) {
+                //     resultLayout.parentNode.removeChild(resultLayout);
+                // }
 
 
                 virtualclass.poll.UI.createResultLayout();
@@ -1822,9 +1827,9 @@
                     head.style.display="none";
                 }
                 var qnLabel= document.querySelector("#qnLabelCont");
-                if(qnLabel){
-                    qnLabel.style.display="none";
-                }
+                // if(qnLabel){
+                //     qnLabel.style.display="none";
+                // }
                 var chartMenu= document.querySelector("#chartMenuCont");
                 if(chartMenu){
                     chartMenu.style.display="none";
@@ -1835,17 +1840,23 @@
                 elem.className = "pollResultNotify";
                 elem.id = "resultNote"
                 resultCont.appendChild(elem);
+                resultCont.insertBefore(elem,resultCont.firstChild);
                 var msg = "Poll closed"
                 virtualclass.poll.showMsg("resultNote", msg, "alert-error");
 
-                var elem = document.createElement("div");
-                elem.className = "notifyText";
-                elem.id = "congreaPollNote";
-                elem.innerHTML = "No vote Received for this poll";
-                resultCont.appendChild(elem);
+                var  pollClose = document.getElementById("resultNote");
+                var elemVote = document.createElement("div");
+                elemVote.className = "notifyText alert alert-info";
+                elemVote.id = "congreaPollNote";
+                elemVote.innerHTML = "No vote Received for this poll";
+                pollClose.appendChild(elemVote);
+
 
                 var item = virtualclass.poll.dataRec;
-                this.showPollText(resultCont, item)
+                if(!roles.hasControls()){
+                    this.showPollText(resultCont, item)
+                }
+
 
                 var modalClose = document.getElementById("modalClose");
                 if (modalClose) {
@@ -1855,13 +1866,28 @@
             },
             showPollText: function (resultCont) {
                 var item = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
-                var qncont = document.createElement("div")
-                resultCont.appendChild(qncont)
-                this.showQn(qncont);
-                var optioncont = document.createElement("div")
-                resultCont.appendChild(optioncont)
-                this.showOption(optioncont);
+                // var qncont = document.getElementById("qnLabelCont");
+                // qncont.innerHTML = item.question;
 
+
+                var poll= {};
+                poll.question = item.question;
+                poll.options = item.options;
+
+                var template=virtualclass.getTemplate("qnOptions","poll");
+                $("#resultLayoutBody").append(template({"poll": poll}));
+
+
+                //.innerHTML = virtualclass.poll.dataToStd.options;
+                // var qncont = document.createElement("div")
+                // resultCont.appendChild(qncont)
+                // this.showQn(qncont);
+            //     var cntrl = roles.hasControls() ? true : false;
+            //     if(!cntrl) {
+            //         var optioncont = document.getElementById("optnNonVotd");
+            //     // resultCont.appendChild(optioncont)
+            //     this.showOption(optioncont);
+            // }
             },
             showQn: function (qnCont) {
                 if (roles.hasControls()) {
@@ -1888,6 +1914,7 @@
                     var label = document.createElement("label");
                     optCont.appendChild(label);
                     label.innerHTML = data.options[i];
+
                 }
             },
 
@@ -2207,7 +2234,7 @@
                 var cont = document.getElementById("resultLayoutBody")
                 var list = document.getElementById("listCont")
                 if (list) {
-                    list.style.display = "block";
+                    list.style.display = "table";
                 }
                 if (list.hasChildNodes()) {
                     list.removeChild(list.childNodes[0]);
@@ -2346,12 +2373,16 @@
                         var category = 0;
                         coursePollNav.classList.remove('active');
                         sitePollNav.classList.add('active');
+                        sitePollNav.style.pointerEvents="none";
+                        coursePollNav.style.pointerEvents="visible";
                         virtualclass.poll.interfaceToFetchList(category);
                     });
 
                         coursePollNav.addEventListener('click', function () {
                             sitePollNav.classList.remove('active');
                             coursePollNav.classList.add('active');
+                            coursePollNav.style.pointerEvents="none";
+                            sitePollNav.style.pointerEvents="visible";
                             virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
                         });
                     }
@@ -2397,17 +2428,26 @@
                         resultLayout.parentNode.removeChild(resultLayout);
                     }
 
+                    var control = roles.hasControls() ? true : false;
+                    var obj ={}
+                    obj.control=control;
+
+
                     if (roles.hasControls()) {
-                        var control = roles.hasControls() ? true : false;
+                        obj.question=virtualclass.poll.dataToStd.question;
+                        obj.options=virtualclass.poll.dataToStd.options;
+
                         var template=virtualclass.getTemplate("result-modal","poll");
                         if ($("#editPollModal").length) {
                             $("#editPollModal").empty();
                         }
 
-                        $("#editPollModal").append(template({"control": control}));
+                        $("#editPollModal").append(template({"obj": obj}));
                         } else {
+
+                            obj.question=virtualclass.poll.dataRec.question;
                             var template=virtualclass.getTemplate("stdResult","poll");
-                            $("#virtualclassPoll").append(template({"control": control}));
+                            $("#virtualclassPoll").append(template({"obj":obj}));
                         }
 
                     this.resultLayoutBody();
@@ -2428,16 +2468,21 @@
 
                 resultLayoutBody: function (cont) {
                     var qnLabel = document.querySelector("#qnLabelCont");
-                    if (roles.hasControls()) {
-                        qnLabel.innerHTML = virtualclass.poll.dataToStd.question;
-                    } else {
-                        qnLabel.innerHTML = virtualclass.poll.dataRec.question;
-                    }
+                    if(qnLabel){
 
-                    if (roles.hasControls()) {
-                        this.chartMenu();
-                        this.createResultMsgCont();
-                     }
+                        if (roles.hasControls()) {
+                            qnLabel.innerHTML = virtualclass.poll.dataToStd.question;
+                        } else {
+                            qnLabel.innerHTML = virtualclass.poll.dataRec.question;
+                        }
+
+                        if (roles.hasControls()) {
+                            this.chartMenu();
+                            this.createResultMsgCont();
+                        }
+
+
+                    }
 
                 },
                 createResultMsgCont: function (cont) {

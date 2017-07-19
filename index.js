@@ -243,9 +243,9 @@ $(document).ready(function () {
         virtualclass.gObj.video.video.removeUser(e.fromUser);
         // TODO this should be update accordiing to new user
 
-        if(virtualclass.chat.isTechSupportExist(e.fromUser)){
-            virtualclass.chat.disableTechSupport(e.fromUser);
-        }
+        // if(virtualclass.chat.isTechSupportExist(e.fromUser)){
+        //     virtualclass.chat.disableTechSupport(e.fromUser);
+        // }
 
         if ((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())) {
             localStorage.setItem('oTDisconn', true);
@@ -1310,14 +1310,14 @@ $(document).ready(function () {
             } 
         }
 
-        this.tsr = function (e){
-            var enable = e.message.ac;
-            if(enable){
-                virtualclass.chat.enableTechSupport(e.message.uid);
-            }else {
-                virtualclass.chat.disableTechSupport(e.message.uid);
-            }
-        }
+        // this.tsr = function (e){
+        //     var enable = e.message.ac;
+        //     if(enable){
+        //         virtualclass.chat.enableTechSupport(e.message.uid);
+        //     }else {
+        //         virtualclass.chat.disableTechSupport(e.message.uid);
+        //     }
+        // }
     };
     // TODO this shoudl be remove, after precheck feature is enabled
 }

@@ -1,7 +1,7 @@
 this["JST"] = this["JST"] || {};
 
 this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"virtualclassOptionsCont\" style=\"z-index: 100;\">\n  <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n    <a class=\"tooltip\" data-title=\"Share Video\" href=\"#\"><span class=\"icon-videoUpload\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassPollTool\">\n    <a class=\"tooltip\" data-title=\"Poll\" href=\"#\"><span class=\"icon-poll\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n    <a class=\"tooltip\" data-title=\"Quiz\" href=\"#\"><span class=\"icon-quiz\"></span></a>\n  </div>\n\n  <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n    <a class=\"tooltip\" data-title=\"Text Editor\" href=\"#\"><span class=\"icon-editorRich\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassWhiteboardTool\">\n    <a class=\"tooltip\" data-doc=\"_doc0_0\" data-title=\"Whiteboard\" href=\"#\"><span class=\"icon-whiteboard\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassScreenShareTool\">\n    <a class=\"tooltip\" data-title=\"Screen Share\" href=\"#\"><span class=\"icon-screenshare\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassYtsTool\">\n    <a class=\"tooltip\" data-title=\"YouTube Video Share\" href=\"#\"><span class=\"icon-youtubeshare\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassEditorCodeTool\">\n    <a class=\"tooltip\" data-title=\"Code Editor\" href=\"#\"><span class=\"icon-editorCode\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassSharePresentationTool\">\n    <a class=\"tooltip\" data-title=\"share presentation\" href=\"#\"><span class=\"icon-sharePresentation\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassDocumentShareTool\">\n    <a class=\"tooltip\" data-title=\"Document Sharing\" href=\"#\"><span class=\"icon-documentShare\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassSessionEndTool\">\n    <a class=\"tooltip\" data-title=\"Close Session.\" href=\"#\"><span class=\"icon-sessionend\"></span></a>\n  </div>\n</div>";
+    return "<div id=\"virtualclassOptionsCont\" style=\"z-index: 100;\">\n  <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n    <a class=\"congtooltip\" data-title=\"Share Video\" href=\"#\"><span class=\"icon-videoUpload\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassPollTool\">\n    <a class=\"congtooltip\" data-title=\"Poll\" href=\"#\"><span class=\"icon-poll\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n    <a class=\"congtooltip\" data-title=\"Quiz\" href=\"#\"><span class=\"icon-quiz\"></span></a>\n  </div>\n\n  <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n    <a class=\"congtooltip\" data-title=\"Text Editor\" href=\"#\"><span class=\"icon-editorRich\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassWhiteboardTool\">\n    <a class=\"congtooltip\" data-doc=\"_doc0_0\" data-title=\"Whiteboard\" href=\"#\"><span class=\"icon-whiteboard\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassScreenShareTool\">\n    <a class=\"congtooltip\" data-title=\"Screen Share\" href=\"#\"><span class=\"icon-screenshare\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassYtsTool\">\n    <a class=\"congtooltip\" data-title=\"YouTube Video Share\" href=\"#\"><span class=\"icon-youtubeshare\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassEditorCodeTool\">\n    <a class=\"congtooltip\" data-title=\"Code Editor\" href=\"#\"><span class=\"icon-editorCode\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassSharePresentationTool\">\n    <a class=\"congtooltip\" data-title=\"share presentation\" href=\"#\"><span class=\"icon-sharePresentation\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassDocumentShareTool\">\n    <a class=\"congtooltip\" data-title=\"Document Sharing\" href=\"#\"><span class=\"icon-documentShare\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassSessionEndTool\">\n    <a class=\"congtooltip\" data-title=\"Close Session.\" href=\"#\"><span class=\"icon-sessionend\"></span></a>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -11,21 +11,29 @@ this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">
     + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
     + "\" data-audio-playing="
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dap",{"name":"getString","hash":{},"data":data}))
-    + ">\n      <a id=\"speakerPressonceAnch\" class=\"tooltip\" data-title=\""
+    + ">\n      <a id=\"speakerPressonceAnch\" class=\"congtooltip\" data-title=\""
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
-    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </div>\n\n    <div id=\"videoPacketInfo\">\n      <span id=\"videoSpeed\">\n      <span id=\"videSpeedNumber\" class=\"suggestion tooltip\" data-suggestion=\""
+    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </div>\n\n    <div id=\"videoPacketInfo\">\n      <span id=\"videoSpeed\">\n      <span id=\"videSpeedNumber\" class=\"suggestion congtooltip\" data-suggestion=\""
     + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
-    + "\"> </span>\n      <span id=\"videLatency\" class=\"latency  tooltip\" data-latency=\""
+    + "\"> </span>\n      <span id=\"videLatency\" class=\"latency  congtooltip\" data-latency=\""
     + alias4(((helper = (helper = helpers.latency || (depth0 != null ? depth0.latency : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"latency","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audiolatency",{"name":"getString","hash":{},"data":data}))
-    + "\">  </span>\n      <span id=\"videoFrameRate\" class=\"quality  tooltip\" data-quality=\""
+    + "\">  </span>\n      <span id=\"videoFrameRate\" class=\"quality  congtooltip\" data-quality=\""
     + alias4(((helper = (helper = helpers.quality || (depth0 != null ? depth0.quality : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"quality","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoquality",{"name":"getString","hash":{},"data":data}))
     + "\"> </span>\n      </span>\n    </div>\n  </div>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n    <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496901386584_76\">\n      <textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta_chrm\" style=\"width: 290px;\"></textarea>\n    </div>\n  </div>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n    <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496901386584_76\">\n      <textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta_chrm\" style=\"width: 290px;\"></textarea>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -46,10 +54,6 @@ this["JST"]["templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,"
     + "\" style=\"width: 219px;\"></textarea></div>\n    </div>\n  </div>\n</li>";
 },"useData":true});
 
-this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n    <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496901386584_76\">\n      <textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta_chrm\" style=\"width: 290px;\"></textarea>\n    </div>\n  </div>\n</div>";
-},"useData":true});
-
 this["JST"]["templates/chat/chatcontroller.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
@@ -59,37 +63,33 @@ this["JST"]["templates/chat/chatcontroller.hbs"] = Handlebars.template({"compile
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAssignCont\" class=\"controleCont\">\n    <a id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrAssignAnch\" class=\"tooltip\"\n       data-title=\"Transfer Controls\">\n      <span id=\""
+    + "contrAssignAnch\" class=\"congtooltip\"\n       data-title=\"Transfer Controls\">\n      <span id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAssignImg\" data-assign-disable=\"false\"\n            class=\"icon-assignImg enable assignImg\">\n      </span>\n    </a>\n  </div>\n  <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAudCont\" class=\"controleCont\">\n    <a id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrAudAnch\" class=\"tooltip\" data-title=\"Mute\">\n      <span id=\""
+    + "contrAudAnch\" class=\"congtooltip\" data-title=\"Mute\">\n      <span id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAudImg\" data-audio-disable=\"false\" class=\"icon-audioImg enable audioImg\"></span>\n    </a>\n  </div>\n  <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrChatCont\" class=\"controleCont\">\n    <a id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrChatAnch\" class=\"tooltip\" data-title=\"Disable Chat\"><span\n      id=\""
+    + "contrChatAnch\" class=\"congtooltip\" data-title=\"Disable Chat\"><span\n      id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrChatImg\" data-chat-disable=\"false\" class=\"icon-chatImg enable chatImg\"></span>\n    </a>\n  </div>\n  <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contreditorRichCont\" class=\"controleCont controllereditorRich\" style=\"display: none;\">\n    <a id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contreditorRichAnch\" class=\"tooltip\" data-title=\"Write Mode\">\n      <span id=\""
+    + "contreditorRichAnch\" class=\"congtooltip\" data-title=\"Write Mode\">\n      <span id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contreditorRichImg\" data-editorrich-disable=\"true\"\n            class=\"icon-editorRichImg block editorRichImg\"></span>\n    </a>\n  </div>\n  <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contreditorCodeCont\" class=\"controleCont controllereditorCode\" style=\"display: none;\">\n    <a id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contreditorCodeAnch\" class=\"tooltip\" data-title=\"Write Mode\">\n          <span id=\""
+    + "contreditorCodeAnch\" class=\"congtooltip\" data-title=\"Write Mode\">\n          <span id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contreditorCodeImg\" data-editorcode-disable=\"true\"\n                class=\"icon-editorCodeImg block editorCodeImg\">\n          </span>\n    </a>\n  </div>\n</div>";
-},"useData":true});
-
-this["JST"]["templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n    <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496901386584_76\">\n      <textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta_chrm\" style=\"width: 290px;\"></textarea>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -105,7 +105,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "\" data-role=\"student\">\n  <a href=\"#"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" class=\"tooltip\" data-title=\"Click to chat\">\n    <img src=\""
+    + "\" class=\"congtooltip\" data-title=\"Click to chat\">\n    <img src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.img : stack1), depth0))
     + "\">\n  </a>\n  <div class=\"user-details\">\n    <div class=\"usern\">\n      <span>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.name : stack1), depth0))
@@ -117,13 +117,13 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 },"useData":true});
 
 this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "      <div class=\"uiMuteAll\">\n        <a id=\"contrAudioAll\">\n          <span id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable tooltip\"\n                data-title=\"Mute All\">\n\n          </span>\n        </a>\n      </div>\n";
+    return "      <div class=\"uiMuteAll\">\n        <a id=\"contrAudioAll\">\n          <span id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable congtooltip\"\n                data-title=\"Mute All\">\n          </span>\n        </a>\n      </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"chatBarTab\">\n  <div class=\"vmchat_room_bt tooltip\" data-title=\"Common Chat\" id=\"chatroom_bt2\">\n    <div class=\"inner_bt\">\n      <div id=\"chatroom_icon\"><span class=\"icon-chatroom\"></span></div>\n      <div id=\"chatroom_text\">Chatroom</div>\n    </div>\n  </div>\n  <div class=\"vmchat_bar_button tooltip active\" id=\"user_list\" data-title=\"Pivate Chat\">\n    <div class=\"inner_bt\" id=\"yui_3_17_2_1_1496985300499_68\">\n      <div id=\"usertab_text\"><span id=\"onlineusertext\">Private Chat</span></div>\n    </div>\n  </div>\n  <div class=\"vmchat_support notavailable tooltip\" id=\"congreaSupport\" data-title=\"Tech Support\">\n    <div class=\"support_bt\">\n      <div id=\"supporttab_icon\"></div>\n      <div id=\"supporttab_text\">Support</div>\n    </div>\n  </div>\n</div>\n<div id=\"stickybar\" class=\"maximize\" style=\"z-index: 2000;\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n  <div class=\"footerCtr\" id=\"congFooterCtr\">\n"
+  return "<div class=\"chatBarTab\">\n  <div class=\"vmchat_room_bt congtooltip\" data-title=\"Common Chat\" id=\"chatroom_bt2\">\n    <div class=\"inner_bt\">\n      <div id=\"chatroom_icon\"><span class=\"icon-chatroom\"></span></div>\n      <div id=\"chatroom_text\">Chatroom</div>\n    </div>\n  </div>\n  <div class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\"Pivate Chat\">\n    <div class=\"inner_bt\" id=\"yui_3_17_2_1_1496985300499_68\">\n      <div id=\"usertab_text\"><span id=\"onlineusertext\">Private Chat</span></div>\n    </div>\n  </div>\n</div>\n<div id=\"stickybar\" class=\"maximize\" style=\"z-index: 2000;\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n  <div class=\"footerCtr\" id=\"congFooterCtr\">\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <div class=\"prechk\" id=\"precheckTest\">\n      <span class=\"precheck tooltip\" id=\"precheckSetting\">precheck</span>\n    </div>\n    <div class=\"videoSwitchCont\" id=\"congCtrBar\">\n      <div id=\"rightCtlr\">\n        <span id=\"videoSwitch\" class=\"video on\"></span>\n      </div>\n    </div>\n    <div class=\"vmchat_search\" id=\"congUserSearch\">\n      <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n             placeholder=\"search user ...\">\n    </div>\n  </div>\n</div>\n";
+    + "    <div class=\"prechk\" id=\"precheckTest\">\n      <span class=\"precheck congtooltip\" id=\"precheckSetting\">precheck</span>\n    </div>\n    <div class=\"videoSwitchCont\" id=\"congCtrBar\">\n      <div id=\"rightCtlr\">\n        <span id=\"videoSwitch\" class=\"video on\"></span>\n      </div>\n    </div>\n    <div class=\"vmchat_search\" id=\"congUserSearch\">\n      <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n             placeholder=\"search user ...\">\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/documentSharing/docsMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -281,7 +281,7 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
 
   return "<div id=\"virtualclassAppLeftPanel\" class=\"leftbar\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass\"></div>\n</div>";
 },"usePartial":true,"useData":true});
 
@@ -303,19 +303,19 @@ this["JST"]["templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function
     + alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"key","hash":{},"data":data}) : helper)))
     + "\" class=\"opt form-control\" value=\""
     + alias1(container.lambda(depth0, depth0))
-    + "\"\n                        style=\"width: 97%; float: left;\"></textarea>\n            </div>\n";
+    + "\"\n                        style=\"width: 100%; float: left;\"></textarea>\n            </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block; padding-right: 0px;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"editTx\" class=\"row modalHeaderTx\">Poll Edit</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row previewTxCont\" style=\"display: block;\"><label class=\"pollLabel\">Question :</label>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" value=\""
+  return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block; padding-right: 0px;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"editTx\" class=\"row modalHeaderTx panel-body\">Poll Edit</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row previewTxCont\" style=\"display: block;\"><label class=\"pollLabel\">Question :</label>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" value=\""
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.questiontext : stack1), depth0))
     + "\" rows=\"1\"></textarea>\n          </div>\n        </div>\n        <div id=\"optsTxCont\" class=\"row previewTxCont\" style=\"display: block;\">\n          <label id=\"pollOptLabel\" class=\"pollLabel\">Options :</label>\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "          <div id=\"addMoreCont\" class=\"addMoreCont\">\n            <span class=\"icon-plus\"></span>\n            <a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption controls\">Add Option</a>\n          </div>\n        </div>\n      </div>\n      <div id=\"contFooter\" class=\"modal-footer\">\n        <div id=\"footerCtrCont\">\n          <button id=\"reset\" class=\"btn btn-default pull-left controls\" type=\"button\">Reset<i class=\"icon-reset\"></i>\n          </button>\n          <button id=\"etSave\" class=\"btn btn-default controls\">Save<i class=\"icon-save\"></i></button>\n          <button id=\"saveNdPublish\" class=\"btn btn-default controls\">Save and Publish<i class=\"icon-publish\"></i>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
+    + "          <div id=\"addMoreCont\" class=\"addMoreCont\">\n            <span class=\"icon-plus\"></span>\n            <a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption controls btn btn-default\">Add Option</a>\n          </div>\n        </div>\n      </div>\n      <div id=\"contFooter\" class=\"modal-footer\">\n        <div id=\"footerCtrCont\">\n          <button id=\"reset\" class=\"btn btn-default pull-left controls\" type=\"button\">Reset<i class=\"icon-reset\"></i>\n          </button>\n          <button id=\"etSave\" class=\"btn btn-default controls\">Save<i class=\"icon-save\"></i></button>\n          <button id=\"saveNdPublish\" class=\"btn btn-default controls\">Save and Publish<i class=\"icon-publish\"></i>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/modal.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"editTx\" class=\"row modalHeaderTx\">Create New Poll</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row pollTxCont\">\n          <label class=\"pollLabel\">Question :</label>\n          <div class=\"inputWrapper clearfix clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\"Type question\"></textarea>\n          </div>\n        </div>\n        <div id=\"optsTxCont\" class=\"row pollTxCont\">\n          <label class=\"optionLabel\">Options :</label>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"1\" class=\"opt form-control\" placeholder=\"Type option\" rows=\"1\"></textarea>\n          </div>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"2\" class=\"opt form-control\" rows=\"1\" placeholder=\"Type option\"></textarea>\n          </div>\n          <div id=\"addMoreCont\" class=\"addMoreCont\">\n            <span class=\"icon-plus-circle\"></span>\n            <a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption controls\">Add Option</a>\n          </div>\n        </div>\n      </div>\n      <div id=\"contFooter\" class=\"modal-footer\">\n        <div id=\"footerCtrCont\">\n          <button id=\"reset\" class=\"btn btn-default pull-left controls\" type=\"button\">Reset</button>\n          <button id=\"etSave\" class=\"btn btn-default controls\">Save</button>\n          <button id=\"saveNdPublish\" class=\"btn btn-default controls\">Save and Publish</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
+    return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"editTx\" class=\"row modalHeaderTx panel-body\">Create New Poll</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row pollTxCont\">\n          <label class=\"pollLabel\">Question :</label>\n          <div class=\"inputWrapper clearfix clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\"Type question\"></textarea>\n          </div>\n        </div>\n        <div id=\"optsTxCont\" class=\"row pollTxCont\">\n          <label class=\"optionLabel\">Options :</label>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"1\" class=\"opt form-control\" placeholder=\"Type option\" rows=\"1\"></textarea>\n          </div>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"2\" class=\"opt form-control\" rows=\"1\" placeholder=\"Type option\"></textarea>\n          </div>\n          <div id=\"addMoreCont\" class=\"addMoreCont\">\n            <span class=\"icon-plus-circle\"></span>\n            <a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption btn btn-default controls\">Add Option</a>\n          </div>\n        </div>\n      </div>\n      <div id=\"contFooter\" class=\"modal-footer\">\n        <div id=\"footerCtrCont\">\n          <button id=\"reset\" class=\"btn btn-default pull-left controls\" type=\"button\">Reset</button>\n          <button id=\"etSave\" class=\"btn btn-default controls\">Save</button>\n          <button id=\"saveNdPublish\" class=\"btn btn-default controls\">Save and Publish</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/optioninput.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -323,9 +323,29 @@ this["JST"]["templates/poll/optioninput.hbs"] = Handlebars.template({"compiler":
 
   return "<div class=\"inputWrapper clearfix\">\n  <textarea rows=\"1\" id=\"option"
     + alias4(((helper = (helper = helpers.seq || (depth0 != null ? depth0.seq : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"seq","hash":{},"data":data}) : helper)))
-    + "\" class=\"opt form-control\" placeholder=\"Type option\"\n            style=\"width: 97%; float: left;\"></textarea>\n  <a id=\"remove"
+    + "\" class=\"opt form-control parent\" placeholder=\"Type option\"\n            style=\"width: 100%; float: left;\"></textarea>\n  <a id=\"remove"
     + alias4(((helper = (helper = helpers.seq || (depth0 != null ? depth0.seq : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"seq","hash":{},"data":data}) : helper)))
-    + "\" class=\"close\">×</a>\n</div>\n";
+    + "\" class=\"close child\">×</a>\n</div>\n";
+},"useData":true});
+
+this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <div>\n          <input class=\"opt\" name=\"option\" value=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\"radio\" id=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\">\n          <span>"
+    + alias4(container.lambda(depth0, depth0))
+    + "</span>\n        </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"panel\">\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"panel\">\n    <label>Question : <span id=\"stdQnCont\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label>\n    <div id=\"stdOptionCont\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\n  </div>\n  <div id=\"stdContFooter\">\n    <input id=\"btnVote\" class=\"btn btn-primary\" value =\"vote\">\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -333,7 +353,7 @@ this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(c
 },"3":function(container,depth0,helpers,partials,data) {
     return "          <li role=\"presentation\" id=\"pollResult\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"show result\" data-original-title=\"\" title=\"\">\n            <a href=\"# \">Poll Result</a>\n          </li>\n";
 },"5":function(container,depth0,helpers,partials,data) {
-    return "        <div id=\"mszBoxPoll\" class=\"row\">\n          <div class=\"emptyList\" id=\"emptyListcourse\">Create Your course Poll </div>\n        </div>\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n\n        </div>\n\n        <div id=\"listQnContcourse\" class=\"row pollList\" style=\"display:block;\">\n          <div class=\"row headerContainer col-md-12\" id=\"headerContainercourse\">\n            <div class=\"controlsHeader col-md-2\">Controls<i class=\"icon-setting\"></i></div>\n            <div class=\"qnTextHeader col-md-8\">Poll Questions<i class=\"icon-help\"></i></div>\n            <div class=\"creatorHeader col-md-2\">Creator<i class=\"icon-creator\"></i></div>\n          </div>\n        </div>\n        <div id=\"listQnContsite\" class=\"row pollList\" style=\"display: none;\">\n          <div class=\"row headerContainer col-md-12\" id=\"headerContainersite\">\n            <div class=\"controlsHeader col-md-2\">Controls<i class=\"icon-setting\"></i></div>\n            <div class=\"qnTextHeader col-md-8\">Poll Questions<i class=\"icon-help\"></i></div>\n            <div class=\"creatorHeader col-md-2\">Creator<i class=\"icon-creator\"></i></div>\n          </div>\n        </div>\n\n        <div id=\"createPollCont\" class=\"createBtnCont\">\n          <button id=\"newPollBtnsite\" class=\"btn btn-default site\" data-toogle=\"modal\" data-target=\"#editPollModal\" style=\"display: none;\">Create New<i class=\"icon-create-new\"></i></button>\n          <button id=\"newPollBtncourse\" class=\"btn btn-default course\" data-toogle=\"modal\" data-target=\"#editPollModal\" style=\"display: block;\">Create New<i class=\"icon-create-new\"></i></button>\n        </div>\n";
+    return "        <div id=\"mszBoxPoll\" class=\"row\">\n          <div class=\"emptyList\" id=\"emptyListcourse\">Create Your course Poll </div>\n        </div>\n\n        <div id=\"createPollCont\" class=\"createBtnCont\">\n          <button id=\"newPollBtnsite\" class=\"btn btn-default site\" data-toogle=\"modal\" data-target=\"#editPollModal\" style=\"display: none;\">Add New<i class=\"icon-create-new\"></i></button>\n          <button id=\"newPollBtncourse\" class=\"btn btn-default course\" data-toogle=\"modal\" data-target=\"#editPollModal\" style=\"display: block;\">Add New<i class=\"icon-create-new\"></i></button>\n        </div>\n\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n\n        </div>\n\n        <table id=\"listQnContcourse\" class=\"pollList table table-bordered table-striped \" style=\"display:table;\">\n          <tr class=\" headerContainer\" id=\"headerContainercourse\">\n            <th class=\"controlsHeader\">Controls<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader\">Poll Questions<i class=\"icon-help\"></i></th>\n            <th class=\"creatorHeader\">Creator<i class=\"icon-creator\"></i></th>\n          </tr>\n        </table>\n        <table id=\"listQnContsite\" class=\"pollList table table-bordered table-striped\" style=\"display: none;\">\n          <tr class=\" headerContainer\" id=\"headerContainersite\">\n            <th class=\"controlsHeader\">Controls<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader\">Poll Questions<i class=\"icon-help\"></i></th>\n            <th class=\"creatorHeader\">Creator<i class=\"icon-creator\"></i></th>\n          </tr>\n        </table>\n\n\n";
 },"7":function(container,depth0,helpers,partials,data) {
     return "        <div id=\"mszBoxPoll\" class=\"row\">\n          <div id=\"stdPollMszLayout\">Poll may be published ...</div>\n        </div>\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n        </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -350,36 +370,16 @@ this["JST"]["templates/poll/pollresultlist.hbs"] = Handlebars.template({"compile
     return "<table id=\"listViewTable\" class=\"table table-bordered\">\n  <thead>\n  <tr>\n    <th>NAME</th>\n    <th>OPTION SELECTED</th>\n  </tr>\n  </thead>\n  <tbody id=\"resultList\">\n\n  </tbody>\n</table>";
 },"useData":true});
 
-this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <div>\n          <input class=\"opt\" name=\"option\" value=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\" type=\"radio\" id=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\">\n          <label>"
-    + alias4(container.lambda(depth0, depth0))
-    + "</label>\n        </div>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"row\">\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"row\">\n    <div id=\"stdQnCont\" class=\"row\">"
-    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
-    + "</div>\n    <div id=\"stdOptionCont\" class=\"row\">\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n  </div>\n  <div id=\"stdContFooter\" class=\"row\">\n    <input id=\"btnVote\" class=\"btn btn-primary\" value =\"vote\">\n  </div>\n</div>";
-},"useData":true});
-
 this["JST"]["templates/poll/preview-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "            <div>\n              <input class=\"opt\" name=\"option\" value=\"1\" type=\"radio\" id=\"1\"><label>"
+    return "            <div >\n              <span class=\"radio\"><input class=\"opt\" name=\"option\" value=\"1\" type=\"radio\" id=\"1\">"
     + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</label>\n            </div>\n\n";
+    + "</span>\n            </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"publishTx\" class=\"row modalHeaderTx\">Publish Poll</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row previewTxCont\">"
+  return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"publishTx\" class=\"row modalHeaderTx panel-body\">Publish Poll</div>\n      </div>\n      <div id=\"contBody\" class=\"panel-body\">\n        <label>Question : <span id=\"qnTxCont\" class=\"previewTxCont\">"
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.questiontext : stack1), depth0))
-    + "</div>\n        <div id=\"optsTxCont\" class=\"row previewTxCont\">\n"
+    + "</span></label>\n        <div id=\"optsTxCont\" class=\"previewTxCont\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "        </div>\n      </div>\n      <div id=\"contFooter\" class=\"modal-footer\">\n        <div id=\"footerCtrCont\">\n          <button id=\"goBack\" data-dismiss=\"modal\" class=\"btn btn-default controls\">&lt; Back<i class=\"icon-back\"></i>\n          </button>\n          <button id=\"next\" class=\"btn btn-default controls\">Go to Publish<i class=\"icon-publish\"></i></button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
@@ -387,42 +387,78 @@ this["JST"]["templates/poll/preview-modal.hbs"] = Handlebars.template({"1":funct
 this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "<div id=\"contQn"
+  return "<tr id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"row vcPollCont col-md-12\">\n  <div id=\"ctrQn"
+    + "\" class=\"vcPollCont\">\n  <td id=\"ctrQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"col-md-2 pollCtrCont\">\n    <div class=\"pollCtrContainer\">\n      <div id=\"contQn"
+    + "\" class=\"pollCtrCont\">\n    <ul class=\"pollCtrContainer nav navbar-nav\">\n      <li id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "E\" class=\"editCont pull-left\">\n        <a href=\"#\" data-target=\"#editPollModal\" id=\"editQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\">\n          <span class=\"icon-pencil2\" data-toggle=\"tooltip\" title=\"edit poll\"></span>\n        </a>\n      </div>\n      <div id=\"contQn"
+    + "\">\n          <span class=\"icon-pencil2\" data-toggle=\"congtooltip\" title=\"edit poll\"></span>\n        </a>\n      </li>\n      <li id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "\" class=\"deleteCont pull-left\">\n        <a href=\"#\" id=\"deleteQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\">\n          <span class=\"icon-bin22\" data-toggle=\"tooltip\" title=\"delete poll\"></span>\n        </a>\n      </div>\n      <div class=\"publishCont pull-left\" id=\"contQn"
+    + "\">\n          <span class=\"icon-bin22\" data-toggle=\"congtooltip\" title=\"delete poll\"></span>\n        </a>\n      </li>\n      <li class=\"publishCont pull-left\" id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "P\">\n        <a href=\"#\" id=\"publishQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\">\n          <span class=\"icon-publish2\" data-toggle=\"tooltip\" title=\"publish poll\"></span>\n        </a>\n      </div>\n    </div>\n  </div>\n  <div id=\"qnText"
+    + "\">\n          <span class=\"icon-publish2\" data-toggle=\"congtooltip\" title=\"publish poll\"></span>\n        </a>\n      </li>\n    </ul>\n  </td>\n  <td id=\"qnText"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"qnText col-md-8\" data-toggle=\"popover\" data-trigger=\"hover\"\n       data-original-title=\"\" title=\"\">"
+    + "\" class=\"qnText\" data-toggle=\"popover\" data-trigger=\"hover\"\n       data-original-title=\"\" title=\"\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.questiontext : stack1), depth0))
-    + "</div>\n  <div class=\"creator col-md-2\">"
+    + "</td>\n  <td class=\"creator\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.creator : stack1), depth0))
-    + "</div>\n</div>\n";
+    + "</td>\n</tr>\n";
 },"useData":true});
 
-this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"modal-dialog\" id=\"yui_3_17_2_1_1496125638736_94\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\">×</button>\n\n      <div id=\"resultTx\" class=\"row modalHeaderTx\">Poll Result</div>\n    </div>\n    <div id=\"resultLayout\">\n      <div id=\"resultLayoutHead\" class=\"row\">\n        <div id=\"timerWrapper\" class=\"col-md-6\">\n          <label id=\"timerLabel\">Remaining Time</label>\n          <div id=\"timerCont\"></div>\n        </div>\n        <div id=\"votesWrapper\" class=\"col-md-6\">\n          <label id=\"congreaPollVoters\">Voted So Far</label>\n          <div id=\"receivedVotes\"></div>\n        </div>\n      </div>\n      <div id=\"resultLayoutBody\" class=\"row\">\n        <div id=\"qnLabelCont\" class=\"row\"></div>\n        <div id=\"chartMenuCont\" class=\"row\">\n          <div id=\"bar\" class=\"col-sm-1\">\n            <a href=\"#\" id=\"barView\">\n              <span class=\"icon-stats-bars\"></span>\n            </a>\n          </div>\n          <div id=\"pi\" class=\"col-sm-1\">\n            <a href=\"#\" id=\"piView\">\n              <span class=\"icon-pie-chart\"></span>\n            </a>\n          </div>\n          <div id=\"rList\" class=\"col-sm-1\">\n            <a href=\"#\" id=\"listView\">\n              <span class=\"icon-list-ul\"></span>\n            </a>\n          </div>\n        </div>\n        <div id=\"chart\" class=\"row c3\" style=\"max-height: 320px; position: relative;\"></div>\n        <div class=\"table-responsive\" id=\"listCont\"></div>\n\n      </div>\n      <div id=\"pollResultMsz\" class=\"pollResultMsz\">Waiting for student response.....</div>\n      <div id=\"resultLayoutFooter\" class=\"row\">\n\n      </div>\n    </div>\n  </div>\n</div>";
+this["JST"]["templates/poll/qnOptions.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "      <div>\n        <input class=\"opt\" name=\"option\" value=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\"radio\" id=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\">\n        <label>"
+    + alias4(container.lambda(depth0, depth0))
+    + "</label>\n      </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "\n<div id=\"qnLabelCont\" class=\"panel\">\n  <label>Question:<span id=\"qnLabelCont\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label>\n  <div id=\"optnNonVotd\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "  </div>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "              <div>\n                <input class=\"opt\" name=\"option\" value=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\"radio\" id=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\">\n                <span>"
+    + alias4(container.lambda(depth0, depth0))
+    + "</span>\n              </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div class=\"modal-dialog\" id=\"yui_3_17_2_1_1496125638736_94\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\">×</button>\n\n      <div id=\"resultTx\" class=\"row modalHeaderTx panel-body\">Poll Result</div>\n    </div>\n    <div id=\"resultLayout\" class=\"panel-body\">\n      <div id=\"resultLayoutHead\" class=\"row panel\">\n        <div id=\"timerWrapper\" class=\"col-md-4\">\n          <label id=\"timerLabel\">Remaining Time</label>\n          <div id=\"timerCont\"></div>\n        </div>\n        <div id=\"votesWrapper\" class=\"col-md-4\">\n          <label id=\"congreaPollVoters\">Voted So Far</label>\n          <div id=\"receivedVotes\"></div>\n        </div>\n      </div>\n      <div id=\"resultLayoutBody\">\n        <div id=\"TqnPoll\" class=\"panel\">\n          <label>Question :  <span id=\"qnLabelCont\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label>\n          <div id=\"nonVotTqn\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "          </div>\n        </div>\n        <div id=\"chartMenuCont\" class=\"panel\">\n          <button id=\"bar\">\n            <a href=\"#\" id=\"barView\">\n              <span class=\"icon-stats-bars\"></span>\n            </a>\n          </button>\n          <button id=\"pi\">\n            <a href=\"#\" id=\"piView\">\n              <span class=\"icon-pie-chart\"></span>\n            </a>\n          </button>\n          <button id=\"rList\">\n            <a href=\"#\" id=\"listView\">\n              <span class=\"icon-list-ul\"></span>\n            </a>\n          </button>\n        </div>\n        <div id=\"chart\" class=\"row c3\" style=\"max-height: 320px; position: relative;\"></div>\n        <div class=\"table-responsive\" id=\"listCont\"></div>\n\n      </div>\n      <div id=\"pollResultMsz\" class=\"pollResultMsz panel\">Waiting for student response.....</div>\n      <div id=\"resultLayoutFooter\" class=\"row\">\n\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/resultlist.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -440,13 +476,17 @@ this["JST"]["templates/poll/setting-modal.hbs"] = Handlebars.template({"1":funct
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"modal-dialog\" id=\"yui_3_17_2_1_1496125638736_94\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n      <div id=\"settingTx\" class=\"row modalHeaderTx\">Poll Setting</div>\n    </div>\n    <div id=\"contBody\" class=\"modal-body\">\n      <div id=\"settingCont\" class=\"row\">\n        <div class=\"pollLabel\">Mode of closing Poll :</div>\n        <div id=\"mode\" class=\"custom-controls-stacked\">\n          <label class=\"custom-control custom-radio\">\n            <input type=\"radio\" name=\"option\" value=\"BY Instructor\" id=\"radioBtn1\" class=\"custom-control-input\">\n            <span class=\"custom-control-indicator\">\n\n              </span><span class=\"custom-control-description\">By Instructor</span>\n          </label>\n          <label class=\"custom-control custom-radio\">\n            <input type=\"radio\" name=\"option\" value=\"BY Timer\" id=\"radioBtn2\" class=\"custom-control-input\" checked=\"checked\">\n            <span class=\"custom-control-indicator\"></span>\n            <span class=\"custom-control-description\">By Timer</span>\n          </label>\n        </div>\n        <div id=\"enTimer\">\n          <div id=\"timerTx\" class=\"pollLabel\">Set Timer</div>\n          <div id=\"selTime\">\n            <select id=\"timer\" name=\"timer\" class=\"form-control\" style=\"width: 100px; display: inline;\">\n"
+  return "<div class=\"modal-dialog\" id=\"yui_3_17_2_1_1496125638736_94\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n      <div id=\"settingTx\" class=\"row modalHeaderTx panel-body\">Poll Setting</div>\n    </div>\n    <div id=\"contBody\" class=\"modal-body\">\n      <div id=\"settingCont\">\n        <label class=\"pollLabel panel\">Mode of closing Poll :\n        <span id=\"mode\" class=\"custom-controls-stacked panel\">\n          <label class=\"custom-control custom-radio radio-inline\">\n            <input type=\"radio\" name=\"option\" value=\"BY Instructor\" id=\"radioBtn1\" class=\"custom-control-input\">\n            <span class=\"custom-control-indicator\">\n\n              </span><span class=\"custom-control-description\">By Instructor</span>\n          </label>\n          <label class=\"custom-control custom-radio radio-inline\">\n            <input type=\"radio\" name=\"option\" value=\"BY Timer\" id=\"radioBtn2\" class=\"custom-control-input\" checked=\"checked\">\n            <span class=\"custom-control-indicator\"></span>\n            <span class=\"custom-control-description\">By Timer</span>\n          </label>\n        </span>\n        </label>\n        <div id=\"enTimer\" class=\"panel\">\n          <label id=\"timerTx\" class=\"pollLabel\">Set Timer\n          <span id=\"selTime\">\n            <select id=\"timer\" name=\"timer\" class=\"form-control\" style=\"width: 100px; display: inline;\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.time : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n            </select>\n            <select id=\"ut\" name=\"unit\" class=\"form-control\" style=\"width: 100px; display: inline;\">\n              <option id=\"op1\" value=\"minut\">minut</option>\n              <option id=\"op2\" value=\"second\">second</option>\n            </select>\n          </div>\n        </div>\n        <div id=\"showRt\" class=\"form-group\">\n          <label id=\"labelCk\" class=\"custom-control custom-checkbox \">\n            <input type=\"checkbox\" id=\"pollCkbox\" class=\"custom-control-input \" checked=\"checked\">\n            <span id=\"labelCk\" class=\"custom-control-description pollLabel\">show result to students</span>\n          </label>\n        </div>\n      </div>\n    </div>\n    <div id=\"contFooter\" class=\"modal-footer\">\n      <div id=\"settingBtn\">\n        <button id=\"cacelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">cancel</button>\n        <button id=\"publish\" class=\"btn btn-default\" disable=\"true\">Publish</button>\n      </div>\n    </div>\n  </div>\n</div>\n";
+    + "\n            </select>\n            <select id=\"ut\" name=\"unit\" class=\"form-control\" style=\"width: 100px; display: inline;\">\n              <option id=\"op1\" value=\"minut\">minut</option>\n              <option id=\"op2\" value=\"second\">second</option>\n            </select>\n          </span>\n          </label>\n        </div>\n        <div id=\"showRt\" class=\"form-group\">\n          <label id=\"labelCk\" class=\"custom-control custom-checkbox \">\n            <input type=\"checkbox\" id=\"pollCkbox\" class=\"custom-control-input \" checked=\"checked\">\n            <span id=\"labelCk\" class=\"custom-control-description pollLabel\">show result to students</span>\n          </label>\n        </div>\n      </div>\n    </div>\n    <div id=\"contFooter\" class=\"modal-footer\">\n      <div id=\"settingBtn\">\n        <button id=\"cacelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">cancel</button>\n        <button id=\"publish\" class=\"btn btn-default\" disable=\"true\">Publish</button>\n      </div>\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/poll/stdResult.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"resultLayout\">\n  <div id=\"resultLayoutHead\" class=\"row\">\n    <div id=\"timerWrapper\" class=\"col-md-6\">\n      <label id=\"timerLabel\">Remaining Time</label>\n      <div id=\"timerCont\"></div>\n    </div>\n    <div id=\"votesWrapper\" class=\"col-md-6\">\n      <label id=\"congreaPollVoters\">Voted So Far</label>\n      <div id=\"receivedVotes\"></div>\n    </div>\n  </div>\n  <div id=\"resultLayoutBody\" class=\"row\">\n    <div id=\"qnLabelCont\" class=\"row\"></div>\n    <div id=\"chartMenuCont\" class=\"row\">\n      <div id=\"bar\" class=\"col-sm-1\">\n        <a href=\"#\" id=\"barView\">\n          <span class=\"icon-stats-bars\"></span>\n        </a>\n      </div>\n      <div id=\"pi\" class=\"col-sm-1\">\n        <a href=\"#\" id=\"piView\">\n          <span class=\"icon-pie-chart\"></span>\n        </a>\n      </div>\n    </div>\n    <div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div>\n  </div>\n  <div id=\"pollResultMsz\" class=\"pollResultMsz\"></div>\n  <div id=\"resultLayoutFooter\" class=\"row\">\n  </div>\n</div>";
+    var stack1;
+
+  return "<div id=\"resultLayout\">\n  <div id=\"resultLayoutHead\" class=\"row modal-header\">\n    <div id=\"timerWrapper\" class=\"col-md-4\">\n      <label id=\"timerLabel\">Remaining Time</label>\n      <div id=\"timerCont\"></div>\n    </div>\n    <div id=\"votesWrapper\" class=\"col-md-4\">\n      <label id=\"congreaPollVoters\">Voted So Far</label>\n      <div id=\"receivedVotes\"></div>\n    </div>\n  </div>\n  <div id=\"resultLayoutBody\" class=\"container stdlayout\">\n    <label>Question : <span id=\"qnLabelCont\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label>\n    <div id=\"optnNonVotd\"></div>\n    <div id=\"chartMenuCont\" class=\"panel\">\n      <button id=\"bar\">\n        <a href=\"#\" id=\"barView\">\n          <span class=\"icon-stats-bars\"></span>\n        </a>\n      </button>\n      <button id=\"pi\">\n        <a href=\"#\" id=\"piView\">\n          <span class=\"icon-pie-chart\"></span>\n        </a>\n      </button>\n    </div>\n    <div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div>\n  </div>\n  <div id=\"pollResultMsz\" class=\"pollResultMsz\"></div>\n  <div id=\"resultLayoutFooter\" class=\"row\">\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -647,21 +687,21 @@ this["JST"]["templates/whiteboard/toolbar.hbs"] = Handlebars.template({"compiler
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"commandToolsWrapper\">\n  <div id=\"t_rectangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"rectangle\">\n    <a href=\"#\" data-title=\"Rectangle\" class=\"tooltip\"><span class=\"icon-rectangle\"></span></a>\n  </div>\n\n  <div id=\"t_line"
+    + "\" class=\"tool\" data-tool=\"rectangle\">\n    <a href=\"#\" data-title=\"Rectangle\" class=\"congtooltip\"><span class=\"icon-rectangle\"></span></a>\n  </div>\n\n  <div id=\"t_line"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"line\">\n    <a href=\"#\" data-title=\"Line\" class=\"tooltip\"> <span class=\"icon-line\"></span></a>\n  </div>\n\n  <div id=\"t_freeDrawing"
+    + "\" class=\"tool\" data-tool=\"line\">\n    <a href=\"#\" data-title=\"Line\" class=\"congtooltip\"> <span class=\"icon-line\"></span></a>\n  </div>\n\n  <div id=\"t_freeDrawing"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"freeDrawing\">\n    <a href=\"#\" data-title=\"Free hand\" class=\"tooltip\"> <span class=\"icon-freeDrawing\"></span></a>\n  </div>\n\n  <div id=\"t_oval"
+    + "\" class=\"tool\" data-tool=\"freeDrawing\">\n    <a href=\"#\" data-title=\"Free hand\" class=\"congtooltip\"> <span class=\"icon-freeDrawing\"></span></a>\n  </div>\n\n  <div id=\"t_oval"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"oval\">\n    <a href=\"#\" data-title=\"Oval\" class=\"tooltip\"> <span class=\"icon-oval\"></span></a>\n  </div>\n\n  <div id=\"t_triangle"
+    + "\" class=\"tool\" data-tool=\"oval\">\n    <a href=\"#\" data-title=\"Oval\" class=\"congtooltip\"> <span class=\"icon-oval\"></span></a>\n  </div>\n\n  <div id=\"t_triangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"triangle\">\n    <a href=\"#\" data-title=\"Triangle\" class=\"tooltip\"> <span class=\"icon-triangle\"></span></a>\n  </div>\n\n  <div id=\"t_text"
+    + "\" class=\"tool\" data-tool=\"triangle\">\n    <a href=\"#\" data-title=\"Triangle\" class=\"congtooltip\"> <span class=\"icon-triangle\"></span></a>\n  </div>\n\n  <div id=\"t_text"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"text\">\n    <a href=\"#\" data-title=\"Text\" class=\"tooltip\"> <span class=\"icon-text\"></span></a>\n  </div>\n\n  <div id=\"t_activeall"
+    + "\" class=\"tool\" data-tool=\"text\">\n    <a href=\"#\" data-title=\"Text\" class=\"congtooltip\"> <span class=\"icon-text\"></span></a>\n  </div>\n\n  <div id=\"t_activeall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"activeAll\">\n    <a href=\"#\" data-title=\"Active All\" class=\"tooltip\"> <span class=\"icon-activeAll\"></span></a>\n  </div>\n\n  <div id=\"t_clearall"
+    + "\" class=\"tool\" data-tool=\"activeAll\">\n    <a href=\"#\" data-title=\"Active All\" class=\"congtooltip\"> <span class=\"icon-activeAll\"></span></a>\n  </div>\n\n  <div id=\"t_clearall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"clearAll\">\n    <a href=\"#\" data-title=\"Clear All\" class=\"tooltip\"> <span class=\"icon-clearAll\"></span></a>\n  </div>\n</div>";
+    + "\" class=\"tool\" data-tool=\"clearAll\">\n    <a href=\"#\" data-title=\"Clear All\" class=\"congtooltip\"> <span class=\"icon-clearAll\"></span></a>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/youtube/yts.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

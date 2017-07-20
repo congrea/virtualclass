@@ -103,9 +103,9 @@
     height: 600px;
 }
 
-#listnotes {
-    width: 1600px;
-}
+/*#listnotes {*/
+    /*width: 1600px;*/
+/*}*/
 
 #virtualclassCont.congrea .pages .links {
     position: relative;
@@ -320,7 +320,7 @@
     margin: 0 0px 0 7PX;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.status[data-status="0"]::before {
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"]::before {
     content: "\e9d1";
     font-family: 'icomoon';
     font-size: 16px;
@@ -340,7 +340,7 @@
     height: auto;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.status[data-status="1"]::before {
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"]::before {
     content: "\e9ce";
     font-family: 'icomoon';
     font-size: 16px;
@@ -348,7 +348,7 @@
     color: #606060;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.delete::before {
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.delete::before {
     content: "\ea0f";
     font-family: 'icomoon';
     font-size: 18px;
@@ -356,7 +356,7 @@
     color: #606060;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controlCont {
+#virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
     float: left;
     border: 1px solid #eee;
     padding: 5px 5px 0;
@@ -365,21 +365,21 @@
     background: #fff;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.status[data-status="0"] {
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"] {
     float: left;
     font-size: 0px;
     margin: -2px 6px 3px;
     height: 18px;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links .controls.delete {
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
     float: left;
     font-size: 0px;
     margin: -2px 3px 0 3px;
     height: 20px;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links span.thumbList {
+#virtualclassCont.congrea #listnotes .linknotes.links span.thumbList {
     background: rgba(0, 0, 0, 0.68) none;
     position: absolute;
     padding: 1px 7px;
@@ -389,7 +389,7 @@
     margin-top: -28px;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links img.thumbnail {
+#virtualclassCont.congrea #listnotes .linknotes.links img.thumbnail {
     border-width: 0 !important;
     margin: 0;
     max-width: 60px;
@@ -397,22 +397,22 @@
     border-radius: 0;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links {
+#virtualclassCont.congrea #listnotes .linknotes.links {
     float: left;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links.currentNav {
+#virtualclassCont.congrea #listnotes .linknotes.links.currentNav {
     width: 70px;
     margin: 3px;
     padding: 0;
     height: 52px;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links.currentNav .controlCont {
+#virtualclassCont.congrea #listnotes .linknotes.links.currentNav .controlCont {
     display: none;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links.currentNav img {
+#virtualclassCont.congrea #listnotes .linknotes.links.currentNav img {
     border-width: 0px !important;
     height: auto !important;
     max-width: 60px;
@@ -421,20 +421,21 @@
     margin: 0;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links.currentNav span.thumbList {
+#virtualclassCont.congrea #listnotes .linknotes.links.currentNav span.thumbList {
     padding: 2px 8px;
     background: green;
     left: 25px;
     margin-top: -37px;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listnotes .linknotes.links {
+#virtualclassCont.congrea #listnotes .linknotes.links {
     margin: 3px;
     width: 70px;
     position: relative;
     background: #eee;
     border-radius: 3px;
     height: 77px;
+    margin-bottom : 30px;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1'] .mainpreview {
@@ -552,4 +553,46 @@
     left: 0;
     right: 0;
     margin:auto;
+}
+
+#virtualclassCont.congrea #congdashboard #docsListContainer{
+    float:left;
+}
+
+
+#virtualclassCont.congrea .dashboardview, #virtualclassCont #docsuploadContainer{
+    width : 85%;
+    float: right;
+}
+
+
+#virtualclassCont .qq-upload-button-selector.qq-upload-button {
+    display : none;
+}
+
+#virtualclassCont .dbContainer {
+    position : relative;
+}
+
+#virtualclassCont #docsuploadContainer {
+    position: absolute;
+    top: 5px;
+    left: 150px;
+}
+
+
+#virtualclassCont #docsuploadContainer {
+    /*width: 70%*/
+    /*z-index : -1;*/
+    pointer-events : none;
+}
+
+#virtualclassCont .qq-uploader-selector.qq-uploader{
+    width: 100%;
+    height: 73vh;
+    max-height: 80vh;
+}
+
+#virtualclassCont #docsListContainer .controlCont .controls.status{
+    display : none;
 }

@@ -2,6 +2,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/** To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 /*  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -1689,8 +1693,12 @@
             var btn = document.getElementById("newDocBtn")
             if(btn != null){
               btn.addEventListener("click", function (){
-                console.log('Upload button is clicked');
-                cb(type, elemArr);
+                var element = document.querySelector('.qq-upload-button-selector.qq-upload-button input');
+                if(element != null){
+                   element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
+                }else {
+                    alert('Element is null');
+                }
               })
             }
         },
@@ -1717,8 +1725,8 @@
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
             }
 
-            virtualclass.fineUploader.generateModal(type, elemArr)
-            virtualclass.fineUploader.initModal(type);
+           //  virtualclass.fineUploader.generateModal(type, elemArr)
+            // virtualclass.fineUploader.initModal(type);
             upload.wrapper = document.getElementById(elemArr[0]);
             
             
@@ -1727,9 +1735,9 @@
             virtualclass.fineUploader.uploaderFn(upload);
 
             // TODO this need to be outside the function
-            if(type == 'video'){
-                virtualclass.videoUl.UI.inputUrl();
-            }
+            // if(type == 'video'){
+            //     virtualclass.videoUl.UI.inputUrl();
+            // }
         },
         
         xhrSendWithForm : function (data, methodname, cb){
@@ -1854,6 +1862,37 @@
                     dashboardnav.addEventListener('click', function (){virtualclass.vutil.initDashboard(virtualclass.currApp)});
                 }
             }
+
+            this.readyDashboard();
+            },
+
+        readyDashboard : function (){
+          var currApp = virtualclass.currApp;
+          // virtualclass.vutil.initDashboard(virtualclass.currApp);
+          if(document.querySelector('#congdashboard') ==  null){
+            var dashboardTemp = virtualclass.getTemplate('dashboard');
+            var dbHtml = dashboardTemp({app:currApp});
+            document.querySelector('#dashboardContainer').innerHTML = dbHtml;
+          }
+
+          // in any other application we can handle
+          // dashoard content in own style
+          if(currApp == 'DocumentShare'){
+            if(document.querySelector('docsDbCont') == null){
+              document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
+              if(roles.hasControls()){
+                // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
+                virtualclass.vutil.attachEventToUploadTab();
+                virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+              }
+            }
+
+          }else if(currApp == 'Video'){
+            var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+            var dbHtml = videoDashboard();
+            document.querySelector('#'+currApp+'Dashboard').innerHTML=dbHtml;
+            virtualclass.videoUl.UI.popup();
+          }
         },
 
         initDashboard : function (currApp){
@@ -1868,29 +1907,29 @@
 
            // $("#myModal").modal();
 
-            var dashboardTemp = virtualclass.getTemplate('dashboard');
-            var dbHtml = dashboardTemp({app:currApp});
-            document.querySelector('#dashboardContainer').innerHTML = dbHtml;
+            var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
+
+            for(var i=0; i<allDbContainer.length; i++){
+                if(allDbContainer[i].dataset.app == virtualclass.currApp){
+                  allDbContainer[i].style.display = 'block';
+                }else {
+                  allDbContainer[i].style.display = 'none';
+                }
+            }
+
             $('#congdashboard').modal({
                 backdrop: 'static',
                 keyboard: false,
                 show: true
             });
-            // in any other application we can handle
-            // dashoard content in own style
-            if(currApp == 'DocumentShare'){
-                document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDashBoard(currApp);
-            }else if(currApp == 'Video'){
 
-                var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-                var dbHtml = videoDashboard();
-                document.querySelector('#'+currApp+'Dashboard').innerHTML=dbHtml;
-                    virtualclass.videoUl.UI.popup();
-            }
         },
 
-        getDashBoard : function (app){
-            return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
+        getDocsDashBoard : function (app){
+            var dashboardTemp = virtualclass.getTemplate('dashboard', 'documentSharing');
+            var context = {app : app, hasControls : roles.hasControls()};
+            return dashboardTemp(context);
+            // return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
         },
 
         removeDashboardNav : function (){

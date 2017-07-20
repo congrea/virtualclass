@@ -1,0 +1,19 @@
+#virtualclassCont #dashboardContainer .modal-dialog {
+  width : 85% !important;
+}
+
+#virtualclassCont #dashboardContainer .modal .modal-content {
+  overflow-y: auto;
+  height: 85%;
+  max-height: calc(100vh - 30px);
+}
+
+#virtualclassCont #dashboardContainer .modal-body {
+  height : 95%;
+}
+
+#virtualclassCont #listdocs {
+  height: 95%;
+  max-height: 96%;
+  overflow-y: auto;
+}

@@ -100,6 +100,8 @@
                 }
 
             } else if (this.type == 'docs') {
+                // alert('hello hi');
+                // debugger;
                 var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
                 docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
                 this.UI.controller.init(this, lid);
@@ -350,7 +352,10 @@
                 var helem = this.element(cthis, 'status', this.cthis.status);
                 // var helem = this.element('status');
                 var delem = this.element(cthis, 'delete');
-                this.dragDrop.init(this.cthis);
+                if(cthis.type != 'docs'){
+                  this.dragDrop.init(this.cthis);
+                }
+
 
                 //  }else{
                 //this part should be removed
@@ -423,8 +428,11 @@
                 },
 
                 handleDragStart: function (e) {
-                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                  virtualclass.vutil.makeElementActive('#listvideo');
+                   if(this.cthis.type === 'Video'){
+                     virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                     virtualclass.vutil.makeElementActive('#listvideo');
+                   }
+
 
                     //   source = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
                     if (e.target.classList.contains('link' + this.cthis.type)) {
@@ -437,8 +445,10 @@
                 },
 
                 handleDragEnter: function (e) {
-                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                  virtualclass.vutil.makeElementActive('#listvideo');
+                   if(this.cthis.type === 'Video'){
+                    virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                    virtualclass.vutil.makeElementActive('#listvideo');
+                   }
                     //       var etarget = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
                     if(this.source) {
                         var etarget = e.target.closest('.link' + this.cthis.type);
@@ -466,22 +476,11 @@
                     // }
                 },
                 handleDragEnd: function () {
-                    this.cthis.rearrange();
-
-                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                  virtualclass.vutil.makeElementActive('#listvideo');
-
-
-                    //   $('#listvideo').css({
-                    //     "z-index":55
-                    //
-                    // })
-                    // $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                    //     "z-index":1
-                    //
-                    // })
-
-
+                   this.cthis.rearrange();
+                   if(this.cthis.type === 'Video'){
+                     virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                     virtualclass.vutil.makeElementActive('#listvideo');
+                   }
                 }
             },
 

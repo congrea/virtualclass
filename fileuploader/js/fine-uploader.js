@@ -5709,13 +5709,9 @@
                 }
             });
             disposeSupport.attach(document, "dragleave", function(e) {
-
-
                 if (leavingDocumentOut(e)) {
                     maybeHideDropZones();
                 }
-
-
             });
             disposeSupport.attach(qq(document).children()[0], "mouseenter", function(e) {
                 maybeHideDropZones();
@@ -5723,10 +5719,6 @@
             disposeSupport.attach(document, "drop", function(e) {
                 e.preventDefault();
                 maybeHideDropZones();
-
-
-
-
             });
             disposeSupport.attach(document, HIDE_ZONES_EVENT_NAME, maybeHideDropZones);
         }

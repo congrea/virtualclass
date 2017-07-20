@@ -674,6 +674,9 @@
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         $('#virtualclassAppLeftPanel').append(template(data));
 
+                        var dashboard = virtualclass.vutil.getDocsDashBoard();
+                        $('#congdashboard .modal-body').append(dashboard);
+
                         //
                         //
                         //
@@ -1591,6 +1594,15 @@
                 } else {
                         alert(virtualclass.lang.getString('someproblem'));
                 }
+
+                var listnotes  = document.querySelector('#listnotes');
+                if(listnotes != null){
+                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementActive('#listnotes');
+                }else {
+                  console.log('List note is null');
+                }
+
             },
 
             /**

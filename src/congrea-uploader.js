@@ -128,8 +128,14 @@
             },
 
             onDragEnter : function (e){
-                virtualclass.vutil.makeElementDeactive('#listvideo');
-                virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              var tobeDeactive;
+              if(virtualclass.currApp == 'DocumentShare'){
+                tobeDeactive = "#listnotes";
+              }else if(virtualclass.currApp == 'Video'){
+                tobeDeactive = '#listvideo';
+              }
+              virtualclass.vutil.makeElementDeactive(tobeDeactive );
+              virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
             }
         }
     }();

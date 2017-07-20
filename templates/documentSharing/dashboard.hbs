@@ -1,10 +1,18 @@
 {{!-- cn == currNote, cd == currDoc--}}
-<div class='dbContainer' data-app={{app}}>
-  <div id="fileuploadeContainer">
-
+<div class='dbContainer' data-app="{{app}}" id="docsDbCont">
+  <div id="docsListContainer">
+    <div id="listdocs" class="listPages pages"></div>
+    <div id="newdocsBtnCont">
+      <button id="newDocBtn">Upload Documents</button>
+    </div>
   </div>
 
-  <div class="dashBoardContainer">
-
+  <div class="dashboardview">
+    {{#if hasControls}}
+      <div id="listnotes" class="listPages pages"></div>
+    {{/if}}
+    <div id="docsuploadContainer">  </div>
   </div>
+
+
 </div>

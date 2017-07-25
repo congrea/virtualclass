@@ -6,14 +6,74 @@
   overflow-y: auto;
   height: 85%;
   max-height: calc(100vh - 30px);
+  padding : 0;
 }
 
 #virtualclassCont #dashboardContainer .modal-body {
-  height : 95%;
+  height : 96%;
+  padding : 0;
 }
 
 #virtualclassCont #listdocs {
   height: 95%;
   max-height: 96%;
   overflow-y: auto;
+  margin-top : 8px;
+}
+
+#virtualclassCont.congrea .bootstrap  #congdashboard .modal-dialog{
+  /*width : 85%;*/
+}
+
+#virtualclassCont.congrea .dashboardview {
+  height : 100%;
+  margin : 0;
+  padding :0;
+}
+
+
+#virtualclassCont.congrea #docsuploadContainer {
+  margin:0;
+  padding:0;
+}
+
+#virtualclassCont.congrea #docsListContainer {
+  margin:0;
+  padding : 0;
+}
+
+#virtualclassCont.congrea  #listdocs .linkdocs .controlCont{
+  float: left;
+  width: 18px;
+  background: #6cad9d;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  margin-right: 8px;
+
+
+}
+
+#virtualclassCont.congrea  #listdocs .list-group-item{
+/*padding-left :0;*/
+  /*padding-right :0;*/
+  padding: 14px 0 14px 0;
+}
+
+#virtualclassCont.congrea #listdocs .linkdocs.list-group-item {
+   border : 1px solid  #f1f1f1;
+}
+
+/*#virtualclassCont.congrea  #listdocs .linkdocs .mainpreview {*/
+  /*float : right;*/
+
+/*}*/
+
+#virtualclassCont.congrea .dbContainer .linkdocs {
+  cursor : pointer;
+}
+
+
+#virtualclassCont.congrea #listdocs .linkdocs.list-group-item:hover {
+  background :#ade6d8;
 }

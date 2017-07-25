@@ -153,9 +153,9 @@ this["JST"]["templates/documentSharing/dashboard.hbs"] = Handlebars.template({"1
 
   return "<div class='dbContainer' data-app=\""
     + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
-    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\">\n    <div id=\"listdocs\" class=\"listPages pages\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\">Upload Documents</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview\">\n"
+    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\">Upload Documents</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <div id=\"docsuploadContainer\">  </div>\n  </div>\n\n\n</div>";
+    + "    <div id=\"docsuploadContainer\" class=\"col-sm-12\">  </div>\n  </div>\n\n\n</div>";
 },"useData":true});
 
 this["JST"]["templates/documentSharing/docsMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -175,7 +175,7 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
 
   return "<div class=\"link"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + " links\" id=\"link"
+    + " links list-group-item\" id=\"link"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\" data-screen=\""
@@ -190,7 +190,7 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
     + "\">\n      <a class=\"statusanch\">"
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "</a>\n    </div>\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\">delete</a>\n    </div>\n  </div>\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
+    + "</a>\n    </div>\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\" data-screen=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -241,11 +241,7 @@ this["JST"]["templates/documentSharing/notesNav.hbs"] = Handlebars.template({"co
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\" src=\""
     + alias4(((helper = (helper = helpers.content_path || (depth0 != null ? depth0.content_path : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content_path","hash":{},"data":data}) : helper)))
-    + "\">\n    <span class=\"thumbList tooltip2\" data-title=\""
-    + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
-    + "\">"
-    + alias4(((helper = (helper = helpers.thumbCount || (depth0 != null ? depth0.thumbCount : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"thumbCount","hash":{},"data":data}) : helper)))
-    + "</span>\n  </div>\n  <div id=\"controlCont"
+    + "\">\n  </div>\n  <div id=\"controlCont"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" class=\"controlCont\">\n    <div class=\"controls status\" data-status=\""
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))

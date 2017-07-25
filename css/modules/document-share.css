@@ -272,12 +272,12 @@
     color: #606060;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.delete::before {
+#virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before {
     content: "\ea0f";
     font-family: 'icomoon';
-    font-size: 18px;
+    font-size: 14px;
     padding-top: 0px;
-    color: #606060;
+    color: #ffffff;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controlCont {
@@ -438,14 +438,18 @@
     margin-bottom : 30px;
 }
 
-#virtualclassCont.congrea .linkdocs[data-selected='1'] .mainpreview {
-    background-color: rgba(55, 218, 82, 0.26);
-    padding: 5px;
+/*#virtualclassCont.congrea .linkdocs[data-selected='1'] .mainpreview {*/
+#virtualclassCont.congrea .linkdocs[data-selected='1']{
+    /*background-color: rgba(55, 218, 82, 0.26);*/
+    background-color: #ade6d8;
+    /*padding: 5px;*/
+    padding: 2px;
     border-radius: 3px;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1'] {
-    border-width: 0;
+    /*border-width: 0;*/
+    text-align : center;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1'] .controlCont {
@@ -555,29 +559,29 @@
     margin:auto;
 }
 
-#virtualclassCont.congrea #congdashboard #docsListContainer{
-    float:left;
-}
+/*#virtualclassCont.congrea #congdashboard #docsListContainer{*/
+    /*float:left;*/
+/*}*/
 
 
-#virtualclassCont.congrea .dashboardview, #virtualclassCont #docsuploadContainer{
-    width : 85%;
-    float: right;
-}
+/*#virtualclassCont.congrea .dashboardview, #virtualclassCont #docsuploadContainer{*/
+    /*width : 85%;*/
+    /*float: left;*/
+/*}*/
 
 
 #virtualclassCont .qq-upload-button-selector.qq-upload-button {
     display : none;
 }
 
-#virtualclassCont .dbContainer {
+#virtualclassCont .dashboardview {
     position : relative;
 }
 
 #virtualclassCont #docsuploadContainer {
     position: absolute;
-    top: 5px;
-    left: 150px;
+    /*top: 5px;*/
+    /*left: 150px;*/
 }
 
 
@@ -589,10 +593,11 @@
 
 #virtualclassCont .qq-uploader-selector.qq-uploader{
     width: 100%;
-    height: 73vh;
-    max-height: 80vh;
+    height: 81vh;
+    max-height: 81vh;
 }
 
 #virtualclassCont #docsListContainer .controlCont .controls.status{
     display : none;
 }
+

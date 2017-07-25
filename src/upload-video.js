@@ -923,10 +923,6 @@
 
                     }
 
-
-
-
-
                 },
                 createYoutubeUrlCont:function(cont){
                     var list = document.createElement("div");
@@ -1098,15 +1094,14 @@
                     var videoElem = document.getElementById("dispVideo");
                     videoElem.appendChild(vn);
 
-
                     var a = document.createElement("a");
                     a.setAttribute("href", "https://videojs.com/html5-video-support/");
                     a.setAttribute("target", "_blank");
                     a.innerHTML = "supports HTML5 video";
                     vn.appendChild(a);
 
-
                 },
+
                 setPlayerUrl: function (player, videoUrl, startFrom) {
                     player.src({type: 'video/webm', src: videoUrl});
                     player.src({type: 'video/mp4', src: videoUrl});
@@ -1290,19 +1285,25 @@
 
                     virtualclass.videoUl.getVideoList();
 
+                    //
+                    // var fineUploader = document.querySelector(".congrea .qq-uploader-selector.qq-uploader.qq-gallery");
+                    // var cont = document.querySelector("#congreavideoContBody");
+                    // var videolist = document.querySelector("#listvideo");
+                    // if(videolist){
+                    //     cont.insertBefore(videolist,fineUploader);
+                    // }else{
+                    //     cont.appendChild(fineUploader);
+                    // }
 
-                    var fineUploader = document.querySelector(".congrea .qq-uploader-selector.qq-uploader.qq-gallery");
-                    var cont = document.querySelector("#congreavideoContBody");
-                    var videolist = document.querySelector("#listvideo");
-                    cont.insertBefore(videolist,fineUploader);
 
                     var cont =  document.querySelector("#uploadMsz")
                     var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");
                     cont.appendChild(msz);
-
-                    var btn = document.querySelector(".qq-upload-button-selector.qq-upload-button");
-                    //var videolist = document.querySelector("#congreaShareVideoUrlCont");
-                  //  urlcont.appendChild(btn);
+                    var btn = $(".qq-upload-list-selector.qq-upload-button input");
+                    var btnUpload= $("#uploadVideo");
+                    btnUpload.click(function(){
+                        btn.click();
+                    })
 
                 }
 

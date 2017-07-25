@@ -28,10 +28,10 @@
                 this.UI.container();
 
              //   var elem = document.getElementById('docScreenContainer');
-
-                if(roles.hasControls()){
-                  virtualclass.vutil.attachEventToUploadTab('docs', ["dtsPopupContainer"], virtualclass.vutil.modalPopup);
-                }
+                //nirmala
+                // if(roles.hasControls()){
+                //   virtualclass.vutil.attachEventToUploadTab('docs', ["dtsPopupContainer"], virtualclass.vutil.modalPopup);
+                // }
 
                 this.pages = {};
                 this.notes = {};
@@ -674,8 +674,16 @@
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         $('#virtualclassAppLeftPanel').append(template(data));
 
-                        var dashboard = virtualclass.vutil.getDocsDashBoard();
-                        $('#congdashboard .modal-body').append(dashboard);
+                        if(document.querySelector('#congdashboard') ==  null){
+                            var dashboardTemp = virtualclass.getTemplate('dashboard');
+                            var dbHtml = dashboardTemp({app:"DocumentShare"});
+                            document.querySelector('#dashboardContainer').innerHTML = dbHtml;
+                        }
+
+
+
+                         // var dashboard = virtualclass.vutil.getDocsDashBoard();
+                         // $('#DocumentShareDashboard').append(dashboard);
 
                         //
                         //
@@ -688,6 +696,20 @@
                         //   virtualclass.vutil.modalPopup(type, elemArr);
                         // })
                     }
+                    if(document.querySelector('#DocumentShareDashboard') == null){
+                        var elem = document.createElement("div");
+                        var cont = document.querySelector('#congdashboard .modal-body')
+                        cont.appendChild(elem);
+                        elem.id ='DocumentShareDashboard'
+                    }
+
+
+
+
+                    if(document.querySelector('.docsDbCont') == null) {
+                        document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
+                    }
+
                 },
 
                 createMainContent : function (container, content, docId){

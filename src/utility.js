@@ -402,7 +402,7 @@
             }
         },
 
-        // TODO 
+        // TODO
         /***
          * Add class at body according to role
          */
@@ -570,7 +570,7 @@
                     prvAppObj.metaData = null; // if video is not started to share.
                 }
             }else if(virtualclass.currApp=="Poll"){
-                
+
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
@@ -668,8 +668,8 @@
 
             //by nirmala
             var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
-            localStorage.setItem('videoSwitch',videoSwitch);   
-            localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);  
+            localStorage.setItem('videoSwitch',videoSwitch);
+            localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
             io.disconnect();
         },
         initOnBeforeUnload: function(bname) {
@@ -932,7 +932,7 @@
                     virtualclass.vutil.addClass('virtualclassCont', 'presenter')
 
                 }
-                
+
                 virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 'p' : 't';
 
                 localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
@@ -944,7 +944,7 @@
                 }
 
                 if (virtualclass.currApp == 'Yts') {
-                   
+
                     var virtualclassYts = document.getElementById('virtualclassYts');
                     if (virtualclassYts != null) {
                         if (document.getElementById('player') == null) {
@@ -961,7 +961,7 @@
                         console.log('Player object is not ready');
                     }
                 } else if (virtualclass.currApp == 'SharePresentation') {
-                    
+
                     var virtualclassppt = document.getElementById('virtualclassSharePresentation');
                     if (virtualclassppt != null) {
                         if (document.getElementById('iframecontainer') == null) {
@@ -970,15 +970,15 @@
                     } else {
                         virtualclass.sharePt.UI.container();
                     }
-                    
+
                     if (roles.hasControls()) {
                         virtualclass.sharePt.initTeacherLayout();
                     }
-                    
+
                     if (roles.hasView()) {
                         virtualclass.sharePt.eventsObj = [];
                     }
-                    
+
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
                     virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 }
@@ -992,22 +992,22 @@
                 }
 
                 if (virtualclass.currApp == 'SharePresentation') {
-                    
+
                     if (roles.hasControls()) {
                          virtualclass.sharePt.initStudentLayout();
                     }
-                    
+
                     if (roles.hasView()) {
                         virtualclass.sharePt.eventsObj = [];
                         virtualclass.sharePt.hideElement('pptMessageLayout');
                         virtualclass.sharePt.UI.createUrlContainer();
                         virtualclass.sharePt.displayElement('urlcontainer');
                     }
-                    
+
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
                     virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
                 }
-                
+
                 virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 's' : 'e';
                 var commandToolsWrapperId = 'commandToolsWrapper_doc_0_0';
                 // var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
@@ -1059,7 +1059,7 @@
 
             // If teacher is disconnected then
             // there would come the porblem on editor of assigning role to student while continuous writting by him.
-            
+
             if(!roles.hasAdmin()){
                 io. disconnect();
                 setTimeout(
@@ -1702,7 +1702,19 @@
               })
             }
         },
-
+        attachEventToUpload : function (type, elemArr, cb) {
+            var btn = document.getElementById("uploadVideo")
+            if(btn != null){
+                btn.addEventListener("click", function (){
+                    var element = document.querySelector('.qq-upload-button-selector.qq-upload-button input');
+                    if(element != null){
+                        element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
+                    }else {
+                        alert('Element is null');
+                    }
+                })
+            }
+        },
         modalPopup: function (type, elemArr) {
             var upload = {};
             if(type == 'video'){
@@ -1711,7 +1723,7 @@
                     this.currPlaying = id;
                 }
                 upload.validation = ['mp4', 'webm'];
-                upload.cb = virtualclass.videoUl.afterUploadVideo;                
+                upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.cthis = 'video';
                 upload.multiple = false;
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
@@ -1728,10 +1740,10 @@
            //  virtualclass.fineUploader.generateModal(type, elemArr)
             // virtualclass.fineUploader.initModal(type);
             upload.wrapper = document.getElementById(elemArr[0]);
-            
-            
+
+
             //upload.requesteEndPoint = "https://local.vidya.io/congrea_te_online/example/upload.php";
-            
+
             virtualclass.fineUploader.uploaderFn(upload);
 
             // TODO this need to be outside the function
@@ -1739,7 +1751,7 @@
             //     virtualclass.videoUl.UI.inputUrl();
             // }
         },
-        
+
         xhrSendWithForm : function (data, methodname, cb){
             var form_data = new FormData();
             for ( var key in data ) {
@@ -1750,7 +1762,7 @@
             } else {
                 var path = window.webapi + "&methodname="+ methodname +"&user="+virtualclass.gObj.uid;
             }
-            
+
             if(typeof cb != 'undefined' ){
                 virtualclass.xhr.sendFormData(form_data, path, cb);
             } else {
@@ -1767,13 +1779,13 @@
             saveButton.appendChild(span);
             return saveButton;
         },
-        
+
         initTechSupportUi : function (){
             var virtualclassApp = document.querySelector('#virtualclassApp');
             if(virtualclassApp != null){
                 if(!virtualclass.isPlayMode){
                     var saveButton = this.createSaveButton();
-                } 
+                }
                 var that = this;
                 saveButton.addEventListener('click', function (){
                     that.intiRecoringByTechSupport();
@@ -1783,7 +1795,7 @@
                 }
             }
         },
-        
+
         intiRecoringByTechSupport : function (){
             virtualclass.popup.confirmInput(virtualclass.lang.getString('savesessionTechSupport'), function (confirm) {
                 if (confirm) {
@@ -1801,7 +1813,7 @@
             $('#chatWidget').height(height);
             this.setChatHeight(height);
         },
-        
+
         setChatHeight : function (height){
             var height = height - 40;
             if(virtualclass.isPlayMode){
@@ -1809,7 +1821,7 @@
             }
             $('#chat_div').height(height);
         },
-        
+
         alreadyConnected : function (userId){
             if(virtualclass.connectedUsers.length > 0){
                 var result = virtualclass.connectedUsers.filter(function( obj ) {
@@ -1820,7 +1832,7 @@
                 return false;
             }
         },
-          
+
         UTCtoLocalTime : function (time) {
             var date = new Date(time);
 
@@ -1878,25 +1890,77 @@
           // in any other application we can handle
           // dashoard content in own style
           if(currApp == 'DocumentShare'){
-            if(document.querySelector('docsDbCont') == null){
-              document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
-              if(roles.hasControls()){
-                // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
-                virtualclass.vutil.attachEventToUploadTab();
-                virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+
+              if(document.querySelector('#'+currApp+'Dashboard') == null){
+                  var elem = document.createElement("div");
+                  var cont = document.querySelector('#congdashboard .modal-body')
+                  cont.appendChild(elem);
+                  elem.id =currApp+'Dashboard'
               }
+
+
+            if(document.querySelector('.docsDbCont') == null){
+             // document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
+
             }
+              if(roles.hasControls()){
+                  // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
+                  virtualclass.vutil.attachEventToUploadTab();
+                  virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+              }
+
 
           }else if(currApp == 'Video'){
-            var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-            var dbHtml = videoDashboard();
-            document.querySelector('#'+currApp+'Dashboard').innerHTML=dbHtml;
-            virtualclass.videoUl.UI.popup();
+
+              if(document.querySelector('#'+currApp+'Dashboard') == null){
+                  var elem = document.createElement("div");
+                  var cont = document.querySelector('#congdashboard .modal-body')
+                  cont.appendChild(elem);
+                  elem.id =currApp+'Dashboard'
+              }
+
+              var videocont= document.querySelector('#videoPopup');
+              if(!videocont){
+                  var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                  var dbHtml = videoDashboard();
+                  $('#VideoDashboard').append(dbHtml);
+                  //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                  virtualclass.videoUl.UI.popup();
+                  virtualclass.vutil.attachEventToUpload();
+
+              }
+
+            //document.querySelector('#congdashboard .modal-body').innerHTML=dbHtml;
+
           }
         },
 
         initDashboard : function (currApp){
-            var mainContainer = document.querySelector('#mainContainer')
+            var mainContainer = document.querySelector('#mainContainer');
+            if(currApp == "Video"){
+                var dscont=  document.querySelector('.dashboardContainer #docsDbCont')
+                if(dscont){
+                    dscont.style.display="none";
+                }
+                var videocont=  document.querySelector('.dashboardContainer #videoPopup')
+                if(videocont){
+                    videocont.style.display="block";
+                }
+
+
+
+            }
+            else if (currApp == "DocumentShare"){
+                var videocont=  document.querySelector('.dashboardContainer #videoPopup')
+                if(videocont){
+                    videocont.style.display="none";
+                }
+                var dscont=  document.querySelector('.dashboardContainer #docsDbCont')
+                if(dscont){
+                    dscont.style.display="block";
+                }
+
+            }
             // if(mainContainer == null){
             //     var dashboard = virtualclass.getTemplate('dashboard');
             //     var context = {app : virtualclass.currApp};

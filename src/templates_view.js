@@ -127,11 +127,7 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function
 },"useData":true});
 
 this["JST"]["templates/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "<div id=\"congdashboard\" class=\"modal in\"  role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content dashboardContainer\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\">Modal Header</h4>\n      </div>\n      <div class=\"modal-body\" id=\""
-    + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"app","hash":{},"data":data}) : helper)))
-    + "Dashboard\"> </div>\n    </div>\n  </div>\n</div>";
+    return "<div id=\"congdashboard\" class=\"modal in\"  role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content dashboardContainer\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\">Modal Header</h4>\n      </div>\n      <div class=\"modal-body\" >\n\n\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/dashboardCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -620,6 +616,18 @@ this["JST"]["templates/teacherVideo.hbs"] = Handlebars.template({"1":function(co
     + "</div>\n\n";
 },"useData":true});
 
+this["JST"]["templates/videoupload/dashboard.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return "      <div id=\"listvideos\" class=\"listVideos videos\"></div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+
+  return "<div class='dbContainer' data-app=\""
+    + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
+    + "\" id=\"videoDbCont\">\n  <div id=\"videoListContainer\">\n    <div id=\"listdocs\" class=\"listPages pages\"></div>\n    <div id=\"newvideoBtnCont\">\n      <button id=\"newVideoBtn\">Upload Videos</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview\">\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    <div id=\"videouploadContainer\">  </div>\n  </div>\n</div>";
+},"useData":true});
+
 this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression, alias5=container.lambda;
 
@@ -660,7 +668,7 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"compi
 },"useData":true});
 
 this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id =\"listvideo\">\n\n</div>\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n<div id = \"congreaShareVideoUrlCont\" class=\"row\">\n\n  <div id=\"videoUrlContainer\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >online video</button>\n  </div>\n\n</div>";
+    return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n<div id =\"listvideo\">\n\n</div>\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n<div id = \"congreaShareVideoUrlCont\" class=\"row\">\n  <div id =\"uploadBtnCont\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >upload video</button>\n  </div>\n  <div id=\"videoUrlContainer\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >online video</button>\n  </div>\n\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

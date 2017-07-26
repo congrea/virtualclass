@@ -147,13 +147,13 @@ this["JST"]["templates/dashboardNav.hbs"] = Handlebars.template({"compiler":[7,"
 },"useData":true});
 
 this["JST"]["templates/documentSharing/dashboard.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "      <div id=\"listnotes\" class=\"listPages pages\"></div>\n";
+    return "      <div id=\"listnotes\" class=\"listPages pages col-sm-12\"></div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<div class='dbContainer' data-app=\""
     + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
-    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\">Upload Documents</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n"
+    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\" class=\"btn-default btn\"><span class=\"glyphicon glyphicon-upload\"></span>  Upload Document</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    <div id=\"docsuploadContainer\" class=\"col-sm-12\">  </div>\n  </div>\n\n\n</div>";
 },"useData":true});
@@ -223,7 +223,7 @@ this["JST"]["templates/documentSharing/notesMain.hbs"] = Handlebars.template({"1
 this["JST"]["templates/documentSharing/notesNav.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div class=\"linknotes links\" id=\"link"
+  return "<div class=\"linknotes links col-sm-2\" id=\"link"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" data-screen=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))

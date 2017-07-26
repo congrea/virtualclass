@@ -15,10 +15,11 @@
 }
 
 #virtualclassCont #listdocs {
-  height: 95%;
-  max-height: 96%;
+  height: 93.7%;
+  /*max-height: 96%;*/
   overflow-y: auto;
-  margin-top : 8px;
+  margin-bottom :0;
+  /*margin-top : 8px;*/
 }
 
 #virtualclassCont.congrea .bootstrap  #congdashboard .modal-dialog{
@@ -29,6 +30,7 @@
   height : 100%;
   margin : 0;
   padding :0;
+  margin-left : 16.5%;
 }
 
 
@@ -45,19 +47,20 @@
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont{
   float: left;
   width: 18px;
-  background: #6cad9d;
+  background: #3c3e3d;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-
   margin-right: 8px;
-
-
 }
 
+#virtualclassCont.congrea  #listdocs .linkdocs .controlCont:hover{
+  background : #ad0505;
+}
+
+
+
 #virtualclassCont.congrea  #listdocs .list-group-item{
-/*padding-left :0;*/
-  /*padding-right :0;*/
-  padding: 14px 0 14px 0;
+  padding: 13px 0 13px 0;
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs.list-group-item {
@@ -69,11 +72,103 @@
 
 /*}*/
 
-#virtualclassCont.congrea .dbContainer .linkdocs {
+#virtualclassCont.congrea .dbContainer .linkdocs .mainpreview, #virtualclassCont.congrea .dbContainer .linkdocs  .controlCont {
   cursor : pointer;
+}
+
+#virtualclassCont.congrea .linkdocs[data-selected='1']{
+  padding: 2px;
+  border-radius: 3px;
+  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
+  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
+  color : #fff;
+  text-align : center;
 }
 
 
 #virtualclassCont.congrea #listdocs .linkdocs.list-group-item:hover {
-  background :#ade6d8;
+  /*background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);*/
+  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
+  color : #fff;
+}
+
+#virtualclassCont.congrea  #newDocBtn.btn-default:hover, #virtualclassCont.congrea #newdocsBtnCont:hover{
+  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
+}
+
+#virtualclassCont.congrea #docsListContainer {
+  height : 95%;
+  position : fixed;
+  border-right : 1px solid #eee;
+}
+
+#virtualclassCont.congrea #newDocBtn.btn-default{
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  border-radius: 0;
+  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 4px;
+  padding: 8px;
+  color : #fff;
+  height : 55px;
+
+}
+
+
+
+#virtualclassCont.congrea #newdocsBtnCont {
+  /*margin-top : -23px;*/
+}
+
+#virtualclassCont.congrea #congdashboard.modal .modal-header{
+  padding : 6px;
+}
+
+/** for dashboard grid  view */
+#virtualclassCont.congrea #listnotes .linknotes.links {
+  /*margin: 3px;*/
+  /*width: 13%;*/
+  position: relative;
+  /*background: #eee;*/
+  border-radius: 3px;
+  height: 13em;
+  /* margin-bottom: 30px; */
+  /*border: 1px solid #ddd;*/
+  margin :2% 2% 0 1%;
+}
+
+
+#virtualclassCont.congrea #docsuploadContainer {
+  position : absolute;
+  top : 0;
+}
+
+#virtualclassCont #listnotes .mainpreview{
+  /*margin-top : 1.5%;*/
+  border: 1px solid #ddd;
+  border-radius : 4px;
+  width : 123%;
+  padding : 2px;
+  cursor : pointer;
+}
+
+#virtualclassCont #listnotes linknotes.links {
+  padding-left :0;
+  padding-right:0;
+}
+
+
+#virtualclassCont #listnotes .mainpreview:hover {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+}
+
+
+#virtualclassCont.congrea .currentNav .mainpreview {
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+}
+
+#virtualclassCont.congrea .controlCont {
+  /*display : none;*/
 }

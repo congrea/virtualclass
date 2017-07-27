@@ -5,12 +5,15 @@
 #virtualclassCont #dashboardContainer .modal .modal-content {
   overflow-y: auto;
   height: 85%;
-  max-height: calc(100vh - 30px);
+  max-height: 85%;
   padding : 0;
 }
-
+#virtualclassCont #dashboardContainer .modal .modal-header {
+    height : 7%;
+}
 #virtualclassCont #dashboardContainer .modal-body {
-  height : 96%;
+  height : 93%;
+  max-height : 93%;
   padding : 0;
 }
 
@@ -30,7 +33,6 @@
   height : 100%;
   margin : 0;
   padding :0;
-  margin-left : 16.5%;
 }
 
 
@@ -98,7 +100,7 @@
 
 #virtualclassCont.congrea #docsListContainer {
   height : 95%;
-  position : fixed;
+  /* position : fixed; */
   border-right : 1px solid #eee;
 }
 
@@ -142,6 +144,7 @@
 #virtualclassCont.congrea #docsuploadContainer {
   position : absolute;
   top : 0;
+  height : 100%;
 }
 
 #virtualclassCont #listnotes .mainpreview{
@@ -171,4 +174,11 @@
 
 #virtualclassCont.congrea .controlCont {
   /*display : none;*/
+}
+
+#virtualclassCont.congrea #listnotes {
+    position : absolute;
+    height : 100%;
+    max-height : 100%;
+    overflow-y : auto;
 }

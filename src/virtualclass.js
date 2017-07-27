@@ -210,7 +210,7 @@
                 //virtualclass.dts  = window.documentShare();
 
                 //virtualclass.documentShare.init();
-
+                virtualclass.networkStatus();
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
                 }
@@ -222,6 +222,40 @@
 
                 })
 
+
+            },
+
+            networkStatus: function(){
+                var netstatus = virtualclass.getTemplate('network');
+                var context = {suggestion:'low',
+                    latency:'slow',
+                    quality:'low'};
+                var netstatushtml = netstatus(context);
+                // $('#vedioPacket').append(netstatushtml);
+
+                popoverOptions = {
+                    content: function () {
+                        // Get the content from the hidden sibling.
+                        //virtualclass.media.initVideoInfo();
+                        return netstatushtml;
+                    },
+                    html : true,
+                    trigger: 'hover',
+                    // animation: false,
+                    placement: 'bottom'
+                };
+                $('#ntkstatus').popover(popoverOptions);
+
+                $('#ntkstatus').on('shown.bs.popover', function () {
+                    // do something…
+                    //initVideoInfo
+                    virtualclass.videoHost.initVideoInfo();
+                });
+
+                $('#ntkstatus').on('hide.bs.popover', function () {
+                    // do something…
+                    clearInterval( virtualclass.videoHost.videoInfoInterval);
+                });
 
             },
 
@@ -309,28 +343,28 @@
 
                     //var appCont = document.getElementById(this.id);
 
-                    // var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
-                    // var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
-                    // appCont.insertBefore(appOptCont, appCont.firstChild);
+                    var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
+                    var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
+                    appCont.insertBefore(appOptCont, appCont.firstChild);
 
-                    // if(roles.hasAdmin()){
-                    //     this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
-                    //     this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
-                    //     this.createDiv(virtualclass.qzConfig.id + "Tool", "quiz", appOptCont, virtualclass.qzConfig.classes);
-                    // }
-                    //
-                    //
-                    // this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
-                    // this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
-                    // this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
-                    // this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
-                    // this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
-                    // this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
-                    //
-                    // if(roles.hasAdmin()){
-                    //     this.createDiv(virtualclass.dtsConfig.id + "Tool", "documentShare", appOptCont, virtualclass.dtsConfig.classes);
-                    //     this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    // }
+                    if(roles.hasAdmin()){
+                        this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
+                        this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
+                        this.createDiv(virtualclass.qzConfig.id + "Tool", "quiz", appOptCont, virtualclass.qzConfig.classes);
+                    }
+
+
+                    this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
+                    this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
+                    this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
+                    this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
+                    this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
+                    this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
+
+                    if(roles.hasAdmin()){
+                        this.createDiv(virtualclass.dtsConfig.id + "Tool", "documentShare", appOptCont, virtualclass.dtsConfig.classes);
+                        this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
+                    }
 
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.view.disableSSUI();

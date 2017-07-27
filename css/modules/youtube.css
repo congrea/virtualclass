@@ -113,7 +113,7 @@
 
 #virtualclassCont.congrea #youtubeUrlContainer #submitURL:hover {
   background-color: #68a697;
-  background-image: none;
+  /*background-image: none;*/
 }
 
 #youtubeUrlContainer {

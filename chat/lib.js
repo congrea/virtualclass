@@ -94,7 +94,7 @@ function memberUpdate(e, addType) {
         $('#ml' + elem.userid).addClass("online").removeClass("offline");
       
     })
-    
+
 }
 
 function messageUpdate(e) {
@@ -116,7 +116,7 @@ function messageUpdate(e) {
             $("#chat_room").chatroom("option").messageSent(from, msg);
         } else {
             if ($("div#chat_room").length == 0) {
-                var d = document.createElement('div');
+                var d = document.createElement('ul');
                 d.id = 'chat_room';
                 document.body.appendChild(d);
                 virtualclass.chat.chatroombox = $("#chat_room").chatroom({
@@ -267,7 +267,7 @@ function displaycomChatHistory() {
     //if(sessionStorage.length > 1 || (sessionStorage.length == 1 && sessionStorage.getItem('chatroom_status') == null) ){
     var storageChat = localStorage.getItem('chatroom');
     if (storageChat != null) {
-        var d = document.createElement('div');
+        var d = document.createElement('ul');
         d.id = 'chat_room';
         document.body.appendChild(d);
         var data = JSON.parse(storageChat);
@@ -356,7 +356,7 @@ function displayPvtChatHistory() {
  Dialog box to display error messages
  */
 function display_error(msg) {
-    $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
+    // $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
     $("#dialog").html(msg);
     $('#dialog').dialog();
 }

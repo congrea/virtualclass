@@ -437,7 +437,7 @@
                 clickOnceSpeaker: function (id, alwaysDisable) {
                     var tag = document.getElementById(id);
                     var alwaysPressElem = document.getElementById('speakerPressing');
-                    var anchor = tag.getElementsByClassName('tooltip')[0];
+                    var anchor = tag.getElementsByClassName('congtooltip')[0];
 
 
                     if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {

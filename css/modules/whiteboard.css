@@ -93,3 +93,7 @@
   margin-left: 0px;
   margin-right: 20px;
 }
+
+#virtualclassCont.congrea #docScreenContainer .pageContainer {
+  /*border:1px dotted #dddddd;*/
+}

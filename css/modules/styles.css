@@ -19,11 +19,6 @@
 	position: relative;
 }
 
-
-/*#virtualclassCont.congrea a, #virtualclassCont.congrea canvas , #virtualclassCont.congrea #canvasWrapper #canvas {*/
-	/*outline : none;*/
-/*}*/
-
 #virtualclassCont.congrea .clear, #virtualclassCont.congrea #conControler,
 #virtualclassCont.congrea #virtualclassOptionsCont,
 #virtualclassCont.congrea .msgBoxCanvasimg,
@@ -54,7 +49,6 @@
 	padding : 15px;
 	line-height : 120%;
 	letter-spacing : 0.3px;
-	/*width : auto;*/
 	font-size : 12px;
 }
 
@@ -255,7 +249,6 @@
 	margin : 0;
 	outline : 1px solid #5A5757;
 	margin-left : 2px;
-	/*margin-right : 10px;*/
 }
 
 #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
@@ -276,7 +269,6 @@
 
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
-	/*border : #eee solid 2px;*/
 	box-shadow : 0 0 1px #333;
 	border-radius : 2px;
 	outline : none;
@@ -512,19 +504,11 @@
 	z-index : 0;
 }
 
-
-
-/*#virtualclassCont.congrea .congtooltip:hover {*/
-	/*text-decoration : none;*/
-/*}*/
-
-
 #virtualclassCont.congrea .congtooltip:hover:after {
 	background : #fff;
 	border : #ccc solid 0px;
 	border-radius : 0.25em;
 	bottom : -3em;
-	/*color : #fff;*/
 	content : attr(data-title);
 	display : block;
 	left : -1em;
@@ -970,10 +954,6 @@
 	line-height : 125%;
 }
 
-/*#virtualclassCont.congrea #chat_div .ui-memblist-usr {*/
-
-/*}*/
-
 #virtualclassCont.congrea div.ui-memblist-usr video {
 	width : 52px;
 	height : 40px;
@@ -998,11 +978,6 @@
 #virtualclassCont.congrea div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 	margin-top : 3px;
 }
-
-/*#virtualclassCont.congrea #chat_div {*/
-	/*padding-bottom : 0px;*/
-	/*min-height : 144px;*/
-/*}*/
 
 #virtualclassCont.congrea.student #vcanvas {
 	border-top-width : 5px;
@@ -1050,11 +1025,8 @@
 	font-weight : 200;
 	float: left;
 	margin-top: 4px;
+	margin-right: 2px;
 }
-
-/*#virtualclassCont.congrea .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont.congrea .vmchat_room_bt .inner_bt #chatroom_text {*/
-	/*font-weight : normal;*/
-/*}*/
 
 #virtualclassCont.congrea #chatroom_text .icon-arrow-down, #virtualclassCont.congrea #chatroom_text .icon-arrow-up{
 	padding-left: 7px;
@@ -1092,12 +1064,9 @@
 	margin-top : 10px;
 	margin-bottom: 10px;
 	margin-right: 10px;
-	/*float : left;*/
-	/*background-color : #f2f2f2;*/
 	padding : 0px;
 	border-radius : 100%;
 	border : #bbb solid 1px;
-	/*margin: 8px 5px 7px 3px;*/
 	width: 52px;
 	height: 45px;
 	cursor: pointer;
@@ -1134,7 +1103,6 @@
 
 #virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {
 	float : left;
-	/*width : 25px;*/
 	text-align: center;
 }
 
@@ -1180,10 +1148,6 @@
 	height : 99%;
 }
 
-/*#virtualclassCont.congrea .ui-memblist {*/
-	/*right : px !important;*/
-/*}*/
-
 #virtualclassCont.congrea .controls a.audEnableSign img {
 	margin-left : -2px;
 }
@@ -1195,10 +1159,6 @@
 #virtualclassCont.congrea #usertab_icon {
 	margin : 6px 6px 0 0;
 }
-
-/*#user_list .inner_bt #usertab_text{*/
-	/*text-align: left;*/
-/*}*/
 
 #virtualclassCont.congrea .ui-widget.disable {
 	opacity : 0.4000000059604644775390625;
@@ -1270,11 +1230,6 @@
 	top : -7px;
 }
 
-/*#virtualclassCont.congrea #speakerPressOnce #speakerPressonceAnch span {*/
-	/*margin-top : 21px;*/
-	/*margin-bottom : 21px;*/
-/*}*/
-
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover:after {
 	bottom : 2.7em;
 	left: 0.2em;
@@ -1328,7 +1283,6 @@
 	background: -o-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* Opera 12+ */
 	background: -ms-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* IE10+ */
 	background: radial-gradient(ellipse at center, #e06f0d 0%, #f4a52e 100%); /* W3C */
-	/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e06f0d', endColorstr='#f4a52e', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #virtualclassCont.congrea #speakerPressOnce i.silenceDetect[data-silence-detect="sending"] {
@@ -1411,19 +1365,9 @@
 	line-height : 3px;
 }
 
-/*#virtualclassCont.congrea.orginalTeacher .ui-memblist-log div:last-child .controls .controleCont a.congtooltip:hover:after, #virtualclassCont.congrea.student .ui-memblist-log div:last-child .controls .controleCont a.congtooltip:hover:after {*/
-	/*bottom : 1.3em !important;*/
-/*}*/
-
 #virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover {
 	color : #000 !important;
 }
-
-/*#virtualclassCont.congrea #chatroom_bt2 .inner_bt {*/
-	/*padding : 0;*/
-	/*margin-top : 15px;*/
-	/*float: left;*/
-/*}*/
 
 #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header a.ui-corner-all.ui-chatbox-icon {
 	padding-top : 1px !important;
@@ -1815,12 +1759,6 @@
 #virtualclassCont.congrea .ui-memblist-usr.student , #virtualclassCont.congrea .ui-memblist-usr.mySelf.teacher[data-role="p"] , #virtualclassCont.congrea .ui-memblist-usr.mySelf.student[data-role="s"] {
 	border-bottom:#ddd 1px solid;
 }
-/*#virtualclassCont.congrea #chat_div, .ui-widget-content.ui-chatbox-content{*/
-	/*border:#8f8f8f 1px solid;*/
-/*}*/
-/*#virtualclassCont.congrea .ui-chatbox-log, #virtualclassCont.congrea .ui-chatbox-input{*/
-	/*border-color:#8f8f8f;*/
-/*}*/
 
 #virtualclassCont.congrea .ui-memblist-usr[data-role="p"]{
 	background-color: #f3fbe8;
@@ -1866,25 +1804,6 @@
 	bottom: -20px!important;
 }
 
-/*#virtualclassCont.congrea .ui-memblist-usr:last-child a img{*/
-	/*padding: 14px 16px;*/
-	/*margin-bottom:7px;*/
-	/*margin-top: 8px;*/
-/*}*/
-
-/*#virtualclassCont.congrea.teacher.orginalTeacher[data-currapp="Yts"] #audioWidget,*/
-/*#virtualclassCont.congrea.teacher.orginalTeacher[data-currapp="ScreenShare"] #audioWidget{*/
-	/*right: 0px;*/
-/*}*/
-/*#virtualclassCont.congrea.teacher.orginalTeacher.educator[data-currapp="Yts"] #audioWidget{*/
-	/*right: 2px;*/
-/*}*/
-/*#virtualclassCont.congrea.student.presenter[data-currapp="ScreenShare"] #audioWidget,*/
-/*#virtualclassCont.congrea.student.presenter[data-currapp="Yts"] #audioWidget ,*/
-/*#virtualclassCont.congrea.student[data-currapp="Yts"] #audioWidget  {*/
-	/*right: 0px;*/
-/*}*/
-
 #virtualclassCont.congrea.playMode.student .writeModeBox{top: -60px;}
 
 #virtualclassCont.congrea #messageLayout, #virtualclassCont.congrea #pptMessageLayout{
@@ -1902,9 +1821,6 @@
 	left: 0;
 	right: 0;
 }
-/*#virtualclassCont.congrea .vmchat_bar_button{*/
-	/*border-color:#8f8f8f;*/
-/*}*/
 
 #virtualclassCont.congrea [placeholder="I want youTube video URL."], #virtualclassCont.congrea [placeholder="Insert image url"] {
 	font-weight: lighter;
@@ -2031,15 +1947,11 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#34404c', endColorstr='#515e69',GradientType=1 ); /* IE6-9 */
 
 }
-/*#virtualclassCont.congrea #audioWidget {*/
-	/*background: #515e69;*/
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#515e69', endColorstr='#34404c',GradientType=1 );*/
-/*}*/
+
 #virtualclassCont.congrea .commandToolsWrapper,
 #virtualclassCont.congrea .rv-vanilla-modal-header,
 #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText ,
 #virtualclassCont.congrea .commandToolsWrapper .tool.active a, #virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover {
-	/*background: #515e69; !* Old browsers *!*/
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#515e69', endColorstr='#34404c',GradientType=1 ); /* IE6-9 */
 
 
@@ -2085,10 +1997,6 @@
 #virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover,
 #virtualclassCont.congrea #audioTest-box:hover,
 #virtualclassCont.congrea #audioWidget #speakerPressOnce:hover,
-/*#virtualclassCont.congrea #alwaysPress:hover{*/
-	/*background: #8d98a4; !* Old browsers *!*/
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8d98a4', endColorstr='#646d76',GradientType=1 ); !* IE6-9 fallback on horizontal gradient *!*/
-/*}*/
 
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a:hover span:before,
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active a span:before,
@@ -2096,10 +2004,6 @@
 #virtualclassCont.congrea #alwaysPress:hover,
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #askPlay #playButton:before,
-/*#virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before{*/
-
-	/*color: #fff !important;*/
-/*}*/
 
 #virtualclassCont.congrea .ui-widget-header .icon-user:before {
 	color:#fff;
@@ -2193,23 +2097,6 @@
 	border : 2px solid #ddd;
 }
 
-/*#virtualclassCont.congrea #videoPacketInfo {*/
-	/*clear  : both;*/
-	/*padding-top : 20px;*/
-	/*padding-left : 20px;*/
-	/*padding-bottom : 15px;*/
-	/*border: 2px solid #ddd;*/
-	/*border-top: 1px;*/
-/*}*/
-
-/*#virtualclassCont.congrea #videoPacketInfo #videoSpeed {*/
-	/*line-height : 150%;*/
-/*}*/
-
-/*#virtualclassCont.congrea.teacher  #videoPacketInfo, #virtualclassCont.congrea.student  #videoPacketInfo {*/
-	/*border : none;*/
-	/*padding-bottom :0;*/
-/*}*/
 /*#youtubeUrlContainer*/
 #virtualclassCont.congrea #urlcontainer {
 	z-index: 40;
@@ -2259,20 +2146,6 @@
 	border-left: 1px solid #bbb;
 }
 
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #speakerPressOnce #speakerPressonceAnch span {*/
-	/*margin-top: 20px;*/
-	/*margin-bottom: 19px;*/
-/*}*/
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo {float: left; clear: none; padding: 0;}*/
-
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videSpeedNumber,*/
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency,*/
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videoFrameRate {*/
-	/*padding: 23px 28px 16px;*/
-	/*border-right: 1px solid #5d6b76;*/
-	/*float: left;*/
-	/*color: #fff;*/
-/*}*/
 @-moz-document url-prefix() {
 	#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber,
 	#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency,
@@ -2281,19 +2154,6 @@
 	}
 }
 
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videSpeedNumber.congtooltip {*/
-	/*display: inline;*/
-	/*position: relative;*/
-	/*font-size: 14px;*/
-/*}*/
-
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videoFrameRate {border-width: 0;}*/
-
-/*#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {*/
-	/*width: 320px;;*/
-	/*border-width: 0;*/
-	/*border-radius: 0;*/
-/*}*/
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header {
 	border-radius: 0;
@@ -2543,23 +2403,7 @@
 	border-radius: 0;
 }
 
-#congreaShareVideoUrlCont.upload #videoUrlContainer {
-	border-radius: 6px;
-	border: 1px dashed #CCCCCC;
-	background-color: #FAFAFA;
-	padding: 40px 25%;
-}
-#congreaShareVideoUrlCont.upload #videoUrlContainer input {
-	padding: 10px 12px;
-	border-radius: 3px;
-	border: 1px solid #ddd;
-	width: 249px;
-	margin-left: -38px;
-}
-#congreaShareVideoUrlCont.upload #videoUrlContainer button {
-	margin-left: 6px;
-	padding: 8px 15px;
-}
+
 #videoPlayerCont{
 	height:90vh;
 }
@@ -2673,7 +2517,6 @@
 	margin: 15px;
 	font-size: 1.2em;
 	text-shadow: none;
-	/*color: #515151;*/
 }
 /* congrea quiz end*/
 
@@ -2686,7 +2529,7 @@
 	font-family: 'icomoon';
 	font-size: 18px;
 	padding-top: 0px;
-	color:"green";
+	color:green;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget.enable {
 	position: absolute;
@@ -2746,4 +2589,21 @@
 	font-size: 12px;
 	text-align: center;
 	letter-spacing: 0.02em;
+}
+
+#listvideo{
+  position:absolute;
+	overflow-y: scroll;
+	width:97%;
+
+}
+.congrea .linkvideo{
+	display:inline-block;
+	margin:5px;
+	height:150px;
+	position:relative;
+
+}
+.congrea #videoUrlContainer{
+	float:right;
 }

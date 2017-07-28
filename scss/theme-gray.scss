@@ -16,24 +16,12 @@ $hovercoloroftoolbox-2: #646d76;
 /* gray end */
 
 #virtualclassCont.congrea {
-    #virtualclassOptionsCont {
-        //border: $bordercoloroftoolbox 5px solid;
-    }
 
     #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont,
     #videoList #newVideoBtnCont{
         border-bottom: 1px solid $shadowofbottombar;
         background: $iconcolor;
         }
-
-    //#virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
-    //    background: -moz-linear-gradient(left, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* FF3.6+ */
-    //    background: -webkit-gradient(linear, left top, right top, color-stop(0%, $bgcoloroftoolbox-1), color-stop(100%, $bgcoloroftoolbox-2)); /* Chrome,Safari4+ */
-    //    background: -webkit-linear-gradient(left, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* Chrome10+,Safari5.1+ */
-    //    background: -o-linear-gradient(left, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* Opera 11.10+ */
-    //    background: -ms-linear-gradient(left, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* IE10+ */
-    //    background: linear-gradient(to right, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* W3C */
-    //    }
 
     #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,.commandToolsWrapper {
         background: -moz-linear-gradient(left, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* FF3.6+ */
@@ -43,15 +31,6 @@ $hovercoloroftoolbox-2: #646d76;
         background: -ms-linear-gradient(left, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* IE10+ */
         background: linear-gradient(to right, $bgcoloroftoolbox-1 0%, $bgcoloroftoolbox-2 100%); /* W3C */
         }
-
-    //#audioWidget {
-    //    background: -moz-linear-gradient(left, $bgcoloroftoolbox-2 0%, $bgcoloroftoolbox-1 100%); /* FF3.6+ */
-    //    background: -webkit-gradient(linear, left top, right top, color-stop(0%, $bgcoloroftoolbox-2), color-stop(100%, $bgcoloroftoolbox-1)); /* Chrome,Safari4+ */
-    //    background: -webkit-linear-gradient(left, $bgcoloroftoolbox-2 0%, $bgcoloroftoolbox-1 100%); /* Chrome10+,Safari5.1+ */
-    //    background: -o-linear-gradient(left, $bgcoloroftoolbox-2 0%, $bgcoloroftoolbox-1 100%); /* Opera 11.10+ */
-    //    background: -ms-linear-gradient(left, $bgcoloroftoolbox-2 0%, $bgcoloroftoolbox-1 100%); /* IE10+ */
-    //    background: linear-gradient(to right, $bgcoloroftoolbox-2 0%, $bgcoloroftoolbox-1 100%); /* W3C */
-    //    }
 
     #chatWidget .chatBarTab {
         background: $bgcoloroftoolbox-1;
@@ -67,9 +46,7 @@ $hovercoloroftoolbox-2: #646d76;
     .videoSwitchCont{
         border-right: 1px solid $linesbtwtoolbox;
     }
-    //.vmchat_bar_button{
-    //    border-right: 1px solid $linesbtwtoolbox;
-    //}
+
     /*bottom bar*/
     .ui-widget-header {
         background: -moz-linear-gradient(top, $bgcoloroftoolbox-2 0%, $bgcoloroftoolbox-1 100%) !important; /* FF3.6+ */
@@ -158,7 +135,6 @@ $hovercoloroftoolbox-2: #646d76;
     .containerWb .commandToolsWrapper .tool a:hover,
     #audioTest-box:hover,
     #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber:hover,
-    //#audioWidget #speakerPressOnce:hover,
     #alwaysPress:hover,
     .bootstrap .nav > li > a:hover, .bootstrap .nav > li > a:focus{
         background: -moz-radial-gradient(center, ellipse cover, $hovercoloroftoolbox-1 0%, $hovercoloroftoolbox-2 100%); /* FF3.6+ */
@@ -194,12 +170,6 @@ $hovercoloroftoolbox-2: #646d76;
         background-color: $bgcoloroftoolbox-2 !important;
     }
 
-    //.vmchat_room_bt.active,
-    //[data-currapp="EditorRich"] .vmchat_bar_button.active,
-    //.vmchat_support.active {
-    //    background-color: $selectedbuttonontoolbox-1;
-    //}
-
     #virtualclassOptionsCont,
     .tooltip,
     #t_reclaim .icon-educator:before,
@@ -220,8 +190,6 @@ $hovercoloroftoolbox-2: #646d76;
 
     #alwaysPress .audioTool.active,
     #virtualclassOptionsCont .appOptions.active,
-    //#virtualclassOptionsCont #virtualclassWhiteboardTool.active:hover,
-    //#virtualclassOptionsCont #virtualclassScreenShareTool.active:hover,
     #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover,
     #audioTest-box .audioTool.audioIsTesting {
         background: -moz-radial-gradient(center, ellipse cover, $selectedbuttonontoolbox-1 0%, $bttoncolorofeditortoolbox 100%); /* FF3.6+ */

@@ -186,6 +186,7 @@
   font-family: 'icomoon';
   font-size: 22px;
   padding-top: 0px;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency::before {

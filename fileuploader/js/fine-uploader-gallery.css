@@ -20,7 +20,6 @@
     display: inline;
     width: 105px;
     padding: 7px 10px;
-    float: left;
     text-align: center;
     background: #00ABC7;
     color: #FFFFFF;
@@ -29,7 +28,11 @@
     box-shadow: 0 1px 1px rgba(255, 255, 255, 0.37) inset,
     1px 0 1px rgba(255, 255, 255, 0.07) inset,
     0 1px 0 rgba(0, 0, 0, 0.36),
-    0 -2px 12px rgba(0, 0, 0, 0.08) inset
+    0 -2px 12px rgba(0, 0, 0, 0.08) inset;
+    position:fixed!important;
+    bottom:30px !important;
+    pointer-events:visible;
+
 }
 .qq-gallery .qq-upload-button-hover {
     background: #33B6CC;
@@ -43,13 +46,13 @@
 ------------------------------------------ */
 .qq-gallery.qq-uploader {
     position: relative;
-    min-height: 200px;
+    min-height: 350px;
     max-height: 490px;
     overflow-y: hidden;
     width: inherit;
     border-radius: 6px;
     border: 1px dashed #CCCCCC;
-    background-color: #FAFAFA;
+    background-color:rgba(0,0,0,0);
     padding: 20px;
 }
 .qq-gallery.qq-uploader:before {
@@ -123,7 +126,7 @@
     vertical-align: top;
 
     /* to ensure consistent size of tiles - may need to change if qq-max-size attr on preview img changes */
-    height: 186px;
+    height: 50px;
 }
 
 .qq-gallery .qq-upload-spinner,
@@ -288,7 +291,7 @@
     box-shadow: 0 0 1px 0 red;
     border: 0;
 }
-.qq-gallery .qq-progress-bar {
+ .qq-progress-bar {
     display: block;
     background: #00abc7;
     width: 0%;
@@ -297,12 +300,12 @@
     margin-bottom: 3px;
 }
 
-.qq-gallery .qq-total-progress-bar {
+.qq-total-progress-bar {
     height: 25px;
     border-radius: 9px;
 }
 
-.qq-gallery .qq-total-progress-bar-container {
+ .qq-total-progress-bar-container {
     margin-left: 9px;
     display: inline;
     float: right;
@@ -362,7 +365,7 @@
     height: 15px;
     vertical-align: text-bottom;
 }
-.qq-gallery .qq-delete-icon {
+ .qq-delete-icon {
     background: url("trash.gif");
     width: 15px;
     height: 15px;
@@ -409,8 +412,8 @@
     position: relative;
 
     /* to ensure consistent size of tiles - should match qq-max-size attribute value on qq-thumbnail-selector IMG element */
-    height: 120px;
-    width: 120px;
+    height: 20px;
+    width: 20px;
 }
 .qq-gallery .qq-thumbnail-selector {
     border-radius: 2px 2px 0 0;

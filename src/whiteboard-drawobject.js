@@ -51,7 +51,8 @@
             lastmousemovetime = null;
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
-
+            console.log('whitebaord start position x ' + tool.startPosX);
+            console.log('whitebaord start position y ' + tool.startPosY);
             virtualclass.wb[wId].gObj.spx = tool.startPosX;
             virtualclass.wb[wId].gObj.spy = tool.startPosY;
 

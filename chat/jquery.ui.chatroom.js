@@ -31,26 +31,39 @@
                     var msg = msgObj.msg;
                     var self = this;
                     var box = self.elem.uiChatboxLog;
-                    var e = document.createElement('div');
+                    var e = document.createElement('li');
+                    e.className="left clearfix";
                     box.append(e);
+
+                    var Img = document.createElement("span");
+                    Img.className="chat-img pull-left";
+                    e.appendChild(Img);
+
+                    var chatImg = document.createElement("img");
+                    chatImg.className="primary";
+                    chatImg.src="http://localhost/moodle32latest/mod/congrea/bundle/virtualclass/images/user.png";
+                    Img.appendChild(chatImg);
 
                     var systemMessage = false;
                     // suman 25
                     var chatContainer = document.createElement("div");
-                    chatContainer.className = "commonChatCon";
+                    chatContainer.className = "commonChatCon chat-body clearfix";
 
                     if (peer) {
-                        var peerName = document.createElement("b");
-                        $(peerName).text(peer + ": ");
+                        var peerName = document.createElement("a");
+                        peerName.className="primary-font";
+                        $(peerName).text(peer);
                         chatContainer.appendChild(peerName);
                     } else {
                         systemMessage = true;
                     }
 
-                    var msgElement = document.createElement(systemMessage ? "i" : "span");
+                    var msgElement = document.createElement(systemMessage ? "i" : "p");
+                    msgElement.className="text";
                     $(msgElement).text(msg);
 
                     var msgTime = document.createElement('span');
+                    msgTime.className="text-muted";
                     msgTime.innerHTML = time;
 
                     chatContainer.appendChild(msgElement);
@@ -58,12 +71,12 @@
 
                     e.appendChild(chatContainer);
 
-                    var msgCont = document.createElement('div');
-                    msgCont.className = 'msgCont';
-                    //suman 25;
-
-                    msgCont.appendChild(msgElement);
-                    e.appendChild(msgCont);
+                    // var msgCont = document.createElement('div');
+                    // msgCont.className = 'msgCont';
+                    // //suman 25;
+                    //
+                    // msgCont.appendChild(msgElement);
+                    chatContainer.appendChild(msgElement);
                     e.dataset.msgtime = msgObj.time;
 
                     $(e).addClass("ui-chatbox-msg");
@@ -122,16 +135,17 @@
                     uiChatboxLog = (self.uiChatboxLog = self.element)
                     .addClass('ui-widget-content ' + 'ui-chatbox-log')
                     .appendTo(uiChatboxContent),
-                    uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
-                    .addClass('ui-widget-content ' + 'ui-chatbox-input')
-                    .click(function (event) {
-                        // anything?
-                    })
-                    .appendTo(uiChatboxContent),
-                    uiChatboxInputBox = (self.uiChatboxInputBox = $('<textarea></textarea>'))
+                    // uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
+                    // .addClass('ui-widget-content ' + 'ui-chatbox-input') // saturday findout
+                    // .click(function (event) {
+                    //     // anything?
+                    // })
+                    // .appendTo(uiChatboxContent),
+                    uiChatboxInputBox = (self.uiChatboxInputBox = $('<input></input>'))
                     .addClass('ui-widget-content ' + 'ui-chatbox-input-box ')
-                    .prop('id', 'ta_chrm')
-                    .appendTo(uiChatboxInput)
+                    .prop('id', 'ta_chrm2')
+                        .prop('placeholder','send message ...')
+                    .appendTo(document.getElementById("congUserSearch"))
                     .keydown(function (event) {
                         if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
                             msg = $.trim($(this).val());
@@ -161,8 +175,8 @@
                     })
                     .focusin(function () {
                         uiChatboxInputBox.addClass('ui-chatbox-input-focus');
-                        var box = $(this).parent().prev();
-                        box.scrollTop(box.get(0).scrollHeight);
+                        // var box = $(this).parent().prev();
+                        // box.scrollTop(box.get(0).scrollHeight);
                     })
                     .focusout(function () {
                         uiChatboxInputBox.removeClass('ui-chatbox-input-focus');
@@ -215,7 +229,7 @@
         },
         _setWidth: function (width) {
             this.uiChatbox.width(width + "px");
-            this.uiChatboxInputBox.css("width", (width - 14) + "px");
+            // this.uiChatboxInputBox.css("width", (width - 14) + "px");
         },
         _position: function (offset) {
             this.uiChatbox.css("left", offset);

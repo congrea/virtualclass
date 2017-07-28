@@ -1,14 +1,16 @@
-<div class="userImg ui-memblist-usr offline student" id="ml{{peer.userid}}" data-role="student">
-  <a href="#{{peer.userid}}" class="congtooltip" data-title="Click to chat">
-    <img src="{{peer.img}}">
-  </a>
-  <div class="user-details">
+<div class="userImg ui-memblist-usr offline student media" id="ml{{peer.userid}}" data-role="student">
+
+  <div class="user-details media-body congtooltip" data-title="{{peer.name}} {{ peer.lname}}">
+    <a href="#{{peer.userid}}" class="pull-left">
+      <img class="media-object" src="{{peer.img}}">
+    </a>
     <div class="usern">
-      <span>{{peer.name}} {{ peer.lname}}</span>
+    <a href="#{{peer.userid}}" class="media-heading">{{peer.name}} {{ peer.lname}}</a>
     </div>
-    {{#if peer.notSelf}}
-      <div id="{{peer.userid}}ControlContainer" class="controls">
-      </div>
-    {{/if}}
+
   </div>
+  {{#if peer.notSelf}}
+    <div id="{{peer.userid}}ControlContainer" class="controls">
+    </div>
+  {{/if}}
 </div>

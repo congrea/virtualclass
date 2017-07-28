@@ -7,33 +7,17 @@ this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4
 this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div id=\"audioWidget\">\n  <div id=\"mainAudioPanel\">\n    <div id=\"speakerPressOnce\" class=\""
+  return "<div id=\"audioWidget\">\n  <ul class=\"nav navbar-nav\" id=\"mainAudioPanel\">\n    <li id=\"speakerPressOnce\" class=\""
     + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
     + "\" data-audio-playing="
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dap",{"name":"getString","hash":{},"data":data}))
     + ">\n      <a id=\"speakerPressonceAnch\" class=\"congtooltip\" data-title=\""
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
-    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </div>\n\n    <div id=\"videoPacketInfo\">\n      <span id=\"videoSpeed\">\n      <span id=\"videSpeedNumber\" class=\"suggestion congtooltip\" data-suggestion=\""
+    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </li>\n\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck \"  id=\"precheckSetting\" ></span></a>\n    </li>\n    <li class=\"videoSwitchCont congtooltip\" data-title=\"Vedio ON/OFF\" id=\"congCtrBar\">\n      <a id=\"rightCtlr\">\n        <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on \" ></span>\n      </a>\n    </li>\n    <li id=\"videSpeedNumber\" class=\"suggestion congtooltip\" data-suggestion=\""
     + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
-    + "\"> </span>\n      <span id=\"videLatency\" class=\"latency  congtooltip\" data-latency=\""
-    + alias4(((helper = (helper = helpers.latency || (depth0 != null ? depth0.latency : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"latency","hash":{},"data":data}) : helper)))
-    + "\" data-title=\""
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audiolatency",{"name":"getString","hash":{},"data":data}))
-    + "\">  </span>\n      <span id=\"videoFrameRate\" class=\"quality  congtooltip\" data-quality=\""
-    + alias4(((helper = (helper = helpers.quality || (depth0 != null ? depth0.quality : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"quality","hash":{},"data":data}) : helper)))
-    + "\" data-title=\""
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoquality",{"name":"getString","hash":{},"data":data}))
-    + "\"> </span>\n      </span>\n    </div>\n  </div>\n</div>";
-},"useData":true});
-
-this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n    <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496901386584_76\">\n      <textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta_chrm\" style=\"width: 290px;\"></textarea>\n    </div>\n  </div>\n</div>";
-},"useData":true});
-
-this["JST"]["templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n    <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496901386584_76\">\n      <textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta_chrm\" style=\"width: 290px;\"></textarea>\n    </div>\n  </div>\n</div>";
+    + "\"> </li>\n    <li id=\"vedioPacket\">\n      <a id=\"ntkstatus\">Network Status</a>\n    </li>\n  </ul>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -52,6 +36,10 @@ this["JST"]["templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,"
     + "\" class=\"ui-widget-content ui-chatbox-log\">\n\n      </div>\n      <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496992871757_59\"><textarea\n        class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" style=\"width: 219px;\"></textarea></div>\n    </div>\n  </div>\n</li>";
+},"useData":true});
+
+this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n    <div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\"\n         style=\"height: 389px; width: 320px; max-height: 429px;\">\n\n    </div>\n  </div>\n</div>\n\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/chat/chatcontroller.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -92,38 +80,42 @@ this["JST"]["templates/chat/chatcontroller.hbs"] = Handlebars.template({"compile
     + "contreditorCodeImg\" data-editorcode-disable=\"true\"\n                class=\"icon-editorCodeImg block editorCodeImg\">\n          </span>\n    </a>\n  </div>\n</div>";
 },"useData":true});
 
+this["JST"]["templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\">\n  <div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\">\n  </div>\n</div>\n<div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\"\n     style=\"width: 304px; left: 6px; display: none; z-index: 1;\">\n  <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\">\n    <div id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></div>\n  </div>\n</div>";
+},"useData":true});
+
 this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "      <div id=\""
+  return "    <div id=\""
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "ControlContainer\" class=\"controls\">\n      </div>\n";
+    + "ControlContainer\" class=\"controls\">\n    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "<div class=\"userImg ui-memblist-usr offline student\" id=\"ml"
+  return "<div class=\"userImg ui-memblist-usr offline student media\" id=\"ml"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" data-role=\"student\">\n  <a href=\"#"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" class=\"congtooltip\" data-title=\"Click to chat\">\n    <img src=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.img : stack1), depth0))
-    + "\">\n  </a>\n  <div class=\"user-details\">\n    <div class=\"usern\">\n      <span>"
+    + "\" data-role=\"student\">\n\n  <div class=\"user-details media-body congtooltip\" data-title=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.name : stack1), depth0))
     + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.lname : stack1), depth0))
-    + "</span>\n    </div>\n"
+    + "\">\n    <a href=\"#"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "\" class=\"pull-left\">\n      <img class=\"media-object\" src=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.img : stack1), depth0))
+    + "\">\n    </a>\n    <div class=\"usern\">\n    <a href=\"#"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "\" class=\"media-heading\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.name : stack1), depth0))
+    + " "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.lname : stack1), depth0))
+    + "</a>\n    </div>\n\n  </div>\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.notSelf : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  </div>\n</div>";
+    + "</div>";
 },"useData":true});
 
-this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "      <div class=\"uiMuteAll\">\n        <a id=\"contrAudioAll\">\n          <span id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable congtooltip\"\n                data-title=\"Mute All\">\n          </span>\n        </a>\n      </div>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div class=\"chatBarTab\">\n  <div class=\"vmchat_room_bt congtooltip\" data-title=\"Common Chat\" id=\"chatroom_bt2\">\n    <div class=\"inner_bt\">\n      <div id=\"chatroom_icon\"><span class=\"icon-chatroom\"></span></div>\n      <div id=\"chatroom_text\">Chatroom</div>\n    </div>\n  </div>\n  <div class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\"Pivate Chat\">\n    <div class=\"inner_bt\" id=\"yui_3_17_2_1_1496985300499_68\">\n      <div id=\"usertab_text\"><span id=\"onlineusertext\">Private Chat</span></div>\n    </div>\n  </div>\n</div>\n<div id=\"stickybar\" class=\"maximize\" style=\"z-index: 2000;\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n  <div class=\"footerCtr\" id=\"congFooterCtr\">\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <div class=\"prechk\" id=\"precheckTest\">\n      <span class=\"precheck congtooltip\" id=\"precheckSetting\">precheck</span>\n    </div>\n    <div class=\"videoSwitchCont\" id=\"congCtrBar\">\n      <div id=\"rightCtlr\">\n        <span id=\"videoSwitch\" class=\"video on\"></span>\n      </div>\n    </div>\n    <div class=\"vmchat_search\" id=\"congUserSearch\">\n      <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n             placeholder=\"search user ...\">\n    </div>\n  </div>\n</div>\n";
+this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<ul class=\"chatBarTab nav navbar-nav\">\n  <li class=\"vmchat_room_bt congtooltip\" data-title=\"Common Chat\" id=\"chatroom_bt2\">\n    <a class=\"inner_bt\">\n      <span id=\"chatroom_icon\"><span class=\"icon-chatroom\"></span></span>\n      <span id=\"chatroom_text\">Chatroom</span>\n    </a>\n  </li>\n  <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\"Pivate Chat\">\n    <a class=\"inner_bt\" id=\"yui_3_17_2_1_1496985300499_68\">\n      <span id=\"usertab_text\"><span id=\"onlineusertext\">Private Chat</span></span>\n    </a>\n  </li>\n  <li class=\"uiMuteAll\">\n    <a id=\"contrAudioAll\">\n          <span id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable congtooltip\"\n                data-title=\"Mute All\">\n          </span>\n    </a>\n  </li>\n</ul>\n<div id=\"stickybar\" class=\"maximize\" style=\"z-index: 2000;\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n  <div class=\"footerCtr\" id=\"congFooterCtr\">\n    <div class=\"vmchat_search\" id=\"congUserSearch\">\n      <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n             placeholder=\"search user ...\">\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -329,6 +321,20 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0
     + "</div>";
 },"usePartial":true,"useData":true});
 
+this["JST"]["templates/network.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"videoPacketInfo\">\n      <ul class=\"nav navbar-nav\" id=\"videoSpeed\">\n      <li id=\"videLatency\" class=\"latency  congtooltip btn btn-default\" data-latency=\""
+    + alias4(((helper = (helper = helpers.latency || (depth0 != null ? depth0.latency : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"latency","hash":{},"data":data}) : helper)))
+    + "\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audiolatency",{"name":"getString","hash":{},"data":data}))
+    + "\">  </li>\n      <li id=\"videoFrameRate\" class=\"quality  congtooltip btn btn-default\" data-quality=\""
+    + alias4(((helper = (helper = helpers.quality || (depth0 != null ? depth0.quality : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"quality","hash":{},"data":data}) : helper)))
+    + "\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoquality",{"name":"getString","hash":{},"data":data}))
+    + "\"> </li>\n      </ul>\n</div>";
+},"useData":true});
+
 this["JST"]["templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.escapeExpression;
 
@@ -361,26 +367,6 @@ this["JST"]["templates/poll/optioninput.hbs"] = Handlebars.template({"compiler":
     + "\" class=\"close\">×</a>\n</div>\n";
 },"useData":true});
 
-this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <div>\n          <input class=\"opt\" name=\"option\" value=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\" type=\"radio\" id=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\">\n          <label>"
-    + alias4(container.lambda(depth0, depth0))
-    + "</label>\n        </div>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"row\">\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"row\">\n    <div id=\"stdQnCont\" class=\"row\">"
-    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
-    + "</div>\n    <div id=\"stdOptionCont\" class=\"row\">\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n  </div>\n  <div id=\"stdContFooter\" class=\"row\">\n    <input id=\"btnVote\" class=\"btn btn-primary\" value =\"vote\">\n  </div>\n</div>";
-},"useData":true});
-
 this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "          <li role=\"presentation\" id=\"coursePollTab\" class=\"navListTab active\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls you will create are course specific\" data-original-title=\"\" title=\"\">\n            <a href=\"#\">Course Poll</a>\n          </li>\n          <li role=\"presentation\" id=\"sitePollTab\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls created here are of site level\" data-original-title=\"\" title=\"\">\n            <a href=\"# \">Site Poll</a>\n          </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {
@@ -401,6 +387,26 @@ this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(c
 
 this["JST"]["templates/poll/pollresultlist.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<table id=\"listViewTable\" class=\"table table-bordered\">\n  <thead>\n  <tr>\n    <th>NAME</th>\n    <th>OPTION SELECTED</th>\n  </tr>\n  </thead>\n  <tbody id=\"resultList\">\n\n  </tbody>\n</table>";
+},"useData":true});
+
+this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <div>\n          <input class=\"opt\" name=\"option\" value=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\"radio\" id=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\">\n          <label>"
+    + alias4(container.lambda(depth0, depth0))
+    + "</label>\n        </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"row\">\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"row\">\n    <div id=\"stdQnCont\" class=\"row\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</div>\n    <div id=\"stdOptionCont\" class=\"row\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\n  </div>\n  <div id=\"stdContFooter\" class=\"row\">\n    <input id=\"btnVote\" class=\"btn btn-primary\" value =\"vote\">\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/preview-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -577,7 +583,7 @@ this["JST"]["templates/recordingControl.hbs"] = Handlebars.template({"compiler":
 this["JST"]["templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar\">\n"
+  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap\">\n"
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.teacherVideo,depth0,{"name":"teacherVideo","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "  <div id=\"chatWidget\">\n    <div id=\"stickycontainer\"></div>\n    <div id=\"congreaChatCont\"></div>\n  </div>\n</div>";

@@ -376,9 +376,9 @@
 #virtualclassCont.congrea #downloadProgress{
 	background-color: #eee;
 }
-#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{
-	background-image: none;
-}
+/*#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{*/
+	/*background-image: none;*/
+/*}*/
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"]{
 	font-weight: normal;

@@ -181,7 +181,7 @@
   left: 18px;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videSpeedNumber::before {
+#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber::before {
   content: "\e907";
   font-family: 'icomoon';
   font-size: 22px;

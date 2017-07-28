@@ -563,14 +563,14 @@
 
 #virtualclassCont.congrea .vmchat_bar_button{
     border-right:none;
-    width:131px;
+    width:130px;
     cursor: pointer;
 }
 #virtualclassCont.congrea .vmchat_bar_button.active{
     background-color: rgba(0,0,0,0.25);
 }
 #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button{
-    width: 131px; /* add 100px , it was  218*/
+    width: 130px; /* add 100px , it was  218*/
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
@@ -583,7 +583,7 @@
 /*}*/
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button{
-    width: 131px;
+    width: 130px;
 }
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .ui-memblist{
@@ -591,7 +591,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] .vmchat_bar_button{
-    width: 131px;
+    width: 130px;
 }
 
 #virtualclassCont.congrea[data-currapp="Yts"] .ui-memblist{
@@ -599,7 +599,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp="Yts"] .vmchat_bar_button{
-    width: 131px;
+    width: 130px;
 }
 
 #virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .ui-memblist{
@@ -610,14 +610,14 @@
 }
 
 #virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .vmchat_bar_button{
-    width: 131px;
+    width: 130px;
 }
 
 #virtualclassCont.congrea[data-currapp="EditorCode"] .ui-memblist{
     right: -1px !important;
 }
 #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button{
-    width: 131px;
+    width: 130px;
 }
 
 /* Gray color */

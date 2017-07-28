@@ -1,7 +1,7 @@
 #virtualclassCont.congrea #audioWidget .Tool .congtooltip:hover:after, #virtualclassCont.congrea #audioWidget .audioTool .congtooltip:hover:after {
-  bottom: -1.9em;
+  bottom: -2.8em;
   left: auto;
-  right: -10px;
+  right: -18px;
 }
 
 #virtualclassCont.congrea #audioWidget {
@@ -221,7 +221,7 @@
 
 #virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{
   content: "\e610";
-  font-size: 17px;
+  font-size: 18px;
   /*color: rgba(0,0,0,1.0);*/
 }
 
@@ -367,4 +367,7 @@
 
 #virtualclassCont.congrea #videoHostSource{
   height:240px;
+}
+#pollModalBody #chartMenuCont .col-sm-1 #barView,#pollModalBody #chartMenuCont .col-sm-1 #piView,#pollModalBody #chartMenuCont .col-sm-1 #listView{
+  color: #337ab7;
 }

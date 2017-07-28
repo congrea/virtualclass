@@ -107,6 +107,7 @@
   #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover,
   #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover,
   #virtualclassCont.congrea #audioTest-box:hover,
+  #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber:hover,
   #virtualclassCont.congrea #alwaysPress:hover,
   #virtualclassCont.congrea .bootstrap .nav > li > a:hover, #virtualclassCont.congrea .bootstrap .nav > li > a:focus {
     background: -moz-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%);

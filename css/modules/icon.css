@@ -12,20 +12,40 @@
   margin: 2px 36% 6px;
   float: left;
 }
-
+#virtualclassCont .icon-create-new:before {
+  content: "\e3ba";
+  font-size: 20px;
+  line-height: 12px;
+  margin-left: 0px;
+}
 #virtualclassCont .icon-poll:before {
   content: "\e916";
   font-size: 28px;
 }
-
+/*#virtualclassCont .icon-setting:before {*/
+  /*content: "\e991";*/
+  /*font-size: 13px;*/
+  /*color:#4c4c4c;*/
+  /*font-weight: bold;*/
+/*}*/
+/*#virtualclassCont .icon-help:before {*/
+  /*content: "\e928";*/
+  /*color:#4c4c4c;*/
+/*}*/
+/*#virtualclassCont .icon-creator:before {*/
+  /*content: "\e923";*/
+  /*color:#4c4c4c;*/
+/*}*/
 #virtualclassCont .icon-pencil2:before {
-  content: "\e91c";
-  font-size: 28px;
+  content: "\f044";
+  font-size: 18px !important;
+  color : #717171;
 }
 
 #virtualclassCont .icon-bin22:before {
-  content: "\e91a";
-  font-size: 28px;
+  content: "\f014";
+  font-size: 18px !important;
+  color: #717171;
 }
 
 #virtualclassCont .icon-stats-bars:before {
@@ -49,8 +69,9 @@
 }
 
 #virtualclassCont .icon-publish2:before {
-  content: "\e91b";
-  font-size: 28px;
+  content: "\e924";
+  font-size: 14px !important;
+  color : #717171;
 }
 
 #virtualclassCont.congrea .icon-editorRich:before {

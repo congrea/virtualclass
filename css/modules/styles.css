@@ -2336,16 +2336,11 @@
 }
 
 #virtualclassCont.congrea .headerContainer{
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: bold;
 	color: #717171;
 	text-transform: uppercase;
 	margin: 0 auto 20px auto !important;
-}
-#virtualclassCont.congrea .qnTextHeader
-/*#virtualclassCont.congrea .creatorHeader,*/
-/*#virtualclassCont.congrea .controlsHeader */{
-	padding-left: 10px !important;
 }
 
 #virtualclassCont.congrea .bootstrap .modal-dialog{
@@ -2412,7 +2407,7 @@
 #virtualclassCont.congrea .modal-header .modalHeaderTx{
 	font-weight: bold;
 	font-size: 16px;
-	color: #808080;
+	color: #3C3C3C;
 }
 #virtualclassCont.congrea .bootstrap .btn , #virtualclassCont.congrea .inputWrapper{
 	-webkit-border-radius: 6px;
@@ -2430,6 +2425,7 @@
 #virtualclassCont.congrea .addMoreCont a{
 	color: #333 !important;
 	margin-left: -3px;
+	margin-top : 10px;
 }
 #virtualclassCont.congrea .addMoreCont a:hover{
 	color: #727272 !important;
@@ -2619,8 +2615,6 @@
 	left: 0;
 	right: 0;
 }
-
-
 
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-progress-control,

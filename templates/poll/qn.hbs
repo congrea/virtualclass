@@ -1,22 +1,31 @@
 <tr id="contQn{{pollQn.pollType}}{{pollQn.index}}" class="vcPollCont">
   <td id="ctrQn{{pollQn.pollType}}{{pollQn.index}}" class="pollCtrCont">
-    <ul class="pollCtrContainer nav navbar-nav">
-      <li id="contQn{{pollQn.pollType}}{{pollQn.index}}E" class="editCont pull-left">
-        <a href="#" data-target="#editPollModal" id="editQn{{pollQn.pollType}}{{pollQn.index}}">
-          <span class="icon-pencil2" data-toggle="congtooltip" title="edit poll"></span>
-        </a>
-      </li>
-      <li id="contQn{{pollQn.pollType}}{{pollQn.index}}" class="deleteCont pull-left">
-        <a href="#" id="deleteQn{{pollQn.pollType}}{{pollQn.index}}">
-          <span class="icon-bin22" data-toggle="congtooltip" title="delete poll"></span>
-        </a>
-      </li>
-      <li class="publishCont pull-left" id="contQn{{pollQn.pollType}}{{pollQn.index}}P">
-        <a href="#" id="publishQn{{pollQn.pollType}}{{pollQn.index}}">
-          <span class="icon-publish2" data-toggle="congtooltip" title="publish poll"></span>
-        </a>
-      </li>
-    </ul>
+    <table class="miniTB">
+      <tr>
+        <td>
+        <div id="contQn{{pollQn.pollType}}{{pollQn.index}}E" class="editCont pull-left">
+          <a href="#" data-target="#editPollModal" id="editQn{{pollQn.pollType}}{{pollQn.index}}">
+            <span class="icon-pencil2" data-toggle="congtooltip" title="edit poll"></span>
+          </a>
+        </div>
+        </td>
+        <td>
+        <div id="contQn{{pollQn.pollType}}{{pollQn.index}}" class="deleteCont pull-left">
+          <a href="#" id="deleteQn{{pollQn.pollType}}{{pollQn.index}}">
+            <span class="icon-bin22" data-toggle="congtooltip" title="delete poll"></span>
+          </a>
+        </div>
+        </td>
+        <td>
+        <div class="publishCont pull-left" id="contQn{{pollQn.pollType}}{{pollQn.index}}P">
+          <a href="#" id="publishQn{{pollQn.pollType}}{{pollQn.index}}">
+            <span class="icon-publish2" data-toggle="congtooltip" title="publish poll"></span>
+          </a>
+        </div>
+        </td>
+      </tr>
+    </table>
+
   </td>
   <td id="qnText{{pollQn.pollType}}{{pollQn.index}}" class="qnText" data-toggle="popover" data-trigger="hover"
        data-original-title="" title="">{{pollQn.questiontext}}</td>

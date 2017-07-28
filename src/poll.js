@@ -646,10 +646,11 @@
 
                 var listcont = document.querySelector("#listQnContcourse tbody")
                 // *****reminder**change
-                while (listcont.childNodes.length>2) {
-                    listcont.removeChild(listcont.lastChild);
+                if(listcont) {
+                    while (listcont.childNodes.length > 2) {
+                        listcont.removeChild(listcont.lastChild);
+                    }
                 }
-
                 // to modify parameters ...********
                 virtualclass.poll.coursePoll.forEach(function (item, index) {
                     virtualclass.poll.forEachPoll(item, index, "course");
@@ -1911,7 +1912,8 @@
                     elem.setAttribute("type", "radio");
                     elem.id = i;
                     optCont.appendChild(elem);
-                    var label = document.createElement("label");
+                    var label = document.createElement("span");
+                    label.className = "stdoptn";
                     optCont.appendChild(label);
                     label.innerHTML = data.options[i];
 
@@ -2487,7 +2489,7 @@
                 },
                 createResultMsgCont: function (cont) {
                   var elem = document.getElementById("pollResultMsz")
-                  elem.innerHTML = "Waiting for student response....."
+                  elem.innerHTML = "Waiting for student response"
 
                 },
                 pollClosedUI: function () {

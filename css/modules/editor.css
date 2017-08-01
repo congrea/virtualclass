@@ -16,6 +16,7 @@
 #virtualclassCont.congrea .icon-editorCodeImg:before {
   content: "\e608";
   font-size: 14px;
+  color: #535151;
 }
 
 #virtualclassEditorRich #synchMessageBox, .writeModeBox {

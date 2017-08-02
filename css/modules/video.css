@@ -2,21 +2,21 @@
   margin: 0 0 -2px 0;
 }
 
-#virtualclassCont.congrea.teacher #videoHostContainer {
-  border: 2px solid #ddd !important;
-  padding: 5px;
-  width: auto;
-  margin-left: 15px;
-}
+/*#virtualclassCont.congrea.teacher #videoHostContainer {*/
+  /*border: 2px solid #ddd !important;*/
+  /*padding: 5px;*/
+  /*width: auto;*/
+  /*margin-left: 15px;*/
+/*}*/
 
-#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #videoHostContainer,
-#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #videoHostContainer #videoHostSource,
-#virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer,
-#virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer #videoHostSource {
-  margin: 0;
-  padding: 0;
-  border-width: 0 !important;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #videoHostContainer,*/
+/*#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #videoHostContainer #videoHostSource,*/
+/*#virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer,*/
+/*#virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer #videoHostSource {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*border-width: 0 !important;*/
+/*}*/
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer #videoParticipate {
   border-width: 0;

@@ -47,13 +47,20 @@
 }
 
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont{
-  float: left;
+  float: right;
   width: 18px;
-  background: #3c3e3d;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  margin-right: 8px;
+  background: #820729;
+  /* border-top-right-radius: 6px; */
+  /* border-bottom-right-radius: 6px; */
+  height: auto;
+  margin-top: -12px;
+  border-radius: 5px;
+  padding-left: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
+
+
 
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont:hover{
   background : #ad0505;
@@ -66,7 +73,7 @@
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs.list-group-item {
-   border : 1px solid  #f1f1f1;
+   /*border : 1px solid  #f1f1f1;*/
 }
 
 /*#virtualclassCont.congrea  #listdocs .linkdocs .mainpreview {*/
@@ -78,28 +85,19 @@
   cursor : pointer;
 }
 
-#virtualclassCont.congrea .linkdocs[data-selected='1']{
-  padding: 2px;
-  border-radius: 3px;
-  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
-  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
-  color : #fff;
-  text-align : center;
-}
-
 
 #virtualclassCont.congrea #listdocs .linkdocs.list-group-item:hover {
   /*background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);*/
-  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
+  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
   color : #fff;
 }
 
 #virtualclassCont.congrea  #newDocBtn.btn-default:hover, #virtualclassCont.congrea #newdocsBtnCont:hover{
-  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
+  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
 }
 
 #virtualclassCont.congrea #docsListContainer {
-  height : 95%;
+  height : 98.35%;
   /* position : fixed; */
   border-right : 1px solid #eee;
 }
@@ -113,14 +111,15 @@
   border-top-right-radius: 4px;
   padding: 8px;
   color : #fff;
-  height : 55px;
+  height : 100%;
 
 }
 
 
 
 #virtualclassCont.congrea #newdocsBtnCont {
-  /*margin-top : -23px;*/
+  height : 8%;
+
 }
 
 #virtualclassCont.congrea #congdashboard.modal .modal-header{
@@ -181,4 +180,96 @@
     height : 100%;
     max-height : 100%;
     overflow-y : auto;
+}
+
+
+/*#virtualclassCont.congrea #listdocs .linkdocs.list-group-item {*/
+  /*border : none;*/
+/*}*/
+
+#listdocs.listPages {
+  list-style:none;
+  margin:0;
+  padding:0;
+  /*width:300px;*/
+  margin:0 auto;
+  /*-moz-box-shadow: 0 0 5px #111;*/
+  /*-webkit-box-shadow: 0 0 5px #111;*/
+  /*box-shadow: 0 0 5px #111;*/
+  /*width:300px;*/
+}
+
+.bootstrap #listdocs.listPages .list-group-item.links {
+  border :none;
+}
+
+#listdocs.listPages .links{
+  background: #575e63;
+  /*border-top:1px solid #878e98;*/
+  /*border-bottom:1px solid #33373d;*/
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
+  letter-spacing: 0.09em;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#575e63), to(#3f4347));
+  background: -webkit-linear-gradient(top, #575e63, #3f4347);
+  background: -moz-linear-gradient(top, #575e63, #3f4347);
+  background: -ms-linear-gradient(top, #575e63, #3f4347);
+  background: -o-linear-gradient(top, #575e63, #3f4347);
+  display:block;
+  padding:12px;
+}
+
+#listdocs.listPages .links:hover {
+  background: #566f82; /* fallback colour */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#566f82), to(#3e505e));
+  background: -webkit-linear-gradient(top, #566f82, #3e505e);
+  background: -moz-linear-gradient(top, #566f82, #3e505e);
+  background: -ms-linear-gradient(top, #566f82, #3e505e);
+  background: -o-linear-gradient(top, #566f82, #3e505e);
+}
+
+
+.bootstrap .list-group-item:last-child{
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.bootstrap .list-group-item:first-child {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+
+#virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
+  float :left;
+  margin-left : 4%;
+}
+
+
+.bootstrap #listdocs.listPages .list-group-item.links{
+  border-top:1px solid #878e98;
+  border-bottom:1px solid #33373d;
+  height : 7%;
+}
+
+#virtualclassCont.congrea .linkdocs[data-selected='1']{
+  padding: 2px;
+  /*border-radius: 3px;*/
+  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
+  /*background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);*/
+  /*background: -webkit-linear-gradient(top, #44c6eb, #2799db);*/
+  color : #fff;
+  text-align : center;
+  border-bottom: 1px solid #2799db;
+
+  /*background: -webkit-linear-gradient(top, #44c6eb, #2799db);*/
+  /*background: -moz-linear-gradient(top, #44c6eb, #2799db);*/
+  /*background: -o-linear-gradient(top, #44c6eb, #2799db);*/
+  /*background: -webkit-linear-gradient(top, #16abd6, #366682);*/
+
+  background: -webkit-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
+  background: -moz-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
+  background: -o-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
+  background: -webkit-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
+
 }

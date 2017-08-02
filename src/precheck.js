@@ -179,7 +179,8 @@ var precheck = {
             // http://stackoverflow.com/questions/5529718/how-to-detect-internet-speed-in-javascript
 
             var msgSelector = '#preCheckcontainer .precheck.'+this.curr+' .result';
-             this.imageAddr = window.whiteboardPath + "images/bandwidth-check.jpeg";
+             // this.imageAddr = window.whiteboardPath + "images/bandwidth-check.jpeg";
+                this.imageAddr = "https://dl.congrea.com/bandwidth.jpg";
             //this.imageAddr = 'https://raw.githubusercontent.com/sumanbogati/html_css/master/bandwidth-check.jpeg';
             this.downloadSize = 1000000; // bytes
 

@@ -1951,9 +1951,11 @@
          if(element != null){
            element.style.pointerEvents = 'visible';
          }
-       }
+       },
 
-
+      trimExtension : function (filename){
+        return filename.split('.')[0];
+      }
     };
     window.vutil = vutil;
 })(window);

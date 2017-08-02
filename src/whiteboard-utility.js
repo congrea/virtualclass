@@ -790,6 +790,7 @@
                     if (allRepObjs.length > 0) {
                         virtualclass.wb[wid].utility.makeCanvasDisable();
                         virtualclass.wb[wid].utility.toolWrapperDisable();
+                        virtualclass.wb[wid].gObj.displayedObjId  = 0;
                         virtualclass.wb[wid].utility.replayObjsByFilter(allRepObjs, 'fromBrowser');
                     }
                 }

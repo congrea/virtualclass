@@ -145,3 +145,7 @@
 #virtualclassCont.congrea .bootstrap #stdQuizContainer.container {width: 100%;}
 #virtualclassCont.congrea #layoutQuizBody.quizMainCont #resultLayoutBody.row #chartMenuCont {margin: 20px 0;}
 #virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row,#virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {margin-left: 0; margin-right: 0;}
+
+#virtualclassCont.congrea #layoutQuizBody .icon-publish2{
+  color:#505050;
+}

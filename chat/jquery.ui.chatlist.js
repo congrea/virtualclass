@@ -150,12 +150,18 @@
                         box.scrollTop(box.scrollHeight);
                     });
 
-            $(document).on("click", '#chat_div .ui-memblist-usr a', function (event) {
+            $(document).on("click", '#chat_div .ui-memblist-usr .user-details a', function (event) {
                 var str = $(this);
                 var ahref = str.attr('href');
                 if (typeof ahref != 'undefined') {
                     var id = ahref.replace('#', '');
-                    var name = str.siblings('.user-details').find('.usern span').html();
+                    if(str.parent('.usern').length > 0){
+                        var name = str.html();
+                    } else {
+                        var name = str.siblings('.usern').find('a').html();
+                    }
+
+
 
                     if ($.inArray(id, virtualclass.chat.idList) == -1) {
 //                        counter++;

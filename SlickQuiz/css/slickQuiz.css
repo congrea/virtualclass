@@ -334,3 +334,6 @@ ul.responses li {
 }
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead {padding-left: 10px 0;}
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs > li > a:hover {border-color: #ddd !important;}
+#virtualclassCont.congrea .path-mod-congrea-quiz .qn_buttons .qnbutton {
+    color: #337ab7;
+}

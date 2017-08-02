@@ -1803,7 +1803,7 @@
         },
         
         setChatHeight : function (height){
-            var height = height - 40;
+            var height = height - 33;
             if(virtualclass.isPlayMode){
                var height = height+64;
             }

@@ -210,7 +210,7 @@
                 //virtualclass.dts  = window.documentShare();
 
                 //virtualclass.documentShare.init();
-
+                virtualclass.networkStatus();
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
                 }
@@ -222,6 +222,40 @@
 
                 })
 
+
+            },
+
+            networkStatus: function(){
+                var netstatus = virtualclass.getTemplate('network');
+                var context = {suggestion:'low',
+                    latency:'slow',
+                    quality:'low'};
+                var netstatushtml = netstatus(context);
+                // $('#vedioPacket').append(netstatushtml);
+
+                popoverOptions = {
+                    content: function () {
+                        // Get the content from the hidden sibling.
+                        //virtualclass.media.initVideoInfo();
+                        return netstatushtml;
+                    },
+                    html : true,
+                    trigger: 'hover',
+                    // animation: false,
+                    placement: 'bottom'
+                };
+                $('#ntkstatus').popover(popoverOptions);
+
+                $('#ntkstatus').on('shown.bs.popover', function () {
+                    // do something…
+                    //initVideoInfo
+                    virtualclass.videoHost.initVideoInfo();
+                });
+
+                $('#ntkstatus').on('hide.bs.popover', function () {
+                    // do something…
+                    clearInterval( virtualclass.videoHost.videoInfoInterval);
+                });
 
             },
 
@@ -309,10 +343,13 @@
 
                     //var appCont = document.getElementById(this.id);
 
-                    // var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
+                    var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
                     // var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
-                    // appCont.insertBefore(appOptCont, appCont.firstChild);
-
+                    var appOptCont = virtualclass.getTemplate('appTools');
+                    var appOptCont1=appOptCont();
+                    $('#virtualclassAppLeftPanel').append(appOptCont1);
+                    // appCont.insertBefore(appOptCont1, appCont.firstChild);
+                    //
                     // if(roles.hasAdmin()){
                     //     this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
                     //     this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
@@ -343,7 +380,7 @@
 
                     // Fix problem when the role is being reclaimed
                     // With current active application is whiteboard
-                    appOptCont.style.zIndex = 1;
+                    //appOptCont1.style.zIndex = 100; //to do verify
 
                 },
 

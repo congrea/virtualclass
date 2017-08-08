@@ -82,7 +82,7 @@
             var docNav = document.getElementById(listDtype);
             var lid = 'link' + this.type + this.rid;
             var cthis = this;
-            var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: cthis.title};
+            var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: virtualclass.vutil.trimExtension(cthis.title)};
             if (cthis.type == "video") {
                 var docNav=document.getElementById("listvideo");
                 if(docNav){
@@ -257,7 +257,7 @@
                 elem.appendChild(thumbnail);
                 elem.appendChild(thumbList);
             } else if (this.type == 'docs') {
-                elem.innerHTML = cthis.title;
+                elem.innerHTML = virtualclasss.vutil.getFileName(cthis.title);
                 elem.dataset.title = cthis.title;
                 elem.className += ' tooltip2';
             }

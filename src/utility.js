@@ -1815,7 +1815,7 @@
         },
 
         setChatHeight : function (height){
-            var height = height - 40;
+            var height = height - 33;
             if(virtualclass.isPlayMode){
                var height = height+64;
             }
@@ -2015,9 +2015,11 @@
          if(element != null){
            element.style.pointerEvents = 'visible';
          }
-       }
+       },
 
-
+      trimExtension : function (filename){
+        return filename.split('.')[0];
+      }
     };
     window.vutil = vutil;
 })(window);

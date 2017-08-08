@@ -2,27 +2,28 @@
   <div class="modal-content" id="pollModalBody">
     <div id="contHead" class="modal-header">
       <button type="button" class="close" id="modalClose" data-dismiss="modal">×</button>
-      <div id="settingTx" class="row modalHeaderTx">Poll Setting</div>
+      <div id="settingTx" class="row modalHeaderTx panel-body">Poll Setting</div>
     </div>
     <div id="contBody" class="modal-body">
-      <div id="settingCont" class="row">
-        <div class="pollLabel">Mode of closing Poll :</div>
-        <div id="mode" class="custom-controls-stacked">
-          <label class="custom-control custom-radio">
+      <div id="settingCont">
+        <label class="pollLabel panel">Mode of closing Poll :
+        <span id="mode" class="custom-controls-stacked panel">
+          <label class="custom-control custom-radio radio-inline">
             <input type="radio" name="option" value="BY Instructor" id="radioBtn1" class="custom-control-input">
             <span class="custom-control-indicator">
 
               </span><span class="custom-control-description">By Instructor</span>
           </label>
-          <label class="custom-control custom-radio">
+          <label class="custom-control custom-radio radio-inline">
             <input type="radio" name="option" value="BY Timer" id="radioBtn2" class="custom-control-input" checked="checked">
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description">By Timer</span>
           </label>
-        </div>
-        <div id="enTimer">
-          <div id="timerTx" class="pollLabel">Set Timer</div>
-          <div id="selTime">
+        </span>
+        </label>
+        <div id="enTimer" class="panel">
+          <label id="timerTx" class="pollLabel">Set Timer
+          <span id="selTime">
             <select id="timer" name="timer" class="form-control" style="width: 100px; display: inline;">
               {{#each time}}
                 <option value="{{this}}">{{this}}</option>
@@ -30,15 +31,16 @@
 
             </select>
             <select id="ut" name="unit" class="form-control" style="width: 100px; display: inline;">
-              <option id="op1" value="minut">minut</option>
+              <option id="op1" value="minut">minute</option>
               <option id="op2" value="second">second</option>
             </select>
-          </div>
+          </span>
+          </label>
         </div>
         <div id="showRt" class="form-group">
           <label id="labelCk" class="custom-control custom-checkbox ">
             <input type="checkbox" id="pollCkbox" class="custom-control-input " checked="checked">
-            <span id="labelCk" class="custom-control-description pollLabel">show result to students</span>
+            <span id="labelCk" class="custom-control-description pollLabel">Show result to students</span>
           </label>
         </div>
       </div>

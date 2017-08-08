@@ -40,8 +40,8 @@ module.exports = function(grunt) {
 
         sass: {
             dev: {
-                src: 'scss/theme-black.scss',
-                dest: 'css/theme/black.css'
+                src: 'scss/theme-gray.scss',
+                dest: 'css/theme/gray.css'
             },
 
         },

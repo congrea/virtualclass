@@ -54,7 +54,7 @@
 
                 var elemAnch = document.createElement('a');
                 elemAnch.id = userId + imgName + "Anch";
-                elemAnch.className = "tooltip";
+                elemAnch.className = "congtooltip";
                 elemAnch.appendChild(elemBlock);
 
                 var imgCont = document.createElement('div');
@@ -1074,7 +1074,7 @@
                     toggleCommonChatBox();
                 } else {
                     if ($("div#chat_room").length == 0) {
-                        var d = document.createElement('div');
+                        var d = document.createElement('ul');
                         d.id = 'chat_room';
                         document.body.appendChild(d);
 

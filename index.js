@@ -1326,14 +1326,14 @@ $(document).ready(function () {
             } 
         }
 
-        this.tsr = function (e){
-            var enable = e.message.ac;
-            if(enable){
-                virtualclass.chat.enableTechSupport(e.message.uid);
-            }else {
-                virtualclass.chat.disableTechSupport(e.message.uid);
-            }
-        }
+        // this.tsr = function (e){
+        //     var enable = e.message.ac;
+        //     if(enable){
+        //         virtualclass.chat.enableTechSupport(e.message.uid);
+        //     }else {
+        //         virtualclass.chat.disableTechSupport(e.message.uid);
+        //     }
+        // }
     };
     // TODO this shoudl be remove, after precheck feature is enabled
 }

@@ -3,7 +3,7 @@
     <div class="modal-content" id="pollModalBody">
       <div id="contHead" class="modal-header">
         <button type="button" class="close" id="modalClose" data-dismiss="modal">×</button>
-        <div id="editTx" class="row modalHeaderTx">Poll Edit</div>
+        <div id="editTx" class="row modalHeaderTx panel-body">Poll Edit</div>
       </div>
       <div id="contBody" class="modal-body">
         <div id="qnTxCont" class="row previewTxCont" style="display: block;"><label class="pollLabel">Question :</label>
@@ -16,12 +16,12 @@
           {{#each data.options}}
             <div class="inputWrapper clearfix">
               <textarea rows="1" id="option{{@key}}" class="opt form-control" value="{{this}}"
-                        style="width: 97%; float: left;"></textarea>
+                        style="width: 100%; float: left;"></textarea>
             </div>
           {{/each}}
           <div id="addMoreCont" class="addMoreCont">
             <span class="icon-plus"></span>
-            <a href="#" id="addMoreOption" class="addMoreOption controls">Add Option</a>
+            <a href="#" id="addMoreOption" class="addMoreOption controls btn btn-default">Add Option</a>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <button id="reset" class="btn btn-default pull-left controls" type="button">Reset<i class="icon-reset"></i>
           </button>
           <button id="etSave" class="btn btn-default controls">Save<i class="icon-save"></i></button>
-          <button id="saveNdPublish" class="btn btn-default controls">Save and Publish<i class="icon-publish"></i>
+          <button id="saveNdPublish" class="btn btn-default controls">Publish<i class="icon-publish"></i>
           </button>
         </div>
       </div>

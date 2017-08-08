@@ -19,7 +19,7 @@
             quizSt: {}, //used for storage
             quizAttempted: {}, //used for storage
             qGrade: [], //used for storage
-            init: function () { 
+            init: function () {
 
                 virtualclass.previrtualclass = 'virtualclass' + "Quiz";
                 virtualclass.previous = 'virtualclass' + "Quiz";
@@ -56,8 +56,8 @@
                     });
                 }
                 if (roles.hasControls()) {
-                        console.log("fetchquizes");
-                        this.interfaceToFetchList(this.cmid);
+                    console.log("fetchquizes");
+                    this.interfaceToFetchList(this.cmid);
                 }
 
                 var storedData = JSON.parse(localStorage.getItem('quizSt'));
@@ -67,7 +67,7 @@
             },
 
             /**
-             * Called on page refersh  
+             * Called on page refersh
              * fetch data from index db
              * and populate all data
              * @param {string}  display screen
@@ -97,8 +97,8 @@
                     virtualclass.storage.getQuizData(
                         function (data) {
                             if (typeof data !== 'undefined' && data.hasOwnProperty('qData') &&
-                                 data.hasOwnProperty('qDetail')) {
-                                    
+                                data.hasOwnProperty('qDetail')) {
+
                                 var quizDetial = JSON.parse(data['qDetail']);
                                 if (storedData.hasOwnProperty('qtime')) {
                                     quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
@@ -118,16 +118,16 @@
                                 if(storedData.qClosed == "true"){
                                     document.getElementById('closeQzBt').disabled = true;
                                 }
-                             }
+                            }
                         }
                     );
                     virtualclass.quiz.quizSt.screen = storedData.screen;
-                }               
+                }
             },
 
             /*
-                Check if quiz exit, call function to display list of quizes 
-            */
+             Check if quiz exit, call function to display list of quizes
+             */
             displayQuizList: function () {
 
                 virtualclass.quiz.dispList("course");
@@ -176,7 +176,7 @@
                     if(getContent['status'] == 0) {
                         var cont = document.getElementById("bootstrapQzCont");
                         cont.innerHTML = getContent['message'];
-                    } else {                    
+                    } else {
                         for (var i = 0; i <= getContent.length - 1; i++) {
                             var options = getContent[i].options;
                             for (var j in options) {
@@ -191,8 +191,8 @@
                 });
             },
             /*
-                Display quiz list with detail
-            */
+             Display quiz list with detail
+             */
             displayQuizes: function (item, index) {
                 //console.log(item);
                 this.UI.qzCont(index);
@@ -219,8 +219,8 @@
             },
 
             /*
-                Attach publis & preview button with quiz list
-            */
+             Attach publis & preview button with quiz list
+             */
             publishHandler: function (item, index) {
 
                 var mszbox = document.getElementById("mszBoxQuiz");
@@ -231,9 +231,9 @@
             },
 
             /*
-                Display preview pop up box for quiz display
-                and call preview function for teacher screen
-            */
+             Display preview pop up box for quiz display
+             and call preview function for teacher screen
+             */
             publishQuiz: function (item, index) {
                 this.openQuizPopup(item, index);
                 this.quizPreview(item);
@@ -247,7 +247,7 @@
              */
             openQuizPopup: function (item, index) {
 
-                this.qzid = index; //store quiz id 
+                this.qzid = index; //store quiz id
                 var cont = document.getElementById("layoutQuizBody");
                 var elem = document.createElement('div');
                 elem.className = "container";
@@ -256,7 +256,7 @@
                 if (modal) {
                     modal.remove();
                 }
-                // to change this to 
+                // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
 
@@ -328,25 +328,30 @@
                     controls[i].addEventListener("click", attachInit)
                 }
             },
-            
+
             quizPreview: function (quizitem) {
                 console.log('quiz preview function');
                 this.UI.modalContentUI();
 
                 var header = document.getElementById("contQzHead");
+                var heading = document.createElement('div');
+                heading.id = "QstnName";
+                heading.innerHTML = quizitem.name;
+                header.appendChild(heading);
 
+                var publishBttn = document.getElementById("contQzBody");
                 var btn = document.createElement('button');
                 btn.id = "publishQzBt";
                 btn.classList.add("btn", "btn-default", "controls")
                 btn.innerHTML = "Publish Quiz";
 
-                header.appendChild(btn);
+                publishBttn.appendChild(btn);
 
                 var iconPublish = document.createElement('i');
                 iconPublish.className = "icon-publish";
                 btn.appendChild(iconPublish);
 
-                var header = document.getElementById("contQzBody");
+
                 this.getQuizData(quizitem);
                 this.quizPopUp(this.popupFn, 1);
             },
@@ -356,9 +361,9 @@
             },
 
             /*
-                Function is called when teacher pulished quiz
-                call by popupFn function and display quiz result
-            */
+             Function is called when teacher pulished quiz
+             call by popupFn function and display quiz result
+             */
             publishQzBt: function() {
                 var vthis = virtualclass.quiz;
                 var qzJson = vthis.quizJSON;
@@ -375,12 +380,12 @@
                 };
                 //send data to student
                 ioAdapter.mustSend({
-                        'quiz': {
-                            quizMsg: 'stdPublish',
-                            quizId: vthis.qzid,
-                            data: data
-                        },
-                        'cf': 'quiz'
+                    'quiz': {
+                        quizMsg: 'stdPublish',
+                        quizId: vthis.qzid,
+                        data: data
+                    },
+                    'cf': 'quiz'
                 });
                 // display result interface to teacher
                 vthis.UI.resultView(quizDetail);
@@ -395,9 +400,9 @@
                 formData.append("qzid", vthis.qzid);
                 formData.append("user", vthis.uid);
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_add_quiz", function (data) {
-                   if(data !== 'ture') {
-                       console.log('Quiz data not saved in congrea');
-                   }
+                    if(data !== 'ture') {
+                        console.log('Quiz data not saved in congrea');
+                    }
                 });
             },
 
@@ -421,6 +426,10 @@
                 //stop timer
                 clearInterval(CDTimer);
                 document.getElementById("closeQzBt").disabled = true;
+                var msginfo = document.createElement('div');
+                msginfo.className="alert alert-info";
+                msginfo.innerHTML ="Quiz Closed";
+                resultQzLayout.insertBefore(msginfo,resultQzLayout.firstChild);
             },
 
             /**
@@ -449,7 +458,7 @@
             /**
              * Called on page referesh by utility.js
              * Save data to local storage
-             * @param {null}  
+             * @param {null}
              * @return
              */
             saveInLocalStorage: function() {
@@ -465,7 +474,7 @@
                     console.log('quiz='+ vthis.quizSt.qtime);
                 }
                 console.log('quiz='+ vthis.quizSt.screen);
-                if ((document.getElementById('closeQzBt')!= null) && 
+                if ((document.getElementById('closeQzBt')!= null) &&
                     document.getElementById('closeQzBt').disabled == true) {
                     vthis.quizSt.qClosed = 'true';
                 }
@@ -476,7 +485,7 @@
                     console.log('attempt data ='+ vthis.quizAttempted);
                     virtualclass.storage.quizStorage("qAttempt", JSON.stringify(vthis.quizAttempted));
                 }
-                
+
             },
 
             /**
@@ -576,7 +585,7 @@
                         'ca' : msg.quiz.correctans
                     });
                     virtualclass.storage.quizStorage("qGrade", JSON.stringify(vthis.qGrade));
-                    
+
                     //save data in LMS DB
                     this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
                     //}
@@ -589,7 +598,7 @@
              * @param {int}  time in seconds
              * @param {float}  grade in percentage
              * @param {int}  no of question attempted
-              * @param {int}  no of currect answer
+             * @param {int}  no of currect answer
              * @return null
              */
             saveGradeInDb: function(userId, timeTn, grade, quesAttempted, correctAns){
@@ -605,9 +614,9 @@
                 formData.append("qusattempted", quesAttempted);
                 formData.append("currectans", correctAns);
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_quiz_result", function (data) {
-                   if (data !== 'ture') {
-                       console.log('Quiz data not saved in congrea');
-                   }
+                    if (data !== 'ture') {
+                        console.log('Quiz data not saved in congrea');
+                    }
                 });
             },
 
@@ -642,7 +651,7 @@
                 var that = virtualclass.quiz;
                 for (var i = 0; i < that.qGrade.length; i++) {
                     that.gradeReport(i+1, that.qGrade[i].nm, that.qGrade[i].tt,
-                     that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
+                        that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
                 }
             },
 
@@ -721,7 +730,7 @@
                 if(tbody){
 
                     var tr = document.createElement("tr");
-                    tbody.appendChild(tr); 
+                    tbody.appendChild(tr);
 
                     var th = document.createElement("th");
                     th.scope = "row";
@@ -808,11 +817,11 @@
 
             /**
              * Callled on click of close button of result page
-             * Ask for close confirmation if yes delete 
+             * Ask for close confirmation if yes delete
              * data form storage
-             * @param {null} 
+             * @param {null}
              * @return
-            */
+             */
             quizModalClose: function () {
                 var that = this;
                 var message = "<span>Are your sure to close the quiz.  </span>";
@@ -841,7 +850,7 @@
              * Function to convert seconds into hh:mm:ss
              * @param {int} seconds
              * @return string date
-            */
+             */
             convertSecToTime: function (sec) {
                 if (/^\d+$/.test(sec)) {
                     var date = new Date(null);
@@ -857,7 +866,7 @@
              * Function to convert hh:mm:ss into secods
              * @param {string} hh:mm:ss
              * @return string date
-            */
+             */
             convertTimeToSec: function (hms){
                 //var hms = '02:04:33';
                 if(hms){
@@ -871,7 +880,7 @@
              * Function to check json string
              * @param {string} json strin
              * @return {boolean} true/false
-            */
+             */
             isJson: function (str) {
                 try {
                     JSON.parse(str);
@@ -883,7 +892,7 @@
 
             /**
              * Object contain userInterface functions
-            */
+             */
             UI: {
                 id: 'virtualclassQuiz',
                 class: 'virtualclass',
@@ -907,9 +916,9 @@
                  * when first time quiz connected
                  * @param div element
                  * @return
-                */
+                 */
                 layout: function (divQuiz) {
-                    
+
                     var contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz','bootstrap container-fluid quizLayout');
                     divQuiz.appendChild(contQuiz);
 
@@ -938,50 +947,53 @@
                     var text = "Available Quizes";
                     var e = document.getElementById("listQzCont");
                     if (e == null) {
-                        var e = virtualclass.view.customCreateElement('div', 'listQzCont','row quizList');
-                        ctr.appendChild(e);
+                        var mainQzDiv = document.createElement('div');
+                        mainQzDiv.className="table-responsive";
+                        ctr.appendChild(mainQzDiv);
+                        var e = virtualclass.view.customCreateElement('table', 'listQzCont','table table-bordered table-striped quizList');
+                        mainQzDiv.appendChild(e);
                     }
                 },
                 /*
-                    Diaplay header of quiz list
-                */
+                 Diaplay header of quiz list
+                 */
                 listHeader: function () {
                     var cont = document.getElementById("listQzCont")
-    
-                    var headCont = document.createElement("div");
-                    headCont.classList.add("row", "headerContainer", "col-md-12")
+
+                    var headCont = document.createElement("tr");
+                    headCont.classList.add("headerContainer")
                     headCont.id = "headerContainer";
-    
+
                     cont.insertBefore(headCont, cont.firstChild)
-                    var elem = document.createElement("div");
-                    elem.classList.add("controlsHeader", "col-md-1")
+                    var elem = document.createElement("th");
+                    elem.classList.add("controlsHeader")
                     elem.innerHTML = "Controls";
                     headCont.appendChild(elem);
-    
+
                     var iconCtr = document.createElement('i');
                     iconCtr.className = "icon-setting";
                     elem.appendChild(iconCtr);
-    
-                    var elem = document.createElement("div");
-                    elem.classList.add("qnTextHeader", "col-md-8")
+
+                    var elem = document.createElement("th");
+                    elem.classList.add("qnTextHeader")
                     elem.innerHTML = "Quizes";
                     headCont.appendChild(elem);
-    
+
                     var iconHelp = document.createElement('i');
                     iconHelp.className = "icon-help";
                     elem.appendChild(iconHelp);
-    
-                    var elem = document.createElement("div");
-                    elem.classList.add("timeHeader", "col-md-2")
+
+                    var elem = document.createElement("th");
+                    elem.classList.add("timeHeader")
                     elem.innerHTML = "Time";
                     headCont.appendChild(elem);
-    
+
                     var iconCreator = document.createElement('i');
                     iconCreator.className = "icon-creator";
                     elem.appendChild(iconCreator);
-    
-                    var elem = document.createElement("div");
-                    elem.classList.add("qperpageHeader", "col-md-1")
+
+                    var elem = document.createElement("th");
+                    elem.classList.add("qperpageHeader")
                     elem.innerHTML = "Quiz/page";
                     headCont.appendChild(elem);
                 },
@@ -1032,31 +1044,31 @@
                         }
                         var bodyHdCont = document.getElementById("resultQzLayout");
 
-                        var elem = virtualclass.view.customCreateElement('div','rsQzHead','row');
+                        var elem = virtualclass.view.customCreateElement('div','rsQzHead','row col-md-12');
                         bodyHdCont.appendChild(elem);
 
-                        var leftdiv = virtualclass.view.customCreateElement('div','', 'col-md-6');
-                        elem.appendChild(leftdiv);
+                        // var leftdiv = virtualclass.view.customCreateElement('div','', 'col-md-6');
+                        // elem.appendChild(leftdiv);
 
-                        var timeInnerdiv = virtualclass.view.customCreateElement('div');
+                        var timeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-3');
                         timeInnerdiv.innerHTML =  "Time limit : <span> " + virtualclass.quiz.convertSecToTime(qz.timelimit) +"</span>";
-                        leftdiv.appendChild(timeInnerdiv);
+                        elem.appendChild(timeInnerdiv);
 
-                        var qNoInnerdiv = virtualclass.view.customCreateElement('div');
+                        var qNoInnerdiv = virtualclass.view.customCreateElement('div','','col-md-3');
                         qNoInnerdiv.innerHTML =  "No of questions : <span> " + qz.noOfQus +"</span>";
-                        leftdiv.appendChild(qNoInnerdiv);
+                        elem.appendChild(qNoInnerdiv);
 
-                        var rightdiv = virtualclass.view.customCreateElement('div', '','col-md-6');
-                        elem.appendChild(rightdiv);
+                        // var rightdiv = virtualclass.view.customCreateElement('div', '','col-md-6');
+                        // elem.appendChild(rightdiv);
 
-                        var elstimeInnerdiv = virtualclass.view.customCreateElement('div');
+                        var elstimeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-4');
                         elstimeInnerdiv.innerHTML = "Elaspsed time : <span id=\"elsTime\">00:00</span>";
-                        rightdiv.appendChild(elstimeInnerdiv);
+                        elem.appendChild(elstimeInnerdiv);
 
                         var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');
                         btnInnerdiv.classList.add("btn", "btn-default", "controls");
                         btnInnerdiv.innerHTML = "Close quiz";
-                        rightdiv.appendChild(btnInnerdiv);
+                        elem.appendChild(btnInnerdiv);
                         btnInnerdiv.addEventListener("click", virtualclass.quiz.closeQzBt);
 
                         virtualclass.quiz.quizTimer(qtime, document.getElementById("elsTime"), order);
@@ -1191,27 +1203,27 @@
                         msgPage.appendChild(resPage);
 
                         var noOfQ = document.createElement('h4');
-                        noOfQ.innerHTML = "Total no of questions: <span>"+data.grade.noofqus+"</span>";
+                        noOfQ.innerHTML = "Total no of questions  <span class='nfqh'>: &nbsp;  "+data.grade.noofqus+"</span>";
                         resPage.appendChild(noOfQ);
 
                         var tt = document.createElement('h4');
-                        tt.innerHTML = "Time taken: <span>"+data.grade.timetaken+"</span>";
+                        tt.innerHTML = "Time taken <span class='tth'> : &nbsp;   "+data.grade.timetaken+"</span>";
                         resPage.appendChild(tt);
 
                         var mm = document.createElement('h4');
-                        mm.innerHTML = "Maximum mark: <span>"+data.grade.maxmarks+"</span>";
+                        mm.innerHTML = "Maximum mark <span class='mmh'>: &nbsp;  "+data.grade.maxmarks+"</span>";
                         resPage.appendChild(mm);
 
                         var ca = document.createElement('h4');
-                        ca.innerHTML = "Correct answers: <span>"+data.grade.correctans+"</span>";
+                        ca.innerHTML = "Correct answers <span class='cah'>: &nbsp;  "+data.grade.correctans+"</span>";
                         resPage.appendChild(ca);
 
                         var qa = document.createElement('h4');
-                        qa.innerHTML = "Questions attempted: <span>"+data.grade.quesattemptd+"</span>";
+                        qa.innerHTML = "Questions attempted <span class='qah'>: &nbsp;  "+data.grade.quesattemptd+"</span>";
                         resPage.appendChild(qa);
 
                         var sc = document.createElement('h4');
-                        sc.innerHTML = "You Scored:  <span>"+data.grade.score+"</span>";
+                        sc.innerHTML = "You Scored <span class='sch'>: &nbsp;  "+data.grade.score+"</span>";
                         resPage.appendChild(sc);
 
                         resPage.style.display = 'block';
@@ -1299,11 +1311,11 @@
                 },
 
                 /*
-                  Create div with unique id for quiz list display
-                */
+                 Create div with unique id for quiz list display
+                 */
                 qzCont: function (index) {
                     var list = document.getElementById("listQzCont");
-                    var elem = virtualclass.view.customCreateElement('div', 'contQz' + index,'row vcQuizCont col-md-12');
+                    var elem = virtualclass.view.customCreateElement('tr', 'contQz' + index,'vcQuizCont');
                     if (list != null) {
                         list.insertBefore(elem, list.firstChild);
                     }
@@ -1312,9 +1324,9 @@
                 qzCtrCont: function (index) {
 
                     var e = document.getElementById("contQz" + index);
-                    var ctrCont = virtualclass.view.customCreateElement('div', "ctrQz" + index, "col-md-1 quizCtrCont");
+                    var ctrCont = virtualclass.view.customCreateElement('td', "ctrQz" + index, "quizCtrCont");
                     e.appendChild(ctrCont);
- 
+
                     var link2 = document.createElement("a");
                     link2.href = "#";
                     link2.id = "publishQz" + index;
@@ -1331,14 +1343,14 @@
 
                 qzTextCont: function (item, index) {
                     var e = document.getElementById("contQz" + index);
-                    var qzCont = document.createElement('div');
-                    qzCont.classList.add("qnText", "col-md-8")
+                    var qzCont = document.createElement('td');
+                    qzCont.classList.add("qnText")
                     qzCont.innerHTML = item.name;
                     e.appendChild(qzCont);
 
-                    var elem = document.createElement("div");
-                    elem.classList.add("creator", "col-md-2")
-                    
+                    var elem = document.createElement("td");
+                    elem.classList.add("creator")
+
                     if (item.timelimit > 0) {
                         var tLimit = virtualclass.quiz.convertSecToTime(item.timelimit)
                     } else {
@@ -1347,8 +1359,8 @@
                     elem.innerHTML = tLimit;
                     e.appendChild(elem);
 
-                    var elem = document.createElement("div");
-                    elem.classList.add("qperpage", "col-md-1")
+                    var elem = document.createElement("td");
+                    elem.classList.add("qperpage")
 
                     elem.innerHTML = item.questionsperpage;
                     e.appendChild(elem);

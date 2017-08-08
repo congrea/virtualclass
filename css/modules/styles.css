@@ -2220,15 +2220,13 @@
 }
 
 #virtualclassCont.congrea .headerContainer{
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: bold;
-	color: #717171;
+	/*color: #717171;*/
 	text-transform: uppercase;
 	margin: 0 auto 20px auto !important;
 }
-#virtualclassCont.congrea .qnTextHeader{
-	padding-left: 0 !important;
-}
+
 #virtualclassCont.congrea .bootstrap .modal-dialog{
 	width: 800px !important;
 }
@@ -2265,49 +2263,53 @@
 }
 #virtualclassCont.congrea .modal-body textarea{
 	margin: 10px 0 !important;
-	min-height: 50px;
+	/*min-height: 50px;*/
 }
-#virtualclassCont.congrea .modal-body #qnTxCont,
-#virtualclassCont.congrea .modal-body #optsTxCont{
+#virtualclassCont.congrea .modal-body #qnTxCont
+/*#virtualclassCont.congrea .modal-body #optsTxCont*/{
 	margin-bottom: 10px;
 }
 
 #virtualclassCont.congrea .inputWrapper{
-	background-color: #eee;
-	padding: 5px 10px;
+	/*background-color: #eee;*/
+	/*padding: 5px 10px;*/
 
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 }
 #virtualclassCont.congrea .modal-body #qnTxCont .inputWrapper{
-	background-color: #d2d2d2;
+	/*background-color: #d2d2d2;*/
 }
 
 #virtualclassCont.congrea .modal a.close{
-	margin-top: 7px;
+	position: absolute;
+	right: 6px;
+	margin-top: 11px;
 }
-#virtualclassCont.congrea .modal label{
-	font-weight: normal;
-}
+/*#virtualclassCont.congrea .modal label{*/
+	/*font-weight: normal;*/
+/*}*/
 #virtualclassCont.congrea .modal-header .modalHeaderTx{
 	font-weight: bold;
 	font-size: 16px;
-	color: #000;
+	color: #3C3C3C;
 }
 #virtualclassCont.congrea .bootstrap .btn , #virtualclassCont.congrea .inputWrapper{
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
-	border-radius: 6px;
+	border-radius: 4px;
 }
-#virtualclassCont.congrea .bootstrap .btn-default{
-	border-color: #aeaeae;
+#virtualclassCont.congrea #newPollBtncourse,
+#virtualclassCont.congrea #newPollBtnsite{
+	margin-bottom: 20px;
 }
 #virtualclassCont.congrea .modal-content .modal-footer{
-	margin-top: 20px;
+	margin-top: 0px;
 }
 
 #virtualclassCont.congrea .addMoreCont a{
 	color: #333 !important;
-	margin-left: 2px;
+	margin-left: -3px;
+	margin-top : 10px;
 }
 #virtualclassCont.congrea .addMoreCont a:hover{
 	color: #727272 !important;
@@ -2482,8 +2484,6 @@
 	right: 0;
 }
 
-
-
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-progress-control,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-remaining-time,
@@ -2519,7 +2519,9 @@
 	text-shadow: none;
 }
 /* congrea quiz end*/
-
+#virtualclassCont.congrea .modal-footer {
+	background-color: transparent;
+}
 #virtualclassCont.congrea #stickybar .footerCtr .prechk span.precheck {
 	font-size: 0;
 }

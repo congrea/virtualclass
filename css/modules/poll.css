@@ -109,11 +109,11 @@
   margin-left:6px;
 }
 
-#virtualclassCont.congrea .bootstrap .table > tbody > tr > td {
+#virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > tbody > tr > td {
   padding:15px;
 }
 
-#virtualclassCont.congrea .table > thead > tr > th {
+#virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > thead > tr > th {
   padding-left:14px;
   color:#3C3C3C;
 }
@@ -139,7 +139,7 @@
 #virtualclassCont.congrea #virtualclassPoll #nonVotTqn span,
 #virtualclassCont.congrea #virtualclassPoll #stdPollContainer #optnNonVotd span,
 #virtualclassCont.congrea #virtualclassPoll #stdPollContainer #stdOptionCont span,
-#virtualclassCont.congrea .bootstrap .table > tbody > tr > td {
+#virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > tbody > tr > td {
   font-size: 0.91em;
   letter-spacing: 0.03em;
 }
@@ -161,4 +161,9 @@
 
 #virtualclassCont.congrea #virtualclassPoll .stdrslt {
   width:95%;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassPoll #resultLayout #chartMenuCont a,
+#virtualclassCont.congrea.student #virtualclassPoll #chartMenuCont a {
+  color: #337ab7;
 }

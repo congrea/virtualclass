@@ -84,7 +84,7 @@
                     virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
                 }
 
-                console.log('Whiteboard : Till now play ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId);
+                // console.log('Whiteboard : Till now play ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId);
 
                 if (this.objs[this.objs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {
                     if (typeof this.callBkfunc == 'function') {

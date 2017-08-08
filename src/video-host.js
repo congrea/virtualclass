@@ -113,8 +113,7 @@ var videoHost = {
             this.UI.displayVideo();
 
         } else if (msg.congCtr.videoSwitch == "off") {
-            virtualclass.videoHost.gObj.videoSwitch = 0;
-            this.UI.hideVideo();
+            virtualclass.videoHost.gObj.videoSwitch = 0;            this.UI.hideVideo();
 
         }
 
@@ -363,8 +362,6 @@ var videoHost = {
             latency = "fast";
         }
 
-
-
         var videoSpeed = document.getElementById('videSpeedNumber');
         videoSpeed.dataset.suggestion = speed;
         //videoSpeed.innerHTML = speed;
@@ -376,6 +373,7 @@ var videoHost = {
         var videLatency = document.getElementById('videLatency');
         videLatency.dataset.latency = latency;
         //videLatency.innerHTML =  latency;
+
     },
     getTeacherVideoQuality: function () {
         virtualclass.videoHost.gObj.teacherVideoQuality = 16;
@@ -388,10 +386,11 @@ var videoHost = {
         return virtualclass.videoHost.gObj.teacherVideoQuality;
     },
     initVideoInfo: function () {
+        var that = this;
         if (roles.hasAdmin() && virtualclass.system.mybrowser.name == 'Firefox') {
             virtualclass.vutil.removeVideoHostContainer();
         } else {
-            setInterval(
+            that.videoInfoInterval =  setInterval(
                 function () {
                     // MYSPEED, internet connection
                     //  virtualclass.videoHost.gObj.video_count, frame rate
@@ -405,14 +404,14 @@ var videoHost = {
                     virtualclass.videoHost.updateVideoInfo(virtualclass.videoHost.gObj.MYSPEED, virtualclass.videoHost.gObj.video_count, virtualclass.videoHost.gObj.time_diff);
                     //
                 }, 1000
-                );
+            );
 
         }
     },
     afterSessionJoin: function () {
         var speed = roles.hasAdmin() ? 1 : virtualclass.videoHost.gObj.MYSPEED;
         this.setDefaultValue(speed);
-        this.initVideoInfo();
+        // this.initVideoInfo();
 
         setInterval(
                 function () {

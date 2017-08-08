@@ -12,6 +12,7 @@
             currPlaying: "",
             autoPlayFlag: 1,
             status: 0,
+            yts:false,
 
             /*
              * it creates the the necessary layout and containers to place
@@ -30,13 +31,16 @@
 
                 if (typeof videoObj != 'undefined') {
                     if (videoObj.init != 'studentlayout') {
-                        this.videoId = videoObj.init.videoId;
+                        this.videoId = videoObj.init.videoId || videoObj.init;
                         this.videoUrl = videoObj.init.videoUrl;
+                    }
+                    if(videoObj.type =='yts'){
+                        virtualclass.videoUl.yts=true;
                     }
                 }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
-                    if (typeof this.videoId == 'undefined' && roles.isStudent()) {
+                    if (typeof this.videoId == 'undefined' && roles.isStudent() && !virtualclass.videoUl.yts ) {
                         this.UI.defaultLayoutForStudent();
                     } else {
                         this.UI.container();
@@ -52,12 +56,28 @@
                             if (typeof videoObj != 'undefined') {
                                 // this.UI.defaultLayoutForStudent();
                                 if (!videoObj.hasOwnProperty('fromReload')) {
-                                    if (typeof this.videoId == 'undefined') {
-                                        this.UI.defaultLayoutForStudent();
-                                    } else {
-                                        var url = videoObj.url || videoObj.init.videoUrl;
-                                        (typeof startFrom == 'undefined') ? this.UI.displayVideo(videoObj.id, url) : this.UI.displayVideo(videoObj.id, url, startFrom);
+                                    if(videoObj.type !='yts') {
+                                        if (typeof this.videoId == 'undefined') {
+                                            this.UI.defaultLayoutForStudent();
+                                        } else {
+                                            var url = videoObj.url || videoObj.init.videoUrl;
+                                            (typeof startFrom == 'undefined') ? this.UI.displayVideo(videoObj.id, url) : this.UI.displayVideo(videoObj.id, url, startFrom);
+                                        }
                                     }
+                                }else{
+                                    if(videoObj.type =='yts'){
+                                        virtualclass.videoUl.UI.container();
+                                        var player = document.querySelector('#virtualclassVideo #player');
+                                        if(!player){
+                                          var plr =   document.createElement("div");
+                                           plr.id ="player";
+                                           var cont = document.querySelector('#virtualclassVideo');
+                                           cont.appendChild(plr);
+                                        }
+                                        virtualclass.yts.init(videoObj, startFrom);
+
+                                    }
+
                                 }
 
                             } else {
@@ -71,15 +91,16 @@
                     }
                 } else {
                     this.UI.container();
-                    if (typeof startFrom != 'undefined') {
+                    if (typeof startFrom != 'undefined' ) {
                         this.fromReload(this.videoId, this.videoUrl, startFrom);
                     } else {
                         ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
                     }
                 }
-                if (roles.hasControls()) {
-                    this.videoListFromLocalStr(videoObj);
-                }
+                //nirmala rem
+                // if (roles.hasControls()) {
+                //     this.videoListFromLocalStr(videoObj);
+                // }
             },
 
             /*
@@ -109,13 +130,12 @@
                         var secondId = "congreaShareVideoUrlCont";
                         var elemArr = [firstId, secondId];
                         this.modalPopup(type, elemArr);
-
                     }
 
                 } else {
                     // When user come at first time i.e  no localstorage video data  available
                     var list = "onlyRetrieve";
-                    this.getVideoList(list);
+                    //this.getVideoList(list);
                 }
             },
 
@@ -149,7 +169,15 @@
 
              */
             fromReload: function (id, url, startFrom) {
-                virtualclass.videoUl.UI.displayVideo(id, url, startFrom);
+                virtualclass.videoUl.UI.container();
+                if(url){
+                    virtualclass.videoUl.UI.displayVideo(id, url, startFrom);
+                }else{
+                    var obj={};
+                    obj.init=id;
+                    virtualclass.yts.init(obj,startFrom);
+                }
+
             },
 
             /*
@@ -195,12 +223,13 @@
              * @param response message
 
              */
-
+            //new
             afterUploadVideo: function (id, xhr, res) {
 
                 if (res.message == "success") {
                     virtualclass.videoUl.order.push(res.resultdata.id);
                     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+
                 } else if (res.message == "Failed") {
                     alert("video upload failed");
                 } else if (res.message == "duplicate") {
@@ -218,6 +247,7 @@
                 rdata.append("live_class_id", virtualclass.gObj.congCourse);
                 rdata.append("content_order_type", "2");
                 this.requestOrder(rdata);
+
             },
 
             /*
@@ -230,41 +260,76 @@
                 data.append("type", "2");
                 var cthis = this;
                 virtualclass.xhr.sendFormData(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_video", function (msg) {
-                    if (msg != "noVideo") {
-                        var content = JSON.parse(msg);
+                    var content = JSON.parse(msg);
+                    if (content.message!= "noVideo") {
                         virtualclass.videoUl.videos = content;
-                        if (virtualclass.videoUl.videos.length > 0) {
-                            virtualclass.videoUl.showVideos(content);
-                            virtualclass.videoUl.retrieveOrder();
-                        } else {
-                            var type = "video";
-                            var firstId = "congrea" + type + "ContBody";
-                            var secondId = "congreaShareVideoUrlCont";
-                            var elemArr = [firstId, secondId];
-                            virtualclass.videoUl.modalPopup(type, elemArr);
-                        }
+                        var type = "video";
+                        var firstId = "congrea" + type + "ContBody";
+                        var secondId = "congreaShareVideoUrlCont";
+                        var elemArr = [firstId, secondId];
+                       // virtualclass.videoUl.modalPopup(type, elemArr);
+                        virtualclass.videoUl.showVideos(content);
+                        virtualclass.videoUl.retrieveOrder();
+
+
                     } else {
-                        console(msg);
+                        console.log(msg);
                     }
                 });
             },
 
             afterUploadFile: function (vidObj) {
+
                 var idPostfix = vidObj.id;
                 // var docId = 'docs' + doc;
                 this.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status);
                 this.pages[idPostfix].init(idPostfix, vidObj.title);
                 this.videoDisplayHandler(vidObj);
                 var vid = document.getElementById("linkvideo" + vidObj.id);
-//                var title = document.getElementById("videoTitle" + vidObj.id);
-//                title.innerHTML = vidObj.title;
+                var title = document.getElementById("videoTitle" + vidObj.id);
+                if(title){
+                    title.innerHTML = vidObj.title;
+                }
+
                 if (vidObj.status == "0") {
                     this._disable(vidObj.id)
-                    vid.classList.add("disable");
+                    if(vid){
+                        vid.classList.add("disable");
+                    }
+
                 } else {
                     this._enable(vidObj.id);
-                    vid.classList.add("enable");
+                    if(vid){
+                        vid.classList.add("enable");
+                    }
+
                 }
+                // virtualclass.videoUl.order.push(res.resultdata.id);
+                // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+
+
+
+                this.calculateHeight();
+            },
+            calculateHeight:function(){
+                var element = document.querySelector('#listvideo');
+                var fineUploader = document.querySelector(".congrea .qq-uploader-selector");
+                console.log(element.offsetHeight);
+                var h = element.offsetHeight;
+                console.log(fineUploader.offsetHeight);
+
+                // $(selector).css({
+                //     minHeight:(element.style.offsetHeight + 500)+"px",
+                //     minWidth:"20px",
+                //     backgroundColor:"yellow",
+                // });
+
+                $('.qq-uploader-selector').css({
+                    minHeight:h
+
+                })
+
+
             },
             modalPopup: function (type, elemArr) {
                 if ($('#listvideo .linkvideo.playing').length > 0) {
@@ -279,6 +344,10 @@
                 upload.validation = ['mp4', 'webm']
 
                 virtualclass.vutil.modalPopup('video', ["congreavideoContBody", "congreaShareVideoUrlCont"]);
+                var cont = document.getElementById("contFooter");
+                virtualclass.videoUl.UI.createYoutubeUrlCont(cont)
+
+
             },
 
             showVideos: function (content, storedId) {
@@ -303,26 +372,96 @@
                 virtualclass.videoUl.videos.forEach(function (vidObj, i) {
                     virtualclass.videoUl.afterUploadFile(vidObj);
                 });
+
+
+              virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              virtualclass.vutil.makeElementActive('#listvideo');
+
+                // $('#listvideo').css({
+                //     "z-index":55
+                //
+                // })
+                // $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
+                //     "z-index":1
+                //
+                // })
+
             },
 
             videoDisplayHandler: function (vidObj) {
                 var video = document.getElementById("mainpvideo" + vidObj.id);
-                if (!vidObj.status) {
-                    if (!video.classList.contains("playDisable")) {
-                        video.classList.add("playDisable");
+                if(vidObj.type =="online"){
+                    video.addEventListener('click',function(){
+                        virtualclass.videoUl.yts=false;
+                        $('#virtualclassVideo iframe#player').remove();
+                        $('#videoPlayerCont').css({"display":"block"});
+                        virtualclass.videoUl.shareVideo(vidObj.content_path);
+                        video.setAttribute("data-dismiss","modal");
+                        if(typeof virtualclass.yts.player == "object"){
+                            virtualclass.yts.player.destroy();
+                        }
+
+                    })
+
+                }else if(vidObj.type =="yts"){
+                    var videoId = virtualclass.videoUl.getVideoId(vidObj.content_path);
+                    video.addEventListener('click', function () {
+                        //to remove this player
+                        if(typeof virtualclass.yts.player == "object"){
+                            virtualclass.yts.player="";
+                        }
+
+                        var player = document.querySelector("#virtualclassVideo #player");
+                        if(player){
+                            player.parentNode.removeChild(player)
+                        }
+
+
+
+
+                       // if(!player){
+                            var cont = document.querySelector("#virtualclassVideo");
+                            var div = document.createElement("div");
+                            div.id="player";
+                            cont.appendChild(div) ;
+
+                       // }
+                        virtualclass.videoUl.yts=true;
+                        $('#videoPlayerCont').css({"display": "none"});
+                        var obj={};
+                        obj.init=videoId;
+                        virtualclass.yts.init(obj);
+                       // virtualclass.yts.onYTIframApi(videoId);
+                        //ioAdapter.mustSend({'videoUl': {'ytsInit': videoId}, 'cf': 'videoUl'});
+                       // virtualclass.videoUl.ytsVideoPlay(videoId)
+                        video.setAttribute("data-dismiss", "modal");
+                    })
+
+                }else{
+
+                    if (video && !vidObj.status) {
+                        if (!video.classList.contains("playDisable")) {
+                            video.classList.add("playDisable");
+                        }
+                    } else {
+                        if (video && video.classList.contains("playDisable")) {
+                            video.classList.remove("playDisable");
+                        }
                     }
-                } else {
-                    if (video.classList.contains("playDisable")) {
-                        video.classList.remove("playDisable");
+                    if(video){
+                        video.addEventListener("click", function () {
+                            virtualclass.videoUl.yts=false;
+                            virtualclass.videoUl.UI.displayVideo(vidObj.id, vidObj.content_path);
+                            virtualclass.videoUl.activeVideoClass(vidObj.id);
+                            virtualclass.videoUl.videoToStudent(vidObj);
+                            virtualclass.videoUl.videoId = vidObj.id;
+                            video.setAttribute("data-dismiss",'modal');
+                        });
+
                     }
+
                 }
 
-                video.addEventListener("click", function () {
-                    virtualclass.videoUl.UI.displayVideo(vidObj.id, vidObj.content_path);
-                    virtualclass.videoUl.activeVideoClass(vidObj.id);
-                    virtualclass.videoUl.videoToStudent(vidObj);
-                    virtualclass.videoUl.videoId = vidObj.id;
-                });
             },
 
             activeVideoClass: function (currId) {
@@ -335,7 +474,7 @@
                 }
 
                 var controlElem = document.getElementById("controlContvideo" + currId);
-                if (!controlElem.classList.contains("removeCtr")) {
+                if ( controlElem && !controlElem.classList.contains("removeCtr")) {
                     controlElem.classList.add("removeCtr");
                 }
 
@@ -347,7 +486,7 @@
                 }
 
                 var currentVideo = document.getElementById("linkvideo" + currId);
-                if (!currentVideo.classList.contains("playing")) {
+                if (currentVideo && !currentVideo.classList.contains("playing")) {
                     currentVideo.classList.add("playing");
                 }
             },
@@ -435,6 +574,7 @@
 
             onmessageObj: function (msg) {
                 if (msg.videoUl.hasOwnProperty('init')) {
+                    virtualclass.videoUl.yts=false;
                     virtualclass.videoUl.rec = msg.videoUl;
                     console.log(virtualclass.videoUl.rec);
                     if (msg.videoUl.init == "studentlayout") {
@@ -450,12 +590,20 @@
                         }
                     }
                 } else if (msg.videoUl.hasOwnProperty('content_path')) {
+                    virtualclass.videoUl.yts=false;
                     virtualclass.videoUl.videoId = msg.videoUl.id;
                     virtualclass.videoUl.videoUrl = msg.videoUl.content_path;
                     virtualclass.videoUl.title = msg.videoUl.title;
                     virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
                 } else if (msg.videoUl.hasOwnProperty('play')) {
                     this.playVideo(msg.videoUl.play);
+                }else if (msg.videoUl.hasOwnProperty('ytsInit')){
+                    var upcont = document.getElementById("videoPlayerCont")
+                    upcont.style.display="none";
+                    virtualclass.videoUl.yts=true;
+                    virtualclass.yts.init(msg);
+                    // alert("ytsinit");
+
                 }
             },
 
@@ -557,13 +705,17 @@
              */
             _enable: function (_id) {
                 var video = document.getElementById("mainpvideo" + _id);
-                video.style.opacity = 1;
-                video.style.pointerEvents = 'auto';
-                virtualclass.videoUl.videos.forEach(function (elem, i) {
-                    if (elem["id"] == _id) {
-                        elem.status = 1;
-                    }
-                })
+                if(video){
+                    video.style.opacity = 1;
+                    video.style.pointerEvents = 'auto';
+                    virtualclass.videoUl.videos.forEach(function (elem, i) {
+                        if (elem["id"] == _id) {
+                            elem.status = 1;
+                        }
+                    })
+
+                }
+
             },
 
             /*
@@ -626,6 +778,112 @@
             videoToStudent: function (videoObj) {
                 ioAdapter.mustSend({'videoUl': videoObj, 'cf': 'videoUl'});
             },
+            //new
+            saveYoutubeUrl:function(videoId){
+                var cont = document.getElementById('listvideo')
+                var div = document.createElement("div");
+                cont.appendChild(div);
+                var anc = document.createElement("a");
+                div.appendChild(anc)
+                anc.href = "#" ;
+                anc.innerHTML="videoId "+videoId;
+                anc.addEventListener('click',function(){
+
+                    virtualclass.videoUl.ytsVideoPlay(videoId)
+                    anc.setAttribute("data-dismiss","modal");
+                })
+            },
+            ytsVideoPlay:function(videoId){
+                // $('#videoPlayerCont').css('display','none');
+                // virtualclass.yts.onYTIframApi(videoId);
+            },
+
+            getVideoId: function (url) {
+                var rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+                var m = url.match(rx);
+                if (m != null && m.length > 1) {
+                    var r = m[1].substring(0, 11);
+                    if (r.length == 11) {
+                        return r;
+                    }
+                }
+                return false;
+            },
+
+            onYTIframApi: function (videoId, playStratFrom, fromReload) {
+                if (typeof videoId != 'undefined') {
+                    this.videoId = videoId;
+                }
+
+                // roles.hasControls(), because loadVideoById is not working, find out why
+                if (typeof this.player == 'object' && roles.hasControls()) {
+                    this.player.loadVideoById(videoId);
+                } else {
+                    var vcontrols = 0;
+                    if (roles.hasControls()) {
+                        vcontrols = 1;
+                    }
+
+                    var playerVarsObj = {
+                        autohide: 0,
+                        disablekb: 1,
+                        enablejsapi: 1,
+                        modestbranding: 1,
+                        controls: vcontrols,
+                        rel: 0,
+                        fs: 0,
+                        showinfo: 0,
+                        start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
+                    };
+
+                    var videoObj = {
+                        playerVars: playerVarsObj,
+                        videoId: videoId,
+                        events: {
+                            'onReady': this.onPlayerReady
+                        }
+                    };
+
+                    if (typeof playStratFrom != 'undefined') {
+                        videoObj.start = playStratFrom;
+                    }
+
+                    console.log('Player object is CREATED');
+                    if (typeof fromReload != 'undefined') {
+                        var that = virtualclass.yts;
+                        // YouTube player is not ready for when the page is being load
+                        // this should should not worked when the user click on youtube share button
+
+                        //window.onYouTubeIframeAPIReady = function () {
+                        //    that.player = new YT.Player('player', videoObj);
+                        //};
+
+                        if(yts.hasOwnProperty('ytApiReady')){
+                            that.player = new YT.Player('player', videoObj);
+                            //window.onYouTubeIframeAPIReady = function () {
+                            //    that.player = new YT.Player('player', videoObj);
+                            //};
+                        } else {
+                            console.log('onYouTubeIframeAPIReady is not ready ');
+                            setTimeout(function (){
+                                that.onYTIframApi(videoId, playStratFrom, fromReload);
+                            }, 300);
+                            return;
+                        }
+                    } else {
+                        this.player = new YT.Player('player', videoObj);
+                    }
+
+                    // var youTubeContainer = document.getElementById(this.UI.id);
+                    // youTubeContainer.className = youTubeContainer.className + " youTubeSharing";
+                }
+
+            },
+
+
+
+
+
 
             /*
              * this object is for user interface
@@ -637,60 +895,72 @@
                  * Creates container for the video and appends the container before audio widget
                  */
                 container: function () {
-                    var videoCont = document.getElementById(this.id);
+                    var videoCont = document.getElementById('virtualclassVideo');
                     if (!videoCont) {
-
                         var control = roles.hasAdmin() ? true : false;
                         var data = {"control": control};
                         var template = JST['templates/videoupload/videoupload.hbs'];
-                        ;
                         $('#virtualclassAppLeftPanel').append(template(data));
-
                         videoCont = document.getElementById(this.id);
 
-                        var type = "video";
-                        var firstId = "congrea" + type + "ContBody";
-                        var secondId = "congreaShareVideoUrlCont";
-                        var elemArr = [firstId, secondId];
+                        // var type = "video";
+                        // var firstId = "congrea" + type + "ContBody";
+                        // var secondId = "congreaShareVideoUrlCont";
+                        // var elemArr = [firstId, secondId];
 
-                        var btn = document.getElementById("newVideoBtn")
-                        // this.showUploadTab(videoCont);
-                        if (btn) {
-                            btn.addEventListener("click", function () {
-                                virtualclass.videoUl.modalPopup(type, elemArr);
-                            })
-                        }
+                        // var btn = document.getElementById("newVideoBtn")
+                        // // this.showUploadTab(videoCont);
+                        // if (btn) {
+                        //     btn.addEventListener("click", function () {
+                        //         virtualclass.videoUl.modalPopup(type, elemArr);
+                        //         var cont = document.getElementById("contFooter");
+                        //         virtualclass.videoUl.UI.createYoutubeUrlCont(cont)
+                        //
+                        //     })
+                        // }
+                        //new to create with template
 
 
                     }
+
+
+
+
 
                 },
+                createYoutubeUrlCont:function(cont){
+                    var list = document.createElement("div");
+                    list.id="listvideo";
+                    cont.appendChild(list);
+
+                },
+                // todo remove this
                 defaultLayoutForStudent: function () {
-                    var videoContainer = document.getElementById(this.id);
-                    if (videoContainer == null) {
-                        videoContainer = document.createElement('div');
-                        videoContainer.id = this.id;
-                        videoContainer.className = this.class;
-                        virtualclass.vutil.insertIntoLeftBar(videoContainer);
-
-                    }
-
-                    var videoUrlContainer = document.getElementById('videoUrlContainer');
-                    if (videoUrlContainer != null) {
-                        videoUrlContainer.parentNode.removeChild(videoUrlContainer);
-                    }
-
-                    var mId = 'messageLayoutVideo';
-                    if (document.getElementById(mId) == null) {
-                        var studentMessage = document.createElement('p');
-                        studentMessage.id = mId;
-                        studentMessage.innerHTML = "video may be shared";
-                        videoContainer.appendChild(studentMessage);
-                    }
-                    var msz = document.getElementById("messageLayoutVideo");
-                    if (msz) {
-                        msz.style.display = "block";
-                    }
+                    // var videoContainer = document.getElementById(this.id);
+                    // if (videoContainer == null) {
+                    //     videoContainer = document.createElement('div');
+                    //     videoContainer.id = this.id;
+                    //     videoContainer.className = this.class;
+                    //     virtualclass.vutil.insertIntoLeftBar(videoContainer);
+                    //
+                    // }
+                    //
+                    // var videoUrlContainer = document.getElementById('videoUrlContainer');
+                    // if (videoUrlContainer != null) {
+                    //     videoUrlContainer.parentNode.removeChild(videoUrlContainer);
+                    // }
+                    //
+                    // var mId = 'messageLayoutVideo';
+                    // if (document.getElementById(mId) == null) {
+                    //     var studentMessage = document.createElement('p');
+                    //     studentMessage.id = mId;
+                    //     studentMessage.innerHTML = "video may be shared";
+                    //     videoContainer.appendChild(studentMessage);
+                    // }
+                    // var msz = document.getElementById("messageLayoutVideo");
+                    // if (msz) {
+                    //     msz.style.display = "block";
+                    // }
 
                 },
 
@@ -716,12 +986,30 @@
                         videoCont.style.display = "block";
                     }
 
+                    if($('iframe#player').length){
+                        $('iframe#player').remove();
+                    }
 
                     virtualclass.videoUl.UI.switchDisplay(videoCont, videoUrl);
 
                     virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
 
                 },
+                destroyYT: function () {
+
+                    if (typeof virtualclass.yts.player == 'object') {
+                        if(virtualclass.currApp == 'ScreenShare'){
+                            // ioAdapter.mustSend({'yts': 'destroyYT', 'cf': 'yts'});
+                        }
+                        virtualclass.yts.player.destroy();
+                        virtualclass.yts.player = "";
+                        if (virtualclass.yts.hasOwnProperty('tsc')) {
+                            clearInterval(virtualclass.yts.tsc);
+                        }
+                    }
+                },
+
+
                 videojsPlayer: function (videoUrl, vidId, startFrom) {
 
                     var player = videojs("dispVideo");
@@ -738,7 +1026,6 @@
                         }
                     }
                     virtualclass.videoUl.player = player;
-//
                     virtualclass.videoUl.UI.setPlayerUrl(player, videoUrl, startFrom);
 
                     virtualclass.videoUl.UI.attachPlayerHandler(player, vidId, videoUrl);
@@ -762,7 +1049,7 @@
                     });
 
                     player.on("fullscreenchange", function (e) {
-                        virtualclass.videoUl.UI.onfullscreenChange(player);
+                        //virtualclass.videoUl.UI.onfullscreenChange(player);
                     });
 
                     player.on("ended", function (e) {
@@ -901,29 +1188,77 @@
                         studentMessage.parentNode.removeChild(studentMessage);
                     }
 
-                    if (document.getElementById('videoUrlContainer') == null) {
-                        var uiContainer = document.createElement('div');
-                        uiContainer.id = "videoUrlContainer";
-
-                        var input = document.createElement("input");
-                        input.id = "videourl";
-                        input.cols = 70;
-                        input.rows = 3;
-                        input.placeholder = "Share video with Online Video Url";
-                        videocont.appendChild(input);
-                        uiContainer.appendChild(input);
-                        videocont.appendChild(uiContainer);
-
-                        var submitURL = document.createElement('button');
-                        submitURL.id = 'submitURL';
-                        submitURL.innerHTML = "share video"
-                        submitURL.setAttribute("data-dismiss", 'modal');
-                        uiContainer.appendChild(submitURL);
+                        var submitURL= document.getElementById("submitURL")
                         submitURL.addEventListener("click", function () {
-                            virtualclass.videoUl.shareVideo(input.value);
+                            var type="yts";
+                            var input = document.querySelector(".congrea #videourl");
+                            var rdata = new FormData();
+                            // virtualclass.videoUl.shareVideo(input.value);
+                            $('.congrea #listvideo .playing').removeClass('playing');
+                            $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
+
+                            // var cont = document.getElementById('listvideo')
+                            // var div = document.createElement("div");
+                            // cont.appendChild(div);
+                            // var anc = document.createElement("a");
+                            // div.appendChild(anc)
+                            // anc.href = "#" ;
+                           // anc.innerHTML=input.value;
+                            var vidObj={}
+                            vidObj.content_path=input.value;
+                            vidObj.id ="tempid";
+                            vidObj.status=1;
+                            vidObj.title=input.value
+                            rdata.append("video",input.value);
+
+                            var videoId = virtualclass.videoUl.getVideoId(input.value);
+                            if (typeof videoId == 'boolean') {
+                                vidObj.type="online";
+                                rdata.append("type","online");
+
+
+                            }else  {
+                                vidObj.type="yts"
+                                rdata.append("type","yts" );
+
+                            }
+
+
+                            virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
+                                debugger;
+                                var content = JSON.parse(msg);
+                                console.log(content);
+                                 vidObj.id= content.resultdata.id;
+                                virtualclass.videoUl.afterUploadFile(vidObj);
+                                virtualclass.videoUl.order.push(content.resultdata.id);
+                                virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+
+                            });
+
                         });
-                    }
+
+                        var upload = document.querySelector(".congrea #newVideoBtn")
+                        if(upload){
+                            upload.addEventListener('click',function(){
+                                var uploader= document.querySelector('.congrea #congreavideoContBody');
+                                uploader.style.display="block";
+
+                                var uploader= document.querySelector('.congrea #listvideo');
+                                uploader.style.display="none";
+
+                             })
+
+                        }
+
                 },
+                createPlayerCont:function(){
+
+
+
+
+
+                },
+
                 /*
                  * removeing the video url container
                  */
@@ -933,6 +1268,44 @@
                         inputContainer.parentNode.removeChild(inputContainer);
                     }
                 },
+                popup:function(){
+                    var elemArr = ["congreavideoContBody", "congreaShareVideoUrlCont"];
+                    var upload = {};
+                        if ($('#listvideo .linkvideo.playing').length > 0) {
+                            var id = $('#listvideo .linkvideo.playing').attr('data-rid')
+                            this.currPlaying = id;
+                        }
+                        upload.validation = ['mp4', 'webm'];
+                        upload.cb = virtualclass.videoUl.afterUploadVideo;
+                        upload.cthis = 'video';
+                        upload.multiple = false;
+                        //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
+                        upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
+                        upload.wrapper = document.getElementById(elemArr[0]);
+                    virtualclass.fineUploader.uploaderFn(upload);
+
+                    //TODO this need to be outside the function
+
+                    virtualclass.videoUl.UI.inputUrl();
+
+                    virtualclass.videoUl.getVideoList();
+
+
+                    var fineUploader = document.querySelector(".congrea .qq-uploader-selector.qq-uploader.qq-gallery");
+                    var cont = document.querySelector("#congreavideoContBody");
+                    var videolist = document.querySelector("#listvideo");
+                    cont.insertBefore(videolist,fineUploader);
+
+                    var cont =  document.querySelector("#uploadMsz")
+                    var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");
+                    cont.appendChild(msz);
+
+                    var btn = document.querySelector(".qq-upload-button-selector.qq-upload-button");
+                    //var videolist = document.querySelector("#congreaShareVideoUrlCont");
+                  //  urlcont.appendChild(btn);
+
+                }
+
             },
         };
     };

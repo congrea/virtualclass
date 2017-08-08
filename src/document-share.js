@@ -674,6 +674,9 @@
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         $('#virtualclassAppLeftPanel').append(template(data));
 
+                        var dashboard = virtualclass.vutil.getDocsDashBoard();
+                        $('#congdashboard .modal-body').append(dashboard);
+
                         //
                         //
                         //
@@ -932,8 +935,20 @@
                  * @param slide expects the slide
                  */
                 createWhiteboard : function (slide){
-
                     var cthis = virtualclass.dts;
+                    var wbid = '_doc_'+slide+'_'+slide;
+
+                    /**
+                     * This canvas width and height is set for Screen 1280 * 1024
+                     * The same dimension is using for image
+                     */
+                    var canvasWidth = 730;
+                    var canvasHeight = 750;
+
+                    cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
+
+
+
                     //console.log('Create Whiteboard ');
 
                     console.log(virtualclass.gObj.currWb + ' ' + 'document share Create Whiteboard ');
@@ -941,7 +956,7 @@
                     whiteboard.id = 'cont';
                     whiteboard.className = 'whiteboard';
 
-                    whiteboard.dataset.wid = '_doc_'+slide+'_'+slide;
+                    whiteboard.dataset.wid = wbid;
                     whiteboard.id = 'cont' + whiteboard.dataset.wid;
 
                     //document.querySelector("[data-doc='1'] .slide[data-slide='1']");
@@ -954,14 +969,7 @@
                         var args = [app, 'byclick', whiteboard.dataset.wid, whiteboard.id];
                         virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
 
-                        /**
-                         * This canvas width and height is set for Screen 1280 * 1024
-                         * The same dimension is using for image
-                         */
-                        var canvasWidth = 730;
-                        var canvasHeight = 750;
-
-                        cthis.setNoteDimension(canvasWidth, canvasHeight, whiteboard.dataset.wid);
+                      cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
 
                     } else {
                         console.log("Element is null");
@@ -1586,6 +1594,15 @@
                 } else {
                         alert(virtualclass.lang.getString('someproblem'));
                 }
+
+                var listnotes  = document.querySelector('#listnotes');
+                if(listnotes != null){
+                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementActive('#listnotes');
+                }else {
+                  console.log('List note is null');
+                }
+
             },
 
             /**
@@ -1613,6 +1630,18 @@
                     notesContainer.style.height = height+'px';
                 }
 
+            },
+
+            setNoteImageDimension : function (width, height, nid){
+              var contElem =  document.querySelector('#cont' + nid);
+              if(contElem != null){
+                var noteContainer = contElem.parentNode;
+                var imageContainer = document.querySelector('#'+ noteContainer.id +  ' .imageContainer img');
+                imageContainer.style.width = width;
+                imageContainer.style.height = height;
+              }else {
+                alert(nid + ' is null');
+              }
             }
         };
     }

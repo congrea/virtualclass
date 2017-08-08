@@ -197,8 +197,8 @@
   font-weight:bold;
 }
 
-.bootstrap .col-md-3 span,
-.bootstrap .col-md-4 span,
+.bootstrap #rsQzHead .col-md-3 span,
+.bootstrap #rsQzHead .col-md-4 span,
 #virtualclassCont.congrea #layoutQuizBody #timeText span,
 #virtualclassCont.congrea #layoutQuizBody .quizArea label{
   font-weight: normal;
@@ -217,7 +217,7 @@
 #virtualclassCont.congrea #layoutQuizBody #resultQzLayout.alert {
   margin-top:10px;
 }
-.bootstrap .alert {
+#virtualclassCont.congrea #resultQzLayout .alert {
   padding:10px !important;
   margin-top:10px;
 }
@@ -260,5 +260,19 @@ span.qah {
 
 span.sch {
   margin-left: 94px;
-  color:#808080;
+  color: #808080;
+}
+
+#virtualclassCont.congrea #layoutQuizBody .icon-publish2{
+  color:#505050;
+
+}
+
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav a {
+  color:#555;
+}
+
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:hover,
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:focus{
+  background:radial-gradient(ellipse at center, #f8f9fb 0%, #fbfbfb 100%);
 }

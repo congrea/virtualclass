@@ -109,6 +109,7 @@
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData); 
                              }
                         }
+
                     },
 
                     validation: {
@@ -124,6 +125,17 @@
                     dataObj.allowedExtensions = obj.validation;
                 }
                 var galleryUploader = new qq.FineUploader(dataObj);
+            },
+
+            onDragEnter : function (e){
+              var tobeDeactive;
+              if(virtualclass.currApp == 'DocumentShare'){
+                tobeDeactive = "#listnotes";
+              }else if(virtualclass.currApp == 'Video'){
+                tobeDeactive = '#listvideo';
+              }
+              virtualclass.vutil.makeElementDeactive(tobeDeactive );
+              virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
             }
         }
     }();

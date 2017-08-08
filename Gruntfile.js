@@ -40,8 +40,8 @@ module.exports = function(grunt) {
 
         sass: {
             dev: {
-                src: 'scss/theme-black.scss',
-                dest: 'css/theme/black.css'
+                src: 'scss/theme-gray.scss',
+                dest: 'css/theme/gray.css'
             },
 
         },
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.registerTask('default', ['handlebars','sass']);
+  grunt.registerTask('default', ['handlebars']);
 
 
 };

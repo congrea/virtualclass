@@ -136,9 +136,9 @@
 /*right pannel*/
 #virtualclassCont.congrea #speakerPressonceAnch span {
   width: 40px;
-  height: 17px;
+  height: 20px;
   display: inline-block;
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   position: relative;
   border-radius: 2px;
   -webkit-background-clip: padding-box;
@@ -161,15 +161,16 @@
   -o-transition: all 1s ease-in;
   transition: all 1s ease-in;
   cursor: pointer;
-  right: -2px;
+  right: 9px;
+  top: 5px;
 }
 
 #virtualclassCont.congrea #speakerPressOnce span i {
   position: absolute;
   top: -3px;
   right: 24px;
-  width: 15px;
-  height: 20px;
+  width: 16px;
+  height: 25px;
   display: block;
   border-radius: 2px;
   -webkit-transition: all 200ms ease;
@@ -201,11 +202,12 @@
   left: 18px;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videSpeedNumber::before {
+#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber::before {
   content: "\e907";
   font-family: 'icomoon';
   font-size: 22px;
   padding-top: 0px;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency::before {
@@ -240,8 +242,8 @@
   content: "\f026";
   color: #535151;
   vertical-align: baseline;
-  font-size: 130%;
-  margin-left: 4px;
+  font-size: 120%;
+  /*margin-left: 4px;*/
   font-weight: normal;
 }
 
@@ -262,6 +264,7 @@
 #virtualclassCont.congrea .icon-editorRichImg:before {
   content: "\e605";
   font-size: 15px;
+  color: #535151;
 }
 
 /*bottom bar*/
@@ -272,7 +275,7 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-#virtualclassCont.congrea #stickybar .footerCtr .prechk span.precheck:before {
+#virtualclassCont.congrea #audioWidget #mainAudioPanel .prechk .precheck:before {
   content: "\e911";
   font-weight: bold;
   font-size: 11px;
@@ -438,13 +441,13 @@
 
 .icon-minus:before {
   content: "\e60f";
-  color:#333;
+  color:#fff;
   font-size: 12px;
 }
 
 .icon-close:before {
   content: "\f00d";
-  color:#333;
+  color:#fff;
   font-size: 15px;
 }
 

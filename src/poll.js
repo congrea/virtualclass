@@ -545,7 +545,7 @@
                             },
                             'cf': 'poll'
                         });
-                        //virtualclass.poll.resultToStorage();
+                        virtualclass.poll.resultToStorage();
                         var saveResult = {
                             "qid": virtualclass.poll.dataToStd.qId,
                             "list": virtualclass.poll.list
@@ -804,9 +804,22 @@
                   }
 
                   virtualclass.poll.attachEvent("publishQn" + pollType + index, "click", virtualclass.poll.publishHandler, item, pollType, index);
-
+                  virtualclass.poll.previewOnHover(item,pollType,index)
 
             },
+
+            previewOnHover: function (item,pollType,index) {
+                var data={};
+                data.questiontext= item.questiontext;
+                data.options=item.options;
+                var template=virtualclass.getTemplate("previewPopup","poll");
+                var preview = (template({"data":data}));
+                $(function () {
+                    $('[data-toggle="popover"]').popover({content:preview,html: true, delay: {show: 1000}})
+                })
+
+            },
+
             attachEvent: function (actionid, eventName, handler, item, pollType, index, qid, temp, isPublished) {
 
                 var elem = document.getElementById(actionid);
@@ -1224,6 +1237,7 @@
 
             publishHandler2: function () {
                 var message = "poll published";
+                var message = "poll published";
                 virtualclass.poll.showMsg("mszBoxPoll", message, "alert-success");
 
             },
@@ -1288,7 +1302,7 @@
                         'cf': 'poll'
                     });
 
-                   // virtualclass.poll.resultToStorage();
+                    virtualclass.poll.resultToStorage();
                     virtualclass.poll.UI.pollClosedUI();
                     var saveResult = {
                         "qid": virtualclass.poll.dataToStd.qId,
@@ -1729,7 +1743,7 @@
                         virtualclass.poll.pollState["data"] = "noResult"
                     }
                 }
-                // virtualclass.poll.resultToStorage();
+                virtualclass.poll.resultToStorage();
 
             },
 
@@ -2387,7 +2401,18 @@
                             sitePollNav.style.pointerEvents="visible";
                             virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
                         });
+                    }else{
+
+                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a')
+                        stdNav.addEventListener('click', function () {
+                            virtualclass.poll.showStudentPollReport();
+                        });
+
                     }
+                    $(function () {
+                        $('[data-toggle="popover"]').popover()
+                    })
+
                 },
 
                 resultView: function (istimer, pollType) {
@@ -2532,7 +2557,7 @@
                 },
 
                 createNav: function (pollCont) {
-                    if (roles.hasControls())  {
+                    if (!roles.hasControls())  {
                         var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a')
                         stdNav.addEventListener('click', function () {
                             virtualclass.poll.showStudentPollReport();
@@ -2662,7 +2687,7 @@
                    }
 
                    if (qn != null && !qn.value) {
-                      if (pollType = 'course') {
+                      if (pollType =='course') {
                          qn.value = virtualclass.poll.coursePoll[index].questiontext;
                       } else {
                          qn.value = virtualclass.poll.sitePoll[index].questiontext;

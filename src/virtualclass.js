@@ -73,14 +73,14 @@
                 };
 
                 // this actually is particular session, it can be anything like course, particular activity on course
-                // for example, in moodle this is course moodle id, 
+                // for example, in moodle this is course moodle id,
                 // with other sysytem it might differ.
 
                 this.gObj.congCourse = typeof (window.congCourse != 'undefiend') ? window.congCourse : 0;
 
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
-                this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
+               // this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
                 this.edConfig = {id: "virtualclass" + this.apps[3], classes: "appOptions"};
                 this.edCodeConfig = {id: "virtualclass" + this.apps[4], classes: "appOptions"};
                 this.ptConfig = {id: "virtualclass" + this.apps[5], classes: "appOptions"};
@@ -196,6 +196,13 @@
                     virtualclass.makeReadySocket();
                 }
 
+                //For change color uncomment this and give the appropriate values
+                // var editorbtn={color : 'blue'}
+                // var allbg = {fcolor : '#777999', scolor : '#666999'};
+                // var active = {fcolor : '#459878', scolor : '#698568'};
+                // var hover = {fcolor : '#989655', scolor : '#837394'};
+                // virtualclass.makeThemeReady(editorbtn, allbg,active,hover);
+
                 // For initialize the Teacher Video
                 virtualclass.videoHost.init(320 , 240);
 
@@ -203,7 +210,7 @@
                 //virtualclass.dts  = window.documentShare();
 
                 //virtualclass.documentShare.init();
-
+                virtualclass.networkStatus();
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
                 }
@@ -214,6 +221,42 @@
                     virtualclass.precheck.init(virtualclass.precheck);
 
                 })
+
+
+            },
+
+            networkStatus: function(){
+                var netstatus = virtualclass.getTemplate('network');
+                var context = {suggestion:'low',
+                    latency:'slow',
+                    quality:'low'};
+                var netstatushtml = netstatus(context);
+                // $('#vedioPacket').append(netstatushtml);
+
+                popoverOptions = {
+                    content: function () {
+                        // Get the content from the hidden sibling.
+                        //virtualclass.media.initVideoInfo();
+                        return netstatushtml;
+                    },
+                    html : true,
+                    trigger: 'hover',
+                    // animation: false,
+                    placement: 'bottom'
+                };
+                $('#ntkstatus').popover(popoverOptions);
+
+                $('#ntkstatus').on('shown.bs.popover', function () {
+                    // do something…
+                    //initVideoInfo
+                    virtualclass.videoHost.initVideoInfo();
+                });
+
+                $('#ntkstatus').on('hide.bs.popover', function () {
+                    // do something…
+                    clearInterval( virtualclass.videoHost.videoInfoInterval);
+                });
+
             },
 
             makeReadySocket : function (){
@@ -229,6 +272,50 @@
                     }, 100);
 
                 }
+            },
+
+            makeThemeReady : function (editorbtn,allbg,active,hover){
+
+                var css="#virtualclassCont.congrea a.vceditor-btn{background-color: "+editorbtn.color+"} " +
+                    "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,#virtualclassCont.congrea #navigator,#virtualclassCont.congrea #layoutQuiz .navbar," +
+                    "#virtualclassCont.congrea .vceditor-toolbar,#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget," +
+                    "#virtualclassCont.congrea #chatWidget .chatBarTab, #virtualclassCont.congrea .commandToolsWrapper," +
+                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #playButton," +
+                    "#virtualclassCont.congrea #confirmCancel #confirmCancelButton,#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,#virtualclassCont.congrea .commandToolsWrapper .tool.active a," +
+                    "#virtualclassCont.congrea .vmchat_room_bt.active,#virtualclassCont.congrea[data-currapp="+"EditorRich"+"] .vmchat_bar_button.active," +
+                    "#virtualclassCont.congrea .vmchat_support.active {background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover," +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover , " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover," +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover," +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover, " +
+                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover, " +
+                    "#virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover, " +
+                    "#virtualclassCont.congrea #audioTest-box:hover, #virtualclassCont.congrea a.vceditor-btn:hover," +
+                    "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover, #virtualclassCont.congrea #playButton:hover," +
+                    "#virtualclassCont.congrea #alwaysPress:hover,#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
+                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, " +
+                    "#virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}";
+                function addcss(css){
+                    var head = document.getElementsByTagName('head')[0];
+                    var s = document.createElement('style');
+                    s.setAttribute('type', 'text/css');
+                    if (s.styleSheet) {   // IE
+                        s.styleSheet.cssText = css;
+                    } else {                // the world
+                        s.appendChild(document.createTextNode(css));
+                    }
+                    head.appendChild(s);
+                }
+                addcss(css);
+
             },
 
             initSocketConn: function () {
@@ -256,9 +343,12 @@
 
                     //var appCont = document.getElementById(this.id);
 
-                    // var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
+                    var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
                     // var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
-                    // appCont.insertBefore(appOptCont, appCont.firstChild);
+                    var appOptCont = virtualclass.getTemplate('appTools');
+                    var appOptCont1=appOptCont();
+                    $('#virtualclassAppLeftPanel').append(appOptCont1);
+                    // appCont.insertBefore(appOptCont1, appCont.firstChild);
                     //
                     // if(roles.hasAdmin()){
                     //     this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
@@ -290,7 +380,7 @@
 
                     // Fix problem when the role is being reclaimed
                     // With current active application is whiteboard
-                    // appOptCont.style.zIndex = 1;
+                    //appOptCont1.style.zIndex = 100; //to do verify
 
                 },
 
@@ -467,7 +557,7 @@
                     virtualclass.system.setAppDimension();
                 }
 
-                if (app != this.apps[1] && app != this.apps[2] && virtualclass.hasOwnProperty('yts')) {
+                if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
                     virtualclass.yts.destroyYT();
                 }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {
@@ -476,6 +566,8 @@
                     if (dispVideo) {
                         dispVideo.style.display = "none";
                     }
+                    $('.congrea #listvideo .playing').removeClass('playing');
+                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
                     if (typeof virtualclass.videoUl.player == 'object') {
                         // debugger;
@@ -484,7 +576,15 @@
                     }
 
                 }
+                if(roles.hasControls()) {
 
+                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||
+                        virtualclass.currApp == 'DocumentShare') {
+                        virtualclass.vutil.initDashboardNav();
+                    } else {
+                        virtualclass.vutil.removeDashboardNav();
+                    }
+                }
             },
 
             // Helper functions for making the app is ready
@@ -620,7 +720,9 @@
                             virtualclass.yts.init();
                         }
                     }
+
                     this.previous = virtualclass.ytsConfig.id;
+
                 },
 
                 EditorRich : function (app){
@@ -652,6 +754,7 @@
                     console.log(virtualclass.sharePt.pptUrl);
                     this.previous = virtualclass.ptConfig.id;
                     virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
+
                 },
 
                 Poll : function (app){
@@ -664,14 +767,46 @@
                 },
 
                 Video: function (app, custEvent, videoObj) {
+                    if(typeof videoObj != 'undefined' && videoObj != null){
+                        if (typeof videoObj.type == 'undefined'){
+                            virtualclass.videoUl.init(videoObj, videoObj.startFrom);
 
-                    if (typeof videoObj != 'undefined' && videoObj != null) {
-                        virtualclass.videoUl.init(videoObj, videoObj.startFrom);
-                    } else {
+                        }else if(videoObj.type == 'yts'){
+                            virtualclass.videoUl.init();
+                            virtualclass.yts.init(videoObj, videoObj.startFrom);
 
+                        }else{
+
+                            virtualclass.videoUl.init();
+
+                        }
+
+                    }else{
                         virtualclass.videoUl.init();
-
                     }
+
+                    // if (typeof videoObj.type == 'undefined') {
+                    //     if (typeof videoObj != 'undefined' && videoObj != null) {
+                    //         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
+                    //     } else {
+                    //         virtualclass.videoUl.init();
+                    //     }
+                    // }else if(typeof videoObj.type == 'yts'){
+                    //     if (typeof videoObj != 'undefined' && videoObj != null) {
+                    //         virtualclass.yts.init(videoObj, videoObj.startFrom);
+                    //     } else {
+                    //         virtualclass.yts.init();
+                    //     }
+                    //
+                    // }else{
+                    //
+                    //     if (typeof videoObj != 'undefined' && videoObj != null) {
+                    //         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
+                    //     } else {
+                    //         virtualclass.videoUl.init();
+                    //     }
+                    //
+                    // }
 
                 },
 
@@ -739,6 +874,8 @@
                         }
                     }
 
+
+
                     virtualclass.previous = virtualclass.dtsConfig.id;
                 },
 
@@ -800,6 +937,8 @@
                             clearTimeout(dstData);
                         }
                     }
+
+
                 }
             },
 
@@ -930,6 +1069,8 @@
                     leftBar: this.getTemplate('leftBar') ,
                     main: this.getTemplate('main') ,
                     whiteboard: this.getTemplate('main', 'whiteboard'),
+                    dashboardCont: this.getTemplate('dashboardCont'),
+
                 });
             },
 
@@ -961,7 +1102,10 @@
                 this.registerPartial();
                 /** inserting the main container of virtualclass **/
                 var mainTemplate = this.getTemplate('main');
-                var mainCont = {hasControls : roles.hasControls()}
+
+                var mainCont = {
+                    isPlay : virtualclass.isPlayMode,
+                    hasControls : roles.hasControls()}
                 var mainHtml = mainTemplate(mainCont);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
             },

@@ -1,16 +1,16 @@
-#virtualclassCont.congrea.teacher #virtualclassYts, #virtualclassCont.congrea.student.presenter #virtualclassYts {
+#virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.student.presenter #virtualclassVideo {
   margin-left: 55px;
 }
 
-#virtualclassCont.congrea.educator #virtualclassYts {
+#virtualclassCont.congrea.educator #virtualclassVideo {
   margin-left: 7px;
 }
 
-#virtualclassCont.congrea.student #virtualclassYts {
+#virtualclassCont.congrea.student #virtualclassVideo {
   margin-left: 10px;
 }
 
-#virtualclassCont.congrea.student #virtualclassYts p {
+#virtualclassCont.congrea.student #virtualclassVideo p {
   text-align: center;
 }
 
@@ -22,19 +22,19 @@
   margin-top: 8px;
 }
 
-#virtualclassCont.congrea #virtualclassYts.youTubeSharing #player {
+#virtualclassCont.congrea #virtualclassVideo #player {
   display: inline;
   margin-top: 1%;
   margin-left: 22px;
 }
 
-#virtualclassCont.congrea .youTubeSharing #youtubeUrlContainer, #virtualclassCont.congrea.student.educator .youTubeSharing #youtubeUrlContainer {
+#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {
   top: 0;
   text-align: left;
   margin-left: 22px;
 }
 
-#virtualclassCont.congrea #virtualclassYts iframe#player {
+#virtualclassCont.congrea #virtualclassVideo iframe#player {
   width: 90%;
   height: 80%;
   min-height: 85vh;
@@ -56,11 +56,11 @@
   content: "\ea99";
 }
 
-#virtualclassCont.congrea #youtubeUrlContainer {
+#virtualclassCont.congrea #videoUrlContainer{
   position: absolute;
 }
 
-#virtualclassCont.congrea #youtubeUrlContainer, #virtualclassCont.congrea.student.presenter #youtubeUrlContainer {
+#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{
   left: 0;
   margin-top: 10px;
   right: 0;
@@ -68,7 +68,7 @@
   top: 40%;
 }
 
-#virtualclassCont.congrea .youTubeSharing #youtubeUrlContainer, #virtualclassCont.congrea.student.presenter .youTubeSharing #youtubeUrlContainer {
+#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer {
   top: 0;
   text-align: left;
 }
@@ -77,11 +77,11 @@
   text-align: left;
 }
 
-#virtualclassCont.congrea #virtualclassCont.congrea #player {
+#virtualclassCont.congrea #player {
   margin-top: 7%;
 }
 
-#virtualclassCont.congrea #youtubeUrlContainer #youtubeurl {
+#virtualclassCont.congrea #videoUrlContainer #videourl {
   border: #ddd 1px solid;
   height: 36px;
   font-size: 16px;
@@ -91,7 +91,7 @@
   border-radius: 5px;
 }
 
-#virtualclassCont.congrea #youtubeUrlContainer #submitURL {
+#virtualclassCont.congrea #submitURL {
   background: #83c2b2; /* Old browsers */
   background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
@@ -111,29 +111,33 @@
   position: relative;
 }
 
-#virtualclassCont.congrea #youtubeUrlContainer #submitURL:hover {
+#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {
   background-color: #68a697;
-  background-image: none;
+  /*background-image: none;*/
 }
 
-#youtubeUrlContainer {
+#videoUrlContainer {
   z-index: 40;
 }
 
-#virtualclassCont.congrea #youtubeUrlContainer {
+#virtualclassCont.congrea #videoUrlContainer {
   position: relative;
-  margin-top: 25%;
+ /*// margin-top: 25%;*/
   text-align: center;
   top: 0;
   left: 0;
   right: 0;
 }
 
-#virtualclassCont.congrea .youTubeSharing #youtubeUrlContainer {
+#virtualclassCont.congrea #videoUrlContainer {
   margin-top: 10px;
 }
+.congrea #videoUrlContainer{
+  float:right;
+}
 
-#virtualclassCont.congrea.student.presenter .youTubeSharing #youtubeUrlContainer {
+
+#virtualclassCont.congrea.student.presenter #videoUrlContainer {
   top: 87%;
   left: 50px;
 }

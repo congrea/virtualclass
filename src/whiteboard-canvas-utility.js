@@ -14,13 +14,15 @@
              * @return {offset} calculated value value
              */
             canvasCalcOffset: function (cid) {
-                /*alert('suman');
-                 debugger; */
+
                 var vcanMain = vcan.main;
                 //TODO cid should be happened as in fabric
                 var canvasEl = document.getElementById(cid);
+
                 var offset = vcan.utility.getElementOffset(canvasEl);
                 vcanMain.offset = offset;
+              //    vcanMain.offset.x = 0;
+
                 return offset;
             },
             /**
@@ -141,6 +143,7 @@
 
             getReltivePoint: function (e) {
                 var offset = vcan.main.offset;
+                // console.log('whiteboard canvas offset x ' + vcan.main.offset.x);
                 var pointer = vcan.utility.actualPointer(e);
                 return {
                     x: pointer.x - offset.x,

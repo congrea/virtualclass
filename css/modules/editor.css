@@ -16,6 +16,7 @@
 #virtualclassCont.congrea .icon-editorCodeImg:before {
   content: "\e608";
   font-size: 14px;
+  color: #535151;
 }
 
 #virtualclassEditorRich #synchMessageBox, .writeModeBox {
@@ -76,7 +77,7 @@
   right: 20px;
   width: 110px;
   text-align: center;
-  padding: 10px 0px;
+  padding: 8px 0px;
   font-size: 14px;
   font-weight: 200;
   z-index: 0;
@@ -117,12 +118,12 @@
   background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
   background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
-  border-radius: 5px;
+  border-radius: 8px;
 
 }
 
 #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover {
-  background-image: none;
+  /*background-image: none;*/
   opacity: 0.9;
 }
 

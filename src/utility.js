@@ -163,7 +163,7 @@
                 }
 
                 //rightOffSet  = 12;
-                 rightOffSet  = 0;
+                rightOffSet  = 0;
                 //leftSideBarWidth = roles.hasControls() ? 60 : 5;
 
                 if (virtualclass.isPlayMode) {
@@ -249,12 +249,12 @@
                 console.log('ask for inline installation');
                 //alert('ss' + chrome);
                 chrome.webstore.install('https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl',
-                        function(arg) {
-                            window.location.reload();
-                        },
-                        function(e) {
-                            alert(e);
-                        }
+                    function(arg) {
+                        window.location.reload();
+                    },
+                    function(e) {
+                        alert(e);
+                    }
                 )
             }
         },
@@ -574,32 +574,32 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-                  if(virtualclass.videoUl.yts){
-                      if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
-                          prvAppObj.metaData = {
-                              'init': virtualclass.yts.videoId,
-                              startFrom: virtualclass.yts.player.getCurrentTime(),
-                              type:'yts'
-                          };
-                      }
+                if(virtualclass.videoUl.yts){
+                    if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
+                        prvAppObj.metaData = {
+                            'init': virtualclass.yts.videoId,
+                            startFrom: virtualclass.yts.player.getCurrentTime(),
+                            type:'yts'
+                        };
+                    }
 
-                  }else{
-                      if(virtualclass.videoUl.player){
-                          var start=virtualclass.videoUl.player.currentTime();
-                      }
+                }else{
+                    if(virtualclass.videoUl.player){
+                        var start=virtualclass.videoUl.player.currentTime();
+                    }
 
-                      prvAppObj.metaData = {
-                          'init': {
-                              videoId:virtualclass.videoUl.videoId,
-                              videoUrl:virtualclass.videoUl.videoUrl
-                          },
-                          startFrom: start
-                      };
+                    prvAppObj.metaData = {
+                        'init': {
+                            videoId:virtualclass.videoUl.videoId,
+                            videoUrl:virtualclass.videoUl.videoUrl
+                        },
+                        startFrom: start
+                    };
 
 
-                      virtualclass.videoUl.saveVideosInLocalStr();
+                    virtualclass.videoUl.saveVideosInLocalStr();
 
-                  }
+                }
 
             } else if(virtualclass.currApp == 'DocumentShare'){
                 console.log('previous app success ' + virtualclass.currApp);
@@ -607,7 +607,7 @@
                     var currDoc = virtualclass.dts.docs.currDoc;
                     console.log('currentDocument ' + currDoc);
                     // console.dir('currDoc ' + virtualclass.dts.docs[virtualclass.dts.docs.currDoc]);
-                  //  var slideNumber = virtualclass.dts.docs.note.currNote;
+                    //  var slideNumber = virtualclass.dts.docs.note.currNote;
                     console.dir('curr slider suman ' + virtualclass.dts.docs.note.currNote);
                     if(virtualclass.dts.order.length > 0){
                         prvAppObj.metaData = {
@@ -648,12 +648,12 @@
                 }
             }
 
-          /**
-           * This object is storing for retain the data
-           * while user refresh the page at other App(eg:- video)
-           * rather than document sharing
-           */
-          if(virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
+            /**
+             * This object is storing for retain the data
+             * while user refresh the page at other App(eg:- video)
+             * rather than document sharing
+             */
+            if(virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
                 && (typeof virtualclass.dts.pages == 'object')){
                 var docsObj = {};
                 docsObj.docs = virtualclass.dts.pages;
@@ -664,7 +664,7 @@
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
-           // localStorage.setItem('uRole', virtualclass.gObj.uRole);
+            // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
             //by nirmala
             var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
@@ -994,7 +994,7 @@
                 if (virtualclass.currApp == 'SharePresentation') {
 
                     if (roles.hasControls()) {
-                         virtualclass.sharePt.initStudentLayout();
+                        virtualclass.sharePt.initStudentLayout();
                     }
 
                     if (roles.hasView()) {
@@ -1063,17 +1063,17 @@
             if(!roles.hasAdmin()){
                 io. disconnect();
                 setTimeout(
-                        function() {
-                            virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
-                            io.init(virtualclass.uInfo);
-                        }, 500
+                    function() {
+                        virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
+                        io.init(virtualclass.uInfo);
+                    }, 500
                 );
             } else {
                 /** We need to  update  the role at teacher side with virtualclass.uInfo.userobj.role
-                * because the older role is existing while new session is being created.
-                * TEST CASE:- assign role, page refresh both side, reclaim role, see io.cfg.userobj.role, you get the older role
-                * This happens only on teacher side, below st
-                * **/
+                 * because the older role is existing while new session is being created.
+                 * TEST CASE:- assign role, page refresh both side, reclaim role, see io.cfg.userobj.role, you get the older role
+                 * This happens only on teacher side, below st
+                 * **/
                 virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
             }
 
@@ -1470,7 +1470,7 @@
 
 
         initTeacherRole : function (){
-           // debugger;
+            // debugger;
             ioAdapter.send({'cf': 'bt'}); //become teacher
             virtualclass.vutil.removeBecomeTeacherWidget(); // remove button from self window
             setTimeout(
@@ -1485,7 +1485,7 @@
                     window.location.reload();
                 }, virtualclass.gObj.mySetTime
             );
-         },
+        },
 
 
         overrideRoles : function (role){
@@ -1566,7 +1566,7 @@
                         clearInterval(createUser);
                         return;
                     }
-                   var user = {
+                    var user = {
                         img: "https://local.vidya.io/congrea_te/images/quality-support.png",
                         name: "suman" + i,
                         userid: 3 + i,
@@ -1584,7 +1584,7 @@
         },
 
         calculateChatHeight : function (){
-           var topBarHeight = 100;
+            var topBarHeight = 100;
             var videoHeight = 240;
             //nirmala
             var other = 0;
@@ -1622,11 +1622,11 @@
             var rightPanelHeight = this.getVisibleHeightElem('virtualclassCont');
             rightPanel.style.height = (rightPanelHeight != nul1) ? rightPanelHeight : window.innerHeight;
 
-                //if(rightPanelHeight != null){
-                //    rightPanel.style.height = rightPanelHeight;
-                //}else {
-                //    rightPanel.style.height = window.innerHeight;
-                //}
+            //if(rightPanelHeight != null){
+            //    rightPanel.style.height = rightPanelHeight;
+            //}else {
+            //    rightPanel.style.height = window.innerHeight;
+            //}
         },
 
         insertIntoLeftBar : function (tobeInsert){
@@ -1634,7 +1634,7 @@
             if(element != null){
                 element.appendChild(tobeInsert);
             } else {
-               alert('Error:- There is no Element to insert it.');
+                alert('Error:- There is no Element to insert it.');
             }
         },
 
@@ -1665,7 +1665,7 @@
         },
 
         getParentTag : function (element, selector){
-           return element.closest(selector);
+            return element.closest(selector);
         },
 
         // showUploadTab : function (cont, cb, type, elemArr, inserBefore) {
@@ -1692,21 +1692,21 @@
         attachEventToUploadTab : function (type, elemArr, cb) {
             var btn = document.getElementById("newDocBtn")
             if(btn != null){
-              btn.addEventListener("click", function (){
-                var element = document.querySelector('.qq-upload-button-selector.qq-upload-button input');
-                if(element != null){
-                   element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
-                }else {
-                    alert('Element is null');
-                }
-              })
+                btn.addEventListener("click", function (){
+                    var element = document.querySelector('#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input');
+                    if(element != null){
+                        element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
+                    }else {
+                        alert('Element is null');
+                    }
+                })
             }
         },
         attachEventToUpload : function (type, elemArr, cb) {
             var btn = document.getElementById("uploadVideo")
             if(btn != null){
                 btn.addEventListener("click", function (){
-                    var element = document.querySelector('.qq-upload-button-selector.qq-upload-button input');
+                    var element = document.querySelector('#videoDashboard .qq-upload-button-selector.qq-upload-button input');
                     if(element != null){
                         element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
                     }else {
@@ -1733,11 +1733,11 @@
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
                 upload.multiple = false;
-               // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
+                // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
             }
 
-           //  virtualclass.fineUploader.generateModal(type, elemArr)
+            //  virtualclass.fineUploader.generateModal(type, elemArr)
             // virtualclass.fineUploader.initModal(type);
             upload.wrapper = document.getElementById(elemArr[0]);
 
@@ -1800,8 +1800,8 @@
             virtualclass.popup.confirmInput(virtualclass.lang.getString('savesessionTechSupport'), function (confirm) {
                 if (confirm) {
                     ioStorage.completeStorage(undefined, undefined, 'sessionend');
-                        setTimeout(function () {
-                              virtualclass.recorder.startUploadProcess();
+                    setTimeout(function () {
+                            virtualclass.recorder.startUploadProcess();
                         }, 300
                     );
                 }
@@ -1815,9 +1815,9 @@
         },
 
         setChatHeight : function (height){
-            var height = height - 33;
+            var height = height - 40;
             if(virtualclass.isPlayMode){
-               var height = height+64;
+                var height = height+64;
             }
             $('#chat_div').height(height);
         },
@@ -1826,8 +1826,8 @@
             if(virtualclass.connectedUsers.length > 0){
                 var result = virtualclass.connectedUsers.filter(function( obj ) {
                     return obj.userid == userId;
-                  });
-                  return (result.length > 0);
+                });
+                return (result.length > 0);
             }else {
                 return false;
             }
@@ -1876,89 +1876,127 @@
             }
 
             this.readyDashboard();
-            },
+        },
 
         readyDashboard : function (){
-          var currApp = virtualclass.currApp;
-          // virtualclass.vutil.initDashboard(virtualclass.currApp);
-          if(document.querySelector('#congdashboard') ==  null){
-            var dashboardTemp = virtualclass.getTemplate('dashboard');
-            var dbHtml = dashboardTemp({app:currApp});
-            document.querySelector('#dashboardContainer').innerHTML = dbHtml;
-          }
-
-          // in any other application we can handle
-          // dashoard content in own style
-          if(currApp == 'DocumentShare'){
-
-              if(document.querySelector('#'+currApp+'Dashboard') == null){
-                  var elem = document.createElement("div");
-                  var cont = document.querySelector('#congdashboard .modal-body')
-                  cont.appendChild(elem);
-                  elem.id =currApp+'Dashboard'
-              }
-
-
-            if(document.querySelector('.docsDbCont') == null){
-             // document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
-
+            var currApp = virtualclass.currApp;
+            // virtualclass.vutil.initDashboard(virtualclass.currApp);
+            if(document.querySelector('#congdashboard') ==  null){
+                var dashboardTemp = virtualclass.getTemplate('dashboard');
+                var dbHtml = dashboardTemp({app:currApp});
+                document.querySelector('#dashboardContainer').innerHTML = dbHtml;
             }
-              if(roles.hasControls()){
-                  // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
-                  virtualclass.vutil.attachEventToUploadTab();
-                  virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-              }
+
+            // in any other application we can handle
+            // dashoard content in own style
+            if(currApp == 'DocumentShare'){
+
+                if(document.querySelector('#'+currApp+'Dashboard') == null){
+                    var elem = document.createElement("div");
+                    var cont = document.querySelector('#congdashboard .modal-body')
+                    cont.appendChild(elem);
+                    elem.id =currApp+'Dashboard'
+                }
 
 
-          }else if(currApp == 'Video'){
+                if(document.querySelector('#docsDbCont') == null){
+                    document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
 
-              if(document.querySelector('#'+currApp+'Dashboard') == null){
-                  var elem = document.createElement("div");
-                  var cont = document.querySelector('#congdashboard .modal-body')
-                  cont.appendChild(elem);
-                  elem.id =currApp+'Dashboard'
-              }
+                }
+                if(roles.hasControls()){
+                    // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
+                    virtualclass.vutil.attachEventToUploadTab();
+                    virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                }
+                virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                virtualclass.vutil.makeElementActive('#listnotes');
 
-              var videocont= document.querySelector('#videoPopup');
-              if(!videocont){
-                  var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-                  var dbHtml = videoDashboard();
-                  $('#VideoDashboard').append(dbHtml);
-                  //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-                  virtualclass.videoUl.UI.popup();
-                  virtualclass.vutil.attachEventToUpload();
+            }else if(currApp == 'Video'){
 
-              }
+                if(document.querySelector('#'+currApp+'Dashboard') == null){
+                    var elem = document.createElement("div");
+                    var cont = document.querySelector('#congdashboard .modal-body')
+                    cont.appendChild(elem);
+                    elem.id =currApp+'Dashboard'
+                }
 
-            //document.querySelector('#congdashboard .modal-body').innerHTML=dbHtml;
+                var videocont= document.querySelector('#videoPopup');
+                if(!videocont){
+                    var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                    var dbHtml = videoDashboard();
+                    $('#VideoDashboard').append(dbHtml);
+                    //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                    virtualclass.videoUl.UI.popup();
+                    virtualclass.vutil.attachEventToUpload();
 
-          }
+                }
+                virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                virtualclass.vutil.makeElementActive('#listvideo');
+
+                //document.querySelector('#congdashboard .modal-body').innerHTML=dbHtml;
+
+            } else if (currApp == "SharePresentation"){
+                if(document.querySelector('#'+currApp+'Dashboard') == null){
+                    var elem = document.createElement("div");
+                    var cont = document.querySelector('#congdashboard .modal-body')
+                    cont.appendChild(elem);
+                    elem.id =currApp+'Dashboard'
+                }
+
+                //  var dbcont= document.querySelector('#pptDbCont');
+                //  if(!dbcont){
+                //
+                //      if(document.querySelector('.docsDbCont') == null) {
+                //          document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard("SharePresentation");
+                //      }
+                //
+                //      // var pptDashboard = virtualclass.getTemplate('dashboard','ppt');
+                //      // var dbHtml = pptDashboard();
+                //      // $('#SharePresentationDashboard').append(dbHtml);
+                //      //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                //      // virtualclass.videoUl.UI.popup();
+                //      // virtualclass.vutil.attachEventToUpload();
+                //
+                //  }
+                // virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+            }
         },
 
         initDashboard : function (currApp){
             var mainContainer = document.querySelector('#mainContainer');
+            if(currApp=="SharePresentation") {
+                var dbcont = document.querySelector('#pptDbCont');
+                if (!dbcont) {
+
+                    if (document.querySelector('.docsDbCont') == null) {
+                        document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard("SharePresentation");
+                    }
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                    // var pptDashboard = virtualclass.getTemplate('dashboard','ppt');
+                    // var dbHtml = pptDashboard();
+                    // $('#SharePresentationDashboard').append(dbHtml);
+                    //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                    // virtualclass.videoUl.UI.popup();
+                    // virtualclass.vutil.attachEventToUpload();
+
+                }
+                if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
+                    virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+                    virtualclass.sharePt.retrieveOrder();
+                }
+
+            }
+
+
+
             if(currApp == "Video"){
-                var dscont=  document.querySelector('.dashboardContainer #docsDbCont')
-                if(dscont){
-                    dscont.style.display="none";
-                }
-                var videocont=  document.querySelector('.dashboardContainer #videoPopup')
-                if(videocont){
-                    videocont.style.display="block";
-                }
+                virtualclass.videoUl.createPageModule();
 
 
 
             }
             else if (currApp == "DocumentShare"){
-                var videocont=  document.querySelector('.dashboardContainer #videoPopup')
-                if(videocont){
-                    videocont.style.display="none";
-                }
-                var dscont=  document.querySelector('.dashboardContainer #docsDbCont')
-                if(dscont){
-                    dscont.style.display="block";
-                }
+
 
             }
             // if(mainContainer == null){
@@ -1969,15 +2007,15 @@
             //     appContainer.insertAdjacentHTML('beforeend', dbHtml);
             // }
 
-           // $("#myModal").modal();
+            // $("#myModal").modal();
 
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
 
             for(var i=0; i<allDbContainer.length; i++){
                 if(allDbContainer[i].dataset.app == virtualclass.currApp){
-                  allDbContainer[i].style.display = 'block';
+                    allDbContainer[i].style.display = 'block';
                 }else {
-                  allDbContainer[i].style.display = 'none';
+                    allDbContainer[i].style.display = 'none';
                 }
             }
 
@@ -1995,6 +2033,12 @@
             return dashboardTemp(context);
             // return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
         },
+        getPptDashBoard : function (app){
+            var dashboardTemp = virtualclass.getTemplate('dashboard', 'ppt');
+            var context = {app : app, hasControls : roles.hasControls()};
+            return dashboardTemp(context);
+            // return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
+        },
 
         removeDashboardNav : function (){
             var dashboardnav = document.querySelector('#dashboardnav');
@@ -2004,22 +2048,19 @@
         },
 
         makeElementDeactive : function (selector){
-          var element = document.querySelector(selector);
-          if(element != null){
-            element.style.pointerEvents = 'none';
-          }
+            var element = document.querySelector(selector);
+            if(element != null){
+                element.style.pointerEvents = 'none';
+            }
         },
 
-       makeElementActive : function (selector){
-         var element = document.querySelector(selector);
-         if(element != null){
-           element.style.pointerEvents = 'visible';
-         }
-       },
+        makeElementActive : function (selector){
+            var element = document.querySelector(selector);
+            if(element != null){
+                element.style.pointerEvents = 'visible';
+            }
+        }
 
-      trimExtension : function (filename){
-        return filename.split('.')[0];
-      }
     };
     window.vutil = vutil;
 })(window);

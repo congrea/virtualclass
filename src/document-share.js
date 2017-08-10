@@ -674,27 +674,12 @@
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         $('#virtualclassAppLeftPanel').append(template(data));
 
+
                         if(document.querySelector('#congdashboard') ==  null){
                             var dashboardTemp = virtualclass.getTemplate('dashboard');
                             var dbHtml = dashboardTemp({app:"DocumentShare"});
                             document.querySelector('#dashboardContainer').innerHTML = dbHtml;
                         }
-
-
-
-                         // var dashboard = virtualclass.vutil.getDocsDashBoard();
-                         // $('#DocumentShareDashboard').append(dashboard);
-
-                        //
-                        //
-                        //
-                        // var elemArr = ["dtsPopupContainer"];
-                        //
-                        // var btn = document.getElementById("newDocBtn")
-                        // // this.showUploadTab(videoCont);
-                        // btn.addEventListener("click", function () {
-                        //   virtualclass.vutil.modalPopup(type, elemArr);
-                        // })
                     }
                     if(document.querySelector('#DocumentShareDashboard') == null){
                         var elem = document.createElement("div");
@@ -702,9 +687,6 @@
                         cont.appendChild(elem);
                         elem.id ='DocumentShareDashboard'
                     }
-
-
-
 
                     if(document.querySelector('.docsDbCont') == null) {
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
@@ -968,9 +950,6 @@
                     var canvasHeight = 750;
 
                     cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
-
-
-
                     //console.log('Create Whiteboard ');
 
                     console.log(virtualclass.gObj.currWb + ' ' + 'document share Create Whiteboard ');
@@ -1619,7 +1598,7 @@
 
                 var listnotes  = document.querySelector('#listnotes');
                 if(listnotes != null){
-                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+                  virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                   virtualclass.vutil.makeElementActive('#listnotes');
                 }else {
                   console.log('List note is null');

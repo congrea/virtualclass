@@ -32,14 +32,15 @@
             studentPpt: 0,
             startFromFlag:0,
             startFrom:0,
+            order:[],
             /*
              * Initalizes and creates ppt layout at student's and teacheh's ends
              * @param app sharePresentation
              * @param cusEvent byclick event
              */
             init: function(app, cusEvent) {
-                //debugger;
-                //this.studentPptReadyFlag = 0;
+                this.pages = {};
+                this.order=[];
                 this.autoSlideFlag = 0;
                 this.autoSlideTime = 0;
                 this.autoSlideResumed = 0;
@@ -65,23 +66,42 @@
                     if (messageContainer != null) {
                         messageContainer.style.display = "none";
                     }
-                    urlCont.style.display = "block";
+                    if(urlCont){
+                        urlCont.style.display = "block";
+                    }
+
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
 
                 }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');
                     this.UI.messageDisplay();
-                    if (messageContainer != null) {
+                    if (messageContainer) {
                         messageContainer.style.display = "block";
                     }
-                    if (urlCont != null) {
+                    if (urlCont) {
                         urlCont.style.display = "none";
                     }
                 }
+                this.getPptList();
+               // virtualclass.sharePt.retrieveOrder(); nirmala
 
                 this.findInStorage();
                 virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
+
             },
+
+            createPageModule:function(){
+                if(virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length){
+                    virtualclass.sharePt.ppts.forEach(function (pptObj, i) {
+                        var idPostfix = pptObj.id;
+                        // var docId = 'docs' + doc;
+                        virtualclass.sharePt.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', 'virtualclassSharePresentation', 'sharePt', pptObj.status);
+                    });
+
+                }
+
+            },
+
             /*
              *if there is refresh/reload find url and state from the localStorage and sets the control
              */
@@ -96,14 +116,14 @@
                         //var url = localStorage.getItem('pptUrl');
                         var mdata = pApp["metaData"];
                         if (mdata != null) {
-                            // Todo check by nirmal
+
                             var url = mdata['init'];
                             if (url) {
                                 //  debugger;
                                 this.localStoragFlag = true;
                                 this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
 
-                                // TODO nirmala do more testing
+
 //                                if (roles.hasControls()) {
 //                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
 //                                }
@@ -129,10 +149,6 @@
              */
 
             fromLocalStorage: function(state) {
-                // var elemIframe = document.getElementById('pptiframe');
-                // if (elemIframe == null) {
-                //     this.UI.createIframe();
-                // }
 
                 if ( document.getElementById("iframecontainer") == null) {
                      this.UI.createIframe();
@@ -154,6 +170,97 @@
                 if (!pptContainer.classList.contains("pptSharing")) {
                     pptContainer.classList.add("pptSharing");
                 }
+            },
+            _rearrange: function (order) {
+                this.order = order;
+                this.reArrangeElements(order);
+                this.sendOrder(this.order);
+
+            },
+
+            sendOrder: function (order) {
+                var data = {
+                    'content_order': order.toString(),
+                    content_order_type: "3",
+                    live_class_id: virtualclass.gObj.congCourse
+                };
+                virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order', function (response) {
+                });
+            },
+
+
+            reArrangeElements: function (order) {
+                var container = document.getElementById('listppt'),
+                    tmpdiv = document.createElement('div');
+                tmpdiv.id = "listppt";
+                tmpdiv.className = "ppts";
+
+                for (var i = 0; i < order.length; i++) {
+                    var elem = document.getElementById('linkppt' + order[i])
+                    if (elem) {
+                        tmpdiv.appendChild(elem);
+                    }
+                }
+                container.parentNode.replaceChild(tmpdiv, container);
+            },
+
+
+
+
+            _delete:function(id){
+                var form_data = new FormData();
+                var data = {lc_content_id: id, action: 'delete', user: virtualclass.gObj.uid};
+                var form_data = new FormData();
+                for (var key in data) {
+                    form_data.append(key, data[key]);
+                    console.log(data[key]);
+                }
+
+                virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", function (msg) {
+                    if (msg != "ERROR") {
+                        var elem = document.getElementById("linkppt" + id);
+                        if (elem) {
+                            elem.parentNode.removeChild(elem);
+                            //virtualclass.videoUl.order=[];
+                            if(virtualclass.sharePt.ppts.length) {
+                                virtualclass.sharePt.ppts.forEach(function (ppt, index) {
+                                    if (ppt["id"] == id) {
+                                        var index = virtualclass.sharePt.ppts.indexOf(ppt)
+                                        if (index >= 0) {
+                                            virtualclass.sharePt.ppts.splice(index, 1)
+                                            console.log(virtualclass.sharePt.ppts);
+                                        }
+                                    }
+                                })
+                                var idIndex = virtualclass.sharePt.order.indexOf(id);
+                                if (idIndex >= 0) {
+                                    virtualclass.sharePt.order.splice(idIndex, 1)
+                                    console.log(virtualclass.sharePt.order);
+                                    virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
+                                }
+                            }
+                        }
+                    }
+                });
+
+            },
+
+            xhrOrderSend:function(order){
+                var data = {'content_order': order.toString(), content_order_type: 3}
+                data.live_class_id = virtualclass.gObj.congCourse;
+                var form_data = new FormData();
+                for (var key in data) {
+                    form_data.append(key, data[key]);
+                    console.log(data[key]);
+                }
+                //                    window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
+                var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_page_order";
+                var cthis = this;
+                virtualclass.xhr.sendFormData(form_data, path, function () {
+                    virtualclass.sharePt.getPptList();
+                });
+                console.log("order send ")
+
             },
 
             /*
@@ -553,39 +660,222 @@
              * @param receivemsg  received message by the student
              */
             initNewPpt : function() {
+
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
                 virtualclass.sharePt.urlValue =   virtualclass.sharePt.toProtocolRelativeUrl();
                 var vUrl = virtualclass.sharePt.validUrl();
                 if(vUrl){
-                    virtualclass.sharePt.autoSlideTime = 0;
-                    virtualclass.sharePt.autoSlideFlag = 0;
-                    virtualclass.sharePt.localStoragFlag = 0;
-                    virtualclass.sharePt.startFromFlag=0;
+                    virtualclass.sharePt.savePptUrl(vUrl);
 
-                    virtualclass.sharePt.eventsObj = [];
-                    virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
-                    virtualclass.sharePt.stateLocalStorage = {};
-
-                    localStorage.removeItem('autoSlideTime');
-                    localStorage.removeItem('autoSlideFlag');
-
-                    var iframecontainer = document.getElementById("iframecontainer");
-                    if (iframecontainer == null) {
-                        console.log("call of iframe creater from onclick event handler");
-                        virtualclass.sharePt.UI.createIframe();
-                    }
-
-                    var pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
-                    if (!pptContainer.classList.contains("pptSharing")) {
-                        pptContainer.classList.add("pptSharing");
-                    }
-
-                    virtualclass.sharePt.setPptUrl(vUrl);
-
-                    virtualclass.system.setAppDimension(); // add just the height of screen container
                 } else {
                     alert('Invalid Url');
                 }
+            },
+            savePptUrl:function(vUrl){
+                var rdata = new FormData();
+                rdata.append("type","ppt" );
+                rdata.append("content_path",vUrl);
+                var pptObj={};
+                pptObj.title=vUrl;
+                pptObj.content_path=vUrl;
+                pptObj.status=1;
+                pptObj.title=vUrl;
+                virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=ppt_save", function (msg) {
+                    var content = JSON.parse(msg);
+                    console.log(content);
+                    pptObj.id= content.resultdata.id;
+                    virtualclass.sharePt.afterPptSaved(pptObj);
+                     virtualclass.sharePt.order.push(content.resultdata.id);
+                     virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
+
+                });
+            },
+            afterPptSaved:function(pptObj){
+                var idPostfix = pptObj.id;
+                // var docId = 'docs' + doc;
+                this.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', 'virtualclassSharePresentation', 'sharePt', pptObj.status);
+                this.pages[idPostfix].init(idPostfix, pptObj.title);
+                this.pptClickHandler(pptObj);
+                var ppt = document.getElementById("linkppt" + pptObj.id);
+                var titleCont = document.getElementById("pptTitle" + pptObj.id);
+                var title= this.extractTitle(pptObj.title);
+
+                if(titleCont){
+                    titleCont.innerHTML = title;
+                }
+                titleCont.setAttribute("data-toogle", "tooltip");
+                titleCont.setAttribute("data-placement", "bottom");
+                titleCont.setAttribute("title", pptObj.title);
+
+                if (pptObj.status == "0") {
+                    this._disable(pptObj.id)
+                    if(ppt){
+                        ppt.classList.add("disable");
+                    }
+
+                } else {
+                    this._enable(pptObj.id);
+                    if(ppt){
+                        ppt.classList.add("enable");
+                    }
+                }
+                 // virtualclass.sharePt.order.push(res.resultdata.id); nirmala
+                 // virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order); nirmala
+               // this.calculateHeight();
+            },
+            extractTitle:function(url){
+                var title;
+                if (url.indexOf("//") > -1) {
+                    title = url.split('/')[4];
+                }
+                else {
+                    title = url.split('/')[2];
+                }
+
+               return title;
+
+            },
+            pptClickHandler:function(pptObj){
+
+                var ppt = document.getElementById("mainpppt" + pptObj.id);
+
+                    ppt.addEventListener('click', function () {
+                        //virtualclass.videoUl.yts = false;
+                       // $('#virtualclassVideo iframe#player').remove();
+                       // $('#videoPlayerCont').css({"display": "block"});
+                       // virtualclass.videoUl.shareVideo(vidObj.content_path);
+                        virtualclass.sharePt.playPptUrl(pptObj.content_path);
+                        ppt.setAttribute("data-dismiss", "modal");
+                        // if (typeof virtualclass.yts.player == "object") {
+                        //     virtualclass.yts.player.destroy();
+                        // }
+
+                    })
+
+            },
+
+            _disable: function (_id) {
+                var ppt = document.getElementById("mainpppt" + _id);
+                ppt.style.opacity = .3;
+                ppt.style.pointerEvents = 'none';
+                if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
+                    virtualclass.sharePt.ppts.forEach(function (elem, i) {
+                        if (elem["id"] == _id) {
+                            elem.status = 0;
+                        }
+                    })
+                }
+            },
+
+            /*
+             * to enable  video in the videolist
+             */
+            _enable: function (_id) {
+                var ppt = document.getElementById("mainpppt" + _id);
+                if(ppt) {
+                    ppt.style.opacity = 1;
+                    ppt.style.pointerEvents = 'auto';
+                    if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
+                        virtualclass.sharePt.ppts.forEach(function (elem, i) {
+                            if (elem["id"] == _id) {
+                                elem.status = 1;
+                            }
+                        })
+
+                    }
+                }
+
+            },
+
+
+            getPptList: function () {
+                var data = new FormData();
+                data.append("type", "ppt");
+                var cthis = this;
+                virtualclass.xhr.sendFormData(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_ppt", function (msg) {
+                    var content = JSON.parse(msg);
+                    virtualclass.sharePt.ppts = content;
+                    virtualclass.sharePt.createPageModule();
+                        // virtualclass.sharePt.showPpts(content);
+                        // virtualclass.sharePt.retrieveOrder();
+
+
+
+                });
+            },
+            showPpts:function(content){
+                //var list = document.getElementById("videoList");
+                var elem = document.getElementById("listppt");
+                if (elem) {
+                    for (var i = 0; i < elem.childNodes.length - 1; i++) {
+                        elem.childNodes[i].parentNode.removeChild(elem.childNodes[i])
+                    }
+                }
+                if(virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length){
+                    virtualclass.sharePt.ppts.forEach(function (pptObj, i) {
+                        virtualclass.sharePt.afterPptSaved(pptObj);
+                    });
+
+                }
+                virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                virtualclass.vutil.makeElementActive('#listvideo');
+            },
+
+            retrieveOrder: function () {
+                var rdata = new FormData();
+                rdata.append("live_class_id", virtualclass.gObj.congCourse);
+                rdata.append("content_order_type", "3");
+                this.requestOrder(rdata);
+
+            },
+
+            requestOrder: function (rdata) {
+                virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
+                    var content = JSON.parse(msg);
+                    if (content.message == "Failed") {
+                        console.log("page order retrieve failed");
+                    } else {
+                        if (content) {
+                            virtualclass.sharePt.order = [];
+                            virtualclass.sharePt.order = content.split(',');
+                            console.log('From database ' + virtualclass.sharePt.order.join(','));
+                        }
+                        if (virtualclass.sharePt.order.length > 0) {
+                            virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                        }
+                    }
+                });
+            },
+
+            playPptUrl:function(vUrl){
+                virtualclass.sharePt.autoSlideTime = 0;
+                virtualclass.sharePt.autoSlideFlag = 0;
+                virtualclass.sharePt.localStoragFlag = 0;
+                virtualclass.sharePt.startFromFlag=0;
+
+                virtualclass.sharePt.eventsObj = [];
+                virtualclass.sharePt.state = {indexh : 0, indexv : 0, indexf : 0};
+                virtualclass.sharePt.stateLocalStorage = {};
+
+                localStorage.removeItem('autoSlideTime');
+                localStorage.removeItem('autoSlideFlag');
+
+                var iframecontainer = document.getElementById("iframecontainer");
+                if (iframecontainer == null) {
+                    console.log("call of iframe creater from onclick event handler");
+                    virtualclass.sharePt.UI.createIframe();
+                }
+
+                var pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
+                if (!pptContainer.classList.contains("pptSharing")) {
+                    pptContainer.classList.add("pptSharing");
+                }
+
+                virtualclass.sharePt.setPptUrl(vUrl);
+
+                virtualclass.system.setAppDimension(); // add just the height of screen container
+
+
             },
             /*
              * Removes unnessary characters from the entered url, url copied from slides.com may contain hash
@@ -666,7 +956,6 @@
              * @param prvAppObj previous object it shareppt object
              */
             saveIntoLocalStorage: function(prvAppObj) {
-                //debugger;
                 if (this.validURLWithDomain(prvAppObj.metaData.init) || this.isUrlip(prvAppObj.metaData.init)) {
                     localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
                     console.log('ppt_state', prvAppObj.metaData.startFrom);
@@ -694,11 +983,8 @@
                         configValues.autoSlide = autoSlideTime;
                     }
 
-
                     //frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: true,keyboard:true,progress:true,touch:true}]}), '*');
-
                     frame.contentWindow.postMessage(JSON.stringify({method: "configure", args : [configValues]}), '*');
-
                     frame.contentWindow.postMessage(JSON.stringify({method: "toggleAutoSlide"}), '*');
                 }
                 var pptMessageLayout = document.getElementById('pptMessageLayout');
@@ -769,6 +1055,10 @@
                     var data ={"control":control};
                     var template=virtualclass.getTemplate("ppt","ppt");
                     $('#virtualclassAppLeftPanel').append(template(data));
+
+
+                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+
                 },
                 /*
                  *
@@ -781,7 +1071,7 @@
                     }
 
                     var template=virtualclass.getTemplate("pptiframe","ppt");
-                    $('#virtualclassSharePresentation').children().before(template)
+                    $('#virtualclassSharePresentation').append(template)
                 },
 
 

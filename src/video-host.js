@@ -366,8 +366,12 @@ var videoHost = {
         videoSpeed.dataset.suggestion = speed;
         //videoSpeed.innerHTML = speed;
 
+        // todo to  validate
         var videoFrameRate = document.getElementById('videoFrameRate');
-        videoFrameRate.dataset.quality = frameRate;
+        if(videoFrameRate){
+            videoFrameRate.dataset.quality = frameRate;
+        }
+
         //videoFrameRate.innerHTML = frameRate;
 
         var videLatency = document.getElementById('videLatency');

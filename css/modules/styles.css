@@ -2593,19 +2593,19 @@
 	letter-spacing: 0.02em;
 }
 
-#listvideo{
-  position:absolute;
-	overflow-y: scroll;
-	width:97%;
+/*#listvideo{*/
+  /*position:absolute;*/
+	/*overflow-y: scroll;*/
+	/*width:97%;*/
 
-}
-.congrea .linkvideo{
-	display:inline-block;
-	margin:5px;
-	height:150px;
-	position:relative;
+/*}*/
+/*.congrea .linkvideo{*/
+	/*display:inline-block;*/
+	/*margin:5px;*/
+	/*height:150px;*/
+	/*position:relative;*/
 
-}
+/*}*/
 .congrea #videoUrlContainer{
 	float:right;
 }

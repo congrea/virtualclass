@@ -97,11 +97,27 @@
                         ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
                     }
                 }
+
+
+
                 //nirmala rem
                 // if (roles.hasControls()) {
                 //     this.videoListFromLocalStr(videoObj);
                 // }
             },
+
+
+            createPageModule:function(){
+                if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){
+                    virtualclass.videoUl.videos.forEach(function (vidObj, i) {
+                        var idPostfix = vidObj.id;
+                        virtualclass.videoUl.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status);
+                    });
+
+                }
+
+            },
+
 
             /*
              * on reload if videolist is stored in localstorage, it would be fetched from there
@@ -374,7 +390,7 @@
                 });
 
 
-              virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
               virtualclass.vutil.makeElementActive('#listvideo');
 
                 // $('#listvideo').css({
@@ -730,7 +746,7 @@
                     console.log(data[key]);
                 }
 
-                virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content", function (msg) {
+                virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", function (msg) {
                     if (msg != "ERROR") {
                         var elem = document.getElementById("linkvideo" + id);
                         if (elem) {
@@ -1299,7 +1315,7 @@
                     var cont =  document.querySelector("#uploadMsz")
                     var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");
                     cont.appendChild(msz);
-                    var btn = $(".qq-upload-list-selector.qq-upload-button input");
+                    var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= $("#uploadVideo");
                     btnUpload.click(function(){
                         btn.click();

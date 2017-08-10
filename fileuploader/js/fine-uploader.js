@@ -5870,9 +5870,18 @@
                     options.onDrop(e);
                     triggerHidezonesEvent();
                     console.log("nirmala");
+                    if(virtualclass.currApp =="Video"){
+                        virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listvideo');
 
-                  virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                  virtualclass.vutil.makeElementActive('#listvideo');
+                    }else if(virtualclass.currApp =="DocumentShare"){
+                        virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listnotes');
+
+                    }
+
+
+
 
                     // $('#listvideo').css({
                     //     "z-index":55

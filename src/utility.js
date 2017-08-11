@@ -1668,26 +1668,6 @@
             return element.closest(selector);
         },
 
-        // showUploadTab : function (cont, cb, type, elemArr, inserBefore) {
-        //     var elem = document.createElement("div");
-        //     elem.id = "new"+type+"BtnCont";
-        //     if(typeof inserBefore == 'undefined'){
-        //         cont.appendChild(elem);
-        //     }else{
-        //         cont.insertBefore(elem, cont.firstChild);
-        //     }
-        //
-        //
-        //     var btn = document.createElement("button");
-        //     btn.id = "newVideoBtn";
-        //     elem.appendChild(btn);
-        //
-        //     btn.innerHTML = "Upload Documents";
-        //
-        //     btn.addEventListener("click", function () {
-        //         cb(type, elemArr);
-        //     })
-        // },
 
         attachEventToUploadTab : function (type, elemArr, cb) {
             var btn = document.getElementById("newDocBtn")
@@ -1897,19 +1877,26 @@
                     cont.appendChild(elem);
                     elem.id =currApp+'Dashboard'
                 }
-
-
-                if(document.querySelector('#docsDbCont') == null){
-                    document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
-
+                var docsDbCont= document.querySelector('#docsDbCont');
+                if(docsDbCont){
+                    docsDbCont.parentNode.removeChild(docsDbCont);
                 }
+
+                document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
+
                 if(roles.hasControls()){
                     // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
                     virtualclass.vutil.attachEventToUploadTab();
                     virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                 }
+
+                for(var key in virtualclass.dts.allDocs){
+                    virtualclass.dts.initDocs( virtualclass.dts.allDocs[key].id);
+                }
+                virtualclass.dts.createNoteNavAlt();
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listnotes');
+
 
             }else if(currApp == 'Video'){
 
@@ -1921,15 +1908,17 @@
                 }
 
                 var videocont= document.querySelector('#videoPopup');
-                if(!videocont){
-                    var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-                    var dbHtml = videoDashboard();
-                    $('#VideoDashboard').append(dbHtml);
-                    //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-                    virtualclass.videoUl.UI.popup();
-                    virtualclass.vutil.attachEventToUpload();
-
+                if(videocont){
+                    videocont.parentNode.removeChild(videocont);
                 }
+
+                var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                var dbHtml = videoDashboard();
+                $('#VideoDashboard').append(dbHtml);
+                    //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                virtualclass.videoUl.UI.popup();
+                virtualclass.vutil.attachEventToUpload();
+
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
 
@@ -1943,22 +1932,6 @@
                     elem.id =currApp+'Dashboard'
                 }
 
-                //  var dbcont= document.querySelector('#pptDbCont');
-                //  if(!dbcont){
-                //
-                //      if(document.querySelector('.docsDbCont') == null) {
-                //          document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard("SharePresentation");
-                //      }
-                //
-                //      // var pptDashboard = virtualclass.getTemplate('dashboard','ppt');
-                //      // var dbHtml = pptDashboard();
-                //      // $('#SharePresentationDashboard').append(dbHtml);
-                //      //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-                //      // virtualclass.videoUl.UI.popup();
-                //      // virtualclass.vutil.attachEventToUpload();
-                //
-                //  }
-                // virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
             }
         },
 
@@ -1972,12 +1945,6 @@
                         document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard("SharePresentation");
                     }
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-                    // var pptDashboard = virtualclass.getTemplate('dashboard','ppt');
-                    // var dbHtml = pptDashboard();
-                    // $('#SharePresentationDashboard').append(dbHtml);
-                    //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-                    // virtualclass.videoUl.UI.popup();
-                    // virtualclass.vutil.attachEventToUpload();
 
                 }
                 if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
@@ -1987,27 +1954,14 @@
 
             }
 
-
-
             if(currApp == "Video"){
-                virtualclass.videoUl.createPageModule();
-
-
+               // virtualclass.videoUl.createPageModule()
 
             }
             else if (currApp == "DocumentShare"){
 
 
             }
-            // if(mainContainer == null){
-            //     var dashboard = virtualclass.getTemplate('dashboard');
-            //     var context = {app : virtualclass.currApp};
-            //     var dbHtml = dashboard(context);
-            //     var appContainer = document.querySelector('#virtualclassApp');
-            //     appContainer.insertAdjacentHTML('beforeend', dbHtml);
-            // }
-
-            // $("#myModal").modal();
 
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
 

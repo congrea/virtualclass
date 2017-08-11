@@ -279,6 +279,7 @@
                     var content = JSON.parse(msg);
                     if (content.message!= "noVideo") {
                         virtualclass.videoUl.videos = content;
+                        virtualclass.videoUl.allPages = content;
                         var type = "video";
                         var firstId = "congrea" + type + "ContBody";
                         var secondId = "congreaShareVideoUrlCont";
@@ -322,8 +323,6 @@
                 }
                 // virtualclass.videoUl.order.push(res.resultdata.id);
                 // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-
-
 
                 this.calculateHeight();
             },
@@ -1300,17 +1299,6 @@
                     virtualclass.videoUl.UI.inputUrl();
 
                     virtualclass.videoUl.getVideoList();
-
-                    //
-                    // var fineUploader = document.querySelector(".congrea .qq-uploader-selector.qq-uploader.qq-gallery");
-                    // var cont = document.querySelector("#congreavideoContBody");
-                    // var videolist = document.querySelector("#listvideo");
-                    // if(videolist){
-                    //     cont.insertBefore(videolist,fineUploader);
-                    // }else{
-                    //     cont.appendChild(fineUploader);
-                    // }
-
 
                     var cont =  document.querySelector("#uploadMsz")
                     var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");

@@ -127,32 +127,6 @@
 
                     // remove if there is already pages before render the ordering elements
                     var alreadyElements = document.querySelectorAll('#notesContainer .note');
-
-                    // if(allNotes.length > 0){
-                    //     var pageContainer = document.querySelector('#screen-docs .pageContainer');
-                    //     //this.UI.createSlides(pageContainer, allNotes);
-                    //     if(pageContainer == null){
-                    //       var noteObj = {notes : allNotes, hasControls : roles.hasControls(), cd : currDoc};
-                    //       var docTemplate = JST['templates/docMain.hbs'];
-                    //       var docHtml =  docTemplate(noteObj);
-                    //
-                    //       var docScreenContainer  = document.querySelector('#docScreenContainer');
-                    //       if(docScreenContainer != null){
-                    //         // var earlierHTML = docScreenContainer.innerHTML;
-                    //         docScreenContainer.insertAdjacentHTML('beforeend', docHtml);
-                    //
-                    //         // docScreenContainer.innerHTML = earlierHTML  + docHtml;
-                    //       }else{
-                    //         alert('there is null');
-                    //       }
-                    //     }else{
-                    //       var noteObj = {notes :  allNotes};
-                    //       var notesTemplate = JST['templates/docNotesMain.hbs'];
-                    //       var notesHtml =  notesTemplate(noteObj);
-                    //       pageContainer.innerHTML = notesHtml;
-                    //     }
-                    // }
-
                     this.createNoteLayout(allNotes, currDoc);
                     this.reArrangeNotes(this.order);
 
@@ -207,7 +181,6 @@
                 } else {
                     var docId = 'docs' + doc;
                     if(typeof this.pages[docId] != 'object'){
-
                         this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
                         if(typeof docObj != 'undefined'){
                             var title = docObj.docs[docId].title;
@@ -776,7 +749,6 @@
                     link.className = 'linkdoc';
                     link.innerHTML  = sn;
                     link.dataset.screen = sn;
-
                     return link;
                 },
 
@@ -802,6 +774,24 @@
                             this.noteStatus(this.order[i], status);
                         }
                     }
+                }
+            },
+
+            createNoteNavAlt : function (fromReload){
+                // need to get all images from here
+                for(var i=0; i<this.order.length; i++){
+
+                    if(this.allNotes[this.order[i]].status == 'true' || (+this.allNotes[this.order[i]].status) == 1){
+                        var status = 1;
+                    }else {
+                        var status = 0;
+                    }
+                    this.notes[this.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
+                    this.notes[this.order[i]].init(this.order[i], 'note_'+ this.allNotes[this.order[i]].lc_content_id + '_' + this.order[i]);
+                    if(typeof fromReload == 'undefined'){
+                        this.noteStatus(this.order[i], status);
+                    }
+
                 }
             },
 
@@ -1603,7 +1593,6 @@
                 }else {
                   console.log('List note is null');
                 }
-
             },
 
             /**

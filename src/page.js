@@ -34,46 +34,7 @@
             }
         }
     }
-    //
-    // page.prototype.createPageNav2 = function (elem) {
-    //     var listDtype = 'list' + this.type;
-    //     var docNav = document.getElementById(listDtype);
-    //     if (docNav == null) {
-    //         docNav = document.createElement('div');
-    //         docNav.id = listDtype;
-    //         docNav.className = 'listPages pages';
-    //         // TODO this should handle in proper way
-    //         if (this.type == 'docs') {
-    //             elem = document.getElementById('docsListContainer');
-    //         }
-    //         elem.appendChild(docNav);
-    //     }
-    //
-    //     var lid = 'link' + this.type + this.rid;
-    //     var linkNav = this.UI.createPageNavLink.call(this,docNav);
-    //     docNav.appendChild(linkNav);
-    //
-    //     if (this.type == 'video') {
-    //         var docNav = document.getElementById(listDtype);
-    //         var link = document.getElementById(lid)
-    //         var label = document.createElement("div");
-    //         label.id = this.type + "Title" + this.rid;
-    //         label.className = this.type + "Title";
-    //         label.innerHTML = this.title;
-    //         label.dataset.title = this.title;
-    //         label.className += ' tooltip2';
-    //         link.appendChild(label);
-    //         this.UI.controller.init(this, lid);
-    //
-    //     } else {
-    //         // For notes and videos
-    //         docNav.appendChild(linkNav);
-    //         var mainpDiv = this.UI.mainPDiv.call(this);
-    //         linkNav.appendChild(mainpDiv);
-    //         this.UI.controller.init(this, lid);
-    //     }
-    //     this.createPageNavAttachEvent(mainpDiv);
-    // },
+
     /**
      * This function is creating the navigation for docs, notes and video
      */
@@ -132,7 +93,7 @@
     },
         //
         /** Attching the event handler when user click on preview of Docs and Notes */
-        // Todo, by this function the vidoe's event should be attached
+        // Todo, by this function the video's event should be attached
         page.prototype.createPageNavAttachEvent = function (linkNav) {
             if (this.type == 'docs') {
                 linkNav.onclick = virtualclass.dts.docs.goToDocs(this.rid);

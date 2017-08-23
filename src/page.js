@@ -514,10 +514,62 @@
                 } else {
                     var selector = '.delete';
                 }
+                var that = this;
                 var div = document.querySelector("#controlCont" + cthis.type + cthis.rid + ' ' + selector);
                 div.onclick = this.goToEvent(this.cthis, eltype);
+
+                var div = document.querySelector("#link"+ cthis.type + cthis.rid);
+                if(div){
+
+                    div.addEventListener ("mouseover",function(){
+                        that.hoverHandler(cthis)
+
+                    });
+                    div.addEventListener ("mouseout",function(){
+                        that.hoverHandler1(cthis)
+
+                    });
+
+                }
+
+
             },
 
+            hoverHandler:function(cthis){
+                var div;
+                if(cthis.type =="video"){
+                     div = document.querySelector("#VideoDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else if(cthis.type =="ppt"){
+                    div = document.querySelector("#SharePresentationDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else {
+                    div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
+
+                }
+                if(div){
+                    div.classList.add("showCtr")
+                }
+
+            },
+            hoverHandler1:function(cthis){
+                var div;
+                if(cthis.type =="video"){
+                    div = document.querySelector("#VideoDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else if(cthis.type =="ppt"){
+                    div = document.querySelector("#SharePresentationDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else {
+                    div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
+
+                }
+                    div.classList.remove("showCtr");
+
+
+
+
+            },
             /**
              * This function trigger when user clicks on
              * disable/enable or delete button

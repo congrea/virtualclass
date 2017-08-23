@@ -3,63 +3,41 @@
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
-  overflow-y: auto;
-  height: 85%;
-  max-height: 85%;
+  height: 87%;
+  max-height:none;
   padding : 0;
+
 }
+
+
 #virtualclassCont #dashboardContainer .modal .modal-header {
   height : 7%;
 }
 #virtualclassCont #dashboardContainer .modal-body {
-  height : 93%;
-  max-height : 93%;
+  height : 92%;
   padding : 0;
+  max-height:none;
 }
 
 #virtualclassCont #listvideo {
-  height: 85%;
-  /*max-height: 96%;*/
+  height: 75%;
   overflow-y: auto;
   margin-bottom :0;
-  /*margin-top : 8px;*/
+  margin-top : 8px;
 }
 
 #virtualclassCont #listvideo .videoTitle{
   overflow: hidden;
-  height:22px;
+  height:42px;
+  text-align:center;
 }
 
-#virtualclassCont.congrea .bootstrap  #congdashboard .modal-dialog{
-  /*width : 85%;*/
-}
 
 #virtualclassCont.congrea .dashboardview {
   margin : 0;
   padding :0;
 }
 
-
-
-
-
-#virtualclassCont.congrea #videoList .linkvideo.links .pptTitle {
-  padding: 6px 8px 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 400;
-  max-width: 120px;
-}
-
-#virtualclassCont.congrea  #listvideo .linkvideo .controlCont{
-  float: left;
-  width: 150px;
-  background: #3c3e3d;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  margin-right: 8px;
-}
 
 #virtualclassCont.congrea  #listvideo .linkvideo .controlCont:hover{
   background : #ad0505;
@@ -159,13 +137,7 @@
   padding-top: 0px;
   color: #606060;
 }
-#virtualclassCont.congrea #listvideo .linkvideo .controlCont {
-  width: 100%;
-  padding: 5px;
-  margin: 4px auto 0;
-  border-top: 1px solid #ddd;
-  height: 30px;
-}
+
 
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview {
   font-size: 0;
@@ -186,10 +158,11 @@
   position: relative;
   background: #eee;
   border-radius: 3px;
-  height: 77px;
+  height: 113px;
   margin-bottom : 30px;
   margin-left:35px;
   display:inline-block;
+  padding:16px;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
@@ -199,6 +172,8 @@
   border-radius: 2px;
   /*margin: -2px 3px 3px;*/
   background: #fff;
+  margin-top:15px;
+  width:100%;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="1"], #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="0"] {
@@ -217,10 +192,9 @@
 }
 
 #virtualclassCont #listvideo .linkvideo{
-  /*margin-top : 1.5%;*/
   border: 1px solid #ddd;
-  border-radius : 4px;
-  width : 123%;
+  /*border-radius : 4px;*/
+  /*width : 123%;*/
   padding : 2px;
   cursor : pointer;
 }
@@ -240,10 +214,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 #virtualclassCont #urlcontainer #presentationurl{vertical-align: top;}
 
-#virtualclassCont .dashboardview #urlcontainer{
+/*#virtualclassCont .dashboardview #urlcontainer{*/
 
-  margin-top:10px;
-}
+  /*margin-top:10px;*/
+/*}*/
 
 #virtualclassCont.congrea #VideoDashboard .dashboardview{
   width : 85%;
@@ -254,7 +228,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #congreavideoContBody {
   position : absolute;
   top : 0;
-  width:100%;
+  width:97%;
   height : 85%;
 }
 
@@ -275,58 +249,52 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #videoUrlContainer {
-  position: relative;
+  /*position: relative;*/
   text-align: center;
 }
-
-#virtualclassCont.congrea #videoUrlContainer {
-  margin-top: 10px;
-}
-#virtualclassCont.congrea #videoUrlContainer{
-  float:right;
-}
-
-
-/*#virtualclassCont.congrea.student.presenter #videoUrlContainer {*/
-  /*top: 87%;*/
-  /*left: 50px;*/
-/*}*/
 
 
 #virtualclassCont.congrea.student.presenter #videoUrlContainer{
-
-  margin-top: 10px;
-
   text-align: center;
-
 }
 
  #virtualclassCont.congrea.student.presenter #videoUrlContainer {
    text-align: left;
 }
 
-/*#virtualclassCont.congrea #VideoDashboard .btn-default{*/
-  /*margin-left:20px;*/
-  /*background: #83c2b2; !* Old browsers *!*/
-  /*background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* FF3.6+ *!*/
-  /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); !* Chrome,Safari4+ *!*/
-  /*background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* Chrome10+,Safari5.1+ *!*/
-  /*background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* Opera 11.10+ *!*/
-  /*background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* IE10+ *!*/
-  /*background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); !* W3C *!*/
-  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); !* IE6-9 *!*/
-  /*padding: 11px 15px;*/
-  /*border: none;*/
-  /*color: #fff;*/
-  /*font-size: 13px;*/
-  /*font-weight: 200;*/
-  /*margin-left: 5px;*/
-  /*border-radius: 5px;*/
-  /*top: -2px;*/
-  /*position: relative;*/
 
-/*}*/
+#virtualclassCont.congrea #VideoDashboard .qq-gallery .qq-thumbnail-wrapper {
+ display:none !important;
+}
 
-#virtualclassCont.congrea #VideoDashboard #uploadBtnCont{
-  margin-top:10px;
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont{
+  margin-top:60px;
+}
+
+#virtualclassCont.congrea #listvideo .linkvideo .controls.delete::before {
+  content: "\ea0f";
+  font-family: 'icomoon';
+  font-size: 18px;
+  padding-top: 0px;
+  color: #606060;
+}
+
+#virtualclassCont.congrea #listvideo .linkvideo .mainpreview {
+  font-size: 0;
+  border-radius: 2px;
+  float: left;
+  margin: 0 10px;
+}
+#virtualclassCont.congrea #listvideo .linkvideo .mainpreview::before {
+  content: "\ea1c";
+  font-family: 'icomoon';
+  font-size: 18px;
+  padding-top: 2px;
+  color: #606060;
+}
+#virtualclassCont.congrea #VideoDashboard .controlCont{
+  display:none;
+}
+#virtualclassCont.congrea #VideoDashboard .controlCont.showCtr{
+  display:block!important;
 }

@@ -2247,7 +2247,7 @@
 #page-mod-congrea-classroom #virtualclassCont.student {
 	width: 100% !important;
 }
-#virtualclassCont.congrea .modal-body {max-height: inherit;}
+/*#virtualclassCont.congrea .modal-body {max-height: inherit;}*/
 #page-mod-congrea-classroom .close{
 	float: right !important;
 }
@@ -2606,6 +2606,6 @@
 	/*position:relative;*/
 
 /*}*/
-.congrea #videoUrlContainer{
-	float:right;
-}
+/*.congrea #videoUrlContainer{*/
+	/*float:right;*/
+/*}*/

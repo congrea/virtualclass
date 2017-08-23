@@ -373,9 +373,11 @@ var videoHost = {
         }
 
         //videoFrameRate.innerHTML = frameRate;
-
+        // todo to  validate
         var videLatency = document.getElementById('videLatency');
-        videLatency.dataset.latency = latency;
+        if(videLatency){
+            videLatency.dataset.latency = latency;
+        }
         //videLatency.innerHTML =  latency;
 
     },

@@ -1884,16 +1884,17 @@
 
                 document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
 
+
+                virtualclass.dts.init();
+
                 if(roles.hasControls()){
-                    // virtualclass.vutil.attachEventToUploadTab('docs', ["uploadContainer"], virtualclass.vutil.modalPopup);
                     virtualclass.vutil.attachEventToUploadTab();
                     virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+
                 }
 
-                for(var key in virtualclass.dts.allDocs){
-                    virtualclass.dts.initDocs( virtualclass.dts.allDocs[key].id);
-                }
-                virtualclass.dts.createNoteNavAlt();
+
+                // virtualclass.dts.createNoteNavAlt();
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listnotes');
 

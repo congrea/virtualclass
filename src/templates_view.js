@@ -171,7 +171,14 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + " \" data-rid=\""
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
-    + "\" data-selected=\"0\" data-status=\"1\">\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
+    + "\" data-selected=\"0\" data-status=\"1\">\n  <div id=\"controlCont"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
+    + "\" class=\"controlCont\">\n    <div class=\"controls status\" data-status=\""
+    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
+    + "\">\n      <a class=\"statusanch\">"
+    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
+    + "</a>\n    </div>\n\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\" data-screen=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -180,14 +187,7 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
-    + "</div>\n  <div id=\"controlCont"
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
-    + "\" class=\"controlCont\">\n    <div class=\"controls status\" data-status=\""
-    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "\">\n      <a class=\"statusanch\">"
-    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "</a>\n    </div>\n\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
+    + "</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/documentSharing/notesMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -743,7 +743,7 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"compi
 },"useData":true});
 
 this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\" class=\"row\">\n  <div id =\"uploadBtnCont\" class=\"col-md-6\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >upload video</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-6\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >online video</button>\n  </div>\n\n</div>\n</div>";
+    return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\" class=\"col-md-3\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >upload video</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-8\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >online video</button>\n  </div>\n\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

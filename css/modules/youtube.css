@@ -28,11 +28,11 @@
   margin-left: 22px;
 }
 
-#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {
-  top: 0;
-  text-align: left;
-  margin-left: 22px;
-}
+/*#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {*/
+  /*top: 0;*/
+  /*text-align: left;*/
+  /*margin-left: 22px;*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassVideo iframe#player {
   width: 90%;

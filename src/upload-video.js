@@ -87,6 +87,8 @@
                                     msz.style.display = "block";
                                 }
                             }
+
+
                         }
                     }
                 } else {
@@ -98,12 +100,6 @@
                     }
                 }
 
-
-
-                //nirmala rem
-                // if (roles.hasControls()) {
-                //     this.videoListFromLocalStr(videoObj);
-                // }
             },
 
 
@@ -252,7 +248,6 @@
                     alert("video is already uploaded");
                 } else {
                     //fallback
-                    //debugger
                     alert("video upload failed");
                 }
 
@@ -594,6 +589,10 @@
                     console.log(virtualclass.videoUl.rec);
                     if (msg.videoUl.init == "studentlayout") {
                         virtualclass.makeAppReady('Video', undefined, msg.videoUl);
+                        var msz = document.getElementById("messageLayoutVideo");
+                        if (msz) {
+                            msz.style.display = "block";
+                        }
                     } else if (msg.videoUl.init.hasOwnProperty('videoUrl')) {
                         virtualclass.videoUl.videoId = msg.videoUl.init.id;
                         virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
@@ -895,11 +894,6 @@
 
             },
 
-
-
-
-
-
             /*
              * this object is for user interface
              */
@@ -936,6 +930,12 @@
                         //new to create with template
 
 
+                    }
+                    if(!roles.hasControls()){
+                        var msz = document.getElementById("messageLayoutVideo");
+                        if (msz) {
+                            msz.style.display = "block";
+                        }
                     }
 
                 },
@@ -1235,7 +1235,6 @@
 
 
                             virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
-                                debugger;
                                 var content = JSON.parse(msg);
                                 console.log(content);
                                  vidObj.id= content.resultdata.id;

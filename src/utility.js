@@ -1621,12 +1621,6 @@
             var rightPanel = document.getElementById('virtualclassAppRightPanel');
             var rightPanelHeight = this.getVisibleHeightElem('virtualclassCont');
             rightPanel.style.height = (rightPanelHeight != nul1) ? rightPanelHeight : window.innerHeight;
-
-            //if(rightPanelHeight != null){
-            //    rightPanel.style.height = rightPanelHeight;
-            //}else {
-            //    rightPanel.style.height = window.innerHeight;
-            //}
         },
 
         insertIntoLeftBar : function (tobeInsert){
@@ -1883,22 +1877,11 @@
                 }
 
                 document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
-
-
                 virtualclass.dts.init();
-
-                if(roles.hasControls()){
-                    virtualclass.vutil.attachEventToUploadTab();
-                    virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-
-                }
-
-
-                // virtualclass.dts.createNoteNavAlt();
+                virtualclass.vutil.attachEventToUploadTab();
+                virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listnotes');
-
-
             }else if(currApp == 'Video'){
 
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
@@ -1916,15 +1899,10 @@
                 var videoDashboard = virtualclass.getTemplate('popup','videoupload');
                 var dbHtml = videoDashboard();
                 $('#VideoDashboard').append(dbHtml);
-                    //virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                 virtualclass.videoUl.UI.popup();
                 virtualclass.vutil.attachEventToUpload();
-
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
-
-                //document.querySelector('#congdashboard .modal-body').innerHTML=dbHtml;
-
             } else if (currApp == "SharePresentation"){
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
@@ -1954,18 +1932,7 @@
                 }
 
             }
-
-            if(currApp == "Video"){
-               // virtualclass.videoUl.createPageModule()
-
-            }
-            else if (currApp == "DocumentShare"){
-
-
-            }
-
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
-
             for(var i=0; i<allDbContainer.length; i++){
                 if(allDbContainer[i].dataset.app == virtualclass.currApp){
                     allDbContainer[i].style.display = 'block';

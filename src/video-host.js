@@ -366,12 +366,18 @@ var videoHost = {
         videoSpeed.dataset.suggestion = speed;
         //videoSpeed.innerHTML = speed;
 
+        // todo to  validate
         var videoFrameRate = document.getElementById('videoFrameRate');
-        videoFrameRate.dataset.quality = frameRate;
-        //videoFrameRate.innerHTML = frameRate;
+        if(videoFrameRate){
+            videoFrameRate.dataset.quality = frameRate;
+        }
 
+        //videoFrameRate.innerHTML = frameRate;
+        // todo to  validate
         var videLatency = document.getElementById('videLatency');
-        videLatency.dataset.latency = latency;
+        if(videLatency){
+            videLatency.dataset.latency = latency;
+        }
         //videLatency.innerHTML =  latency;
 
     },

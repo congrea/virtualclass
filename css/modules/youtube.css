@@ -28,11 +28,11 @@
   margin-left: 22px;
 }
 
-#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {
-  top: 0;
-  text-align: left;
-  margin-left: 22px;
-}
+/*#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {*/
+  /*top: 0;*/
+  /*text-align: left;*/
+  /*margin-left: 22px;*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassVideo iframe#player {
   width: 90%;
@@ -55,24 +55,6 @@
   font-size: 30px;
   content: "\ea99";
 }
-
-#virtualclassCont.congrea #videoUrlContainer{
-  position: absolute;
-}
-
-#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{
-  left: 0;
-  margin-top: 10px;
-  right: 0;
-  text-align: center;
-  top: 40%;
-}
-
-#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer {
-  top: 0;
-  text-align: left;
-}
-
 #virtualclassCont.congrea .youTubeSharing {
   text-align: left;
 }
@@ -80,6 +62,20 @@
 #virtualclassCont.congrea #player {
   margin-top: 7%;
 }
+
+/*#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{*/
+  /*left: 0;*/
+  /*margin-top: 10px;*/
+  /*right: 0;*/
+  /*text-align: center;*/
+  /*top: 40%;*/
+/*}*/
+
+/*#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer {*/
+  /*top: 0;*/
+  /*text-align: left;*/
+/*}*/
+
 
 #virtualclassCont.congrea #videoUrlContainer #videourl {
   border: #ddd 1px solid;
@@ -91,53 +87,53 @@
   border-radius: 5px;
 }
 
-#virtualclassCont.congrea #submitURL {
-  background: #83c2b2; /* Old browsers */
-  background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
-  padding: 11px 15px;
-  border: none;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 200;
-  margin-left: 5px;
-  border-radius: 5px;
-  top: -2px;
-  position: relative;
-}
+/*#virtualclassCont.congrea #submitURL {*/
+  /*background: #83c2b2; !* Old browsers *!*/
+  /*background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* FF3.6+ *!*/
+  /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); !* Chrome,Safari4+ *!*/
+  /*background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* Chrome10+,Safari5.1+ *!*/
+  /*background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* Opera 11.10+ *!*/
+  /*background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); !* IE10+ *!*/
+  /*background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); !* W3C *!*/
+  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); !* IE6-9 *!*/
+  /*padding: 11px 15px;*/
+  /*border: none;*/
+  /*color: #fff;*/
+  /*font-size: 13px;*/
+  /*font-weight: 200;*/
+  /*margin-left: 5px;*/
+  /*border-radius: 5px;*/
+  /*top: -2px;*/
+  /*position: relative;*/
+/*}*/
 
 #virtualclassCont.congrea #videoUrlContainer #submitURL:hover {
   background-color: #68a697;
   /*background-image: none;*/
 }
 
-#videoUrlContainer {
-  z-index: 40;
-}
+/*#videoUrlContainer {*/
+  /*z-index: 40;*/
+/*}*/
 
-#virtualclassCont.congrea #videoUrlContainer {
-  position: relative;
- /*// margin-top: 25%;*/
-  text-align: center;
-  top: 0;
-  left: 0;
-  right: 0;
-}
+/*#virtualclassCont.congrea #videoUrlContainer {*/
+  /*position: relative;*/
+ /*// margin-top: 25%;*!*!*/
+  /*text-align: center;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+/*}*/
 
-#virtualclassCont.congrea #videoUrlContainer {
-  margin-top: 10px;
-}
-.congrea #videoUrlContainer{
-  float:right;
-}
+/*#virtualclassCont.congrea #videoUrlContainer {*/
+  /*margin-top: 10px;*/
+/*}*/
+/*.congrea #videoUrlContainer{*/
+  /*float:right;*/
+/*}*/
 
 
-#virtualclassCont.congrea.student.presenter #videoUrlContainer {
-  top: 87%;
-  left: 50px;
-}
+/*#virtualclassCont.congrea.student.presenter #videoUrlContainer {*/
+  /*top: 87%;*/
+  /*left: 50px;*/
+/*}*/

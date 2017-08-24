@@ -29,7 +29,6 @@
 
              */
             init: function (videoObj, startFrom) {
-                debugger;
 
                 if (typeof videoObj != 'undefined') {
                     if (videoObj.init != 'studentlayout') {
@@ -48,7 +47,6 @@
                     } else {
                         //("video url  available");
 
-
                         // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
 
                         if (roles.hasControls()) {
@@ -58,7 +56,6 @@
                             //this.UI.inputURL();
                            // ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {
-                            debugger;
                             if(typeof videoObj != 'undefined'){
                                 if (!videoObj.hasOwnProperty('fromReload')) {
 
@@ -67,13 +64,16 @@
                                         //virtualclass.videoUl.UI.container()
                                         this.UI.defaultLayoutForStudent();
                                     } else{
-                                        debugger;
                                         (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
                                     }
                                 }
                                 else{
 
                                     this.onYTIframApi(videoId, startFrom, 'fromReload');
+                                }
+                                var msz = document.getElementById("messageLayoutVideo");
+                                if (msz) {
+                                    msz.style.display = "none";
                                 }
                             } else {
                                 // when user transfered the role refresh during the youtube sharing
@@ -129,7 +129,6 @@
                  * Creates container for the video and appends the container before audio widget
                  */
                 container: function () {
-                    //debugger;
                      var ytsCont = document.getElementById(this.id);
                     // if (ytsCont != null) {
                     //     ytsCont.parentNode.removeChild(ytsCont);

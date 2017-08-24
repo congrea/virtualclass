@@ -131,11 +131,12 @@
               var tobeDeactive;
               if(virtualclass.currApp == 'DocumentShare'){
                 tobeDeactive = "#listnotes";
+                virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
               }else if(virtualclass.currApp == 'Video'){
                 tobeDeactive = '#listvideo';
               }
               virtualclass.vutil.makeElementDeactive(tobeDeactive );
-              virtualclass.vutil.makeElementActive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             }
         }
     }();

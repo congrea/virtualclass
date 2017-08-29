@@ -35,93 +35,65 @@
         }
     }
 
-    page.prototype.createPageNav2 = function (elem) {
+    /**
+     * This function is creating the navigation for docs, notes and video
+     */
+    page.prototype.createPageNav = function (elem) {
         var listDtype = 'list' + this.type;
+        console.log("nirmala",listDtype);
         var docNav = document.getElementById(listDtype);
-        if (docNav == null) {
-            docNav = document.createElement('div');
-            docNav.id = listDtype;
-            docNav.className = 'listPages pages';
-            // TODO this should handle in proper way
-            if (this.type == 'docs') {
-                elem = document.getElementById('docsListContainer');
-            }
-            elem.appendChild(docNav);
-        }
-
         var lid = 'link' + this.type + this.rid;
-        var linkNav = this.UI.createPageNavLink.call(this,docNav);
-        docNav.appendChild(linkNav);
+        var cthis = this;
+        var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: cthis.title};
+        if (cthis.type == "video") {
+            var docNav=document.getElementById("listvideo");
+            if(docNav){
+                var elem = this.UI.createPageNavLink2.call(this, docNav);
+                var template=virtualclass.getTemplate("linkvideo","videoupload");
+                $(docNav).append(template(elem));
+                var label = document.getElementById(this.type + "Title" + this.rid);
+                label.innerHTML = this.title;
+                label.dataset.title = this.title;
+                this.UI.controller.init(this, lid);
+                // var mainpDiv = this.UI.mainPDiv.call(this);
 
-        if (this.type == 'video') {
-            var docNav = document.getElementById(listDtype);
-            var link = document.getElementById(lid)
-            var label = document.createElement("div");
-            label.id = this.type + "Title" + this.rid;
-            label.className = this.type + "Title";
-            label.innerHTML = this.title;
-            label.dataset.title = this.title;
-            label.className += ' tooltip2';
-            link.appendChild(label);
+            }
+
+        } else if (this.type == 'docs') {
+            // alert('hello hi');
+            // debugger;
+            var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
+            docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
             this.UI.controller.init(this, lid);
 
-        } else {
-            // For notes and videos
-            docNav.appendChild(linkNav);
-            var mainpDiv = this.UI.mainPDiv.call(this);
-            linkNav.appendChild(mainpDiv);
+        } else if (this.type == 'notes') {
+            var nstemplate = virtualclass.getTemplate('notesNav', virtualclass.dts.tempFolder);
+            var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
+            var note  = virtualclass.dts.getNote(this.rid);
+            context.content_path = note.content_path;
+            context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
+            context.thumbCount++;
+            docNav.insertAdjacentHTML('beforeend', nstemplate(context));
             this.UI.controller.init(this, lid);
+        }else if(this.type == 'ppt'){
+            var pptNav=document.getElementById("listppt");
+            if(pptNav){
+                var elem = this.UI.createPageNavLink2.call(this, pptNav);
+                var template=virtualclass.getTemplate("linkPpt","ppt");
+                $(pptNav).append(template(elem));
+                var label = document.getElementById(this.type + "Title" + this.rid);
+                label.innerHTML = this.title;
+                label.dataset.title = this.title;
+                this.UI.controller.init(this, lid);
+                //var mainpDiv = this.UI.mainPDiv.call(this);
+            }
         }
+        var mainpDiv = document.getElementById("mainp"+this.id);
         this.createPageNavAttachEvent(mainpDiv);
     },
-        /**
-         * This function is creating the navigation for docs, notes and video
-         */
-        page.prototype.createPageNav = function (elem) {
-            var listDtype = 'list' + this.type;
-            var docNav = document.getElementById(listDtype);
-            var lid = 'link' + this.type + this.rid;
-            var cthis = this;
-            var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: virtualclass.vutil.trimExtension(cthis.title)};
-            if (cthis.type == "video") {
-                var docNav=document.getElementById("listvideo");
-                if(docNav){
-                   var elem = this.UI.createPageNavLink2.call(this, docNav);
-                    var template=virtualclass.getTemplate("linkvideo","videoupload");
-                    $(docNav).append(template(elem));
-                    var label = document.getElementById(this.type + "Title" + this.rid);
-                    label.innerHTML = this.title;
-                    label.dataset.title = this.title;
-                    this.UI.controller.init(this, lid);
-                   // var container = document.querySelector('#controlCont' + this.id);
-                    var mainpDiv = this.UI.mainPDiv.call(this);
-                    //container.insertBefore(mainpDiv, container.firstChild);
-
-                }
-
-            } else if (this.type == 'docs') {
-                // alert('hello hi');
-                // debugger;
-                var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
-                docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
-                this.UI.controller.init(this, lid);
-
-            } else if (this.type == 'notes') {
-                var nstemplate = virtualclass.getTemplate('notesNav', virtualclass.dts.tempFolder);
-                var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
-                var note  = virtualclass.dts.getNote(this.rid);
-                context.content_path = note.content_path;
-                context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
-                context.thumbCount++;
-                docNav.insertAdjacentHTML('beforeend', nstemplate(context));
-                this.UI.controller.init(this, lid);
-            }
-            var mainpDiv = document.getElementById("mainp"+this.id);
-            this.createPageNavAttachEvent(mainpDiv);
-        },
         //
         /** Attching the event handler when user click on preview of Docs and Notes */
-        // Todo, by this function the vidoe's event should be attached
+        // Todo, by this function the video's event should be attached
         page.prototype.createPageNavAttachEvent = function (linkNav) {
             if (this.type == 'docs') {
                 linkNav.onclick = virtualclass.dts.docs.goToDocs(this.rid);
@@ -154,7 +126,8 @@
         for (var key in data) {
             form_data.append(key, data[key]);
         }
-        var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content";
+        var method= (virtualclass.currApp != "SharePresentation")?"&methodname=update_content":"&methodname=update_content_video";
+        var path = window.webapi + "&user=" + virtualclass.gObj.uid +method;
         var cthis = this;
         virtualclass.xhr.sendFormData(form_data, path, cthis.onServerResponse);
     }
@@ -257,7 +230,7 @@
                 elem.appendChild(thumbnail);
                 elem.appendChild(thumbList);
             } else if (this.type == 'docs') {
-                elem.innerHTML = virtualclasss.vutil.getFileName(cthis.title);
+                elem.innerHTML = cthis.title;
                 elem.dataset.title = cthis.title;
                 elem.className += ' tooltip2';
             }
@@ -266,7 +239,7 @@
             elem.dataset.rid = cthis.rid;
             return elem;
         },
-
+        // for video and ppt
         createPageNavLink2: function () {
             var cthis = this;
             var elem = document.createElement('div');
@@ -293,7 +266,7 @@
             elem.dataset.screen = cthis.id;
             elem.dataset.rid = cthis.rid;
             elem.dataset.selected = 0;
-            elem.dataset.status = this.status
+            elem.dataset.status = this.status;
 
             if (cthis.type == "video") {
                 var template=virtualclass.getTemplate("linkvideo","videoupload");
@@ -353,10 +326,10 @@
                 // var helem = this.element('status');
                 var delem = this.element(cthis, 'delete');
                 if(cthis.type != 'docs'){
-                  this.dragDrop.init(this.cthis);
+                    this.dragDrop.init(this.cthis);
                 }
 
-
+                //this.dragDrop.init(this.cthis);
                 //  }else{
                 //this part should be removed
                 //var melem = this.element('move', parent);
@@ -428,10 +401,13 @@
                 },
 
                 handleDragStart: function (e) {
-                   if(this.cthis.type === 'Video'){
-                     virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                     virtualclass.vutil.makeElementActive('#listvideo');
-                   }
+                    if(this.cthis.type === 'video'){
+                        virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listvideo');
+                    }else if(this.cthis.type === 'notes'){
+                        virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listnotes');
+                    }
 
 
                     //   source = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
@@ -445,11 +421,14 @@
                 },
 
                 handleDragEnter: function (e) {
-                   if(this.cthis.type === 'Video'){
-                    virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                    virtualclass.vutil.makeElementActive('#listvideo');
-                   }
-                    //       var etarget = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
+                    if(this.cthis.type == 'video'){
+                        virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listvideo');
+                    }else if(this.cthis.type == 'notes'){
+                        virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listnotes');
+                    }
+
                     if(this.source) {
                         var etarget = e.target.closest('.link' + this.cthis.type);
 
@@ -459,28 +438,18 @@
                         else {
                             var target = e.target.closest('.link' + this.cthis.type);
                             target.parentNode.insertBefore(this.source, target.nextSibling);
-
-                            //etarget.parentNode.insertBefore(source, etarget.nextSibling);
                         }
                     }
-                    // else{
-                    //     $('#listvideo').css({
-                    //         "z-index":1
-                    //
-                    //     })
-                    //     $('.qq-uploader-selector.qq-uploader.qq-gallery').css({
-                    //         "z-index":5
-                    //
-                    //     })
-                    //
-                    // }
                 },
                 handleDragEnd: function () {
-                   this.cthis.rearrange();
-                   if(this.cthis.type === 'Video'){
-                     virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
-                     virtualclass.vutil.makeElementActive('#listvideo');
-                   }
+                    this.cthis.rearrange();
+                    if(this.cthis.type == 'video'){
+                        virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listvideo');
+                    }else if(this.cthis.type == 'notes'){
+                        virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        virtualclass.vutil.makeElementActive('#listnotes');
+                    }
                 }
             },
 
@@ -535,24 +504,6 @@
                         div.onclick = this.goToEvent(this.cthis, eltype);
                     }
 
-                    //   var div = document.createElement('div');
-                    //   div.className = 'controls ' +  eltype;
-                    //
-                    //
-                    //   if(typeof dataSet != 'undefined'){
-                    //     div.dataset.status = dataSet;
-                    //   }
-                    //
-                    //   var a = document.createElement('a');
-                    //   a.className = eltype + 'anch';
-                    //   a.innerHTML = (typeof dataSet != 'undefined') ? eltype+dataSet : eltype;
-                    //
-                    //   div.appendChild(a);
-                    //   div.onclick = this.goToEvent(this.cthis, eltype);
-                    //
-                    //   return div;
-                    //
-                    //
                 }
 
             },
@@ -563,10 +514,62 @@
                 } else {
                     var selector = '.delete';
                 }
+                var that = this;
                 var div = document.querySelector("#controlCont" + cthis.type + cthis.rid + ' ' + selector);
                 div.onclick = this.goToEvent(this.cthis, eltype);
+
+                var div = document.querySelector("#link"+ cthis.type + cthis.rid);
+                if(div){
+
+                    div.addEventListener ("mouseover",function(){
+                        that.hoverHandler(cthis)
+
+                    });
+                    div.addEventListener ("mouseout",function(){
+                        that.hoverHandler1(cthis)
+
+                    });
+
+                }
+
+
             },
 
+            hoverHandler:function(cthis){
+                var div;
+                if(cthis.type =="video"){
+                     div = document.querySelector("#VideoDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else if(cthis.type =="ppt"){
+                    div = document.querySelector("#SharePresentationDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else {
+                    div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
+
+                }
+                if(div){
+                    div.classList.add("showCtr")
+                }
+
+            },
+            hoverHandler1:function(cthis){
+                var div;
+                if(cthis.type =="video"){
+                    div = document.querySelector("#VideoDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else if(cthis.type =="ppt"){
+                    div = document.querySelector("#SharePresentationDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
+
+                }else {
+                    div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
+
+                }
+                    div.classList.remove("showCtr");
+
+
+
+
+            },
             /**
              * This function trigger when user clicks on
              * disable/enable or delete button

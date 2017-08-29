@@ -2247,7 +2247,7 @@
 #page-mod-congrea-classroom #virtualclassCont.student {
 	width: 100% !important;
 }
-#virtualclassCont.congrea .modal-body {max-height: inherit;}
+/*#virtualclassCont.congrea .modal-body {max-height: inherit;}*/
 #page-mod-congrea-classroom .close{
 	float: right !important;
 }
@@ -2263,6 +2263,7 @@
 }
 #virtualclassCont.congrea .modal-body textarea{
 	margin: 10px 0 !important;
+
 	/*min-height: 50px;*/
 }
 #virtualclassCont.congrea .modal-body #qnTxCont
@@ -2593,19 +2594,19 @@
 	letter-spacing: 0.02em;
 }
 
-#listvideo{
-  position:absolute;
-	overflow-y: scroll;
-	width:97%;
+/*#listvideo{*/
+  /*position:absolute;*/
+	/*overflow-y: scroll;*/
+	/*width:97%;*/
 
-}
-.congrea .linkvideo{
-	display:inline-block;
-	margin:5px;
-	height:150px;
-	position:relative;
+/*}*/
+/*.congrea .linkvideo{*/
+	/*display:inline-block;*/
+	/*margin:5px;*/
+	/*height:150px;*/
+	/*position:relative;*/
 
-}
-.congrea #videoUrlContainer{
-	float:right;
-}
+/*}*/
+/*.congrea #videoUrlContainer{*/
+	/*float:right;*/
+/*}*/

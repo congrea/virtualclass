@@ -119,11 +119,7 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"compiler":[
 },"useData":true});
 
 this["JST"]["templates/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "<div id=\"congdashboard\" class=\"modal in\"  role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content dashboardContainer\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\">Modal Header</h4>\n      </div>\n      <div class=\"modal-body\" id=\""
-    + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"app","hash":{},"data":data}) : helper)))
-    + "Dashboard\"> </div>\n    </div>\n  </div>\n</div>";
+    return "<div id=\"congdashboard\" class=\"modal in\"  role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content dashboardContainer\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\"></h4>\n      </div>\n      <div class=\"modal-body\" >\n\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/dashboardCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -145,9 +141,9 @@ this["JST"]["templates/documentSharing/dashboard.hbs"] = Handlebars.template({"1
 
   return "<div class='dbContainer' data-app=\""
     + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
-    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\" class=\"btn-default btn\"><span class=\"glyphicon glyphicon-upload\"></span>  Upload Document</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n"
+    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\" class=\"btn-default btn\"><span class=\"glyphicon glyphicon-upload\"></span>  Upload Document</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n    <div id=\"docsuploadContainer\" class=\"col-sm-12\">  </div>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <div id=\"docsuploadContainer\" class=\"col-sm-12\">  </div>\n  </div>\n\n\n</div>";
+    + "\n  </div>\n\n\n</div>";
 },"useData":true});
 
 this["JST"]["templates/documentSharing/docsMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -175,7 +171,14 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + " \" data-rid=\""
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
-    + "\" data-selected=\"0\" data-status=\"1\">\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
+    + "\" data-selected=\"0\" data-status=\"1\">\n  <div id=\"controlCont"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
+    + "\" class=\"controlCont\">\n    <div class=\"controls status\" data-status=\""
+    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
+    + "\">\n      <a class=\"statusanch\">"
+    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
+    + "</a>\n    </div>\n\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\" data-screen=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -184,14 +187,7 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
-    + "</div>\n  <div id=\"controlCont"
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
-    + "\" class=\"controlCont\">\n    <div class=\"controls status\" data-status=\""
-    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "\">\n      <a class=\"statusanch\">"
-    + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "</a>\n    </div>\n\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
+    + "</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/documentSharing/notesMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -353,14 +349,20 @@ this["JST"]["templates/poll/modal.hbs"] = Handlebars.template({"compiler":[7,">=
     return "<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\" id=\"pollModalBody\">\n      <div id=\"contHead\" class=\"modal-header\">\n        <button type=\"button\" class=\"close\" id=\"modalClose\" data-dismiss=\"modal\">×</button>\n        <div id=\"editTx\" class=\"row modalHeaderTx panel-body\">Create New Poll</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row pollTxCont\">\n          <label class=\"pollLabel\">Question :</label>\n          <div class=\"inputWrapper clearfix clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\"Type question\"></textarea>\n          </div>\n        </div>\n        <div id=\"optsTxCont\" class=\"row pollTxCont\">\n          <label class=\"optionLabel\">Options :</label>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"1\" class=\"opt form-control\" placeholder=\"Type option\" rows=\"1\"></textarea>\n          </div>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"2\" class=\"opt form-control\" rows=\"1\" placeholder=\"Type option\"></textarea>\n          </div>\n          <div id=\"addMoreCont\" class=\"addMoreCont\">\n            <span class=\"icon-plus-circle\"></span>\n            <a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption btn btn-default controls\">Add Option</a>\n          </div>\n        </div>\n      </div>\n      <div id=\"contFooter\" class=\"modal-footer\">\n        <div id=\"footerCtrCont\">\n          <button id=\"reset\" class=\"btn btn-default pull-left controls\" type=\"button\">Reset</button>\n          <button id=\"etSave\" class=\"btn btn-default controls\">Save</button>\n          <button id=\"saveNdPublish\" class=\"btn btn-default controls\">Publish</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
-this["JST"]["templates/poll/optioninput.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+this["JST"]["templates/poll/optioninput.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "  <a id=\"remove"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.index : stack1), depth0))
+    + "\" class=\"close child\">×</a>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
 
   return "<div class=\"inputWrapper clearfix\">\n  <textarea rows=\"1\" id=\"option"
-    + alias4(((helper = (helper = helpers.seq || (depth0 != null ? depth0.seq : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"seq","hash":{},"data":data}) : helper)))
-    + "\" class=\"opt form-control parent\" placeholder=\"Type option\"\n            style=\"width: 100%; float: left;\"></textarea>\n  <a id=\"remove"
-    + alias4(((helper = (helper = helpers.seq || (depth0 != null ? depth0.seq : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"seq","hash":{},"data":data}) : helper)))
-    + "\" class=\"close child\">×</a>\n</div>\n";
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.index : stack1), depth0))
+    + "\" class=\"opt form-control parent\" placeholder=\"Type option\"\n  ></textarea>\n"
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.closeBtn : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\n";
 },"useData":true});
 
 this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -469,7 +471,7 @@ this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.
     + "\">\n            <span class=\"icon-publish2\" data-toggle=\"congtooltip\" title=\"publish poll\"></span>\n          </a>\n        </div>\n        </td>\n      </tr>\n    </table>\n\n  </td>\n  <td id=\"qnText"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"qnText\" data-toggle=\"popover\" data-trigger=\"hover\"\n       data-original-title=\"\" title=\"\">"
+    + "\" class=\"qnText\" data-toggle=\"popover\" data-trigger=\"hover\"\n       >"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.questiontext : stack1), depth0))
     + "</td>\n  <td class=\"creator\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.creator : stack1), depth0))
@@ -489,7 +491,7 @@ this["JST"]["templates/poll/qnOptions.hbs"] = Handlebars.template({"1":function(
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "\n<div id=\"qnLabelCont\" class=\"panel\">\n  <label>Question:<span id=\"qnLabelCont\">"
+  return "\n<div  class=\"panel\">\n  <label>Question:<span id=\"qnLabelCont\">"
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label>\n  <div id=\"optnNonVotd\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -509,11 +511,11 @@ this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"1":functi
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"modal-dialog\" id=\"yui_3_17_2_1_1496125638736_94\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\">×</button>\n\n      <div id=\"resultTx\" class=\"row modalHeaderTx panel-body\">Poll Result</div>\n    </div>\n    <div id=\"resultLayout\" class=\"panel-body\">\n      <div id=\"resultLayoutHead\" class=\"row panel\">\n        <div id=\"timerWrapper\" class=\"col-md-4\">\n          <label id=\"timerLabel\">Remaining Time</label>\n          <div id=\"timerCont\"></div>\n        </div>\n        <div id=\"votesWrapper\" class=\"col-md-6\">\n          <label id=\"congreaPollVoters\">Voted So Far</label>\n          <div id=\"receivedVotes\"></div>\n        </div>\n      </div>\n      <div id=\"resultLayoutBody\">\n        <div id=\"TqnPoll\" class=\"panel\">\n          <label>Question :  <span id=\"qnLabelCont\">"
+  return "\n  <div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n\n<div class=\"modal-dialog\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\">×</button>\n\n      <div id=\"resultTx\" class=\"row modalHeaderTx panel-body\">Poll Result</div>\n    </div>\n    <div id=\"resultLayout\" class=\"panel-body\">\n      <div id=\"resultLayoutHead\" class=\"row panel\">\n        <div id=\"timerWrapper\" class=\"col-md-4\">\n          <label id=\"timerLabel\">Remaining Time</label>\n          <div id=\"timerCont\"></div>\n        </div>\n        <div id=\"votesWrapper\" class=\"col-md-6\">\n          <label id=\"congreaPollVoters\">Voted So Far</label>\n          <div id=\"receivedVotes\"></div>\n        </div>\n      </div>\n      <div id=\"resultLayoutBody\">\n        <div id=\"TqnPoll\" class=\"panel\">\n          <label>Question :  <span id=\"qnLabelCont\">"
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label>\n          <div id=\"nonVotTqn\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "          </div>\n        </div>\n        <div id=\"chartMenuCont\" class=\"panel\">\n          <button id=\"bar\">\n            <a href=\"#\" id=\"barView\">\n              <span class=\"icon-stats-bars\"></span>\n            </a>\n          </button>\n          <button id=\"pi\">\n            <a href=\"#\" id=\"piView\">\n              <span class=\"icon-pie-chart\"></span>\n            </a>\n          </button>\n          <button id=\"rList\">\n            <a href=\"#\" id=\"listView\">\n              <span class=\"icon-list-ul\"></span>\n            </a>\n          </button>\n        </div>\n        <div id=\"chart\" class=\"row c3\" style=\"max-height: 320px; position: relative;\"></div>\n        <div class=\"table-responsive\" id=\"listCont\"></div>\n\n      </div>\n      <div id=\"pollResultMsz\" class=\"pollResultMsz panel\">Waiting for student response</div>\n      <div id=\"resultLayoutFooter\" class=\"row\">\n\n      </div>\n    </div>\n  </div>\n</div>";
+    + "          </div>\n        </div>\n        <div id=\"chartMenuCont\" class=\"panel\">\n          <button id=\"bar\">\n            <a href=\"#\" id=\"barView\">\n              <span class=\"icon-stats-bars\"></span>\n            </a>\n          </button>\n          <button id=\"pi\">\n            <a href=\"#\" id=\"piView\">\n              <span class=\"icon-pie-chart\"></span>\n            </a>\n          </button>\n          <button id=\"rList\">\n            <a href=\"#\" id=\"listView\">\n              <span class=\"icon-list-ul\"></span>\n            </a>\n          </button>\n        </div>\n        <div id=\"chart\" class=\"row c3\" style=\"max-height: 320px; position: relative;\"></div>\n        <div class=\"table-responsive\" id=\"listCont\"></div>\n\n      </div>\n      <div id=\"pollResultMsz\" class=\"pollResultMsz panel\">Waiting for student response</div>\n      <div id=\"resultLayoutFooter\" class=\"row\">\n\n      </div>\n    </div>\n  </div>\n</div></div>";
 },"useData":true});
 
 this["JST"]["templates/poll/resultlist.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -537,11 +539,7 @@ this["JST"]["templates/poll/setting-modal.hbs"] = Handlebars.template({"1":funct
 },"useData":true});
 
 this["JST"]["templates/poll/stdResult.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"resultLayout\">\n  <div id=\"resultLayoutHead\" class=\"stdrslt container\">\n    <div id=\"timerWrapper\">\n      <label id=\"timerLabel\">Remaining Time</label>\n      <div id=\"timerCont\"></div>\n    </div>\n    <div id=\"votesWrapper\" class=\"modal-header\">\n      <label id=\"congreaPollVoters\">Voted So Far</label>\n      <div id=\"receivedVotes\"></div>\n    </div>\n  </div>\n  <div id=\"resultLayoutBody\" class=\"container stdlayout\">\n    <label>Question : <span id=\"qnLabelCont\">"
-    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
-    + "</span></label>\n    <div id=\"optnNonVotd\"></div>\n    <div id=\"chartMenuCont\" class=\"panel\">\n      <button id=\"bar\">\n        <a href=\"#\" id=\"barView\">\n          <span class=\"icon-stats-bars\"></span>\n        </a>\n      </button>\n      <button id=\"pi\">\n        <a href=\"#\" id=\"piView\">\n          <span class=\"icon-pie-chart\"></span>\n        </a>\n      </button>\n    </div>\n    <div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div>\n  </div>\n  <div id=\"pollResultMsz\" class=\"pollResultMsz\"></div>\n  <div id=\"resultLayoutFooter\" class=\"row\">\n  </div>\n</div>";
+    return "<div id=\"resultLayout\">\n  <div id=\"resultLayoutHead\" class=\"stdrslt container\">\n    <div id=\"timerWrapper\">\n      <label id=\"timerLabel\">Remaining Time</label>\n      <div id=\"timerCont\"></div>\n    </div>\n    <div id=\"votesWrapper\" class=\"modal-header\">\n    </div>\n  </div>\n  <div id=\"resultLayoutBody\" class=\"container stdlayout\">\n    <label><span id=\"qnLabelCont\"></span></label>\n    <div id=\"optnNonVotd\"></div>\n    <div id=\"chartMenuCont\" class=\"panel\">\n      <button id=\"bar\">\n        <a href=\"#\" id=\"barView\">\n          <span class=\"icon-stats-bars\"></span>\n        </a>\n      </button>\n      <button id=\"pi\">\n        <a href=\"#\" id=\"piView\">\n          <span class=\"icon-pie-chart\"></span>\n        </a>\n      </button>\n    </div>\n    <div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div>\n  </div>\n  <div id=\"pollResultMsz\" class=\"pollResultMsz\"></div>\n  <div id=\"resultLayoutFooter\" class=\"row\">\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -572,12 +570,57 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + " </span>\n    </div>\n\n  </div>\n</div>";
 },"useData":true});
 
+this["JST"]["templates/ppt/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "\n<div class='dbContainer' data-app=\""
+    + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"app","hash":{},"data":data}) : helper)))
+    + "\" id=\"pptDbCont\">\n  <div id=\"pptListContainer\">\n    <div id=\"listppt\" class=\"listPages pages list-group\"></div>\n    <!--<div id=\"newpptBtnCont\">-->\n      <!--<button id=\"newpptBtn\">Upload ppt url </button>-->\n    <!--</div>-->\n  </div>\n\n  <div class=\"dashboardview\" >\n    <div id=\"pptuploadContainer\">\n      <div id=\"urlcontainer\" style=\"display: block;\">\n        <input id=\"presentationurl\" placeholder=\"Enter HTML5 Presentation Url.\">\n        <input type=\"submit\" id=\"submitpurl\" class =\"btn-default\"value=\"Save\">\n      </div>\n    </div>\n  </div>\n</div>\n\n\n";
+},"useData":true});
+
+this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression, alias5=container.lambda;
+
+  return "<div class=\""
+    + alias4(((helper = (helper = helpers.className || (depth0 != null ? depth0.className : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"className","hash":{},"data":data}) : helper)))
+    + "\" id=\"link"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\"\n     data-screen="
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + " data-rid=\""
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\" data-selected=\"0\" data-status=\""
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1), depth0))
+    + "\" draggable=\"true\">\n  <div id=\""
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "Title"
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\" class=\""
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "Title tooltip2\"></div>\n  <div id=\"controlCont"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\" class=\"controlCont\">\n    <div class=\"mainpreview\" id=\"mainp"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\" data-screen=\""
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\"\n         data-rid=\""
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
+    + "\" style=\"opacity: 1; pointer-events: auto;\"></div>\n    <div class=\"controls status\" data-status=\""
+    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1), depth0))
+    + "\"><a class=\"statusanch\"></a></div>\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
+},"useData":true});
+
 this["JST"]["templates/ppt/mszdisplay.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<p id=\"pptMessageLayout\">Presentation will be shared shortly</p>";
 },"useData":true});
 
 this["JST"]["templates/ppt/ppt.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <div id=\"urlcontainer\" style=\"display: block;\">\n      <input id=\"presentationurl\" placeholder=\"Enter HTML5 Presentation Url.\">\n      <input type=\"submit\" id=\"submitpurl\" value=\"submit\">\n    </div>\n";
+    return "    <!--<div id=\"urlcontainer\" style=\"display: block;\">-->\n      <!--<input id=\"presentationurl\" placeholder=\"Enter HTML5 Presentation Url.\">-->\n      <!--<input type=\"submit\" id=\"submitpurl\" value=\"submit\">-->\n    <!--</div>-->\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -702,16 +745,18 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"compi
 },"useData":true});
 
 this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id =\"listvideo\">\n\n</div>\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n<div id = \"congreaShareVideoUrlCont\" class=\"row\">\n\n  <div id=\"videoUrlContainer\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >online video</button>\n  </div>\n\n</div>";
+    return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\" class=\"col-md-3\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >upload video</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-8\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >online video</button>\n  </div>\n\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "    <div id=\"videoPopupCont\">\n    </div>\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    return "    <p id=\"messageLayoutVideo\">Video will be shared shortly</p>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\">\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "  <div id =\"player\"></div>\n  <div id=\"videoPlayerCont\">\n  </div>\n</div>";
 },"useData":true});
 

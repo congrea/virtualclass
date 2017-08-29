@@ -87,6 +87,8 @@
                                     msz.style.display = "block";
                                 }
                             }
+
+
                         }
                     }
                 } else {
@@ -97,11 +99,21 @@
                         ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
                     }
                 }
-                //nirmala rem
-                // if (roles.hasControls()) {
-                //     this.videoListFromLocalStr(videoObj);
-                // }
+
             },
+
+
+            createPageModule:function(){
+                if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){
+                    virtualclass.videoUl.videos.forEach(function (vidObj, i) {
+                        var idPostfix = vidObj.id;
+                        virtualclass.videoUl.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status);
+                    });
+
+                }
+
+            },
+
 
             /*
              * on reload if videolist is stored in localstorage, it would be fetched from there
@@ -236,7 +248,6 @@
                     alert("video is already uploaded");
                 } else {
                     //fallback
-                    //debugger
                     alert("video upload failed");
                 }
 
@@ -263,6 +274,7 @@
                     var content = JSON.parse(msg);
                     if (content.message!= "noVideo") {
                         virtualclass.videoUl.videos = content;
+                        virtualclass.videoUl.allPages = content;
                         var type = "video";
                         var firstId = "congrea" + type + "ContBody";
                         var secondId = "congreaShareVideoUrlCont";
@@ -306,8 +318,6 @@
                 }
                 // virtualclass.videoUl.order.push(res.resultdata.id);
                 // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-
-
 
                 this.calculateHeight();
             },
@@ -374,7 +384,7 @@
                 });
 
 
-              virtualclass.vutil.makeElementDeactive('.qq-uploader-selector.qq-uploader.qq-gallery');
+              virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
               virtualclass.vutil.makeElementActive('#listvideo');
 
                 // $('#listvideo').css({
@@ -579,6 +589,10 @@
                     console.log(virtualclass.videoUl.rec);
                     if (msg.videoUl.init == "studentlayout") {
                         virtualclass.makeAppReady('Video', undefined, msg.videoUl);
+                        var msz = document.getElementById("messageLayoutVideo");
+                        if (msz) {
+                            msz.style.display = "block";
+                        }
                     } else if (msg.videoUl.init.hasOwnProperty('videoUrl')) {
                         virtualclass.videoUl.videoId = msg.videoUl.init.id;
                         virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
@@ -730,7 +744,7 @@
                     console.log(data[key]);
                 }
 
-                virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content", function (msg) {
+                virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", function (msg) {
                     if (msg != "ERROR") {
                         var elem = document.getElementById("linkvideo" + id);
                         if (elem) {
@@ -880,11 +894,6 @@
 
             },
 
-
-
-
-
-
             /*
              * this object is for user interface
              */
@@ -922,10 +931,12 @@
 
 
                     }
-
-
-
-
+                    if(!roles.hasControls()){
+                        var msz = document.getElementById("messageLayoutVideo");
+                        if (msz) {
+                            msz.style.display = "block";
+                        }
+                    }
 
                 },
                 createYoutubeUrlCont:function(cont){
@@ -1098,15 +1109,14 @@
                     var videoElem = document.getElementById("dispVideo");
                     videoElem.appendChild(vn);
 
-
                     var a = document.createElement("a");
                     a.setAttribute("href", "https://videojs.com/html5-video-support/");
                     a.setAttribute("target", "_blank");
                     a.innerHTML = "supports HTML5 video";
                     vn.appendChild(a);
 
-
                 },
+
                 setPlayerUrl: function (player, videoUrl, startFrom) {
                     player.src({type: 'video/webm', src: videoUrl});
                     player.src({type: 'video/mp4', src: videoUrl});
@@ -1225,7 +1235,6 @@
 
 
                             virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
-                                debugger;
                                 var content = JSON.parse(msg);
                                 console.log(content);
                                  vidObj.id= content.resultdata.id;
@@ -1290,19 +1299,14 @@
 
                     virtualclass.videoUl.getVideoList();
 
-
-                    var fineUploader = document.querySelector(".congrea .qq-uploader-selector.qq-uploader.qq-gallery");
-                    var cont = document.querySelector("#congreavideoContBody");
-                    var videolist = document.querySelector("#listvideo");
-                    cont.insertBefore(videolist,fineUploader);
-
                     var cont =  document.querySelector("#uploadMsz")
                     var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");
                     cont.appendChild(msz);
-
-                    var btn = document.querySelector(".qq-upload-button-selector.qq-upload-button");
-                    //var videolist = document.querySelector("#congreaShareVideoUrlCont");
-                  //  urlcont.appendChild(btn);
+                    var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
+                    var btnUpload= $("#uploadVideo");
+                    btnUpload.click(function(){
+                        btn.click();
+                    })
 
                 }
 

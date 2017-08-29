@@ -104,7 +104,7 @@
 }
 
 /*#listnotes {*/
-    /*width: 1600px;*/
+/*width: 1600px;*/
 /*}*/
 
 #virtualclassCont.congrea .pages .links {
@@ -409,10 +409,10 @@
 }
 
 /*#virtualclassCont.congrea #listnotes .linknotes.links.currentNav {*/
-    /*width: 70px;*/
-    /*margin: 3px;*/
-    /*padding: 0;*/
-    /*height: 52px;*/
+/*width: 70px;*/
+/*margin: 3px;*/
+/*padding: 0;*/
+/*height: 52px;*/
 /*}*/
 
 #virtualclassCont.congrea #listnotes .linknotes.links.currentNav .controlCont {
@@ -420,12 +420,12 @@
 }
 
 /*#virtualclassCont.congrea #listnotes .linknotes.links.currentNav img {*/
-    /*border-width: 0px !important;*/
-    /*height: auto !important;*/
-    /*max-width: 60px;*/
-    /*min-height: 42px;*/
-    /*max-height: 42px;*/
-    /*margin: 0;*/
+/*border-width: 0px !important;*/
+/*height: auto !important;*/
+/*max-width: 60px;*/
+/*min-height: 42px;*/
+/*max-height: 42px;*/
+/*margin: 0;*/
 /*}*/
 
 #virtualclassCont.congrea #listnotes .linknotes.links.currentNav span.thumbList {
@@ -436,12 +436,12 @@
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links {
-    margin: 3px;
+    margin: 12px;
     /*width: 70px;*/
     position: relative;
     /*background: #eee;*/
     border-radius: 3px;
-    height: 77px;
+    height: 95px;
     margin-bottom : 30px;
 }
 
@@ -543,7 +543,7 @@
 }
 
 /*#virtualclassCont.congrea .note {*/
-    /*width : 85%;*/
+/*width : 85%;*/
 /*}*/
 
 #screen-docs .pageContainer {
@@ -560,13 +560,13 @@
 }
 
 /*#virtualclassCont.congrea #congdashboard #docsListContainer{*/
-    /*float:left;*/
+/*float:left;*/
 /*}*/
 
 
 /*#virtualclassCont.congrea .dashboardview, #virtualclassCont #docsuploadContainer{*/
-    /*width : 85%;*/
-    /*float: left;*/
+/*width : 85%;*/
+/*float: left;*/
 /*}*/
 
 
@@ -607,3 +607,9 @@
     border : 3px solid green;
 }
 
+#virtualclassCont.congrea #DocumentShareDashboard .controlCont{
+    display:none;
+}
+#virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr{
+    display:block!important;
+}

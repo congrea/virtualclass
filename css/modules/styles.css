@@ -2594,19 +2594,18 @@
 	letter-spacing: 0.02em;
 }
 
-/*#listvideo{*/
-  /*position:absolute;*/
-	/*overflow-y: scroll;*/
-	/*width:97%;*/
+/** for hiding the screen element from teacher/educator */
+#virtualclassCont.congrea #virtualclassScreenShareLocal  video#virtualclassScreenShareLocalVideo{
+	position :absolute;
+	left : -2000;
+	visibility: hidden;
+}
 
-/*}*/
-/*.congrea .linkvideo{*/
-	/*display:inline-block;*/
-	/*margin:5px;*/
-	/*height:150px;*/
-	/*position:relative;*/
 
-/*}*/
-/*.congrea #videoUrlContainer{*/
-	/*float:right;*/
-/*}*/
+#virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg {
+	width: 600px;
+	margin-left: 10%;
+	margin-top: 28%;
+	font-weight: normal;
+	text-align: center;
+}

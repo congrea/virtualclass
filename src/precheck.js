@@ -43,7 +43,7 @@ var precheck = {
     _next : function (curr, cb){
         var test = this[curr].next;
         virtualclass.precheck.updateProgressBar(test);
-        if(!this[test].hasOwnProperty('alreadyDone')){
+        if((!this[test].hasOwnProperty('alreadyDone') || this[test].hasOwnProperty('alreadyDone') && test == 'bandwidth')){
             // Only perform the test if it's not already done
             this[test].perform();
         }else {
@@ -213,12 +213,11 @@ var precheck = {
             }else if (speed > 400){
                 bandwidthText = "medium";
                 virtualclass.videoHost.gObj.MYSPEED = 2;
-                ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
             }else {
                 virtualclass.videoHost.gObj.MYSPEED = 3;
-                ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
                 bandwidthText = "low";
             }
+            ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
             return bandwidthText;
         },
 

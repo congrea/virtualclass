@@ -82,8 +82,7 @@
                     $(e).addClass("ui-chatbox-msg");
                     $(e).fadeIn();
                     self._scrollToBottom();
-                    sortCommonChat();
-
+                    // sortCommonChat();
                 },
                 highlightBox: function () {
                     var self = this;

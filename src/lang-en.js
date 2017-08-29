@@ -122,7 +122,7 @@
         'synchMessage' : 'Please wait a while.  Syncing new content.',
         'iosAudEnable' : 'Tap here to enable the audio',
         'studentAudEnable' : 'Student Audio Enabled',
-        'screensharealready' : "The screen is being shared.",
+        'screensharealready' : "The Screen is being shared.",
         'editorsynchmsg' : 'Editor is not in sync, please wait a few seconds and try again ',
         'canvasmissing' : 'Canvas is missing in your browsers. Please update the latest version of your browser',
         'downloadFile'  : 'Download File',

@@ -1981,6 +1981,14 @@
             if(element != null){
                 element.style.pointerEvents = 'visible';
             }
+        },
+
+        initCommonSortingChat : function (){
+            setTimeout(
+                 function (){
+                      sortCommonChat();
+                 }, 800
+            );
         }
 
     };

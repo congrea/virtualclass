@@ -449,6 +449,15 @@
                     }
                     virtualclass.previrtualclass = that.id;
                 }
+
+                if(document.querySelector('#screenShrMsg') == null){
+                    var msgCont = document.createElement("h3");
+                    msgCont.id = "screenShrMsg"
+                    msgCont.className = "alert alert-info";
+
+                    msgCont.innerHTML = virtualclass.lang.getString('screensharealready');
+                    vidContainer.appendChild(msgCont);
+                }
             },
             /*
              * sending the video to the student in the form of encoded data

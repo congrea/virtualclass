@@ -1,5 +1,7 @@
 <div class="inputWrapper clearfix">
-  <textarea rows="1" id="option{{seq}}" class="opt form-control parent" placeholder="Type option"
-            style="width: 100%; float: left;"></textarea>
-  <a id="remove{{seq}}" class="close child">×</a>
+  <textarea rows="1" id="option{{close.index}}" class="opt form-control parent" placeholder="Type option"
+  ></textarea>
+  {{#if close.closeBtn}}
+  <a id="remove{{close.index}}" class="close child">×</a>
+  {{/if}}
 </div>

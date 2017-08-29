@@ -111,8 +111,8 @@ function (window, $) {
                                 if (document.getElementById('video' + usr.userid) == null) {
                                     $("#chat_div").memberlist("option").userSent(usr);
                                 }
-
-                                virtualclass.gObj.video.addUserRole(usr.userid);
+                                // suman merge, need to enable
+                                // virtualclass.gObj.video.addUserRole(usr.userid);
                             }
                         }
                         // $('#ml'+usr.userid).css('pointerEvents','none');

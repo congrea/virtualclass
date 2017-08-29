@@ -49,7 +49,8 @@ function memberUpdate(e, addType) {
                     virtualclass.gObj.video._handleUserMedia(usr.userid);
                 }
             }
-            virtualclass.gObj.video.addUserRole(usr.userid, usr.role);
+            // suman merge, need to enable
+            // virtualclass.gObj.video.addUserRole(usr.userid, usr.role);
 
         });
 

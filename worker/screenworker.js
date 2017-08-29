@@ -69,7 +69,7 @@ var sendSliceData = function (encodedData, dimension, screenType) {
 var addSliceToSingle = function (encodedData) {
     "use strict";
     // masterSlice === 'undefined' is false when masterSlice is undefined
-    //if (masterSlice === null || masterSlice === 'undefined') {
+    //if (masterSlice === null || masterSlicse === 'undefined') {
     if (masterSlice === null || masterSlice === undefined) {
 
         masterSlice = encodedData;

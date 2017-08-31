@@ -7,95 +7,182 @@
 
 var myChatBoxOpen = false;
 
-function memberUpdate(e, addType) {
+var chatResults = [];
+//TODO, displayChatUserList and displayChatOfflineUserList should be merged into one function
+var myDivResult = "";
 
-    var userlist = e.message;
-    if (userlist.length > 0) {
-        var count = userlist.length - 1;
-        virtualclass.gObj.totalUser = [];
-        for (var i = 0; i < userlist.length; i++) {
-            virtualclass.gObj.totalUser.push(userlist[i].id);
+function displayChatUserList(users){
+    for(var i=0; i<users.length; i++){
+        if (document.getElementById('video' + users[i].userid) == null) {
+            myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
+        //    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
         }
-        virtualclass.gObj.totalUser.sort();
 
+        if(typeof chat_div == 'undefined'){
+            chat_div = document.querySelector('#chat_div');
+        }
+
+        /**
+         * In case of already existing user, myDivResult contains boolean value
+         */
+        if(typeof myDivResult != 'boolean'){
+            if(chat_div.innerHTML == ""){
+                chat_div.innerHTML =  myDivResult;
+            } else {
+                chat_div.innerHTML =  chat_div.innerHTML + myDivResult;
+            }
+
+            if(virtualclass.gObj.uid != virtualclass.jId){
+                virtualclass.user.initControlHanlder(users[i].userid);
+            }
+
+
+        }
     }
+}
 
-     
-    if (userlist.length > 0) {
-        virtualclass.chat._showChatUserList(userlist)
-
-        if ((virtualclass.jId == virtualclass.gObj.uid)) {
-            // openChatBox
-            virtualclass.chat.openChatBox();
-            virtualclass.gObj.video.dispAllVideo("chat_div");
-            console.log('chat box is opened');
+function displayChatOfflineUserList (users){
+    var divContainer = document.querySelector('#melistcontainer')
+    if(divContainer == null){
+        var divContainer = document.createDocumentFragment('div');
+        divContainer.id = "melistcontainer";
+    }
+    for(var i=0; i<users.length; i++){
+        if (!virtualclass.vutil.alreadyConnected(users[i].userid)) {
+            if (users[i].userid != virtualclass.gObj.uid) {
+                if (document.getElementById('video' + users[i].userid) == null) {
+                    myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
+                    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
+                    divContainer.appendChild(myDivResult);
+                }
+            }
         }
-        
-       $( '#chat_div .ui-memblist-usr:not(.mySelf)').remove();
-    
+    }
+    document.querySelector('#chat_div').appendChild(divContainer);
+}
+
+function updateOnlineUserText (){
+    if (roles.hasAdmin()) {
+        if(virtualclass.chat.userList.length > 0){
+            document.querySelector('#usertab_text').innerHTML = "";
+            if (roles.hasAdmin()) {
+                var text = "Users (" + virtualclass.connectedUsers.length + "/" + virtualclass.chat.userList.length + ")";
+            }else{
+                var text = " Users (" + count + ")";
+            }
+
+            var onlineUser  = document.querySelector('#onlineusertext');
+
+            if(onlineUser == null){
+                document.querySelector('#usertab_text').innerHTML =  "<span id='onlineusertext'>"+text+"</span>";
+            } else {
+                onlineUser.innerHTML = text;
+            }
+        }else {
+            console.log('Chat list is not fetched yet.');
+        }
+    } else {
+        document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>" ;
+    }
+}
+
+function memberUpdate(e, addType) {
+    if(addType ==  'removed'){
+        var userUI = document.querySelector('#ml'+e.removeUser);
+        if(userUI != null){
+            userUI.parentNode.removeChild(userUI);
+        }
+        updateOnlineUserText();
+    } else {
+        var userlist = e.message;
+        if (userlist.length > 0) {
+            var count = userlist.length - 1;
+            virtualclass.gObj.totalUser = [];
+            for (var i = 0; i < userlist.length; i++) {
+                virtualclass.gObj.totalUser.push(userlist[i].userid);
+            }
+            virtualclass.gObj.totalUser.sort();
+        }
+
+        if (userlist.length > 0) {
+            virtualclass.chat._showChatUserList(userlist)
+
+            if ((virtualclass.jId == virtualclass.gObj.uid)) {
+                // openChatBox
+                virtualclass.chat.openChatBox();
+                virtualclass.gObj.video.dispAllVideo("chat_div");
+                console.log('chat box is opened');
+            }
+
+            // $( '#chat_div .ui-memblist-usr:not(.mySelf)').remove();
+
+            var myDivResult = "";
+            var divContainer = document.createElement('div');
+            divContainer.id = "tempCont";
+
+
+            displayChatUserList(userlist);
+            for(var i=0; i<userlist.length; i++){
+                if (userlist[i].userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
+                    var vidTag = document.getElementById('video' + virtualclass.gObj.uid);
+                    if (!virtualclass.gObj.hasOwnProperty('audIntDisable')   && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
+                        console.log('Media _handleUserMedia');
+                        virtualclass.gObj.video._handleUserMedia(virtualclass.gObj.uid);
+                    }
+
+                    var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
+                    if (userDiv != null) {
+                        userDiv.classList.add("mySelf");
+                    }
+                }
+            }
+
+        } else {
+            /* when there is one user and left the chat
+             remove userlist box
+             */
+            if ($('div#memlist').length) {
+                $("div#memlist").remove();
+            }
+        }
+
+        if (( roles.hasAdmin() && virtualclass.jId == virtualclass.gObj.uid)) {
+            virtualclass.chat.openChatBox();
+            // Only invoke when member is added
+            if(addType == 'added'){
+                virtualclass.chat.fetchChatUsers();
+            }else {
+                // for handling if teacher refresh and user is left the session
+                virtualclass.chat.showChatListUsers();
+            }
+
+        } else if(virtualclass.jId == virtualclass.gObj.uid){
+            virtualclass.chat.setChatDisplay();
+        }
+
+        var memList = document.querySelector('#memlist');
+        if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
+            memList.style.display = 'block';
+            var chatrm = document.querySelector('#chatrm');
+            if(chatrm !=  null){
+                chatrm.style.display = 'none';
+            }
+        }else {
+            memList.style.display = 'none'
+        }
+
+        updateOnlineUserText();
+
+        virtualclass.connectedUsers.forEach(function (elem) {
+            $('#ml' + elem.userid).addClass("online").removeClass("offline");
+
+        })
+
         var userVid =  document.querySelector( '#chat_div .ui-memblist-usr.mySelf .videoSubWrapper video');
         if(userVid != null){
             userVid.play();
         }
-        
-        $.each(userlist, function (key, usr) {
-            if (document.getElementById('video' + usr.userid) == null) {
-                $("#chat_div").memberlist("option").userSent(usr);
-            }
-
-            if (usr.userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
-                var vidTag = document.getElementById('video' + usr.userid);
-                if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
-                    virtualclass.gObj.video._handleUserMedia(usr.userid);
-                }
-            }
-            // suman merge, need to enable
-            // virtualclass.gObj.video.addUserRole(usr.userid, usr.role);
-
-        });
-
-    } else {
-        /* when there is one user and left the chat
-         remove userlist box
-         */
-        if ($('div#memlist').length) {
-            $("div#memlist").remove();
-        }
     }
-
-    if ((virtualclass.jId == virtualclass.gObj.uid) && roles.hasAdmin()) {
-        virtualclass.chat.openChatBox();
-            virtualclass.chat.fetchChatUsers();
-    } else if (roles.hasAdmin()) {
-        if (virtualclass.chat.userList.length > 0) {
-            virtualclass.chat.showChatListUsers();
-        } else {
-            virtualclass.chat.fetchChatUsers();
-            virtualclass.chat.setChatDisplay();
-        }
-
-    }else if(!roles.hasControls()){
-        virtualclass.chat.setChatDisplay();
-        virtualclass.chat.userList=userlist;
-        
-    }
-    
-    if ($('#memlist').length > 0 && $('#chatroom_bt2.active').length == 0) {
-         $('#memlist').css('display', 'block');
-         $('#chatrm').css('display', 'none');
-    } else {
-         $('#memlist').css('display', 'none');
-
-    }
-
-    if (!roles.hasAdmin()) {
-        $('#onlineusertext').text("Users (" + virtualclass.connectedUsers.length + ")");
-    }
-    virtualclass.connectedUsers.forEach(function (elem) {
-        $('#ml' + elem.userid).addClass("online").removeClass("offline");
-      
-    })
-
 }
 
 function messageUpdate(e) {
@@ -117,7 +204,7 @@ function messageUpdate(e) {
             $("#chat_room").chatroom("option").messageSent(from, msg);
         } else {
             if ($("div#chat_room").length == 0) {
-                var d = document.createElement('ul');
+                var d = document.createElement('div');
                 d.id = 'chat_room';
                 document.body.appendChild(d);
                 virtualclass.chat.chatroombox = $("#chat_room").chatroom({
@@ -161,11 +248,6 @@ function messageUpdate(e) {
             if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
                 virtualclass.chat.counter++;
                 virtualclass.chat.idList.push(from.userid);
-
-//                if(typeof from.lname == 'undefined'){
-//                    alert("hello guys");
-//                    debugger;
-//                }
                 virtualclass.chat.vmstorage[from.userid] = [];
                 virtualclass.chat.vmstorage[from.userid].push({
                     userid: from.userid,
@@ -173,13 +255,13 @@ function messageUpdate(e) {
                 });
             }
             chatboxManager.addBox(from.userid,
-                    {
-                        dest: "dest" + virtualclass.chat.counter, // not used in demo
-                        title: "box" + virtualclass.chat.counter,
-                        first_name: from.name,
-                        last_name: from.lname
-                                //you can add your own options too
-                    });
+                {
+                    dest: "dest" + virtualclass.chat.counter, // not used in demo
+                    title: "box" + virtualclass.chat.counter,
+                    first_name: from.name,
+                    last_name: from.lname
+                    //you can add your own options too
+                });
 
             var did = from.userid;
 
@@ -242,12 +324,12 @@ function createTab(id, name) {
 function addTab(tabs, id, tabCounter, tabTitle) {
     //var tabTitle = $( "#tab_title" ),
     var tabContent = $("#tab_content"),
-            tabTemplate = "<li id = '" + id + "' class = 'ui-state-default ui-corner-bottom ui-tabs-active ui-state-active' aria-controls = '" + id + "'><a href = '#{href}' class = 'ui-tabs-anchor'>#{label}</a> <a href = '#' role = 'button'class = 'ui-corner-all ui-chatbox-icon'><span class = 'ui-icon icon-close'></span></a></li>";
+        tabTemplate = "<li id = '" + id + "' class = 'ui-state-default ui-corner-bottom ui-tabs-active ui-state-active' aria-controls = '" + id + "'><a href = '#{href}' class = 'ui-tabs-anchor'>#{label}</a> <a href = '#' role = 'button'class = 'ui-corner-all ui-chatbox-icon'><span class = 'ui-icon icon-close'></span></a></li>";
 
     var label = tabTitle || "Tab " + tabCounter,
-            id = id,
-            li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)),
-            tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
+        id = id,
+        li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)),
+        tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
 
     tabs.find(".ui-tabs-nav").append(li);
     //tabs.tabs( "refresh" );
@@ -268,7 +350,7 @@ function displaycomChatHistory() {
     //if(sessionStorage.length > 1 || (sessionStorage.length == 1 && sessionStorage.getItem('chatroom_status') == null) ){
     var storageChat = localStorage.getItem('chatroom');
     if (storageChat != null) {
-        var d = document.createElement('ul');
+        var d = document.createElement('div');
         d.id = 'chat_room';
         document.body.appendChild(d);
         var data = JSON.parse(storageChat);
@@ -357,7 +439,7 @@ function displayPvtChatHistory() {
  Dialog box to display error messages
  */
 function display_error(msg) {
-    // $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
+    $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
     $("#dialog").html(msg);
     $('#dialog').dialog();
 }
@@ -425,5 +507,5 @@ function sortCommonChat(){
     $wrapper.find('.ui-chatbox-msg').sort(function (a, b) {
         return +(a  .dataset.msgtime) - +(b.dataset.msgtime);
     })
-    .appendTo( $wrapper );
+        .appendTo( $wrapper );
 }

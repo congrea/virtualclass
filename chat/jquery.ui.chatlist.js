@@ -33,32 +33,87 @@
                 init: function (elem) {
                     this.elem = elem;
                 },
+
                 addUsr: function (peer) {
+                    //  console.log('add user ' + peer.userid)
                     var self = this;
                     var box = self.elem.uiChatboxLog;
                     var userAlready = document.getElementById("ml" + peer.userid);
-                    if (userAlready != null) {
-                        userAlready.parentNode.removeChild(userAlready);
+                    if (userAlready != null ) {
+                        console.log('double created ' + peer.userid);
+                        if(userAlready.classList.contains('offline')){
+                            console.log('Remove user');
+                            userAlready.classList.add('online', 'student');
+                            userAlready.classList.remove('offline');
+                            // userAlready.parentNode.removeChild(userAlready); // Jai Gupta
+                        }
+
+                        return true;
                     }
+
+
+                    var e = document.createElement('div');
+                    var mainUserDiv = document.createDocumentFragment('div');
+                    mainUserDiv.id ="tempId";
+                    // e.className = e.className + "userImg ui-memblist-usr offline";
                     var usr = peer;
                     if (peer.userid != wbUser.id) {
                         usr.notSelf = true;
                     }
-                    usr.class = "ui-memblist-usr offline"
-                    //usr.id = peer.userid;
+
+                    if(roles.hasControls()){
+                        usr.isTeacher = true;
+                    }
+
                     var template=virtualclass.getTemplate("chatuser","chat");
-                    $(box).append(template({"peer": usr}));
+                    // $(box).append(template({"peer": usr}));
+                    // $(box).append(template({"peer": usr}));
+                    var userHtml =  template({"peer": usr});
+                    return userHtml;
+
 
                     var systemMessage = false;
-
                     if (peer) {
+
+                        var peerlink = document.createElement("a");
+                        peerlink.href = '#' + peer.userid;
+                        peerlink.className = 'tooltip';
+                        // peerlink.classList.add('tooltip');
+                        peerlink.dataset.title = 'Click to chat';
+
+                        peerlink.innerHTML = '<img src=" '+ peer.img +'" />'
+
+                        if (peer.lname == undefined) {
+                            peer.lname = '';
+                        }
+
+                        var username = peer.name + " " + peer.lname;
+                        mainUserDiv.appendChild(peerlink);
+
                         var controls = ['assign', 'audio', 'chat', 'editorRich', 'editorCode'];
+
+                        var divCont = document.createElement('div');
+                        divCont.className = "usern";
+
+                        // divCont.appendChild(usrElement);
+                        divCont.innerHTML = "<span>"+username+"</span>";
+
+                        var mainDivFrag = document.createDocumentFragment('div');
+                        mainDivFrag.appendChild(divCont);
+
                         if (peer.userid != wbUser.id) {
                             var controlDiv = virtualclass.user.createControl(peer.userid, controls);
+                            mainDivFrag.appendChild(controlDiv);
                             virtualclass.user.control.shouldApply.call(virtualclass.user, peer.userid); //checking audio
                         }
 
-                       if (roles.hasControls() != null && !roles.hasAdmin()) {
+                        var mainDiv = document.createElement('div');
+                        mainDiv.className = 'user-details';
+                        mainDiv.appendChild(mainDivFrag);
+
+                        mainUserDiv.appendChild(mainDiv);
+
+                        if (roles.hasControls() != null && !roles.hasAdmin()) {
                             if (peer.userid == localStorage.getItem('aId')) {
                                 var controls = ['assign'];
                                 var controlCont = document.getElementById(peer.userid + "ControlContainer");
@@ -77,6 +132,11 @@
                         systemMessage = true;
                     }
 
+                    e.id = 'ml' + peer.userid;
+                    e.appendChild(mainUserDiv)
+
+
+                    // self._scrollToBottom();
                     var chatEnable = localStorage.getItem('chatEnable');
                     if (chatEnable != null && chatEnable == "false") {
                         virtualclass.user.control.disableOnLineUser();
@@ -84,13 +144,16 @@
 
                     if (virtualclass.gObj.uid == peer.userid) {
                         var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
-
                         if (userDiv != null) {
                             userDiv.classList.add("mySelf");
                         }
                     }
 
+                    return e;
+                    // box.append(e);
+                    // box.append(e);
                 },
+
                 highlightBox: function () {
                     var self = this;
                     self.elem.uiChatboxTitlebar.effect("highlight", {}, 300);
@@ -105,7 +168,7 @@
                 },
                 _scrollToBottom: function () {
                     var box = this.elem.uiChatboxLog;
-                    box.scrollTop(box.get(0).scrollHeight);
+//                    box.scrollTop(box.get(0).scrollHeight);
                 }
             }
         },
@@ -120,27 +183,27 @@
         _create: function () {
 
             var self = this,
-                    options = self.options,
-                    offset = options.offset,
-                    title = options.title || "No Title",
-                    // chatbox
-                    uiChatbox = (self.uiChatbox = $('<div></div>'))
+                options = self.options,
+                offset = options.offset,
+                title = options.title || "No Title",
+                // chatbox
+                uiChatbox = (self.uiChatbox = $('<div></div>'))
                     .appendTo(document.getElementById('congreaChatCont'))
                     .addClass('ui-widget ' +
-                            'ui-corner-top ' +
-                            'ui-memblist'
-                            )
+                        'ui-corner-top ' +
+                        'ui-memblist'
+                    )
                     .attr('id', 'memlist')
                     .css('display', 'none')
             uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
+                .addClass('ui-widget-content ' +
+                    'ui-memblist-content '
+                )
+                .appendTo(uiChatbox),
+                uiChatboxLog = (self.uiChatboxLog = self.element)
                     .addClass('ui-widget-content ' +
-                            'ui-memblist-content '
-                            )
-                    .appendTo(uiChatbox),
-                    uiChatboxLog = (self.uiChatboxLog = self.element)
-                    .addClass('ui-widget-content ' +
-                            'ui-memblist-log'
-                            )
+                        'ui-memblist-log'
+                    )
                     .appendTo(uiChatboxContent)
 
                     .focusin(function () {
@@ -156,12 +219,12 @@
                 if (typeof ahref != 'undefined') {
                     var id = ahref.replace('#', '');
                     if(str.parent('.usern').length > 0){
-                        var name = str.html();
+                       var name = str.html();
                     } else {
                         var name = str.siblings('.usern').find('a').html();
                     }
 
-
+                    // var name = str.siblings('.user-details').find('.usern span').html();
 
                     if ($.inArray(id, virtualclass.chat.idList) == -1) {
 //                        counter++;
@@ -173,13 +236,13 @@
                     }
 
                     chatboxManager.addBox(id,
-                            {
-                                dest: "dest" + virtualclass.chat.counter, // not used in demo
-                                title: "box" + virtualclass.chat.counter,
-                                first_name: name,
-                                type: "privateChat",
-                                //you can add your own options too
-                            });
+                        {
+                            dest: "dest" + virtualclass.chat.counter, // not used in demo
+                            title: "box" + virtualclass.chat.counter,
+                            first_name: name,
+                            type: "privateChat",
+                            //you can add your own options too
+                        });
 
                     chatboxManager.init({
                         user: {'name': name},

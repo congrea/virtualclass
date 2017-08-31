@@ -12,8 +12,8 @@ var ioPingPong = {
                 ioAdapter.mustSend(msg);
                 console.log('PING BROADCAST');
             } else { // I am new, so send to all
-                for (var i = 0; i < e.message.length; i++) {
-                    if (e.message[i].userid != virtualclass.gObj.uid) { // Ignore self
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if (virtualclass.connectedUsers[i].userid != virtualclass.gObj.uid) { // Ignore self
                         ioAdapter.mustSendUser(msg, e.message[i].userid);
                         console.log('PING TO ' + e.message[i].userid);
                     }

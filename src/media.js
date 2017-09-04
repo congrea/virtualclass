@@ -41,6 +41,7 @@
 
     var userSource = {}; //for contain the user specific audio source
     var sNode = {};
+    var ac = {};
 //        var AudioContext = AudioContext || webkitAudioContext;
     /*
      * this returns an object that contains various Properties
@@ -210,6 +211,8 @@
                 },
                 // if there is silece then audio will not be transmitted
                 slienceDetection: function (send, leftSix) {
+                    this.audioSend(send, audStatus);
+                    return send;
                     var audStatus;
                     var vol = 0;
                     var sum = 0;
@@ -237,10 +240,10 @@
                     if (maxthreshold < vol) {
                         maxthreshold = vol;
                     } // Maximum volume in historical signal
-                    if (minthreshold * 50 < maxthreshold) {
+                    if (minthreshold * 20 < maxthreshold) {
                         minthreshold = minthreshold * 5;
                     } // In case minimum sound (silance) is too low compared to speaking sound.
-                    if (maxthreshold / 50 > minthreshold) {
+                    if (maxthreshold / 20 > minthreshold) {
                         maxthreshold = vol;
                     } // In case Max volume (speaking sound) is too high compared with silance.
                     var thdiff = maxthreshold / minthreshold;
@@ -646,7 +649,7 @@
                     }
                     if(typeof sNode[uid] != 'object'){
                         console.log('script processor node is created');
-                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(8192, 1, 1);
+                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
                         sNode[uid].onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
                             var newAud = virtualclass.gObj.video.audio.getAudioChunks(uid);
@@ -733,12 +736,17 @@
                         allAudioArr[uid].push(samples[i]);
                     }
 
+                    if(typeof ac[uid] == 'undefined'){
+                       ac[uid] = 0;
+                    }
+
                     /* Picking up an audio chunk and giving
                      * to Audio Queue, to handle 44.1khz and 48khz
                      */
-                    while (allAudioArr[uid].length >= 8192) {
-                        var arrChunk =  allAudioArr[uid].splice(0, 8192);
+                    while (allAudioArr[uid].length >= 16384) {
+                        var arrChunk =  allAudioArr[uid].splice(0, 16384);
                         this.audioToBePlay[uid].push(new Float32Array(arrChunk));
+                        ac[uid]++;
                     }
                 },
 
@@ -751,13 +759,21 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
-                    // console.log("Audio Length" + this.audioToBePlay[uid].length);
-                    if (this.audioToBePlay[uid].length > 10) {
-                        var lastAud = virtualclass.gObj.video.audio.audioToBePlay[uid].pop();
-                        this.audioToBePlay[uid].length = 0;
-                        return lastAud;
-                    } else {
+                    if(this.audioToBePlay[uid].length == 0){
+                        ac[uid] = 0;
+                    }
+                    console.log("Audio " + this.audioToBePlay[uid].length + " uid " + uid);
+                    if (this.audioToBePlay[uid].length >= 8) {
+                        // console.log("Audio Buffer Full");
+                        while (this.audioToBePlay[uid].length >= 3) {
+                            virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                        }
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                    } else if(ac[uid] >= 3) {
+                        // console.log("start audio");
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                    } else {
+                        // console.log("waiting for buffer");
                     }
                 },
 

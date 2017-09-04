@@ -122,7 +122,6 @@
                     if (userlist.length > 0) {
                         this. _showChatUserList(userlist);
                         displayChatOfflineUserList(userlist);
-
                         // $("div#memlist").css({display: 'block'});
                         document.querySelector('div#memlist').style.display = 'block'
 

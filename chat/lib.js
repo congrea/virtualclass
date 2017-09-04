@@ -28,20 +28,22 @@ function displayChatUserList(users){
         if(typeof myDivResult != 'boolean'){
             if(chat_div.innerHTML == ""){
                 chat_div.innerHTML =  myDivResult;
+
             } else {
-                chat_div.innerHTML =  chat_div.innerHTML + myDivResult;
+                chat_div.insertAdjacentHTML('beforeend', myDivResult);
+
             }
+            myDivResult = "";
 
             if(virtualclass.gObj.uid != virtualclass.jId){
                 virtualclass.user.initControlHanlder(users[i].userid);
             }
-
-
         }
     }
 }
 
 function displayChatOfflineUserList (users){
+    alert("display chat offline user");
     var divContainer = document.querySelector('#melistcontainer')
     if(divContainer == null){
         var divContainer = document.createDocumentFragment('div');
@@ -58,6 +60,7 @@ function displayChatOfflineUserList (users){
             }
         }
     }
+    console.log('display offline user');
     document.querySelector('#chat_div').appendChild(divContainer);
 }
 

@@ -35,18 +35,18 @@
                 },
 
                 addUsr: function (peer) {
-                    //  console.log('add user ' + peer.userid)
+
                     var self = this;
                     var box = self.elem.uiChatboxLog;
                     var userAlready = document.getElementById("ml" + peer.userid);
                     if (userAlready != null ) {
-                        console.log('double created ' + peer.userid);
-                        if(userAlready.classList.contains('offline')){
-                            console.log('Remove user');
-                            userAlready.classList.add('online', 'student');
-                            userAlready.classList.remove('offline');
-                            // userAlready.parentNode.removeChild(userAlready); // Jai Gupta
-                        }
+                        // console.log('double created ' + peer.userid);
+                        // if(userAlready.classList.contains('offline')){
+                        //     console.log('Remove user');
+                        //     userAlready.classList.add('online', 'student');
+                        //     userAlready.classList.remove('offline');
+                        //     // userAlready.parentNode.removeChild(userAlready); // Jai Gupta
+                        // }
 
                         return true;
                     }
@@ -64,94 +64,14 @@
                     if(roles.hasControls()){
                         usr.isTeacher = true;
                     }
-
+                    console.log('Chat add user ' + peer.userid)
                     var template=virtualclass.getTemplate("chatuser","chat");
+
                     // $(box).append(template({"peer": usr}));
                     // $(box).append(template({"peer": usr}));
                     var userHtml =  template({"peer": usr});
+
                     return userHtml;
-
-
-                    var systemMessage = false;
-                    if (peer) {
-
-                        var peerlink = document.createElement("a");
-                        peerlink.href = '#' + peer.userid;
-                        peerlink.className = 'tooltip';
-                        // peerlink.classList.add('tooltip');
-                        peerlink.dataset.title = 'Click to chat';
-
-                        peerlink.innerHTML = '<img src=" '+ peer.img +'" />'
-
-                        if (peer.lname == undefined) {
-                            peer.lname = '';
-                        }
-
-                        var username = peer.name + " " + peer.lname;
-                        mainUserDiv.appendChild(peerlink);
-
-                        var controls = ['assign', 'audio', 'chat', 'editorRich', 'editorCode'];
-
-                        var divCont = document.createElement('div');
-                        divCont.className = "usern";
-
-                        // divCont.appendChild(usrElement);
-                        divCont.innerHTML = "<span>"+username+"</span>";
-
-                        var mainDivFrag = document.createDocumentFragment('div');
-                        mainDivFrag.appendChild(divCont);
-
-                        if (peer.userid != wbUser.id) {
-                            var controlDiv = virtualclass.user.createControl(peer.userid, controls);
-                            mainDivFrag.appendChild(controlDiv);
-                            virtualclass.user.control.shouldApply.call(virtualclass.user, peer.userid); //checking audio
-                        }
-
-                        var mainDiv = document.createElement('div');
-                        mainDiv.className = 'user-details';
-                        mainDiv.appendChild(mainDivFrag);
-
-                        mainUserDiv.appendChild(mainDiv);
-
-                        if (roles.hasControls() != null && !roles.hasAdmin()) {
-                            if (peer.userid == localStorage.getItem('aId')) {
-                                var controls = ['assign'];
-                                var controlCont = document.getElementById(peer.userid + "ControlContainer");
-                                if (controlCont != null) {
-                                    virtualclass.user.createAssignControl(controlCont, peer.userid, true);
-                                } else {
-                                    var divContainer = document.getElementById("ml" + peer.userid);
-                                    var divControl = virtualclass.user.createControl(peer.userid, controls);
-                                    divContainer.appendChild(divControl);
-
-                                }
-                            }
-                        }
-
-                    } else {
-                        systemMessage = true;
-                    }
-
-                    e.id = 'ml' + peer.userid;
-                    e.appendChild(mainUserDiv)
-
-
-                    // self._scrollToBottom();
-                    var chatEnable = localStorage.getItem('chatEnable');
-                    if (chatEnable != null && chatEnable == "false") {
-                        virtualclass.user.control.disableOnLineUser();
-                    }
-
-                    if (virtualclass.gObj.uid == peer.userid) {
-                        var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
-                        if (userDiv != null) {
-                            userDiv.classList.add("mySelf");
-                        }
-                    }
-
-                    return e;
-                    // box.append(e);
-                    // box.append(e);
                 },
 
                 highlightBox: function () {

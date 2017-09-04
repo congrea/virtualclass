@@ -1175,6 +1175,7 @@
                                     that.control.init.call(that, allSpans[i]);
                                 }
                             );
+
                         }
                     )(i);
 
@@ -1194,11 +1195,11 @@
 
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], audEnable, 'audio', 'aud');
 
-                        if (orginalTeacher) {
-                            allSpans[i].addEventListener('click', function () {
-                                that.control.init.call(that, allSpans[i]);
-                            });
-                        }
+                        // if (orginalTeacher) {
+                        //     allSpans[i].addEventListener('click', function () {
+                        //         that.control.init.call(that, allSpans[i]);
+                        //     });
+                        // }
 
                         if(roles.hasAdmin()){
                             if(allSpans[i].dataset.audioDisable == 'false'){

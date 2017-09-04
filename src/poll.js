@@ -579,9 +579,7 @@
                     if (elem) {
                         elem.innerHTML = "Recevied Votes";
                     }
-
-
-
+                    virtualclass.poll.count = {};
                 }
             },
             resultToStorage: function () {
@@ -2078,43 +2076,35 @@
                 }
             },
 
+            // to divide this code no of user part to be separated
             noOfVotes: function (pt) {
 
-                var joinedUsers = 0;
+                // var joinedUsers = virtualclass.connectedUsers.length;
+                var joinedUsers = virtualclass.hasOwnProperty('connectedUsers') ? virtualclass.connectedUsers.length : 0;
                 var usersVote = 0
-                for (var i in io.uniquesids) {
-                    console.log(i)
-                    joinedUsers++;
-                }
+
                 for (var i in virtualclass.poll.count) {
                     usersVote = usersVote + virtualclass.poll.count[i];
                 }
 
                 var participients = joinedUsers ? joinedUsers - 1 : 0;
+
+                if (virtualclass.poll.pollState.data) {
+                    virtualclass.poll.pollState["data"].totalUsers = (pt)  ?  pt : participients;
+                }
+
+
+                var number = virtualclass.poll.uniqueUsers.length ? virtualclass.poll.uniqueUsers.length : 0;
+                if (number) {
+                    participients = number - 1;
+                }
+
                 var votes = document.getElementById("receivedVotes");
-                if (roles.hasControls()) {
-                    if (virtualclass.poll.pollState.data) {
-                        if (pt) {
-                            virtualclass.poll.pollState["data"].totalUsers = pt;
-                        } else {
-                            virtualclass.poll.pollState["data"].totalUsers = participients;
-                        }
-                        if (votes) {
-                            votes.innerHTML = usersVote + "\/" + virtualclass.poll.pollState["data"].totalUsers;
-                        }
-
-                    }
-
-                    var number = virtualclass.poll.uniqueUsers.length ? virtualclass.poll.uniqueUsers.length : 0;
-                    if (number) {
-                        participients = number - 1;
-                    }
-                    if (votes) {
-                        votes.innerHTML = usersVote + "\/" + participients;
-                    }
-
+                if (votes != null) {
+                    votes.innerHTML = usersVote + "\/" + participients;
                 }
             },
+
             updateBarGraph: function () {
 
                 var chart = document.getElementById("chart");
@@ -2801,6 +2791,16 @@
 
                 }
 
+            },
+
+            updateUsersOnPoll : function (){
+                if ((virtualclass.poll.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
+                    virtualclass.poll.uniqueUsers.push(virtualclass.jId);
+                    //Checking if object is empty
+                    if(Object.keys(virtualclass.poll.count).length > 0){
+                        virtualclass.poll.noOfVotes();
+                    }
+                }
             }
         }
 

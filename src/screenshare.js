@@ -3,6 +3,7 @@
  * @author  Jai Gupta
  * This file provides all functionality needed to share screen.
  */
+var globalImageData = {};
 
 (function (window) {
     "use strict";
@@ -12,10 +13,20 @@
         virtualclass.vutil.initInstallChromeExt(error);
     }
 
+    if (!!window.Worker) {
+        sdworker.onmessage = function (e) {
+            if (e.data.dtype == "drgb") {
+                globalImageData = e.data.globalImageData;
+                virtualclass.ss.localCont.putImageData(e.data.globalImageData, 0, 0);
+            }
+        }
+    }
+
     /*
      * This returns an object that contains methods to initilize student screen
      * @returns an object to initilize student screen
      */
+
     var studentScreen = function () {
         return {
             /*
@@ -27,6 +38,7 @@
              * @param  stype type of the application such as "ss
              * @param  sTool tool for the application here it is screen share
              */
+
             ssProcess: function (data_pack, msg, stype, sTool) {
                 var mycase = data_pack[0];
                 // uint8
@@ -44,18 +56,8 @@
                     // Slice Image
                     case 103:
                     case 203:
-                        var s = 7;
-                        for (var i = 0; (i + 7) <= data_pack.length; i = l + 1) {
-                            x = virtualclass.vutil.numValidateTwo(data_pack[i + 1], data_pack[i + 2]);
-                            y = virtualclass.vutil.numValidateTwo(data_pack[i + 3], data_pack[i + 4]);
-                            h = parseInt(data_pack[i + 5]);
-                            w = parseInt(data_pack[i + 6]);
-                            l = s + (h * w) - 1;
-                            recmsg = data_pack.subarray(s, l + 1);
-                            var d = {x: x, y: y, w: w, h: h};
-                            this.initStudentScreen(recmsg, d, stype, sTool);
-                            s = l + 7 + 1;
-                        }
+                        // Send to worker
+                        this.drawImageThroughWorker(data_pack);
                         break;
                     // Full Image with Resize
                     case 104:
@@ -82,10 +84,7 @@
              */
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
-                //debugger;
-                //    virtualclass.vutil.addClass('audioWidget', "fixed");
                 app = stype;
-
                 var screenCont = document.getElementById('virtualclass' +  virtualclass.apps[1]);
 
                 if (typeof virtualclass[app] != 'object' || screenCont == null) {
@@ -94,8 +93,10 @@
                     }
                     virtualclass.makeAppReady(stool);
                 } else {
+                    if (virtualclass.currApp != "ScreenShare") {
+                        virtualclass.vutil.hidePrevIcon(app);
+                    }
                     virtualclass.currApp = stool;
-                    virtualclass.vutil.hidePrevIcon(app);
 
                 }
 
@@ -111,18 +112,23 @@
                         prvHeight = d.h;
                     }
 
-                    if (d.hasOwnProperty('x')) {
-                        virtualclass[app].drawImages(imgData, d);
-                    } else {
-                        if (d.hasOwnProperty('w')) {
-                            virtualclass[app].localCanvas.width = d.w;
-                            virtualclass[app].localCanvas.height = d.h;
-                        }
-                        virtualclass[app].drawImages(imgData);
+                    if (d.hasOwnProperty('w')) {
+                        virtualclass[app].localCanvas.width = d.w;
+                        virtualclass[app].localCanvas.height = d.h;
                     }
+                    virtualclass[app].drawImages(imgData);
                 }
 
                 virtualclass.previous = virtualclass[app].id;
+            },
+
+            drawImageThroughWorker : function (data_pack){
+                if (!!window.Worker) {
+                    sdworker.postMessage({
+                        data_pack: data_pack,
+                        dtype: "drgbs"
+                    }, [data_pack.buffer]);
+                }
             }
         }
     };
@@ -152,48 +158,45 @@
                 };
                 virtualclass.adpt = new virtualclass.adapter();
                 var navigator2 = virtualclass.adpt.init(navigator);
-                navigator2.getUserMedia(constraints, function (stream, err) {
-                        virtualclass.ss._init();
-                        if(roles.hasControls()){
-                            //callback(err, stream);
-                            virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
 
-                            // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810
-                            if (typeof err == 'undefined') {
-                                var lastTime = stream.currentTime;
-                                var polly = window.setInterval(function () {
-                                    if (!stream) window.clearInterval(polly);
-                                    if (stream.currentTime == lastTime) {
-                                        window.clearInterval(polly);
-                                        if (stream.onended) {
-                                            stream.onended();
-                                        }
+                navigator2.mediaDevices.getUserMedia(constraints).then(function (stream) {
+                    virtualclass.ss._init();
+                    if(roles.hasControls()){
+                        //callback(err, stream);
+                        virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+
+                        // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810
+                        if (typeof err == 'undefined') {
+                            var lastTime = stream.currentTime;
+                            var polly = window.setInterval(function () {
+                                if (!stream) window.clearInterval(polly);
+                                if (stream.currentTime == lastTime) {
+                                    window.clearInterval(polly);
+                                    if (stream.onended) {
+                                        stream.onended();
                                     }
-                                    lastTime = stream.currentTime;
-                                }, 500);
-                            }
-                        }else {
-                            console.log('Set previous app as current app if teacher reclaim role during screen share');
-                            virtualclass.ss.setCurrentApp();
+                                }
+                                lastTime = stream.currentTime;
+                            }, 500);
                         }
-
-                    },
-
-                    function (error) {
+                    }else {
+                        console.log('Set previous app as current app if teacher reclaim role during screen share');
                         virtualclass.ss.setCurrentApp();
-                        if (typeof error == 'string') {
-                            //PERMISSION_DENIED
-                            if (error === 'PERMISSION_DENIED') {
-                                //this url is need to be changed
-                                window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
-                            }
-                        } else if (typeof error == 'object') {   //latest firefox
-                            if (error.name === 'PermissionDeniedError' || error.name == 'SecurityError') {
-                                window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
-                            }
+                    }
+                }).catch(function (error) {
+                    virtualclass.ss.setCurrentApp();
+                    if (typeof error == 'string') {
+                        //PERMISSION_DENIED
+                        if (error === 'PERMISSION_DENIED') {
+                            //this url is need to be changed
+                            window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
+                        }
+                    } else if (typeof error == 'object') {   //latest firefox
+                        if (error.name === 'PermissionDeniedError' || error.name == 'SecurityError') {
+                            window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                         }
                     }
-                );
+                });
             } else {
                 alert(virtualclass.lang.getString('notSupportBrowser', [ffver]));
             }
@@ -270,8 +273,11 @@
                     }
 
                     ssUI = this.html.UI.call(this, virtualclass.gObj.uRole);
+
                     var element = document.querySelector("#virtualclassApp #virtualclassAppLeftPanel");
                     element.insertAdjacentHTML('afterend', ssUI);
+
+
                     if (roles.hasControls() && !virtualclass.recorder.recImgPlay) {
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
@@ -379,8 +385,6 @@
                     this.video.parentNode.replaceChild(video, this.video);
                     this.video = document.getElementById(this.local + "Video");
                     this.video.autoplay = true;
-                    // TODO very critical to check this diabled portion, need to verify
-                    //virtualclass.vutil.createLocalTempVideo("virtualclassScreenShare", this.local + "Temp");
                     virtualclass.vutil.initLocCanvasCont(this.local + "Temp" + "Video");
                 }
                 this.currentStream = stream;
@@ -389,7 +393,7 @@
                 virtualclass.adpt.attachMediaStream(this.video, stream);
                 this.prevStream = true;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
-                this.currentStream.onended = function (name) {
+                this.currentStream.getVideoTracks()[0].onended = function (name) {
                     if (that.ssByClick) {
                         that.video.src = "";
                         that.localtempCont.clearRect(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
@@ -448,6 +452,17 @@
 
                     }
                     virtualclass.previrtualclass = that.id;
+                }
+
+                if(document.querySelector('#screenShrMsg') == null){
+                    var msgCont = document.createElement("h3");
+                    msgCont.id = "screenShrMsg"
+                    msgCont.className = "alert alert-info";
+
+                    var msg = virtualclass.lang.getString('screensharealready');
+                    msgCont.innerHTML = msg;
+
+                    vidContainer.appendChild(msgCont);
                 }
             },
             /*
@@ -710,19 +725,14 @@
              * @param rec image data
              * @param d dimension of the image
              */
-            drawImages: function (rec, d) {
-                if (typeof d != 'undefined') {
-                    var imgData = this.dc.decodeRGBSlice(rec, this.localCont, d);
-                    this.localCont.putImageData(imgData, d.x, d.y);
-                } else {
-                    var imgData = this.dc.decodeRGB(rec, this.localCont, this.localCanvas);
-                    this.localCont.putImageData(imgData, 0, 0);
-                }
-            },
-            // TODO this function is not being invoked
-            drawSingleImage: function (rec) {
-                var imgData = this.dc.decodeRGB(rec, this.localCont, this.localCanvas);
-                this.localCont.putImageData(imgData, 0, 0);
+            drawImages: function (rec) {
+                sdworker.postMessage({
+                    encodeArr: rec,
+                    // globalImageData: globalImageData,globalImageDataglobalImageData
+                    cw : virtualclass.ss.localCanvas.width,
+                    ch : virtualclass.ss.localCanvas.height,
+                    dtype: "drgb"
+                }, [rec.buffer]); // [[rec.buffer]] is passed to make available in Worker
             },
             /*
              * Setting with and height of container canvas at student's screen
@@ -776,8 +786,6 @@
                  * @user role of the user
                  */
                 UI: function (user) {
-                    //var mainCont = virtualclass.vutil.createDOM("div", this.id, [this.className]);
-
                     var hascontrol = roles.hasControls();
                     var recImgPlay = virtualclass.recorder.recImgPlay;
                     var main = virtualclass.getTemplate('ssmainDiv');
@@ -794,12 +802,13 @@
                         }
                     }
 
-                    //return mainCont;
+
+                    // return mainCont;
                 },
                 /*
                  * @param container object containg width and height property
                  * @aspectRatio a fractional value
-                 * @return  an object containing modif                                                                      ied width and height
+                 * @return  an object containing modified width and height
                  */
                 getDimension: function (container, aspectRatio) {
                     var aspectRatio = aspectRatio || (3 / 4),

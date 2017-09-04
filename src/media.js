@@ -37,17 +37,18 @@
     var maxthreshold = 0;
     var audiotime = 0;
 
-    var userSource = {}; //for contain the user specific audio source
+    var allAudioArr = {};
 
+    var userSource = {}; //for contain the user specific audio source
+    var sNode = {};
 //        var AudioContext = AudioContext || webkitAudioContext;
     /*
      * this returns an object that contains various Properties
-     * to facilitate the capturing , saving, transmitting and 
-     *  rendering audio or video. 
-     * 
+     * to facilitate the capturing , saving, transmitting and
+     *  rendering audio or video.
+     *
      */
     var media = function () {
-
         return {
             isChannelReady: '',// not being used
             isInitiator: false,
@@ -117,8 +118,8 @@
 
 
             /*
-             * This property contains various property and methods to capture,save and tranmit 
-             * and listen audio 
+             * This property contains various property and methods to capture,save and tranmit
+             * and listen audio
              */
             audio: {
                 audioStreamArr: [],
@@ -140,8 +141,10 @@
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
                     this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                    this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
 
+                    // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8002.3, 1, 4096);
+                    this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+//                    this.resamplerdecode = new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
 
                     //This part in not being used
                     this.graph = {
@@ -182,7 +185,7 @@
                         }
 
                     };
-                    this.attachFunctionsToAudioWidget();// to attach functions to audio widget 
+                    this.attachFunctionsToAudioWidget();// to attach functions to audio widget
                 },
                 /*
                  * To send message and
@@ -205,7 +208,7 @@
                         virtualclass.gObj.video.audio.setAudioStatus("stop");
                     }
                 },
-                // if there is silece then audio will not be transmitted 
+                // if there is silece then audio will not be transmitted
                 slienceDetection: function (send, leftSix) {
                     var audStatus;
                     var vol = 0;
@@ -268,7 +271,7 @@
                         }
                         //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                         this.audioSend(send, audStatus);
-                        audioWasSent = 3;
+                        audioWasSent = 9;
 
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
@@ -278,10 +281,12 @@
                         this.audioSend(send, audStatus);
                     } else {
                         this.setAudioStatus("notSending");
+
                         // console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                         if (thdiff > 10) { // If diff is huge, reduce max volume in historical signal
                             maxthreshold = maxthreshold * 0.8;
                         }
+                        ioAdapter.send({cf:'na'});
                         preAudioSamp = send;
                     }
                     return send;
@@ -357,7 +362,7 @@
                 /*
                  * If Push to talk audio tool is pressed down then audio is active
                  * and studentSpeak is invoked.
-                 * And if push to talk audio tool is pressed up audio is deactive 
+                 * And if push to talk audio tool is pressed up audio is deactive
                  * studentNotSpeak function is invoked
                  * @param id Id of the audio tool that is being pressed
                  */
@@ -418,7 +423,7 @@
                 },
                 /*
                  * Attching function to audio press once tool in the audio widget
-                 * 
+                 *
                  */
                 attachAudioPressOnce: function () {
                     var speakerPressOnce = document.getElementById('speakerPressOnce');
@@ -429,7 +434,7 @@
                     });
                 },
                 /*
-                 * If Audio is enabled then clicking on it disbles it 
+                 * If Audio is enabled then clicking on it disbles it
                  * And if it is disbled then clicking on it enables it
                  * @param  id : Id of the audio tool
                  */
@@ -438,8 +443,7 @@
                     var tag = document.getElementById(id);
                     var alwaysPressElem = document.getElementById('speakerPressing');
                     var anchor = tag.getElementsByClassName('congtooltip')[0];
-
-
+                    // var anchor = tag.getElementsByClassName('tooltip')[0];
                     if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
                         //this.studentSpeak(alwaysPressElem);
                         this.studentSpeak();
@@ -461,7 +465,7 @@
                 /*
                  * Audio tool element 'Push to talk' is active
                  * User speaks on mouse press down
-                 * @param elem audio tool element 
+                 * @param elem audio tool element
                  */
                 // TODO
                 // there should not pass whole elem but id
@@ -478,7 +482,7 @@
                 },
                 /*
                  * Audio tool deactive
-                 * @param elem audio tool element 
+                 * @param elem audio tool element
                  */
                 // varible button is not being used
                 studentNotSpeak: function (elem) {
@@ -504,7 +508,7 @@
                 ab2str: function (buf) {
                     return String.fromCharCode.apply(null, new Int8Array(buf));
                 },
-                /* 
+                /*
                  * Conversion from string to array buffer
                  * @param str string
                  * @return bufView Array Buffer
@@ -518,16 +522,20 @@
                     return bufView;
                 },
                 /*
-                 * recorderProcess is bind with the audio 
+                 * recorderProcess is bind with the audio
                  * downsamples channel data
                  * encodes the samples
                  * Calls silenceDetection function to detect silence
-                 * @param e where e is the event object  
+                 * @param e where e is the event object
                  */
                 recorderProcess: function (e) {
                     var currTime = new Date().getTime();
                     if (!repMode) {
                         var left = e.inputBuffer.getChannelData(0);
+                        // for (var i = 0; i < left.length; i++) {
+                        //     // left[i] = Math.random()/5;
+                        // }
+
                         var samples = this.resampler.resampler(left);
 
                         if (!this.recordAudio) {
@@ -546,10 +554,11 @@
 
                     }
                 },
+
                 /*
                  * Encodes the sampled data
                  *@param leftSix audio data
-                 *@return encoded  G711 encoded data 
+                 *@return encoded  G711 encoded data
                  */
                 //TODO function name should reflect the action
                 audioInLocalStorage: function (leftSix) {
@@ -563,7 +572,7 @@
                  * recoding is stored in an array audioForTest
                  * and to set the time out of audio testing
                  * @param id Id of the audio tool
-                 * 
+                 *
                  */
                 testInit: function (id) {
                     var audioTestElem = document.getElementById(id);
@@ -631,76 +640,35 @@
                  * otherwise set to false
                  */
 
-                play: function (receivedAudio, uid, testAudio) {
-                    var userObj = JSON.parse(localStorage.getItem('virtualclass' + uid));
-                    var samples = receivedAudio;
-                    //console.log('receivedAudio ' + receivedAudio.length +' samples ' + samples.length);
+                play: function (uid) {
                     if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                     }
-                    
-                    var newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 8000); //8100 when sound is being delay
-                    newBuffer.getChannelData(0).set(samples);
-
-                    userSource[uid] = this.Html5Audio.audioContext.createBufferSource();
-
-                    userSource[uid].buffer = newBuffer;
-                    var gainNode = this.Html5Audio.audioContext.createGain();
-                    gainNode.gain.value = 0.9;
-                    gainNode.gain.setValueAtTime(0.0001, this.Html5Audio.audioContext.currentTime);
-                    gainNode.gain.setTargetAtTime(0.9, this.Html5Audio.audioContext.currentTime, 0.005  );
-                    gainNode.gain.setValueAtTime(0.9, this.Html5Audio.audioContext.currentTime + userSource[uid].buffer.duration - 0.01);
-                    gainNode.gain.exponentialRampToValueAtTime(0.0001, this.Html5Audio.audioContext.currentTime + userSource[uid].buffer.duration);
-                    userSource[uid].connect(gainNode);
-                    gainNode.connect(this.Html5Audio.audioContext.destination);
-
-                    if (userObj != null && userObj.ad && userObj.aud) {
-                        virtualclass.user.control.iconAttrManupulate(uid, "icon-audioEnaGreen");
-                        var anchorTag = document.getElementById(userObj.id + 'contrAudAnch');
-                        if (anchorTag != null) {
-                            anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
-                        }
-                    }
-                    // To excute when an audio has ended
-                    userSource[uid].onended = function () {
-                        userObj = JSON.parse(localStorage.getItem('virtualclass' + uid));
-                        // console.log("UID " + uid+  " video ended  Duration :"+newSource.buffer.duration);
-                        if (typeof testAudio == 'undefined') {
-//                                console.log("Stack length " +  virtualclass.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
-                            clearTimeout(virtualclass.gObj[uid].out);
-                            virtualclass.gObj[uid].isplaying = false;
-                            if (virtualclass.gObj.video.audio.audioToBePlay[uid].length > 0) {
-                                virtualclass.gObj.video.audio.getChunks(uid);
-                            } else {
-                                // console.log("ended no audio");
-                                if (userObj  != null && userObj.ad && userObj.aud) {
-                                    virtualclass.user.control.iconAttrManupulate(uid, "icon-audioEnaOrange");
+                    if(typeof sNode[uid] != 'object'){
+                        console.log('script processor node is created');
+                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(8192, 1, 1);
+                        sNode[uid].onaudioprocess = function (event){
+                            var output = event.outputBuffer.getChannelData(0);
+                            var newAud = virtualclass.gObj.video.audio.getAudioChunks(uid);
+                            if(typeof newAud != 'undefined'){
+                                // console.log('Audio from user ' + uid);
+                                for (i = 0; i < newAud.length; i++) {
+                                    output[i] = newAud[i];
+                                }
+                                if (newAud.length == 16383) {
+                                    output[16383] = newAud[16382];
+                                }
+                            }else {
+                                for (i = 0; i < output.length; i++) {
+                                    output[i] = 0;
                                 }
                             }
-                        }
-                    };
-                    /*
-                     * Starts the audio buffer playing from the beginning
-                     */
-                    userSource[uid].start(1);
-                    // console.log("stack length " +  this.audioToBePlay[uid].length + " UID " + uid + " video Start  Duration :"+newSource.buffer.duration);
-                    virtualclass.gObj[uid].isplaying = true;
-                    //   console.log("Current time : "+ this.Html5Audio.audioContext.currentTime +" Duration :"+newSource.buffer.duration);
-                    if (typeof testAudio == 'undefined') {
-                        virtualclass.gObj[uid].out = setTimeout(
-                            function () {
-                                console.log("Audio onended fallback is invoked");
-                                // console.log("Stack length " +  virtualclass.gObj.video.audio.audioToBePlay[uid].length + "; UID " + uid + " video ended OUT :"+newSource.buffer.duration);
-                                // console.log("UID " + uid+ " video ended  Duration OUT :"+newSource.buffer.duration);
-                                virtualclass.gObj[uid].isplaying = false;
-                                if (virtualclass.gObj.video.audio.audioToBePlay[uid].length > 0) {
-                                    virtualclass.gObj.video.audio.getChunks(uid);
-                                }
-                            },
-                            (userSource[uid].buffer.duration * 1000) + 100
-                        );
+                        };
+                        sNode[uid].connect(this.Html5Audio.audioContext.destination);
+
                     }
                 },
+
                 // TODO this is not being invoked
                 calcAverage: function () {
                     var array = new Uint8Array(analyser.frequencyBinCount);
@@ -712,6 +680,7 @@
                     }
                     this.graph.average = values / length;
                 },
+
                 //this is not using right now
                 audioInGraph: function () {
                     var cvideo = cthis.video;
@@ -726,6 +695,7 @@
                         cvideo.tempVidCont.stroke();
                     }
                 },
+
                 queue: function (packets, uid) {
                     if (!this.hasOwnProperty('audioToBePlay')) {
                         this.audioToBePlay = {};
@@ -740,8 +710,38 @@
                         Eight: true
                     });
 
-                    this.audioToBePlay[uid].push(new Float32Array(samples));
+                    /* On absence of Webcam but Headphone,
+                     The Audio context should be generated on Student side by following code */
+
+                    if(typeof this.resamplerdecode != 'object'){
+                        if(typeof this.Html5Audio != 'object'){
+                            this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                        }
+                        this.resamplerdecode = new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
+                    }
+                    var samples = this.resamplerdecode.resampler(samples);
+                    // this.audioToBePlay[uid].push(new Float32Array(samples));
+
+                    if(typeof allAudioArr[uid] == 'undefined'){
+                        allAudioArr[uid] = [];
+                    }
+
+                    /**
+                     * Making single Queue Audio for specific user
+                     */
+                    for(var i=0; i<samples.length; i++){
+                        allAudioArr[uid].push(samples[i]);
+                    }
+
+                    /* Picking up an audio chunk and giving
+                     * to Audio Queue, to handle 44.1khz and 48khz
+                     */
+                    while (allAudioArr[uid].length >= 8192) {
+                        var arrChunk =  allAudioArr[uid].splice(0, 8192);
+                        this.audioToBePlay[uid].push(new Float32Array(arrChunk));
+                    }
                 },
+
 
                 /*
                  * Audio associated with the user id is played
@@ -749,22 +749,16 @@
                  * the the audio is played
                  * @param  uid user id
                  * @param label
-
                  */
-                // TODO this(getChunks) should be rename into getAudioChunks()
-                getChunks: function (uid, label) {
-                    // console.log(label + ' Audio Stack Length  '+this.audioToBePlay[uid].length + ' UID : '+ uid)
-                    if (this.audioToBePlay[uid].length > 2) {
+                getAudioChunks: function (uid) {
+                    // console.log("Audio Length" + this.audioToBePlay[uid].length);
+                    if (this.audioToBePlay[uid].length > 10) {
+                        var lastAud = virtualclass.gObj.video.audio.audioToBePlay[uid].pop();
                         this.audioToBePlay[uid].length = 0;
-                        virtualclass.gObj[uid].isplaying = false;
-                    } else if (this.audioToBePlay[uid].length > 0) {
-                        this.playRecordedAudio(this.audioToBePlay[uid], uid);
-//                        console.log("Audio latency time " + (371 * this.audioToBePlay[uid].length));
-                        this.audioToBePlay[uid].length = 0;
+                        return lastAud;
                     } else {
-                        virtualclass.gObj[uid].isplaying = false;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                     }
-
                 },
 
                 //TODO this function is not being invoked
@@ -828,7 +822,7 @@
                 },
                 /*
                  * It creates a mediaStreamSourceNode object
-                 * It creates the buffer to process the audio 
+                 * It creates the buffer to process the audio
                  * and connects mediaStreamSourceNode to buffer
                  * which is connected to gain node that controles the volume
                  * it eventually plays audio
@@ -836,12 +830,12 @@
                 manuPulateStream: function () {
                     console.log("Manupulate Stream");
                     var stream = cthis.stream;
-                   /* if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
-                        virtualclass.wb[virtualclass.gObj.currWb].recordStarted = new Date().getTime();
-                        localStorage.setItem('recordStart', virtualclass.wb[virtualclass.gObj.currWb].recordStarted);
-                    } else {
-                        virtualclass.wb[virtualclass.gObj.currWb].recordStarted = localStorage.getItem('recordStart');
-                    } */
+                    /* if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
+                     virtualclass.wb[virtualclass.gObj.currWb].recordStarted = new Date().getTime();
+                     localStorage.setItem('recordStart', virtualclass.wb[virtualclass.gObj.currWb].recordStarted);
+                     } else {
+                     virtualclass.wb[virtualclass.gObj.currWb].recordStarted = localStorage.getItem('recordStart');
+                     } */
                     var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                     // This controls the latency
                     // higher value increase the latency, but avoid auido breakup and glitch
@@ -863,7 +857,7 @@
                     grec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 },
                 /*
-                 *  Setting the record start time to the current time 
+                 *  Setting the record start time to the current time
                  *  and setting the replay mode to false
                  *
                  */
@@ -884,7 +878,7 @@
                         return;
                     }
 
-                    var dataArr = this.extractData(msg);// extract data and user id from the message received 
+                    var dataArr = this.extractData(msg);// extract data and user id from the message received
                     var uid = dataArr[0];
 
                     if (typeof adSign == 'undefined') {
@@ -897,18 +891,21 @@
                         var user = virtualclass.user.control.updateUser(uid, 'ad', true);// creates user object, that is stored in local storage and return the object
                         virtualclass.user.control.audioSign(user, "create");
                     }
-                    virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                    if (!virtualclass.gObj.hasOwnProperty(uid) || !virtualclass.gObj[uid].hasOwnProperty('isplaying')) {
-                        virtualclass.gObj[uid] = {};
-                        virtualclass.gObj[uid].isplaying = true;
-                        virtualclass.gObj.video.audio.getChunks(uid);
 
-                    } else if (virtualclass.gObj[uid].isplaying == false) {
-                        virtualclass.gObj.video.audio.getChunks(uid);
-                    }
+                    virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                    virtualclass.gObj.video.audio.play(uid);
+
+                    // if (!virtualclass.gObj.hasOwnProperty(uid) || !virtualclass.gObj[uid].hasOwnProperty('isplaying')) {
+                    //     virtualclass.gObj[uid] = {};
+                    //     virtualclass.gObj[uid].isplaying = true;
+                    //     virtualclass.gObj.video.audio.getChunks(uid);
+                    //
+                    // } else if (virtualclass.gObj[uid].isplaying == false) {
+                    //     virtualclass.gObj.video.audio.getChunks(uid);
+                    // }
                 },
                 /*
-                 * To extract user id of sender and data from the receied message 
+                 * To extract user id of sender and data from the receied message
                  * @param  msg recevied message from online users
                  * @returns {Array} userid received with the  message plus rest of the msz data
                  */
@@ -920,7 +917,7 @@
 
             },
             /*
-             * video property contains all the properties and methods necessary for the manipulation 
+             * video property contains all the properties and methods necessary for the manipulation
              * of the video
              */
             video: {
@@ -955,7 +952,7 @@
                     }
                 },
                 /*
-                 * TO create Video container that replaces user image 
+                 * TO create Video container that replaces user image
                  * @param  user user object
 
                  */
@@ -1068,8 +1065,11 @@
                         var d = 2000 + (virtualclass.gObj.totalUser.length * 2500);
                         if (totalMembers != virtualclass.gObj.totalUser) { // BUG : totalUser  is not a number it is an array
                             totalMembers = virtualclass.gObj.totalUser.length;
-                            var p = virtualclass.gObj.totalUser.indexOf(virtualclass.gObj.uId);
+                            var p = virtualclass.gObj.totalUser.indexOf(virtualclass.gObj.uid);
                             var td = d / totalMembers;
+                            if(p < 0){
+                                p  = 0;
+                            }
                             var md = p * td;
                             virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
                             //console.log("send time " + (d + md) + new Date().getSeconds());
@@ -1091,7 +1091,7 @@
                     }
                 },
                 /*
-                 * Calulate dimensions of the  video 
+                 * Calulate dimensions of the  video
                  * and sends the video
                  */
                 startToStream: function () {
@@ -1178,7 +1178,7 @@
                     tempVideo.id = 'tempVideo';
                     beforeInsert.parentNode.insertBefore(tempVideo, beforeInsert);
                 },
-                // To initalize canvas element to video and to create it's 2d context 
+                // To initalize canvas element to video and to create it's 2d context
                 tempVideoInit: function () {
                     cthis.video.tempVid = document.getElementById('tempVideo');
                     cthis.video.tempVid.width = cthis.video.width;
@@ -1189,7 +1189,7 @@
                  * Extracting the user id of sender from the sent  message
                  * separating it from the audio
                  * And playing the video by calling playWithoutSlice
-                 * @param  msg : Received message 
+                 * @param  msg : Received message
 
                  */
                 process: function (msg) {
@@ -1202,8 +1202,8 @@
 
             /*
              * It creates a mediator for getUSerMedia
-             * and it prompts the user for permission to use video or audio device 
-             * it  inalizes the video 
+             * and it prompts the user for permission to use video or audio device
+             * it  inalizes the video
              */
             /* TODO @param vbool :no use of parameter vbool */
 
@@ -1215,28 +1215,28 @@
                 virtualclass.gObj.oneExecuted = true;
                 var audio = true;
 
-    var audioOpts = {
-        mandatory: {
-        },
-        optional: [
-          {echoCancellation: true}, 
-          {googEchoCancellation: true},
-          {googEchoCancellation2: true},
-          {googDAEchoCancellation: true},
+                var audioOpts = {
+                    mandatory: {
+                    },
+                    optional: [
+                        {echoCancellation: true},
+                        {googEchoCancellation: true},
+                        {googEchoCancellation2: true},
+                        {googDAEchoCancellation: true},
 
-          {googAutoGainControl: true}, 
-          {googAutoGainControl2: true}, 
+                        {googAutoGainControl: true},
+                        {googAutoGainControl2: true},
 
-          {googNoiseSuppression: true},
-          {googNoiseSuppression2: true},
+                        {googNoiseSuppression: true},
+                        {googNoiseSuppression2: true},
 
-          {intelligibilityEnhancer: true},
-          {googTypingNoiseDetection: true},
-          {googAudioMirroring: true},
-          {googNoiseReduction: true},
-          {VoiceActivityDetection: true}
-        ]
-    };
+                        {intelligibilityEnhancer: true},
+                        {googTypingNoiseDetection: true},
+                        {googAudioMirroring: true},
+                        {googNoiseReduction: true},
+                        {VoiceActivityDetection: true}
+                    ]
+                };
                 var session = {
                     audio: audioOpts,
                     video: true
@@ -1247,7 +1247,15 @@
 
                     virtualclass.adpt = new virtualclass.adapter();
                     var cNavigator = virtualclass.adpt.init(navigator);
-                    cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
+
+                    //  cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
+
+                    var that  = this;
+                    cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
+                        that.handleUserMedia(stream)
+                    }).catch(function (e) {
+                        that.handleUserMediaError(e);
+                    });
                 }
 
                 if (virtualclass.system.wbRtc.peerCon) { //TODO this should be deleted
@@ -1313,7 +1321,12 @@
                         cthis._handleUserMedia(virtualclass.gObj.uid);
                     }
                 }
-
+                setTimeout(
+                    function (){
+                        cthis.stream = cthis.video.tempStream;
+                        cthis.audio.manuPulateStream();
+                    }, 1000
+                );
 
             },
             /*
@@ -1321,21 +1334,21 @@
              * @param  id User id
              * @param  role user role
              */
-            addUserRole: function (id, role) {
-                var userDiv = document.getElementById("ml" + id);
-                userDiv.setAttribute("data-role", role);
+            addUserRole: function (userDiv,  role) {
+                // TODO, IMPROVE PERFORMANCE, hitting on joining of new members. talentedge, 5.4%
+                // Fixed it, now need to validate it
+                // That userDiv is passing while creating container in displayUserChatList with member Update
+                // var userDiv = document.getElementById("ml" + id);
+                userDiv.dataset.role = role
                 if(typeof role !='undefined'){
                     var userType = (role == 's') ? 'student' : 'teacher';
                     userDiv.classList.add(userType);
                 }else{
                     userDiv.classList.add("student");
                 }
-              
 
                 if(virtualclass.gObj.uRole == 't' && userType == 'student'){
-                    //If there student class on teacher window, remove it
                     document.getElementById('virtualclassCont').classList.remove('student');
-                    console.log('By removing this can be the pr');
                 }
             },
 
@@ -1361,15 +1374,7 @@
                     virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
 
                     cthis.video.myVideo.muted = true;
-                    //todo this should be removed
-                    stream.ontimeupdate = function () {
-                        console.log("raja" + stream.currentTime);
-                    };
-                    if (virtualclass.jId == virtualclass.gObj.uid) {
-                        cthis.stream = cthis.video.tempStream;
-                        cthis.audio.manuPulateStream();
-                        cthis.audio.graph.canvasForVideo();
-                    }
+                    cthis.stream = cthis.video.tempStream;
                     cthis.video.myVideo.onloadedmetadata = function () {
                         cthis.video.startToStream();
                         //virtualclass.precheck.webcam.createVideo();
@@ -1398,13 +1403,13 @@
 
                 console.log('Chat height ' + chatDiv.offsetHeight);
                 console.log('Max height ' + chatDiv.style.maxHeight);
-                
+
                 if(virtualclass.isPlayMode){
                     chatDiv.style.maxHeight = mh + 64 + "px";
                 }
-                
-                
-                
+
+
+
             },
             // Closeing the video
             close: function () {

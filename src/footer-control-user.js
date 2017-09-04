@@ -43,9 +43,18 @@
                 return false;
             },
 
+            // createControl: function (userId, controls) {
+            //     // var controlCont = document.getElementById(userId+"ControlContainer");
+            //     var controlCont = document.createElement('div');
+            //     this.createControlDivs(controlCont, userId, controls);
+            // },
+
             createControl: function (userId, controls) {
-                var controlCont = document.getElementById(userId+"ControlContainer")
+                var controlCont = document.createElement('div');
+                controlCont.id = userId + "ControlContainer";
+                controlCont.className = "controls";
                 this.createControlDivs(controlCont, userId, controls);
+                return controlCont;
             },
 
             createControllerElement: function (userId, imgName) {
@@ -1133,6 +1142,75 @@
             changeRoleOnFooter : function (id, role){
                 var footerDiv = document.getElementById("ml" + id);
                 footerDiv.dataset.role = role;
+            },
+
+            initControlHanlder : function (userId){
+                var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
+                // Assign event handler
+                var that = this;
+                var allSpans = document.querySelectorAll('#ml' + userId +  ' .contImg');
+
+                var uObj = false;
+                var userObj = localStorage.getItem('virtualclass' + userId);
+                if (userObj != null) {
+                    uObj = true;
+                    userObj = JSON.parse(userObj);
+                    if (userObj.hasOwnProperty('currTeacher')) {
+                        virtualclass.gObj[userId + 'currTeacher'] = {};
+                        if (userObj.currTeacher == true) {
+                            virtualclass.user.control.currTeacherAlready = true;
+                            var currTeacher = true;
+                            virtualclass.gObj[userId + 'currTeacher'].ct = true;
+                        } else {
+                            virtualclass.gObj[userId + 'currTeacher'].ct = false;
+                        }
+                    }
+                }
+
+                for(var i=0; i<allSpans.length; i++){
+                    (
+                        function (i){
+                            allSpans[i].addEventListener('click',
+                                function (){
+                                    that.control.init.call(that, allSpans[i]);
+                                }
+                            );
+
+                        }
+                    )(i);
+
+                    if(allSpans[i].className.indexOf('chat') > -1){
+                        if (uObj && userObj.hasOwnProperty('chat')) {
+                            var chEnable = (userObj.chat) ? true : false;
+                        } else {
+                            var chEnable = true;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
+                    } else if(allSpans[i].className.indexOf('aud') > -1) {
+                        if (uObj && userObj.hasOwnProperty('aud')) {
+                            var audEnable = (userObj.aud) ? true : false;
+                        } else {
+                            var audEnable = true;
+                        }
+
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], audEnable, 'audio', 'aud');
+
+                        // if (orginalTeacher) {
+                        //     allSpans[i].addEventListener('click', function () {
+                        //         that.control.init.call(that, allSpans[i]);
+                        //     });
+                        // }
+
+                        if(roles.hasAdmin()){
+                            if(allSpans[i].dataset.audioDisable == 'false'){
+                                var allAudAction = localStorage.getItem('allAudAction');
+                                if(allAudAction != null && allAudAction == 'disable'){
+                                    allSpans[i].click();
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     };

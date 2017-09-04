@@ -1,4 +1,4 @@
-<div class="userImg ui-memblist-usr offline student media" id="ml{{peer.userid}}" data-role="student">
+<div class="userImg ui-memblist-usr online student media" id="ml{{peer.userid}}" data-role="student">
 
   <div class="user-details media-body congtooltip" data-title="{{peer.name}} {{ peer.lname}}">
     <a href="#{{peer.userid}}" class="pull-left">
@@ -11,6 +11,31 @@
   </div>
   {{#if peer.notSelf}}
     <div id="{{peer.userid}}ControlContainer" class="controls">
+        {{#if peer.isTeacher}}
+           <div id="{{peer.userid}}contrAssignCont" class="controleCont">
+             <a id="{{peer.userid}}contrAssignAnch" class="congtooltip" data-title="Transfer Controls">
+               <span id="{{peer.userid}}contrAssignImg" data-assign-disable="false" class="icon-assignImg enable assignImg contImg"></span></a>
+           </div>
+        {{/if}}
+        <div class="controleCont" id="{{peer.userid}}contrAudCont">
+          <a class="congtooltip" data-title="Mute" id="{{peer.userid}}contrAudAnch">
+            <span class="icon-audioImg enable audioImg contImg" data-audio-disable="false" id="{{peer.userid}}contrAudImg"></span></a>
+        </div>
+        <div class="controleCont" id="{{peer.userid}}contrChatCont">
+          <a class="congtooltip" data-title="Disable Chat" id="{{peer.userid}}contrChatAnch">
+            <span class="icon-chatImg enable chatImg contImg" data-chat-disable="false" id="{{peer.userid}}contrChatImg"></span></a>
+        </div>
+
+      {{#if peer.isTeacher}}
+        <div class="controleCont controllereditorRich" id="{{peer.userid}}contreditorRichCont">
+          <a class="congtooltip" data-title="Write Mode" id="{{peer.userid}}contreditorRichAnch">
+            <span class="icon-editorRichImg block editorRichImg contImg" data-editorrich-disable="true" id="{{peer.userid}}contreditorRichImg"></span></a>
+        </div>
+        <div class="controleCont controllereditorCode" id="{{peer.userid}}contreditorCodeCont" style="display: none;">
+          <a class="congtooltip" data-title="Write Mode" id="{{peer.userid}}contreditorCodeAnch">
+            <span class="icon-editorCodeImg block editorCodeImg contImg" data-editorcode-disable="true" id="{{peer.userid}}contreditorCodeImg"></span></a>
+        </div>
+      {{/if}}
     </div>
   {{/if}}
 </div>

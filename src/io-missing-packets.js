@@ -343,6 +343,7 @@ var ioMissingPackets = {
         }
         this.missRequest[uid] = 0;
         ioMissingPackets.missRequestFlag = 0;
+        virtualclass.vutil.initCommonSortingChat();
     },
 
     /**
@@ -405,6 +406,7 @@ var ioMissingPackets = {
         }
         this.missUserRequest[uid] = 0;
         ioMissingPackets.missUserRequestFlag = 0;
+        virtualclass.vutil.initCommonSortingChat();
     },
 
     //save for recording process

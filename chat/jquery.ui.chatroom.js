@@ -143,7 +143,7 @@
                     uiChatboxInputBox = (self.uiChatboxInputBox = $('<input></input>'))
                     .addClass('ui-widget-content ' + 'ui-chatbox-input-box ')
                     .prop('id', 'ta_chrm2')
-                        .prop('placeholder','send message ...')
+                        .prop('placeholder','Send message...')
                     .appendTo(document.getElementById("congUserSearch"))
                     .keydown(function (event) {
                         if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {

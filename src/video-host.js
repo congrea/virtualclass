@@ -275,7 +275,7 @@ var videoHost = {
                 } else {
                     loadfile(imgData, that.videoPartCont); // for firefox
                 }
-            }, 372
+            }, myVideoDelay = (16382/virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate)*1000*4
         );
     },
     onError: function (err) {

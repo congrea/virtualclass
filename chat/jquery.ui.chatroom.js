@@ -41,7 +41,7 @@
 
                     var chatImg = document.createElement("img");
                     chatImg.className="primary";
-                    chatImg.src="http://localhost/moodle32latest/mod/congrea/bundle/virtualclass/images/user.png";
+                   // chatImg.src="http://localhost/moodle32latest/mod/congrea/bundle/virtualclass/images/user.png";
                     Img.appendChild(chatImg);
 
                     var systemMessage = false;

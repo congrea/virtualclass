@@ -189,13 +189,15 @@
         
         //related poll
         pollStore:function(store){
-            var t = that.db.transaction(["pollStorage"], "readwrite");
-            var objectStore = t.objectStore("pollStorage");
-            //objectStore.clear();
-            console.log('poll result data length' + JSON.parse(store).length );
-            // localStorage.setItem('repObjs', data); Enable for debugging
-            t.objectStore("pollStorage").add({pollResult:store, currTime:new Date().getTime(), id: 1});
-            return false;    
+            setTimeout(function(){
+                var t = that.db.transaction(["pollStorage"], "readwrite");
+                var objectStore = t.objectStore("pollStorage");
+                console.log('poll result data length' + JSON.parse(store).length );
+                t.objectStore("pollStorage").add({pollResult:store, currTime:new Date().getTime(), id: 1});
+                return false;
+
+            },500)
+
         },
 
         wbDataRemove : function (key){
@@ -251,7 +253,6 @@
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
-
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
@@ -364,7 +365,6 @@
         },
              // related poll 
         getAllDataOfPoll: function (table, cb) {
-
             var wholeData = [];
             var transaction = that.db.transaction(table, "readonly");
             var objectStore = transaction.objectStore(table[0]);
@@ -385,8 +385,6 @@
 
             }
         },
-        
-        
 
         getrowData: function (table, cb, row) {
             var transaction = that.db.transaction(table, "readonly");
@@ -435,17 +433,6 @@
                     }
                     cursor.continue();
                 } else {
-                    //
-                    //if (typeof virtualclass.wb == 'object') {
-                    //
-                    //    console.log('Total Whiteboard Length ' + virtualclass.gObj.tempReplayObjs.length + ' From indexeddb');
-                    //    //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
-                    //    virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs);
-                    //
-                    //} else {
-                    //    virtualclass.gObj.tempReplayObjs = virtualclass.gObj.tempReplayObjs;
-                    //}
-
 
                     if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
                         virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(); //at very first

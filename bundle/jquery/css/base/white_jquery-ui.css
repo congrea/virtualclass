@@ -838,7 +838,7 @@ body .ui-tooltip {
 
 
 
-#chat_div..ui-widget-content{
+#chat_div.ui-widget-content{
 	 box-shadow: none !important;
 }
 
@@ -1212,12 +1212,12 @@ background-position: -64px -128px !important;
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
+	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
 	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
         background: #e0dcc3 !important; /* Old browsers */
 	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
+	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
 	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */
@@ -1227,12 +1227,12 @@ background-position: -64px -128px !important;
 
 .ui-chatroom .ui-state-highlight{
 	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
+	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
 	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
 	background: #e0dcc3 !important; /* Old browsers */
 	background: -moz-linear-gradient(top,  #e0dcc3 0%, #e5deb2 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcc3), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important !important; /* Chrome10+,Safari5.1+ */
+	background: -webkit-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%) !important; /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #e0dcc3 0%,#e5deb2 100%)!important; /* IE10+ */
 	background: linear-gradient(to bottom,  #e0dcc3 0%,#e5deb2 100%) !important; /* W3C */

@@ -293,21 +293,6 @@
                 var template = JST['templates/docMain.hbs'];
                 $('#documentScreen').append(template(obj));
 
-                // if(screenElem != null){
-                //     screenElem.parentNode.removeChild(screenElem);
-                // }
-                //
-                // var screen = document.createElement('div');
-                // screen.id =  screenId;
-                // screen.dataset.doc = cthis.id;
-                //
-                // screen.className =  'screen page_wrapper';
-                //
-                // var pageContainer = document.createElement('div');
-                // pageContainer.className  =  'pageContainer';
-                //
-                // screen.appendChild(pageContainer);
-                // pageScreenContainer.appendChild(screen);
             }
             var pageScreenContainer = document.querySelector("#screen" + cthis.id + "   .pageContainer")
             return pageScreenContainer;
@@ -328,33 +313,6 @@
                 if(cthis.type != 'docs'){
                     this.dragDrop.init(this.cthis);
                 }
-
-                //this.dragDrop.init(this.cthis);
-                //  }else{
-                //this part should be removed
-                //var melem = this.element('move', parent);
-                //melem.className += ' box';
-                //melem.setAttribute('draggable', true);
-                //var dataSet = this.status;
-                // var helem = this.element('status',  this.cthis.status);
-                // // var helem = this.element('status');
-                // var delem = this.element('delete');
-                //
-                // var controllCon = document.createElement('div');
-                // controllCon.id = 'controlCont'+cthis.type+cthis.rid;
-                // controllCon.className = 'controlCont';
-
-                // controllCon.appendChild(helem);
-                // controllCon.appendChild(delem);
-                //controllCon.appendChild(melem);
-
-                // var parentElem = document.querySelector('#' + parent);
-                // parentElem.appendChild(controllCon);
-                // if(this.cthis.type != 'docs'){
-                //   this.dragDrop.init(this.cthis);
-                // }
-
-                //  }
 
             },
 

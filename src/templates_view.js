@@ -17,7 +17,7 @@ this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">
     + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
-    + "\"> </li>\n    <li id=\"vedioPacket\">\n      <a id=\"ntkstatus\">Network Status</a>\n    </li>\n  </ul>\n</div>";
+    + "\"> </li>\n    <li id=\"vedioPacket\" class=\"congtooltip\">\n      <a id=\"ntkstatus\">Network Status</a>\n    </li>\n  </ul>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -476,11 +476,11 @@ this["JST"]["templates/poll/previewPopup.hbs"] = Handlebars.template({"1":functi
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"popover fade right in\" role=\"tooltip\" id=\"popover668922\" style=\" display: block;\">\n  <div class=\"arrow\"></div>\n  <h3 class=\"popover-title\" style=\"display: none;\"></h3>\n  <div class=\"popover-content\">\n    <div id=\"popupCont\" class=\"pollPreview\">\n      <div><div id=\"qnTxCont\" class=\"row previewTxCont\">\n        <label>Question</label>\n        <div>"
+  return "<div class=\"popover-content\">\n    <div id=\"popupCont\" class=\"pollPreview\">\n      <div><div id=\"qnTxCont\" class=\"row previewTxCont\">\n        <label>Question</label>\n        <div>"
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.questiontext : stack1), depth0))
     + "</div>\n      </div>\n        <div id=\"optsTxCont\" class=\"row previewTxCont\">\n          <label>Options</label>\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "        </div>\n      </div>\n    </div>\n  </div>\n</div>";
+    + "        </div>\n      </div>\n    </div>\n  </div>\n";
 },"useData":true});
 
 this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

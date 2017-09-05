@@ -1541,7 +1541,10 @@
              * @returns {*}
              */
             getDocId : function(id){
-               return this.allNotes[id].lc_content_id;
+                if(this.allNotes){
+                    return this.allNotes[id].lc_content_id;
+                }
+
             },
 
             getAllNotes : function(order){

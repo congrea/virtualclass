@@ -36,14 +36,10 @@
                 virtualclass.previous = 'virtualclass' + "Poll";
                 var urlquery = getUrlVars(exportfilepath);
                 this.cmid = urlquery.cmid;
-
-
                 if (this.timer) {
-
                     clearInterval(this.timer);
 
                 }
-
                 if (!roles.hasAdmin() || (roles.isEducator())) {
                     if (roles.isStudent()) {
                         this.UI.defaultLayoutForStudent();
@@ -548,10 +544,6 @@
             resultCloseConfirm: function (opted) {
 
                 if (opted) {
-
-                    // $('#editPollModal').modal('hide');
-                    // $('body').removeClass('modal-open');
-                    // $('.modal-backdrop').remove();
                     $('#editPollModal').remove();
                     if (this.timer) {
                         ioAdapter.mustSend({
@@ -676,10 +668,6 @@
                     elem.parentNode.removeChild(elem);
                 }
 
-                if (!this.coursePoll.length) {
-                    this.dispEmptyListMsg("course")
-                }
-
                 this.dispNewPollBtn("course");
                 if (this.pollState["currScreen"] != "teacherPublish") {
                     this.pollState["currScreen"] = "displaycoursePollList";
@@ -705,36 +693,13 @@
                     elem.parentNode.removeChild(elem);
                 }
 
-                if (!this.sitePoll.length) {
-                   this.dispEmptyListMsg("site")
-
-                }
-
                 this.dispNewPollBtn("site", isAdmin);
                 if (this.pollState["currScreen"] != "teacherPublish") {
                         this.pollState["currScreen"] = "displaysitePollList";
                 }
 
             },
-            dispEmptyListMsg: function (polltype) {
-                var mszCont = document.getElementById("mszBoxPoll");
-                var elem = document.getElementById("emptyList" + polltype);
-                if (!elem) {
-                    var emptyList = document.createElement("div");
-                    emptyList.className = "emptyList";
-                    emptyList.id = "emptyList" + polltype;
-                    mszCont.appendChild(emptyList);
-                    if (polltype == "course") {
-                        emptyList.innerHTML = "Create Your course Poll ";
 
-                    } else {
-
-                        emptyList.innerHTML = "Only admin can create  site poll";
-                    }
-
-                }
-
-            },
             dispList: function (pollType) {
 
                 var mszbox = document.getElementById("mszBoxPoll");
@@ -832,7 +797,7 @@
                 var template=virtualclass.getTemplate("previewPopup","poll");
                 var preview = (template({"data":data}));
                 $(function () {
-                    $('[data-toggle="popover"]').popover({content:preview,html: true, delay: {show: 1000}})
+                    $('.qnText[data-toggle="popover"]').popover({content:preview,html: true,container:'#qnText'+pollType+index,delay: {show:1000}})
                 })
 
             },
@@ -1300,11 +1265,6 @@
                     poll = pollType == "course" ? virtualclass.poll.coursePoll : virtualclass.poll.sitePoll;
                     poll.splice(index, 1);
                     virtualclass.poll.interfaceToDelete(qid);
-                    if (poll.length == 0) {
-                        var header = document.getElementById("headerContainer" + pollType);
-                        header.style.display = "none";
-                        virtualclass.poll.dispEmptyListMsg(pollType);
-                    }
                 }
             },
             askConfirmClose: function (opted) {
@@ -1406,7 +1366,6 @@
                     }
 
                 }
-
                 if (virtualclass.poll.timer) {
                     clearInterval(virtualclass.poll.timer);
                 }
@@ -1466,9 +1425,7 @@
                 virtualclass.poll.pollState["data"] = data;
             },
             voted: function () {
-
                 virtualclass.poll.pollState["currScreen"] = "voted";
-
                 if (virtualclass.poll.timer) {
                     clearInterval(virtualclass.poll.timer);
                 }
@@ -1478,7 +1435,6 @@
                     if (elem) {
                         elem.parentNode.removeChild(elem);
                     }
-
 
                     var elem = document.getElementById("stdPollContainer");
                     elem.parentNode.removeChild(elem);
@@ -1502,6 +1458,7 @@
                 virtualclass.poll.pollState["currScreen"] = "voted";
                 virtualclass.poll.pollState["data"] = data;
             },
+
             sendResponse: function () {
                 var toUser = virtualclass.vutil.whoIsTeacher();
                 ioAdapter.mustSendUser({

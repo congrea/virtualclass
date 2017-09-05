@@ -242,7 +242,7 @@
                     html : true,
                     trigger: 'hover',
                     // animation: false,
-                    placement: 'bottom'
+                    placement: 'bottom',
                 };
                 $('#ntkstatus').popover(popoverOptions);
 
@@ -578,10 +578,9 @@
                 }
                 if(roles.hasControls()) {
 
-                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||
-                        virtualclass.currApp == 'DocumentShare') {
+                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||virtualclass.currApp == 'DocumentShare') {
                         virtualclass.vutil.initDashboardNav();
-                    } else {
+                    }else {
                         virtualclass.vutil.removeDashboardNav();
                     }
                 }
@@ -590,8 +589,6 @@
             // Helper functions for making the app is ready
             appInitiator : {
                 Whiteboard : function (app, cusEvent, id, container){
-
-
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
@@ -605,7 +602,6 @@
                     //this.dispvirtualclassLayout(this.wbConfig.id);
                     //this should be checked with solid condition
                     virtualclass.gObj.currWb = id;
-
                     if(typeof id != 'undefined'){
                         if (typeof this.wb[id] != 'object') {
                             if(typeof this.wb != 'object'){
@@ -853,6 +849,7 @@
                 //}
 
                 makeReadyDsShare : function (app, customEvent, docsObj){
+
                     if(!virtualclass.dts.docs.hasOwnProperty('currDoc')){
                         if(typeof docsObj != 'undefined'){
                             virtualclass.dts.init(docsObj);

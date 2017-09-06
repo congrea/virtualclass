@@ -221,3 +221,10 @@
   background: -webkit-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
 
 }
+
+
+#virtualclassCont.congrea #dashboardnav {
+  position: absolute;
+  top: 645px;
+  left: -4px;
+}

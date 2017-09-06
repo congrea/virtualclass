@@ -521,8 +521,10 @@
                     if ("virtualclass" + app != virtualclass.previous) {
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
                     }
+
                 } else if (app == "DocumentShare") {
                     this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+                    virtualclass.vutil.triggerDashboard(app);
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -549,6 +551,9 @@
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
                     }else {
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+                        if(app == 'Video'){
+                            virtualclass.vutil.triggerDashboard(app);
+                        }
                     }
                 }
                 this.previrtualclass = this.previous;
@@ -580,6 +585,10 @@
 
                     if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||virtualclass.currApp == 'DocumentShare') {
                         virtualclass.vutil.initDashboardNav();
+                        var dashboardnav =  document.querySelector('#dashboardnav button');
+                        if(dashboardnav != null){
+                            dashboardnav.click();
+                        }
                     }else {
                         virtualclass.vutil.removeDashboardNav();
                     }
@@ -750,7 +759,6 @@
                     console.log(virtualclass.sharePt.pptUrl);
                     this.previous = virtualclass.ptConfig.id;
                     virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
-
                 },
 
                 Poll : function (app){

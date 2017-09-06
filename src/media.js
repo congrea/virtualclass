@@ -211,8 +211,6 @@
                 },
                 // if there is silece then audio will not be transmitted
                 slienceDetection: function (send, leftSix) {
-                    this.audioSend(send, audStatus);
-                    return send;
                     var audStatus;
                     var vol = 0;
                     var sum = 0;
@@ -244,53 +242,32 @@
                         minthreshold = minthreshold * 5;
                     } // In case minimum sound (silance) is too low compared to speaking sound.
                     if (maxthreshold / 20 > minthreshold) {
-                        maxthreshold = vol;
+                        maxthreshold = maxthreshold / 5;
                     } // In case Max volume (speaking sound) is too high compared with silance.
+                    if (thdiff > 10) {
+                        maxthreshold = maxthreshold*0.8;
+                    } // Keep algo sensitive
                     var thdiff = maxthreshold / minthreshold;
-
-                    switch (true) {
-                        case (thdiff > 8):
-                            var th = 2.5;
-                            break;
-                        case (thdiff > 5):
-                            var th = 2.0;
-                            break;
-                        case (thdiff > 3):
-                            var th = 1.2;
-                            break;
-                        default:
-                            th = 1;
-                    }
-                    // If rate greater then 20, it is likely to be sound
-                    // if difference between max and min (thdiff) is less than 2, we are not ready for this algo.
-                    // If Volume is greater than min threashold * multiple then it is likely to be sound.
+                    var th = vol / minthreshold;
 
                     audStatus = "sending";
-                    if ((thdiff >= 2 && vol >= minthreshold * th)) {
-                        if (audioWasSent == 0 && preAudioSamp != 0) { // Send previous sound sample to avoid clicking noise
-                            //        console.log('SEND PRE');
-                            // this.audioSend(preAudioSamp);
-                            preAudioSamp = 0;
-                        }
-                        //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
+                    if ( thdiff >= 20 || // historical max minus min
+                        th > 2 || // Difference between current volume and minimum
+                        rate > minthreshold || rate > 25 || // Change in signal strength
+                        vol > (minthreshold * 2) || // Current max volume
+                        thdiff <= 4 ) { // We are not ready for this algo
                         this.audioSend(send, audStatus);
                         audioWasSent = 9;
-
+                        // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
                         audioWasSent--;
                     } else if (thdiff < 2) { // We are not ready, send all samples
-                        //     console.log('Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
                         this.audioSend(send, audStatus);
                     } else {
+                        // console.log('NOT Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                         this.setAudioStatus("notSending");
-
-                        // console.log('NOT SENT Vol '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff);
-                        if (thdiff > 10) { // If diff is huge, reduce max volume in historical signal
-                            maxthreshold = maxthreshold * 0.8;
-                        }
                         ioAdapter.send({cf:'na'});
-                        preAudioSamp = send;
                     }
                     return send;
                 },

@@ -1941,12 +1941,13 @@
                 }
             }
 
-            $('#congdashboard').modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: true
-            });
+            // $('#congdashboard').modal({
+            //     backdrop: 'static',
+            //     keyboard: true,
+            //     show: true
+            // });
 
+            $('#congdashboard').modal();
         },
 
         getDocsDashBoard : function (app){
@@ -1989,8 +1990,18 @@
                       sortCommonChat();
                  }, 800
             );
-        }
+        },
 
+        triggerDashboard : function (currApp){
+            if(currApp == 'DocumentShare'){
+                var currentNote = document.querySelector('#screen-docs .note.current');
+                if(currentNote == null){
+                    virtualclass.vutil.initDashboard(currApp);
+                }
+            } else {
+                virtualclass.vutil.initDashboard(currApp);
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

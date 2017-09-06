@@ -409,7 +409,6 @@
 
                 }
                 this.interfaceToFetchList(category);
-
                 this.reloadTeacherPublish(storedData);
                 this.list = storedData.data.list;
 
@@ -935,9 +934,9 @@
                 }
                 return 1;
             },
-            closePoll: function () {
+            closePoll: function (pollType) {
                 var message = " are you sure to close the poll";
-                virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirmClose);
+                virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirmClose,"close",pollType);
 
 
             },
@@ -1267,7 +1266,7 @@
                     virtualclass.poll.interfaceToDelete(qid);
                 }
             },
-            askConfirmClose: function (opted) {
+            askConfirmClose: function (opted,label,pollType) {
                 if (opted) {
 
                     ioAdapter.mustSend({
@@ -1302,7 +1301,7 @@
                         chart.style.display = "block";
                     }
                     else {
-                        virtualclass.poll.noneVoted();
+                        virtualclass.poll.noneVoted(pollType);
 
                         //virtualclass.poll.UI.createResultLayout();
                         var header = document.getElementById("resultLayoutHead");
@@ -1675,10 +1674,12 @@
 
                     // virtualclass.poll.showGraph();
                     var chart = document.getElementById("chart");
-
-                    if (virtualclass.poll.currResultView != 'list') {
-                        chart.style.display = "block";
+                    if(chart){
+                        if (virtualclass.poll.currResultView != 'list') {
+                            chart.style.display = "block";
+                        }
                     }
+
 
                 } else {
                     this.noneVoted();
@@ -1809,7 +1810,7 @@
 
                 }
             },
-            noneVoted: function () {
+            noneVoted: function (pollType) {
 
                 this.noResultDisplay();
                 var head= document.querySelector("#resultLayoutHead");
@@ -1852,10 +1853,17 @@
                 if(modalClose){
                     modalClose.addEventListener('click',function(){
                         $('#editPollModal').remove();
+                        if (roles.hasControls()&& pollType) {
+                            if (virtualclass.poll.pollState["currScreen"]) {
+                                if (virtualclass.poll.pollState["currScreen"] == "teacherPublish") {
+                                    virtualclass.poll.pollState["currScreen"] = pollType == 'course' ? "displaycoursePollList" : "displaysitePollList";
+                                }
+
+                            }
+                        }
+
                     });
-
                 }
-
             },
             showPollText: function (resultCont) {
                 var item = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
@@ -2384,7 +2392,10 @@
                                 btn.id = "closePoll";
                                 head.appendChild(btn);
                                 btn.innerHTML = "closePoll";
-                                btn.addEventListener("click", virtualclass.poll.closePoll);
+                                btn.addEventListener("click", function(){
+                                    virtualclass.poll.closePoll(pollType)
+
+                                });
 
                                 var iconClose = document.createElement("i");
                                 iconClose.className = "icon-close-poll";
@@ -2464,7 +2475,6 @@
                             this.chartMenu();
                             this.createResultMsgCont();
                         }
-
 
                    }
 

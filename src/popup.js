@@ -435,10 +435,7 @@ var PopUp = (function (window, undefined) {
             this.sesseionEndWindow();
         }
 
-
     }
-
-
 
     /**
      * @private: short version of querySelectorAll

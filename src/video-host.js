@@ -95,11 +95,15 @@ var videoHost = {
             that.classList.add("off");
             virtualclass.videoHost.gObj.videoSwitch = 0;
             video = "off";
+            var tooltip = document.querySelector(".videoSwitchCont");
+            tooltip.dataset.title="video on"
         } else {
             that.classList.remove("off");
             that.classList.add("on");
             virtualclass.videoHost.gObj.videoSwitch = 1;
             video = "on"
+            var tooltip = document.querySelector(".videoSwitchCont");
+            tooltip.dataset.title="video off"
         }
 
         ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
@@ -378,6 +382,9 @@ var videoHost = {
         var videLatency = document.getElementById('videLatency');
         if(videLatency){
             videLatency.dataset.latency = latency;
+            var text = latency == "fast" ?"Bandwidth high" :"Bandwidth low";
+            videLatency.dataset.title = text;
+
         }
         //videLatency.innerHTML =  latency;
 
@@ -501,15 +508,6 @@ var videoHost = {
     //nirmala
     UI: {
         controller: function () {
-            // var mainctr = document.getElementById("congCtrBar");
-            // var swcont = document.createElement("div");
-            // swcont.id = "rightCtlr";
-            // mainctr.appendChild(swcont);
-            //
-            // var elem = document.createElement("span");
-            // elem.id = "videoSwitch";
-            // elem.className = "video on"
-            // swcont.appendChild(elem);
             var elem = document.getElementById("videoSwitch");
             if(elem){
                 elem.addEventListener("click", function () {

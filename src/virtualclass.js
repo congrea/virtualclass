@@ -195,21 +195,8 @@
                 } else {
                     virtualclass.makeReadySocket();
                 }
-
-                //For change color uncomment this and give the appropriate values
-                // var editorbtn={color : 'blue'}
-                // var allbg = {fcolor : '#777999', scolor : '#666999'};
-                // var active = {fcolor : '#459878', scolor : '#698568'};
-                // var hover = {fcolor : '#989655', scolor : '#837394'};
-                // virtualclass.makeThemeReady(editorbtn, allbg,active,hover);
-
                 // For initialize the Teacher Video
                 virtualclass.videoHost.init(320 , 240);
-
-                // dts means document sharing
-                //virtualclass.dts  = window.documentShare();
-
-                //virtualclass.documentShare.init();
                 virtualclass.networkStatus();
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
@@ -226,37 +213,7 @@
             },
 
             networkStatus: function(){
-                var netstatus = virtualclass.getTemplate('network');
-                var context = {suggestion:'low',
-                    latency:'slow',
-                    quality:'low'};
-                var netstatushtml = netstatus(context);
-                // $('#vedioPacket').append(netstatushtml);
-
-                popoverOptions = {
-                    content: function () {
-                        // Get the content from the hidden sibling.
-                        //virtualclass.media.initVideoInfo();
-                        return netstatushtml;
-                    },
-                    html : true,
-                    trigger: 'hover',
-                    // animation: false,
-                    placement: 'bottom',
-                };
-                $('#ntkstatus').popover(popoverOptions);
-
-                $('#ntkstatus').on('shown.bs.popover', function () {
-                    // do something…
-                    //initVideoInfo
-                    virtualclass.videoHost.initVideoInfo();
-                });
-
-                $('#ntkstatus').on('hide.bs.popover', function () {
-                    // do something…
-                    clearInterval( virtualclass.videoHost.videoInfoInterval);
-                });
-
+                virtualclass.videoHost.initVideoInfo();
             },
 
             makeReadySocket : function (){
@@ -1059,6 +1016,7 @@
                         context = contPara;
                     }else if(initTemplates[i] == 'audioWidget'){
                         context = virtualclassSetting;
+
                     }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
                         context = isControl;
                     }

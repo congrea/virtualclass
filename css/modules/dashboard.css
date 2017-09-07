@@ -67,7 +67,7 @@
 }
 
 
-#virtualclassCont.congrea .dbContainer .linkdocs .mainpreview, #virtualclassCont.congrea .dbContainer .linkdocs  .controlCont {
+#virtualclassCont.congrea .dbContainer .linkdocs, #virtualclassCont.congrea .dbContainer .linkdocs  .controlCont {
   cursor : pointer;
 }
 

@@ -74,7 +74,9 @@
                   var docsObj = JSON.parse(localStorage.getItem('dtsdocs'))
                   if(docsObj != null){
                     this.initAfterUpload(docsObj);
-                    this.setNoteScreen(docsObj);
+                    if(docsObj.slideNumber != null){
+                        this.setNoteScreen(docsObj);
+                    }
                   }else{
                     // Only send the request to server
                     // when the docs is not in storage
@@ -83,6 +85,7 @@
                     }
                   }
                 }
+
             },
 
            /**
@@ -431,7 +434,7 @@
                         return true;
                     }
                 } else {
-                    alert('There is no Element');
+                    console.log('Document sharing There is no Element');
                 }
             },
 
@@ -591,8 +594,12 @@
 
               (typeof fromReload != 'undefined') ? this.createNoteNav(fromReload) : this.createNoteNav();
               this.updateLinkNotes(this.docs.currNote);
+              virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
             } else {
               this.removePagesUI(doc);
+              if(!virtualclass.dts.noteExist()){
+                  virtualclass.vutil.showUploadMsg('docsuploadContainer'); // file uploader container
+              }
             }
 
             if(roles.hasAdmin()){
@@ -1311,18 +1318,26 @@
             sendCurrentSlide : function (){
                 if(virtualclass.dts.docs.hasOwnProperty('currDoc')){
                     var doc = virtualclass.dts.docs.currDoc;
-                    ioAdapter.mustSend({'dts': {slideTo: virtualclass.dts.docs.note.currNote, docn : doc }, 'cf': 'dts'});
-                    console.log(virtualclass.gObj.currWb + ' ' + 'Document share send current slide');
+                    if(doc != undefined){
+                        ioAdapter.mustSend({'dts': {slideTo: virtualclass.dts.docs.note.currNote, docn : doc }, 'cf': 'dts'});
+                        console.log(virtualclass.gObj.currWb + ' ' + 'Document share send current slide');
+                    }else {
+                        console.log('Document sharing : doc number is undefined' );
+                    }
                 }
 
             },
 
             sendCurrentDoc : function (){
                 if(virtualclass.dts.docs.hasOwnProperty('currDoc')){
-                    var doc = virtualclass.dts.docs.currDoc;
-                   ioAdapter.mustSend({'dts': {doc: doc = virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
-                    //console.log('Document share send current doc only');
-                    console.log(virtualclass.gObj.currWb + ' ' + 'Document share send current doc only');
+                    if(doc != undefined){
+                        var doc = virtualclass.dts.docs.currDoc;
+                        ioAdapter.mustSend({'dts': {doc: doc = virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
+                        //console.log('Document share send current doc only');
+                        console.log(virtualclass.gObj.currWb + ' ' + 'Document share send current doc only');
+                    }else {
+                        console.log('Document sharing : doc number is undefined' );
+                    }
                 }
             },
 
@@ -1635,6 +1650,10 @@
               }else {
                 alert(nid + ' is null');
               }
+            },
+
+            noteExist : function (){
+                return (document.querySelector('#notesContainer .note') != null);
             }
         };
     }

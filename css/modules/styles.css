@@ -2022,12 +2022,19 @@
 
 #virtualclassCont.congrea .close {
 	text-shadow: none !important;
+
 }
 
 #virtualclassCont.congrea .close:hover{
 	color:#fff !important;
 }
 
+#virtualclassCont.congrea #congdashboard .close {
+	margin-right: 8px;
+	color: #0e0e0e;
+	font-weight: bold;
+	margin-top: 3px;
+}
 
 #virtualclassCont.congrea #beTeacher {
 	background: #7bb876 none repeat scroll 0 0;
@@ -2619,4 +2626,9 @@
 	opacity : 0.9;
 	letter-spacing : 0.02em;
 	font-size : 15px;
+}
+
+#virtualclassCont.congrea .modal-header h4{
+	text-align: center;
+	margin-top: 5px;
 }

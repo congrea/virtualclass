@@ -245,7 +245,13 @@
         'testingwebcam' : 'Testing Webcam Connection',
         'proposedspeed' : 'Proposed Speed',
         'audiolatency' : 'Audio Latency',
-        'videoquality' : 'Video Quality'
+        'videoquality' : 'Video Quality',
+        'docName' : 'Documents Dashboard',
+        'dsDbheading' : 'Document Sharing Dashboard',
+        'DocumentSharedbHeading' : 'Document Sharing Dashboard',
+        'SharePresentationdbHeading' : 'Presentation Sharing Dashboard',
+        'VideodbHeading' : 'Video Sharing Dashboard',
+
     };
     window.message = message;
 })(window);

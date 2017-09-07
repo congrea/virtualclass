@@ -613,3 +613,8 @@
 #virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr{
     display:block!important;
 }
+
+
+#virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
+    font-size : 0.9em;
+}

@@ -2022,12 +2022,19 @@
 
 #virtualclassCont.congrea .close {
 	text-shadow: none !important;
+
 }
 
 #virtualclassCont.congrea .close:hover{
 	color:#fff !important;
 }
 
+#virtualclassCont.congrea #congdashboard .close {
+	margin-right: 8px;
+	color: #0e0e0e;
+	font-weight: bold;
+	margin-top: 3px;
+}
 
 #virtualclassCont.congrea #beTeacher {
 	background: #7bb876 none repeat scroll 0 0;
@@ -2326,7 +2333,7 @@
 }
 
 #virtualclassCont.congrea #dispVideo{
-	margin:60px;
+	/*margin:60px;*/
 }
 
 #virtualclassCont.congrea.student .vjs-volume-menu-button{
@@ -2334,7 +2341,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassVideo {
-	margin:40px 20px!important;
+	/*margin:40px 20px!important;*/
 }
 #virtualclassCont.congrea .upload{
 	margin :10px;
@@ -2438,28 +2445,28 @@
 
 /* Responsive CSS */
 
-@media (max-width: 1840px ){
-	#dispVideo {width: 82%;}
-}
-@media (max-width: 1740px ){
-	#dispVideo {width: 80%;}
-}
-@media (max-width: 1480px ){
-	#dispVideo {width: 77%;}
-}
-@media (max-width: 1370px ){
-	#dispVideo {width: 74%;}
-}
-@media (max-width: 1280px ){
-	#dispVideo {width: 72%;}
-}
-@media (max-width: 1160px ){
-	#dispVideo {width: 68%;}
-	#virtualclassCont.congrea #dispVideo {margin-left: 46px;}
-}
-@media (max-width: 1024px ){
-	#dispVideo {width: 65%;}
-}
+/*@media (max-width: 1840px ){*/
+	/*#dispVideo {width: 82%;}*/
+/*}*/
+/*@media (max-width: 1740px ){*/
+	/*#dispVideo {width: 80%;}*/
+/*}*/
+/*@media (max-width: 1480px ){*/
+	/*#dispVideo {width: 77%;}*/
+/*}*/
+/*@media (max-width: 1370px ){*/
+	/*#dispVideo {width: 74%;}*/
+/*}*/
+/*@media (max-width: 1280px ){*/
+	/*!*#dispVideo {width: 72%;}*!*/
+/*}*/
+/*@media (max-width: 1160px ){*/
+	/*#dispVideo {width: 68%;}*/
+	/*#virtualclassCont.congrea #dispVideo {margin-left: 46px;}*/
+/*}*/
+/*@media (max-width: 1024px ){*/
+	/*#dispVideo {width: 65%;}*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassVideo .linkvideo.playing{
 	border:solid green 1px;
@@ -2670,5 +2677,10 @@
 	/*width:10%;*/
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
-	width:80%;
+	width: 80%;
+}
+
+#virtualclassCont.congrea .modal-header h4{
+	text-align: center;
+	margin-top: 5px;
 }

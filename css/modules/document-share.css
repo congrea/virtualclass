@@ -166,13 +166,15 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
-    width: 87%;
-    height: auto;
-    padding: 20px;
-    border: 1px solid #aaa;
+    width: 93%;
+    height: 93vh;
+    /*padding: 20px;*/
+    border: 1px solid #d6d5d5;
     text-align: center;
     float: left;
     min-height: 660px;
+    margin:0;
+    margin-left : 60px;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #documentScreen {
@@ -184,7 +186,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #screen-docs {
-    height: auto;
+    /*height: auto;*/
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont {
@@ -612,4 +614,9 @@
 }
 #virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr{
     display:block!important;
+}
+
+
+#virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
+    font-size : 0.9em;
 }

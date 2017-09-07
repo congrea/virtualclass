@@ -1931,6 +1931,7 @@
                     virtualclass.sharePt.retrieveOrder();
                 }
 
+
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
             for(var i=0; i<allDbContainer.length; i++){
@@ -1948,6 +1949,17 @@
             // });
 
             $('#congdashboard').modal();
+
+            if(currApp == "DocumentShare"){
+                if(virtualclass.dts.noteExist()){
+                    virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
+                }
+            }
+
+            var moodleHeader = document.querySelector('#congdashboard .modal-header h4');
+            if(moodleHeader != null){
+                moodleHeader.innerHTML = virtualclass.lang.getString(currApp + 'dbHeading');
+            }
         },
 
         getDocsDashBoard : function (app){
@@ -2000,6 +2012,24 @@
                 }
             } else {
                 virtualclass.vutil.initDashboard(currApp);
+            }
+        },
+
+        trimExtension : function (fname){
+            return fname.replace(/\.[^/.]+$/, "")
+        },
+
+        hideUploadMsg : function (appId){
+            var elem = document.querySelector('#'+appId+' .qq-uploader-selector.qq-uploader.qq-gallery');
+            if(elem != null){
+                elem.setAttribute('qq-drop-area-text', '')
+            }
+        },
+
+        showUploadMsg : function (appId){
+            var elem = document.querySelector('#'+appId+' .qq-uploader-selector.qq-uploader.qq-gallery');
+            if(elem != null){
+                elem.setAttribute('qq-drop-area-text', 'Drop File Here');
             }
         }
     };

@@ -264,10 +264,9 @@
         console.log('Window resize event ');
 
         var cwb = virtualclass.gObj.currWb;
-        if(typeof cwb != 'undefined' && virtualclass.wb[cwb].hasOwnProperty('vcan')){
+        if(typeof cwb != 'undefined' && (typeof virtualclass.wb[cwb] != 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')){
             virtualclass.wb[cwb].vcan.renderAll();
         }
-
         view.windowResizeFinished();
 
     },

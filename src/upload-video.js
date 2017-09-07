@@ -242,15 +242,40 @@
                 if (res.message == "success") {
                     virtualclass.videoUl.order.push(res.resultdata.id);
                     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                    virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
 
                 } else if (res.message == "Failed") {
                     alert("video upload failed");
+                    virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
+
                 } else if (res.message == "duplicate") {
                     alert("video is already uploaded");
+                    virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 } else {
                     //fallback
                     alert("video upload failed");
+                    virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 }
+
+            },
+            showUploadMsz:function(msg,type){
+                var mszCont= document.querySelector("#VideoDashboard #uploadMsz");
+
+                var alertMsz= document.querySelector("#VideoDashboard #uploadMsz .alert");
+                if(alertMsz){
+                    alertMsz.parentNode.removeChild(alertMsz);
+                }
+                var elem = document.createElement("div");
+                elem.className = "alert  alert-dismissable";
+                elem.classList.add(type)
+                elem.innerHTML = msg;
+                mszCont.appendChild(elem);
+
+                var btn = document.createElement("button");
+                btn.className = "close";
+                btn.setAttribute("data-dismiss", "alert")
+                btn.innerHTML = "&times";
+                elem.appendChild(btn);
 
             },
 
@@ -1228,7 +1253,10 @@
 
                     var cont =  document.querySelector("#uploadMsz")
                     var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");
-                    cont.appendChild(msz);
+                    if(msz){
+                        msz.style.display="none";
+                    }
+
                     var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= $("#uploadVideo");
                     btnUpload.click(function(){

@@ -60,10 +60,10 @@
             }
 
         } else if (this.type == 'docs') {
-            // alert('hello hi');
-            // debugger;
             var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
+            context.title = virtualclass.vutil.trimExtension(context.title);
             docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
+
             this.UI.controller.init(this, lid);
 
         } else if (this.type == 'notes') {
@@ -96,7 +96,18 @@
         // Todo, by this function the video's event should be attached
         page.prototype.createPageNavAttachEvent = function (linkNav) {
             if (this.type == 'docs') {
-                linkNav.onclick = virtualclass.dts.docs.goToDocs(this.rid);
+
+               // linkNav.onclick = virtualclass.dts.docs.goToDocs(this.rid);
+
+                var cthis = virtualclass.dts;
+                // linkNav.onclick = cthis.docs.goToDocs(docId);
+                var elem = linkNav.closest('.linkdocs');
+                if(elem != null){
+                    elem.onclick  = cthis.docs.goToDocs(this.rid);
+                }else {
+                    alert('Element is null');
+                }
+
             } else if (this.type == 'notes') {
                 linkNav.onclick = virtualclass.dts.docs.goToNavs(this.rid);
             }
@@ -167,7 +178,7 @@
                 virtualclass[this.module]._rearrange(orders);
             }
         } else {
-            alert('there is no element');
+            console.log('Document share:- Element is missing');
         }
     }
 

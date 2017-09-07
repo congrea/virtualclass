@@ -481,7 +481,9 @@
 
                 } else if (app == "DocumentShare") {
                     this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
-                    virtualclass.vutil.triggerDashboard(app);
+                    if(roles.hasControls()){
+                        virtualclass.vutil.triggerDashboard(app);
+                    }
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -508,7 +510,7 @@
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
                     }else {
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
-                        if(app == 'Video'){
+                        if(roles.hasControls() && app == 'Video'){
                             virtualclass.vutil.triggerDashboard(app);
                         }
                     }
@@ -539,18 +541,20 @@
 
                 }
                 if(roles.hasControls()) {
-
-                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video' ||virtualclass.currApp == 'DocumentShare') {
+                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video') {
                         virtualclass.vutil.initDashboardNav();
                         var dashboardnav =  document.querySelector('#dashboardnav button');
                         if(dashboardnav != null){
                             dashboardnav.click();
                         }
+                    } else if(virtualclass.currApp == 'DocumentShare'){
+                        // this.checkDsTable();
                     }else {
                         virtualclass.vutil.removeDashboardNav();
                     }
                 }
             },
+
 
             // Helper functions for making the app is ready
             appInitiator : {
@@ -888,19 +892,28 @@
                         dstData = setTimeout(
                             function (){
                                 cthis.appInitiator.DocumentShare.apply(cthis.appInitiator, args);
+
+
+
                             },100
                         )
                     } else {
                         // IndexDb is not initialise
                         // misspacket on new user does not work
                         cthis.appInitiator.makeReadyDsShare.apply(cthis.appInitiator, args);
+                        virtualclass.vutil.initDashboardNav();
+                        if(!virtualclass.dts.noteExist()){
+                            var dashboardnav =  document.querySelector('#dashboardnav button');
+                            if(dashboardnav != null) {
+                                dashboardnav.click();
+
+                            }
+                        }
 
                         if(dstData != null){
                             clearTimeout(dstData);
                         }
                     }
-
-
                 }
             },
 

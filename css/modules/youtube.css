@@ -36,8 +36,7 @@
 
 #virtualclassCont.congrea #virtualclassVideo iframe#player {
   width: 90%;
-  height: 80%;
-  min-height: 85vh;
+  min-height: 88vh;
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover {

@@ -463,6 +463,7 @@
 .qq-gallery.qq-uploader DIALOG .qq-dialog-buttons BUTTON {
     margin-left: 5px;
     margin-right: 5px;
+    pointer-events: visible;
 }
 
 .qq-gallery.qq-uploader DIALOG .qq-dialog-message-selector {

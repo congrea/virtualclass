@@ -78,8 +78,8 @@
 
 #virtualclassCont.congrea #videoUrlContainer #videourl {
   border: #ddd 1px solid;
-  height: 36px;
-  font-size: 16px;
+  height: 35px;
+  font-size: 14px;
   padding: 0px 10px;
   width: 340px;
   color: #777;
@@ -106,10 +106,10 @@
   /*position: relative;*/
 /*}*/
 
-#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {
-  background-color: #68a697;
-  /*background-image: none;*/
-}
+/*#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {*/
+  /*background-color: #68a697;*/
+  /*!*background-image: none;*!*/
+/*}*/
 
 /*#videoUrlContainer {*/
   /*z-index: 40;*/

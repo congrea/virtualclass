@@ -251,6 +251,10 @@
         'DocumentSharedbHeading' : 'Document Sharing Dashboard',
         'SharePresentationdbHeading' : 'Presentation Sharing Dashboard',
         'VideodbHeading' : 'Video Sharing Dashboard',
+        'bandslow' : 'Bandwidth is slow.',
+        'bandfast' : 'Bandwidth is high.',
+        'bandmedium' : 'Bandwidth is medium.'
+
 
     };
     window.message = message;

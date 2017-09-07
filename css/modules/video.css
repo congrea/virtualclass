@@ -32,3 +32,9 @@
   width: 320px;
   height: 65px;
 }
+
+#virtualclassCont.congrea #dispVideo{
+  width: 96%;
+  height: 89vh;
+  margin-left : 15px;
+}

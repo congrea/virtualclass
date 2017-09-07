@@ -448,9 +448,9 @@
 
 
 #virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
-//nirmala
+/*nirmala*/
 .ui-widget-content.ui-chatbox-input-box.ui-corner-all{
-   // width: 212px !important;
+   width: 212px !important;
 }
 
 #virtualclassCont.congrea.playMode.student .ui-memblist{
@@ -472,7 +472,7 @@
 }
 
 #user_list.vmchat_bar_button{
-	width:209px !important
+	width:209px !important;
 	border-right:none !important;
 }
 

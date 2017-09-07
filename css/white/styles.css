@@ -2473,7 +2473,8 @@
 }
 
 
-#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer #presentationurl, #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer #presentationurl{
+#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer #presentationurl,
+#virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer #presentationurl{
 	border: #ddd 1px solid;
     height: 36px;
     font-size: 13px;

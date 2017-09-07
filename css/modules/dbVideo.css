@@ -79,20 +79,20 @@
 }
 
 #virtualclassCont.congrea  #VideoDashboard .btn-default{
-  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
+  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
   color:white;
 }
 
 
 #virtualclassCont.congrea  #VideoDashboard .btn-default:hover{
-  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
-  color:black;
+  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
+  /*color:black;*/
 }
 
 
 
 #virtualclassCont.congrea #submitpurl.btn-default{
-  width: 150px;
+  width: 13%;
   border: 1px solid #bdbdbd;
   border-radius: 0;
   background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
@@ -100,7 +100,7 @@
   border-top-right-radius: 4px;
   padding: 8px;
   color : #fff;
-  height : 50px;
+  height : 45%;
 }
 
 
@@ -208,10 +208,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   text-shadow:none !important;
 }
 
-#virtualclassCont .dashboardview #urlcontainer #presentationurl{
-  height: 46px !important;  width:300px;
-  font-size: 14px;
-}
+/*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/
+  /*height: 46px;  width:300px;*/
+  /*font-size: 14px;*/
+/*}*/
 #virtualclassCont #urlcontainer #presentationurl{vertical-align: top;}
 
 /*#virtualclassCont .dashboardview #urlcontainer{*/
@@ -228,21 +228,23 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #congreavideoContBody {
   position : absolute;
   top : 0;
-  width:97%;
+  width:100%;
   height : 85%;
 }
-
+/*#virtualclassCont.congrea #videoUrlContainer {*/
+  /*width:100%;*/
+  /*height:100%;*/
+/*}*/
 #virtualclassCont #congreavideoContBody .qq-uploader-selector.qq-uploader{
   width: 100%;
-  height: 67vh;
-  max-height:67vh;
+  height: 75vh;
+  max-height:75vh;
 }
 
-
-#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {
-  background-color: #68a697;
-  background-image: none;
-}
+/*#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {*/
+  /*background-color: #4c4c4c;*/
+  /*background-image: none;*/
+/*}*/
 
 #videoUrlContainer {
   z-index: 40;
@@ -250,7 +252,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #videoUrlContainer {
   /*position: relative;*/
-  text-align: center;
+  text-align: right;
 }
 
 
@@ -268,7 +270,9 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont{
-  margin-top:60px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controls.delete::before {

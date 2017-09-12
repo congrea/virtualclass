@@ -130,7 +130,7 @@
     z-index: 10000;
 }
 
-#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px;}
+#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px; width:68px;}
 #virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
     float: right;
     width: 324px;
@@ -198,6 +198,9 @@
     cursor: pointer;
 }
 
+#virtualclassCont.congrea.student .vmchat_room_bt{
+    width:160px;
+}
 #virtualclassCont.congrea #usertab_icon {
     background: url('/virtualclass/images/offline.png') no-repeat top left;
     float: left;
@@ -487,6 +490,10 @@
 }
 #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button{
     width: 130px; /* add 100px , it was  218*/
+}
+
+#virtualclassCont.congrea.student[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea.student[data-currapp="EditorCode"] .vmchat_bar_button{
+    width:160px;
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {

@@ -71,6 +71,7 @@
         'maxUserList': "Show User List",
         'startnewsession': "This session has not been saved, do you really want to end this session?",
         'DevicesNotFoundError': "Please check your Webcam (camera/microphone) connection.",
+        'dap' : 'false',
         'PermissionDeniedError': "Webcam access has been denied.",
         'PERMISSION_DENIED': "You denied access to your Webcam(camera/microphone).",
         'notSupportBrowser': "Firefox {virtualclass1} does not support Screen sharing.",
@@ -253,7 +254,9 @@
         'VideodbHeading' : 'Video Sharing Dashboard',
         'bandslow' : 'Bandwidth is slow.',
         'bandfast' : 'Bandwidth is high.',
-        'bandmedium' : 'Bandwidth is medium.'
+        'bandmedium' : 'Bandwidth is medium.',
+        'dap' : 'false'
+
 
 
     };

@@ -821,31 +821,30 @@
                  * it eventually plays audio
                  */
                 manuPulateStream: function () {
-                    console.log("Manupulate Stream");
                     var stream = cthis.stream;
                     /* if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
-                     virtualclass.wb[virtualclass.gObj.currWb].recordStarted = new Date().getTime();
-                     localStorage.setItem('recordStart', virtualclass.wb[virtualclass.gObj.currWb].recordStarted);
+                     virtualclass.wb.recordStarted = new Date().getTime();
+                     localStorage.setItem('recordStart', virtualclass.wb.recordStarted);
                      } else {
-                     virtualclass.wb[virtualclass.gObj.currWb].recordStarted = localStorage.getItem('recordStart');
+                     virtualclass.wb.recordStarted = localStorage.getItem('recordStart');
                      } */
                     var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
-                    // This controls the latency
-                    // higher value increase the latency, but avoid auido breakup and glitch
-
-                    // bufferSize = 16384, sampleRate = 44100
-                    // latency = (bufferSize / sampleRate)
-                    // audio latency = 371.5 ms
-
-                    cthis.audio.bufferSize = 16384; // 371 ms
+                    cthis.audio.bufferSize = 16384;
                     // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
                     // https://code.google.com/p/chromium/issues/detail?id=360378
                     // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                     grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                     grec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
-                    var gainNode = cthis.audio.Html5Audio.audioContext.createGain();
+
+                    gainNode = cthis.audio.Html5Audio.audioContext.createGain();
                     gainNode.gain.value = 0.9;
-                    audioInput.connect(gainNode);
+
+                    filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
+                    filter.type = "lowpass";
+                    filter.frequency.value = 1000;
+
+                    audioInput.connect(filter);
+                    filter.connect(gainNode);
                     gainNode.connect(grec);
                     grec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 },

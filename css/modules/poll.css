@@ -167,3 +167,7 @@
 #virtualclassCont.congrea.student #virtualclassPoll #chartMenuCont a {
   color: #337ab7;
 }
+
+#virtualclassCont.congrea .bootstrap .inputWrapper a{
+color:black;
+}

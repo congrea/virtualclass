@@ -2289,9 +2289,9 @@
 }
 
 #virtualclassCont.congrea .modal a.close{
-	position: absolute;
-	right: 6px;
-	margin-top: 11px;
+	position:relative;
+	top: -36px;
+	right: 5px;
 }
 /*#virtualclassCont.congrea .modal label{*/
 	/*font-weight: normal;*/

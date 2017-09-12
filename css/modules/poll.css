@@ -168,6 +168,10 @@
   color: #337ab7;
 }
 
+
+#virtualclassCont.congrea .bootstrap .inputWrapper a{
+color:black;
+}
 #virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse .popover {
   width: 100%;
   height:auto;

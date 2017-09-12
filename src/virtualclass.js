@@ -509,8 +509,9 @@
 
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
                     }else {
+                        var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
-                        if(roles.hasControls() && app == 'Video'){
+                        if(roles.hasControls() && app == 'Video' && !(currVideo && currVideo.init&&currVideo.init.videoUrl)){
                             virtualclass.vutil.triggerDashboard(app);
                         }
                     }
@@ -541,8 +542,12 @@
 
                 }
                 if(roles.hasControls()) {
-                    if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'Video') {
-                        virtualclass.vutil.initDashboardNav();
+
+
+                    var currVideo= Array.prototype.slice.call(arguments)[2];
+
+                    if (virtualclass.currApp == 'SharePresentation' || (virtualclass.currApp == 'Video')) {
+                        virtualclass.vutil.initDashboardNav(currVideo);
                         var dashboardnav =  document.querySelector('#dashboardnav button');
                         if(dashboardnav != null){
                             dashboardnav.click();

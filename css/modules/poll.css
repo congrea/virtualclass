@@ -168,6 +168,24 @@
   color: #337ab7;
 }
 
+
 #virtualclassCont.congrea .bootstrap .inputWrapper a{
 color:black;
+}
+#virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse .popover {
+  width: 100%;
+  height:auto;
+  display: block !important; position: absolute; z-index: 10000;
+  top:25px !important; right: 40%;max-width: 300px;padding: 15px;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse #popover668922 {
+  padding:10px;
+  padding-left: 20px;
+}
+#virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse .previewTxCont {
+  margin-bottom:10px;
+}
+#virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse #optsTxCont div label {
+  font-weight: normal !important;
 }

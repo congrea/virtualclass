@@ -382,7 +382,7 @@ var videoHost = {
         var videLatency = document.getElementById('videLatency');
         if(videLatency){
             videLatency.dataset.latency = latency;
-            var text = latency == "fast" ?"Bandwidth high" :"Bandwidth low";
+            var text = virtualclass.lang.getString('band'+latency);
             videLatency.dataset.title = text;
 
         }

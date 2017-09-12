@@ -1096,7 +1096,7 @@
 }
 
 #virtualclassCont.congrea #speakerPressOnce {
-	width : 18%;
+	width : 20%;
 	height : 50px;
 	padding-top: 10px;
 }
@@ -2302,9 +2302,9 @@
 	color: #3C3C3C;
 }
 #virtualclassCont.congrea .bootstrap .btn , #virtualclassCont.congrea .inputWrapper{
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 4px;
+	/*-webkit-border-radius: 6px;*/
+	/*-moz-border-radius: 6px;*/
+	/*border-radius: 4px;*/
 }
 #virtualclassCont.congrea #newPollBtncourse,
 #virtualclassCont.congrea #newPollBtnsite{
@@ -2333,7 +2333,7 @@
 }
 
 #virtualclassCont.congrea #dispVideo{
-	margin:60px;
+	/*margin:60px;*/
 }
 
 #virtualclassCont.congrea.student .vjs-volume-menu-button{
@@ -2341,7 +2341,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassVideo {
-	margin:40px 20px!important;
+	/*margin:40px 20px!important;*/
 }
 #virtualclassCont.congrea .upload{
 	margin :10px;
@@ -2445,28 +2445,28 @@
 
 /* Responsive CSS */
 
-@media (max-width: 1840px ){
-	#dispVideo {width: 82%;}
-}
-@media (max-width: 1740px ){
-	#dispVideo {width: 80%;}
-}
-@media (max-width: 1480px ){
-	#dispVideo {width: 77%;}
-}
-@media (max-width: 1370px ){
-	#dispVideo {width: 74%;}
-}
-@media (max-width: 1280px ){
-	#dispVideo {width: 72%;}
-}
-@media (max-width: 1160px ){
-	#dispVideo {width: 68%;}
-	#virtualclassCont.congrea #dispVideo {margin-left: 46px;}
-}
-@media (max-width: 1024px ){
-	#dispVideo {width: 65%;}
-}
+/*@media (max-width: 1840px ){*/
+	/*#dispVideo {width: 82%;}*/
+/*}*/
+/*@media (max-width: 1740px ){*/
+	/*#dispVideo {width: 80%;}*/
+/*}*/
+/*@media (max-width: 1480px ){*/
+	/*#dispVideo {width: 77%;}*/
+/*}*/
+/*@media (max-width: 1370px ){*/
+	/*#dispVideo {width: 74%;}*/
+/*}*/
+/*@media (max-width: 1280px ){*/
+	/*!*#dispVideo {width: 72%;}*!*/
+/*}*/
+/*@media (max-width: 1160px ){*/
+	/*#dispVideo {width: 68%;}*/
+	/*#virtualclassCont.congrea #dispVideo {margin-left: 46px;}*/
+/*}*/
+/*@media (max-width: 1024px ){*/
+	/*#dispVideo {width: 65%;}*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassVideo .linkvideo.playing{
 	border:solid green 1px;
@@ -2582,17 +2582,16 @@
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber{
 	height: 50px;
-	width: 18%;
+	width: 20%;
 	border-right: 1px solid rgba(0, 0, 0, 0.2);
 	padding-top: 15px;
 }
-#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket{
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
+#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
+#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 	height: 50px;
-	width: 28%;
-}
-#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk, #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont{
-	height: 50px;
-	width: 18%;
+	width: 20%;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #ntkstatus{
 	padding-top: 5px;
@@ -2626,6 +2625,59 @@
 	opacity : 0.9;
 	letter-spacing : 0.02em;
 	font-size : 15px;
+}
+
+@media (min-width: 768px){
+	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
+   float:none !important;
+	}
+}
+
+/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont {*/
+	/*height:15%;*/
+
+/*}*/
+
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont,
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
+	padding:0px;
+}
+
+@media (min-width: 700px){
+	#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
+		width:80%;
+	}
+}
+/*@media (min-width: 992px){*/
+	/*#virtualclassCont.congrea #dashboardContainer #videoUrlContainer {*/
+		/*width:80%;*/
+	/*}*/
+/*}*/
+
+/** For handling the overlap of audio and video in firefox **/
+#virtualclassCont.congrea #audioWidget {
+	border-bottom : 1px solid #ccc;
+}
+
+#virtualclassCont.congrea #videoHostSource {
+	margin-top : -1px;
+}
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont {
+  width:10%;
+	float:left;
+}
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
+	width:89.67%;
+	float:left;
+}
+/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {*/
+	/*width:99%;*/
+/*}*/
+/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #submitURL {*/
+	/*width:10%;*/
+/*}*/
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
+	width: 80%;
 }
 
 #virtualclassCont.congrea .modal-header h4{

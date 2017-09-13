@@ -1597,11 +1597,15 @@
              */
             onAjaxResponse : function (id, xhr, response){
                 if(response.hasOwnProperty('resultdata')){
-                      this.afterUploadFile(response.resultdata.id);
+                    this.afterUploadFile(response.resultdata.id);
+                    this.showUploadMsz("document upload success","alert-success");
                 } else if (response.message == 'duplicate'){
-                        alert(virtualclass.lang.getString('duplicateUploadMsg'));
+                    //alert(virtualclass.lang.getString('duplicateUploadMsg'));
+                    this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'),"alert-error");
+
                 } else {
-                        alert(virtualclass.lang.getString('someproblem'));
+                    this.showUploadMsz(virtualclass.lang.getString('someproblem'),"alert-error");
+
                 }
 
                 var listnotes  = document.querySelector('#listnotes');
@@ -1612,6 +1616,28 @@
                   console.log('List note is null');
                 }
             },
+
+            showUploadMsz:function(msg,type){
+                var mszCont= document.querySelector("#DocumentShareDashboard #docsUploadMsz");
+
+                var alertMsz= document.querySelector("#DocumentShareDashboard #docsUploadMsz .alert");
+                if(alertMsz){
+                    alertMsz.parentNode.removeChild(alertMsz);
+                }
+                var elem = document.createElement("div");
+                elem.className = "alert  alert-dismissable";
+                elem.classList.add(type)
+                elem.innerHTML = msg;
+                mszCont.appendChild(elem);
+
+                var btn = document.createElement("button");
+                btn.className = "close";
+                btn.setAttribute("data-dismiss", "alert")
+                btn.innerHTML = "&times";
+                elem.appendChild(btn);
+
+            },
+
 
             /**
              * Set width and height for note

@@ -536,7 +536,7 @@
                     }
                 }
 
-                var message = "<span>Are u sure to close the poll  </span>";
+                var message = "<span>Are you sure to close the poll  </span>";
                 virtualclass.popup.confirmInput(message, this.resultCloseConfirm, pollType);
             },
 
@@ -935,7 +935,7 @@
                 return 1;
             },
             closePoll: function (pollType) {
-                var message = " are you sure to close the poll";
+                var message = " Are you sure to close the poll";
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirmClose,"close",pollType);
 
 
@@ -1227,7 +1227,7 @@
                 if (notify.length > 0) {
                     notify[0].parentNode.removeChild(notify[0]);
                 }
-                var message = "<span>Are u sure to delete this Poll</span>";
+                var message = "<span>Are you sure to delete this Poll</span>";
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirm, pollType, index);
             },
 

@@ -254,8 +254,7 @@
         'VideodbHeading' : 'Video Sharing Dashboard',
         'bandslow' : 'Bandwidth is slow.',
         'bandfast' : 'Bandwidth is high.',
-        'bandmedium' : 'Bandwidth is medium.',
-        'dap' : 'false'
+        'bandmedium' : 'Bandwidth is medium.'
 
 
 

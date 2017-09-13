@@ -485,6 +485,10 @@
     width:130px;
     cursor: pointer;
 }
+
+#virtualclassCont.congrea.student .vmchat_bar_button {
+    width:160px;
+}
 #virtualclassCont.congrea .vmchat_bar_button.active{
     background-color: rgba(0,0,0,0.25);
 }

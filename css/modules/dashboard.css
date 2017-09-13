@@ -229,6 +229,8 @@
 }
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary{
-  height:35px;
-  width:53px;
+  height: 45px;
+  width: 60px;
+  margin-left: 0px;
+  border:#E2E2E4 3px solid;
 }

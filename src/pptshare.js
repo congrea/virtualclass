@@ -17,6 +17,7 @@
 
 
     var sharePt = function() {
+        var pptfirst = false;
         return {
             pptUrl: "",
             state: {},
@@ -82,7 +83,11 @@
                         urlCont.style.display = "none";
                     }
                 }
-                this.getPptList();
+                if(!pptfirst){
+                    this.getPptList();
+                    pptfirst = true;
+                }
+
                // virtualclass.sharePt.retrieveOrder(); nirmala
 
                 this.findInStorage();
@@ -660,13 +665,12 @@
              * @param receivemsg  received message by the student
              */
             initNewPpt : function() {
-
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
                 virtualclass.sharePt.urlValue =   virtualclass.sharePt.toProtocolRelativeUrl();
                 var vUrl = virtualclass.sharePt.validUrl();
                 if(vUrl){
                     virtualclass.sharePt.savePptUrl(vUrl);
-
+                    document.getElementById("presentationurl").value = "";
                 } else {
                     alert('Invalid Url');
                 }
@@ -796,8 +800,8 @@
                     var content = JSON.parse(msg);
                     virtualclass.sharePt.ppts = content;
                     virtualclass.sharePt.createPageModule();
-                        // virtualclass.sharePt.showPpts(content);
-                        // virtualclass.sharePt.retrieveOrder();
+                        virtualclass.sharePt.showPpts(content);
+                        virtualclass.sharePt.retrieveOrder();
 
 
 

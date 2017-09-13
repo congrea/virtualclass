@@ -1190,7 +1190,7 @@
                                     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
 
                                 });
-
+                                document.querySelector(".congrea #videourl").value = "";
                             }
 
                         });

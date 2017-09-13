@@ -1,74 +1,45 @@
-<?php 
-function my_curl_request($url, $post_data){
+<?php
+function my_curl_request($url, $post_data, $key){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_HEADER, 'content-type: text/plain;');
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+            curl_setopt($ch, CURLOPT_HTTPHEADER,
+                        array('Content-Type: application/json',
+                        'x-api-key: ' . $key,
+                      ));
         curl_setopt($ch, CURLOPT_TRANSFERTEXT, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_PROXY, false);
-		curl_setopt($ch, CURLOPT_SSLVERSION, 1);
-
         $result = @curl_exec($ch);
-		if($result === false){  
-		    echo 'Curl error: ' . curl_error($ch);
-			exit;
-		}
         curl_close($ch);
-
         return $result;
 }
 
 //send auth detail to server
- $authusername = substr(str_shuffle(MD5(microtime())), 0, 12);
- $authpassword = substr(str_shuffle(MD5(microtime())), 0, 12);
- $licen = '';
- 
-//license key
-// 100-77087b83dcd4c4f7779587
-// 100-1139e6899fdeda0db594a5
-// 100-193dbd7a54da898a52f969
+$authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
+$authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
+$licensekey = '2895-tx-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword);
+$post_data = json_encode($post_data);
+//echo $post_data;
+$rid = my_curl_request("https://api.congrea.com/auth", $post_data, $licensekey);
+//print_r( $rid);exit;
 
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-77087b83dcd4c4f7779587');
 
-//$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-193dbd7a54da898a52f969');
-// $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-5454676903fc3060e4849a');
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'licensekey' => '100-193dbd7a54da898a52f969');
-
- $post_data = json_encode($post_data);
- 
-if (true) { // False for local server deployment
- // for local server
-//   $rid = my_curl_request("https://c.vidya.io", $post_data); // REMOVE HTTP
-
-// for online server
- $rid = my_curl_request("https://c.congrea.com", $post_data); // REMOVE HTTP
-
- //$rid = "8000.vidya.io";
-//print_r( $rid);exit;//8000.vidya.io
- 
- //$rid = "8002.vidya.io";
-// $rid = "8002.vidya.io";
-
-// for run with local chat server, enable below line
-//  $rid = "76876876.vidya.io";
- 
- if(empty($rid) or strlen($rid) > 32){
-  	echo "Chat server is unavailable!";
-  	exit;
-  }
-  
-//setcookie('auth_user', $authusername, 0, '/');
-//setcookie('auth_pass', $authpassword, 0, '/');
-//setcookie('path', $rid, 0, '/');
-     $rid = "wss://$rid";
-} else {
-    $rid = "ws://127.0.0.1:8080";
+if (!$rid = json_decode($rid)) {
+    echo "{\"error\": \"403\"}";exit;
+} elseif (isset($rid->message)) {
+    echo "{\"error\": \"$rid->message\"}";exit;
+} elseif (!isset($rid->result)) {
+    echo "{\"error\": \"invalid\"}";exit;
 }
-  //$rid='8000.vidya.io';
+
+$rid = "wss://$rid->result";
+
 ?>
 
 <script type="text/javascript">

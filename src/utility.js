@@ -1833,35 +1833,48 @@
         },
 
         initDashboardNav : function (currVideo){
-            var dashboardnav = document.querySelector('#dashboardnav button');
+            if(roles.hasControls()){
+                var dashboardnav = document.querySelector('#dashboardnav button');
 
-            if(dashboardnav == null){
-                var dbNavTemp = virtualclass.getTemplate('dashboardNav');
-                var context = {app : virtualclass.currApp};
-                var dbNavHtml = dbNavTemp(context);
+                if(dashboardnav == null){
+                    var dbNavTemp = virtualclass.getTemplate('dashboardNav');
+                    var context = {app : virtualclass.currApp};
+                    var dbNavHtml = dbNavTemp(context);
 
-                var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
-                virtualclassOptionsCont.insertAdjacentHTML('afterend', dbNavHtml);
+                    var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
+                    virtualclassOptionsCont.insertAdjacentHTML('afterend', dbNavHtml);
 
-                var dashboardnav =  document.querySelector('#dashboardnav button');
-                if(dashboardnav != null){
-                    dashboardnav.addEventListener('click', function (){
-                        virtualclass.vutil.initDashboard(virtualclass.currApp)});
-                       if(currVideo){
-                           virtualclass.vutil.readyDashboard();
-                       }
+                    var dashboardnav =  document.querySelector('#dashboardnav button');
+                    if(dashboardnav != null){
+                        dashboardnav.addEventListener('click', function (){
+                            virtualclass.vutil.initDashboard(virtualclass.currApp)});
+                        if(currVideo){
+                            virtualclass.vutil.readyDashboard();
+                        }
 
+                    }
                 }
+
+                if(virtualclass.currApp == 'DocumentShare'){
+                    if(!virtualclass.dts.noteExist()){
+                        this.readyDashboard();
+                    }
+                }else if(virtualclass.currApp == 'Video'){
+                    if(typeof currVideo == 'undefined'){
+                        this.readyDashboard();
+                    }
+                    // if(!(currVideo && currVideo.init && currVideo.init.videoUrl)){
+                    //     this.readyDashboard();
+                    // }
+                } else {
+                    this.readyDashboard();
+                }
+
+
             }
-
-            if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
-                this.readyDashboard(currVideo);
-            }
-
-
         },
 
-        readyDashboard : function (currVideo){
+        readyDashboard : function (){
             var currApp = virtualclass.currApp;
             // virtualclass.vutil.initDashboard(virtualclass.currApp);
             if(document.querySelector('#congdashboard') ==  null){
@@ -1940,8 +1953,8 @@
 
                 }
                 if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-                    virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-                    virtualclass.sharePt.retrieveOrder();
+                    // virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+                    // virtualclass.sharePt.retrieveOrder();
                 }
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
@@ -1960,6 +1973,7 @@
             // });
 
             $('#congdashboard').modal();
+            console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container

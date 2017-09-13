@@ -1957,9 +1957,6 @@
 	font-size: 15px;
 }
 
-#virtualclassCont.congrea #virtualclassOptionsCont{
-	border:#E2E2E4 3px solid;
-}
 
 #virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont{
 	background: #34404c; /* Old browsers */
@@ -2714,4 +2711,21 @@
 
 #dashboardnav i.dashboard-icon {
 	font-style: normal;
+}
+
+@media (min-width: 768px) {
+	#preCheckcontainer .modal-body{
+		max-height:513px;
+	}
+}
+
+@media (min-width: 768px) {
+	#preCheckcontainer .modal-content{
+		max-height:555px !important;
+	}
+}
+
+
+#virtualclassCont.congrea .appOptions.active {
+	pointer-events : none;
 }

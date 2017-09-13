@@ -31,7 +31,9 @@
   text-align:center;
   position: absolute;
   margin-top: 25px;
-  margin-left: 46px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 127px;
 }
 
 #virtualclassCont.congrea .dashboardview {

@@ -1319,8 +1319,11 @@
                 if(virtualclass.dts.docs.hasOwnProperty('currDoc')){
                     var doc = virtualclass.dts.docs.currDoc;
                     if(doc != undefined){
-                        ioAdapter.mustSend({'dts': {slideTo: virtualclass.dts.docs.note.currNote, docn : doc }, 'cf': 'dts'});
-                        console.log(virtualclass.gObj.currWb + ' ' + 'Document share send current slide');
+                        if(document.querySelector('#listnotes .note') != null){
+                            ioAdapter.mustSend({'dts': {slideTo: virtualclass.dts.docs.note.currNote, docn : doc }, 'cf': 'dts'});
+                            console.log(virtualclass.gObj.currWb + ' ' + 'Document share send current slide');
+                        }
+
                     }else {
                         console.log('Document sharing : doc number is undefined' );
                     }

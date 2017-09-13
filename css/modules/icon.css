@@ -23,18 +23,18 @@
   font-size: 28px;
 }
 /*#virtualclassCont .icon-setting:before {*/
-  /*content: "\e991";*/
-  /*font-size: 13px;*/
-  /*color:#4c4c4c;*/
-  /*font-weight: bold;*/
+/*content: "\e991";*/
+/*font-size: 13px;*/
+/*color:#4c4c4c;*/
+/*font-weight: bold;*/
 /*}*/
 /*#virtualclassCont .icon-help:before {*/
-  /*content: "\e928";*/
-  /*color:#4c4c4c;*/
+/*content: "\e928";*/
+/*color:#4c4c4c;*/
 /*}*/
 /*#virtualclassCont .icon-creator:before {*/
-  /*content: "\e923";*/
-  /*color:#4c4c4c;*/
+/*content: "\e923";*/
+/*color:#4c4c4c;*/
 /*}*/
 #virtualclassCont .icon-pencil2:before {
   content: "\f044";
@@ -595,7 +595,7 @@
 }
 
 #virtualclassCont.congrea i.dashboard-icon:before{
- content : "\e929";
+  content : "\e929";
   /*color: #34b532;*/
   /*font-size: 14px;*/
   /*position: relative;*/

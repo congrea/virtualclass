@@ -110,7 +110,7 @@
         'shareAnotherYouTubeVideo': 'Share Another YouTube Video',
         'editorCode': 'Code Editor',
         'editorRich': 'Text Editor',
-         'teachermayshow': 'YouTube video will be shared shortly.',
+        'teachermayshow': 'YouTube video will be shared shortly.',
         'youtubeshare': 'YouTube Video Share',
         'writemode': 'Write Mode',
         'readonlymode': 'Read Only',
@@ -139,7 +139,7 @@
         'uploadsession' : 'Please wait until processing is complete.',
         // 'VCE2', 'VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing'
         'VCE4' : 'Record data is missing',
-        'VCE5' : 'There is unable to Record Data.', 
+        'VCE5' : 'There is unable to Record Data.',
         'VCE6' : 'Course module is missing.',
         'invalidcmid' : 'Course Module is invalid.',
         'nomdlroot' : 'There is no url for momodle root.',
@@ -254,7 +254,8 @@
         'VideodbHeading' : 'Video Sharing Dashboard',
         'bandslow' : 'Bandwidth is slow.',
         'bandfast' : 'Bandwidth is high.',
-        'bandmedium' : 'Bandwidth is medium.'
+        'bandmedium' : 'Bandwidth is medium.',
+        'dap' : 'false'
 
 
 

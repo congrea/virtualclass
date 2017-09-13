@@ -492,7 +492,7 @@
 }
 
 #virtualclassCont.congrea .user-details .controls .congtooltip  {
-    position : static;
+	position : static;
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
@@ -1022,14 +1022,14 @@
 #virtualclassCont.congrea .ui-dialog-header span:first-child {
 	font-size : 14px;
 	padding-left : 3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    line-height: 16px;
-    max-height: 32px;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    width: 160px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-height: 16px;
+	max-height: 32px;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 160px;
 }
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
@@ -2293,7 +2293,7 @@
 	/*min-height: 50px;*/
 }
 #virtualclassCont.congrea .modal-body #qnTxCont
-/*#virtualclassCont.congrea .modal-body #optsTxCont*/{
+	/*#virtualclassCont.congrea .modal-body #optsTxCont*/{
 	margin-bottom: 10px;
 }
 
@@ -2313,7 +2313,7 @@
 	margin-top: 11px;
 }
 /*#virtualclassCont.congrea .modal label{*/
-	/*font-weight: normal;*/
+/*font-weight: normal;*/
 /*}*/
 #virtualclassCont.congrea .modal-header .modalHeaderTx{
 	font-weight: bold;
@@ -2465,26 +2465,26 @@
 /* Responsive CSS */
 
 /*@media (max-width: 1840px ){*/
-	/*#dispVideo {width: 82%;}*/
+/*#dispVideo {width: 82%;}*/
 /*}*/
 /*@media (max-width: 1740px ){*/
-	/*#dispVideo {width: 80%;}*/
+/*#dispVideo {width: 80%;}*/
 /*}*/
 /*@media (max-width: 1480px ){*/
-	/*#dispVideo {width: 77%;}*/
+/*#dispVideo {width: 77%;}*/
 /*}*/
 /*@media (max-width: 1370px ){*/
-	/*#dispVideo {width: 74%;}*/
+/*#dispVideo {width: 74%;}*/
 /*}*/
 /*@media (max-width: 1280px ){*/
-	/*!*#dispVideo {width: 72%;}*!*/
+/*!*#dispVideo {width: 72%;}*!*/
 /*}*/
 /*@media (max-width: 1160px ){*/
-	/*#dispVideo {width: 68%;}*/
-	/*#virtualclassCont.congrea #dispVideo {margin-left: 46px;}*/
+/*#dispVideo {width: 68%;}*/
+/*#virtualclassCont.congrea #dispVideo {margin-left: 46px;}*/
 /*}*/
 /*@media (max-width: 1024px ){*/
-	/*#dispVideo {width: 65%;}*/
+/*#dispVideo {width: 65%;}*/
 /*}*/
 
 #virtualclassCont.congrea #virtualclassVideo .linkvideo.playing{
@@ -2649,12 +2649,12 @@
 
 @media (min-width: 768px){
 	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
-   float:none !important;
+		float:none !important;
 	}
 }
 
 /*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont {*/
-	/*height:15%;*/
+/*height:15%;*/
 
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont,
@@ -2668,9 +2668,9 @@
 	}
 }
 /*@media (min-width: 992px){*/
-	/*#virtualclassCont.congrea #dashboardContainer #videoUrlContainer {*/
-		/*width:80%;*/
-	/*}*/
+/*#virtualclassCont.congrea #dashboardContainer #videoUrlContainer {*/
+/*width:80%;*/
+/*}*/
 /*}*/
 
 /** For handling the overlap of audio and video in firefox **/
@@ -2682,7 +2682,7 @@
 	margin-top : -1px;
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont {
-  width:10%;
+	width:10%;
 	float:left;
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
@@ -2690,10 +2690,10 @@
 	float:left;
 }
 /*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {*/
-	/*width:99%;*/
+/*width:99%;*/
 /*}*/
 /*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #submitURL {*/
-	/*width:10%;*/
+/*width:10%;*/
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
 	width: 80%;
@@ -2705,7 +2705,7 @@
 }
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
-padding: 17px 3px 17px 21px !important;
+	padding: 17px 3px 17px 21px !important;
 }
 
 #dashboardnav .btn-primary {

@@ -10,16 +10,16 @@
       <span id="usertab_text"><span id="onlineusertext">Private Chat</span></span>
     </a>
   </li>
-{{#if control}}
-  <li class="uiMuteAll">
-    <a id="contrAudioAll">
+  {{#if control}}
+    <li class="uiMuteAll congtooltip">
+      <a id="contrAudioAll">
           <span id="contrAudioAllImg" data-action="disable"
-                class="icon-all-audio-disable congtooltip"
+                class="icon-all-audio-disable"
                 data-title="Mute All">
           </span>
-    </a>
-  </li>
-{{/if}}
+      </a>
+    </li>
+  {{/if}}
 </ul>
 <div id="stickybar" class="maximize" style="z-index: 2000;">
   <div id="tabs" class="tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all">

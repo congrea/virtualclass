@@ -9,7 +9,7 @@
     overflow: hidden;
     left: -1px;
     border: 1px solid #bbb;
-} 
+}
 
 #virtualclassCont.congrea .ui-chatbox-titlebar {
     padding: 3px;
@@ -31,7 +31,7 @@
     border-width: 0;
     height: 170px;
     overflow-y: auto;
-    //width: 223px;
+//width: 223px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-input {
@@ -72,7 +72,7 @@
     float: right;
 }
 #virtualclassCont.congrea .ui-chatbox-msg .msgCont {
-	text-indent: 8px;
+    text-indent: 8px;
     border: 1px solid #eee;
     border-radius: 3px;
     line-height: 16px;
@@ -81,7 +81,7 @@
     background-color: rgba(0,0,0,0.016);
 }
 #virtualclassCont.congrea .ui-chatbox-msg .msgCont::first-letter {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 /*css for userlist*/
 
@@ -130,7 +130,7 @@
     z-index: 10000;
 }
 
-#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px;}
+#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px; width:68px;}
 #virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
     float: right;
     width: 324px;
@@ -198,6 +198,9 @@
     cursor: pointer;
 }
 
+#virtualclassCont.congrea.student .vmchat_room_bt{
+    width:160px;
+}
 #virtualclassCont.congrea #usertab_icon {
     background: url('/virtualclass/images/offline.png') no-repeat top left;
     float: left;
@@ -489,6 +492,10 @@
     width: 130px; /* add 100px , it was  218*/
 }
 
+#virtualclassCont.congrea.student[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea.student[data-currapp="EditorCode"] .vmchat_bar_button{
+    width:160px;
+}
+
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
     background-color: rgba(0,0,0,0.25);
     cursor: pointer;
@@ -580,7 +587,7 @@
 }
 
 #virtualclassCont.congrea .usern span {
-   margin-left : 6px;
+    margin-left : 6px;
 }
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {
@@ -589,20 +596,20 @@
 
 #virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_text,#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_icon{
     color:black;
-    
+
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
-	pointer-events : visible;
+    pointer-events : visible;
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.offline {
-        opacity: .6;
-        border-bottom: 1px solid #ddd;
-        
+    opacity: .6;
+    border-bottom: 1px solid #ddd;
+
 }
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.mySelf{
-	pointer-events : none !important;
+    pointer-events : none !important;
 }
 
 #virtualclassCont.congrea #chat_room .ui-chatbox-msg{
@@ -638,4 +645,8 @@
 .text {
     color: #464646;
     letter-spacing: 0.5px;
+}
+
+#virtualclassCont.congrea.student .vmchat_bar_button {
+    width:160px;
 }

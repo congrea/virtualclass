@@ -1833,32 +1833,32 @@
         },
 
         initDashboardNav : function (currVideo){
-            var dashboardnav = document.querySelector('#dashboardnav button');
+            if(roles.hasControls()){
+                var dashboardnav = document.querySelector('#dashboardnav button');
 
-            if(dashboardnav == null){
-                var dbNavTemp = virtualclass.getTemplate('dashboardNav');
-                var context = {app : virtualclass.currApp};
-                var dbNavHtml = dbNavTemp(context);
+                if(dashboardnav == null){
+                    var dbNavTemp = virtualclass.getTemplate('dashboardNav');
+                    var context = {app : virtualclass.currApp};
+                    var dbNavHtml = dbNavTemp(context);
 
-                var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
-                virtualclassOptionsCont.insertAdjacentHTML('afterend', dbNavHtml);
+                    var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
+                    virtualclassOptionsCont.insertAdjacentHTML('afterend', dbNavHtml);
 
-                var dashboardnav =  document.querySelector('#dashboardnav button');
-                if(dashboardnav != null){
-                    dashboardnav.addEventListener('click', function (){
-                        virtualclass.vutil.initDashboard(virtualclass.currApp)});
-                       if(currVideo){
-                           virtualclass.vutil.readyDashboard();
-                       }
+                    var dashboardnav =  document.querySelector('#dashboardnav button');
+                    if(dashboardnav != null){
+                        dashboardnav.addEventListener('click', function (){
+                            virtualclass.vutil.initDashboard(virtualclass.currApp)});
+                        if(currVideo){
+                            virtualclass.vutil.readyDashboard();
+                        }
 
+                    }
+                }
+
+                if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
+                    this.readyDashboard(currVideo);
                 }
             }
-
-            if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
-                this.readyDashboard(currVideo);
-            }
-
-
         },
 
         readyDashboard : function (currVideo){

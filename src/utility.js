@@ -1832,7 +1832,7 @@
             return true;
         },
 
-        initDashboardNav : function (){
+        initDashboardNav : function (currVideo){
             var dashboardnav = document.querySelector('#dashboardnav button');
 
             if(dashboardnav == null){
@@ -1845,14 +1845,23 @@
 
                 var dashboardnav =  document.querySelector('#dashboardnav button');
                 if(dashboardnav != null){
-                    dashboardnav.addEventListener('click', function (){virtualclass.vutil.initDashboard(virtualclass.currApp)});
+                    dashboardnav.addEventListener('click', function (){
+                        virtualclass.vutil.initDashboard(virtualclass.currApp)});
+                       if(currVideo){
+                           virtualclass.vutil.readyDashboard();
+                       }
+
                 }
             }
 
-            this.readyDashboard();
+            if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
+                this.readyDashboard(currVideo);
+            }
+
+
         },
 
-        readyDashboard : function (){
+        readyDashboard : function (currVideo){
             var currApp = virtualclass.currApp;
             // virtualclass.vutil.initDashboard(virtualclass.currApp);
             if(document.querySelector('#congdashboard') ==  null){
@@ -1896,10 +1905,14 @@
                     videocont.parentNode.removeChild(videocont);
                 }
 
-                var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-                var dbHtml = videoDashboard();
-                $('#VideoDashboard').append(dbHtml);
-                virtualclass.videoUl.UI.popup();
+
+               // if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
+                    var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                    var dbHtml = videoDashboard();
+                    $('#VideoDashboard').append(dbHtml);
+                    virtualclass.videoUl.UI.popup();
+               // }
+
                 virtualclass.vutil.attachEventToUpload();
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
@@ -1930,8 +1943,6 @@
                     virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
                     virtualclass.sharePt.retrieveOrder();
                 }
-
-
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
             for(var i=0; i<allDbContainer.length; i++){
@@ -1949,7 +1960,6 @@
             // });
 
             $('#congdashboard').modal();
-
             if(currApp == "DocumentShare"){
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container

@@ -528,9 +528,9 @@
 
             pollModalClose: function (pollType) {
                 if (roles.hasControls()) {
-                    if (this.pollState["currScreen"]) {
-                        if (this.pollState["currScreen"] == "teacherPublish") {
-                            this.pollState["currScreen"] = pollType == 'course' ? "displaycoursePollList" : "displaysitePollList";
+                    if (virtualclass.poll.pollState["currScreen"]) {
+                        if (virtualclass.poll.pollState["currScreen"] == "teacherPublish") {
+                            virtualclass.poll.pollState["currScreen"] = pollType == 'course' ? "displaycoursePollList" : "displaysitePollList";
                         }
 
                     }
@@ -544,26 +544,26 @@
 
                 if (opted) {
                     $('#editPollModal').remove();
-                    if (this.timer) {
+                    if (virtualclass.poll.timer) {
                         ioAdapter.mustSend({
                             'poll': {
                                 pollMsg: 'stdPublishResult',
-                                data: this.count
+                                data: virtualclass.poll.count
                             },
                             'cf': 'poll'
                         });
-                        this.resultToStorage();
+                        virtualclass.poll.resultToStorage();
                         var saveResult = {
-                            "qid": this.dataToStd.qId,
-                            "list": this.list
+                            "qid": virtualclass.poll.dataToStd.qId,
+                            "list": virtualclass.poll.list
                         }
 
 
                     }
-                    if (this.timer) {
-                        this.interfaceToSaveResult(saveResult);
-                        clearInterval(this.timer);
-                        this.timer = 0;
+                    if (virtualclass.poll.timer) {
+                        virtualclass.poll.interfaceToSaveResult(saveResult);
+                        clearInterval(virtualclass.poll.timer);
+                        virtualclass.poll.timer = 0;
                     }
 
                     var elem = document.getElementById("congreaPollVoters")
@@ -1268,15 +1268,15 @@
             },
             askConfirmClose: function (opted,label,pollType) {
                 if (opted) {
-
-                    ioAdapter.mustSend({
-                        'poll': {
-                            pollMsg: 'stdPublishResult',
-                            data: virtualclass.poll.count
-                        },
-                        'cf': 'poll'
-                    });
-
+                    if((virtualclass.poll.setting.showResult && roles.hasControls()) || !roles.hasControls()){
+                        ioAdapter.mustSend({
+                            'poll': {
+                                pollMsg: 'stdPublishResult',
+                                data: virtualclass.poll.count
+                            },
+                            'cf': 'poll'
+                        });
+                    }
                     virtualclass.poll.resultToStorage();
                     virtualclass.poll.UI.pollClosedUI();
                     var saveResult = {
@@ -1372,6 +1372,14 @@
                 if (resultLayout) {
                     resultLayout.parentNode.removeChild(resultLayout);
                 }
+
+                var elem = document.getElementById("stdPollContainer");
+                if(elem){
+                    elem.parentNode.removeChild(elem);
+                }
+
+
+
                 var layoutPoll = document.getElementById("layoutPoll");
                 if (layoutPoll) {
                     layoutPoll.style.display = "block";
@@ -1629,14 +1637,19 @@
                 if (btn) {
                     btn.classList.add("disabled");
                 }
+
                 if (roles.hasControls()) {
-                    ioAdapter.mustSend({
-                        'poll': {
-                            pollMsg: 'stdPublishResult',
-                            data: virtualclass.poll.count
-                        },
-                        'cf': 'poll'
-                    });
+
+                    if(virtualclass.poll.setting.showResult){
+                        ioAdapter.mustSend({
+                            'poll': {
+                                pollMsg: 'stdPublishResult',
+                                data: virtualclass.poll.count
+                            },
+                            'cf': 'poll'
+                        });
+
+                    }
 
                     if (virtualclass.poll.timer) {
 
@@ -1811,6 +1824,9 @@
                 }
             },
             noneVoted: function (pollType) {
+                if(typeof virtualclass.poll.timer !='undefined'){
+                    clearInterval(virtualclass.poll.timer );
+                }
 
                 this.noResultDisplay();
                 var head= document.querySelector("#resultLayoutHead");

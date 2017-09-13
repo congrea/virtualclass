@@ -17,6 +17,7 @@
 
 
     var sharePt = function() {
+        var pptfirst = false;
         return {
             pptUrl: "",
             state: {},
@@ -82,7 +83,11 @@
                         urlCont.style.display = "none";
                     }
                 }
-                this.getPptList();
+                if(!pptfirst){
+                    this.getPptList();
+                    pptfirst = true;
+                }
+
                // virtualclass.sharePt.retrieveOrder(); nirmala
 
                 this.findInStorage();
@@ -796,8 +801,8 @@
                     var content = JSON.parse(msg);
                     virtualclass.sharePt.ppts = content;
                     virtualclass.sharePt.createPageModule();
-                        // virtualclass.sharePt.showPpts(content);
-                        // virtualclass.sharePt.retrieveOrder();
+                        virtualclass.sharePt.showPpts(content);
+                        virtualclass.sharePt.retrieveOrder();
 
 
 

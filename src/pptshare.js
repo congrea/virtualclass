@@ -665,13 +665,12 @@
              * @param receivemsg  received message by the student
              */
             initNewPpt : function() {
-
                 virtualclass.sharePt.urlValue = document.getElementById("presentationurl").value;
                 virtualclass.sharePt.urlValue =   virtualclass.sharePt.toProtocolRelativeUrl();
                 var vUrl = virtualclass.sharePt.validUrl();
                 if(vUrl){
                     virtualclass.sharePt.savePptUrl(vUrl);
-
+                    document.getElementById("presentationurl").value = "";
                 } else {
                     alert('Invalid Url');
                 }

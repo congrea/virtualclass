@@ -222,9 +222,15 @@
 
 }
 
-
 #virtualclassCont.congrea #dashboardnav {
   position: absolute;
   top: 645px;
   left: -4px;
+}
+
+#virtualclassCont.congrea #dashboardnav button.btn-primary{
+  height: 45px;
+  width: 60px;
+  margin-left: 0px;
+  border:#E2E2E4 3px solid;
 }

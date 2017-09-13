@@ -424,7 +424,8 @@
                     var alwaysPressElem = document.getElementById('speakerPressing');
                     var anchor = tag.getElementsByClassName('congtooltip')[0];
                     // var anchor = tag.getElementsByClassName('tooltip')[0];
-                    if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                    // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                        if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
                         //this.studentSpeak(alwaysPressElem);
                         this.studentSpeak();
                         tag.setAttribute('data-audio-playing', "true");

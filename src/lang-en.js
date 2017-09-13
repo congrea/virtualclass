@@ -71,6 +71,7 @@
         'maxUserList': "Show User List",
         'startnewsession': "This session has not been saved, do you really want to end this session?",
         'DevicesNotFoundError': "Please check your Webcam (camera/microphone) connection.",
+        'dap' : 'false',
         'PermissionDeniedError': "Webcam access has been denied.",
         'PERMISSION_DENIED': "You denied access to your Webcam(camera/microphone).",
         'notSupportBrowser': "Firefox {virtualclass1} does not support Screen sharing.",
@@ -109,7 +110,7 @@
         'shareAnotherYouTubeVideo': 'Share Another YouTube Video',
         'editorCode': 'Code Editor',
         'editorRich': 'Text Editor',
-         'teachermayshow': 'YouTube video will be shared shortly.',
+        'teachermayshow': 'YouTube video will be shared shortly.',
         'youtubeshare': 'YouTube Video Share',
         'writemode': 'Write Mode',
         'readonlymode': 'Read Only',
@@ -138,7 +139,7 @@
         'uploadsession' : 'Please wait until processing is complete.',
         // 'VCE2', 'VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing'
         'VCE4' : 'Record data is missing',
-        'VCE5' : 'There is unable to Record Data.', 
+        'VCE5' : 'There is unable to Record Data.',
         'VCE6' : 'Course module is missing.',
         'invalidcmid' : 'Course Module is invalid.',
         'nomdlroot' : 'There is no url for momodle root.',
@@ -253,7 +254,9 @@
         'VideodbHeading' : 'Video Sharing Dashboard',
         'bandslow' : 'Bandwidth is slow.',
         'bandfast' : 'Bandwidth is high.',
-        'bandmedium' : 'Bandwidth is medium.'
+        'bandmedium' : 'Bandwidth is medium.',
+        'dap' : 'false'
+
 
 
     };

@@ -231,8 +231,8 @@
                 formData.append("qid", JSON.stringify(qid));
                 formData.append("user", virtualclass.gObj.uid);
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=poll_delete", function (msg) {
-                     var getContent = JSON.parse(msg);
-                     that.interfaceToFetchList(getContent);
+                    var getContent = JSON.parse(msg);
+                    that.interfaceToFetchList(getContent);
                 })
             },
             interfaceToDelOption: function (optionId) {
@@ -241,7 +241,7 @@
                 formData.append("id", JSON.stringify(optionId));
                 formData.append("user", virtualclass.gObj.uid);
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=poll_option_drop", function (msg) {
-                        // nothing to do
+                    // nothing to do
                 })
             },
             interfaceToSaveResult: function (data) {
@@ -314,7 +314,7 @@
                 var data = {
                     stdPoll: this.dataRec,
                     timer: this.newUserTime
-                            //timer: virtualclass.poll.newTimer
+                    //timer: virtualclass.poll.newTimer
                 }
                 this.pollState["currScreen"] = "stdPublish";
                 this.pollState["data"] = data;
@@ -342,7 +342,7 @@
                 var data = {
                     stdPoll: this.dataRec,
                     timer: this.newUserTime
-                            //timer: virtualclass.poll.newTimer
+                    //timer: virtualclass.poll.newTimer
                 }
                 this.pollState["currScreen"] = "voted";
                 this.pollState["data"] = data;
@@ -374,7 +374,7 @@
                     timer: this.newUserTime,
                     count: this.count,
                     view: this.currResultView
-                            //timer: virtualclass.poll.newTimer
+                    //timer: virtualclass.poll.newTimer
                 }
                 this.pollState["currScreen"] = "stdPublishResult";
                 this.pollState["data"] = data;
@@ -536,10 +536,10 @@
                     }
                 }
 
-                var message = "<span>Are u sure to close the poll  </span>";
-                virtualclass.popup.confirmInput(message, virtualclass.poll.resultCloseConfirm, pollType);
+                var message = "<span>Are you sure to close the poll  </span>";
+                virtualclass.popup.confirmInput(message, this.resultCloseConfirm, pollType);
             },
-      
+
             resultCloseConfirm: function (opted) {
 
                 if (opted) {
@@ -694,7 +694,7 @@
 
                 this.dispNewPollBtn("site", isAdmin);
                 if (this.pollState["currScreen"] != "teacherPublish") {
-                        this.pollState["currScreen"] = "displaysitePollList";
+                    this.pollState["currScreen"] = "displaysitePollList";
                 }
 
             },
@@ -750,42 +750,42 @@
             },
             forEachPoll: function (item, index, pollType,isAdmin) {
 
-                  var pollQn = {};
-                  pollQn.questiontext = item.questiontext;
-                  pollQn.creator = item.creatorname;
-                  pollQn.pollType = pollType;
-                  pollQn.index = index;
+                var pollQn = {};
+                pollQn.questiontext = item.questiontext;
+                pollQn.creator = item.creatorname;
+                pollQn.pollType = pollType;
+                pollQn.index = index;
 
-                  var template=virtualclass.getTemplate("qn","poll");
-                  $("#listQnCont" + pollType).append(template({"pollQn": pollQn}));
+                var template=virtualclass.getTemplate("qn","poll");
+                $("#listQnCont" + pollType).append(template({"pollQn": pollQn}));
 
-                  if (((pollType == "course" && item.createdby == wbUser.id) || (pollType == "site" && isAdmin == "true"))) {
-                        if(!item.isPublished){
-                            this.attachEvent("editQn" + pollType + index, "click", this.editHandler, item, pollType, index, item.createdby, item.questionid);
+                if (((pollType == "course" && item.createdby == wbUser.id) || (pollType == "site" && isAdmin == "true"))) {
+                    if(!item.isPublished){
+                        this.attachEvent("editQn" + pollType + index, "click", this.editHandler, item, pollType, index, item.createdby, item.questionid);
 
-                        }else{
-                              var link1= document.querySelector("#editQn"+pollType+index+" span")
-                              // link1.setAttribute("data-toggle", "tooltip")
-                              if(link1){
-                                link1.setAttribute("title", "cannt edit,poll attempted ");
-                                link1.style.cursor="default";
-                              }
-                        }
-                        this.attachEvent("deleteQn" + pollType + index, "click", this.deleteHandler, item, pollType, index);
-                  }else{
-                        var link1= document.querySelector("#editQn"+pollType+index+" span");
+                    }else{
+                        var link1= document.querySelector("#editQn"+pollType+index+" span")
+                        // link1.setAttribute("data-toggle", "tooltip")
                         if(link1){
-                              link1.setAttribute("title", "cannt edit, can be edited by creator of the poll");
-                              link1.style.cursor="default";
+                            link1.setAttribute("title", "cannt edit,poll attempted ");
+                            link1.style.cursor="default";
                         }
+                    }
+                    this.attachEvent("deleteQn" + pollType + index, "click", this.deleteHandler, item, pollType, index);
+                }else{
+                    var link1= document.querySelector("#editQn"+pollType+index+" span");
+                    if(link1){
+                        link1.setAttribute("title", "cannt edit, can be edited by creator of the poll");
+                        link1.style.cursor="default";
+                    }
 
-                        var link3 = document.querySelector("#deleteQn"+pollType + index+" span");
-                        link3.setAttribute("title", "cannt delete, can be deleted  by creator of the poll");
-                        link3.style.cursor="default";
+                    var link3 = document.querySelector("#deleteQn"+pollType + index+" span");
+                    link3.setAttribute("title", "cannt delete, can be deleted  by creator of the poll");
+                    link3.style.cursor="default";
 
-                  }
-                  this.attachEvent("publishQn" + pollType + index, "click", this.publishHandler, item, pollType, index);
-                  this.previewOnHover(item,pollType,index);
+                }
+                this.attachEvent("publishQn" + pollType + index, "click", this.publishHandler, item, pollType, index);
+                this.previewOnHover(item,pollType,index);
 
             },
 
@@ -832,7 +832,7 @@
                     poll = virtualclass.poll.coursePoll[index];
                 } else {
                     poll =virtualclass.poll.sitePoll[index];
-                 }
+                }
                 data.options = poll.options;
                 data.questiontext = poll.questiontext;
 
@@ -847,8 +847,8 @@
                 })
 
                 $("#editPollModal").on('hidden.bs.modal', function () {
-                $("#editPollModal").remove();
-              });
+                    $("#editPollModal").remove();
+                });
 
             },
             stdResponse: function (response, fromUser) {
@@ -870,13 +870,13 @@
                 })
                 $('#editPollModal').modal({
                     show: true
-                 });
+                });
 
                 $("#editPollModal").on('hidden.bs.modal', function () {
                     $("#editPollModal").remove();
                 });
 
-               virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, undefined, pollType);
+                virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, undefined, pollType);
 
             },
             //******************
@@ -935,7 +935,7 @@
                 return 1;
             },
             closePoll: function (pollType) {
-                var message = " are you sure to close the poll";
+                var message = " Are you sure to close the poll";
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirmClose,"close",pollType);
 
 
@@ -1185,10 +1185,10 @@
 
                 var cont = document.getElementById("layoutPollBody");
                 var elem = document.createElement('div');
-                 elem.className = "container";
+                elem.className = "container";
                 cont.appendChild(elem);
                 var modal = document.getElementById("editPollModal");
-                 if (modal) {
+                if (modal) {
                     modal.remove();
                 }
                 var obj = {};
@@ -1227,17 +1227,17 @@
                 if (notify.length > 0) {
                     notify[0].parentNode.removeChild(notify[0]);
                 }
-                var message = "<span>Are u sure to delete this Poll</span>";
+                var message = "<span>Are you sure to delete this Poll</span>";
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirm, pollType, index);
             },
 
             showMsg: function (contId, msg, type) {
                 var mszCont = document.getElementById(contId);
                 if(!mszCont){
-                     var layout = document.getElementById("layoutPollBody");
-                     mszCont = document.createElement("div");
-                     mszCont.id=contId
-                     layout.appendChild(mszCont);
+                    var layout = document.getElementById("layoutPollBody");
+                    mszCont = document.createElement("div");
+                    mszCont.id=contId
+                    layout.appendChild(mszCont);
                 }
                 var elem = document.createElement("div");
                 elem.className = "alert  alert-dismissable";
@@ -1460,7 +1460,7 @@
                 var data = {
                     stdPoll: virtualclass.poll.dataRec,
                     timer: virtualclass.poll.newUserTime
-                            //timer: virtualclass.poll.newTimer
+                    //timer: virtualclass.poll.newTimer
                 }
                 virtualclass.poll.pollState["currScreen"] = "voted";
                 virtualclass.poll.pollState["data"] = data;
@@ -1525,7 +1525,7 @@
 
 
                 } else {
-                  var elem = document.getElementById("timerCont")
+                    var elem = document.getElementById("timerCont")
 
                 }
 
@@ -1559,13 +1559,13 @@
                     clearInterval(virtualclass.poll.timer);
                 }
                 var elem = document.getElementById("timerCont");
-               if(roles.hasControls()) {
+                if(roles.hasControls()) {
                     if (virtualclass.poll.pollState.data) {
                         virtualclass.poll.pollState["data"].newTime = virtualclass.poll.newUserTime;
                         console.log("test" + virtualclass.poll.pollState["data"].newTime);
                     }
 
-               }
+                }
                 var min = 0;
                 var sec = 0;
                 if (roles.hasControls()) {
@@ -2236,11 +2236,11 @@
                     list.removeChild(list.childNodes[0]);
                 }
                 if (virtualclass.poll.list.length > 0) {
-                  virtualclass.poll.createResponseTable(cont);
-                  var msz = document.getElementById("pollResultMsz");
-                  if (msz) {
-                    msz.parentNode.removeChild(msz)
-                  }
+                    virtualclass.poll.createResponseTable(cont);
+                    var msz = document.getElementById("pollResultMsz");
+                    if (msz) {
+                        msz.parentNode.removeChild(msz)
+                    }
                 }
 
             },
@@ -2366,13 +2366,13 @@
                         var coursePollNav = document.querySelector("#coursePollTab");
                         var sitePollNav = document.querySelector("#sitePollTab")
                         sitePollNav.addEventListener('click', function () {
-                        var category = 0;
-                        coursePollNav.classList.remove('active');
-                        sitePollNav.classList.add('active');
-                        sitePollNav.style.pointerEvents="none";
-                        coursePollNav.style.pointerEvents="visible";
-                        virtualclass.poll.interfaceToFetchList(category);
-                    });
+                            var category = 0;
+                            coursePollNav.classList.remove('active');
+                            sitePollNav.classList.add('active');
+                            sitePollNav.style.pointerEvents="none";
+                            coursePollNav.style.pointerEvents="visible";
+                            virtualclass.poll.interfaceToFetchList(category);
+                        });
 
                         coursePollNav.addEventListener('click', function () {
                             sitePollNav.classList.remove('active');
@@ -2451,17 +2451,17 @@
                         obj.options=virtualclass.poll.dataToStd.options;
 
                         var template=virtualclass.getTemplate("result-modal","poll");
-                         if ($("#editPollModal").length) {
-                             $("#editPollModal").remove();
-                         }
+                        if ($("#editPollModal").length) {
+                            $("#editPollModal").remove();
+                        }
 
                         $("#bootstrapCont").append(template({"obj": obj}));
-                        } else {
+                    } else {
 
-                            obj.question=virtualclass.poll.dataRec.question;
-                            var template=virtualclass.getTemplate("stdResult","poll");
-                            $("#virtualclassPoll").append(template({"obj":obj}));
-                        }
+                        obj.question=virtualclass.poll.dataRec.question;
+                        var template=virtualclass.getTemplate("stdResult","poll");
+                        $("#virtualclassPoll").append(template({"obj":obj}));
+                    }
 
                     this.resultLayoutBody();
                 },
@@ -2492,12 +2492,12 @@
                             this.createResultMsgCont();
                         }
 
-                   }
+                    }
 
                 },
                 createResultMsgCont: function (cont) {
-                  var elem = document.getElementById("pollResultMsz")
-                  elem.innerHTML = "Waiting for student response"
+                    var elem = document.getElementById("pollResultMsz")
+                    elem.innerHTML = "Waiting for student response"
 
                 },
                 pollClosedUI: function () {
@@ -2523,7 +2523,7 @@
                     elem.addEventListener('click', virtualclass.poll.barGraph)
 
                     var pi = document.querySelector("#chartMenuCont #piView");
-                     pi.addEventListener('click', virtualclass.poll.createPiChart);
+                    pi.addEventListener('click', virtualclass.poll.createPiChart);
 
                     if (roles.hasControls()) {
 
@@ -2547,9 +2547,9 @@
                         });
 
                     }
-                   $(function () {
+                    $(function () {
                         $('[data-toggle="popover"]').popover()
-                   })
+                    })
 
                 },
                 createMszBox: function (cont) {
@@ -2649,8 +2649,8 @@
                     } else {
                         for (var i = 0; i < opts.length; i++) {
                             virtualclass.poll.UI.editOptions(pollType, index, i, optsCount);
+                        }
                     }
-                  }
 
                 },
                 previewFooterBtns: function (footerCont, pollType, index) {
@@ -2661,24 +2661,24 @@
                     }
                 },
                 footerBtns: function (pollType, index) {
-                   if (pollType) {
-                     virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, index, pollType);
-                   }
+                    if (pollType) {
+                        virtualclass.poll.pollPopUp(virtualclass.poll.popupFn, index, pollType);
+                    }
                 },
                 editQn: function (pollType, index) {
-                   var qn = document.querySelector("#qnTxCont #q")
-                   if (qn == null) {
-                      qn.value = document.getElementById("qnText" + pollType + index).innerHTML;
+                    var qn = document.querySelector("#qnTxCont #q")
+                    if (qn == null) {
+                        qn.value = document.getElementById("qnText" + pollType + index).innerHTML;
 
-                   }
+                    }
 
-                   if (qn != null && !qn.value) {
-                      if (pollType =='course') {
-                         qn.value = virtualclass.poll.coursePoll[index].questiontext;
-                      } else {
-                         qn.value = virtualclass.poll.sitePoll[index].questiontext;
-                      }
-                   }
+                    if (qn != null && !qn.value) {
+                        if (pollType =='course') {
+                            qn.value = virtualclass.poll.coursePoll[index].questiontext;
+                        } else {
+                            qn.value = virtualclass.poll.sitePoll[index].questiontext;
+                        }
+                    }
 
                 },
                 editOptions: function (pollType, qIndex, prop, optsCount) {
@@ -2712,10 +2712,10 @@
                 pollSettingUI: function (index, label) {
                     function range(lowEnd, highEnd) {
                         var arr = [],
-                         c = highEnd - lowEnd + 1;
+                            c = highEnd - lowEnd + 1;
                         while (c--) {
-                        arr[c] = highEnd--
-                    }
+                            arr[c] = highEnd--
+                        }
                         return arr;
                     }
 

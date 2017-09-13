@@ -29,6 +29,9 @@
   overflow: hidden;
   height:42px;
   text-align:center;
+  position: absolute;
+  margin-top: 25px;
+  margin-left: 46px;
 }
 
 #virtualclassCont.congrea .dashboardview {
@@ -151,7 +154,7 @@
   margin: 3px;
   width: 200px;
   position: relative;
-  background: #eee;
+  background: #ffffff;
   border-radius: 3px;
   height: 113px;
   margin-bottom : 30px;
@@ -163,28 +166,36 @@
 #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
   float: left;
   border: 1px solid #eee;
-  padding: 5px 5px 0;
+  /*padding: 5px 5px 0;*/
+  height:23px;
   border-radius: 2px;
   /*margin: -2px 3px 3px;*/
   background: #fff;
-  margin-top:15px;
-  width:100%;
+  /*margin-top:17px;*/
+  width:40%;
+  position: absolute;
+  margin-top: 63px;
+  margin-left: 80px;
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="1"], #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="0"] {
-  float: left;
-  font-size: 0px;
-  margin: -2px 6px 3px;
-  height: 18px;
-}
-
-
-#virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete {
+#virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="1"],
+#virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="0"],
+#virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete{
   float: left;
   font-size: 0px;
   margin: -2px 3px 0 3px;
   height: 20px;
+  padding-top:2px;
 }
+
+
+/*#virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete {*/
+/*float: left;*/
+/*font-size: 0px;*/
+/*margin: -2px 3px 0 3px;*/
+/*height: 20px;*/
+/*padding-top:2px;*/
+/*}*/
 
 #virtualclassCont #listvideo .linkvideo{
   border: 1px solid #ddd;
@@ -199,19 +210,24 @@
   box-shadow: 0 0 6px rgb(96, 96, 97);
 }
 
+#virtualclassCont #listvideo .controlCont:hover {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+}
+
 button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"]{
   text-shadow:none !important;
 }
 
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/
-  /*height: 46px;  width:300px;*/
-  /*font-size: 14px;*/
+/*height: 46px;  width:300px;*/
+/*font-size: 14px;*/
 /*}*/
 #virtualclassCont #urlcontainer #presentationurl{vertical-align: top;}
 
 /*#virtualclassCont .dashboardview #urlcontainer{*/
 
-  /*margin-top:10px;*/
+/*margin-top:10px;*/
 /*}*/
 
 #virtualclassCont.congrea #VideoDashboard .dashboardview{
@@ -227,8 +243,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   height : 85%;
 }
 /*#virtualclassCont.congrea #videoUrlContainer {*/
-  /*width:100%;*/
-  /*height:100%;*/
+/*width:100%;*/
+/*height:100%;*/
 /*}*/
 #virtualclassCont #congreavideoContBody .qq-uploader-selector.qq-uploader{
   width: 100%;
@@ -237,8 +253,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 /*#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {*/
-  /*background-color: #4c4c4c;*/
-  /*background-image: none;*/
+/*background-color: #4c4c4c;*/
+/*background-image: none;*/
 /*}*/
 
 #videoUrlContainer {
@@ -255,13 +271,13 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   text-align: center;
 }
 
- #virtualclassCont.congrea.student.presenter #videoUrlContainer {
-   text-align: left;
+#virtualclassCont.congrea.student.presenter #videoUrlContainer {
+  text-align: left;
 }
 
 
 #virtualclassCont.congrea #VideoDashboard .qq-gallery .qq-thumbnail-wrapper {
- display:none !important;
+  display:none !important;
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont{
@@ -282,7 +298,9 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   font-size: 0;
   border-radius: 2px;
   float: left;
-  margin: 0 10px;
+  margin: -2px 3px 3px;
+  height: 20px;
+  padding-top:2px;
 }
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview::before {
   content: "\ea1c";

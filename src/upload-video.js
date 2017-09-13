@@ -1153,49 +1153,45 @@
 
                         var submitURL= document.getElementById("submitURL")
                         submitURL.addEventListener("click", function () {
-                            var type="yts";
+
                             var input = document.querySelector(".congrea #videourl");
-                            var rdata = new FormData();
-                            // virtualclass.videoUl.shareVideo(input.value);
-                            $('.congrea #listvideo .playing').removeClass('playing');
-                            $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
-                            // var cont = document.getElementById('listvideo')
-                            // var div = document.createElement("div");
-                            // cont.appendChild(div);
-                            // var anc = document.createElement("a");
-                            // div.appendChild(anc)
-                            // anc.href = "#" ;
-                           // anc.innerHTML=input.value;
-                            var vidObj={}
-                            vidObj.content_path=input.value;
-                            vidObj.id ="tempid";
-                            vidObj.status=1;
-                            vidObj.title=input.value
-                            rdata.append("video",input.value);
+                            var isURL =  virtualclass.videoUl.UI.validateURL(input.value);
+                            if(isURL){
+                                var rdata = new FormData();
+                                // virtualclass.videoUl.shareVideo(input.value);
+                                $('.congrea #listvideo .playing').removeClass('playing');
+                                $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
-                            var videoId = virtualclass.videoUl.getVideoId(input.value);
-                            if (typeof videoId == 'boolean') {
-                                vidObj.type="online";
-                                rdata.append("type","online");
+                                var vidObj={}
+                                vidObj.content_path=input.value;
+                                vidObj.id ="tempid";
+                                vidObj.status=1;
+                                vidObj.title=input.value
+                                rdata.append("video",input.value);
 
+                                var videoId = virtualclass.videoUl.getVideoId(input.value);
+                                if (typeof videoId == 'boolean') {
+                                    vidObj.type="online";
+                                    rdata.append("type","online");
 
-                            }else  {
-                                vidObj.type="yts"
-                                rdata.append("type","yts" );
+                                }else  {
+                                    vidObj.type="yts"
+                                    rdata.append("type","yts" );
+
+                                }
+
+                                virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
+                                    var content = JSON.parse(msg);
+                                    console.log(content);
+                                    vidObj.id= content.resultdata.id;
+                                    virtualclass.videoUl.afterUploadFile(vidObj);
+                                    virtualclass.videoUl.order.push(content.resultdata.id);
+                                    virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+
+                                });
 
                             }
-
-
-                            virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
-                                var content = JSON.parse(msg);
-                                console.log(content);
-                                 vidObj.id= content.resultdata.id;
-                                virtualclass.videoUl.afterUploadFile(vidObj);
-                                virtualclass.videoUl.order.push(content.resultdata.id);
-                                virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-
-                            });
 
                         });
 
@@ -1204,13 +1200,22 @@
                             upload.addEventListener('click',function(){
                                 var uploader= document.querySelector('.congrea #congreavideoContBody');
                                 uploader.style.display="block";
-
                                 var uploader= document.querySelector('.congrea #listvideo');
                                 uploader.style.display="none";
 
                              })
 
                         }
+
+                },
+                validateURL:function(url){
+                    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+                    if(res == null){
+                        alert("invalid url ");
+                        return false;
+                    }
+                    else
+                        return true;
 
                 },
                 createPlayerCont:function(){

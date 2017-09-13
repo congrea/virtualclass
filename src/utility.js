@@ -1978,12 +1978,16 @@
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 }
+                virtualclass.vutil.attachEventToUploadTab();
+
             }
 
             var moodleHeader = document.querySelector('#congdashboard .modal-header h4');
             if(moodleHeader != null){
                 moodleHeader.innerHTML = virtualclass.lang.getString(currApp + 'dbHeading');
             }
+
+
         },
 
         getDocsDashBoard : function (app){

@@ -497,7 +497,7 @@
 
 #virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
 	position : absolute;
-	top : 120px;
+	top : 70px;
 	border-left : 0;
 	border-bottom-right-radius : 10px;
 	border-top-right-radius : 10px;
@@ -2733,7 +2733,7 @@
 }
 
 #dashboardnav .btn-primary {
-	background : linear-gradient(to bottom, #515e69 0%, #34404c 100%) !important;
+	background : linear-gradient(to bottom, #254d6f 0%, #51a0ef 100%) !important;
 }
 
 #dashboardnav i.dashboard-icon {

@@ -1047,6 +1047,7 @@
                         context = contPara;
                     }else if(initTemplates[i] == 'audioWidget'){
                         context = virtualclassSetting;
+                        context.isControl= roles.hasControls();
 
                     }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
                         context = isControl;

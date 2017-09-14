@@ -42,6 +42,7 @@
     var userSource = {}; //for contain the user specific audio source
     var sNode = {};
     var ac = {};
+    var sNodePak = {};
 //        var AudioContext = AudioContext || webkitAudioContext;
     /*
      * this returns an object that contains various Properties
@@ -257,7 +258,7 @@
                         vol > (minthreshold * 2) || // Current max volume
                         thdiff <= 4 ) { // We are not ready for this algo
                         this.audioSend(send, audStatus);
-                        audioWasSent = 9;
+                        audioWasSent = 3;
                         // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
@@ -628,6 +629,7 @@
                     if(typeof sNode[uid] != 'object'){
                         console.log('script processor node is created');
                         sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
+                        sNodePak[uid] = 0;
                         sNode[uid].onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
                             var newAud = virtualclass.gObj.video.audio.getAudioChunks(uid);
@@ -636,12 +638,10 @@
                                 for (i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
-                                if (newAud.length == 16383) {
-                                    output[16383] = newAud[16382];
-                                }
+                                sNodePak[uid] = newAud[16383];
                             }else {
                                 for (i = 0; i < output.length; i++) {
-                                    output[i] = 0;
+                                    output[i] = sNodePak[uid];
                                 }
                             }
                         };
@@ -695,12 +695,20 @@
                      The Audio context should be generated on Student side by following code */
 
                     if(typeof this.resamplerdecode != 'object'){
+                        this.resamplerdecode  = {};
+                    }
+
+                    if(typeof this.resamplerdecode[uid] != 'object'){
                         if(typeof this.Html5Audio != 'object'){
                             this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                         }
-                        this.resamplerdecode = new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
+
+                        if(typeof this.resamplerdecode[uid] != "object"){
+                            this.resamplerdecode[uid] =  new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
+                        }
                     }
-                    var samples = this.resamplerdecode.resampler(samples);
+
+                    var samples = this.resamplerdecode[uid].resampler(samples);
                     // this.audioToBePlay[uid].push(new Float32Array(samples));
 
                     if(typeof allAudioArr[uid] == 'undefined'){
@@ -715,7 +723,7 @@
                     }
 
                     if(typeof ac[uid] == 'undefined'){
-                       ac[uid] = 0;
+                        ac[uid] = 0;
                     }
 
                     /* Picking up an audio chunk and giving
@@ -741,13 +749,13 @@
                         ac[uid] = 0;
                     }
                     console.log("Audio " + this.audioToBePlay[uid].length + " uid " + uid);
-                    if (this.audioToBePlay[uid].length >= 8) {
+                    if (this.audioToBePlay[uid].length >= 19) { // 7 seconds
                         // console.log("Audio Buffer Full");
-                        while (this.audioToBePlay[uid].length >= 3) {
+                        while (this.audioToBePlay[uid].length >= 11) { // 4 seconds
                             virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                    } else if(ac[uid] >= 3) {
+                    } else if(ac[uid] >= 3) { // 1 second
                         // console.log("start audio");
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                     } else {

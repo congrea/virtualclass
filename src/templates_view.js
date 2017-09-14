@@ -5,7 +5,7 @@ this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4
 },"useData":true});
 
 this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"videoSwitchCont congtooltip\" data-title=\"Vedio off\" id=\"congCtrBar\">\n      <a id=\"rightCtlr\">\n        <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on \" ></span>\n      </a>\n    </li>\n";
+    return "    <li class=\"videoSwitchCont congtooltip\" data-title=\"Video off\" id=\"congCtrBar\">\n      <a id=\"rightCtlr\">\n        <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on \" ></span>\n      </a>\n    </li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 

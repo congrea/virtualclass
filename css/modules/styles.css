@@ -2735,6 +2735,9 @@
 #dashboardnav .btn-primary {
 	background : linear-gradient(to bottom, #254d6f 0%, #51a0ef 100%) !important;
 }
+#dashboardnav .btn-primary:hover{
+background-color: gray;
+}
 
 #dashboardnav i.dashboard-icon {
 	font-style: normal;
@@ -2766,4 +2769,14 @@
 
 #virtualclassCont.congrea.student #videoPacketInfo:hover{
 	height:50px;
+}
+
+@media (min-height:768px){
+	#dashboardnav {
+		position: absolute;
+		top: 612px !important;
+		left: -4px;
+		height: 45px;
+		border:0px;
+	}
 }

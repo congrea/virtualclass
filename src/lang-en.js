@@ -239,7 +239,7 @@
         'pressAlwaysToSpeak' : 'Press always to speak.',
         'pushtotalk' : 'Push To Talk',
         'waitmsgconnect' : 'Please wait a whlie. Application is trying to connect.',
-        'testingbrowser' : 'Testing Browser Compatibility',
+        'testingbrowser' : 'Testing Browser Compatibfility',
         'testinginternetspeed' : 'Testing Internet Speed',
         'testingspeaker' : 'Testing Speaker',
         'testingmichrophone' : 'Testing Microphone',
@@ -255,9 +255,8 @@
         'bandslow' : 'Bandwidth is slow.',
         'bandfast' : 'Bandwidth is high.',
         'bandmedium' : 'Bandwidth is medium.',
-        'dap' : 'false'
-
-
+        'pclosetag' : '<span>Are you sure to close this poll  </span>',
+        'pclose' : 'Are you sure to close the poll'
 
     };
     window.message = message;

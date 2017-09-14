@@ -1120,6 +1120,12 @@
 	padding-top: 10px;
 }
 
+#virtualclassCont.congrea.student #speakerPressOnce{
+	width : 25%;
+	height : 50px;
+	padding-top: 10px;
+}
+
 #virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {
 	float : left;
 	text-align: center;
@@ -2603,6 +2609,13 @@
 	padding-top: 15px;
 }
 
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber{
+	height: 50px;
+	width: 25%;
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	padding-top: 15px;
+}
+
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
@@ -2610,6 +2623,16 @@
 	width: 20%;
 	border-left:1px solid #757474;
 }
+
+
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .prechk,
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
+	height: 50px;
+	width: 25%;
+	border-left:1px solid #757474;
+}
+
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #ntkstatus{
 	padding-top: 5px;
 	font-size: 12px;
@@ -2705,8 +2728,15 @@
 	padding: 17px 3px 17px 21px !important;
 }
 
+#virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
+	padding: 17px 11px 17px 21px !important;
+}
+
 #dashboardnav .btn-primary {
 	background : linear-gradient(to bottom, #254d6f 0%, #51a0ef 100%) !important;
+}
+#dashboardnav .btn-primary:hover{
+background-color: gray;
 }
 
 #dashboardnav i.dashboard-icon {
@@ -2725,7 +2755,28 @@
 	}
 }
 
-
 #virtualclassCont.congrea .appOptions.active {
 	pointer-events : none;
+}
+
+#virtualclassCont.congrea.student  #speakerPressonceLabel {
+	margin-left:8px;
+}
+
+#virtualclassCont.congrea.student #videLatency {
+	margin-left:5px;
+}
+
+#virtualclassCont.congrea.student #videoPacketInfo:hover{
+	height:50px;
+}
+
+@media (min-height:768px){
+	#dashboardnav {
+		position: absolute;
+		top: 612px !important;
+		left: -4px;
+		height: 45px;
+		border:0px;
+	}
 }

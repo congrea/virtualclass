@@ -71,7 +71,7 @@
                         urlCont.style.display = "block";
                     }
 
-                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                    // virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
 
                 }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');

@@ -1664,16 +1664,20 @@
 
 
         attachEventToUploadTab : function (type, elemArr, cb) {
-            var btn = document.getElementById("newDocBtn")
+
+            var btn = document.getElementById("newDocBtn");
             if(btn != null){
-                btn.addEventListener("click", function (){
-                    var element = document.querySelector('#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input');
-                    if(element != null){
-                        element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
-                    }else {
-                        alert('Element is null');
-                    }
-                })
+                btn.removeEventListener('click', virtualclass.vutil._attachEventToUploadTab);
+                btn.addEventListener("click", virtualclass.vutil._attachEventToUploadTab)
+            }
+        },
+
+        _attachEventToUploadTab : function (){
+            var element = document.querySelector('#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input');
+            if(element != null){
+                element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
+            }else {
+                alert('Element is null');
             }
         },
         attachEventToUpload : function (type, elemArr, cb) {
@@ -1978,7 +1982,7 @@
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 }
-                virtualclass.vutil.attachEventToUploadTab();
+               virtualclass.vutil.attachEventToUploadTab();
 
             }
 

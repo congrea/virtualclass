@@ -108,6 +108,25 @@
                              }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData); 
                              }
+                        },
+                        onError:function(){
+                            var alertMsz= document.querySelector(".dbContainer .alert");
+                            if(alertMsz){
+                                alertMsz.parentNode.removeChild(alertMsz);
+                            }
+
+                            if(obj.cthis == 'video'){
+                                var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                                if(msz){
+                                    msz.style.display="none";
+                                }
+                            }else if (obj.cthis == 'docs'){
+                                var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
+                                if(msz){
+                                    msz.style.display="none";
+                                }
+                            }
+
                         }
 
                     },

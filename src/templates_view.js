@@ -187,7 +187,7 @@ this["JST"]["templates/dashboardNav.hbs"] = Handlebars.template({"compiler":[7,"
 },"useData":true});
 
 this["JST"]["templates/documentSharing/dashboard.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "      <div id=\"docsUploadMsz\" class=\"col-sm-12\">  </div>\n      <div id=\"listnotes\" class=\"listPages pages col-sm-12\"></div>\n";
+    return "      <div id=\"docsUploadMsz\" class=\"qq-gallery\">  </div>\n      <div id=\"listnotes\" class=\"listPages pages col-sm-12\"></div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 

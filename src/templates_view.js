@@ -682,7 +682,7 @@ this["JST"]["templates/ppt/ppt.hbs"] = Handlebars.template({"1":function(contain
 },"useData":true});
 
 this["JST"]["templates/ppt/pptiframe.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"iframecontainer\" style=\"height: 90%; width: 100%; display: block;\">\n  <iframe id=\"pptiframe\" style=\"height: 100%; width: 100%;\">\n  </iframe>\n</div>\n";
+    return "<div id=\"iframecontainer\">\n  <iframe id=\"pptiframe\">\n  </iframe>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

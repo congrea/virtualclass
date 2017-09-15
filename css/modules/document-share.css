@@ -627,3 +627,19 @@
 #virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz{
     z-index:2;
 }
+
+
+#virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li{
+    width:70%;
+    margin-left:10%;
+
+}
+
+#virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li .qq-thumbnail-wrapper{
+    display:none;
+}
+
+
+#virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li .qq-file-info{
+    margin-left:40%;
+}

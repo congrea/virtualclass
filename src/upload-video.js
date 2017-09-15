@@ -244,17 +244,26 @@
                     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
                     virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
 
+
                 } else if (res.message == "Failed") {
                     alert("video upload failed");
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
 
+
                 } else if (res.message == "duplicate") {
                     alert("video is already uploaded");
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
+
                 } else {
                     //fallback
                     alert("video upload failed");
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
+
+                }
+
+                var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                if(msz){
+                    msz.style.display="none";
                 }
 
             },
@@ -1257,14 +1266,22 @@
                     virtualclass.videoUl.getVideoList();
 
                     var cont =  document.querySelector("#uploadMsz")
-                    var msz = document.querySelector(".qq-upload-list-selector.qq-upload-list");
-                    if(msz){
-                        msz.style.display="none";
-                    }
+                    var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                     if(msz){
+                         msz.style.display="block";
+                     }
+                    var upMsz= document.createElement("div")
+                    cont.appendChild(upMsz);
+                    upMsz.appendChild(msz);
 
                     var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= $("#uploadVideo");
                     btnUpload.click(function(){
+                        var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                        if(msz){
+                            msz.style.display="block";
+                        }
+
                         btn.click();
                     })
 

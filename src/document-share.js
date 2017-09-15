@@ -1602,6 +1602,9 @@
                 if(response.hasOwnProperty('resultdata')){
                     this.afterUploadFile(response.resultdata.id);
                     this.showUploadMsz("document upload success","alert-success");
+
+
+
                 } else if (response.message == 'duplicate'){
                     //alert(virtualclass.lang.getString('duplicateUploadMsg'));
                     this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'),"alert-error");
@@ -1609,6 +1612,11 @@
                 } else {
                     this.showUploadMsz(virtualclass.lang.getString('someproblem'),"alert-error");
 
+                }
+
+                var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
+                if (msz) {
+                    msz.style.display = "none";
                 }
 
                 var listnotes  = document.querySelector('#listnotes');
@@ -1638,7 +1646,6 @@
                 btn.setAttribute("data-dismiss", "alert")
                 btn.innerHTML = "&times";
                 elem.appendChild(btn);
-
             },
 
 

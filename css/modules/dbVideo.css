@@ -317,3 +317,21 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard .controlCont.showCtr{
   display:block!important;
 }
+#virtualclassCont.congrea #VideoDashboard #uploadMsz .close{
+  z-index:2;
+}
+
+#virtualclassCont.congrea #VideoDashboard #uploadMsz li{
+  width:70%;
+  margin-left:10%;
+
+}
+
+#virtualclassCont.congrea #VideoDashboard #uploadMsz li .qq-thumbnail-wrapper{
+  display:none;
+}
+
+
+#virtualclassCont.congrea #VideoDashboard #uploadMsz li .qq-file-info{
+  margin-left:40%;
+}

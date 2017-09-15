@@ -114,7 +114,7 @@
 .qq-gallery .qq-upload-list li {
     display: inline-block;
     position: relative;
-    max-width: 120px;
+    max-width: 90%;
     margin: 0 25px 25px 0;
     padding: 0;
     line-height: 16px;
@@ -249,9 +249,8 @@
     display: inline-block;
     background: url("loading.gif");
     position: absolute;
-    left: 50%;
-    margin-left: -7px;
-    top: 53px;
+    left: 37%;
+    top: 15px;
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;

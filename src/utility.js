@@ -1668,7 +1668,8 @@
             var btn = document.getElementById("newDocBtn");
             if(btn != null){
                 btn.removeEventListener('click', virtualclass.vutil._attachEventToUploadTab);
-                btn.addEventListener("click", virtualclass.vutil._attachEventToUploadTab)
+                btn.addEventListener("click", virtualclass.vutil._attachEventToUploadTab);
+
             }
         },
 
@@ -1676,6 +1677,11 @@
             var element = document.querySelector('#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input');
             if(element != null){
                 element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
+                var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
+                if(msz){
+                    msz.style.display="block";
+                }
+
             }else {
                 alert('Element is null');
             }
@@ -1713,6 +1719,12 @@
                 upload.multiple = false;
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
+
+
+
+
+
+
             }
 
             //  virtualclass.fineUploader.generateModal(type, elemArr)
@@ -1723,6 +1735,18 @@
             //upload.requesteEndPoint = "https://local.vidya.io/congrea_te_online/example/upload.php";
 
             virtualclass.fineUploader.uploaderFn(upload);
+
+            if(type != 'video') {
+                var cont = document.querySelector("#docsUploadMsz");
+                var upMsz = document.createElement("div")
+                cont.appendChild(upMsz);
+                var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
+                if (msz) {
+                    upMsz.appendChild(msz);
+                    msz.style.display = "block";
+                }
+            }
+
 
             // TODO this need to be outside the function
             // if(type == 'video'){

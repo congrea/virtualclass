@@ -71,11 +71,13 @@
                     }
                 } else {
                   // Check if there is already docs in local storage
-                  var docsObj = JSON.parse(localStorage.getItem('dtsdocs'))
+                  var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
                   if(docsObj != null){
                     this.initAfterUpload(docsObj);
                     if(docsObj.slideNumber != null){
                         this.setNoteScreen(docsObj);
+                        docsObj.slideNumber = null;
+                        localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
                     }
                   }else{
                     // Only send the request to server
@@ -599,6 +601,14 @@
               this.removePagesUI(doc);
               if(!virtualclass.dts.noteExist()){
                   virtualclass.vutil.showUploadMsg('docsuploadContainer'); // file uploader container
+              }
+
+              if(!virtualclass.dts.docSelected()){
+                  var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
+                  if(docsObj != null){
+                      docsObj.slideNumber = null;
+                      localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+                  }
               }
             }
 
@@ -1690,6 +1700,10 @@
 
             noteExist : function (){
                 return (document.querySelector('#notesContainer .note') != null);
+            },
+
+            docSelected : function (){
+                return document.querySelector('#listdocs .linkdocs[data-selected="1"]');
             }
         };
     }

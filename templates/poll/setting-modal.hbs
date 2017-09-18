@@ -2,27 +2,27 @@
   <div class="modal-content" id="pollModalBody">
     <div id="contHead" class="modal-header">
       <button type="button" class="close" id="modalClose" data-dismiss="modal">×</button>
-      <div id="settingTx" class="row modalHeaderTx panel-body">Poll Setting</div>
+      <div id="settingTx" class="row modalHeaderTx panel-body">{{getString 'PSetting'}}</div>
     </div>
     <div id="contBody" class="modal-body">
       <div id="settingCont">
-        <label class="pollLabel panel">Mode of closing Poll :
+        <label class="pollLabel panel">{{getString 'ModeclosingPoll'}}
         <span id="mode" class="custom-controls-stacked panel">
           <label class="custom-control custom-radio radio-inline">
             <input type="radio" name="option" value="BY Instructor" id="radioBtn1" class="custom-control-input">
             <span class="custom-control-indicator">
 
-              </span><span class="custom-control-description">By Instructor</span>
+              </span><span class="custom-control-description">{{getString 'ByInstructor'}}</span>
           </label>
           <label class="custom-control custom-radio radio-inline">
             <input type="radio" name="option" value="BY Timer" id="radioBtn2" class="custom-control-input" checked="checked">
             <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">By Timer</span>
+            <span class="custom-control-description">{{getString 'ByTimer'}}</span>
           </label>
         </span>
         </label>
         <div id="enTimer" class="panel">
-          <label id="timerTx" class="pollLabel">Set Timer
+          <label id="timerTx" class="pollLabel">{{getString 'SetTimer'}}
           <span id="selTime">
             <select id="timer" name="timer" class="form-control" style="width: 100px; display: inline;">
               {{#each time}}
@@ -31,8 +31,8 @@
 
             </select>
             <select id="ut" name="unit" class="form-control" style="width: 100px; display: inline;">
-              <option id="op1" value="minut">minute</option>
-              <option id="op2" value="second">second</option>
+              <option id="op1" value="minut">{{getString 'minute'}}</option>
+              <option id="op2" value="second">{{getString 'second'}}</option>
             </select>
           </span>
           </label>
@@ -40,15 +40,15 @@
         <div id="showRt" class="form-group">
           <label id="labelCk" class="custom-control custom-checkbox ">
             <input type="checkbox" id="pollCkbox" class="custom-control-input " checked="checked">
-            <span id="labelCk" class="custom-control-description pollLabel">Show result to students</span>
+            <span id="labelCk" class="custom-control-description pollLabel">{{getString 'Showresulttostudents'}}</span>
           </label>
         </div>
       </div>
     </div>
     <div id="contFooter" class="modal-footer">
       <div id="settingBtn">
-        <button id="cacelSetting" class="btn btn-default" data-dismiss="modal">cancel</button>
-        <button id="publish" class="btn btn-default" disable="true">Publish</button>
+        <button id="cacelSetting" class="btn btn-default" data-dismiss="modal">{{getString 'cancel'}}</button>
+        <button id="publish" class="btn btn-default" disable="true">{{getString 'Publish'}}</button>
       </div>
     </div>
   </div>

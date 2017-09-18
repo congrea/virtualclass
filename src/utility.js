@@ -1914,7 +1914,8 @@
             // in any other application we can handle
             // dashoard content in own style
             if(currApp == 'DocumentShare'){
-
+                var dtitle = document.getElementById('dashboardnav');
+                dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
@@ -1933,7 +1934,8 @@
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listnotes');
             }else if(currApp == 'Video'){
-
+                var dtitle = document.getElementById('dashboardnav');
+                dtitle.setAttribute('data-title', virtualclass.lang.getString('VideodbHeading'));
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
@@ -1958,6 +1960,8 @@
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
             } else if (currApp == "SharePresentation"){
+                var dtitle = document.getElementById('dashboardnav');
+                dtitle.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')

@@ -233,5 +233,14 @@
   width: 57px;
   margin-left: 0px;
   border:0px;
-  margin-top:5px;
+  margin-top:66px;
+}
+
+#virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{
+  margin-left:74px;
+  margin-bottom:-25px;
+}
+
+#virtualclassCont.congrea #dashboardnav button.btn-primary:hover{
+  opacity: 0.8;
 }

@@ -343,7 +343,7 @@
                 var btn = document.createElement('button');
                 btn.id = "publishQzBt";
                 btn.classList.add("btn", "btn-default", "controls")
-                btn.innerHTML = "Publish Quiz";
+                btn.innerHTML = virtualclass.lang.getString('PQuiz');
 
                 publishBttn.appendChild(btn);
 
@@ -428,7 +428,7 @@
                 document.getElementById("closeQzBt").disabled = true;
                 var msginfo = document.createElement('div');
                 msginfo.className="alert alert-info";
-                msginfo.innerHTML ="Quiz Closed";
+                msginfo.innerHTML = virtualclass.lang.getString('QClosed');
                 resultQzLayout.insertBefore(msginfo,resultQzLayout.firstChild);
             },
 
@@ -824,7 +824,7 @@
              */
             quizModalClose: function () {
                 var that = this;
-                var message = "<span>Are your sure to close the quiz.  </span>";
+                var message = virtualclass.lang.getString('rusureCquiz');
                 virtualclass.popup.confirmInput(message, function (confirm){
                     if (confirm) {
                         localStorage.removeItem('quizSt');
@@ -927,7 +927,7 @@
                     contQuiz.appendChild(nav);
 
                     var div = virtualclass.view.customCreateElement('div','','vchead');
-                    div.innerHTML = "Quiz";
+                    div.innerHTML = virtualclass.lang.getString('Quiz');
                     nav.appendChild(div);
 
                     var contQuizBody = virtualclass.view.customCreateElement('div', 'layoutQuizBody','quizMainCont');
@@ -967,7 +967,7 @@
                     cont.insertBefore(headCont, cont.firstChild)
                     var elem = document.createElement("th");
                     elem.classList.add("controlsHeader")
-                    elem.innerHTML = "Controls";
+                    elem.innerHTML = virtualclass.lang.getString('Controls');
                     headCont.appendChild(elem);
 
                     var iconCtr = document.createElement('i');
@@ -976,7 +976,7 @@
 
                     var elem = document.createElement("th");
                     elem.classList.add("qnTextHeader")
-                    elem.innerHTML = "Quizes";
+                    elem.innerHTML = virtualclass.lang.getString('Quizes');
                     headCont.appendChild(elem);
 
                     var iconHelp = document.createElement('i');
@@ -985,7 +985,7 @@
 
                     var elem = document.createElement("th");
                     elem.classList.add("timeHeader")
-                    elem.innerHTML = "Time";
+                    elem.innerHTML = virtualclass.lang.getString('Time');
                     headCont.appendChild(elem);
 
                     var iconCreator = document.createElement('i');
@@ -994,7 +994,7 @@
 
                     var elem = document.createElement("th");
                     elem.classList.add("qperpageHeader")
-                    elem.innerHTML = "Quiz/page";
+                    elem.innerHTML = virtualclass.lang.getString('Quiz/page');
                     headCont.appendChild(elem);
                 },
 
@@ -1020,7 +1020,7 @@
                     var li2a = document.createElement("a");
                     li2a.setAttribute('data-toggle', "tab");
                     li2a.href = "#gdRpt";
-                    li2a.innerHTML = "Grade report";
+                    li2a.innerHTML = virtualclass.lang.getString('Greport');
                     tbLi2.appendChild(li2a);
                     tbUl.appendChild(tbLi2);
                     return tbUl;
@@ -1067,7 +1067,7 @@
 
                         var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');
                         btnInnerdiv.classList.add("btn", "btn-default", "controls");
-                        btnInnerdiv.innerHTML = "Close quiz";
+                        btnInnerdiv.innerHTML = virtualclass.lang.getString('Cquiz');
                         elem.appendChild(btnInnerdiv);
                         btnInnerdiv.addEventListener("click", virtualclass.quiz.closeQzBt);
 

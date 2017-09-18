@@ -256,7 +256,31 @@
         'bandfast' : 'Bandwidth is high.',
         'bandmedium' : 'Bandwidth is medium.',
         'pclosetag' : '<span>Are you sure to close this poll  </span>',
-        'pclose' : 'Are you sure to close the poll'
+        'pclose' : 'Are you sure to close this poll',
+        'stdPublish' : 'stdPublish',
+        'votesucess' : 'you have voted successfully ,result will be displayed soon',
+        'votesucessPbt' : 'you have voted successfully You wont be able to see the result<br/> As you are not permitted by the teacher',
+        'Pclosed' : 'Poll closed',
+        'Pdsuccess' : 'Poll deleted successfully',
+        'Tmyclose' : 'Teacher may close this poll at any time',
+        'ETime' : 'Elapsed Time',
+        'Rtime' : 'Remaining time',
+        'rvtu' : 'Recevied Votes / Total Users',
+        'Novote' : 'No vote Received for this poll',
+        'msg' : '<b>Poll Closed </b><br/>You wont be able to see the result<br/> As you are not permitted',
+        'watstdrespo' : 'Waiting for student response',
+        'Controls' : 'Controls',
+        'Quizes' : 'Quizes',
+        'Time' : 'Time',
+        'Quiz/page' : 'Quiz/page',
+        'prechkcmplt' : 'precheck complete',
+        'Dshare' : 'There might be share the Docs',
+        'Quiz' : 'Quiz',
+        'Greport' : 'Grade report',
+        'Cquiz' : 'Close quiz',
+        'PQuiz' : 'Publish Quiz',
+        'QClosed' : 'Quiz Closed',
+        'rusureCquiz' : '<span>Are your sure to close this quiz.  </span>'
 
     };
     window.message = message;

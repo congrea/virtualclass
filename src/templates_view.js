@@ -179,10 +179,12 @@ this["JST"]["templates/dashboardCont.hbs"] = Handlebars.template({"compiler":[7,
 },"useData":true});
 
 this["JST"]["templates/dashboardNav.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div id=\"dashboardnav\" class=\"navigation\">\n  <button type=\"button\" class=\"btn btn-primary\" data-currapp=\""
-    + container.escapeExpression(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"app","hash":{},"data":data}) : helper)))
+  return "<div id=\"dashboardnav\" class=\"navigation congtooltip\" data-title=\""
+    + alias4(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
+    + "\">\n  <button type=\"button\" class=\"btn btn-primary\" data-currapp=\""
+    + alias4(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
     + "\"><i class=\"dashboard-icon\"></i></button>\n</div>";
 },"useData":true});
 

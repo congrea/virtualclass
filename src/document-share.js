@@ -1136,6 +1136,10 @@
                                             this.getScreen(nextSlide);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
                                         }
+                                        var sibOfnextSlide = nextSlide.nextElementSibling;
+                                        if(sibOfnextSlide == null){
+                                            sibOfnextSlide  = document.querySelector('#screen-docs .next')
+                                        }
                                     }
                                 }
                             }else {

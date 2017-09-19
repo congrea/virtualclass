@@ -4,14 +4,14 @@
       <ul class="nav nav-tabs pollNavBar">
         {{#if control}}
           <li role="presentation" id="coursePollTab" class="navListTab active" data-toggle="popover" data-trigger="hover" data-content="Polls you will create are course specific" data-original-title="" title="">
-            <a href="#">Course Poll</a>
+            <a href="#">{{getString 'Cpoll'}}</a>
           </li>
           <li role="presentation" id="sitePollTab" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="Polls created here are of site level" data-original-title="" title="">
-            <a href="# ">Site Poll</a>
+            <a href="# ">{{getString 'Spoll'}}</a>
           </li>
         {{else}}
           <li role="presentation" id="pollResult" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="show result" data-original-title="" title="">
-            <a href="# ">Poll Result</a>
+            <a href="# ">{{getString 'Presult'}}</a>
           </li>
         {{/if}}
       </ul>
@@ -23,8 +23,8 @@
         </div>
 
         <div id="createPollCont" class="createBtnCont">
-          <button id="newPollBtnsite" class="btn btn-default site" data-toogle="modal" data-target="#editPollModal" style="display: none;"><i class="icon-create-new"></i> Add New</button>
-          <button id="newPollBtncourse" class="btn btn-default course" data-toogle="modal" data-target="#editPollModal" style="display: block;"><i class="icon-create-new"></i> Add New</button>
+          <button id="newPollBtnsite" class="btn btn-default site" data-toogle="modal" data-target="#editPollModal" style="display: none;"><i class="icon-create-new"></i>{{getString 'addnew'}}</button>
+          <button id="newPollBtncourse" class="btn btn-default course" data-toogle="modal" data-target="#editPollModal" style="display: block;"><i class="icon-create-new"></i>{{getString 'addnew'}}</button>
         </div>
 
         <div id="bootstrapCont" class="modalCont">
@@ -34,9 +34,9 @@
         <table id="listQnContcourse" class="pollList table table-bordered table-striped" style="display:table;">
           <thead>
           <tr class=" headerContainer" id="headerContainercourse">
-            <th class="controlsHeader">Controls<i class="icon-setting"></i></th>
-            <th class="qnTextHeader">Poll Questions<i class="icon-help"></i></th>
-            <th class="creatorHeader">Creator<i class="icon-creator"></i></th>
+            <th class="controlsHeader">{{getString 'Controls'}}<i class="icon-setting"></i></th>
+            <th class="qnTextHeader">{{getString 'PQuestions'}}<i class="icon-help"></i></th>
+            <th class="creatorHeader">{{getString 'Creator'}}<i class="icon-creator"></i></th>
           </tr>
           </thead>
         </table>
@@ -45,16 +45,16 @@
         <table id="listQnContsite" class="pollList table table-bordered table-striped" style="display: none;">
           <thead>
           <tr class=" headerContainer" id="headerContainersite">
-            <th class="controlsHeader">Controls<i class="icon-setting"></i></th>
-            <th class="qnTextHeader">Poll Questions<i class="icon-help"></i></th>
-            <th class="creatorHeader">Creator<i class="icon-creator"></i></th>
+            <th class="controlsHeader">{{getString 'Controls'}}<i class="icon-setting"></i></th>
+            <th class="qnTextHeader">{{getString 'PQuestions'}}<i class="icon-help"></i></th>
+            <th class="creatorHeader">{{getString 'Creator'}}<i class="icon-creator"></i></th>
           </tr>
           </thead>
         </table>
       </div>
       {{else}}
         <div id="mszBoxPoll" class="row">
-          <div id="stdPollMszLayout">Poll may be published</div>
+          <div id="stdPollMszLayout">{{getString 'pollmybpublish'}}</div>
         </div>
         <div id="bootstrapCont" class="modalCont">
         </div>

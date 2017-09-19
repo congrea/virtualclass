@@ -4,12 +4,17 @@
   <div class="mainpreview" id="mainp{{id}}" data-screen="{{id}}" data-rid="{{rid}}">
     <img class="thumbnail" id="thumbnail{{rid}}" src="{{content_path}}">
   </div>
+
   <div id="controlCont{{id}}" class="controlCont">
+
     <div class="controls status" data-status="{{status}}" title="{{titleAction}}">
-      <a class="statusanch">status{{status}}</a>
+      <a class="statusanch">{{getString 'status'}}{{status}}</a>
     </div>
+
     <div class="controls delete" title="delete">
-      <a class="deleteanch">delete</a>
+      <a class="deleteanch">{{getString 'delete'}}</a>
     </div>
+
   </div>
+
 </div>

@@ -3,10 +3,10 @@
     <div class="modal-content" id="pollModalBody">
       <div id="contHead" class="modal-header">
         <button type="button" class="close" id="modalClose" data-dismiss="modal">×</button>
-        <div id="publishTx" class="row modalHeaderTx panel-body">Publish Poll</div>
+        <div id="publishTx" class="row modalHeaderTx panel-body">{{getString 'ppoll'}}</div>
       </div>
       <div id="contBody" class="panel-body">
-        <label>Question : <span id="qnTxCont" class="previewTxCont">{{poll.questiontext}}</span></label>
+        <label>{{getString 'Question'}}<span id="qnTxCont" class="previewTxCont">{{poll.questiontext}}</span></label>
         <div id="optsTxCont" class="previewTxCont">
           {{#each poll.options}}
             <div >
@@ -17,9 +17,9 @@
       </div>
       <div id="contFooter" class="modal-footer">
         <div id="footerCtrCont">
-          <button id="goBack" data-dismiss="modal" class="btn btn-default controls">&lt; Back<i class="icon-back"></i>
+          <button id="goBack" data-dismiss="modal" class="btn btn-default controls">&lt; {{getString 'Back'}}<i class="icon-back"></i>
           </button>
-          <button id="next" class="btn btn-default controls">Publish<i class="icon-publish"></i></button>
+          <button id="next" class="btn btn-default controls">{{getString 'Publish'}}<i class="icon-publish"></i></button>
         </div>
       </div>
     </div>

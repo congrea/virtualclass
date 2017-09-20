@@ -103,6 +103,8 @@
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
                 this.storage = window.storage;
+                this.dashBoard  = dashBoard;
+
 //                this.storage.init(function () {
 //                    if (!virtualclass.vutil.isPlayMode()) {
 //                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));

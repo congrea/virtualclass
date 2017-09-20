@@ -333,9 +333,9 @@
                 var msg = "";
 
                 if (this.dataRec.setting.showResult) {
-                    msg = "you have voted successfully ,result will be displayed soon"
+                    msg = virtualclass.lang.getString('votesucess');
                 } else {
-                    msg = "you have voted successfully You wont be able to see the result<br/> As you are not permitted by the teacher";
+                    msg = virtualclass.lang.getString('votesucessPbt');
                 }
                 this.showMsg("mszBoxPoll", msg, "alert-success");
 
@@ -427,7 +427,7 @@
 
                 if (typeof storedData.data.pollClosed != 'undefined') {
                     this.UI.pollClosedUI();
-                    var msg = "Poll closed";
+                    var msg = virtualclass.lang.getString('Pclosed');
                     this.showMsg("resultLayoutHead", msg, "alert-success");
                     if (this.timer) {
                         clearInterval(this.timer);
@@ -1257,7 +1257,7 @@
                 if (opted) {
                     var cont = document.getElementById("contQn" + pollType + index);
                     cont.parentNode.removeChild(cont);
-                    var msg = "Poll deleted successfully";
+                    var msg = virtualclass.lang.getString('Pdsuccess');
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                     var poll = pollType == "course" ? virtualclass.poll.coursePoll[index] : virtualclass.poll.sitePoll[index]
                     var qid = poll.questionid;
@@ -1284,7 +1284,7 @@
                         "list": virtualclass.poll.list
                     }
                     virtualclass.poll.interfaceToSaveResult(saveResult);
-                    var msg = "Poll closed";
+                    var msg = virtualclass.lang.getString('Pclosed');
                     virtualclass.poll.showMsg("resultLayoutHead", msg, "alert-success");
                     virtualclass.poll.pollState["data"].pollClosed = "yes";
                     clearInterval(virtualclass.poll.timer);
@@ -1396,14 +1396,14 @@
                     virtualclass.poll.newTimer = updatedTime;
                     this.showTimer(updatedTime);
                     var label = document.querySelector("#timerLabel");
-                    label.innerHTML="Remaining time"
+                    label.innerHTML=virtualclass.lang.getString('Rtime');
 
                 } else {
                     this.elapsedTimer();
-                    var msg = "Teacher may close this poll at any time";
+                    var msg = virtualclass.lang.getString('Tmyclose');
                     virtualclass.poll.showMsg("stdContHead", msg, "alert-success")
                     var label = document.querySelector("#timerLabel");
-                    label.innerHTML="Elapsed Time";
+                    label.innerHTML=virtualclass.lang.getString('ETime');
                 }
 
                 var qnCont = document.getElementById("stdQnCont");
@@ -1447,9 +1447,9 @@
                     elem.parentNode.removeChild(elem);
                     var msg = "";
                     if (virtualclass.poll.dataRec.setting.showResult) {
-                        msg = "you have voted successfully ,result will be displayed soon"
+                        msg = virtualclass.lang.getString('votesucess');
                     } else {
-                        msg = "you have voted successfully You wont be able to see the result<br/> As you are not permitted by teacher";
+                        msg = virtualclass.lang.getString('votesucessPbt');
                     }
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                     virtualclass.poll.sendResponse();
@@ -1500,7 +1500,7 @@
             elapsedTimer: function (minut, second) {
                 var label = document.getElementById("timerLabel")
                 if (label) {
-                    label.innerHTML = "Elapsed Time";
+                    label.innerHTML = virtualclass.lang.getString('ETime');
                 }
 
                 if (minut || second) {
@@ -1670,7 +1670,7 @@
 
                 var elem = document.getElementById("congreaPollVoters")
                 if (elem) {
-                    elem.innerHTML = "Recevied Votes / Total Users";
+                    elem.innerHTML = virtualclass.lang.getString('rvtu');
                 }
                 virtualclass.poll.pollState["data"].pollClosed = "yes";
             },
@@ -1848,14 +1848,14 @@
                 elem.id = "resultNote"
                 resultCont.appendChild(elem);
                 resultCont.insertBefore(elem,resultCont.firstChild);
-                var msg = "Poll closed"
+                var msg = virtualclass.lang.getString('Pclosed');
                 virtualclass.poll.showMsg("resultNote", msg, "alert-error");
 
                 var  pollClose = document.getElementById("resultNote");
                 var elemVote = document.createElement("div");
                 elemVote.className = "notifyText alert alert-info";
                 elemVote.id = "congreaPollNote";
-                elemVote.innerHTML = "No vote Received for this poll";
+                elemVote.innerHTML = virtualclass.lang.getString('Novote');
                 pollClose.appendChild(elemVote);
 
 
@@ -2475,7 +2475,7 @@
                         }
                     }
                     header.appendChild(elem);
-                    var msg = "<b>Poll Closed </b><br/>You wont be able to see the result<br/> As you are not permitted";
+                    var msg = virtualclass.lang.getString('msg');
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                 },
 
@@ -2497,7 +2497,7 @@
                 },
                 createResultMsgCont: function (cont) {
                     var elem = document.getElementById("pollResultMsz")
-                    elem.innerHTML = "Waiting for student response"
+                    elem.innerHTML = virtualclass.lang.getString('watstdrespo');
 
                 },
                 pollClosedUI: function () {
@@ -2508,7 +2508,7 @@
 
                     var elem = document.getElementById("congreaPollVoters")
                     if (elem) {
-                        elem.innerHTML = "Recevied Votes / Total Users";
+                        elem.innerHTML = virtualclass.lang.getString('rvtu');
                     }
 
                     var elem = document.getElementById("pollResultMsz")

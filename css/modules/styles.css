@@ -497,7 +497,7 @@
 
 #virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont {
 	position : absolute;
-	top : 70px;
+	top : 130px;
 	border-left : 0;
 	border-bottom-right-radius : 10px;
 	border-top-right-radius : 10px;
@@ -2437,7 +2437,7 @@
 
 
 #videoPlayerCont{
-	height:90vh;
+	height:94vh;
 }
 #dispVideo{
 	height:82vh;

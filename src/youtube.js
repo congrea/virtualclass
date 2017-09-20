@@ -37,7 +37,9 @@
                     startFrom=startFrom||(videoObj.yts && videoObj.yts.startFrom);
 
                 }
-
+                if(typeof videoObj.id  !='undefined'){
+                    virtualclass.yts.vidId =  videoObj.id;
+                }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
                     if (typeof videoId == 'undefined' && roles.isStudent()) {
@@ -58,16 +60,13 @@
                         } else {
                             if(typeof videoObj != 'undefined'){
                                 if (!videoObj.hasOwnProperty('fromReload')) {
-
-                                    // When student try to share the youtube video
                                     if(typeof videoId == 'undefined'){
                                         //virtualclass.videoUl.UI.container()
                                         this.UI.defaultLayoutForStudent();
                                     } else{
                                         (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
                                     }
-                                }
-                                else{
+                                } else{
 
                                     this.onYTIframApi(videoId, startFrom, 'fromReload');
                                 }
@@ -84,10 +83,11 @@
                         }
                     }
                 } else {
-                    //  alert("original teacher");
-                   // this.UI.container();
                     if(virtualclass.videoUl.yts && !startFrom ){
+                        if(!videoId){
+                            videoId= this.getVideoId(videoObj.content_path)
 
+                        }
                         this.onYTIframApi(videoId);
                         ioAdapter.mustSend({'yts': {init:videoId}, 'cf': 'yts'});
 
@@ -95,10 +95,7 @@
                     else if (typeof startFrom != 'undefined') {
                         this.onYTIframApi(videoId, startFrom, 'fromReload');
                     }
-                    //this.UI.inputURL();
 
-                    //For student layout
-                   // ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                 }
                 $('#videoPlayerCont').css({"display": "none"});
             },
@@ -451,7 +448,6 @@
              */
             // seekto is video in seconds
             ytOnSeek: function (seekto) {
-
                 ioAdapter.mustSend({'yts': {'seekto': seekto}, 'cf': 'yts'});
                 console.log('SEEK CHANGED ' + seekto);
             },
@@ -461,12 +457,24 @@
              * @param int state state of the video
              */
             ytOnChange: function (state) {
-
                 console.log('STATE CHANGED ' + state);
                 if (state == 1) {
                     ioAdapter.mustSend({'yts': 'play', 'cf': 'yts'});
                 } else if (state == 2) {
                     ioAdapter.mustSend({'yts': 'pause', 'cf': 'yts'});
+                }else if(state ==0){
+                    var index = virtualclass.videoUl.order.indexOf( virtualclass.yts.vidId);
+                    if (index < virtualclass.videoUl.order.length - 1 && index >= 0) {
+                        virtualclass.videoUl.listEnd = false;
+                    } else {
+                        virtualclass.videoUl.listEnd = true;
+                        vidId = -1;
+                    }
+                    //if (virtualclass.videoUl.autoPlayFlag && !virtualclass.videoUl.listEnd) {
+                    if (virtualclass.videoUl.autoPlayFlag) {
+                        virtualclass.videoUl.autoPlayList(index + 1);
+
+                    }
                 }
             },
             /*

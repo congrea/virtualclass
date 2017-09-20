@@ -667,3 +667,12 @@
     pointer-events : none;
 }
 
+#virtualclassCont.congrea #screen-docs .pageContainer.lastNote .nvgt.next,  #virtualclassCont.congrea #screen-docs .pageContainer.firstNote .nvgt.prev{
+    pointer-events : none;
+    opacity : 0.5;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.firstNote .prev::before,
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.lastNote .next::before{
+    color : #b3b2b2;
+}

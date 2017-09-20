@@ -4,12 +4,11 @@
   <div class="pageContainer">
     <div id="notesContainer" class="notes">
       {{> docNotesMain }}
-      {{#if hasControls}}
-        <span class="nvgt prev" id="docsprev"></span>
-        <span class="nvgt next" id="docsnext"></span>
-      {{/if}}
-
     </div>
+    {{#if hasControls}}
+      <span class="nvgt prev" id="docsprev"></span>
+      <span class="nvgt next" id="docsnext"></span>
+    {{/if}}
 
   </div>
   <!--{{#if hasControls}}-->

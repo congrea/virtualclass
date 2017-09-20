@@ -310,7 +310,7 @@ this["JST"]["templates/documentSharing/notesNav.hbs"] = Handlebars.template({"co
 },"useData":true});
 
 this["JST"]["templates/documentSharing/screen.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "        <span class=\"nvgt prev\" id=\"docsprev\"></span>\n        <span class=\"nvgt next\" id=\"docsnext\"></span>\n";
+    return "      <span class=\"nvgt prev\" id=\"docsprev\"></span>\n      <span class=\"nvgt next\" id=\"docsnext\"></span>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "-->\n    <!--<div id=\"listnotes\" class=\"listPages pages\"></div>-->\n  <!--";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -322,8 +322,9 @@ this["JST"]["templates/documentSharing/screen.hbs"] = Handlebars.template({"1":f
     + alias4(((helper = (helper = helpers.debug || (depth0 != null ? depth0.debug : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"debug","hash":{},"data":data}) : helper)))
     + "\n  <div class=\"pageContainer\">\n    <div id=\"notesContainer\" class=\"notes\">\n"
     + ((stack1 = container.invokePartial(partials.docNotesMain,depth0,{"name":"docNotesMain","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "    </div>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </div>\n\n  </div>\n  <!--"
+    + "\n  </div>\n  <!--"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "-->\n</div>\n\n";
 },"usePartial":true,"useData":true});

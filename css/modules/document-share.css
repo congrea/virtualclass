@@ -166,7 +166,8 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
-    width: 93%;
+    width: calc(100% - 70px);
+
     height: 93vh;
     /*padding: 20px;*/
     border: 1px solid #d6d5d5;

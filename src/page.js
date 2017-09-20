@@ -44,7 +44,9 @@
         var docNav = document.getElementById(listDtype);
         var lid = 'link' + this.type + this.rid;
         var cthis = this;
-        var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: cthis.title};
+        var titleAction = (this.status == 1) ? 'Hide' : 'Show';
+        var context = {rid: cthis.rid, status: this.status, id: cthis.id, type: cthis.type, title: cthis.title, titleAction : titleAction};
+
         if (cthis.type == "video") {
             var docNav=document.getElementById("listvideo");
             if(docNav){
@@ -56,10 +58,10 @@
                 label.dataset.title = this.title;
                 this.UI.controller.init(this, lid);
                 // var mainpDiv = this.UI.mainPDiv.call(this);
-
             }
 
         } else if (this.type == 'docs') {
+
             var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
             context.title = virtualclass.vutil.trimExtension(context.title);
             docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
@@ -426,13 +428,14 @@
                 status: function (elem, cthis) {
                     //alert(cthis.rid + ' from events');
                     if (+(elem.dataset.status) == 0) {
+                        elem.title = 'Hide';
                         cthis.status = 1;
                         cthis.enable();
                     } else {
+                        elem.title = 'Show';
                         cthis.status = 0;
                         cthis.disable();
                     }
-
                     elem.dataset.status = cthis.status;
                     var parElem = elem.closest('.link' + cthis.type);
                     parElem.dataset.status = cthis.status;
@@ -448,7 +451,11 @@
                     if (cthis.type == 'notes') {
                         virtualclass.dts._deleteNote(cthis.rid, cthis.type);
                     } else {
-                        virtualclass[cthis.module]._delete(cthis.rid);
+                        virtualclass.dashBoard.userConfirmation('Are You sure want to Delete the element', function (confirmation){
+                            if(confirmation){
+                                virtualclass[cthis.module]._delete(cthis.rid);
+                            }
+                        });
                     }
                 }
             },
@@ -533,12 +540,9 @@
                     div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
 
                 }
-                    div.classList.remove("showCtr");
-
-
-
-
+                div.classList.remove("showCtr");
             },
+
             /**
              * This function trigger when user clicks on
              * disable/enable or delete button

@@ -103,6 +103,8 @@
                 this.clear = "";
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
                 this.storage = window.storage;
+                this.dashBoard  = dashBoard;
+
 //                this.storage.init(function () {
 //                    if (!virtualclass.vutil.isPlayMode()) {
 //                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
@@ -446,6 +448,10 @@
             },
 
             makeAppReady: function (app, cusEvent, data) {
+                var congdashboardClose = document.querySelector('#congdashboard button.close');
+                if(congdashboardClose != null){
+                    congdashboardClose.click();
+                }
                 console.log('Application is ready' + app);
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
@@ -571,6 +577,7 @@
                         virtualclass.vutil.removeDashboardNav();
                     }
                 }
+
             },
 
 

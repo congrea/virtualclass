@@ -1082,6 +1082,7 @@
                                         this.getScreen(prevSlide);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
                                     }
+
                                 }else{
                                     alert('There is no previous element');
                                 }
@@ -1158,7 +1159,6 @@
                             var currElem = document.querySelector('#documentScreen #note' + slideNum);
                             if(currElem != null){
                                 this.getScreen(currElem);
-
                             } else {
                                 alert(slideNum + ' is not found ');
                             }
@@ -1179,6 +1179,25 @@
                             }
                             virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
+
+                            var isFirstNote = virtualclass.dts.isFirstNote(note.id);
+                            var isLastNote = virtualclass.dts.isLastNote(note.id);
+
+                            var notesContainer = document.querySelector('#screen-docs .pageContainer');
+
+                            if(isFirstNote && isLastNote){
+                                notesContainer.classList.add('firstNote');
+                                notesContainer.classList.add('lastNote');
+                            }else if(isFirstNote){
+                                notesContainer.classList.remove('lastNote');
+                                notesContainer.classList.add('firstNote');
+                            } else if(isLastNote){
+                                notesContainer.classList.remove('firstNote');
+                                notesContainer.classList.add('lastNote');
+                            }else {
+                                notesContainer.classList.remove('firstNote');
+                                notesContainer.classList.remove('lastNote');
+                            }
 
                         },
                         /**
@@ -1698,6 +1717,17 @@
               }
             },
 
+            isFirstNote : function (id){
+                var firstNote = document.querySelector('#notesContainer .note');
+                return (firstNote != null && (id == firstNote.id));
+            },
+
+            isLastNote : function (id){
+                var allNotes = document.querySelectorAll('#notesContainer .note');
+                var lastNote = allNotes[allNotes.length-1];
+                return (allNotes.length > 0 && (lastNote.id == id));
+            },
+
             noteExist : function (){
                 return (document.querySelector('#notesContainer .note') != null);
             },
@@ -1705,6 +1735,7 @@
             docSelected : function (){
                 return document.querySelector('#listdocs .linkdocs[data-selected="1"]');
             }
+
         };
     }
     window.documentShare = documentShare;

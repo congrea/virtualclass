@@ -1,11 +1,12 @@
 #virtualclassCont #dashboardContainer .modal-dialog {
-  width : 85% !important;
+  width: 100% !important;
+  margin-top: 0px;
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
   overflow-y: auto;
-  height: 85%;
-  max-height: 85%;
+  /*height: 85%;*/
+  /*max-height: 85%;*/
   padding : 0;
 }
 #virtualclassCont #dashboardContainer .modal .modal-header {
@@ -24,7 +25,7 @@
 }
 
 #virtualclassCont.congrea .dashboardview {
-  height : 100%;
+  height : 98%;
   margin : 0;
   padding :0;
 }
@@ -243,4 +244,13 @@
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary:hover{
   opacity: 0.8;
+}
+
+#virtualclassCont.congrea .bootstrap .modal-content, #virtualclassCont.congrea #congdashboard.modal{
+  box-shadow : none !important;
+}
+
+
+#virtualclassCont #dashboardContainer .modal .modal-content {
+  height : 100%;
 }

@@ -166,7 +166,8 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
-    width: 93%;
+    width: calc(100% - 70px);
+
     height: 93vh;
     /*padding: 20px;*/
     border: 1px solid #d6d5d5;
@@ -476,23 +477,28 @@
     height: 572px;
 }
 
-.nvgt {
+#virtualclassCont.congrea .nvgt {
     position: absolute;
     top: 300px;
     height: 50px;
     width: 30px;
     opacity: 0.6;
+    cursor : pointer;
+
+    background: #dcdcdc none;
+    width: 50px;
+    opacity: 0.9;
+    border-radius: 50px;
+    /*border: 1px solid #eee;*/
 }
 
 #virtualclassCont.congrea .nvgt:hover {
-    opacity: 0.9;
+    opacity: 1;
+    background: #eee none;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .prev {
-    background: #eee none;
-    left: 0px;
-    width: 50px;
-    opacity: 0.9;
+    left: 10px;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .prev::before {
@@ -505,10 +511,8 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .next {
-    background: #eee none;
-    right: 20px;
-    width: 50px;
-    opacity: 0.9;
+    right: 10px;
+
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .next::before {
@@ -642,4 +646,34 @@
 
 #virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li .qq-file-info{
     margin-left:40%;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controlCont:hover{
+    cursor : pointer;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controlCont .controls:hover::before{
+    color : #302f2f;
+}
+
+#virtualclassCont.congrea .screen-docs .nvgt{
+    cursor : pointer;
+}
+
+#virtualclassCont.congrea .nvgt.disabled {
+    opacity:0.4;
+}
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .nvgt.disabled::before {
+    color : #9a9898;
+    pointer-events : none;
+}
+
+#virtualclassCont.congrea #screen-docs .pageContainer.lastNote .nvgt.next,  #virtualclassCont.congrea #screen-docs .pageContainer.firstNote .nvgt.prev{
+    pointer-events : none;
+    opacity : 0.5;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.firstNote .prev::before,
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.lastNote .next::before{
+    color : #b3b2b2;
 }

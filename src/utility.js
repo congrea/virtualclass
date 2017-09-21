@@ -1668,7 +1668,6 @@
 
 
         attachEventToUploadTab : function (type, elemArr, cb) {
-
             var btn = document.getElementById("newDocBtn");
             if(btn != null){
                 btn.removeEventListener('click', virtualclass.vutil._attachEventToUploadTab);
@@ -1723,11 +1722,6 @@
                 upload.multiple = false;
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
-
-
-
-
-
 
             }
 
@@ -1907,6 +1901,7 @@
         },
 
         readyDashboard : function (){
+            console.log('Ready Dashboard');
             var currApp = virtualclass.currApp;
             // virtualclass.vutil.initDashboard(virtualclass.currApp);
             if(document.querySelector('#congdashboard') ==  null){
@@ -2014,7 +2009,7 @@
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 }
-               virtualclass.vutil.attachEventToUploadTab();
+               //  virtualclass.vutil.attachEventToUploadTab();
 
             }
 

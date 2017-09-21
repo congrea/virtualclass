@@ -2260,12 +2260,15 @@
 	width: 800px !important;
 }
 #virtualclassCont.congrea .modal{
-	width: 100%;
+	width: calc(100% - 388px);
 	margin-left: 0;
-	background-color: rgba(0, 0, 0, 0.7);
+	/*background-color: rgba(0, 0, 0, 0.7);*/
 	border-width: 0;
 	border-radius: 0;
+	margin-left : 62px;
+	height : 94vh;
 }
+
 #virtualclassCont.congrea .modal.fade.in {top: 0;}
 #virtualclassCont.congrea .modal .modal-content{
 	padding: 20px;
@@ -2702,12 +2705,19 @@
 	margin-top : -1px;
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont {
-	width:10%;
+	width:12%;
 	float:left;
+	height : 100%;
+
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
-	width:89.67%;
+	width:87%;
 	float:left;
+	height : 100%;
+	background : #f9f9f9;
+	margin-left : 1%;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 /*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {*/
 /*width:99%;*/
@@ -2716,7 +2726,8 @@
 /*width:10%;*/
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
-	width: 80%;
+	width: 88%;
+	margin-right : 0.5%;
 }
 
 #virtualclassCont.congrea .modal-header h4{

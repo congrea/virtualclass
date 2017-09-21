@@ -1194,6 +1194,9 @@
                             } else if(isLastNote){
                                 notesContainer.classList.remove('firstNote');
                                 notesContainer.classList.add('lastNote');
+                            }else {
+                                notesContainer.classList.remove('firstNote');
+                                notesContainer.classList.remove('lastNote');
                             }
 
                         },

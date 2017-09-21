@@ -202,17 +202,18 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   text-shadow:none !important;
 }
 
- #virtualclassCont .dashboardview #urlcontainer #presentationurl{
-  height: 45% !important;  width:50%;
+#virtualclassCont .dashboardview #urlcontainer #presentationurl{
+  height: 70% !important;  width:50%;
   font-size: 16px;
-   padding:10px;
+  padding:10px;
 }
 #virtualclassCont #urlcontainer #presentationurl{vertical-align: top;}
 
-#virtualclassCont .dashboardview #urlcontainer #presentationurl,
-#virtualclassCont .dashboardview #urlcontainer #submitpurl{
-  margin-top:80px;
-}
+/*#virtualclassCont .dashboardview #urlcontainer #presentationurl,*/
+/*#virtualclassCont .dashboardview #urlcontainer #submitpurl{*/
+  /*margin-top:80px;*/
+  /**/
+/*}*/
 
 #virtualclassCont.congrea #SharePresentationDashboard .dashboardview{
   width : 100%;
@@ -230,4 +231,12 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #listppt .linkppt.links .controlCont:hover{
   border: 1px solid #ccc;
   box-shadow: 0 0 6px rgb(96, 96, 97);
+}
+
+#virtualclassCont.congrea #pptListContainer{
+  height : 89%;
+}
+
+#virtualclassCont.congrea #SharePresentationDashboard .dashboardview {
+  height : 8%;
 }

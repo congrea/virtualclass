@@ -448,6 +448,10 @@
             },
 
             makeAppReady: function (app, cusEvent, data) {
+                var congdashboardClose = document.querySelector('#congdashboard button.close');
+                if(congdashboardClose != null){
+                    congdashboardClose.click();
+                }
                 console.log('Application is ready' + app);
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
@@ -573,6 +577,7 @@
                         virtualclass.vutil.removeDashboardNav();
                     }
                 }
+
             },
 
 

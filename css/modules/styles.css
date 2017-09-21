@@ -2259,7 +2259,14 @@
 #virtualclassCont.congrea .bootstrap .modal-dialog{
 	width: 800px !important;
 }
+
 #virtualclassCont.congrea .modal{
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	margin-left :0;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea[data-currapp='Video'] .modal, #virtualclassCont.congrea[data-currapp='SharePresentation'] .modal{
 	width: calc(100% - 388px);
 	margin-left: 0;
 	/*background-color: rgba(0, 0, 0, 0.7);*/
@@ -2267,6 +2274,7 @@
 	border-radius: 0;
 	margin-left : 62px;
 	height : 94vh;
+	background: none;
 }
 
 #virtualclassCont.congrea .modal.fade.in {top: 0;}

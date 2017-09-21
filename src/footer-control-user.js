@@ -761,14 +761,30 @@
                     localStorage.setItem('audEnable', JSON.stringify(ad));
 
                     var studentSpeaker = document.getElementById('audioWidget');
-                    studentSpeaker.style.opacity = "0.5";
-                    studentSpeaker.style.pointerEvents = "none";
+                    studentSpeaker.style.opacity = "1";
+                    studentSpeaker.style.pointerEvents = "visible";
                     studentSpeaker.className = 'deactive';
+                    this.audioDisable();
+                    this.videoDisable();
+
                     var alwaysPressElem = document.getElementById('speakerPressing');
                     if (virtualclass.gObj.hasOwnProperty('video')) {
                         virtualclass.gObj.video.audio.studentNotSpeak(alwaysPressElem);
                         virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
+
+                },
+
+                audioDisable : function (){
+                    var camIcon = document.getElementById('speakerPressOnce');
+                    camIcon.style.opacity = "0.5";
+                    camIcon.style.pointerEvents = "none";
+                },
+
+                videoDisable : function (){
+                    var camIcon = document.getElementById('congCtrBar');
+                    camIcon.style.opacity = "0.5";
+                    camIcon.style.pointerEvents = "none";
                 },
 
                 allChatDisable: function () {

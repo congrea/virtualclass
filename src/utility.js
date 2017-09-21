@@ -787,8 +787,12 @@
             }
 
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-                virtualclass.gObj.video.init();
-                virtualclass.gObj.video.isInitiator = true;
+                setTimeout(
+                    function (){
+                        virtualclass.gObj.video.init();
+                        virtualclass.gObj.video.isInitiator = true;
+                    },0
+                );
             }
 
             // vcan.oneExecuted = false;

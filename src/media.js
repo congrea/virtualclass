@@ -1214,8 +1214,6 @@
                 cthis = this; //TODO there should be done work for cthis
                 //vcan.oneExecuted = true;
                 virtualclass.gObj.oneExecuted = true;
-                var audio = true;
-
                 var audioOpts = {
                     mandatory: {
                     },
@@ -1236,13 +1234,14 @@
                         {googAudioMirroring: true},
                         {googNoiseReduction: true},
                         {VoiceActivityDetection: true}
-                    ]
+                    ],
+
                 };
+                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
                 var session = {
                     audio: audioOpts,
-                    video: true
-                };
-
+                    video: webcam
+                    };
                 cthis.video.init();
                 if (!virtualclass.vutil.isPlayMode()) {
 
@@ -1257,6 +1256,7 @@
                     }).catch(function (e) {
                         that.handleUserMediaError(e);
                     });
+
                 }
 
                 if (virtualclass.system.wbRtc.peerCon) { //TODO this should be deleted
@@ -1265,6 +1265,11 @@
                         localStorage.wbrtcMsg = true;
                     }
                 }
+
+                if(webcam == false){
+                    virtualclass.user.control.videoDisable();
+                }
+
             },
 
 
@@ -1457,7 +1462,6 @@
              * @param error error object
              */
             handleUserMediaError: function (error) {
-
                 var errorMsg = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
                 virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
                 virtualclass.user.control.audioWidgetDisable('vd');

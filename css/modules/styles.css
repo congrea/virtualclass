@@ -2716,6 +2716,8 @@
 	height : 100%;
 	background : #f9f9f9;
 	margin-left : 1%;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 /*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {*/
 /*width:99%;*/

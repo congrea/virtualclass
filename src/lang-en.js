@@ -229,7 +229,8 @@
         'askplaymsg' : '<span id="askplaymsg"> "Downloading in process, click Play to begin </span>"',
         'overallprogress' : 'Overall Progress',
         'replay_message' : 'Thanks for watching.',
-        'uploadedsession' : 'Your session has ended, you may now close the window. <br /> Or close this popup to start a new session.',
+        'uploadedsession' : 'Your session has ended, you may now close the window.' +
+        'Or close this popup to start a new session.',
         'sessionendmsg' : 'Session has been closed. You may now close your browser.',
         'play' : 'Play',
         'replay' : 'Re-play',

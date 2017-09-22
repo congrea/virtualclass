@@ -95,13 +95,11 @@
 #virtualclassCont.congrea #submitpurl.btn-default{
   width: 13%;
   border: 1px solid #bdbdbd;
-  border-radius: 0;
   background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
-  border-top-left-radius: 3px;
-  border-top-right-radius: 4px;
+  border-radius: 6px;;
   padding: 8px;
   color : #fff;
-  height : 75%;
+  height : 70%;
 }
 
 
@@ -339,5 +337,19 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont button {
-  width : 100%;
+  width : 200px;
+}
+
+#virtualclassCont.congrea #videoUrlContainer.form-group {
+  margin-bottom: 0px;
+}
+
+#virtualclassCont.congrea #videoUrlContainer .btn-default {
+  height: 70%;
+  position: absolute;
+  padding: 5px 9px;
+  right: 3px;
+  border: 1px solid #515e69;
+  border-radius: 0 4px 4px 0;
+  box-shadow: none;
 }

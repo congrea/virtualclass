@@ -767,9 +767,9 @@ this["JST"]["templates/ppt/dashboard.hbs"] = Handlebars.template({"compiler":[7,
 
   return "\n<div class='dbContainer' data-app=\""
     + alias3(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
-    + "\" id=\"pptDbCont\">\n  <div id=\"pptListContainer\">\n    <div id=\"listppt\" class=\"listPages pages list-group\"></div>\n    <!--<div id=\"newpptBtnCont\">-->\n      <!--<button id=\"newpptBtn\">Upload ppt url </button>-->\n    <!--</div>-->\n  </div>\n\n  <div class=\"dashboardview\" >\n    <div id=\"pptuploadContainer\">\n      <div id=\"urlcontainer\" style=\"display: block;\">\n        <input id=\"presentationurl\" placeholder=\""
+    + "\" id=\"pptDbCont\">\n  <div id=\"pptListContainer\">\n    <div id=\"listppt\" class=\"listPages pages list-group\"></div>\n    <!--<div id=\"newpptBtnCont\">-->\n      <!--<button id=\"newpptBtn\">Upload ppt url </button>-->\n    <!--</div>-->\n  </div>\n\n  <div class=\"dashboardview\" >\n    <div id=\"pptuploadContainer\">\n      <div id=\"urlcontainer\" style=\"display: block;\" class=\"form-group\">\n        <input id=\"presentationurl\" placeholder=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"EHTMLPresentUrl",{"name":"getString","hash":{},"data":data}))
-    + "\">\n        <input type=\"submit\" id=\"submitpurl\" class =\"btn-default\"value=\"Save\">\n      </div>\n    </div>\n  </div>\n</div>\n\n\n";
+    + "\" class=\"form-control\">\n        <input type=\"submit\" id=\"submitpurl\" class =\"btn-default\"value=\"Save\">\n      </div>\n    </div>\n  </div>\n</div>\n\n\n";
 },"useData":true});
 
 this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -963,13 +963,9 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"compi
 },"useData":true});
 
 this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\" class=\"col-md-3\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-8\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"onlinevideo",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n  </div>\n\n</div>\n</div>";
+    return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\" class=\"col-md-3\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"uploadvideo",{"name":"getString","hash":{},"data":data}))
+    + "</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-8 form-group\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\" class=\"form-control\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" ><i class=\"icon-savevideo\"></i></button>\n  </div>\n\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

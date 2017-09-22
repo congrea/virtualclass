@@ -664,13 +664,14 @@
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         $('#virtualclassAppLeftPanel').append(template(data));
 
-
                         if(document.querySelector('#congdashboard') ==  null){
+                            // Creating Document Dashboard Container
                             var dashboardTemp = virtualclass.getTemplate('dashboard');
                             var dbHtml = dashboardTemp({app:"DocumentShare"});
                             document.querySelector('#dashboardContainer').innerHTML = dbHtml;
                         }
                     }
+
                     if(document.querySelector('#DocumentShareDashboard') == null){
                         var elem = document.createElement("div");
                         var cont = document.querySelector('#congdashboard .modal-body')
@@ -679,7 +680,10 @@
                     }
 
                     if(document.querySelector('.docsDbCont') == null) {
+                        // Creating  DOC's Dashboard
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
+                        virtualclass.vutil.attachEventToUploadTab();
+                        virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                     }
 
                 },
@@ -1180,25 +1184,28 @@
                             virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 
-                            var isFirstNote = virtualclass.dts.isFirstNote(note.id);
-                            var isLastNote = virtualclass.dts.isLastNote(note.id);
+                            setTimeout(
+                                function (){
+                                    var isFirstNote = virtualclass.dts.isFirstNote(note.id);
+                                    var isLastNote = virtualclass.dts.isLastNote(note.id);
 
-                            var notesContainer = document.querySelector('#screen-docs .pageContainer');
+                                    var notesContainer = document.querySelector('#screen-docs .pageContainer');
 
-                            if(isFirstNote && isLastNote){
-                                notesContainer.classList.add('firstNote');
-                                notesContainer.classList.add('lastNote');
-                            }else if(isFirstNote){
-                                notesContainer.classList.remove('lastNote');
-                                notesContainer.classList.add('firstNote');
-                            } else if(isLastNote){
-                                notesContainer.classList.remove('firstNote');
-                                notesContainer.classList.add('lastNote');
-                            }else {
-                                notesContainer.classList.remove('firstNote');
-                                notesContainer.classList.remove('lastNote');
-                            }
-
+                                    if(isFirstNote && isLastNote){
+                                        notesContainer.classList.add('firstNote');
+                                        notesContainer.classList.add('lastNote');
+                                    }else if(isFirstNote){
+                                        notesContainer.classList.remove('lastNote');
+                                        notesContainer.classList.add('firstNote');
+                                    } else if(isLastNote){
+                                        notesContainer.classList.remove('firstNote');
+                                        notesContainer.classList.add('lastNote');
+                                    }else {
+                                        notesContainer.classList.remove('firstNote');
+                                        notesContainer.classList.remove('lastNote');
+                                    }
+                                },0
+                            );
                         },
                         /**
                          * this expects the the whiteboard related to slide

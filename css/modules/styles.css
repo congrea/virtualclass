@@ -1692,7 +1692,8 @@
 	margin-top: 12px;
 }
 
-#virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow, #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body{
+#virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow,
+#virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body, #virtualclassCont.congrea #chromeExtMiss{
 	color: #6a8a13;
 	background-color: #fff;
 	border: #ddd 1px solid;
@@ -1701,6 +1702,11 @@
 	clear: both;
 	padding: 20px;
 }
+
+#virtualclassCont.congrea #chromeExtMiss {
+	margin-top :0;
+}
+
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body{
 	margin: 10px;
 }
@@ -1802,11 +1808,16 @@
 }
 
 
-#virtualclassCont.congrea #sessionEndMsgCont #sessionEndClose.icon-close{
+#virtualclassCont.congrea #sessionEndMsgCont #sessionEndClose.icon-close, #virtualclassCont.congrea #chromeExtClose.icon-close{
 	top: 10px;
 	right: 10px;
 	position: absolute;
 	cursor : pointer;
+}
+
+#virtualclassCont.congrea #chromeExtClose.icon-close {
+	right : 2px;
+	top : 5px;
 }
 #virtualclassCont.congrea .ui-memblist-usr{
 	margin-top: -1px;
@@ -2259,7 +2270,14 @@
 #virtualclassCont.congrea .bootstrap .modal-dialog{
 	width: 800px !important;
 }
+
 #virtualclassCont.congrea .modal{
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	margin-left :0;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea[data-currapp='Video'] .modal, #virtualclassCont.congrea[data-currapp='SharePresentation'] .modal{
 	width: calc(100% - 388px);
 	margin-left: 0;
 	/*background-color: rgba(0, 0, 0, 0.7);*/
@@ -2267,6 +2285,7 @@
 	border-radius: 0;
 	margin-left : 62px;
 	height : 94vh;
+	background: none;
 }
 
 #virtualclassCont.congrea .modal.fade.in {top: 0;}

@@ -1,13 +1,13 @@
 <div class="popover-content">
     <div id="popupCont" class="pollPreview">
       <div><div id="qnTxCont" class="row previewTxCont">
-        <label>{{getString 'Question'}}</label>
-        <div>{{data.questiontext}}</div>
+        <label>{{getString 'Question'}} :</label>
+        <div class="viewQn">{{data.questiontext}}</div>
       </div>
         <div id="optsTxCont" class="row previewTxCont">
-          <label>{{getString 'Options'}}</label>
+          <label>{{getString 'Options'}} :</label>
           {{#each data.options}}
-          <div>
+          <div class="viewOpt">
             <input class="opt" name="option" value={{@key}} type="radio" id={{@key}}>
             <label>{{this}}</label>
           </div>

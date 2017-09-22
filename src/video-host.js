@@ -268,6 +268,15 @@ var videoHost = {
         // 371 audio latency of buffered audio
         // for synch the audio and video
         var that = this;
+
+        if(typeof virtualclass.gObj.video.audio.Html5Audio != 'undefined'){
+               sampleRate = virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate;
+        }else {
+            if(typeof sampleRate == 'undefined'){
+                sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
+            }
+        }
+
         setTimeout(
             function (){
                 if(virtualclass.system.mybrowser.name == 'Chrome'){
@@ -279,7 +288,7 @@ var videoHost = {
                 } else {
                     loadfile(imgData, that.videoPartCont); // for firefox
                 }
-            }, myVideoDelay = (16382/virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate)*1000*4
+            }, myVideoDelay = (16382/sampleRate)*1000*4
         );
     },
     onError: function (err) {

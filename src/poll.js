@@ -309,8 +309,6 @@
                 this.dataRec = storedData.data.stdPoll;
                 this.dataRec.newTime = storedData.data.timer;
                 this.stdPublish();
-
-
                 var data = {
                     stdPoll: this.dataRec,
                     timer: this.newUserTime
@@ -558,7 +556,6 @@
                             "list": virtualclass.poll.list
                         }
 
-
                     }
                     if (virtualclass.poll.timer) {
                         virtualclass.poll.interfaceToSaveResult(saveResult);
@@ -601,9 +598,18 @@
                     for (var i = 0; i < elem.length; i++) {
                         elem[i].style.display = "none";
                     }
+
                 } else {
                     chart.style.display = "none";
                 }
+                var menu = document.querySelectorAll('#chartMenuCont button');
+                if(menu){
+                    for(var i =0; i<menu.length ;i++){
+                        menu[i].classList.remove("disabled");
+                    }
+                }
+
+
             },
             saveInLocalStorage: function () {
 
@@ -767,21 +773,25 @@
                         var link1= document.querySelector("#editQn"+pollType+index+" span")
                         // link1.setAttribute("data-toggle", "tooltip")
                         if(link1){
-                            link1.setAttribute("title", "cannt edit,poll attempted ");
+
+                            link1.setAttribute("title", virtualclass.lang.getString('etDisabledA'));
                             link1.style.cursor="default";
+                            link1.classList.add("disabled");
                         }
                     }
                     this.attachEvent("deleteQn" + pollType + index, "click", this.deleteHandler, item, pollType, index);
                 }else{
                     var link1= document.querySelector("#editQn"+pollType+index+" span");
                     if(link1){
-                        link1.setAttribute("title", "cannt edit, can be edited by creator of the poll");
+                        link1.setAttribute("title", virtualclass.lang.getString('etDisabledCr'));
                         link1.style.cursor="default";
+                        link1.classList.add("disabled");
                     }
 
                     var link3 = document.querySelector("#deleteQn"+pollType + index+" span");
-                    link3.setAttribute("title", "cannt delete, can be deleted  by creator of the poll");
+                    link3.setAttribute("title", virtualclass.lang.getString('dltDisabled'));
                     link3.style.cursor="default";
+                    link1.classList.add("disabled");
 
                 }
                 this.attachEvent("publishQn" + pollType + index, "click", this.publishHandler, item, pollType, index);
@@ -789,7 +799,7 @@
 
             },
 
-            previewOnHover: function (item,pollType,index) {
+            previewOnHover: function (item,pollType,index){
                 var data={};
                 data.questiontext= item.questiontext;
                 data.options=item.options;
@@ -1415,7 +1425,6 @@
                 var btn = document.getElementById("btnVote");
                 if (btn) {
                     btn.addEventListener("click", virtualclass.poll.voted);
-
                 }
 
                 var data = {
@@ -1892,7 +1901,7 @@
                 poll.options = item.options;
 
                 var template=virtualclass.getTemplate("qnOptions","poll");
-                $("#resultLayoutBody").append(template({"poll": poll}));
+                $("#resultLayoutBody #optnNonVotd").append(template({"poll": poll}));
 
             },
             showQn: function (qnCont) {
@@ -2035,6 +2044,11 @@
                 var msz = document.getElementById("pollResultMsz");
                 if (msz) {
                     msz.style.display = "none";
+                }
+
+                var menu = document.querySelectorAll('#chartMenuCont button');
+                for(var i =0; i<menu.length ;i++){
+                    menu[i].classList.remove("disabled");
                 }
 
                 var obj = {};
@@ -2393,6 +2407,11 @@
                         $('[data-toggle="popover"]').popover()
                     })
 
+                    var nav =$("#virtualclassPoll .navListTab")
+
+                    nav.on("show.bs.popover", function () { $(this).data("bs.popover").tip().css({width:"500px"}); });
+
+
                 },
 
                 resultView: function (istimer, pollType) {
@@ -2456,6 +2475,11 @@
                         }
 
                         $("#bootstrapCont").append(template({"obj": obj}));
+                        var menu = document.querySelectorAll('#chartMenuCont button');
+                        for(var i =0; i<menu.length ;i++){
+                            menu[i].classList.add("disabled");
+                        }
+
                     } else {
 
                         obj.question=virtualclass.poll.dataRec.question;
@@ -2522,7 +2546,7 @@
                     var elem = document.querySelector("#chartMenuCont #bar");
                     elem.addEventListener('click', virtualclass.poll.barGraph)
 
-                    var pi = document.querySelector("#chartMenuCont #piView");
+                    var pi = document.querySelector("#chartMenuCont #pi");
                     pi.addEventListener('click', virtualclass.poll.createPiChart);
 
                     if (roles.hasControls()) {

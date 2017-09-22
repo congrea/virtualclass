@@ -42,18 +42,23 @@
 }
 
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont{
-  float: right;
-  width: 18px;
+  float: left;
+  width: 19px;
   background: #820729;
   /* border-top-right-radius: 6px; */
-  /* border-bottom-right-radius: 6px; */
+  border-bottom-right-radius: 6px;
   height: auto;
-  margin-top: -12px;
+  margin-top: 0px;
   border-radius: 5px;
   padding-left: 2px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  /* border-top-right-radius: 0; */
+  /* border-bottom-right-radius: 0; */
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-right: 6px;
 }
+
+
 
 
 
@@ -64,7 +69,7 @@
 
 
 #virtualclassCont.congrea  #listdocs .list-group-item{
-  padding: 13px 0 13px 0;
+  padding: 7px 0 13px 0;
 }
 
 
@@ -200,15 +205,16 @@
 
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
-  float :left;
-  margin-left : 4%;
+  text-align :left;
+  margin-left : 12%;
+
 }
 
 
 .bootstrap #listdocs.listPages .list-group-item.links{
   border-top:1px solid #878e98;
   border-bottom:1px solid #33373d;
-  height : 7%;
+  height : 5.1%;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1']{

@@ -45,10 +45,7 @@ window.addEventListener('message', function (event) {
                 if(roles.hasControls()){
                     virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
                 }
-
             }, function (e) {
-
-                
                 virtualclass.ss.onError.call(virtualclass.ss, e);
             });
             //the stream we can get here with initalizeRecorder()

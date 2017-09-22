@@ -268,7 +268,15 @@ var videoHost = {
         // 371 audio latency of buffered audio
         // for synch the audio and video
         var that = this;
-        var sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
+
+        if(typeof virtualclass.gObj.video.audio.Html5Audio != 'undefined'){
+               sampleRate = virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate;
+        }else {
+            if(typeof sampleRate == 'undefined'){
+                sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
+            }
+        }
+
         setTimeout(
             function (){
                 if(virtualclass.system.mybrowser.name == 'Chrome'){

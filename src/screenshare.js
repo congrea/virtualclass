@@ -319,7 +319,8 @@ var globalImageData = {};
                         chrome.webstore.install(url, function () {
                                 window.location.reload();
                             }, function (error){
-                                alert(error);
+                              // alert(error);
+                               virtualclass.popup.chromeExtMissing();
                             }
                         );
                     }

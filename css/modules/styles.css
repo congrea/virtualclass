@@ -2763,11 +2763,9 @@
 }
 
 #dashboardnav .btn-primary {
-	background : linear-gradient(to bottom, #254d6f 0%, #51a0ef 100%) !important;
+	background : linear-gradient(to bottom, #51a0ef 0%, #51a0ef 100%) !important;
 }
-#dashboardnav .btn-primary:hover{
-background-color: gray;
-}
+
 
 #dashboardnav i.dashboard-icon {
 	font-style: normal;

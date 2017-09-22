@@ -2426,7 +2426,7 @@
                                 var btn = document.createElement("button");
                                 btn.id = "closePoll";
                                 head.appendChild(btn);
-                                btn.innerHTML = "closePoll";
+                                btn.innerHTML = "Close Poll";
                                 btn.addEventListener("click", function(){
                                     virtualclass.poll.closePoll(pollType)
 

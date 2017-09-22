@@ -332,8 +332,10 @@
         'ShareYouTubeVideo' : 'Share YouTube Video',
         'Prev' : 'Prev',
         'Next' : 'Next',
-        'JoinSession' : 'Join Session'
-
+        'JoinSession' : 'Join Session',
+        'chromeExtMiss' : "Congrea needs 'Desktop Selector' pugins to share the Screen.<br />" +
+        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a>"
     };
+
     window.message = message;
 })(window);

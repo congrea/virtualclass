@@ -1692,7 +1692,8 @@
 	margin-top: 12px;
 }
 
-#virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow, #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body{
+#virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow,
+#virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body, #virtualclassCont.congrea #chromeExtMiss{
 	color: #6a8a13;
 	background-color: #fff;
 	border: #ddd 1px solid;
@@ -1701,6 +1702,11 @@
 	clear: both;
 	padding: 20px;
 }
+
+#virtualclassCont.congrea #chromeExtMiss {
+	margin-top :0;
+}
+
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body{
 	margin: 10px;
 }
@@ -1802,11 +1808,16 @@
 }
 
 
-#virtualclassCont.congrea #sessionEndMsgCont #sessionEndClose.icon-close{
+#virtualclassCont.congrea #sessionEndMsgCont #sessionEndClose.icon-close, #virtualclassCont.congrea #chromeExtClose.icon-close{
 	top: 10px;
 	right: 10px;
 	position: absolute;
 	cursor : pointer;
+}
+
+#virtualclassCont.congrea #chromeExtClose.icon-close {
+	right : 2px;
+	top : 5px;
 }
 #virtualclassCont.congrea .ui-memblist-usr{
 	margin-top: -1px;

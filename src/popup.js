@@ -410,8 +410,6 @@ var PopUp = (function (window, undefined) {
 
 
     PopUp.prototype.waitMsg = function (){
-     
-
         if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
             var element = document.getElementById('about-modal');
             virtualclass.popup.open(element);
@@ -420,6 +418,21 @@ var PopUp = (function (window, undefined) {
         }
 
     };
+
+    PopUp.prototype.chromeExtMissing = function () {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        this.hideAllPopups();
+        var sessionEndMsg = document.getElementById("chromeExtMiss");
+        sessionEndMsg.style.display = 'block';
+
+        var sessionEndClose = document.getElementById("chromeExtClose");
+        sessionEndClose.addEventListener('click',
+            function () {
+                virtualclass.popup.closeElem();
+            });
+    };
+
 
     PopUp.prototype.hideAllPopups = function () {
         var allPopuContainer = document.getElementsByClassName('popupWindow');
@@ -434,7 +447,6 @@ var PopUp = (function (window, undefined) {
         if(sessionEndCont.dataset.displaying == 'true'){
             this.sesseionEndWindow();
         }
-
     }
 
     /**

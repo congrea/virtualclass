@@ -38,3 +38,9 @@
   height: 93vh;
   margin-left : 15px;
 }
+
+#virtualclassCont.congrea #videourl.form-control{
+  display : inline;
+  height:70% !important;
+  text-align: center;
+}

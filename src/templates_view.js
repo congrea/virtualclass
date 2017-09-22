@@ -441,7 +441,7 @@ this["JST"]["templates/poll/modal.hbs"] = Handlebars.template({"compiler":[7,">=
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"createnewpoll",{"name":"getString","hash":{},"data":data}))
     + "</div>\n      </div>\n      <div id=\"contBody\" class=\"modal-body\">\n        <div id=\"qnTxCont\" class=\"row pollTxCont\">\n          <label class=\"pollLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + "</label>\n          <div class=\"inputWrapper clearfix clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\"Type question\"></textarea>\n          </div>\n        </div>\n        <div id=\"optsTxCont\" class=\"row pollTxCont\">\n          <label class=\"optionLabel\">"
+    + " :</label>\n          <div class=\"inputWrapper clearfix clearfix\">\n            <textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\"Type question\"></textarea>\n          </div>\n        </div>\n        <div id=\"optsTxCont\" class=\"row pollTxCont\">\n          <label class=\"optionLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"option",{"name":"getString","hash":{},"data":data}))
     + "</label>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"1\" class=\"opt form-control\" placeholder=\"Type option\" rows=\"1\"></textarea>\n          </div>\n          <div class=\"inputWrapper clearfix\">\n            <textarea id=\"2\" class=\"opt form-control\" rows=\"1\" placeholder=\"Type option\"></textarea>\n          </div>\n          <div id=\"addMoreCont\" class=\"addMoreCont\">\n            <span class=\"icon-plus-circle\"></span>\n            <a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption btn btn-default controls\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Addoption",{"name":"getString","hash":{},"data":data}))
@@ -485,7 +485,7 @@ this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(co
 
   return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"panel\">\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"panel\">\n    <label>"
     + alias2((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + "<span id=\"stdQnCont\">"
+    + " :<span id=\"stdQnCont\">"
     + alias2(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label>\n    <div id=\"stdOptionCont\">\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -495,13 +495,13 @@ this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(co
 this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "          <li role=\"presentation\" id=\"coursePollTab\" class=\"navListTab active\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls you will create are course specific\" data-original-title=\"\" title=\"\">\n            <a href=\"#\">"
+  return "          <li role=\"presentation\" id=\"coursePollTab\" class=\"navListTab active\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls you will create are course specific\" >\n            <a href=\"#\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Cpoll",{"name":"getString","hash":{},"data":data}))
-    + "</a>\n          </li>\n          <li role=\"presentation\" id=\"sitePollTab\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls created here are of site level\" data-original-title=\"\" title=\"\">\n            <a href=\"# \">"
+    + "</a>\n          </li>\n          <li role=\"presentation\" id=\"sitePollTab\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls created here are of site level\" >\n            <a href=\"# \">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Spoll",{"name":"getString","hash":{},"data":data}))
     + "</a>\n          </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {
-    return "          <li role=\"presentation\" id=\"pollResult\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"show result\" data-original-title=\"\" title=\"\">\n            <a href=\"# \">"
+    return "          <li role=\"presentation\" id=\"pollResult\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"show result\">\n            <a href=\"# \">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Presult",{"name":"getString","hash":{},"data":data}))
     + "</a>\n          </li>\n";
 },"5":function(container,depth0,helpers,partials,data) {
@@ -559,7 +559,7 @@ this["JST"]["templates/poll/preview-modal.hbs"] = Handlebars.template({"1":funct
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ppoll",{"name":"getString","hash":{},"data":data}))
     + "</div>\n      </div>\n      <div id=\"contBody\" class=\"panel-body\">\n        <label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + "<span id=\"qnTxCont\" class=\"previewTxCont\">"
+    + ":<span id=\"qnTxCont\" class=\"previewTxCont\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.questiontext : stack1), depth0))
     + "</span></label>\n        <div id=\"optsTxCont\" class=\"previewTxCont\">\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -573,7 +573,7 @@ this["JST"]["templates/poll/preview-modal.hbs"] = Handlebars.template({"1":funct
 this["JST"]["templates/poll/previewPopup.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "          <div>\n            <input class=\"opt\" name=\"option\" value="
+  return "          <div class=\"viewOpt\">\n            <input class=\"opt\" name=\"option\" value="
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
     + " type=\"radio\" id="
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
@@ -585,17 +585,17 @@ this["JST"]["templates/poll/previewPopup.hbs"] = Handlebars.template({"1":functi
 
   return "<div class=\"popover-content\">\n    <div id=\"popupCont\" class=\"pollPreview\">\n      <div><div id=\"qnTxCont\" class=\"row previewTxCont\">\n        <label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + "</label>\n        <div>"
+    + " :</label>\n        <div class=\"viewQn\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.questiontext : stack1), depth0))
     + "</div>\n      </div>\n        <div id=\"optsTxCont\" class=\"row previewTxCont\">\n          <label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Options",{"name":"getString","hash":{},"data":data}))
-    + "</label>\n"
+    + " :</label>\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "        </div>\n      </div>\n    </div>\n  </div>\n";
 },"useData":true});
 
 this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
 
   return "<tr id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
@@ -609,19 +609,25 @@ this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.
     + "E\" class=\"editCont pull-left\">\n          <a href=\"#\" data-target=\"#editPollModal\" id=\"editQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\">\n            <span class=\"icon-pencil2\" data-toggle=\"congtooltip\" title=\"edit poll\"></span>\n          </a>\n        </div>\n        </td>\n        <td>\n        <div id=\"contQn"
+    + "\">\n            <span class=\"icon-pencil2\" data-toggle=\"congtooltip\" title="
+    + alias2((helpers.getString || (depth0 && depth0.getString) || alias4).call(alias3,"edit",{"name":"getString","hash":{},"data":data}))
+    + "></span>\n          </a>\n        </div>\n        </td>\n        <td>\n        <div id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "\" class=\"deleteCont pull-left\">\n          <a href=\"#\" id=\"deleteQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\">\n            <span class=\"icon-bin22\" data-toggle=\"congtooltip\" title=\"delete poll\"></span>\n          </a>\n        </div>\n        </td>\n        <td>\n        <div class=\"publishCont pull-left\" id=\"contQn"
+    + "\">\n            <span class=\"icon-bin22\" data-toggle=\"congtooltip\" title="
+    + alias2((helpers.getString || (depth0 && depth0.getString) || alias4).call(alias3,"delete",{"name":"getString","hash":{},"data":data}))
+    + "></span>\n          </a>\n        </div>\n        </td>\n        <td>\n        <div class=\"publishCont pull-left\" id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "P\">\n          <a href=\"#\" id=\"publishQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\">\n            <span class=\"icon-publish2\" data-toggle=\"congtooltip\" title=\"publish poll\"></span>\n          </a>\n        </div>\n        </td>\n      </tr>\n    </table>\n\n  </td>\n  <td id=\"qnText"
+    + "\">\n            <span class=\"icon-publish2\" data-toggle=\"congtooltip\" title="
+    + alias2((helpers.getString || (depth0 && depth0.getString) || alias4).call(alias3,"Publish",{"name":"getString","hash":{},"data":data}))
+    + "></span>\n          </a>\n        </div>\n        </td>\n      </tr>\n    </table>\n\n  </td>\n  <td id=\"qnText"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "\" class=\"qnText\" data-toggle=\"popover\" data-trigger=\"hover\"\n       >"
@@ -638,17 +644,14 @@ this["JST"]["templates/poll/qnOptions.hbs"] = Handlebars.template({"1":function(
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
     + "\" type=\"radio\" id=\""
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\">\n        <snap>"
+    + "\">\n        <span>"
     + alias4(container.lambda(depth0, depth0))
-    + "</snap>\n      </div>\n";
+    + "</span>\n      </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "\n<div  class=\"panel\">\n  <label>Question:<span id=\"qnLabelCont\">"
-    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
-    + "</span></label>\n  <div id=\"optnNonVotd\">\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  </div>\n</div>";
+  return "\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"useData":true});
 
 this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -672,7 +675,7 @@ this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"1":functi
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"VotedSoFar",{"name":"getString","hash":{},"data":data}))
     + "</label>\n          <div id=\"receivedVotes\"></div>\n        </div>\n      </div>\n      <div id=\"resultLayoutBody\">\n        <div id=\"TqnPoll\" class=\"panel\">\n          <label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + "<span id=\"qnLabelCont\">"
+    + " : <span id=\"qnLabelCont\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label>\n          <div id=\"nonVotTqn\">\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -722,9 +725,13 @@ this["JST"]["templates/poll/setting-modal.hbs"] = Handlebars.template({"1":funct
 },"useData":true});
 
 this["JST"]["templates/poll/stdResult.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"resultLayout\">\n  <div id=\"resultLayoutHead\" class=\"stdrslt container\">\n    <div id=\"timerWrapper\">\n      <label id=\"timerLabel\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Rtime",{"name":"getString","hash":{},"data":data}))
-    + "</label>\n      <div id=\"timerCont\"></div>\n    </div>\n    <div id=\"votesWrapper\" class=\"modal-header\">\n    </div>\n  </div>\n  <div id=\"resultLayoutBody\" class=\"container stdlayout\">\n    <label><span id=\"qnLabelCont\"></span></label>\n    <div id=\"optnNonVotd\"></div>\n    <div id=\"chartMenuCont\" class=\"panel\">\n      <button id=\"bar\">\n        <a href=\"#\" id=\"barView\">\n          <span class=\"icon-stats-bars\"></span>\n        </a>\n      </button>\n      <button id=\"pi\">\n        <a href=\"#\" id=\"piView\">\n          <span class=\"icon-pie-chart\"></span>\n        </a>\n      </button>\n    </div>\n    <div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div>\n  </div>\n  <div id=\"pollResultMsz\" class=\"pollResultMsz\"></div>\n  <div id=\"resultLayoutFooter\" class=\"row\">\n  </div>\n</div>";
+    var stack1, alias1=container.escapeExpression;
+
+  return "<div id=\"resultLayout\">\n  <div id=\"resultLayoutHead\" class=\"stdrslt container\">\n    <div id=\"timerWrapper\">\n      <label id=\"timerLabel\">"
+    + alias1((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Rtime",{"name":"getString","hash":{},"data":data}))
+    + "</label>\n      <div id=\"timerCont\"></div>\n    </div>\n    <div id=\"votesWrapper\" class=\"modal-header\">\n    </div>\n  </div>\n  <div id=\"resultLayoutBody\" class=\"container stdlayout\">\n    <label>Question :<span id=\"qnLabelCont\">"
+    + alias1(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label>\n\n    <div  class=\"panel\">\n      <div id=\"optnNonVotd\">\n\n      </div>\n    </div>\n\n    <div id=\"chartMenuCont\" class=\"panel\">\n      <button id=\"bar\">\n        <a href=\"#\" id=\"barView\">\n          <span class=\"icon-stats-bars\"></span>\n        </a>\n      </button>\n      <button id=\"pi\">\n        <a href=\"#\" id=\"piView\">\n          <span class=\"icon-pie-chart\"></span>\n        </a>\n      </button>\n    </div>\n    <div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div>\n  </div>\n  <div id=\"pollResultMsz\" class=\"pollResultMsz\"></div>\n  <div id=\"resultLayoutFooter\" class=\"row\">\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -760,9 +767,9 @@ this["JST"]["templates/ppt/dashboard.hbs"] = Handlebars.template({"compiler":[7,
 
   return "\n<div class='dbContainer' data-app=\""
     + alias3(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
-    + "\" id=\"pptDbCont\">\n  <div id=\"pptListContainer\">\n    <div id=\"listppt\" class=\"listPages pages list-group\"></div>\n    <!--<div id=\"newpptBtnCont\">-->\n      <!--<button id=\"newpptBtn\">Upload ppt url </button>-->\n    <!--</div>-->\n  </div>\n\n  <div class=\"dashboardview\" >\n    <div id=\"pptuploadContainer\">\n      <div id=\"urlcontainer\" style=\"display: block;\">\n        <input id=\"presentationurl\" placeholder=\""
+    + "\" id=\"pptDbCont\">\n  <div id=\"pptListContainer\">\n    <div id=\"listppt\" class=\"listPages pages list-group\"></div>\n    <!--<div id=\"newpptBtnCont\">-->\n      <!--<button id=\"newpptBtn\">Upload ppt url </button>-->\n    <!--</div>-->\n  </div>\n\n  <div class=\"dashboardview\" >\n    <div id=\"pptuploadContainer\">\n      <div id=\"urlcontainer\" style=\"display: block;\" class=\"form-group\">\n        <input id=\"presentationurl\" placeholder=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"EHTMLPresentUrl",{"name":"getString","hash":{},"data":data}))
-    + "\">\n        <input type=\"submit\" id=\"submitpurl\" class =\"btn-default\"value=\"Save\">\n      </div>\n    </div>\n  </div>\n</div>\n\n\n";
+    + "\" class=\"form-control\">\n        <input type=\"submit\" id=\"submitpurl\" class =\"btn-default\"value=\"Save\">\n      </div>\n    </div>\n  </div>\n</div>\n\n\n";
 },"useData":true});
 
 this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -956,13 +963,9 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"compi
 },"useData":true});
 
 this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\" class=\"col-md-3\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-8\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" >"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"onlinevideo",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n  </div>\n\n</div>\n</div>";
+    return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\" class=\"col-md-3\">\n    <button  type=\"button\" id=\"uploadVideo\"class=\"btn btn-default\" >"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"uploadvideo",{"name":"getString","hash":{},"data":data}))
+    + "</button>\n  </div>\n  <div id=\"videoUrlContainer\" class=\"col-md-8 form-group\">\n    <input id=\"videourl\" placeholder=\"Share video with Online Video Url\" class=\"form-control\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" ><i class=\"icon-savevideo\"></i></button>\n  </div>\n\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

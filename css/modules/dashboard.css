@@ -141,12 +141,12 @@
 
 #virtualclassCont #listnotes .mainpreview:hover {
   border: 1px solid #ccc;
-  box-shadow: 0 0 6px rgb(96, 96, 97);
+  box-shadow: 0 0 14px rgb(46, 219, 236);
 }
 
 
 #virtualclassCont.congrea .currentNav .mainpreview {
-  box-shadow: 0 0 6px rgb(96, 96, 97);
+  box-shadow: 0 0 11px rgb(46, 219, 236);
 }
 
 #virtualclassCont.congrea #listnotes {
@@ -259,4 +259,13 @@
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
   height : 100%;
+}
+
+
+#virtualclassCont #dashboardnav .btn-primary {
+  background : linear-gradient(to bottom, #51a0ef 0%, #0556a7 100%) !important;
+  height: 48px !important;
+  margin-left: 8px !important;
+  border-radius: 50%;
+  width: 48px !important;
 }

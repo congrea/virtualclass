@@ -45,7 +45,7 @@
         'reload': "Reload",
         'whiteboard': 'Whiteboard',
         'screenshare': 'Screen Share',
-        'sharePresentation':'share presentation',
+        'sharePresentation':'Share Presentation',
         'sessionend': "Close Session.",
         'audioTest': "Your voice will be recorded and played back to you. \n Press Ok and speak something for few seconds.",
         'chatEnable': "Disable Chat",
@@ -228,8 +228,9 @@
         'askplaymsg' : '<span id="askplaymsg"> "Downloading in progress, click Play to begin </span>"',
         'overallprogress' : 'Overall Progress',
         'replay_message' : 'Thanks for watching.',
-        'uploadedsession' : 'Your session has ended, you may now close the window <br /> Or <br />Close this popup window, to start a new session',
-        'sessionendmsg' : 'Session has been closed. You may now close the window',
+        'uploadedsession' : 'Your session has ended, you may now close the window.' +
+        'Or close this popup to start a new session.',
+        'sessionendmsg' : 'Session has been closed. You may now close your browser.',
         'play' : 'Play',
         'replay' : 'Re-play',
         'tpAudioTest' : 'Test Audio',
@@ -249,11 +250,11 @@
         'DocumentSharedbHeading' : 'Document Dashboard',
         'SharePresentationdbHeading' : 'Presentation Dashboard',
         'VideodbHeading' : 'Video Dashboard',
-        'bandslow' : 'Bandwidth is low.',
-        'bandfast' : 'Bandwidth is high.',
-        'bandmedium' : 'Bandwidth is medium.',
-        'pclosetag' : '<span>Are you sure you want to delete this poll  </span>',
-        'pclose' : 'Are you sure you want to close this poll',
+        'bandslow' : 'Bandwidth is low',
+        'bandfast' : 'Bandwidth is high',
+        'bandmedium' : 'Bandwidth is medium',
+        'pclosetag' : '<span>Are you sure you want to delete this poll?  </span>',
+        'pclose' : 'Are you sure you want to close this poll?',
         'stdPublish' : 'stdPublish',
         'votesucess' : 'Your poll has been submitted successfully',
         'Pclosed' : 'Poll closed',
@@ -327,7 +328,13 @@
         'Next' : 'Next',
         'JoinSession' : 'Join Session',
         'chromeExtMiss' : "Congrea needs 'Desktop Selector' pugins to share the Screen.<br />" +
-        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a>"
+        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a>",
+        'etDisabledA':'Cannt edit,poll attempted',
+        'etDisabledCr':'Can be edited by creator of the poll',
+        'dltDisabled':'Can be deleted  by creator of the poll',
+        'edit':'Edit',
+        'delete':'Delete',
+        'publish':'Publish'
     };
 
     window.message = message;

@@ -677,3 +677,8 @@
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.lastNote .next::before{
     color : #b3b2b2;
 }
+
+
+#virtualclassCont.congrea #DocumentShareDashboard .dbContainer {
+    height : 99%
+}

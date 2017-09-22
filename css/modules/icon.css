@@ -1,6 +1,6 @@
 /*left pannel*/
 #virtualclassCont .icon-videoUpload:before {
-  content: "\e917";
+  content: "\e92d";
   font-size: 28px;
 }
 
@@ -597,7 +597,7 @@
 }
 
 #virtualclassCont.congrea i.dashboard-icon:before{
-  content : "\e929";
+  content : "\e871";
   /*color: #34b532;*/
   /*font-size: 14px;*/
   /*position: relative;*/
@@ -607,4 +607,14 @@
   font-family: 'icomoon';
   font-size: 23px;
   color:white;
+}
+
+#virtualclassCont.congrea i.icon-savevideo:before{
+  content : "\e90d";
+  font-weight : normal;
+  font-size : 11px;
+  font-family: 'icomoon';
+  font-size: 23px;
+  color:white;
+  line-height: 65% !important;
 }

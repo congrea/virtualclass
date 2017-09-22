@@ -95,3 +95,8 @@
 #virtualclassCont.congrea #pptiframe {
   width : 100%;
 }
+
+#virtualclassCont.congrea #presentationurl.form-control{
+  display:inline;
+  text-align: center;
+}

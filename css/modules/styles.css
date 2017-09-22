@@ -517,7 +517,7 @@
 	white-space : nowrap;
 	z-index : 100;
 	color : #000;
-	box-shadow : 0px 0px 1px #a4a4a4;
+	/*box-shadow : 0px 0px 1px #a4a4a4;*/
 	font-size : 12px;
 	font-weight : normal !important;
 }
@@ -2714,7 +2714,7 @@
 	width:87%;
 	float:left;
 	height : 100%;
-	background : #f9f9f9;
+	/*background : #f9f9f9;*/
 	margin-left : 1%;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -2790,4 +2790,8 @@ background-color: gray;
 		height: 45px;
 		border:0px;
 	}
+}
+
+#virtualclassCont.congrea #recordingContainer{
+	width: 469px;
 }

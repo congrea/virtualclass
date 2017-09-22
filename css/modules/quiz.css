@@ -174,7 +174,7 @@
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt {
   position: relative;
   left: 87%;
-  bottom: 52px;
+  bottom: 390px;
   color:#337ab7;
   padding:8px;
   border: 1px solid #337ab7;
@@ -275,4 +275,8 @@ span.sch {
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:hover,
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:focus{
   background:radial-gradient(ellipse at center, #f8f9fb 0%, #fbfbfb 100%);
+}
+
+#virtualclassCont.congrea #resultQzLayout .tab-content .tab-pane .table > thead > tr > th{
+  font-size: 15px;
 }

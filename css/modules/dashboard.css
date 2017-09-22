@@ -136,12 +136,12 @@
 
 #virtualclassCont #listnotes .mainpreview:hover {
   border: 1px solid #ccc;
-  box-shadow: 0 0 6px rgb(96, 96, 97);
+  box-shadow: 0 0 14px rgb(46, 219, 236);
 }
 
 
 #virtualclassCont.congrea .currentNav .mainpreview {
-  box-shadow: 0 0 6px rgb(96, 96, 97);
+  box-shadow: 0 0 11px rgb(46, 219, 236);
 }
 
 #virtualclassCont.congrea #listnotes {

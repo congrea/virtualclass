@@ -3,14 +3,14 @@
     <nav id="navigator" class="nav navbar">
       <ul class="nav nav-tabs pollNavBar">
         {{#if control}}
-          <li role="presentation" id="coursePollTab" class="navListTab active" data-toggle="popover" data-trigger="hover" data-content="Polls you will create are course specific" data-original-title="" title="">
+          <li role="presentation" id="coursePollTab" class="navListTab active" data-toggle="popover" data-trigger="hover" data-content="Polls you will create are course specific" >
             <a href="#">{{getString 'Cpoll'}}</a>
           </li>
-          <li role="presentation" id="sitePollTab" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="Polls created here are of site level" data-original-title="" title="">
+          <li role="presentation" id="sitePollTab" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="Polls created here are of site level" >
             <a href="# ">{{getString 'Spoll'}}</a>
           </li>
         {{else}}
-          <li role="presentation" id="pollResult" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="show result" data-original-title="" title="">
+          <li role="presentation" id="pollResult" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="show result">
             <a href="# ">{{getString 'Presult'}}</a>
           </li>
         {{/if}}

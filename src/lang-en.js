@@ -334,7 +334,13 @@
         'Next' : 'Next',
         'JoinSession' : 'Join Session',
         'chromeExtMiss' : "Congrea needs 'Desktop Selector' pugins to share the Screen.<br />" +
-        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a>"
+        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a>",
+        'etDisabledA':'Cannt edit,poll attempted',
+        'etDisabledCr':'Can be edited by creator of the poll',
+        'dltDisabled':'Can be deleted  by creator of the poll',
+        'edit':'Edit',
+        'delete':'Delete',
+        'publish':'Publish'
     };
 
     window.message = message;

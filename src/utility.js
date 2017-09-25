@@ -1857,7 +1857,10 @@
             }
             return true;
         },
-
+        /**
+         * Todo, this needs to move in dashboard.js
+         * @param currVideo
+         */
         initDashboardNav : function (currVideo){
             if(roles.hasControls()){
                 var dashboardnav = document.querySelector('#dashboardnav button');
@@ -1873,11 +1876,18 @@
                     var dashboardnav =  document.querySelector('#dashboardnav button');
                     if(dashboardnav != null){
                         dashboardnav.addEventListener('click', function (){
-                            virtualclass.vutil.initDashboard(virtualclass.currApp)});
+                             if(this.classList.contains('clicked')){
+                                 virtualclass.dashBoard.close();
+                             }else {
+                                 virtualclass.vutil.initDashboard(virtualclass.currApp);
+                                 this.classList.add('clicked');
+                             }
+                           }
+                        );
+
                         if(currVideo){
                             virtualclass.vutil.readyDashboard();
                         }
-
                     }
                 }
 
@@ -1889,13 +1899,13 @@
                     if(typeof currVideo == 'undefined'){
                         this.readyDashboard();
                     }
+
                     // if(!(currVideo && currVideo.init && currVideo.init.videoUrl)){
                     //     this.readyDashboard();
                     // }
                 } else {
                     this.readyDashboard();
                 }
-
 
             }
         },

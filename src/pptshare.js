@@ -749,7 +749,9 @@
                        // $('#videoPlayerCont').css({"display": "block"});
                        // virtualclass.videoUl.shareVideo(vidObj.content_path);
                         virtualclass.sharePt.playPptUrl(pptObj.content_path);
-                        ppt.setAttribute("data-dismiss", "modal");
+                        // ppt.setAttribute("data-dismiss", "modal");
+                        virtualclass.dashBoard.close();
+
                         // if (typeof virtualclass.yts.player == "object") {
                         //     virtualclass.yts.player.destroy();
                         // }

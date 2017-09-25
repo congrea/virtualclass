@@ -21,7 +21,6 @@ var dashBoard = {
                 navButton.classList.remove('clicked');
             }
             // closeButton.classList.remove('clicked');
-
         }
     },
 
@@ -31,5 +30,18 @@ var dashBoard = {
 
     isDashBoardNavExist : function (){
         return (document.querySelector('#dashboardnav') != null);
+    },
+
+    actualCloseHandler : function (){
+        var closeButton = document.querySelector('#congdashboard .modal-content button.close');
+        if(closeButton != null){
+            closeButton.addEventListener('click', function(){
+                var navButton =  document.querySelector('#dashboardnav button');
+                if(navButton != null){
+                    navButton.classList.remove('clicked');
+
+                }
+            });
+        }
     }
 }

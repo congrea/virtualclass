@@ -2014,6 +2014,7 @@
             // });
 
             $('#congdashboard').modal();
+            virtualclass.dashBoard.actualCloseHandler();
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
                 if(virtualclass.dts.noteExist()){

@@ -478,7 +478,7 @@
                             virtualclass.videoUl.videoToStudent(vidObj);
                             virtualclass.videoUl.videoId = vidObj.id;
                             // video.setAttribute("data-dismiss",'modal');
-
+                            virtualclass.dashBoard.close();
                         });
 
                     }

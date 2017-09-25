@@ -324,6 +324,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li{
   width:70%;
   margin-left:10%;
+  height:53%;
 
 }
 
@@ -352,4 +353,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   border: 1px solid #515e69;
   border-radius: 0 4px 4px 0;
   box-shadow: none;
+}
+#virtualclassCont.congrea #congreavideoContBody .qq-progress-bar{
+  display:none;
+
 }

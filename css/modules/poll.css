@@ -263,5 +263,37 @@ pointer-events:none;
   opacity:.4;
 }
 
+#virtualclassCont.congrea.student  #virtualclassPoll #stdPollMszLayout{
+  background-color: #f9f9f9;
+  border: 1px solid #c8ddb8;
+  border-radius: 5px;
+  color: #3a773c;
+  margin: 0 auto;
+  padding: 30px 20px;
+  position: absolute;
+  top: 40%;
+  width: 480px;
+  text-align: center;
+  box-shadow: 0 0 8px #ddd;
+  left: 0;
+  right: 0;
+  font-size:medium;
+}
 
+#virtualclassCont.congrea.student  #virtualclassPoll #pollHead{
+  font-size: 18px;
+  color: #34404c;
+  letter-spacing: .01em;
+  padding: 2px;
+
+}
+
+#virtualclassCont.congrea.student  #virtualclassPoll #stdContHead .stdHeader {
+  margin-top: 43px;
+  margin-bottom:20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+}
+#virtualclassCont.congrea.student  #virtualclassPoll #stdContHead {
+  margin-bottom:30px;
+}
 

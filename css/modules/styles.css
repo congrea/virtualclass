@@ -2704,11 +2704,11 @@
 	padding:0px;
 }
 
-@media (min-width: 700px){
-	#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
-		width:80%;
-	}
-}
+/*@media (min-width: 700px){*/
+	/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {*/
+		/*width:80%;*/
+	/*}*/
+/*}*/
 /*@media (min-width: 992px){*/
 /*#virtualclassCont.congrea #dashboardContainer #videoUrlContainer {*/
 /*width:80%;*/
@@ -2724,19 +2724,23 @@
 	margin-top : -1px;
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont {
-	width:12%;
+	width:200px;
 	float:left;
 	height : 100%;
+	padding:0px;
+	margin:0px;
 
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
-	width:87%;
-	float:left;
+	width:calc(100% - 200px);
+	float:right;
 	height : 100%;
+	padding:0px;
+	margin:0px;
 	/*background : #f9f9f9;*/
-	margin-left : 1%;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
+	/*margin-left : 1%;*/
+	/*border-top-left-radius: 5px;*/
+	/*border-bottom-left-radius: 5px;*/
 }
 /*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {*/
 /*width:99%;*/
@@ -2745,8 +2749,12 @@
 /*width:10%;*/
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
-	width: 88%;
-	margin-right : 0.5%;
+	width: calc(100% - 6px);
+	border-left: 1px solid #ada8a8 !important;
+	border-top: 1px solid #ada8a8 !important;
+	/* margin-right: 0.5%; */
+	border-radius: 4px 0 4px 0;
+	border-width: 0;
 }
 
 #virtualclassCont.congrea .modal-header h4{

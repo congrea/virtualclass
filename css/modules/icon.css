@@ -1,7 +1,7 @@
 /*left pannel*/
 #virtualclassCont .icon-videoUpload:before {
   content: "\e92d";
-  font-size: 28px;
+  font-size: 26px;
 }
 
 #virtualclassVideo button#newVideoBtn::before {
@@ -21,6 +21,7 @@
 #virtualclassCont .icon-poll:before {
   content: "\e916";
   font-size: 28px;
+  margin-right: 3px;
 }
 /*#virtualclassCont .icon-setting:before {*/
 /*content: "\e991";*/
@@ -66,6 +67,7 @@
 #virtualclassCont .icon-quiz:before {
   content: "\e915";
   font-size: 26px;
+  margin-right: 2px;
 }
 
 #virtualclassCont .icon-publish2:before {
@@ -79,16 +81,19 @@
   font-size: 28px;
   position: relative;
   top: 3px;
+  margin-right: 6px;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboardTool .icon-whiteboard:before {
   content: "\e604";
   font-size: 34px;
+  margin-right: 5px;
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {
   content: "\e602";
   font-size: 32px;
+  margin-right: 5px;
 }
 
 #virtualclassCont.congrea #virtualclassYtsTool .icon-youtubeshare:before {
@@ -101,14 +106,16 @@
   font-size: 28px;
   position: relative;
   top: 3px;
+  margin-right: 5px;
 }
 
 #virtualclassCont.congrea .icon-sharePresentation:before {
   content: "\e904";
-  font-size: 30px;
+  font-size: 32px;
   color: #444;
   position: relative;
   top: 2px;
+  margin-right: 5px;
 }
 
 #virtualclassDocumentShareTool .icon-documentShare:before {
@@ -459,13 +466,13 @@
   color:#333;
 }
 
-.icon-sharePresentation:before{
-  content: "\e904";
-  font-size: 30px;
-  color:#444;
-  position: relative;
-  top: 2px;
-}
+/*.icon-sharePresentation:before{*/
+  /*content: "\e904";*/
+  /*font-size: 30px;*/
+  /*color:#444;*/
+  /*position: relative;*/
+  /*top: 2px;*/
+/*}*/
 
 #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
   content : "\e903";
@@ -599,7 +606,7 @@
 }
 
 #virtualclassCont.congrea i.dashboard-icon:before{
-  content : "\e871";
+  content : "\f00a";
   /*color: #34b532;*/
   /*font-size: 14px;*/
   /*position: relative;*/

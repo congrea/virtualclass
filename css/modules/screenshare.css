@@ -41,10 +41,11 @@
   border-top-right-radius: 0;
 }
 
-#virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {
-  content: "\e602";
-  font-size: 32px;
-}
+/*#virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {*/
+  /*content: "\e602";*/
+  /*font-size: 32px;*/
+  /*margin-right: 5px;*/
+/*}*/
 
 #virtualclassScreenShare {
   margin-top: 8px;

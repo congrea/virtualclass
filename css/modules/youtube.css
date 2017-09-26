@@ -77,13 +77,9 @@
 
 
 #virtualclassCont.congrea #videoUrlContainer #videourl {
-  /*border: #ddd 1px solid;*/
   height: 35px;
   font-size: 14px;
-  padding: 0px 10px;
-  width: 340px;
   color: #777;
-  border-radius: 5px;
 }
 
 #virtualclassCont.congrea #virtualclassVideo {

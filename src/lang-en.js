@@ -334,7 +334,8 @@
         'dltDisabled':'Can be deleted  by creator of the poll',
         'edit':'Edit',
         'delete':'Delete',
-        'publish':'Publish'
+        'publish':'Publish',
+        'pollHead':'Vote this Poll'
     };
 
     window.message = message;

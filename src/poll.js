@@ -1331,14 +1331,14 @@
 
                 }
             },
-            showStudentPollReport: function () {
-                virtualclass.storage.getAllDataOfPoll(['pollStorage'], function (obj) {
+            showStudentPollReport: function (obj) {
+
                     virtualclass.poll.studentReportLayout(obj)
-
                     var elem = document.getElementById("mszBoxPoll");
-                    elem.parentNode.removeChild(elem);
+                    if(elem){
+                        elem.parentNode.removeChild(elem);
 
-                });
+                    }
 
             },
             studentReportLayout: function (arr) {
@@ -1352,14 +1352,11 @@
                 layout.appendChild(elem)
 
                 var obj = JSON.parse(arr.pop().pollResult);
-
                 var count = obj.result;
                 //elem.innerHTML="data fetched from indexed db";
                 virtualclass.poll.count = count;
                 virtualclass.poll.dataRec = obj.pollData;
                 virtualclass.poll.stdPublishResult(count, report);
-
-
             },
             timerDisable: function () {
 
@@ -2396,10 +2393,21 @@
                             virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
                         });
                     }else{
+                        var resultNav = document.querySelector('.congrea.student #virtualclassPoll #navigator');
+                        resultNav.style.display="none";
 
-                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a')
+
+                        virtualclass.storage.getAllDataOfPoll(['pollStorage'], function (obj) {
+
+                            if(obj){
+                                virtualclass.poll.previousResult= obj
+                                var resultNav = document.querySelector('.congrea.student #virtualclassPoll #navigator');
+                                resultNav.style.display="block";
+                            }
+                        });
+                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a');
                         stdNav.addEventListener('click', function () {
-                            virtualclass.poll.showStudentPollReport();
+                            virtualclass.poll.showStudentPollReport(virtualclass.poll.previousResult);
                         });
 
                     }
@@ -2426,7 +2434,7 @@
                                 var btn = document.createElement("button");
                                 btn.id = "closePoll";
                                 head.appendChild(btn);
-                                btn.innerHTML = "closePoll";
+                                btn.innerHTML = "Close Poll";
                                 btn.addEventListener("click", function(){
                                     virtualclass.poll.closePoll(pollType)
 

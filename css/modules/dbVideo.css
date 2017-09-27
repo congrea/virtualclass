@@ -327,6 +327,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li{
   width:70%;
   margin-left:10%;
+  height:53%;
 
 }
 
@@ -378,26 +379,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   box-shadow: none;
 }
 
-/*@media(min-width:768px) and (max-width:1887px){*/
-  /*#virtualclassCont.congrea #videoUrlContainer #videourl{*/
-    /*width:93.44%!important;*/
-  /*}*/
-  /*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default{*/
-    /*width: 95% !important;*/
-  /*}*/
-/*}*/
-
-/*@media(min-width:968px) and (max-width:1291px) {*/
-  /*#virtualclassCont.congrea #videoUrlContainer #videourl{*/
-    /*width:92.44%!important;*/
-  /*}*/
-  /*!*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default{*!*/
-    /*!*min-width: 70% !important;*!*/
-  /*!*}*!*/
-/*}*/
-
-/*@media(max-width:1300px){*/
-  /*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default{*/
-    /*width: 94% !important;*/
-  /*}*/
-/*}*/
+#virtualclassCont.congrea #congreavideoContBody .qq-progress-bar{
+  display:none;
+}

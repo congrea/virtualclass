@@ -448,10 +448,11 @@
             },
 
             makeAppReady: function (app, cusEvent, data) {
-                var congdashboardClose = document.querySelector('#congdashboard button.close');
-                if(congdashboardClose != null){
-                    congdashboardClose.click();
-                }
+                // var congdashboardClose = document.querySelector('#congdashboard button.close');
+                // if(congdashboardClose != null){
+                //     congdashboardClose.click();
+                // }
+                virtualclass.dashBoard.close();
                 console.log('Application is ready' + app);
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
@@ -551,21 +552,21 @@
                     var currVideo= Array.prototype.slice.call(arguments)[2];
                     if (virtualclass.currApp == 'SharePresentation' || (virtualclass.currApp == 'Video')) {
                         virtualclass.vutil.initDashboardNav(currVideo);
-
                         if(virtualclass.currApp == 'Video'){
-                            if(!(currVideo && currVideo.init&&(currVideo.init.videoUrl|| currVideo.fromReload))){
+
+                         // if(!(currVideo && currVideo.init && (currVideo.init.videoUrl|| currVideo.fromReload))){
+                            if(!(currVideo)){
                                 var dashboardnav =  document.querySelector('#dashboardnav button');
                                 if(dashboardnav != null){
-                                    dashboardnav.click();
+                                     dashboardnav.click();
                                 }
-
                             }
 
                         }else{
                             if(!(virtualclass.sharePt.localStoragFlag)){
                                 var dashboardnav =  document.querySelector('#dashboardnav button');
                                 if(dashboardnav != null){
-                                    dashboardnav.click();
+                                     dashboardnav.click();
                                 }
 
                             }

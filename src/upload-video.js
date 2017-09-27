@@ -419,7 +419,8 @@
                         $('#virtualclassVideo iframe#player').remove();
                         $('#videoPlayerCont').css({"display":"block"});
                         virtualclass.videoUl.shareVideo(vidObj.content_path);
-                        video.setAttribute("data-dismiss","modal");
+                        // video.setAttribute("data-dismiss","modal");
+                        virtualclass.dashBoard.close();
                         if(typeof virtualclass.yts.player == "object"){
                             virtualclass.yts.player.destroy();
                         }
@@ -451,7 +452,8 @@
                        // virtualclass.yts.onYTIframApi(videoId);
                         //ioAdapter.mustSend({'videoUl': {'ytsInit': videoId}, 'cf': 'videoUl'});
                        // virtualclass.videoUl.ytsVideoPlay(videoId)
-                        video.setAttribute("data-dismiss", "modal");
+                        // video.setAttribute("data-dismiss", "modal");
+                        virtualclass.dashBoard.close();
                     })
 
                 }else{
@@ -475,7 +477,8 @@
                             virtualclass.videoUl.activeVideoClass(vidObj.id);
                             virtualclass.videoUl.videoToStudent(vidObj);
                             virtualclass.videoUl.videoId = vidObj.id;
-                            video.setAttribute("data-dismiss",'modal');
+                            // video.setAttribute("data-dismiss",'modal');
+                            virtualclass.dashBoard.close();
                         });
 
                     }

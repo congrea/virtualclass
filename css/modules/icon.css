@@ -605,6 +605,7 @@
   top: -1px;
 }
 
+
 #virtualclassCont.congrea i.dashboard-icon:before{
   content : "\f00a";
   /*color: #34b532;*/
@@ -626,4 +627,8 @@
   font-size: 23px;
   color:white;
   line-height: 65% !important;
+}
+
+#virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon:before{
+  content : "X";
 }

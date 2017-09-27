@@ -1981,7 +1981,7 @@
             }
         },
 
-        initDashboard : function (currApp){
+        initDashboard : function (currApp, hidepopup){
             var mainContainer = document.querySelector('#mainContainer');
             if(currApp=="SharePresentation") {
                 var dbcont = document.querySelector('#pptDbCont');
@@ -2013,16 +2013,25 @@
             //     show: true
             // });
 
-            $('#congdashboard').modal();
-            virtualclass.dashBoard.actualCloseHandler();
+         //   $('#congdashboard').modal();
+
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
+                if(typeof hidepopup == 'undefined'){
+                    $('#congdashboard').modal();
+                    virtualclass.dashBoard.clickCloseButton();
+                }
+
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 }
                //  virtualclass.vutil.attachEventToUploadTab();
 
+            }else {
+                $('#congdashboard').modal();
             }
+
+            virtualclass.dashBoard.actualCloseHandler();
 
             var moodleHeader = document.querySelector('#congdashboard .modal-header h4');
             if(moodleHeader != null){
@@ -2074,11 +2083,15 @@
             );
         },
 
-        triggerDashboard : function (currApp){
+        triggerDashboard : function (currApp, hidepopup){
             if(currApp == 'DocumentShare'){
                 var currentNote = document.querySelector('#screen-docs .note.current');
                 if(currentNote == null){
-                    virtualclass.vutil.initDashboard(currApp);
+                    if(typeof hidepopup ==  'undefined'){
+                        virtualclass.vutil.initDashboard(currApp);
+                    }else {
+                        virtualclass.vutil.initDashboard(currApp, hidepopup);
+                    }
                 }
             } else {
                 virtualclass.vutil.initDashboard(currApp);

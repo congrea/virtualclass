@@ -16,8 +16,11 @@
             allDocs : null, // This contains all docs received from server
             notes : null,
             order : [],
+
+
             tempFolder : "documentSharing",
             init: function(docsObj) {
+                this.firstRequest = false;
                 firstTime = true;
                 if(virtualclass.gObj.hasOwnProperty('docs') &&  typeof virtualclass.gObj.docs == 'string'){
                     this.documents = null;
@@ -73,17 +76,25 @@
                   // Check if there is already docs in local storage
                   var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
                   if(docsObj != null){
+
                     this.initAfterUpload(docsObj);
                     if(docsObj.slideNumber != null){
                         this.setNoteScreen(docsObj);
                         docsObj.slideNumber = null;
                         localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
                     }
-                  }else{
+
+                  }
+                  else if(this.allDocs != null && Object.keys(this.allDocs).length > 0){
+                    console.log('Do nothing');
+                    this.afterFirstRequestDocs(this.allDocs, true);
+                  }
+                  else{
                     // Only send the request to server
                     // when the docs is not in storage
                     if(roles.hasControls()){
                       this.firstRequestDocs();
+                      this.firstRequest = true;
                     }
                   }
                 }
@@ -240,9 +251,12 @@
              * @param docs expects documenation list that have been
              * received from LMS and localstorage
              */
-            afterFirstRequestDocs : function (docs){
-                this.allDocsTemp = docs;
-                this.allDocs = this.convertInObjects(this.allDocsTemp);
+            afterFirstRequestDocs : function (docs, notconvert){
+                if(typeof notconvert == 'undefined'){
+                    this.allDocsTemp = docs;
+                    this.allDocs = this.convertInObjects(this.allDocsTemp);
+                }
+
                 for(var key in this.allDocs){
                     this.initDocs(this.allDocs[key].id);
                 }
@@ -257,27 +271,38 @@
                 this.setScreenByOrder(docId);
                 this.docs.currNote = this.order[0];
                 this.docs.displayScreen(docId, this.order[0]);
+
+
             },
 
             /**
              * this requests the order from LMS
              */
-            requestOrder : function (){
+            requestOrder : function (cb){
                 var data = {
                     "live_class_id" : virtualclass.gObj.congCourse,
                     "content_order_type" : 1
                 };
                 var cthis = this;
                 virtualclass.vutil.xhrSendWithForm(data, 'congrea_retrieve_page_order', function (response){
-                    var content = JSON.parse(response);
-                    if (content.message == "Failed") {
-                        console.log("page order retrieve failed");
-                    } else if(content) {
-                        ioAdapter.mustSend({'dts': {order_recived: content},  'cf': 'dts'});
-                        cthis.afterRequestOrder(content);
-                        cthis.createNoteNav();
+                        cb.apply(cthis, [response]);
                     }
-                });
+                );
+            },
+
+            executeOrder : function (response){
+                var cthis = this;
+                var content = JSON.parse(response);
+                if (content.message == "Failed") {
+                    console.log("page order retrieve failed");
+                    $('#congdashboard').modal();
+                    virtualclass.dashBoard.clickCloseButton();
+
+                } else if(content) {
+                    ioAdapter.mustSend({'dts': {order_recived: content},  'cf': 'dts'});
+                    cthis.afterRequestOrder(content);
+                    cthis.createNoteNav();
+                }
             },
 
             /**
@@ -340,7 +365,7 @@
                            cthis.storeInDocs(cthis.allNotes)
                            ioAdapter.mustSend({'dts': {fallNotes: cthis.allNotes},  'cf': 'dts'});
                            // cthis.firstRequestDocs();
-                           cthis.requestOrder();
+                           cthis.requestOrder(cthis.executeOrder);
                        //}
                     }
                 );

@@ -489,7 +489,16 @@
                 } else if (app == "DocumentShare") {
                     this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
                     if(roles.hasControls()){
-                        virtualclass.vutil.triggerDashboard(app);
+                        if(!virtualclass.dts.firstRequest){
+                            virtualclass.vutil.triggerDashboard(app);
+                        } else{
+
+                            /* For the request of Docs, we need to hide the popup Dashboard,
+                             * If the notes order is not available from database then the application
+                             * shows the popup Dashboard later
+                             */
+                            virtualclass.vutil.triggerDashboard(app, 'hidepopup');
+                        }
                     }
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
@@ -851,6 +860,7 @@
                         } else {
                             virtualclass.dts.init();
                         }
+
                     }else {
                         // send the initialize for the user layout
                         if(roles.hasControls()){
@@ -874,6 +884,8 @@
                 DocumentShare: function(app, customEvent, docsObj) {
                     if(!virtualclass.hasOwnProperty('dts') || virtualclass.dts == null){
                         virtualclass.dts  = window.documentShare();
+                    }else{
+                        virtualclass.dts.firstRequest = false;
                     }
 
                     //if(!virtualclass.dts.docs.hasOwnProperty('currDoc')){
@@ -919,8 +931,6 @@
                             function (){
                                 cthis.appInitiator.DocumentShare.apply(cthis.appInitiator, args);
 
-
-
                             },100
                         )
                     } else {
@@ -928,11 +938,12 @@
                         // misspacket on new user does not work
                         cthis.appInitiator.makeReadyDsShare.apply(cthis.appInitiator, args);
                         virtualclass.vutil.initDashboardNav();
-                        if(!virtualclass.dts.noteExist()){
+
+                        /** This condition is satisfied when user page refresh without selecting any docs **/
+                        if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
                             var dashboardnav =  document.querySelector('#dashboardnav button');
                             if(dashboardnav != null) {
                                 dashboardnav.click();
-
                             }
                         }
 

@@ -285,7 +285,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   position: absolute;
   bottom: 0px;
   width: 100%;
-  height : 7%;
+  height : 63px;
+  overflow: hidden;
+  padding:0px;
+  margin: 0px;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controls.delete::before {
@@ -337,25 +340,45 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   margin-left:40%;
 }
 
-#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont button {
-  width : 200px;
+#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default {
+  width: 200px;
 }
 
-#virtualclassCont.congrea #videoUrlContainer.form-group {
+#virtualclassCont.congrea #videoUrlContainer {
   margin-bottom: 0px;
 }
 
 #virtualclassCont.congrea #videoUrlContainer .btn-default {
-  height: 70%;
+  height: 63px;
+  width: 60px;
+  float: right;
+  box-shadow: none;
+  border-width: 0;
+  border-radius: 0 0 4px 0;
   position: absolute;
-  padding: 5px 9px;
-  right: 3px;
-  border: 1px solid #515e69;
-  border-radius: 0 4px 4px 0;
+  right: 0px;
+}
+
+/*@media (min-width: 1270px) {*/
+  /*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default {*/
+    /*width: 200px;*/
+  /*}*/
+/*}*/
+
+#virtualclassCont.congrea #congreavideoContBody .qq-uploader.qq-gallery {
+   border-radius: 0px;
+   border: 0px;
+}
+
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {
+  /* border-top: none; */
+  /* border-right: none; */
+  border-width: 0;
+  border: 0;
+  border-radius: 0 4px 0px 4px;
   box-shadow: none;
 }
 
 #virtualclassCont.congrea #congreavideoContBody .qq-progress-bar{
   display:none;
 }
-

@@ -39,8 +39,9 @@
   margin-left : 15px;
 }
 
-#virtualclassCont.congrea #videourl.form-control{
+#virtualclassCont.congrea #videourl{
   display : inline;
-  height:70% !important;
+  height:100% !important;
   text-align: center;
+  /*border : none;*/
 }

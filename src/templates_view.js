@@ -481,12 +481,14 @@ this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(co
     + alias4(container.lambda(depth0, depth0))
     + "</span>\n        </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.escapeExpression;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"panel\">\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"panel\">\n    <label>"
-    + alias2((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
+  return "<div id=\"stdPollContainer\" class=\"container\">\n  <div id=\"stdContHead\" class=\"panel\">\n    <div class=\"stdHeader\">\n      <label id=\"pollHead\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"pollHead",{"name":"getString","hash":{},"data":data}))
+    + "</label>\n    </div>\n    <label id=\"timerLabel\"></label>\n    <div id=\"timerCont\"></div>\n  </div>\n  <div id=\"stdContBody\" class=\"panel\">\n    <label>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
     + " :<span id=\"stdQnCont\">"
-    + alias2(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
+    + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label>\n    <div id=\"stdOptionCont\">\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n  </div>\n  <div id=\"stdContFooter\">\n    <input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value =\"vote\">\n  </div>\n</div>";
@@ -667,7 +669,7 @@ this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"1":functi
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "\n  <div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n\n<div class=\"modal-dialog\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\">×</button>\n\n      <div id=\"resultTx\" class=\"row modalHeaderTx panel-body\">"
+  return "\n<div id=\"editPollModal\" class=\"modal in\" tab-index=\"-1\" area-hidden=\"true\" style=\"display: block;\">\n  <div class=\"modal-dialog\">\n  <div class=\"modal-content\" id=\"pollModalBody\">\n    <div id=\"contHead\" class=\"modal-header\">\n      <button type=\"button\" class=\"close\" id=\"modalClose\">×</button>\n\n      <div id=\"resultTx\" class=\"row modalHeaderTx panel-body\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Presult",{"name":"getString","hash":{},"data":data}))
     + "</div>\n    </div>\n    <div id=\"resultLayout\" class=\"panel-body\">\n      <div id=\"resultLayoutHead\" class=\"row panel\">\n        <div id=\"timerWrapper\" class=\"col-md-4\">\n          <label id=\"timerLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Rtime",{"name":"getString","hash":{},"data":data}))
@@ -681,7 +683,7 @@ this["JST"]["templates/poll/result-modal.hbs"] = Handlebars.template({"1":functi
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "          </div>\n        </div>\n        <div id=\"chartMenuCont\" class=\"panel\">\n          <button id=\"bar\">\n            <a href=\"#\" id=\"barView\">\n              <span class=\"icon-stats-bars\"></span>\n            </a>\n          </button>\n          <button id=\"pi\">\n            <a href=\"#\" id=\"piView\">\n              <span class=\"icon-pie-chart\"></span>\n            </a>\n          </button>\n          <button id=\"rList\">\n            <a href=\"#\" id=\"listView\">\n              <span class=\"icon-list-ul\"></span>\n            </a>\n          </button>\n        </div>\n        <div id=\"chart\" class=\"row c3\" style=\"max-height: 320px; position: relative;\"></div>\n        <div class=\"table-responsive\" id=\"listCont\"></div>\n\n      </div>\n      <div id=\"pollResultMsz\" class=\"pollResultMsz panel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"watstdrespo",{"name":"getString","hash":{},"data":data}))
-    + "</div>\n      <div id=\"resultLayoutFooter\" class=\"row\">\n\n      </div>\n    </div>\n  </div>\n</div></div>";
+    + "</div>\n      <div id=\"resultLayoutFooter\" class=\"row\"></div>\n    </div>\n  </div>\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/resultlist.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -757,7 +759,9 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay",{"name":"getString","hash":{},"data":data}))
     + " </button>\n    </div>\n\n    <div id=\"confirm\" class=\"popupWindow simple-box\"></div>\n\n    <div id=\"sessionEndMsgCont\" class=\"popupWindow\">\n      <span id=\"sessionEndClose\" class=\"icon-close\"></span>\n      <span id=\"sessionEndMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionendmsg",{"name":"getString","hash":{},"data":data}))
-    + " </span>\n    </div>\n\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\"> "
+    + " </span>\n    </div>\n\n    <div id=\"uploadvideourl\" class=\"popupWindow\">\n      <span id=\"endSessionclose\" class=\"icon-close\"></span>\n      <span id=\"endSessionMsg\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
+    + " </span>\n    </div>\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
     + " </span>\n    </div>\n\n    <div id=\"chromeExtMiss\" class=\"popupWindow\">\n      <span id=\"chromeExtClose\" class=\"icon-close\"></span>\n      <span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br />You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a> </span>\n    </div>\n\n  </div>\n</div>";
 },"useData":true});

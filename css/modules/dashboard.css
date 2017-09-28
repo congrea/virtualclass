@@ -19,7 +19,7 @@
 }
 
 #virtualclassCont #listdocs {
-  height: 93.7%;
+  height: 94.6%;
   overflow-y: auto;
   margin-bottom :0;
 }
@@ -42,18 +42,22 @@
 }
 
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont{
-  float: right;
+  float: left;
   width: 18px;
   background: #820729;
   /* border-top-right-radius: 6px; */
-  /* border-bottom-right-radius: 6px; */
+  border-bottom-right-radius: 6px;
   height: auto;
-  margin-top: -12px;
+  margin-top: -1px;
   border-radius: 5px;
   padding-left: 2px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  /* border-top-right-radius: 0; */
+  /* border-bottom-right-radius: 0; */
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-right: 6px;
 }
+
 
 
 
@@ -64,7 +68,7 @@
 
 
 #virtualclassCont.congrea  #listdocs .list-group-item{
-  padding: 13px 0 13px 0;
+  padding: 7px 0 13px 0;
 }
 
 
@@ -200,15 +204,16 @@
 
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
-  float :left;
-  margin-left : 4%;
+  text-align :left;
+  margin-left : 12%;
+
 }
 
 
 .bootstrap #listdocs.listPages .list-group-item.links{
   border-top:1px solid #878e98;
   border-bottom:1px solid #33373d;
-  height : 7%;
+  height : 5.1%;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1']{
@@ -223,23 +228,28 @@
 
 }
 
-#virtualclassCont.congrea #dashboardnav {
-  position: absolute;
-  top: 574px;
-  left: -4px;
-}
+/*#virtualclassCont.congrea #dashboardnav {*/
+  /*position: absolute;*/
+  /*top: 650px;*/
+  /*left: -5px;*/
+/*}*/
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary{
   height: 45px;
   width: 57px;
   margin-left: 0px;
   border:0px;
-  margin-top:66px;
+  /*margin-top:66px;*/
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{
   margin-left:74px;
-  margin-bottom:-25px;
+  margin-bottom: 27px;
+}
+
+#virtualclassCont.congrea #dashboardnav.congtooltip,
+#virtualclassCont.congrea #virtualclassPollTool.congtooltip{
+  z-index: 1100;
 }
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary:hover{
@@ -253,4 +263,35 @@
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
   height : 100%;
+}
+
+
+#virtualclassCont #dashboardnav .btn-primary {
+  background : linear-gradient(to bottom, #51a0ef 0%, #0556a7 100%) !important;
+  height: 48px !important;
+  margin-left: 8px !important;
+  border-radius: 50%;
+  width: 48px !important;
+}
+
+/*@media(min-height:768px){*/
+  /*#virtualclassCont.congrea  #dashboardnav{*/
+    /*position: absolute;*/
+    /*top: 650px;*/
+    /*left: -5px;*/
+  /*}*/
+/*}*/
+
+@media (max-height: 768px){
+  #virtualclassCont.congrea #dashboardnav {
+    position: absolute;
+    top: 585px;
+    left: -5px;
+  }
+}
+@media (max-height: 768px){
+  #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
+    position:absolute;
+    top:73px;
+  }
 }

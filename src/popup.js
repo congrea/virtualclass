@@ -151,6 +151,9 @@ var PopUp = (function (window, undefined) {
 
             var sessionEndCont = document.getElementById('sessionEndMsgCont');
             sessionEndCont.dataset.displaying = 'false';
+
+            var endsessionvalidateurl = document.getElementById('uploadvideourl');
+            endsessionvalidateurl.dataset.displaying = 'false';
    
             var chatRoom = document.getElementById('chatrm');
             if(chatRoom  != null){
@@ -249,6 +252,23 @@ var PopUp = (function (window, undefined) {
 
         var sessionEndClose = document.getElementById("sessionEndClose");
         sessionEndClose.addEventListener('click',
+            function () {
+                //virtualclass.popup.closeElem();
+                //window.location.reload();
+                virtualclass.popup.closeElem();
+            });
+    };
+
+    PopUp.prototype.validateurlPopup = function() {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        this.hideAllPopups();
+        var endSessionMsg = document.getElementById("uploadvideourl");
+        endSessionMsg.style.display = 'block';
+        endSessionMsg.dataset.displaying = true;
+
+        var endSessionclose = document.getElementById("endSessionclose");
+        endSessionclose.addEventListener('click',
             function () {
                 //virtualclass.popup.closeElem();
                 //window.location.reload();

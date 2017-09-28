@@ -1196,7 +1196,7 @@
 #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
 	text-decoration : none;
 	outline-width : 0;
-	z-index : 990;
+	z-index : 1100 !important;
 	text-align : center;
 	line-height : 20px;
 	display : block;
@@ -2750,8 +2750,8 @@
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
 	width: calc(100% - 6px);
-	border-left: 1px solid #ada8a8 !important;
-	border-top: 1px solid #ada8a8 !important;
+	border-left: 1px solid #dcd6d6 !important;
+	border-top: 1px solid #dcd6d6 !important;
 	/* margin-right: 0.5%; */
 	border-radius: 4px 0 4px 0;
 	border-width: 0;
@@ -2771,11 +2771,9 @@
 }
 
 #dashboardnav .btn-primary {
-	background : linear-gradient(to bottom, #254d6f 0%, #51a0ef 100%) !important;
+	background : linear-gradient(to bottom, #51a0ef 0%, #51a0ef 100%) !important;
 }
-#dashboardnav .btn-primary:hover{
-background-color: gray;
-}
+
 
 #dashboardnav i.dashboard-icon {
 	font-style: normal;
@@ -2812,7 +2810,7 @@ background-color: gray;
 @media (min-height:768px){
 	#dashboardnav {
 		position: absolute;
-		top: 612px !important;
+		top: 640px !important;
 		left: -4px;
 		height: 45px;
 		border:0px;
@@ -2821,4 +2819,40 @@ background-color: gray;
 
 #virtualclassCont.congrea #recordingContainer{
 	width: 469px;
+}
+
+#virtualclassCont.congrea #popupContainer #uploadvideourl {
+	width: 248px;
+	height: 60px;
+	text-align: center;
+	/* margin-top: 13px; */
+	padding: 17px;
+	margin: 10px;
+	/* margin-bottom: -28px; */
+	color: #6a8a13;
+	border: 1px solid #ddd ;
+	border-radius: 5px;
+}
+
+#virtualclassCont.congrea #popupContainer #uploadvideourl #endSessionclose {
+	top: 8px;
+	right: 8px;
+	position: absolute;
+	cursor: pointer;
+	/* color: black; */
+}
+
+#virtualclassCont.congrea #popupContainer #uploadvideourl #endSessionMsg{
+	line-height: 57px;
+}
+
+#virtualclassCont.congrea #virtualclassSessionEndTool.congtooltip {
+	z-index: 1100;
+}
+
+#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo:hover,
+#virtualclassCont.congrea #videoUrlContainer .btn-default:hover,
+#virtualclassCont.congrea #newDocBtn.btn-default:hover,
+#virtualclassCont.congrea #urlcontainer #submitpurl.btn-default:hover{
+	opacity: 0.8;
 }

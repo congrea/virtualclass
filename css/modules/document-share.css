@@ -622,7 +622,7 @@
 
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
-    font-size : 0.9em;
+    font-size : 0.83em;
 }
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list{
@@ -676,4 +676,19 @@
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.firstNote .prev::before,
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .pageContainer.lastNote .next::before{
     color : #b3b2b2;
+}
+
+
+#virtualclassCont.congrea #DocumentShareDashboard .dbContainer {
+    height : 99%
+}
+
+#virtualclassCont.congrea #dashboardnav button:focus,
+#virtualclassCont.congrea #dashboardnav input.form-submit:focus,
+#virtualclassCont.congrea #dashboardnav input[type="button"]:focus,
+#virtualclassCont.congrea #dashboardnav input[type="submit"]:focus,
+#virtualclassCont.congrea #dashboardnav input[type="reset"]:focus {
+    outline: none;
+    outline: none;
+    outline-offset: 0px;
 }

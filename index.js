@@ -840,6 +840,11 @@ $(document).ready(function () {
             if (virtualclass.joinUser.role == 's' && virtualclass.gObj.has_ts_capability){
                 ioAdapter.mustSend({'uid': virtualclass.gObj.uid, ac:true, 'cf': 'tsr'});
             }
+
+            if(virtualclass.gObj.uid != virtualclass.jId){
+                virtualclass.multiVideo.onUserJoin(virtualclass.jId);
+            }
+
         });
 
         var overrideRoleTeacher = function () {
@@ -1414,6 +1419,11 @@ $(document).ready(function () {
                     newJoinId : e.fromUser.userid,
                     cmadd : true
                 });
+            }
+
+            this.mvid = function (e){
+                console.log('multivideo, message received');
+                virtualclass.multiVideo.onmessage(e.message, e.fromUser.userid);
             }
         };
         // TODO this shoudl be remove, after precheck feature is enabled

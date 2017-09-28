@@ -1,0 +1,64 @@
+#multiremoteVideo {
+  width : 400px;
+  height : 400px;
+}
+
+
+#videoConfrence {
+  position : absolute;
+  top : 0;
+  left : 50px;
+  z-index: 600;
+  height : 900px;
+  width : 68%;
+}
+
+.videoWrap{
+  padding: 5px;
+  float:left;
+}
+
+.videoWrap {
+  width : 25%;
+}
+
+
+.videoCont{
+  float: left;
+  width: 32%;
+  margin-left: 5px;
+}
+
+.videoCont video{
+  border: 1px solid #ddd;
+  padding : 5px;
+  width : 100%;
+
+}
+
+
+
+
+
+#videosWrapper {
+  padding-top: 50px;
+}
+
+
+#virtualclassCont.congrea #preCheckcontainer .screen1.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen3.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen4.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen5.bandwidth::before{
+  padding-left : 40px !important;
+}
+
+
+#virtualclassMultiVideoTool span{
+  color : #ffffff;
+}
+
+#videosWrapper {
+  margin-left : 50px;
+}
+

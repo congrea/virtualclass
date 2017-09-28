@@ -45,6 +45,13 @@ if (isset($_GET['themecolor'])) {
     $theme = 'gray';
 }
 
+
+if (isset($_GET['meetingmode'])) {
+    $meetingmode = $_GET['meetingmode'];
+} else {
+    $meetingmode = 0;
+}
+
 $pt = array('0' => 'disable', '1' => 'enable');
 
 $pushtotalk = '0';
@@ -181,6 +188,7 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/screenshare.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/sharepresentation.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/video.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/peervideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/whiteboard.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/youtube.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/jquery.ui.chatbox.css" ?> />
@@ -188,6 +196,7 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/pbar.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/theme/$theme".".css" ?> />
 <?php
 } else {
@@ -260,6 +269,8 @@ $cmid = 5;
     wbUser.role =  '<?php echo $r; ?>';
     wbUser.lname =  '<?php echo $lname; ?>';
     wbUser.name =  '<?php echo $uname; ?>';
+    wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
+
     wbUser.anyonepresenter =  '<?php echo $anyonepresenter ?>';
     window.whiteboardPath =  '<?php echo $whiteboardpath; ?>';
     window.importfilepath = "<?php echo $whiteboardpath . "impport.php" ?>";

@@ -4,7 +4,7 @@
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
             isPlayMode :playMode,
-            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz'],
+            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
 
@@ -27,7 +27,8 @@
                 commandToolsWrapperId: {},
                 editorInitDone: 0,
                 resize : false,
-                has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false
+                has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
+                meetingMode : +(wbUser.meetingMode),
             },
 
             enablePreCheck : true,
@@ -88,6 +89,7 @@
                 this.viConfig ={id:"virtualclass"+this.apps[7],classes:"appOptions"};
                 this.dtsConfig = {id: "virtualclass" + this.apps[8], classes: "appOptions"};
                 this.qzConfig = {id:"virtualclass"+this.apps[9],classes:"appOptions"};
+                this.mvConfig = {id:"virtualclass"+this.apps[10],classes:"appOptions"};
 
                 //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
                 this.user = new window.user();
@@ -104,6 +106,7 @@
                 this.currApp = this.vutil.capitalizeFirstLetter(app);
                 this.storage = window.storage;
                 this.dashBoard  = dashBoard;
+                this.multiVideo = window.MultiVideo;
 
 //                this.storage.init(function () {
 //                    if (!virtualclass.vutil.isPlayMode()) {
@@ -198,8 +201,13 @@
                     virtualclass.makeReadySocket();
                 }
                 // For initialize the Teacher Video
-                virtualclass.videoHost.init(320 , 240);
-                virtualclass.networkStatus();
+                if(!virtualclass.gObj.meetingMode){
+                    virtualclass.videoHost.init(320 , 240);
+                    virtualclass.networkStatus();
+                } else {
+                    virtualclass.multiVideo.init();
+                }
+
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
                 }
@@ -629,7 +637,7 @@
                             if(whiteboardContainer != null){
                                 if(document.querySelector('vcanvas'+id) == null){
                                     var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
-                                    var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
+                                    var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls(), videoType : 'rightBar'});
                                     whiteboardContainer.innerHTML = wbHtml;
                                 }
 
@@ -954,6 +962,11 @@
                 }
             },
 
+            MultiVideo : function (){
+                this.multiVideo._init();
+                this.previous = virtualclass.mvConfig.id;
+            },
+
             attachFunction: function () {
                 //debugger;
                 var allAppOptions = document.getElementsByClassName("appOptions");
@@ -1084,6 +1097,7 @@
                     main: this.getTemplate('main') ,
                     whiteboard: this.getTemplate('main', 'whiteboard'),
                     dashboardCont: this.getTemplate('dashboardCont'),
+                    peerVideo: this.getTemplate('peerVideo'),
 
                 });
             },
@@ -1105,6 +1119,14 @@
                         console.log("Value");
                         console.log("====================");
                         console.log(optionalValue);
+                    }
+                });
+
+                Handlebars.registerHelper("getVideoType", function(optionalValue) {
+                    if(virtualclass.gObj.meetingMode){
+                        return 'peerVideo';
+                    }else {
+                        return 'teacherVideo';
                     }
                 });
             },
@@ -1148,4 +1170,5 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     }
+
 })(window);

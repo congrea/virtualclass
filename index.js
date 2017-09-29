@@ -260,7 +260,9 @@ $(document).ready(function () {
             }
             var e = {removeUser : removeUser};
 
-            memberUpdateWithDelay(e, 'removed');
+            memberUpdateWithDelay(e, 'removed')
+
+            virtualclass.multiVideo.onUserRemove(removeUser);
 
         });
 

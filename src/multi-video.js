@@ -10,6 +10,7 @@
       this.UI.container();
       start();
       var videosWrapper = document.querySelector('#videosWrapper .videoCont.selfVideo');
+      videosWrapper.setAttribute('data-userid', virtualclass.gObj.uid);
       var that = this;
       videosWrapper.addEventListener('click', function (){
           that.UI.displayMainVideo(this);
@@ -17,6 +18,9 @@
     },
 
     _init : function (){
+      var mvideo = document.querySelector('#videosWrapper .videoCont.selfVideo');
+      this.UI.displayMainVideo(mvideo);
+
       var that = this;
       // todo handle in proper way
       setTimeout(
@@ -30,7 +34,7 @@
       );
     },
 
-    
+
     displayVideo : function (){
       var multiVideo  = document.querySelector('#virtualclassMultiVideo');
       multiVideo.style.display = 'block';
@@ -61,7 +65,18 @@
               );
           }
        }
-     }
+     },
+
+    removeUser : function (userId){
+        var mvideo = document.querySelector('#videosWrapper .videoCont[data-userid="'+userId + '"]');
+        if(mvideo != null){
+            mvideo.parentNode.removeChild(mvideo);
+        }
+    },
+
+    onUserRemove : function (userId){
+      this.removeUser(userId);
+    }
   };
 
   var apc = {};
@@ -160,11 +175,7 @@
 
   function addRemoteVideo(stream, userid){
     // var mvideo = document.querySelector('#mvideo'+userid);
-    var mvideo = document.querySelector('#videosWrapper .videoCont[data-userid="'+userid + '"]');
-
-    if(mvideo != null){
-      mvideo.parentNode.removeChild(mvideo);
-    }
+    virtualclass.multiVideo.removeUser(userid);
 
     var $videoCont = $("<div class='videoCont' data-userid='"+userid+"'></div>");
     $video = $("<video  class='videoBox' autoplay></video>");

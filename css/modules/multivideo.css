@@ -34,15 +34,6 @@
 
 }
 
-
-
-
-
-#videosWrapper {
-  padding-top: 50px;
-}
-
-
 #virtualclassCont.congrea #preCheckcontainer .screen1.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen3.bandwidth::before,
@@ -55,3 +46,15 @@
 #virtualclassMultiVideoTool span{
   color : #ffffff;
 }
+
+#virtualclassCont.congrea.teacher #virtualclassMultiVideo {
+  margin-left : 65px;
+  margin-top : 10px;
+}
+
+#virtualclassCont.congrea #virtualclassMultiVideo #multiVidSelected{
+  border: 1px solid #ddd;
+  padding: 6px
+}
+
+

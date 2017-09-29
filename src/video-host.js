@@ -148,10 +148,13 @@ var videoHost = {
                 }
 
             } else {
-                if (+videoSwitch) {
-                    virtualclass.videoHost.UI.displayVideo();
-                } else {
-                    virtualclass.videoHost.UI.hideVideo();
+                if(!virtualclass.gObj.meetingMode){
+                    if (+videoSwitch) {
+                        virtualclass.videoHost.UI.displayVideo();
+                    } else {
+
+                        virtualclass.videoHost.UI.hideVideo();
+                    }
                 }
             }
             localStorage.removeItem("videoSwitch");

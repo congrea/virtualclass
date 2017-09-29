@@ -855,6 +855,8 @@
                     }
                 },
 
+
+
                 //SharePresentation: function(app, cusEvent) {
                 //if (typeof this.ss == 'object') {
                 //    this.ss.prevStream = false;
@@ -959,12 +961,12 @@
                             clearTimeout(dstData);
                         }
                     }
-                }
-            },
+                },
 
-            MultiVideo : function (){
-                this.multiVideo._init();
-                this.previous = virtualclass.mvConfig.id;
+                MultiVideo : function (){
+                    this.multiVideo._init();
+                    this.previous = virtualclass.mvConfig.id;
+                },
             },
 
             attachFunction: function () {
@@ -1097,7 +1099,7 @@
                     main: this.getTemplate('main') ,
                     whiteboard: this.getTemplate('main', 'whiteboard'),
                     dashboardCont: this.getTemplate('dashboardCont'),
-                    peerVideo: this.getTemplate('peerVideo'),
+                    multiVideo: this.getTemplate('multiVideo'),
 
                 });
             },
@@ -1124,7 +1126,7 @@
 
                 Handlebars.registerHelper("getVideoType", function(optionalValue) {
                     if(virtualclass.gObj.meetingMode){
-                        return 'peerVideo';
+                        return 'multiVideo';
                     }else {
                         return 'teacherVideo';
                     }

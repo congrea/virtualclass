@@ -388,6 +388,14 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0
     + "</div>";
 },"usePartial":true,"useData":true});
 
+this["JST"]["templates/multiVideo.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"videoConfrence\">\n  <div id=\"videosWrapper\">\n    <div class=\"videoCont selfVideo\"><video class=\"videoBox multilocalVideo\"  autoplay></video></div>\n\n  </div>\n</div>\n\n";
+},"useData":true});
+
+this["JST"]["templates/multiVideoMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"virtualclassMultiVideo\" class=\"virtualclass container\" data-screen=\"1\" style=\"display:none\">\n  <div id=\"videoMainPreview\">\n    <canvas id=\"multiVidSelected\" width=\"900\" height=\"700\"></canvas>\n  </div>\n</div>\n";
+},"useData":true});
+
 this["JST"]["templates/network.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -400,10 +408,6 @@ this["JST"]["templates/network.hbs"] = Handlebars.template({"compiler":[7,">= 4.
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoquality",{"name":"getString","hash":{},"data":data}))
     + "\"> </li>\n      </ul>\n</div>";
-},"useData":true});
-
-this["JST"]["templates/peerVideo.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"container\" id=\"videoConfrence\">\n  <div id=\"videosWrapper\">\n    <div class=\"videoCont\"><video class=\"videoBox\" id=\"multilocalVideo\" autoplay></video></div>\n\n\n  </div>\n</div>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

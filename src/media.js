@@ -1239,7 +1239,7 @@
                 };
                 var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
                 var session = {
-                    audio: audioOpts,
+                    audio: true,
                     video: webcam
                     };
                 cthis.video.init();

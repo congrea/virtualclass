@@ -6,7 +6,8 @@
 
 #videosWrapper {
   z-index: 600;
-  height: 450px;
+  height : auto;
+  max-height: 450px;
   width: 320px;
   overflow-y: scroll;
 }

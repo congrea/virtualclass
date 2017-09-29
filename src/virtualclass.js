@@ -637,7 +637,7 @@
                             if(whiteboardContainer != null){
                                 if(document.querySelector('vcanvas'+id) == null){
                                     var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
-                                    var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls(), videoType : 'rightBar'});
+                                    var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
                                     whiteboardContainer.innerHTML = wbHtml;
                                 }
 
@@ -1071,7 +1071,7 @@
                 var contPara = {'whiteboardPath' : whiteboardPath};
 
                 /** Registering the partials which have setting paramter **/
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;
@@ -1138,12 +1138,14 @@
                 var mainContainer = document.querySelector('#'+virtualclass.html.id);
                 this.registerHelper();
                 this.registerPartial();
-                /** inserting the main container of virtualclass **/
+                /** Inserting the main container of virtualclass **/
                 var mainTemplate = this.getTemplate('main');
 
                 var mainCont = {
                     isPlay : virtualclass.isPlayMode,
-                    hasControls : roles.hasControls()}
+                    hasControls : roles.hasControls(),
+                    meetingMode : virtualclass.gObj.meetingMode
+                }
                 var mainHtml = mainTemplate(mainCont);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
             },

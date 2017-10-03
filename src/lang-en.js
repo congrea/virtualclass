@@ -335,7 +335,8 @@
         'edit':'Edit',
         'delete':'Delete',
         'publish':'Publish',
-        'pollHead':'Vote this Poll'
+        'pollHead':'Vote this Poll',
+        'validateurlmsg' : 'Invalid Url'
     };
 
     window.message = message;

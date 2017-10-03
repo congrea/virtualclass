@@ -682,3 +682,13 @@
 #virtualclassCont.congrea #DocumentShareDashboard .dbContainer {
     height : 99%
 }
+
+#virtualclassCont.congrea #dashboardnav button:focus,
+#virtualclassCont.congrea #dashboardnav input.form-submit:focus,
+#virtualclassCont.congrea #dashboardnav input[type="button"]:focus,
+#virtualclassCont.congrea #dashboardnav input[type="submit"]:focus,
+#virtualclassCont.congrea #dashboardnav input[type="reset"]:focus {
+    outline: none;
+    outline: none;
+    outline-offset: 0px;
+}

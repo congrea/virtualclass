@@ -776,15 +776,20 @@
                 },
 
                 audioDisable : function (){
-                    var camIcon = document.getElementById('speakerPressOnce');
-                    camIcon.style.opacity = "0.5";
-                    camIcon.style.pointerEvents = "none";
+                    var mic = document.getElementById('speakerPressOnce');
+                    if(mic != null){
+                        mic.style.opacity = "0.5";
+                        mic.style.pointerEvents = "none";
+                    }
+
                 },
 
                 videoDisable : function (){
-                    var camIcon = document.getElementById('congCtrBar');
-                    camIcon.style.opacity = "0.5";
-                    camIcon.style.pointerEvents = "none";
+                    var videoIcon = document.getElementById('congCtrBar');
+                    if(videoIcon != null){
+                        videoIcon.style.opacity = "0.5";
+                        videoIcon.style.pointerEvents = "none";
+                    }
                 },
 
                 allChatDisable: function () {

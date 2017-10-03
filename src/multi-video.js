@@ -14,7 +14,9 @@
       var that = this;
       videosWrapper.addEventListener('click', function (){
           that.UI.displayMainVideo(this);
-      })
+      });
+
+      this.updateVideoLength();
     },
 
     _init : function (){
@@ -76,6 +78,22 @@
 
     onUserRemove : function (userId){
       this.removeUser(userId);
+      this.updateVideoLength();
+    },
+
+    updateVideoLength : function (){
+        var allVideos = document.querySelectorAll('#videoConfrence .videoCont');
+        var videoConfrence = document.querySelector('#videoConfrence');
+        if(allVideos.length > 4){
+            var users = 'morethanfour';
+        } else if(allVideos.length > 2) {
+            var users = 'four';
+        } else if(allVideos.length > 1)  {
+            var users = 'two';
+        }else {
+            var users = 'one';
+        }
+        videoConfrence.setAttribute('data-totalUser', users);
     }
   };
 
@@ -196,12 +214,15 @@
     // var mvideo = document.querySelector('#mvideo'+userid);
     virtualclass.multiVideo.removeUser(userid);
 
-    var $videoCont = $("<div class='videoCont' data-userid='"+userid+"'></div>");
+    var $videoCont = $("<div class='videoCont remoteVideo' data-userid='"+userid+"' data-totaluser=''></div>");
     $video = $("<video  class='videoBox' autoplay></video>");
     $video.attr({"src": window.URL.createObjectURL(stream), "autoplay": "autoplay"});
     $videoCont.append($video);
     $('#videosWrapper').append($videoCont);
+
+    virtualclass.multiVideo.updateVideoLength();
     console.log('multivideo, Remote stream added');
+
     $videoCont.click(
         function (){
             MultiVideo.UI.displayMainVideo(this);

@@ -1039,7 +1039,7 @@
                         }
 
                         if (roles.hasControls()) {
-                            cthis.audio.graph.display();
+                            // cthis.audio.graph.display();
                         }
                         //frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
                         var user = {

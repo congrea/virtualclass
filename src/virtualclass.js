@@ -206,6 +206,7 @@
                     virtualclass.networkStatus();
                 } else {
                     virtualclass.multiVideo.init();
+
                 }
 
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
@@ -1131,6 +1132,14 @@
                         return 'teacherVideo';
                     }
                 });
+
+                Handlebars.registerHelper('ifc', function (conditional, options) {
+                    if (options.hash.value === conditional) {
+                        return options.fn(this)
+                    } else {
+                        return options.inverse(this);
+                    }
+                })
             },
 
             //the same function is defining at script.js

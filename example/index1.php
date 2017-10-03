@@ -150,6 +150,12 @@ if (isset($_GET['role'])) {
     $cont_class .= 'student';
 }
 
+if($meetingmode){
+   $cont_class .= ' meetingmode';
+}else {
+    $cont_class .= ' normalmode';
+}
+
 $cont_class .= ' pt_' . $pushtotalk;
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
@@ -163,6 +169,7 @@ if (isset($_GET['lname'])) {
 } else {
     $lname = '';
 }
+
 
 
 // Chrome extension for desktop sharing.
@@ -207,16 +214,13 @@ if($info) {
 
 $sid = $uid;
 $role  = 'student';
-$cont_class = 'congrea ';
+
 
 $cont_class .= $role;
 if(empty($congrea->moderatorid)) {
     $anyonepresenter = 1;
 } else {
     $anyonepresenter = 0;
-}
-if($isplay){
-	$cont_class .= " playMode";
 }
 $pushtotalk = 0;
 // Push to talk
@@ -248,6 +252,8 @@ if($audactive){
     virtualclassSetting.dap = '<?php echo $dap; ?>';
     virtualclassSetting.classes = '<?php echo $classes; ?>';
     virtualclassSetting.audio_tooltip = '<?php echo $audio_tooltip; ?>';
+    virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
+
 </script>
 <?php
 // Output starts here.

@@ -5,10 +5,14 @@
 }
 
 #virtualclassCont.congrea #audioWidget {
-  cursor: pointer;
+  /*cursor: pointer;*/
   float: left;
   margin-left: 14px;
   height: auto;
+}
+
+#virtualclassCont.congrea #audioWidget ul li {
+  cursor : pointer;
 }
 
 #virtualclassCont.congrea #audioWidget.fixed {

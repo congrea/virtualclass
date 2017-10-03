@@ -21,22 +21,35 @@ this["JST"]["templates/appToolsMeeting.hbs"] = Handlebars.template({"compiler":[
 },"useData":true});
 
 this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"videoSwitchCont congtooltip\" data-title=\"Video off\" id=\"congCtrBar\">\n      <a id=\"rightCtlr\">\n        <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on \" ></span>\n      </a>\n    </li>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div id=\"audioWidget\">\n  <ul class=\"nav navbar-nav\" id=\"mainAudioPanel\">\n    <li id=\"speakerPressOnce\" class=\""
+  return "      <li id=\"speakerPressOnce\" class=\""
     + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
     + "\" data-audio-playing="
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dap",{"name":"getString","hash":{},"data":data}))
-    + ">\n      <a id=\"speakerPressonceAnch\" class=\"congtooltip\" data-title=\""
+    + ">\n        <a id=\"speakerPressonceAnch\" class=\"congtooltip\" data-title=\""
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
-    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </li>\n\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck \"  id=\"precheckSetting\" ></span></a>\n    </li>\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\" data-meeting=\""
+    + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
+    + "\" name=\"speakerPressonceAnch\">\n          <span id=\"speakerPressonceLabel\" class=\"silenceDetect\" data-silence-detect=\"stop\"> <i> </i> </span>\n        </a>\n      </li>\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.meetingMode : depth0),{"name":"unless","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "        <li class=\"videoSwitchCont congtooltip\" data-title=\"Video off\" id=\"congCtrBar\">\n          <a id=\"rightCtlr\">\n            <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on \" ></span>\n          </a>\n        </li>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"audioWidget\">\n  <ul class=\"nav navbar-nav\" id=\"mainAudioPanel\">\n\n"
+    + ((stack1 = helpers.unless.call(alias1,(depth0 != null ? depth0.meetingMode : depth0),{"name":"unless","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck \"  id=\"precheckSetting\" ></span></a>\n    </li>\n\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isControl : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    <li id=\"videSpeedNumber\" class=\"suggestion congtooltip\" data-suggestion=\""
-    + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
     + "\"> </li>\n    <li id=\"vedioPacket\" >\n      <a id=\"videoPacketInfo\">\n        <span id=\"videLatency\" class=\"latency  congtooltip\" data-latency=\"slow\" data-title=\"slow\">  </span>\n      </a>\n    </li>\n  </ul>\n</div>";
 },"useData":true});
 
@@ -407,7 +420,7 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.precheck,depth0,{"name":"precheck","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "<div id=\"virtualclassApp\" style=\"display: block;\">\n"
+    + "<div id=\"virtualclassApp\" style=\"display: block;\">\n\n"
     + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.leftBar,depth0,{"name":"leftBar","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.popupCont,depth0,{"name":"popupCont","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -416,7 +429,7 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/multiVideo.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"videoConfrence\">\n  <div id=\"videosWrapper\">\n    <div class=\"videoCont selfVideo\"><video class=\"videoBox multilocalVideo\"  muted=\"muted\" autoplay></video></div>\n\n  </div>\n</div>";
+    return "<div id=\"videoConfrence\">\n  <div id=\"videosWrapper\">\n    <div class=\"videoCont selfVideo\"><video class=\"videoBox multilocalVideo\"  muted=\"muted\" autoplay></video></div>\n\n  </div>\n</div>\n\n";
 },"useData":true});
 
 this["JST"]["templates/multiVideoMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

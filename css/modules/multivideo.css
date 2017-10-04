@@ -54,7 +54,7 @@
   padding: 6px
 }
 
-#virtualclassCont.congrea #speakerPressOnce, #virtualclassCont.congrea #congCtrBar{
+#virtualclassCont.congrea.meetingmode #speakerPressOnce, #virtualclassCont.congrea.meetingmode #congCtrBar{
   display : none;
 }
 

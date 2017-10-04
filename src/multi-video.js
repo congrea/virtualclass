@@ -8,7 +8,7 @@
     init: function () {
 
       this.UI.container();
-      start();
+      this.start();
       var videosWrapper = document.querySelector('#videosWrapper .videoCont.selfVideo');
       videosWrapper.setAttribute('data-userid', virtualclass.gObj.uid);
       var that = this;
@@ -40,6 +40,18 @@
     displayVideo : function (){
       var multiVideo  = document.querySelector('#virtualclassMultiVideo');
       multiVideo.style.display = 'block';
+    },
+
+   start: function() {
+        console.log('Video First, multivideo');
+
+        virtualclass.multiVideo.localStream = virtualclass.gObj.video.video.tempStream;
+
+        _localStream = virtualclass.multiVideo.localStream;
+        console.log('multivideo, add get user media ');
+        selfView =  document.querySelector('#videoConfrence .multilocalVideo');
+        selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
+        this.initDone = true;
     },
 
     UI : {
@@ -130,18 +142,6 @@
   //
   //   );
   // }
-
-
-    function start(isCaller, pc_constraints) {
-        console.log('Video First, multivideo');
-
-        virtualclass.multiVideo.localStream = virtualclass.gObj.video.video.tempStream;
-        /* use the stream */
-        _localStream = virtualclass.multiVideo.localStream;
-        console.log('multivideo, add get user media ');
-        selfView =  document.querySelector('#videoConfrence .multilocalVideo');
-        selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
-    }
 
 
   function failureCallback(error){

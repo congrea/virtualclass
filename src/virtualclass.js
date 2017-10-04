@@ -969,7 +969,17 @@
                 },
 
                 MultiVideo : function (){
-                    this.multiVideo._init();
+                    var that = this;
+
+                    if(!that.multiVideo.hasOwnProperty('initDone')){
+                        setTimeout(
+                            function (){
+                                that.appInitiator.MultiVideo.apply(virtualclass);
+                            }, 2000
+                        );
+                    }else {
+                        that.multiVideo._init();
+                    }
                     this.previous = virtualclass.mvConfig.id;
                 },
             },

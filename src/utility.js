@@ -791,7 +791,7 @@
                     function (){
                         virtualclass.gObj.video.init();
                         virtualclass.gObj.video.isInitiator = true;
-                    },0
+                    },200
                 );
             }
 

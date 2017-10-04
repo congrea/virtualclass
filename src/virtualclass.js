@@ -205,8 +205,12 @@
                     virtualclass.videoHost.init(320 , 240);
                     virtualclass.networkStatus();
                 } else {
-                    virtualclass.multiVideo.init();
+                    // virtualclass.multiVideo.init();
 
+                    // virtualclass.user.control.audioDisable()
+                    // if(roles.hasAdmin()){
+                    //     virtualclass.user.control.videoDisable()
+                    // }
                 }
 
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
@@ -1133,13 +1137,6 @@
                     }
                 });
 
-                Handlebars.registerHelper('ifc', function (conditional, options) {
-                    if (options.hash.value === conditional) {
-                        return options.fn(this)
-                    } else {
-                        return options.inverse(this);
-                    }
-                })
             },
 
             //the same function is defining at script.js

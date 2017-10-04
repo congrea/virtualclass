@@ -843,7 +843,7 @@ $(document).ready(function () {
                 ioAdapter.mustSend({'uid': virtualclass.gObj.uid, ac:true, 'cf': 'tsr'});
             }
 
-            if(virtualclass.gObj.uid != virtualclass.jId){
+            if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode   ){
                 virtualclass.multiVideo.onUserJoin(virtualclass.jId);
             }
 

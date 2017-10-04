@@ -9,7 +9,7 @@
   height : auto;
   max-height: 345px;
   width: 320px;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 #virtualclassCont.congrea .videoWrap {
@@ -22,12 +22,11 @@
 #virtualclassCont.congrea .videoCont{
   float: left;
   /*width: 32%;*/
-  margin-left: 5px;
 }
 
 #virtualclassCont.congrea .videoCont video{
-  border: 1px solid #ddd;
-  padding : 5px;
+  border: 0px solid #ddd;
+  padding : 0;
   width : 100%;
 
 }
@@ -65,11 +64,12 @@
 }
 
 #virtualclassCont.congrea #videoConfrence[data-totaluser='two'] .selfVideo {
-  width: 100px;
+  width: 105px;
   position: absolute;
-  top: 145px;
-  right: 9px;
-  border: 1px solid #a5a7a5
+  bottom: 0px;
+  right: 0px;
+  border: 2px solid rgba(254,254,254,0.7);
+  border-width: 2px 0 0 2px;
 }
 
 /** Multi Video Two User layout, End **/
@@ -77,6 +77,5 @@
 /** Multi Video Four User layout **/
 #virtualclassCont.congrea #videoConfrence[data-totaluser='four'] .videoCont,
 #virtualclassCont.congrea #videoConfrence[data-totaluser='morethanfour'] .videoCont  {
-  width : 48%;
+  width : 50%;
 }
-

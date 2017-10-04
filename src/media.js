@@ -55,7 +55,6 @@
             isChannelReady: '',// not being used
             isInitiator: false,
             isStarted: '',
-            localStream: '',
             pc: [],
             cn: 0,
             ba: false,
@@ -1210,7 +1209,7 @@
 
 
             init: function (vbool) {
-                //    alert("hello borther");
+                console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
                 //vcan.oneExecuted = true;
                 virtualclass.gObj.oneExecuted = true;
@@ -1237,27 +1236,36 @@
                     ],
 
                 };
-                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
-                var session = {
-                    audio: true,
-                    video: webcam
-                    };
-                cthis.video.init();
-                if (!virtualclass.vutil.isPlayMode()) {
 
+                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
+
+
+                var session = {
+                    //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
+                    video: webcam,
+                    audio : true
+                };
+                cthis.video.init();
+                var that  = this;
+
+                if (!virtualclass.vutil.isPlayMode()) {
                     virtualclass.adpt = new virtualclass.adapter();
                     var cNavigator = virtualclass.adpt.init(navigator);
 
                     //  cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
 
-                    var that  = this;
+
+                    //return;
                     cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                         that.handleUserMedia(stream)
+                        if(virtualclass.gObj.meetingMode){
+                            virtualclass.multiVideo.init();
+                        }
                     }).catch(function (e) {
                         that.handleUserMediaError(e);
                     });
-
                 }
+
 
                 if (virtualclass.system.wbRtc.peerCon) { //TODO this should be deleted
                     if (typeof localStorage.wbrtcMsg == 'undefined') {
@@ -1283,7 +1291,6 @@
 
             handleUserMedia: function (stream) {
                 virtualclass.gObj.video.audioVisual.readyForVisual(stream);
-
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
@@ -1425,7 +1432,7 @@
             },
             /*
              * Plays all videos of currentlly logged in users after an interval of 1040 ms
-             * @param id footer chat  container id 
+             * @param id footer chat  container id
              */
             dispAllVideo: function (id) {
                 setTimeout(

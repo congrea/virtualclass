@@ -52,19 +52,30 @@ var videoHost = {
                  }
                  }; */
 
-                var session = {
-                    audio: false,
-                    video: true
-                };
+                // var session = {
+                //     audio: false,
+                //     video: true
+                // };
 
 
                 var that = this;
 
-                virtualclass.vhAdpt = virtualclass.adapter();
-                var cNavigator = virtualclass.vhAdpt.init(navigator);
-                cNavigator.getUserMedia(session, function (stream) {
-                    that.getMediaStream(stream);
-                }, this.onError);
+                // virtualclass.vhAdpt = virtualclass.adapter();
+
+                // var cNavigator = virtualclass.vhAdpt.init(navigator);
+                // cNavigator.getUserMedia(session, function (stream) {
+                //     that.getMediaStream(stream);
+                // }, this.onError);
+
+                setTimeout(
+                    function (){
+                        if(typeof virtualclass.gObj.video.tempStream == 'undefined'){
+                            that.getMediaStream(virtualclass.gObj.video.stream);
+                        }
+
+                    },2000
+                );
+
                 this.UI.controller();//nirmala
             }
         } else {
@@ -177,7 +188,7 @@ var videoHost = {
      *  Getting the stream for teacher/host video
      *  @param stream expects medea stream, eventually converts into video
      */
-    getMediaStream: function (stream) {
+    getMediaStreamOld: function (stream) {
         this.videoHostSrc = document.getElementById("videoHostSource");
         this.videoHostSrc.width = this.width;
         this.videoHostSrc.height = this.height;
@@ -188,7 +199,22 @@ var videoHost = {
                 function () {
                     that.shareVideo();
                 }, 2000
-                );
+            );
+    },
+
+    getMediaStream: function (stream) {
+        this.videoHostSrc = document.getElementById("videoHostSource");
+        this.videoHostSrc.width = this.width;
+        this.videoHostSrc.height = this.height;
+
+        //virtualclass.vhAdpt.attachMediaStream(this.videoHostSrc, stream);
+        virtualclass.adpt.attachMediaStream(this.videoHostSrc, stream);
+        var that = this;
+        setTimeout(
+            function () {
+                that.shareVideo();
+            }, 2000
+        );
     },
     /**
      * It shares the video,

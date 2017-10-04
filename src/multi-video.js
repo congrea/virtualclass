@@ -5,8 +5,8 @@
 (function (window) {
   // var meeting = window.meeting
   var MultiVideo = {
-
     init: function () {
+
       this.UI.container();
       start();
       var videosWrapper = document.querySelector('#videosWrapper .videoCont.selfVideo');
@@ -112,8 +112,10 @@
     ]};
 
   // run start(true) to initiate a call
-  // function start_old(isCaller, pc_constraints) {
+  // function start(isCaller, pc_constraints) {
+  //
   //   navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+  //           alert('hello i am suman');
   //       _localStream = stream;
   //       console.log('multivideo, add get user media ');
   //       selfView =  document.querySelector('#videoConfrence .multilocalVideo');
@@ -122,27 +124,23 @@
   //     },
   //
   //     function (error){
+  //       alert(error);
   //       console.log('navigator.getUserMedia error: ', error);
   //     }
   //
   //   );
   // }
 
-    function start(isCaller, pc_constraints) {
-        virtualclass.adpt = new virtualclass.adapter();
-        var navigator2 = virtualclass.adpt.init(navigator);
-        var constraints = {audio : true, video : true};
-        navigator2.mediaDevices.getUserMedia(constraints).then(function(stream) {
-          /* use the stream */
-            _localStream = stream;
-            console.log('multivideo, add get user media ');
-            selfView =  document.querySelector('#videoConfrence .multilocalVideo');
-            selfView.src = URL.createObjectURL(stream);
 
-        }).catch(function(err) {
-            console.log('navigator.getUserMedia error: ', error);
-            /* handle the error */
-        });
+    function start(isCaller, pc_constraints) {
+        console.log('Video First, multivideo');
+
+        virtualclass.multiVideo.localStream = virtualclass.gObj.video.video.tempStream;
+        /* use the stream */
+        _localStream = virtualclass.multiVideo.localStream;
+        console.log('multivideo, add get user media ');
+        selfView =  document.querySelector('#videoConfrence .multilocalVideo');
+        selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
     }
 
 

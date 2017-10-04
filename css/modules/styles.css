@@ -2705,9 +2705,9 @@
 }
 
 /*@media (min-width: 700px){*/
-	/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {*/
-		/*width:80%;*/
-	/*}*/
+/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {*/
+/*width:80%;*/
+/*}*/
 /*}*/
 /*@media (min-width: 992px){*/
 /*#virtualclassCont.congrea #dashboardContainer #videoUrlContainer {*/
@@ -2718,6 +2718,11 @@
 /** For handling the overlap of audio and video in firefox **/
 #virtualclassCont.congrea #audioWidget {
 	border-bottom : 1px solid #ccc;
+}
+/* By Vishram */
+
+#virtualclassCont.congrea #audioWidget {
+	border-bottom : 0 solid #ccc;
 }
 
 #virtualclassCont.congrea #videoHostSource {
@@ -2802,6 +2807,9 @@
 #virtualclassCont.congrea.student #videLatency {
 	margin-left:5px;
 }
+#virtualclassCont.congrea.student.meetingmode #videLatency {
+	margin-left:24px;
+}
 
 #virtualclassCont.congrea.student #videoPacketInfo:hover{
 	height:50px;
@@ -2832,4 +2840,3 @@
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li{
 	width : 33%;
 }
-

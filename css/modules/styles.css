@@ -2837,6 +2837,10 @@
 	width : 25%;
 }
 
-#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li{
-	width : 33%;
+/*#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li{*/
+	/*!*width : 33%;*!*/
+/*}*/
+
+#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
+	width : 20%;
 }

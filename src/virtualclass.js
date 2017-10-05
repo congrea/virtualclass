@@ -953,7 +953,7 @@
                         // misspacket on new user does not work
                         cthis.appInitiator.makeReadyDsShare.apply(cthis.appInitiator, args);
                         virtualclass.vutil.initDashboardNav();
-
+                        http://localhost/bench.html
                         /** This condition is satisfied when user page refresh without selecting any docs **/
                         if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
                             var dashboardnav =  document.querySelector('#dashboardnav button');

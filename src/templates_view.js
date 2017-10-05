@@ -422,7 +422,7 @@ this["JST"]["templates/multiVideo.hbs"] = Handlebars.template({"compiler":[7,">=
 },"useData":true});
 
 this["JST"]["templates/multiVideoMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"virtualclassMultiVideo\" class=\"virtualclass container\" data-screen=\"1\" style=\"display:none\">\n  <div id=\"videoMainPreview\">\n    <canvas id=\"multiVidSelected\" width=\"900\" height=\"700\"></canvas>\n  </div>\n</div>\n";
+    return "<div id=\"virtualclassMultiVideo\" class=\"virtualclass container\" data-screen=\"1\" style=\"display:none\">\n  <div id=\"videoMainPreview\">\n    <!-- <canvas id=\"multiVidSelected\" width=\"900\" height=\"700\"></canvas> -->\n    <video id=\"multiVidSelected\" muted=\"muted\" > </video>\n  </div>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/network.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

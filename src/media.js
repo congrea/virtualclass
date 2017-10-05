@@ -317,27 +317,40 @@
                  * And it is invoked on clicking test audio
                  */
                 audioToolInit: function () {
-                    var that = virtualclass.gObj.video.audio;
-                    if (this.id == 'speakerPressOnce') {
-                        that.clickOnceSpeaker(this.id);
-                    } else if (this.id == 'audioTest') {
-                        var self = this;
-                        virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
-                            if (confirm) {
-                                that.testInit(self.id);
-                            }
-
-                        });
-                    } else if (this.id == 'silenceDetect') {
-                        var a = this.getElementsByTagName('a')[0];
-                        if (that.sd) {
-                            that.sd = false;
-                            this.className = this.className + " sdDisable";
+                    if(virtualclass.gObj.meetingMode){
+                        var tag = document.getElementById(this.id);
+                        // var anchor = tag.getElementsByClassName('tooltip')[0];
+                        // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                        if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                            virtualclass.vutil.audioStatus(tag, "true");
                         } else {
-                            that.sd = true;
-                            this.className = this.className + " sdEnable";
+                            virtualclass.vutil.audioStatus(tag, "false");
+                        }
+                        virtualclass.multiVideo.disableAudio();
+                    } else {
+                        var that = virtualclass.gObj.video.audio;
+                        if (this.id == 'speakerPressOnce') {
+                            that.clickOnceSpeaker(this.id);
+                        } else if (this.id == 'audioTest') {
+                            var self = this;
+                            virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
+                                if (confirm) {
+                                    that.testInit(self.id);
+                                }
+
+                            });
+                        } else if (this.id == 'silenceDetect') {
+                            var a = this.getElementsByTagName('a')[0];
+                            if (that.sd) {
+                                that.sd = false;
+                                this.className = this.className + " sdDisable";
+                            } else {
+                                that.sd = true;
+                                this.className = this.className + " sdEnable";
+                            }
                         }
                     }
+
                 },
                 /*
                  * If Push to talk audio tool is pressed down then audio is active
@@ -425,9 +438,10 @@
                     var anchor = tag.getElementsByClassName('congtooltip')[0];
                     // var anchor = tag.getElementsByClassName('tooltip')[0];
                     // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
-                        if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                    if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
                         //this.studentSpeak(alwaysPressElem);
                         this.studentSpeak();
+
                         tag.setAttribute('data-audio-playing', "true");
                         anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
                         tag.className = "audioTool active";
@@ -439,7 +453,6 @@
                         if(anchor){
                             anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
                         }
-
                         tag.className = "audioTool deactive";
                     }
                 },

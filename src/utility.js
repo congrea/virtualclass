@@ -2114,6 +2114,21 @@
             if(elem != null){
                 elem.setAttribute('qq-drop-area-text', 'Drop File Here');
             }
+        },
+
+        audioStatus : function (tag, status){
+            var anchor = tag.getElementsByClassName('congtooltip')[0];
+            if(status == 'true'){
+                tag.setAttribute('data-audio-playing', "true");
+                anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
+                tag.className = "audioTool active";
+            }else {
+                tag.setAttribute('data-audio-playing', "false");
+                if(anchor){
+                    anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                }
+                tag.className = "audioTool deactive";
+            }
         }
     };
     window.vutil = vutil;

@@ -4,6 +4,7 @@
  */
 (function (window) {
   // var meeting = window.meeting
+  userStreams = {};
   var MultiVideo = {
     init: function () {
 
@@ -12,11 +13,15 @@
       var videosWrapper = document.querySelector('#videosWrapper .videoCont.selfVideo');
       videosWrapper.setAttribute('data-userid', virtualclass.gObj.uid);
       var that = this;
+      userStreams[virtualclass.gObj.uid] = virtualclass.multiVideo.localStream;
       videosWrapper.addEventListener('click', function (){
           that.UI.displayMainVideo(this);
       });
 
       this.updateVideoLength();
+      var tag = document.querySelector('#speakerPressOnce');
+      
+      virtualclass.vutil.audioStatus(tag, "true");
     },
 
     _init : function (){
@@ -50,7 +55,9 @@
         _localStream = virtualclass.multiVideo.localStream;
         console.log('multivideo, add get user media ');
         selfView =  document.querySelector('#videoConfrence .multilocalVideo');
-        selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
+        // selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
+
+       virtualclass.adpt.attachMediaStream(selfView, virtualclass.multiVideo.localStream);
         this.initDone = true;
     },
 
@@ -63,7 +70,7 @@
         }
       },
 
-      displayMainVideo : function (element){
+       displayMainVideoOld : function (element){
           var videoElem = element.firstElementChild;
           if(virtualclass.currApp == 'MultiVideo'){
               var canvas = document.querySelector('#multiVidSelected');
@@ -78,6 +85,14 @@
                   }, 28 //35 frame per second
               );
           }
+       },
+
+       displayMainVideo : function (element){
+           if(virtualclass.currApp == 'MultiVideo'){
+               var video = document.querySelector('#multiVidSelected');
+               var userid = element.dataset.userid;
+               virtualclass.adpt.attachMediaStream(video, userStreams[userid]);
+           }
        }
      },
 
@@ -86,11 +101,13 @@
         if(mvideo != null){
             mvideo.parentNode.removeChild(mvideo);
         }
+        // delete userStreams[userId];
     },
 
     onUserRemove : function (userId){
       this.removeUser(userId);
       this.updateVideoLength();
+      // delete userStreams[userId];
     },
 
     updateVideoLength : function (){
@@ -106,6 +123,18 @@
             var users = 'one';
         }
         videoConfrence.setAttribute('data-totalUser', users);
+    },
+
+    disableAudio : function (){
+        var audioTracks = virtualclass.multiVideo.localStream.getAudioTracks();
+        if (audioTracks.length === 0) {
+            console.log("No local audio available.");
+            return;
+        }
+
+        for (var i = 0; i < audioTracks.length; ++i) {
+            audioTracks[i].enabled = !audioTracks[i].enabled;
+        }
     }
   };
 
@@ -209,6 +238,7 @@
   }
 
   function addRemoteVideo(stream, userid){
+    userStreams[userid] = stream;
     // var mvideo = document.querySelector('#mvideo'+userid);
     virtualclass.multiVideo.removeUser(userid);
 
@@ -221,11 +251,25 @@
     virtualclass.multiVideo.updateVideoLength();
     console.log('multivideo, Remote stream added');
 
+
     $videoCont.click(
         function (){
             MultiVideo.UI.displayMainVideo(this);
         }
     );
+
+
+
+    //MultiVideo.UI.displayMainVideo(that);
+
+      // $videoCont.click(
+      //     function (_item) {
+      //         return function (ev) {
+      //             MultiVideo.UI.displayMainVideo(_item);
+      //         };
+      //     } (that)
+      // );
+
   }
 
   function handleRemoteStreamAdded(from) {

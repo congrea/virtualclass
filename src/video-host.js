@@ -76,7 +76,7 @@ var videoHost = {
                     },2000
                 );
 
-                this.UI.controller();//nirmala
+                //this.UI.controller();//nirmala
             }
         } else {
             this.setCanvasAttr('videoPartCan', 'videoParticipate');
@@ -168,7 +168,7 @@ var videoHost = {
                     }
                 }
             }
-            localStorage.removeItem("videoSwitch");
+            // localStorage.removeItem("videoSwitch");
         }
 
     },
@@ -545,16 +545,6 @@ var videoHost = {
    },
     //nirmala
     UI: {
-        controller: function () {
-            var elem = document.getElementById("videoSwitch");
-            if(elem){
-                elem.addEventListener("click", function () {
-                    virtualclass.videoHost.videoHandler(this);
-
-                })
-            }
-
-        },
         displayVideo: function () {
             var host = document.getElementById("videoHostContainer");
             host.style.display = "block";

@@ -20,8 +20,14 @@
 
       this.updateVideoLength();
       var tag = document.querySelector('#speakerPressOnce');
-      
+
       virtualclass.vutil.audioStatus(tag, "true");
+      var videoSwitch = localStorage.getItem('videoSwitch')
+      if(videoSwitch != null){
+          if(videoSwitch == '0'){
+              virtualclass.multiVideo.disableVideo();
+          }
+      }
     },
 
     _init : function (){
@@ -135,7 +141,23 @@
         for (var i = 0; i < audioTracks.length; ++i) {
             audioTracks[i].enabled = !audioTracks[i].enabled;
         }
-    }
+    },
+
+    disableVideo : function (){
+        var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
+        if (videoTracks.length === 0) {
+            console.log("No local video available.");
+            return;
+        }
+        console.log("Toggling video mute state.");
+        for (var i = 0; i < videoTracks.length; ++i) {
+            videoTracks[i].enabled = !videoTracks[i].enabled;
+        }
+        // this.pcClient_.sendCallstatsEvents(videoTracks[0].enabled ? "videoResume" : "videoPause");
+        // trace("Video " + (videoTracks[0].enabled ? "unmuted." : "muted."));
+
+    },
+
   };
 
   var apc = {};

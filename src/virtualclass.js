@@ -213,6 +213,8 @@
                     // }
                 }
 
+                virtualclass.vutil.videoController();
+
                 if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
                     virtualclass.vutil.initTechSupportUi();
                 }

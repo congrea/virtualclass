@@ -2116,6 +2116,7 @@
             }
         },
 
+        /** Enable or Disable the Audio **/
         audioStatus : function (tag, status){
             var anchor = tag.getElementsByClassName('congtooltip')[0];
             if(status == 'true'){
@@ -2129,7 +2130,43 @@
                 }
                 tag.className = "audioTool deactive";
             }
-        }
+        },
+
+        videoController: function () {
+            var elem = document.getElementById("videoSwitch");
+            if(elem){
+                elem.addEventListener("click", function () {
+                    virtualclass.vutil.videoHandler(this);
+                })
+            }
+
+        },
+
+        videoHandler: function (that) {
+            var video;
+            if (that.classList.contains("on")) {
+                that.classList.remove("on");
+                that.classList.add("off");
+                virtualclass.videoHost.gObj.videoSwitch = 0;
+                video = "off";
+                var tooltip = document.querySelector(".videoSwitchCont");
+                tooltip.dataset.title="video on"
+            } else {
+                that.classList.remove("off");
+                that.classList.add("on");
+                virtualclass.videoHost.gObj.videoSwitch = 1;
+                video = "on"
+                var tooltip = document.querySelector(".videoSwitchCont");
+                tooltip.dataset.title="video off"
+            }
+
+            if(virtualclass.gObj.meetingMode){
+               virtualclass.multiVideo.disableVideo();
+            }else {
+                ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
+            }
+
+        },
     };
     window.vutil = vutil;
 })(window);

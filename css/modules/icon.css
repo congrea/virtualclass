@@ -632,3 +632,12 @@
 #virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon:before{
   content : "X";
 }
+
+
+#virtualclassCont.congrea #virtualclassMultiVideoTool .icon-videoConfrence:before {
+  content: "\e935";
+  font-size: 26px;
+  color: #444;
+  position: relative;
+  top: 2px;
+}

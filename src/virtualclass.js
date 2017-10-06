@@ -1099,6 +1099,7 @@
                     }else if(initTemplates[i] == 'audioWidget'){
                         context = virtualclassSetting;
                         context.isControl= roles.hasControls();
+                        context.isMettingMode= (virtualclass.gObj.meetingMode) && (roles.isStudent());
 
                     }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
                         context = isControl;

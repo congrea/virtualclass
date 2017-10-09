@@ -174,26 +174,6 @@
       {'RtpDataChannels': true}
     ]};
 
-  // run start(true) to initiate a call
-  // function start(isCaller, pc_constraints) {
-  //
-  //   navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
-  //           alert('hello i am suman');
-  //       _localStream = stream;
-  //       console.log('multivideo, add get user media ');
-  //       selfView =  document.querySelector('#videoConfrence .multilocalVideo');
-  //       selfView.src = URL.createObjectURL(stream);
-  //
-  //     },
-  //
-  //     function (error){
-  //       alert(error);
-  //       console.log('navigator.getUserMedia error: ', error);
-  //     }
-  //
-  //   );
-  // }
-
 
   function failureCallback(error){
     console.log('multivideo, ' + error);
@@ -279,18 +259,6 @@
             MultiVideo.UI.displayMainVideo(this);
         }
     );
-
-
-
-    //MultiVideo.UI.displayMainVideo(that);
-
-      // $videoCont.click(
-      //     function (_item) {
-      //         return function (ev) {
-      //             MultiVideo.UI.displayMainVideo(_item);
-      //         };
-      //     } (that)
-      // );
 
   }
 

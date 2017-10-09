@@ -488,7 +488,7 @@
                 if (roles.hasControls()) {
                     var submitURLButton = document.getElementById('submitURL');
                     if(submitURLButton){
-                        submitURLButton.innerHTML = virtualclass.lang.getString('shareAnotherYouTubeVideo');
+                        submitURLButton.innerHTML = virtualclass.lang.getString('share');
                     }
 
                 }

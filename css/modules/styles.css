@@ -2844,3 +2844,15 @@
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
 	width : 20%;
 }
+
+#virtualclassCont.congrea #closeMsg {
+	background: #717070;
+	padding: 5px;
+	border-radius: 20px;
+	color: #ffffff;
+	position: relative;
+	top: -26px;
+	right: -27px;
+	font-family: sans-serif;
+	cursor: pointer
+}

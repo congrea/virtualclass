@@ -335,7 +335,8 @@
         'edit':'Edit',
         'delete':'Delete',
         'publish':'Publish',
-        'pollHead':'Vote this Poll'
+        'pollHead':'Vote this Poll',
+        'share' : 'Share'
     };
 
     window.message = message;

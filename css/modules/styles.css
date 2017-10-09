@@ -2815,9 +2815,13 @@
 	height:50px;
 }
 
+#virtualclassCont.congrea #dashboardnav {
+	position: absolute;
+}
+
 @media (min-height:768px){
 	#dashboardnav {
-		position: absolute;
+
 		top: 640px !important;
 		left: -4px;
 		height: 45px;

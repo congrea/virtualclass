@@ -1,7 +1,7 @@
 
 <?php
 // $version = '20161221618';
-$version = '201710091122';
+$version = '201710091125';
 $domain=$_SERVER['HTTP_HOST'];
 $whiteboardpath = "https://$domain/virtualclass/";
 define( 'SCRIPT_ROOT', $whiteboardpath);
@@ -95,7 +95,7 @@ function get_string($phrase)
 if(isset($_GET['theme'])){
     $theme = $_GET['theme'];
 } else {
-    $theme = 'black';
+    $theme = 'gray';
 }
 
 $pt = array('0' => 'disable', '1' => 'enable');
@@ -140,26 +140,6 @@ if ($room) {
         exit();
     }
 
-
-   function my_curl_request($url, $post_data, $key){
-           $ch = curl_init();
-           curl_setopt($ch, CURLOPT_URL, $url);
-           curl_setopt($ch, CURLOPT_POST, 1);
-   		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-   		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
-           curl_setopt($ch, CURLOPT_HEADER, FALSE);
-               curl_setopt($ch, CURLOPT_HTTPHEADER,
-                           array('Content-Type: application/json',
-                           'x-api-key: ' . $key,
-                         ));
-           curl_setopt($ch, CURLOPT_TRANSFERTEXT, 0);
-           curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-           curl_setopt($ch, CURLOPT_PROXY, false);
-           $result = @curl_exec($ch);
-           curl_close($ch);
-           return $result;
-   }
 
    //send auth detail to server
    $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
@@ -281,7 +261,9 @@ if ($room) {
 
     <script type="text/javascript"
             src="/virtualclass/bundle/jquery/jquery-ui.min.js?ver=<?php echo $version ?>"></script>
-    var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");
+            <script type="text/javascript">
+                var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");
+            </script>
     <?php
     if (!$debug) {
         ?>
@@ -445,6 +427,7 @@ if ($room) {
         <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-host.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dashboard.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/poll.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/upload-video.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js?ver=<?php echo $version ?>"></script>
@@ -948,28 +931,24 @@ if ($room) {
 
 }
 // Lib Functions
-function my_curl_request($url, $post_data)
-{
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_HEADER, 'content-type: text/plain;');
-    curl_setopt($ch, CURLOPT_TRANSFERTEXT, 0);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_PROXY, false);
-    curl_setopt($ch, CURLOPT_SSLVERSION, 1);
-
-    $result = @curl_exec($ch);
-    if ($result === false) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-
-    return $result;
+function my_curl_request($url, $post_data, $key){
+       $ch = curl_init();
+       curl_setopt($ch, CURLOPT_URL, $url);
+       curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+       curl_setopt($ch, CURLOPT_HEADER, FALSE);
+           curl_setopt($ch, CURLOPT_HTTPHEADER,
+                       array('Content-Type: application/json',
+                       'x-api-key: ' . $key,
+                     ));
+       curl_setopt($ch, CURLOPT_TRANSFERTEXT, 0);
+       curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+       curl_setopt($ch, CURLOPT_PROXY, false);
+       $result = @curl_exec($ch);
+       curl_close($ch);
+       return $result;
 }
 
 function notInRoom()

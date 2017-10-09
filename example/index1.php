@@ -201,8 +201,8 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/jquery.ui.chatbox.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/progress.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/pbar.css" ?> />
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/theme/$theme".".css" ?> />
 <?php
 } else {
@@ -301,6 +301,7 @@ $cmid = 5;
 <!-- If you'd like to support IE8 -->
 
 <link href="<?php echo $whiteboardpath.'fileuploader/js/fine-uploader-gallery.css'; ?>" rel="stylesheet">
+
 
 <?php
 $info = 1;

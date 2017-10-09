@@ -77,6 +77,13 @@ if (isset($role)) {
     $cont_class .= 'student';
 }
 
+if($meetingmode){
+   $cont_class .= ' meetingmode';
+}else {
+    $cont_class .= ' normalmode';
+}
+
+
 include('./virtualclass/example/en.php');
 function get_string($phrase)
 {
@@ -92,6 +99,13 @@ if(isset($_GET['theme'])){
 }
 
 $pt = array('0' => 'disable', '1' => 'enable');
+
+if (isset($_GET['meetingmode'])) {
+    $meetingmode = $_GET['meetingmode'];
+} else {
+    $meetingmode = 1;
+}
+
 $pushtotalk = '0';
 if(isset($_GET['pt'])){
     if($_GET['pt'] == 'enable' || $_GET['pt'] == 'disable'){
@@ -237,6 +251,7 @@ if ($room) {
 
     <script type="text/javascript"
             src="/virtualclass/bundle/jquery/jquery-ui.min.js?ver=<?php echo $version ?>"></script>
+    var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");
     <?php
     if (!$debug) {
         ?>
@@ -436,6 +451,7 @@ if ($room) {
         wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
         window.importfilepath = '/importnotallowed.php';
         window.exportfilepath = '/exportnotallowed.php';
+        wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
     </script>
 
     </head>
@@ -581,6 +597,15 @@ if ($room) {
             $classes .= ' ' .$audactive;
 
             ?>
+
+            <script>
+                virtualclassSetting = {};
+                virtualclassSetting.dap = '<?php echo $dap; ?>';
+                virtualclassSetting.classes = '<?php echo $classes; ?>';
+                virtualclassSetting.audio_tooltip = '<?php echo $audio_tooltip; ?>';
+                virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
+
+            </script>
 
             <div id="mainAudioPanel">
                 <div id="speakerPressOnce" class="<?php echo $classes; ?>" data-audio-playing="<?php echo $dap;?>">

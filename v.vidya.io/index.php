@@ -1,7 +1,7 @@
 
 <?php
 // $version = '20161221618';
-$version = '201710091120';
+$version = '201710091122';
 $domain=$_SERVER['HTTP_HOST'];
 $whiteboardpath = "https://$domain/virtualclass/";
 define( 'SCRIPT_ROOT', $whiteboardpath);
@@ -43,7 +43,7 @@ $name = $_COOKIE['name'];
 $sid = $_COOKIE['sid'];
 $role = $_COOKIE['role'];
 $room = $_COOKIE['room'];
-$ts = (isset($_COOKIE['room')) ? $_GET['ts'] : false;
+$ts = (isset($_COOKIE['room'])) ? $_GET['ts'] : false;
 ?>
 
 <link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
@@ -173,9 +173,10 @@ if ($room) {
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/bootstrap/css/bootstrap.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."codemirror/lib/codemirror.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
-        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/pbar.css" ?> />
-        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/progress.css" ?> />
-        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/custom.css" ?> />
+
+
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/modules/custom.css" ?> />
+
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."poll/graphs/c3.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "SlickQuiz/css/slickQuiz.css" ?> />
 

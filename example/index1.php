@@ -45,6 +45,13 @@ if (isset($_GET['themecolor'])) {
     $theme = 'gray';
 }
 
+
+if (isset($_GET['meetingmode'])) {
+    $meetingmode = $_GET['meetingmode'];
+} else {
+    $meetingmode = 0;
+}
+
 $pt = array('0' => 'disable', '1' => 'enable');
 
 $pushtotalk = '0';
@@ -143,6 +150,12 @@ if (isset($_GET['role'])) {
     $cont_class .= 'student';
 }
 
+if($meetingmode){
+   $cont_class .= ' meetingmode';
+}else {
+    $cont_class .= ' normalmode';
+}
+
 $cont_class .= ' pt_' . $pushtotalk;
 
 $room = (isset($_GET['room'])) ? $_GET['room'] : '215';
@@ -156,6 +169,7 @@ if (isset($_GET['lname'])) {
 } else {
     $lname = '';
 }
+
 
 
 // Chrome extension for desktop sharing.
@@ -181,6 +195,7 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/screenshare.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/sharepresentation.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/video.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/peervideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/whiteboard.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/youtube.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/jquery.ui.chatbox.css" ?> />
@@ -198,16 +213,13 @@ if($info) {
 
 $sid = $uid;
 $role  = 'student';
-$cont_class = 'congrea ';
+
 
 $cont_class .= $role;
 if(empty($congrea->moderatorid)) {
     $anyonepresenter = 1;
 } else {
     $anyonepresenter = 0;
-}
-if($isplay){
-	$cont_class .= " playMode";
 }
 $pushtotalk = 0;
 // Push to talk
@@ -239,6 +251,8 @@ if($audactive){
     virtualclassSetting.dap = '<?php echo $dap; ?>';
     virtualclassSetting.classes = '<?php echo $classes; ?>';
     virtualclassSetting.audio_tooltip = '<?php echo $audio_tooltip; ?>';
+    virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
+
 </script>
 <?php
 // Output starts here.
@@ -260,6 +274,8 @@ $cmid = 5;
     wbUser.role =  '<?php echo $r; ?>';
     wbUser.lname =  '<?php echo $lname; ?>';
     wbUser.name =  '<?php echo $uname; ?>';
+    wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
+
     wbUser.anyonepresenter =  '<?php echo $anyonepresenter ?>';
     window.whiteboardPath =  '<?php echo $whiteboardpath; ?>';
     window.importfilepath = "<?php echo $whiteboardpath . "impport.php" ?>";

@@ -1,9 +1,14 @@
-<div id="virtualclassAppLeftPanel" class="leftbar">
+<div id="virtualclassAppLeftPanel" class="leftbar" data-surname="{{meetingMode}}">
   {{#if isPlay}}
     {{> recordingControl}}
   {{/if}}
   {{#if hasControls}}
-    {{> appTools}}
+    {{#if meetingMode}}
+      {{> appToolsMeeting }}
+    {{else}}
+      {{> appTools }}
+    {{/if}}
+
   {{/if}}
-  <div id="virtualclassWhiteboard" class="virtualclass"></div>
+  <div id="virtualclassWhiteboard" class="virtualclass "></div>
 </div>

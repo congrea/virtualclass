@@ -45,6 +45,7 @@
          * @return errorCont.id id of the error container
          */
         createErrorMsg: function (msg, contId, addBefore) {
+
             var errorCont = document.getElementById(contId);
             if (errorCont == null) {
                 var errorCont = document.createElement('div');
@@ -54,6 +55,17 @@
                 var errMsg = msg + "<br /> " + errorCont.innerHTML;
                 errorCont.innerHTML = errMsg;
             }
+
+            //sumanfnew
+            var closebutton = document.createElement('span');
+            closebutton.id = 'closeMsg';
+            closebutton.innerHTML = "X";
+            closebutton.onclick = function (){
+                var parentelem = document.querySelector('#'+contId);
+                parentelem.parentNode.removeChild(parentelem);
+            }
+
+            errorCont.appendChild(closebutton);
 
             var addBeforeElem = document.getElementById(addBefore);
             addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);

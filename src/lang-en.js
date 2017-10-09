@@ -336,6 +336,7 @@
         'delete':'Delete',
         'publish':'Publish',
         'pollHead':'Vote this Poll',
+        'share' : 'Share',
         'validateurlmsg' : 'Invalid Url'
     };
 

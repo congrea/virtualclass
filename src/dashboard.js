@@ -43,5 +43,13 @@ var dashBoard = {
                 }
             });
         }
+    },
+
+    clickCloseButton : function (){
+        var navButton = document.querySelector('#dashboardnav button');
+        if(navButton != null){
+            navButton.classList.add('clicked');
+        }
+
     }
 }

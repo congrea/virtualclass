@@ -1,21 +1,34 @@
 <div id="audioWidget">
   <ul class="nav navbar-nav" id="mainAudioPanel">
-    <li id="speakerPressOnce" class="{{classes}}" data-audio-playing={{getString 'dap'}}>
-      <a id="speakerPressonceAnch" class="congtooltip" data-title="{{audio_tooltip}}" name="speakerPressonceAnch">
-        <span id="speakerPressonceLabel" class="silenceDetect" data-silence-detect="stop"> <i> </i> </span>
-      </a>
-    </li>
+
+
+      <li id="speakerPressOnce" class="{{classes}}" data-audio-playing={{getString 'dap'}}>
+        <a id="speakerPressonceAnch" class="congtooltip" data-title="{{audio_tooltip}}" data-meeting="{{meetingMode}}" name="speakerPressonceAnch">
+          <span id="speakerPressonceLabel" class="silenceDetect" data-silence-detect="stop"> <i> </i> </span>
+        </a>
+      </li>
 
     <li class="prechk congtooltip" data-title="Precheck" id="precheckTest">
       <a><span class="precheck "  id="precheckSetting" ></span></a>
     </li>
+
     {{#if isControl}}
-    <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
-      <a id="rightCtlr">
-        <span id="videoSwitch" data-action="disable" class="video on " ></span>
-      </a>
-    </li>
+        <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
+          <a id="rightCtlr">
+            <span id="videoSwitch" data-action="disable" class="video on " ></span>
+          </a>
+        </li>
     {{/if}}
+
+    {{#if isMettingMode}}
+      <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
+        <a id="rightCtlr">
+          <span id="videoSwitch" data-action="disable" class="video on " ></span>
+        </a>
+      </li>
+    {{/if}}
+
+
     <li id="videSpeedNumber" class="suggestion congtooltip" data-suggestion="{{suggestion}}" data-title="{{getString 'proposedspeed'}}"> </li>
     <li id="vedioPacket" >
       <a id="videoPacketInfo">

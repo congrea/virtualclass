@@ -96,6 +96,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-host.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dashboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/poll.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/upload-video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
@@ -105,4 +106,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

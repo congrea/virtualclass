@@ -228,23 +228,28 @@
 
 }
 
-#virtualclassCont.congrea #dashboardnav {
-  position: absolute;
-  top: 574px;
-  left: -4px;
-}
+/*#virtualclassCont.congrea #dashboardnav {*/
+  /*position: absolute;*/
+  /*top: 650px;*/
+  /*left: -5px;*/
+/*}*/
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary{
   height: 45px;
   width: 57px;
   margin-left: 0px;
   border:0px;
-  margin-top:66px;
+  /*margin-top:66px;*/
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{
   margin-left:74px;
-  margin-bottom:-25px;
+  margin-bottom: 27px;
+}
+
+#virtualclassCont.congrea #dashboardnav.congtooltip,
+#virtualclassCont.congrea #virtualclassPollTool.congtooltip{
+  z-index: 1100;
 }
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary:hover{
@@ -267,4 +272,26 @@
   margin-left: 8px !important;
   border-radius: 50%;
   width: 48px !important;
+}
+
+/*@media(min-height:768px){*/
+  /*#virtualclassCont.congrea  #dashboardnav{*/
+    /*position: absolute;*/
+    /*top: 650px;*/
+    /*left: -5px;*/
+  /*}*/
+/*}*/
+
+@media (max-height: 768px){
+  #virtualclassCont.congrea #dashboardnav {
+    position: absolute;
+    top: 585px;
+    left: -5px;
+  }
+}
+@media (max-height: 768px){
+  #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
+    position:absolute;
+    top:73px;
+  }
 }

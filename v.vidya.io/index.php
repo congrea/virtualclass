@@ -1,6 +1,7 @@
 
 <?php
-$version = '20161221618';
+// $version = '20161221618';
+$version = '201710091120';
 $domain=$_SERVER['HTTP_HOST'];
 $whiteboardpath = "https://$domain/virtualclass/";
 define( 'SCRIPT_ROOT', $whiteboardpath);
@@ -139,9 +140,6 @@ if ($room) {
         echo "Chat server is unavailable!";
         exit;
     }
-
-
-
     ?>
 
     <!DOCTYPE html>
@@ -149,23 +147,46 @@ if ($room) {
     <head>
     <title>Congrea Virtual Class</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/bootstrap/css/bootstrap.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."codemirror/lib/codemirror.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/pbar.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/progress.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."css/custom.css" ?> />
-    <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath."poll/graphs/c3.css" ?> />
-    
-
 
     <?php
     if($debug){
-        echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/styles.css">';
-        echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/popup.css">';
-        echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/jquery.ui.chatbox.css">';
-        echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/vceditor.css">';
-        echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/document-share.css">';
+        //  echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/styles.css">';
+        // echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/popup.css">';
+        // echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/jquery.ui.chatbox.css">';
+        // echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/vceditor.css">';
+        // echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'/document-share.css">';
+    ?>
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/bootstrap/css/bootstrap.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."codemirror/lib/codemirror.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."bundle/jquery/css/base/".$theme."_jquery-ui.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/pbar.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/progress.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."css/custom.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT."poll/graphs/c3.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "SlickQuiz/css/slickQuiz.css" ?> />
+
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/styles.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/popup.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/vceditor.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/document-share.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/editor.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/icon.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/media.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/poll.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/quiz.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/screenshare.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/sharepresentation.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/video.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/peervideo.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/whiteboard.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/youtube.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/jquery.ui.chatbox.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/progress.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/pbar.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/multivideo.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/bootstrap/css/bootstrap.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/theme/$theme".".css" ?> />
+    <?php
     } else {
         echo '<link rel="stylesheet" type="text/css" href="'.SCRIPT_ROOT.'css/'.$theme.'.min.css">';
     }

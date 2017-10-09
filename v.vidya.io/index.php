@@ -261,6 +261,7 @@ if ($room) {
     <?php
     } else {
     ?>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
         <script type="text/javascript"
                 src="/virtualclass/bundle/io/src/iolib.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript" src="/virtualclass/src/roles.js?ver=<?php echo $version ?>"></script>
@@ -409,15 +410,21 @@ if ($room) {
         <script type="text/javascript" src="/virtualclass/chat/lang.en.js?ver=<?php echo $version ?>"></script>
         <script type="text/javascript"
                 src="/virtualclass/src/precheck.js?ver=<?php echo $version ?>"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-host.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/upload-video.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js"></script>
-        <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-host.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dashboard.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/upload-video.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>SlickQuiz/js/mo_slickQuiz.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js?ver=<?php echo $version ?>"></script>
+        <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js?ver=<?php echo $version ?>"></script>
+
     <?php
     }
     ?>

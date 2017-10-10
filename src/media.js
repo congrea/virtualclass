@@ -1483,6 +1483,7 @@
              */
             handleUserMediaError: function (error) {
                 var errorMsg = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
+
                 virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
                 virtualclass.user.control.audioWidgetDisable('vd');
                 virtualclass.view.disappearBox('WebRtc');

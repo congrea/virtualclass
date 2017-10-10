@@ -29,6 +29,7 @@
                 resize : false,
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
                 meetingMode : +(wbUser.meetingMode),
+                chromeExt : false,
             },
 
             enablePreCheck : true,
@@ -107,6 +108,7 @@
                 this.storage = window.storage;
                 this.dashBoard  = dashBoard;
                 this.multiVideo = window.MultiVideo;
+                this.vutil.isChromeExtension();
 
 //                this.storage.init(function () {
 //                    if (!virtualclass.vutil.isPlayMode()) {

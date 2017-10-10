@@ -331,4 +331,3 @@ if ($info) {
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>
 </body>
-

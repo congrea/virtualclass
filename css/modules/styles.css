@@ -2897,3 +2897,25 @@
 #virtualclassCont.congrea #urlcontainer #submitpurl.btn-default:hover{
 	opacity: 0.8;
 }
+
+
+#virtualclassCont.congrea #generalMessage{
+	display: block;
+	width: 300px;
+	height: 45px;
+	margin-top: 20px;
+	padding : 10px;
+}
+
+
+#virtualclassCont.congrea #popupContainer #generalMessageClose:before {
+	content: "X";
+	color: #965757;
+	font-size: 16px;
+	position: relative;
+	top: -52px;
+	right: -191px;
+	font-weight: bold;
+	cursor: pointer;
+}
+

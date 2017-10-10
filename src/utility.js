@@ -2167,6 +2167,27 @@
             }
 
         },
+
+        isChromeExtension : function (){
+            window.postMessage({type: 'isInstalled', id: 1}, '*');
+            console.log('Chrome Extension:- Check');
+            setTimeout(
+                function (){
+                    if(!virtualclass.gObj.chromeExt){
+                        virtualclass.gObj.chromeExt = true;
+                    }
+                },
+                1500
+            );
+
+            window.addEventListener('message', function (event) {
+                if (event.data.type == 'yes') {
+                    virtualclass.gObj.chromeExt = true;
+                }
+                console.log('Chrome Extension:- is available');
+            });
+
+        }
     };
     window.vutil = vutil;
 })(window);

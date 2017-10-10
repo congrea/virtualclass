@@ -1319,7 +1319,7 @@
                         }
 
                     }else {
-                        virtualclass.user.control.audioWidgetEnable();
+                        virtualclass.user.control.audioWidgetEnable(true);
                     }
                 } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
                     virtualclass.user.control.audioWidgetEnable();

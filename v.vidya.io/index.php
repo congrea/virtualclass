@@ -3,13 +3,14 @@
 $version = '201710091125';
 $domain=$_SERVER['HTTP_HOST'];
 $whiteboardpath = "https://$domain/virtualclass/";
-define( 'SCRIPT_ROOT', $whiteboardpath);
+define('SCRIPT_ROOT', $whiteboardpath);
 
 if (isset($_REQUEST['debug']) && $_REQUEST['debug'] == 'true') {
     $debug = true;
 } else {
     $debug = false;
 }
+
 $debug = true;
 
 //if ($_SERVER['REQUEST_URI'] == '/') {
@@ -37,6 +38,7 @@ if ($_SERVER['REQUEST_URI'] == '/') {
         inRoom($matches[0], 's');
     }
 }
+
 // suman bogati
 $name = $_COOKIE['name'];
 $sid = $_COOKIE['sid'];
@@ -76,6 +78,12 @@ if (isset($role)) {
     $cont_class .= 'student';
 }
 
+if (isset($_GET['meetingmode'])) {
+    $meetingmode = $_GET['meetingmode'];
+} else {
+    $meetingmode = 1;
+}
+
 if($meetingmode){
    $cont_class .= ' meetingmode';
 }else {
@@ -99,11 +107,7 @@ if(isset($_GET['theme'])){
 
 $pt = array('0' => 'disable', '1' => 'enable');
 
-if (isset($_GET['meetingmode'])) {
-    $meetingmode = $_GET['meetingmode'];
-} else {
-    $meetingmode = 1;
-}
+
 
 $pushtotalk = '0';
 if(isset($_GET['pt'])){
@@ -146,6 +150,7 @@ if ($room) {
    $licensekey = '2210-sg-245-uqGwY3qnHMamdpwBMmKXXns8qqZVFDhAmksJ8gMXap59JMHz';
    $post_data = array('authuser'=> $authusername,'authpass' => $authpassword);
    $post_data = json_encode($post_data);
+
    //echo $post_data;
    $rid = my_curl_request("https://api.congrea.com/auth", $post_data, $licensekey);
    //print_r( $rid);exit;
@@ -164,7 +169,7 @@ if ($room) {
     ?>
 
 
-    <!DOCTYPE html>
+	<!DOCTYPE html>
     <html lang="en">
     <head>
     <title>Congrea Virtual Class</title>
@@ -448,6 +453,7 @@ if ($room) {
             var dtConWorker = new Worker("/virtualclass/worker/storage-array-base64-converter.js");
             var webpToPng = new Worker("<?php echo $whiteboardpath."worker/webptopng.js" ?>");
         }
+	
         <?php echo "var wbUser = {};";?>
         <?php echo " wbUser.auth_user='".$authusername."';"; ?>
         <?php echo " wbUser.auth_pass='".$authpassword."';"; ?>
@@ -465,6 +471,7 @@ if ($room) {
         <?php echo "wbUser.anyonepresenter='".$anyonepresenter."';"; ?>
         <?php echo "wbUser.fname='".$name."';"; ?>
         <?php echo "wbUser.lname='';"; ?>
+	
         window.io = io;
         window.whiteboardPath = 'https://v.vidya.io/virtualclass/';
         wbUser.imageurl = window.whiteboardPath + "images/quality-support.png";
@@ -475,50 +482,53 @@ if ($room) {
 
     </head>
     <body>
-    $adarr = array('0' => 'deactive', '1' => 'active');
-        $audactive = '0';
-        if(isset($_GET['audio'])){
-            if($_GET['audio'] == '0' || $_GET['audio'] == '1'){
-                $audactive = $_GET['audio'];
-            }
-        }
+		<?php
+			$adarr = array('0' => 'deactive', '1' => 'active');
+			$audactive = '0';
+			if(isset($_GET['audio'])){
+				if($_GET['audio'] == '0' || $_GET['audio'] == '1'){
+					$audactive = $_GET['audio'];
+				}
+			}
 
-        $audactive = $adarr[$audactive];
-        $classes .= ' ' .$audactive;
+			$audactive = $adarr[$audactive];
+			$classes .= ' ' .$audactive;
 
-        if($audactive == 'deactive'){
-            $dap = "false";
-            $classes = "audioTool";
-            $speakermsg = "Enable Speaker";
-            $audio_tooltip =  get_string('enableAudio');
-        } else {
-            $classes = "audioTool";
-            $speakermsg = "Disable Speaker";
-            $dap = "true";
-            $audio_tooltip =  get_string('disableAudio');
-        }
-    <!--
-    <script>
-        virtualclassSetting = {};
-        virtualclassSetting.dap = '<?php echo $dap; ?>';
-        virtualclassSetting.classes = '<?php echo $classes; ?>';
-        virtualclassSetting.audio_tooltip = '<?php echo $audio_tooltip; ?>';
-        virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
-    </script>
+			if($audactive == 'deactive'){
+				$dap = "false";
+				$classes = "audioTool";
+				$speakermsg = "Enable Speaker";
+				$audio_tooltip =  get_string('enableAudio');
+			} else {
+				$classes = "audioTool";
+				$speakermsg = "Disable Speaker";
+				$dap = "true";
+				$audio_tooltip =  get_string('disableAudio');
+			}
+		 ?>	
+			<script type="text/javascript">
+
+			virtualclassSetting = {};
+			virtualclassSetting.dap = '<?php echo $dap; ?>';
+			virtualclassSetting.classes = '<?php echo $classes; ?>';
+			virtualclassSetting.audio_tooltip = '<?php echo $audio_tooltip; ?>';
+			virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
+			</script>
+    
     <script type="text/template" id="qq-template-gallery"> <?php include('fine-upload.php'); ?> </script>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>">
 
-     </div>
+    </div>
     </body>
     </html>
-
 <?php
+}
 // Lib Functions
 function my_curl_request($url, $post_data, $key){
        $ch = curl_init();
        curl_setopt($ch, CURLOPT_URL, $url);
        curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
        curl_setopt($ch, CURLOPT_HEADER, FALSE);
            curl_setopt($ch, CURLOPT_HTTPHEADER,
@@ -560,10 +570,7 @@ function inRoom($room, $role)
         $_COOKIE['sid'] = $sid;
         $_COOKIE['role'] = $role;
         $_COOKIE['room'] = $room;
-
-
     }
-
 
     if (!isset($_COOKIE['name'])) {
         if ($_SERVER['REQUEST_URI'] == '/') {

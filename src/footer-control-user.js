@@ -731,11 +731,15 @@
                 },
 
 
-                audioWidgetEnable: function () {
+                audioWidgetEnable: function (notActive) {
                     localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
                     if(localStorage.getItem('dvid') == null){
-                        var studentSpeaker = document.getElementById('audioWidget');
-                        studentSpeaker.className = 'active';
+                        var studentSpeaker = document.getElementById('speakerPressOnce');
+                        if(typeof notActive == 'undefined'){
+                             studentSpeaker.className = 'active';
+                        }
+                        
+
                         studentSpeaker.style.opacity = "1";
                         studentSpeaker.style.pointerEvents = "visible";
                     }
@@ -767,9 +771,9 @@
                     this.audioDisable();
                     this.videoDisable();
 
-                    var alwaysPressElem = document.getElementById('speakerPressing');
+                    // var alwaysPressElem = document.getElementById('speakerPressing');
                     if (virtualclass.gObj.hasOwnProperty('video')) {
-                        virtualclass.gObj.video.audio.studentNotSpeak(alwaysPressElem);
+                        virtualclass.gObj.video.audio.studentNotSpeak();
                         virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
 

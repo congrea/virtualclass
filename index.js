@@ -1152,7 +1152,7 @@ $(document).ready(function () {
             //enable audio
             this.ena = function (e) {
                 if (e.message.toUser == virtualclass.gObj.uid) {
-                    virtualclass.user.control.audioWidgetEnable();
+                    virtualclass.user.control.audioWidgetEnable(true);
                     virtualclass.gObj.audioEnable = true;
                 } else {
                     virtualclass.user.control.enable(e.message.toUser, 'audio', 'Aud', 'aud');

@@ -454,6 +454,29 @@ var PopUp = (function (window, undefined) {
     };
 
 
+
+    PopUp.prototype.generalMsg = function (msg) {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        this.hideAllPopups();
+        var sessionEndMsg = document.getElementById("generalMessage");
+        sessionEndMsg.style.display = 'block';
+
+        //sessionEndMsg.innnerHTML = msg;
+
+        var msgCont = document.querySelector('#generalMessageMsg');
+        msgCont.innerHTML = msg;
+
+
+        var generalMessageClose = document.getElementById("generalMessageClose");
+
+        generalMessageClose.addEventListener('click',
+            function () {
+                virtualclass.popup.closeElem();
+            });
+    };
+
+
     PopUp.prototype.hideAllPopups = function () {
         var allPopuContainer = document.getElementsByClassName('popupWindow');
         for (var i = 0; i < allPopuContainer.length; i++) {

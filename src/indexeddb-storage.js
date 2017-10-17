@@ -644,7 +644,7 @@
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = "EditorRich"; // default app
 
-                virtualclass.user.control.audioWidgetEnable(); // Enable the audio if disabled
+                virtualclass.user.control.audioWidgetEnable(true) // Enable the audio if disabled
 
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
 

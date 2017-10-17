@@ -55,7 +55,6 @@
             isChannelReady: '',// not being used
             isInitiator: false,
             isStarted: '',
-            localStream: '',
             pc: [],
             cn: 0,
             ba: false,
@@ -318,27 +317,40 @@
                  * And it is invoked on clicking test audio
                  */
                 audioToolInit: function () {
-                    var that = virtualclass.gObj.video.audio;
-                    if (this.id == 'speakerPressOnce') {
-                        that.clickOnceSpeaker(this.id);
-                    } else if (this.id == 'audioTest') {
-                        var self = this;
-                        virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
-                            if (confirm) {
-                                that.testInit(self.id);
-                            }
-
-                        });
-                    } else if (this.id == 'silenceDetect') {
-                        var a = this.getElementsByTagName('a')[0];
-                        if (that.sd) {
-                            that.sd = false;
-                            this.className = this.className + " sdDisable";
+                    if(virtualclass.gObj.meetingMode){
+                        var tag = document.getElementById(this.id);
+                        // var anchor = tag.getElementsByClassName('tooltip')[0];
+                        // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                        if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                            virtualclass.vutil.audioStatus(tag, "true");
                         } else {
-                            that.sd = true;
-                            this.className = this.className + " sdEnable";
+                            virtualclass.vutil.audioStatus(tag, "false");
+                        }
+                        virtualclass.multiVideo.disableAudio();
+                    } else {
+                        var that = virtualclass.gObj.video.audio;
+                        if (this.id == 'speakerPressOnce') {
+                            that.clickOnceSpeaker(this.id);
+                        } else if (this.id == 'audioTest') {
+                            var self = this;
+                            virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
+                                if (confirm) {
+                                    that.testInit(self.id);
+                                }
+
+                            });
+                        } else if (this.id == 'silenceDetect') {
+                            var a = this.getElementsByTagName('a')[0];
+                            if (that.sd) {
+                                that.sd = false;
+                                this.className = this.className + " sdDisable";
+                            } else {
+                                that.sd = true;
+                                this.className = this.className + " sdEnable";
+                            }
                         }
                     }
+
                 },
                 /*
                  * If Push to talk audio tool is pressed down then audio is active
@@ -426,9 +438,10 @@
                     var anchor = tag.getElementsByClassName('congtooltip')[0];
                     // var anchor = tag.getElementsByClassName('tooltip')[0];
                     // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
-                        if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                    if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
                         //this.studentSpeak(alwaysPressElem);
                         this.studentSpeak();
+
                         tag.setAttribute('data-audio-playing', "true");
                         anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
                         tag.className = "audioTool active";
@@ -440,7 +453,6 @@
                         if(anchor){
                             anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
                         }
-
                         tag.className = "audioTool deactive";
                     }
                 },
@@ -1039,7 +1051,7 @@
                         }
 
                         if (roles.hasControls()) {
-                            cthis.audio.graph.display();
+                            // cthis.audio.graph.display();
                         }
                         //frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
                         var user = {
@@ -1210,7 +1222,7 @@
 
 
             init: function (vbool) {
-                //    alert("hello borther");
+                console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
                 //vcan.oneExecuted = true;
                 virtualclass.gObj.oneExecuted = true;
@@ -1237,27 +1249,36 @@
                     ],
 
                 };
-                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
-                var session = {
-                    audio: audioOpts,
-                    video: webcam
-                    };
-                cthis.video.init();
-                if (!virtualclass.vutil.isPlayMode()) {
 
+                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
+
+
+                var session = {
+                    //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
+                    video: webcam,
+                    audio : true
+                };
+                cthis.video.init();
+                var that  = this;
+
+                if (!virtualclass.vutil.isPlayMode()) {
                     virtualclass.adpt = new virtualclass.adapter();
                     var cNavigator = virtualclass.adpt.init(navigator);
 
                     //  cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
 
-                    var that  = this;
+
+                    //return;
                     cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                         that.handleUserMedia(stream)
+                        if(virtualclass.gObj.meetingMode){
+                            virtualclass.multiVideo.init();
+                        }
                     }).catch(function (e) {
                         that.handleUserMediaError(e);
                     });
-
                 }
+
 
                 if (virtualclass.system.wbRtc.peerCon) { //TODO this should be deleted
                     if (typeof localStorage.wbrtcMsg == 'undefined') {
@@ -1283,7 +1304,6 @@
 
             handleUserMedia: function (stream) {
                 virtualclass.gObj.video.audioVisual.readyForVisual(stream);
-
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
@@ -1299,7 +1319,7 @@
                         }
 
                     }else {
-                        virtualclass.user.control.audioWidgetEnable();
+                        virtualclass.user.control.audioWidgetEnable(true);
                     }
                 } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
                     virtualclass.user.control.audioWidgetEnable();
@@ -1425,7 +1445,7 @@
             },
             /*
              * Plays all videos of currentlly logged in users after an interval of 1040 ms
-             * @param id footer chat  container id 
+             * @param id footer chat  container id
              */
             dispAllVideo: function (id) {
                 setTimeout(
@@ -1463,6 +1483,7 @@
              */
             handleUserMediaError: function (error) {
                 var errorMsg = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
+
                 virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
                 virtualclass.user.control.audioWidgetDisable('vd');
                 virtualclass.view.disappearBox('WebRtc');

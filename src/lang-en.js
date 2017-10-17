@@ -253,7 +253,7 @@
         'bandslow' : 'Bandwidth is low',
         'bandfast' : 'Bandwidth is high',
         'bandmedium' : 'Bandwidth is medium',
-        'pclosetag' : '<span>Are you sure you want to delete this poll?  </span>',
+        'pclosetag' : '<span>Are you sure you want to close this poll?  </span>',
         'pclose' : 'Are you sure you want to close this poll?',
         'stdPublish' : 'stdPublish',
         'votesucess' : 'Your poll has been submitted successfully',
@@ -328,7 +328,7 @@
         'Next' : 'Next',
         'JoinSession' : 'Join Session',
         'chromeExtMiss' : "Congrea needs 'Desktop Selector' pugins to share the Screen.<br />" +
-        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'>HERE.</a>",
+        "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a>",
         'etDisabledA':'Cannt edit,poll attempted',
         'etDisabledCr':'Can be edited by creator of the poll',
         'dltDisabled':'Can be deleted  by creator of the poll',
@@ -336,9 +336,11 @@
         'delete':'Delete',
         'publish':'Publish',
         'pollHead':'Vote this Poll',
-        'noPoll':' ‘There is no question available for poll. Kindly click on ‘add new’ button to add question',
-        'noResultStd':"You are not permitted to see the result",
-        'editTitle':"Edit Title"
+        'share' : 'Share',
+        'validateurlmsg' : 'Invalid Url',
+        "NotSupportedError" : 'Only secure orgins(https) are allowed for Audio and Video.',
+        'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing'
+
     };
 
     window.message = message;

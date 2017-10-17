@@ -525,6 +525,7 @@
                                 that.hasWebcam = true;
                             }
 
+
                             // there is no 'videoouput' in the spec.
 
                             MediaDevices.push(device);

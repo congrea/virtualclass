@@ -1,0 +1,89 @@
+#virtualclassCont.congrea #multiremoteVideo {
+  width : 400px;
+  height : 400px;
+}
+
+
+#virtualclassCont.congrea #videosWrapper {
+  z-index: 600;
+  height : auto;
+  max-height: 345px;
+  width: 320px;
+  overflow-y: hidden;
+}
+
+#virtualclassCont.congrea .videoWrap {
+  width : 25%;
+  padding: 5px;
+  float:left;
+}
+
+
+#virtualclassCont.congrea .videoCont{
+  float: left;
+  /*width: 32%;*/
+}
+
+#virtualclassCont.congrea .videoCont video{
+  border: 0px solid #ddd;
+  padding : 0;
+  width : 100%;
+
+}
+
+#virtualclassCont.congrea #preCheckcontainer .screen1.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen3.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen4.bandwidth::before,
+#virtualclassCont.congrea #preCheckcontainer .screen5.bandwidth::before{
+  padding-left : 40px !important;
+}
+
+
+#virtualclassMultiVideoTool span{
+  color : #ffffff;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassMultiVideo {
+  margin-left : 65px;
+  margin-top : 10px;
+}
+
+#virtualclassCont.congrea #virtualclassMultiVideo #multiVidSelected{
+  border: 1px solid #ddd;
+  padding: 6px
+}
+
+/*#virtualclassCont.congrea.meetingmode #speakerPressOnce, #virtualclassCont.congrea.meetingmode #congCtrBar{*/
+  /*display : none;*/
+/*}*/
+
+/** Multi Video Two User layout, Start **/
+#virtualclassCont.congrea #videoConfrence[data-totaluser='two'] #videosWrapper {
+  position : relative;
+}
+
+#virtualclassCont.congrea #videoConfrence[data-totaluser='two'] .selfVideo {
+  width: 105px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  border: 2px solid rgba(254,254,254,0.7);
+  border-width: 2px 0 0 2px;
+}
+
+/** Multi Video Two User layout, End **/
+
+/** Multi Video Four User layout **/
+#virtualclassCont.congrea #videoConfrence[data-totaluser='four'] .videoCont,
+#virtualclassCont.congrea #videoConfrence[data-totaluser='morethanfour'] .videoCont  {
+  width : 50%;
+}
+
+#virtualclassCont.congrea #multiVidSelected {
+  width : 860px;
+}
+
+#virtualclassCont.congrea .selfVideo {
+  z-index : 500;
+}

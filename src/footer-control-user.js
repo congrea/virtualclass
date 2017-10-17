@@ -731,11 +731,15 @@
                 },
 
 
-                audioWidgetEnable: function () {
+                audioWidgetEnable: function (notActive) {
                     localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
                     if(localStorage.getItem('dvid') == null){
-                        var studentSpeaker = document.getElementById('audioWidget');
-                        studentSpeaker.className = 'active';
+                        var studentSpeaker = document.getElementById('speakerPressOnce');
+                        if(typeof notActive == 'undefined'){
+                             studentSpeaker.className = 'active';
+                        }
+                        
+
                         studentSpeaker.style.opacity = "1";
                         studentSpeaker.style.pointerEvents = "visible";
                     }
@@ -767,24 +771,29 @@
                     this.audioDisable();
                     this.videoDisable();
 
-                    var alwaysPressElem = document.getElementById('speakerPressing');
+                    // var alwaysPressElem = document.getElementById('speakerPressing');
                     if (virtualclass.gObj.hasOwnProperty('video')) {
-                        virtualclass.gObj.video.audio.studentNotSpeak(alwaysPressElem);
+                        virtualclass.gObj.video.audio.studentNotSpeak();
                         virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
 
                 },
 
                 audioDisable : function (){
-                    var camIcon = document.getElementById('speakerPressOnce');
-                    camIcon.style.opacity = "0.5";
-                    camIcon.style.pointerEvents = "none";
+                    var mic = document.getElementById('speakerPressOnce');
+                    if(mic != null){
+                        mic.style.opacity = "0.5";
+                        mic.style.pointerEvents = "none";
+                    }
+
                 },
 
                 videoDisable : function (){
-                    var camIcon = document.getElementById('congCtrBar');
-                    camIcon.style.opacity = "0.5";
-                    camIcon.style.pointerEvents = "none";
+                    var videoIcon = document.getElementById('congCtrBar');
+                    if(videoIcon != null){
+                        videoIcon.style.opacity = "0.5";
+                        videoIcon.style.pointerEvents = "none";
+                    }
                 },
 
                 allChatDisable: function () {

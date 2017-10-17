@@ -791,7 +791,7 @@
                     function (){
                         virtualclass.gObj.video.init();
                         virtualclass.gObj.video.isInitiator = true;
-                    },0
+                    },200
                 );
             }
 
@@ -1983,7 +1983,7 @@
             }
         },
 
-        initDashboard : function (currApp){
+        initDashboard : function (currApp, hidepopup){
             var mainContainer = document.querySelector('#mainContainer');
             if(currApp=="SharePresentation") {
                 var dbcont = document.querySelector('#pptDbCont');
@@ -2015,16 +2015,25 @@
             //     show: true
             // });
 
-            $('#congdashboard').modal();
-            virtualclass.dashBoard.actualCloseHandler();
+         //   $('#congdashboard').modal();
+
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
+                if(typeof hidepopup == 'undefined'){
+                    $('#congdashboard').modal();
+                    virtualclass.dashBoard.clickCloseButton();
+                }
+
                 if(virtualclass.dts.noteExist()){
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 }
                //  virtualclass.vutil.attachEventToUploadTab();
 
+            }else {
+                $('#congdashboard').modal();
             }
+
+            virtualclass.dashBoard.actualCloseHandler();
 
             var moodleHeader = document.querySelector('#congdashboard .modal-header h4');
             if(moodleHeader != null){
@@ -2076,11 +2085,15 @@
             );
         },
 
-        triggerDashboard : function (currApp){
+        triggerDashboard : function (currApp, hidepopup){
             if(currApp == 'DocumentShare'){
                 var currentNote = document.querySelector('#screen-docs .note.current');
                 if(currentNote == null){
-                    virtualclass.vutil.initDashboard(currApp);
+                    if(typeof hidepopup ==  'undefined'){
+                        virtualclass.vutil.initDashboard(currApp);
+                    }else {
+                        virtualclass.vutil.initDashboard(currApp, hidepopup);
+                    }
                 }
             } else {
                 virtualclass.vutil.initDashboard(currApp);
@@ -2103,6 +2116,79 @@
             if(elem != null){
                 elem.setAttribute('qq-drop-area-text', 'Drop File Here');
             }
+        },
+
+        /** Enable or Disable the Audio **/
+        audioStatus : function (tag, status){
+            var anchor = tag.getElementsByClassName('congtooltip')[0];
+            if(status == 'true'){
+                tag.setAttribute('data-audio-playing', "true");
+                anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
+                tag.className = "audioTool active";
+            }else {
+                tag.setAttribute('data-audio-playing', "false");
+                if(anchor){
+                    anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                }
+                tag.className = "audioTool deactive";
+            }
+        },
+
+        videoController: function () {
+            var elem = document.getElementById("videoSwitch");
+            if(elem){
+                elem.addEventListener("click", function () {
+                    virtualclass.vutil.videoHandler(this);
+                })
+            }
+
+        },
+
+        videoHandler: function (that) {
+            var video;
+            if (that.classList.contains("on")) {
+                that.classList.remove("on");
+                that.classList.add("off");
+                virtualclass.videoHost.gObj.videoSwitch = 0;
+                video = "off";
+                var tooltip = document.querySelector(".videoSwitchCont");
+                tooltip.dataset.title="video on"
+            } else {
+                that.classList.remove("off");
+                that.classList.add("on");
+                virtualclass.videoHost.gObj.videoSwitch = 1;
+                video = "on"
+                var tooltip = document.querySelector(".videoSwitchCont");
+                tooltip.dataset.title="video off"
+            }
+
+            if(virtualclass.gObj.meetingMode){
+               virtualclass.multiVideo.disableVideo();
+            }else {
+                ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
+            }
+
+        },
+
+        isChromeExtension : function (){
+            window.postMessage({type: 'isInstalled', id: 1}, '*');
+            console.log('Chrome Extension:- Check');
+            setTimeout(
+                function (){
+                    if(!virtualclass.gObj.chromeExt){
+                        virtualclass.gObj.chromeExt = true;
+                    }
+                },
+                1500
+            );
+
+            window.addEventListener('message', function (event) {
+                if (event.data.type == 'yes') {
+                    virtualclass.gObj.chromeExt = true;
+                }
+                console.log('Chrome Extension:- is available');
+            });
+
         }
     };
     window.vutil = vutil;

@@ -1,5 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
 <!--<script type="text/javascript" src="<?php echo $whiteboardpath;?>example/lib/js/head.min.js"></script>
@@ -96,6 +97,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-host.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/dashboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/poll.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/upload-video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
@@ -105,4 +107,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

@@ -168,7 +168,7 @@
             //todo to change this code later
             function searchUser() {
                 var arr = [];
-                virtualclass.chat.userList.forEach(function (item) {
+                virtualclass.connectedUsers.forEach(function (item) {
                     arr.push(item.name.toLowerCase());
 
                 });
@@ -180,9 +180,9 @@
             function _searchUser(arr, search) {
                 arr.forEach(function (elem, index) {
                     if (elem.indexOf(search) != -1) {
-                        $('#ml' + virtualclass.chat.userList[index].userid).show();
+                        $('#ml' + virtualclass.connectedUsers[index].userid).show();
                     } else {
-                        $('#ml' + virtualclass.chat.userList[index].userid).hide();
+                        $('#ml' + virtualclass.connectedUsers[index].userid).hide();
                     }
 
                 })

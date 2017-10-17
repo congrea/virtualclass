@@ -1736,8 +1736,10 @@
 
             if(type != 'video') {
                 var cont = document.querySelector("#docsUploadMsz");
-                var upMsz = document.createElement("div")
-                cont.appendChild(upMsz);
+                var upMsz = document.createElement("div");
+                if(cont){
+                    cont.appendChild(upMsz);
+                }
                 var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
                 if (msz) {
                     upMsz.appendChild(msz);

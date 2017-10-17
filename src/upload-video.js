@@ -288,6 +288,12 @@
                 btn.className = "close";
                 btn.setAttribute("data-dismiss", "alert")
                 btn.innerHTML = "&times";
+                btn.addEventListener('click',function(){
+                    var msz = document.querySelector("#uploadMsz");
+                    if(msz){
+                        msz.style.display="none";
+                    }
+                })
                 elem.appendChild(btn);
 
             },
@@ -329,7 +335,7 @@
 
                 var idPostfix = vidObj.id;
                 // var docId = 'docs' + doc;
-                this.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status);
+                this.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status,vidObj.type);
                 this.pages[idPostfix].init(idPostfix, vidObj.title);
                 this.videoDisplayHandler(vidObj);
                 var vid = document.getElementById("linkvideo" + vidObj.id);
@@ -539,6 +545,49 @@
                 this.order = order;
                 this.reArrangeElements(order);
                 this.sendOrder(this.order);
+
+            },
+
+            _editTitle:function(id,title,videotype){
+                var form_data = new FormData();
+                var data = {lc_content_id: id, action: 'edit',title:title, user: virtualclass.gObj.uid};
+                var form_data = new FormData();
+                for (var key in data) {
+                    form_data.append(key, data[key]);
+                    console.log(data[key]);
+                }
+
+                virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", function (msg) {
+                    if (msg != "ERROR") {
+                        var elem = document.getElementById("videoTitle" + id);
+                        if (elem) {
+                            elem.innerHTML=title;
+                            elem.style.display="inline";
+                            //virtualclass.videoUl.order=[];
+                            if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){
+                                virtualclass.videoUl.videos.forEach(function (video, index) {
+                                    if (video["id"] == id) {
+                                        console.log(video)
+                                        video.title=title;
+                                        // var index = virtualclass.videoUl.videos.indexOf(video)
+                                        // if (index >= 0) {
+                                        //     virtualclass.videoUl.videos.splice(index, 1)
+                                        //     console.log(virtualclass.videoUl.videos);
+                                        // }
+                                    }
+                                })
+                            }
+                            //
+                            // var idIndex = virtualclass.videoUl.order.indexOf(id);
+                            // if (idIndex >= 0) {
+                            //     virtualclass.videoUl.order.splice(idIndex, 1)
+                            //     console.log(virtualclass.videoUl.order);
+                            //     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                            // }
+                        }
+                    }
+                });
+
 
             },
 
@@ -1290,6 +1339,10 @@
 
                     virtualclass.videoUl.getVideoList();
 
+                    var dropMsz = document.querySelector("#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery");
+                    if(dropMsz){
+                        dropMsz.setAttribute("qq-drop-area-text","Drop videos here");
+                    }
                     var cont =  document.querySelector("#uploadMsz")
                     var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
                      if(msz){
@@ -1302,7 +1355,7 @@
                     var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= $("#uploadVideo");
                     btnUpload.click(function(){
-                        var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                        var msz = document.querySelector("#uploadMsz");
                         if(msz){
                             msz.style.display="block";
                         }

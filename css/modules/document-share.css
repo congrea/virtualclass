@@ -682,3 +682,65 @@
 #virtualclassCont.congrea #DocumentShareDashboard .dbContainer {
     height : 99%
 }
+#virtualclassCont.congrea #DocumentShareDashboard #docMsgStudent{
+    background-color: #f9f9f9;
+    border: 1px solid #c8ddb8;
+    border-radius: 5px;
+    color: #3a773c;
+    margin: 0 auto;
+    padding: 30px 20px;
+    position: absolute;
+    top: 40%;
+    width: 480px;
+    text-align: center;
+    box-shadow: 0 0 8px #ddd;
+    left: 0;
+    right: 0;
+}
+
+#virtualclassCont.congrea .linknotes.opaq{
+    opacity:.5;
+}
+
+#virtualclassCont.congrea .linknotes.htn{
+    opacity:1;
+}
+#virtualclassCont.congrea .linknotes.dragElem .mainpreview{
+    /*background-color: #98c2ff!important;*/
+    border: 1px solid rgb(46, 219, 236) !important;
+    box-shadow: 0 0 14px rgb(46, 219, 236);
+    opacity:1;
+}
+#virtualclassCont.congrea .linknotes.dragElem{
+    background-color: rgb(46, 219, 236)!important;
+    border: 1px solid rgb(46, 219, 236) !important;
+    box-shadow: 0 0 14px rgb(46, 219, 236);
+    opacity:1;
+
+}
+#virtualclassCont.congrea .linknotes.dragElem img{
+    pointer-events: auto !important; -webkit-user-drag: auto !important;
+    z-index:1;
+}
+
+/*#virtualclassCont.congrea .linknotes.opaq,#virtualclassCont.congrea .linknotes.opaq img{*/
+    /*opacity:.5;*/
+/*}*/
+
+
+/*#virtualclassCont.congrea .linknotes.dragElem{*/
+    /*border: 1px solid #ccc;*/
+    /*opacity:1;*/
+    /*padding:0px;*/
+/*}*/
+
+/*#virtualclassCont.congrea .linknotes.htn{*/
+
+    /*border:solid rgb(46, 219, 236) 1px !important;*/
+    /*opacity:1;*/
+/*}*/
+
+/*#virtualclassCont.congrea .linknotes.dragElem .mainpreview {*/
+    /*border: 1px solid rgb(46, 219, 236);*/
+    /*box-shadow: 0 0 14px rgb(46, 219, 236);*/
+/*}*/

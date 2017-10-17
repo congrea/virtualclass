@@ -19,9 +19,8 @@
     </nav>
     <div id="layoutPollBody" class="pollMainCont">
       {{#if  control}}
-        <div id="mszBoxPoll" class="row">
+        <div id="mszBoxPoll" class="row" style="display:none">
         </div>
-
         <div id="createPollCont" class="createBtnCont">
           <button id="newPollBtnsite" class="btn btn-default site" data-toogle="modal" data-target="#editPollModal" style="display: none;"><i class="icon-create-new"></i>{{getString 'addnew'}}</button>
           <button id="newPollBtncourse" class="btn btn-default course" data-toogle="modal" data-target="#editPollModal" style="display: block;"><i class="icon-create-new"></i>{{getString 'addnew'}}</button>

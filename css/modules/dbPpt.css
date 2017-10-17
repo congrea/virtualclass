@@ -149,6 +149,18 @@
   padding:16px;
 }
 
+#virtualclassCont.congrea #listppt .linkppt.links:before{
+  content: "\e935";
+  font-size: 100px;
+  font-family: 'icomoon';
+  opacity: .06;
+  top: 0px;
+  position: absolute;
+  margin-top: 48px;
+  margin-left: 30px;
+  align-items: center;
+}
+
 #virtualclassCont.congrea #listppt .linkppt.links .controlCont {
   float: right;
   border: 1px solid #eee;
@@ -239,4 +251,18 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #SharePresentationDashboard .dashboardview {
   height : 8%;
+}
+#virtualclassCont.congrea .linkppt.opaq{
+  opacity:.5;
+}
+
+#virtualclassCont.congrea .linkppt.htn{
+
+  border:solid #98c2ff 1px !important;
+  opacity:1;
+}
+#virtualclassCont.congrea .linkppt.dragElem{
+  background-color: #98c2ff!important;
+  border:solid #2029ff 1px !important;
+  opacity:1;
 }

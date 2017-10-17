@@ -335,7 +335,10 @@
         'edit':'Edit',
         'delete':'Delete',
         'publish':'Publish',
-        'pollHead':'Vote this Poll'
+        'pollHead':'Vote this Poll',
+        'noPoll':' ‘There is no question available for poll. Kindly click on ‘add new’ button to add question',
+        'noResultStd':"You are not permitted to see the result",
+        'editTitle':"Edit Title"
     };
 
     window.message = message;

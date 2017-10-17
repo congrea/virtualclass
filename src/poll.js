@@ -236,7 +236,6 @@
                 })
             },
             interfaceToDelOption: function (optionId) {
-
                 var formData = new FormData();
                 formData.append("id", JSON.stringify(optionId));
                 formData.append("user", virtualclass.gObj.uid);
@@ -327,9 +326,7 @@
                 if (elem) {
                     elem.parentNode.removeChild(elem);
                 }
-
                 var msg = "";
-
                 if (this.dataRec.setting.showResult) {
                     msg = virtualclass.lang.getString('votesucess');
                 } else {
@@ -353,7 +350,6 @@
                     this.dataRec.newTime = storedData.data.timer;
 
                 }
-
                 this.count = storedData.data.count;
                 this.currResultView = storedData.data.view;
                 this.stdPublishResult(this.count);
@@ -664,9 +660,28 @@
                     }
                 }
                 // to modify parameters ...********
-                this.coursePoll.forEach(function (item, index) {
-                    that.forEachPoll(item, index, "course");
-                });
+                var list = document.querySelector("#listQnContcourse");
+                if(this.coursePoll.length){
+                    if(list){
+                        list.style.display="table"
+                    }
+
+                    var mszbox = document.querySelector("#mszBoxPoll");
+                    mszbox.style.display="none";
+                    this.coursePoll.forEach(function (item, index) {
+                        that.forEachPoll(item, index, "course");
+                    });
+
+
+                }else{
+                    var mszbox = document.querySelector("#mszBoxPoll");
+                    var message = virtualclass.lang.getString('noPoll');
+                    mszbox.style.display="block"
+                    mszbox.innerHTML=message;
+                    if(list){
+                        list.style.display="none"
+                    }
+                }
 
                 var elem = document.getElementById("emptyListsite");
                 if (elem) {
@@ -688,10 +703,27 @@
                         listcont.removeChild(listcont.lastChild);
                     }
                 }
+                var list = document.querySelector("#listQnContsite");
+                if(this.sitePoll.length) {
+                    this.sitePoll.forEach(function (item, index) {
+                        that.forEachPoll(item, index, "site", isAdmin);
+                    });
 
-                this.sitePoll.forEach(function (item, index) {
-                    that.forEachPoll(item, index, "site", isAdmin);
-                });
+                    if(list){
+                        list.style.display="table";
+                    }
+                    var mszbox = document.querySelector("#mszBoxPoll");
+                    mszbox.style.display="none";
+
+                }else{
+                    var mszbox = document.querySelector("#mszBoxPoll");
+                    var message = virtualclass.lang.getString('noPoll');
+                    mszbox.style.display="block"
+                    mszbox.innerHTML=message;
+                    if(list){
+                        list.style.display="none"
+                    }
+                }
 
                 var elem = document.getElementById("emptyListcourse");
                 if (elem) {
@@ -1725,7 +1757,7 @@
                     clearInterval(virtualclass.poll.timer);
                 }
                 if (virtualclass.poll.dataRec || report) {
-                    if (report || virtualclass.poll.dataRec.setting.showResult) {
+                    if (report &&virtualclass.poll.dataRec.setting.showResult) {
 
                         this.resultDisplay(count);
 
@@ -2507,7 +2539,7 @@
                         }
                     }
                     header.appendChild(elem);
-                    var msg = virtualclass.lang.getString('msg');
+                    var msg = virtualclass.lang.getString('noResultStd');
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                 },
 

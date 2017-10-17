@@ -1,7 +1,6 @@
-
-    {{#each poll.options}}
-      <div>
-        <input class="opt" name="option" value="{{@key}}" type="radio" id="{{@key}}">
+{{#each poll.options}}
+  <div>
+    <input class="opt" name="option" value="{{@key}}" type="radio" id="{{@key}}">
         <span>{{this}}</span>
-      </div>
-    {{/each}}
+    </div>
+{{/each}}

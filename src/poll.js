@@ -1471,11 +1471,11 @@
             },
             voted: function () {
                 virtualclass.poll.pollState["currScreen"] = "voted";
-                if (virtualclass.poll.timer) {
-                    clearInterval(virtualclass.poll.timer);
-                }
                 var flag = virtualclass.poll.saveSelected();
                 if (flag) {
+                    if (virtualclass.poll.timer) {
+                        clearInterval(virtualclass.poll.timer);
+                    }
                     var elem = document.getElementById("stdPollMszLayout");
                     if (elem) {
                         elem.parentNode.removeChild(elem);
@@ -1487,13 +1487,13 @@
                     if (virtualclass.poll.dataRec.setting.showResult) {
                         msg = virtualclass.lang.getString('votesucess');
                     } else {
-                        msg = virtualclass.lang.getString('votesucessPbt');
+                        msg = virtualclass.lang.getString('votesuccessPbt');
                     }
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                     virtualclass.poll.sendResponse();
 
                 } else {
-                    alert("select an option");
+                    alert("Select an option");
                 }
                 var data = {
                     stdPoll: virtualclass.poll.dataRec,
@@ -1763,7 +1763,7 @@
 
                     } else {
 
-                        this.noResultDisply();
+                        this.noResultDisplay();
                         var header = document.getElementById("resultLayoutHead");
                         virtualclass.poll.UI.resultNotShownUI(header);
                         virtualclass.poll.pollState["currScreen"] = "stdPublishResult";
@@ -2539,6 +2539,7 @@
                         }
                     }
                     header.appendChild(elem);
+                    debugger;
                     var msg = virtualclass.lang.getString('noResultStd');
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                 },

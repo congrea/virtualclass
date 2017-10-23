@@ -1888,7 +1888,7 @@
                         );
 
                         if(currVideo){
-                            virtualclass.vutil.readyDashboard();
+                            virtualclass.vutil.readyDashboard(currVideo);
                         }
                     }
                 }
@@ -1912,7 +1912,7 @@
             }
         },
 
-        readyDashboard : function (){
+        readyDashboard : function (currVideo){
             console.log('Ready Dashboard');
             var currApp = virtualclass.currApp;
             // virtualclass.vutil.initDashboard(virtualclass.currApp);
@@ -1964,7 +1964,7 @@
                     var videoDashboard = virtualclass.getTemplate('popup','videoupload');
                     var dbHtml = videoDashboard();
                     $('#VideoDashboard').append(dbHtml);
-                    virtualclass.videoUl.UI.popup();
+                    virtualclass.videoUl.UI.popup(currVideo);
                // }
 
                 virtualclass.vutil.attachEventToUpload();

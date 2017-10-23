@@ -99,7 +99,7 @@
         'teacherSafariBrowserIssue': 'Safari does not support presenter functionality. Please switch to Chrome or Firefox.',
         'safariBrowserIssue': 'Your browser Safari {virtualclass1} is not supported, We fully support Chrome  and Firefox',
         'savesession': 'Do you want to save current Session?',
-        'savesessionTechSupport' : "Do you want to save current Session? <br /> Once you download the session, Updates won't be avaiable on re-downloading of same session.",
+        'savesessionTechSupport' : "Do you want to save current Session? <br /> Once you download the session, Updates won't be available on re-downloading of same session.",
         'plswaitwhile': 'Please wait....',
         'downloadedFile': "Your files are downloading....,  <br />File, {virtualclass1}, has been downloaded",
         'overallprogress': 'Overall Progress',
@@ -256,7 +256,7 @@
         'pclosetag' : '<span>Are you sure you want to close this poll?  </span>',
         'pclose' : 'Are you sure you want to close this poll?',
         'stdPublish' : 'stdPublish',
-        'votesucess' : 'Your poll has been submitted successfully',
+        'votesucess' : 'Your vote has been submitted successfully',
         'Pclosed' : 'Poll closed',
         'Pdsuccess' : 'Poll deleted successfully',
         'Tmyclose' : 'Teacher may close this poll at any time',
@@ -264,6 +264,7 @@
         'Rtime' : 'Remaining time',
         'rvtu' : 'Votes Received/ Total Users',
         'Novote' : 'No vote received for this poll',
+        'watstdrespo' : 'Waiting for student response',
         'watstdrespo' : 'Waiting for student response',
         'Controls' : 'Controls',
         'Quizes' : 'Quizes',
@@ -339,7 +340,11 @@
         'share' : 'Share',
         'validateurlmsg' : 'Invalid Url',
         "NotSupportedError" : 'Only secure orgins(https) are allowed for Audio and Video.',
-        'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing'
+        'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing',
+        'noPoll':' ‘There is no question available for poll. Kindly click on ‘add new’ button to add question',
+        'noResultStd':"You are not permitted to see the result",
+        'editTitle':"Edit Title",
+        'votesuccessPbt':"Vote has been submitted successfully ,You are not permitted to see the result",
 
     };
 

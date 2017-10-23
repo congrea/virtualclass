@@ -320,37 +320,13 @@
                     //var appCont = document.getElementById(this.id);
 
                     var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
-                    // var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     var appOptCont = virtualclass.getTemplate('appTools');
                     var appOptCont1=appOptCont();
                     $('#virtualclassAppLeftPanel').append(appOptCont1);
-                    // appCont.insertBefore(appOptCont1, appCont.firstChild);
-                    //
-                    // if(roles.hasAdmin()){
-                    //     this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
-                    //     this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
-                    //     this.createDiv(virtualclass.qzConfig.id + "Tool", "quiz", appOptCont, virtualclass.qzConfig.classes);
-                    // }
-                    //
-                    //
-                    // this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
-                    // this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
-                    // this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
-                    // this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
-                    // this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
-                    // this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
-                    //
-                    // if(roles.hasAdmin()){
-                    //     this.createDiv(virtualclass.dtsConfig.id + "Tool", "documentShare", appOptCont, virtualclass.dtsConfig.classes);
-                    //     this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    // }
-
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.view.disableSSUI();
                     }
-
-
-                    if (virtualclass.gObj.hasOwnProperty('errAppBar')) {
+                    if(virtualclass.gObj.hasOwnProperty('errAppBar')) {
                         virtualclass.view.disableLeftAppBar();
                     }
 
@@ -587,6 +563,10 @@
                                      dashboardnav.click();
                                 }
                             }
+                            // var currElem = document.querySelector("#linkvideo"+currVideo.init.videoId);
+                            // if(currElem){
+                            //     currElem.classList.add("playing");
+                            // }
 
                         }else{
                             if(!(virtualclass.sharePt.localStoragFlag)){

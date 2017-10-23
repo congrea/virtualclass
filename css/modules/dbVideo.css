@@ -26,25 +26,14 @@
 }
 
 #virtualclassCont #listvideo .videoTitle{
-  /*overflow: hidden;*/
-
-  /*text-align:center;*/
-  /*text-align: center;*/
-  /*text-overflow: ellipsis;*/
-  /*white-space: nowrap;*/
-  /*display: inline;*/
-  /*margin-left: 50px;*/
-  /*position: relative;*/
-  /*top: -9px;*/
-  overflow: hidden;
-  text-align: center;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   display: inline;
   margin-left: 28px;
-  position: relative;
-  top: -3px;
+  top: 6px;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width:50%;
 }
 
 #virtualclassCont.congrea .dashboardview {
@@ -125,14 +114,14 @@
 /*old*/
 
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="0"]::before {
-  content: "\e93d";
+  content: "\e94d";
   font-family: 'icomoon';
   font-size:21px;
 
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="1"]::before {
-  content: "\e93e";
+  content: "\e94e";
   font-family: 'icomoon';
   font-size:21px;
 
@@ -162,19 +151,17 @@
   padding:8px;
 
 }
-#virtualclassCont.congrea #listvideo .linkvideo.links.video .videoTitleCont:before{
-  content: "\e94b";
-  font-family: 'icomoon';
-  /*position: absolute;*/
-  /*margin-top: 48px;*/
-  /*margin-left: 30px;*/
-  /*align-items: center;*/
-}
 
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview::before {
   content: "\ea15";
   font-family: 'icomoon';
   opacity:.7;
+
+}
+
+#virtualclassCont.congrea #listvideo .linkvideo.links.video .videoTitleCont:before{
+  content: "\e956";
+  font-family: 'icomoon';
 
 }
 
@@ -185,7 +172,7 @@
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links.online .videoTitleCont:before{
-  content: "\e94a";
+  content: "\e957";
   font-family: 'icomoon';
 
 }
@@ -418,28 +405,38 @@ border:solid #98c2ff 1px !important;
   opacity:1;
 }
 #virtualclassCont.congrea #listvideo .linkvideo .edit ::before {
-  /*content: "\e91e";*/
-  /*font-family: 'icomoon';*/
-  /*font-size: 15px;*/
-  /*padding-top: 0px;*/
-  /*position: relative;*/
-  /*top: -11px;*/
-  /*margin-left:2px;*/
-  /*color:#7597b5;*/
-
   content: "\e91e";
   font-family: 'icomoon';
   font-size: 12px;
-  padding-top: 0px;
   position: relative;
-  top: -5px;
+  top: 4px;
   margin-left: 8px;
   color: #777;
+  opacity:.7;
 }
-/*#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont{*/
-  /*display:inline;*/
-  /*width:500px;*/
-/*}*/
+
+#virtualclassCont.congrea #listvideo .linkvideo .edit.editDisable ::before {
+  content: "\e959";
+  font-family: 'icomoon';
+  font-size: 17px;
+  position: relative;
+  top: 4px;
+  margin-left: 8px;
+  color: #777;
+  opacity:.3
+}
+
+#virtualclassCont.congrea #listvideo .linkvideo .edit:hover ::before {
+  content: "\f044";
+  font-family: 'icomoon';
+  font-size: 18px;
+  position: relative;
+  top: 4px;
+  margin-left: 8px;
+  color: #777;
+  opacity:1;
+}
+
 #virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont .controls.edit{
   display:inline;
 }
@@ -452,11 +449,47 @@ border:solid #98c2ff 1px !important;
   margin-left:22px !important;
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo:nth-child(even)
-{
-
-}
 #virtualclassCont.congrea #listvideo .linkvideo:nth-child(odd)
 {
   background-color: #f9f9f9;
+}
+#virtualclassCont.congrea #listvideo .linkvideo:hover
+{
+  background-color: #efefef;
+  /*-webkit-transform:scale(1.008);*/
+  /*-moz-transform:scale(1.008);*/
+  /*-ms-transform:scale(.9);*/
+  /*-o-transform:scale(.9);*/
+  transform:scale(1.0005);
+}
+#virtualclassCont.congrea #listvideo .linkvideo {
+  -webkit-transition:all 0.5s ease-out;
+  -moz-transition:all 0.5s ease-out;
+  -ms-transition:all 0.5s ease-out;
+  -o-transition:all 0.5s ease-out;
+  transition:all 1s ease-out;
+}
+
+#virtualclassCont.congrea #listvideo .linkvideo.playing {
+
+  border:solid #98c2ff 1px;
+}
+
+
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable {
+   opacity:0.3;
+
+}
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .status:before {
+  opacity:1 !important;
+
+
+}
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .delete:before {
+  opacity:1 !important;
+
+}
+#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before {
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.81);
 }

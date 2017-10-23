@@ -533,7 +533,7 @@
                     if (cthis.type == 'notes') {
                         virtualclass.dts._deleteNote(cthis.rid, cthis.type);
                     } else {
-                        virtualclass.dashBoard.userConfirmation('Are You sure want to Delete the element', function (confirmation){
+                        virtualclass.dashBoard.userConfirmation('Are You sure to Delete ?', function (confirmation){
                             if(confirmation){
                                 virtualclass[cthis.module]._delete(cthis.rid);
                             }
@@ -576,7 +576,6 @@
 
                             $(document).on('click', function(e) {
                                  if ( e.target.id !="temp"+cthis.rid && e.target.id !="editVideoTitle" ) {
-
                                      rmTxtBox();
                                  }
                             });
@@ -585,12 +584,15 @@
 
                                 var ttext=  document.querySelector("#virtualclassCont.congrea #temp"+cthis.rid);
                                 if(ttext){
-                                    if(ttext.value ==""){
+                                    if(!ttext.value){
                                         ttext.value=cthis.title;
                                     }
-                                    virtualclass.videoUl._editTitle(cthis.rid,ttext.value, cthis.videoClass);
-                                    var cont = document.querySelector("#virtualclassCont.congrea #titleCont"+cthis.rid)
-                                    cont.parentNode.removeChild(cont);
+                                    if(ttext.value){
+                                        virtualclass.videoUl._editTitle(cthis.rid,ttext.value, cthis.videoClass);
+                                        var cont = document.querySelector("#virtualclassCont.congrea #titleCont"+cthis.rid)
+                                        cont.parentNode.removeChild(cont);
+                                    }
+
                                 }
 
                             }
@@ -638,7 +640,7 @@
                     edit.onclick = this.goToEvent(this.cthis, eltype);
                     if(cthis.videoClass!='yts'){
                        edit.style.pointerEvents="none";
-                       edit.style.opacity=.3;
+                       edit.classList.add("editDisable");
                     }
                 }
 

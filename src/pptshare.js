@@ -744,17 +744,8 @@
                 var ppt = document.getElementById("mainpppt" + pptObj.id);
 
                     ppt.addEventListener('click', function () {
-                        //virtualclass.videoUl.yts = false;
-                       // $('#virtualclassVideo iframe#player').remove();
-                       // $('#videoPlayerCont').css({"display": "block"});
-                       // virtualclass.videoUl.shareVideo(vidObj.content_path);
-                        virtualclass.sharePt.playPptUrl(pptObj.content_path);
-                        // ppt.setAttribute("data-dismiss", "modal");
+                        virtualclass.sharePt.playPptUrl(pptObj.content_path,pptObj.id);
                         virtualclass.dashBoard.close();
-
-                        // if (typeof virtualclass.yts.player == "object") {
-                        //     virtualclass.yts.player.destroy();
-                        // }
 
                     })
 

@@ -574,16 +574,16 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-                if(virtualclass.videoUl.yts){
-                    if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
-                        prvAppObj.metaData = {
-                            'init': virtualclass.yts.videoId,
-                            startFrom: virtualclass.yts.player.getCurrentTime(),
-                            type:'yts'
-                        };
-                    }
-
-                }else{
+                // if(virtualclass.videoUl.yts){
+                //     if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
+                //         prvAppObj.metaData = {
+                //             'init': virtualclass.yts.videoId,
+                //             startFrom: virtualclass.yts.player.getCurrentTime(),
+                //             type:'yts'
+                //         };
+                //     }
+                //
+                // }else{
                     if(virtualclass.videoUl.player){
                         var start=virtualclass.videoUl.player.currentTime();
                     }
@@ -591,7 +591,8 @@
                     prvAppObj.metaData = {
                         'init': {
                             videoId:virtualclass.videoUl.videoId,
-                            videoUrl:virtualclass.videoUl.videoUrl
+                            videoUrl:virtualclass.videoUl.videoUrl,
+                            yts:virtualclass.videoUl.yts
                         },
                         startFrom: start
                     };
@@ -599,7 +600,7 @@
 
                     virtualclass.videoUl.saveVideosInLocalStr();
 
-                }
+              //  }
 
             } else if(virtualclass.currApp == 'DocumentShare'){
                 console.log('previous app success ' + virtualclass.currApp);

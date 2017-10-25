@@ -107,3 +107,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>node_modules/video.js/dist/video.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.4.1/Youtube.min.js"></script>

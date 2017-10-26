@@ -35,17 +35,10 @@
                         this.videoUrl = videoObj.init.videoUrl;
                         this.yts=videoObj.init.yts
                     }
-                    // if(videoObj.type =='yts'){
-                    //     virtualclass.videoUl.yts=true;
-                    // }else{
-                    //     virtualclass.videoUl.yts=false;
-                    // }
                 }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
                     if (typeof this.videoId == 'undefined' && roles.isStudent() && !virtualclass.videoUl.yts ) {
-                        //this.UI.defaultLayoutForStudent();
-                        // to modify if else block
                     } else {
                         this.UI.container();
                         if (roles.hasControls()) {
@@ -67,28 +60,6 @@
                                             var url = videoObj.url || videoObj.init.videoUrl;
                                             (typeof startFrom == 'undefined') ? this.UI.displayVideo(videoObj.id, url) : this.UI.displayVideo(videoObj.id, url, startFrom);
                                         }
-                                    //}
-                                }else{
-                                    if(videoObj.type =='yts'){
-                                        virtualclass.videoUl.UI.container();
-                                        var player = document.querySelector('#virtualclassVideo #player');
-                                        if(!player){
-                                          var plr =   document.createElement("div");
-                                           plr.id ="player";
-                                           var cont = document.querySelector('#virtualclassVideo');
-                                           cont.appendChild(plr);
-                                        }
-                                        if(typeof virtualclass.yts.player == 'object'){
-                                            // virtualclass.yts.player.destroy()
-                                            virtualclass.yts.player="";
-                                        }
-                                        var player = document.querySelector("#virtualclassVideo #player");
-                                        if(player){
-                                            player.parentNode.removeChild(player)
-                                        }
-                                      //  virtualclass.yts.init(videoObj, startFrom);
-                                    }
-
                                 }
 
                             } else {
@@ -430,43 +401,14 @@
                         virtualclass.videoUl.shareVideo(vidObj.content_path);
                         // video.setAttribute("data-dismiss","modal");
                         virtualclass.dashBoard.close();
-                        if(typeof virtualclass.yts.player == "object"){
-                            virtualclass.yts.player.destroy();
-                        }
+                        // if(typeof virtualclass.yts.player == "object"){
+                        //     virtualclass.yts.player.destroy();
+                        // }
                         virtualclass.videoUl.activeVideoClass(vidObj.id);
                         virtualclass.videoUl.videoId = vidObj.id;
                     })
 
-                }/*else if(vidObj.type =="yts"){
-                    var videoId = virtualclass.videoUl.getVideoId(vidObj.content_path);
-                    video.addEventListener('click', function () {
-                        //to remove this player
-                        if(typeof virtualclass.yts.player == "object"){
-                            virtualclass.yts.player="";
-                        }
-
-                        var player = document.querySelector("#virtualclassVideo #player");
-                        if(player){
-                            player.parentNode.removeChild(player)
-                        }
-
-                        var cont = document.querySelector("#virtualclassVideo");
-                        var div = document.createElement("div");
-                        div.id="player";
-                        cont.appendChild(div) ;
-                        virtualclass.videoUl.yts=true;
-                        $('#videoPlayerCont').css({"display": "none"});
-                        var obj={};
-                        obj.init=videoId;
-                        virtualclass.yts.init(obj);
-                        virtualclass.videoUl.activeVideoClass(vidObj.id);
-                        virtualclass.dashBoard.close();
-                        virtualclass.videoUl.videoId = vidObj.id;
-                    })
-
-                } */
-
-                else{
+                } else{
 
                     if (video && !vidObj.status) {
                         if (!video.classList.contains("playDisable")) {
@@ -479,17 +421,11 @@
                     }
                     if(video){
                         video.addEventListener("click", function () {
-                            // virtualclass.videoUl.yts=false;
-                            // if(typeof virtualclass.yts.player == "object"){
-                            //     virtualclass.yts.player="";
-                            // }
-
                             if(vidObj.type =="yts"){
                                 virtualclass.videoUl.yts=true;
                             }else{
                                 virtualclass.videoUl.yts=false;
                             }
-
                             virtualclass.videoUl.UI.displayVideo(vidObj.id, vidObj.content_path);
                             virtualclass.videoUl.activeVideoClass(vidObj.id);
                             virtualclass.videoUl.videoToStudent(vidObj);
@@ -579,21 +515,11 @@
                                     if (video["id"] == id) {
                                         console.log(video)
                                         video.title=title;
-                                        // var index = virtualclass.videoUl.videos.indexOf(video)
-                                        // if (index >= 0) {
-                                        //     virtualclass.videoUl.videos.splice(index, 1)
-                                        //     console.log(virtualclass.videoUl.videos);
-                                        // }
+
                                     }
                                 })
                             }
-                            //
-                            // var idIndex = virtualclass.videoUl.order.indexOf(id);
-                            // if (idIndex >= 0) {
-                            //     virtualclass.videoUl.order.splice(idIndex, 1)
-                            //     console.log(virtualclass.videoUl.order);
-                            //     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-                            // }
+
                         }
                     }
                 });
@@ -651,9 +577,6 @@
                             }
 
                         }
-                    }else if(msg.videoUl=="ytsDelete"){
-                        virtualclass.yts.destroyYT();
-
                     }
                 } else {
                     this.onmessageObj(msg);
@@ -702,13 +625,6 @@
                     virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
                 } else if (msg.videoUl.hasOwnProperty('play')) {
                     this.playVideo(msg.videoUl.play);
-                } else if (msg.videoUl.hasOwnProperty('ytsInit')){
-                    var upcont = document.getElementById("videoPlayerCont")
-                    upcont.style.display="none";
-                    virtualclass.videoUl.yts=true;
-                    virtualclass.yts.init(msg);
-                    // alert("ytsinit");
-
                 }
             },
 
@@ -758,21 +674,6 @@
                     }
                 } else {
                     if (!virtualclass.videoUl.listEnd) {
-                        // if(currVideoObj.type=='yts'){
-                        //     virtualclass.videoUl.yts=true;
-                        //     var plr= document.querySelector("#virtualclassVideo #player");
-                        //     if(!plr){
-                        //         var plr = document.createElement('div');
-                        //         plr.id ="player"
-                        //         document.querySelector("#virtualclassVideo").appendChild(plr);
-                        //     }
-                        //     if(typeof virtualclass.yts.player == "object"){
-                        //         virtualclass.yts.player=""
-                        //     }
-                        //     virtualclass.yts.init(currVideoObj);
-                        // }else
-                        //
-                        //
                          if(currVideoObj.type=='online'){
                             virtualclass.videoUl.yts=false;
                             virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.content_path);
@@ -798,13 +699,9 @@
 
                                 virtualclass.videoUl.player.ready(function(){
                                     var myPlayer = this;
-                                    // myPlayer.currentTime(startFrom);
-                                    // EXAMPLE: Start playing the video.
                                     myPlayer.play()
 
                                 });
-
-                                setTimeout(function(){   virtualclass.videoUl.player.play();},1000)
                             }
                             this.activeVideoClass(currVideoObj.id);
 
@@ -904,20 +801,12 @@
                             //virtualclass.videoUl.order=[];
 
                             if(virtualclass.videoUl.videoId == id ){
-                                if(type !="yts"){
+                                // if(type !="yts"){
                                     var playerCont = document.querySelector("#videoPlayerCont");
                                     if(playerCont){
                                         playerCont.style.display="none";
                                         ioAdapter.mustSend({'videoUl':'videoJsDelete', 'cf': 'videoUl'});
                                     }
-                                }else{
-
-                                    virtualclass.yts.destroyYT();
-                                    ioAdapter.mustSend({'videoUl':'ytsDelete', 'cf': 'videoUl'});
-                                }
-
-
-
                             }
                             if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){
                                 virtualclass.videoUl.videos.forEach(function (video, index) {
@@ -963,25 +852,6 @@
             videoToStudent: function (videoObj) {
                 ioAdapter.mustSend({'videoUl': videoObj, 'cf': 'videoUl'});
             },
-            //new
-            saveYoutubeUrl:function(videoId){
-                var cont = document.getElementById('listvideo')
-                var div = document.createElement("div");
-                cont.appendChild(div);
-                var anc = document.createElement("a");
-                div.appendChild(anc)
-                anc.href = "#" ;
-                anc.innerHTML="videoId "+videoId;
-                anc.addEventListener('click',function(){
-
-                    virtualclass.videoUl.ytsVideoPlay(videoId)
-                    anc.setAttribute("data-dismiss","modal");
-                })
-            },
-            ytsVideoPlay:function(videoId){
-                // $('#videoPlayerCont').css('display','none');
-                // virtualclass.yts.onYTIframApi(videoId);
-            },
 
             getVideoId: function (url) {
                 var rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
@@ -993,76 +863,6 @@
                     }
                 }
                 return false;
-            },
-
-            onYTIframApi: function (videoId, playStratFrom, fromReload) {
-                if (typeof videoId != 'undefined') {
-                    this.videoId = videoId;
-                }
-
-                // roles.hasControls(), because loadVideoById is not working, find out why
-                if (typeof this.player == 'object' && roles.hasControls()) {
-                    this.player.loadVideoById(videoId);
-                } else {
-                    var vcontrols = 0;
-                    if (roles.hasControls()) {
-                        vcontrols = 1;
-                    }
-
-                    var playerVarsObj = {
-                        autohide: 0,
-                        disablekb: 1,
-                        enablejsapi: 1,
-                        modestbranding: 1,
-                        controls: vcontrols,
-                        rel: 0,
-                        fs: 0,
-                        showinfo: 0,
-                        start: (typeof playStratFrom) != 'undefined' ? Math.round(playStratFrom) : 0
-                    };
-
-                    var videoObj = {
-                        playerVars: playerVarsObj,
-                        videoId: videoId,
-                        events: {
-                            'onReady': this.onPlayerReady
-                        }
-                    };
-
-                    if (typeof playStratFrom != 'undefined') {
-                        videoObj.start = playStratFrom;
-                    }
-
-                    console.log('Player object is CREATED');
-                    if (typeof fromReload != 'undefined') {
-                        var that = virtualclass.yts;
-                        // YouTube player is not ready for when the page is being load
-                        // this should should not worked when the user click on youtube share button
-
-                        //window.onYouTubeIframeAPIReady = function () {
-                        //    that.player = new YT.Player('player', videoObj);
-                        //};
-
-                        if(yts.hasOwnProperty('ytApiReady')){
-                            that.player = new YT.Player('player', videoObj);
-                            //window.onYouTubeIframeAPIReady = function () {
-                            //    that.player = new YT.Player('player', videoObj);
-                            //};
-                        } else {
-                            console.log('onYouTubeIframeAPIReady is not ready ');
-                            setTimeout(function (){
-                                that.onYTIframApi(videoId, playStratFrom, fromReload);
-                            }, 300);
-                            return;
-                        }
-                    } else {
-                        this.player = new YT.Player('player', videoObj);
-                    }
-
-                    // var youTubeContainer = document.getElementById(this.UI.id);
-                    // youTubeContainer.className = youTubeContainer.className + " youTubeSharing";
-                }
-
             },
 
             /*
@@ -1112,35 +912,12 @@
                     if(videoCont){
                         videoCont.style.display = "block";
                     }
-                    // if (!videoCont) {
-                    //     // var cont = document.getElementById("virtualclassVideo");
-                    //     // //virtualclass.videoUl.UI.createPlayerCont(cont);
-                    //     // //virtualclass.videoUl.UI.container();
-                    //     // videoCont = document.getElementById("videoPlayerCont");
-                    //     // videoCont = document.getElementById("virtualclassVideo");
-                    // } else {
-                    //     // todo to add condition for reload
-                    //
-                    // }
 
                     if($('iframe#player').length){
                         $('iframe#player').remove();
                     }
                     virtualclass.videoUl.UI.switchDisplay(videoCont, videoUrl);
                     virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
-                },
-                destroyYT: function () {
-
-                    if (typeof virtualclass.yts.player == 'object') {
-                        if(virtualclass.currApp == 'ScreenShare'){
-                            // ioAdapter.mustSend({'yts': 'destroyYT', 'cf': 'yts'});
-                        }
-                        virtualclass.yts.player.destroy();
-                        virtualclass.yts.player = "";
-                        if (virtualclass.yts.hasOwnProperty('tsc')) {
-                            clearInterval(virtualclass.yts.tsc);
-                        }
-                    }
                 },
 
 
@@ -1218,21 +995,12 @@
                 },
                 //n
                 createVideoElem: function (videoCont,type) {
-
-                    // id="vid1"
-                    // class="video-js vjs-default-skin"
-                    // controls
-                    // autoplay
-                    // width="640" height="264"
-
-                  //  data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=c6L0lFEPDwk"}] }'
                     var video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
                     if(virtualclass.videoUl.yts){
                         video = "<video id=dispVideo class=video-js controls  preload=auto data-setup='{ techOrder: [youtube], sources: [{ type: video/youtube, src: https://www.youtube.com/watch?v=c6L0lFEPDwk}] }' >";
                     }
 
                     $(videoCont).append(video);
-
                     var vn = document.createElement("p");
                     vn.setAttribute("class", "vjs-no-js")
                     var videoElem = document.getElementById("dispVideo");
@@ -1268,22 +1036,9 @@
                        player.ready(function(){
                             var myPlayer = this;
                             myPlayer.currentTime(startFrom);
-                            // EXAMPLE: Start playing the video.
                             myPlayer.play();
 
                         });
-
-
-
-
-
-
-                        // setTimeout(function(){
-                        //     player.currentTime(startFrom);
-                        //     // temp
-                        //     player.play();
-                        //
-                        // },1000)
 
                     }
                     console.log(startFrom)
@@ -1330,32 +1085,17 @@
 
                 onEnded: function (player, vidId, videoUrl) {
                     player.reset();
-
-                    // if(virtualclass.videoUl.yts){
-                    //
-                    // }
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
                         player.src({type: 'video/youtube', src:videoUrl});
 
                     }else{
-                        var poster = document.querySelector("#dispVideo .vjs-poster");
-                        // if(poster){
-                        //     poster.style.backgroundImage="none";
-                        // }
                         dispVideo.setAttribute('data-setup','{}');
                         player.src({type: 'video/webm', src: videoUrl});
                         player.src({type: 'video/mp4', src: videoUrl});
 
                     }
-
-
-
-
-                    // needed to replay same video after resett
-                    // player.src({type: 'video/webm', src: videoUrl});
-                    // player.src({type: 'video/mp4', src: videoUrl});
                     console.log("ended" + vidId)
                     var index = virtualclass.videoUl.order.indexOf(vidId);
                     if (index < virtualclass.videoUl.order.length - 1 && index >= 0) {
@@ -1364,7 +1104,7 @@
                         virtualclass.videoUl.listEnd = true;
                         vidId = -1;
                     }
-                    //if (virtualclass.videoUl.autoPlayFlag && !virtualclass.videoUl.listEnd) {
+
                     if (virtualclass.videoUl.autoPlayFlag) {
                         virtualclass.videoUl.autoPlayList(index + 1);
 
@@ -1440,13 +1180,6 @@
                     }
                     else
                         return true;
-
-                },
-                createPlayerCont:function(){
-
-
-
-
 
                 },
 

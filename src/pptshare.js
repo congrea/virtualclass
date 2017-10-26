@@ -742,13 +742,14 @@
             pptClickHandler:function(pptObj){
 
                 var ppt = document.getElementById("mainpppt" + pptObj.id);
+                    if(ppt) {
+                        ppt.addEventListener('click', function () {
+                            virtualclass.sharePt.playPptUrl(pptObj.content_path,pptObj.id);
+                            virtualclass.dashBoard.close();
 
-                    ppt.addEventListener('click', function () {
-                        virtualclass.sharePt.playPptUrl(pptObj.content_path,pptObj.id);
-                        virtualclass.dashBoard.close();
+                        })
 
-                    })
-
+                    }
             },
 
             _disable: function (_id) {
@@ -792,11 +793,14 @@
                 virtualclass.xhr.sendFormData(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_ppt", function (msg) {
                     var content = JSON.parse(msg);
                     virtualclass.sharePt.ppts = content;
-                    virtualclass.sharePt.createPageModule();
-                        virtualclass.sharePt.showPpts(content);
-                        virtualclass.sharePt.retrieveOrder();
 
+                    var db = document.querySelector("#SharePresentationDashboard .dbContainer")
+                        if(db){
+                            virtualclass.sharePt.createPageModule();
+                            virtualclass.sharePt.showPpts(content);
+                            virtualclass.sharePt.retrieveOrder();
 
+                        }
 
                 });
             },

@@ -2187,6 +2187,25 @@
                 console.log('Chrome Extension:- is available');
             });
 
+        },
+
+        setWidth : function (wbId, canvas, width){
+            var canvas = document.querySelector('#canvas'+wbId);
+            canvas.width = width;
+        },
+
+        setHeight : function(wbId, canvas, height){
+            var canvas = document.querySelector('#canvas'+wbId);
+            canvas.height =  height;
+            // virtualclass.wb[wbId].vcan.renderAll();
+        },
+
+        getWidth : function(canvas){
+            return canvas.width;
+        },
+
+        getHeight : function(canvas){
+            return canvas.height;
         }
     };
     window.vutil = vutil;

@@ -1057,7 +1057,15 @@
                 }
 
                 return false;
-            }
+            },
+
+            getWidth : function (){
+
+            },
+
+            getWidth : function (){
+
+            },
         };
     };
     window.utility = utility;

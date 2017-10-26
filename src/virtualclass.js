@@ -1,8 +1,34 @@
 (function (window) {
+    // function setWidth(wbId, canvas, width){
+    //
+    //     var canvas = document.querySelector('#canvas'+wbId);
+    //     canvas.width = width;
+    //
+    //    // virtualclass.wb[wbId].vcan.renderAll();
+    // }
+    //
+    // function setHeight(wbId, canvas, height){
+    //     var canvas = document.querySelector('#canvas'+wbId);
+    //     canvas.height =  height;
+    //     // virtualclass.wb[wbId].vcan.renderAll();
+    // }
+    //
+    // function getWidth(canvas){
+    //     return canvas.width;
+    // }
+    //
+    // function getHeight(canvas){
+    //     return canvas.height;
+    // }
+
     window.virtualclass = function () {
+        // canvasScale = 1; //global
+        SCALE_FACTOR = 1.02;//global 18/05/2015
+
         var dstData = null;
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
+            canvasScale : 1,
             isPlayMode :playMode,
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
             appSessionEnd: "virtualclassSessionEnd",
@@ -109,6 +135,7 @@
                 this.dashBoard  = dashBoard;
                 this.multiVideo = window.MultiVideo;
                 this.vutil.isChromeExtension();
+                this.pdfRender = window.pdfRender();
 
 //                this.storage.init(function () {
 //                    if (!virtualclass.vutil.isPlayMode()) {
@@ -648,6 +675,8 @@
                                     var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
                                     var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
                                     whiteboardContainer.innerHTML = wbHtml;
+                                    var canvas = document.querySelector('#canvas_doc_0_0');
+
                                 }
 
                                 this.wb[id].utility = new window.utility();
@@ -670,6 +699,7 @@
                                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                                 }
 
+                                virtualclass.pdfRender.init(canvas);
                                 // Only need to  serve on after page refresh
                                 var that = this;
                                 virtualclass.storage.getWbData(id, function (){
@@ -678,6 +708,9 @@
                                         that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
                                     }
                                 });
+
+
+
                             }else{
                                 alert('whiteboard container is null');
                             }
@@ -718,6 +751,8 @@
                     }else{
                         alert('id is undefined');
                     }
+
+                    virtualclass.pdfRender.initScaleController();
                 },
 
                 ScreenShare : function (app){

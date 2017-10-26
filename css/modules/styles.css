@@ -2919,3 +2919,19 @@
 	cursor: pointer;
 }
 
+
+#virtualclassCont.congrea #zoomControler  {
+	position: absolute;
+	top: 0;
+	right: 338px;
+	padding: 6px;
+}
+
+#virtualclassCont.congrea #zoomControler button {
+	margin : 5px;
+}
+
+
+#virtualclassCont.congrea .scrollX {
+	overflow : scroll;
+}

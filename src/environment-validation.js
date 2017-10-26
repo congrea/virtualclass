@@ -177,11 +177,21 @@
                 ctx = vcan.main.canvas.getContext('2d');
                 canvas.width = measureRes.width;
 
+                var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+
+                canvasWrapper.style.width = canvas.width;
+
+                // canvas.parentNode.width = canvas.width;
+
                 // for handle the scroll on whiteboard during the play mode
                 var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 canvas.height = measureRes.height - toolWrapperHeight;
+                canvas.parentNode.height = canvas.height;
+                canvasWrapper.style.height = canvas.height;
+
+
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');
                 var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));

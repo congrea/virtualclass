@@ -649,7 +649,8 @@
                                 ? 'scale'
                                 : 'rotate';
                         }
-
+                        // alert('heelo scalex');
+                        // debugger;
                         obj.currentTransform = {
                             target: this,
                             action: action,

@@ -108,4 +108,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf.worker.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf-render.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

@@ -99,7 +99,7 @@
              */
             actualPointer: function (event) {
                 // TODO this method needs fixing
-                return {x: vcan.utility.pointerX(event), y: vcan.utility.pointerY(event)};
+                return {x: vcan.utility.pointerX(event)+virtualclass.leftPosX, y: vcan.utility.pointerY(event) + virtualclass.topPosY};
             },
             /**
              * Gets the actual horizontal position

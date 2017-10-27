@@ -13,6 +13,12 @@
      * @thisobj is current tool object
      */
 
+    // var scrollPos = 150;
+    // var scrollPosY = 430;
+
+    // var scrollPos = 0;
+   // var scrollPosY = 600;
+
     var draw_object = function (objType, canvas, thisobj) {
 
         var wb = this;
@@ -33,6 +39,9 @@
          *
          */
         tool.mousedown = function (ev, cobj) {
+            scrollPos = virtualclass.leftPosX;
+            scrollPosY = virtualclass.topPosY;
+
                 var wId = virtualclass.gObj.currWb;
             var ct = new Date().getTime();
             //  console.log("sumanbogati" + (ct - virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime));
@@ -49,10 +58,13 @@
 
             var vcan = wb.vcan;
             lastmousemovetime = null;
+            // tool.startPosX = ev.currX + scrollPos;
+            // tool.startPosY = ev.currY + scrollPosY;
+
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
-            console.log('whitebaord start position x ' + tool.startPosX);
-            console.log('whitebaord start position y ' + tool.startPosY);
+
+            console.log('whitebaord, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY);
             virtualclass.wb[wId].gObj.spx = tool.startPosX;
             virtualclass.wb[wId].gObj.spy = tool.startPosY;
 
@@ -106,6 +118,8 @@
          * @param expects mousemove event
          */
         tool.mousemove = function (ev, mouseup) {
+            scrollPos = virtualclass.leftPosX;
+            scrollPosY = virtualclass.topPosY;
 
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
@@ -132,7 +146,9 @@
                             }
 
                             var currTime = new Date().getTime();
+                            // var obj = vcan.makeStackObj(currTime, 'm', ev.currX + scrollPos, ev.currY + scrollPosY);
                             var obj = vcan.makeStackObj(currTime, 'm', ev.currX, ev.currY);
+                            console.log('whitebaord, move position x =' + ev.currX + scrollPos  + ' y = ' + ev.currY + scrollPosY);
                             dataChunk.push(obj);
 
                             if (typeof mouseup == 'undefined') {
@@ -155,8 +171,12 @@
 
                     }
                 } else {
+                    // endPosX = ev.currX+scrollPos;
+                    // endPosY = ev.currY+scrollPosY;
+
                     endPosX = ev.currX;
                     endPosY = ev.currY;
+                    console.log('whitebaord, move position x =' + ev.currX  + ' y = ' + ev.currY);
 
                     if (wb.prvObj != '') {
                         wb.canvas.removeObject(wb.prvObj);
@@ -211,6 +231,7 @@
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
+                console.log('whitebaord, end position x =' + ev.clientX  + ' y = ' + ev.clientY);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.y = ev.detail.cevent.x + (wb.vcan.main.offset.y);
                 ev.pageX = ev.detail.cevent.x + (wb.vcan.main.offset.x);

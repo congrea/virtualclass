@@ -44,6 +44,8 @@
                  * @param e is event object
                  */
                 mousedown: function (e, cobj) {
+                    var newpointer = vcan.utility.getReltivePoint(e);
+                    console.log('Whiteboard drag start x=' + newpointer.x + ' y=' + newpointer.y);
 
                     if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
@@ -128,6 +130,8 @@
                  */
 
                 mousemove: function (e) {
+                    var newpointer = vcan.utility.getReltivePoint(e);
+
                     if (e.detail.hasOwnProperty('cevent')) {
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
                         e.clientY = vcan.main.offset.y + e.detail.cevent.y;
@@ -143,6 +147,7 @@
                     // we don't want to execute below code when user is
                     // drawing the object
                     if (vcan.main.action == 'move') {
+                        console.log('Whiteboard drag move x=' + newpointer.x + ' y=' + newpointer.y);
                         var tempObj;//IMPORTANT this is the added during the UNIT TESTING, can be critical
                         var obj = vcan.main;
                         if (!obj.currentTransform) {

@@ -638,7 +638,10 @@
                 console.log("quiz data saved");
             }
 
-            //console.log('previous app failer ' + virtualclass.currApp);
+            if(virtualclass.hasOwnProperty('canvasScale')){
+               localStorage.setItem('wbcScale', virtualclass.canvasScale);
+            }
+
 
             // not storing the YouTube status on student's storage
             // Not showing the youtube video is at student if current app is not youtube
@@ -2206,6 +2209,10 @@
 
         getHeight : function(canvas){
             return canvas.height;
+        },
+
+        getValueWithoutPixel : function (pxValue){
+            return parseInt(pxValue, 10);
         }
     };
     window.vutil = vutil;

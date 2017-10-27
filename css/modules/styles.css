@@ -2935,3 +2935,12 @@
 #virtualclassCont.congrea .scrollX {
 	overflow : scroll;
 }
+
+
+#virtualclassCont.congrea .canvasWrapper.cscrollX {
+	overflow-x : scroll;
+}
+
+#virtualclassCont.congrea .canvasWrapper.cscrollY {
+	overflow-y: scroll
+}

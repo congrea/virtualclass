@@ -134,7 +134,7 @@
              *
              */
             renderAll: function (ctx) {
-                console.log('Whiteboard :- Render All');
+                // console.log('Whiteboard :- Render All');
                 if (typeof ctx != 'object') {
                     var ctx = vcan.main.canvas.getContext('2d');
                 }
@@ -163,7 +163,7 @@
                 var length = vcan.main.children.length;
                 if (length) {
                     for (var i = 0; i < length; ++i) {
-                        console.log('Whiteboard index ' + i);
+                        // console.log('Whiteboard index ' + i);
                         var vcanvas = vcan.main.canvas;
                         if (vcan.main.children[i].type == 'pdf') {
                             console.log('Pdf, Render the data, that should not be a');

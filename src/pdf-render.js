@@ -7,29 +7,41 @@ var canvas;
 (function (window) {
     function pdfRender(){
         return {
+            firstTime : true,
             init : function (canvas){
+                var canvasScale = localStorage.getItem('wbcScale');
+                if(canvasScale != null){
+                    virtualclass.canvasScale = canvasScale;
+                    this.firstTime = false;
+                }
                 canvas = canvas;
                 var that = this;
                 PDFJS.getDocument(url).then(function (pdf) {
-                    that.displayPage(pdf, 1, function (){
-                        var currWb = virtualclass.gObj.currWb;
-                        var pdfData = {'name' : 'sample', data : 'pdfData', 'type':"pdf"};
-
-                        // virtualclass.wb[currWb].vcan.main.children.unshift(pdfData);
-                        virtualclass.wb[currWb].pdfChild = pdfData;
-
-                        console.log('Pdf share : put in main children');
-                    });
-
+                    that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');});
                     shownPdf = pdf;
                     that.shownPdf = shownPdf;
-
                 });
+
+                this.scrollEvent();
 
             },
 
-            initScaleController : function (){
+            scrollEvent : function (){
+                var elem = document.querySelector('#canvasWrapper_doc_0_0');
+                var topPosY = elem.scrollTop;
+                var leftPosX = elem.scrollLeft;
+                virtualclass.topPosY = topPosY;
+                virtualclass.leftPosX = leftPosX;
 
+                elem.onscroll = function (){
+                     topPosY = elem.scrollTop;
+                     leftPosX = elem.scrollLeft;
+                    virtualclass.topPosY = topPosY;
+                    virtualclass.leftPosX = leftPosX;
+                }
+            },
+
+            initScaleController : function (){
                 var zoomController = document.createElement('div');
                 zoomController.id = 'zoomControler';
 
@@ -66,11 +78,35 @@ var canvas;
                 //virtualclass.canvasScale = canvasScale;
                 var scale = virtualclass.hasOwnProperty('canvasScale') ? virtualclass.canvasScale : pdfScale; // render with global pdfScale variable
 
-                var viewport = page.getViewport(scale);
                 var canvas = document.getElementById('canvas_doc_0_0');
+
+                if(this.firstTime){
+                    var viewport = page.getViewport((+(canvas.width)-100) / page.getViewport(1.0).width);
+                    this.firstTime = false;
+                    virtualclass.canvasScale = viewport.scale;
+                }else  {
+                    var viewport = page.getViewport(scale);
+                }
+
                 context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
+                var wrapper = canvas.parentNode;
+                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
+                var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(wrapper.style.height);
+                if( canvas.width  > wrapperWidth){
+                    wrapper.classList.add('cscrollX');
+                }else {
+                    wrapper.classList.remove('cscrollX');
+                }
+
+                var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.height);
+
+                if(canvas.height > wrapperHeight){
+                    wrapper.classList.add('cscrollY');
+                }else {
+                    wrapper.classList.remove('cscrollY');
+                }
 
                 var renderContext = {
                     canvasContext: context,
@@ -89,9 +125,9 @@ var canvas;
             },
 
             displayPage : function (pdf, num, cb) {
-                var canvas = document.getElementById('canvas_doc_0_0');
-                context = canvas.getContext('2d');
-                context.clearRect(0,0,2000,2000);
+                // var canvas = document.getElementById('canvas_doc_0_0');
+                // context = canvas.getContext('2d');
+                // context.clearRect(0,0,2000,2000);
 
                 displayCb = cb;
                 var that = this;
@@ -104,12 +140,8 @@ var canvas;
 
             zoomIn : function (){
                 var wrapper = document.querySelector('#canvasWrapper'+  virtualclass.gObj.currWb);
-                var wrapperWidth = parseInt(wrapper.style.width, 10);
+                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
                 var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
-
-                // canvasScale = virtualclass.canvasScale * SCALE_FACTOR;
-
-                // virtualclass.canvasScale = canvasScale;
 
                 virtualclass.canvasScale = virtualclass.canvasScale * SCALE_FACTOR;
 
@@ -160,7 +192,7 @@ var canvas;
                 var wrapper = document.querySelector('#canvasWrapper'+  virtualclass.gObj.currWb);
 
                 var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
-                var wrapperWidth = parseInt(wrapper.style.width, 10);
+                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
 
                 virtualclass.canvasScale = virtualclass.canvasScale / SCALE_FACTOR;
 
@@ -199,6 +231,15 @@ var canvas;
                     vcan.renderAll();
                 });
             },
+
+            isBiggerCanvasHeight : function (canvaS){
+                var canvasWrapper = canvas.parentNode;
+
+            },
+
+            isBiggerCanvasWidth : function (canvas){
+                var canvasWrapper = canvas.parentNode;
+            }
         }
     }
     window.pdfRender = pdfRender;

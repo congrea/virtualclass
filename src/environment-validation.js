@@ -179,7 +179,7 @@
 
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
 
-                canvasWrapper.style.width = canvas.width;
+                canvasWrapper.style.width = (canvas.width-37);
 
                 // canvas.parentNode.width = canvas.width;
 

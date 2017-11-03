@@ -36,6 +36,13 @@
             },
 
             doOptiMize: function (e) {
+                if(vcan.main.action == 'move'){
+
+                    if(roles.hasControls()){
+                        e = vcan.utility.updateCordinate(e);
+                    }
+
+                }
 
                 if (((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null))) {
                     lastmousemovetime = new Date().getTime();
@@ -50,15 +57,24 @@
                     var currTime = new Date().getTime();
                     if (!e.detail.hasOwnProperty('cevent')) {
                         vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
+                        // vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX), (e.clientY));
                     }
                     vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
+                    // vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX), (e.clientY));
                     lastmousemovetime = new Date().getTime();
                 }
             },
 
             calculatePackets: function (time, ac, x, y) {
+
+                var x = x / virtualclass.canvasScale;
+                var y = y / virtualclass.canvasScale;
+
                 var wId = virtualclass.gObj.currWb;
                 var obj = vcan.makeStackObj(time, ac, x, y);
+
+
+
                 virtualclass.wb[wId].uid++;
                 obj.uid = virtualclass.wb[wId].uid;
                 vcan.main.replayObjs.push(obj);

@@ -17,12 +17,18 @@ var canvas;
                 canvas = canvas;
                 var that = this;
                 PDFJS.getDocument(url).then(function (pdf) {
-                    that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');});
+                    that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');}, true);
                     shownPdf = pdf;
                     that.shownPdf = shownPdf;
                 });
+                if(roles.hasControls()){
+                    this.scrollEvent();
 
-                this.scrollEvent();
+                }else {
+                    virtualclass.topPosY = 0;
+                    virtualclass.leftPosX = 0;
+                }
+
 
             },
 
@@ -30,8 +36,9 @@ var canvas;
                 var elem = document.querySelector('#canvasWrapper_doc_0_0');
                 var topPosY = elem.scrollTop;
                 var leftPosX = elem.scrollLeft;
-                virtualclass.topPosY = topPosY;
-                virtualclass.leftPosX = leftPosX;
+                 // virtualclass.topPosY = 79;
+                 virtualclass.topPosY = topPosY;
+                 virtualclass.leftPosX = leftPosX;
 
                 elem.onscroll = function (){
                      topPosY = elem.scrollTop;
@@ -64,6 +71,17 @@ var canvas;
                 });
 
                 zoomController.appendChild(zoomOut);
+
+
+                var fitScreen = document.createElement('button');
+                fitScreen.id = 'fitScreen';
+                fitScreen.innerHTML = 'Fit to Screen';
+                var that = this;
+                fitScreen.addEventListener('click', function (){
+                    that.fitToScreen();
+                });
+
+                zoomController.appendChild(fitScreen);
 
                 var zoomControler = document.querySelector('#zoomControler');
                 if(zoomControler != null){
@@ -124,18 +142,33 @@ var canvas;
 
             },
 
-            displayPage : function (pdf, num, cb) {
-                // var canvas = document.getElementById('canvas_doc_0_0');
-                // context = canvas.getContext('2d');
-                // context.clearRect(0,0,2000,2000);
-
+            displayPage : function (pdf, num, cb, firstTime) {
                 displayCb = cb;
                 var that = this;
-
                 pdf.getPage(num).then(function getPage(page) {
+                    console.log('PDF is being rendered first time');
                     that.renderPage(page);
-
+                    if(typeof firstTime != 'undefined'){
+                        var wb = virtualclass.gObj.currWb;
+                        that.initWhiteboardData(wb);
+                    }
                 });
+            },
+
+            initWhiteboardData : function (wb){
+                if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' ){
+                    if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
+                        var that = this;
+                        setTimeout(
+                            function (){
+                                that.initWhiteboardData(wb);
+                            },500
+                        );
+                    } else {
+                        virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
+                    }
+                }
+
             },
 
             zoomIn : function (){
@@ -232,6 +265,9 @@ var canvas;
                 });
             },
 
+            fitToScreen : function (){
+                alert('here should apply the fit to screen');
+            },
             isBiggerCanvasHeight : function (canvaS){
                 var canvasWrapper = canvas.parentNode;
 

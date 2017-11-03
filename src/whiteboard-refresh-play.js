@@ -76,6 +76,12 @@
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
                         } else {
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
+                            if(currObj.hasOwnProperty('scy')){
+                                eventObj.detail.cevent.scy = currObj.scy;
+                            }
+                            if(currObj.hasOwnProperty('scx')){
+                                eventObj.detail.cevent.scx = currObj.scx;
+                            }
                         }
                         var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
 

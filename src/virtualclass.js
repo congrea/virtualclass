@@ -704,13 +704,11 @@
                                 var that = this;
                                 virtualclass.storage.getWbData(id, function (){
                                     // if (!that.alreadyReplayFromStorage && that.gObj.tempReplayObjs[id].length > 0) {
-                                    if (that.gObj.tempReplayObjs[id].length > 0) {
-                                        that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
-                                    }
+                                    // if (that.gObj.tempReplayObjs[id].length > 0) {
+                                    //     that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
+                                    // }
+
                                 });
-
-
-
                             }else{
                                 alert('whiteboard container is null');
                             }

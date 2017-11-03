@@ -771,20 +771,17 @@
             },
 
             replayFromLocalStroage: function (allRepObjs) {
+                // alert('Replay from local storage');
+                console.log('PDF, Whiteboard is intializing');
+
                 var wid = virtualclass.gObj.currWb;
                 if (typeof (Storage) !== "undefined") {
                     if (virtualclass.storage.reclaim === false) {
                         //virtualclass.wb[virtualclass.gObj.currWb].utility.disableAppsBar();
                         virtualclass.vutil.disableAppsBar();
                     }
-
                     virtualclass.wb[wid].utility.clearAll(false, 'dontClear');
-
                     virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
-
-                    //virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.concat(allRepObjs);
-
-                    //virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.concat(allRepObjs);
 
 
                     if (allRepObjs.length > 0) {
@@ -922,6 +919,7 @@
 
             //TODO lockvirtualclass should be lockWhiteboard
             lockvirtualclass: function () {
+
                 var wid = virtualclass.gObj.currWb;
                 if (window.earlierWidth != window.innerWidth) {
                     virtualclass.wb[wid].canvasDisable = true;
@@ -1059,13 +1057,46 @@
                 return false;
             },
 
-            getWidth : function (){
+            // putScrollPositionInObj : function (obj){
+            //     if(virtualclass.leftPosX > 0){
+            //         obj.scx = (virtualclass.leftPosX/virtualclass.canvasScale);
+            //     }
+            //
+            //     if(virtualclass.topPosY > 0){
+            //         obj.scy = (virtualclass.topPosY/virtualclass.canvasScale);
+            //     }
+            //     return obj;
+            // },
 
+            putScrollWithCevent : function (e){
+                var e = this.scaleCordinate(e);
+                return e;
+
+                // if(e.detail.cevent.hasOwnProperty('scx')){
+                //     e.detail.cevent.x += (e.detail.cevent.scx) * virtualclass.canvasScale;
+                //
+                // }
+                //
+                // if(e.detail.cevent.hasOwnProperty('scy')){
+                //     e.detail.cevent.y += (e.detail.cevent.scy) * virtualclass.canvasScale;
+                // }
+                // return  e;
             },
 
-            getWidth : function (){
-
+            scaleCordinate : function (ev){
+                ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.canvasScale;
+                ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.canvasScale;
+                return ev;
             },
+
+            scaleMoveCordinate : function (obj){
+                obj.x = ev.detail.cevent.x / virtualclass.canvasScale;
+                obj.y = ev.detail.cevent.y / virtualclass.canvasScale;
+                return obj;
+            }
+
+
+
         };
     };
     window.utility = utility;

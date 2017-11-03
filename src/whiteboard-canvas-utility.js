@@ -2,6 +2,7 @@
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
+newScrollVal = 0;
 (function (window) {
 
     function vcanUtility (id){
@@ -98,7 +99,11 @@
              * returns horizontal and vertical position
              */
             actualPointer: function (event) {
+
                 // TODO this method needs fixing
+                // virtualclass.leftPosX defines the scroll position from left side
+                // virtualclass.topPosY defines the scroll position from top side
+                var topPos = vcan.utility.pointerY(event);
                 return {x: vcan.utility.pointerX(event)+virtualclass.leftPosX, y: vcan.utility.pointerY(event) + virtualclass.topPosY};
             },
             /**
@@ -108,13 +113,14 @@
              * returns horizontal position
              */
             pointerX: function (event) {
+                // console.log('Actual pointer clientX ' + event.clientX);
                 /* TODO follow the standard as framework done */
                 var docElement = document.documentElement,
                     body = document.body || {scrollLeft: 0};
                 // looks like in IE (<9) clientX at certain point (apparently when mouseup fires on VML element)
                 // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
                 // need to investigate later
-                return event.pageX || ((typeof event.clientX != 'unknown' ? event.clientX : 0) +
+                return ((typeof event.clientX != 'unknown' ? event.clientX : 0) +
                     (docElement.scrollLeft || body.scrollLeft) -
                     (docElement.clientLeft || 0));
 
@@ -125,14 +131,26 @@
              * @param is an event object
              * returns vertical position
              */
-            pointerY: function (event) {
+            pointerYOld: function (event) {
                 /*TODO follow the standard as framework done*/
                 var docElement = document.documentElement,
                     body = document.body || {scrollTop: 0};
-                return event.pageY || ((typeof event.clientY != 'unknown' ? event.clientY : 0) +
+
+                return ((typeof event.clientY != 'unknown' ? event.clientY : 0) +
                     (docElement.scrollTop || body.scrollTop) -
                     (docElement.clientTop || 0));
+            },
 
+            pointerY: function (event) {
+                // console.log('Actual pointer clientY ' + event.clientY);
+                /*TODO follow the standard as framework done*/
+                var docElement = document.documentElement,
+                    body = document.body || {scrollTop: 0};
+                newScrollVal =  (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0);
+                // if(!roles.hasControls()){
+                //     newScrollVal = 0;
+                // }
+                return (typeof event.clientY != 'unknown' ? event.clientY : 0) + newScrollVal;
             },
             /**
              * Returns pointer coordinates relative to canvas.
@@ -143,8 +161,8 @@
 
             getReltivePoint: function (e) {
                 var offset = vcan.main.offset;
-                // console.log('whiteboard canvas offset x ' + vcan.main.offset.x);
                 var pointer = vcan.utility.actualPointer(e);
+                // console.log('whiteboard canvas offset x = ' + (pointer.x - offset.x) + ' y =' + (pointer.y - offset.y));
                 return {
                     x: pointer.x - offset.x,
                     y: pointer.y - offset.y
@@ -236,6 +254,23 @@
              */
             getChildren: function () {
                 return vcan.main.children;
+            },
+
+            isCeventExist : function (event){
+                if(event.hasOwnProperty('detail')){
+                    return event.hasOwnProperty('cevent');
+                } else {
+                    return false;
+                }
+            },
+
+            updateCordinate : function (e){
+                var pointer = vcan.utility.actualPointer(e);
+                var customEve = {};
+                customEve.detail = {}; // that should be elimanted
+                customEve.clientX = pointer.x;
+                customEve.clientY = pointer.y;
+                return customEve;
             }
         }
   }

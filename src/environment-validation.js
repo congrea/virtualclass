@@ -147,15 +147,18 @@
         /*
          * setting dimension of the application
          */
-        setAppDimension: function (id) {
+        setAppDimension: function (id, canvasWrapper) {
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
 
             //var mainWrapper =  document.getElementById('virtualclassCont');
                 virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
-            if (virtualclass.currApp == 'Whiteboard') {
+            if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentSharing') {
                 var id = virtualclass.gObj.currWb;
-                system.setCanvasDimension(measureRes, id);
-
+                if(typeof canvasWrapper != 'undefined'){
+                    system.setCanvasWrapperDimension(measureRes, id);
+                }else {
+                    system.setCanvasDimension(measureRes, id);
+                }
             }
         },
 
@@ -179,7 +182,7 @@
 
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
 
-                canvasWrapper.style.width = (canvas.width-37);
+                canvasWrapper.style.width = (canvas.width-50);  //37
 
                 // canvas.parentNode.width = canvas.width;
 
@@ -189,13 +192,35 @@
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 canvas.height = measureRes.height - toolWrapperHeight;
                 canvas.parentNode.height = canvas.height;
-                canvasWrapper.style.height = canvas.height;
+                canvasWrapper.style.height = canvas.height-30;
 
 
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');
                 var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
                 vcan.main.offset.x = offset.x;
+            }
+        },
+
+        setCanvasWrapperDimension: function (measureRes, id) {
+            var vcan = virtualclass.wb[id].vcan;
+            if (typeof vcan.main.canvas != 'undefined') {
+                var canvas = vcan.main.canvas;
+                var width = measureRes.width;
+
+                var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                canvasWrapper.style.width = (width-50);  //37
+
+
+                var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
+
+                var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
+                var canWrapperHeight = measureRes.height - toolWrapperHeight;
+
+                canvas.parentNode.height = canWrapperHeight;
+                canvasWrapper.style.height = canWrapperHeight-30;
+
+               // vcan.main.offset.x = offset.x;
             }
         },
         // TODO this function is not being invoked
@@ -559,15 +584,11 @@
     window.addEventListener('resize',
         function () {
             if (window.earlierWidth != window.innerWidth) {
-                system.setAppDimension();
+                 system.setAppDimension(null, 'resize');
                  virtualclass.view.window.resize();
             }
         }
     );
-
-
-
-
 
     // window.addEventListener('resize',
     //     function () {

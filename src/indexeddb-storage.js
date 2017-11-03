@@ -859,13 +859,11 @@
                 that.db.transaction(["wbData"], "readwrite");
                 dbDefined = true;
             } catch (err) {
-
                 setTimeout(
                     function (){
                         that.getWbData(wbId, cb);
                     }, 500
                 );
-
             }
 
             if(dbDefined){
@@ -876,9 +874,11 @@
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
                     if(typeof wb.result != 'undefined'){
-
+                        virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
                         cb();
+                    } else {
+                        virtualclass.gObj.tempReplayObjs[wbId] = 'nodata';
                     }
                 }
             }

@@ -104,16 +104,16 @@
 
                 // virtualclass.wb[id].utility.displayCanvas();
 
-                window.addEventListener('resize',
-                    function () {
-                        virtualclass.gObj.resize = true;
-                        if (roles.hasControls()) {
-                            if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
-                                virtualclass.wb[id].utility.lockvirtualclass();
-                            }
-                        }
-                    }
-                );
+                // window.addEventListener('resize',
+                //     function () {
+                //         virtualclass.gObj.resize = true;
+                //         if (roles.hasControls()) {
+                //             if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
+                //                 virtualclass.wb[id].utility.lockvirtualclass();
+                //             }
+                //         }
+                //     }
+                // );
 
 
                 window.addEventListener('click', function () {

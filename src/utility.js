@@ -837,7 +837,7 @@
                     }
                     virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                     virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
-                    console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
+        //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
                 }
 
                 var jobj = JSON.stringify(msg);

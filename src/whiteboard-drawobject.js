@@ -39,13 +39,13 @@
          *
          */
         tool.mousedown = function (ev, cobj) {
-            scrollPos = virtualclass.leftPosX;
-            scrollPosY = virtualclass.topPosY;
 
-                var wId = virtualclass.gObj.currWb;
+            var wId = virtualclass.gObj.currWb;
             var ct = new Date().getTime();
-            //  console.log("sumanbogati" + (ct - virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime));
+
             if (ev.detail.hasOwnProperty('cevent')) {
+                ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
+
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
@@ -64,7 +64,7 @@
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
 
-            console.log('whitebaord, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY);
+           //  console.log('whiteboard create, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
             virtualclass.wb[wId].gObj.spx = tool.startPosX;
             virtualclass.wb[wId].gObj.spy = tool.startPosY;
 
@@ -118,10 +118,9 @@
          * @param expects mousemove event
          */
         tool.mousemove = function (ev, mouseup) {
-            scrollPos = virtualclass.leftPosX;
-            scrollPosY = virtualclass.topPosY;
 
             if (ev.detail.hasOwnProperty('cevent')) {
+                ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
@@ -148,7 +147,10 @@
                             var currTime = new Date().getTime();
                             // var obj = vcan.makeStackObj(currTime, 'm', ev.currX + scrollPos, ev.currY + scrollPosY);
                             var obj = vcan.makeStackObj(currTime, 'm', ev.currX, ev.currY);
-                            console.log('whitebaord, move position x =' + ev.currX + scrollPos  + ' y = ' + ev.currY + scrollPosY);
+                              // console.log('whiteboard create, move position x =' + ev.currX + ' y = ' + ev.currY);
+                           //  console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+
+
                             dataChunk.push(obj);
 
                             if (typeof mouseup == 'undefined') {
@@ -176,7 +178,7 @@
 
                     endPosX = ev.currX;
                     endPosY = ev.currY;
-                    console.log('whitebaord, move position x =' + ev.currX  + ' y = ' + ev.currY);
+                   //  console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
 
                     if (wb.prvObj != '') {
                         wb.canvas.removeObject(wb.prvObj);
@@ -218,7 +220,10 @@
             } else {
                 if ((wb.vcan.main.action != 'move') ||
                         ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
-                    virtualclass.vutil.beforeSend({'createArrow': true, x: ev.currX, y: ev.currY, 'cf': 'createArrow'});
+                    var x = ev.currX / virtualclass.canvasScale;
+                    var y = ev.currY / virtualclass.canvasScale;
+                    // console.log('Mouse cursor x=' + ev.currX  + ' y=' + ev.currY + " X=" + x  + ' y=' + y );
+                    virtualclass.vutil.beforeSend({'createArrow': true, x: x, y: y, 'cf': 'createArrow'});
                 }
             }
         };
@@ -231,7 +236,7 @@
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
-                console.log('whitebaord, end position x =' + ev.clientX  + ' y = ' + ev.clientY);
+               //  console.log('whiteboard create, end position x =' + ev.clientX  + ' y = ' + ev.clientY);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.y = ev.detail.cevent.x + (wb.vcan.main.offset.y);
                 ev.pageX = ev.detail.cevent.x + (wb.vcan.main.offset.x);

@@ -164,8 +164,8 @@ newScrollVal = 0;
                 var pointer = vcan.utility.actualPointer(e);
                 // console.log('whiteboard canvas offset x = ' + (pointer.x - offset.x) + ' y =' + (pointer.y - offset.y));
                 return {
-                    x: pointer.x - offset.x,
-                    y: pointer.y - offset.y
+                    x: (pointer.x  - offset.x ),
+                    y: (pointer.y - offset.y)
                 };
             },
             /**

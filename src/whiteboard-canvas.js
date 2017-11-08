@@ -79,15 +79,22 @@
                     console.log("it seems that the arguments you passed are not object");
                 }
             },
+
             /**
              * the particular obejct by rotating and scaling
              * @param ctx specified context
              * @param obj particular object
              * TODO this function should contain into the object
+             * suman solve
              */
             transform: function (ctx, obj) {
                 ctx.translate(obj.x, obj.y);
                 ctx.rotate(obj.theta);
+                // ctx.scale(
+                //     1 * (obj.flipX ? -1 : 1),
+                //     1 * (obj.flipY ? -1 : 1)
+                // );
+
                 ctx.scale(
                     obj.scaleX * (obj.flipX ? -1 : 1),
                     obj.scaleY * (obj.flipY ? -1 : 1)

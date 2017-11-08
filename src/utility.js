@@ -2213,6 +2213,10 @@
 
         getValueWithoutPixel : function (pxValue){
             return parseInt(pxValue, 10);
+        },
+
+        removeDecimal : function(number){
+            return number.toFixed(2);
         }
     };
     window.vutil = vutil;

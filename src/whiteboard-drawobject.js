@@ -49,7 +49,7 @@
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
-                ev.y = ev.detail.cevent.x + (wb.vcan.main.offset.y);
+                ev.y = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.pageX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.pageY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.currX = ev.detail.cevent.x;
@@ -64,7 +64,10 @@
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
 
-           //  console.log('whiteboard create, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+
+
+
+            console.log('whiteboard create, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
             virtualclass.wb[wId].gObj.spx = tool.startPosX;
             virtualclass.wb[wId].gObj.spy = tool.startPosY;
 
@@ -108,6 +111,7 @@
 
             if (objType == 'freeDrawing' && wb.obj.freeDrawObj.freesvg == true) {
                 wb.obj.freeDrawObj.drawStart(ev);
+                console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
             }
         };
 
@@ -124,7 +128,7 @@
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
-                ev.y = ev.detail.cevent.x + (wb.vcan.main.offset.y);
+                ev.y = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.pageX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.pageY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.currX = ev.detail.cevent.x;
@@ -135,6 +139,7 @@
                 if (wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true) {
                     if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
                         wb.obj.freeDrawObj.wb_draw(ev);
+                        // console.log('free drawing move x=' +  ev.currX + ' drawing y=' + ev.currY);
 
                         if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) {
                             if (typeof mouseup == 'undefined') {
@@ -146,9 +151,11 @@
 
                             var currTime = new Date().getTime();
                             // var obj = vcan.makeStackObj(currTime, 'm', ev.currX + scrollPos, ev.currY + scrollPosY);
-                            var obj = vcan.makeStackObj(currTime, 'm', ev.currX, ev.currY);
+                            var evx = ev.currX / virtualclass.canvasScale;
+                            var evy = ev.currY / virtualclass.canvasScale;
+                            var obj = vcan.makeStackObj(currTime, 'm', evx, evy);
                               // console.log('whiteboard create, move position x =' + ev.currX + ' y = ' + ev.currY);
-                           //  console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+                            console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
 
 
                             dataChunk.push(obj);
@@ -160,6 +167,7 @@
                                         wb.uid++;
                                         dataChunk[i].uid = wb.uid;
                                         vcan.main.replayObjs.push(dataChunk[i]);
+                                        console.log('free drawing move x=' +  dataChunk[i].x + ' drawing y=' + dataChunk[i].y);
                                     }
 
                                     virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});
@@ -169,6 +177,9 @@
                                     lastmousemovetime = new Date().getTime();
                                 }
                             }
+
+                        } else {
+                            console.log('free drawing move x=' +  ev.currX + ' drawing y=' + ev.currY);
                         }
 
                     }
@@ -178,7 +189,7 @@
 
                     endPosX = ev.currX;
                     endPosY = ev.currY;
-                   //  console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+                     console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
 
                     if (wb.prvObj != '') {
                         wb.canvas.removeObject(wb.prvObj);
@@ -186,7 +197,8 @@
 
                     var currObject = wb.makeobj(tool.startPosX, tool.startPosY, endPosX, endPosY, objType);
                     var rCurrObject = wb.canvas.readyObject(currObject);
-                    wb.canvas.addObject(rCurrObject);
+
+                    wb.canvas.addObject(rCurrObject); // drawing the object/shape
                     rCurrObject.coreObj.usrCurrAction = 'create';
 
                     var currTime = new Date().getTime();
@@ -238,7 +250,7 @@
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                //  console.log('whiteboard create, end position x =' + ev.clientX  + ' y = ' + ev.clientY);
                 ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
-                ev.y = ev.detail.cevent.x + (wb.vcan.main.offset.y);
+                ev.y = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.pageX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.pageY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
                 ev.currX = ev.detail.cevent.x;
@@ -266,7 +278,11 @@
                     if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) {
                         if (dataChunk.length > 0) {
                             var currTime = new Date().getTime();
-                            var obj = vcan.makeStackObj(currTime, 'u', endPosX, endPosY);
+                            var ex = endPosX / virtualclass.canvasScale;
+                            var ey = endPosY / virtualclass.canvasScale;
+
+                            var obj = vcan.makeStackObj(currTime, 'u', ex, ey);
+
                             dataChunk.push(obj);
                             for (var i = 0; i < dataChunk.length; i++) {
                                 wb.uid++;

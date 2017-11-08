@@ -37,11 +37,9 @@
 
             doOptiMize: function (e) {
                 if(vcan.main.action == 'move'){
-
                     if(roles.hasControls()){
                         e = vcan.utility.updateCordinate(e);
                     }
-
                 }
 
                 if (((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null))) {

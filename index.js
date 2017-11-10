@@ -1427,6 +1427,10 @@ $(document).ready(function () {
                 console.log('multivideo, message received');
                 virtualclass.multiVideo.onmessage(e.message, e.fromUser.userid);
             }
+
+            this.sc = function (e){
+                virtualclass.pdfRender.setScrollPosition(e.message);
+            }
         };
         // TODO this shoudl be remove, after precheck feature is enabled
     }

@@ -2217,6 +2217,51 @@
 
         removeDecimal : function(number){
             return number.toFixed(2);
+        },
+
+        getElemHeight : function (wrapper){
+            var heighPx = document.querySelector('#' + wrapper).style.height;
+            return this.getValueWithoutPixel(heighPx);
+        },
+        visibleElementHeighOldt : function (innerElem, wrapper){
+            var offset = 0;
+            var node = document.getElementById(innerElem);
+            while (node.offsetParent && node.offsetParent.id != wrapper)
+            {
+                offset += node.offsetTop;
+                node = node.offsetParent;
+            }
+            var visible = node.offsetHeight - offset;
+            return visible;
+        },
+
+        elementIsVisible2 : function(el) {
+            var elemTop = el.getBoundingClientRect().top;
+            var elemBottom = el.getBoundingClientRect().bottom;
+
+            // Only completely visible elements return true:
+            var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+            // Partially visible elements return true:
+            //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
+            return isVisible;
+        },
+
+        elementIsVisible : function(elm) {
+            var rect = elm.getBoundingClientRect();
+            var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+            return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+        },
+
+        getVisibleHeight : function (el){
+            // TODO this should be convert into pute javascript
+            var $el = $('#'+el),
+                scrollTop = $(window).scrollTop(),
+                scrollBot = scrollTop + $(window).height(),
+                elTop = $el.offset().top,
+                elBottom = elTop + $el.outerHeight(),
+                visibleTop = elTop < scrollTop ? scrollTop : elTop,
+                visibleBottom = elBottom > scrollBot ? scrollBot : elBottom;
+                return (visibleBottom-visibleTop);
         }
     };
     window.vutil = vutil;

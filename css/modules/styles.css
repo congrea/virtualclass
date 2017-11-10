@@ -2944,3 +2944,24 @@
 #virtualclassCont.congrea .canvasWrapper.cscrollY {
 	overflow-y: scroll
 }
+
+
+#virtualclassCont.congrea .canvasWrapper .scrollDivY {
+	width : 5px;
+	border : 2px solid red;
+	position : absolute;
+	top  : 0;
+	right: 0;
+}
+
+#virtualclassCont.congrea .canvasWrapper {
+	position : relative;
+}
+
+
+#virtualclassCont.congrea .canvasWrapper .mousepointer {
+	width : 5px;
+	height : 10px;
+	background-color : green;
+	position :absolute;
+}

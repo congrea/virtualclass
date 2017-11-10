@@ -234,8 +234,10 @@
                         ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
                     var x = ev.currX / virtualclass.canvasScale;
                     var y = ev.currY / virtualclass.canvasScale;
-                    // console.log('Mouse cursor x=' + ev.currX  + ' y=' + ev.currY + " X=" + x  + ' y=' + y );
-                    virtualclass.vutil.beforeSend({'createArrow': true, x: x, y: y, 'cf': 'createArrow'});
+
+                    var vpy = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
+
+                    virtualclass.vutil.beforeSend({'createArrow': true, x: x, y: y, vpy: vpy.y, 'cf': 'createArrow'});
                 }
             }
         };

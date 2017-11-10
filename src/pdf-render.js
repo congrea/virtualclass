@@ -21,30 +21,177 @@ var canvas;
                     shownPdf = pdf;
                     that.shownPdf = shownPdf;
                 });
-                if(roles.hasControls()){
-                    this.scrollEvent();
-
-                }else {
+                if(!roles.hasControls()){
                     virtualclass.topPosY = 0;
                     virtualclass.leftPosX = 0;
                 }
-
-
+                this.scrollEvent();
             },
 
+            updateScrollPosition : function (topPosY){
+                this.by = topPosY;
+            },
+
+            // for teacher
             scrollEvent : function (){
-                var elem = document.querySelector('#canvasWrapper_doc_0_0');
+                var elem = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 var topPosY = elem.scrollTop;
                 var leftPosX = elem.scrollLeft;
                  // virtualclass.topPosY = 79;
                  virtualclass.topPosY = topPosY;
                  virtualclass.leftPosX = leftPosX;
-
+                var that  = this;
                 elem.onscroll = function (){
                      topPosY = elem.scrollTop;
                      leftPosX = elem.scrollLeft;
-                    virtualclass.topPosY = topPosY;
-                    virtualclass.leftPosX = leftPosX;
+                     if(roles.hasControls()){
+                         virtualclass.topPosY = topPosY;
+                         virtualclass.leftPosX = leftPosX;
+                         that.scrollPosition(elem);
+                     } else {
+                         that.updateScrollPosition(topPosY);
+                     }
+                }
+            },
+
+            // for teacher
+            scrollPosition : function (elem){
+                var topPosY = elem.scrollTop;
+                var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
+                var canvasHeight = canvas.height;
+
+                this.scrollYpos = ( topPosY / canvasHeight) * 100;
+
+                var canvasInner = 'canvas'+virtualclass.gObj.currWb;
+                var wrapper = 'canvasWrapper'+virtualclass.gObj.currWb;
+
+                // var viewPort = virtualclass.vutil.getElemHeight(wrapper);
+                // var viewPort = virtualclass.vutil.getElemHeight(wrapper);
+
+                var viewPortHeight = virtualclass.vutil.getElemHeight(wrapper);
+                this.actualVpHeight = viewPortHeight;
+
+                this.viewPortHeight = (viewPortHeight / canvasHeight) * 100;
+
+                virtualclass.vutil.beforeSend({vp:this.viewPortHeight, scy : this.scrollYpos,  'cf': 'sc'});
+
+                // console.log('total - scroll height ' + (canvas.height-canvas.scrollHeight));
+            },
+
+            //for student
+            setScrollPosition : function (obj){
+                var canvasHeight =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.height;
+                var topPosY = ( obj.scy *  canvasHeight) / 100;
+                virtualclass.topPosY = topPosY;
+                var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                // canvasWrapper.scrollTop =  topPosY;
+                this.drawCustomScroll(obj, topPosY, canvasHeight);
+            },
+
+            drawCustomScroll : function (obj, topPosY, canvasHeight){
+                var scrollHeight = (obj.vp * canvasHeight) / 100;
+                this.scrollHeight = scrollHeight;
+
+                var sdiv = document.querySelector('#scrollDivY' + virtualclass.gObj.currWb);
+                if(sdiv == null){
+                    var sdiv = document.createElement('div');
+                        sdiv.className = 'scrollDivY';
+                        sdiv.id = 'scrollDivY' + virtualclass.gObj.currWb;
+
+                    var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                    if(canvasWrapper != null){
+                        canvasWrapper.appendChild(sdiv);
+                    }
+
+                }
+                sdiv.style.height = scrollHeight + 'px';
+                sdiv.style.top = topPosY + 'px';
+                this.ay = topPosY;
+                this.dy = this.ay + scrollHeight;
+                var wrapperId = 'canvasWrapper'+virtualclass.gObj.currWb;
+                var studentWrapper = document.querySelector('#'+wrapperId);
+                this.by = studentWrapper.scrollTop;
+                this.studentVPheight = virtualclass.vutil.getElemHeight(wrapperId);
+
+                this.cy = this.by + this.studentVPheight;
+                if(this.prvcy != null){
+                    if(this.cy != this.prvcy){
+                        debugger;
+                    }
+
+                }
+                this.prvcy  = this.cy;
+
+            },
+
+            actualMousePointerOnViewPort : function(ev){
+                var canvasWrapper = document.querySelector('#canvasWrapper_doc_0_0');
+                var y  = ev.y - canvasWrapper.scrollTop;
+                var vpy = (y / this.actualVpHeight ) * 100 ;
+                return {y:vpy}
+            },
+
+            customMoustPointer : function (obj){
+                var idPrefix = 'scrollDivY' + virtualclass.gObj.currWb;
+                var mousePointerY  = document.querySelector('#' + idPrefix + 'mousePointer');
+
+                if(mousePointerY == null) {
+                    var mousePointerY = document.createElement('div');
+                    mousePointerY.className = 'mousepointer';
+                    mousePointerY.id = idPrefix + 'mousePointer';
+                    var scrollWrapper = document.querySelector('#scrollDivY' + virtualclass.gObj.currWb);
+                    if(scrollWrapper !=  null){
+                        scrollWrapper.appendChild(mousePointerY);
+                    }
+                }
+                this.setCustomMoustPointer(mousePointerY,  obj);
+
+
+               // var isElementVisible = virtualclass.vutil.elementIsVisible(mousePointerY);
+                // this.ey =
+
+                // if(!isElementVisible){
+                //     console.log('isElement visible ' + isElementVisible);
+                //     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                //     var height = virtualclass.vutil.getVisibleHeight('scrollDivY' + virtualclass.gObj.currWb);
+                //      // canvasWrapper.scrollTop += height;
+                //
+                // }
+                console.log('custom mouse pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey);
+                if(this.ey > this.cy){
+                    var scrollPos = this.dy - this.cy;
+                    console.log('custom mouse down pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey + ' scrollPos=' + scrollPos);
+                    var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                    canvasWrapper.scrollTop = scrollPos;
+                    this.by = scrollPos;
+
+                }else if(this.ey < this.by){
+                    var scrollPos = this.by - this.ay;
+                    console.log('custom mouse up pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey + ' scrollPos=' + scrollPos);
+                    var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                    canvasWrapper.scrollTop = canvasWrapper.scrollTop - scrollPos;
+                    this.by = scrollPos;
+                }
+
+                //console.log('isElement visible ' + isElementVisible);
+                // if(scrollPos != null){
+                //     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                //     canvasWrapper.scrollTop = scrollPos;
+                //     this.by = scrollPos;
+                // }
+
+
+            },
+
+            getCustomMousePoint : function (){
+                var ay, by, cy, dy, ey;
+            },
+
+            setCustomMoustPointer : function (mousePointerY, obj){
+                if(this.scrollHeight != null){
+                    var mpPosition = (this.scrollHeight * obj.y ) / 100;
+                    mousePointerY.style.top = mpPosition +  'px';
+                    this.ey = this.ay + mpPosition;
                 }
             },
 
@@ -406,7 +553,7 @@ var canvas;
                         var scaleY = objects[i].scaleY;
 
                         var scaleFactor = ((virtualclass.canvasScale * 1)/(virtualclass.prvCanvasScale * 1));
-
+                      //  console.log('Fit-to-screen, sc('+virtualclass.canvasScale+' * 1) / psc('+virtualclass.prvCanvasScale+' * 1) = ' + scaleFactor);
 
                         var left = objects[i].x;
                         var top = objects[i].y;
@@ -453,6 +600,7 @@ var canvas;
                 this.firstTime = false;
                 return viewport;
             }
+
         }
     }
     window.pdfRender = pdfRender;

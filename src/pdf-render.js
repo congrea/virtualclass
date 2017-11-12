@@ -92,9 +92,18 @@ var canvas;
             drawCustomScroll : function (obj, topPosY, canvasHeight){
                 var scrollHeight = (obj.vp * canvasHeight) / 100;
                 this.scrollHeight = scrollHeight;
+                this.topPosY = topPosY;
+                this._drawCustomScroll();
 
+            
+            },
+            _drawCustomScroll : function (){
                 var sdiv = document.querySelector('#scrollDivY' + virtualclass.gObj.currWb);
+                 if( sdiv != null && (virtualclass.prvCanvasScale != null && (virtualclass.prvCanvasScale != virtualclass.canvasScale))){
+                        sdiv.parentNode.removeChild(sdiv);
+                 }
                 if(sdiv == null){
+                    
                     var sdiv = document.createElement('div');
                         sdiv.className = 'scrollDivY';
                         sdiv.id = 'scrollDivY' + virtualclass.gObj.currWb;
@@ -105,10 +114,10 @@ var canvas;
                     }
 
                 }
-                sdiv.style.height = scrollHeight + 'px';
-                sdiv.style.top = topPosY + 'px';
-                this.ay = topPosY;
-                this.dy = this.ay + scrollHeight;
+                sdiv.style.height = this.scrollHeight + 'px';
+                sdiv.style.top = this.topPosY + 'px';
+                this.ay = this.topPosY;
+                this.dy = this.ay + this.scrollHeight;
                 var wrapperId = 'canvasWrapper'+virtualclass.gObj.currWb;
                 var studentWrapper = document.querySelector('#'+wrapperId);
                 this.by = studentWrapper.scrollTop;
@@ -133,6 +142,9 @@ var canvas;
             },
 
             customMoustPointer : function (obj){
+                 if(virtualclass.prvCanvasScale != null && (virtualclass.prvCanvasScale != virtualclass.canvasScale)){
+                       this._drawCustomScroll();
+                 }
                 var idPrefix = 'scrollDivY' + virtualclass.gObj.currWb;
                 var mousePointerY  = document.querySelector('#' + idPrefix + 'mousePointer');
 

@@ -30,6 +30,7 @@ var canvas;
 
             updateScrollPosition : function (topPosY){
                 this.by = topPosY;
+                this.cy = this.by + this.studentVPheight;
             },
 
             // for teacher
@@ -116,7 +117,7 @@ var canvas;
                 this.cy = this.by + this.studentVPheight;
                 if(this.prvcy != null){
                     if(this.cy != this.prvcy){
-                        debugger;
+                       // debugger;
                     }
 
                 }
@@ -159,11 +160,13 @@ var canvas;
                 // }
                 console.log('custom mouse pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey);
                 if(this.ey > this.cy){
-                    var scrollPos = this.dy - this.cy;
+                    var scrollPos = this.cy + (this.dy - this.cy);
                     console.log('custom mouse down pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey + ' scrollPos=' + scrollPos);
                     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                     canvasWrapper.scrollTop = scrollPos;
                     this.by = scrollPos;
+                    this.cy = this.by + this.studentVPheight;
+                  
 
                 }else if(this.ey < this.by){
                     var scrollPos = this.by - this.ay;
@@ -171,6 +174,8 @@ var canvas;
                     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                     canvasWrapper.scrollTop = canvasWrapper.scrollTop - scrollPos;
                     this.by = scrollPos;
+                    this.cy = this.by + this.studentVPheight;
+
                 }
 
                 //console.log('isElement visible ' + isElementVisible);

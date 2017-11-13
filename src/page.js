@@ -12,13 +12,16 @@
      * Class is defining here, the page has various attributes like
      * it has type(video or docs or notes), id etc.
      */
-    var page = function (parent, ptype, app, module, status) {
+    var page = function (parent, ptype, app, module, status,vidType) {
         this.appId = app;
         this.id = null;
         this.parent = (typeof parent != 'undefined' ? parent : null);
         this.status = (typeof status != 'undefined') ? status : 1;
         this.type = ptype;
         this.module = module
+        if( ptype =="video"){
+          this.videoClass= vidType;
+        }
     }
 
     page.prototype.init = function (id, title) {
@@ -264,6 +267,9 @@
             elem.type=cthis.type;
             elem.dataset.selected = 0;
             elem.dataset.status = this.status
+            if(cthis.type=="video"){
+                elem.classList.add(cthis.videoClass);
+            }
             return elem;
         },
 
@@ -323,6 +329,9 @@
                 var helem = this.element(cthis, 'status', this.cthis.status);
                 // var helem = this.element('status');
                 var delem = this.element(cthis, 'delete');
+                if(cthis.type =='video'){
+                    this.element(cthis, 'edit');
+                }
                 if(cthis.type != 'docs'){
                     this.dragDrop.init(this.cthis);
                 }
@@ -337,14 +346,15 @@
                     this.cthis = cthis;
 
                     var id_ = 'list' + this.cthis.type;
-
                     var listLinks = 'link' + this.cthis.type + this.cthis.rid;
-                    var box = document.querySelector('#' + listLinks);
 
-                    box.setAttribute('draggable', 'true');  // Enable boxes to be draggable.
-                    box.addEventListener('dragstart', function (e) {dthis.handleDragStart(e)}, false);
-                    box.addEventListener('dragenter', function (e) {dthis.handleDragEnter(e)}, false);
-                    box.addEventListener('dragend', function (e) {dthis.handleDragEnd(e)}, false);
+
+                        var box = document.querySelector('#' + listLinks);
+
+                        box.setAttribute('draggable', 'true');  // Enable boxes to be draggable.
+                        box.addEventListener('dragstart', function (e) {dthis.handleDragStart(e)}, false);
+                        box.addEventListener('dragenter', function (e) {dthis.handleDragEnter(e)}, false);
+                        box.addEventListener('dragend', function (e) {dthis.handleDragEnd(e)}, false);
 
                     //box.setAttribute('draggable', true  );
                     //box.addEventListener('dragstart', function (e){dragstart(e)}, false);
@@ -384,11 +394,15 @@
                     //   source = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
                     if (e.target.classList.contains('link' + this.cthis.type)) {
                         this.source = e.target;
+
                     } else {
                         this.source = e.target.closest('.link' + this.cthis.type);
+                      //  e.dataTransfer.setData('text/plain', e.target.closest('.link' + this.cthis.type));
                     }
 
                     e.dataTransfer.effectAllowed = 'move';
+
+                    this.source.classList.add("dragElem");
                 },
 
                 handleDragEnter: function (e) {
@@ -398,11 +412,39 @@
                     }else if(this.cthis.type == 'notes'){
                         virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listnotes');
+
                     }
 
                     if(this.source) {
-                        var etarget = e.target.closest('.link' + this.cthis.type);
+                        this.source.classList.add("dragElem");
+                        console.log("add dragelem");
+                        var elem;
+                        // if(this.cthis.type == 'video'){
+                        //
+                        // }
+                         if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
+                             var elem = document.querySelectorAll('#virtualclassCont.congrea .link'+this.cthis.type+'.htn')
+                                 for(var i =0; i<elem.length; i++){
+                                     elem[i].classList.remove('htn');
+                                 }
 
+                         }
+                        // if(this.cthis.type == 'video'){
+                        //     var elem = document.querySelectorAll(' #virtualclassCont.congrea .linkvideo.htn')
+                        //     for(var i =0; i<elem.length; i++){
+                        //         elem[i].classList.remove('htn');
+                        //     }
+                        // }else if(this.cthis.type == 'notes'){
+                        //     var elem = document.querySelectorAll(' #virtualclassCont.congrea .linknotes.htn')
+                        //     for(var i =0; i<elem.length; i++){
+                        //         elem[i].classList.remove('htn');
+                        //     }
+                        //
+                        // }
+
+
+                        var etarget = e.target.closest('.link' + this.cthis.type);
+                        etarget.classList.add("htn");
                         if (this.isBefore(this.source, etarget)) {
                             etarget.parentNode.insertBefore(this.source, etarget);
                         }
@@ -410,17 +452,58 @@
                             var target = e.target.closest('.link' + this.cthis.type);
                             target.parentNode.insertBefore(this.source, target.nextSibling);
                         }
+
+                        if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
+                            var elem = document.querySelectorAll('#virtualclassCont.congrea .link'+this.cthis.type+':not(.dragElem)')
+                            for(var i =0; i<elem.length; i++){
+                                elem[i].classList.add('opaq');
+                            }
+                        }
+                        //
+                        // if(this.cthis.type == 'video'){
+                        //     var elem = document.querySelectorAll(' #virtualclassCont.congrea .linkvideo:not(.dragElem)')
+                        //     for(var i =0; i<elem.length; i++){
+                        //         elem[i].classList.add('opaq');
+                        //     }
+                        // }else if(this.cthis.type == 'notes'){
+                        //     var elem = document.querySelectorAll(' #virtualclassCont.congrea .linknotes:not(.dragElem)')
+                        //     for(var i =0; i<elem.length; i++){
+                        //         elem[i].classList.add('opaq');
+                        //     }
+                        //
+                        // }
                     }
+
                 },
                 handleDragEnd: function () {
                     this.cthis.rearrange();
-                    if(this.cthis.type == 'video'){
-                        virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        virtualclass.vutil.makeElementActive('#listvideo');
-                    }else if(this.cthis.type == 'notes'){
-                        virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        virtualclass.vutil.makeElementActive('#listnotes');
+                    this.source.classList.remove("dragElem");
+                    console.log("remove dragelem");
+
+                    if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
+                        if(this.cthis.type == 'video'){
+                            virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        }else if(this.cthis.type == 'notes'){
+                            virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+
+                        }else {
+                            virtualclass.vutil.makeElementDeactive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        }
+
+                        virtualclass.vutil.makeElementActive('#list'+this.cthis.type);
+
+                        var elems = document.querySelectorAll(' #virtualclassCont.congrea .link'+this.cthis.type+'.opaq')
+                        for(var i =0; i<elems.length; i++){
+                            elems[i].classList.remove('opaq');
+                        }
+
+                        var elem = document.querySelectorAll(' #virtualclassCont.congrea .link'+this.cthis.type+'.htn')
+                        for(var i =0; i<elem.length; i++){
+                            elem[i].classList.remove('htn');
+                        }
+
                     }
+
                 }
             },
 
@@ -451,12 +534,74 @@
                     if (cthis.type == 'notes') {
                         virtualclass.dts._deleteNote(cthis.rid, cthis.type);
                     } else {
-                        virtualclass.dashBoard.userConfirmation('Are You sure want to Delete the element', function (confirmation){
+                        virtualclass.dashBoard.userConfirmation('Are You sure to Delete ?', function (confirmation){
                             if(confirmation){
                                 virtualclass[cthis.module]._delete(cthis.rid);
                             }
                         });
                     }
+                },
+                edit:function(elem, cthis){
+                    var data = {'action': 'edit'};
+                    if(!document.querySelector("#titleCont"+cthis.rid)){
+                        if (cthis.type == 'video') {
+                            var titleCont= document.querySelector("#virtualclassCont.congrea #videoTitle"+cthis.rid);
+                            var text = titleCont.innerHTML;
+                            titleCont.style.display="none";
+                            // to use template remember
+                            var ct = document.querySelector("#virtualclassCont.congrea #videoTitleCont"+cthis.rid+" .controls.edit");
+                            var cont = document.createElement("div");
+                            cont.setAttribute("class","titleCont");
+                            cont.setAttribute("id","titleCont"+cthis.rid);
+                            titleCont.parentNode.insertBefore(cont,ct);
+
+                            var tempInbox= document.createElement("input");
+                            tempInbox.setAttribute("type","text");
+                            tempInbox.setAttribute("class","textInput");
+                            tempInbox.setAttribute("id","temp"+cthis.rid);
+                            tempInbox.setAttribute("placeholder",text);
+                            cont.appendChild(tempInbox);
+
+                            // var tempSave= document.createElement("input");
+                            // tempSave.setAttribute("type","submit");
+                            // tempSave.setAttribute("class","textSave");
+                            // tempSave.setAttribute("id","save"+cthis.rid);
+                            // tempSave.setAttribute("value","save");
+                            // cont.appendChild(tempSave);
+
+                            // $( tempInbox).on('blur', function(e) {
+                            //     rmTxtBox();
+                            //
+                            // });
+
+
+                            $(document).on('click', function(e) {
+                                 if ( e.target.id !="temp"+cthis.rid && e.target.id !="editVideoTitle" ) {
+                                     rmTxtBox();
+                                 }
+                            });
+
+                            function rmTxtBox(){
+
+                                var ttext=  document.querySelector("#virtualclassCont.congrea #temp"+cthis.rid);
+                                if(ttext){
+                                    if(!ttext.value){
+                                        ttext.value=cthis.title;
+                                    }
+                                    if(ttext.value){
+                                        virtualclass.videoUl._editTitle(cthis.rid,ttext.value, cthis.videoClass);
+                                        var cont = document.querySelector("#virtualclassCont.congrea #titleCont"+cthis.rid)
+                                        cont.parentNode.removeChild(cont);
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
                 }
             },
 
@@ -485,14 +630,22 @@
             },
 
             element: function (cthis, eltype, dataSet) {
-                if (eltype == "status") {
-                    var selector = '.status';
-                } else {
-                    var selector = '.delete';
+
+                var selector= "."+eltype;
+                if (eltype == "status" || eltype =='delete') {
+                    var div = document.querySelector("#controlCont" + cthis.type + cthis.rid + ' ' + selector);
+                    div.onclick = this.goToEvent(this.cthis, eltype);
+
+                }else if (eltype == "edit"){
+                    var edit = document.querySelector("#"+cthis.type+"TitleCont"+cthis.rid + ' ' + selector);
+                    edit.onclick = this.goToEvent(this.cthis, eltype);
+                    if(cthis.videoClass!='yts'){
+                       edit.style.pointerEvents="none";
+                       edit.classList.add("editDisable");
+                    }
                 }
+
                 var that = this;
-                var div = document.querySelector("#controlCont" + cthis.type + cthis.rid + ' ' + selector);
-                div.onclick = this.goToEvent(this.cthis, eltype);
 
                 var div = document.querySelector("#link"+ cthis.type + cthis.rid);
                 if(div){

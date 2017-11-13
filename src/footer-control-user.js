@@ -1067,12 +1067,12 @@
                 if(allAudAction != null &&  allAudAction == 'disable'){
                     //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
-                    spanTag.className = 'icon-all-audio-enable congtooltip';
+                    spanTag.className = 'icon-all-audio-enable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
                 }else{
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
-                    spanTag.className = 'icon-all-audio-disable congtooltip';
+                    spanTag.className = 'icon-all-audio-disable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('muteAll');
                 }
 

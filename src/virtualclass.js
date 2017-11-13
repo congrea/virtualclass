@@ -64,7 +64,7 @@
                     'userobj': {
                         'userid': wbUser.id,
                         'name': wbUser.name,
-                        lname: wbUser.lname,
+                        'lname': wbUser.lname,
                         'img': wbUser.imageurl,
 
                         //role: wbUser.role
@@ -82,7 +82,7 @@
 
                 this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
                 this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
-               // this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
+                // this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
                 this.edConfig = {id: "virtualclass" + this.apps[3], classes: "appOptions"};
                 this.edCodeConfig = {id: "virtualclass" + this.apps[4], classes: "appOptions"};
                 this.ptConfig = {id: "virtualclass" + this.apps[5], classes: "appOptions"};
@@ -250,49 +250,49 @@
                 }
             },
 
-            makeThemeReady : function (editorbtn,allbg,active,hover){
-
-                var css="#virtualclassCont.congrea a.vceditor-btn{background-color: "+editorbtn.color+"} " +
-                    "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
-                    "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,#virtualclassCont.congrea #navigator,#virtualclassCont.congrea #layoutQuiz .navbar," +
-                    "#virtualclassCont.congrea .vceditor-toolbar,#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget," +
-                    "#virtualclassCont.congrea #chatWidget .chatBarTab, #virtualclassCont.congrea .commandToolsWrapper," +
-                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #playButton," +
-                    "#virtualclassCont.congrea #confirmCancel #confirmCancelButton,#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
-                    "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,#virtualclassCont.congrea .commandToolsWrapper .tool.active a," +
-                    "#virtualclassCont.congrea .vmchat_room_bt.active,#virtualclassCont.congrea[data-currapp="+"EditorRich"+"] .vmchat_bar_button.active," +
-                    "#virtualclassCont.congrea .vmchat_support.active {background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover," +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover , " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover," +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover," +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover, " +
-                    "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover, " +
-                    "#virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover, " +
-                    "#virtualclassCont.congrea #audioTest-box:hover, #virtualclassCont.congrea a.vceditor-btn:hover," +
-                    "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover, #virtualclassCont.congrea #playButton:hover," +
-                    "#virtualclassCont.congrea #alwaysPress:hover,#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
-                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, " +
-                    "#virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}";
-                function addcss(css){
-                    var head = document.getElementsByTagName('head')[0];
-                    var s = document.createElement('style');
-                    s.setAttribute('type', 'text/css');
-                    if (s.styleSheet) {   // IE
-                        s.styleSheet.cssText = css;
-                    } else {                // the world
-                        s.appendChild(document.createTextNode(css));
-                    }
-                    head.appendChild(s);
-                }
-                addcss(css);
-
-            },
+            // makeThemeReady : function (editorbtn,allbg,active,hover){
+            //
+            //     var css="#virtualclassCont.congrea a.vceditor-btn{background-color: "+editorbtn.color+"} " +
+            //         "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,#virtualclassCont.congrea #navigator,#virtualclassCont.congrea #layoutQuiz .navbar," +
+            //         "#virtualclassCont.congrea .vceditor-toolbar,#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget," +
+            //         "#virtualclassCont.congrea #chatWidget .chatBarTab, #virtualclassCont.congrea .commandToolsWrapper," +
+            //         "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #playButton," +
+            //         "#virtualclassCont.congrea #confirmCancel #confirmCancelButton,#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,#virtualclassCont.congrea .commandToolsWrapper .tool.active a," +
+            //         "#virtualclassCont.congrea .vmchat_room_bt.active,#virtualclassCont.congrea[data-currapp="+"EditorRich"+"] .vmchat_bar_button.active," +
+            //         "#virtualclassCont.congrea .vmchat_support.active {background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover, " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover, " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover, " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover, " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool:hover," +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool:hover, " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool:hover , " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool:hover," +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool:hover," +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool:hover, " +
+            //         "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool:hover, " +
+            //         "#virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover, " +
+            //         "#virtualclassCont.congrea #audioTest-box:hover, #virtualclassCont.congrea a.vceditor-btn:hover," +
+            //         "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover, #virtualclassCont.congrea #playButton:hover," +
+            //         "#virtualclassCont.congrea #alwaysPress:hover,#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
+            //         "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, " +
+            //         "#virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}";
+            //     function addcss(css){
+            //         var head = document.getElementsByTagName('head')[0];
+            //         var s = document.createElement('style');
+            //         s.setAttribute('type', 'text/css');
+            //         if (s.styleSheet) {   // IE
+            //             s.styleSheet.cssText = css;
+            //         } else {                // the world
+            //             s.appendChild(document.createTextNode(css));
+            //         }
+            //         head.appendChild(s);
+            //     }
+            //     addcss(css);
+            //
+            // },
 
             initSocketConn: function () {
                 if (this.system.webSocket) {
@@ -320,37 +320,13 @@
                     //var appCont = document.getElementById(this.id);
 
                     var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
-                    // var appOptCont = this.createElement('div', 'virtualclassOptionsCont');
                     var appOptCont = virtualclass.getTemplate('appTools');
                     var appOptCont1=appOptCont();
                     $('#virtualclassAppLeftPanel').append(appOptCont1);
-                    // appCont.insertBefore(appOptCont1, appCont.firstChild);
-                    //
-                    // if(roles.hasAdmin()){
-                    //     this.createDiv(virtualclass.viConfig.id + "Tool", "videoUpload", appOptCont, virtualclass.viConfig.classes);
-                    //     this.createDiv(virtualclass.plConfig.id + "Tool", "poll", appOptCont, virtualclass.plConfig.classes);
-                    //     this.createDiv(virtualclass.qzConfig.id + "Tool", "quiz", appOptCont, virtualclass.qzConfig.classes);
-                    // }
-                    //
-                    //
-                    // this.createDiv(virtualclass.edConfig.id + "Tool", "editorRich", appOptCont, virtualclass.edConfig.classes);
-                    // this.createDiv(virtualclass.wbConfig.id + "Tool", "whiteboard", appOptCont, virtualclass.wbConfig.classes);
-                    // this.createDiv(virtualclass.ssConfig.id + "Tool", "screenshare", appOptCont, virtualclass.ssConfig.classes);
-                    // this.createDiv(virtualclass.ytsConfig.id + "Tool", "youtubeshare", appOptCont, virtualclass.ytsConfig.classes);
-                    // this.createDiv(virtualclass.edCodeConfig.id + "Tool", "editorCode", appOptCont, virtualclass.edCodeConfig.classes);
-                    // this.createDiv(virtualclass.ptConfig.id + "Tool", "sharePresentation", appOptCont, virtualclass.ptConfig.classes);
-                    //
-                    // if(roles.hasAdmin()){
-                    //     this.createDiv(virtualclass.dtsConfig.id + "Tool", "documentShare", appOptCont, virtualclass.dtsConfig.classes);
-                    //     this.createDiv(virtualclass.appSessionEnd + "Tool", "sessionend", appOptCont, 'appOptions');
-                    // }
-
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.view.disableSSUI();
                     }
-
-
-                    if (virtualclass.gObj.hasOwnProperty('errAppBar')) {
+                    if(virtualclass.gObj.hasOwnProperty('errAppBar')) {
                         virtualclass.view.disableLeftAppBar();
                     }
 
@@ -580,19 +556,23 @@
                         virtualclass.vutil.initDashboardNav(currVideo);
                         if(virtualclass.currApp == 'Video'){
 
-                         // if(!(currVideo && currVideo.init && (currVideo.init.videoUrl|| currVideo.fromReload))){
+                            // if(!(currVideo && currVideo.init && (currVideo.init.videoUrl|| currVideo.fromReload))){
                             if(!(currVideo)){
                                 var dashboardnav =  document.querySelector('#dashboardnav button');
                                 if(dashboardnav != null){
-                                     dashboardnav.click();
+                                    dashboardnav.click();
                                 }
                             }
+                            // var currElem = document.querySelector("#linkvideo"+currVideo.init.videoId);
+                            // if(currElem){
+                            //     currElem.classList.add("playing");
+                            // }
 
                         }else{
                             if(!(virtualclass.sharePt.localStoragFlag)){
                                 var dashboardnav =  document.querySelector('#dashboardnav button');
                                 if(dashboardnav != null){
-                                     dashboardnav.click();
+                                    dashboardnav.click();
                                 }
 
                             }
@@ -958,13 +938,13 @@
                         cthis.appInitiator.makeReadyDsShare.apply(cthis.appInitiator, args);
                         virtualclass.vutil.initDashboardNav();
                         http://localhost/bench.html
-                        /** This condition is satisfied when user page refresh without selecting any docs **/
-                        if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
-                            var dashboardnav =  document.querySelector('#dashboardnav button');
-                            if(dashboardnav != null) {
-                                dashboardnav.click();
+                            /** This condition is satisfied when user page refresh without selecting any docs **/
+                            if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
+                                var dashboardnav =  document.querySelector('#dashboardnav button');
+                                if(dashboardnav != null) {
+                                    dashboardnav.click();
+                                }
                             }
-                        }
 
                         if(dstData != null){
                             clearTimeout(dstData);
@@ -1169,6 +1149,199 @@
                 }
                 var mainHtml = mainTemplate(mainCont);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
+                this.makeThemeReadyMain( virtualclassSetting.theme);
+
+
+            },
+
+            makeThemeReadyMain:function(color){
+
+                var editorbtn={};
+                var allbg={};
+                var active={};
+                var hover= {}
+                // var frontColor=virtualclassSetting.themeSetting.mainFrontColor;
+                // editorbtn.bgcolor= virtualclassSetting.themeSetting.edbtnBgColor;
+                // editorbtn.color= virtualclassSetting.themeSetting.edbtnFrontColor;
+                // allbg.fcolor=virtualclassSetting.themeSetting.allbgFcolor;
+                // allbg.scolor= virtualclassSetting.themeSetting.allbgScolor;
+                //
+                // active.fcolor=virtualclassSetting.themeSetting.activeFcolor;
+                // active.scolor=virtualclassSetting.themeSetting.activeScolor;
+                // active.frontColor=virtualclassSetting.themeSetting.activeFrontColor;
+                //
+                // hover.fcolor=virtualclassSetting.themeSetting.hoverFcolor;
+                // hover.scolor=virtualclassSetting.themeSetting.hoverScolor;
+                // hover.frontColor=virtualclassSetting.themeSetting.hoverFrontColor;
+
+                var frontColor="#f58a31"
+                editorbtn.bgcolor= "#a1a3ee"
+                editorbtn.color= "#1c22ee"
+                allbg.fcolor="#004d00"
+                allbg.scolor="#004d12"
+
+                active.fcolor="#c5cc19";
+                active.scolor="#008010";
+                active.frontColor="#ee2e7f";
+
+                hover.fcolor="#ee3938";
+                hover.scolor="#ff315d";
+                hover.frontColor="#008000";
+
+
+
+
+
+                if(color =="green"){
+                    // if(!editorbtn.color || editorbtn.color =="ns"){
+                    //     editorbtn.color="#689057"
+                    // }
+                    // if(!allbg.fcolor || allbg.fcolor =="ns"){
+                    //     allbg.fcolor="#004d00"
+                    // }
+                    // if(!allbg.scolor || allbg.scolor =="ns"){
+                    //     allbg.scolor="#008000"
+                    // }
+                    // if(!active.fcolor || active.fcolor =="ns"){
+                    //     active.fcolor="#abcc46"
+                    // }
+                    // if(!active.scolor || active.scolor =="ns"){
+                    //     active.scolor="#008000"
+                    // }
+                    // if(!hover.fcolor || hover.fcolor =="ns"){
+                    //     hover.fcolor="#18891d"
+                    // }
+                    // if( !hover.scolor || hover.scolor =="ns"){
+                    //     hover.scolor="#aaff48"
+                    // }
+                    // editorbtn.color="#689057"
+                    // allbg.fcolor="#004d00";
+                    // allbg.scolor="#008000";
+                    //
+                    // active.fcolor="#abcc46";
+                    // active.scolor="#008000";
+                    //
+                    // hover.fcolor="#18891d"
+                    // hover.scolor="#aaff48";
+
+                }
+
+
+                this.makeThemeReady(frontColor,editorbtn,allbg,active,hover);
+                this.makeThemeReadyVideo(frontColor,editorbtn,allbg,active,hover);
+                this.makeThemeReadyPoll(frontColor,editorbtn,allbg,active,hover);
+                this.makeThemeReadyPresentation(frontColor,editorbtn,allbg,active,hover);
+                this.makeThemeReadyDocument(frontColor,editorbtn,allbg,active,hover);
+
+            },
+
+            makeThemeReady : function (frontColor,editorbtn,allbg,active,hover){
+
+                var css="#virtualclassCont.congrea a.vceditor-btn{background-color: "+editorbtn.bgcolor+"} " +
+                    "#virtualclassCont.congrea a.vceditor-btn{color: "+editorbtn.color+"} " +
+                    "#virtualclassCont.congrea #alleditorRichContainer{background-color: "+editorbtn.color+"} " +
+                    "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn.clicked{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, #virtualclassOptionsCont,#virtualclassCont.congrea #navigator,#virtualclassCont.congrea #layoutQuiz .navbar," +
+                    "#virtualclassCont.congrea .vceditor-toolbar,#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget," +
+                    "#virtualclassCont.congrea #chatWidget .chatBarTab, #virtualclassCont.congrea .commandToolsWrapper," +
+                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #playButton," +
+                    "#virtualclassCont.congrea #confirmCancel #confirmCancelButton,#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,#virtualclassCont.congrea .commandToolsWrapper .tool.active a," +
+                    "#virtualclassCont.congrea .vmchat_room_bt.active,#virtualclassCont.congrea[data-currapp="+"EditorRich"+"] .vmchat_bar_button.active," +
+                    "#virtualclassCont.congrea .vmchat_support.active {background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
+                    "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, " +
+                    "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, " +
+                    "#virtualclassCont.congrea #audioTest-box:hover, #virtualclassCont.congrea a.vceditor-btn:hover, " +
+                    "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover, #virtualclassCont.congrea #playButton:hover, " +
+                    "#virtualclassCont.congrea #alwaysPress:hover,#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
+                    "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, " +
+                    "#virtualclassCont.congrea #stickycontainer .inner_bt:hover, "+
+                    "#virtualclassCont.congrea #stickycontainer #contrAudioAll:hover, "+
+                    "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover, "+
+                    "#virtualclassCont.congrea #virtualclassAppRightPanel li a:hover"+
+                    "{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea .appOptions:hover .cgIcon:before{color:"+hover.frontColor +"!important}"+
+                    "#virtualclassCont.congrea .active .cgIcon:before{color:"+active.frontColor +"!important}"+
+                    "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgIcon:before{color:"+hover.frontColor +"!important}"+
+                    "#virtualclassCont.congrea a.vceditor-btn:hover .vceditor-btn-group a{color:"+hover.frontColor +"!important}"+
+                    "#virtualclassCont.congrea .commandToolsWrapper .tool:hover .cgIcon:before{color:"+hover.frontColor +"!important}"+
+                    "#virtualclassCont.congrea .commandToolsWrapper .tool.active .cgIcon:before{color:"+active.frontColor +"!important}"+
+                    "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText{color:"+hover.frontColor +"!important}"+
+                    "#virtualclassCont.congrea .cgIcon:before{color:"+frontColor+"!important}"+
+                    "#virtualclassCont.congrea .cgText{color:"+frontColor+"!important}";
+
+
+                // "#virtualclassCont.congrea #virtualclassAppRightPanel li a:focus"+
+                // "{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}";
+                // function addcss(css){
+                //     var head = document.getElementsByTagName('head')[0];
+                //     var s = document.createElement('style');hover
+                //     s.setAttribute('type', 'text/css');
+                //     if (s.styleSheet) {   // IE
+                //         s.styleSheet.cssText = css;
+                //     } else {                // the world
+                //         s.appendChild(document.createTextNode(css));
+                //     }
+                //     head.appendChild(s);
+                // }
+                this.addCss(css);
+
+            },
+
+            makeThemeReadyVideo:function(frontColor,btn,allbg,active,hover){
+                var css="#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont button{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} " +
+                    "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+                    "#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, " +
+                    "#virtualclassCont.congrea #listvideo .linkvideo .controls .editanch:before, "+
+                    "#virtualclassCont.congrea #listvideo .linkvideo .controls:before{color:"+allbg.fcolor+"!important}"+
+                    "#virtualclassCont.congrea #VideoDashboard button{color:"+frontColor+"!important}"+
+                    "#virtualclassCont.congrea #listvideo .linkvideo.playing{border:solid "+allbg.fcolor+" 1px!important}";
+                this.addCss(css);
+            },
+
+            makeThemeReadyPoll:function(frontColor,btn,allbg,active,hover){
+                var css= "#virtualclassCont.congrea #virtualclassPoll .btn.btn-default, "+
+                    "#virtualclassCont.congrea #virtualclassPoll #resultLayoutHead button, "+
+                    "#virtualclassCont.congrea #virtualclassPoll #stdPollContainer #btnVote"+
+                    "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+";}"+
+                    "#virtualclassCont.congrea .bootstrap .pollNavBar > li > a {color:"+frontColor+" ; }"+
+                    "#virtualclassCont.congrea .bootstrap .navListTab:hover"+
+                    "{background: linear-gradient(to bottom, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important;color:"+hover.frontColor+"!important;}"+
+                    "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
+                    "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before{color:"+allbg.fcolor+"!important}" ;
+
+                this.addCss(css);
+            },
+            makeThemeReadyPresentation:function(frontColor,btn,allbg,active,hover){
+                var css= "#virtualclassCont.congrea #SharePresentationDashboard .btn-default"+
+                    "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
+                    "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
+                    "#virtualclassCont.congrea #SharePresentationDashboard .controls:before{color:"+allbg.fcolor+"!important}" ;
+                this.addCss(css);
+            },
+
+            makeThemeReadyDocument:function(frontColor,btn,allbg,active,hover){
+                var css= "#virtualclassCont.congrea #DocumentShareDashboard #newDocBtn, "+
+                    "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='0']"+
+                    "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
+                    "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='1']"+
+                    "{background: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important;;color:"+active.frontColor+"!important;}";
+
+                this.addCss(css);
+            },
+
+            addCss:function(css){
+                var head = document.getElementsByTagName('head')[0];
+                var s = document.createElement('style');
+                s.setAttribute('type', 'text/css');
+                if (s.styleSheet) {   // IE
+                    s.styleSheet.cssText = css;
+                } else {                // the world
+                    s.appendChild(document.createTextNode(css));
+                }
+                head.appendChild(s);
             },
 
             makeReadyTemplate : function (tempname, context){

@@ -140,7 +140,7 @@
 
 #virtualclassCont #listnotes .mainpreview:hover {
   border: 1px solid #ccc;
-  box-shadow: 0 0 14px rgb(46, 219, 236);
+  /*box-shadow: 0 0 14px rgb(46, 219, 236);*/
 }
 
 

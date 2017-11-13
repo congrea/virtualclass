@@ -1,8 +1,14 @@
 <div class="{{className}}" id="link{{type}}{{dataset.rid}}"
      data-screen={{type}}{{dataset.rid}} data-rid="{{dataset.rid }}" data-selected="0" data-status="{{dataset.status}}" draggable="true">
-  <div id="{{type}}Title{{dataset.rid}}" class="{{type}}Title tooltip2"></div>
-  <div id="controlCont{{type}}{{dataset.rid}}" class="controlCont">
-    <div class="mainpreview" id="mainp{{type}}{{dataset.rid}}" data-screen="{{type}}{{dataset.rid}}"
+  <div class="{{type}}TitleCont col-md-10" id ="videoTitleCont{{dataset.rid}}">
+    <div id="{{type}}Title{{dataset.rid}}" class="{{type}}Title tooltip2"></div>
+    <div class="controls edit">
+      <a class="editanch" id ="editVideoTitle"></a>
+    </div>
+  </div>
+
+  <div id="controlCont{{type}}{{dataset.rid}}" class="controlCont col-md-2">
+    <div class="controls mainpreview " id="mainp{{type}}{{dataset.rid}}" data-screen="{{type}}{{dataset.rid}}"
          data-rid="{{dataset.rid}}" style="opacity: 1; pointer-events: auto;">{{getString 'clicktoplay'}}</div>
     <div class="controls status" data-status="{{dataset.status}}"><a class="statusanch">status"{{dataset.status}}"</a></div>
     <div class="controls delete">

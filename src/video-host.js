@@ -107,14 +107,14 @@ var videoHost = {
             virtualclass.videoHost.gObj.videoSwitch = 0;
             video = "off";
             var tooltip = document.querySelector(".videoSwitchCont");
-            tooltip.dataset.title="video on"
+            tooltip.dataset.title="turn video on"
         } else {
             that.classList.remove("off");
             that.classList.add("on");
             virtualclass.videoHost.gObj.videoSwitch = 1;
             video = "on"
             var tooltip = document.querySelector(".videoSwitchCont");
-            tooltip.dataset.title="video off"
+            tooltip.dataset.title="turn video off"
         }
 
         ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});

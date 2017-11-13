@@ -23,6 +23,7 @@ $(document).ready(function () {
         virtualclass.lang.message = window.message;
 
         virtualclass.createMainContainer();
+
         // TODO Error when screenShare or YouTube is default application
         //  var appIs = "EditorRich";
         // var appIs = "Whiteboard";
@@ -262,7 +263,7 @@ $(document).ready(function () {
 
             memberUpdateWithDelay(e, 'removed')
 
-            virtualclass.multiVideo.onUserRemove(removeUser);
+           // virtualclass.multiVideo.onUserRemove(removeUser);
 
         });
 
@@ -656,12 +657,12 @@ $(document).ready(function () {
                     if(typeof virtualclass.videoUl.player == 'object'){
                         if(virtualclass.videoUl.videoUrl){
                             ioAdapter.mustSend({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl },
-                                startFrom : virtualclass.videoUl.player.currentTime(),isPaused:virtualclass.videoUl.player.paused()}, 'cf' : 'videoUl'}, virtualclass.jId);
+                                startFrom : virtualclass.videoUl.player.currentTime()}, 'cf' : 'videoUl'}, virtualclass.jId);
 
                         }
 
                     } else {
-                        ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout',name:"nirmala"}, 'cf': 'videoUl'}, virtualclass.jId);
+                        ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout'}, 'cf': 'videoUl'}, virtualclass.jId);
                     }
                 }
 

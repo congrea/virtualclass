@@ -38,20 +38,20 @@ var canvas;
                 var elem = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 var topPosY = elem.scrollTop;
                 var leftPosX = elem.scrollLeft;
-                 // virtualclass.topPosY = 79;
-                 virtualclass.topPosY = topPosY;
-                 virtualclass.leftPosX = leftPosX;
+                // virtualclass.topPosY = 79;
+                virtualclass.topPosY = topPosY;
+                virtualclass.leftPosX = leftPosX;
                 var that  = this;
                 elem.onscroll = function (){
-                     topPosY = elem.scrollTop;
-                     leftPosX = elem.scrollLeft;
-                     if(roles.hasControls()){
-                         virtualclass.topPosY = topPosY;
-                         virtualclass.leftPosX = leftPosX;
-                         that.scrollPosition(elem);
-                     } else {
-                         that.updateScrollPosition(topPosY);
-                     }
+                    topPosY = elem.scrollTop;
+                    leftPosX = elem.scrollLeft;
+                    if(roles.hasControls()){
+                        virtualclass.topPosY = topPosY;
+                        virtualclass.leftPosX = leftPosX;
+                        that.scrollPosition(elem);
+                    } else {
+                        that.updateScrollPosition(topPosY);
+                    }
                 }
             },
 
@@ -92,21 +92,12 @@ var canvas;
             drawCustomScroll : function (obj, topPosY, canvasHeight){
                 var scrollHeight = (obj.vp * canvasHeight) / 100;
                 this.scrollHeight = scrollHeight;
-                this.topPosY = topPosY;
-                this._drawCustomScroll();
 
-            
-            },
-            _drawCustomScroll : function (){
                 var sdiv = document.querySelector('#scrollDivY' + virtualclass.gObj.currWb);
-                 if( sdiv != null && (virtualclass.prvCanvasScale != null && (virtualclass.prvCanvasScale != virtualclass.canvasScale))){
-                        sdiv.parentNode.removeChild(sdiv);
-                 }
                 if(sdiv == null){
-                    
                     var sdiv = document.createElement('div');
-                        sdiv.className = 'scrollDivY';
-                        sdiv.id = 'scrollDivY' + virtualclass.gObj.currWb;
+                    sdiv.className = 'scrollDivY';
+                    sdiv.id = 'scrollDivY' + virtualclass.gObj.currWb;
 
                     var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                     if(canvasWrapper != null){
@@ -114,10 +105,10 @@ var canvas;
                     }
 
                 }
-                sdiv.style.height = this.scrollHeight + 'px';
-                sdiv.style.top = this.topPosY + 'px';
-                this.ay = this.topPosY;
-                this.dy = this.ay + this.scrollHeight;
+                sdiv.style.height = scrollHeight + 'px';
+                sdiv.style.top = topPosY + 'px';
+                this.ay = topPosY;
+                this.dy = this.ay + scrollHeight;
                 var wrapperId = 'canvasWrapper'+virtualclass.gObj.currWb;
                 var studentWrapper = document.querySelector('#'+wrapperId);
                 this.by = studentWrapper.scrollTop;
@@ -126,7 +117,7 @@ var canvas;
                 this.cy = this.by + this.studentVPheight;
                 if(this.prvcy != null){
                     if(this.cy != this.prvcy){
-                       // debugger;
+                        // debugger;
                     }
 
                 }
@@ -142,9 +133,6 @@ var canvas;
             },
 
             customMoustPointer : function (obj){
-                 if(virtualclass.prvCanvasScale != null && (virtualclass.prvCanvasScale != virtualclass.canvasScale)){
-                       this._drawCustomScroll();
-                 }
                 var idPrefix = 'scrollDivY' + virtualclass.gObj.currWb;
                 var mousePointerY  = document.querySelector('#' + idPrefix + 'mousePointer');
 
@@ -160,7 +148,7 @@ var canvas;
                 this.setCustomMoustPointer(mousePointerY,  obj);
 
 
-               // var isElementVisible = virtualclass.vutil.elementIsVisible(mousePointerY);
+                // var isElementVisible = virtualclass.vutil.elementIsVisible(mousePointerY);
                 // this.ey =
 
                 // if(!isElementVisible){
@@ -172,16 +160,22 @@ var canvas;
                 // }
                 console.log('custom mouse pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey);
                 if(this.ey > this.cy){
-                    var scrollPos = this.cy + (this.dy - this.cy);
+                    var scrollPos = this.by + (this.dy - this.cy);
+                    if (scrollPos > this.ey) {
+                        scrollPos = this.ey - ((this.by + this.cy) / 2);
+                    }
                     console.log('custom mouse down pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey + ' scrollPos=' + scrollPos);
                     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                     canvasWrapper.scrollTop = scrollPos;
                     this.by = scrollPos;
                     this.cy = this.by + this.studentVPheight;
-                  
+
 
                 }else if(this.ey < this.by){
                     var scrollPos = this.by - this.ay;
+                    if ((this.cy - scrollPos) < this.ey) {
+                        scrollPos = ((this.by + this.cy) / 2) - this.ey;
+                    }
                     console.log('custom mouse up pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey + ' scrollPos=' + scrollPos);
                     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                     canvasWrapper.scrollTop = canvasWrapper.scrollTop - scrollPos;
@@ -303,7 +297,7 @@ var canvas;
                         var url = canvas.toDataURL('image/jpeg');
                         canvas.style.background = 'url(' + url + ')';
                         canvas.style.backgroundRepeat = 'no-repeat';
-                            displayCb();
+                        displayCb();
                         that[wb] = {pdfrender : true}
                     }
                 );
@@ -311,7 +305,7 @@ var canvas;
             },
 
             displayPage : function (pdf, num, cb, firstTime) {
-               displayCb = cb;
+                displayCb = cb;
                 var that = this;
                 pdf.getPage(num).then(function getPage(page) {
                     console.log('PDF is being rendered first time');
@@ -465,7 +459,7 @@ var canvas;
                         objects[i].setCoords();
 
                         virtualclass.wb[virtualclass.gObj.currWb].scale = tempScaleX;
-                       // virtualclass.wb[virtualclass.gObj.currWb].scale = 1;
+                        // virtualclass.wb[virtualclass.gObj.currWb].scale = 1;
                     }
 
                     vcan.renderAll();
@@ -570,17 +564,17 @@ var canvas;
                         var scaleY = objects[i].scaleY;
 
                         var scaleFactor = ((virtualclass.canvasScale * 1)/(virtualclass.prvCanvasScale * 1));
-                      //  console.log('Fit-to-screen, sc('+virtualclass.canvasScale+' * 1) / psc('+virtualclass.prvCanvasScale+' * 1) = ' + scaleFactor);
+                        //  console.log('Fit-to-screen, sc('+virtualclass.canvasScale+' * 1) / psc('+virtualclass.prvCanvasScale+' * 1) = ' + scaleFactor);
 
                         var left = objects[i].x;
                         var top = objects[i].y;
 
                         // if (scaleFactor >= 1) {
-                            var tempLeft = left  * (scaleFactor );
-                            var tempTop = top  * (scaleFactor );
+                        var tempLeft = left  * (scaleFactor );
+                        var tempTop = top  * (scaleFactor );
 
-                            objects[i].scaleX = scaleX * (scaleFactor );
-                            objects[i].scaleY = scaleY * (scaleFactor);
+                        objects[i].scaleX = scaleX * (scaleFactor );
+                        objects[i].scaleY = scaleY * (scaleFactor);
                         //
                         // } else {
                         //     var tempLeft = left * ( scaleFactor);

@@ -382,7 +382,6 @@
                 },
 
                 handleDragStart: function (e) {
-
                     if(this.cthis.type === 'video'){
                         virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listvideo');
@@ -395,8 +394,10 @@
                     //   source = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
                     if (e.target.classList.contains('link' + this.cthis.type)) {
                         this.source = e.target;
+
                     } else {
                         this.source = e.target.closest('.link' + this.cthis.type);
+                      //  e.dataTransfer.setData('text/plain', e.target.closest('.link' + this.cthis.type));
                     }
 
                     e.dataTransfer.effectAllowed = 'move';

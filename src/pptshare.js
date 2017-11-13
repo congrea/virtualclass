@@ -83,14 +83,14 @@
                         urlCont.style.display = "none";
                     }
                 }
-                if(!pptfirst){
-                    this.getPptList();
-                    pptfirst = true;
-                }
 
                // virtualclass.sharePt.retrieveOrder(); nirmala
 
                 this.findInStorage();
+                if(!pptfirst){
+                    this.getPptList();
+                    pptfirst = true;
+                }
                 virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
 
             },
@@ -258,7 +258,7 @@
                     form_data.append(key, data[key]);
                     console.log(data[key]);
                 }
-                //                    window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
+                //window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
                 var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_page_order";
                 var cthis = this;
                 virtualclass.xhr.sendFormData(form_data, path, function () {

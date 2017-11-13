@@ -256,7 +256,7 @@
         'pclosetag' : '<span>Are you sure you want to close this poll?  </span>',
         'pclose' : 'Are you sure you want to close this poll?',
         'stdPublish' : 'stdPublish',
-        'votesucess' : 'Your vote has been submitted successfully',
+        'votesuccess' : 'Your vote has been submitted successfully',
         'Pclosed' : 'Poll closed',
         'Pdsuccess' : 'Poll deleted successfully',
         'Tmyclose' : 'Teacher may close this poll at any time',
@@ -264,7 +264,6 @@
         'Rtime' : 'Remaining time',
         'rvtu' : 'Votes Received/ Total Users',
         'Novote' : 'No vote received for this poll',
-        'watstdrespo' : 'Waiting for student response',
         'watstdrespo' : 'Waiting for student response',
         'Controls' : 'Controls',
         'Quizes' : 'Quizes',
@@ -345,6 +344,7 @@
         'noResultStd':"You are not permitted to see the result",
         'editTitle':"Edit Title",
         'votesuccessPbt':"Vote has been submitted successfully ,You are not permitted to see the result",
+        'pollDel':'Are you sure to delete this poll ?',
 
     };
 

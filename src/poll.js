@@ -275,7 +275,12 @@
 
                 } else if (storedData["currScreen"] == "voted") {
                     this.reloadVotedScrn(storedData);
+                    setTimeout(function(){
+                    var pollR= document.querySelector(".student #navigator");
+                    if(pollR){
+                        pollR.style.display="none";
 
+                    }},700)
 
                 } else if (storedData["currScreen"] == "stdPublishResult") {
 
@@ -317,7 +322,7 @@
                 this.pollState["data"] = data;
 
             },
-            //
+
             reloadVotedScrn: function (storedData) {
 
                 this.dataRec = storedData.data.stdPoll;
@@ -328,9 +333,9 @@
                 }
                 var msg = "";
                 if (this.dataRec.setting.showResult) {
-                    msg = virtualclass.lang.getString('votesucess');
+                    msg = virtualclass.lang.getString('votesuccess');
                 } else {
-                    msg = virtualclass.lang.getString('votesucessPbt');
+                    msg = virtualclass.lang.getString('votesuccessPbt');
                 }
                 this.showMsg("mszBoxPoll", msg, "alert-success");
 
@@ -343,7 +348,7 @@
                 this.pollState["data"] = data;
 
             },
-            //
+
             reloadStdResult: function (storedData) {
                 this.dataRec = storedData.data.stdPoll;
                 if (this.dataRec) {
@@ -568,11 +573,14 @@
             },
             resultToStorage: function () {
                 var data = roles.hasControls() ? this.dataToStd : this.dataRec;
-                var obj = {'result': this.count, qid: data.qId, pollData: data};
-                this.uid++;
-                obj.uid = this.uid;
-                if (!roles.hasControls()) {
-                    virtualclass.storage.pollStore(JSON.stringify(obj));
+                if(data){
+                    var obj = {'result': this.count, qid: data.qId, pollData: data};
+                    this.uid++;
+                    obj.uid = this.uid;
+                    if (!roles.hasControls()) {
+                        virtualclass.storage.pollStore(JSON.stringify(obj));
+                    }
+
                 }
 
             },
@@ -663,7 +671,7 @@
                 var list = document.querySelector("#listQnContcourse");
                 if(this.coursePoll.length){
                     if(list){
-                        list.style.display="table"
+                        list.style.display="block"
                     }
 
                     var mszbox = document.querySelector("#mszBoxPoll");
@@ -710,7 +718,7 @@
                     });
 
                     if(list){
-                        list.style.display="table";
+                        list.style.display="block";
                     }
                     var mszbox = document.querySelector("#mszBoxPoll");
                     mszbox.style.display="none";
@@ -795,7 +803,7 @@
                 pollQn.index = index;
 
                 var template=virtualclass.getTemplate("qn","poll");
-                $("#listQnCont" + pollType).append(template({"pollQn": pollQn}));
+                $("#listQnCont" + pollType +" .pollList").append(template({"pollQn": pollQn}));
 
                 if (((pollType == "course" && item.createdby == wbUser.id) || (pollType == "site" && isAdmin == "true"))) {
                     if(!item.isPublished){
@@ -1269,7 +1277,7 @@
                 if (notify.length > 0) {
                     notify[0].parentNode.removeChild(notify[0]);
                 }
-                var message = virtualclass.lang.getString('pclosetag');
+                var message = virtualclass.lang.getString('pollDel');
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirm, pollType, index);
             },
 
@@ -1485,7 +1493,7 @@
                     elem.parentNode.removeChild(elem);
                     var msg = "";
                     if (virtualclass.poll.dataRec.setting.showResult) {
-                        msg = virtualclass.lang.getString('votesucess');
+                        msg = virtualclass.lang.getString('votesuccess');
                     } else {
                         msg = virtualclass.lang.getString('votesuccessPbt');
                     }
@@ -1757,7 +1765,7 @@
                     clearInterval(virtualclass.poll.timer);
                 }
                 if (virtualclass.poll.dataRec || report) {
-                    if (report &&virtualclass.poll.dataRec.setting.showResult) {
+                    if (virtualclass.poll.dataRec.setting.showResult) {
 
                         this.resultDisplay(count);
 
@@ -2064,7 +2072,7 @@
 
             },
             updateResponse: function (response, fromUser) {
-
+                debugger;
                 var chart = document.getElementById("chart");
                 if (chart) {
                     chart.style.display = "block";
@@ -2092,6 +2100,7 @@
                 // obj["id"]=fromUser.userid;
                 virtualclass.poll.list.push(obj);
                 if (virtualclass.poll.currResultView == 'bar') {
+                    virtualclass.poll.showGraph();
                     virtualclass.poll.updateBarGraph();
                 } else if (virtualclass.poll.currResultView == 'pi') {
                     virtualclass.poll.updatePiChart();
@@ -2245,6 +2254,9 @@
                         data: {
                             // iris data from R
                             columns: columns,
+                            transition: {
+                                duration:null
+                            },
                             type: 'pie',
                             onclick: function (d, i) {
                                 console.log("onclick", d, i);
@@ -2272,9 +2284,7 @@
                 chart.style.display = "none";
                 var cont = document.getElementById("resultLayoutBody")
                 var list = document.getElementById("listCont")
-                if (list) {
-                    list.style.display = "table";
-                }
+
                 if (list.hasChildNodes()) {
                     list.removeChild(list.childNodes[0]);
                 }
@@ -2284,6 +2294,10 @@
                     if (msz) {
                         msz.parentNode.removeChild(msz)
                     }
+                }
+                var list = document.getElementById("listCont")
+                if (list) {
+                    list.style.display = "block";
                 }
 
             },
@@ -2367,26 +2381,68 @@
                 Data.type = "bar"
                 Data.columns = columns;
                 var chart = document.getElementById("chart");
+                debugger;
                 if (chart) {
-                    require.config({
-                        // baseUrl: '/js',
-                        paths: {
-                            d3: "https://d3js.org/d3.v3.min"
-                        }
-                    });
-
-                    require(["d3", "c3"], function (d3, c3) {
-                        virtualclass.poll.chart = c3.generate({
-                            bindto: "#chart",
-                            data: Data,
-                            bar: {
-                                width: 100 // this makes bar width 100px
-                            }
-                        });
-                    });
+                    debugger;
+                    // require.config({
+                    //     // baseUrl: '/js',
+                    //     paths: {
+                    //         d3: "https://d3js.org/d3.v3.min"
+                    //     }
+                    // });
+                    //
+                    // require(["d3", "c3"], function (d3, c3) {
+                    //     virtualclass.poll.chart = c3.generate({
+                    //         bindto: "#chart",
+                    //         transition: {
+                    //             duration:null
+                    //         },
+                    //         data: Data,
+                    //         bar: {
+                    //             width: 100 // this makes bar width 100px
+                    //         }
+                    //     });
+                    // });
 
                     chart.style.display = "none";
                 }
+
+                onReady('#chart', function() {
+                    var chart = c3.generate({
+                        bindto: "#chart",
+                        data:Data,
+                        bar:{
+                            width:100
+
+                        },
+                        axis: {
+                            y: {
+                                padding: {
+                                    bottom: 0
+                                },
+                                min: 0
+                            },
+                            x: {
+                                padding: {
+                                    left: 0
+                                },
+                                min: 0,
+
+                            }
+                        }
+                    });
+                });
+
+                // Set a timeout so that we can ensure that the `chart` element is created.
+                function onReady(selector, callback) {
+                    var intervalID = window.setInterval(function() {
+                        if (document.querySelector(selector) !== undefined) {
+                            window.clearInterval(intervalID);
+                            callback.call(this);
+                        }
+                    }, 500);
+                }
+              // chart.style.display = "none";
 
             },
             UI: {

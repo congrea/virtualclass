@@ -365,20 +365,37 @@
         },
              // related poll 
         getAllDataOfPoll: function (table, cb) {
-            var wholeData = [];
-            var transaction = that.db.transaction(table, "readonly");
-            var objectStore = transaction.objectStore(table[0]);
 
-            objectStore.openCursor().onsuccess = function (event) {
-                var cursor = event.target.result;
-                if (cursor) {
-                    wholeData.push(cursor.value);
-                    cursor.continue();
-                } else {
-                    if(wholeData.length > 0){
-                        cb(wholeData);
+            var dbDefined = false;
+            try {
+                that.db.transaction(["pollStorage"], "readwrite");
+                dbDefined = true;
+            } catch (err) {
+
+                setTimeout(
+                    function (){
+                        that.getAllDataOfPoll(table, cb);
+                    }, 500
+                );
+
+            }
+
+            if(dbDefined){
+                var wholeData = [];
+                var t = that.db.transaction(["pollStorage"], "readwrite");
+                var objectStore = t.objectStore("pollStorage");
+                objectStore.openCursor().onsuccess = function (event) {
+                    var cursor = event.target.result;
+                    if (cursor) {
+                        wholeData.push(cursor.value);
+                        cursor.continue();
                     } else {
-                        console.log('No data fetched from indexedDb');
+                        if(wholeData.length > 0){
+                            cb(wholeData);
+                        } else {
+                            console.log('No data fetched from indexedDb');
+                        }
+
                     }
 
                 }
@@ -419,9 +436,7 @@
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
                         if (typeof virtualclass.wb == 'object') {
-
                             console.log('Total Whiteboard Length ' + JSON.parse(cursor.value.repObjs).length + ' From indexeddb');
-                            //console.log('Total Whiteboard Length ' + JSON.parse(localStorage.repObjs).length+ ' From localStorage');
                             virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
 
                         } else {
@@ -433,7 +448,6 @@
                     }
                     cursor.continue();
                 } else {
-
                     if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
                         virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(); //at very first
                     }

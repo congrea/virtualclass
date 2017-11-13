@@ -574,6 +574,7 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
+                debugger;
                 // if(virtualclass.videoUl.yts){
                 //     if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
                 //         prvAppObj.metaData = {
@@ -590,14 +591,19 @@
 
                     prvAppObj.metaData = {
                         'init': {
+
                             videoId:virtualclass.videoUl.videoId,
                             videoUrl:virtualclass.videoUl.videoUrl,
-                            yts:virtualclass.videoUl.yts
+                            yts:virtualclass.videoUl.yts,
+                            isPaused:virtualclass.videoUl.isPaused,
+
                         },
-                        startFrom: start
+                        startFrom: start,
+
                     };
 
-
+                    console.log(prvAppObj);
+                    console.log("nirmala");
                     virtualclass.videoUl.saveVideosInLocalStr();
 
               //  }
@@ -969,6 +975,7 @@
 
                     var virtualclassppt = document.getElementById('virtualclassSharePresentation');
                     if (virtualclassppt != null) {
+
                         if (document.getElementById('iframecontainer') == null) {
                             virtualclass.sharePt.UI.createIframe();
                         }
@@ -978,6 +985,7 @@
 
                     if (roles.hasControls()) {
                         virtualclass.sharePt.initTeacherLayout();
+
                     }
 
                     if (roles.hasView()) {
@@ -1736,16 +1744,16 @@
             virtualclass.fineUploader.uploaderFn(upload);
 
             if(type != 'video') {
-                var cont = document.querySelector("#docsUploadMsz");
+                var cont = document.querySelector("#DocumentShareDashboard #docsUploadMsz");
                 var upMsz = document.createElement("div");
                 if(cont){
                     cont.appendChild(upMsz);
                 }
-                var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
-                if (msz) {
-                    upMsz.appendChild(msz);
-                    msz.style.display = "block";
-                }
+                // var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
+                // if (msz) {
+                //     upMsz.appendChild(msz);
+                //     msz.style.display = "block";
+                // }
             }
 
 
@@ -1997,8 +2005,8 @@
 
                 }
                 if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-                    // virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-                    // virtualclass.sharePt.retrieveOrder();
+                     virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+                     virtualclass.sharePt.retrieveOrder();
                 }
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');

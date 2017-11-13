@@ -33,7 +33,8 @@
                     if (videoObj.init != 'studentlayout') {
                         this.videoId = videoObj.init.videoId || videoObj.init;
                         this.videoUrl = videoObj.init.videoUrl;
-                        this.yts=videoObj.init.yts
+                        this.yts=videoObj.init.yts;
+                        this.isPaused= videoObj.init.isPaused;
                     }
                 }
 
@@ -46,7 +47,7 @@
                             ioAdapter.mustSend({
                                 'videoUl': {
                                     'init': {id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl},
-                                    startFrom: virtualclass.videoUl.player.currentTime()
+                                    'startFrom': virtualclass.videoUl.player.currentTime()
                                 }, 'cf': 'videoUl'
                             })
                         } else {
@@ -238,7 +239,6 @@
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
 
                 }
-
                 var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
                 if(msz){
                     msz.style.display="none";
@@ -247,7 +247,6 @@
             },
             showUploadMsz:function(msg,type){
                 var mszCont= document.querySelector("#VideoDashboard #uploadMsz");
-
                 var alertMsz= document.querySelector("#VideoDashboard #uploadMsz .alert");
                 if(alertMsz){
                     alertMsz.parentNode.removeChild(alertMsz);
@@ -424,6 +423,7 @@
                             if(vidObj.type =="yts"){
                                 virtualclass.videoUl.yts=true;
                             }else{
+                                debugger;
                                 virtualclass.videoUl.yts=false;
                             }
                             virtualclass.videoUl.UI.displayVideo(vidObj.id, vidObj.content_path);
@@ -554,8 +554,10 @@
                 if (typeof msg.videoUl == 'string') {
                     if (msg.videoUl == 'play') {
                         this.playVideo(msg);
+                        virtualclass.videoUl.isPaused=false;
                     } else if (msg.videoUl == 'pause') {
                         this.pauseVideo();
+                        virtualclass.videoUl.isPaused=true;
                     }
                     else if (msg.videoUl == 'destroyPlayer') {
                         virtualclass.videoUl.destroyPlayer();
@@ -592,14 +594,18 @@
              */
 
             onmessageObj: function (msg) {
-                if(msg.videoUl.type=="yts"){
-                    virtualclass.videoUl.yts=true;
-                }else{
-                    virtualclass.videoUl.yts=false;
+                if(msg.videoUl.type){
+                    if(msg.videoUl.type=="yts"){
+                        virtualclass.videoUl.yts=true;
+                    }else{
+                        debugger;
+                        virtualclass.videoUl.yts=false;
+                    }
                 }
 
                 if (msg.videoUl.hasOwnProperty('init')) {
-                    virtualclass.videoUl.yts=false;
+                    debugger;
+                    //virtualclass.videoUl.yts=false;
                     virtualclass.videoUl.rec = msg.videoUl;
                     console.log(virtualclass.videoUl.rec);
                     if (msg.videoUl.init == "studentlayout") {
@@ -612,11 +618,11 @@
                         virtualclass.videoUl.videoId = msg.videoUl.init.id;
                         virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
                         virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
-                        if (msg.videoUl.isPaused) {
-                            if (virtualclass.videoUl.player){
-                                virtualclass.videoUl.player.pause();
-                            }
-                        }
+                        // if (msg.videoUl.isPaused) {
+                        //     if (virtualclass.videoUl.player){
+                        //         virtualclass.videoUl.player.pause();
+                        //     }
+                        // }
                     }
                 } else if (msg.videoUl.hasOwnProperty('content_path')) {
                     virtualclass.videoUl.videoId = msg.videoUl.id;
@@ -625,7 +631,8 @@
                     virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
                 } else if (msg.videoUl.hasOwnProperty('play')) {
                     this.playVideo(msg.videoUl.play);
-                }
+                    virtualclass.videoUl.isPaused=false;
+                };
             },
 
             enablePlayer: function () {
@@ -649,12 +656,16 @@
             },
 
             playVideo: function (seekVal) {
-                virtualclass.videoUl.player.play();
-                virtualclass.videoUl.player.currentTime(seekVal);
+                 //if(!virtualclass.videoUl.isPaused){
+                    virtualclass.videoUl.player.play();
+                    virtualclass.videoUl.player.currentTime(seekVal);
+                // }
+
             },
 
             pauseVideo: function () {
                 virtualclass.videoUl.player.pause();
+                virtualclass.videoUl.isPaused=true;
             },
 
             /*
@@ -689,6 +700,7 @@
                              if(currVideoObj.type=='yts'){
                                  virtualclass.videoUl.yts=true;
                              }else{
+                                 debugger;
                                  virtualclass.videoUl.yts=false;
                              }
 
@@ -945,6 +957,7 @@
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': "pause", 'cf': 'videoUl'});
                         }
+                        virtualclass.videoUl.isPaused=true;
 
                     });
                     player.on("play", function (e) {
@@ -952,6 +965,7 @@
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
                         }
+                        virtualclass.videoUl.isPaused=false;
 
                     });
 
@@ -995,9 +1009,11 @@
                 },
                 //n
                 createVideoElem: function (videoCont,type) {
-                    var video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
+                    var video ="";
                     if(virtualclass.videoUl.yts){
-                        video = "<video id=dispVideo class=video-js controls  preload=auto data-setup='{ techOrder: [youtube], sources: [{ type: video/youtube, src: https://www.youtube.com/watch?v=c6L0lFEPDwk}] }' >";
+                        video = "<video id=dispVideo class=video-js controls  preload=auto data-setup='{ techOrder: [youtube], sources: [{ type: video/youtube}] }' >";
+                    }else{
+                        video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
                     }
 
                     $(videoCont).append(video);
@@ -1025,20 +1041,24 @@
                         if(poster){
                             poster.style.backgroundImage="none";
                         }
-                        dispVideo.setAttribute('data-setup','{}');
-                        player.src({type: 'video/webm', src: videoUrl});
-                        player.src({type: 'video/mp4', src: videoUrl});
-
+                        dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+                        var isFirefox = typeof InstallTrigger !== 'undefined';
+                        if(isFirefox){
+                            player.src({type: 'video/webm', src: videoUrl});
+                        }else{
+                            player.src({type: 'video/webm', src: videoUrl});
+                            player.src({type: 'video/mp4', src: videoUrl});
+                        }
                     }
 
                     if (startFrom) {
-
-                       player.ready(function(){
-                            var myPlayer = this;
-                            myPlayer.currentTime(startFrom);
-                            myPlayer.play();
-
-                        });
+                        player.ready(function(){
+                           var myPlayer = this;
+                           if(!virtualclass.videoUl.isPaused){
+                               myPlayer.play();
+                           }
+                           myPlayer.currentTime(startFrom);
+                       });
 
                     }
                     console.log(startFrom)
@@ -1091,9 +1111,19 @@
                         player.src({type: 'video/youtube', src:videoUrl});
 
                     }else{
-                        dispVideo.setAttribute('data-setup','{}');
-                        player.src({type: 'video/webm', src: videoUrl});
-                        player.src({type: 'video/mp4', src: videoUrl});
+                        dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+
+                        var isFirefox = typeof InstallTrigger !== 'undefined';
+                        if(isFirefox){
+                            player.src({type: 'video/webm', src: videoUrl});
+                        }else{
+                            player.src({type: 'video/webm', src: videoUrl});
+                            player.src({type: 'video/mp4', src: videoUrl});
+                        }
+
+
+                        // player.src({type: 'video/webm', src: videoUrl});
+                        // player.src({type: 'video/mp4', src: videoUrl});
 
                     }
                     console.log("ended" + vidId)
@@ -1208,9 +1238,7 @@
                     virtualclass.fineUploader.uploaderFn(upload);
 
                     //TODO this need to be outside the function
-
                     virtualclass.videoUl.UI.inputUrl();
-
                     virtualclass.videoUl.getVideoList();
 
                     var dropMsz = document.querySelector("#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery");
@@ -1236,10 +1264,7 @@
 
                         btn.click();
                     })
-                    // if (currVideo) {
-                    //     var currElem = document.querySelector("#linkvideo"+currVideo.init.videoId)
-                    //     currElem.classList.add("playing");
-                    // }
+
                 }
             },
         };

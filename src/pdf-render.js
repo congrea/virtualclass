@@ -83,7 +83,7 @@ var canvas;
             setScrollPosition : function (obj){
                 var canvasHeight =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.height;
                 var topPosY = ( obj.scy *  canvasHeight) / 100;
-                virtualclass.topPosY = topPosY;
+            //    virtualclass.topPosY = topPosY;
                 var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 // canvasWrapper.scrollTop =  topPosY;
                 this.drawCustomScroll(obj, topPosY, canvasHeight);

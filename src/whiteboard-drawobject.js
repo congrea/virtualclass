@@ -235,9 +235,20 @@
                     var x = ev.currX / virtualclass.canvasScale;
                     var y = ev.currY / virtualclass.canvasScale;
 
-                    var vpy = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
+                    var vp = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
+                    var sendData = {'createArrow': true, x: x, y: y, 'cf': 'createArrow'}
 
-                    virtualclass.vutil.beforeSend({'createArrow': true, x: x, y: y, vpy: vpy.y, 'cf': 'createArrow'});
+                    if(vp != null){
+                        if(vp.x != null){
+                            sendData.vpx = vp.x;
+                        }
+
+                        if(vp.y != null){
+                            sendData.vpy = vp.y;
+                        }
+
+                    }
+                    virtualclass.vutil.beforeSend(sendData);
                 }
             }
         };

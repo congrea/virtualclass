@@ -33,6 +33,11 @@ var canvas;
                 this.cy = this.by + this.studentVPheight;
             },
 
+            updateScrollPositionX : function (leftPosX){
+                this.bx = leftPosX;
+                this.cx = this.bx + this.studentVPwidth;
+            },
+
             // for teacher
             scrollEvent : function (){
                 var elem = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
@@ -45,14 +50,55 @@ var canvas;
                 elem.onscroll = function (){
                     topPosY = elem.scrollTop;
                     leftPosX = elem.scrollLeft;
-                    if(roles.hasControls()){
-                        virtualclass.topPosY = topPosY;
-                        virtualclass.leftPosX = leftPosX;
-                        that.scrollPosition(elem);
-                    } else {
-                        that.updateScrollPosition(topPosY);
+
+                    if(topPosY > 0){
+                        that._scrollTop(leftPosX, topPosY, elem);
+                    }
+
+                    if(leftPosX > 0){
+                        that._scrollLeft(leftPosX, topPosY, elem);
                     }
                 }
+            },
+
+            _scrollLeft : function (leftPosX, topPosY, elem){
+                if(roles.hasControls()){
+                    virtualclass.topPosY = topPosY;
+                    virtualclass.leftPosX = leftPosX;
+                    this.scrollPositionX(elem);
+                } else {
+                    this.updateScrollPositionX(leftPosX);
+                }
+            },
+
+            _scrollTop : function(leftPosX, topPosY, elem){
+                if(roles.hasControls()){
+                    virtualclass.topPosY = topPosY;
+                    virtualclass.leftPosX = leftPosX;
+                    this.scrollPosition(elem);
+                } else {
+                    this.updateScrollPosition(topPosY);
+                }
+            },
+
+            scrollPositionX : function (elem){
+                var leftPosX = elem.scrollLeft;
+                var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
+                var canvasWidth = canvas.width;
+
+                this.scrollXpos = ( leftPosX / canvasWidth) * 100;
+
+                var canvasInner = 'canvas'+virtualclass.gObj.currWb;
+                var wrapper = 'canvasWrapper'+virtualclass.gObj.currWb;
+
+                // var viewPort = virtualclass.vutil.getElemHeight(wrapper);
+                // var viewPort = virtualclass.vutil.getElemHeight(wrapper);
+
+                var viewPortWidth = virtualclass.vutil.getElemWidth(wrapper);
+                this.actualVpWidth = viewPortWidth;
+
+                this.viewPortWidth = (viewPortWidth / canvasWidth) * 100;
+                virtualclass.vutil.beforeSend({vp:this.viewPortWidth, scx : this.scrollXpos,  'cf': 'scx'});
             },
 
             // for teacher
@@ -73,20 +119,51 @@ var canvas;
                 this.actualVpHeight = viewPortHeight;
 
                 this.viewPortHeight = (viewPortHeight / canvasHeight) * 100;
-
                 virtualclass.vutil.beforeSend({vp:this.viewPortHeight, scy : this.scrollYpos,  'cf': 'sc'});
-
-                // console.log('total - scroll height ' + (canvas.height-canvas.scrollHeight));
             },
 
             //for student
+            setScrollPositionX : function (obj){
+                var canvasWidth =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.width;
+                var leftPosX = ( obj.scx *  canvasWidth) / 100;
+                var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                this.drawCustomScrollX(obj, leftPosX, canvasWidth);
+            },
+
             setScrollPosition : function (obj){
                 var canvasHeight =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.height;
                 var topPosY = ( obj.scy *  canvasHeight) / 100;
-            //    virtualclass.topPosY = topPosY;
                 var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
-                // canvasWrapper.scrollTop =  topPosY;
                 this.drawCustomScroll(obj, topPosY, canvasHeight);
+            },
+
+
+            drawCustomScrollX : function (obj, leftPosX, canvasWidth){
+                var scrollWidth = (obj.vp * canvasWidth) / 100;
+                this.scrollWidth = scrollWidth;
+
+                var sdiv = document.querySelector('#scrollDivX' + virtualclass.gObj.currWb);
+                if(sdiv == null){
+                    var sdiv = document.createElement('div');
+                    sdiv.className = 'scrollDivX';
+                    sdiv.id = 'scrollDivX' + virtualclass.gObj.currWb;
+
+                    var canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                    if(canvasWrapper != null){
+                        canvasWrapper.appendChild(sdiv);
+                    }
+
+                }
+                sdiv.style.width = scrollWidth + 'px';
+                sdiv.style.left = leftPosX + 'px';
+                this.ax = leftPosX;
+                this.dx = this.ax + scrollWidth;
+                var wrapperId = 'canvasWrapper'+virtualclass.gObj.currWb;
+                var studentWrapper = document.querySelector('#'+wrapperId);
+                this.bx = studentWrapper.scrollLeft;
+                this.studentVPwidth = virtualclass.vutil.getElemWidth(wrapperId);
+
+                this.cx = this.bx + this.studentVPwidth;
             },
 
             drawCustomScroll : function (obj, topPosY, canvasHeight){
@@ -115,21 +192,69 @@ var canvas;
                 this.studentVPheight = virtualclass.vutil.getElemHeight(wrapperId);
 
                 this.cy = this.by + this.studentVPheight;
-                if(this.prvcy != null){
-                    if(this.cy != this.prvcy){
-                        // debugger;
-                    }
-
-                }
-                this.prvcy  = this.cy;
-
             },
 
             actualMousePointerOnViewPort : function(ev){
                 var canvasWrapper = document.querySelector('#canvasWrapper_doc_0_0');
-                var y  = ev.y - canvasWrapper.scrollTop;
-                var vpy = (y / this.actualVpHeight ) * 100 ;
-                return {y:vpy}
+                var result = null;
+
+                if(this.actualVpHeight != null){
+                    var y  = ev.y - canvasWrapper.scrollTop;
+                    var vpy = (y / this.actualVpHeight ) * 100 ;
+                    result = {y:vpy};
+                }
+
+                if( this.actualVpWidth != null){
+                    if(result ==  null){
+                        result = {};
+                    }
+                    var x  = ev.x - canvasWrapper.scrollLeft;
+                    var vpx = (x / this.actualVpWidth ) * 100
+                    result.x = vpx;
+                }
+                return result;
+            },
+
+            customMoustPointerX : function (obj){
+                var idPrefix = 'scrollDivX' + virtualclass.gObj.currWb;
+                var mousePointerX  = document.querySelector('#' + idPrefix + 'mousePointer');
+
+                if(mousePointerX == null) {
+                    var mousePointerX = document.createElement('div');
+                    mousePointerX.className = 'mousepointer';
+                    mousePointerX.id = idPrefix + 'mousePointer';
+                    var scrollWrapper = document.querySelector('#scrollDivX' + virtualclass.gObj.currWb);
+                    if(scrollWrapper !=  null){
+                        scrollWrapper.appendChild(mousePointerX);
+                    }
+                }
+                this.setCustomMoustPointerX(mousePointerX,  obj);
+
+
+                console.log('custom mouse pointer ay=' + this.ax + ' by=' + this.bx + ' cy=' + this.cx + ' dy=' + this.dx + ' ey' + this.ex);
+                if(this.ex > this.cx){
+                    var scrollPos = this.bx + (this.dx - this.cx);
+                    if (scrollPos > this.ex) {
+                        scrollPos = this.ex - ((this.bx + this.cx) / 2);
+                    }
+                    console.log('custom mouse down pointer ay=' + this.ax + ' by=' + this.bx + ' cy=' + this.cx + ' dy=' + this.dx + ' ey' + this.ex + ' scrollPos=' + scrollPos);
+                    var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                    canvasWrapper.scrollLeft = scrollPos;
+                    this.bx = scrollPos;
+                    this.cx = this.bx + this.studentVPwidth;
+
+
+                }else if(this.ex < this.bx){
+                    var scrollPos = this.bx - this.ax;
+                    if ((this.cx - scrollPos) < this.ex) {
+                        scrollPos = ((this.bx + this.cx) / 2) - this.ex;
+                    }
+                    console.log('custom mouse up pointer ay=' + this.ax + ' by=' + this.bx + ' cy=' + this.cx + ' dy=' + this.dx + ' ey' + this.ex + ' scrollPos=' + scrollPos);
+                    var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                    canvasWrapper.scrollLeft = canvasWrapper.scrollLeft - scrollPos;
+                    this.bx = scrollPos;
+                    this.cx = this.bx + this.studentVPwidth;
+                }
             },
 
             customMoustPointer : function (obj){
@@ -148,16 +273,6 @@ var canvas;
                 this.setCustomMoustPointer(mousePointerY,  obj);
 
 
-                // var isElementVisible = virtualclass.vutil.elementIsVisible(mousePointerY);
-                // this.ey =
-
-                // if(!isElementVisible){
-                //     console.log('isElement visible ' + isElementVisible);
-                //     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-                //     var height = virtualclass.vutil.getVisibleHeight('scrollDivY' + virtualclass.gObj.currWb);
-                //      // canvasWrapper.scrollTop += height;
-                //
-                // }
                 console.log('custom mouse pointer ay=' + this.ay + ' by=' + this.by + ' cy=' + this.cy + ' dy=' + this.dy + ' ey' + this.ey);
                 if(this.ey > this.cy){
                     var scrollPos = this.by + (this.dy - this.cy);
@@ -183,26 +298,23 @@ var canvas;
                     this.cy = this.by + this.studentVPheight;
 
                 }
-
-                //console.log('isElement visible ' + isElementVisible);
-                // if(scrollPos != null){
-                //     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-                //     canvasWrapper.scrollTop = scrollPos;
-                //     this.by = scrollPos;
-                // }
-
-
             },
 
-            getCustomMousePoint : function (){
-                var ay, by, cy, dy, ey;
-            },
 
             setCustomMoustPointer : function (mousePointerY, obj){
                 if(this.scrollHeight != null){
                     var mpPosition = (this.scrollHeight * obj.y ) / 100;
                     mousePointerY.style.top = mpPosition +  'px';
                     this.ey = this.ay + mpPosition;
+                }
+            },
+
+
+            setCustomMoustPointerX : function (mousePointerY, obj){
+                if(this.scrollWidth != null){
+                    var mpPosition = (this.scrollWidth * obj.x) / 100;
+                    mousePointerY.style.left = mpPosition +  'px';
+                    this.ex = this.ax + mpPosition;
                 }
             },
 

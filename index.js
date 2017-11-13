@@ -1431,6 +1431,10 @@ $(document).ready(function () {
             this.sc = function (e){
                 virtualclass.pdfRender.setScrollPosition(e.message);
             }
+
+            this.scx = function (e){
+                virtualclass.pdfRender.setScrollPositionX(e.message);
+            }
         };
         // TODO this shoudl be remove, after precheck feature is enabled
     }

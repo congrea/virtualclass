@@ -2223,6 +2223,12 @@
             var heighPx = document.querySelector('#' + wrapper).style.height;
             return this.getValueWithoutPixel(heighPx);
         },
+
+        getElemWidth : function (wrapper){
+            var widthPx = document.querySelector('#' + wrapper).style.width;
+            return this.getValueWithoutPixel(widthPx);
+        },
+
         visibleElementHeighOldt : function (innerElem, wrapper){
             var offset = 0;
             var node = document.getElementById(innerElem);

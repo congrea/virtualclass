@@ -98,8 +98,9 @@
             obj.mp = {x: eMessage.x*virtualclass.canvasScale, y: eMessage.y*virtualclass.canvasScale};
             console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
             virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
-            var vpc = {y:eMessage.vpy}
+            var vpc = {y:eMessage.vpy, x:eMessage.vpx}
             virtualclass.pdfRender.customMoustPointer(vpc);
+            virtualclass.pdfRender.customMoustPointerX(vpc);
         },
 
 

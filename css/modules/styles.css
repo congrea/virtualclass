@@ -2946,12 +2946,21 @@
 }
 
 
-#virtualclassCont.congrea .canvasWrapper .scrollDivY {
+#virtualclassCont.congrea .canvasWrapper .scrollDivY{
 	width : 5px;
 	border : 2px solid red;
 	position : absolute;
 	top  : 0;
 	right: 0;
+}
+
+#virtualclassCont.congrea .canvasWrapper .scrollDivX {
+	height : 5px;
+	border : 2px solid red;
+	position : fixed;
+	bottom  : 0;
+	left: 0;
+	bottom : 60px;
 }
 
 #virtualclassCont.congrea .canvasWrapper {

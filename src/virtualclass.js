@@ -1149,7 +1149,7 @@
                 }
                 var mainHtml = mainTemplate(mainCont);
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
-                this.makeThemeReadyMain( virtualclassSetting.theme);
+                // this.makeThemeReadyMain( virtualclassSetting.theme);
 
 
             },

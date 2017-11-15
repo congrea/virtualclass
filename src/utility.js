@@ -2219,6 +2219,15 @@
             return number.toFixed(2);
         },
 
+        getElemM : function (wrapper, type){
+            if(type == 'Y'){
+                var res = document.querySelector('#' + wrapper).style.height;
+            }else if(type == 'X'){
+                var res = document.querySelector('#' + wrapper).style.width;
+            }
+            return this.getValueWithoutPixel(res);
+        },
+
         getElemHeight : function (wrapper){
             var heighPx = document.querySelector('#' + wrapper).style.height;
             return this.getValueWithoutPixel(heighPx);

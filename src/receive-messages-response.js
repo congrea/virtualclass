@@ -92,15 +92,37 @@
             virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(false);
             virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromFile');
         },
+
         createArrow: function (eMessage) {
             var imageElm = virtualclass.wb[virtualclass.gObj.currWb].arrImg;
             var obj = {};
             obj.mp = {x: eMessage.x*virtualclass.canvasScale, y: eMessage.y*virtualclass.canvasScale};
-            console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
+
+            var wrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+            // virtualclass.posY = (obj.mp.y - wrapper.scrollTop);
+            // virtualclass.posX = (obj.mp.x - wrapper.scrollLeft);
+
+            virtualclass.posY = (obj.mp.y);
+            virtualclass.posX = (obj.mp.x);
+
+            console.log('vm mouse cursor y=' + (virtualclass.posY));
+
             virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
-            var vpc = {y:eMessage.vpy, x:eMessage.vpx}
-            virtualclass.pdfRender.customMoustPointer(vpc);
-            virtualclass.pdfRender.customMoustPointerX(vpc);
+
+            // var vpc = {y:eMessage.vpy, x:eMessage.vpx}
+            // console.log('vm mouse pointer, before percentage y=' + eMessage.vpy);
+
+            // virtualclass.pdfRender.customMoustPointer(vpc);
+            // virtualclass.pdfRender.customMoustPointerX(vpc);
+
+            if(virtualclass.pdfRender.scroll.Y !=  null){
+                virtualclass.pdfRender.customMoustPointer({y:virtualclass.posY}, 'Y', virtualclass.posY);
+            }
+
+            if(virtualclass.pdfRender.scroll.X !=  null){
+                virtualclass.pdfRender.customMoustPointer({x:virtualclass.posX}, 'X', virtualclass.posX);
+            }
+            //console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
         },
 
 

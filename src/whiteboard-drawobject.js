@@ -235,18 +235,19 @@
                     var x = ev.currX / virtualclass.canvasScale;
                     var y = ev.currY / virtualclass.canvasScale;
 
-                    var vp = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
                     var sendData = {'createArrow': true, x: x, y: y, 'cf': 'createArrow'}
 
-                    if(vp != null){
-                        if(vp.x != null){
-                            sendData.vpx = vp.x;
-                        }
+                    if(virtualclass.pdfRender.debugg){
+                        var vp = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
+                        if(vp != null){
+                            if(vp.x != null){
+                                sendData.vpx = vp.x;
+                            }
 
-                        if(vp.y != null){
-                            sendData.vpy = vp.y;
+                            if(vp.y != null){
+                                sendData.vpy = vp.y;
+                            }
                         }
-
                     }
                     virtualclass.vutil.beforeSend(sendData);
                 }

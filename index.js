@@ -671,10 +671,18 @@ $(document).ready(function () {
                 if (typeof sType !== 'undefined' && sType !== null) {
                     //TODO this should be into function
                     if (typeof virtualclass.getDataFullScreen == 'function') {
-                        sType = virtualclass.getDataFullScreen(sType);
-                        var createdImg = virtualclass.getDataFullScreen('ss');
-                        ioAdapter.sendBinary(createdImg);
-                        sType = null;
+                        if(virtualclass.gObj.hasOwnProperty('sendScreen')){
+                            clearTimeout(virtualclass.gObj.sendScreen);
+                        }
+                        virtualclass.gObj.sendScreen = setTimeout(
+                            function (){
+                                sType = virtualclass.getDataFullScreen(sType);
+                                var createdImg = virtualclass.getDataFullScreen('ss');
+                                ioAdapter.sendBinary(createdImg);
+                                sType = null;
+                                console.log('Send full-screen image');
+                            },2000
+                        );
                     }
                 }
             }

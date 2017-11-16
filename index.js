@@ -456,6 +456,9 @@ $(document).ready(function () {
         function sayHelloToNewUser(e, iamObj, jId){
             if(!e.hasOwnProperty('cmadd')){
                 ioAdapter.sendUser(iamObj, jId);
+                if(roles.hasControls()){
+                    virtualclass.pdfRender.sendCurrentScroll(jId);
+                }
                 console.log('Member, ping to new user, From ' + virtualclass.gObj.uid + ' To ' + virtualclass.jId);
             }
         }
@@ -729,6 +732,7 @@ $(document).ready(function () {
             }
 
             virtualclass.jId = e.newJoinId;
+            // alert('Join user ' + virtualclass.jId);
 
             var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
 
@@ -779,6 +783,7 @@ $(document).ready(function () {
                     (function(jId){
                         setTimeout(function () {
                             joinAsTeacher(jId)
+                            virtualclass.pdfRender.sendScroll();
                         }, virtualclass.gObj.mySetTime);
                     }(virtualclass.jId));
 
@@ -826,7 +831,6 @@ $(document).ready(function () {
             }
 
             if (typeof virtualclass.quiz != 'undefined') {
-
                 if ((virtualclass.quiz.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
                     virtualclass.quiz.uniqueUsers.push(virtualclass.jId);
 
@@ -835,7 +839,6 @@ $(document).ready(function () {
                         if (virtualclass.quiz.uniqueUsers.indexOf(i) < 0) {
                             virtualclass.quiz.uniqueUsers.push(i);
                         }
-
                     }
                 }
             }

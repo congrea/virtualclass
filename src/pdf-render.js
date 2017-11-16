@@ -73,6 +73,7 @@ var canvas;
                     if(sendData != null){
                         sendData.cf =  'sc';
                         virtualclass.vutil.beforeSend(sendData);
+                        that.currentScroll = sendData;
                     }
                 }
             },
@@ -188,16 +189,32 @@ var canvas;
 
             //for student
             setScrollPosition : function (obj){
+
                 if(obj.hasOwnProperty('scY') && obj.scY != null){
+                    if(obj.hasOwnProperty('pr')){
+                        obj.vpY = 0;
+                        canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                        canvasWrapper.scrollTop = 0;
+                    }
+
                     var canvasHeight =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.height;
                     var topPosY = ( obj.scY *  canvasHeight) / 100;
+
                     this.scroll.caclculatePosition(obj, topPosY, canvasHeight, 'Y');
+
                 }
 
                 if(obj.hasOwnProperty('scX') && obj.scX != null){
-                    var canvasWidth =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.width;
-                    var leftPosX = ( obj.scX *  canvasWidth) / 100;
-                    this.scroll.caclculatePosition(obj, leftPosX, canvasWidth, 'X');
+                    if(obj.hasOwnProperty('pr')){
+                        obj.vpX = 0;
+                        canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                        canvasWrapper.scrollLeft = 0;
+                    }else {
+                        var canvasWidth =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.width;
+                        var leftPosX = ( obj.scX *  canvasWidth) / 100;
+                        this.scroll.caclculatePosition(obj, leftPosX, canvasWidth, 'X');
+                    }
+
                 }
             },
 
@@ -289,6 +306,23 @@ var canvas;
                     mousePointer.style.top = (obj.y - this.scroll[tp].a) +  'px'
                 }else if(tp == 'X'){
                     mousePointer.style.left = (obj.x - this.scroll[tp].a) +  'px';
+                }
+            },
+
+            // Send default scroll to all.
+            sendScroll : function (){
+                var cursor  = {cf : "sc", pr : true, scY : 0, scX:0};
+                virtualclass.vutil.beforeSend(cursor);
+            },
+
+            // Send current scroll to particular user.
+
+            sendCurrentScroll : function (toUser){
+                if(this.currentScroll !=  null){
+                    //this.currentScroll.toUser = toUser;
+                   // virtualclass.vutil.beforeSend(this.currentScroll, toUser);
+                    ioAdapter.mustSendUser(this.currentScroll, toUser);
+                   // virtualclass.vutil.beforeSend(this.currentScroll);
                 }
             },
 

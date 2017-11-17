@@ -1440,6 +1440,12 @@ $(document).ready(function () {
             }
 
             this.sc = function (e){
+                console.log('Recevied scroll');
+                virtualclass.pdfRender.setScrollPosition(e.message);
+            }
+
+            this.scf = function (e){
+                console.log('Recevied scroll first');
                 virtualclass.pdfRender.setScrollPosition(e.message);
             }
 

@@ -313,16 +313,22 @@ var canvas;
             sendScroll : function (){
                 var cursor  = {cf : "sc", pr : true, scY : 0, scX:0};
                 virtualclass.vutil.beforeSend(cursor);
+                console.log('Send scroll to everyone ');
             },
 
             // Send current scroll to particular user.
 
             sendCurrentScroll : function (toUser){
                 if(this.currentScroll !=  null){
-                    //this.currentScroll.toUser = toUser;
-                   // virtualclass.vutil.beforeSend(this.currentScroll, toUser);
-                    ioAdapter.mustSendUser(this.currentScroll, toUser);
-                   // virtualclass.vutil.beforeSend(this.currentScroll);
+                    var that = this;
+                    setTimeout(
+                        function (){
+                            that.currentScrolltoUser = toUser;
+                            that.currentScroll.cf = 'scf';
+                            virtualclass.vutil.beforeSend(that.currentScroll, toUser);
+                            console.log('Send to user ' + toUser);
+                        }, 2000
+                    );
                 }
             },
 

@@ -392,22 +392,22 @@
 
             videoDisplayHandler: function (vidObj) {
                 var video = document.getElementById("mainpvideo" + vidObj.id);
-                if(vidObj.type =="online"){
-                    video.addEventListener('click',function(){
-                        virtualclass.videoUl.yts=false;
-                        $('#virtualclassVideo iframe#player').remove();
-                        $('#videoPlayerCont').css({"display":"block"});
-                        virtualclass.videoUl.shareVideo(vidObj.content_path);
-                        // video.setAttribute("data-dismiss","modal");
-                        virtualclass.dashBoard.close();
-                        // if(typeof virtualclass.yts.player == "object"){
-                        //     virtualclass.yts.player.destroy();
-                        // }
-                        virtualclass.videoUl.activeVideoClass(vidObj.id);
-                        virtualclass.videoUl.videoId = vidObj.id;
-                    })
+                //if(vidObj.type =="online"){
+                //     video.addEventListener('click',function(){
+                //         virtualclass.videoUl.yts=false;
+                //         $('#virtualclassVideo iframe#player').remove();
+                //         $('#videoPlayerCont').css({"display":"block"});
+                //         virtualclass.videoUl.shareVideo(vidObj.content_path);
+                //         // video.setAttribute("data-dismiss","modal");
+                //         virtualclass.dashBoard.close();
+                //         // if(typeof virtualclass.yts.player == "object"){
+                //         //     virtualclass.yts.player.destroy();
+                //         // }
+                //         virtualclass.videoUl.activeVideoClass(vidObj.id);
+                //         virtualclass.videoUl.videoId = vidObj.id;
+                //     })
 
-                } else{
+               // } else{
 
                     if (video && !vidObj.status) {
                         if (!video.classList.contains("playDisable")) {
@@ -423,7 +423,6 @@
                             if(vidObj.type =="yts"){
                                 virtualclass.videoUl.yts=true;
                             }else{
-                                debugger;
                                 virtualclass.videoUl.yts=false;
                             }
                             virtualclass.videoUl.UI.displayVideo(vidObj.id, vidObj.content_path);
@@ -435,7 +434,7 @@
 
                     }
 
-                }
+               // }
 
             },
 
@@ -577,7 +576,8 @@
                             if(msz){
                                 msz.style.display="block";
                             }
-
+                            virtualclass.videoUl.videoId = null;
+                            virtualclass.videoUl.videoUrl = null;
                         }
                     }
                 } else {
@@ -598,13 +598,11 @@
                     if(msg.videoUl.type=="yts"){
                         virtualclass.videoUl.yts=true;
                     }else{
-                        debugger;
                         virtualclass.videoUl.yts=false;
                     }
                 }
 
                 if (msg.videoUl.hasOwnProperty('init')) {
-                    debugger;
                     //virtualclass.videoUl.yts=false;
                     virtualclass.videoUl.rec = msg.videoUl;
                     console.log(virtualclass.videoUl.rec);
@@ -700,7 +698,6 @@
                              if(currVideoObj.type=='yts'){
                                  virtualclass.videoUl.yts=true;
                              }else{
-                                 debugger;
                                  virtualclass.videoUl.yts=false;
                              }
 
@@ -817,7 +814,10 @@
                                     var playerCont = document.querySelector("#videoPlayerCont");
                                     if(playerCont){
                                         playerCont.style.display="none";
-                                        ioAdapter.mustSend({'videoUl':'videoJsDelete', 'cf': 'videoUl'});
+                                        ioAdapter.mustSend({'videoUl':'videoDelete', 'cf': 'videoUl'});
+
+                                        virtualclass.videoUl.videoId = null;
+                                        virtualclass.videoUl.videoUrl = null;
                                     }
                             }
                             if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){
@@ -916,7 +916,6 @@
                             virtualclass.videoUl.player.dispose();
                         }
                     }
-
                     virtualclass.videoUl.videoUrl = videoUrl;
                     virtualclass.videoUl.videoId = vidId;
                     // var videourl = "https://dev.muzioapp.com.s3-website-us-east-1.amazonaws.com/content/ourMuzeVid1.webm";
@@ -1077,6 +1076,7 @@
                             innerHTML: '<div>auto play is on</div>',
                             id: "autoPlayListBtn",
                             role: 'button',
+                            title:'Auto Play',
                             onclick: function () {
                                 virtualclass.videoUl.UI.autoPlayFn(this);
 

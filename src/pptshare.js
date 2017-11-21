@@ -33,6 +33,7 @@
             studentPpt: 0,
             startFromFlag:0,
             startFrom:0,
+            currId:"",
             order:[],
             /*
              * Initalizes and creates ppt layout at student's and teacheh's ends
@@ -237,6 +238,11 @@
                                         }
                                     }
                                 })
+
+
+
+                                virtualclass.sharePt.cuurId=8;
+
                                 var idIndex = virtualclass.sharePt.order.indexOf(id);
                                 if (idIndex >= 0) {
                                     virtualclass.sharePt.order.splice(idIndex, 1)
@@ -244,6 +250,20 @@
                                     virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
                                 }
                             }
+
+                            if(virtualclass.sharePt.currId == id ){
+                                // if(type !="yts"){
+                                var playerCont = document.querySelector("#videoPlayerCont");
+                                if(playerCont){
+                                    playerCont.style.display="none";
+                                    ioAdapter.mustSend({pptMsg: pptDelete, cf: 'ppt'});
+                                    virtualclass.sharePt.currId = null;
+                                    virtualclass.sharePt.pptUrl=null;
+
+                                }
+                            }
+
+
                         }
                     }
                 });
@@ -740,16 +760,31 @@
 
             },
             pptClickHandler:function(pptObj){
-
                 var ppt = document.getElementById("mainpppt" + pptObj.id);
                     if(ppt) {
                         ppt.addEventListener('click', function () {
                             virtualclass.sharePt.playPptUrl(pptObj.content_path,pptObj.id);
                             virtualclass.dashBoard.close();
-
+                            virtualclass.sharePt.currId=pptObj.id;
+                            virtualclass.sharePt.addClass(pptObj.id);
                         })
 
                     }
+            },
+            addClass:function(id){
+
+                var otherElems = document.querySelectorAll("#virtualclassCont.congrea .linkppt");
+                for (var i = 0; i < otherElems.length; i++) {
+                    if (otherElems[i].classList.contains("playing")) {
+                        otherElems[i].classList.remove("playing");
+                    }
+                }
+
+                var currentPpt = document.querySelector("#virtualclassCont.congrea #linkppt"+id);
+                if (currentPpt && !currentPpt.classList.contains("playing")) {
+                    currentPpt.classList.add("playing");
+                }
+
             },
 
             _disable: function (_id) {

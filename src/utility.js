@@ -574,7 +574,7 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-                debugger;
+                //debugger;
                 // if(virtualclass.videoUl.yts){
                 //     if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
                 //         prvAppObj.metaData = {

@@ -508,7 +508,7 @@ function sortUserList(a, b) {
 function sortCommonChat(){
     var $wrapper = $('#chat_room');
     $wrapper.find('.ui-chatbox-msg').sort(function (a, b) {
-        return +(a  .dataset.msgtime) - +(b.dataset.msgtime);
+        return +(a.dataset.msgtime) - +(b.dataset.msgtime);
     })
         .appendTo( $wrapper );
 }

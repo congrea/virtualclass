@@ -184,8 +184,6 @@
 
                 canvasWrapper.style.width = (canvas.width-50);  //37
 
-                // canvas.parentNode.width = canvas.width;
-
                 // for handle the scroll on whiteboard during the play mode
                 var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
@@ -211,7 +209,6 @@
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                 canvasWrapper.style.width = (width-50);  //37
 
-
                 var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
@@ -219,8 +216,6 @@
 
                 canvas.parentNode.height = canWrapperHeight;
                 canvasWrapper.style.height = canWrapperHeight-30;
-
-               // vcan.main.offset.x = offset.x;
             }
         },
         // TODO this function is not being invoked

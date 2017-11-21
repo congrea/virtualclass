@@ -457,7 +457,8 @@ $(document).ready(function () {
             if(!e.hasOwnProperty('cmadd')){
                 ioAdapter.sendUser(iamObj, jId);
                 if(roles.hasControls()){
-                    virtualclass.pdfRender.sendCurrentScroll(jId);
+                    var wid = virtualclass.gObj.currWb;
+                    virtualclass.pdfRender[wid].sendCurrentScroll(jId);
                 }
                 console.log('Member, ping to new user, From ' + virtualclass.gObj.uid + ' To ' + virtualclass.jId);
             }
@@ -791,7 +792,7 @@ $(document).ready(function () {
                     (function(jId){
                         setTimeout(function () {
                             joinAsTeacher(jId)
-                            virtualclass.pdfRender.sendScroll();
+                            virtualclass.pdfRender[virtualclass.gObj.currWb].sendScroll();
                         }, virtualclass.gObj.mySetTime);
                     }(virtualclass.jId));
 
@@ -1441,12 +1442,12 @@ $(document).ready(function () {
 
             this.sc = function (e){
                 console.log('Recevied scroll');
-                virtualclass.pdfRender.setScrollPosition(e.message);
+                virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
             }
 
             this.scf = function (e){
                 console.log('Recevied scroll first');
-                virtualclass.pdfRender.setScrollPosition(e.message);
+                virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
             }
 
             // this.scx = function (e){

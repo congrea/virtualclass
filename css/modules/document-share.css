@@ -100,7 +100,8 @@
 }
 
 #virtualclassCont.congrea .page_wrapper {
-    height: 600px;
+    /*height: 600px;*/
+    height : 90vh;
 }
 
 /*#listnotes {*/

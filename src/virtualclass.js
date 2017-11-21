@@ -44,6 +44,7 @@
             quiz:"",
             //lang: {},
             error: [],
+            pdfRender : {},
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -135,13 +136,8 @@
                 this.dashBoard  = dashBoard;
                 this.multiVideo = window.MultiVideo;
                 this.vutil.isChromeExtension();
-                this.pdfRender = window.pdfRender();
 
-//                this.storage.init(function () {
-//                    if (!virtualclass.vutil.isPlayMode()) {
-//                        ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
-//                    }
-//                });
+                // this.pdfRender = window.pdfRender();
 
                 if(this.system.isIndexedDbSupport()){
                     this.storage.init(function () {
@@ -250,12 +246,8 @@
                 //nirmala
                 var precheck = document.getElementById("precheckSetting");
                 precheck.addEventListener("click",function(){
-
                     virtualclass.precheck.init(virtualclass.precheck);
-
                 })
-
-
             },
 
             networkStatus: function(){
@@ -651,7 +643,15 @@
                     //this.dispvirtualclassLayout(this.wbConfig.id);
                     //this should be checked with solid condition
                     virtualclass.gObj.currWb = id;
+                    var wid = id;
+
+                    if(typeof this.pdfRender[wid] != 'object'){
+                        this.pdfRender[wid] = window.pdfRender();
+                    }
+
+
                     if(typeof id != 'undefined'){
+
                         if (typeof this.wb[id] != 'object') {
                             if(typeof this.wb != 'object'){
                                 this.wb = {};
@@ -675,7 +675,7 @@
                                     var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
                                     var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
                                     whiteboardContainer.innerHTML = wbHtml;
-                                    var canvas = document.querySelector('#canvas_doc_0_0');
+                                    var canvas = document.querySelector('#canvas' + id);
 
                                 }
 
@@ -699,15 +699,17 @@
                                     vcan.utility.canvasCalcOffset(vcan.main.canid);
                                 }
 
-                                virtualclass.pdfRender.init(canvas);
+                                if(virtualclass.currApp == 'DocumentShare') {
+                                    var currNote = virtualclass.dts.docs.currNote;
+                                     virtualclass.pdfRender[wid].init(canvas, currNote);
+                                }  else {
+                                    virtualclass.pdfRender[wid].init(canvas);
+                                }
+
                                 // Only need to  serve on after page refresh
                                 var that = this;
                                 virtualclass.storage.getWbData(id, function (){
-                                    // if (!that.alreadyReplayFromStorage && that.gObj.tempReplayObjs[id].length > 0) {
-                                    // if (that.gObj.tempReplayObjs[id].length > 0) {
-                                    //     that.wb[id].utility.replayFromLocalStroage(that.gObj.tempReplayObjs[id]);
-                                    // }
-
+                                    console.log('The data has been received from local storage');
                                 });
                             }else{
                                 alert('whiteboard container is null');
@@ -750,7 +752,7 @@
                         alert('id is undefined');
                     }
 
-                    virtualclass.pdfRender.initScaleController();
+                    virtualclass.pdfRender[wid].initScaleController();
                 },
 
                 ScreenShare : function (app){

@@ -64,10 +64,7 @@
             tool.startPosX = ev.currX;
             tool.startPosY = ev.currY;
 
-
-
-
-            console.log('whiteboard create, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+            // console.log('whiteboard create, start position x =' + tool.startPosX  + ' y = ' + tool.startPosY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
             virtualclass.wb[wId].gObj.spx = tool.startPosX;
             virtualclass.wb[wId].gObj.spy = tool.startPosY;
 
@@ -179,7 +176,7 @@
                             }
 
                         } else {
-                            console.log('free drawing move x=' +  ev.currX + ' drawing y=' + ev.currY);
+  //                          console.log('free drawing move x=' +  ev.currX + ' drawing y=' + ev.currY);
                         }
 
                     }
@@ -189,7 +186,7 @@
 
                     endPosX = ev.currX;
                     endPosY = ev.currY;
-                     console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+//                     console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
 
                     if (wb.prvObj != '') {
                         wb.canvas.removeObject(wb.prvObj);

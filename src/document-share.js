@@ -982,10 +982,15 @@
                      * This canvas width and height is set for Screen 1280 * 1024
                      * The same dimension is using for image
                      */
+
+                    /*** width and height handling ***/
+
+                    // var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+
                     var canvasWidth = 730;
                     var canvasHeight = 750;
 
-                    cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
+                   // cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
                     //console.log('Create Whiteboard ');
 
                     console.log(virtualclass.gObj.currWb + ' ' + 'document share Create Whiteboard ');
@@ -1005,9 +1010,11 @@
                         var app = 'Whiteboard';
                         var args = [app, 'byclick', whiteboard.dataset.wid, whiteboard.id];
                         virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+                        var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
 
-                      cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
-
+                        var id = virtualclass.gObj.currWb;
+                        virtualclass.system.setCanvasWrapperDimension(measureRes, id);
+                        // cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
                     } else {
                         console.log("Element is null");
 

@@ -94,6 +94,7 @@
         },
 
         createArrow: function (eMessage) {
+            var wid = virtualclass.pdfRender;
             var imageElm = virtualclass.wb[virtualclass.gObj.currWb].arrImg;
             var obj = {};
             obj.mp = {x: eMessage.x*virtualclass.canvasScale, y: eMessage.y*virtualclass.canvasScale};
@@ -109,18 +110,13 @@
 
             virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
 
-            // var vpc = {y:eMessage.vpy, x:eMessage.vpx}
-            // console.log('vm mouse pointer, before percentage y=' + eMessage.vpy);
 
-            // virtualclass.pdfRender.customMoustPointer(vpc);
-            // virtualclass.pdfRender.customMoustPointerX(vpc);
-
-            if(virtualclass.pdfRender.scroll.Y !=  null){
+            if(virtualclass.pdfRender[wid].scroll.Y !=  null){
                 virtualclass.pdfRender.customMoustPointer({y:virtualclass.posY}, 'Y', virtualclass.posY);
             }
 
-            if(virtualclass.pdfRender.scroll.X !=  null){
-                virtualclass.pdfRender.customMoustPointer({x:virtualclass.posX}, 'X', virtualclass.posX);
+            if(virtualclass.pdfRender[wid].scroll.X !=  null){
+                virtualclass.pdfRender[wid].customMoustPointer({x:virtualclass.posX}, 'X', virtualclass.posX);
             }
             //console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
         },

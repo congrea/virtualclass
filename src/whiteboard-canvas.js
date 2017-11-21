@@ -150,8 +150,7 @@
 
                 vcan.clearContext(ctx);
 
-                //virtualclass.pdfRender.displayPage(virtualclass.pdfRender.shownPdf,  1, this.displayPdfWhiteboard);
-               // virtualclass.pdfRender.displayPdf();
+
                 var that = this;
                 this.displayPdfWhiteboard();
 
@@ -169,9 +168,10 @@
             displayPdfWhiteboard : function (){
                 var length = vcan.main.children.length;
                 if (length) {
+                    var vcanvas = vcan.main.canvas;
+                    var ctx = vcan.main.canvas.getContext('2d');
                     for (var i = 0; i < length; ++i) {
                         // console.log('Whiteboard index ' + i);
-                        var vcanvas = vcan.main.canvas;
                         if (vcan.main.children[i].type == 'pdf') {
                             console.log('Pdf, Render the data, that should not be a');
                         }else if (vcan.main.children[i].type == 'freeDrawing') {

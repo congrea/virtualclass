@@ -748,7 +748,6 @@
             _disable: function (_id) {
                 var linkvideo = document.querySelector("#linkvideo"+_id);
                 linkvideo.classList.add('playDisable');
-
                 var video = document.getElementById("mainpvideo" + _id);
                 video.style.opacity = .3;
                 video.style.pointerEvents = 'none';

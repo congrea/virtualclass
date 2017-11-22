@@ -350,6 +350,7 @@
         'pollblank':'Question can not be left blank',
         'minoption':'enter atleast two options',
         'delblank' :'remove the blank option',
+        'NotAllowedError':'Webcam is disabled',
     };
 
     window.message = message;

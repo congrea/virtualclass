@@ -42,9 +42,9 @@
                     }
 
                     if (obj.lineWidth != undefined) {
-                        this.freeDrawingLineWidth = obj.lineWidth * virtualclass.canvasScale;
+                        this.freeDrawingLineWidth = obj.lineWidth * virtualclass.zoom.canvasScale;
                     } else {
-                        this.freeDrawingLineWidth =  3 * virtualclass.canvasScale;
+                        this.freeDrawingLineWidth =  3 * virtualclass.zoom.canvasScale;
                     }
 
                     //IMPORTANT:- this have done during the unit testing

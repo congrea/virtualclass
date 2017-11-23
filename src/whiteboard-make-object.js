@@ -19,7 +19,7 @@
         var obj = {mp: {}};
         obj.mp.x = endPosX;
         obj.mp.y = endPosY;
-        var lineWidth = 2 * virtualclass.canvasScale;
+        var lineWidth = 2 * virtualclass.zoom.canvasScale;
         // var lineWidth = 3
         if (startPosX > endPosX) {
             //this is not using for oval

@@ -183,6 +183,7 @@
                 virtualclass.videoHost = window.videoHost;
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
+                virtualclass.zoom = window.zoomWhiteboard();
 
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
@@ -566,6 +567,7 @@
                         if(roles.hasControls() && app == 'Video' && !(currVideo && currVideo.init&&(currVideo.init.videoUrl|| currVideo.fromReload))){
                             virtualclass.vutil.triggerDashboard(app);
                         }
+
                     }
                 }
                 this.previrtualclass = this.previous;
@@ -647,8 +649,9 @@
 
                     if(typeof this.pdfRender[wid] != 'object'){
                         this.pdfRender[wid] = window.pdfRender();
+                    }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+                        virtualclass.zoom.normalRender();
                     }
-
 
                     if(typeof id != 'undefined'){
 
@@ -751,8 +754,8 @@
                     }else{
                         alert('id is undefined');
                     }
-
-                    virtualclass.pdfRender[wid].initScaleController();
+                    virtualclass.zoom.init();
+                    // virtualclass.pdfRender[wid].initScaleController();
                 },
 
                 ScreenShare : function (app){
@@ -1004,6 +1007,11 @@
                         if(dstData != null){
                             clearTimeout(dstData);
                         }
+
+
+                        if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
+                             virtualclass.zoom.normalRender();
+                        }
                     }
                 },
 
@@ -1162,7 +1170,7 @@
             registerHelper : function (){
                 /** helper who returns the language String For template**/
                 Handlebars.registerHelper("getString", function(string) {
-                    console.log('Language ' + string);
+                    // console.log('Language ' + string);
                     return virtualclass.lang.getString(string);
                 });
 

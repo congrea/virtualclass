@@ -1057,46 +1057,23 @@
                 return false;
             },
 
-            // putScrollPositionInObj : function (obj){
-            //     if(virtualclass.leftPosX > 0){
-            //         obj.scx = (virtualclass.leftPosX/virtualclass.canvasScale);
-            //     }
-            //
-            //     if(virtualclass.topPosY > 0){
-            //         obj.scy = (virtualclass.topPosY/virtualclass.canvasScale);
-            //     }
-            //     return obj;
-            // },
 
             putScrollWithCevent : function (e){
                 var e = this.scaleCordinate(e);
                 return e;
-
-                // if(e.detail.cevent.hasOwnProperty('scx')){
-                //     e.detail.cevent.x += (e.detail.cevent.scx) * virtualclass.canvasScale;
-                //
-                // }
-                //
-                // if(e.detail.cevent.hasOwnProperty('scy')){
-                //     e.detail.cevent.y += (e.detail.cevent.scy) * virtualclass.canvasScale;
-                // }
-                // return  e;
             },
 
             scaleCordinate : function (ev){
-                ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.canvasScale;
-                ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.canvasScale;
+                ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.zoom.canvasScale;
+                ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.zoom.canvasScale;
                 return ev;
             },
 
             scaleMoveCordinate : function (obj){
-                obj.x = ev.detail.cevent.x / virtualclass.canvasScale;
-                obj.y = ev.detail.cevent.y / virtualclass.canvasScale;
+                obj.x = ev.detail.cevent.x / virtualclass.zoom.canvasScale;
+                obj.y = ev.detail.cevent.y / virtualclass.zoom.canvasScale;
                 return obj;
             }
-
-
-
         };
     };
     window.utility = utility;

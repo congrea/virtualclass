@@ -97,7 +97,7 @@
             var wid = virtualclass.pdfRender;
             var imageElm = virtualclass.wb[virtualclass.gObj.currWb].arrImg;
             var obj = {};
-            obj.mp = {x: eMessage.x*virtualclass.canvasScale, y: eMessage.y*virtualclass.canvasScale};
+            obj.mp = {x: eMessage.x*virtualclass.zoom.canvasScale, y: eMessage.y*virtualclass.zoom.canvasScale};
 
             var wrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
             // virtualclass.posY = (obj.mp.y - wrapper.scrollTop);

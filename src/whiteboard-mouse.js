@@ -99,8 +99,8 @@
                             var currTime = new Date().getTime();
                             var obj = vcan.makeStackObj(currTime, 'd', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
 
-                            obj.x = obj.x / virtualclass.canvasScale;
-                            obj.y = obj.y / virtualclass.canvasScale;
+                            obj.x = obj.x / virtualclass.zoom.canvasScale;
+                            obj.y = obj.y / virtualclass.zoom.canvasScale;
 
                             // console.log('Whiteboard drag start x=' + (e.clientX - vcan.main.offset.x) + ' y=' + ( e.clientY - vcan.main.offset.y) + ' x=' + (obj.x) + ' y=' + (obj.y));
 

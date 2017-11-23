@@ -103,8 +103,13 @@ newScrollVal = 0;
                 // TODO this method needs fixing
                 // virtualclass.leftPosX defines the scroll position from left side
                 // virtualclass.topPosY defines the scroll position from top side
-                var topPos = vcan.utility.pointerY(event);
-                return {x: vcan.utility.pointerX(event)+virtualclass.leftPosX, y: vcan.utility.pointerY(event) + virtualclass.topPosY};
+                var posY = 0;
+                var posX = 0;
+                if(virtualclass.gObj.currWb != null){
+                    var posY =  virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
+                    var posX =  virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
+                }
+                return {x: vcan.utility.pointerX(event)+posX, y: vcan.utility.pointerY(event) + posY};
             },
             /**
              * Gets the actual horizontal position
@@ -123,7 +128,6 @@ newScrollVal = 0;
                 return ((typeof event.clientX != 'unknown' ? event.clientX : 0) +
                     (docElement.scrollLeft || body.scrollLeft) -
                     (docElement.clientLeft || 0));
-
             },
             /**
              * Gets the actual vertical position

@@ -229,8 +229,8 @@
                 var textObj = {
                     type: 'text',
                     text: userText,
-                    x: txtWrapper.measure.x + (textHalfWidth * virtualclass.canvasScale),
-                    y: txtWrapper.measure.y + (extHeight * virtualclass.canvasScale),
+                    x: txtWrapper.measure.x + (textHalfWidth * virtualclass.zoom.canvasScale),
+                    y: txtWrapper.measure.y + (extHeight * virtualclass.zoom.canvasScale),
                     fontSize: fontSize,
                     fontWidth: ctx.measureText(userText).width,
                     //textArr : this.keyTyped, //this should add after called the function canvas.addObject(text)

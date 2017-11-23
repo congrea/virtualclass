@@ -1097,3 +1097,7 @@ this["JST"]["templates/youtube/ytscontrol.hbs"] = Handlebars.template({"compiler
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"ShareYouTubeVideo",{"name":"getString","hash":{},"data":data}))
     + "</button>\n</div>";
 },"useData":true});
+
+this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"> ZOOM in </button>\n  <button class=\"zoomOut\">ZOOM out</button>\n  <button class=\"fitScreen\">Fit to Screen</button>\n</div>";
+},"useData":true});

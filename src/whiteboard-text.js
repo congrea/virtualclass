@@ -27,7 +27,7 @@
                         obj.fontSize = 30;
                     }
 
-                    obj.fontSize = obj.fontSize * virtualclass.canvasScale;
+                    obj.fontSize = obj.fontSize * virtualclass.zoom.canvasScale;
                     //change during the unit testing
                     obj.font = obj.fontSize + 'px Times New Roman';
                     return obj;

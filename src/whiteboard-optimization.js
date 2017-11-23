@@ -65,8 +65,8 @@
 
             calculatePackets: function (time, ac, x, y) {
 
-                var x = x / virtualclass.canvasScale;
-                var y = y / virtualclass.canvasScale;
+                var x = x / virtualclass.zoom.canvasScale;
+                var y = y / virtualclass.zoom.canvasScale;
 
                 var wId = virtualclass.gObj.currWb;
                 var obj = vcan.makeStackObj(time, ac, x, y);

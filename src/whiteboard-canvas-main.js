@@ -322,7 +322,7 @@
                     if (!this.hasControls) {
                         return;
                     }
-                    var size = 8 * virtualclass.canvasScale,
+                    var size = 8 * virtualclass.zoom.canvasScale,
                         size2 = size / 2,
                         padding = this.padding,
                         left = -(this.width / 2),
@@ -616,7 +616,7 @@
 
                 obj.getAngle = function () {
                     var theta = this.theta * 180 / Math.PI;
-                    console.log('theta ' + theta);
+                    // console.log('theta ' + theta);
                     return theta;
                 };
 

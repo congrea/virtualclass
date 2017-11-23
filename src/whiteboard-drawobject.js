@@ -148,8 +148,8 @@
 
                             var currTime = new Date().getTime();
                             // var obj = vcan.makeStackObj(currTime, 'm', ev.currX + scrollPos, ev.currY + scrollPosY);
-                            var evx = ev.currX / virtualclass.canvasScale;
-                            var evy = ev.currY / virtualclass.canvasScale;
+                            var evx = ev.currX / virtualclass.zoom.canvasScale;
+                            var evy = ev.currY / virtualclass.zoom.canvasScale;
                             var obj = vcan.makeStackObj(currTime, 'm', evx, evy);
                               // console.log('whiteboard create, move position x =' + ev.currX + ' y = ' + ev.currY);
                             console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
@@ -229,15 +229,15 @@
             } else {
                 if ((wb.vcan.main.action != 'move') ||
                         ((vcan.main.currentTransform == "" || vcan.main.currentTransform == null) && wb.vcan.main.action == "move")) {
-                    var x = ev.currX / virtualclass.canvasScale;
-                    var y = ev.currY / virtualclass.canvasScale;
+                    var x = ev.currX / virtualclass.zoom.canvasScale;
+                    var y = ev.currY / virtualclass.zoom.canvasScale;
 
                     var sendData = {'createArrow': true, x: x, y: y, 'cf': 'createArrow'}
 
                     if(virtualclass.pdfRender.debugg){
                         var vp = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
                         if(vp != null){
-                            if(vp.x != null){
+                            if(vp.x != null){``
                                 sendData.vpx = vp.x;
                             }
 
@@ -289,8 +289,8 @@
                     if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') &&  ev.detail.hasOwnProperty('broadCast'))) {
                         if (dataChunk.length > 0) {
                             var currTime = new Date().getTime();
-                            var ex = endPosX / virtualclass.canvasScale;
-                            var ey = endPosY / virtualclass.canvasScale;
+                            var ex = endPosX / virtualclass.zoom.canvasScale;
+                            var ey = endPosY / virtualclass.zoom.canvasScale;
 
                             var obj = vcan.makeStackObj(currTime, 'u', ex, ey);
 

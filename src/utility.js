@@ -639,7 +639,7 @@
             }
 
             if(virtualclass.hasOwnProperty('canvasScale')){
-               localStorage.setItem('wbcScale', virtualclass.canvasScale);
+               localStorage.setItem('wbcScale', virtualclass.zoom.canvasScale);
             }
 
 

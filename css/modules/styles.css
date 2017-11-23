@@ -2978,3 +2978,13 @@
 #virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {
 	height : 94vh;
 }
+
+
+#virtualclassCont.congrea .zoomControler{
+	position: absolute;
+	top: 11px;
+	text-align: right;
+	float: right;
+	right: 360px;
+	z-index: 1;
+}

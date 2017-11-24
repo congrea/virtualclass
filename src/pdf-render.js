@@ -10,7 +10,8 @@
             pdfScale : 1,
             url : "",
             init : function (canvas, currNote){
-
+                io.globallock = true;
+                console.log("I am in INIT PDF");
                 if(typeof currNote != 'undefined'){
                     var note = virtualclass.dts.getNote(currNote);
                     this.url = note.content_path;
@@ -415,6 +416,14 @@
                         that[wb] = {pdfrender : true}
                         if(firstTime != 'undefined'){
                             that.initWhiteboardData(virtualclass.gObj.currWb);
+                        }
+                        if (typeof that.shownPdf == "object") {
+                            io.globallock = false;
+                            console.log("I am out of INIT PDF");
+                            io.onRecJson(null);
+                        } else {
+                            //debugger;
+                            console.log("We should have a PDF here");
                         }
                     }
                 );

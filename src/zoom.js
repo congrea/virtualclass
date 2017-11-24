@@ -99,11 +99,14 @@
             },
 
             normalRender : function (){
-                if(virtualclass.zoom.canvasScale != null){
-                    virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
-                    virtualclass.zoom.zoomIn('normalRender');
-                } else {
-                    console.log('canvasScale is not defined yet.');
+                var wid = virtualclass.gObj.currWb;
+                if(typeof virtualclass.pdfRender[wid].shownPdf == 'object'){
+                    if(virtualclass.zoom.canvasScale != null){
+                        virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
+                        virtualclass.zoom.zoomIn('normalRender');
+                    } else {
+                        console.log('canvasScale is not defined yet.');
+                    }
                 }
             }
         };

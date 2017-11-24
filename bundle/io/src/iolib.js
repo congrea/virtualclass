@@ -14,6 +14,8 @@ var io = {
     error: null,
     uniquesids: null,
     serial: null,
+    globallock: false,
+    globalmsgjson: [],
     packetQueue: [],
     init: function(cfg, callback) {
         "use strict";
@@ -284,6 +286,23 @@ var io = {
         //}
     },
     onRecJson: function(receivemsg) {
+        if (io.globallock === false ) {
+            if (io.globalmsgjson.length > 0) {
+                while (io.globalmsgjson.length > 0 && io.globallock === false){
+                    var recmsg = io.globalmsgjson.shift();
+                    io.onRecJsonIndividual(recmsg);
+                }
+            } else if (receivemsg != null && io.globallock === false && io.globalmsgjson.length == 0) {
+                io.onRecJsonIndividual(receivemsg);
+            } else if (receivemsg != null) {
+                io.globalmsgjson.push(receivemsg);
+            }
+        } else if (receivemsg != null) {
+            io.globalmsgjson.push(receivemsg);
+        }
+    },
+
+    onRecJsonIndividual: function(receivemsg) {
 
 //        if( typeof receivemsg.m !='undefined') {
 //            if( typeof receivemsg.m.ppt !='undefined') {

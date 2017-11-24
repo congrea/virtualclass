@@ -627,7 +627,7 @@
                     if(typeof this.pdfRender[wid] != 'object'){
                         this.pdfRender[wid] = window.pdfRender();
                     }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-                        virtualclass.zoom.normalRender();
+                         virtualclass.zoom.normalRender();
                     }
 
                     if(typeof id != 'undefined'){
@@ -986,7 +986,6 @@
 
 
                         if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
-                             virtualclass.zoom.normalRender();
                         }
                     }
                 },

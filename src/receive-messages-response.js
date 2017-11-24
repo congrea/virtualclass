@@ -94,12 +94,12 @@
         },
 
         createArrow: function (eMessage) {
-            var wid = virtualclass.pdfRender;
-            var imageElm = virtualclass.wb[virtualclass.gObj.currWb].arrImg;
+            var wid = virtualclass.gObj.currWb;
+            var imageElm = virtualclass.wb[wid].arrImg;
             var obj = {};
             obj.mp = {x: eMessage.x*virtualclass.zoom.canvasScale, y: eMessage.y*virtualclass.zoom.canvasScale};
 
-            var wrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+            var wrapper = document.querySelector('#canvasWrapper'+wid);
             // virtualclass.posY = (obj.mp.y - wrapper.scrollTop);
             // virtualclass.posX = (obj.mp.x - wrapper.scrollLeft);
 
@@ -112,7 +112,7 @@
 
 
             if(virtualclass.pdfRender[wid].scroll.Y !=  null){
-                virtualclass.pdfRender.customMoustPointer({y:virtualclass.posY}, 'Y', virtualclass.posY);
+                virtualclass.pdfRender[wid].customMoustPointer({y:virtualclass.posY}, 'Y', virtualclass.posY);
             }
 
             if(virtualclass.pdfRender[wid].scroll.X !=  null){

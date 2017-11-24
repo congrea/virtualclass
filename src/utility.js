@@ -608,7 +608,7 @@
                     console.log('currentDocument ' + currDoc);
                     // console.dir('currDoc ' + virtualclass.dts.docs[virtualclass.dts.docs.currDoc]);
                     //  var slideNumber = virtualclass.dts.docs.note.currNote;
-                    console.dir('curr slider suman ' + virtualclass.dts.docs.note.currNote);
+
                     if(virtualclass.dts.order.length > 0){
                         prvAppObj.metaData = {
                             'init': currDoc,
@@ -638,10 +638,13 @@
                 console.log("quiz data saved");
             }
 
-            if(virtualclass.hasOwnProperty('canvasScale')){
-               localStorage.setItem('wbcScale', virtualclass.zoom.canvasScale);
+            if(virtualclass.zoom.canvasScale != null){
+                var canvasScale = (+virtualclass.zoom.canvasScale);
+                console.log('canvasScale ' + canvasScale);
+                if(virtualclass.vutil.isNumeric(canvasScale)){
+                    localStorage.setItem('wbcScale', canvasScale);
+                };
             }
-
 
             // not storing the YouTube status on student's storage
             // Not showing the youtube video is at student if current app is not youtube
@@ -664,6 +667,8 @@
                 docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
                 localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
+
+            console.dir('Previous object ' + prvAppObj);
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
@@ -2277,6 +2282,10 @@
                 visibleTop = elTop < scrollTop ? scrollTop : elTop,
                 visibleBottom = elBottom > scrollBot ? scrollBot : elBottom;
                 return (visibleBottom-visibleTop);
+        },
+
+        isNumeric : function(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
         }
     };
     window.vutil = vutil;

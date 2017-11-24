@@ -9,8 +9,8 @@
             canvas : null,
             pdfScale : 1,
             url : "",
-            canvasScale : '',
             init : function (canvas, currNote){
+
                 if(typeof currNote != 'undefined'){
                     var note = virtualclass.dts.getNote(currNote);
                     this.url = note.content_path;
@@ -33,6 +33,7 @@
                 var that = this;
                 PDFJS.getDocument(this.url).then(function (pdf) {
                     that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');}, true);
+                    // that.displayPage(pdf, 1, true);
                     that.shownPdf = pdf;
                 });
                 if(!roles.hasControls()){
@@ -353,7 +354,7 @@
                 }
             },
 
-            renderPage : function  (page)  {
+            renderPage : function  (page, firstTime)  {
                 //virtualclass.zoom.canvasScale = canvasScale;
                 var scale = this.pdfScale;
                 if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
@@ -406,33 +407,43 @@
                 var that = this;
                 page.render(renderContext).then(
                     function (){
+                        console.log('Pdf test, pdf rendered');
                         var url = canvas.toDataURL('image/jpeg');
                         canvas.style.background = 'url(' + url + ')';
                         canvas.style.backgroundRepeat = 'no-repeat';
                         displayCb();
                         that[wb] = {pdfrender : true}
+                        if(firstTime != 'undefined'){
+                            that.initWhiteboardData(virtualclass.gObj.currWb);
+                        }
                     }
                 );
-
             },
 
+            // displayPage : function (pdf, num, firstTime) {
             displayPage : function (pdf, num, cb, firstTime) {
                 displayCb = cb;
                 var that = this;
                 pdf.getPage(num).then(function getPage(page) {
                     console.log('PDF is being rendered first time');
                     that.page = page
-                    that.renderPage(page);
                     if(typeof firstTime != 'undefined'){
-                        var wb = virtualclass.gObj.currWb;
-                        that.initWhiteboardData(wb);
+                        that.renderPage(page, firstTime);
+                    } else {
+                        that.renderPage(page);
                     }
+
+                    // if(typeof firstTime != 'undefined'){
+                    //     var wb = virtualclass.gObj.currWb;
+                    //     that.initWhiteboardData(wb);
+                    // }
+
                 });
             },
 
             initWhiteboardData : function (wb){
-                // Below condition is satisfied only if the whiteboard data is...
-                // ...available in indexDB
+                /** Below condition is satisfied only if the whiteboard data is...
+                 ..available in indexDB **/
                 if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' ){
                     if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
                         var that = this;
@@ -442,6 +453,7 @@
                             },500
                         );
                     } else {
+                        console.log('Pdf test, init whiteboard ');
                         virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
                     }
                 }

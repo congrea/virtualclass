@@ -458,7 +458,9 @@ $(document).ready(function () {
                 ioAdapter.sendUser(iamObj, jId);
                 if(roles.hasControls()){
                     var wid = virtualclass.gObj.currWb;
-                    virtualclass.pdfRender[wid].sendCurrentScroll(jId);
+                    if(virtualclass.pdfRender[wid] != null ){
+                        virtualclass.pdfRender[wid].sendCurrentScroll(jId);
+                    }
                 }
                 console.log('Member, ping to new user, From ' + virtualclass.gObj.uid + ' To ' + virtualclass.jId);
             }
@@ -470,7 +472,6 @@ $(document).ready(function () {
             setTimeout(function (){
                 memberUpdate(e,f);
             },0) // 3000
-
         }
 
         /**
@@ -792,7 +793,10 @@ $(document).ready(function () {
                     (function(jId){
                         setTimeout(function () {
                             joinAsTeacher(jId)
-                            virtualclass.pdfRender[virtualclass.gObj.currWb].sendScroll();
+                            var wid = virtualclass.gObj.currWb;
+                            if(virtualclass.pdfRender[wid] != null){
+                                virtualclass.pdfRender[wid].sendScroll();
+                            }
                         }, virtualclass.gObj.mySetTime);
                     }(virtualclass.jId));
 

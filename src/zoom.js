@@ -99,8 +99,12 @@
             },
 
             normalRender : function (){
-                virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
-                virtualclass.zoom.zoomIn('normalRender');
+                if(virtualclass.zoom.canvasScale != null){
+                    virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
+                    virtualclass.zoom.zoomIn('normalRender');
+                } else {
+                    console.log('canvasScale is not defined yet.');
+                }
             }
         };
     }

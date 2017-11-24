@@ -1,26 +1,4 @@
 (function (window) {
-    // function setWidth(wbId, canvas, width){
-    //
-    //     var canvas = document.querySelector('#canvas'+wbId);
-    //     canvas.width = width;
-    //
-    //    // virtualclass.wb[wbId].vcan.renderAll();
-    // }
-    //
-    // function setHeight(wbId, canvas, height){
-    //     var canvas = document.querySelector('#canvas'+wbId);
-    //     canvas.height =  height;
-    //     // virtualclass.wb[wbId].vcan.renderAll();
-    // }
-    //
-    // function getWidth(canvas){
-    //     return canvas.width;
-    // }
-    //
-    // function getHeight(canvas){
-    //     return canvas.height;
-    // }
-
     window.virtualclass = function () {
         // canvasScale = 1; //global
         SCALE_FACTOR = 1.02;//global 18/05/2015
@@ -28,7 +6,6 @@
         var dstData = null;
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
-            canvasScale : 1,
             isPlayMode :playMode,
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
             appSessionEnd: "virtualclassSessionEnd",
@@ -654,7 +631,6 @@
                     }
 
                     if(typeof id != 'undefined'){
-
                         if (typeof this.wb[id] != 'object') {
                             if(typeof this.wb != 'object'){
                                 this.wb = {};
@@ -662,7 +638,6 @@
                             virtualclass.gObj.commandToolsWrapperId[id] =  'commandToolsWrapper' + id;
                             this.wb[id] = {};
                             virtualclass.gObj.tempReplayObjs[id] = [];
-
 
                             this.wb[id] = new window.whiteboard(this.wbConfig, id);
 
@@ -703,7 +678,8 @@
                                 }
 
                                 if(virtualclass.currApp == 'DocumentShare') {
-                                    var currNote = virtualclass.dts.docs.currNote;
+                                    // var currNote = virtualclass.dts.docs.currNote; // this is obsolete here
+                                    var currNote = virtualclass.dts.docs.note.currNote;
                                      virtualclass.pdfRender[wid].init(canvas, currNote);
                                 }  else {
                                     virtualclass.pdfRender[wid].init(canvas);

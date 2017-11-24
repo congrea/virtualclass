@@ -472,100 +472,6 @@
                 }
             },
 
-            // onResponseFiles2 : function (doc, slides, docFetch, slide, fromReload){
-            //     if(firstTime){
-            //         this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
-            //         // this.order = [];
-            //         firstTime = false;
-            //     }
-            //
-            //     if(roles.hasControls()){
-            //         var addSlide = this.toggleSlideWithOrder(doc, slides)
-            //     } else {
-            //         var addSlide = (typeof docFetch != 'undefined') ? (+docFetch) : true;
-            //     }
-            //
-            //     //var addSlide = this.toggleSlideWithOrder(doc, slides);
-            //     if(addSlide){
-            //         this.addPages(slides);
-            //
-            //         var cthis = this;
-            //         if(typeof doc != 'string'){
-            //             var docId = 'docs'+doc;
-            //         } else {
-            //             if(doc.indexOf('docs') >= 0){
-            //                 var docId = doc;
-            //             }else{
-            //                 var docId = 'docs'+doc;
-            //             }
-            //         }
-            //         // suman new,
-            //         // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-            //
-            //         // var notesPreview = document.querySelector('#notesPreview');
-            //         // if(notesPreview != null){
-            //         //     mainCont.appendChild(notesPreview);
-            //         // }
-            //
-            //         // var pageContainer = document.querySelector('#screen-docs .pageContainer');
-            //         // if(pageContainer != null){
-            //         //
-            //         //     this.UI.createMainContent(pageContainer, slides, doc);
-            //         //
-            //         //     if(typeof slide != 'undefined'){
-            //         //         this.docs.displayScreen(docId, slide);
-            //         //     }else{
-            //         //         this.docs.displayScreen(docId);
-            //         //     }
-            //         // } else {
-            //         //     alert('slide container is null');
-            //         // }
-            //
-            //         // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-            //         // this.UI.createMainContent(pageContainer, slides, doc);
-            //
-            //         var noteObj = {notes :  slides, hasControls : roles.hasControls(), cd : docId};
-            //         var docTemplate = JST['templates/docMain.hbs'];
-            //         var docHtml =  docTemplate(noteObj);
-            //         var docScreenContainer  = document.querySelector('#docScreenContainer');
-            //         if(docScreenContainer != null){
-            //           docScreenContainer.innerHTML = docHtml;
-            //         }else{
-            //           alert('there is null');
-            //         }
-            //
-            //         if(typeof slide != 'undefined'){
-            //           this.docs.displayScreen(docId, slide);
-            //         }else{
-            //           this.docs.displayScreen(docId);
-            //         }
-            //
-            //         // var pageContainer = document.querySelector('#screen-docs .pageContainer');
-            //
-            //         // if(pageContainer != null){
-            //         //   this.UI.createMainContent(pageContainer, slides, doc);
-            //         //
-            //         //   if(typeof slide != 'undefined'){
-            //         //     this.docs.displayScreen(docId, slide);
-            //         //   }else{
-            //         //     this.docs.displayScreen(docId);
-            //         //   }
-            //         // } else {
-            //         //   alert('slide container is null');
-            //         // }
-            //
-            //         (typeof fromReload != 'undefined') ? this.createNoteNav(fromReload) : this.createNoteNav();
-            //         this.updateLinkNotes(this.docs.currNote);
-            //     } else {
-            //         this.removePagesUI(doc);
-            //     }
-            //
-            //     if(roles.hasAdmin()){
-            //         this.sendOrder(this.order);
-            //         console.log('Document share:- ' + this.order.toString());
-            //     }
-            // },
-
           onResponseFiles : function (doc, slides, docFetch, slide, fromReload){
             if(firstTime){
               this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
@@ -707,10 +613,11 @@
                     if(document.querySelector('.docsDbCont') == null) {
                         // Creating  DOC's Dashboard
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
-                        virtualclass.vutil.attachEventToUploadTab();
-                        virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                        if(roles.hasControls()){
+                            virtualclass.vutil.attachEventToUploadTab();
+                            virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                        }
                     }
-
                 },
 
                 createMainContent : function (container, content, docId){

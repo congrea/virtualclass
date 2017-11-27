@@ -1018,11 +1018,12 @@
                                         if(!activeSlide){
                                             alert('Thre is no page');
                                         }else{
-                                            this.getScreen(activeSlide);
+                                            // by true, know the event is performed real user
+                                            this.getScreen(activeSlide, true);
                                             cthis.docs.currNote = activeSlide.dataset.slide;
                                         }
                                     } else {
-                                        this.getScreen(prevSlide);
+                                        this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
                                     }
 
@@ -1072,12 +1073,13 @@
                                             if(!activeSlide){
                                                 alert('Thre is no page');
                                             }else{
-                                                this.getScreen(activeSlide);
+                                                this.getScreen(activeSlide, true);
                                                 cthis.docs.currNote = activeSlide.dataset.slide;
                                             }
 
                                         } else {
-                                            this.getScreen(nextSlide);
+                                            // by true, know the event is performed real user
+                                            this.getScreen(nextSlide, true);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
                                         }
                                     }
@@ -1110,7 +1112,7 @@
                         /**
                          * Create the screen with Whiteboard and Current slide
                          */
-                        getScreen : function(note){
+                        getScreen : function(note, userClicked){
                             this.currSlide = note.dataset.slide;
                             this.currNote = note.dataset.slide;
                             virtualclass.dts.currDoc = this.doc;
@@ -1120,8 +1122,13 @@
                             if(!this.isWhiteboardExist(this.currNote)){
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             }else {
-                                // virtualclass.zoom.normalRender();
+                                if(userClicked){
+                                    /*** This handles Canvas Scale when user zooms PDFs/Docs and go for the next screen,
+                                    but this should not be performed on new user's joining otherwise it results overlapping PDFs ***/
+                                    virtualclass.zoom.normalRender();
+                                }
                             }
+
                             virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 

@@ -986,6 +986,7 @@
 
 
                         if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
+                            virtualclass.zoom.normalRender();
                         }
                     }
                 },

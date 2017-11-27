@@ -16,7 +16,7 @@
                     var note = virtualclass.dts.getNote(currNote);
                     this.url = note.content_path;
                 }else {
-                    this.url = 'https://local.vidya.io/virtualclass/example/sample.pdf';
+                    this.url = whiteboardPath + 'example/sample.pdf';
                 }
 
                 this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
@@ -422,7 +422,6 @@
                             console.log("I am out of INIT PDF");
                             io.onRecJson(null);
                         } else {
-                            //debugger;
                             console.log("We should have a PDF here");
                         }
                     }
@@ -466,24 +465,6 @@
                         virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
                     }
                 }
-
-            },
-
-            zoomIn : function (){
-                // var wrapper = document.querySelector('#canvasWrapper'+  virtualclass.gObj.currWb);
-                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(this.canvasWrapper.style.width);
-                var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
-                // var canvas = this.canvas;
-
-                virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
-                virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale * SCALE_FACTOR;
-
-                console.log('Canvas scale ' + virtualclass.zoom.canvasScale);
-
-                var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
-                var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
-
-                this._zoom(canvas, actualWidth, actualHeight);
 
             },
 
@@ -553,34 +534,13 @@
                 vcan.renderAll();
             },
 
-            zoomOut : function (){
-                var wrapper = this.canvasWrapper;
-                //var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
-                var canvas = this.canvas;
-                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
 
-                virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
-
-                // SCALE_FACTOR = (1 - (((virtualclass.zoom.canvasScale * 1) - 0.05) / virtualclass.zoom.canvasScale)) + 1;
-
-
-                virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
-
-                var actualWidth  = virtualclass.vutil.getWidth(canvas) * (1 / SCALE_FACTOR);
-                var actualHeight = virtualclass.vutil.getHeight(canvas) * (1 / SCALE_FACTOR);
-
-                if(actualWidth <= wrapperWidth){
-                    wrapper.classList.remove('scrollX');
-                }
-
-                this.zoomOut(canvas, actualWidth, actualHeight);
-
-            },
 
             _zoomOut : function (canvas, actualWidth, actualHeight, normalZoom){
                 virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, actualHeight);
                 virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
                 var that = this;
+
                 this.displayPage(this.shownPdf,  1, function (){
                     for(wid in virtualclass.pdfRender){
                         that.zoomOutWhiteboardObjects(wid);

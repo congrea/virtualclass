@@ -682,7 +682,7 @@
                                     var currNote = virtualclass.dts.docs.note.currNote;
                                      virtualclass.pdfRender[wid].init(canvas, currNote);
                                 }  else {
-                                    virtualclass.pdfRender[wid].init(canvas);
+                                     virtualclass.pdfRender[wid].init(canvas);
                                 }
 
                                 // Only need to  serve on after page refresh

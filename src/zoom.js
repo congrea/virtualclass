@@ -58,8 +58,6 @@
                 }else {
                     virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
                 }
-
-                // this._zoom(canvas, actualWidth, actualHeight);
             },
 
             zoomOut : function (){
@@ -71,9 +69,6 @@
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
 
                 this.prvCanvasScale = this.canvasScale;
-
-                // SCALE_FACTOR = (1 - (((virtualclass.zoom.canvasScale * 1) - 0.05) / virtualclass.zoom.canvasScale)) + 1;
-
 
                 this.canvasScale = this.canvasScale / SCALE_FACTOR;
 

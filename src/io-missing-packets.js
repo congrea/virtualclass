@@ -401,6 +401,7 @@ var ioMissingPackets = {
         this.missRequest[uid] = 0;
         ioMissingPackets.missRequestFlag = 0;
         virtualclass.vutil.initCommonSortingChat();
+
     },
 
     /**

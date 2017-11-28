@@ -237,7 +237,7 @@
                     if(virtualclass.pdfRender.debugg){
                         var vp = virtualclass.pdfRender.actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
                         if(vp != null){
-                            if(vp.x != null){``
+                            if(vp.x != null){
                                 sendData.vpx = vp.x;
                             }
 

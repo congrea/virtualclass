@@ -22,6 +22,7 @@
             //lang: {},
             error: [],
             pdfRender : {},
+            clearGlobalLock : '',
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -627,7 +628,7 @@
                     if(typeof this.pdfRender[wid] != 'object'){
                         this.pdfRender[wid] = window.pdfRender();
                     }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-                         virtualclass.zoom.normalRender();
+                        virtualclass.zoom.normalRender();
                     }
 
                     if(typeof id != 'undefined'){
@@ -680,7 +681,24 @@
                                 if(virtualclass.currApp == 'DocumentShare') {
                                     // var currNote = virtualclass.dts.docs.currNote; // this is obsolete here
                                     var currNote = virtualclass.dts.docs.note.currNote;
-                                     virtualclass.pdfRender[wid].init(canvas, currNote);
+
+                                    // io.globallock = true;
+                                    // console.log("I am in of INIT PDF");
+                                    //
+                                    // if(this.clearGlobalLock != ''){
+                                    //     clearTimeout(this.clearGlobalLock);
+                                    // }
+                                    // this.clearGlobalLock  = setTimeout(
+                                    //     function (){
+                                    //         io.globallock = false;
+                                    //         console.log("I am out of INIT PDF");
+                                    //         io.onRecJson(null);
+                                    //         virtualclass.zoom.normalRender();
+                                    //     },1000
+                                    // );
+
+                                    virtualclass.pdfRender[wid].init(canvas, currNote);
+
                                 }  else {
                                      virtualclass.pdfRender[wid].init(canvas);
                                 }
@@ -984,9 +1002,8 @@
                             clearTimeout(dstData);
                         }
 
-
                         if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
-                            virtualclass.zoom.normalRender();
+                          virtualclass.zoom.normalRender();
                         }
                     }
                 },

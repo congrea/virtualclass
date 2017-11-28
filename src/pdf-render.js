@@ -11,7 +11,7 @@
             url : "",
             init : function (canvas, currNote){
                 io.globallock = true;
-                console.log("I am in INIT PDF");
+
                 if(typeof currNote != 'undefined'){
                     var note = virtualclass.dts.getNote(currNote);
                     this.url = note.content_path;
@@ -356,6 +356,7 @@
             },
 
             renderPage : function  (page, firstTime)  {
+
                 //virtualclass.zoom.canvasScale = canvasScale;
                 var scale = this.pdfScale;
                 if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
@@ -406,26 +407,32 @@
                 };
 
                 var that = this;
+
                 page.render(renderContext).then(
                     function (){
                         console.log('Pdf test, pdf rendered');
                         var url = canvas.toDataURL('image/jpeg');
                         canvas.style.background = 'url(' + url + ')';
                         canvas.style.backgroundRepeat = 'no-repeat';
-                        displayCb();
                         that[wb] = {pdfrender : true}
                         if(firstTime != 'undefined'){
                             that.initWhiteboardData(virtualclass.gObj.currWb);
                         }
+                        displayCb();
                         if (typeof that.shownPdf == "object") {
-                            io.globallock = false;
-                            console.log("I am out of INIT PDF");
-                            io.onRecJson(null);
+                            setTimeout(
+                                function (){
+                                    io.globallock = false;
+                                    io.onRecJson(null);
+                                },10
+                            );
+                            // virtualclass.zoom.normalRender();
                         } else {
                             console.log("We should have a PDF here");
                         }
                     }
                 );
+
             },
 
             // displayPage : function (pdf, num, firstTime) {

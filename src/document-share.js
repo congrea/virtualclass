@@ -163,11 +163,13 @@
                   template =  'screen';
                   mainContainer = document.querySelector('#docScreenContainer');
 
+
                 }else{
                   tempCont = {notes :  allNotes};
                   template = 'notesMain';
                   mainContainer =  document.querySelector('#screen-docs #notesContainer');
                 }
+
                 template =  virtualclass.getTemplate(template, 'documentSharing');
                 tempHtml = template(tempCont);
 
@@ -649,13 +651,13 @@
                                 note.dataset.status = allNotes[i].status;
                             }
 
-                            var imgContainer = document.createElement('div');
-                                imgContainer.className = 'imageContainer';
-                            var img = document.createElement('img');
-                            img.src = allNotes[i].content_path;
-                            imgContainer.appendChild(img);
-                            note.appendChild(imgContainer);
-                            notes.appendChild(note);
+                            // var imgContainer = document.createElement('div');
+                            //     imgContainer.className = 'imageContainer';
+                            // var img = document.createElement('img');
+                            // img.src = allNotes[i].content_path;
+                            // imgContainer.appendChild(img);
+                            // note.appendChild(imgContainer);
+                            // notes.appendChild(note);
                         }
                     }
 
@@ -1122,11 +1124,8 @@
                             if(!this.isWhiteboardExist(this.currNote)){
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             }else {
-                                if(userClicked){
-                                    /*** This handles Canvas Scale when user zooms PDFs/Docs and go for the next screen,
-                                    but this should not be performed on new user's joining otherwise it results overlapping PDFs ***/
-                                    virtualclass.zoom.normalRender();
-                                }
+                                // If there is a zoom, that needs to apply at in next/previous screen,
+                                virtualclass.zoom.normalRender();
                             }
 
                             virtualclass.vutil.updateCurrentDoc(this.currNote);
@@ -1660,17 +1659,17 @@
 
             },
 
-            setNoteImageDimension : function (width, height, nid){
-              var contElem =  document.querySelector('#cont' + nid);
-              if(contElem != null){
-                var noteContainer = contElem.parentNode;
-                var imageContainer = document.querySelector('#'+ noteContainer.id +  ' .imageContainer img');
-                imageContainer.style.width = width;
-                imageContainer.style.height = height;
-              }else {
-                alert(nid + ' is null');
-              }
-            },
+            // setNoteImageDimension : function (width, height, nid){
+            //   var contElem =  document.querySelector('#cont' + nid);
+            //   if(contElem != null){
+            //     var noteContainer = contElem.parentNode;
+            //     var imageContainer = document.querySelector('#'+ noteContainer.id +  ' .imageContainer img');
+            //     imageContainer.style.width = width;
+            //     imageContainer.style.height = height;
+            //   }else {
+            //     alert(nid + ' is null');
+            //   }
+            // },
 
             isFirstNote : function (id){
                 var firstNote = document.querySelector('#notesContainer .note');

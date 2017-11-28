@@ -11,6 +11,7 @@
             url : "",
             init : function (canvas, currNote){
                 io.globallock = true;
+                virtualclass.gObj.firstNormalRender = false;
 
                 if(typeof currNote != 'undefined'){
                     var note = virtualclass.dts.getNote(currNote);
@@ -424,6 +425,20 @@
                                 function (){
                                     io.globallock = false;
                                     io.onRecJson(null);
+
+                                    if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
+                                        clearTimeout(virtualclass.gObj.pdfNormalTimeout);
+                                    }
+
+                                    if(!virtualclass.gObj.firstNormalRender){
+                                        virtualclass.gObj.pdfNormalTimeout =  setTimeout(
+                                            function (){
+                                                console.log('pdfNormal render');
+                                                virtualclass.zoom.normalRender();
+                                                virtualclass.gObj.firstNormalRender = true;
+                                            }, 500
+                                        );
+                                    }
                                 },10
                             );
                             // virtualclass.zoom.normalRender();

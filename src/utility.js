@@ -82,7 +82,6 @@
         },
 
         setContainerWidth2 : function(res, app) {
-            return;
             var reduceHeight;
             if (virtualclass.isPlayMode) {
                 reduceHeight += 75;
@@ -131,8 +130,6 @@
 
         //TODO very critical and important for remove return
         setContainerWidth : function(res, app) {
-
-            return;
             var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
 
@@ -156,8 +153,11 @@
 
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
-                    var offset = vcan.utility.getElementOffset(leftSideBar);
-                    leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
+                    if(virtualclass.gObj.currWb != null){
+                        var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                        var offset = vcan.utility.getElementOffset(leftSideBar);
+                        leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
+                    }
                 } else {
                     leftSideBarWidth = roles.hasControls() ? 60 : 5;
                 }
@@ -206,6 +206,15 @@
                     appCont.style.width = res.width;
                     ssType.style.width = res.width + "px";
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
+                }else if(appId == 'virtualclassDocumentShare'){
+                    var wb = virtualclass.gObj.currWb;
+
+                    var canWrapper = document.querySelector('#canvasWrapper' +wb);
+
+                    canWrapper.style.width = res.width + "px";
+                    canWrapper.style.height = res.height + "px";
+
+
                 }
 
                 console.log('Container width ' + appId + ' ' + res.width );
@@ -2286,6 +2295,10 @@
 
         isNumeric : function(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
+        },
+
+        setContainerDimension : function (width, height){
+
         }
     };
     window.vutil = vutil;

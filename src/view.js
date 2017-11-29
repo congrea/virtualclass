@@ -280,7 +280,13 @@
             virtualclass.wb[cwb].vcan.renderAll();
         }
         view.windowResizeFinished();
-
+        window.earlierWidth = window.innerWidth;
+        if(virtualclass.currApp == 'Whiteboard'){
+            if(virtualclass.gObj.currWb != null){
+                system.setCanvasDimension(res, virtualclass.gObj.currWb);
+                virtualclass.wb[virtualclass.gObj.currWb].vcan.renderAll();
+            }
+        }
     },
 
     // this funciton is triggered when

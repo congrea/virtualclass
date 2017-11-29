@@ -416,7 +416,7 @@
                         canvas.style.background = 'url(' + url + ')';
                         canvas.style.backgroundRepeat = 'no-repeat';
                         that[wb] = {pdfrender : true}
-                        if(firstTime != 'undefined'){
+                        if(firstTime != undefined){
                             that.initWhiteboardData(virtualclass.gObj.currWb);
                         }
                         displayCb();
@@ -657,7 +657,7 @@
             },
 
             calculateScaleAtFirst : function (page, canvas){
-                var viewport = page.getViewport((+(canvas.width)-100) / page.getViewport(1.0).width);
+                var viewport = page.getViewport((+(canvas.parentNode.offsetWidth)-100) / page.getViewport(1.0).width);
                 this.firstTime = false;
                 return viewport;
             },

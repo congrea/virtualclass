@@ -47,8 +47,12 @@
 
             updateScrollPosition : function (pos, type){
                 var tp = type;
-                this.scroll[tp].b = pos;
-                this.scroll[tp].c = this.scroll[tp].b  + this.scroll[tp].studentVPm;
+                if(typeof this.scroll[tp] == 'object' && this.scroll[tp].hasOwnProperty('b')){
+                    this.scroll[tp].b = pos;
+                    this.scroll[tp].c = this.scroll[tp].b  + this.scroll[tp].studentVPm;
+                }else {
+                    console.log('Scroll b is undefined');
+                }
             },
 
             // for teacher
@@ -66,34 +70,44 @@
 
                 var that  = this;
 
+                var that =  this;
                 elem.onscroll = function (){
-                    topPosY = elem.scrollTop;
-                    leftPosX = elem.scrollLeft;
-                    var sendData = null;
+                    that.onScroll(elem);
+                }
 
-                    if(topPosY > 0){
-                        // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
-                        var tempData = that._scroll(leftPosX, topPosY, elem, 'Y');
-                        if(tempData != null){
-                            sendData  = tempData;
-                        }
+            },
+
+            onScroll : function (elem, defaultCall){
+                var topPosY, leftPosX;
+
+
+                topPosY = elem.scrollTop;
+                leftPosX = elem.scrollLeft;
+
+                var sendData = null;
+
+                if(topPosY > 0){
+                    // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
+                    var tempData = this._scroll(leftPosX, topPosY, elem, 'Y');
+                    if(tempData != null){
+                        sendData  = tempData;
                     }
+                }
 
-                    if(leftPosX > 0){
-                        var resX = that._scroll(leftPosX, topPosY, elem, 'X');
-                        if(sendData != null){
-                            // Merging the object resX with sendData
-                            if(resX != null){
-                                sendData = Object.assign(sendData, resX);
-                            }
-                        }
-                    }
-
+                if(leftPosX > 0){
+                    var resX = this._scroll(leftPosX, topPosY, elem, 'X');
                     if(sendData != null){
-                        sendData.cf =  'sc';
-                        virtualclass.vutil.beforeSend(sendData);
-                        that.currentScroll = sendData;
+                        // Merging the object resX with sendData
+                        if(resX != null){
+                            sendData = Object.assign(sendData, resX);
+                        }
                     }
+                }
+
+                if(sendData != null){
+                    sendData.cf =  'sc';
+                    virtualclass.vutil.beforeSend(sendData);
+                    this.currentScroll = sendData;
                 }
             },
 
@@ -351,7 +365,7 @@
                             that.currentScroll.cf = 'scf';
                             virtualclass.vutil.beforeSend(that.currentScroll, toUser);
                             console.log('Send to user ' + toUser);
-                        }, 2000
+                        }, 2500
                     );
                 }
             },

@@ -607,6 +607,7 @@
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
                 virtualclass.wb = ""; // make white board empty
+                delete virtualclass.gObj.currWb; //deleting current whiteboard
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 

@@ -940,10 +940,19 @@ $(document).ready(function () {
 
                     if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)) {
                         virtualclass.popup.closePopup();
+
+                        if(roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+                            var wb = virtualclass.gObj.currWb;
+                            if(wb != null){
+                                // Defualt scroll trigger
+                                virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
+                            }
+                        }
                         var popupContainer = document.getElementById('popupContainer');
                         if (popupContainer != null) {
                             popupContainer.style.display = 'none';
                         }
+
                         console.log('Popup box Close All');
                     } else {
                         console.log('Popup box Could not close');
@@ -1451,6 +1460,7 @@ $(document).ready(function () {
 
             this.scf = function (e){
                 console.log('Recevied scroll first');
+                console.dir(e.message);
                 virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
             }
 

@@ -130,7 +130,12 @@
 
         //TODO very critical and important for remove return
         setContainerWidth : function(res, app) {
-            var appId = 'virtualclassWhiteboard';
+            if(app != null){
+                var appId = 'virtualclass' + app;
+            } else {
+                var appId = 'virtualclassWhiteboard';
+            }
+
             if (typeof virtualclass.previous != 'undefined') {
 
                 if ('virtualclass' + app != virtualclass.previous) {

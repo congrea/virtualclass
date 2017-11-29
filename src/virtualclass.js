@@ -35,6 +35,7 @@
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
                 meetingMode : +(wbUser.meetingMode),
                 chromeExt : false,
+                pdfdebugg : false //To draw scroll for debugging process
             },
 
             enablePreCheck : true,

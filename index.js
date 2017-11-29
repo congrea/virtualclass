@@ -262,7 +262,9 @@ $(document).ready(function () {
 
             memberUpdateWithDelay(e, 'removed')
 
-            virtualclass.multiVideo.onUserRemove(removeUser);
+            if(virtualclass.gObj.meetingMode){
+                virtualclass.multiVideo.onUserRemove(removeUser);
+            }
 
         });
 
@@ -763,6 +765,7 @@ $(document).ready(function () {
                     var speed = virtualclass.videoHost.gObj.MYSPEED;
                 }
                 virtualclass.videoHost.setDefaultValue(speed);
+                virtualclass.vutil.setDefaultScroll();
             }
 
             virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
@@ -795,7 +798,7 @@ $(document).ready(function () {
                             joinAsTeacher(jId)
                             var wid = virtualclass.gObj.currWb;
                             if(virtualclass.pdfRender[wid] != null){
-                                virtualclass.pdfRender[wid].sendScroll();
+                                virtualclass.pdfRender[wid].sendScroll(); // when user Join as teacher
                             }
                         }, virtualclass.gObj.mySetTime);
                     }(virtualclass.jId));
@@ -859,7 +862,7 @@ $(document).ready(function () {
                 ioAdapter.mustSend({'uid': virtualclass.gObj.uid, ac:true, 'cf': 'tsr'});
             }
 
-            if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode   ){
+            if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode ){
                 virtualclass.multiVideo.onUserJoin(virtualclass.jId);
             }
 
@@ -940,14 +943,7 @@ $(document).ready(function () {
 
                     if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)) {
                         virtualclass.popup.closePopup();
-
-                        if(roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-                            var wb = virtualclass.gObj.currWb;
-                            if(wb != null){
-                                // Defualt scroll trigger
-                                virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
-                            }
-                        }
+                        virtualclass.vutil.setDefaultScroll();
                         var popupContainer = document.getElementById('popupContainer');
                         if (popupContainer != null) {
                             popupContainer.style.display = 'none';

@@ -2304,6 +2304,16 @@
 
         setContainerDimension : function (width, height){
 
+        },
+
+        setDefaultScroll : function (){
+            if(roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+                var wb = virtualclass.gObj.currWb;
+                if(wb != null){
+                    // Defualt scroll trigger
+                    virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
+                }
+            }
         }
     };
     window.vutil = vutil;

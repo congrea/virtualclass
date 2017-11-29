@@ -2,7 +2,6 @@
     function pdfRender(){
         return {
             firstTime : true,
-            debugg : false,
             shownPdf: "",
             canvasWrapper : null,
             canvasId: null,
@@ -43,6 +42,7 @@
                     this.leftPosX = 0;
                 }
                 this.scrollEvent();
+
             },
 
             updateScrollPosition : function (pos, type){
@@ -167,8 +167,11 @@
                     /*
                     * TODO, this should be done with global object
                     * */
-                    if(virtualclass.pdfRender.debugg){
+                    if(virtualclass.gObj.pdfdebugg){
                         this.draw(scrollM, pos);
+                    }else {
+                        // alert('sss');
+                        // debugger;
                     }
 
                     var tp = this.type;
@@ -207,8 +210,9 @@
                         var sdiv = document.createElement('div');
                         sdiv.className = 'scrollDiv'+this.type;
                         sdiv.id = 'scrollDiv'+ this.type + virtualclass.gObj.currWb;
-
-                        var canvasWrapper = this.canvasWrapper;
+                        var pdfRender =  virtualclass.pdfRender[virtualclass.gObj.currWb];
+                        var canvasWrapper = pdfRender.canvasWrapper;
+                         //var canvasWrapper = this.canvasWrapper;
                         if(canvasWrapper != null){
                             canvasWrapper.appendChild(sdiv);
                         }
@@ -278,7 +282,7 @@
             },
 
             customMoustPointer : function (obj, tp, pos){
-                if(this.debugg){
+                if(virtualclass.gObj.pdfdebugg){
                     if(typeof obj != 'undefined'){
                         if(this.scroll.hasOwnProperty(tp)){
                             this.setCustomMoustPointer(obj, tp);
@@ -349,23 +353,35 @@
 
             // Send default scroll to all.
             sendScroll : function (){
-                var cursor  = {cf : "sc", pr : true, scY : 0, scX:0};
-                virtualclass.vutil.beforeSend(cursor);
+                virtualclass.vutil.setDefaultScroll();
+                // var cursor  = {cf : "sc", pr : true, scY : 0, scX:0};
+                // virtualclass.vutil.beforeSend(cursor);
                 console.log('Send scroll to everyone ');
             },
 
             // Send current scroll to particular user.
 
             sendCurrentScroll : function (toUser){
+                var scrollPos = {};
                 if(this.currentScroll !=  null){
+                    scrollPos = Object.assign(scrollPos, this.currentScroll);
+                    console.log('Send scroll ' + this.currentScroll);
                     var that = this;
+                    that.currentScrolltoUser = toUser;
+                    // scrollPos.cf = 'scf';
+                    // scrollPos.ouser = toUser;
+                    // virtualclass.vutil.beforeSend(scrollPos, toUser);
+
                     setTimeout(
                         function (){
                             that.currentScrolltoUser = toUser;
-                            that.currentScroll.cf = 'scf';
-                            virtualclass.vutil.beforeSend(that.currentScroll, toUser);
-                            console.log('Send to user ' + toUser);
-                        }, 2500
+                            scrollPos.cf = 'scf';
+                            scrollPos.toUser = toUser;
+                          //  virtualclass.vutil.beforeSend(scrollPos, toUser);
+                            virtualclass.vutil.beforeSend({toUser: toUser, 'cf' : 'scf', scY : scrollPos.scY, vpY: scrollPos.vpY}, toUser);
+                            console.log('Send scroll ' + scrollPos +'to user ' + toUser );
+                            console.log('Send scroll ' + scrollPos);
+                        }, 2000
                     );
                 }
             },
@@ -450,6 +466,7 @@
                                                 console.log('pdfNormal render');
                                                 virtualclass.zoom.normalRender();
                                                 virtualclass.gObj.firstNormalRender = true;
+                                                virtualclass.vutil.setDefaultScroll();
                                             }, 500
                                         );
                                     }
@@ -678,6 +695,15 @@
 
             isWhiteboardAlreadyExist : function (note){
                 return (this.canvas != null);
+            },
+
+            defaultScroll : function (){
+                alert("hello guys");
+                var wb = virtualclass.gObj.currWb;
+                if(wb != null){
+                    // Defualt scroll trigger
+                    this.canvasWrapper.scrollTop = 1;
+                }
             }
         }
     }

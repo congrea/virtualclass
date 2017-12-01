@@ -178,6 +178,11 @@
     margin-left : 60px;
 }
 
+#virtualclassCont.congrea.student #virtualclassDocumentShare.virtualclass.container {
+    width: calc(100% - 20px) !important;
+    margin-left : 10px !important;
+}
+
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #documentScreen {
     width: 100%;
     float: left;

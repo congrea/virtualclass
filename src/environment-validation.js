@@ -196,6 +196,7 @@
                 console.log("canvas width " + canvas.width);
                 //var element = document.getElementById('canvas');
                 var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
+
                 vcan.main.offset.x = offset.x;
             }
         },

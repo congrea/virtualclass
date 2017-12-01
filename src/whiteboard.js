@@ -125,9 +125,8 @@
             },
 
             UI : {
-                createToolBar : function (){
 
-                },
+                // TODO, this should be validated and removed
                 mainContainer : function (container, id){
                     var container = document.querySelector('#' + container);
                     if(container != null){
@@ -147,7 +146,6 @@
                     }
                 }
             },
-
 
             /**
              * this function called the image function

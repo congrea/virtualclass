@@ -2988,3 +2988,11 @@
 	right: 360px;
 	z-index: 1;
 }
+
+#virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
+	display : none;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer.current{
+	display : block;
+}

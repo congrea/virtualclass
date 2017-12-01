@@ -406,7 +406,7 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     + "\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass \"></div>\n</div>";
+    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\">\n    <div class=\"whiteboardContainer\"> </div>\n    <span class=\"nvgt prev\"></span>\n    <span class=\"nvgt next\"></span>\n  </div>\n</div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

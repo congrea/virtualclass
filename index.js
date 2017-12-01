@@ -78,6 +78,8 @@ $(document).ready(function () {
                     var videoObj = previousApp.metaData;
                     videoObj.fromReload = true;
                 }
+            }else if(previousApp.name == 'Whiteboard'){
+                virtualclass.gObj.wbCount = previousApp.wbn;
             }
         } else {
             var appIs = "EditorRich";
@@ -659,14 +661,11 @@ $(document).ready(function () {
                         console.log('Document share send :- Layout');
                     }
                 }else if(virtualclass.currApp === 'Video'){
-
                     if(typeof virtualclass.videoUl.player == 'object'){
                         if(virtualclass.videoUl.videoUrl){
-                            ioAdapter.mustSend({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl },
+                            ioAdapter.mustSendUser({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl },
                                 startFrom : virtualclass.videoUl.player.currentTime(),isPaused:virtualclass.videoUl.player.paused()}, 'cf' : 'videoUl'}, virtualclass.jId);
-
                         }
-
                     } else {
                         ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout',name:"nirmala"}, 'cf': 'videoUl'}, virtualclass.jId);
                     }
@@ -1458,6 +1457,15 @@ $(document).ready(function () {
                 console.log('Recevied scroll first');
                 console.dir(e.message);
                 virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
+            }
+
+            this.cwb = function (e){
+                if(e.message.hasOwnProperty('diswb')){
+                    virtualclass.gObj.currWb = e.message.wid;
+                    virtualclass.wbCommon.displaySlide(e.message.wid);
+                    console.log('whiteboard slide received=' + e.message.wid);
+
+                }
             }
 
             // this.scx = function (e){

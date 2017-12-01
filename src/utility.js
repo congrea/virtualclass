@@ -646,11 +646,15 @@
                 if(Object.keys(virtualclass.dts.pages).length > 0){
                     prvAppObj.metaData.docs = virtualclass.dts.pages;
                 }
-                console.log('Document share dos suman');
+
             } else if (virtualclass.currApp == "Quiz") {
                 virtualclass.quiz.saveInLocalStorage();
                 console.log("quiz data saved");
+            }else if(virtualclass.currApp == "Whiteboard"){
+                var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount};
             }
+
+            localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
 
             if(virtualclass.zoom.canvasScale != null){
                 var canvasScale = (+virtualclass.zoom.canvasScale);
@@ -2314,7 +2318,90 @@
                     virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
                 }
             }
-        }
+        },
+
+        createWhiteBoard : function (wId){
+            var args = ['Whiteboard', 'byclick', wId];
+            virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+            var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+            virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
+        },
+
+        // wbCommon : {
+        //     initNavHandler : function (){
+        //         var that = this;
+        //         var nextButton = document.querySelector('#virtualclassWhiteboard.whiteboard .next');
+        //         if(nextButton != null){
+        //             nextButton.onclick = function (){
+        //                 that.next(this);
+        //             }
+        //         }
+        //
+        //         var prevButton = document.querySelector('#virtualclassWhiteboard.whiteboard .prev');
+        //         if(prevButton != null){
+        //             prevButton.onclick = function (){
+        //                 that.prev();
+        //             }
+        //         }
+        //     },
+        //
+        //     /**
+        //      * TODO, this should be merged with dislaySlide on document-share.js
+        //      *
+        //      */
+        //
+        //     displaySlide : function(wid){
+        //         var prevElem = document.querySelector('#virtualclassWhiteboard.whiteboard .current');
+        //         if(prevElem != null){
+        //             prevElem.classList.remove('current');
+        //         }
+        //
+        //         var whiteboardContainer = document.querySelector('#vcanvas' + wid);
+        //         if(whiteboardContainer != null ){
+        //             whiteboardContainer.classList.add('current');
+        //         }
+        //     },
+        //
+        //     next : function (cthis){
+        //         var wid = this.whiteboardExist('next');
+        //         if(wid == null){
+        //             virtualclass.gObj.wbCount++;
+        //             wid = '_doc_0'+'_'+virtualclass.gObj.wbCount;
+        //             virtualclass.vutil.createWhiteBoard(wid);
+        //         }
+        //         this.displaySlide(wid);
+        //         virtualclass.gObj.currWb = wid;
+        //     },
+        //
+        //     prev : function (){
+        //         var wid = this.whiteboardExist('prev');
+        //         if(wid != null){
+        //             this.displaySlide(wid);
+        //             virtualclass.gObj.currWb = wid;
+        //         }else {
+        //             alert('Elemennt is NULL');
+        //         }
+        //     },
+        //
+        //     whiteboardExist : function (elemtype){
+        //         var currWhiteboard = virtualclass.gObj.currWb;
+        //         if(currWhiteboard != null){
+        //             var elem = document.querySelector("#vcanvas" + currWhiteboard);
+        //             if(elemtype == 'prev'){
+        //                 var whiteboard = elem.previousElementSibling;
+        //             }else if (elemtype == 'next') {
+        //                 var whiteboard = elem.nextElementSibling;
+        //             }
+        //
+        //             if(whiteboard != null){
+        //                 var wid = whiteboard.dataset.wbId;
+        //                 return wid;
+        //             }
+        //             return null;
+        //         }
+        //     }
+        // }
     };
+
     window.vutil = vutil;
 })(window);

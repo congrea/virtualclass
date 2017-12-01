@@ -916,13 +916,17 @@
                     var elem = document.querySelector(query);
                     if(elem != null){
                         elem.insertBefore(whiteboard, elem.firstChild);
-                        var app = 'Whiteboard';
-                        var args = [app, 'byclick', whiteboard.dataset.wid, whiteboard.id];
-                        virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
-                        var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
 
-                        var id = virtualclass.gObj.currWb;
-                        virtualclass.system.setCanvasWrapperDimension(measureRes, id);
+                        virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
+                        // var app = 'Whiteboard';
+                        // var args = [app, 'byclick', whiteboard.dataset.wid, whiteboard.id];
+                        // virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+                        // var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+                        //
+                        // var id = virtualclass.gObj.currWb;
+                        // virtualclass.system.setCanvasWrapperDimension(measureRes, id);
+
+
                         // cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
                     } else {
                         console.log("Element is null");
@@ -1689,7 +1693,6 @@
             docSelected : function (){
                 return document.querySelector('#listdocs .linkdocs[data-selected="1"]');
             }
-
         };
     }
     window.documentShare = documentShare;

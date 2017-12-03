@@ -182,7 +182,7 @@
                     this[tp].d = this[tp].a + scrollM;
                     var wrapperId = 'canvasWrapper'+virtualclass.gObj.currWb;
                     var studentWrapper = document.querySelector('#'+wrapperId);
-
+                    if(studentWrapper != null){
                     if(this.type == 'X'){
                         this[tp].b = studentWrapper.scrollLeft;
                     }else if(this.type == 'Y'){
@@ -192,6 +192,7 @@
                     this[tp].studentVPm = virtualclass.vutil.getElemM(wrapperId, tp);
 
                     this[tp].c = this[tp].b + this[tp].studentVPm;
+                    }
                 },
 
                 getDimension : function (obj, ms, type){
@@ -464,9 +465,12 @@
                                         virtualclass.gObj.pdfNormalTimeout =  setTimeout(
                                             function (){
                                                 console.log('pdfNormal render');
-                                                virtualclass.zoom.normalRender();
-                                                virtualclass.gObj.firstNormalRender = true;
-                                                virtualclass.vutil.setDefaultScroll();
+                                                if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                                                    virtualclass.zoom.normalRender();
+                                                    virtualclass.gObj.firstNormalRender = true;
+                                                    virtualclass.vutil.setDefaultScroll();   
+                                                }
+                                              
                                             }, 500
                                         );
                                     }

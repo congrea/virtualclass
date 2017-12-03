@@ -651,7 +651,9 @@
                 virtualclass.quiz.saveInLocalStorage();
                 console.log("quiz data saved");
             }else if(virtualclass.currApp == "Whiteboard"){
-                var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount};
+              
+                var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
+                console.log('whiteboard storage data wbn' + virtualclass.gObj.wbCount + ' wbcs' + virtualclass.gObj.currSlide);
             }
 
             localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));

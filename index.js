@@ -80,6 +80,10 @@ $(document).ready(function () {
                 }
             }else if(previousApp.name == 'Whiteboard'){
                 virtualclass.gObj.wbCount = previousApp.wbn;
+                virtualclass.gObj.currSlide = 0;
+                if(previousApp.hasOwnProperty('wbcs')){
+                    virtualclass.gObj.currSlide = previousApp.wbcs;
+                }
             }
         } else {
             var appIs = "EditorRich";
@@ -1461,10 +1465,21 @@ $(document).ready(function () {
 
             this.cwb = function (e){
                 if(e.message.hasOwnProperty('diswb')){
-                    virtualclass.gObj.currWb = e.message.wid;
-                    virtualclass.wbCommon.displaySlide(e.message.wid);
-                    console.log('whiteboard slide received=' + e.message.wid);
+                   var wid = e.message.wid;
+                    virtualclass.gObj.currWb = wid;
+                    if(!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)){
+                        virtualclass.vutil.createWhiteBoard(virtualclass.gObj.currWb);
+                    }
+                    var idn = wid.split('_');
+                    if(idn.length > 0){
+                       virtualclass.gObj.currSlide = idn[idn.length-1];
+                    }
+                    virtualclass.wbCommon.displaySlide(wid);
+                    console.log('whiteboard slide received=' + wid);
 
+                }else if(e.message.hasOwnProperty('wbCount')){
+                    virtualclass.gObj.wbCount = e.message.wbCount;
+                    virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
                 }
             }
 

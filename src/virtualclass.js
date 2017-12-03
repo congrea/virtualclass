@@ -5,6 +5,7 @@
         var dstData = null;
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
+            currSlide : 0,
             isPlayMode :playMode,
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
             appSessionEnd: "virtualclassSessionEnd",
@@ -39,6 +40,7 @@
                 wbCount : 0,
                 prvWindowSize : false,
                 wIds : [0],
+                wbRearrang : false,
             },
 
 
@@ -540,25 +542,39 @@
                         if(typeof cusEvent == 'undefined'){
                             args[1] = (cusEvent);
                         }
-                        var id =  (typeof data != 'undefined') ? '_doc_' + data : '_doc_0' + '_' + virtualclass.gObj.wbCount;
+                       
+                        var id =  (typeof data != 'undefined') ? '_doc_' + data : '_doc_0_'+virtualclass.gObj.currSlide;
                         args[2] = id;
 
                         args.push('virtualclassWhiteboard');
 
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
+                        
+                         prevapp = JSON.parse(prevapp);
 
-                        var wIds = localStorage.getItem('wIds');
-                        if(wIds != null){
-                            wIds = JSON.parse(wIds);
-                            virtualclass.wbCommon.readyElements(wIds);
+                       
+                        if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
+                             var wIds = localStorage.getItem('wIds');
+                             wIds = JSON.parse(wIds);
+                             if(wIds != null && wIds.length > 0 ){
+                                virtualclass.wbCommon.readyElements(wIds);
+                                //virtualclass.gObj.currSlide = prevapp.wbcs;
+                                //virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
+                                virtualclass.wbCommon.reArrangeElements(wIds);
+                                virtualclass.gObj.wbRearrang = true;
+                                virtualclass.gObj.wIds = wIds;
+                             }
+                            //virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;
                         }
-                    }else {
+                        
+                    //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
+                        
+                    } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
                         if(roles.hasControls() && app == 'Video' && !(currVideo && currVideo.init&&(currVideo.init.videoUrl|| currVideo.fromReload))){
                             virtualclass.vutil.triggerDashboard(app);
                         }
-
                     }
                 }
                 this.previrtualclass = this.previous;
@@ -651,6 +667,9 @@
                     }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
                         virtualclass.zoom.normalRender();
                     }
+                    if(roles.isStudent() && virtualclass.currApp == 'Whiteboard'){
+                         virtualclass.wbCommon.setCurrSlideNumber(id);
+                    }
 
                     if(typeof id != 'undefined'){
                         if (typeof this.wb[id] != 'object') {
@@ -677,17 +696,25 @@
                             if(whiteboardContainer != null){
                                 if(document.querySelector('vcanvas'+id) == null){
                                     var wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
-
                                     if(virtualclass.currApp == 'Whiteboard'){
                                         virtualclass.wbCommon.hideElement();
-                                        var wbHtml = "<div id='note"+id+"' data-wb-id='"+id+"' class='canvasContainer current'>" + wbTemplate({cn:id, hasControl : roles.hasControls()}) + "</div>";
-                                        if(id != '_doc_0_0'){
-                                            whiteboardContainer.insertAdjacentHTML('beforeend', wbHtml);
-                                        } else {
-                                            whiteboardContainer.innerHTML = wbHtml;
-                                            var vcanvas_doc = document.querySelector('#note_doc_0_0');
-                                            if(vcanvas_doc != null){
-                                                vcanvas_doc.classList.add('current');
+                                        var wnoteid = 'note' + id;
+                                        var wnote = document.querySelector('#' +wnoteid);
+                                        if(wnote != null){
+                                             wnote.classList.add('canvasContainer', 'current');
+                                             var wbHtml = wbTemplate({cn:id, hasControl : roles.hasControls()});
+                                             wnote.innerHTML = wbHtml;
+                                        }else {
+                                             var wbHtml = "<div id='"+wnoteid+"' data-wb-id='"+id+"' class='canvasContainer current'>" + wbTemplate({cn:id, hasControl : roles.hasControls()}) + "</div>";
+                                             
+                                            if(id != '_doc_0_0'){
+                                                whiteboardContainer.insertAdjacentHTML('beforeend', wbHtml);
+                                            } else {
+                                                whiteboardContainer.innerHTML = wbHtml;
+                                                var vcanvas_doc = document.querySelector('#note_doc_0_0');
+                                                if(vcanvas_doc != null){
+                                                    vcanvas_doc.classList.add('current');
+                                                }
                                             }
                                         }
                                     }else {

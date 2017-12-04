@@ -1086,14 +1086,15 @@
                 }
                 var qn = document.getElementById("q");
                 if (!qn.value) {
-                    alert("question cannt be left black");
+                    virtualclass.lang.getString('pollblank');
+                    alert(virtualclass.lang.getString('pollblank'));
                     return 0;
 
                 } else if (optCount < 2) {
-                    alert("enter atleast two options");
+                    alert(virtualclass.lang.getString('minoption'));
                     return 0;
                 } else if (optionBlank) {
-                    alert("remove the blank option")
+                    alert(virtualclass.lang.getString('delblank'));
                     return 0;
                 }
                 return 1;
@@ -1722,7 +1723,6 @@
             },
             // to add additional condition for poll closed **remainder
             testNoneVoted: function () {
-                //debugger
                 var flagnonzero = 0;
                 for (var i in virtualclass.poll.count) {
                     if (virtualclass.poll.count[i]) {
@@ -2072,7 +2072,6 @@
 
             },
             updateResponse: function (response, fromUser) {
-                debugger;
                 var chart = document.getElementById("chart");
                 if (chart) {
                     chart.style.display = "block";
@@ -2381,9 +2380,7 @@
                 Data.type = "bar"
                 Data.columns = columns;
                 var chart = document.getElementById("chart");
-                debugger;
                 if (chart) {
-                    debugger;
                     // require.config({
                     //     // baseUrl: '/js',
                     //     paths: {
@@ -2595,7 +2592,6 @@
                         }
                     }
                     header.appendChild(elem);
-                    debugger;
                     var msg = virtualclass.lang.getString('noResultStd');
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                 },

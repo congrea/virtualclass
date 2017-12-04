@@ -113,8 +113,10 @@ var globalImageData = {};
                     }
 
                     if (d.hasOwnProperty('w')) {
-                        virtualclass[app].localCanvas.width = d.w;
-                        virtualclass[app].localCanvas.height = d.h;
+                        if( virtualclass[app].localCanvas.width != d.w || virtualclass[app].localCanvas.height != d.h){
+                            virtualclass[app].localCanvas.width = d.w;
+                            virtualclass[app].localCanvas.height = d.h;
+                        }
                     }
                     virtualclass[app].drawImages(imgData);
                 }

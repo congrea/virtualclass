@@ -557,12 +557,13 @@
             } else if ((virtualclass.currApp == 'SharePresentation')) {
 
                 //virtualclass.sharePt.saveIntoLocalStorage();
-                if (typeof virtualclass.sharePt != 'undefined' && typeof virtualclass.sharePt == 'object') {
+                if (typeof virtualclass.sharePt != 'undefined' && typeof virtualclass.sharePt == 'object' && virtualclass.sharePt.pptUrl) {
 
                     console.log("beforeloadS" + virtualclass.sharePt.pptUrl);
                     prvAppObj.metaData = {
                         'init': virtualclass.sharePt.pptUrl,
-                        startFrom: virtualclass.sharePt.state
+                        startFrom: virtualclass.sharePt.state,
+                        currId:virtualclass.sharePt.currId
                     };
                     console.log("start From"+virtualclass.sharePt.state);
                     virtualclass.sharePt.saveIntoLocalStorage(prvAppObj);
@@ -574,7 +575,7 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-                debugger;
+                //debugger;
                 // if(virtualclass.videoUl.yts){
                 //     if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
                 //         prvAppObj.metaData = {

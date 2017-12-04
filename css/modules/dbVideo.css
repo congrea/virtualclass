@@ -493,3 +493,9 @@ border:solid #98c2ff 1px !important;
   font-size: 17px;
   color: rgba(0, 0, 0, 0.81);
 }
+#virtualclassCont.congrea #listvideo .linkvideo .controls.edit a:before{
+  padding-top: 3px !important;
+  height: 20px !important;
+  margin-top: 0 !important;
+
+}

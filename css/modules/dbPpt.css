@@ -352,3 +352,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   -o-transition:all 0.5s ease-out;
   transition:all 1s ease-out;
 }
+#virtualclassCont.congrea #listppt .linkppt.playing {
+
+  border:solid #98c2ff 1px;
+}

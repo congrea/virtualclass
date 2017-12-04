@@ -511,11 +511,19 @@
                 status: function (elem, cthis) {
                     //alert(cthis.rid + ' from events');
                     if (+(elem.dataset.status) == 0) {
-                        elem.title = 'Hide';
+                        if(cthis.type == "video"){
+                            elem.title = 'Disable';
+                        }else{
+                            elem.title = 'Hide';
+                        }
                         cthis.status = 1;
                         cthis.enable();
                     } else {
-                        elem.title = 'Show';
+                        if(cthis.type == "video"){
+                            elem.title = 'Enable';
+                        }else{
+                            elem.title = 'Show';
+                        }
                         cthis.status = 0;
                         cthis.disable();
                     }
@@ -576,7 +584,7 @@
 
 
                             $(document).on('click', function(e) {
-                                 if ( e.target.id !="temp"+cthis.rid && e.target.id !="editVideoTitle" ) {
+                                 if ( e.target.id !="temp"+cthis.rid && e.target.id !="editVideoTitle"+cthis.rid ) {
                                      rmTxtBox();
                                  }
                             });

@@ -635,6 +635,7 @@
                     virtualclass.vutil.clearAllChat();
                     virtualclass.editorRich.removeEditorData();
                     virtualclass.editorCode.removeEditorData();
+                    virtualclass.pdfRender = {}
                 }
 
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
@@ -642,6 +643,11 @@
                     //debugger;
                     virtualclass.storage.clearStorageData();
                 }
+
+                virtualclass.wbCommon.removeAllContainers();
+                virtualclass.gObj.wbCount = 0;
+                virtualclass.gObj.currSlide = 0;
+
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = "EditorRich"; // default app
 

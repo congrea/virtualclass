@@ -566,7 +566,8 @@
                         }
                         
                     //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
-                        
+
+                       virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));

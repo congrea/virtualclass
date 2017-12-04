@@ -398,6 +398,8 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.appTools,depth0,{"name":"appTools","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
+},"8":function(container,depth0,helpers,partials,data) {
+    return "    <span class=\"nvgt prev\"></span>\n    <span class=\"nvgt next\"></span>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -406,7 +408,9 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     + "\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\">\n    <div class=\"whiteboardContainer\"> </div>\n    <span class=\"nvgt prev\"></span>\n    <span class=\"nvgt next\"></span>\n  </div>\n</div>";
+    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\">\n    <div class=\"whiteboardContainer\"> </div>\n\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    \n  </div>\n</div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1048,7 +1052,7 @@ this["JST"]["templates/whiteboard/main.hbs"] = Handlebars.template({"1":function
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" tabindex=\"0\" width=\"730\" height=\"750\">\n        "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"canvasmissing",{"name":"getString","hash":{},"data":data}))
-    + "\n      </canvas>\n    </div>\n  </div>\n</div>";
+    + "\n      </canvas>\n    </div>\n  </div>\n</div>admin";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/whiteboard/toolbar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

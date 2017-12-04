@@ -31,6 +31,7 @@
                 whiteboardContainer.classList.add('current');
                 virtualclass.gObj.currWb = wid;
             }
+            this.identifyFirstNote(wid);
         },
 
         hideElement : function (){
@@ -163,7 +164,24 @@
             }
             container.parentNode.replaceChild(tmpdiv, container);
         },
-    }
 
+        identifyFirstNote : function (wid){
+            var elem = document.querySelector('#virtualclassWhiteboard');
+            if(wid == '_doc_0_0'){
+                elem.classList.add('firstNote');
+            }else {
+                elem.classList.remove('firstNote');
+            }
+        },
+
+        removeAllContainers : function (){
+            var allContainers = document.querySelectorAll('#virtualclassWhiteboard .whiteboardContainer .canvasContainer');
+            var node;
+            for (var i=0; i<allContainers.length; i++){
+                node = allContainers[i];
+                node.parentNode.removeChild(node);
+            }
+        }
+    }
     window.wbCommon = wbCommon;
 })(window);

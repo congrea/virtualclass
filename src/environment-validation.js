@@ -198,6 +198,7 @@
                 var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
 
                 vcan.main.offset.x = offset.x;
+                console.log('canvas offset x=' + vcan.main.offset.x + ' canvas offset y=' + offset.y);
             }
         },
 

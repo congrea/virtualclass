@@ -269,7 +269,7 @@
         };
     })();
 
-    view.window.resize = function () {
+    view.window.resize = function (wid) {
 
         var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
         virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
@@ -283,7 +283,7 @@
         window.earlierWidth = window.innerWidth;
         if(virtualclass.currApp == 'Whiteboard'){
             if(virtualclass.gObj.currWb != null){
-                system.setCanvasDimension(res, virtualclass.gObj.currWb);
+                system.setCanvasDimension(res, (wid != null) ? wid : virtualclass.gObj.currWb);
                 virtualclass.wb[virtualclass.gObj.currWb].vcan.renderAll();
             }
         }

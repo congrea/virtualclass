@@ -619,13 +619,9 @@
             appInitiator : {
                 Whiteboard : function (app, cusEvent, id, container){
                     if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
-                         virtualclass.view.window.resize();
-
-                        // if(window.earlierWidth != window.innerWidth){
-                        //     window.view.resize();
-                        // }
-
+                        virtualclass.view.window.resize(id);
                     }
+
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }

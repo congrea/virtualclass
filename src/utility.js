@@ -651,9 +651,8 @@
                 virtualclass.quiz.saveInLocalStorage();
                 console.log("quiz data saved");
             }else if(virtualclass.currApp == "Whiteboard"){
-              
-                var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
-                console.log('whiteboard storage data wbn' + virtualclass.gObj.wbCount + ' wbcs' + virtualclass.gObj.currSlide);
+                // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
+                var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount};
             }
 
             localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
@@ -687,6 +686,8 @@
                 docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
                 localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
+
+            localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
 
             console.dir('Previous object ' + prvAppObj);
 

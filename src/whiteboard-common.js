@@ -69,8 +69,9 @@
                 if(!this.whiteboardExist(wid)){
                     virtualclass.vutil.createWhiteBoard(wid);
                 }else {
-                   virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
+                   //virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
                 }
+                virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
             }
             
             this.setCurrSlideNumber(wid);
@@ -97,8 +98,9 @@
                  }else {
                          this.displaySlide(wid);
                         virtualclass.gObj.currWb = wid;
-                        virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : virtualclass.gObj.currWb});
+
                  }
+                virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : virtualclass.gObj.currWb});
             
                 console.log('whiteboard slide send=' + virtualclass.gObj.currWb);
             } else {

@@ -5,7 +5,7 @@
         var dstData = null;
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         return {
-            currSlide : 0,
+
             isPlayMode :playMode,
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
             appSessionEnd: "virtualclassSessionEnd",
@@ -41,13 +41,10 @@
                 prvWindowSize : false,
                 wIds : [0],
                 wbRearrang : false,
+                currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0
             },
 
-
-
-
             enablePreCheck : true,
-
             clearSession: function () {
                 window.pageEnter = new Date().getTime();
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
@@ -553,7 +550,8 @@
                          prevapp = JSON.parse(prevapp);
 
                        
-                        if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
+                        //if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
+                        if(!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null){
                              var wIds = localStorage.getItem('wIds');
                              wIds = JSON.parse(wIds);
                              if(wIds != null && wIds.length > 0 ){

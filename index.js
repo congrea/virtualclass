@@ -80,9 +80,14 @@ $(document).ready(function () {
                 }
             }else if(previousApp.name == 'Whiteboard'){
                 virtualclass.gObj.wbCount = previousApp.wbn;
-                virtualclass.gObj.currSlide = 0;
-                if(previousApp.hasOwnProperty('wbcs')){
-                    virtualclass.gObj.currSlide = previousApp.wbcs;
+
+                // if(previousApp.hasOwnProperty('wbcs')){
+                //     virtualclass.gObj.currSlide = previousApp.wbcs;
+                // }
+
+                var currSlide = localStorage.getItem('currSlide');
+                if(currSlide != null){
+                    virtualclass.gObj.currSlide = currSlide;
                 }
             }
         } else {

@@ -1,6 +1,8 @@
 <?php
 function my_curl_request($url, $post_data, $key){
         $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_VERBOSE, true);
+
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
@@ -14,16 +16,26 @@ function my_curl_request($url, $post_data, $key){
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_PROXY, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        curl_setopt($ch, CURLOPT_CAINFO, "D:\xampp\htdocs\virtualclass\cacert.pem");
+
         $result = @curl_exec($ch);
+        if($result === false)
+	{
+		echo 'Curl error: ' . curl_error($ch);
+	}
+
         curl_close($ch);
+
         return $result;
 }
 
 //send auth detail to server
 $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
-// $licensekey = '2895-tx-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
-$licensekey = '2210-sg-245-uqGwY3qnHMamdpwBMmKXXns8qqZVFDhAmksJ8gMXap59JMHz';
+ $licensekey = '2895-tx-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
+// $licensekey = '2210-sg-245-uqGwY3qnHMamdpwBMmKXXns8qqZVFDhAmksJ8gMXap59JMHz';
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword);
 $post_data = json_encode($post_data);
 //echo $post_data;

@@ -82,7 +82,6 @@
         },
 
         setContainerWidth2 : function(res, app) {
-            return;
             var reduceHeight;
             if (virtualclass.isPlayMode) {
                 reduceHeight += 75;
@@ -131,9 +130,12 @@
 
         //TODO very critical and important for remove return
         setContainerWidth : function(res, app) {
+            if(app != null){
+                var appId = 'virtualclass' + app;
+            } else {
+                var appId = 'virtualclassWhiteboard';
+            }
 
-            return;
-            var appId = 'virtualclassWhiteboard';
             if (typeof virtualclass.previous != 'undefined') {
 
                 if ('virtualclass' + app != virtualclass.previous) {
@@ -156,8 +158,11 @@
 
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
-                    var offset = vcan.utility.getElementOffset(leftSideBar);
-                    leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
+                    if(virtualclass.gObj.currWb != null){
+                        var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                        var offset = vcan.utility.getElementOffset(leftSideBar);
+                        leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
+                    }
                 } else {
                     leftSideBarWidth = roles.hasControls() ? 60 : 5;
                 }
@@ -206,6 +211,15 @@
                     appCont.style.width = res.width;
                     ssType.style.width = res.width + "px";
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
+                }else if(appId == 'virtualclassDocumentShare'){
+                    var wb = virtualclass.gObj.currWb;
+
+                    var canWrapper = document.querySelector('#canvasWrapper' +wb);
+
+                    canWrapper.style.width = res.width + "px";
+                    canWrapper.style.height = res.height + "px";
+
+
                 }
 
                 console.log('Container width ' + appId + ' ' + res.width );
@@ -616,7 +630,7 @@
                     console.log('currentDocument ' + currDoc);
                     // console.dir('currDoc ' + virtualclass.dts.docs[virtualclass.dts.docs.currDoc]);
                     //  var slideNumber = virtualclass.dts.docs.note.currNote;
-                    console.dir('curr slider suman ' + virtualclass.dts.docs.note.currNote);
+
                     if(virtualclass.dts.order.length > 0){
                         prvAppObj.metaData = {
                             'init': currDoc,
@@ -640,13 +654,24 @@
                 if(Object.keys(virtualclass.dts.pages).length > 0){
                     prvAppObj.metaData.docs = virtualclass.dts.pages;
                 }
-                console.log('Document share dos suman');
+
             } else if (virtualclass.currApp == "Quiz") {
                 virtualclass.quiz.saveInLocalStorage();
                 console.log("quiz data saved");
+            }else if(virtualclass.currApp == "Whiteboard"){
+                // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
+                var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount};
             }
 
-            //console.log('previous app failer ' + virtualclass.currApp);
+            localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+
+            if(virtualclass.zoom.canvasScale != null){
+                var canvasScale = (+virtualclass.zoom.canvasScale);
+                console.log('canvasScale ' + canvasScale);
+                if(virtualclass.vutil.isNumeric(canvasScale)){
+                    localStorage.setItem('wbcScale', canvasScale);
+                };
+            }
 
             // not storing the YouTube status on student's storage
             // Not showing the youtube video is at student if current app is not youtube
@@ -669,6 +694,10 @@
                 docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
                 localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
+
+            localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
+
+            console.dir('Previous object ' + prvAppObj);
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
@@ -842,7 +871,7 @@
                     }
                     virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                     virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
-                    console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
+        //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
                 }
 
                 var jobj = JSON.stringify(msg);
@@ -2199,7 +2228,195 @@
                 console.log('Chrome Extension:- is available');
             });
 
-        }
+        },
+
+        setWidth : function (wbId, canvas, width){
+            var canvas = document.querySelector('#canvas'+wbId);
+            canvas.width = width;
+        },
+
+        setHeight : function(wbId, canvas, height){
+            var canvas = document.querySelector('#canvas'+wbId);
+            canvas.height =  height;
+            // virtualclass.wb[wbId].vcan.renderAll();
+        },
+
+        getWidth : function(canvas){
+            return canvas.width;
+        },
+
+        getHeight : function(canvas){
+            return canvas.height;
+        },
+
+        getValueWithoutPixel : function (pxValue){
+            return parseInt(pxValue, 10);
+        },
+
+        removeDecimal : function(number){
+            return number.toFixed(2);
+        },
+
+        getElemM : function (wrapper, type){
+            if(type == 'Y'){
+                var res = document.querySelector('#' + wrapper).style.height;
+            }else if(type == 'X'){
+                var res = document.querySelector('#' + wrapper).style.width;
+            }
+            return this.getValueWithoutPixel(res);
+        },
+
+        getElemHeight : function (wrapper){
+            var heighPx = document.querySelector('#' + wrapper).style.height;
+            return this.getValueWithoutPixel(heighPx);
+        },
+
+        getElemWidth : function (wrapper){
+            var widthPx = document.querySelector('#' + wrapper).style.width;
+            return this.getValueWithoutPixel(widthPx);
+        },
+
+        visibleElementHeighOldt : function (innerElem, wrapper){
+            var offset = 0;
+            var node = document.getElementById(innerElem);
+            while (node.offsetParent && node.offsetParent.id != wrapper)
+            {
+                offset += node.offsetTop;
+                node = node.offsetParent;
+            }
+            var visible = node.offsetHeight - offset;
+            return visible;
+        },
+
+        elementIsVisible2 : function(el) {
+            var elemTop = el.getBoundingClientRect().top;
+            var elemBottom = el.getBoundingClientRect().bottom;
+
+            // Only completely visible elements return true:
+            var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+            // Partially visible elements return true:
+            //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
+            return isVisible;
+        },
+
+        elementIsVisible : function(elm) {
+            var rect = elm.getBoundingClientRect();
+            var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+            return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+        },
+
+        getVisibleHeight : function (el){
+            // TODO this should be convert into pute javascript
+            var $el = $('#'+el),
+                scrollTop = $(window).scrollTop(),
+                scrollBot = scrollTop + $(window).height(),
+                elTop = $el.offset().top,
+                elBottom = elTop + $el.outerHeight(),
+                visibleTop = elTop < scrollTop ? scrollTop : elTop,
+                visibleBottom = elBottom > scrollBot ? scrollBot : elBottom;
+                return (visibleBottom-visibleTop);
+        },
+
+        isNumeric : function(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        },
+
+        setContainerDimension : function (width, height){
+
+        },
+
+        setDefaultScroll : function (){
+            if(roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+                var wb = virtualclass.gObj.currWb;
+                if(wb != null){
+                    // Defualt scroll trigger
+                    virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
+                }
+            }
+        },
+
+        createWhiteBoard : function (wId){
+            var args = ['Whiteboard', 'byclick', wId];
+            virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+            var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+            virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
+        },
+
+        // wbCommon : {
+        //     initNavHandler : function (){
+        //         var that = this;
+        //         var nextButton = document.querySelector('#virtualclassWhiteboard.whiteboard .next');
+        //         if(nextButton != null){
+        //             nextButton.onclick = function (){
+        //                 that.next(this);
+        //             }
+        //         }
+        //
+        //         var prevButton = document.querySelector('#virtualclassWhiteboard.whiteboard .prev');
+        //         if(prevButton != null){
+        //             prevButton.onclick = function (){
+        //                 that.prev();
+        //             }
+        //         }
+        //     },
+        //
+        //     /**
+        //      * TODO, this should be merged with dislaySlide on document-share.js
+        //      *
+        //      */
+        //
+        //     displaySlide : function(wid){
+        //         var prevElem = document.querySelector('#virtualclassWhiteboard.whiteboard .current');
+        //         if(prevElem != null){
+        //             prevElem.classList.remove('current');
+        //         }
+        //
+        //         var whiteboardContainer = document.querySelector('#vcanvas' + wid);
+        //         if(whiteboardContainer != null ){
+        //             whiteboardContainer.classList.add('current');
+        //         }
+        //     },
+        //
+        //     next : function (cthis){
+        //         var wid = this.whiteboardExist('next');
+        //         if(wid == null){
+        //             virtualclass.gObj.wbCount++;
+        //             wid = '_doc_0'+'_'+virtualclass.gObj.wbCount;
+        //             virtualclass.vutil.createWhiteBoard(wid);
+        //         }
+        //         this.displaySlide(wid);
+        //         virtualclass.gObj.currWb = wid;
+        //     },
+        //
+        //     prev : function (){
+        //         var wid = this.whiteboardExist('prev');
+        //         if(wid != null){
+        //             this.displaySlide(wid);
+        //             virtualclass.gObj.currWb = wid;
+        //         }else {
+        //             alert('Elemennt is NULL');
+        //         }
+        //     },
+        //
+        //     whiteboardExist : function (elemtype){
+        //         var currWhiteboard = virtualclass.gObj.currWb;
+        //         if(currWhiteboard != null){
+        //             var elem = document.querySelector("#vcanvas" + currWhiteboard);
+        //             if(elemtype == 'prev'){
+        //                 var whiteboard = elem.previousElementSibling;
+        //             }else if (elemtype == 'next') {
+        //                 var whiteboard = elem.nextElementSibling;
+        //             }
+        //
+        //             if(whiteboard != null){
+        //                 var wid = whiteboard.dataset.wbId;
+        //                 return wid;
+        //             }
+        //             return null;
+        //         }
+        //     }
+        // }
     };
+
     window.vutil = vutil;
 })(window);

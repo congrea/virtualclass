@@ -20,6 +20,7 @@
              * @returns {vcan.main}
              */
             create: function (canvasId) {
+
                 if (canvasId.charAt(0) == '#') {
                     var cid = canvasId.substring(1, canvasId.length);
                     vcan.utility.canvasCalcOffset(cid);
@@ -78,15 +79,22 @@
                     console.log("it seems that the arguments you passed are not object");
                 }
             },
+
             /**
              * the particular obejct by rotating and scaling
              * @param ctx specified context
              * @param obj particular object
              * TODO this function should contain into the object
+             * suman solve
              */
             transform: function (ctx, obj) {
                 ctx.translate(obj.x, obj.y);
                 ctx.rotate(obj.theta);
+                // ctx.scale(
+                //     1 * (obj.flipX ? -1 : 1),
+                //     1 * (obj.flipY ? -1 : 1)
+                // );
+
                 ctx.scale(
                     obj.scaleX * (obj.flipX ? -1 : 1),
                     obj.scaleY * (obj.flipY ? -1 : 1)
@@ -133,18 +141,40 @@
              *
              */
             renderAll: function (ctx) {
-                var length = vcan.main.children.length;
-
+                // console.log('Whiteboard :- Render All');
                 if (typeof ctx != 'object') {
                     var ctx = vcan.main.canvas.getContext('2d');
                 }
+
                 var canelem = vcan.main.canvas;
+
                 vcan.clearContext(ctx);
 
+
+                var that = this;
+                this.displayPdfWhiteboard();
+
+            },
+
+            normalDisplay : function (i){
+                console.log('Whiteboard index ' + i);
+                if (vcan.main.children[i].type == 'freeDrawing') {
+                    vcan.fhdRender(ctx, vcan.main.children[i]);
+                } else {
+                    vcan.render(ctx, vcan.main.children[i]);
+                }
+            },
+
+            displayPdfWhiteboard : function (){
+                var length = vcan.main.children.length;
                 if (length) {
+                    var vcanvas = vcan.main.canvas;
+                    var ctx = vcan.main.canvas.getContext('2d');
                     for (var i = 0; i < length; ++i) {
-                        var vcanvas = vcan.main.canvas;
-                        if (vcan.main.children[i].type == 'freeDrawing') {
+                        // console.log('Whiteboard index ' + i);
+                        if (vcan.main.children[i].type == 'pdf') {
+                            console.log('Pdf, Render the data, that should not be a');
+                        }else if (vcan.main.children[i].type == 'freeDrawing') {
                             vcan.fhdRender(ctx, vcan.main.children[i]);
                         } else {
                             vcan.render(ctx, vcan.main.children[i]);

@@ -163,11 +163,13 @@
                   template =  'screen';
                   mainContainer = document.querySelector('#docScreenContainer');
 
+
                 }else{
                   tempCont = {notes :  allNotes};
                   template = 'notesMain';
                   mainContainer =  document.querySelector('#screen-docs #notesContainer');
                 }
+
                 template =  virtualclass.getTemplate(template, 'documentSharing');
                 tempHtml = template(tempCont);
 
@@ -472,100 +474,6 @@
                 }
             },
 
-            // onResponseFiles2 : function (doc, slides, docFetch, slide, fromReload){
-            //     if(firstTime){
-            //         this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
-            //         // this.order = [];
-            //         firstTime = false;
-            //     }
-            //
-            //     if(roles.hasControls()){
-            //         var addSlide = this.toggleSlideWithOrder(doc, slides)
-            //     } else {
-            //         var addSlide = (typeof docFetch != 'undefined') ? (+docFetch) : true;
-            //     }
-            //
-            //     //var addSlide = this.toggleSlideWithOrder(doc, slides);
-            //     if(addSlide){
-            //         this.addPages(slides);
-            //
-            //         var cthis = this;
-            //         if(typeof doc != 'string'){
-            //             var docId = 'docs'+doc;
-            //         } else {
-            //             if(doc.indexOf('docs') >= 0){
-            //                 var docId = doc;
-            //             }else{
-            //                 var docId = 'docs'+doc;
-            //             }
-            //         }
-            //         // suman new,
-            //         // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-            //
-            //         // var notesPreview = document.querySelector('#notesPreview');
-            //         // if(notesPreview != null){
-            //         //     mainCont.appendChild(notesPreview);
-            //         // }
-            //
-            //         // var pageContainer = document.querySelector('#screen-docs .pageContainer');
-            //         // if(pageContainer != null){
-            //         //
-            //         //     this.UI.createMainContent(pageContainer, slides, doc);
-            //         //
-            //         //     if(typeof slide != 'undefined'){
-            //         //         this.docs.displayScreen(docId, slide);
-            //         //     }else{
-            //         //         this.docs.displayScreen(docId);
-            //         //     }
-            //         // } else {
-            //         //     alert('slide container is null');
-            //         // }
-            //
-            //         // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-            //         // this.UI.createMainContent(pageContainer, slides, doc);
-            //
-            //         var noteObj = {notes :  slides, hasControls : roles.hasControls(), cd : docId};
-            //         var docTemplate = JST['templates/docMain.hbs'];
-            //         var docHtml =  docTemplate(noteObj);
-            //         var docScreenContainer  = document.querySelector('#docScreenContainer');
-            //         if(docScreenContainer != null){
-            //           docScreenContainer.innerHTML = docHtml;
-            //         }else{
-            //           alert('there is null');
-            //         }
-            //
-            //         if(typeof slide != 'undefined'){
-            //           this.docs.displayScreen(docId, slide);
-            //         }else{
-            //           this.docs.displayScreen(docId);
-            //         }
-            //
-            //         // var pageContainer = document.querySelector('#screen-docs .pageContainer');
-            //
-            //         // if(pageContainer != null){
-            //         //   this.UI.createMainContent(pageContainer, slides, doc);
-            //         //
-            //         //   if(typeof slide != 'undefined'){
-            //         //     this.docs.displayScreen(docId, slide);
-            //         //   }else{
-            //         //     this.docs.displayScreen(docId);
-            //         //   }
-            //         // } else {
-            //         //   alert('slide container is null');
-            //         // }
-            //
-            //         (typeof fromReload != 'undefined') ? this.createNoteNav(fromReload) : this.createNoteNav();
-            //         this.updateLinkNotes(this.docs.currNote);
-            //     } else {
-            //         this.removePagesUI(doc);
-            //     }
-            //
-            //     if(roles.hasAdmin()){
-            //         this.sendOrder(this.order);
-            //         console.log('Document share:- ' + this.order.toString());
-            //     }
-            // },
-
           onResponseFiles : function (doc, slides, docFetch, slide, fromReload){
             if(firstTime){
               this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
@@ -707,10 +615,11 @@
                     if(document.querySelector('.docsDbCont') == null) {
                         // Creating  DOC's Dashboard
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
-                        virtualclass.vutil.attachEventToUploadTab();
-                        virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                        if(roles.hasControls()){
+                            virtualclass.vutil.attachEventToUploadTab();
+                            virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                        }
                     }
-
                 },
 
                 createMainContent : function (container, content, docId){
@@ -742,13 +651,13 @@
                                 note.dataset.status = allNotes[i].status;
                             }
 
-                            var imgContainer = document.createElement('div');
-                                imgContainer.className = 'imageContainer';
-                            var img = document.createElement('img');
-                            img.src = allNotes[i].content_path;
-                            imgContainer.appendChild(img);
-                            note.appendChild(imgContainer);
-                            notes.appendChild(note);
+                            // var imgContainer = document.createElement('div');
+                            //     imgContainer.className = 'imageContainer';
+                            // var img = document.createElement('img');
+                            // img.src = allNotes[i].content_path;
+                            // imgContainer.appendChild(img);
+                            // note.appendChild(imgContainer);
+                            // notes.appendChild(note);
                         }
                     }
 
@@ -982,10 +891,15 @@
                      * This canvas width and height is set for Screen 1280 * 1024
                      * The same dimension is using for image
                      */
+
+                    /*** width and height handling ***/
+
+                    // var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+
                     var canvasWidth = 730;
                     var canvasHeight = 750;
 
-                    cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
+                   // cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
                     //console.log('Create Whiteboard ');
 
                     console.log(virtualclass.gObj.currWb + ' ' + 'document share Create Whiteboard ');
@@ -1002,12 +916,18 @@
                     var elem = document.querySelector(query);
                     if(elem != null){
                         elem.insertBefore(whiteboard, elem.firstChild);
-                        var app = 'Whiteboard';
-                        var args = [app, 'byclick', whiteboard.dataset.wid, whiteboard.id];
-                        virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
 
-                      cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
+                        virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
+                        // var app = 'Whiteboard';
+                        // var args = [app, 'byclick', whiteboard.dataset.wid, whiteboard.id];
+                        // virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+                        // var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+                        //
+                        // var id = virtualclass.gObj.currWb;
+                        // virtualclass.system.setCanvasWrapperDimension(measureRes, id);
 
+
+                        // cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
                     } else {
                         console.log("Element is null");
 
@@ -1104,11 +1024,12 @@
                                         if(!activeSlide){
                                             alert('Thre is no page');
                                         }else{
-                                            this.getScreen(activeSlide);
+                                            // by true, know the event is performed real user
+                                            this.getScreen(activeSlide, true);
                                             cthis.docs.currNote = activeSlide.dataset.slide;
                                         }
                                     } else {
-                                        this.getScreen(prevSlide);
+                                        this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
                                     }
 
@@ -1158,12 +1079,13 @@
                                             if(!activeSlide){
                                                 alert('Thre is no page');
                                             }else{
-                                                this.getScreen(activeSlide);
+                                                this.getScreen(activeSlide, true);
                                                 cthis.docs.currNote = activeSlide.dataset.slide;
                                             }
 
                                         } else {
-                                            this.getScreen(nextSlide);
+                                            // by true, know the event is performed real user
+                                            this.getScreen(nextSlide, true);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
                                         }
                                     }
@@ -1196,7 +1118,7 @@
                         /**
                          * Create the screen with Whiteboard and Current slide
                          */
-                        getScreen : function(note){
+                        getScreen : function(note, userClicked){
                             this.currSlide = note.dataset.slide;
                             this.currNote = note.dataset.slide;
                             virtualclass.dts.currDoc = this.doc;
@@ -1205,7 +1127,11 @@
 
                             if(!this.isWhiteboardExist(this.currNote)){
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
+                            }else {
+                                // If there is a zoom, that needs to apply at in next/previous screen,
+                                virtualclass.zoom.normalRender();
                             }
+
                             virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 
@@ -1737,17 +1663,17 @@
 
             },
 
-            setNoteImageDimension : function (width, height, nid){
-              var contElem =  document.querySelector('#cont' + nid);
-              if(contElem != null){
-                var noteContainer = contElem.parentNode;
-                var imageContainer = document.querySelector('#'+ noteContainer.id +  ' .imageContainer img');
-                imageContainer.style.width = width;
-                imageContainer.style.height = height;
-              }else {
-                alert(nid + ' is null');
-              }
-            },
+            // setNoteImageDimension : function (width, height, nid){
+            //   var contElem =  document.querySelector('#cont' + nid);
+            //   if(contElem != null){
+            //     var noteContainer = contElem.parentNode;
+            //     var imageContainer = document.querySelector('#'+ noteContainer.id +  ' .imageContainer img');
+            //     imageContainer.style.width = width;
+            //     imageContainer.style.height = height;
+            //   }else {
+            //     alert(nid + ' is null');
+            //   }
+            // },
 
             isFirstNote : function (id){
                 var firstNote = document.querySelector('#notesContainer .note');
@@ -1767,7 +1693,6 @@
             docSelected : function (){
                 return document.querySelector('#listdocs .linkdocs[data-selected="1"]');
             }
-
         };
     }
     window.documentShare = documentShare;

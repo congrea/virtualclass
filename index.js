@@ -79,6 +79,17 @@ $(document).ready(function () {
                     var videoObj = previousApp.metaData;
                     videoObj.fromReload = true;
                 }
+            }else if(previousApp.name == 'Whiteboard'){
+                virtualclass.gObj.wbCount = previousApp.wbn;
+
+                // if(previousApp.hasOwnProperty('wbcs')){
+                //     virtualclass.gObj.currSlide = previousApp.wbcs;
+                // }
+
+                var currSlide = localStorage.getItem('currSlide');
+                if(currSlide != null){
+                    virtualclass.gObj.currSlide = currSlide;
+                }
             }
         } else {
             var appIs = "EditorRich";
@@ -263,8 +274,9 @@ $(document).ready(function () {
 
             memberUpdateWithDelay(e, 'removed')
 
-           // virtualclass.multiVideo.onUserRemove(removeUser);
-
+            if(virtualclass.gObj.meetingMode){
+                virtualclass.multiVideo.onUserRemove(removeUser);
+            }
         });
 
         var disableEditor = function (editor) {
@@ -457,6 +469,12 @@ $(document).ready(function () {
         function sayHelloToNewUser(e, iamObj, jId){
             if(!e.hasOwnProperty('cmadd')){
                 ioAdapter.sendUser(iamObj, jId);
+                if(roles.hasControls()){
+                    var wid = virtualclass.gObj.currWb;
+                    if(virtualclass.pdfRender[wid] != null ){
+                        virtualclass.pdfRender[wid].sendCurrentScroll(jId);
+                    }
+                }
                 console.log('Member, ping to new user, From ' + virtualclass.gObj.uid + ' To ' + virtualclass.jId);
             }
         }
@@ -467,7 +485,6 @@ $(document).ready(function () {
             setTimeout(function (){
                 memberUpdate(e,f);
             },0) // 3000
-
         }
 
         /**
@@ -653,14 +670,11 @@ $(document).ready(function () {
                         console.log('Document share send :- Layout');
                     }
                 }else if(virtualclass.currApp === 'Video'){
-
                     if(typeof virtualclass.videoUl.player == 'object'){
                         if(virtualclass.videoUl.videoUrl){
-                            ioAdapter.mustSend({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl },
-                                startFrom : virtualclass.videoUl.player.currentTime()}, 'cf' : 'videoUl'}, virtualclass.jId);
-
+                            ioAdapter.mustSendUser({'videoUl': {'init': {id:virtualclass.videoUl.videoId,videoUrl:virtualclass.videoUl.videoUrl },
+                            startFrom : virtualclass.videoUl.player.currentTime(),isPaused:virtualclass.videoUl.player.paused()}, 'cf' : 'videoUl'}, virtualclass.jId);
                         }
-
                     } else {
                         ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout'}, 'cf': 'videoUl'}, virtualclass.jId);
                     }
@@ -669,10 +683,18 @@ $(document).ready(function () {
                 if (typeof sType !== 'undefined' && sType !== null) {
                     //TODO this should be into function
                     if (typeof virtualclass.getDataFullScreen == 'function') {
-                        sType = virtualclass.getDataFullScreen(sType);
-                        var createdImg = virtualclass.getDataFullScreen('ss');
-                        ioAdapter.sendBinary(createdImg);
-                        sType = null;
+                        if(virtualclass.gObj.hasOwnProperty('sendScreen')){
+                            clearTimeout(virtualclass.gObj.sendScreen);
+                        }
+                        virtualclass.gObj.sendScreen = setTimeout(
+                            function (){
+                                sType = virtualclass.getDataFullScreen(sType);
+                                var createdImg = virtualclass.getDataFullScreen('ss');
+                                ioAdapter.sendBinary(createdImg);
+                                sType = null;
+                                console.log('Send full-screen image');
+                            },2000
+                        );
                     }
                 }
             }
@@ -730,6 +752,7 @@ $(document).ready(function () {
             }
 
             virtualclass.jId = e.newJoinId;
+            // alert('Join user ' + virtualclass.jId);
 
             var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
 
@@ -750,6 +773,7 @@ $(document).ready(function () {
                     var speed = virtualclass.videoHost.gObj.MYSPEED;
                 }
                 virtualclass.videoHost.setDefaultValue(speed);
+                virtualclass.vutil.setDefaultScroll();
             }
 
             virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
@@ -780,6 +804,10 @@ $(document).ready(function () {
                     (function(jId){
                         setTimeout(function () {
                             joinAsTeacher(jId)
+                            var wid = virtualclass.gObj.currWb;
+                            if(virtualclass.pdfRender[wid] != null){
+                                virtualclass.pdfRender[wid].sendScroll(); // when user Join as teacher
+                            }
                         }, virtualclass.gObj.mySetTime);
                     }(virtualclass.jId));
 
@@ -827,7 +855,6 @@ $(document).ready(function () {
             }
 
             if (typeof virtualclass.quiz != 'undefined') {
-
                 if ((virtualclass.quiz.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
                     virtualclass.quiz.uniqueUsers.push(virtualclass.jId);
 
@@ -836,7 +863,6 @@ $(document).ready(function () {
                         if (virtualclass.quiz.uniqueUsers.indexOf(i) < 0) {
                             virtualclass.quiz.uniqueUsers.push(i);
                         }
-
                     }
                 }
             }
@@ -844,7 +870,7 @@ $(document).ready(function () {
                 ioAdapter.mustSend({'uid': virtualclass.gObj.uid, ac:true, 'cf': 'tsr'});
             }
 
-            if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode   ){
+            if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode ){
                 virtualclass.multiVideo.onUserJoin(virtualclass.jId);
             }
 
@@ -925,10 +951,12 @@ $(document).ready(function () {
 
                     if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)) {
                         virtualclass.popup.closePopup();
+                        virtualclass.vutil.setDefaultScroll();
                         var popupContainer = document.getElementById('popupContainer');
                         if (popupContainer != null) {
                             popupContainer.style.display = 'none';
                         }
+
                         console.log('Popup box Close All');
                     } else {
                         console.log('Popup box Could not close');
@@ -1428,6 +1456,41 @@ $(document).ready(function () {
                 console.log('multivideo, message received');
                 virtualclass.multiVideo.onmessage(e.message, e.fromUser.userid);
             }
+
+            this.sc = function (e){
+                console.log('Recevied scroll');
+                virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
+            }
+
+            this.scf = function (e){
+                console.log('Recevied scroll first');
+                console.dir(e.message);
+                virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
+            }
+
+            this.cwb = function (e){
+                if(e.message.hasOwnProperty('diswb')){
+                   var wid = e.message.wid;
+                    virtualclass.gObj.currWb = wid;
+                    if(!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)){
+                        virtualclass.vutil.createWhiteBoard(virtualclass.gObj.currWb);
+                    }
+                    var idn = wid.split('_');
+                    if(idn.length > 0){
+                       virtualclass.gObj.currSlide = idn[idn.length-1];
+                    }
+                    virtualclass.wbCommon.displaySlide(wid);
+                    console.log('whiteboard slide received=' + wid);
+
+                }else if(e.message.hasOwnProperty('wbCount')){
+                    virtualclass.gObj.wbCount = e.message.wbCount;
+                    virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+                }
+            }
+
+            // this.scx = function (e){
+            //     virtualclass.pdfRender.setScrollPositionX(e.message);
+            // }
         };
         // TODO this shoudl be remove, after precheck feature is enabled
     }

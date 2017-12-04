@@ -277,7 +277,7 @@ var ioMissingPackets = {
      * @param msg
      */
 
-    fillExecutedStore: function (msg) {
+    fillExecutedStore2: function (msg) {
 
         "use strict";
         var uid = msg.user.userid;
@@ -300,19 +300,15 @@ var ioMissingPackets = {
                     ioStorage.dataExecutedStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.serial);
                     this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
-
                     this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
 
                     try {
                         console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.serial);
                         io.onRecJson(msg.m.data[i]);
-
-                        // for checking common chat
-                        //if(!msg.m.data[i].m.hasOwnProperty('receiver'))
-
                     } catch (error) {
                         console.log("Error " + error);
                     }
+
                 } else {
                     console.log('UID ' + uid + ' Received Packed missing serial')
                 }
@@ -344,6 +340,68 @@ var ioMissingPackets = {
         this.missRequest[uid] = 0;
         ioMissingPackets.missRequestFlag = 0;
         virtualclass.vutil.initCommonSortingChat();
+    },
+
+
+    fillExecutedStore: function (msg) {
+        "use strict";
+        var uid = msg.user.userid;
+        this.validateAllVariables(uid);
+
+        var dataLength = msg.m.data.length,
+            i, ex;
+        for (i = 0; i < dataLength; i++) {
+            if (msg.m.data[i] != null) {
+
+                if (typeof msg.m.data[i].m.serial != 'undefined' && msg.m.data[i].m.serial != null) {
+
+                    this.executedSerial[uid] = msg.m.data[i].m.serial;
+                    ioStorage.dataExecutedStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.serial);
+                    this.onRecSave(msg.m.data[i]);
+                    msg.m.data[i].user = msg.user;
+                    this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
+                    try {
+                        console.log('UID ' + uid + ' Object with Serial ' + msg.m.data[i].m.serial);
+
+                        io.onRecJson(msg.m.data[i]);
+
+                    } catch (error) {
+                        console.log("Error " + error);
+                    }
+
+                } else {
+                    console.log('UID ' + uid + ' Received Packed missing serial')
+                }
+            }
+        }
+
+        this.aheadPackets[uid] = this.aheadPackets[uid].sort(function (a, b) {
+            return b - a
+        }); // Make sure packets are in correct order.
+
+        while (ex = this.aheadPackets[uid].pop()) {
+            if (typeof ex != 'undefined' && ex != null) {
+
+                if(typeof this.executedStore[uid][ex] != 'undefined'){
+                    this.executedSerial[uid] = ex;
+
+                    this.onRecSave(this.executedStore[uid][ex]);
+                    console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
+                    ioStorage.dataExecutedStoreAll(this.executedStore[uid][ex], uid + '_' + this.executedStore[uid][ex].m.serial);
+                    io.onRecJson(this.executedStore[uid][ex]);
+                } else {
+                    console.log('fillExecutedStore undefined');
+                    return; //
+                }
+
+            } else {
+                console.log('UID ' + uid + ' ahead Packed missing serial')
+            }
+        }
+        this.missRequest[uid] = 0;
+        ioMissingPackets.missRequestFlag = 0;
+        virtualclass.vutil.initCommonSortingChat();
+
     },
 
     /**

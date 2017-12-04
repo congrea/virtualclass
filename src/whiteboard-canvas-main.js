@@ -68,7 +68,6 @@
                     obj.id = vcan.main.id;
                 }
 
-                obj.cornersize = 12;
                 obj.rotatingPointOffset = 40;
                 obj.selectable = true; //TODO this could be removed not sure but draggable property already defined.
                 obj.downObj = false;
@@ -76,7 +75,7 @@
                 obj.cornersize = 12;
                 obj.padding = 0;
                 obj.hasControls = true;
-                obj.cornerColor = 'rgba(102,153,255,0.5)';
+                obj.cornerColor = 'rgba(102,153,255,0.5)'; // small  rectangle border color
 
                 //obj.borderColor = '#000'; Note: below three line code look like this
                 if (obj.borderColor == undefined) {
@@ -97,6 +96,18 @@
                 if (!obj.hasOwnProperty('theta')) {
                     obj.theta = 0;
                 }
+                // if(virtualclass.wb[virtualclass.gObj.currWb].scale != null){
+                //     obj.scaleX = virtualclass.wb[virtualclass.gObj.currWb].scale;
+                //     obj.scaleY = virtualclass.wb[virtualclass.gObj.currWb].scale;
+                // } else {
+                //     if (!obj.hasOwnProperty('scaleX')) {
+                //         obj.scaleX = 1;
+                //     }
+                //
+                //     if (!obj.hasOwnProperty('scaleY')) {
+                //         obj.scaleY = 1;
+                //     }
+                // }
 
                 if (!obj.hasOwnProperty('scaleX')) {
                     obj.scaleX = 1;
@@ -311,19 +322,21 @@
                     if (!this.hasControls) {
                         return;
                     }
-                    var size = this.cornersize,
+                    var size = 8 * virtualclass.zoom.canvasScale,
                         size2 = size / 2,
                         padding = this.padding,
                         left = -(this.width / 2),
                         top = -(this.height / 2),
                         _left,
                         _top,
-                        sizeX = size / this.scaleX,
-                        sizeY = size / this.scaleY,
-                        scaleOffsetY = (padding + size2) / this.scaleY,
-                        scaleOffsetX = (padding + size2) / this.scaleX,
-                        scaleOffsetSizeX = (padding + size2 - size) / this.scaleX,
-                        scaleOffsetSizeY = (padding + size2 - size) / this.scaleY,
+                        // sizeX = size / this.scaleX,
+                        // sizeY = size / this.scaleY,
+                        sizeX = size / (this.scaleX),
+                        sizeY = size / (this.scaleY),
+                        scaleOffsetY = (padding + size2) / (this.scaleY),
+                        scaleOffsetX = (padding + size2) / (this.scaleX),
+                        scaleOffsetSizeX = (padding + size2 - size) / (this.scaleX),
+                        scaleOffsetSizeY = (padding + size2 - size) / (this.scaleY),
                         height = this.height;
 
                     ctx.save();
@@ -602,7 +615,9 @@
                  */
 
                 obj.getAngle = function () {
-                    return this.theta * 180 / Math.PI;
+                    var theta = this.theta * 180 / Math.PI;
+                    // console.log('theta ' + theta);
+                    return theta;
                 };
 
                 /**
@@ -649,7 +664,8 @@
                                 ? 'scale'
                                 : 'rotate';
                         }
-
+                        // alert('heelo scalex');
+                        // debugger;
                         obj.currentTransform = {
                             target: this,
                             action: action,

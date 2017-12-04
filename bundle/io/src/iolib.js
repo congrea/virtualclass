@@ -14,6 +14,8 @@ var io = {
     error: null,
     uniquesids: null,
     serial: null,
+    globallock: false,
+    globalmsgjson: [],
     packetQueue: [],
     init: function(cfg, callback) {
         "use strict";
@@ -284,26 +286,23 @@ var io = {
         //}
     },
     onRecJson: function(receivemsg) {
+        if (io.globallock === false ) {
+            if (io.globalmsgjson.length > 0) {
+                while (io.globalmsgjson.length > 0 && io.globallock === false){
+                    var recmsg = io.globalmsgjson.shift();
+                    io.onRecJsonIndividual(recmsg);
+                }
+            } else if (receivemsg != null && io.globallock === false && io.globalmsgjson.length == 0) {
+                io.onRecJsonIndividual(receivemsg);
+            } else if (receivemsg != null) {
+                io.globalmsgjson.push(receivemsg);
+            }
+        } else if (receivemsg != null) {
+            io.globalmsgjson.push(receivemsg);
+        }
+    },
 
-//        if( typeof receivemsg.m !='undefined') {
-//            if( typeof receivemsg.m.ppt !='undefined') {
-//                if( typeof receivemsg.m.ppt.startFrom !='undefined') {
-//                    virtualclass.sharePt.startFromFlag=1;
-//                    var frame= document.getElementById('pptiframe')
-//                    if(frame !=null){
-//                     if (receivemsg.m.ppt.init.search("postMessage") < 0) {
-//                    frame.setAttribute("src", receivemsg.m.ppt.init+ "?postMessage=true&postMessageEvents=true");
-//                } else {
-//                   frame.setAttribute("src", receivemsg.m.ppt.init);
-//                }
-//                   setTimeout(function(){
-//                     frame.contentWindow.postMessage(JSON.stringify({method: 'slide', args:[receivemsg.m.ppt.startFrom.indexh,receivemsg.m.ppt.startFrom.indexv,receivemsg.m.ppt.startFrom.indexf] }), '*');
-//                   },2000)
-//
-//                   }
-//                }
-//            }
-//        }
+    onRecJsonIndividual: function(receivemsg) {
         var userto = '';
         switch (receivemsg.type) {
             case "joinroom":

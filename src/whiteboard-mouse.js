@@ -42,8 +42,14 @@
                  * @param e is event object
                  */
                 mousedown: function (e, cobj) {
+                    var newpointer = vcan.utility.getReltivePoint(e);
+                   // console.log('Whiteboard drag start x=' + newpointer.x + ' y=' + newpointer.y);
 
                     if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
+                        // console.log('Whiteboard drag start before scale x=' + (e.detail.cevent.x - vcan.main.offset.x) + ' y=' + ( e.detail.cevent.y - vcan.main.offset.y));
+                        e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e); // Page refresh
+                           // e = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(e); // Page refresh
+
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
                         e.clientY = vcan.main.offset.y + e.detail.cevent.y;
                         e.x = vcan.main.offset.x + e.detail.cevent.x;
@@ -62,8 +68,8 @@
                         if (vcanmain.currentTransform) {
                             return;
                         }
-                        var foundTarget = vcan.events().findTarget(e),
-                            pointer = vcan.utility.getReltivePoint(e);
+                        var foundTarget = vcan.events().findTarget(e);
+
                         if (foundTarget) {
                             if (vcan.main.children.length > 0) {
                                 foundTarget.setZindex();
@@ -87,11 +93,24 @@
                         }
 
                         if (!e.detail.hasOwnProperty('cevent')) {
+                            if(roles.hasControls()){
+                                e = vcan.utility.updateCordinate(e);
+                            }
                             var currTime = new Date().getTime();
                             var obj = vcan.makeStackObj(currTime, 'd', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
+
+                            obj.x = obj.x / virtualclass.zoom.canvasScale;
+                            obj.y = obj.y / virtualclass.zoom.canvasScale;
+
+                            // console.log('Whiteboard drag start x=' + (e.clientX - vcan.main.offset.x) + ' y=' + ( e.clientY - vcan.main.offset.y) + ' x=' + (obj.x) + ' y=' + (obj.y));
+
                             virtualclass.wb[virtualclass.gObj.currWb].uid++;
                             console.log('uid ' + virtualclass.wb[virtualclass.gObj.currWb].uid);
                             obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
+
+                            // obj = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollPositionInObj(obj);
+
+
                             vcan.main.replayObjs.push(obj);
                             virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                         }
@@ -110,8 +129,7 @@
                             e.currY = e.detail.cevent.y;
                         }
 
-                        var foundTarget = vcan.events().findTarget(e),
-                            pointer = vcan.utility.getReltivePoint(e);
+                        var foundTarget = vcan.events().findTarget(e);
 
                         if (foundTarget && foundTarget.type == 'text' && virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == 't_text') {
                             foundTarget.setupCurrentTransform(e);
@@ -126,7 +144,14 @@
                  */
 
                 mousemove: function (e) {
+                    var newpointer = vcan.utility.getReltivePoint(e);
+
                     if (e.detail.hasOwnProperty('cevent')) {
+                        if(vcan.main.action == 'move'){
+                             e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
+                           // e = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(e);
+                        }
+
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
                         e.clientY = vcan.main.offset.y + e.detail.cevent.y;
                         e.x = vcan.main.offset.x + e.detail.cevent.x;
@@ -141,14 +166,18 @@
                     // we don't want to execute below code when user is
                     // drawing the object
                     if (vcan.main.action == 'move') {
+                        // console.log('Whiteboard drag move x=' + newpointer.x + ' y=' + newpointer.y);
                         var tempObj;//IMPORTANT this is the added during the UNIT TESTING, can be critical
                         var obj = vcan.main;
                         if (!obj.currentTransform) {
-                            var target = vcan.events().findTarget(e);
+
+                            // var target = vcan.events().findTarget(e);
 
                             //this.moveChunk.push(obj.currentTransform.target);
                         } else {
+                                // var pointer = vcan.utility.actualPointer(e),
                             var pointer = vcan.utility.actualPointer(e),
+
                                 x = pointer.x,
                                 y = pointer.y;
 
@@ -209,6 +238,7 @@
                                     if (!e.detail.hasOwnProperty('cevent')) {
                                         vcan.optimize.doOptiMize(e);
                                     }
+                                   // console.log('Whiteboard drag move x=' + (e.clientX ) + ' y=' + (e.clientY));
 
                                     tempTarget.setActive(true);
                                     tempTarget.setCoords();
@@ -251,6 +281,7 @@
                         e.currX = e.detail.cevent.x;
                         e.currY = e.detail.cevent.y;
                     }
+
                     lastmousemovetime = null;
                     if (vcan.main.action == 'move') {
                         vcan.activMouse.mousemove(e);
@@ -277,7 +308,10 @@
                         // every time(either the action in scale or drag mode) there would be checked that if the object is existing
                         //  which have to be deleted duplicate object
                         if (vcan.main.dragMode == true || vcan.main.scaleMode == true) {
-                            var pointer = vcan.utility.actualPointer(e);
+                            if(roles.hasControls()){
+                               e = vcan.utility.updateCordinate(e);
+                            }
+
                             var currTime = new Date().getTime();
                             if (!e.detail.hasOwnProperty('cevent') || (e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('broadCast'))) {
                                 vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));

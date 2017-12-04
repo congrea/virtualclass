@@ -27,6 +27,7 @@
              * @returns nothing
              */
             textUtility: function (startPosX, startPosY, mtext) {
+                console.log('Text position x=' + startPosX + ' y=' + startPosY);
                 this.startPosX = startPosX;
                 this.startPosY = startPosY;
                 //alert('is there anything for you');
@@ -114,8 +115,8 @@
                 divNode.className = "textBoxContainer";
                 divNode.style.position = 'absolute';
 
-                divNode.style.left = (vcan.main.offset.x + obj.x) + "px";
-                divNode.style.top = (obj.y) + "px";
+                divNode.style.left = ((vcan.main.offset.x + obj.x) - virtualclass.leftPosX) + "px";
+                divNode.style.top = (obj.y-virtualclass.topPosY) + "px";
 
                 var textNode = document.createElement('textarea');
 
@@ -228,8 +229,8 @@
                 var textObj = {
                     type: 'text',
                     text: userText,
-                    x: txtWrapper.measure.x + textHalfWidth,
-                    y: txtWrapper.measure.y + extHeight,
+                    x: txtWrapper.measure.x + (textHalfWidth * virtualclass.zoom.canvasScale),
+                    y: txtWrapper.measure.y + (extHeight * virtualclass.zoom.canvasScale),
                     fontSize: fontSize,
                     fontWidth: ctx.measureText(userText).width,
                     //textArr : this.keyTyped, //this should add after called the function canvas.addObject(text)

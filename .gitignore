@@ -6,3 +6,4 @@ uploads/*
 .sass-cache/
 css/theme/black.css.map
 css/theme/gray.css.map
+*.pdf

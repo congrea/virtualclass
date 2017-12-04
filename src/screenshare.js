@@ -118,6 +118,7 @@ var globalImageData = {};
                             virtualclass[app].localCanvas.height = d.h;
                         }
                     }
+
                     virtualclass[app].drawImages(imgData);
                 }
 

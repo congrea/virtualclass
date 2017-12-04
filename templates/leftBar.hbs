@@ -10,5 +10,13 @@
     {{/if}}
 
   {{/if}}
-  <div id="virtualclassWhiteboard" class="virtualclass "></div>
+  <div id="virtualclassWhiteboard" class="virtualclass whiteboard">
+    <div class="whiteboardContainer"> </div>
+
+  {{#if hasControls}}
+    <span class="nvgt prev"></span>
+    <span class="nvgt next"></span>
+  {{/if}}
+    
+  </div>
 </div>

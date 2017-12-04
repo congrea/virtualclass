@@ -2919,3 +2919,80 @@
 	cursor: pointer;
 }
 
+
+#virtualclassCont.congrea #zoomControler  {
+	position: absolute;
+	top: 0;
+	right: 338px;
+	padding: 6px;
+}
+
+#virtualclassCont.congrea #zoomControler button {
+	margin : 5px;
+}
+
+
+#virtualclassCont.congrea .scrollX {
+	overflow : scroll;
+}
+
+
+#virtualclassCont.congrea .canvasWrapper.cscrollX {
+	overflow-x : scroll;
+}
+
+#virtualclassCont.congrea .canvasWrapper.cscrollY {
+	overflow-y: scroll
+}
+
+
+#virtualclassCont.congrea .canvasWrapper .scrollDivY{
+	width : 5px;
+	border : 2px solid red;
+	position : absolute;
+	top  : 0;
+	right: 0;
+}
+
+#virtualclassCont.congrea .canvasWrapper .scrollDivX {
+	height : 5px;
+	border : 2px solid red;
+	position : fixed;
+	bottom  : 0;
+	left: 0;
+	bottom : 60px;
+}
+
+#virtualclassCont.congrea .canvasWrapper {
+	position : relative;
+}
+
+
+#virtualclassCont.congrea .canvasWrapper .mousepointer {
+	width : 5px;
+	height : 10px;
+	background-color : green;
+	position :absolute;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {
+	height : 94vh;
+}
+
+
+#virtualclassCont.congrea .zoomControler{
+	position: absolute;
+	top: 11px;
+	text-align: right;
+	float: right;
+	right: 360px;
+	z-index: 1;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
+	display : none;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer.current{
+	display : block;
+}

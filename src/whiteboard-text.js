@@ -20,11 +20,14 @@
                  * @param obj the properties would initates on it
                  */
                 init: function (obj) {
-                    obj.lineHeight = 1.3; //earlier 1.3 it was
+                    //earlier 1.3 it was
+                    obj.lineHeight = 1.3;
 
                     if (obj.fontSize == undefined) {
                         obj.fontSize = 30;
                     }
+
+                    obj.fontSize = obj.fontSize * virtualclass.zoom.canvasScale;
                     //change during the unit testing
                     obj.font = obj.fontSize + 'px Times New Roman';
                     return obj;
@@ -35,6 +38,7 @@
                  * @param obj would be drawn
                  */
                 draw: function (ctx, obj, noTransform) {
+
                     ctx.font = obj.font;
                     var textLines = obj.text.split(/\r?\n/);
                     //obj.height = obj.fontSize * obj.textLines.length * obj.lineHeight;

@@ -19,6 +19,8 @@
         var obj = {mp: {}};
         obj.mp.x = endPosX;
         obj.mp.y = endPosY;
+        var lineWidth = 2 * virtualclass.zoom.canvasScale;
+        // var lineWidth = 3
         if (startPosX > endPosX) {
             //this is not using for oval
             //TODO will have to look for other object that is it need or not
@@ -43,7 +45,7 @@
 
         if (objType == 'line') {
             obj.lineColor = "#424240";
-            obj.lineWidth = 3;
+            obj.lineWidth = lineWidth;
             obj.start = {x: startPosX, y: startPosY};
             obj.end = {x: endPosX, y: endPosY};
 
@@ -51,10 +53,10 @@
             obj.width = endPosX - startPosX;
             obj.height = endPosY - startPosY;
             obj.borderColor = "#424240";
-            obj.lineWidth = 3;
+            obj.lineWidth = lineWidth;
 
         } else if (objType == 'oval') {
-            obj.lineWidth = 3;
+            obj.lineWidth = lineWidth;
             obj.borderColor = "#424240";
 
             obj.width = endPosX - startPosX;
@@ -67,7 +69,7 @@
             obj.ry = (obj.height / 2);
 
         } else if (objType == 'triangle') {
-            obj.lineWidth = 3;
+            obj.lineWidth = lineWidth;
             obj.borderColor = "#424240";
         } else if (objType == 'text') {
             return;

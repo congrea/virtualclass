@@ -279,9 +279,9 @@ this["JST"]["templates/documentSharing/notesMain.hbs"] = Handlebars.template({"1
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" data-status=\""
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "\" >\n    <div class=\"imageContainer\">\n      <img src= "
+    + "\" >\n    <!-- <div class=\"imageContainer\">\n      <img src= "
     + alias4(((helper = (helper = helpers.content_path || (depth0 != null ? depth0.content_path : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content_path","hash":{},"data":data}) : helper)))
-    + " />\n    </div>\n  </div>\n";
+    + " />\n    </div> -->\n  </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -390,6 +390,8 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.appTools,depth0,{"name":"appTools","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
+},"8":function(container,depth0,helpers,partials,data) {
+    return "    <span class=\"nvgt prev\"></span>\n    <span class=\"nvgt next\"></span>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -398,7 +400,9 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     + "\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass \"></div>\n</div>";
+    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\">\n    <div class=\"whiteboardContainer\"> </div>\n\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    \n  </div>\n</div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1065,11 +1069,11 @@ this["JST"]["templates/whiteboard/main.hbs"] = Handlebars.template({"1":function
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "      <div id=\"canvasWrapper"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\">\n      <canvas id=\"canvas"
+    + "\" class=\"canvasWrapper\">\n      <canvas id=\"canvas"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" tabindex=\"0\" width=\"730\" height=\"750\">\n        "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"canvasmissing",{"name":"getString","hash":{},"data":data}))
-    + "\n      </canvas>\n    </div>\n  </div>\n</div>";
+    + "\n      </canvas>\n    </div>\n  </div>\n</div>admin";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/whiteboard/toolbar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1117,4 +1121,8 @@ this["JST"]["templates/youtube/ytscontrol.hbs"] = Handlebars.template({"compiler
     return "<div id=\"youtubeUrlContainer\">\n  <input id=\"youtubeurl\" placeholder=\"Enter YouTube Video URL.\">\n  <button id=\"submitURL\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"ShareYouTubeVideo",{"name":"getString","hash":{},"data":data}))
     + "</button>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"> ZOOM in </button>\n  <button class=\"zoomOut\">ZOOM out</button>\n  <button class=\"fitScreen\">Fit to Screen</button>\n</div>";
 },"useData":true});

@@ -621,6 +621,7 @@
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
                 virtualclass.wb = ""; // make white board empty
+                delete virtualclass.gObj.currWb; //deleting current whiteboard
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
@@ -648,6 +649,7 @@
                     virtualclass.vutil.clearAllChat();
                     virtualclass.editorRich.removeEditorData();
                     virtualclass.editorCode.removeEditorData();
+                    virtualclass.pdfRender = {}
                 }
 
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
@@ -655,6 +657,11 @@
                     //debugger;
                     virtualclass.storage.clearStorageData();
                 }
+
+                virtualclass.wbCommon.removeAllContainers();
+                virtualclass.gObj.wbCount = 0;
+                virtualclass.gObj.currSlide = 0;
+
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = "EditorRich"; // default app
 
@@ -873,13 +880,11 @@
                 that.db.transaction(["wbData"], "readwrite");
                 dbDefined = true;
             } catch (err) {
-
                 setTimeout(
                     function (){
                         that.getWbData(wbId, cb);
                     }, 500
                 );
-
             }
 
             if(dbDefined){
@@ -890,9 +895,11 @@
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
                     if(typeof wb.result != 'undefined'){
-
+                        virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
                         cb();
+                    } else {
+                        virtualclass.gObj.tempReplayObjs[wbId] = 'nodata';
                     }
                 }
             }

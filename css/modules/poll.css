@@ -296,4 +296,22 @@ pointer-events:none;
 #virtualclassCont.congrea.student  #virtualclassPoll #stdContHead {
   margin-bottom:30px;
 }
+#virtualclassCont.congrea.teacher #mszBoxPoll{
+  border: 1px solid #c8ddb8;
+  border-radius: 5px;
+  /* color: #3a773c; */
+  margin: 0 auto;
+  padding: 30px 20px;
+  position: absolute;
+  top: 20%;
+  width: 480px;
+  text-align: center;
+  /* box-shadow: 0 0 8px #ddd; */
+  left: -230px;
+  right: 0;
+  font-size: medium;
+}
 
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive{
+    height:99%;
+}

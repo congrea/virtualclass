@@ -19,9 +19,8 @@
     </nav>
     <div id="layoutPollBody" class="pollMainCont">
       {{#if  control}}
-        <div id="mszBoxPoll" class="row">
+        <div id="mszBoxPoll" class="row" style="display:none">
         </div>
-
         <div id="createPollCont" class="createBtnCont">
           <button id="newPollBtnsite" class="btn btn-default site" data-toogle="modal" data-target="#editPollModal" style="display: none;"><i class="icon-create-new"></i>{{getString 'addnew'}}</button>
           <button id="newPollBtncourse" class="btn btn-default course" data-toogle="modal" data-target="#editPollModal" style="display: block;"><i class="icon-create-new"></i>{{getString 'addnew'}}</button>
@@ -30,8 +29,8 @@
         <div id="bootstrapCont" class="modalCont">
 
         </div>
-        <div class="table-responsive">
-        <table id="listQnContcourse" class="pollList table table-bordered table-striped" style="display:table;">
+        <div class="table-responsive" id="listQnContcourse">
+        <table  class="pollList table table-bordered table-striped" >
           <thead>
           <tr class=" headerContainer" id="headerContainercourse">
             <th class="controlsHeader">{{getString 'Controls'}}<i class="icon-setting"></i></th>
@@ -41,8 +40,8 @@
           </thead>
         </table>
         </div>
-      <div class="table-responsive">
-        <table id="listQnContsite" class="pollList table table-bordered table-striped" style="display: none;">
+      <div class="table-responsive"  id="listQnContsite" style="display: none;">
+        <table class="pollList table table-bordered table-striped" >
           <thead>
           <tr class=" headerContainer" id="headerContainersite">
             <th class="controlsHeader">{{getString 'Controls'}}<i class="icon-setting"></i></th>

@@ -77,7 +77,7 @@ function updateOnlineUserText (){
             var onlineUser  = document.querySelector('#onlineusertext');
 
             if(onlineUser == null){
-                document.querySelector('#usertab_text').innerHTML =  "<span id='onlineusertext'>"+text+"</span>";
+                document.querySelector('#usertab_text').innerHTML =  "<span id='onlineusertext' class='cgText'>"+text+"</span>";
             } else {
                 onlineUser.innerHTML = text;
             }
@@ -85,7 +85,7 @@ function updateOnlineUserText (){
             console.log('Chat list is not fetched yet.');
         }
     } else {
-        document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>" ;
+        document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>" ;
     }
 }
 
@@ -508,7 +508,7 @@ function sortUserList(a, b) {
 function sortCommonChat(){
     var $wrapper = $('#chat_room');
     $wrapper.find('.ui-chatbox-msg').sort(function (a, b) {
-        return +(a  .dataset.msgtime) - +(b.dataset.msgtime);
+        return +(a.dataset.msgtime) - +(b.dataset.msgtime);
     })
         .appendTo( $wrapper );
 }

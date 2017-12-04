@@ -105,6 +105,11 @@
                          onComplete: function (id, xhr, rawData) {
                              if(obj.cthis == 'video'){
                                 obj.cb.call(virtualclass.videoUl, id, xhr, rawData);
+                                 var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                                 if(msz){
+                                     msz.style.display="none";
+                                 }
+
                              }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData); 
                              }

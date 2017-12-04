@@ -77,6 +77,10 @@
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.remove("active");
                             }
+                            var search = document.querySelector("#virtualclassCont.congrea #stickycontainer #congreaUserSearch");
+                            if(search){
+                                 search.style.display="none";
+                            }
 
 
                         } else {

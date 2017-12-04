@@ -571,12 +571,13 @@
             } else if ((virtualclass.currApp == 'SharePresentation')) {
 
                 //virtualclass.sharePt.saveIntoLocalStorage();
-                if (typeof virtualclass.sharePt != 'undefined' && typeof virtualclass.sharePt == 'object') {
+                if (typeof virtualclass.sharePt != 'undefined' && typeof virtualclass.sharePt == 'object' && virtualclass.sharePt.pptUrl) {
 
                     console.log("beforeloadS" + virtualclass.sharePt.pptUrl);
                     prvAppObj.metaData = {
                         'init': virtualclass.sharePt.pptUrl,
-                        startFrom: virtualclass.sharePt.state
+                        startFrom: virtualclass.sharePt.state,
+                        currId:virtualclass.sharePt.currId
                     };
                     console.log("start From"+virtualclass.sharePt.state);
                     virtualclass.sharePt.saveIntoLocalStorage(prvAppObj);
@@ -588,32 +589,39 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-                if(virtualclass.videoUl.yts){
-                    if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
-                        prvAppObj.metaData = {
-                            'init': virtualclass.yts.videoId,
-                            startFrom: virtualclass.yts.player.getCurrentTime(),
-                            type:'yts'
-                        };
-                    }
-
-                }else{
+                //debugger;
+                // if(virtualclass.videoUl.yts){
+                //     if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
+                //         prvAppObj.metaData = {
+                //             'init': virtualclass.yts.videoId,
+                //             startFrom: virtualclass.yts.player.getCurrentTime(),
+                //             type:'yts'
+                //         };
+                //     }
+                //
+                // }else{
                     if(virtualclass.videoUl.player){
                         var start=virtualclass.videoUl.player.currentTime();
                     }
 
                     prvAppObj.metaData = {
                         'init': {
+
                             videoId:virtualclass.videoUl.videoId,
-                            videoUrl:virtualclass.videoUl.videoUrl
+                            videoUrl:virtualclass.videoUl.videoUrl,
+                            yts:virtualclass.videoUl.yts,
+                            isPaused:virtualclass.videoUl.isPaused,
+
                         },
-                        startFrom: start
+                        startFrom: start,
+
                     };
 
-
+                    console.log(prvAppObj);
+                    console.log("nirmala");
                     virtualclass.videoUl.saveVideosInLocalStr();
 
-                }
+              //  }
 
             } else if(virtualclass.currApp == 'DocumentShare'){
                 console.log('previous app success ' + virtualclass.currApp);
@@ -997,6 +1005,7 @@
 
                     var virtualclassppt = document.getElementById('virtualclassSharePresentation');
                     if (virtualclassppt != null) {
+
                         if (document.getElementById('iframecontainer') == null) {
                             virtualclass.sharePt.UI.createIframe();
                         }
@@ -1006,6 +1015,7 @@
 
                     if (roles.hasControls()) {
                         virtualclass.sharePt.initTeacherLayout();
+
                     }
 
                     if (roles.hasView()) {
@@ -1764,14 +1774,16 @@
             virtualclass.fineUploader.uploaderFn(upload);
 
             if(type != 'video') {
-                var cont = document.querySelector("#docsUploadMsz");
-                var upMsz = document.createElement("div")
-                cont.appendChild(upMsz);
-                var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
-                if (msz) {
-                    upMsz.appendChild(msz);
-                    msz.style.display = "block";
+                var cont = document.querySelector("#DocumentShareDashboard #docsUploadMsz");
+                var upMsz = document.createElement("div");
+                if(cont){
+                    cont.appendChild(upMsz);
                 }
+                // var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
+                // if (msz) {
+                //     upMsz.appendChild(msz);
+                //     msz.style.display = "block";
+                // }
             }
 
 
@@ -1915,7 +1927,7 @@
                         );
 
                         if(currVideo){
-                            virtualclass.vutil.readyDashboard();
+                            virtualclass.vutil.readyDashboard(currVideo);
                         }
                     }
                 }
@@ -1939,7 +1951,7 @@
             }
         },
 
-        readyDashboard : function (){
+        readyDashboard : function (currVideo){
             console.log('Ready Dashboard');
             var currApp = virtualclass.currApp;
             // virtualclass.vutil.initDashboard(virtualclass.currApp);
@@ -1991,7 +2003,7 @@
                     var videoDashboard = virtualclass.getTemplate('popup','videoupload');
                     var dbHtml = videoDashboard();
                     $('#VideoDashboard').append(dbHtml);
-                    virtualclass.videoUl.UI.popup();
+                    virtualclass.videoUl.UI.popup(currVideo);
                // }
 
                 virtualclass.vutil.attachEventToUpload();
@@ -2023,8 +2035,8 @@
 
                 }
                 if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-                    // virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-                    // virtualclass.sharePt.retrieveOrder();
+                     virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+                     virtualclass.sharePt.retrieveOrder();
                 }
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');

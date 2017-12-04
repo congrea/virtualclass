@@ -33,6 +33,7 @@
             studentPpt: 0,
             startFromFlag:0,
             startFrom:0,
+            currId:"",
             order:[],
             /*
              * Initalizes and creates ppt layout at student's and teacheh's ends
@@ -83,14 +84,14 @@
                         urlCont.style.display = "none";
                     }
                 }
-                if(!pptfirst){
-                    this.getPptList();
-                    pptfirst = true;
-                }
 
                // virtualclass.sharePt.retrieveOrder(); nirmala
 
                 this.findInStorage();
+                if(!pptfirst){
+                    this.getPptList();
+                    pptfirst = true;
+                }
                 virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
 
             },
@@ -128,13 +129,15 @@
                                 this.localStoragFlag = true;
                                 this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
 
-
-//                                if (roles.hasControls()) {
+                                //if (roles.hasControls()) {
 //                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
 //                                }
 
                                 if (mdata['startFrom'] != null) {
                                     virtualclass.sharePt.stateLocalStorage = mdata['startFrom'];
+                                }
+                                if (mdata['currId'] != null) {
+                                    virtualclass.sharePt.currId = mdata['currId'];
                                 }
 
                             }
@@ -237,6 +240,7 @@
                                         }
                                     }
                                 })
+
                                 var idIndex = virtualclass.sharePt.order.indexOf(id);
                                 if (idIndex >= 0) {
                                     virtualclass.sharePt.order.splice(idIndex, 1)
@@ -244,6 +248,20 @@
                                     virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
                                 }
                             }
+
+                            if(virtualclass.sharePt.currId == id ){
+                                // if(type !="yts"){
+                                var ptCont = document.querySelector("#pptiframe");
+                                if(ptCont){
+                                    ptCont.removeAttribute("src");
+                                    ioAdapter.mustSend({pptMsg: "deletePrt", cf: 'ppt',currId:virtualclass.sharePt.currId});
+                                    virtualclass.sharePt.currId = null;
+                                    virtualclass.sharePt.pptUrl=null;
+
+                                }
+                            }
+
+
                         }
                     }
                 });
@@ -258,7 +276,7 @@
                     form_data.append(key, data[key]);
                     console.log(data[key]);
                 }
-                //                    window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
+                //window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
                 var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_page_order";
                 var cthis = this;
                 virtualclass.xhr.sendFormData(form_data, path, function () {
@@ -530,19 +548,35 @@
 
                 if (typeof receivemsg.pptMsg != 'undefined') {
 
-                    var frame = document.getElementById("pptiframe");
-                    var msgLayout = document.getElementById('pptMessageLayout');
-                    if (frame != null) {
-                        frame.onload = function() {
-                            if (roles.hasView()) {
-                                if (frame.contentWindow != null) {
-                                    if (typeof receivemsg.pptMsg.state != 'undefined') {
-                                        frame.contentWindow.postMessage(JSON.stringify({method: 'setState', args: [receivemsg.pptMsg.state]}), '*');
+                    if(receivemsg.pptMsg =="deletePrt"){
+                        var ptCont = document.querySelector("#pptiframe");
+                        if(ptCont){
+                            ptCont.removeAttribute("src");
+                            virtualclass.sharePt.currId = null;
+                            virtualclass.sharePt.pptUrl=null;
+
+                            var msg = document.querySelector('#virtualclassCont.congrea #virtualclassSharePresentation #pptMessageLayout');
+                            if(msg){
+                                msg.style.display="block";
+                            }
+                        }
+                    }else{
+
+                        var frame = document.getElementById("pptiframe");
+                        var msgLayout = document.getElementById('pptMessageLayout');
+                        if (frame != null) {
+                            frame.onload = function() {
+                                if (roles.hasView()) {
+                                    if (frame.contentWindow != null) {
+                                        if (typeof receivemsg.pptMsg.state != 'undefined') {
+                                            frame.contentWindow.postMessage(JSON.stringify({method: 'setState', args: [receivemsg.pptMsg.state]}), '*');
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+
                     if (msgLayout != null) {
                         msgLayout.style.display = "none";
                     }
@@ -672,7 +706,7 @@
                     virtualclass.sharePt.savePptUrl(vUrl);
                     document.getElementById("presentationurl").value = "";
                 } else {
-                    alert('Invalid Url');
+                    alert('Please enter a valid URL');
                 }
             },
             savePptUrl:function(vUrl){
@@ -689,8 +723,8 @@
                     console.log(content);
                     pptObj.id= content.resultdata.id;
                     virtualclass.sharePt.afterPptSaved(pptObj);
-                     virtualclass.sharePt.order.push(content.resultdata.id);
-                     virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
+                    virtualclass.sharePt.order.push(content.resultdata.id);
+                    virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
 
                 });
             },
@@ -723,6 +757,8 @@
                         ppt.classList.add("enable");
                     }
                 }
+                virtualclass.sharePt.activePrs(virtualclass.sharePt.currId);
+
                  // virtualclass.sharePt.order.push(res.resultdata.id); nirmala
                  // virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order); nirmala
                // this.calculateHeight();
@@ -740,23 +776,30 @@
 
             },
             pptClickHandler:function(pptObj){
-
                 var ppt = document.getElementById("mainpppt" + pptObj.id);
+                    if(ppt) {
+                        ppt.addEventListener('click', function () {
+                            virtualclass.sharePt.playPptUrl(pptObj.content_path,pptObj.id);
+                            virtualclass.dashBoard.close();
+                            virtualclass.sharePt.currId=pptObj.id;
+                            virtualclass.sharePt.activePrs(pptObj.id);
+                        })
 
-                    ppt.addEventListener('click', function () {
-                        //virtualclass.videoUl.yts = false;
-                       // $('#virtualclassVideo iframe#player').remove();
-                       // $('#videoPlayerCont').css({"display": "block"});
-                       // virtualclass.videoUl.shareVideo(vidObj.content_path);
-                        virtualclass.sharePt.playPptUrl(pptObj.content_path);
-                        // ppt.setAttribute("data-dismiss", "modal");
-                        virtualclass.dashBoard.close();
+                    }
+            },
+            activePrs:function(id){
 
-                        // if (typeof virtualclass.yts.player == "object") {
-                        //     virtualclass.yts.player.destroy();
-                        // }
+                var otherElems = document.querySelectorAll("#virtualclassCont.congrea .linkppt");
+                for (var i = 0; i < otherElems.length; i++) {
+                    if (otherElems[i].classList.contains("playing")) {
+                        otherElems[i].classList.remove("playing");
+                    }
+                }
 
-                    })
+                var currentPpt = document.querySelector("#virtualclassCont.congrea #linkppt"+id);
+                if (currentPpt && !currentPpt.classList.contains("playing")) {
+                    currentPpt.classList.add("playing");
+                }
 
             },
 
@@ -801,11 +844,14 @@
                 virtualclass.xhr.sendFormData(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_ppt", function (msg) {
                     var content = JSON.parse(msg);
                     virtualclass.sharePt.ppts = content;
-                    virtualclass.sharePt.createPageModule();
-                        virtualclass.sharePt.showPpts(content);
-                        virtualclass.sharePt.retrieveOrder();
 
+                    var db = document.querySelector("#SharePresentationDashboard .dbContainer")
+                        if(db){
+                            virtualclass.sharePt.createPageModule();
+                            virtualclass.sharePt.showPpts(content);
+                            virtualclass.sharePt.retrieveOrder();
 
+                        }
 
                 });
             },
@@ -823,6 +869,7 @@
                     });
 
                 }
+                //todo to verify this
                 virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
             },
@@ -1057,13 +1104,15 @@
                  * Creates container for the ppt
                  */
                 container: function() {
+                    debugger;
                     var control= roles.hasControls()?true:false;
                     var data ={"control":control};
                     var template=virtualclass.getTemplate("ppt","ppt");
                     $('#virtualclassAppLeftPanel').append(template(data));
-
-
-                    virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
+                    // var btn = document.querySelector("#virtualclassCont #pptuploadContainer #submitpurl");
+                    // btn.addEventListener('click',function(){
+                    //     virtualclass.sharePt.initNewPpt();
+                    // })
 
                 },
                 /*

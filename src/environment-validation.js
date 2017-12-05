@@ -174,36 +174,39 @@
          * Setting dimension of the canvas
          */
         setCanvasDimension: function (measureRes, id) {
-            var vcan = virtualclass.wb[id].vcan;
-            if (typeof vcan.main.canvas != 'undefined') {
-                var canvas = vcan.main.canvas;
-                ctx = vcan.main.canvas.getContext('2d');
-                canvas.width = measureRes.width;
+            if(typeof virtualclass.wb[id] == 'object'){
+                var vcan = virtualclass.wb[id].vcan;
 
-                var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+                if (typeof vcan.main.canvas != 'undefined') {
+                    var canvas = vcan.main.canvas;
+                    ctx = vcan.main.canvas.getContext('2d');
+                    canvas.width = measureRes.width;
 
-                if(virtualclass.currApp == 'Whiteboard'){
-                    canvasWrapper.style.width = (canvas.width);  //37
-                }else {
-                    canvasWrapper.style.width = (canvas.width-50);  //37
+                    var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+
+                    if(virtualclass.currApp == 'Whiteboard'){
+                        canvasWrapper.style.width = (canvas.width);  //37
+                    }else {
+                        canvasWrapper.style.width = (canvas.width-50);  //37
+                    }
+
+
+                    // for handle the scroll on whiteboard during the play mode
+                    var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
+
+                    var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
+                    canvas.height = measureRes.height - toolWrapperHeight;
+                    canvas.parentNode.height = canvas.height;
+                    canvasWrapper.style.height = canvas.height-30;
+
+
+                    console.log("canvas width " + canvas.width);
+                    //var element = document.getElementById('canvas');
+                    var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
+
+                    vcan.main.offset.x = offset.x;
+                    console.log('canvas offset x=' + vcan.main.offset.x + ' canvas offset y=' + offset.y);
                 }
-
-
-                // for handle the scroll on whiteboard during the play mode
-                var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
-
-                var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
-                canvas.height = measureRes.height - toolWrapperHeight;
-                canvas.parentNode.height = canvas.height;
-                canvasWrapper.style.height = canvas.height-30;
-
-
-                console.log("canvas width " + canvas.width);
-                //var element = document.getElementById('canvas');
-                var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
-
-                vcan.main.offset.x = offset.x;
-                console.log('canvas offset x=' + vcan.main.offset.x + ' canvas offset y=' + offset.y);
             }
         },
 

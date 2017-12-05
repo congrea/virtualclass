@@ -1073,7 +1073,7 @@ this["JST"]["templates/whiteboard/main.hbs"] = Handlebars.template({"1":function
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" tabindex=\"0\" width=\"730\" height=\"750\">\n        "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"canvasmissing",{"name":"getString","hash":{},"data":data}))
-    + "\n      </canvas>\n    </div>\n  </div>\n</div>admin";
+    + "\n      </canvas>\n    </div>\n  </div>\n</div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/whiteboard/toolbar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -2797,7 +2797,8 @@
 }
 
 #virtualclassCont.congrea .appOptions.active {
-	pointer-events : none;
+	/*pointer-events : none;*/
+
 }
 
 #virtualclassCont.congrea.student  #speakerPressonceLabel {

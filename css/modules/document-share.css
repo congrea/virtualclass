@@ -116,7 +116,8 @@
 #virtualclassCont.congrea[data-currapp = 'Poll'] #chat_div .controls [data-title = 'Transfer Controls'],
 #virtualclassCont.congrea[data-currapp = 'Video'] #chat_div .controls [data-title = 'Transfer Controls'],
 #virtualclassCont.congrea[data-currapp = 'Quiz'] #chat_div .controls [data-title = 'Transfer Controls'],
-#virtualclassCont.congrea[data-currapp = 'DocumentShare'] #chat_div .controls [data-title = 'Transfer Controls'] {
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] #chat_div .controls [data-title = 'Transfer Controls'],
+#virtualclassCont.congrea .zoomControler .maxLevel{
     pointer-events: none;
     opacity: 0.5;
 }
@@ -713,3 +714,4 @@
     outline: none;
     outline-offset: 0px;
 }
+

@@ -4,6 +4,7 @@
  * This file provides all functionality needed to share screen.
  */
 var globalImageData = {};
+var newCanvas;
 
 (function (window) {
     "use strict";
@@ -13,11 +14,38 @@ var globalImageData = {};
         virtualclass.vutil.initInstallChromeExt(error);
     }
 
+    var renderImage = function (imageData){
+        var canvasCont = document.querySelector('#virtualclassScreenShareLocal');
+        var newCanvas = document.querySelector('#virtualclassScreenShareLocalVideoNew');
+        if(newCanvas == null){
+            var newCanvas = document.createElement('canvas');
+            newCanvas.id = "virtualclassScreenShareLocalVideoNew";
+            canvasCont.appendChild(newCanvas);
+        }
+        newCanvas.width = imageData.width;
+        newCanvas.height = imageData.height;
+
+
+        var newCtx = document.querySelector('#virtualclassScreenShareLocalVideoNew').getContext('2d');
+        newCtx.putImageData(imageData, 0, 0);
+        virtualclass.ss.localCont.save();
+
+        virtualclass.ss.localCont.scale(virtualclass.studentScreen.scale, virtualclass.studentScreen.scale);
+        virtualclass.ss.localCont.clearRect(0, 0, newCanvas.width+100, newCanvas.height+100);
+        virtualclass.ss.localCont.drawImage(newCanvas, 0, 0);
+        virtualclass.ss.localCont.restore();
+
+    }
+
     if (!!window.Worker) {
         sdworker.onmessage = function (e) {
             if (e.data.dtype == "drgb") {
                 globalImageData = e.data.globalImageData;
-                virtualclass.ss.localCont.putImageData(e.data.globalImageData, 0, 0);
+                // var imageData = e.data.globalImageData;
+                var scale = 2;
+                // var imgData = virtualclass.ss.scaleImageData(e.data.globalImageData, scale, virtualclass.ss.localCont);
+                var imageData = e.data.globalImageData;
+                renderImage(imageData);
             }
         }
     }
@@ -29,6 +57,9 @@ var globalImageData = {};
 
     var studentScreen = function () {
         return {
+            scale : 1,
+            SCALE_FACTOR : 1.04,
+            szoom : false,
             /*
              * Calculating the width and height of the student screen according the requirement of the-
              * application to be shared
@@ -123,7 +154,46 @@ var globalImageData = {};
                 }
 
                 virtualclass.previous = virtualclass[app].id;
+
+                if(!this.szoom){
+                    this.initZoom();
+                }
             },
+
+            initZoom : function (){
+                var zoomControler = virtualclass.getTemplate('zoomControl');
+                var zoomControlerhtml = zoomControler({hasControls : roles.hasControls()});
+                var container = document.querySelector('#virtualclass' + virtualclass.currApp);
+                if(container != null){
+                    container.insertAdjacentHTML('beforeend', zoomControlerhtml);
+                    var zoomIn = document.querySelector('#virtualclass' + virtualclass.currApp + ' .zoomIn');
+
+                    var zoomOut = document.querySelector('#virtualclass' + virtualclass.currApp + ' .zoomOut');
+                    if(zoomIn != null){
+                        var that = this;
+                        zoomIn.onclick = function (elem){
+                            virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * that.SCALE_FACTOR;
+                            virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * that.SCALE_FACTOR;
+
+                            that.scale = that.scale * that.SCALE_FACTOR;
+                            renderImage(globalImageData);
+                        }
+                    }
+
+                    if(zoomOut != null){
+                        var that = this;
+                        zoomOut.onclick = function (){
+                            that.scale = that.scale / that.SCALE_FACTOR;
+                            virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1/that.SCALE_FACTOR);
+                            virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) *(1/that.SCALE_FACTOR);
+                            renderImage(globalImageData);
+                        }
+                    }
+                }
+
+                this.szoom = true;
+            },
+
 
             drawImageThroughWorker : function (data_pack){
                 if (!!window.Worker) {
@@ -388,6 +458,8 @@ var globalImageData = {};
                 }
 
                 this.video = document.getElementById(this.local + "Video");
+                this.videoSmall = document.getElementById(this.local + "Videosmall");
+
 
                 if (this.video.tagName != "VIDEO") {
                     var earlierVideo = this.video;
@@ -401,6 +473,7 @@ var globalImageData = {};
                 var that = this;
                 //("video changed");
                 virtualclass.adpt.attachMediaStream(this.video, stream);
+                virtualclass.adpt.attachMediaStream(this.videoSmall, stream);
                 this.prevStream = true;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.getVideoTracks()[0].onended = function (name) {
@@ -463,18 +536,8 @@ var globalImageData = {};
                     }
                     virtualclass.previrtualclass = that.id;
                 }
-
-                if(document.querySelector('#screenShrMsg') == null){
-                    var msgCont = document.createElement("h3");
-                    msgCont.id = "screenShrMsg"
-                    msgCont.className = "alert alert-info";
-
-                    var msg = virtualclass.lang.getString('screensharealready');
-                    msgCont.innerHTML = msg;
-
-                    vidContainer.appendChild(msgCont);
-                }
             },
+
             /*
              * sending the video to the student in the form of encoded data
              * status code is also sent with the encoded data

@@ -121,11 +121,12 @@
  }
 
 
-#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{
-  overflow : auto;
-}
+/*#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{*/
+  /*overflow : auto;*/
+/*}*/
 
 
-#virtualclassCont.congrea.student #virtualclassScreenShareLocalVideoNew {
-  display : none;
+#virtualclassCont.congrea.student #virtualclassScreenShareLocal{
+  overflow-x : auto;
+  overflow-y : auto;
 }

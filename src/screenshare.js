@@ -213,6 +213,7 @@ var newCanvas;
                             var width = screenApp.style.width;
                             var height = screenApp.style.height;
 
+
                             if(width == null || width == '' || width == undefined ){
                                 width = screenApp.offsetWidth;
                             }
@@ -224,11 +225,14 @@ var newCanvas;
                             width = virtualclass.vutil.getValueWithoutPixel(width);
                             height = virtualclass.vutil.getValueWithoutPixel(height);
 
+                            var canvaScontainer =  document.querySelector('#virtualclassScreenShareLocal');
+                            canvaScontainer.style.width= width ;
+                            canvaScontainer.style.height= (height-15)+'px';
 
 
                             that.scale = virtualclass.ss.getScale(that.base.width, width);
                             virtualclass.ss.localCanvas.width = width-25;
-                            virtualclass.ss.localCanvas.height = height-50;
+                            virtualclass.ss.localCanvas.height = height;
 
 
                             renderImage(globalImageData);

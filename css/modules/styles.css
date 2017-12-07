@@ -2986,8 +2986,8 @@
 	/*overflow : scroll;*/
 /*}*/
 
-#virtualclassCont.congrea #virtualclassScreenShareLocalVideoNew {
+#virtualclassCont.congrea.student #virtualclassScreenShareLocalVideoNew {
 	position : absolute;
 	top : -1333px;
-	leff : -1333px
+	left : -13333px
 }

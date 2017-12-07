@@ -84,37 +84,75 @@
                             $('#'+type+'Popup').remove();
                         });
                 },
-                 
+            //endpoint: 'https://uploadmedia.congrea.net',
+            //nirmala aws
             uploaderFn: function (obj) {
                 var dataObj = {
-                    debug: true,
                     element: obj.wrapper,
                     template: 'qq-template-gallery',
+                    debug: true,
                     request: {
-                        endpoint:obj.requesteEndPoint
+                        endpoint: 'https://congrea-master-store.s3.amazonaws.com',
+
+                        accessKey: "AKIAJV7RJOFBDFVY62EQ"
                     },
-                    
-                    thumbnails: {
-                        placeholders: {
-                            waitingPath: window.whiteboardPath+'/fileuploader/js/placeholders/waiting-generic.png',
-                            notAvailablePath:window.whiteboardPath +'/fileuploader/js/placeholders/not_available-generic.png'
+                    signature: {
+                        endpoint: 'https://api.congrea.net/t/upload',
+                        version: 4,
+                        customHeaders: {
+                            'x-api-key': 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2',
+                            'x-congrea-authuser': '46ecba46bc1598c1ec4c',
+                            'x-congrea-authpass': '2bf8d3535fdff8a74c01',
+                            'x-congrea-room': '12323'
+                        }
+                    },
+                    uploadSuccess: {
+                        endpoint: 'https://api.congrea.net/t/uploadSuccess',
+                        customHeaders: {
+                            'x-api-key': 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2',
+                            'x-congrea-authuser': '46ecba46bc1598c1ec4c',
+                            'x-congrea-authpass': '2bf8d3535fdff8a74c01',
+                            'x-congrea-room': '12323'
+                        }
+                    },
+                    retry: {
+                        enableAuto: false // defaults to false
+                    },
+                    cors: {
+                        allowXdr: true,
+                        expected: true,
+                        sendCredentials: false
+                    },
+
+
+
+
+                    objectProperties: {
+                        key: function (id) {
+                            var congreaKey = "yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2";
+                            var congreaRoom = "12323";
+
+                            return congreaKey + '/' + congreaRoom + '/' + this.getUuid(id) + '/' + this.getName(id);
                         }
                     },
 
                     callbacks: {
-                         onComplete: function (id, xhr, rawData) {
-                             if(obj.cthis == 'video'){
+                        onComplete: function (id, xhr, rawData) {
+                            if(obj.cthis == 'video'){
                                 obj.cb.call(virtualclass.videoUl, id, xhr, rawData);
-                                 var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
-                                 if(msz){
-                                     msz.style.display="none";
-                                 }
+                                var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                                if(msz){
+                                    msz.style.display="none";
+                                }
 
-                             }else if (obj.cthis == 'docs'){
-                                obj.cb.call(virtualclass.dts, id, xhr, rawData); 
-                             }
+
+                            }else if (obj.cthis == 'docs'){
+                                obj.cb.call(virtualclass.dts, id, xhr, rawData);
+                            }
                         },
                         onError:function(){
+
+
                             var alertMsz= document.querySelector(".dbContainer .alert");
                             if(alertMsz){
                                 alertMsz.parentNode.removeChild(alertMsz);
@@ -136,19 +174,18 @@
 
                     },
 
-                    validation: {
-                        allowedExtensions:obj.validation
-                    }
                 };
-                
-                if(obj.hasOwnProperty('multiple')){
-                    dataObj.multiple = obj.multiple;
-                }
-                
-                if(obj.hasOwnProperty('validation')){
-                    dataObj.allowedExtensions = obj.validation;
-                }
-                var galleryUploader = new qq.FineUploader(dataObj);
+
+                // if(obj.hasOwnProperty('multiple')){
+                //     dataObj.multiple = obj.multiple;
+                // }
+
+                // if(obj.hasOwnProperty('validation')){
+                //     dataObj.allowedExtensions = obj.validation;
+                // }
+
+                var galleryUploader= new qq.s3.FineUploader(dataObj)
+                console.log(galleryUploader._options.objectProperties.key);
             },
 
             onDragEnter : function (e){

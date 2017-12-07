@@ -272,6 +272,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #videoUrlContainer {
   /*position: relative;*/
   text-align: right;
+  display:none;
 }
 
 
@@ -296,6 +297,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   overflow: hidden;
   padding:0px;
   margin: 0px;
+
 }
 
 

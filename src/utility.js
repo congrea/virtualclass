@@ -2340,7 +2340,9 @@
             virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
             var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
-        }
+        },
+
+
     };
 
     window.vutil = vutil;

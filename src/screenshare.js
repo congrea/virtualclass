@@ -22,19 +22,29 @@ var newCanvas;
             newCanvas.id = "virtualclassScreenShareLocalVideoNew";
             canvasCont.appendChild(newCanvas);
         }
+
         newCanvas.width = imageData.width;
         newCanvas.height = imageData.height;
 
+        if(virtualclass.studentScreen.base.width <=0 ){
+            virtualclass.studentScreen.base.width = newCanvas.width;
+            virtualclass.studentScreen.base.height = newCanvas.height;
+        }
 
         var newCtx = document.querySelector('#virtualclassScreenShareLocalVideoNew').getContext('2d');
         newCtx.putImageData(imageData, 0, 0);
         virtualclass.ss.localCont.save();
 
-        virtualclass.ss.localCont.scale(virtualclass.studentScreen.scale, virtualclass.studentScreen.scale);
         virtualclass.ss.localCont.clearRect(0, 0, newCanvas.width+100, newCanvas.height+100);
+
+        virtualclass.ss.localCont.scale(virtualclass.studentScreen.scale, virtualclass.studentScreen.scale);
+
         virtualclass.ss.localCont.drawImage(newCanvas, 0, 0);
         virtualclass.ss.localCont.restore();
-
+        if(typeof stype != 'undefined'){
+            console.log('Screen type width ' + newCanvas.width);
+            console.log('Screen type height ' + newCanvas.height);
+        }
     }
 
     if (!!window.Worker) {
@@ -42,10 +52,14 @@ var newCanvas;
             if (e.data.dtype == "drgb") {
                 globalImageData = e.data.globalImageData;
                 // var imageData = e.data.globalImageData;
-                var scale = 2;
                 // var imgData = virtualclass.ss.scaleImageData(e.data.globalImageData, scale, virtualclass.ss.localCont);
+
                 var imageData = e.data.globalImageData;
-                renderImage(imageData);
+                if(e.data.hasOwnProperty('stype')){
+                    virtualclass.studentScreen.scale = 1;
+                    virtualclass.studentScreen.base.width = 0;
+                }
+                renderImage(imageData, 'full');
             }
         }
     }
@@ -60,6 +74,7 @@ var newCanvas;
             scale : 1,
             SCALE_FACTOR : 1.04,
             szoom : false,
+            base : {width : 0, height : 0},
             /*
              * Calculating the width and height of the student screen according the requirement of the-
              * application to be shared
@@ -167,8 +182,9 @@ var newCanvas;
                 if(container != null){
                     container.insertAdjacentHTML('beforeend', zoomControlerhtml);
                     var zoomIn = document.querySelector('#virtualclass' + virtualclass.currApp + ' .zoomIn');
-
                     var zoomOut = document.querySelector('#virtualclass' + virtualclass.currApp + ' .zoomOut');
+                    var fitScreen = document.querySelector('#virtualclass' + virtualclass.currApp + ' .fitScreen');
+
                     if(zoomIn != null){
                         var that = this;
                         zoomIn.onclick = function (elem){
@@ -186,6 +202,35 @@ var newCanvas;
                             that.scale = that.scale / that.SCALE_FACTOR;
                             virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1/that.SCALE_FACTOR);
                             virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) *(1/that.SCALE_FACTOR);
+                            renderImage(globalImageData);
+                        }
+                    }
+
+                    if(fitScreen != null){
+                        var that = this;
+                        fitScreen.onclick = function (){
+                            var screenApp = document.querySelector('#virtualclass'+ virtualclass.currApp);
+                            var width = screenApp.style.width;
+                            var height = screenApp.style.height;
+
+                            if(width == null || width == '' || width == undefined ){
+                                width = screenApp.offsetWidth;
+                            }
+
+                            if(height == null || height == '' || height == undefined ){
+                                height = screenApp.offsetHeight;
+                            }
+
+                            width = virtualclass.vutil.getValueWithoutPixel(width);
+                            height = virtualclass.vutil.getValueWithoutPixel(height);
+
+
+
+                            that.scale = virtualclass.ss.getScale(that.base.width, width);
+                            virtualclass.ss.localCanvas.width = width-25;
+                            virtualclass.ss.localCanvas.height = height-50;
+
+
                             renderImage(globalImageData);
                         }
                     }
@@ -904,6 +949,13 @@ var newCanvas;
                     virtualclass.currApp = virtualclass.previousApp.name;
                     document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                 }
+            },
+
+            getScale : function (baseWidth, givenWidth){
+                console.log('Screen type base width ' + baseWidth);
+
+                 var newScale = givenWidth / baseWidth;
+                 return newScale;
             }
         }
     };

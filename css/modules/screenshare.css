@@ -121,10 +121,11 @@
  }
 
 
+#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{
+  overflow : auto;
+}
 
-/*#virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {*/
-  /*width: 300px;*/
-  /*height: 200px;*/
-  /*margin-left: 35%;*/
-  /*margin-top: 28%;*/
-/*}*/
+
+#virtualclassCont.congrea.student #virtualclassScreenShareLocalVideoNew {
+  display : none;
+}

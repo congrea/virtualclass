@@ -1125,12 +1125,6 @@ this["JST"]["templates/youtube/ytscontrol.hbs"] = Handlebars.template({"compiler
     + "</button>\n</div>";
 },"useData":true});
 
-this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <button class=\"fitScreen\">Fit to Screen</button>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"> ZOOM in </button>\n  <button class=\"zoomOut\">ZOOM out</button>\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</div>";
+this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"> ZOOM in </button>\n  <button class=\"zoomOut\">ZOOM out</button>\n  <button class=\"fitScreen\">Fit to Screen</button>\n</div>";
 },"useData":true});

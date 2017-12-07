@@ -248,7 +248,6 @@ var newCanvas;
                     virtualclass.ss.localCanvas.height = dimen.height;
                 }
 
-
                 renderImage(globalImageData);
                 virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
             },
@@ -441,11 +440,7 @@ var newCanvas;
                         ssUI.parentNode.removeChild(ssUI);
                     }
 
-                    ssUI = this.html.UI.call(this, virtualclass.gObj.uRole);
-
-                    var element = document.querySelector("#virtualclassApp #virtualclassAppLeftPanel");
-                    element.insertAdjacentHTML('afterend', ssUI);
-
+                    this.html.UI.call(this, virtualclass.gObj.uRole);
 
                     if (roles.hasControls() && !virtualclass.recorder.recImgPlay) {
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
@@ -963,6 +958,7 @@ var newCanvas;
                         recImg : recImgPlay
                     };
                     var mainConthtml = main(roleControl);
+
                     $('#virtualclassAppLeftPanel').append(mainConthtml);
 
                     function css(element, styles) {

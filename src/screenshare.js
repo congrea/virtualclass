@@ -35,7 +35,7 @@ var newCanvas;
         newCtx.putImageData(imageData, 0, 0);
         virtualclass.ss.localCont.save();
 
-        virtualclass.ss.localCont.clearRect(0, 0, newCanvas.width+100, newCanvas.height+100);
+        virtualclass.ss.localCont.clearRect(0, 0, window.innerWidth-300, window.innerHeight);
 
         virtualclass.ss.localCont.scale(virtualclass.studentScreen.scale, virtualclass.studentScreen.scale);
 
@@ -58,8 +58,12 @@ var newCanvas;
                 if(e.data.hasOwnProperty('stype')){
                     virtualclass.studentScreen.scale = 1;
                     virtualclass.studentScreen.base.width = 0;
+                    virtualclass.studentScreen.setDimension();
+                    renderImage(imageData);
+                    virtualclass.studentScreen.fitToScreen();
+                }else {
+                    renderImage(imageData, 'full');
                 }
-                renderImage(imageData, 'full');
             }
         }
     }
@@ -193,6 +197,8 @@ var newCanvas;
 
                             that.scale = that.scale * that.SCALE_FACTOR;
                             renderImage(globalImageData);
+
+                            that.addScroll();
                         }
                     }
 
@@ -203,44 +209,85 @@ var newCanvas;
                             virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1/that.SCALE_FACTOR);
                             virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) *(1/that.SCALE_FACTOR);
                             renderImage(globalImageData);
+                            that.addScroll();
                         }
                     }
 
                     if(fitScreen != null){
                         var that = this;
                         fitScreen.onclick = function (){
-                            var screenApp = document.querySelector('#virtualclass'+ virtualclass.currApp);
-                            var width = screenApp.style.width;
-                            var height = screenApp.style.height;
-
-
-                            if(width == null || width == '' || width == undefined ){
-                                width = screenApp.offsetWidth;
-                            }
-
-                            if(height == null || height == '' || height == undefined ){
-                                height = screenApp.offsetHeight;
-                            }
-
-                            width = virtualclass.vutil.getValueWithoutPixel(width);
-                            height = virtualclass.vutil.getValueWithoutPixel(height);
-
-                            var canvaScontainer =  document.querySelector('#virtualclassScreenShareLocal');
-                            canvaScontainer.style.width= width ;
-                            canvaScontainer.style.height= (height-15)+'px';
-
-
-                            that.scale = virtualclass.ss.getScale(that.base.width, width);
-                            virtualclass.ss.localCanvas.width = width-25;
-                            virtualclass.ss.localCanvas.height = height +15;
-
-
-                            renderImage(globalImageData);
+                            that.fitToScreen();
                         }
                     }
                 }
 
                 this.szoom = true;
+            },
+
+            addScroll : function (){
+                var canvasWidth = virtualclass.ss.localCanvas.width;
+                var canvasWrapperWidth = virtualclass.ss.localCanvas.parentNode.style.width;
+                canvasWidth = virtualclass.vutil.getValueWithoutPixel(canvasWidth);
+                canvasWrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvasWrapperWidth);
+                if(canvasWidth > canvasWrapperWidth){
+                    virtualclass.ss.localCanvas.parentNode.classList.add('scrollX');
+                }else {
+                    virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
+                }
+            },
+
+            fitToScreen : function (){
+                var dimen  = this.setDimension();
+                this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
+                if(this.scale >= 1){
+                    this.scale = 1;
+                    virtualclass.ss.localCanvas.width = globalImageData.width;
+                    virtualclass.ss.localCanvas.height = globalImageData.height;
+                }else {
+                    virtualclass.ss.localCanvas.width = dimen.width;
+                    virtualclass.ss.localCanvas.height = dimen.height;
+                }
+
+
+                renderImage(globalImageData);
+                virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
+            },
+
+            setDimension : function (){
+                var dimension = this.getCanvasContainerDimension();
+                var width = dimension.width;
+                var height = dimension.height;
+                width = virtualclass.vutil.getValueWithoutPixel(width);
+                height = virtualclass.vutil.getValueWithoutPixel(height) ;
+                this.setCanvasContainerDimension(width, height);
+                return {width:width, height: height}
+            },
+
+
+
+            getCanvasContainerDimension : function (){
+                var screenApp = document.querySelector('#virtualclass'+ virtualclass.currApp);
+                var width = screenApp.style.width;
+                var height = screenApp.style.height;
+
+                if(width == null || width == '' || width == undefined ){
+                    width = screenApp.offsetWidth;
+                }
+
+                if(height == null || height == '' || height == undefined ){
+                    height = screenApp.offsetHeight;
+                }
+
+                width = virtualclass.vutil.getValueWithoutPixel(width)- 40;
+                height = virtualclass.vutil.getValueWithoutPixel(height) ;
+
+                return {width:width, height:height};
+            },
+
+            setCanvasContainerDimension : function (width, height){
+                var canvaScontainer =  document.querySelector('#virtualclassScreenShareLocal');
+                canvaScontainer.style.width= width +'px';
+                canvaScontainer.style.height= (height)+'px';
             },
 
 
@@ -957,7 +1004,6 @@ var newCanvas;
 
             getScale : function (baseWidth, givenWidth){
                 console.log('Screen type base width ' + baseWidth);
-
                  var newScale = givenWidth / baseWidth;
                  return newScale;
             }

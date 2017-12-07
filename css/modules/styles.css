@@ -2991,3 +2991,8 @@
 	top : -1333px;
 	left : -13333px
 }
+
+
+#virtualclassCont.congrea.student #virtualclassScreenShare{
+	margin-top : 0;
+}

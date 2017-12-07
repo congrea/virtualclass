@@ -126,7 +126,15 @@
 /*}*/
 
 
-#virtualclassCont.congrea.student #virtualclassScreenShareLocal{
-  overflow-x : auto;
-  overflow-y : auto;
+/*#virtualclassCont.congrea.student #virtualclassScreenShareLocal{*/
+  /*overflow-x : auto;*/
+  /*overflow-y : auto;*/
+/*}*/
+
+#virtualclassCont.congrea.student #virtualclassScreenShareLocal.scrollX {
+  overflow-x : scroll;
+}
+
+#virtualclassCont.congrea.student #virtualclassScreenShare{
+  margin:0px 10px 0px 10px;
 }

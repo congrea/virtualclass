@@ -16,8 +16,6 @@
             allDocs : null, // This contains all docs received from server
             notes : null,
             order : [],
-
-
             tempFolder : "documentSharing",
             init: function(docsObj) {
                 this.firstRequest = false;

@@ -9,10 +9,6 @@
   height: 100%;
 }
 
-#virtualclassCont.congrea #virtualclassScreenShareLocalTempVideo {
-  display: none;
-}
-
 #virtualclassCont.congrea #virtualclassScreenShare {
   margin-left: 55px;
 }
@@ -79,4 +75,66 @@
 
 #virtualclassCont.congrea #virtualclassScreenShare {
   height: 95vh;
+}
+
+/*#virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg {*/
+  /*width: 250px;*/
+  /*margin-left: 10%;*/
+  /*font-weight: normal;*/
+  /*text-align: center;*/
+/*}*/
+
+#virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
+  position : absolute;
+  visibility: hidden;
+  left : -2000;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareLocalTempVideo {
+  display: none;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareLocalSmall {
+  width :  400px;
+  height : 300px;
+  margin:0 auto;
+  position:absolute;
+  left:45%;
+  top:50%;
+  margin-left:-250px;
+  margin-top:-250px;
+}
+
+#virtualclassScreenShareLocalVideosmall {
+  width :  400px;
+  height : 250px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom : 10px;
+}
+
+#virtualclassCont.congrea #screenShrMsg {
+  height : 10px;
+  font-weight : normal;
+  text-align: center;
+ }
+
+
+/*#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{*/
+  /*overflow : auto;*/
+/*}*/
+
+
+/*#virtualclassCont.congrea.student #virtualclassScreenShareLocal{*/
+  /*overflow-x : auto;*/
+  /*overflow-y : auto;*/
+/*}*/
+
+#virtualclassCont.congrea.student #virtualclassScreenShareLocal.scrollX {
+  overflow-x : scroll;
+}
+
+#virtualclassCont.congrea.student #virtualclassScreenShare{
+  margin:0px 10px 0px 10px;
 }

@@ -1465,7 +1465,9 @@ $(document).ready(function () {
             this.scf = function (e){
                 console.log('Recevied scroll first');
                 console.dir(e.message);
-                virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
+                if(virtualclass.gObj.currWb != null){
+                    virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
+                }
             }
 
             this.cwb = function (e){

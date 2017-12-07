@@ -2662,22 +2662,6 @@
 	letter-spacing: 0.02em;
 }
 
-/** for hiding the screen element from teacher/educator */
-#virtualclassCont.congrea #virtualclassScreenShareLocal  video#virtualclassScreenShareLocalVideo{
-	position :absolute;
-	left : -2000;
-	visibility: hidden;
-}
-
-
-#virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg {
-	width: 600px;
-	margin-left: 10%;
-	margin-top: 28%;
-	font-weight: normal;
-	text-align: center;
-}
-
 #virtualclassCont.congrea #chat_div .usern.media-heading {
 	margin-bottom :0;
 }
@@ -2996,4 +2980,19 @@
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer.current{
 	display : block;
+}
+
+/*#virtualclassCont.congrea #virtualclassScreenShare {*/
+	/*overflow : scroll;*/
+/*}*/
+
+#virtualclassCont.congrea.student #virtualclassScreenShareLocalVideoNew {
+	position : absolute;
+	top : -1333px;
+	left : -13333px
+}
+
+
+#virtualclassCont.congrea.student #virtualclassScreenShare{
+	margin-top : 0;
 }

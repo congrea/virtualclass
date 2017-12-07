@@ -3,12 +3,15 @@
         return {
             init : function (){
                 if(document.querySelector(' .zoomControler') ==  null){
-                    var zoomControler = virtualclass.getTemplate('zoomControl');
-                    var zoomControlerhtml = zoomControler();
                     var parent = document.querySelector("#virtualclassAppLeftPanel");
                     if(parent != null){
-                        parent.insertAdjacentHTML('beforeend', zoomControlerhtml);
-                        this._initScaleController();
+                        if(roles.hasControls()){
+                            var zoomControler = virtualclass.getTemplate('zoomControl');
+                            var zoomControlerhtml = zoomControler({hasControls: roles.hasControls()});
+                            parent.insertAdjacentHTML('beforeend', zoomControlerhtml);
+                            this._initScaleController();
+                        }
+
                         var canvasScale = localStorage.getItem('wbcScale');
                         if(canvasScale != null){
                             this.canvasScale = canvasScale;

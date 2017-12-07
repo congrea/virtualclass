@@ -29,7 +29,7 @@
 }
 
 
-#virtualclassCont.congrea.student #virtualclassEditorRich, #virtualclassCont.congrea.student #virtualclassEditorCode, #virtualclassCont.congrea.student #virtualclassScreenShare{margin:10px 10px 0px 10px;}
+#virtualclassCont.congrea.student #virtualclassEditorRich, #virtualclassCont.congrea.student #virtualclassEditorCode{margin:10px 10px 0px 10px;}
 
 #virtualclassCont.congrea.presenter #virtualclassEditorRich, #virtualclassCont.congrea.presenter #virtualclassEditorCode, #virtualclassCont.congrea.presenter #virtualclassScreenShare{margin-left : 60px}
 

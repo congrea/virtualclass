@@ -15,7 +15,8 @@ function decodeRGB(encodeDataArr, cwidth, cheight) {
   }
   postMessage({
     globalImageData : globalImageData,
-    dtype : 'drgb'
+    dtype : 'drgb',
+    'stype' : 'full',
   });
 }
 

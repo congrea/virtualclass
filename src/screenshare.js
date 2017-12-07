@@ -232,7 +232,7 @@ var newCanvas;
 
                             that.scale = virtualclass.ss.getScale(that.base.width, width);
                             virtualclass.ss.localCanvas.width = width-25;
-                            virtualclass.ss.localCanvas.height = height;
+                            virtualclass.ss.localCanvas.height = height +15;
 
 
                             renderImage(globalImageData);

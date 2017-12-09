@@ -3,8 +3,7 @@
  * @author(Current)  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-
-    var xhr = {
+    var xhrn = {
         init: function () {
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
                 this.httpObj = new XMLHttpRequest();
@@ -17,26 +16,12 @@
             this.onReadStateChange();
 
             this.httpObj.onerror = function (err) {
-                //TODO Add msg to user
-                virtualclass.recorder.initMakeAvailDownloadFile();
                 console.log("Error " + err);
             };
 
             this.httpObj.onabort = function (evt) {
                 console.log("Error abort " + evt);
             }
-        },
-
-        //this is not inbuilt onprogress
-        onProgress: function (evt) {
-            virtualclass.pbar.currVal = evt.loaded;
-            //if(virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined'){
-            // first time
-            if ((virtualclass.pbar.prvVal == '' || typeof virtualclass.pbar.prvVal == 'undefined') && !virtualclass.isPlayMode) {
-                virtualclass.pbar.progressInit();
-            }
-
-            virtualclass.pbar.renderProgressBar(evt.total, evt.loaded, 'indProgressBar', 'indProgressValue');
         },
 
         onReadStateChange: function () {
@@ -55,28 +40,12 @@
             }
         },
 
-        send: function (data, file, cb) {
+        sendData: function (data, url, cb) {
             this.cb = cb;
-            //this.httpObj.open("POST", window.whiteboardPath + file, true);
-            this.httpObj.open("POST", file, true);
-            this.httpObj.send(data);
-             // TODO this should handle in right ways
-            // this.httpObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        },
-        
-        sendFormData: function (data, file, cb) {
-            this.cb = cb;
-            this.httpObj.open("POST", file, true);
-            this.httpObj.send(data);
-        },
-
-        sendDatatoAws : function (data, url, cb){
-            this.cb = cb;
-
-            var params = typeof data == 'string' ? data : Object.keys(data).map(
-                function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-            ).join('&');
+            // var params = typeof data == 'string' ? data : Object.keys(data).map(
+            //     function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+            // ).join('&');
+            var params =  JSON.stringify(data);
             this.httpObj.open('POST', url);
             this.httpObj.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
             this.httpObj.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
@@ -86,7 +55,6 @@
 
             this.httpObj.send(params);
         }
-
     };
-    window.xhr = xhr;
+    window.xhrn = xhrn;
 })(window);

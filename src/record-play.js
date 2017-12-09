@@ -890,6 +890,7 @@
     window.recorder = recorder;
 })(window);
 
+/** todo use from virtualclass.utility **/
 function randomString(length) {
     var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var result = '';

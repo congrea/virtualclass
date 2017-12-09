@@ -23,6 +23,7 @@
             error: [],
             pdfRender : {},
             clearGlobalLock : '',
+
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -41,7 +42,8 @@
                 prvWindowSize : false,
                 wIds : [0],
                 wbRearrang : false,
-                currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0
+                currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
+                uploadingFiles : []
             },
 
             enablePreCheck : true,
@@ -145,6 +147,10 @@
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();
+
+                /** This both have to merge **/
+                virtualclass.xhrn = window.xhrn;
+                virtualclass.xhrn.init();
 
                 virtualclass.chat = new Chat();
                 virtualclass.chat.init();

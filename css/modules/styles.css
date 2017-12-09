@@ -2996,3 +2996,13 @@
 #virtualclassCont.congrea.student #virtualclassScreenShare{
 	margin-top : 0;
 }
+
+
+#virtualclassCont.congrea #virtualclassWhiteboard.whiteboard .nvgt {
+	display : none;
+}
+
+
+#virtualclassCont.congrea[data-currapp='Whiteboard'] #virtualclassWhiteboard.whiteboard .nvgt{
+	display : block;
+}

@@ -54,6 +54,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/indexeddb-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/footer-control-user.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/xhr.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/xhrn.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
@@ -117,5 +118,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.4.1/Youtube.min.js"></script>
- <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+<script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

@@ -147,12 +147,14 @@
         var cthis = this;
         virtualclass.xhr.sendFormData(form_data, path, cthis.onServerResponse);
     }
+    
+    
 
     /**
      * This funcitons sends the status to Server.
      * like 1 for enable 0 disable
      */
-    page.prototype.sendStatus = function (data) {
+    page.prototype.sendStatus2 = function (data) {
         if (this.type == 'notes') {
             //cthis.dts.sendStatusNote();
             data.page_id = this.rid;
@@ -160,6 +162,24 @@
             data.lc_content_id = this.rid;
         }
         this.xhrSend(data);
+    },
+    
+     page.prototype.sendStatus = function (data) {
+         data.uuid = this.rid;
+        if (this.type == 'notes') {
+            data.page_id = this.rid;
+        } else {
+            
+            // data.lc_content_id = this.rid;
+            
+            data.page = 0;
+            
+        }
+        
+        virtualclass.xhrn.sendData(data, 'https://api.congrea.net/t/UpdateDocumentStatus', function (msg){
+            console.log('Msg ' + msg);
+        });
+       // this.xhrSend(data);
     }
 
     /**
@@ -508,7 +528,7 @@
             },
 
             events: {
-                status: function (elem, cthis) {
+                status2: function (elem, cthis) {
                     //alert(cthis.rid + ' from events');
                     if (+(elem.dataset.status) == 0) {
                         if(cthis.type == "video"){
@@ -534,6 +554,39 @@
 
                     var data = {'action': 'status', 'status': elem.dataset.status};
 
+                    cthis.sendStatus(data);
+                },
+                
+                 status: function (elem, cthis) {
+                    //alert(cthis.rid + ' from events');
+                    if (+(elem.dataset.status) == 0) {
+                        if(cthis.type == "video"){
+                            elem.title = 'Disable';
+                        }else{
+                            elem.title = 'Hide';
+                        }
+                        cthis.status = 1;
+                        cthis.enable();
+                    } else {
+                        if(cthis.type == "video"){
+                            elem.title = 'Enable';
+                        }else{
+                            elem.title = 'Show';
+                        }
+                        cthis.status = 0;
+                        cthis.disable();
+                    }
+                    elem.dataset.status = cthis.status;
+                    var parElem = elem.closest('.link' + cthis.type);
+                    parElem.dataset.status = cthis.status;
+                    elem.querySelector('.statusanch').innerHTML = 'status' + elem.dataset.status;
+
+                    // var data = {'action': 'status', 'status': elem.dataset.status};
+                    if(cthis.status == 0){
+                       var data = {'action': 'disable'};  
+                    }else {
+                       var data = {'action': 'enable'};  
+                    }
                     cthis.sendStatus(data);
                 },
 

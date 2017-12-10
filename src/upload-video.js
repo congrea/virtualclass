@@ -493,19 +493,25 @@
                 if(title){
                     title.innerHTML = vidObj.filename;
                 }
+                
+                var controlElem = vid.getElementsByClassName('status')[0];
 
-                if (vidObj.status == "0") {
+                if (vidObj.hasOwnProperty('disabled')) {
                     this._disable(vidObj.fileuuid)
                     if(vid){
                         vid.classList.add("disable");
+                        vid.dataset.status = 0;
                     }
 
                 } else {
                     this._enable(vidObj.fileuuid);
                     if(vid){
                         vid.classList.add("enable");
+                        vid.dataset.status = 1;
+
                     }
                 }
+                controlElem.dataset.status = vid.dataset.status;
                 this.calculateHeight();
 
                 if(vidObj.hasOwnProperty('noVideo')){
@@ -962,14 +968,16 @@
              */
 
             _disable: function (_id) {
+                
                 var linkvideo = document.querySelector("#linkvideo"+_id);
                 linkvideo.classList.add('playDisable');
                 var video = document.getElementById("mainpvideo" + _id);
                 video.style.opacity = .3;
                 video.style.pointerEvents = 'none';
+                
                 if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
                     virtualclass.videoUl.videos.forEach(function (elem, i) {
-                        if (elem["id"] == _id) {
+                        if (elem["fileid"] == _id) {
                             elem.status = 0;
                         }
                     })
@@ -1769,6 +1777,10 @@
                     if(obj.hasOwnProperty('deleted')){
                         temp.deleted = obj.deleted.NS[0];
                     }
+                        
+                    if(obj.hasOwnProperty('disabled')){
+                        temp.disabled = obj.disabled.NS[0];
+                    }
                     return temp;
                 },
 
@@ -1784,6 +1796,9 @@
                     temp.fileuuid = obj.fileuuid.S;
                     if(obj.hasOwnProperty('deleted')){
                         temp.deleted = obj.deleted.NS[0];
+                    }
+                     if(obj.hasOwnProperty('disabled')){
+                        temp.disabled = obj.disabled.NS[0];
                     }
                     return temp;
                 }

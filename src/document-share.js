@@ -249,12 +249,26 @@
             firstRequestDocs : function (){
                 if(virtualclass.serverData.rawData.docs.length > 0){
                     this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                    this.allNotes = this.fetchAllNotes();
                 }else {
                     var that = this;
                     virtualclass.serverData.fetchAllData(function (){
                         that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                        that.allNotes = that.fetchAllNotes();
                     });
                 }
+                
+            },
+            
+            fetchAllNotes : function (){
+                var allNotes = {};
+                for(var key in virtualclass.dts.allDocs){
+                    for(var j=0; j< virtualclass.dts.allDocs[key].notesarr.length; j++){
+                        allNotes[virtualclass.dts.allDocs[key].notesarr[j].id] = virtualclass.dts.allDocs[key].notesarr[j];
+                    }
+                   
+                }
+                return allNotes;
             },
 
             afterFirstRequestDocs : function (docs, notconvert){
@@ -561,7 +575,8 @@
 
           onResponseFiles : function (doc, slides, docFetch, slide, fromReload){
             if(firstTime){
-              this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
+             // this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
+              this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id;; // first id if order is not defined
               // this.order = [];
               firstTime = false;
             }
@@ -1629,7 +1644,7 @@
                 //     }
                 // }
                 // return result;
-                return this.allDocs[id].notes;
+                return this.allDocs[id].notesarr;
             },
 
             /**

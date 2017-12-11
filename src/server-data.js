@@ -67,6 +67,7 @@ var serverData = {
                     var prefix, num, noteId;
                     var notes = {};
                     obj.notes = {}
+                    obj.notesarr = [];
 
                     for(var i =1 ; i<= count; i++){
                         num =pad(i,3);
@@ -81,11 +82,13 @@ var serverData = {
                         }else {
                             noteId = obj.fileuuid+'_00' + i;
                         }
-                        obj.notes[noteId] = {}
-                        obj.notes[noteId].id = noteId;
-                        obj.notes[noteId].pdf = pdfUrl;
-                        obj.notes[noteId].image = imageUrl;
-                        obj.notes[noteId].thumbnail = thnailUrl;
+                        var tobj = {};
+                        tobj.id = noteId;
+                        tobj.pdf = pdfUrl;
+                        tobj.image = imageUrl;
+                        tobj.thumbnail = thnailUrl;
+                        obj.notes[obj.noteId] = tobj;
+                        obj.notesarr.push(tobj);
                     }
 
                     processedArr.push(obj);

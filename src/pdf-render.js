@@ -11,10 +11,11 @@
             init : function (canvas, currNote){
                 io.globallock = true;
                 virtualclass.gObj.firstNormalRender = false;
-
+                // hello suman
+                var sumanbogati ="";
                 if(typeof currNote != 'undefined'){
                     var note = virtualclass.dts.getNote(currNote);
-                    this.url = note.content_path;
+                    this.url = note.pdf;
                 }else {
                     this.url = whiteboardPath + 'example/sample.pdf';
                 }

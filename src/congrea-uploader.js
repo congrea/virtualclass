@@ -195,7 +195,7 @@
                 // }
 
                 var galleryUploader= new qq.s3.FineUploader(dataObj)
-                console.log(galleryUploader._options.objectProperties.key);
+           //     console.log(galleryUploader._options.objectProperties.key);
             },
 
             onDragEnter : function (e){

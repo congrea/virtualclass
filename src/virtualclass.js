@@ -192,7 +192,7 @@
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
                 this.system.mediaDevices.getMediaDeviceInfo();
-
+                this.serverData = serverData;
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
                 }
@@ -868,7 +868,7 @@
                         if (typeof videoObj.type == 'undefined'){
                             virtualclass.videoUl.init(videoObj, videoObj.startFrom);
 
-                        }else if(videoObj.type == 'yts'){
+                        }else if(videoObj.type == 'video_yts'){
                             virtualclass.videoUl.init();
                             virtualclass.yts.init(videoObj, videoObj.startFrom);
 
@@ -1050,9 +1050,12 @@
                             clearTimeout(dstData);
                         }
 
-                        if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
-                          virtualclass.zoom.normalRender();
+                        if(virtualclass.gObj.currWb != null){
+                            if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
+                                virtualclass.zoom.normalRender();
+                            }
                         }
+
                     }
                 },
 

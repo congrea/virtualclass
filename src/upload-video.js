@@ -52,17 +52,20 @@
                             })
                         } else {
                             if (typeof videoObj != 'undefined') {
+
                                 // this.UI.defaultLayoutForStudent();
                                 if (!videoObj.hasOwnProperty('fromReload')) {
-                                   // if(videoObj.type !='yts') {
-                                        if (typeof this.videoId == 'undefined') {
-                                            this.UI.defaultLayoutForStudent();
-                                        } else {
-                                            var url = videoObj.url || videoObj.init.videoUrl;
+                                    if (this.videoId == undefined || typeof this.videoId == 'undefined') {
+                                        this.UI.defaultLayoutForStudent();
+                                    }else if(typeof this.videoId == 'object' && this.videoId.yts == false){
+                                        this.UI.defaultLayoutForStudent();
+                                    } else {
+                                        var url = videoObj.url || videoObj.init.videoUrl;
+                                        if(typeof url != 'undefined' && url != '' && videoObj.init != 'studentlayout'){
                                             (typeof startFrom == 'undefined') ? this.UI.displayVideo(videoObj.id, url) : this.UI.displayVideo(videoObj.id, url, startFrom);
                                         }
+                                    }
                                 }
-
                             } else {
                                // this.UI.defaultLayoutForStudent();
                                 var msz = document.getElementById("messageLayoutVideo");
@@ -259,12 +262,10 @@
 
             requestOrder: function () {
                 var url = 'https://api.congrea.net/t/GetRoomMetaData';
-
                 virtualclass.xhrn.sendData({noting:true}, url, function (response) {
                     if (response == "Error") {
                         console.log("page order retrieve failed");
                     } else {
-
                         var response = JSON.parse(response).Item;
                         if (response.order.S) {
                             virtualclass.videoUl.order = [];
@@ -273,7 +274,6 @@
                         }
 
                         if (virtualclass.videoUl.order.length > 0) {
-
                             virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
                         }
                     }
@@ -369,7 +369,9 @@
                             var responseObj = JSON.parse(response).Item;
                             if(responseObj.hasOwnProperty('processed_data') && responseObj.processed_data.S == 'COMPLETED'){
                                 clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-                                virtualclass.videoUl.UI.awsr();
+                                // virtualclass.serverData =
+                                virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+                                // virtualclass.videoUl.UI.awsr();
                             }else {
                                 that.pollingStatus(url);
                             }
@@ -762,7 +764,7 @@
              * @param message from teacher
 
              */
-            onmessage: function (msg) {
+            onmessage : function (msg) {
                 if (typeof msg.videoUl == 'string') {
                     if (msg.videoUl == 'play') {
                         this.playVideo(msg);
@@ -808,7 +810,7 @@
 
             onmessageObj: function (msg) {
                 if(msg.videoUl.type){
-                    if(msg.videoUl.type=="yts"){
+                    if(msg.videoUl.type=="video_yts"){
                         virtualclass.videoUl.yts=true;
                     }else{
                         virtualclass.videoUl.yts=false;
@@ -908,7 +910,7 @@
                             this.activeVideoClass(currVideoObj.id);
 
                         }else{
-                             if(currVideoObj.type=='yts'){
+                             if(currVideoObj.type=='video_yts'){
                                  virtualclass.videoUl.yts=true;
                              }else{
                                  virtualclass.videoUl.yts=false;
@@ -1106,7 +1108,8 @@
                 var data = {order:order.toString()};
                 var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
                 virtualclass.xhrn.sendData(data, url, function (){
-                    virtualclass.videoUl.UI.awsr();
+                    // virtualclass.videoUl.UI.awsr();
+                    virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                 });
             },
 
@@ -1180,14 +1183,12 @@
                     virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
                 },
 
-
                 videojsPlayer: function (videoUrl, vidId, startFrom) {
-                    var player = videojs("dispVideo");
+                    var player = videojs("dispVideo"); //TODO, generating error need to handle
                     if (roles.hasControls()) {
                         if (!($('.vjs-autoPlay-button').length)) {
                             virtualclass.videoUl.UI.appendAutoPlayButton(player);
                         }
-
                         var autoPlayBtn = document.getElementById("autoPlayListBtn")
                         if (autoPlayBtn) {
                             autoPlayBtn.innerHTML = virtualclass.videoUl.innerHtml;
@@ -1294,7 +1295,9 @@
                       //  if(isFirefox){
 
                           // videoUrl="https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/89bbbd11-10b9-4687-8d18-c5df8040dcad/video/0400k/video.m3u8";
-                            player.src({type: "application/x-mpegURL", "withCredentials":true,src: videoUrl});
+
+                         player.src({type: "application/x-mpegURL", "withCredentials":true,src: videoUrl});
+
                        // }else{
                          //   player.src({type: '"type": "application/x-mpegUR', src: videoUrl});
                          //   player.src({type: '"type": "application/x-mpegUR', src: videoUrl});
@@ -1554,7 +1557,9 @@
                     //TODO this need to be outside the function
                     virtualclass.videoUl.UI.inputUrl();
                     //nirmala aws
-                    virtualclass.videoUl.UI.awsr();
+
+                    // virtualclass.videoUl.UI.awsr();
+                    virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     // virtualclass.videoUl.getVideoList();
 
                     var dropMsz = document.querySelector("#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery");
@@ -1589,34 +1594,34 @@
                 },
 
                 //nirmala aws
-                postAjax:function(url, data, success) {
-                    var params = typeof data == 'string' ? data : Object.keys(data).map(
-                        function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-                    ).join('&');
+                // postAjax:function(url, data, success) {
+                //     var params = typeof data == 'string' ? data : Object.keys(data).map(
+                //         function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+                //     ).join('&');
+                //
+                //     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                //     xhr.open('POST', url);
+                //
+                //     xhr.onreadystatechange = function() {
+                //         if (xhr.readyState>3 && xhr.status==200) {
+                //
+                //             console.log(xhr.responseText);
+                //             virtualclass.videoUl.UI.formatRawData(xhr.responseText)
+                //             virtualclass.videoUl.UI.awsVideoList()
+                //             console.log("nirmala m");
+                //         }
+                //     };
+                //     xhr.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
+                //     xhr.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
+                //     xhr.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
+                //     xhr.setRequestHeader('x-congrea-room', '12323');
+                //     xhr.setRequestHeader('Content-Type', 'application/json');
+                //     xhr.send(params);
+                //     return xhr;
+                // },
 
-                    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-                    xhr.open('POST', url);
 
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState>3 && xhr.status==200) {
-
-                            console.log(xhr.responseText);
-                            virtualclass.videoUl.UI.formatRawData(xhr.responseText)
-                            virtualclass.videoUl.UI.awsVideoList()
-                            console.log("nirmala m");
-                        }
-                    };
-                    xhr.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
-                    xhr.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
-                    xhr.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
-                    xhr.setRequestHeader('x-congrea-room', '12323');
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(params);
-                    return xhr;
-                },
-
-                // nirmala aws
-                awsVideoList:function(){
+                awsVideoList : function(){
                     var data = virtualclass.awsData;
                     var videos=[];
                     for(var i =0;i<data.length;i++){
@@ -1637,171 +1642,130 @@
                 } ,
 
 
-                // to move this function
-                // nirmala aws
-                formatRawData:function(raw){
-                    var awsData= JSON.parse(raw);
-                    console.log("***************");
-                    console.log(awsData);
-                    this.awsUrlArr(awsData);
-
-                },
-
-                //nirmala aws
-                awsUrlArr:function(data){
-                    var processedArr =[];
-                    var arr = data.Items;
-                    var newArr=[];
-                    var prefix = "https://media.congrea.net/";
-                    var doc="https://media.congrea.net";
-                    var  imageUrl,pdfUrl,thnailUrl;
-
-                    for(var j =0; j<arr.length; j++) {
-                        switch(arr[j].filetype.S) {
-                            case "doc":
-                                var obj=this.processObj(arr[j]);
-                                obj.urls={};
-                                obj.urls.image={};
-                                obj.urls.pdf={};
-                                obj.urls.thumbnail={};
-
-                                var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
-                                var count = parseInt(arr[j].processed_data.M.count.N);
-                                for(var i =1 ; i<=count;i++){
-                                    var num =pad(i,3);
-                                    imageUrl = docPrefix +"/image/"+num+"."+arr[j].processed_data.M.image.M.type.S;
-                                    pdfUrl = docPrefix +"/pdf/"+num+".pdf";
-                                    thnailUrl = docPrefix +"/thumbnail/"+num+"."+arr[j].processed_data.M.thumbnail.M.type.S;
-                                    obj.urls.image[i]=imageUrl;
-                                    obj.urls.pdf[i]=pdfUrl;
-                                    obj.urls.thumbnail[i]=thnailUrl;
-
-                                }
-                                processedArr.push(obj);
-                                break;
-
-                            case  'video':
-                                var obj=this.processObj(arr[j]);
-                                var add  = obj.filepath.substr(0,obj.filepath.lastIndexOf("/"));
-                                obj.urls={};
-                                obj.urls.thumbnail={};
-                                obj.urls.videos={};
-                                obj.urls.main_video =prefix+ add+"/video/play_video.m3u8";
-                                obj.urls.videos["0400k"]=prefix+add+"/video/0400k/video.m3u8";
-                                obj.urls.videos["0600k"]=prefix+add+"/video/0600k/video.m3u8";
-                                obj.urls.videos["1000k"]=prefix+add+"/video/1000k/video.m3u8";
-                                obj.urls.videos["1500k"]=prefix+add+"/video/1500k/video.m3u8";
-                                obj.urls.videos["2000k"]=prefix+add+"/video/2000k/video.m3u8";
-
-
-                                obj.urls.thumbnail["0400k"]=prefix+add+"/video/0400k/thumbs/00001.png";
-                                obj.urls.thumbnail["0600k"]=prefix+add+"/video/0600k/thumbs/00001.png";
-                                obj.urls.thumbnail["1000k"]=prefix+add+"/video/1000k/thumbs/00001.png";
-                                obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
-                                obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
-                                processedArr.push(obj);
-                                break;
-
-                            case 'video_yts':
-                                console.log('Handle youtube');
-                                var obj = this.processVidUrlObj(arr[j]);
-                                obj.urls={};
-                                obj.urls.main_video = obj.URL;
-                                processedArr.push(obj);
-                                break;
-                        }
-
-                        // if(arr[j].filetype.S =='doc'){
-                        //
-                        //     // var docurl = doc+"/"+arr[j].filepath.S ;
-                        //     var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
-                        //     var count = parseInt(arr[j].processed_data.M.count.N);
-                        //     for(var i =1 ; i<=count;i++){
-                        //         var num =pad(i,3);
-                        //         imageUrl = docPrefix +"/image/"+num+"."+arr[j].processed_data.M.image.M.type.S;
-                        //         pdfUrl = docPrefix +"/pdf/"+num+".pdf";
-                        //         thnailUrl = docPrefix +"/thumbnail/"+num+"."+arr[j].processed_data.M.thumbnail.M.type.S;
-                        //         obj.urls.image[i]=imageUrl;
-                        //         obj.urls.pdf[i]=pdfUrl;
-                        //         obj.urls.thumbnail[i]=thnailUrl;
-                        //
-                        //     }
-                        //     processedArr.push(obj);
-                        //
-                        // }else{
-                        //     var obj=this.processObj(arr[j]);
-                        //     var add  = obj.filepath.substr(0,obj.filepath.lastIndexOf("/"));
-                        //
-                        //     obj.urls={};
-                        //     obj.urls.thumbnail={};
-                        //     obj.urls.videos={};
-                        //     obj.urls.main_video =prefix+ add+"/video/play_video.m3u8";
-                        //     obj.urls.videos["0400k"]=prefix+add+"/video/0400k/video.m3u8";
-                        //     obj.urls.videos["0600k"]=prefix+add+"/video/0600k/video.m3u8";
-                        //     obj.urls.videos["1000k"]=prefix+add+"/video/1000k/video.m3u8";
-                        //     obj.urls.videos["1500k"]=prefix+add+"/video/1500k/video.m3u8";
-                        //     obj.urls.videos["2000k"]=prefix+add+"/video/2000k/video.m3u8";
-                        //
-                        //
-                        //     obj.urls.thumbnail["0400k"]=prefix+add+"/video/0400k/thumbs/00001.png";
-                        //     obj.urls.thumbnail["0600k"]=prefix+add+"/video/0600k/thumbs/00001.png";
-                        //     obj.urls.thumbnail["1000k"]=prefix+add+"/video/1000k/thumbs/00001.png";
-                        //     obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
-                        //     obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
-                        //     processedArr.push(obj);
-                        // }
-
-                    }
-
-                    virtualclass.awsData= processedArr;
-                    console.log(virtualclass.awsData);
-
-
-                    function pad(n, length) {
-                        var len = length - (''+n).length;
-                        return (len > 0 ? new Array(++len).join('0') : '') + n
-                    }
-
-                },
-
-                //nirmala aws
-                processObj:function(obj){
-                    var temp = {};
-                    // temp.filetag= obj.fileetag.S;
-                    temp.filename= obj.filename.S;
-                    temp.filepath= obj.filepath.S;
-                    temp.filetype= obj.filetype.S;
-                    temp.fileuuid = obj.fileuuid.S;
-                    temp. key_room= obj.key_room.S;
-                    temp.fileuuid = obj.fileuuid.S;
-                    if(obj.hasOwnProperty('deleted')){
-                        temp.deleted = obj.deleted.NS[0];
-                    }
-                        
-                    if(obj.hasOwnProperty('disabled')){
-                        temp.disabled = obj.disabled.NS[0];
-                    }
-                    return temp;
-                },
-
-
-                processVidUrlObj:function(obj){
-                    var temp = {};
-                    // temp.filetag= obj.fileetag.S;
-                    temp.URL= obj.URL.S;
-                    temp.filename= temp.URL;
-                    temp.filetype= obj.filetype.S;
-                    temp.fileuuid = obj.fileuuid.S;
-                    temp. key_room= obj.key_room.S;
-                    temp.fileuuid = obj.fileuuid.S;
-                    if(obj.hasOwnProperty('deleted')){
-                        temp.deleted = obj.deleted.NS[0];
-                    }
-                     if(obj.hasOwnProperty('disabled')){
-                        temp.disabled = obj.disabled.NS[0];
-                    }
-                    return temp;
-                }
+                // // to move this function
+                // // nirmala aws
+                // formatRawData:function(raw){
+                //     var awsData= JSON.parse(raw);
+                //     console.log("***************");
+                //     console.log(awsData);
+                //     this.awsUrlArr(awsData);
+                //
+                // },
+                //
+                // //nirmala aws
+                // awsUrlArr:function(data){
+                //     var processedArr =[];
+                //     var arr = data.Items;
+                //     var newArr=[];
+                //     var prefix = "https://media.congrea.net/";
+                //     var doc="https://media.congrea.net";
+                //     var  imageUrl,pdfUrl,thnailUrl;
+                //
+                //     for(var j =0; j<arr.length; j++) {
+                //         switch(arr[j].filetype.S) {
+                //             case "doc":
+                //                 var obj=this.processObj(arr[j]);
+                //                 obj.urls={};
+                //                 obj.urls.image={};
+                //                 obj.urls.pdf={};
+                //                 obj.urls.thumbnail={};
+                //
+                //                 var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
+                //                 var count = parseInt(arr[j].processed_data.M.count.N);
+                //                 for(var i =1 ; i<=count;i++){
+                //                     var num =pad(i,3);
+                //                     imageUrl = docPrefix +"/image/"+num+"."+arr[j].processed_data.M.image.M.type.S;
+                //                     pdfUrl = docPrefix +"/pdf/"+num+".pdf";
+                //                     thnailUrl = docPrefix +"/thumbnail/"+num+"."+arr[j].processed_data.M.thumbnail.M.type.S;
+                //                     obj.urls.image[i]=imageUrl;
+                //                     obj.urls.pdf[i]=pdfUrl;
+                //                     obj.urls.thumbnail[i]=thnailUrl;
+                //
+                //                 }
+                //                 processedArr.push(obj);
+                //                 break;
+                //
+                //             case  'video':
+                //                 var obj=this.processObj(arr[j]);
+                //                 var add  = obj.filepath.substr(0,obj.filepath.lastIndexOf("/"));
+                //                 obj.urls={};
+                //                 obj.urls.thumbnail={};
+                //                 obj.urls.videos={};
+                //                 obj.urls.main_video =prefix+ add+"/video/play_video.m3u8";
+                //                 obj.urls.videos["0400k"]=prefix+add+"/video/0400k/video.m3u8";
+                //                 obj.urls.videos["0600k"]=prefix+add+"/video/0600k/video.m3u8";
+                //                 obj.urls.videos["1000k"]=prefix+add+"/video/1000k/video.m3u8";
+                //                 obj.urls.videos["1500k"]=prefix+add+"/video/1500k/video.m3u8";
+                //                 obj.urls.videos["2000k"]=prefix+add+"/video/2000k/video.m3u8";
+                //
+                //
+                //                 obj.urls.thumbnail["0400k"]=prefix+add+"/video/0400k/thumbs/00001.png";
+                //                 obj.urls.thumbnail["0600k"]=prefix+add+"/video/0600k/thumbs/00001.png";
+                //                 obj.urls.thumbnail["1000k"]=prefix+add+"/video/1000k/thumbs/00001.png";
+                //                 obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
+                //                 obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
+                //                 processedArr.push(obj);
+                //                 break;
+                //
+                //             case 'video_yts':
+                //                 console.log('Handle youtube');
+                //                 var obj = this.processVidUrlObj(arr[j]);
+                //                 obj.urls={};
+                //                 obj.urls.main_video = obj.URL;
+                //                 processedArr.push(obj);
+                //                 break;
+                //         }
+                //     }
+                //
+                //     virtualclass.awsData= processedArr;
+                //     console.log(virtualclass.awsData);
+                //
+                //
+                //     function pad(n, length) {
+                //         var len = length - (''+n).length;
+                //         return (len > 0 ? new Array(++len).join('0') : '') + n
+                //     }
+                //
+                // },
+                //
+                // //nirmala aws
+                // processObj:function(obj){
+                //     var temp = {};
+                //     // temp.filetag= obj.fileetag.S;
+                //     temp.filename= obj.filename.S;
+                //     temp.filepath= obj.filepath.S;
+                //     temp.filetype= obj.filetype.S;
+                //     temp.fileuuid = obj.fileuuid.S;
+                //     temp. key_room= obj.key_room.S;
+                //     temp.fileuuid = obj.fileuuid.S;
+                //     if(obj.hasOwnProperty('deleted')){
+                //         temp.deleted = obj.deleted.NS[0];
+                //     }
+                //
+                //     if(obj.hasOwnProperty('disabled')){
+                //         temp.disabled = obj.disabled.NS[0];
+                //     }
+                //     return temp;
+                // },
+                //
+                //
+                // processVidUrlObj:function(obj){
+                //     var temp = {};
+                //     // temp.filetag= obj.fileetag.S;
+                //     temp.URL= obj.URL.S;
+                //     temp.filename= temp.URL;
+                //     temp.filetype= obj.filetype.S;
+                //     temp.fileuuid = obj.fileuuid.S;
+                //     temp. key_room= obj.key_room.S;
+                //     temp.fileuuid = obj.fileuuid.S;
+                //     if(obj.hasOwnProperty('deleted')){
+                //         temp.deleted = obj.deleted.NS[0];
+                //     }
+                //      if(obj.hasOwnProperty('disabled')){
+                //         temp.disabled = obj.disabled.NS[0];
+                //     }
+                //     return temp;
+                // }
             },
         };
     };

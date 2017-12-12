@@ -18,6 +18,7 @@
                     this.url = note.pdf;
                 }else {
                     this.url = whiteboardPath + 'example/sample.pdf';
+                    // this.url = 'https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/0b5b11ce-7204-4771-a997-a0fb3f9ccc7d/pdf/001.pdf';
                 }
 
                 this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
@@ -33,8 +34,11 @@
 
                 this.canvas = canvas;
                 var that = this;
-                PDFJS.getDocument(this.url).then(function (pdf) {
-                    that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');}, true);
+                var doc = {};
+                doc.url = this.url;
+                doc.withCredentials = true;
+                PDFJS.getDocument(doc).then(function (pdf) {
+                        that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');}, true);
                     // that.displayPage(pdf, 1, true);
                     that.shownPdf = pdf;
                 });
@@ -170,9 +174,6 @@
                     * */
                     if(virtualclass.gObj.pdfdebugg){
                         this.draw(scrollM, pos);
-                    }else {
-                        // alert('sss');
-                        // debugger;
                     }
 
                     var tp = this.type;

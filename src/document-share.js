@@ -245,19 +245,23 @@
             //     );
             // },
 
-
             firstRequestDocs : function (){
-                if(virtualclass.serverData.rawData.docs.length > 0){
-                    this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-                    this.allNotes = this.fetchAllNotes();
-                }else {
-                    var that = this;
-                    virtualclass.serverData.fetchAllData(function (){
-                        that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-                        that.allNotes = that.fetchAllNotes();
-                    });
-                }
-                
+                // if(virtualclass.serverData.rawData.docs.length > 0){
+                //     this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                //     this.allNotes = this.fetchAllNotes();
+                // }else {
+                //     var that = this;
+                //     virtualclass.serverData.fetchAllData(function (){
+                //         that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                //         that.allNotes = that.fetchAllNotes();
+                //     });
+                // }
+
+                var that = this;
+                virtualclass.serverData.fetchAllData(function (){
+                    that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                    that.allNotes = that.fetchAllNotes();
+                });
             },
             
             fetchAllNotes : function (){
@@ -280,7 +284,9 @@
                 }
 
                 for(var key in this.allDocs){
-                    this.initDocs(this.allDocs[key].fileuuid);
+                    if(!this.allDocs[key].hasOwnProperty('deleted')){
+                        this.initDocs(this.allDocs[key].fileuuid);
+                    }
                 }
             },
 
@@ -496,7 +502,7 @@
                 virtualclass.storage.wbDataRemove(key);
             },
 
-            getNotes : function (id){
+            getNotesOld : function (id){
                 var notes = [];
                 for(var i in this.allNotes){
                     if(this.allNotes[i].lc_content_id == id){
@@ -506,6 +512,9 @@
                 return notes;
             },
 
+            getNotes : function (id){
+                return this.allDocs[id].notesarr;
+            },
 
             removePagesUI : function (doc){
                 var notes = this.getNotes(doc);
@@ -542,9 +551,11 @@
             addPages : function (slides){
                 var j = 0;
                 while(j < slides.length){
-                    if(this.order != null){
-                        if(this.order.indexOf(slides[j].id) <= -1){
-                            this.order.push(slides[j].id);
+                    if(!slides[j].hasOwnProperty('deletedn')){
+                        if(this.order != null){
+                            if(this.order.indexOf(slides[j].id) <= -1){
+                                this.order.push(slides[j].id);
+                            }
                         }
                     }
                     j++;
@@ -1467,12 +1478,13 @@
                 this.reaArrangeThumbCount();
             },
 
-            _delete : function (id){
+            _deleteOld : function (id){
                 if(roles.hasControls()){
                     var linkDocs = document.querySelector('#linkdocs' + id);
                     if(linkDocs != null){
                         linkDocs.parentNode.removeChild(linkDocs);
                     }
+
                     ioAdapter.mustSend({'dts': {rmnote: id}, 'cf': 'dts'});
 
                     var data = {lc_content_id : id, action : 'delete', user : virtualclass.gObj.uid};
@@ -1481,16 +1493,41 @@
                         //    alert(response);
                         cthis.sendOrder(cthis.order);
                     });
-
                 }
 
                 delete this.pages['docs'+id];
                 this.removePagesUI(id);
                 this.removePagesFromStructure(id);
-
             },
 
-            _deleteNote : function (id, typeDoc){
+            _delete : function (id){
+                var linkDocs = document.querySelector('#linkdocs' + id);
+                if(linkDocs != null){
+                    linkDocs.parentNode.removeChild(linkDocs);
+                }
+                var data = {
+                    uuid : id,
+                    action : 'delete',
+                    page : 0
+                }
+
+                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var that = this;
+
+                var cthis = this;
+                virtualclass.xhrn.sendData(data, url, function (msg) {
+                    var res = JSON.parse(msg);
+                    if(res.status == 'ok'){
+                        cthis.sendOrder(cthis.order);
+                    }
+                });
+
+                delete this.pages['docs'+id];
+                this.removePagesUI(id);
+                this.removePagesFromStructure(id);
+            },
+
+            _deleteNote2 : function (id, typeDoc){
                 this._removePageUI(id, typeDoc);
                 this._removePageFromStructure(id, typeDoc);
                 if(roles.hasControls()){
@@ -1501,6 +1538,39 @@
                 virtualclass.vutil.xhrSendWithForm(data, 'update_content', function (response){
                     //alert(response);
                     cthis.sendOrder(cthis.order);
+                });
+            },
+
+
+            _deleteNote : function (id, typeDoc){
+                this._removePageUI(id, typeDoc);
+                this._removePageFromStructure(id, typeDoc);
+                if(roles.hasControls()){
+                    ioAdapter.mustSend({'dts': {rmsnote: id}, 'cf': 'dts'});
+                }
+
+                var cthis = this;
+
+                var idarr = id.split('_');
+                var doc = idarr[0];
+                var pid = parseInt(idarr[1]);
+
+                var data = {
+                    uuid : doc,
+                    action : 'delete',
+                    page : pid
+                }
+
+                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var that = this;
+
+                var cthis = this;
+
+                virtualclass.xhrn.sendData(data, url, function (msg) {
+                    var res = JSON.parse(msg);
+                    if(res.status == 'ok'){
+                        cthis.sendOrder(cthis.order);
+                    }
                 });
             },
 

@@ -970,7 +970,6 @@
              */
 
             _disable: function (_id) {
-                
                 var linkvideo = document.querySelector("#linkvideo"+_id);
                 linkvideo.classList.add('playDisable');
                 var video = document.getElementById("mainpvideo" + _id);
@@ -1013,14 +1012,6 @@
              * to delete  video from list and from the database
              */
             _delete: function (id) {
-                // var form_data = new FormData();
-                // var data = {lc_content_id: id, action: 'delete', user: virtualclass.gObj.uid};
-                // var form_data = new FormData();
-                // for (var key in data) {
-                //     form_data.append(key, data[key]);
-                //     console.log(data[key]);
-                // }
-
                 var data = {
                     uuid : id,
                     action : 'delete',

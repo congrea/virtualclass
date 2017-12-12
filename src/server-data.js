@@ -60,14 +60,22 @@ var serverData = {
                     // obj.urls.pdf={};
                     // obj.urls.thumbnail={};
 
-
-
                     var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
                     var count = parseInt(arr[j].processed_data.M.count.N);
                     var prefix, num, noteId;
                     var notes = {};
                     obj.notes = {}
                     obj.notesarr = [];
+                    var deletedNotes = [];
+                    var disabledNotes = [];
+                    if(obj.hasOwnProperty('deletednes')){
+                        deletedNotes = obj.deletednes;
+                    }
+
+                    if(obj.hasOwnProperty('disablednes')){
+                        disabledNotes = obj.disablednes;
+                    }
+
 
                     for(var i =1 ; i<= count; i++){
                         num =pad(i,3);
@@ -83,11 +91,30 @@ var serverData = {
                             noteId = obj.fileuuid+'_00' + i;
                         }
                         var tobj = {};
+                        if(deletedNotes.length > 0){
+                            if(deletedNotes.indexOf(i) > -1){
+                                tobj.deletedn = noteId;
+                            }
+                        }
                         tobj.id = noteId;
                         tobj.pdf = pdfUrl;
                         tobj.image = imageUrl;
                         tobj.thumbnail = thnailUrl;
-                        obj.notes[obj.noteId] = tobj;
+
+                        // if(obj.fileuuid == "1b34ab80-3db3-4f86-8a98-b4cd3d024aa1"){
+                        //     debugger;
+                        // }
+
+                        if(disabledNotes.length > 0){
+                            if(disabledNotes.indexOf(i) > -1){
+                                tobj.status = 0;
+                            }else {
+                                tobj.status = 1;
+                            }
+                        }else {
+                            tobj.status = 1;
+                        }
+                        obj.notes[noteId] = tobj;
                         obj.notesarr.push(tobj);
                     }
 
@@ -147,12 +174,21 @@ var serverData = {
         temp.fileuuid = obj.fileuuid.S;
         temp. key_room= obj.key_room.S;
         temp.fileuuid = obj.fileuuid.S;
+
         if(obj.hasOwnProperty('deleted')){
-            temp.deleted = obj.deleted.NS[0];
+            if(obj.deleted.NS[0] == '0'){
+                temp.deleted = obj.deleted.NS[0];
+            }else {
+                temp.deletednes = obj.deleted.NS;
+            }
         }
 
         if(obj.hasOwnProperty('disabled')){
-            temp.disabled = obj.disabled.NS[0];
+            if(obj.disabled.NS[0] == '0'){
+                temp.disabled = obj.disabled.NS[0];
+            }else {
+                temp.disablednes = obj.disabled.NS;
+            }
         }
         return temp;
     },

@@ -192,6 +192,7 @@
                 }
 
                 if(typeof fromReload == 'undefined' && roles.hasControls()){
+                    
                     this.requestDocs(doc);
                 } else {
                     var docId = 'docs' + doc;
@@ -384,51 +385,36 @@
             //     );
             // },
 
-
             requestDocs : function (doc){
                 var cthis = this;
-                cthis.allDocsTemp = response.resultdata.NOTES;
-                cthis.allDocs = cthis.convertInObjects(cthis.allDocsTemp);
+                var newDocObj = {
+                    filename : 'something',
+                    fileuuid : doc,
+                    filepath : "somewhere",
+                    filetype : "doc",
+                    key_room : virtualclass.gObj.sessionInfo.key + '_' + virtualclass.gObj.sessionInfo.room,
+                    status : 1
+                };
+              
+                // cthis.allDocsTemp = response.resultdata.NOTES;
+                // cthis.allDocs = cthis.convertInObjects(cthis.allDocsTemp);
+                
+                cthis.allDocs[doc] = newDocObj;
 
                 var status = 0;
                 if(cthis.allDocs[doc].status == 'true' ||  cthis.allDocs[doc].status == 1){
                     status = 1;
                 }
-
+                
                 var docId = 'docs' + doc;
                 if(typeof cthis.pages[docId] != 'object'){
                     cthis.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
-                    cthis.pages[docId].init(doc, cthis.allDocs[doc].title);
+                    cthis.pages[docId].init(doc, cthis.allDocs[doc].filename);
                 }
                 ioAdapter.mustSend({'dts': {allDocs: cthis.allDocs, doc:doc},  'cf': 'dts'});
 
                 cthis.requestNotes(doc);
-
-                // var data = {live_class_id : virtualclass.gObj.congCourse, type : 1, user : virtualclass.gObj.uid};
-                // virtualclass.vutil.xhrSendWithForm(data, 'retrieve_docs', function (response){
-                //         response = JSON.parse(response);
-                //
-                //         if(((+response.status))){
-                //
-                //             cthis.allDocsTemp = response.resultdata.NOTES;
-                //             cthis.allDocs = cthis.convertInObjects(cthis.allDocsTemp);
-                //
-                //             var status = 0;
-                //             if(cthis.allDocs[doc].status == 'true' ||  cthis.allDocs[doc].status == 1){
-                //                 status = 1;
-                //             }
-                //
-                //             var docId = 'docs' + doc;
-                //             if(typeof cthis.pages[docId] != 'object'){
-                //                 cthis.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
-                //                 cthis.pages[docId].init(doc, cthis.allDocs[doc].title);
-                //             }
-                //             ioAdapter.mustSend({'dts': {allDocs: cthis.allDocs, doc:doc},  'cf': 'dts'});
-                //
-                //             cthis.requestNotes(doc);
-                //         }
-                //     }
-                // );
+               
             },
 
             /**
@@ -1797,10 +1783,9 @@
                         var docUploadId = virtualclass.gObj.uploadingFiles[i].uuid;
                         this.afterUploadFile(docUploadId);
                     }
-
+                    
+                    virtualclass.gObj.uploadingFiles = [];
                     this.showUploadMsz("document upload success","alert-success");
-
-
                 } else if (response.message == 'duplicate'){
                     //alert(virtualclass.lang.getString('duplicateUploadMsg'));
                     this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'),"alert-error");

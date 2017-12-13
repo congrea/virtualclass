@@ -17,14 +17,41 @@
             notes : null,
             order : [],
             tempFolder : "documentSharing",
+            
             init: function(docsObj) {
                 this.firstRequest = false;
                 firstTime = true;
+              
+                if(virtualclass.gObj.hasOwnProperty('dstAll') &&  typeof virtualclass.gObj.dstAll == 'string'){
+                    this.storageRawData = null;
+                }else {
+                    this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
+                } 
+                
+                /*
+                if(virtualclass.gObj.hasOwnProperty('dstAll')){
+                    if(typeof virtualclass.gObj.dstAll == 'string'){
+                       this.storageRawData = null; 
+                    }else if((typeof virtualclass.gObj.dstAll == 'object')){
+                        this.storageRawData =  virtualclass.gObj.dstAll;
+                    }
+                } else {
+                    var that = this;
+                    setTimeout(
+                        function (){
+                           that.init(docsObj) 
+                        },100
+                    )
+                    return;
+                } */
+                
                 if(virtualclass.gObj.hasOwnProperty('docs') &&  typeof virtualclass.gObj.docs == 'string'){
                     this.documents = null;
                 }else {
                     this.documents = (typeof virtualclass.gObj.docs == 'object') ? virtualclass.gObj.docs : null;
                 }
+                
+
 
                 this.UI.container();
 
@@ -39,7 +66,7 @@
                 if(this.documents != null){
                     //this.allPages = this.documents;
                     this.allNotes = this.documents;
-                }
+                }   
 
                 // if(virtualclass.serverData.rawData.docs.length > 0){
                 //     this.rawToProperData(virtualclass.serverData.rawData.docs);
@@ -67,18 +94,26 @@
                         alert("Container is null");
                     }
                 }
-
+                
+              
                 if(typeof docsObj != 'undefined' ){
                     if(docsObj.init != 'layout' && docsObj.init != 'studentlayout'){
+                        if(this.storageRawData != null){
+                            this.rawToProperData(this.storageRawData);
+                        }
                         // docsObj.init = layout means first layout
                         this.setNoteScreen(docsObj);
                     }
                 } else {
-
                       // Check if there is already docs in local storage
                       var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
                       if(docsObj != null){
+                        if(this.storageRawData != null){
+                            this.rawToProperData();
+                        }
                         this.initAfterUpload(docsObj);
+                 //       this.allDocs = docsObj.docs;
+                 
                         if(docsObj.slideNumber != null){
                             this.setNoteScreen(docsObj);
                             docsObj.slideNumber = null;
@@ -315,6 +350,9 @@
                 // this.allNotes = this.fetchAllNotes();
 
                 this.rawToProperData(docs);
+                // virtualclass.
+                // virtualclass.dts
+                virtualclass.storage.dstAllStore(docs);
                 for(var key in this.allDocs){
                     if(!this.allDocs[key].hasOwnProperty('deleted')){
                         this.initDocs(this.allDocs[key].fileuuid);
@@ -475,6 +513,7 @@
                 cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
                 cthis.allNotes = virtualclass.dts.fetchAllNotes();
                 cthis.storeInDocs(cthis.allNotes);
+                cthis.dstAllStore(virtualclass.serverData.rawData.docs);
                 // TODO, by disabling this can be critical, new api
                 // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
                 ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes}, 'cf': 'dts'});
@@ -1383,6 +1422,7 @@
                 } else if(dts.hasOwnProperty('fallNotes')){
                     this.allNotes = dts.fallNotes;
                     this.storeInDocs(this.allNotes);
+                    this.dstAllStore(virtualclass.serverData.rawData.docs);
                 } else if((dts.hasOwnProperty('allDocs'))) {
                     this.allDocs = dts.allDocs;
                     this.afterUploadFile(dts.doc);
@@ -1771,6 +1811,8 @@
                 //     }
                 // }
                 // return result;
+                console.log("--------------");
+                console.log(virtualclass.gObj.dstAll);
                 return this.allDocs[id].notesarr;
             },
 

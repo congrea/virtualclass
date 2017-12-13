@@ -960,7 +960,12 @@
 
                     if(!virtualclass.dts.docs.hasOwnProperty('currDoc')){
                         if(typeof docsObj != 'undefined'){
-                            virtualclass.dts.init(docsObj);
+                            setTimeout(
+                                function (){
+                                     virtualclass.dts.init(docsObj);
+                                },1000
+                            )
+                           
                         } else {
                             virtualclass.dts.init();
                         }

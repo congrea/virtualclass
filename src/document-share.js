@@ -41,8 +41,11 @@
                     this.allNotes = this.documents;
                 }
 
-                this.initAfterUpload(docsObj);
+                // if(virtualclass.serverData.rawData.docs.length > 0){
+                //     this.rawToProperData(virtualclass.serverData.rawData.docs);
+                // }
 
+                this.initAfterUpload(docsObj);
                 if (roles.hasControls()) {
                     if(typeof docsObj == 'undefined'){
                         ioAdapter.mustSend({'dts': {init: 'studentlayout'}, 'cf': 'dts'});
@@ -71,28 +74,27 @@
                         this.setNoteScreen(docsObj);
                     }
                 } else {
-                  // Check if there is already docs in local storage
-                  var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
-                  if(docsObj != null){
 
-                    this.initAfterUpload(docsObj);
-                    if(docsObj.slideNumber != null){
-                        this.setNoteScreen(docsObj);
-                        docsObj.slideNumber = null;
-                        localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
-                    }
-                  }
-                  else if(this.allDocs != null && Object.keys(this.allDocs).length > 0){
-                    console.log('Do nothing');
-                    this.afterFirstRequestDocs(this.allDocs, true);
-                  } else {
-                    // Only send the request to server
-                    // when the docs is not in storage
-                    if(roles.hasControls()){
-                      this.firstRequestDocs();
-                      this.firstRequest = true;
-                    }
-                  }
+                      // Check if there is already docs in local storage
+                      var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
+                      if(docsObj != null){
+                        this.initAfterUpload(docsObj);
+                        if(docsObj.slideNumber != null){
+                            this.setNoteScreen(docsObj);
+                            docsObj.slideNumber = null;
+                            localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+                        }
+                      } else if(this.allDocs != null && Object.keys(this.allDocs).length > 0){
+                            console.log('Do nothing');
+                            this.afterFirstRequestDocs(this.allDocs, true);
+                      } else {
+                            // Only send the request to server
+                            // when the docs is not in storage
+                            if(roles.hasControls()){
+                              this.firstRequestDocs();
+                              this.firstRequest = true;
+                            }
+                      }
                 }
             },
 
@@ -288,7 +290,7 @@
 
             // requestDocs
 
-            afterFirstRequestDocs : function (docs, notconvert){
+            afterFirstRequestDocs2 : function (docs, notconvert){
                 if(typeof notconvert == 'undefined'){
                     this.allDocsTemp = docs;
                     this.allDocs = this.convertInObjects(this.allDocsTemp);
@@ -303,9 +305,32 @@
                 this.allNotes = this.fetchAllNotes();
             },
 
-            getDocsList : function (){
 
+            afterFirstRequestDocs : function (docs, notconvert){
+                // if(typeof notconvert == 'undefined'){
+                //     this.allDocsTemp = docs;
+                //     this.allDocs = this.convertInObjects(this.allDocsTemp);
+                // }
+                //
+                // this.allNotes = this.fetchAllNotes();
+
+                this.rawToProperData(docs);
+                for(var key in this.allDocs){
+                    if(!this.allDocs[key].hasOwnProperty('deleted')){
+                        this.initDocs(this.allDocs[key].fileuuid);
+                    }
+                }
             },
+
+            rawToProperData : function (docs){
+                if(typeof notconvert == 'undefined'){
+                    this.allDocsTemp = docs;
+                    this.allDocs = this.convertInObjects(this.allDocsTemp);
+                }
+
+                this.allNotes = this.fetchAllNotes();
+            },
+
 
             /**
              * This would be performed after got
@@ -1754,10 +1779,14 @@
              * @param id expectes node
              * @returns {*}
              */
+            // getDocId : function(id){
+            //     if(this.allNotes){
+            //         return this.allNotes[id].lc_content_id;
+            //     }
+            // },
+
             getDocId : function(id){
-                if(this.allNotes){
-                    return this.allNotes[id].lc_content_id;
-                }
+                return id.split('_')[0];
             },
 
             getAllNotes : function(order){

@@ -174,7 +174,10 @@
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
-
+                this.serverData = serverData;
+                if(roles.hasControls()){
+                    this.serverData.fetchAllData(); // gets all data from server at very first
+                }
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
                     var vcContainer = document.getElementById('virtualclassCont');
@@ -192,7 +195,9 @@
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
                 this.system.mediaDevices.getMediaDeviceInfo();
-                this.serverData = serverData;
+
+
+
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
                 }

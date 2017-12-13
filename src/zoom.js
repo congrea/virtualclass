@@ -5,12 +5,12 @@
                 if(document.querySelector(' .zoomControler') ==  null){
                     var parent = document.querySelector("#virtualclassAppLeftPanel");
                     if(parent != null){
-                        if(roles.hasControls()){
+                        //if(roles.hasControls()){
                             var zoomControler = virtualclass.getTemplate('zoomControl');
                             var zoomControlerhtml = zoomControler({hasControls: roles.hasControls()});
                             parent.insertAdjacentHTML('beforeend', zoomControlerhtml);
                             this._initScaleController();
-                        }
+                        //}
 
                         var canvasScale = localStorage.getItem('wbcScale');
                         if(canvasScale != null){

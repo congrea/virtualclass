@@ -85,8 +85,7 @@
                   else if(this.allDocs != null && Object.keys(this.allDocs).length > 0){
                     console.log('Do nothing');
                     this.afterFirstRequestDocs(this.allDocs, true);
-                  }
-                  else{
+                  } else {
                     // Only send the request to server
                     // when the docs is not in storage
                     if(roles.hasControls()){
@@ -95,7 +94,6 @@
                     }
                   }
                 }
-
             },
 
            /**
@@ -260,8 +258,9 @@
 
                 var that = this;
                 virtualclass.serverData.fetchAllData(function (){
+                    ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
                     that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-                    that.allNotes = that.fetchAllNotes();
+                    // that.allNotes = that.fetchAllNotes();
                 });
             },
             
@@ -292,8 +291,6 @@
             afterFirstRequestDocs : function (docs, notconvert){
                 if(typeof notconvert == 'undefined'){
                     this.allDocsTemp = docs;
-                    ioAdapter.mustSend({'dts': {fallDocs: docs}, 'cf': 'dts'});
-
                     this.allDocs = this.convertInObjects(this.allDocsTemp);
                 }
 
@@ -302,6 +299,8 @@
                         this.initDocs(this.allDocs[key].fileuuid);
                     }
                 }
+
+                this.allNotes = this.fetchAllNotes();
             },
 
             getDocsList : function (){
@@ -436,6 +435,8 @@
                 // here should be the polling
                 // cthis.requestNotes(doc);
                 virtualclass.serverData.pollingStatus(virtualclass.dts.afterRequestNotes);
+
+
             },
 
             // Earlier it was requestNotes,
@@ -443,12 +444,15 @@
             afterRequestNotes :function (){
                 var cthis = virtualclass.dts;
                 virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
+
                 cthis.removeNoDocsElem();
                 cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
                 cthis.allNotes = virtualclass.dts.fetchAllNotes();
                 cthis.storeInDocs(cthis.allNotes);
                 // TODO, by disabling this can be critical, new api
                 // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
+                ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes}, 'cf': 'dts'});
             },
 
             removeNoDocsElem : function (){
@@ -958,7 +962,8 @@
                     this.currDoc = filePath;
                     var relativeDocs =  virtualclass.dts.getDocs(filePath);
                     virtualclass.dts.onResponseFiles(filePath, relativeDocs, data.ds);
-                    virtualclass.vutil.updateCurrentDoc(this.currDoc, 1);
+                    // TODO, disabling following can be critical, with new api
+                    // virtualclass.vutil.updateCurrentDoc(this.currDoc, 1);
                 },
 
                 /**
@@ -1349,6 +1354,7 @@
                 if(dts.hasOwnProperty('allNotes')){
                     this.allNotes = dts.allNotes;
                     this.storeInDocs(this.allNotes);
+
                 } else if(dts.hasOwnProperty('fallNotes')){
                     this.allNotes = dts.fallNotes;
                     this.storeInDocs(this.allNotes);

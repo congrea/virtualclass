@@ -276,6 +276,19 @@
                 return allNotes;
             },
 
+            fetchAllNotesAsArr : function (){
+                var allNotes = [];
+                for(var key in virtualclass.dts.allDocs){
+                    for(var j=0; j< virtualclass.dts.allDocs[key].notesarr.length; j++){
+                        allNotes.push(virtualclass.dts.allDocs[key].notesarr[j]) ;
+                    }
+
+                }
+                return allNotes;
+            },
+
+            // requestDocs
+
             afterFirstRequestDocs : function (docs, notconvert){
                 if(typeof notconvert == 'undefined'){
                     this.allDocsTemp = docs;
@@ -301,16 +314,16 @@
              * @param docs expects documenation list that have been
              * received from LMS and localstorage
              */
-            afterFirstRequestDocsOld : function (docs, notconvert){
-                if(typeof notconvert == 'undefined'){
-                    this.allDocsTemp = docs;
-                    this.allDocs = this.convertInObjects(this.allDocsTemp);
-                }
-
-                for(var key in this.allDocs){
-                    this.initDocs(this.allDocs[key].id);
-                }
-            },
+            // afterFirstRequestDocsOld : function (docs, notconvert){
+            //     if(typeof notconvert == 'undefined'){
+            //         this.allDocsTemp = docs;
+            //         this.allDocs = this.convertInObjects(this.allDocsTemp);
+            //     }
+            //
+            //     for(var key in this.allDocs){
+            //         this.initDocs(this.allDocs[key].id);
+            //     }
+            // },
 
             afterRequestOrder : function (content){
                 this.order.length = 0;
@@ -321,8 +334,6 @@
                 this.setScreenByOrder(docId);
                 this.docs.currNote = this.order[0];
                 this.docs.displayScreen(docId, this.order[0]);
-
-
             },
 
             /**
@@ -385,17 +396,23 @@
             //     );
             // },
 
+            getFilenameFromUploadingfiles : function (doc){
+                for(var i=0; i<virtualclass.gObj.uploadingFiles.length; i++){
+                    return virtualclass.gObj.uploadingFiles[i].name;
+                }
+            },
+
             requestDocs : function (doc){
                 var cthis = this;
                 var newDocObj = {
-                    filename : 'something',
+                    filename : this.getFilenameFromUploadingfiles(doc),
                     fileuuid : doc,
                     filepath : "somewhere",
                     filetype : "doc",
                     key_room : virtualclass.gObj.sessionInfo.key + '_' + virtualclass.gObj.sessionInfo.room,
                     status : 1
                 };
-              
+
                 // cthis.allDocsTemp = response.resultdata.NOTES;
                 // cthis.allDocs = cthis.convertInObjects(cthis.allDocsTemp);
                 
@@ -405,16 +422,40 @@
                 if(cthis.allDocs[doc].status == 'true' ||  cthis.allDocs[doc].status == 1){
                     status = 1;
                 }
-                
+
                 var docId = 'docs' + doc;
                 if(typeof cthis.pages[docId] != 'object'){
                     cthis.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
                     cthis.pages[docId].init(doc, cthis.allDocs[doc].filename);
+                    if(!cthis.allDocs[doc].hasOwnProperty('notes')){
+                        var element = document.querySelector('#linkdocs' + doc);
+                        element.classList.add('noDocs');
+                    }
                 }
                 ioAdapter.mustSend({'dts': {allDocs: cthis.allDocs, doc:doc},  'cf': 'dts'});
+                // here should be the polling
+                // cthis.requestNotes(doc);
+                virtualclass.serverData.pollingStatus(virtualclass.dts.afterRequestNotes);
+            },
 
-                cthis.requestNotes(doc);
-               
+            // Earlier it was requestNotes,
+
+            afterRequestNotes :function (){
+                var cthis = virtualclass.dts;
+                virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                cthis.removeNoDocsElem();
+                cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
+                cthis.allNotes = virtualclass.dts.fetchAllNotes();
+                cthis.storeInDocs(cthis.allNotes);
+                // TODO, by disabling this can be critical, new api
+                // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
+            },
+
+            removeNoDocsElem : function (){
+                var allNoDocsElem = document.querySelectorAll('.noDocs');
+                for(var i=0; i<allNoDocsElem.length; i++){
+                    allNoDocsElem[i].classList.remove('noDocs');
+                }
             },
 
             /**
@@ -424,7 +465,6 @@
                 var cthis = this;
                 var data = { live_class_id : virtualclass.gObj.congCourse, 'notes_id' : 'all', user : virtualclass.gObj.uid};
                 virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes',  function (response){
-
                         response = JSON.parse(response);
                         if((+response.status)){
                            cthis.allPages = response.resultdata;

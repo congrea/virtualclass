@@ -4,7 +4,6 @@ var serverData = {
         this.cb = cb;
         var data = "Demo";
         this.requestData("https://api.congrea.net/t/GetDocumentURLs", data);
-
     },
 
     requestData :function(url, data, success) {
@@ -209,5 +208,29 @@ var serverData = {
             temp.disabled = obj.disabled.NS[0];
         }
         return temp;
+    },
+
+    pollingStatus : function (cb){
+        var url = 'https://api.congrea.net/t/GetDocumentStatus';
+
+        if(virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')){
+            clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+        }
+        var that = this;
+        virtualclass.gObj.pollingDocumentStatus = setTimeout(
+            function (){
+                virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
+                    var responseObj = JSON.parse(response).Item;
+                    if(responseObj.hasOwnProperty('processed_data') &&
+                        (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED') ||
+                        (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))){
+                        clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+                        virtualclass.serverData.fetchAllData(cb);
+                    } else {
+                        that.pollingStatus(cb);
+                    }
+                });
+            }, 5000
+        );
     }
 }

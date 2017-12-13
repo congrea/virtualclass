@@ -343,7 +343,8 @@
                     }
                     virtualclass.gObj.uploadingFiles = [];
 
-                    this.pollingStatus(url);
+                    // this.pollingStatus(url);
+                    virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
 
                 } else if (res == "Failed" || res == "error" || res == "duplicate") {
                     alert("video upload failed");
@@ -358,27 +359,25 @@
                 }
             },
 
-            pollingStatus : function (url){
-                if(virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')){
-                    clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-                }
-                var that = this;
-                virtualclass.gObj.pollingDocumentStatus = setTimeout(
-                    function (){
-                        virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
-                            var responseObj = JSON.parse(response).Item;
-                            if(responseObj.hasOwnProperty('processed_data') && responseObj.processed_data.S == 'COMPLETED'){
-                                clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-                                // virtualclass.serverData =
-                                virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
-                                // virtualclass.videoUl.UI.awsr();
-                            }else {
-                                that.pollingStatus(url);
-                            }
-                        });
-                    }, 5000
-                );
-            },
+            // pollingStatus : function (url){
+            //     if(virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')){
+            //         clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+            //     }
+            //     var that = this;
+            //     virtualclass.gObj.pollingDocumentStatus = setTimeout(
+            //         function (){
+            //             virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
+            //                 var responseObj = JSON.parse(response).Item;
+            //                 if(responseObj.hasOwnProperty('processed_data') && responseObj.processed_data.S == 'COMPLETED'){
+            //                     clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+            //                     virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+            //                 } else {
+            //                     that.pollingStatus(url);
+            //                 }
+            //             });
+            //         }, 5000
+            //     );
+            // },
 
             afterUploadVideo2: function (id, xhr, res) {
                 var res = res.result;

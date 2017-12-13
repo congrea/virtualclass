@@ -109,7 +109,7 @@
                       var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
                       if(docsObj != null){
                         if(this.storageRawData != null){
-                            this.rawToProperData();
+                            this.rawToProperData(this.storageRawData);
                         }
                         this.initAfterUpload(docsObj);
                  //       this.allDocs = docsObj.docs;

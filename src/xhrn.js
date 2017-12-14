@@ -54,6 +54,19 @@
             this.httpObj.setRequestHeader('Content-Type', 'application/json');
 
             this.httpObj.send(params);
+        },
+
+        getAcess : function (cb){
+            this.cb = cb;
+            var url = 'https://api.congrea.net/data/access';
+            this.httpObj.open('GET', url);
+            this.httpObj.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
+            this.httpObj.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
+            this.httpObj.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
+            this.httpObj.setRequestHeader('x-congrea-room', '12323');
+            this.httpObj.setRequestHeader('Content-Type', 'application/json');
+            this.httpObj.withCredentials = true;
+            this.httpObj.send();
         }
     };
     window.xhrn = xhrn;

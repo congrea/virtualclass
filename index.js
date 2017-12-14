@@ -1430,6 +1430,7 @@ $(document).ready(function () {
             }
 
             this.tsr = function (e){
+                return;
                 var enable = e.message.ac;
                 if(enable){
                     virtualclass.chat.enableTechSupport(e.message.uid);

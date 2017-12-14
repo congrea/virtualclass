@@ -92,8 +92,7 @@
                     template: 'qq-template-gallery',
                     debug: true,
                     request: {
-                        endpoint: 'https://congrea-master-store.s3.amazonaws.com',
-
+                        endpoint: 'https://uploadmedia.congrea.net',
                         accessKey: "AKIAJV7RJOFBDFVY62EQ"
                     },
                     signature: {
@@ -124,15 +123,30 @@
                         sendCredentials: false
                     },
 
-
-
-
                     objectProperties: {
                         key: function (id) {
                             var congreaKey = "yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2";
                             var congreaRoom = "12323";
+                            virtualclass.gObj.file = {};
 
-                            return congreaKey + '/' + congreaRoom + '/' + this.getUuid(id) + '/' + this.getName(id);
+                         virtualclass.gObj.file.uuid = this.getUuid(id);
+                         virtualclass.gObj.file.name = this.getName(id);
+
+                            var file = {
+                                name : this.getName(id),
+                                uuid : this.getUuid(id)
+                            }
+
+                            virtualclass.gObj.uploadingFiles.push(file) ;
+
+                            virtualclass.gObj.sessionInfo = {
+                                key : congreaKey,
+                                room : congreaRoom
+                            }
+
+                            return congreaKey + '/' + congreaRoom + '/' + virtualclass.gObj.file.uuid + '/' + this.getName(id);
+
+                           // return congreaKey + '/' + congreaRoom + '/' +  virtualclass.gObj.file.uuid + '/' + this.getName(id);
                         }
                     },
 
@@ -145,14 +159,12 @@
                                     msz.style.display="none";
                                 }
 
-
                             }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
                             }
                         },
+
                         onError:function(){
-
-
                             var alertMsz= document.querySelector(".dbContainer .alert");
                             if(alertMsz){
                                 alertMsz.parentNode.removeChild(alertMsz);
@@ -169,9 +181,7 @@
                                     msz.style.display="none";
                                 }
                             }
-
                         }
-
                     },
 
                 };
@@ -185,7 +195,7 @@
                 // }
 
                 var galleryUploader= new qq.s3.FineUploader(dataObj)
-                console.log(galleryUploader._options.objectProperties.key);
+           //     console.log(galleryUploader._options.objectProperties.key);
             },
 
             onDragEnter : function (e){

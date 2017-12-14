@@ -213,15 +213,13 @@
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
                 }else if(appId == 'virtualclassDocumentShare'){
                     var wb = virtualclass.gObj.currWb;
+                    if(wb != null){
+                        var canWrapper = document.querySelector('#canvasWrapper' +wb);
 
-                    var canWrapper = document.querySelector('#canvasWrapper' +wb);
-
-                    canWrapper.style.width = res.width + "px";
-                    canWrapper.style.height = res.height + "px";
-
-
+                        canWrapper.style.width = res.width + "px";
+                        canWrapper.style.height = res.height + "px";
+                    }
                 }
-
                 console.log('Container width ' + appId + ' ' + res.width );
 
             }else {
@@ -2342,7 +2340,22 @@
             virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
         },
 
+        createHashString : function (str){
+            var res = 0,
+                len = str.length;
+            for (var i = 0; i < len; i++) {
+                res = res * 31 + str.charCodeAt(i);
+                res = res & res;
+            }
+            return res;
+        },
 
+        randomString : function (length) {
+            var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var result = '';
+            for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+            return result;
+        }
     };
 
     window.vutil = vutil;

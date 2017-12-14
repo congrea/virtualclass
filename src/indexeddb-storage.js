@@ -12,7 +12,8 @@
     var that;
     var prArr = [];
     var tarr = [];
-        var dataStore = false;
+    var dataStore = false;
+    var dataAllStore = false;
   //  var totalDataStored = localStorage.getItem('totalStored');
     function initToServer(cb) {
         if (typeof cb == 'function') {
@@ -48,7 +49,7 @@
             that = this;
             //TODO these are not using because audio and video is not using
 
-            this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData"];
+            this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData", "dstall"];
 
              //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
@@ -112,14 +113,18 @@
 
                 if (!thisDb.objectStoreNames.contains("dstdata")) {
                     thisDb.createObjectStore("dstdata", {keyPath: 'timeStamp', autoIncrement: true});
-                    
-                }
+                }  
+                
                 if (!thisDb.objectStoreNames.contains("pollStorage")) {
                     thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp',autoIncrement: true});
                 }
                 
                 if (!thisDb.objectStoreNames.contains("quizData")) {
                     thisDb.createObjectStore("quizData", {keyPath: 'quizkey'});
+                }
+                
+                if (!thisDb.objectStoreNames.contains("dstall")) {
+                    thisDb.createObjectStore("dstall", {keyPath: 'timeStamp', autoIncrement: true});
                 }
             };
 
@@ -747,9 +752,8 @@
 
             // localStorage.setItem('repObjs', data); Enable for debugging
             t.objectStore("dstdata").add({alldocs: data, timeStamp: new Date().getTime(), id: 9});
-        },
-
-
+        }, 
+        
         // Store for document sharing data
         dstdata : {
             handleResult : function(event){
@@ -772,9 +776,43 @@
                 }
             }
         },
+        
+        dstAllStore : function (data){
+            var data = JSON.stringify(data);
+            var t = that.db.transaction(["dstall"], "readwrite");
+            var objectStore = t.objectStore("dstall");
+            objectStore.clear();
+            
+
+            // localStorage.setItem('repObjs', data); Enable for debugging
+            t.objectStore("dstall").add({dstalldocs: data, timeStamp: new Date().getTime(), id: 10});
+        },
+        
+        
+        // Store for document sharing data
+        dstall : {
+            handleResult : function(event){
+                //alert('document share init');
+
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.hasOwnProperty('dstalldocs')) {
+                        console.log('document share store suman');
+                        dataAllStore = true;
+                        virtualclass.gObj.dstAll = JSON.parse(cursor.value.dstalldocs);
+
+                    }
+                    cursor.continue();
+                } else {
+                    if(!dataAllStore){
+                        console.log('document share store init');
+                        virtualclass.gObj.dstAll = 'init';
+                    }
+                }
+            }
+        },
 
         clearSingleTable : function (table){
-
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);
@@ -787,6 +825,10 @@
             // that docs to be init
             if(table == 'dstdata'){
                 virtualclass.gObj.docs = 'init';
+            }
+            
+            if(table == 'dstall'){
+                virtualclass.gObj.dstall = 'init';
             }
         },
 

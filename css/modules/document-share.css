@@ -715,3 +715,12 @@
     outline-offset: 0px;
 }
 
+
+#virtualclassCont.congrea #videoUrlContainer{
+    display :block;
+}
+
+#virtualclassCont.congrea .linkdocs.noDocs{
+    pointer-events : none;
+    opacity : 0.5;
+}

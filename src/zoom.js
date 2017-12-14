@@ -5,12 +5,12 @@
                 if(document.querySelector(' .zoomControler') ==  null){
                     var parent = document.querySelector("#virtualclassAppLeftPanel");
                     if(parent != null){
-                        if(roles.hasControls()){
+                        //if(roles.hasControls()){
                             var zoomControler = virtualclass.getTemplate('zoomControl');
                             var zoomControlerhtml = zoomControler({hasControls: roles.hasControls()});
                             parent.insertAdjacentHTML('beforeend', zoomControlerhtml);
                             this._initScaleController();
-                        }
+                        //}
 
                         var canvasScale = localStorage.getItem('wbcScale');
                         if(canvasScale != null){
@@ -42,26 +42,25 @@
 
             zoomIn : function (normalZoom){
                 var wid = virtualclass.gObj.currWb;
-                var canvas = virtualclass.wb[wid].vcan.main.canvas;
-              //  var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(this.canvasWrapper.style.width);
-                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
+                if(typeof virtualclass.wb[wid] == 'object'){
+                    var canvas = virtualclass.wb[wid].vcan.main.canvas;
+                    var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
 
-                // var canvas = this.canvas;
+                    this.prvCanvasScale = this.canvasScale;
+                    this.canvasScale = this.canvasScale * SCALE_FACTOR;
 
-                this.prvCanvasScale = this.canvasScale;
-                this.canvasScale = this.canvasScale * SCALE_FACTOR;
+                    console.log('Canvas scale ' + this.canvasScale);
 
-                console.log('Canvas scale ' + this.canvasScale);
+                    var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
+                    var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
 
-                var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
-                var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
-
-                if(typeof normalZoom != 'undefined'){
-                    virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight, normalZoom);
-                }else {
-                    virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
+                    if(typeof normalZoom != 'undefined'){
+                        virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight, normalZoom);
+                    }else {
+                        virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
+                    }
                 }
-            },
+                },
 
             zoomOut : function (){
                 var wid = virtualclass.gObj.currWb;

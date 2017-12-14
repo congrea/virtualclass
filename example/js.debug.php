@@ -112,4 +112,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/zoom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf-render.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/server-data.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+
+

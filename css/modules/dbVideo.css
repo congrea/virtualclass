@@ -120,12 +120,14 @@
 
 }
 
+
+
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="1"]::before {
   content: "\e94e";
   font-family: 'icomoon';
   font-size:21px;
-
 }
+
 
 #virtualclassCont.congrea #listvideo .linkvideo .controls.delete::before {
   content: "\e920";
@@ -157,6 +159,17 @@
   font-family: 'icomoon';
   opacity:.7;
 
+}
+
+
+#virtualclassCont.congrea #listvideo .linkvideo.noVideo .mainpreview::before {
+  content: "(...)";
+}
+
+
+#virtualclassCont.congrea #listvideo .linkvideo.noVideo{
+  pointer-events  : none;
+  opacity : 0.5;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links.video .videoTitleCont:before{

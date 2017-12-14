@@ -23,6 +23,7 @@
             error: [],
             pdfRender : {},
             clearGlobalLock : '',
+
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -41,7 +42,8 @@
                 prvWindowSize : false,
                 wIds : [0],
                 wbRearrang : false,
-                currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0
+                currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
+                uploadingFiles : []
             },
 
             enablePreCheck : true,
@@ -146,6 +148,10 @@
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();
 
+                /** This both have to merge **/
+                virtualclass.xhrn = window.xhrn;
+                virtualclass.xhrn.init();
+
                 virtualclass.chat = new Chat();
                 virtualclass.chat.init();
 
@@ -168,7 +174,10 @@
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
-
+                this.serverData = serverData;
+                if(roles.hasControls()){
+                    this.serverData.fetchAllData(); // gets all data from server at very first
+                }
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
                     var vcContainer = document.getElementById('virtualclassCont');
@@ -186,6 +195,8 @@
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
                 this.system.mediaDevices.getMediaDeviceInfo();
+
+
 
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
@@ -862,7 +873,7 @@
                         if (typeof videoObj.type == 'undefined'){
                             virtualclass.videoUl.init(videoObj, videoObj.startFrom);
 
-                        }else if(videoObj.type == 'yts'){
+                        }else if(videoObj.type == 'video_yts'){
                             virtualclass.videoUl.init();
                             virtualclass.yts.init(videoObj, videoObj.startFrom);
 
@@ -949,7 +960,12 @@
 
                     if(!virtualclass.dts.docs.hasOwnProperty('currDoc')){
                         if(typeof docsObj != 'undefined'){
-                            virtualclass.dts.init(docsObj);
+                            setTimeout(
+                                function (){
+                                     virtualclass.dts.init(docsObj);
+                                },1000
+                            )
+                           
                         } else {
                             virtualclass.dts.init();
                         }
@@ -1044,9 +1060,12 @@
                             clearTimeout(dstData);
                         }
 
-                        if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
-                          virtualclass.zoom.normalRender();
+                        if(virtualclass.gObj.currWb != null){
+                            if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
+                                virtualclass.zoom.normalRender();
+                            }
                         }
+
                     }
                 },
 

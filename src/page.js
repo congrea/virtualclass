@@ -64,18 +64,17 @@
             }
 
         } else if (this.type == 'docs') {
-
             var dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
             context.title = virtualclass.vutil.trimExtension(context.title);
             docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
-
             this.UI.controller.init(this, lid);
 
         } else if (this.type == 'notes') {
+
             var nstemplate = virtualclass.getTemplate('notesNav', virtualclass.dts.tempFolder);
             var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
             var note  = virtualclass.dts.getNote(this.rid);
-            context.content_path = note.content_path;
+            context.content_path = note.thumbnail;
             context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
             context.thumbCount++;
             docNav.insertAdjacentHTML('beforeend', nstemplate(context));
@@ -147,12 +146,14 @@
         var cthis = this;
         virtualclass.xhr.sendFormData(form_data, path, cthis.onServerResponse);
     }
+    
+    
 
     /**
      * This funcitons sends the status to Server.
      * like 1 for enable 0 disable
      */
-    page.prototype.sendStatus = function (data) {
+    page.prototype.sendStatus2 = function (data) {
         if (this.type == 'notes') {
             //cthis.dts.sendStatusNote();
             data.page_id = this.rid;
@@ -160,6 +161,23 @@
             data.lc_content_id = this.rid;
         }
         this.xhrSend(data);
+    },
+    
+     page.prototype.sendStatus = function (data) {
+        if (this.type == 'notes') {
+            var ids = this.rid.split('_');
+            data.uuid = ids[0];
+            data.page = parseInt(ids[1]);
+
+        } else {
+            data.uuid = this.rid;
+            data.page = 0;
+        }
+        
+        virtualclass.xhrn.sendData(data, 'https://api.congrea.net/t/UpdateDocumentStatus', function (msg){
+            console.log('Msg ' + msg);
+        });
+       // this.xhrSend(data);
     }
 
     /**
@@ -508,7 +526,7 @@
             },
 
             events: {
-                status: function (elem, cthis) {
+                status2: function (elem, cthis) {
                     //alert(cthis.rid + ' from events');
                     if (+(elem.dataset.status) == 0) {
                         if(cthis.type == "video"){
@@ -536,8 +554,41 @@
 
                     cthis.sendStatus(data);
                 },
+                
+                 status: function (elem, cthis) {
+                    //alert(cthis.rid + ' from events');
+                    if (+(elem.dataset.status) == 0) {
+                        if(cthis.type == "video"){
+                            elem.title = 'Disable';
+                        }else{
+                            elem.title = 'Hide';
+                        }
+                        cthis.status = 1;
+                        cthis.enable();
+                    } else {
+                        if(cthis.type == "video"){
+                            elem.title = 'Enable';
+                        }else{
+                            elem.title = 'Show';
+                        }
+                        cthis.status = 0;
+                        cthis.disable();
+                    }
+                    elem.dataset.status = cthis.status;
+                    var parElem = elem.closest('.link' + cthis.type);
+                    parElem.dataset.status = cthis.status;
+                    elem.querySelector('.statusanch').innerHTML = 'status' + elem.dataset.status;
 
-                delete: function (elem, cthis) {
+                    // var data = {'action': 'status', 'status': elem.dataset.status};
+                    if(cthis.status == 0){
+                       var data = {'action': 'disable'};  
+                    }else {
+                       var data = {'action': 'enable'};  
+                    }
+                    cthis.sendStatus(data);
+                },
+
+                delete: function (elem, cthis, e) {
                     var data = {'action': 'delete'};
                     if (cthis.type == 'notes') {
                         virtualclass.dts._deleteNote(cthis.rid, cthis.type);
@@ -547,6 +598,12 @@
                                 virtualclass[cthis.module]._delete(cthis.rid);
                             }
                         });
+
+                        if(virtualclass.currApp == 'DocumentShare'){
+                            var evt = e ? e:window.event;
+                            if (evt.stopPropagation)    evt.stopPropagation();
+                            if (evt.cancelBubble!=null) evt.cancelBubble = true;
+                        }
                     }
                 },
                 edit:function(elem, cthis){
@@ -711,8 +768,8 @@
              */
             goToEvent: function (cthis, eltype) {
                 var dthis = this;
-                return function () {
-                    dthis.events[eltype](this, cthis);
+                return function (e) {
+                    dthis.events[eltype](this, cthis, e);
                 }
             }
         }

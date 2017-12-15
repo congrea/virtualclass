@@ -2750,7 +2750,9 @@
 	text-align: center;
 	margin-top: 5px;
 }
-
+#virtualclassCont.congrea .dashboardContainer .modal-header h4 {
+	margin-top: 5px;
+}
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
 	padding: 17px 3px 17px 21px !important;
 }
@@ -2828,7 +2830,7 @@
 }
 
 /*#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li{*/
-	/*!*width : 33%;*!*/
+/*!*width : 33%;*!*/
 /*}*/
 
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
@@ -2983,7 +2985,7 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassScreenShare {*/
-	/*overflow : scroll;*/
+/*overflow : scroll;*/
 /*}*/
 
 #virtualclassCont.congrea.student #virtualclassScreenShareLocalVideoNew {

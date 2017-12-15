@@ -1,5 +1,5 @@
 #virtualclassCont #dashboardContainer .modal-dialog {
-    /*width : 85% !important;*/
+  /*width : 85% !important;*/
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
@@ -10,7 +10,7 @@
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-header {
-  height : 7%;
+  height : 70px;
 }
 #virtualclassCont #dashboardContainer .modal-body {
   /*height : 92%;*/
@@ -19,7 +19,7 @@
 }
 
 #virtualclassCont #listvideo {
-  height: 75%;
+  height: calc(100% - 78px);
   overflow-y: auto;
   margin-bottom :0;
   margin-top : 8px;
@@ -163,7 +163,7 @@
 
 
 #virtualclassCont.congrea #listvideo .linkvideo.noVideo .mainpreview::before {
-  content: "(...)";
+  content: "Wait";
 }
 
 
@@ -379,14 +379,14 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 /*@media (min-width: 1270px) {*/
-  /*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default {*/
-    /*width: 200px;*/
-  /*}*/
+/*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default {*/
+/*width: 200px;*/
+/*}*/
 /*}*/
 
 #virtualclassCont.congrea #congreavideoContBody .qq-uploader.qq-gallery {
-   border-radius: 0px;
-   border: 0px;
+  border-radius: 0px;
+  border: 0px;
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {
@@ -402,7 +402,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   display:none;
 }
 #virtualclassCont.congrea #VideoDashboard #uploadMsz{
-  height:120px;
+  height:52px;
 }
 
 #virtualclassCont.congrea .linkvideo.opaq{
@@ -411,7 +411,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea .linkvideo.htn{
 
-border:solid #98c2ff 1px !important;
+  border:solid #98c2ff 1px !important;
   opacity:1;
 }
 #virtualclassCont.congrea .linkvideo.dragElem{
@@ -459,9 +459,11 @@ border:solid #98c2ff 1px !important;
 #virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont .titleCont{
   display:inline;
 }
-
+#virtualclassCont.congrea #VideoDashboard .controlCont.col-md-2 {
+  min-width: 140px;
+}
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont .controls{
-  margin-left:22px !important;
+  margin-left:16px !important;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo:nth-child(odd)
@@ -492,7 +494,7 @@ border:solid #98c2ff 1px !important;
 
 
 #virtualclassCont.congrea #listvideo .linkvideo.playDisable {
-   opacity:0.3;
+  opacity:0.3;
 
 }
 #virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .status:before {

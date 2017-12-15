@@ -3,9 +3,9 @@
 #virtualclassCont.congrea  #virtualclassPreCheck.bootstrap .btn {margin-top: 15px; border-color: #c2c2c2;}
 
 #virtualclassCont.congrea #virtualclassPreCheck .testName {
-    font-size: 20px; 
-    text-align: center; 
-    margin-bottom: 30px; 
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .result div {
@@ -33,7 +33,7 @@
 }
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
     line-height: 1.684;
-    padding: 7px 12px 4px;
+    padding: 2px 12px;
 }
 /*#virtualclassCont.congrea .bootstrap .modal-body {padding: 15px 16px 24px;}*/
 #virtualclassCont.congrea .bootstrap .progress {
@@ -55,8 +55,8 @@
 
 @media (min-width: 768px) {
     #virtualclassCont.congrea .bootstrap .modal-dialog {
-       width: 600px;
-       margin: 30px auto;
+        width: 600px;
+        margin: 30px auto;
     }
     #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 8% auto;}
 }

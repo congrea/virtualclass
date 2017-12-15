@@ -306,6 +306,7 @@
             elem.dataset.status = this.status;
 
             if (cthis.type == "video") {
+                elem.type = "video";
                 var template=virtualclass.getTemplate("linkvideo","videoupload");
                 $(docNav).append(template(elem))
 

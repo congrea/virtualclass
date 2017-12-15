@@ -165,9 +165,18 @@
 }
 
 
-#virtualclassCont.congrea #listvideo .linkvideo.noVideo .mainpreview::before {
+#virtualclassCont.congrea #listvideo .linkvideo.noVideo .mainpreview::before{
   content: "\e97c";
   font-family: 'icomoon';
+}
+
+#virtualclassCont.congrea .linkdocs.noDocs::before {
+  content: "\e97c";
+  font-family: 'icomoon';
+  float: left;
+  margin-top: 6px;
+  margin-left: 2px;
+  margin-irght : 3px;
 }
 
 

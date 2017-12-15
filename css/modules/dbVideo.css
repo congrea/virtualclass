@@ -35,6 +35,9 @@
   white-space: nowrap;
   width:50%;
 }
+#virtualclassCont #listvideo .noVideo .videoTitle {
+  overflow: inherit;
+}
 
 #virtualclassCont.congrea .dashboardview {
   margin : 0;
@@ -162,8 +165,18 @@
 }
 
 
-#virtualclassCont.congrea #listvideo .linkvideo.noVideo .mainpreview::before {
-  content: "Wait";
+#virtualclassCont.congrea #listvideo .linkvideo.noVideo .mainpreview::before{
+  content: "\e97c";
+  font-family: 'icomoon';
+}
+
+#virtualclassCont.congrea .linkdocs.noDocs::before {
+  content: "\e97c";
+  font-family: 'icomoon';
+  float: left;
+  margin-top: 6px;
+  margin-left: 2px;
+  margin-irght : 3px;
 }
 
 

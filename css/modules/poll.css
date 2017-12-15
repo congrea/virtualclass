@@ -315,3 +315,7 @@ pointer-events:none;
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive{
     height:99%;
 }
+
+#virtualclassCont.congrea #addMoreCont #addMoreOption{
+  color : #757272;
+}

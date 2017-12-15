@@ -247,7 +247,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 /*}*/
 
 #virtualclassCont.congrea #pptListContainer{
-  height : 89%;
+  /*height : 89%;*/
+  height: 76vh;
 }
 
 #virtualclassCont.congrea #SharePresentationDashboard .dashboardview {

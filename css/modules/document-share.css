@@ -653,6 +653,13 @@
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
     font-size : 0.83em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 32px;     /* fallback */
+    max-height: 32px;      /* fallback */
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list{
@@ -733,4 +740,33 @@
 #virtualclassCont.congrea .linkdocs.noDocs{
     pointer-events : none;
     opacity : 0.5;
+}
+
+/** TODO, that should be removed and validated later **/
+/*#docsuploadContainer div:last-child {*/
+    /*display : none;*/
+    /*!*position : absolute;*!*/
+    /*!*top : 0;*!*/
+    /*!*left : -2133;*!*/
+/*}*/
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'] #docsuploadContainer div:last-child {
+    display : none;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'] #congdashboard .modal-header{
+    height : 44px;
+}
+
+#virtualclassCont.congrea #listdocs {
+    max-height : 82vh;
+    overflow : auto;
+}
+
+#virtualclassCont.congrea #docsUploadMsz {
+    height : auto;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'] #dashboardContainer .modal-body {
+    height : 94.2%;
 }

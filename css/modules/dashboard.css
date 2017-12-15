@@ -57,25 +57,23 @@
   border-bottom-left-radius: 0;
   margin-right: 6px;
 }
-
-
-
-
+#virtualclassCont.congrea  #listdocs .linkdocs .controlCont {
+  margin-top: 6px;
+  margin-right: 3px;
+}
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont:hover{
   background : #ad0505;
+  margin-top: 6px;
+  margin-right: 3px;
 }
-
-
 
 #virtualclassCont.congrea  #listdocs .list-group-item{
   padding: 7px 0 13px 0;
 }
 
-
 #virtualclassCont.congrea .dbContainer .linkdocs, #virtualclassCont.congrea .dbContainer .linkdocs  .controlCont {
   cursor : pointer;
 }
-
 
 #virtualclassCont.congrea #listdocs .linkdocs.list-group-item:hover {
   color : #fff;
@@ -83,6 +81,7 @@
 
 #virtualclassCont.congrea #docsListContainer {
   height : 98.35%;
+  width : 16.5%;
   border-right : 1px solid #eee;
 }
 
@@ -96,7 +95,7 @@
   padding: 8px;
   color : #fff;
   height : 100%;
-
+  max-height: 58px;
 }
 
 #virtualclassCont.congrea #newdocsBtnCont {
@@ -213,7 +212,7 @@
 .bootstrap #listdocs.listPages .list-group-item.links{
   border-top:1px solid #878e98;
   border-bottom:1px solid #33373d;
-  height : 5.1%;
+  height : 4.84%;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1']{

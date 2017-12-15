@@ -653,6 +653,13 @@
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
     font-size : 0.83em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 32px;     /* fallback */
+    max-height: 32px;      /* fallback */
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list{

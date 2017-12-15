@@ -138,3 +138,8 @@
 #virtualclassCont.congrea.student #virtualclassScreenShare{
   margin:0px 10px 0px 10px;
 }
+
+#virtualclassCont.congrea.playMode #virtualclassScreenShare {
+  height: 93vh;
+}
+

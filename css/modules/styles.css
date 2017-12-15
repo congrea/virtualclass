@@ -3008,3 +3008,48 @@
 #virtualclassCont.congrea[data-currapp='Whiteboard'] #virtualclassWhiteboard.whiteboard .nvgt{
 	display : block;
 }
+
+
+
+#virtualclassCont.congrea #tech_support_save{
+	display : none;
+}
+
+
+#virtualclassCont.congrea .zoomControler {
+	display : none;
+}
+
+#virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
+#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
+	display : block;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassSharePresentation {
+	height : 93vh;
+	padding : 7px;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassSharePresentation {
+	padding-top : 0;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassEditorRich, #virtualclassCont.congrea.playMode #virtualclassEditorCode {
+	height : 93vh;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassVideo {
+	margin-top :0;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel{
+	height : 98.9vh;
+}
+
+#virtualclassCont.congrea #playControllerCont {
+	display : none;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassApp {
+	height: 99vh;
+}

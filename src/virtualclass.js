@@ -151,6 +151,11 @@
                 /** This both have to merge **/
                 virtualclass.xhrn = window.xhrn;
                 virtualclass.xhrn.init();
+                this.xhrn.getAcess(function (response){
+                    if(response != 'ERROR' || response != 'Error'){
+                        console.log('get access');
+                    }
+                });
 
                 virtualclass.chat = new Chat();
                 virtualclass.chat.init();

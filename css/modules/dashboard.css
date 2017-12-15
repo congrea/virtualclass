@@ -13,8 +13,8 @@
   height : 7%;
 }
 #virtualclassCont #dashboardContainer .modal-body {
-  height : 93%;
-  max-height : 93%;
+  height : auto;
+  max-height : 95%;
   padding : 0;
 }
 
@@ -229,9 +229,9 @@
 }
 
 /*#virtualclassCont.congrea #dashboardnav {*/
-  /*position: absolute;*/
-  /*top: 650px;*/
-  /*left: -5px;*/
+/*position: absolute;*/
+/*top: 650px;*/
+/*left: -5px;*/
 /*}*/
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary{
@@ -275,11 +275,11 @@
 }
 
 /*@media(min-height:768px){*/
-  /*#virtualclassCont.congrea  #dashboardnav{*/
-    /*position: absolute;*/
-    /*top: 650px;*/
-    /*left: -5px;*/
-  /*}*/
+/*#virtualclassCont.congrea  #dashboardnav{*/
+/*position: absolute;*/
+/*top: 650px;*/
+/*left: -5px;*/
+/*}*/
 /*}*/
 
 @media (max-height: 768px){

@@ -1104,7 +1104,6 @@
                  * Creates container for the ppt
                  */
                 container: function() {
-                    debugger;
                     var control= roles.hasControls()?true:false;
                     var data ={"control":control};
                     var template=virtualclass.getTemplate("ppt","ppt");

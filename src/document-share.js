@@ -1174,10 +1174,17 @@
 
                             this.displaySlide(note);
 
+                            /**
+                             * TODO, that setTimeout should be removed, it used to hanldle black screen at student
+                             * while teacher select/click the document tab subsequently
+                              **/
                             if(roles.hasControls() && typeof fromReload == 'undefined'){
-                                ioAdapter.mustSend({'dts': {slideTo: noteId, docn:virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
+                                setTimeout(
+                                    function (){
+                                        ioAdapter.mustSend({'dts': {slideTo: noteId, docn:virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
+                                    },200
+                                );
                             }
-
                         },
 
                         /**

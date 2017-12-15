@@ -1065,7 +1065,6 @@
 
                         var idIndex = virtualclass.videoUl.order.indexOf(id);
                         if (idIndex >= 0) {
-                            alert('Invoke order');
                             virtualclass.videoUl.order.splice(idIndex, 1)
                             console.log(virtualclass.videoUl.order);
                             virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);

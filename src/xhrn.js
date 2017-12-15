@@ -42,9 +42,6 @@
 
         sendData: function (data, url, cb) {
             this.cb = cb;
-            // var params = typeof data == 'string' ? data : Object.keys(data).map(
-            //     function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-            // ).join('&');
             var params =  JSON.stringify(data);
             this.httpObj.open('POST', url);
             this.httpObj.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
@@ -52,7 +49,7 @@
             this.httpObj.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
             this.httpObj.setRequestHeader('x-congrea-room', '12323');
             this.httpObj.setRequestHeader('Content-Type', 'application/json');
-
+            this.httpObj.withCredentials = false;
             this.httpObj.send(params);
         },
 

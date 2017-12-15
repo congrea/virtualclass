@@ -123,7 +123,7 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .next, #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass .prev {*/
-    /*z-index: 20;*/
+/*z-index: 20;*/
 /*}*/
 
 #virtualclassCont.congrea .next, #virtualclassCont.congrea .prev {
@@ -516,6 +516,11 @@
     padding-top: 0px;
     color: #606060;
 }
+#virtualclassCont.congrea .precheck .prev::before {
+    font-size: 14px;
+    line-height: 44px;
+    margin-right: 3px;
+}
 
 #virtualclassCont.congrea .next {
     right: 10px;
@@ -531,13 +536,18 @@
     right : 380px;
 }
 
-#virtualclassCont.congrea .next::before {
+#virtualclassCont.congrea .next::after {
     content: "\ea3c";
     font-family: 'icomoon';
     font-size: 18px;
     line-height: 50px;
     padding-top: 0px;
     color: #606060;
+}
+#virtualclassCont.congrea .precheck .next::after {
+    font-size: 14px;
+    line-height: 44px;
+    margin-left: 4px;
 }
 
 #virtualclassCont.congrea .whiteboard .next::before, #virtualclassCont.congrea .whiteboard .prev::before {

@@ -2973,8 +2973,8 @@
 	top: 11px;
 	text-align: right;
 	float: right;
-	right: 360px;
-	z-index: 1;
+	right: 370px;
+    z-index: 1;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
@@ -3053,4 +3053,16 @@
 
 #virtualclassCont.congrea.playMode #virtualclassApp {
 	height: 99vh;
+}
+
+#virtualclassCont.congrea .zoomControler  button {
+    font-size : 11px;
+}
+
+#virtualclassCont.congrea .zoomControler {
+    margin-top : 3px;
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
+    padding-bottom : 30px;
 }

@@ -544,13 +544,14 @@
     padding-top: 0px;
     color: #606060;
 }
+
 #virtualclassCont.congrea .precheck .next::after {
     font-size: 14px;
     line-height: 44px;
     margin-left: 4px;
 }
 
-#virtualclassCont.congrea .whiteboard .next::before, #virtualclassCont.congrea .whiteboard .prev::before {
+#virtualclassCont.congrea .whiteboard .next::after, #virtualclassCont.congrea .whiteboard .prev::before {
     margin-left: 13px;
 }
 

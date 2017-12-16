@@ -84,7 +84,7 @@
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard {
   float: none;
-  overflow: hidden;
+  /*overflow: hidden; */
   width: auto;
   margin-right: 6px;
 }

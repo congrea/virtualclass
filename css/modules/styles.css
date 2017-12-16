@@ -3062,3 +3062,7 @@
 #virtualclassCont.congrea .zoomControler {
     margin-top : 3px;
 }
+
+#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
+    padding-bottom : 30px;
+}

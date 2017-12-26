@@ -7,13 +7,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-var timeSec = 0;
-var totalSendata = 0;
-setInterval(
-    function (){
-        timeSec++;
-    }, 1000
-);
+// var timeSec = 0;
+// var totalSendata = 0;
+// setInterval(
+//     function (){
+//         timeSec++;
+//     }, 1000
+// );
 
 var io = {
     cfg: {},
@@ -236,7 +236,7 @@ var io = {
                 var jobj = JSON.stringify(obj);
         }
 
-        console.log('Total time ' + timeSec +', String send ' + jobj);
+        // console.log('Total time ' + timeSec +', String send ' + jobj);
 
         this.sock.send(jobj);
         this.sock.onerror = function(error) {

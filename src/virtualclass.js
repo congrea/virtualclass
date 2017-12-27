@@ -43,7 +43,8 @@
                 wIds : [0],
                 wbRearrang : false,
                 currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
-                uploadingFiles : []
+                uploadingFiles : [],
+                docOrder : {}
             },
 
             enablePreCheck : true,

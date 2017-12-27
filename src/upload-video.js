@@ -260,7 +260,7 @@
             // },
 
 
-            requestOrder: function () {
+            requestOrder2: function () {
                 var url = 'https://api.congrea.net/t/GetRoomMetaData';
                 virtualclass.xhrn.sendData({noting:true}, url, function (response) {
                     if (response == "Error") {
@@ -278,22 +278,29 @@
                         }
                     }
                 });
+            },
 
-                // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
-                //     var content = JSON.parse(msg);
-                //     if (content.message == "Failed") {
-                //         console.log("page order retrieve failed");
-                //     } else {
-                //         if (content) {
-                //             virtualclass.videoUl.order = [];
-                //             virtualclass.videoUl.order = content.split(',');
-                //             console.log('From database ' + virtualclass.videoUl.order.join(','));
-                //         }
-                //         if (virtualclass.videoUl.order.length > 0) {
-                //             virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
-                //         }
-                //     }
-                // });
+            requestOrder : function () {
+                virtualclass.vutil.requestOrder('vid',
+                    function (response) {
+                        if (response == "Error") {
+                            console.log("page order retrieve failed");
+                        } else {
+                            virtualclass.videoUl.order = [];
+                            virtualclass.videoUl.order = response;
+
+                            // var response = JSON.parse(response).Item;
+                            // if (response.order.S) {
+                            //     virtualclass.videoUl.order = [];
+                            //     virtualclass.videoUl.order = response.order.S.split(',');
+                            // }
+
+                            if (virtualclass.videoUl.order.length > 0) {
+                                virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
+                            }
+                        }
+                    }
+                );
             },
 
             /*
@@ -745,9 +752,11 @@
 
 
             sendOrder: function (order) {
-                var data = {order:order.toString()};
-                var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
-                virtualclass.xhrn.sendData(data, url, function (){});
+                virtualclass.vutil.sendOrder('vid',  order);
+
+                // var data = {order:order.toString(), data:'video'};
+                // var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
+                // virtualclass.xhrn.sendData(data, url, function (){});
             },
 
             onNewUser: function (msg) {
@@ -1548,7 +1557,18 @@
                     //nirmala aws
 
                     // virtualclass.videoUl.UI.awsr();
-                    virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+                    // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+
+                    if(!virtualclass.vutil.isBulkDataFetched()){
+                        virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+                    } else {
+                        setTimeout(
+                            function (){
+                                virtualclass.videoUl.UI.awsVideoList();
+                            },3000
+                        );
+
+                    }
                     // virtualclass.videoUl.getVideoList();
 
                     var dropMsz = document.querySelector("#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery");
@@ -1628,8 +1648,7 @@
                     // var elemArr = [firstId, secondId];
                     virtualclass.videoUl.showVideos(videos);
                     virtualclass.videoUl.retrieveOrder();
-                } ,
-
+                },
 
                 // // to move this function
                 // // nirmala aws

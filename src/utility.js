@@ -2355,8 +2355,38 @@
             var result = '';
             for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
             return result;
+        },
+
+        isBulkDataFetched : function (){
+            return (virtualclass.serverData.rawData.video.length > 0
+            || virtualclass.serverData.rawData.docs.length > 0
+            || virtualclass.serverData.rawData.ppt.length > 0 );
+        },
+
+        sendOrder : function (type, order){
+            virtualclass.gObj.docOrder[type] = order;
+            var data = {order: JSON.stringify(virtualclass.gObj.docOrder)};
+            var url = 'https://api.congrea.net/t/UpdateRoomMetaData'
+            virtualclass.xhrn.sendData(data, url, function (){});
+        },
+
+        requestOrder : function (type, cb){
+            var url = 'https://api.congrea.net/t/GetRoomMetaData';
+            var cthis = this;
+            virtualclass.xhrn.sendData({noting:true}, url, function (response) {
+                if (response == "Error") {
+                    console.log("page order retrieve failed");
+                } else {
+
+                    var response = JSON.parse(response).Item;
+                    if (response.order.S) {
+                        var responseData = JSON.parse(response.order.S);
+                        virtualclass.gObj.docOrder = responseData;
+                        cb(responseData[type]);
+                    }
+                }
+            });
         }
     };
-
     window.vutil = vutil;
 })(window);

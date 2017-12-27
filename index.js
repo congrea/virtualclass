@@ -700,11 +700,18 @@ $(document).ready(function () {
             }
         }
 
+        // function selfJoin(jId) {
+        //     ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
+        //     return (jId == virtualclass.gObj.uid);
+        // }
 
         function selfJoin(jId) {
-            ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
-            return (jId == virtualclass.gObj.uid);
-
+            if(jId == virtualclass.gObj.uid){
+                // The speed needs to send only when self joining
+                ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
+                return true;
+            }
+            return false;
         }
 
         function isAnyOnePresenter() {
@@ -712,9 +719,7 @@ $(document).ready(function () {
             return (isPresenter == 1);
         }
 
-
         var veryFirstJoin = true;
-
         function getJoinUser(users, uid) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].userid == uid) {

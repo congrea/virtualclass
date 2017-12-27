@@ -51,10 +51,7 @@
                     this.documents = (typeof virtualclass.gObj.docs == 'object') ? virtualclass.gObj.docs : null;
                 }
                 
-
-
                 this.UI.container();
-
              //   var elem = document.getElementById('docScreenContainer');
                 //nirmala
                 // if(roles.hasControls()){
@@ -169,10 +166,11 @@
                 if(this.order != null && this.order.length > 0){
                     var allNotes = this.getAllNotes(this.order);
                     // TODO this should be improve
+                    var docId;
                     for(var i =0; i<allNotes.length; i++){
-                        this.setLinkSelected(allNotes[i].lc_content_id, 1);
+                        docId = allNotes[i].id.split('_')[0];
+                        this.setLinkSelected(docId, 1);
                     }
-
                     // remove if there is already pages before render the ordering elements
                     var alreadyElements = document.querySelectorAll('#notesContainer .note');
                     this.createNoteLayout(allNotes, currDoc);
@@ -294,11 +292,27 @@
                 // }
 
                 var that = this;
-                virtualclass.serverData.fetchAllData(function (){
-                    ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
-                    that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-                    // that.allNotes = that.fetchAllNotes();
-                });
+
+                // virtualclass.serverData.fetchAllData(function (){
+                //     ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
+                //     that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                //     // that.allNotes = that.fetchAllNotes();
+                // });
+
+                if(!virtualclass.vutil.isBulkDataFetched()){
+                    virtualclass.serverData.fetchAllData(function (){
+                        ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
+                        that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                    });
+                }else {
+                    // TODO, this should be called without setTimeout
+                    setTimeout(
+                        function (){
+                            ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
+                            that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                        }, 0
+                    );
+                }
             },
             
             fetchAllNotes : function (){
@@ -307,7 +321,6 @@
                     for(var j=0; j< virtualclass.dts.allDocs[key].notesarr.length; j++){
                         allNotes[virtualclass.dts.allDocs[key].notesarr[j].id] = virtualclass.dts.allDocs[key].notesarr[j];
                     }
-                   
                 }
                 return allNotes;
             },
@@ -342,22 +355,14 @@
 
 
             afterFirstRequestDocs : function (docs, notconvert){
-                // if(typeof notconvert == 'undefined'){
-                //     this.allDocsTemp = docs;
-                //     this.allDocs = this.convertInObjects(this.allDocsTemp);
-                // }
-                //
-                // this.allNotes = this.fetchAllNotes();
-
                 this.rawToProperData(docs);
-                // virtualclass.
-                // virtualclass.dts
                 virtualclass.storage.dstAllStore(docs);
                 for(var key in this.allDocs){
                     if(!this.allDocs[key].hasOwnProperty('deleted')){
                         this.initDocs(this.allDocs[key].fileuuid);
                     }
                 }
+                this.requestOrder(this.executeOrder);
             },
 
             rawToProperData : function (docs){
@@ -401,7 +406,7 @@
             /**
              * this requests the order from LMS
              */
-            requestOrder : function (cb){
+            requestOrder2 : function (cb){
                 var data = {
                     "live_class_id" : virtualclass.gObj.congCourse,
                     "content_order_type" : 1
@@ -411,6 +416,39 @@
                         cb.apply(cthis, [response]);
                     }
                 );
+            },
+
+            requestOrder: function (cb) {
+               virtualclass.vutil.requestOrder('docs', cb);
+
+                // var url = 'https://api.congrea.net/t/GetRoomMetaData';
+                // var cthis = this;
+                // virtualclass.xhrn.sendData({noting:true}, url, function (response) {
+                //     if (response == "Error") {
+                //         console.log("page order retrieve failed");
+                //     } else {
+                //         var response = JSON.parse(response).Item;
+                //         if (response.order.S) {
+                //             cb.apply(cthis, [response.order.S]);
+                //         }
+                //     }
+                // });
+
+                // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
+                //     var content = JSON.parse(msg);
+                //     if (content.message == "Failed") {
+                //         console.log("page order retrieve failed");
+                //     } else {
+                //         if (content) {
+                //             virtualclass.videoUl.order = [];
+                //             virtualclass.videoUl.order = content.split(',');
+                //             console.log('From database ' + virtualclass.videoUl.order.join(','));
+                //         }
+                //         if (virtualclass.videoUl.order.length > 0) {
+                //             virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
+                //         }
+                //     }
+                // });
             },
 
             executeOrder : function (response){
@@ -498,12 +536,9 @@
                 // here should be the polling
                 // cthis.requestNotes(doc);
                 virtualclass.serverData.pollingStatus(virtualclass.dts.afterRequestNotes);
-
-
             },
 
             // Earlier it was requestNotes,
-
             afterRequestNotes :function (){
                 var cthis = virtualclass.dts;
                 virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
@@ -513,7 +548,7 @@
                 cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
                 cthis.allNotes = virtualclass.dts.fetchAllNotes();
                 cthis.storeInDocs(cthis.allNotes);
-                cthis.dstAllStore(virtualclass.serverData.rawData.docs);
+                virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
                 // TODO, by disabling this can be critical, new api
                 // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
                 ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes}, 'cf': 'dts'});
@@ -1429,7 +1464,7 @@
                 } else if(dts.hasOwnProperty('fallNotes')){
                     this.allNotes = dts.fallNotes;
                     this.storeInDocs(this.allNotes);
-                    this.dstAllStore(virtualclass.serverData.rawData.docs);
+                    virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
                 } else if((dts.hasOwnProperty('allDocs'))) {
                     this.allDocs = dts.allDocs;
                     this.afterUploadFile(dts.doc);
@@ -1554,12 +1589,17 @@
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);
                 }
-
             },
 
-            sendOrder : function(order){
+            sendOrder2 : function(order){
                 var data = {'content_order': order.toString(), content_order_type: 1, live_class_id : virtualclass.gObj.congCourse};
                 virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order', function (response){});
+            },
+
+            sendOrder: function (order) {
+                // var data = {order:order.toString(), data:'docs'};
+                // var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
+                virtualclass.vutil.sendOrder('docs', order);
             },
 
             reaArrangeThumbCount : function (){

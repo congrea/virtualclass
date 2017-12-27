@@ -7,6 +7,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+// var timeSec = 0;
+// var totalSendata = 0;
+// setInterval(
+//     function (){
+//         timeSec++;
+//     }, 1000
+// );
+
 var io = {
     cfg: {},
     sock: null,
@@ -22,8 +30,8 @@ var io = {
         this.cfg = cfg;
         this.wsconnect();
     },
-    wsconnect: function() {
 
+    wsconnect: function() {
         "use strict";
         console.log('init for socket connect');
         io.wsuri = this.cfg.rid;
@@ -170,6 +178,7 @@ var io = {
             io.packetQueue.push(jobj);
         }
     },
+
     realSend: function(obj) {
         "use strict";
         if (typeof obj.arg.touser != 'undefined') {
@@ -177,14 +186,11 @@ var io = {
 				console.log('uniqueid is null');
 			}else {
 				obj.arg.touser = io.uniquesids[obj.arg.touser];
-
 				if (typeof obj.arg.touser == 'undefined') {
 					console.log("User is not connected." + obj.arg.touser);
 					return;
 				}
 			}
-			
-            
         }
 
         // earlier the below information sent by server
@@ -230,18 +236,11 @@ var io = {
                 var jobj = JSON.stringify(obj);
         }
 
-
-
+        // console.log('Total time ' + timeSec +', String send ' + jobj);
 
         this.sock.send(jobj);
         this.sock.onerror = function(error) {
-
         }
-        //this.sock.onclose = function (e){
-        //    debugger;
-        //    alert('close');
-        //}
-
     },
     sendBinary: function(msg) {
         "use strict";

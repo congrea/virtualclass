@@ -1,6 +1,7 @@
 var serverData = {
     rawData : {video:[], ppt:[], docs:[]},
     fetchAllData : function (cb){
+        console.log('Fetch all data');
         this.cb = cb;
         var data = "Demo";
         this.requestData("https://api.congrea.net/t/GetDocumentURLs", data);

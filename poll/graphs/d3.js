@@ -1,6 +1,4 @@
 // d3.js
-var namenirmala = "nirmala";
-
 !function() {
   var d3 = {
     version: "3.5.0"

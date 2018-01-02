@@ -5879,10 +5879,6 @@
                         virtualclass.vutil.makeElementActive('#listnotes');
 
                     }
-
-
-
-
                     // $('#listvideo').css({
                     //     "z-index":55
                     //

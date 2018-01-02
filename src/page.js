@@ -409,8 +409,12 @@
                         virtualclass.vutil.makeElementActive('#listnotes');
                     }
 
-
                     //   source = virtualclass.vutil.getParentTag(e.target, '.linkdocs');
+                    // if(this.cthis.type === 'video'){
+                    //     virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                    //     virtualclass.vutil.makeElementActive('#listvideo');
+                    // }
+
                     if (e.target.classList.contains('link' + this.cthis.type)) {
                         this.source = e.target;
 
@@ -420,8 +424,10 @@
                     }
 
                     e.dataTransfer.effectAllowed = 'move';
+                    if(this.source){
+                        this.source.classList.add("dragElem");
+                    }
 
-                    this.source.classList.add("dragElem");
                 },
 
                 handleDragEnter: function (e) {
@@ -433,6 +439,11 @@
                         virtualclass.vutil.makeElementActive('#listnotes');
 
                     }
+
+                    // if(this.cthis.type === 'video'){
+                    //     virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                    //     virtualclass.vutil.makeElementActive('#listvideo');
+                    // }
 
                     if(this.source) {
                         this.source.classList.add("dragElem");
@@ -500,16 +511,16 @@
                     console.log("remove dragelem");
 
                     if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
-                        if(this.cthis.type == 'video'){
-                            virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        }else if(this.cthis.type == 'notes'){
-                            virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-
-                        }else {
-                            virtualclass.vutil.makeElementDeactive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        }
-
-                        virtualclass.vutil.makeElementActive('#list'+this.cthis.type);
+                        // if(this.cthis.type == 'video'){
+                        //     virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        // }else if(this.cthis.type == 'notes'){
+                        //     virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        //
+                        // }else {
+                            // virtualclass.vutil.makeElementActive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        // }
+                        //
+                        // virtualclass.vutil.makeElementActive('#list'+this.cthis.type);
 
                         var elems = document.querySelectorAll(' #virtualclassCont.congrea .link'+this.cthis.type+'.opaq')
                         for(var i =0; i<elems.length; i++){

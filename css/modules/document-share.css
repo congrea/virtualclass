@@ -751,9 +751,10 @@
     /*!*left : -2133;*!*/
 /*}*/
 
-#virtualclassCont.congrea[data-currapp='DocumentShare'] #docsuploadContainer div:last-child {
-    display : none;
-}
+/*nirmala*/
+/*#virtualclassCont.congrea[data-currapp='DocumentShare'] #docsuploadContainer div:last-child {*/
+    /*display : none;*/
+/*}*/
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] #congdashboard .modal-header{
     height : 44px;

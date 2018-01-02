@@ -8042,7 +8042,9 @@
                     e.stopPropagation();
                     options.onDrop(e);
                     triggerHidezonesEvent();
+
                 }
+
             });
         }
         disableDropOutside();

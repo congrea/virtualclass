@@ -844,7 +844,9 @@
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
                         if(roles.hasControls()){
                             virtualclass.vutil.attachEventToUploadTab();
-                            virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                            if(document.querySelector('#DocumentShareDashboard .qq-gallery')== null){
+                                virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                            }
                         }
                     }
                 },
@@ -1937,7 +1939,7 @@
 
                 var listnotes  = document.querySelector('#listnotes');
                 if(listnotes != null){
-                  virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                 // virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                   virtualclass.vutil.makeElementActive('#listnotes');
                 }else {
                   console.log('List note is null');
@@ -1969,7 +1971,7 @@
 
                 var listnotes  = document.querySelector('#listnotes');
                 if(listnotes != null){
-                    virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                    //virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                     virtualclass.vutil.makeElementActive('#listnotes');
                 }else {
                     console.log('List note is null');

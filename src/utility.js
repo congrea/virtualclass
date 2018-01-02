@@ -616,7 +616,6 @@
                     };
 
                     console.log(prvAppObj);
-                    console.log("nirmala");
                     virtualclass.videoUl.saveVideosInLocalStr();
 
               //  }

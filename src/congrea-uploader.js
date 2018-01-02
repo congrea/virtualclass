@@ -158,6 +158,8 @@
                                 if(msz){
                                     msz.style.display="none";
                                 }
+                                virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                                virtualclass.vutil.makeElementActive('#listvideo');
 
                             }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
@@ -175,6 +177,11 @@
                                 if(msz){
                                     msz.style.display="none";
                                 }
+                                virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                                virtualclass.vutil.makeElementActive('#listvideo');
+
+
+
                             }else if (obj.cthis == 'docs'){
                                 var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
                                 if(msz){
@@ -194,7 +201,39 @@
                 //     dataObj.allowedExtensions = obj.validation;
                 // }
 
-                var galleryUploader= new qq.s3.FineUploader(dataObj)
+
+                var galleryUploader= new qq.s3.FineUploader(dataObj);
+
+                // var dragAndDropModule = new qq.DragAndDrop({
+                //         dropZoneElements: [document.getElementById('listvideo')],
+                //         classes: {
+                //             dropActive: "videos"
+                //         },
+                //         callbacks: {
+                //             processingDroppedFiles: function() {
+                //                 alert("procesing dropped file")
+                //                 //TODO: display some sort of a "processing" or spinner graphic
+                //             },
+                //             processingDroppedFilesComplete: function(files) {
+                //                 //TODO: hide spinner/processing graphic
+                //                 alert("proceessing dropped file complete")
+                //                 fineUploaderBasicInstance.addFiles(files); //this submits the dropped files to Fine Uploader
+                //             }
+                //         }
+                //     })
+                //
+                //     fineUploaderBasicInstance = new qq.FineUploaderBasic({
+                //         request: {
+                //             endpoint: 'https://uploadmedia.congrea.net',
+                //             accessKey: "AKIAJV7RJOFBDFVY62EQ"
+                //         },
+                //     });
+
+
+
+
+
+
            //     console.log(galleryUploader._options.objectProperties.key);
             },
 
@@ -209,7 +248,14 @@
                   virtualclass.vutil.makeElementDeactive(tobeDeactive);
                   virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
               }
+            },
+            onDragEnd : function (e){
+
+
+
             }
+
+
         }
     }();
    window.fineUploader= fineUploader;

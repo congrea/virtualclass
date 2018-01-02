@@ -67,7 +67,6 @@
             },
 
             init: function (urole, app, videoObj) {
-
                 var wbUser = window.wbUser;
                 virtualclass.uInfo = {
                     'userid': wbUser.id,

@@ -881,7 +881,7 @@
                 virtualclass.xhrn.sendData(pptObj, url, function (response) {
                     virtualclass.sharePt.getPptList();
                     // virtualclass.videoUl.afterUploadFile(vidObj);
-                    // virtualclass.videoUl.order.push(vidObj.uuid);
+                    //  virtualclass.sharePt.order.push(vidObj.uuid);
                     //
                     // // TODO, Critical this need be re-enable
                     // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
@@ -1074,9 +1074,9 @@
 
                 }
 
-                if (virtualclass.sharePt.order.length > 0) {
+                if (virtualclass.sharePt.order&&virtualclass.sharePt.order.length > 0) {
                                virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
-                             }
+                }
 
 
                 //todo to verify this
@@ -1096,6 +1096,9 @@
                 virtualclass.vutil.requestOrder("presentation",function(data){
                     console.log(data)
                     virtualclass.sharePt.order= data;
+                    if (virtualclass.sharePt.order.length > 0) {
+                        virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                    }
 
                 })
                 // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {

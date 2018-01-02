@@ -432,10 +432,10 @@
 
                 handleDragEnter: function (e) {
                     if(this.cthis.type == 'video'){
-                        virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                      //  virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listvideo');
                     }else if(this.cthis.type == 'notes'){
-                        virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                       // virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listnotes');
 
                     }
@@ -511,16 +511,16 @@
                     console.log("remove dragelem");
 
                     if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
-                        // if(this.cthis.type == 'video'){
-                        //     virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        // }else if(this.cthis.type == 'notes'){
-                        //     virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        //
-                        // }else {
-                            // virtualclass.vutil.makeElementActive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        // }
-                        //
-                        // virtualclass.vutil.makeElementActive('#list'+this.cthis.type);
+                        if(this.cthis.type == 'video'){
+                            virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        }else if(this.cthis.type == 'notes'){
+                            virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+
+                        }else {
+                            //virtualclass.vutil.makeElementActive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                        }
+
+                        virtualclass.vutil.makeElementActive('#list'+this.cthis.type);
 
                         var elems = document.querySelectorAll(' #virtualclassCont.congrea .link'+this.cthis.type+'.opaq')
                         for(var i =0; i<elems.length; i++){

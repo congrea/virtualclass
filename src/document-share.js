@@ -394,7 +394,8 @@
 
             afterRequestOrder : function (content){
                 this.order.length = 0;
-                this.order = content.split(',');
+                // this.order = content.split(',');
+                this.order = content;
                 var docId = 'docs' + this.getDocId(this.order[0]);
                 // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
                 console.log('From database doc share order ' + this.order.join(','));
@@ -452,17 +453,19 @@
             },
 
             executeOrder : function (response){
-                var cthis = this;
-                var content = JSON.parse(response);
-                if (content.message == "Failed") {
-                    console.log("page order retrieve failed");
-                    $('#congdashboard').modal();
-                    virtualclass.dashBoard.clickCloseButton();
-
-                } else if(content) {
-                    ioAdapter.mustSend({'dts': {order_recived: content},  'cf': 'dts'});
-                    cthis.afterRequestOrder(content);
-                    cthis.createNoteNav();
+                if(response != undefined && typeof response != 'undefined'){
+                    var cthis = virtualclass.dts;
+                    if(response.length > 0){
+                        if (response == "Failed" || response == "Error") {
+                            console.log("page order retrieve failed");
+                            $('#congdashboard').modal();
+                            virtualclass.dashBoard.clickCloseButton();
+                        } else if(response) {
+                            ioAdapter.mustSend({'dts': {order_recived: response},  'cf': 'dts'});
+                            cthis.afterRequestOrder(response);
+                            cthis.createNoteNav();
+                        }
+                    }
                 }
             },
 

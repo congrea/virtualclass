@@ -286,17 +286,12 @@
                         if (response == "Error") {
                             console.log("page order retrieve failed");
                         } else {
-                            virtualclass.videoUl.order = [];
-                            virtualclass.videoUl.order = response;
-
-                            // var response = JSON.parse(response).Item;
-                            // if (response.order.S) {
-                            //     virtualclass.videoUl.order = [];
-                            //     virtualclass.videoUl.order = response.order.S.split(',');
-                            // }
-
-                            if (virtualclass.videoUl.order.length > 0) {
-                                virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
+                            if(typeof response != 'undefined' && response != undefined){
+                                virtualclass.videoUl.order = [];
+                                virtualclass.videoUl.order = response;
+                                if (virtualclass.videoUl.order.length > 0) {
+                                    virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
+                                }
                             }
                         }
                     }

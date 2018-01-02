@@ -2377,15 +2377,25 @@
                 if (response == "Error") {
                     console.log("page order retrieve failed");
                 } else {
-
                     var response = JSON.parse(response).Item;
                     if (response.order.S) {
-                        var responseData = JSON.parse(response.order.S);
-                        virtualclass.gObj.docOrder = responseData;
-                        cb(responseData[type]);
+                        if(virtualclass.vutil.IsJsonString(response.order.S)){
+                            var responseData = JSON.parse(response.order.S);
+                            virtualclass.gObj.docOrder = responseData;
+                            cb(responseData[type]);
+                        }
                     }
                 }
             });
+        },
+
+        IsJsonString : function(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
         }
     };
     window.vutil = vutil;

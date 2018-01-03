@@ -161,6 +161,8 @@
                                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                                 virtualclass.vutil.makeElementActive('#listvideo');
 
+                                virtualclass.vutil.removeChildrens();
+
                             }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
                             }
@@ -188,9 +190,29 @@
                                     msz.style.display="none";
                                 }
                             }
+                        },
+
+                        onSubmitted : function (){
+                            if(obj.cthis == 'video'){
+                                /**It handles the rendering the progressbar after done once **/
+
+                                var msgclose = document.querySelector('#uploadMsz .close');
+                                if(msgclose != null){
+                                    msgclose.click();
+                                }
+                                var uploadmsg = document.querySelector('#uploadMsz');
+                                if(uploadmsg != null){
+                                    uploadmsg.style.display = 'block';
+                                }
+
+                                var ul = document.querySelector('#uploadMsz .qq-upload-list-selector.qq-upload-list');
+                                ul.style.display = 'block';
+
+                                // virtualclass.vutil.removeChildrens();
+                                // viqq-upload-list-selector qq-upload-list
+                            }
                         }
                     },
-
                 };
 
                 // if(obj.hasOwnProperty('multiple')){

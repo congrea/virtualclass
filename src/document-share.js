@@ -696,8 +696,10 @@
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
                         if(roles.hasControls()){
                             virtualclass.vutil.attachEventToUploadTab();
-                            virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-                        }
+                            if(document.querySelector('#DocumentShareDashboard .qq-gallery')== null){
+                                virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                            }
+                            }
                     }
                 },
 

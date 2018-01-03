@@ -155,7 +155,7 @@ var serverData = {
 
                     case 'presentation':
                         console.log("presentation data")
-                        console.log(obj);
+                        // console.log(obj);
                         var obj = this.processVidUrlObj(arr[j]);
                         obj.urls = {};
                         obj.urls.presentation = obj.URL;

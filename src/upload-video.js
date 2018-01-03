@@ -548,7 +548,8 @@
                 upload.validation = ['mp4', 'webm']
                 virtualclass.vutil.modalPopup('video', ["congreavideoContBody", "congreaShareVideoUrlCont"]);
                 var cont = document.getElementById("contFooter");
-                virtualclass.videoUl.UI.createYoutubeUrlCont(cont)
+                virtualclass.videoUl.UI.createYoutubeUrlCont(cont);
+
 
             },
 

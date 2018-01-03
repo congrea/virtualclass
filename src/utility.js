@@ -2395,6 +2395,13 @@
                 return false;
             }
             return true;
+        },
+
+        removeChildrens : function (){
+            var uploadLists = document.querySelectorAll('#VideoDashboard #uploadMsz .qq-upload-list-selector.qq-upload-list li');
+            for(var i=0; i < uploadLists.length; i++){
+                uploadLists[i].parentNode.removeChild(uploadLists[i]);
+            }
         }
     };
     window.vutil = vutil;

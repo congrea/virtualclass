@@ -8015,9 +8015,7 @@
                 e.preventDefault();
             });
             disposeSupport.attach(element, "dragenter", function(e) {
-                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                virtualclass.vutil.makeElementDeactive('#listvideo');
-
+                virtualclass.vutil.initAcitveElement();
                 console.log("testdragenter");
                 if (!isOrSetDropDisabled()) {
                     if (!isValidFileDrag(e)) {
@@ -8025,7 +8023,9 @@
                     }
                     options.onEnter(e);
                 }
+
             });
+
             disposeSupport.attach(element, "dragleave", function(e) {
                 console.log("testdragleave");
                 if (!isValidFileDrag(e)) {
@@ -8048,10 +8048,7 @@
                     options.onDrop(e);
                     triggerHidezonesEvent();
                     console.log("testdrop")
-
-                    virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                    virtualclass.vutil.makeElementActive('#listvideo');
-
+                    virtualclass.vutil.initAcitveElement();
 
                 }
 

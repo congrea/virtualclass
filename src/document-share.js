@@ -102,6 +102,17 @@
                 }
             },
 
+            moveProgressbar : function (){
+                var cont =  document.querySelector("#docsUploadMsz")
+                var msz = document.querySelector("#docsuploadContainer .qq-upload-list-selector.qq-upload-list");
+                if(msz){
+                    msz.style.display="block";
+                }
+                var divCont = document.createElement("div")
+                cont.appendChild(divCont);
+                divCont.appendChild(msz);
+            },
+
             /**
              * This function initiate the docs order
              * and the function which should be performed

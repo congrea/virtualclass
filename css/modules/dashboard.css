@@ -13,8 +13,8 @@
   height : 7%;
 }
 #virtualclassCont #dashboardContainer .modal-body {
-  height : auto;
-  max-height : 95%;
+  height : 100%;
+  max-height : 100%;
   padding : 0;
 }
 

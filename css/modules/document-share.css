@@ -374,8 +374,8 @@
     margin: -2px 3px 3px;
     background: #fff;
     position: absolute;
-    bottom: -5px;
-    right: -13px;
+    bottom: -3px;
+    right: -3px;
     box-shadow: 0 0 3px rgb(96, 96, 97);
 }
 
@@ -523,7 +523,7 @@
 }
 
 #virtualclassCont.congrea .next {
-    right: 10px;
+    right: 22px;
 }
 
 
@@ -745,15 +745,16 @@
 
 /** TODO, that should be removed and validated later **/
 /*#docsuploadContainer div:last-child {*/
-    /*display : none;*/
-    /*!*position : absolute;*!*/
-    /*!*top : 0;*!*/
-    /*!*left : -2133;*!*/
+/*display : none;*/
+/*!*position : absolute;*!*/
+/*!*top : 0;*!*/
+/*!*left : -2133;*!*/
 /*}*/
 
-#virtualclassCont.congrea[data-currapp='DocumentShare'] #docsuploadContainer div:last-child {
-    display : none;
-}
+/*nirmala*/
+/*#virtualclassCont.congrea[data-currapp='DocumentShare'] #docsuploadContainer div:last-child {*/
+/*display : none;*/
+/*}*/
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] #congdashboard .modal-header{
     height : 44px;

@@ -122,11 +122,11 @@
 }
 
 #virtualclassCont.congrea #listppt .linkppt .mainpreview {
-   font-size: 0;
-   border-radius: 2px;
-   float: left;
-   margin: 0px;
-   margin-top:-3px;
+  font-size: 0;
+  border-radius: 2px;
+  float: left;
+  margin: 0px;
+  margin-top:-3px;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .mainpreview::before {
@@ -138,38 +138,38 @@
 }
 
 /*#virtualclassCont.congrea #listppt .linkppt.links {*/
-  /*margin: 3px;*/
-  /*width: 200px;*/
-  /*position: relative;*/
-  /*background: #fff;*/
-  /*border-radius: 3px;*/
-  /*height: 113px;*/
-  /*margin-bottom : 30px;*/
-  /*margin-left:35px;*/
-  /*display:inline-block;*/
-  /*padding:16px;*/
+/*margin: 3px;*/
+/*width: 200px;*/
+/*position: relative;*/
+/*background: #fff;*/
+/*border-radius: 3px;*/
+/*height: 113px;*/
+/*margin-bottom : 30px;*/
+/*margin-left:35px;*/
+/*display:inline-block;*/
+/*padding:16px;*/
 /*}*/
 
 /*#virtualclassCont.congrea #listppt .linkppt.links:before{*/
-  /*content: "\e935";*/
-  /*font-size: 100px;*/
-  /*font-family: 'icomoon';*/
-  /*opacity: .06;*/
-  /*top: 0px;*/
-  /*position: absolute;*/
-  /*margin-top: 48px;*/
-  /*margin-left: 30px;*/
-  /*align-items: center;*/
+/*content: "\e935";*/
+/*font-size: 100px;*/
+/*font-family: 'icomoon';*/
+/*opacity: .06;*/
+/*top: 0px;*/
+/*position: absolute;*/
+/*margin-top: 48px;*/
+/*margin-left: 30px;*/
+/*align-items: center;*/
 /*}*/
 
 /*#virtualclassCont.congrea #listppt .linkppt.links .controlCont {*/
-  /*float: right;*/
-  /*border: 1px solid #eee;*/
-  /*padding: 5px 5px 0;*/
-  /*border-radius: 2px;*/
-  /*background: #fff;*/
-  /*margin-top:22px;*/
-  /*width:83px;*/
+/*float: right;*/
+/*border: 1px solid #eee;*/
+/*padding: 5px 5px 0;*/
+/*border-radius: 2px;*/
+/*background: #fff;*/
+/*margin-top:22px;*/
+/*width:83px;*/
 /*}*/
 
 #virtualclassCont.congrea #listppt .linkppt.links .controls.status[data-status="1"], #virtualclassCont.congrea #listppt .linkppt.links .controls.status[data-status="0"] {
@@ -198,17 +198,17 @@
 
 
 /*#virtualclassCont #listppt .linkppt{*/
-  /*!*margin-top : 1.5%;*!*/
-  /*border: 1px solid #ddd;*/
-  /*border-radius : 4px;*/
-  /*width : 123%;*/
-  /*padding : 2px;*/
-  /*cursor : pointer;*/
+/*!*margin-top : 1.5%;*!*/
+/*border: 1px solid #ddd;*/
+/*border-radius : 4px;*/
+/*width : 123%;*/
+/*padding : 2px;*/
+/*cursor : pointer;*/
 /*}*/
 
 /*#virtualclassCont #listppt .linkppt:hover {*/
-  /*border: 1px solid #ccc;*/
-  /*box-shadow: 0 0 6px rgb(96, 96, 97);*/
+/*border: 1px solid #ccc;*/
+/*box-shadow: 0 0 6px rgb(96, 96, 97);*/
 /*}*/
 
 button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"]{
@@ -224,8 +224,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl,*/
 /*#virtualclassCont .dashboardview #urlcontainer #submitpurl{*/
-  /*margin-top:80px;*/
-  /**/
+/*margin-top:80px;*/
+/**/
 /*}*/
 
 #virtualclassCont.congrea #SharePresentationDashboard .dashboardview{
@@ -236,19 +236,20 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   /*margin-top:5px;*/
 }
 /*#virtualclassCont.congrea #SharePresentationDashboard .controlCont{*/
-  /*display:none;*/
+/*display:none;*/
 /*}*/
 #virtualclassCont.congrea #SharePresentationDashboard .controlCont.showCtr{
   display:block!important;
 }
 /*#virtualclassCont.congrea #listppt .linkppt.links .controlCont:hover{*/
-  /*border: 1px solid #ccc;*/
-  /*box-shadow: 0 0 6px rgb(96, 96, 97);*/
+/*border: 1px solid #ccc;*/
+/*box-shadow: 0 0 6px rgb(96, 96, 97);*/
 /*}*/
 
 #virtualclassCont.congrea #pptListContainer{
   /*height : 89%;*/
   height: 76vh;
+  overflow-y: auto;
 }
 
 #virtualclassCont.congrea #SharePresentationDashboard .dashboardview {

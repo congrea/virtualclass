@@ -29,7 +29,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-width: 0 1px 1px 1px;
-  height: 86vh;
+  height: 84vh;
 }
 #virtualclassCont.congrea #layoutQuizBody .quizList{
   margin: 0;
@@ -174,7 +174,7 @@
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt {
   position: relative;
   left: 87%;
-  bottom: 356px;
+  bottom: 392px;
   color:#337ab7;
   padding:8px;
   border: 1px solid #337ab7;

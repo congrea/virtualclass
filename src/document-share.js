@@ -26,6 +26,22 @@
                     this.storageRawData = null;
                 }else {
                     this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
+                    this.allNotes = virtualclass.gObj.dstAllNotes;
+                    if(roles.isStudent()){
+                        virtualclass.serverData.rawData.docs = this.storageRawData;
+                    }
+
+                    // virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
+                    /**
+                     * Storing again into indexedDb when page is being refreshed
+                     */
+                    setTimeout(
+                        function (){
+                            if(roles.hasControls()){
+                                virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
+                            }
+                        },0
+                    );
                 }
 
                 if(virtualclass.gObj.hasOwnProperty('docs') &&  typeof virtualclass.gObj.docs == 'string'){
@@ -37,6 +53,7 @@
                 this.UI.container();
                 this.pages = {};
                 this.notes = {};
+
                 if(this.documents != null){
                     this.allNotes = this.documents;
                 }
@@ -68,7 +85,7 @@
                 if(typeof docsObj != 'undefined' ){
                     if(docsObj.init != 'layout' && docsObj.init != 'studentlayout'){
                         if(this.storageRawData != null){
-                            this.rawToProperData(this.storageRawData);
+                            this.rawToProperData(this.storageRawData, 'fromStorage');
                         }
                         // docsObj.init = layout means first layout
                         this.setNoteScreen(docsObj);
@@ -78,7 +95,7 @@
                     var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
                     if(docsObj != null){
                         if(this.storageRawData != null){
-                            this.rawToProperData(this.storageRawData);
+                            this.rawToProperData(this.storageRawData, 'fromStorage');
                         }
                         this.initAfterUpload(docsObj);
                         //       this.allDocs = docsObj.docs;
@@ -100,6 +117,7 @@
                         }
                     }
                 }
+
             },
 
             moveProgressbar : function (){
@@ -107,10 +125,10 @@
                 var msz = document.querySelector("#docsuploadContainer .qq-upload-list-selector.qq-upload-list");
                 if(msz){
                     msz.style.display="block";
+                    var divCont = document.createElement("div")
+                    cont.appendChild(divCont);
+                    divCont.appendChild(msz);
                 }
-                var divCont = document.createElement("div")
-                cont.appendChild(divCont);
-                divCont.appendChild(msz);
             },
 
             /**
@@ -162,6 +180,7 @@
                     // TODO This should be improve at later, should handle at function createNoteNav
                     for(var i=0; i<this.order.length; i++){
                         this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
+                        console.log('Note status ' + this.order[i] + ' -->' + this.allNotes[this.order[i]].status);
                     }
                 }
             },
@@ -282,22 +301,6 @@
             },
 
             // requestDocs
-
-            afterFirstRequestDocs2 : function (docs, notconvert){
-                if(typeof notconvert == 'undefined'){
-                    this.allDocsTemp = docs;
-                    this.allDocs = this.convertInObjects(this.allDocsTemp);
-                }
-
-                for(var key in this.allDocs){
-                    if(!this.allDocs[key].hasOwnProperty('deleted')){
-                        this.initDocs(this.allDocs[key].fileuuid);
-                    }
-                }
-                this.allNotes = this.fetchAllNotes();
-            },
-
-
             afterFirstRequestDocs : function (docs, notconvert){
                 this.rawToProperData(docs);
                 virtualclass.storage.dstAllStore(docs);
@@ -309,15 +312,23 @@
                 this.requestOrder(this.executeOrder);
             },
 
-            rawToProperData : function (docs){
+            rawToProperData : function (docs, fromStorage){
                 if(typeof notconvert == 'undefined'){
                     this.allDocsTemp = docs;
                     this.allDocs = this.convertInObjects(this.allDocsTemp);
                 }
 
-                this.allNotes = this.fetchAllNotes();
-            },
+                //this.allNotes = this.fetchAllNotes();
+                if(typeof fromStorage !=  'undefined'){
+                    this.allNotes = virtualclass.gObj.dstAllNotes;
+                }else{
+                    this.allNotes = this.fetchAllNotes();
+                }
 
+                // if(this.documents != null){
+                //     this.allNotes = this.documents;
+                // }
+            },
 
             /**
              * This would be performed after got
@@ -489,7 +500,8 @@
              * @param allPages exepects all notes
              */
             storeInDocs : function (allPages){
-                virtualclass.storage.dstStore(JSON.stringify(allPages));
+                //virtualclass.storage.dstStore(JSON.stringify(allPages));
+                virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
             },
 
             removeWhiteboardFromStorage : function (key){
@@ -1305,7 +1317,10 @@
                     this.allDocs = dts.allDocs;
                     this.afterUploadFile(dts.doc);
                 }else if (dts.hasOwnProperty('fallDocs')){
-                    this.afterFirstRequestDocs(dts.fallDocs);
+                    var cthis = this;
+                    cthis.afterFirstRequestDocs(dts.fallDocs);
+                    virtualclass.serverData.rawData.docs = dts.fallDocs;
+
 
 //                    this.allDocs = dts.fallDocs;
 //                    for(var i=0; i< this.allDocs.length; i++){
@@ -1524,9 +1539,9 @@
 
             _removePageFromStructure : function (id){
                 this.removeWhiteboardFromStorage('_doc_'+ id+'_'+ id);
-                delete this.allNotes[id];
+                // delete this.allNotes[id];
+                this.allNotes[id].deletedn = id;
                 this.storeInDocs(this.allNotes); //new pages save into docs
-
             },
 
             _disable : function (id){

@@ -1256,7 +1256,7 @@
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover:after {
-	bottom : 2.7em;
+	bottom : 4.5em;
 	left: 0.2em;
 	z-index : 10000;
 }
@@ -2292,6 +2292,7 @@
 #virtualclassCont.congrea .modal.fade.in {top: 0;}
 #virtualclassCont.congrea .modal .modal-content{
 	padding: 20px;
+	padding-bottom: 5px;
 }
 #virtualclassCont.congrea .modal .modal-header{
 	padding: 0;
@@ -2558,7 +2559,7 @@
 }
 
 #virtualclassCont.congrea .modal .modal-content, #virtualclassCont.congrea #contQzBody {
-	max-height: calc(100vh - 210px);
+	max-height: calc(100vh - 125px);
 	overflow-y: auto;
 }
 #virtualclassCont.congrea .modal-body .qscolor {
@@ -2742,6 +2743,7 @@
 	width: calc(100% - 6px);
 	border-left: 1px solid #dcd6d6 !important;
 	border-top: 1px solid #dcd6d6 !important;
+	border-bottom: 1px solid #dcd6d6 !important;
 	/* margin-right: 0.5%; */
 	border-radius: 4px 0 4px 0;
 	border-width: 0;
@@ -2964,17 +2966,26 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {
-	height : 94vh;
+	height : 90vh;
 }
 
 
 #virtualclassCont.congrea .zoomControler{
-	position: absolute;
-	top: 11px;
+	/*position: absolute;*/
+	/*top: 11px;*/
+	/*text-align: right;*/
+	/*float: right;*/
+	/*right: 370px;*/
+	/*z-index: 1;*/
+	position: fixed;
+	/* top: 11px; */
 	text-align: right;
 	float: right;
-	right: 370px;
-    z-index: 1;
+	right: 330px;
+	bottom: -2px;
+	/* height: 50px; */
+	z-index: 2019;
+	overflow: hidden;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
@@ -3057,13 +3068,13 @@
 }
 
 #virtualclassCont.congrea .zoomControler  button {
-    font-size : 11px;
+	font-size : 11px;
 }
 
 #virtualclassCont.congrea .zoomControler {
-    margin-top : 3px;
+	margin-top : 3px;
 }
 
 #virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
-    padding-bottom : 30px;
+	padding-bottom : 30px;
 }

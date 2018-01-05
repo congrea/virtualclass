@@ -6,6 +6,7 @@
   /*height: 87%;*/
   max-height:none;
   padding : 0;
+  overflow: hidden;
 
 }
 
@@ -19,7 +20,7 @@
 }
 
 #virtualclassCont #listvideo {
-  height: calc(100% - 78px);
+  height: 83%;
   overflow-y: auto;
   margin-bottom :0;
   margin-top : 8px;
@@ -186,12 +187,12 @@
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links.video .videoTitleCont:before{
-  content: "\e956";
+  content: "\e95d";
   font-family: 'icomoon';
 
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links.yts .videoTitleCont:before{
+#virtualclassCont.congrea #listvideo .linkvideo.links.video_yts .videoTitleCont:before{
   content: "\f167";
   font-family: 'icomoon';
 
@@ -316,16 +317,14 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont{
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   width: 100%;
-  height : 63px;
+  height: 48px;
   overflow: hidden;
-  padding:0px;
+  padding: 0px;
   margin: 0px;
-
 }
-
 
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview {
   font-size: 0;
@@ -336,10 +335,16 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   padding-top:2px;
 }
 
+#virtualclassCont.congrea i.icon-savevideo.cgIcon {
+  /* top: -13px; */
+  position: absolute;
+  top: 16px;
+  left: 19px;
+}
 
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .videoTitleCont:before{
-  font-size: 35px;
+  font-size: 24px;
   align-items: center;
   position: relative;
   top: 8px;

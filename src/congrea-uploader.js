@@ -161,8 +161,26 @@
                                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                                 virtualclass.vutil.makeElementActive('#listvideo');
 
+                                var ul = document.querySelector('#uploadMsz .qq-upload-list-selector.qq-upload-list');
+                                if(ul != null){
+                                    ul.style.display = 'block';
+                                }
+
+                                virtualclass.vutil.removeChildrens('#VideoDashboard #uploadMsz .qq-upload-list-selector.qq-upload-list li');
+
+
                             }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
+
+                                virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                                virtualclass.vutil.makeElementActive('#listdocs');
+
+                                var ul = document.querySelector('#docsuploadContainer #docsUploadMsz .qq-upload-list-selector.qq-upload-list');
+                                if(ul != null){
+                                    ul.style.display = 'block';
+                                }
+
+                                virtualclass.vutil.removeChildrens('#docsUploadMsz .qq-upload-list-selector.qq-upload-list li');
                             }
                         },
 
@@ -187,10 +205,33 @@
                                 if(msz){
                                     msz.style.display="none";
                                 }
+                                virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+                                virtualclass.vutil.makeElementActive('#listdocs');
                             }
+                        },
+
+                        onSubmitted : function (){
+                            /**It handles the rendering the progressbar after done once **/
+
+                            if(obj.cthis == 'video'){
+                                var container = "#uploadMsz";
+                            }else if(obj.cthis == 'docs') {
+                                var container = "#docsUploadMsz";
+                            }
+
+                            var msgclose = document.querySelector(container+' .close');
+                            if(msgclose != null){
+                                msgclose.click();
+                            }
+                            var uploadmsg = document.querySelector(container);
+                            if(uploadmsg != null){
+                                uploadmsg.style.display = 'block';
+                            }
+
+                            var ul = document.querySelector(container + ' .qq-upload-list-selector.qq-upload-list');
+                            ul.style.display = 'block';
                         }
                     },
-
                 };
 
                 // if(obj.hasOwnProperty('multiple')){

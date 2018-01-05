@@ -3022,7 +3022,8 @@
 }
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
-#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
+#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler,
+#virtualclassCont.congrea[data-currapp='ScreenShare'] .zoomControler{
 	display : block;
 }
 

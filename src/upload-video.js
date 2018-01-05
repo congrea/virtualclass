@@ -348,6 +348,9 @@
                     // this.pollingStatus(url);
                     virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
 
+                    virtualclass.videoUl.reArrangeElements(order);
+
+
                 } else if (res == "Failed" || res == "error" || res == "duplicate") {
                     alert("video upload failed");
                 } else {
@@ -748,13 +751,19 @@
 
 
             sendOrder: function (order) {
-                virtualclass.vutil.sendOrder('vid',  order);
+                virtualclass.vutil.sendOrder('vid',  order,virtualclass.videoUl.orderCb);
 
                 // var data = {order:order.toString(), data:'video'};
                 // var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
                 // virtualclass.xhrn.sendData(data, url, function (){});
             },
+            orderCb:function(res){
+                 //console.log(res)
 
+
+
+
+            },
             onNewUser: function (msg) {
                 console.log("videoUl");
                 virtualclass.videoUl.videoId = msg.videoUl.init.id;
@@ -1546,7 +1555,7 @@
                         upload.multiple = false;
                         upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
                         upload.wrapper = document.getElementById(elemArr[0]);
-                    virtualclass.fineUploader.uploaderFn(upload);
+                        virtualclass.fineUploader.uploaderFn(upload);
 
                     //TODO this need to be outside the function
                     virtualclass.videoUl.UI.inputUrl();

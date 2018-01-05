@@ -2368,11 +2368,11 @@
             || virtualclass.serverData.rawData.ppt.length > 0 );
         },
 
-        sendOrder : function (type, order){
+        sendOrder : function (type, order,cb){
             virtualclass.gObj.docOrder[type] = order;
             var data = {order: JSON.stringify(virtualclass.gObj.docOrder)};
             var url = 'https://api.congrea.net/t/UpdateRoomMetaData'
-            virtualclass.xhrn.sendData(data, url, function (){});
+            virtualclass.xhrn.sendData(data, url,cb);
         },
 
         requestOrder : function (type, cb){

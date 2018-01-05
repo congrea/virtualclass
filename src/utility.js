@@ -616,7 +616,6 @@
                     };
 
                     console.log(prvAppObj);
-                    console.log("nirmala");
                     virtualclass.videoUl.saveVideosInLocalStr();
 
               //  }
@@ -1920,6 +1919,10 @@
                              }else {
                                  virtualclass.vutil.initDashboard(virtualclass.currApp);
                                  this.classList.add('clicked');
+
+                                 if(virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')){
+                                     virtualclass.dts.moveProgressbar();
+                                 }
                              }
                            }
                         );
@@ -2101,6 +2104,7 @@
         },
 
         makeElementDeactive : function (selector){
+            console.log('drag drop Deactive element ' + selector);
             var element = document.querySelector(selector);
             if(element != null){
                 element.style.pointerEvents = 'none';
@@ -2108,6 +2112,7 @@
         },
 
         makeElementActive : function (selector){
+            console.log('drag drop Active element ' + selector);
             var element = document.querySelector(selector);
             if(element != null){
                 element.style.pointerEvents = 'visible';
@@ -2396,6 +2401,30 @@
                 return false;
             }
             return true;
+        },
+
+        removeChildrens : function (selector){
+            // selector = selector + ' .qq-upload-list-selector.qq-upload-list li';
+            console.log('children selector ' + selector);
+            var uploadLists = document.querySelectorAll(selector);
+            for(var i=0; i < uploadLists.length; i++){
+                uploadLists[i].parentNode.removeChild(uploadLists[i]);
+            }
+        },
+
+
+        initAcitveElement : function (){
+            if(virtualclass.currApp == 'Video'){
+                var activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+                var deactiveElem = '#listvideo';
+            }else if(virtualclass.currApp == 'DocumentShare'){
+                var activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+                var deactiveElem = '#listdocs';
+            }
+
+            virtualclass.vutil.makeElementActive(activeElem);
+            virtualclass.vutil.makeElementDeactive(deactiveElem);
+
         }
     };
     window.vutil = vutil;

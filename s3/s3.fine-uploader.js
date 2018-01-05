@@ -8015,14 +8015,19 @@
                 e.preventDefault();
             });
             disposeSupport.attach(element, "dragenter", function(e) {
+                virtualclass.vutil.initAcitveElement();
+                console.log("testdragenter");
                 if (!isOrSetDropDisabled()) {
                     if (!isValidFileDrag(e)) {
                         return;
                     }
                     options.onEnter(e);
                 }
+
             });
+
             disposeSupport.attach(element, "dragleave", function(e) {
+                console.log("testdragleave");
                 if (!isValidFileDrag(e)) {
                     return;
                 }
@@ -8042,7 +8047,11 @@
                     e.stopPropagation();
                     options.onDrop(e);
                     triggerHidezonesEvent();
+                    console.log("testdrop")
+                    virtualclass.vutil.initAcitveElement();
+
                 }
+
             });
         }
         disableDropOutside();

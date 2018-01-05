@@ -765,6 +765,7 @@
                         console.log('document share store suman');
                         dataStore = true;
                         virtualclass.gObj.docs = JSON.parse(cursor.value.alldocs);
+                        // virtualclass.gObj.docs = 'init';
 
                     }
                     cursor.continue();
@@ -785,7 +786,9 @@
             
 
             // localStorage.setItem('repObjs', data); Enable for debugging
-            t.objectStore("dstall").add({dstalldocs: data, timeStamp: new Date().getTime(), id: 10});
+            var allNotes = JSON.stringify(virtualclass.dts.allNotes);
+            t.objectStore("dstall").add({dstalldocs: data, allNotes : allNotes, timeStamp: new Date().getTime(), id: 10});
+            console.log('Storing notes ' + Object.keys(virtualclass.dts.allNotes).length);
         },
         
         
@@ -793,14 +796,14 @@
         dstall : {
             handleResult : function(event){
                 //alert('document share init');
-
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('dstalldocs')) {
                         console.log('document share store suman');
                         dataAllStore = true;
+                        // We are not getting the data from local storage for now
                         virtualclass.gObj.dstAll = JSON.parse(cursor.value.dstalldocs);
-
+                        virtualclass.gObj.dstAllNotes = JSON.parse(cursor.value.allNotes);
                     }
                     cursor.continue();
                 } else {

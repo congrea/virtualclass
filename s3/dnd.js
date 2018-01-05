@@ -1071,6 +1071,11 @@
                     e.stopPropagation();
                     options.onDrop(e);
                     triggerHidezonesEvent();
+
+                    alert("hello");
+
+
+
                 }
             });
         }

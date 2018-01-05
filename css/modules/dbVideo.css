@@ -416,7 +416,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   box-shadow: none;
 }
 
-#virtualclassCont.congrea #congreavideoContBody .qq-progress-bar{
+#virtualclassCont.congrea #congreavideoContBody .qq-progress-bar,
+#virtualclassCont.congrea #docsuploadContainer .qq-progress-bar{
   display:none;
 }
 #virtualclassCont.congrea #VideoDashboard #uploadMsz{

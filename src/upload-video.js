@@ -385,7 +385,7 @@
                 var res = res.result;
                 if(res == 'success'){
                     virtualclass.videoUl.order.push(res.resultdata.id);
-                    virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                    virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
                     virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
                 } else if (res == "Failed" || res == "error" || res == "duplicate") {
                     alert("video upload failed");
@@ -548,7 +548,8 @@
                 upload.validation = ['mp4', 'webm']
                 virtualclass.vutil.modalPopup('video', ["congreavideoContBody", "congreaShareVideoUrlCont"]);
                 var cont = document.getElementById("contFooter");
-                virtualclass.videoUl.UI.createYoutubeUrlCont(cont)
+                virtualclass.videoUl.UI.createYoutubeUrlCont(cont);
+
 
             },
 
@@ -581,7 +582,7 @@
                         }
                     });
                 }
-                virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+               // virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
 
             },

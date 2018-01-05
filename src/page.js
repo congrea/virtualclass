@@ -371,9 +371,9 @@
                         var box = document.querySelector('#' + listLinks);
 
                         box.setAttribute('draggable', 'true');  // Enable boxes to be draggable.
-                        box.addEventListener('dragstart', function (e) {dthis.handleDragStart(e)}, false);
-                        box.addEventListener('dragenter', function (e) {dthis.handleDragEnter(e)}, false);
-                        box.addEventListener('dragend', function (e) {dthis.handleDragEnd(e)}, false);
+                        box.addEventListener('dragstart', function (e) {dthis.handleDragStart(e, cthis)}, false);
+                        box.addEventListener('dragenter', function (e) {dthis.handleDragEnter(e, cthis)}, false);
+                        box.addEventListener('dragend', function (e) {dthis.handleDragEnd(e, cthis)}, false);
 
                     //box.setAttribute('draggable', true  );
                     //box.addEventListener('dragstart', function (e){dragstart(e)}, false);
@@ -400,8 +400,8 @@
 
                 },
 
-                handleDragStart: function (e) {
-                    if(this.cthis.type === 'video'){
+                handleDragStart: function (e, cthis) {
+                    if(cthis.type === 'video'){
                         virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listvideo');
                     }else if(this.cthis.type === 'notes'){
@@ -415,11 +415,11 @@
                     //     virtualclass.vutil.makeElementActive('#listvideo');
                     // }
 
-                    if (e.target.classList.contains('link' + this.cthis.type)) {
+                    if (e.target.classList.contains('link' + cthis.type)) {
                         this.source = e.target;
 
                     } else {
-                        this.source = e.target.closest('.link' + this.cthis.type);
+                        this.source = e.target.closest('.link' + cthis.type);
                       //  e.dataTransfer.setData('text/plain', e.target.closest('.link' + this.cthis.type));
                     }
 
@@ -430,11 +430,11 @@
 
                 },
 
-                handleDragEnter: function (e) {
-                    if(this.cthis.type == 'video'){
+                handleDragEnter: function (e, cthis) {
+                    if(cthis.type == 'video'){
                       //  virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listvideo');
-                    }else if(this.cthis.type == 'notes'){
+                    }else if(cthis.type == 'notes'){
                        // virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listnotes');
 
@@ -452,8 +452,8 @@
                         // if(this.cthis.type == 'video'){
                         //
                         // }
-                         if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
-                             var elem = document.querySelectorAll('#virtualclassCont.congrea .link'+this.cthis.type+'.htn')
+                         if(cthis.type == 'video'|| cthis.type == 'notes'|| cthis.type == 'ppt'){
+                             var elem = document.querySelectorAll('#virtualclassCont.congrea .link'+cthis.type+'.htn')
                                  for(var i =0; i<elem.length; i++){
                                      elem[i].classList.remove('htn');
                                  }
@@ -473,18 +473,18 @@
                         // }
 
 
-                        var etarget = e.target.closest('.link' + this.cthis.type);
+                        var etarget = e.target.closest('.link' + cthis.type);
                         etarget.classList.add("htn");
                         if (this.isBefore(this.source, etarget)) {
                             etarget.parentNode.insertBefore(this.source, etarget);
                         }
                         else {
-                            var target = e.target.closest('.link' + this.cthis.type);
+                            var target = e.target.closest('.link' + cthis.type);
                             target.parentNode.insertBefore(this.source, target.nextSibling);
                         }
 
-                        if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
-                            var elem = document.querySelectorAll('#virtualclassCont.congrea .link'+this.cthis.type+':not(.dragElem)')
+                        if(cthis.type == 'video'||cthis.type == 'notes'||cthis.type == 'ppt'){
+                            var elem = document.querySelectorAll('#virtualclassCont.congrea .link'+cthis.type+':not(.dragElem)')
                             for(var i =0; i<elem.length; i++){
                                 elem[i].classList.add('opaq');
                             }
@@ -505,29 +505,29 @@
                     }
 
                 },
-                handleDragEnd: function () {
-                    this.cthis.rearrange();
+                handleDragEnd: function (e, cthis) {
+                    cthis.rearrange();
                     this.source.classList.remove("dragElem");
                     console.log("remove dragelem");
 
-                    if(this.cthis.type == 'video'||this.cthis.type == 'notes'||this.cthis.type == 'ppt'){
-                        if(this.cthis.type == 'video'){
+                    if(cthis.type == 'video'|| cthis.type == 'notes' || cthis.type == 'ppt'){
+                        if(cthis.type == 'video'){
                             virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-                        }else if(this.cthis.type == 'notes'){
+                        }else if(cthis.type == 'notes'){
                             virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
 
                         }else {
                             //virtualclass.vutil.makeElementActive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         }
 
-                        virtualclass.vutil.makeElementActive('#list'+this.cthis.type);
+                        virtualclass.vutil.makeElementActive('#list'+cthis.type);
 
-                        var elems = document.querySelectorAll(' #virtualclassCont.congrea .link'+this.cthis.type+'.opaq')
+                        var elems = document.querySelectorAll(' #virtualclassCont.congrea .link'+cthis.type+'.opaq')
                         for(var i =0; i<elems.length; i++){
                             elems[i].classList.remove('opaq');
                         }
 
-                        var elem = document.querySelectorAll(' #virtualclassCont.congrea .link'+this.cthis.type+'.htn')
+                        var elem = document.querySelectorAll(' #virtualclassCont.congrea .link'+cthis.type+'.htn')
                         for(var i =0; i<elem.length; i++){
                             elem[i].classList.remove('htn');
                         }

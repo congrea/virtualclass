@@ -365,9 +365,11 @@
                             $('#congdashboard').modal();
                             virtualclass.dashBoard.clickCloseButton();
                         } else if(response) {
-                            ioAdapter.mustSend({'dts': {order_recived: response},  'cf': 'dts'});
-                            cthis.afterRequestOrder(response);
-                            cthis.createNoteNav();
+                            if(roles.hasAdmin()){
+                                ioAdapter.mustSend({'dts': {order_recived: response},  'cf': 'dts'});
+                                cthis.afterRequestOrder(response);
+                                cthis.createNoteNav();
+                            }
                         }
                     }
                 }

@@ -91,6 +91,8 @@
                     element: obj.wrapper,
                     template: 'qq-template-gallery',
                     debug: true,
+                    multiple : obj.multiple,
+                    validation :  {allowedExtensions : obj.validation},
                     request: {
                         endpoint: 'https://uploadmedia.congrea.net',
                         accessKey: "AKIAJV7RJOFBDFVY62EQ"

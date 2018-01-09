@@ -78,6 +78,11 @@
                     }
                 } else {
                     this.UI.container();
+                    var dashboardnav =  document.querySelector('#dashboardnav button');
+                    if(dashboardnav != null){
+                        dashboardnav.click();
+                    }
+
                     if (typeof startFrom != 'undefined' ) {
                         this.fromReload(this.videoId, this.videoUrl, startFrom);
                     } else {
@@ -348,6 +353,9 @@
                     // this.pollingStatus(url);
                     virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
 
+                    // virtualclass.videoUl.reArrangeElements(order);
+
+
                 } else if (res == "Failed" || res == "error" || res == "duplicate") {
                     alert("video upload failed");
                 } else {
@@ -505,7 +513,6 @@
                         vid.classList.add("disable");
                         vid.dataset.status = 0;
                     }
-
                 } else {
                     this._enable(vidObj.fileuuid);
                     if(vid){
@@ -626,7 +633,7 @@
                             var url =vidObj.urls.main_video;
 
                             virtualclass.videoUl.UI.displayVideo(vidObj.fileuuid, url);
-                            virtualclass.videoUl.activeVideoClass(vidObj.fileuuidid);
+                            virtualclass.videoUl.activeVideoClass(vidObj.fileuuid);
 
 
                              var toStd={};
@@ -747,8 +754,10 @@
             },
 
 
-            sendOrder: function (order) {
-                virtualclass.vutil.sendOrder('vid',  order);
+
+            sendOrder: function (order, type) {
+                type = 'vid';
+                virtualclass.vutil.sendOrder(type,  order);
 
                 // var data = {order:order.toString(), data:'video'};
                 // var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
@@ -891,20 +900,22 @@
              */
 
             autoPlayList: function (index) {
+                var videos = this.getActiveVideos();
+                var videoUrl =""
                 var nextIndex = index;
                 //var nextId = virtualclass.videoUl.order[index + 1];
                 var currVideoObj = this.findNextObj(nextIndex)
                 if (typeof currVideoObj != 'object') {
 
                     var nxIndex = currVideoObj;
-                    if (nxIndex < virtualclass.videoUl.order.length) {
+                    if (nxIndex < videos.length) {
                         currVideoObj = this.autoPlayList(nxIndex)
                     }
                 } else {
                     if (!virtualclass.videoUl.listEnd) {
                          if(currVideoObj.type=='online'){
                             virtualclass.videoUl.yts=false;
-                            virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.content_path);
+                            virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.URL);
                             virtualclass.videoUl.videoToStudent(currVideoObj);
 
                             if (virtualclass.videoUl.player) {
@@ -914,19 +925,21 @@
                             this.activeVideoClass(currVideoObj.id);
 
                         }else{
-                             if(currVideoObj.type=='video_yts'){
+                             if(currVideoObj.filetype=='video_yts'){
                                  virtualclass.videoUl.yts=true;
+
                              }else{
                                  virtualclass.videoUl.yts=false;
+
                              }
                             // var videoUrl ="https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/225a730b-4609-400c-8489-19d8e1bdaf5c/video/video.m3u8";
-                             virtualclass.videoUl.UI.displayVideo(currVideoObj.id,videoUrl);
+                             virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.urls.main_video);
                             // virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.content_path);
                              var toStd={};
-                             toStd.content_path=url;
-                             toStd.id=vidObj.fileuuid;
-                             toStd.title=vidObj.filename;
-                             toStd.type=vidObj.filetype;
+                             toStd.content_path=currVideoObj.urls.main_video;
+                             toStd.id=currVideoObj.fileuuid;
+                             toStd.title=currVideoObj.filename;
+                             toStd.type=currVideoObj.filetype;
 
 
 
@@ -940,7 +953,7 @@
 
                                 });
                             }
-                            this.activeVideoClass(currVideoObj.id);
+                            this.activeVideoClass(currVideoObj.fileuuid);
 
                         }
 
@@ -952,21 +965,44 @@
 
              */
             findNextObj: function (index) {
-                var nextId = virtualclass.videoUl.order[index];
+                var nextId = this.findNextVideoId(index);
                 var currVideoObj = false;
-
-                for (var i = 0; i < virtualclass.videoUl.videos.length; i++) {
+                var videos = this.getActiveVideos();
+                for (var i = 0; i < videos.length; i++) {
                     //for (var j in virtualclass.videoUl.videos[i]) {
-                    if (virtualclass.videoUl.videos[i]['id'] == nextId) {
+                    if (videos[i]['fileuuid'] == nextId) {
+                         var vid = document.getElementById("linkvideo"+videos[i]['fileuuid']);
+                         if(vid.getAttribute("data-status")=="1"){
+                             currVideoObj = videos[i];
+                             return currVideoObj;
+                         }else{
+                             return index + 1;
+                         }
 
-                        if (virtualclass.videoUl.videos[i]['status'] != "0") {
-                            currVideoObj = virtualclass.videoUl.videos[i];
-                            return currVideoObj;
-                        } else {
-                            return index + 1;
-                        }
                     }
                 }
+            },
+
+            findNextVideoId:function(index){
+                var list = document.querySelectorAll("#listvideo .linkvideo");
+                 if(index <= list.length){
+                     return list[index].getAttribute("data-rid")
+                 }else{
+                     return false
+                 }
+
+            },
+            findVideoIndex:function(vidId){
+                var list = document.querySelectorAll("#listvideo .linkvideo");
+                var index =0;
+                for(var i =0; i <list.length ;i++){
+                    debugger;
+                    if(list[i].getAttribute("data-rid")==vidId){
+                        index = i
+                        return index;
+                    }
+                }
+
             },
 
             /*
@@ -1072,7 +1108,8 @@
                         if (idIndex >= 0) {
                             virtualclass.videoUl.order.splice(idIndex, 1)
                             console.log(virtualclass.videoUl.order);
-                            virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                            // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                            virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
                         }
                     }
                 }
@@ -1373,80 +1410,35 @@
 
                     }
                     console.log("ended" + vidId)
-                    var index = virtualclass.videoUl.order.indexOf(vidId);
-                    if (index < virtualclass.videoUl.order.length - 1 && index >= 0) {
-                        virtualclass.videoUl.listEnd = false;
-                    } else {
-                        virtualclass.videoUl.listEnd = true;
-                        vidId = -1;
+                    // var index = virtualclass.videoUl.order.indexOf(vidId);
+                    // if (index < virtualclass.videoUl.order.length - 1 && index >= 0) {
+                    //     virtualclass.videoUl.listEnd = false;
+                    // } else {
+                    //     virtualclass.videoUl.listEnd = true;
+                    //     vidId = -1;
+                    // }
+                    //
+                    // if (virtualclass.videoUl.autoPlayFlag) {
+                    //     virtualclass.videoUl.autoPlayList(index + 1);
+                    //
+                    // }
+                    var list = document.querySelectorAll("#listvideo .linkvideo");
+                    var index =0;
+                    for(var i =0; i <list.length ;i++){
+                        debugger;
+                        if(list[i].getAttribute("data-rid")==vidId){
+                           index = i
+                           break;
+                       }
                     }
 
                     if (virtualclass.videoUl.autoPlayFlag) {
-                        virtualclass.videoUl.autoPlayList(index + 1);
+                        virtualclass.videoUl.autoPlayList(index + 1,list);
 
                     }
+
                 },
 
-                inputUrlOld: function () {
-                    var videocont = document.getElementById("congreaShareVideoUrlCont");
-                    var studentMessage = document.getElementById('messageLayout');
-                    if (studentMessage != null) {
-                        studentMessage.parentNode.removeChild(studentMessage);
-                    }
-
-                        var submitURL= document.getElementById("submitURL")
-                        submitURL.addEventListener("click", function () {
-                            var input = document.querySelector(".congrea #videourl");
-                            var isURL =  virtualclass.videoUl.UI.validateURL(input.value);
-                            if(isURL){
-                                var rdata = new FormData();
-                                // virtualclass.videoUl.shareVideo(input.value);
-                                $('.congrea #listvideo .playing').removeClass('playing');
-                                $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
-
-                                var vidObj={}
-                                vidObj.content_path=input.value;
-                                vidObj.id ="tempid";
-                                vidObj.status=1;
-                                vidObj.title=input.value
-                                rdata.append("video",input.value);
-
-                                var videoId = virtualclass.videoUl.getVideoId(input.value);
-                                if (typeof videoId == 'boolean') {
-                                    vidObj.type="online";
-                                    rdata.append("type","online");
-
-                                }else  {
-                                    vidObj.type="yts"
-                                    rdata.append("type","yts" );
-
-                                }
-                                virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
-                                    var content = JSON.parse(msg);
-                                    console.log(content);
-                                    vidObj.id= content.resultdata.id;
-                                    virtualclass.videoUl.afterUploadFile(vidObj);
-                                    virtualclass.videoUl.order.push(content.resultdata.id);
-                                    virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-
-                                });
-                                document.querySelector(".congrea #videourl").value = "";
-                            }
-
-                        });
-
-                        var upload = document.querySelector(".congrea #newVideoBtn")
-                        if(upload){
-                            upload.addEventListener('click',function(){
-                                var uploader= document.querySelector('.congrea #congreavideoContBody');
-                                uploader.style.display="block";
-                                var uploader= document.querySelector('.congrea #listvideo');
-                                uploader.style.display="none";
-
-                            })
-
-                        }
-                },
 
                 inputUrl: function () {
                     var videocont = document.getElementById("congreaShareVideoUrlCont");
@@ -1473,9 +1465,9 @@
 
                             var videoId = virtualclass.videoUl.getVideoId(input.value);
 
+
                             if (typeof videoId == 'boolean') {
                                 vidObj.type = 'video_online';
-
                             }else  {
                                 vidObj.type="video_yts"
                             }
@@ -1485,10 +1477,13 @@
                                 virtualclass.videoUl.order.push(vidObj.uuid);
 
                                 // TODO, Critical this need be re-enable
-                                virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                                // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
+                                virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+
+                                virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                             });
 
-                            // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
+                            // virtualclass.xhr.sendFormData(rdata, wind    ow.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=file_save", function (msg) {
                             //     var content = JSON.parse(msg);
                             //     console.log(content);
                             //     virtualclass.videoUl.afterUploadFile(vidObj);
@@ -1546,7 +1541,7 @@
                         upload.multiple = false;
                         upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
                         upload.wrapper = document.getElementById(elemArr[0]);
-                    virtualclass.fineUploader.uploaderFn(upload);
+                        virtualclass.fineUploader.uploaderFn(upload);
 
                     //TODO this need to be outside the function
                     virtualclass.videoUl.UI.inputUrl();
@@ -1558,12 +1553,7 @@
                     if(!virtualclass.vutil.isBulkDataFetched()){
                         virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     } else {
-                        setTimeout(
-                            function (){
-                                virtualclass.videoUl.UI.awsVideoList();
-                            },3000
-                        );
-
+                        virtualclass.videoUl.UI.awsVideoList();
                     }
                     // virtualclass.videoUl.getVideoList();
 
@@ -1636,6 +1626,7 @@
                     }
                     console.log(videos);
                     virtualclass.videoUl.videos = videos;
+                    virtualclass.serverData.rawData.video= videos
 
                     // virtualclass.videoUl.allPages = content;
                     // var type = "video";

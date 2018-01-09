@@ -154,7 +154,6 @@
 
             if(appCont != null){
                 var rightOffSet, leftSideBarWidth, reduceHeight;
-                var extraWidth = 0;
 
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
@@ -167,21 +166,18 @@
                     leftSideBarWidth = roles.hasControls() ? 60 : 5;
                 }
 
-                //rightOffSet  = 12;
-                rightOffSet  = 0;
-                //leftSideBarWidth = roles.hasControls() ? 60 : 5;
 
                 if (virtualclass.isPlayMode) {
                     reduceHeight += 75;
                 }else {
                     if (app == 'SharePresentation') {
                         if(document.querySelector('#virtualclass' + app + '.pptSharing') != null){
-                            reduceHeight = 120;
+                            reduceHeight = 80;
                         } else {
                             //reduceHeight = reduceHeight - 42;
                             reduceHeight = 28;
                         }
-                    }else if(app == 'Yts'){
+                    }else if(app == 'Video' || app == 'Yts'){
                         reduceHeight = 28;
                     }else if (app == 'EditorCode'){
                         reduceHeight = 16;
@@ -198,9 +194,13 @@
                 //    reduceHeight = reduceHeight + 49;
                 //}
 
-                console.log('rightOffSet=' + rightOffSet +  ' leftSideBarWidth=' + leftSideBarWidth + ' extraWidth= ' + extraWidth);
+                console.log( ' leftSideBarWidth=' + leftSideBarWidth);
+                var extraWidth = 0;
+                if(virtualclass.currApp == 'Whiteboard' ||   virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation'){
+                    extraWidth = 20;
+                }
+                res.width = (extraWidth + res.width) - leftSideBarWidth;
 
-                res.width = res.width - (rightOffSet + leftSideBarWidth + extraWidth);
                 appCont.style.width = res.width + 'px';
                 appCont.style.height = (res.height - reduceHeight) + 'px';
 
@@ -616,7 +616,8 @@
                     };
 
                     console.log(prvAppObj);
-                    virtualclass.videoUl.saveVideosInLocalStr();
+                        //nirmala
+                  //  virtualclass.videoUl.saveVideosInLocalStr();
 
               //  }
 
@@ -1748,18 +1749,17 @@
                 upload.validation = ['mp4', 'webm'];
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.cthis = 'video';
-                upload.multiple = false;
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
             } else {
                 upload.validation = ['bib','doc','xml','docx','fodt','html','ltx','txt','odt','ott','pdb','pdf','psw','rtf','sdw','stw','sxw','uot','vor','wps','bmp','emf','eps','fodg','gif','jpg','met','odd','otg','pbm','pct','pgm','png','ppm','ras','std','svg','svm','swf','sxd','tiff','wmf','xhtml','xpm','fodp','odg','odp','otp','potm','pot','pptx','pps','ppt','pwp','sda','sdd','sti','sxi','uop','csv','dbf','dif','fods','ods','ots','pxl','sdc','slk','stc','sxc','uos','xls','xlt','xlsx'];
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
-                upload.multiple = false;
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
-
             }
+
+            upload.multiple = false;
 
             //  virtualclass.fineUploader.generateModal(type, elemArr)
             // virtualclass.fineUploader.initModal(type);
@@ -2010,6 +2010,17 @@
                 virtualclass.vutil.attachEventToUpload();
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
+
+                 if(currVideo && currVideo.init.videoUrl){
+                    var hidepopup= true;
+                 }
+                var dashboardnav =  document.querySelector('#dashboardnav button');
+                if(dashboardnav != null && !hidepopup){
+                    dashboardnav.click();
+                }
+
+
+
             } else if (currApp == "SharePresentation"){
                 var dtitle = document.getElementById('dashboardnav');
                 dtitle.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
@@ -2069,7 +2080,14 @@
                 }
                //  virtualclass.vutil.attachEventToUploadTab();
 
-            }else {
+            }else if(currApp == "Video"){
+                if(typeof hidepopup == 'undefined'){
+                    $('#congdashboard').modal();
+                  //  virtualclass.dashBoard.clickCloseButton();
+                }
+
+
+            } else {
                 $('#congdashboard').modal();
             }
 
@@ -2137,6 +2155,15 @@
                         virtualclass.vutil.initDashboard(currApp, hidepopup);
                     }
                 }
+            }else if(currApp == 'Video'){
+                if(typeof hidepopup ==  'undefined'){
+
+                    virtualclass.vutil.initDashboard(currApp);
+                }else{
+                    virtualclass.vutil.initDashboard(currApp, hidepopup);
+
+                }
+
             } else {
                 virtualclass.vutil.initDashboard(currApp);
             }
@@ -2368,11 +2395,11 @@
             || virtualclass.serverData.rawData.ppt.length > 0 );
         },
 
-        sendOrder : function (type, order){
+        sendOrder : function (type, order,cb){
             virtualclass.gObj.docOrder[type] = order;
             var data = {order: JSON.stringify(virtualclass.gObj.docOrder)};
             var url = 'https://api.congrea.net/t/UpdateRoomMetaData'
-            virtualclass.xhrn.sendData(data, url, function (){});
+            virtualclass.xhrn.sendData(data, url,cb);
         },
 
         requestOrder : function (type, cb){

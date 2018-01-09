@@ -133,7 +133,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 
   return "           <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrAssignCont\" class=\"controleCont\">\n             <a id=\""
+    + "contrAssignCont\" class=\"controleCont roleassign\">\n             <a id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAssignAnch\" class=\"congtooltip\" data-title=\"Transfer Controls\">\n               <span id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))

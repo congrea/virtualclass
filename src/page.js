@@ -716,7 +716,7 @@
                 }else if (eltype == "edit"){
                     var edit = document.querySelector("#"+cthis.type+"TitleCont"+cthis.rid + ' ' + selector);
                     edit.onclick = this.goToEvent(this.cthis, eltype);
-                    if(cthis.videoClass!='yts'){
+                    if(cthis.videoClass!='video_yts'){
                        edit.style.pointerEvents="none";
                        edit.classList.add("editDisable");
                     }

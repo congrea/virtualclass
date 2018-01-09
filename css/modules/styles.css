@@ -521,6 +521,17 @@
 	font-size : 12px;
 	font-weight : normal !important;
 }
+
+#virtualclassCont.congrea .list-group-item.congtooltip:hover:after {
+	border: #615c5c solid 0px;
+	top: -0.2em;
+	height: 22px;
+	left: 0em;
+	padding: 0.1em 0.3em;
+	position: absolute;
+	font-size: 11px;
+}
+
 #virtualclassCont.congrea .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
 	bottom: 3.5em;

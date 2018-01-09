@@ -3078,3 +3078,10 @@
 #virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
 	padding-bottom : 30px;
 }
+
+/** For now the role transfer button is disabled, this should be enabled at later **/
+
+#virtualclassCont.congrea .ui-memblist-usr .controleCont.roleassign{
+	display : none;
+}
+

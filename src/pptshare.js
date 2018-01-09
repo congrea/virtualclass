@@ -184,13 +184,15 @@
                     pptContainer.classList.add("pptSharing");
                 }
             },
+
             _rearrange: function (order) {
                 this.order = order;
                 this.reArrangeElements(order);
                 // this.sendOrder(this.order);
-              virtualclass.vutil.sendOrder("presentation",order)
+              virtualclass.vutil.sendOrder("presentation", order)
 
             },
+
             //not needed
             sendOrder: function (order) {
                 var data = {
@@ -879,6 +881,8 @@
                 var url = ' https://api.congrea.net/t/addURL';
                 pptObj.type = 'presentation';
                 virtualclass.xhrn.sendData(pptObj, url, function (response) {
+                    virtualclass.sharePt.order.push(pptObj.uuid);
+                    virtualclass.vutil.sendOrder("presentation", virtualclass.sharePt.order)
                     virtualclass.sharePt.getPptList();
                     // virtualclass.videoUl.afterUploadFile(vidObj);
                     //  virtualclass.sharePt.order.push(vidObj.uuid);
@@ -886,7 +890,7 @@
                     // // TODO, Critical this need be re-enable
                     // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
 
-                    virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
+
 
                 });
             },
@@ -902,17 +906,18 @@
                     }
                 }
 
-                var db = document.querySelector("#SharePresentationDashboard .dbContainer")
+                var db = document.querySelector("#SharePresentationDashboard .dbContainer");
                 if(db){
                     virtualclass.sharePt.createPageModule();
                     virtualclass.sharePt.showPpts();
                     virtualclass.vutil.requestOrder("presentation",function(response){
                       console.log(response)
                         virtualclass.sharePt.order=response;
-
+                        if (virtualclass.sharePt.order && virtualclass.sharePt.order.length > 0) {
+                            virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                        }
                     })
                     //virtualclass.sharePt.retrieveOrder();
-
                 }
 
 
@@ -1072,10 +1077,6 @@
                        // virtualclass.sharePt.afterPptSaved(pptObj);
                     });
 
-                }
-
-                if (virtualclass.sharePt.order&&virtualclass.sharePt.order.length > 0) {
-                               virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
                 }
 
 

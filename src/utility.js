@@ -172,12 +172,12 @@
                 }else {
                     if (app == 'SharePresentation') {
                         if(document.querySelector('#virtualclass' + app + '.pptSharing') != null){
-                            reduceHeight = 120;
+                            reduceHeight = 80;
                         } else {
                             //reduceHeight = reduceHeight - 42;
                             reduceHeight = 28;
                         }
-                    }else if(app == 'Yts'){
+                    }else if(app == 'Video' || app == 'Yts'){
                         reduceHeight = 28;
                     }else if (app == 'EditorCode'){
                         reduceHeight = 16;

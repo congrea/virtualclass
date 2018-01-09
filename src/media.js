@@ -1252,12 +1252,31 @@
 
                 var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
 
+                /**
+                * Reduce the resolution and video frame rate to optimization CPU resource
+                **/
+                if(virtualclass.gObj.meetingMode){
+                    if(webcam){
+                        var webcam = {
+                            width : {
+                                max :  288,
+                            },
+                            height : {
+                                max :  162
+                            },
+                            frameRate : {
+                                max :  6
+                            }
+                        }
+                    }
+                }
 
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
                     audio : true
                 };
+
                 cthis.video.init();
                 var that  = this;
 

@@ -726,7 +726,8 @@
 
                 var div = document.querySelector("#link"+ cthis.type + cthis.rid);
                 if(div){
-
+                    that.hoverHandler(cthis)                                                                            //
+                    div.classList.add("showCtr")                                                                        // edit by shubham
                     div.addEventListener ("mouseover",function(){
                         that.hoverHandler(cthis)
 
@@ -762,15 +763,16 @@
                 var div;
                 if(cthis.type =="video"){
                     div = document.querySelector("#VideoDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
-
+                    div.classList.remove("showCtr");
                 }else if(cthis.type =="ppt"){
                     div = document.querySelector("#SharePresentationDashboard #link"+ cthis.type + cthis.rid+ " .controlCont");
-
-                }else {
-                    div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
-
+                    div.classList.remove("showCtr");
                 }
-                div.classList.remove("showCtr");
+                // }else {
+                //     div = document.querySelector("#DocumentShareDashboard #link" + cthis.type + cthis.rid + " .controlCont");
+                //
+                // }
+                // div.classList.remove("showCtr");
             },
 
             /**

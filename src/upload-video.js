@@ -488,7 +488,7 @@
             afterUploadFile: function (vidObj) {
                 var idPostfix = vidObj.fileuuid;
                 // var docId = 'docs' + doc;
-                this.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status,vidObj.filetype);
+                this.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status,'video');
                 this.pages[idPostfix].init(idPostfix, vidObj.filename);
                 this.videoDisplayHandler(vidObj);
                 var vid = document.getElementById("linkvideo" + vidObj.fileuuid);

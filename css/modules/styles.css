@@ -506,13 +506,13 @@
 
 #virtualclassCont.congrea .congtooltip:hover:after {
 	background : #fff;
-	border : #ccc solid 0px;
+	border : #ccc solid 1px;
 	border-radius : 0.25em;
 	bottom : -3em;
 	content : attr(data-title);
 	display : block;
 	left : -1em;
-	padding : 0.5em 0.7em;
+	padding : 0.2em 0.5em;
 	position : absolute;
 	white-space : nowrap;
 	z-index : 100;
@@ -520,6 +520,32 @@
 	/*box-shadow : 0px 0px 1px #a4a4a4;*/
 	font-size : 12px;
 	font-weight : normal !important;
+}
+#virtualclassCont.congrea .zoomIn .congtooltip:hover:after {
+	border: #ccc solid 1px;
+	bottom: 3.5em;
+	left: 792px;
+	padding: 0.3em 0.7em;
+	position: fixed;
+	z-index: 10000000;
+}
+
+#virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
+	border: #ccc solid 1px;
+	bottom: 3.5em;
+	left: 837px;
+	padding: 0.3em 0.7em;
+	position: fixed;
+	z-index: 10000000;
+}
+
+#virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
+	border: #ccc solid 1px;
+	bottom: 3.5em;
+	left: 882px;
+	padding: 0.3em 0.7em;
+	position: fixed;
+	z-index: 10000000;
 }
 
 #virtualclassCont.congrea #videLatency.congtooltip:hover:after{
@@ -2559,7 +2585,7 @@
 }
 
 #virtualclassCont.congrea .modal .modal-content, #virtualclassCont.congrea #contQzBody {
-	max-height: calc(100vh - 125px);
+	max-height: calc(100vh - 88px);
 	overflow-y: auto;
 }
 #virtualclassCont.congrea .modal-body .qscolor {

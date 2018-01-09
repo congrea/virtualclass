@@ -258,8 +258,10 @@ this["JST"]["templates/documentSharing/docsNav.hbs"] = Handlebars.template({"com
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
     + "\">\n      <a class=\"statusanch\">"
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "</a>\n    </div>\n\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n  <div class=\"mainpreview tooltip2\" id=\"mainpdocs"
+    + "</a>\n    </div>\n\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n    <div class=\"fileSize\">2mb</div>\n  </div>\n  <div class=\"mainpreview tooltip2 congtooltip\" id=\"mainpdocs"
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
+    + "\" data-title=\""
+    + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
     + "\" data-screen=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(((helper = (helper = helpers.rid || (depth0 != null ? depth0.rid : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rid","hash":{},"data":data}) : helper)))
@@ -550,7 +552,7 @@ this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(c
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"addnew",{"name":"getString","hash":{},"data":data}))
     + "</button>\n          <button id=\"newPollBtncourse\" class=\"btn btn-default course\" data-toogle=\"modal\" data-target=\"#editPollModal\" style=\"display: block;\"><i class=\"icon-create-new\"></i>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"addnew",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n        </div>\n\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n\n        </div>\n        <div class=\"table-responsive\" id=\"listQnContcourse\">\n        <table  class=\"pollList table table-bordered table-striped\" >\n          <thead>\n          <tr class=\" headerContainer\" id=\"headerContainercourse\">\n            <th class=\"controlsHeader\">"
+    + "</button>\n        </div>\n\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n\n        </div>\n        <div class=\"table-responsive\" id=\"listQnContcourse\">\n        <table  class=\"pollList table table-bordered table-striped table-fixed\" >\n          <thead>\n          <tr class=\" headerContainer\" id=\"headerContainercourse\">\n            <th class=\"controlsHeader\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Controls",{"name":"getString","hash":{},"data":data}))
     + "<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"PQuestions",{"name":"getString","hash":{},"data":data}))
@@ -1126,5 +1128,5 @@ this["JST"]["templates/youtube/ytscontrol.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"> ZOOM in </button>\n  <button class=\"zoomOut\">ZOOM out</button>\n  <button class=\"fitScreen\">Fit to Screen</button>\n</div>";
+    return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"><span class=\"congtooltip\" data-title=\"Zoon In\" ><i class=\"icon-zoonIn\"></i></span></button>\n  <button class=\"zoomOut\"><span class=\"congtooltip\" data-title=\"Zoom Out\" ><i class=\"icon-zoomOut\"></i></span></button>\n  <button class=\"fitScreen\"><span class=\"congtooltip\" data-title=\"Fit to screen\" ><i class=\"icon-fitScreen\"></i></span></button>\n</div>";
 },"useData":true});

@@ -34,7 +34,7 @@ function my_curl_request($url, $post_data, $key){
 //send auth detail to server
 $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
- $licensekey = '2895-tx-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
+ $licensekey = '2895-sg-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
 // $licensekey = '2210-sg-245-uqGwY3qnHMamdpwBMmKXXns8qqZVFDhAmksJ8gMXap59JMHz';
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword);
 $post_data = json_encode($post_data);

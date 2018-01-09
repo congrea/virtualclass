@@ -72,6 +72,10 @@
   border-width: 2px 0 0 2px;
 }
 
+#virtualclassCont.congrea #videoConfrence[data-totaluser='two'] .remoteVideo{
+  width:100%;
+}
+
 /** Multi Video Two User layout, End **/
 
 /** Multi Video Four User layout **/
@@ -86,4 +90,18 @@
 
 #virtualclassCont.congrea .selfVideo {
   z-index : 500;
+}
+
+
+#virtualclassCont.congrea #videoMainPreview {
+  position: absolute;
+  left: calc(50% - 120px);
+  top: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
+#virtualclassCont.congrea #videoMainPreview #multiVidSelected {
+  width: 600px;
 }

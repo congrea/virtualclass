@@ -563,9 +563,18 @@
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
-                        if(roles.hasControls() && app == 'Video' && !(currVideo && currVideo.init&&(currVideo.init.videoUrl|| currVideo.fromReload))){
-                            virtualclass.vutil.triggerDashboard(app);
+                        // if(roles.hasControls() && app == 'Video' && !(currVideo && currVideo.init&&(currVideo.init.videoUrl|| currVideo.fromReload))){
+                        //     virtualclass.vutil.triggerDashboard(app);
+                        // }
+
+                        if(currVideo && currVideo.init && currVideo.init.videoUrl  && currVideo.fromReload ){
+                            var hidepopup =true;
                         }
+                        if(roles.hasControls() && app == 'Video'){
+                            virtualclass.vutil.triggerDashboard(app,hidepopup);
+                        }
+
+
                     }
                 }
                 this.previrtualclass = this.previous;
@@ -578,11 +587,16 @@
                     virtualclass.yts.destroyYT();
                 }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {
+                    // to verify this
+                    virtualclass.videoUl.videoUrl ="";
+                    virtualclass.videoUl.videoId ="";
 
                     var dispVideo = document.getElementById("dispVideo")
                     if (dispVideo) {
                         dispVideo.style.display = "none";
                     }
+
+
                     $('.congrea #listvideo .playing').removeClass('playing');
                     $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
@@ -600,12 +614,12 @@
                         if(virtualclass.currApp == 'Video'){
 
                             // if(!(currVideo && currVideo.init && (currVideo.init.videoUrl|| currVideo.fromReload))){
-                            if(!(currVideo)){
-                                var dashboardnav =  document.querySelector('#dashboardnav button');
-                                if(dashboardnav != null){
-                                    dashboardnav.click();
-                                }
-                            }
+                            // if(!(currVideo)){
+                            //     var dashboardnav =  document.querySelector('#dashboardnav button');
+                            //     if(dashboardnav != null){
+                            //         dashboardnav.click();
+                            //     }
+                            // }
                             // var currElem = document.querySelector("#linkvideo"+currVideo.init.videoId);
                             // if(currElem){
                             //     currElem.classList.add("playing");

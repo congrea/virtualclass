@@ -616,7 +616,8 @@
                     };
 
                     console.log(prvAppObj);
-                    virtualclass.videoUl.saveVideosInLocalStr();
+                        //nirmala
+                  //  virtualclass.videoUl.saveVideosInLocalStr();
 
               //  }
 
@@ -2010,6 +2011,17 @@
                 virtualclass.vutil.attachEventToUpload();
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
+
+                 if(currVideo && currVideo.init.videoUrl){
+                    var hidepopup= true;
+                 }
+                var dashboardnav =  document.querySelector('#dashboardnav button');
+                if(dashboardnav != null && !hidepopup){
+                    dashboardnav.click();
+                }
+
+
+
             } else if (currApp == "SharePresentation"){
                 var dtitle = document.getElementById('dashboardnav');
                 dtitle.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
@@ -2069,7 +2081,14 @@
                 }
                //  virtualclass.vutil.attachEventToUploadTab();
 
-            }else {
+            }else if(currApp == "Video"){
+                if(typeof hidepopup == 'undefined'){
+                    $('#congdashboard').modal();
+                  //  virtualclass.dashBoard.clickCloseButton();
+                }
+
+
+            } else {
                 $('#congdashboard').modal();
             }
 
@@ -2137,6 +2156,15 @@
                         virtualclass.vutil.initDashboard(currApp, hidepopup);
                     }
                 }
+            }else if(currApp == 'Video'){
+                if(typeof hidepopup ==  'undefined'){
+
+                    virtualclass.vutil.initDashboard(currApp);
+                }else{
+                    virtualclass.vutil.initDashboard(currApp, hidepopup);
+
+                }
+
             } else {
                 virtualclass.vutil.initDashboard(currApp);
             }

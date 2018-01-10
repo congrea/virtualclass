@@ -602,21 +602,30 @@
 
                 delete: function (elem, cthis, e) {
                     var data = {'action': 'delete'};
-                    if (cthis.type == 'notes') {
-                        virtualclass.dts._deleteNote(cthis.rid, cthis.type);
-                    } else {
+                    // if (cthis.type == 'notes') {
+                    //     virtualclass.dts._deleteNote(cthis.rid, cthis.type);
+                    // } else {
+                    //
+
                         virtualclass.dashBoard.userConfirmation('Are You sure to Delete ?', function (confirmation){
                             if(confirmation){
-                                virtualclass[cthis.module]._delete(cthis.rid);
+                                if(cthis.type == 'notes'){
+                                    virtualclass[cthis.module]._deleteNote(cthis.rid, cthis.type);
+                                }else{
+                                    virtualclass[cthis.module]._delete(cthis.rid);
+                                }
+
                             }
                         });
+
+
 
                         if(virtualclass.currApp == 'DocumentShare'){
                             var evt = e ? e:window.event;
                             if (evt.stopPropagation)    evt.stopPropagation();
                             if (evt.cancelBubble!=null) evt.cancelBubble = true;
                         }
-                    }
+                    //}
                 },
                 edit:function(elem, cthis){
                     var data = {'action': 'edit'};

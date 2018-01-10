@@ -321,40 +321,23 @@
                     var url = 'https://api.congrea.net/t/GetDocumentStatus';
                     var that = this;
 
-                    //To know the status
-                    // virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
-                    //     that.afterDocStatus(response);
-                    // });
-
                     virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
-                    //virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
                     virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-                    // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
                     virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
-
-                    /** suman new aws**/
 
                     for(var i=0; i<virtualclass.gObj.uploadingFiles.length; i++){
                         var fileObj = {};
                         fileObj.filename = virtualclass.gObj.uploadingFiles[i].name + " (Processing...)";
                         fileObj.fileuuid = virtualclass.gObj.uploadingFiles[i].uuid;
-
-                        // fileObj.filename = virtualclass.gObj.uploadingFiles[id].name;
-                        // fileObj.fileuuid = id;
-
                         fileObj.type = 'video';
                         fileObj.key_room = virtualclass.gObj.sessionInfo.key + '_' + virtualclass.gObj.sessionInfo.room;
                         fileObj.noVideo = true;
                         console.log('File uploading ' + fileObj.filename);
                         this.afterUploadFile(fileObj);
                     }
+
                     virtualclass.gObj.uploadingFiles = [];
-
-                    // this.pollingStatus(url);
                     virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
-
-                    // virtualclass.videoUl.reArrangeElements(order);
-
 
                 } else if (res == "Failed" || res == "error" || res == "duplicate") {
                     alert("video upload failed");
@@ -552,7 +535,8 @@
                 upload.wrapper = document.getElementById(elemArr[0]);
                 upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id=" + virtualclass.gObj.congCourse + "&status=1&content_type_id=2&user=" + virtualclass.gObj.uid;
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
-                upload.validation = ['mp4', 'webm']
+                upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
+                    "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
                 virtualclass.vutil.modalPopup('video', ["congreavideoContBody", "congreaShareVideoUrlCont"]);
                 var cont = document.getElementById("contFooter");
                 virtualclass.videoUl.UI.createYoutubeUrlCont(cont);

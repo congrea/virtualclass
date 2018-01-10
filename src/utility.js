@@ -1746,13 +1746,17 @@
                     var id = $('#listvideo .linkvideo.playing').attr('data-rid')
                     this.currPlaying = id;
                 }
-                upload.validation = ['mp4', 'webm'];
+                upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
+                    "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.cthis = 'video';
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
             } else {
-                upload.validation = ['bib','doc','xml','docx','fodt','html','ltx','txt','odt','ott','pdb','pdf','psw','rtf','sdw','stw','sxw','uot','vor','wps','bmp','emf','eps','fodg','gif','jpg','met','odd','otg','pbm','pct','pgm','png','ppm','ras','std','svg','svm','swf','sxd','tiff','wmf','xhtml','xpm','fodp','odg','odp','otp','potm','pot','pptx','pps','ppt','pwp','sda','sdd','sti','sxi','uop','csv','dbf','dif','fods','ods','ots','pxl','sdc','slk','stc','sxc','uos','xls','xlt','xlsx'];
+                upload.validation = ["bib", "doc", "xml", "docx", "fodt", "html", "ltx", "txt", "odt", "ott", "pdb", "pdf", "psw", "rtf", "sdw", "stw", "sxw", "uot", "vor",
+                    "wps", "bmp", "emf", "eps", "fodg", "gif", "jpg", "met", "odd", "otg", "pbm", "pct", "pgm", "png", "ppm", "ras", "std", "svg", "svm", "swf",
+                    "sxd", "tiff", "wmf", "xhtml", "xpm", "fodp", "odg", "odp", "otp", "potm", "pot", "pptx", "pps", "ppt", "pwp", "sda", "sdd", "sti", "sxi", "uop",
+                    "csv", "dbf", "dif", "fods", "ods", "ots", "pxl", "sdc", "slk", "stc", "sxc", "uos", "xls", "xlt", "xlsx"];
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;

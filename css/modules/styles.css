@@ -3122,3 +3122,7 @@
 	display : none;
 }
 
+#virtualclassCont.congrea #DocumentShareDashboard.uploading,
+#virtualclassCont.congrea #VideoDashboard.uploading {
+	pointer-events : none;
+}

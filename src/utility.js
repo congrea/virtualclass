@@ -1936,6 +1936,9 @@
                 if(virtualclass.currApp == 'DocumentShare'){
                     if(!virtualclass.dts.noteExist()){
                         this.readyDashboard();
+                    } else {
+                        var dtitle = document.getElementById('dashboardnav');
+                        dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
                     }
                 }else if(virtualclass.currApp == 'Video'){
                     if(typeof currVideo == 'undefined'){

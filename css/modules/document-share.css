@@ -333,7 +333,7 @@
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"]::before {
     content: "\e9d1";
     font-family: 'icomoon';
-    font-size: 16px;
+    font-size: 12px;
     padding-top: 0px;
     color: #606060;
 }
@@ -353,7 +353,7 @@
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"]::before {
     content: "\e9ce";
     font-family: 'icomoon';
-    font-size: 16px;
+    font-size: 12px;
     padding-top: 0px;
     color: #606060;
 }
@@ -361,7 +361,7 @@
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete::before {
     content: "\ea0f";
     font-family: 'icomoon';
-    font-size: 18px;
+    font-size: 13px;
     padding-top: 0px;
     color: #606060;
 }
@@ -369,28 +369,29 @@
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
     float: left;
     border: 1px solid #eee;
-    padding: 5px 5px 0;
-    border-radius: 2px;
+    /*padding: 3px 2px 0px 0px;*/
+    /*border-radius: 20px;*/
     margin: -2px 3px 3px;
     background: #fff;
     position: absolute;
     bottom: -3px;
     right: -3px;
     box-shadow: 0 0 3px rgb(96, 96, 97);
+    width:45px;
 }
 
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"] {
     float: left;
     font-size: 0px;
-    margin: -2px 6px 3px;
+    margin: -1px 6px 0px;
     height: 18px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
     float: left;
     font-size: 0px;
-    margin: -2px 3px 0 3px;
+    margin: -1px 3px -2px 1px;
     height: 20px;
 }
 
@@ -447,7 +448,7 @@
 
 #virtualclassCont.congrea #listnotes .linknotes.links {
     margin: 12px;
-    /*width: 70px;*/
+    width: 140px;
     position: relative;
     /*background: #eee;*/
     border-radius: 3px;
@@ -657,7 +658,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    line-height: 22px;     /* fallback */
+    line-height: 34px;     /* fallback */
     max-height: 32px;      /* fallback */
     -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;

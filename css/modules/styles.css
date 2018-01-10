@@ -591,7 +591,7 @@
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions .congtooltip:hover:after {
 	padding : 0.7em 1em;
 	right : auto;
-	left : 45px;
+	left : 52px;
 	bottom : -0.4em;
 }
 
@@ -1233,7 +1233,7 @@
 #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
 	text-decoration : none;
 	outline-width : 0;
-	z-index : 1100 !important;
+	z-index : 1101 !important;
 	text-align : center;
 	line-height : 20px;
 	display : block;
@@ -2321,7 +2321,7 @@
 	/*background-color: rgba(0, 0, 0, 0.7);*/
 	border-width: 0;
 	border-radius: 0;
-	margin-left : 62px;
+	margin-left : 59px;
 	height : 94vh;
 	background: none;
 }

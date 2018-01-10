@@ -336,10 +336,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea i.icon-savevideo.cgIcon {
-  /* top: -13px; */
   position: absolute;
   top: 16px;
-  left: 19px;
+  left: 14px;
+  font-family: inherit;
 }
 
 

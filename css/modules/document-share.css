@@ -770,3 +770,7 @@
 #virtualclassCont.congrea[data-currapp='DocumentShare'] #dashboardContainer .modal-body {
     height : 94.2%;
 }
+
+#virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview{
+    pointer-events : none;
+}

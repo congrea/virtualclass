@@ -167,10 +167,9 @@
                                 if(ul != null){
                                     ul.style.display = 'block';
                                 }
-
                                 virtualclass.vutil.removeChildrens('#VideoDashboard #uploadMsz .qq-upload-list-selector.qq-upload-list li');
 
-
+                                var dashbaord = document.querySelector('#VideoDashboard');
                             }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
 
@@ -183,6 +182,14 @@
                                 }
 
                                 virtualclass.vutil.removeChildrens('#docsUploadMsz .qq-upload-list-selector.qq-upload-list li');
+
+                                var dashbaord = document.querySelector('#DocumentShareDashboard');
+
+
+                            }
+
+                            if(dashbaord != null){
+                                dashbaord.classList.remove('uploading');
                             }
                         },
 
@@ -217,9 +224,14 @@
 
                             if(obj.cthis == 'video'){
                                 var container = "#uploadMsz";
+                                var selector = '#VideoDashboard';
                             }else if(obj.cthis == 'docs') {
                                 var container = "#docsUploadMsz";
+                                var selector = '#DocumentShareDashboard';
                             }
+
+                            var dashboard = document.querySelector(selector);
+                                dashboard.classList.add('uploading');
 
                             var msgclose = document.querySelector(container+' .close');
                             if(msgclose != null){

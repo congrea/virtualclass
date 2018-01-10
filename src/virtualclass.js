@@ -57,9 +57,9 @@
 
                     }
                 }
-
                 virtualclass.storage.config.endSession();
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
+
                     virtualclass.prevScreen.unShareScreen();
                 }
 
@@ -791,8 +791,8 @@
                                 virtualclass.wb[id].attachToolFunction(commonWrapperId, true, id);
                             }
                         }
-
                         if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
+
                             this.prevScreen.unShareScreen();
                         }
 
@@ -859,8 +859,8 @@
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
-
                     if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
+
                         this.prevScreen.unShareScreen();
                     }
 

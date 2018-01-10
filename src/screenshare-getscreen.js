@@ -50,6 +50,12 @@ window.addEventListener('message', function (event) {
             });
             //the stream we can get here with initalizeRecorder()
         }
+        var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
+        if(elem){
+            elem.style.display="block";
+        }
+
+
     } else if (event.data.type == 'getScreenPending') {
         window.clearTimeout(event.data.id);
     } else if (event.data.type == 'yes') {

@@ -476,7 +476,6 @@
                 recordingHeaderCont.innerHTML = virtualclass.lang.getString('downloadFile');
 
                 var textFileAsBlob = new Blob([data], {type: "application/virtualclass"});
-
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
                     virtualclass.prevScreen.unShareScreen();
                 }

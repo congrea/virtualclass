@@ -453,6 +453,7 @@ var newCanvas;
              */
             readyTostart: function (app) {
                 if (app == virtualclass.apps[1]) {
+
                     this.getScreen();
                 }
 
@@ -541,9 +542,9 @@ var newCanvas;
                 if (this.prevStream) {
                     this.ssByClick = false;
                 }
-
                 if (typeof virtualclass.prevScreen != 'undefined') {
                     if (virtualclass.prevScreen.hasOwnProperty('currentStream')) {
+
                         virtualclass.prevScreen.unShareScreen();
                     }
                 }
@@ -569,6 +570,9 @@ var newCanvas;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.getVideoTracks()[0].onended = function (name) {
                     if (that.ssByClick) {
+                        if(elem){
+                            elem.style.display="none";
+                        }
                         that.video.src = "";
                         that.localtempCont.clearRect(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
                         clearInterval(virtualclass.clear);
@@ -578,6 +582,17 @@ var newCanvas;
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same
+                        var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
+                        //if (typeof virtualclass[] === 'object') {
+                        //     virtualclass["ss"].prevImageSlices = [];
+                           // virtualclass["ss"].removeStream();
+
+                        // virtualclass.vutil.removeClass('audioWidget', "fixed");
+                        // that.localCanvas = document.getElementById(virtualclass["ss"].local + "Video");
+                        // that.localCont = virtualclass["ss"].localCanvas.getContext('2d');
+                        // that.localCont.clearRect(0, 0, that.localCanvas.width, that.localCanvas.height);
+                        //}
+                        // virtualclass.prevScreen.unShareScreen();
                     } else {
                         that.ssByClick = true;
                     }

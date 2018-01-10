@@ -483,11 +483,13 @@ var newCanvas;
                         chrome.webstore.install(url, function () {
                                 window.location.reload();
                             }, function (error){
-
                                 if(virtualclass.gObj.chromeExt){
-                                    var errorMsg = virtualclass.lang.getString('httpsmissing');
-                                    virtualclass.popup.generalMsg(errorMsg);
-
+                                    if(location.protocol != 'https:'){
+                                        var errorMsg = virtualclass.lang.getString('httpsmissing');
+                                        virtualclass.popup.generalMsg(errorMsg);
+                                    } else {
+                                        virtualclass.popup.chromeExtMissing();
+                                    }
                                 }else{
                                     virtualclass.popup.chromeExtMissing();
                                 }

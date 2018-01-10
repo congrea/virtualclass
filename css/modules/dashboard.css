@@ -42,9 +42,9 @@
 }
 
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont{
-  float: left;
+  float: right;
   width: 18px;
-  background: #820729;
+  /*background: #820729;*/
   /* border-top-right-radius: 6px; */
   border-bottom-right-radius: 6px;
   height: auto;
@@ -55,34 +55,58 @@
   /* border-bottom-right-radius: 0; */
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-right: 6px;
+  /*margin-right: 6px;*/
 }
-#virtualclassCont.congrea  #listdocs .linkdocs .controlCont {
-  margin-top: 6px;
-  margin-right: 3px;
+#virtualclassCont.congrea  #listdocs .linkdocs .controlCont,#virtualclassCont.congrea  #listdocs .linkdocs .controlCont:hover {
+  margin-top: 1px;
+  /*margin-right: 3px;*/
 }
-#virtualclassCont.congrea  #listdocs .linkdocs .controlCont:hover{
-  background : #ad0505;
-  margin-top: 6px;
-  margin-right: 3px;
-}
-
-#virtualclassCont.congrea  #listdocs .list-group-item{
+#virtualclassCont.congrea  #listdocs .list-group-item {
   padding: 7px 0 13px 0;
 }
+#virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before {
+  content: "\e961";
+  font-family: 'icomoon';
+  font-size: 14px;
+  padding-top: 0px;
+  color: #ec5393;
+}
+
+/*#virtualclassCont.congrea  #listdocs .list-group-item::before {*/
+  /*content: "\e961";*/
+  /*font-family: 'icomoon';*/
+  /*font-size: 16px;*/
+  /*padding-top: 0px;*/
+  /*color: #ffffff;*/
+  /*!*float: right;*!*/
+  /*position: absolute;*/
+  /*left:130px;*/
+/*}*/
 
 #virtualclassCont.congrea .dbContainer .linkdocs, #virtualclassCont.congrea .dbContainer .linkdocs  .controlCont {
   cursor : pointer;
 }
 
-#virtualclassCont.congrea #listdocs .linkdocs.list-group-item:hover {
-  color : #fff;
+#virtualclassCont.congrea .linkdocs:hover{
+  background-color: #f9f4f4;
 }
+#virtualclassCont.congrea #listdocs .linkdocs .controls.delete:hover:before{
+  font-size: 16px;
+}
+/*#virtualclassCont.congrea .controls.delete:hover:after{*/
+
+/*}*/
 
 #virtualclassCont.congrea #docsListContainer {
   height : 98.35%;
-  width : 16.5%;
+  width : 18.5%;
   border-right : 1px solid #eee;
+}
+
+@media (min-width: 768px) {
+  .bootstrap .dashboardview.col-sm-10 {
+    width: 81.333333%;
+  }
 }
 
 #virtualclassCont.congrea #newDocBtn.btn-default{
@@ -166,28 +190,28 @@
 }
 
 #listdocs.listPages .links{
-  background: #575e63;
+  /*background: #575e63;*/
   /*border-top:1px solid #878e98;*/
   /*border-bottom:1px solid #33373d;*/
-  color: #fff;
-  text-shadow: 0 1px 1px #000;
-  letter-spacing: 0.09em;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#575e63), to(#3f4347));
-  background: -webkit-linear-gradient(top, #575e63, #3f4347);
-  background: -moz-linear-gradient(top, #575e63, #3f4347);
-  background: -ms-linear-gradient(top, #575e63, #3f4347);
-  background: -o-linear-gradient(top, #575e63, #3f4347);
+  color: #24bcde;
+  /*text-shadow: 0 1px 1px #000;*/
+  letter-spacing: 0.02em;
+  /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#575e63), to(#3f4347));*/
+  /*background: -webkit-linear-gradient(top, #575e63, #3f4347);*/
+  /*background: -moz-linear-gradient(top, #575e63, #3f4347);*/
+  /*background: -ms-linear-gradient(top, #575e63, #3f4347);*/
+  /*background: -o-linear-gradient(top, #575e63, #3f4347);*/
   display:block;
   padding:12px;
 }
 
 #listdocs.listPages .links:hover {
-  background: #566f82; /* fallback colour */
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#566f82), to(#3e505e));
-  background: -webkit-linear-gradient(top, #566f82, #3e505e);
-  background: -moz-linear-gradient(top, #566f82, #3e505e);
-  background: -ms-linear-gradient(top, #566f82, #3e505e);
-  background: -o-linear-gradient(top, #566f82, #3e505e);
+  /*background: #566f82; !* fallback colour *!*/
+  /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#566f82), to(#3e505e));*/
+  /*background: -webkit-linear-gradient(top, #566f82, #3e505e);*/
+  /*background: -moz-linear-gradient(top, #566f82, #3e505e);*/
+  /*background: -ms-linear-gradient(top, #566f82, #3e505e);*/
+  /*background: -o-linear-gradient(top, #566f82, #3e505e);*/
 }
 
 
@@ -204,15 +228,15 @@
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
   text-align :left;
-  margin-left : 12%;
+  margin-left : 6%;
 
 }
 
 
 .bootstrap #listdocs.listPages .list-group-item.links{
-  border-top:1px solid #878e98;
-  border-bottom:1px solid #33373d;
-  height : 5.84%;
+  border-top:1px solid #e5e7e8;
+  border-bottom:1px solid #e5e7e8;
+  height : 7.84%;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1']{
@@ -220,18 +244,19 @@
   color : #fff;
   text-align : center;
   border-bottom: 1px solid #2799db;
-  background: -webkit-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
-  background: -moz-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
-  background: -o-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
-  background: -webkit-linear-gradient(top, rgb(46, 219, 236), #1f8ac7);
+  background: -webkit-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
+  background: -moz-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
+  background: -o-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
+  background: -webkit-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
 
 }
 
-/*#virtualclassCont.congrea #dashboardnav {*/
-/*position: absolute;*/
-/*top: 650px;*/
-/*left: -5px;*/
-/*}*/
+#virtualclassCont.congrea .fileSize {
+  position: absolute;
+  right: 111px;
+  font-size: 11px;
+  color: #82a1b3;
+}
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary{
   height: 45px;

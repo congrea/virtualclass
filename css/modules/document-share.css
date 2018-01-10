@@ -282,13 +282,13 @@
     color: #606060;
 }
 
-#virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before {
-    content: "\ea0f";
-    font-family: 'icomoon';
-    font-size: 14px;
-    padding-top: 0px;
-    color: #ffffff;
-}
+/*#virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before {*/
+    /*content: "\e961";*/
+    /*font-family: 'icomoon';*/
+    /*font-size: 16px;*/
+    /*padding-top: 0px;*/
+    /*color: #ffffff;*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controlCont {
     width: 100%;
@@ -508,7 +508,7 @@
     left: 10px;
 }
 
-#virtualclassCont.congrea .prev::before {
+#virtualclassCont.congrea .nvgt.prev::before {
     content: "\ea40";
     font-family: 'icomoon';
     font-size: 18px;
@@ -536,7 +536,7 @@
     right : 380px;
 }
 
-#virtualclassCont.congrea .next::after {
+#virtualclassCont.congrea .nvgt.next::after {
     content: "\ea3c";
     font-family: 'icomoon';
     font-size: 18px;
@@ -579,7 +579,7 @@
     float: left;
 }
 
-/*#virtualclassCont.congrea .note {*/
+/*#virtualclassCont.conextngrea .note {*/
 /*width : 85%;*/
 /*}*/
 
@@ -657,10 +657,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    line-height: 32px;     /* fallback */
+    line-height: 22px;     /* fallback */
     max-height: 32px;      /* fallback */
     -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;
+    max-width: 115px;
+    /*float: left;*/
 }
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list{

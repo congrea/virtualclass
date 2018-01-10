@@ -664,3 +664,18 @@
   padding: 3px 5px;
   background-color: #f9f9f9;
 }
+
+#virtualclassCont.congrea .icon-zoonIn:before{
+  content: "\e95f";
+  font-size: 18px;
+}
+
+#virtualclassCont.congrea .icon-zoomOut:before{
+  content: "\e960";
+  font-size: 18px;
+}
+
+#virtualclassCont.congrea .icon-fitScreen:before{
+  content: "\e95e";
+  font-size: 18px;
+}

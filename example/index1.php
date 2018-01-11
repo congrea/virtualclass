@@ -185,7 +185,7 @@ define('SCRIPT_ROOT', $whiteboardpath);
 <!-- Fine Uploader JS file
 ====================================================================== -->
 
-<script src ="<?php echo $whiteboardpath . 'fileuploader/js/fine-uploader.js'; ?>"></script>
+
 
 <?php
 $isplay = false;
@@ -273,6 +273,10 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/jquery.ui.chatbox.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/progress.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/pbar.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dashboard.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dashboard.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbPpt.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbVideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/theme/$theme".".css" ?> />
@@ -280,8 +284,6 @@ if($info) {
 } else {
     $PAGE->requires->css(new moodle_url($CFG->wwwroot . '/mod/congrea/bundle/virtualclass/css/'.$theme.'.min.css'));
 }
-
-
 
 $sid = $uid;
 $role  = 'student';
@@ -408,12 +410,13 @@ if ($info) {
 
 <!-- Fine Uploader JS file
 ====================================================================== -->
-<script src ="<?php echo $whiteboardpath.'fileuploader/js/fine-uploader.js'; ?>"></script>
+
+<script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="<?php echo $whiteboardpath . "poll/graphs/d3.js" ?>"></script>
 <script src="<?php echo $whiteboardpath . "poll/graphs/c3.js" ?>"></script>
 
-<script type="text/template" id="qq-template-gallery"> <?php include('fine-upload.php'); ?> </script>
+<script src ="<?php echo $whiteboardpath.'s3/s3.fine-uploader.js'; ?>"></script>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>
 </body>

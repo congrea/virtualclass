@@ -211,6 +211,12 @@
                 tmpdiv.id = "listppt";
                 tmpdiv.className = "ppts";
 
+                for(var j=0; j < virtualclass.sharePt.activeppts.length; j++){
+                    if(order.indexOf(virtualclass.sharePt.activeppts[j]) <= -1){
+                        order.push(virtualclass.sharePt.activeppts[j]);
+                    }
+                }
+
                 for (var i = 0; i < order.length; i++) {
                     var elem = document.getElementById('linkppt' + order[i])
                     if (elem) {
@@ -218,6 +224,7 @@
                     }
                 }
                 container.parentNode.replaceChild(tmpdiv, container);
+
             },
 
 
@@ -1060,20 +1067,18 @@
                         elem.childNodes[i].parentNode.removeChild(elem.childNodes[i])
                     }
                 }
-                if(virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length){
-                    virtualclass.sharePt.ppts.forEach(function (pptObj, i) {
 
+                if(virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length){
+                    virtualclass.sharePt.activeppts = [];
+                    virtualclass.sharePt.ppts.forEach(function (pptObj, i) {
                         if(!pptObj.hasOwnProperty('deleted')){
+                            virtualclass.sharePt.activeppts.push(pptObj);
                             var elem = document.querySelector('#linkppt' + pptObj.fileuuid);
                             if(elem != null){
                                 elem.classList.remove('noPpt');
                             }
                             virtualclass.sharePt.afterPptSaved(pptObj);
                         }
-
-
-
-
                        // virtualclass.sharePt.afterPptSaved(pptObj);
                     });
 

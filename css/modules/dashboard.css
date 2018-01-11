@@ -58,7 +58,7 @@
   /*margin-right: 6px;*/
 }
 #virtualclassCont.congrea  #listdocs .linkdocs .controlCont,#virtualclassCont.congrea  #listdocs .linkdocs .controlCont:hover {
-  margin-top: 1px;
+  margin-top: 6px;
   /*margin-right: 3px;*/
 }
 #virtualclassCont.congrea  #listdocs .list-group-item {
@@ -67,9 +67,10 @@
 #virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before {
   content: "\e961";
   font-family: 'icomoon';
-  font-size: 14px;
+  font-size: 17px;
   padding-top: 0px;
-  color: #ec5393;
+  color: #888888;
+  margin-left: -5px;
 }
 
 /*#virtualclassCont.congrea  #listdocs .list-group-item::before {*/
@@ -88,19 +89,31 @@
 }
 
 #virtualclassCont.congrea .linkdocs:hover{
-  background-color: #f9f4f4;
+  background-color: #f7f7f7;
+  color:black;
 }
-#virtualclassCont.congrea #listdocs .linkdocs .controls.delete:hover:before{
-  font-size: 16px;
-}
-/*#virtualclassCont.congrea .controls.delete:hover:after{*/
 
-/*}*/
+#virtualclassCont.congrea #listdocs .linkdocs:hover .controls.delete::before{
+  color:#c70a0a;
+}
+
+#virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"] .controls.delete::before,
+#virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"]:hover .controls.delete::before {
+  color: #3585d5;
+}
+
+#virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"]{
+  border-top-color:#3585d5;
+}
 
 #virtualclassCont.congrea #docsListContainer {
   height : 98.35%;
   width : 18.5%;
   border-right : 1px solid #eee;
+}
+
+#virtualclassCont.congrea #listdocs .linkdocs .controls.delete{
+  margin-right: 5px;
 }
 
 @media (min-width: 768px) {
@@ -193,7 +206,7 @@
   /*background: #575e63;*/
   /*border-top:1px solid #878e98;*/
   /*border-bottom:1px solid #33373d;*/
-  color: #24bcde;
+  color: #3585d5;
   /*text-shadow: 0 1px 1px #000;*/
   letter-spacing: 0.02em;
   /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#575e63), to(#3f4347));*/
@@ -236,18 +249,18 @@
 .bootstrap #listdocs.listPages .list-group-item.links{
   border-top:1px solid #e5e7e8;
   border-bottom:1px solid #e5e7e8;
-  height : 7.84%;
+  height : 8.84%;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1']{
   padding: 2px;
-  color : #fff;
+  color : #3585d5;
   text-align : center;
   border-bottom: 1px solid #2799db;
-  background: -webkit-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
-  background: -moz-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
-  background: -o-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
-  background: -webkit-linear-gradient(top, rgb(215, 216, 216), #b0b6b9);
+  /*background: -webkit-linear-gradient(top, rgb(119, 121, 123), #31424a);*/
+  /*background: -moz-linear-gradient(top, rgb(119, 121, 123), #31424a);*/
+  /*background: -o-linear-gradient(top, rgb(119, 121, 123), #31424a);*/
+  background: #f3f3f3;
 
 }
 
@@ -267,8 +280,10 @@
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{
-  margin-left:74px;
+  margin-left: 74px;
   margin-bottom: 27px;
+  top: 11px;
+  height: 20px;
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip,

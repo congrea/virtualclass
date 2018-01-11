@@ -620,15 +620,15 @@
   color:white;
 }
 
-#virtualclassCont.congrea i.icon-savevideo:before{
-  content : "\e90d";
-  font-weight : normal;
-  font-size : 11px;
-  font-family: 'icomoon';
-  font-size: 23px;
-  color:white;
-  line-height: 65% !important;
-}
+/*#virtualclassCont.congrea i.icon-savevideo:before{*/
+  /*content : "\e90d";*/
+  /*font-weight : normal;*/
+  /*font-size : 11px;*/
+  /*font-family: 'icomoon';*/
+  /*font-size: 23px;*/
+  /*color:white;*/
+  /*line-height: 65% !important;*/
+/*}*/
 
 #virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon:before{
   content : "X";

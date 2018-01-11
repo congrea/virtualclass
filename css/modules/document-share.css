@@ -654,7 +654,7 @@
 
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
-    font-size : 0.83em;
+    font-size : 0.88em;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -664,6 +664,7 @@
     -webkit-box-orient: vertical;
     max-width: 115px;
     /*float: left;*/
+    font-family: monospace;
 }
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list{

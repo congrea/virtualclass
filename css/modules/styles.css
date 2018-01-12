@@ -534,29 +534,32 @@
 
 #virtualclassCont.congrea .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom: 3.5em;
-	left: 816px;
-	padding: 0.3em 0.7em;
+	top: 47px;
+	width: 50px;
+	right: 1010px;
+	height: 20px;
+	left: 807px;
 	position: fixed;
-	z-index: 10000000;
 }
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom: 3.5em;
-	left: 845px;
-	padding: 0.3em 0.7em;
+	top: 47px;
+	width: 53px;
+	right: 1010px;
+	height: 20px;
+	left: 815px;
 	position: fixed;
-	z-index: 10000000;
 }
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom: 3.5em;
-	left: 882px;
-	padding: 0.3em 0.7em;
+	top: 47px;
+	width: 66px;
+	right: 1010px;
+	height: 20px;
+	left: 821px;
 	position: fixed;
-	z-index: 10000000;
 }
 
 #virtualclassCont.congrea #videLatency.congtooltip:hover:after{
@@ -3015,15 +3018,20 @@
 	/*right: 370px;*/
 	/*z-index: 1;*/
 	position: fixed;
-	 top: 676px;
+	top: 12px;
 	text-align: right;
 	float: right;
-	right: 330px;
-	bottom: -2px;
+	right: 362px;
+	/*bottom: 670px;*/
 	/* height: 50px; */
 	z-index: 2019;
 	overflow: hidden;
 }
+
+#virtualclassCont.congrea.teacher .zoomControler{
+	display: none;
+}
+
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
 	display : none;
@@ -3106,6 +3114,7 @@
 
 #virtualclassCont.congrea .zoomControler  button {
 	font-size : 11px;
+	border-radius: 4px;
 }
 
 #virtualclassCont.congrea .zoomControler {

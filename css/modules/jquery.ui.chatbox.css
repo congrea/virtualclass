@@ -48,6 +48,7 @@
     padding: 4px 6px;
     border-radius: 4px;
     font: icon;
+    margin: 4px 10px 10px 5px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-icon {
@@ -130,7 +131,7 @@
     z-index: 10000;
 }
 
-#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px; width:65px;}
+#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px; width:20%;}
 #virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
     float: right;
     width: 324px;

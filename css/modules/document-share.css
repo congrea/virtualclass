@@ -384,15 +384,15 @@
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"] {
     float: left;
     font-size: 0px;
-    margin: -1px 6px 0px;
-    height: 18px;
+    margin: 1px 6px 0px;
+    height: 14px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
     float: left;
     font-size: 0px;
-    margin: -1px 3px -2px 1px;
-    height: 20px;
+    margin: 0px 3px -2px 1px;
+    height: 14px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links span.thumbList {

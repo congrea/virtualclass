@@ -161,6 +161,15 @@ var serverData = {
                         obj.urls.presentation = obj.URL;
                         processedArr.push(obj);
                         break;
+                    case 'video_online' :
+                        console.log('Handle one line ');
+                        var obj = this.processVidUrlObj(arr[j]);
+                        obj.urls={};
+                        obj.urls.main_video = obj.URL;
+                        processedArr.push(obj);
+                        break;
+
+
                 }
             }
         }

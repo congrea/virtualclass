@@ -179,7 +179,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 },"useData":true});
 
 this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"uiMuteAll congtooltip\">\n      <a id=\"contrAudioAll\">\n          <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable cgIcon\"\n                data-title=\"Mute All\">\n          </span>\n      </a>\n    </li>\n";
+    return "    <li class=\"uiMuteAll\">\n      <a id=\"contrAudioAll\">\n          <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable cgIcon\"\n                data-title=\"Mute All\">\n          </span>\n      </a>\n    </li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 

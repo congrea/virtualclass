@@ -27,7 +27,7 @@ body {
     margin-bottom: 28px;
 }
 #virtualclassCont.congrea .progressbar li:before {
-  width: 30px;
+  width: 43px;
   height: 30px;
 /*
   content: counter(step);

@@ -535,7 +535,7 @@
 #virtualclassCont.congrea .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
 	bottom: 3.5em;
-	left: 792px;
+	left: 816px;
 	padding: 0.3em 0.7em;
 	position: fixed;
 	z-index: 10000000;
@@ -544,7 +544,7 @@
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
 	bottom: 3.5em;
-	left: 837px;
+	left: 845px;
 	padding: 0.3em 0.7em;
 	position: fixed;
 	z-index: 10000000;
@@ -1090,8 +1090,7 @@
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt #chatroom_text {
 	position: relative;
-	top: 3px;
-	padding-left: 30px;
+	top: -2px;
 }
 
 #virtualclassCont.congrea .maximize {
@@ -1294,7 +1293,7 @@
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover:after {
 	bottom : 4.5em;
-	left: 0.2em;
+	left: 1em;
 	z-index : 10000;
 }
 
@@ -1543,7 +1542,8 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
 }
 #virtualclassCont.congrea #playControllerWrapper #playProgress, #virtualclassCont.congrea #playController #playProgress #playProgressBar , #virtualclassCont.congrea #preCheckProgress .progressBar {
-	height: 5px;
+	height: 0px;
+	width:100%;
 }
 
 #virtualclassCont.congrea a.vceditor-btn{
@@ -3015,7 +3015,7 @@
 	/*right: 370px;*/
 	/*z-index: 1;*/
 	position: fixed;
-	/* top: 11px; */
+	 top: 676px;
 	text-align: right;
 	float: right;
 	right: 330px;
@@ -3125,4 +3125,8 @@
 #virtualclassCont.congrea #DocumentShareDashboard.uploading,
 #virtualclassCont.congrea #VideoDashboard.uploading {
 	pointer-events : none;
+}
+
+#virtualclassCont.congrea .vmchat_room_bt{
+	width:39%;
 }

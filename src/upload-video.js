@@ -13,6 +13,7 @@
             autoPlayFlag: 1,
             status: 0,
             yts:false,
+            online:false,
 
             /*
              * it creates the the necessary layout and containers to place
@@ -615,8 +616,17 @@
                         video.addEventListener("click", function () {
                             if(vidObj.filetype == "video_yts"){
                                 virtualclass.videoUl.yts=true;
-                            }else{
+                                virtualclass.videoUl.online=false
+                            }else if (vidObj.filetype == "video_online"){
+
                                 virtualclass.videoUl.yts=false;
+
+                                virtualclass.videoUl.online=true
+
+                            } else{
+                                virtualclass.videoUl.yts=false;
+                                virtualclass.videoUl.online=false
+
                             }
 
                             var url =vidObj.urls.main_video;
@@ -814,8 +824,14 @@
                 if(msg.videoUl.type){
                     if(msg.videoUl.type=="video_yts"){
                         virtualclass.videoUl.yts=true;
+                        virtualclass.videoUl.online=false
+                    }else if (msg.videoUl.type=="video_online"){
+                        virtualclass.videoUl.online=true;
+                        virtualclass.videoUl.yts=false;
+
                     }else{
                         virtualclass.videoUl.yts=false;
+                        virtualclass.videoUl.online=false;
                     }
                 }
 
@@ -901,10 +917,18 @@
                         currVideoObj = this.autoPlayList(nxIndex)
                     }
                 } else {
+
+                    var toStd={};
+                    toStd.id=currVideoObj.fileuuid;
+                    toStd.title=currVideoObj.filename;
+                    toStd.type=currVideoObj.filetype;
+
                     if (!virtualclass.videoUl.listEnd) {
-                         if(currVideoObj.type=='online'){
+                         if(currVideoObj.filetype=='online'){
                             virtualclass.videoUl.yts=false;
-                            virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.URL);
+                            virtualclass.videoUl.online=true;
+                          //  virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.URL);
+                             virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.URL);
                             virtualclass.videoUl.videoToStudent(currVideoObj);
 
                             if (virtualclass.videoUl.player) {
@@ -913,38 +937,37 @@
                             }
                             this.activeVideoClass(currVideoObj.id);
 
+                             toStd.content_path=currVideoObj.URL;
+
                         }else{
+                             virtualclass.videoUl.online=false;
                              if(currVideoObj.filetype=='video_yts'){
                                  virtualclass.videoUl.yts=true;
+                                 virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.URL);
+                                 toStd.content_path=currVideoObj.URL;
 
                              }else{
                                  virtualclass.videoUl.yts=false;
+                                 virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.urls.main_video);
+                                 toStd.content_path=currVideoObj.urls.main_video;
 
                              }
-                            // var videoUrl ="https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/225a730b-4609-400c-8489-19d8e1bdaf5c/video/video.m3u8";
-                             virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.urls.main_video);
-                            // virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.content_path);
-                             var toStd={};
-                             toStd.content_path=currVideoObj.urls.main_video;
-                             toStd.id=currVideoObj.fileuuid;
-                             toStd.title=currVideoObj.filename;
-                             toStd.type=currVideoObj.filetype;
 
-
+                             //virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.urls.main_video);
 
                             virtualclass.videoUl.videoToStudent(toStd);
 
-                            if (virtualclass.videoUl.player) {
-
-                                virtualclass.videoUl.player.ready(function(){
-                                    var myPlayer = this;
-                                    myPlayer.play()
-
-                                });
-                            }
-                            this.activeVideoClass(currVideoObj.fileuuid);
-
                         }
+
+                        if (virtualclass.videoUl.player) {
+
+                            virtualclass.videoUl.player.ready(function(){
+                                var myPlayer = this;
+                                myPlayer.play()
+
+                            });
+                        }
+                        this.activeVideoClass(currVideoObj.fileuuid);
 
                     }
                 }
@@ -985,7 +1008,6 @@
                 var list = document.querySelectorAll("#listvideo .linkvideo");
                 var index =0;
                 for(var i =0; i <list.length ;i++){
-                    debugger;
                     if(list[i].getAttribute("data-rid")==vidId){
                         index = i
                         return index;
@@ -1307,23 +1329,20 @@
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
                         player.src({type: 'video/youtube', src:videoUrl});
 
-                    }else{
+                    }else if (virtualclass.videoUl.online) {
+                        dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
+                        player.src({type: 'video/webm', src: videoUrl});
+                        player.src({type: 'video/mp4', src: videoUrl});
+
+
+                    } else{
                         var poster = document.querySelector("#dispVideo .vjs-poster");
                         if(poster){
                             poster.style.backgroundImage="none";
                         }
                         dispVideo.setAttribute('data-setup','{"preload": "auto" }');
-                        // var isFirefox = typeof InstallTrigger !== 'undefined';
-                      //  if(isFirefox){
+                        player.src({type: "application/x-mpegURL", "withCredentials":true,src: videoUrl});
 
-                          // videoUrl="https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/89bbbd11-10b9-4687-8d18-c5df8040dcad/video/0400k/video.m3u8";
-
-                         player.src({type: "application/x-mpegURL", "withCredentials":true,src: videoUrl});
-
-                       // }else{
-                         //   player.src({type: '"type": "application/x-mpegUR', src: videoUrl});
-                         //   player.src({type: '"type": "application/x-mpegUR', src: videoUrl});
-                       // }
                     }
 
                     if (startFrom) {
@@ -1386,18 +1405,14 @@
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
                         player.src({type: 'video/youtube', src:videoUrl});
 
-                    }else{
+                    }else if(virtualclass.videoUl.online){
                         dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+                        player.src({type: 'video/webm', src: videoUrl});
+                        player.src({type: 'video/mp4', src: videoUrl});
 
-                        // var isFirefox = typeof InstallTrigger !== 'undefined';
-                        // if(isFirefox){
-                        //     player.src({type: 'video/webm', src: videoUrl});
-                        // }else{
-                        //     player.src({type: 'video/webm', src: videoUrl});
-                        //     player.src({type: 'video/mp4', src: videoUrl});
-                        // }
-                         player.src({type: 'application/x-mpegURL',"withCredentials":true, src: videoUrl});
-
+                    } else {
+                         dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+                        player.src({type: 'application/x-mpegURL',"withCredentials":true, src: videoUrl});
 
                     }
                     console.log("ended" + vidId)
@@ -1416,7 +1431,6 @@
                     var list = document.querySelectorAll("#listvideo .linkvideo");
                     var index =0;
                     for(var i =0; i <list.length ;i++){
-                        debugger;
                         if(list[i].getAttribute("data-rid")==vidId){
                            index = i
                            break;
@@ -1448,13 +1462,10 @@
                             // slice(1, -1) is used to remove first and last character
                             var id  = virtualclass.vutil.createHashString(input.value)+virtualclass.vutil.randomString(32).slice(1, -1);
 
+                             virtualclass.videoUl.UI.saveYtsUrl(id)
 
-                            var videoId = virtualclass.videoUl.getVideoId(input.value);
 
-                            if( videoId  ){
-                             virtualclass.videoUl.UI.saveYtsUrl(videoId)
 
-                            }
 
 
                             // var vidObj= {};
@@ -1507,11 +1518,14 @@
                     vidObj.title = input.value;
 
                     var url = ' https://api.congrea.net/t/addURL';
-                    if (typeof videoId == 'boolean') {
-                        vidObj.type = 'video_online';
-                    }else  {
-                        vidObj.type="video_yts"
-                    }
+
+                    var videoId = virtualclass.videoUl.getVideoId(input.value);
+
+                        if (typeof videoId == 'boolean') {
+                            vidObj.type = 'video_online';
+                        } else {
+                            vidObj.type = "video_yts"
+                        }
 
                     virtualclass.xhrn.sendData(vidObj, url, function (response) {
                         // virtualclass.videoUl.afterUploadFile(vidObj);
@@ -1676,7 +1690,7 @@
                     var data = virtualclass.awsData;
                     var videos=[];
                     for(var i =0;i<data.length;i++){
-                        if((data[i]["filetype"]=="video" || data[i]["filetype"]=="video_yts") && !data[i].hasOwnProperty("deleted") ){
+                        if((data[i]["filetype"]=="video" || data[i]["filetype"]=="video_yts"||data[i]["filetype"]=="video_online")&& !data[i].hasOwnProperty("deleted") ){
                             videos.push(data[i]);
                         }
                     }

@@ -211,6 +211,9 @@ if ($room) {
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/jquery.ui.chatbox.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/progress.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/pbar.css" ?> />
+        <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/dashboard.css" ?> />
+  	    <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/dbPpt.css" ?> />
+		<link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/dbVideo.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/modules/multivideo.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/bootstrap/css/bootstrap.css" ?> />
         <link rel="stylesheet" type="text/css" href= <?php echo SCRIPT_ROOT . "css/theme/$theme".".css" ?> />
@@ -492,7 +495,7 @@ if ($room) {
 			}
 
 			$audactive = $adarr[$audactive];
-			$classes .= ' ' .$audactive;
+
 
 			if($audactive == 'deactive'){
 				$dap = "false";
@@ -505,6 +508,7 @@ if ($room) {
 				$dap = "true";
 				$audio_tooltip =  get_string('disableAudio');
 			}
+			$classes .= ' ' .$audactive;
 		 ?>	
 			<script type="text/javascript">
 

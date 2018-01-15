@@ -112,61 +112,61 @@
 
              */
 
-            videoListFromLocalStr: function (videoObj) {
-                // if data available in localstorage
-                if (typeof videoObj != 'undefined' && videoObj.hasOwnProperty('fromReload')) {
-                    this.videos = JSON.parse(localStorage.getItem("videoList"));
-
-                    // if videos available
-                    if (this.videos && this.videos.length > 0) {
-
-                        this.showVideos(this.videos, videoObj.init.videoId);
-                        this.order = JSON.parse(localStorage.getItem("videoOrder"));
-                        this.reArrangeElements(this.order); // 3, local storage
-                        localStorage.removeItem("videoList");
-                        localStorage.removeItem("videoOrder");
-                    } else {
-                        // if videolist is empty
-                        var type = "video";
-                        var firstId = "congrea" + type + "ContBody";
-                        var secondId = "congreaShareVideoUrlCont";
-                        var elemArr = [firstId, secondId];
-                        this.modalPopup(type, elemArr);
-                    }
-
-                } else {
-                    // When user come at first time i.e  no localstorage video data  available
-                    var list = "onlyRetrieve";
-                    //this.getVideoList(list);
-                }
-            },
-
-            /*
-             * rearranges  videos in playlist based on  updated order
-             * @param  order of videolist element ,to be called each time,when
-             * order changes or videolist to be displayed
-
-             */
-
-            //virtualclass.videoUl.videos
-
-            reArrangeElementsOld: function (order) {
-                var container = document.getElementById('listvideo'),
-                tmpdiv = document.createElement('div');
-                tmpdiv.id = "listvideo";
-                tmpdiv.className = "videos";
-
-                this.order = order;
-
-                for (var i = 0; i < order.length; i++) {
-                    var elem = document.getElementById('linkvideo' + order[i])
-                    if (elem) {
-                        tmpdiv.appendChild(elem);
-                    }
-                }
-
-                container.parentNode.replaceChild(tmpdiv, container);
-            },
+            // videoListFromLocalStr: function (videoObj) {
+            //     // if data available in localstorage
+            //     if (typeof videoObj != 'undefined' && videoObj.hasOwnProperty('fromReload')) {
+            //         this.videos = JSON.parse(localStorage.getItem("videoList"));
+            //
+            //         // if videos available
+            //         if (this.videos && this.videos.length > 0) {
+            //
+            //             this.showVideos(this.videos, videoObj.init.videoId);
+            //             this.order = JSON.parse(localStorage.getItem("videoOrder"));
+            //             this.reArrangeElements(this.order); // 3, local storage
+            //             localStorage.removeItem("videoList");
+            //             localStorage.removeItem("videoOrder");
+            //         } else {
+            //             // if videolist is empty
+            //             var type = "video";
+            //             var firstId = "congrea" + type + "ContBody";
+            //             var secondId = "congreaShareVideoUrlCont";
+            //             var elemArr = [firstId, secondId];
+            //             this.modalPopup(type, elemArr);
+            //         }
+            //
+            //     } else {
+            //         // When user come at first time i.e  no localstorage video data  available
+            //         var list = "onlyRetrieve";
+            //         //this.getVideoList(list);
+            //     }
+            // },
+            //
+            // /*
+            //  * rearranges  videos in playlist based on  updated order
+            //  * @param  order of videolist element ,to be called each time,when
+            //  * order changes or videolist to be displayed
+            //
+            //  */
+            //
+            // //virtualclass.videoUl.videos
+            //
+            // reArrangeElementsOld: function (order) {
+            //     var container = document.getElementById('listvideo'),
+            //     tmpdiv = document.createElement('div');
+            //     tmpdiv.id = "listvideo";
+            //     tmpdiv.className = "videos";
+            //
+            //     this.order = order;
+            //
+            //     for (var i = 0; i < order.length; i++) {
+            //         var elem = document.getElementById('linkvideo' + order[i])
+            //         if (elem) {
+            //             tmpdiv.appendChild(elem);
+            //         }
+            //     }
+            //
+            //     container.parentNode.replaceChild(tmpdiv, container);
+            // },
 
             reArrangeElements: function (order) {
                 var container = document.getElementById('listvideo'),

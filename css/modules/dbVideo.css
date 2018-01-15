@@ -200,7 +200,7 @@
 
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links.online .videoTitleCont:before{
+#virtualclassCont.congrea #listvideo .linkvideo.links.video_online .videoTitleCont:before{
   content: "\e957";
   font-family: 'icomoon';
 
@@ -473,7 +473,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont .controls.edit{
-  display:inline;
+  display:none;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont .titleCont{

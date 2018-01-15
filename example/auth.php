@@ -34,13 +34,17 @@ function my_curl_request($url, $post_data, $key){
 //send auth detail to server
 $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
- $licensekey = '2895-sg-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
-// $licensekey = '2210-sg-245-uqGwY3qnHMamdpwBMmKXXns8qqZVFDhAmksJ8gMXap59JMHz';
+//$licensekey = '2895-tx-245-CXnaPcnUGCgFBVd2HPpweRaq9XEZzENTJVPZUYuwwwNt9RV3';
+
+$licensekey = '2210-sg-245-uqGwY3qnHMamdpwBMmKXXns8qqZVFDhAmksJ8gMXap59JMHz';
+
+//$licensekey = '0099-tx-099-CnQJ5wBudH7jQsxknv6BB2XKAz45vqKjQQhUQFzpH5YLqPYr';
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword);
 $post_data = json_encode($post_data);
 //echo $post_data;
 $rid = my_curl_request("https://api.congrea.com/auth", $post_data, $licensekey);
 //print_r( $rid);exit;
+
 
 
 if (!$rid = json_decode($rid)) {

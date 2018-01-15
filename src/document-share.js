@@ -175,6 +175,7 @@
                     // remove if there is already pages before render the ordering elements
                     var alreadyElements = document.querySelectorAll('#notesContainer .note');
                     this.createNoteLayout(allNotes, currDoc);
+
                     this.reArrangeNotes(this.order);
 
                     // TODO This should be improve at later, should handle at function createNoteNav
@@ -1460,6 +1461,12 @@
                     tmpdiv = document.createElement('div');
                 tmpdiv.id = "notesContainer";
                 tmpdiv.className  = "notes";
+
+                /**
+                 * TODO, This should be improved, we don't need to call getActiveNotes each  time when we need active notes,
+                 * it should be invoked only once,
+                 * It handles, if there are videoswhich are not in orders, that videos should be display also
+                 **/
 
                 for (var i = 0; i < order.length; i++) {
                     tmpdiv.appendChild(document.getElementById('note' + order[i]));

@@ -608,6 +608,7 @@
                             videoId:virtualclass.videoUl.videoId,
                             videoUrl:virtualclass.videoUl.videoUrl,
                             yts:virtualclass.videoUl.yts,
+                            online:virtualclass.videoUl.online,
                             isPaused:virtualclass.videoUl.isPaused,
 
                         },

@@ -2315,7 +2315,7 @@
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.7);
 	margin-left :0;
-	z-index: 1100;
+	z-index: 1102;
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea[data-currapp='Video'] .modal, #virtualclassCont.congrea[data-currapp='SharePresentation'] .modal{
@@ -3138,4 +3138,8 @@
 
 #virtualclassCont.congrea .vmchat_room_bt{
 	width:39%;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
+	z-index: 1;
 }

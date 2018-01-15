@@ -200,7 +200,7 @@
 
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links.online .videoTitleCont:before{
+#virtualclassCont.congrea #listvideo .linkvideo.links.video_online .videoTitleCont:before{
   content: "\e957";
   font-family: 'icomoon';
 

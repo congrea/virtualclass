@@ -35,6 +35,7 @@
                         this.videoId = videoObj.init.videoId || videoObj.init;
                         this.videoUrl = videoObj.init.videoUrl;
                         this.yts=videoObj.init.yts;
+                        this.online=videoObj.init.online;
                         this.isPaused= videoObj.init.isPaused;
                     }
                 }
@@ -924,7 +925,7 @@
                     toStd.type=currVideoObj.filetype;
 
                     if (!virtualclass.videoUl.listEnd) {
-                         if(currVideoObj.filetype=='online'){
+                         if(currVideoObj.filetype=='video_online'){
                             virtualclass.videoUl.yts=false;
                             virtualclass.videoUl.online=true;
                           //  virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.URL);
@@ -1087,11 +1088,11 @@
                     var type ="saved";
                     var elem = document.getElementById("linkvideo" + id);
                     if (elem) {
-                        if(elem.classList.contains("yts")){
-                            type="yts"
-                        }else if(elem.classList.contains("online")){
-                            type="online";
-                        }
+                        // if(elem.classList.contains("yts")){
+                        //     type="yts"
+                        // }else if(elem.classList.contains("online")){
+                        //     type="online";
+                        // }
                         elem.parentNode.removeChild(elem);
                         //virtualclass.videoUl.order=[];
 
@@ -1324,6 +1325,10 @@
                 },
 
                 setPlayerUrl: function (player, videoUrl, startFrom) {
+                    if(player.poster_){
+                        player.poster_="";
+                    }
+
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
@@ -1334,13 +1339,8 @@
                         player.src({type: 'video/webm', src: videoUrl});
                         player.src({type: 'video/mp4', src: videoUrl});
 
-
                     } else{
-                        var poster = document.querySelector("#dispVideo .vjs-poster");
-                        if(poster){
-                            poster.style.backgroundImage="none";
-                        }
-                        dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+                        dispVideo.setAttribute('data-setup','{"preload": "auto"}');
                         player.src({type: "application/x-mpegURL", "withCredentials":true,src: videoUrl});
 
                     }
@@ -1402,16 +1402,16 @@
                     player.reset();
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
-                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
+                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],controls: true,}');
                         player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if(virtualclass.videoUl.online){
-                        dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+                        dispVideo.setAttribute('data-setup','{"preload": "auto", "controls": true, }');
                         player.src({type: 'video/webm', src: videoUrl});
                         player.src({type: 'video/mp4', src: videoUrl});
 
                     } else {
-                         dispVideo.setAttribute('data-setup','{"preload": "auto" }');
+                         dispVideo.setAttribute('data-setup','{"preload": "auto", "controls": true, }');
                         player.src({type: 'application/x-mpegURL',"withCredentials":true, src: videoUrl});
 
                     }
@@ -1428,6 +1428,9 @@
                     //     virtualclass.videoUl.autoPlayList(index + 1);
                     //
                     // }
+
+
+
                     var list = document.querySelectorAll("#listvideo .linkvideo");
                     var index =0;
                     for(var i =0; i <list.length ;i++){
@@ -1438,6 +1441,9 @@
                     }
 
                     if (virtualclass.videoUl.autoPlayFlag) {
+                        if(player.poster_){
+                            player.poster_="";
+                        }
                         virtualclass.videoUl.autoPlayList(index + 1,list);
 
                     }

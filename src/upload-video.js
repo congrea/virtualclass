@@ -1605,7 +1605,9 @@
                             var id = $('#listvideo .linkvideo.playing').attr('data-rid')
                             this.currPlaying = id;
                         }
-                        upload.validation = ['mp4', 'webm'];
+                        upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
+                        "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
+
                         upload.cb = virtualclass.videoUl.afterUploadVideo;
                         upload.cthis = 'video';
                         upload.multiple = false;

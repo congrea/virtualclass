@@ -243,13 +243,15 @@ var serverData = {
             function (){
                 virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
                     var responseObj = JSON.parse(response).Item;
-                    if(responseObj.hasOwnProperty('processed_data') &&
-                        (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED') ||
-                        (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))){
-                        clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-                        virtualclass.serverData.fetchAllData(cb);
-                    } else {
-                        that.pollingStatus(cb);
+                    if(responseObj != undefined && typeof responseObj != 'undefined'){
+                        if(responseObj.hasOwnProperty('processed_data') &&
+                            (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED') ||
+                            (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))){
+                            clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+                            virtualclass.serverData.fetchAllData(cb);
+                        } else {
+                            that.pollingStatus(cb);
+                        }
                     }
                 });
             }, 5000

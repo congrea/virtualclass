@@ -1700,7 +1700,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer , #virtualclassCont.congrea #confirm.popupWindow.simple-box {
-	padding: 30px;
+	/*padding: 30px;*/
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel{

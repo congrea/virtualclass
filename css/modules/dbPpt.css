@@ -125,8 +125,9 @@
   font-size: 0;
   border-radius: 2px;
   float: left;
-  margin: 0px;
-  margin-top:-3px;
+  margin: -2px 2px 3px;
+  height: 20px;
+  padding-top: 2px;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .mainpreview::before {
@@ -175,9 +176,9 @@
 #virtualclassCont.congrea #listppt .linkppt.links .controls.status[data-status="1"], #virtualclassCont.congrea #listppt .linkppt.links .controls.status[data-status="0"] {
   float: left;
   font-size: 0px;
-  margin: -2px 6px 3px;
-  height: 18px;
-  margin-top: -3px;
+  margin: -5px 1px 1px 0px;
+  height: 20px;
+  padding-top: 2px;
 }
 
 
@@ -191,9 +192,9 @@
 #virtualclassCont.congrea #listppt .linkppt.links .controls.delete {
   float: left;
   font-size: 0px;
-  margin: -2px 0 3px;
+  margin: -5px 1px 1px 0px;
   height: 20px;
-  margin-top:-4px;
+  padding-top: 2px;
 }
 
 
@@ -323,17 +324,18 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="1"]::before {
   content: "\e94e";
   font-family: 'icomoon';
-  font-size:21px;
+  font-size:20px;
 
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controls.delete::before {
   content: "\e920";
   font-family: 'icomoon';
+  font-size: 16px;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controls::before {
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(96, 96, 96, 0.81);
   opacity: .7;
 }

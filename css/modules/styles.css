@@ -3140,3 +3140,11 @@
 	width:39%;
 }
 
+
+#chatroom_bt2 a.inner_bt{
+	padding-top : 10px;
+}
+
+#user_list a {
+	padding-top :23px;
+}

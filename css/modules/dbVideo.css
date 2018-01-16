@@ -331,7 +331,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   font-size: 0;
   border-radius: 2px;
   float: left;
-  margin: -1px 2px 3px;
+  margin: -2px 2px 3px;
   height: 20px;
   padding-top:2px;
 }

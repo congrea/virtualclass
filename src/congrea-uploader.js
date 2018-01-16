@@ -97,23 +97,24 @@
                         endpoint: 'https://uploadmedia.congrea.net',
                         accessKey: "AKIAJV7RJOFBDFVY62EQ"
                     },
+
                     signature: {
                         endpoint: 'https://api.congrea.net/t/upload',
                         version: 4,
                         customHeaders: {
-                            'x-api-key': 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2',
-                            'x-congrea-authuser': '46ecba46bc1598c1ec4c',
-                            'x-congrea-authpass': '2bf8d3535fdff8a74c01',
-                            'x-congrea-room': '12323'
+                            'x-api-key':  wbUser.lkey,
+                            'x-congrea-authuser': wbUser.auth_user,
+                            'x-congrea-authpass': wbUser.auth_pass,
+                            'x-congrea-room': wbUser.rm
                         }
                     },
                     uploadSuccess: {
                         endpoint: 'https://api.congrea.net/t/uploadSuccess',
                         customHeaders: {
-                            'x-api-key': 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2',
-                            'x-congrea-authuser': '46ecba46bc1598c1ec4c',
-                            'x-congrea-authpass': '2bf8d3535fdff8a74c01',
-                            'x-congrea-room': '12323'
+                            'x-api-key':  wbUser.lkey,
+                            'x-congrea-authuser': wbUser.auth_user,
+                            'x-congrea-authpass': wbUser.auth_pass,
+                            'x-congrea-room': wbUser.rm
                         }
                     },
                     retry: {
@@ -127,8 +128,8 @@
 
                     objectProperties: {
                         key: function (id) {
-                            var congreaKey = "yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2";
-                            var congreaRoom = "12323";
+                            var congreaKey = wbUser.lkey;
+                            var congreaRoom = wbUser.room;
                             virtualclass.gObj.file = {};
 
                          virtualclass.gObj.file.uuid = this.getUuid(id);

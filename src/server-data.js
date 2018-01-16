@@ -26,10 +26,12 @@ var serverData = {
             }
         };
 
-        xhr.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
-        xhr.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
-        xhr.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
-        xhr.setRequestHeader('x-congrea-room', '12323');
+        /** TODO(important), that should be used with xhrn.js **/
+
+        xhr.setRequestHeader('x-api-key', wbUser.lkey);
+        xhr.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
+        xhr.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
+        xhr.setRequestHeader('x-congrea-room', wbUser.rm);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(params);
         return xhr;
@@ -241,13 +243,15 @@ var serverData = {
             function (){
                 virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
                     var responseObj = JSON.parse(response).Item;
-                    if(responseObj.hasOwnProperty('processed_data') &&
-                        (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED') ||
-                        (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))){
-                        clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-                        virtualclass.serverData.fetchAllData(cb);
-                    } else {
-                        that.pollingStatus(cb);
+                    if(responseObj != undefined && typeof responseObj != 'undefined'){
+                        if(responseObj.hasOwnProperty('processed_data') &&
+                            (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED') ||
+                            (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))){
+                            clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+                            virtualclass.serverData.fetchAllData(cb);
+                        } else {
+                            that.pollingStatus(cb);
+                        }
                     }
                 });
             }, 5000

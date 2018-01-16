@@ -44,10 +44,12 @@
             this.cb = cb;
             var params =  JSON.stringify(data);
             this.httpObj.open('POST', url);
-            this.httpObj.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
-            this.httpObj.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
-            this.httpObj.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
-            this.httpObj.setRequestHeader('x-congrea-room', '12323');
+
+            this.httpObj.setRequestHeader('x-api-key', wbUser.lkey);
+            this.httpObj.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
+            this.httpObj.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
+            this.httpObj.setRequestHeader('x-congrea-room', wbUser.rm);
+
             this.httpObj.setRequestHeader('Content-Type', 'application/json');
             this.httpObj.withCredentials = false;
             this.httpObj.send(params);
@@ -57,10 +59,17 @@
             this.cb = cb;
             var url = 'https://api.congrea.net/data/access';
             this.httpObj.open('GET', url);
-            this.httpObj.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
-            this.httpObj.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
-            this.httpObj.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
-            this.httpObj.setRequestHeader('x-congrea-room', '12323');
+
+            // this.httpObj.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
+            // this.httpObj.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
+            // this.httpObj.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
+            // this.httpObj.setRequestHeader('x-congrea-room', '12323');
+
+            this.httpObj.setRequestHeader('x-api-key', wbUser.lkey);
+            this.httpObj.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
+            this.httpObj.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
+            this.httpObj.setRequestHeader('x-congrea-room', wbUser.rm);
+
             this.httpObj.setRequestHeader('Content-Type', 'application/json');
             this.httpObj.withCredentials = true;
             this.httpObj.send();

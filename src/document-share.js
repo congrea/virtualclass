@@ -1716,7 +1716,7 @@
              * @param response expects xhr response
              */
             onAjaxResponse : function (id, xhr, response){
-                if(response.hasOwnProperty('success')){
+                if(response.hasOwnProperty('success') && response.success){
                     for(var i=0; i< virtualclass.gObj.uploadingFiles.length; i++){
                         var docUploadId = virtualclass.gObj.uploadingFiles[i].uuid;
                         this.afterUploadFile(docUploadId);
@@ -1729,8 +1729,11 @@
                     this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'),"alert-error");
 
                 } else {
-                    this.showUploadMsz(virtualclass.lang.getString('someproblem'),"alert-error");
-
+                    if(response.hasOwnProperty('error')){
+                        this.showUploadMsz(response.error, "alert-error");
+                    }else {
+                        this.showUploadMsz(virtualclass.lang.getString('someproblem'),"alert-error");
+                    }
                 }
 
                 var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");

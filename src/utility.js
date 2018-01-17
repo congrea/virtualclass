@@ -171,31 +171,21 @@
                     reduceHeight += 75;
                 }else {
                     if (app == 'SharePresentation') {
-                        if(document.querySelector('#virtualclass' + app + '.pptSharing') != null){
-                            reduceHeight = 80;
-                        } else {
-                            //reduceHeight = reduceHeight - 42;
-                            reduceHeight = 28;
-                        }
+                        reduceHeight = (document.querySelector('#virtualclass' + app + '.pptSharing') != null) ? 80 : 28;
                     }else if(app == 'Video' || app == 'Yts'){
                         reduceHeight = 28;
-                    }else if (app == 'EditorCode'){
-                        reduceHeight = 16;
+                    }else if (app == 'EditorRich' || app == 'Poll' ||  app == 'Quiz'){
+                        reduceHeight = 50;
                     }else {
-                        reduceHeight = 70;
+                        reduceHeight = 60;
                     }
                 }
 
                 var containerHeight = document.getElementById('commandToolsWrapper');
 
-                //if (containerHeight != null) {
-                //    reduceHeight = reduceHeight + containerHeight.clientHeight + 3;
-                //} else if ((roles.isEducator() || roles.hasControls()) && virtualclass.currApp == 'Whiteboard') {
-                //    reduceHeight = reduceHeight + 49;
-                //}
 
                 console.log( ' leftSideBarWidth=' + leftSideBarWidth);
-                var extraWidth = 0;
+                var extraWidth = 20;
                 if(virtualclass.currApp == 'Whiteboard' ||   virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation'){
                     extraWidth = 20;
                 }

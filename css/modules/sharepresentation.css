@@ -92,6 +92,10 @@
   margin-top : 3px;
 }
 
+#virtualclassCont.congrea.student #iframecontainer {
+  width : 100%;
+}
+
 #virtualclassCont.congrea #pptiframe {
   width : 100%;
 }

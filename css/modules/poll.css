@@ -42,11 +42,11 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-width: 0 1px 1px 1px;
-  height: 83vh;
+  height: 85vh;
 }
 
 #virtualclassCont.congrea.student #layoutPollBody {
-  height: 90vh;
+  height: 93vh;
 }
 
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
@@ -317,7 +317,7 @@ pointer-events:none;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive{
-  height:90%;
+  height:93%;
   /*border-bottom: 1px solid lightgray;*/
   border-top: 1px solid lightgray;
 }

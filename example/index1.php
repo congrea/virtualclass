@@ -361,6 +361,7 @@ $cmid = 5;
     wbUser.role =  '<?php echo $r; ?>';
     wbUser.lname =  '<?php echo $lname; ?>';
     wbUser.name =  '<?php echo $uname; ?>';
+    
     wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
 
 

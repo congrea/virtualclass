@@ -29,7 +29,8 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-width: 0 1px 1px 1px;
-  height: 84vh;
+  height: 85vh;
+
 }
 #virtualclassCont.congrea #layoutQuizBody .quizList{
   margin: 0;
@@ -279,4 +280,8 @@ span.sch {
 
 #virtualclassCont.congrea #resultQzLayout .tab-content .tab-pane .table > thead > tr > th{
   font-size: 15px;
+}
+
+#virtualclassCont.congrea #virtualclassQuiz{
+  margin-top : 5px;
 }

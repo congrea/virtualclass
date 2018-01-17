@@ -187,9 +187,8 @@
                     if(virtualclass.currApp == 'Whiteboard'){
                         canvasWrapper.style.width = (canvas.width);  //37
                     }else {
-                        canvasWrapper.style.width = (canvas.width-50);  //37
+                        canvasWrapper.style.width = (canvas.width);  //37
                     }
-
 
                     // for handle the scroll on whiteboard during the play mode
                     var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
@@ -217,7 +216,10 @@
                 var width = measureRes.width;
 
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-                canvasWrapper.style.width = (width-50);  //37
+                if(virtualclass.currApp !=  'DocumentShare'){
+                    width = (width-50);
+                }
+                canvasWrapper.style.width = width;  //37
 
                 var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 

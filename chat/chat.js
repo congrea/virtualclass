@@ -49,7 +49,6 @@
 
                 /** TODO , that should be handle properly for simple layout **/
                 fetchChatUsers: function () {
-                    //return;
                     console.log('FetchUser congrea_get_enrolled_users');
                     var data = new FormData();
                     data.append("action", "fetchUser");

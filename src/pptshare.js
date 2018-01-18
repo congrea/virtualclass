@@ -87,12 +87,12 @@
 
                 virtualclass.vutil.requestOrder("presentation",function(response){
                     console.log(response)
-                    virtualclass.sharePt.order= response;
-
+                    if(virtualclass.vutil.isResponseAvailable(response)){
+                        virtualclass.sharePt.order= response;
+                    }else {
+                        console.log('Order response is not available');
+                    }
                 })
-
-
-               // virtualclass.sharePt.retrieveOrder(); nirmala
 
                 this.findInStorage();
                 if(!pptfirst){
@@ -213,10 +213,10 @@
 
                 for(var j=0; j < virtualclass.sharePt.activeppts.length; j++){
                     if(order.indexOf(virtualclass.sharePt.activeppts[j]) <= -1){
-                        order.push(virtualclass.sharePt.activeppts[j]);
+                        order.push(virtualclass.sharePt.activeppts[j].fileuuid);
                     }
                 }
-
+                
                 for (var i = 0; i < order.length; i++) {
                     var elem = document.getElementById('linkppt' + order[i])
                     if (elem) {
@@ -250,7 +250,8 @@
                 // virtualclass.xhrn.sendFormData({uuid:videoid}, url, function (msg) {
                 //     that.afterDeleteCallback(msg)
                 // });
-                virtualclass.xhrn.sendData(data, url, function (msg) {
+
+                virtualclass.xhrn.sendData(url, data, function (msg) {
                     that.afterDeletePtCallback(msg, id)
                 });
 
@@ -409,27 +410,23 @@
             //     }
             // },
 
-
-
-
-
-            xhrOrderSend:function(order){
-                var data = {'content_order': order.toString(), content_order_type: 3}
-                data.live_class_id = virtualclass.gObj.congCourse;
-                var form_data = new FormData();
-                for (var key in data) {
-                    form_data.append(key, data[key]);
-                    console.log(data[key]);
-                }
-                //window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
-                var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_page_order";
-                var cthis = this;
-                virtualclass.xhr.sendFormData(form_data, path, function () {
-                    virtualclass.sharePt.getPptList();
-                });
-                console.log("order send ")
-
-            },
+            // xhrOrderSend:function(order){
+            //     var data = {'content_order': order.toString(), content_order_type: 3}
+            //     data.live_class_id = virtualclass.gObj.congCourse;
+            //     var form_data = new FormData();
+            //     for (var key in data) {
+            //         form_data.append(key, data[key]);
+            //         console.log(data[key]);
+            //     }
+            //     //window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
+            //     var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_page_order";
+            //     var cthis = this;
+            //     virtualclass.xhr.sendFormData(form_data, path, function () {
+            //         virtualclass.sharePt.getPptList();
+            //     });
+            //     console.log("order send ")
+            //
+            // },
 
             /*
              * Set the autoslide configation value from local storage to iniline variables
@@ -448,7 +445,6 @@
                         // we need to add over here
 
                         if (pptData.eventName == 'ready') {
-
                             //TODO validate startFromFlag and localStoragFlag nirmala
                             if (virtualclass.sharePt.localStoragFlag && !virtualclass.sharePt.startFromFlag) {
                                 var state = virtualclass.sharePt.stateLocalStorage;
@@ -854,76 +850,58 @@
                 }
             },
             savePptUrl:function(vUrl){
-                // var rdata = new FormData();
-                // rdata.append("type","ppt" );
-                // rdata.append("content_path",vUrl);
-                //
-                //
-                //
-                //
-                //
-                //
-                //
-                // var pptObj={};
-                // pptObj.title=vUrl;
-                // pptObj.content_path=vUrl;
-                // pptObj.status=1;
-                // pptObj.title=vUrl;
-                // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=ppt_save", function (msg) {
-                //     var content = JSON.parse(msg);
-                //     console.log(content);
-                //     pptObj.id= content.resultdata.id;
-                //     virtualclass.sharePt.afterPptSaved(pptObj);
-                //     virtualclass.sharePt.order.push(content.resultdata.id);
-                //     virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order);
-                //
-                // });
-
                 var id  = virtualclass.vutil.createHashString(vUrl)+virtualclass.vutil.randomString(32).slice(1, -1);
-
                 var pptObj= {};
                 pptObj.uuid = id;
                 pptObj.URL = vUrl;
                 pptObj.title = vUrl;
                 var url = ' https://api.congrea.net/t/addURL';
                 pptObj.type = 'presentation';
+                var that = this;
+
                 virtualclass.xhrn.sendData(pptObj, url, function (response) {
                     virtualclass.sharePt.order.push(pptObj.uuid);
                     virtualclass.vutil.sendOrder("presentation", virtualclass.sharePt.order)
                     virtualclass.sharePt.getPptList();
-                    // virtualclass.videoUl.afterUploadFile(vidObj);
-                    //  virtualclass.sharePt.order.push(vidObj.uuid);
-                    //
+                    that.fetchAllData();
+
                     // // TODO, Critical this need be re-enable
                     // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-
-
-
                 });
             },
 
-            awsPresentationList : function(){
-                virtualclass.sharePt.ppts =[]
-                var data = virtualclass.awsData;
-                for(var i =0;i<data.length;i++){
-                    if(data[i]["filetype"]=="presentation" ){
+            fetchAllData : function (){
+                virtualclass.serverData.fetchAllData(function (){
+                    virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
+                });
+            },
 
-                        virtualclass.sharePt.ppts.push(data[i])
-                       // videos.push(data[i]);
-                    }
-                }
+            awsPresentationList : function(ppts){
+                virtualclass.sharePt.ppts = []
+
+                // var data = virtualclass.awsData;
+                // for(var i =0;i<data.length;i++){
+                //     if(data[i]["filetype"]=="presentation" ){
+                //         virtualclass.sharePt.ppts.push(data[i])
+                //     }
+                // }
+
+                virtualclass.sharePt.ppts = ppts;
 
                 var db = document.querySelector("#SharePresentationDashboard .dbContainer");
                 if(db){
                     virtualclass.sharePt.createPageModule();
                     virtualclass.sharePt.showPpts();
                     virtualclass.vutil.requestOrder("presentation",function(response){
-                      console.log(response)
-                        virtualclass.sharePt.order=response;
-                        if (virtualclass.sharePt.order && virtualclass.sharePt.order.length > 0) {
-                            virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                        if(virtualclass.vutil.isResponseAvailable(response)){
+                            virtualclass.sharePt.order=response;
+                            if (virtualclass.sharePt.order && virtualclass.sharePt.order.length > 0) {
+                                virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                            }
+                        }else {
+                            console.log('Order response is not available');
                         }
-                    })
+                   })
                     //virtualclass.sharePt.retrieveOrder();
                 }
 
@@ -974,7 +952,7 @@
 
                // virtualclass.sharePt.activePrs(virtualclass.sharePt.currId);
                 //requestorder
-                virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
+                // virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
 
                  // virtualclass.sharePt.order.push(res.resultdata.id); nirmala
                  // virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order); nirmala
@@ -1053,12 +1031,14 @@
 
             },
 
-
             getPptList: function () {
-
-                virtualclass.serverData.fetchAllData(virtualclass.sharePt.awsPresentationList);
-
+                if(virtualclass.gObj.fetchedData){
+                    virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
+                } else {
+                    this.fetchAllData();
+                }
             },
+
             showPpts:function(content){
                 //var list = document.getElementById("videoList");
                 var elem = document.getElementById("listppt");
@@ -1081,6 +1061,7 @@
                         }
                        // virtualclass.sharePt.afterPptSaved(pptObj);
                     });
+                    virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
 
                 }
 

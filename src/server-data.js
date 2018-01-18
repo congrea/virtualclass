@@ -3,40 +3,47 @@ var serverData = {
     fetchAllData : function (cb){
         console.log('Fetch all data');
         this.cb = cb;
-        var data = "Demo";
-        this.requestData("https://api.congrea.net/t/GetDocumentURLs", data);
+        this.requestData("https://api.congrea.net/t/GetDocumentURLs");
     },
 
-    requestData :function(url, data, success) {
-        var params = typeof data == 'string' ? data : Object.keys(data).map(
-            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-        ).join('&');
-
+    requestData :function(url) {
+        this.rawData = {video:[], ppt:[], docs:[]};
         var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
         xhr.open('POST', url);
         var that = this;
         xhr.onreadystatechange = function() {
             if (xhr.readyState > 3 && xhr.status == 200) {
-                // console.log(xhr.responseText);
-                that.formatRawData(xhr.responseText);
-                if(typeof that.cb != 'undefined'){
-                    // virtualclass.videoUl.UI.awsVideoList();
-                    that.cb();
-                }
+                // that.formatRawData(xhr.responseText);
+                // if(typeof that.cb != 'undefined'){
+                //     that.cb();
+                // }
+                that.afterResponse(xhr.responseText);
             }
         };
-
-        /** TODO(important), that should be used with xhrn.js **/
 
         xhr.setRequestHeader('x-api-key', wbUser.lkey);
         xhr.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
         xhr.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
         xhr.setRequestHeader('x-congrea-room', wbUser.rm);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(params);
-        return xhr;
+        xhr.send(null);
+
     },
 
+    // requestData3 :function(url) {
+    //     this.rawData = {video:[], ppt:[], docs:[]};
+    //     virtualclass.xhrn.sendData(null, url, this.afterResponse);
+    // },
+
+    afterResponse : function (responseText){
+        if(responseText != 'ERROR'){
+            virtualclass.serverData.formatRawData(responseText);
+            virtualclass.gObj.fetchedData = true;
+            if(typeof virtualclass.serverData.cb != 'undefined'){
+                virtualclass.serverData.cb();
+            }
+        }
+    },
 
     /* To move this function */
     formatRawData:function(raw){
@@ -44,7 +51,6 @@ var serverData = {
         this.awsUrlArr(awsData);
     },
 
-    //nirmala aws
     awsUrlArr:function(data){
         var processedArr =[];
         var arr = data.Items;
@@ -145,6 +151,7 @@ var serverData = {
                         obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
                         obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
                         processedArr.push(obj);
+                        this.rawData.video.push(obj);
                         break;
 
                     case 'video_yts':
@@ -153,6 +160,7 @@ var serverData = {
                         obj.urls={};
                         obj.urls.main_video = obj.URL;
                         processedArr.push(obj);
+                        this.rawData.video.push(obj);
                         break;
 
                     case 'presentation':
@@ -162,6 +170,7 @@ var serverData = {
                         obj.urls = {};
                         obj.urls.presentation = obj.URL;
                         processedArr.push(obj);
+                        this.rawData.ppt.push(obj);
                         break;
                     case 'video_online' :
                         console.log('Handle one line ');
@@ -169,8 +178,8 @@ var serverData = {
                         obj.urls={};
                         obj.urls.main_video = obj.URL;
                         processedArr.push(obj);
+                        this.rawData.video.push(obj);
                         break;
-
 
                 }
             }
@@ -185,7 +194,6 @@ var serverData = {
 
     },
 
-    //nirmala aws
     processObj:function(obj){
         var temp = {};
         // temp.filetag= obj.fileetag.S;
@@ -234,7 +242,6 @@ var serverData = {
 
     pollingStatus : function (cb){
         var url = 'https://api.congrea.net/t/GetDocumentStatus';
-
         if(virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')){
             clearTimeout(virtualclass.gObj.pollingDocumentStatus);
         }

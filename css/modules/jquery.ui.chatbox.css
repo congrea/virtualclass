@@ -131,7 +131,11 @@
     z-index: 10000;
 }
 
-#virtualclassCont.congrea #stickycontainer .uiMuteAll {cursor: pointer; padding-top: 1px; width:20%;}
+#virtualclassCont.congrea #stickycontainer .uiMuteAll {
+    cursor: pointer;
+    padding-top: 1px;
+    /*width:20%;*/
+}
 #virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
     float: right;
     width: 324px;
@@ -485,7 +489,7 @@
 
 #virtualclassCont.congrea .vmchat_bar_button{
     border-right:none;
-    width:130px;
+    /*width:130px;*/
     cursor: pointer;
 }
 #virtualclassCont.congrea .vmchat_bar_button.active{

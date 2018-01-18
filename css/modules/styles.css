@@ -1700,7 +1700,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer , #virtualclassCont.congrea #confirm.popupWindow.simple-box {
-	/*padding: 30px;*/
+	padding: 30px;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel{
@@ -3154,8 +3154,12 @@
 	pointer-events : none;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt{
-	width:39%;
+#virtualclassCont.congrea .vmchat_room_bt, #virtualclassCont.congrea .vmchat_bar_button{
+	width:40%;
+}
+
+#virtualclassCont.congrea #stickycontainer .uiMuteAll{
+	width:19%;
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{

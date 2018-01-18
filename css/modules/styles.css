@@ -3165,3 +3165,13 @@
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
 	z-index: 1;
 }
+
+#virtualclassCont.congrea #layoutQuizBody .table > tr >th,
+#virtualclassCont.congrea #layoutQuizBody .table > tr >td {
+    border-left: 1px solid #ddd;
+}
+
+#virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > thead > tr > th{
+	 border-bottom-width: 1px;
+	border-top:1px;
+}

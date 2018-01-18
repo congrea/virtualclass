@@ -34,6 +34,7 @@
 }
 #virtualclassCont.congrea #layoutQuizBody .quizList{
   margin: 0;
+  color: #333;
 }
 #virtualclassCont.congrea #layoutQuizBody h4#quizListHead{
 
@@ -46,7 +47,7 @@
 }
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont{
   /*background-color: #eee;*/
-  border: 1px solid #ccc;
+  border: 1px solid #ccccccab;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;

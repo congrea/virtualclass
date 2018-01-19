@@ -216,7 +216,7 @@
                         order.push(virtualclass.sharePt.activeppts[j].fileuuid);
                     }
                 }
-                
+
                 for (var i = 0; i < order.length; i++) {
                     var elem = document.getElementById('linkppt' + order[i])
                     if (elem) {
@@ -251,7 +251,7 @@
                 //     that.afterDeleteCallback(msg)
                 // });
 
-                virtualclass.xhrn.sendData(url, data, function (msg) {
+                virtualclass.xhrn.sendData(data, url, function (msg) {
                     that.afterDeletePtCallback(msg, id)
                 });
 
@@ -1082,11 +1082,12 @@
             requestOrder: function (rdata) {
                 virtualclass.vutil.requestOrder("presentation",function(data){
                     console.log(data)
-                    virtualclass.sharePt.order= data;
-                    if (virtualclass.sharePt.order.length > 0) {
-                        virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                    if(virtualclass.vutil.isResponseAvailable(data)){
+                        virtualclass.sharePt.order= data;
+                        if (virtualclass.sharePt.order.length > 0) {
+                            virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+                        }
                     }
-
                 })
                 // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
                 //     var content = JSON.parse(msg);

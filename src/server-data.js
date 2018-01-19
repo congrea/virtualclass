@@ -1,5 +1,6 @@
 var serverData = {
     rawData : {video:[], ppt:[], docs:[]},
+
     fetchAllData : function (cb){
         console.log('Fetch all data');
         this.cb = cb;
@@ -48,10 +49,12 @@ var serverData = {
     /* To move this function */
     formatRawData:function(raw){
         var awsData= JSON.parse(raw);
+
         this.awsUrlArr(awsData);
     },
 
     awsUrlArr:function(data){
+        this.rawData = {video:[], ppt:[], docs:[]};
         var processedArr =[];
         var arr = data.Items;
         var newArr=[];

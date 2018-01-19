@@ -3172,6 +3172,16 @@
 }
 
 #virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > thead > tr > th{
-	 border-bottom-width: 1px;
+	border-bottom-width: 1px;
 	border-top:1px;
+}
+
+#virtualclassCont.congrea.teacher .ui-widget-content,
+#virtualclassCont.congrea.student .ui-widget-content {
+    background-color : #ffffff;
+}
+
+#virtualclassCont.congrea.teacher .ui-corner-all.ui-chatbox-icon,
+#virtualclassCont.congrea.student .ui-corner-all.ui-chatbox-icon{
+   max-height: 42px !important;
 }

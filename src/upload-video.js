@@ -106,69 +106,6 @@
 
             },
 
-
-            /*
-             * on reload if videolist is stored in localstorage, it would be fetched from there
-             * @param  videoobj from localstorage, if stored as a metadata in prevapp
-
-             */
-
-            // videoListFromLocalStr: function (videoObj) {
-            //     // if data available in localstorage
-            //     if (typeof videoObj != 'undefined' && videoObj.hasOwnProperty('fromReload')) {
-            //         this.videos = JSON.parse(localStorage.getItem("videoList"));
-            //
-            //         // if videos available
-            //         if (this.videos && this.videos.length > 0) {
-            //
-            //             this.showVideos(this.videos, videoObj.init.videoId);
-            //             this.order = JSON.parse(localStorage.getItem("videoOrder"));
-            //             this.reArrangeElements(this.order); // 3, local storage
-            //             localStorage.removeItem("videoList");
-            //             localStorage.removeItem("videoOrder");
-            //         } else {
-            //             // if videolist is empty
-            //             var type = "video";
-            //             var firstId = "congrea" + type + "ContBody";
-            //             var secondId = "congreaShareVideoUrlCont";
-            //             var elemArr = [firstId, secondId];
-            //             this.modalPopup(type, elemArr);
-            //         }
-            //
-            //     } else {
-            //         // When user come at first time i.e  no localstorage video data  available
-            //         var list = "onlyRetrieve";
-            //         //this.getVideoList(list);
-            //     }
-            // },
-            //
-            // /*
-            //  * rearranges  videos in playlist based on  updated order
-            //  * @param  order of videolist element ,to be called each time,when
-            //  * order changes or videolist to be displayed
-            //
-            //  */
-            //
-            // //virtualclass.videoUl.videos
-            //
-            // reArrangeElementsOld: function (order) {
-            //     var container = document.getElementById('listvideo'),
-            //     tmpdiv = document.createElement('div');
-            //     tmpdiv.id = "listvideo";
-            //     tmpdiv.className = "videos";
-            //
-            //     this.order = order;
-            //
-            //     for (var i = 0; i < order.length; i++) {
-            //         var elem = document.getElementById('linkvideo' + order[i])
-            //         if (elem) {
-            //             tmpdiv.appendChild(elem);
-            //         }
-            //     }
-            //
-            //     container.parentNode.replaceChild(tmpdiv, container);
-            // },
-
             reArrangeElements: function (order) {
                 var container = document.getElementById('listvideo'),
                     tmpdiv = document.createElement('div');
@@ -243,49 +180,6 @@
                 localStorage.setItem('videoOrder', JSON.stringify(virtualclass.videoUl.order));
             },
 
-            /*
-             * request order from database to rearrange videolist
-             * @param  id id of video
-
-             */
-            // requestOrderOld: function (rdata) {
-            //     virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
-            //         var content = JSON.parse(msg);
-            //         if (content.message == "Failed") {
-            //             console.log("page order retrieve failed");
-            //         } else {
-            //             if (content) {
-            //                 virtualclass.videoUl.order = [];
-            //                 virtualclass.videoUl.order = content.split(',');
-            //                 console.log('From database ' + virtualclass.videoUl.order.join(','));
-            //             }
-            //             if (virtualclass.videoUl.order.length > 0) {
-            //                 virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
-            //             }
-            //         }
-            //     });
-            // },
-
-
-            requestOrder2: function () {
-                var url = 'https://api.congrea.net/t/GetRoomMetaData';
-                virtualclass.xhrn.sendData({noting:true}, url, function (response) {
-                    if (response == "Error") {
-                        console.log("page order retrieve failed");
-                    } else {
-                        var response = JSON.parse(response).Item;
-                        if (response.order.S) {
-                            virtualclass.videoUl.order = [];
-                            virtualclass.videoUl.order = response.order.S.split(',');
-                            console.log('From database ' + virtualclass.videoUl.order.join(','));
-                        }
-
-                        if (virtualclass.videoUl.order.length > 0) {
-                            virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
-                        }
-                    }
-                });
-            },
 
             requestOrder : function () {
                 virtualclass.vutil.requestOrder('vid',
@@ -342,9 +236,8 @@
                     virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
 
                 } else if (res == "Failed" || res == "error" || res == "duplicate") {
-                    alert("video upload failed");
+                    virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 } else {
-                    alert("video upload failed");
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 }
 
@@ -354,25 +247,6 @@
                 }
             },
 
-            // pollingStatus : function (url){
-            //     if(virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')){
-            //         clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-            //     }
-            //     var that = this;
-            //     virtualclass.gObj.pollingDocumentStatus = setTimeout(
-            //         function (){
-            //             virtualclass.xhrn.sendData({uuid : virtualclass.gObj.file.uuid}, url, function (response) {
-            //                 var responseObj = JSON.parse(response).Item;
-            //                 if(responseObj.hasOwnProperty('processed_data') && responseObj.processed_data.S == 'COMPLETED'){
-            //                     clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-            //                     virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
-            //                 } else {
-            //                     that.pollingStatus(url);
-            //                 }
-            //             });
-            //         }, 5000
-            //     );
-            // },
 
             afterUploadVideo2: function (id, xhr, res) {
                 var res = res.result;
@@ -387,26 +261,7 @@
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 }
 
-                // if (res.message == "success") {
-                //     virtualclass.videoUl.order.push(res.resultdata.id);
-                //     virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-                //     virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
-                //
-                // } else if (res.message == "Failed") {
-                //     alert("video upload failed");
-                //    // virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
-                //
-                //
-                // } else if (res.message == "duplicate") {
-                //     alert("video is already uploaded");
-                //     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
-                //
-                // } else {
-                //     //fallback
-                //     alert("video upload failed");
-                //     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
-                //
-                // }
+
 
                 var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
                 if(msz){
@@ -440,43 +295,11 @@
 
             },
 
-            retrieveOrder2: function () {
-                var rdata = new FormData();
-                rdata.append("live_class_id", virtualclass.gObj.congCourse);
-                rdata.append("content_order_type", "2");
-                this.requestOrder(rdata);
-
-            },
-
             retrieveOrder: function () {
                 this.requestOrder();
             },
 
-            /*
-             * retrieve videolist from database
-             */
-            // getVideoList awsr();
-            // getVideoList: function () {
-            //     var data = new FormData();
-            //     data.append("live_class_id", virtualclass.gObj.congCourse);
-            //     data.append("type", "2");
-            //     var cthis = this;
-            //     virtualclass.xhr.sendFormData(data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_video", function (msg) {
-            //         var content = JSON.parse(msg);
-            //         if (content.message!= "noVideo") {
-            //             virtualclass.videoUl.videos = content;
-            //             virtualclass.videoUl.allPages = content;
-            //             var type = "video";
-            //             var firstId = "congrea" + type + "ContBody";
-            //             var secondId = "congreaShareVideoUrlCont";
-            //             var elemArr = [firstId, secondId];
-            //             virtualclass.videoUl.showVideos(content);
-            //             virtualclass.videoUl.retrieveOrder();
-            //         } else {
-            //             console.log(msg);
-            //         }
-            //     });
-            // },
+
 
             afterUploadFile: function (vidObj) {
                 var idPostfix = vidObj.fileuuid;
@@ -530,24 +353,6 @@
                     minHeight:h
 
                 })
-
-            },
-            modalPopup: function (type, elemArr) {
-                if ($('#listvideo .linkvideo.playing').length > 0) {
-                    var id = $('#listvideo .linkvideo.playing').attr('data-rid')
-                    this.currPlaying = id;
-                }
-
-                var upload = {}
-                upload.wrapper = document.getElementById(elemArr[0]);
-                upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id=" + virtualclass.gObj.congCourse + "&status=1&content_type_id=2&user=" + virtualclass.gObj.uid;
-                upload.cb = virtualclass.videoUl.afterUploadVideo;
-                upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
-                    "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
-                virtualclass.vutil.modalPopup('video', ["congreavideoContBody", "congreaShareVideoUrlCont"]);
-                var cont = document.getElementById("contFooter");
-                virtualclass.videoUl.UI.createYoutubeUrlCont(cont);
-
 
             },
 
@@ -742,17 +547,6 @@
 
 
             },
-
-            sendOrder2: function (order) {
-                var data = {
-                    'content_order': order.toString(),
-                    content_order_type: 2,
-                    live_class_id: virtualclass.gObj.congCourse
-                };
-                virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order', function (response) {
-                });
-            },
-
 
 
             sendOrder: function (order, type) {
@@ -1129,26 +923,6 @@
                 }
             },
 
-            /*
-             * to retrive order from data base
-             */
-            xhrOrderSendOld: function (order) {
-
-                var data = {'content_order': order.toString(), content_order_type: 2}
-                data.live_class_id = virtualclass.gObj.congCourse;
-                var form_data = new FormData();
-                for (var key in data) {
-                    form_data.append(key, data[key]);
-                    console.log(data[key]);
-                }
-                //                    window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_enable_video"
-                var path = window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_page_order";
-                var cthis = this;
-                virtualclass.xhr.sendFormData(form_data, path, function () {
-                    virtualclass.videoUl.getVideoList();
-                });
-            },
-
             xhrOrderSend: function (order) {
                 var data = {order:order.toString()};
                 var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
@@ -1416,18 +1190,6 @@
 
                     }
                     console.log("ended" + vidId)
-                    // var index = virtualclass.videoUl.order.indexOf(vidId);
-                    // if (index < virtualclass.videoUl.order.length - 1 && index >= 0) {
-                    //     virtualclass.videoUl.listEnd = false;
-                    // } else {
-                    //     virtualclass.videoUl.listEnd = true;
-                    //     vidId = -1;
-                    // }
-                    //
-                    // if (virtualclass.videoUl.autoPlayFlag) {
-                    //     virtualclass.videoUl.autoPlayList(index + 1);
-                    //
-                    // }
 
 
 
@@ -1469,37 +1231,6 @@
                             var id  = virtualclass.vutil.createHashString(input.value)+virtualclass.vutil.randomString(32).slice(1, -1);
 
                              virtualclass.videoUl.UI.saveYtsUrl(id)
-
-
-
-
-
-                            // var vidObj= {};
-                            // vidObj.uuid = id;
-                            // vidObj.URL = input.value;
-                            // vidObj.title = input.value;
-                            // var url = ' https://api.congrea.net/t/addURL';
-                            //
-                            //
-                            // if (typeof videoId == 'boolean') {
-                            //     vidObj.type = 'video_online';
-                            // }else  {
-                            //     vidObj.type="video_yts"
-                            // }
-
-                            // virtualclass.xhrn.sendData(vidObj, url, function (response) {
-                            //     // virtualclass.videoUl.afterUploadFile(vidObj);
-                            //     virtualclass.videoUl.order.push(vidObj.uuid);
-                            //
-                            //     // TODO, Critical this need be re-enable
-                            //     // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-                            //     virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-                            //
-                            //     virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
-                            // });
-                            //
-                            //
-                            // document.querySelector(".congrea #videourl").value = "";
                         }
                     });
 
@@ -1665,33 +1396,6 @@
                     this.postAjax("https://api.congrea.net/t/GetDocumentURLs",data)
                 },
 
-                //nirmala aws
-                // postAjax:function(url, data, success) {
-                //     var params = typeof data == 'string' ? data : Object.keys(data).map(
-                //         function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-                //     ).join('&');
-                //
-                //     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-                //     xhr.open('POST', url);
-                //
-                //     xhr.onreadystatechange = function() {
-                //         if (xhr.readyState>3 && xhr.status==200) {
-                //
-                //             console.log(xhr.responseText);
-                //             virtualclass.videoUl.UI.formatRawData(xhr.responseText)
-                //             virtualclass.videoUl.UI.awsVideoList()
-                //             console.log("nirmala m");
-                //         }
-                //     };
-                //     xhr.setRequestHeader('x-api-key', 'yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2');
-                //     xhr.setRequestHeader('x-congrea-authuser', '46ecba46bc1598c1ec4c');
-                //     xhr.setRequestHeader('x-congrea-authpass', '2bf8d3535fdff8a74c01');
-                //     xhr.setRequestHeader('x-congrea-room', '12323');
-                //     xhr.setRequestHeader('Content-Type', 'application/json');
-                //     xhr.send(params);
-                //     return xhr;
-                // },
-
 
                 awsVideoList : function(){
                     var data = virtualclass.awsData;
@@ -1712,132 +1416,7 @@
                     // var elemArr = [firstId, secondId];
                     virtualclass.videoUl.showVideos(videos);
                     virtualclass.videoUl.retrieveOrder();
-                },
-
-                // // to move this function
-                // // nirmala aws
-                // formatRawData:function(raw){
-                //     var awsData= JSON.parse(raw);
-                //     console.log("***************");
-                //     console.log(awsData);
-                //     this.awsUrlArr(awsData);
-                //
-                // },
-                //
-                // //nirmala aws
-                // awsUrlArr:function(data){
-                //     var processedArr =[];
-                //     var arr = data.Items;
-                //     var newArr=[];
-                //     var prefix = "https://media.congrea.net/";
-                //     var doc="https://media.congrea.net";
-                //     var  imageUrl,pdfUrl,thnailUrl;
-                //
-                //     for(var j =0; j<arr.length; j++) {
-                //         switch(arr[j].filetype.S) {
-                //             case "doc":
-                //                 var obj=this.processObj(arr[j]);
-                //                 obj.urls={};
-                //                 obj.urls.image={};
-                //                 obj.urls.pdf={};
-                //                 obj.urls.thumbnail={};
-                //
-                //                 var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
-                //                 var count = parseInt(arr[j].processed_data.M.count.N);
-                //                 for(var i =1 ; i<=count;i++){
-                //                     var num =pad(i,3);
-                //                     imageUrl = docPrefix +"/image/"+num+"."+arr[j].processed_data.M.image.M.type.S;
-                //                     pdfUrl = docPrefix +"/pdf/"+num+".pdf";
-                //                     thnailUrl = docPrefix +"/thumbnail/"+num+"."+arr[j].processed_data.M.thumbnail.M.type.S;
-                //                     obj.urls.image[i]=imageUrl;
-                //                     obj.urls.pdf[i]=pdfUrl;
-                //                     obj.urls.thumbnail[i]=thnailUrl;
-                //
-                //                 }
-                //                 processedArr.push(obj);
-                //                 break;
-                //
-                //             case  'video':
-                //                 var obj=this.processObj(arr[j]);
-                //                 var add  = obj.filepath.substr(0,obj.filepath.lastIndexOf("/"));
-                //                 obj.urls={};
-                //                 obj.urls.thumbnail={};
-                //                 obj.urls.videos={};
-                //                 obj.urls.main_video =prefix+ add+"/video/play_video.m3u8";
-                //                 obj.urls.videos["0400k"]=prefix+add+"/video/0400k/video.m3u8";
-                //                 obj.urls.videos["0600k"]=prefix+add+"/video/0600k/video.m3u8";
-                //                 obj.urls.videos["1000k"]=prefix+add+"/video/1000k/video.m3u8";
-                //                 obj.urls.videos["1500k"]=prefix+add+"/video/1500k/video.m3u8";
-                //                 obj.urls.videos["2000k"]=prefix+add+"/video/2000k/video.m3u8";
-                //
-                //
-                //                 obj.urls.thumbnail["0400k"]=prefix+add+"/video/0400k/thumbs/00001.png";
-                //                 obj.urls.thumbnail["0600k"]=prefix+add+"/video/0600k/thumbs/00001.png";
-                //                 obj.urls.thumbnail["1000k"]=prefix+add+"/video/1000k/thumbs/00001.png";
-                //                 obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
-                //                 obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
-                //                 processedArr.push(obj);
-                //                 break;
-                //
-                //             case 'video_yts':
-                //                 console.log('Handle youtube');
-                //                 var obj = this.processVidUrlObj(arr[j]);
-                //                 obj.urls={};
-                //                 obj.urls.main_video = obj.URL;
-                //                 processedArr.push(obj);
-                //                 break;
-                //         }
-                //     }
-                //
-                //     virtualclass.awsData= processedArr;
-                //     console.log(virtualclass.awsData);
-                //
-                //
-                //     function pad(n, length) {
-                //         var len = length - (''+n).length;
-                //         return (len > 0 ? new Array(++len).join('0') : '') + n
-                //     }
-                //
-                // },
-                //
-                // //nirmala aws
-                // processObj:function(obj){
-                //     var temp = {};
-                //     // temp.filetag= obj.fileetag.S;
-                //     temp.filename= obj.filename.S;
-                //     temp.filepath= obj.filepath.S;
-                //     temp.filetype= obj.filetype.S;
-                //     temp.fileuuid = obj.fileuuid.S;
-                //     temp. key_room= obj.key_room.S;
-                //     temp.fileuuid = obj.fileuuid.S;
-                //     if(obj.hasOwnProperty('deleted')){
-                //         temp.deleted = obj.deleted.NS[0];
-                //     }
-                //
-                //     if(obj.hasOwnProperty('disabled')){
-                //         temp.disabled = obj.disabled.NS[0];
-                //     }
-                //     return temp;
-                // },
-                //
-                //
-                // processVidUrlObj:function(obj){
-                //     var temp = {};
-                //     // temp.filetag= obj.fileetag.S;
-                //     temp.URL= obj.URL.S;
-                //     temp.filename= temp.URL;
-                //     temp.filetype= obj.filetype.S;
-                //     temp.fileuuid = obj.fileuuid.S;
-                //     temp. key_room= obj.key_room.S;
-                //     temp.fileuuid = obj.fileuuid.S;
-                //     if(obj.hasOwnProperty('deleted')){
-                //         temp.deleted = obj.deleted.NS[0];
-                //     }
-                //      if(obj.hasOwnProperty('disabled')){
-                //         temp.disabled = obj.disabled.NS[0];
-                //     }
-                //     return temp;
-                // }
+                }
             },
         };
     };

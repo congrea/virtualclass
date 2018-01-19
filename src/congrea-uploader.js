@@ -92,7 +92,7 @@
                     template: 'qq-template-gallery',
                     debug: true,
                     multiple : obj.multiple,
-                    validation :  {allowedExtensions : obj.validation},
+                    validation :  {allowedExtensions : obj.validation, minSizeLimit : (4*1024)}, // minimum file should be 4k b limit
                     request: {
                         endpoint: 'https://uploadmedia.congrea.net',
                         accessKey: "AKIAJV7RJOFBDFVY62EQ"

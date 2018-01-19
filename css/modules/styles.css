@@ -3195,3 +3195,8 @@
    width: 67.333333%;
    padding-right: 0px;
 }
+
+#virtualclassCont.congrea #virtualclassPreCheck #myModal{
+   width:100%;
+   margin-left: 0px; 
+}

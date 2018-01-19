@@ -129,7 +129,7 @@
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="1"]::before {
   content: "\e94e";
   font-family: 'icomoon';
-  font-size:20px;
+  font-size:18px;
 }
 
 
@@ -527,7 +527,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 }
 #virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before {
-  font-size: 17px;
+  /**font-size: 17px;**/
   color: rgba(0, 0, 0, 0.81);
 }
 #virtualclassCont.congrea #listvideo .linkvideo .controls.edit a:before{

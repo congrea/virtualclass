@@ -3185,3 +3185,13 @@
 #virtualclassCont.congrea.student .ui-corner-all.ui-chatbox-icon{
    max-height: 42px !important;
 }
+
+#virtualclassCont.congrea #listvideo .linkvideo .mainpreview,
+#virtualclassCont.congrea #listppt .linkppt .mainpreview {
+   margin: -3px 2px 3px !important;
+}
+
+#virtualclassCont.congrea .videoTitleCont {
+   width: 67.333333%;
+   padding-right: 0px;
+}

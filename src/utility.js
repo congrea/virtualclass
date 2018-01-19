@@ -2451,7 +2451,10 @@
 
             virtualclass.vutil.makeElementActive(activeElem);
             virtualclass.vutil.makeElementDeactive(deactiveElem);
+        },
 
+        isResponseAvailable : function (reponse){
+            return (reponse != undefined && reponse != 'undefined' && reponse != null)
         }
     };
     window.vutil = vutil;

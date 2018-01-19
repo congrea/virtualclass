@@ -1621,7 +1621,6 @@
 
                     // virtualclass.videoUl.UI.awsr();
                     // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
-
                     if(!virtualclass.vutil.isBulkDataFetched() || !virtualclass.videoUl.videos.length){
                         virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     } else {

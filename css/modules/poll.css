@@ -319,11 +319,12 @@ pointer-events:none;
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive{
   height:93%;
   /*border-bottom: 1px solid lightgray;*/
-  border-top: 1px solid lightgray;
+  border-top: 0px solid #ddddddad;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList{
   margin-bottom: 0px;
+  color: #333;
 }
 
 #virtualclassCont.congrea #addMoreCont #addMoreOption{

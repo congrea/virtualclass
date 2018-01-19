@@ -34,6 +34,7 @@
 }
 #virtualclassCont.congrea #layoutQuizBody .quizList{
   margin: 0;
+  color: #333;
 }
 #virtualclassCont.congrea #layoutQuizBody h4#quizListHead{
 
@@ -46,7 +47,7 @@
 }
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont{
   /*background-color: #eee;*/
-  border: 1px solid #ccc;
+  border: 1px solid #ccccccab;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -173,9 +174,9 @@
 }
 
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt {
-  position: relative;
-  left: 87%;
-  bottom: 392px;
+  position: fixed;
+  left: 84%;
+  top: 63px;
   color:#337ab7;
   padding:8px;
   border: 1px solid #337ab7;
@@ -225,6 +226,9 @@
 
 #virtualclassCont.congrea #layoutQuizBody #timeText {
   font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
 }
 
 #virtualclassCont.congrea #layoutQuizBody div#QstnName {
@@ -284,4 +288,17 @@ span.sch {
 
 #virtualclassCont.congrea #virtualclassQuiz{
   margin-top : 5px;
+}
+
+.path-mod-congrea-quiz ul.answers {
+  padding:0px;
+}
+
+#virtualclassCont.congrea #slickQuiz ol.questions {
+  padding:0px;
+}
+
+#virtualclassCont.congrea #slickQuiz {
+  color: #333;
+  font-size: 14px;
 }

@@ -556,8 +556,8 @@
                     virtualclass.videoUl.showVideoList();
                 }
                 var currId = virtualclass.videoUl.currPlaying || storedId;
-                if (currId) {
-                    virtualclass.videoUl.activeVideoClass(currId);
+                if (virtualclass.videoUl.videoId) {
+                    virtualclass.videoUl.activeVideoClass(virtualclass.videoUl.videoId);
                 }
             },
 
@@ -998,7 +998,7 @@
 
             findNextVideoId:function(index){
                 var list = document.querySelectorAll("#listvideo .linkvideo");
-                 if(index <= list.length){
+                 if(index < list.length){
                      return list[index].getAttribute("data-rid")
                  }else{
                      return false
@@ -1305,9 +1305,9 @@
                 createVideoElem: function (videoCont,type) {
                     var video ="";
                     if(virtualclass.videoUl.yts){
-                        video = "<video id=dispVideo class=video-js controls  preload=auto data-setup='{ techOrder: [youtube], sources: [{ type: video/youtube}] }' >";
+                        video = "<video id=dispVideo class=video-js controls  preload=auto data-setup='{ techOrder: [youtube], sources: [{ type: video/youtube}] }' autoplay >";
                     }else{
-                        video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
+                        video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}"  autoplay>';
                     }
 
                     $(videoCont).append(video);
@@ -1444,7 +1444,32 @@
                         if(player.poster_){
                             player.poster_="";
                         }
-                        virtualclass.videoUl.autoPlayList(index + 1,list);
+
+                        // findNextVideoId:function(index){
+                        //     var list = document.querySelectorAll("#listvideo .linkvideo");
+                        //     if(index <= list.length){
+                        //         return list[index].getAttribute("data-rid")
+                        //     }else{
+                        //         return false
+                        //     }
+                        //
+                        // },
+
+                        if(virtualclass.videoUl.findNextVideoId(index + 1)){
+                            virtualclass.videoUl.autoPlayList(index + 1,list);
+                        }else{
+
+                            player.on("play", function (e) {
+                                console.log("play");
+                                player.pause();
+                                // if (roles.hasControls()) {
+                                //     ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
+                                // }
+                                // virtualclass.videoUl.isPaused=false;
+
+                            });
+                        }
+
 
                     }
 

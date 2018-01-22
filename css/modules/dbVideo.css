@@ -238,7 +238,7 @@
 
 #virtualclassCont #listvideo .linkvideo{
   padding : 2px;
-  cursor : pointer;
+  cursor : move;
 }
 
 #virtualclassCont #listvideo .linkvideo:hover {

@@ -819,8 +819,6 @@
         initController: function () {
             var playControllerCont = document.getElementById('playControllerCont');
             if (playControllerCont != null) {
-                //TODO, This should be enable, this sets for demo purpose only
-                playControllerCont.style.display = 'none';
 
                 var that = this;
                 //init fast forward

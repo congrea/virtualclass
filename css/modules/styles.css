@@ -3105,7 +3105,7 @@
 }
 
 #virtualclassCont.congrea #playControllerCont {
-	display : none;
+	display : block;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassApp {
@@ -3172,6 +3172,31 @@
 }
 
 #virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > thead > tr > th{
-	 border-bottom-width: 1px;
+	border-bottom-width: 1px;
 	border-top:1px;
+}
+
+#virtualclassCont.congrea.teacher .ui-widget-content,
+#virtualclassCont.congrea.student .ui-widget-content {
+    background-color : #ffffff;
+}
+
+#virtualclassCont.congrea.teacher .ui-corner-all.ui-chatbox-icon,
+#virtualclassCont.congrea.student .ui-corner-all.ui-chatbox-icon{
+   max-height: 42px !important;
+}
+
+#virtualclassCont.congrea #listvideo .linkvideo .mainpreview,
+#virtualclassCont.congrea #listppt .linkppt .mainpreview {
+   margin: -3px 2px 3px !important;
+}
+
+#virtualclassCont.congrea .videoTitleCont {
+   width: 67.333333%;
+   padding-right: 0px;
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck #myModal{
+   width:100%;
+   margin-left: 0px; 
 }

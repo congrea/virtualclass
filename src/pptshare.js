@@ -35,6 +35,7 @@
             startFrom:0,
             currId:"",
             order:[],
+
             /*
              * Initalizes and creates ppt layout at student's and teacheh's ends
              * @param app sharePresentation

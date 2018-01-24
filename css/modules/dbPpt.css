@@ -289,6 +289,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   float: right;
   background: none;
   padding-top:8px;
+  margin-right: 10px;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controls.edit{
@@ -300,7 +301,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont .controls{
-  margin-left:22px !important;
+  margin-left:18px !important;
 }
 
 #virtualclassCont.congrea #listppt .linkppt:nth-child(odd)
@@ -324,7 +325,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="1"]::before {
   content: "\e94e";
   font-family: 'icomoon';
-  font-size:20px;
+  font-size:18px;
 
 }
 

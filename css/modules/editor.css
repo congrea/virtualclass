@@ -74,10 +74,11 @@
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: absolute;
   top: 12px;
-  right: 20px;
-  width: 110px;
-  text-align: center;
-  padding: 8px 0px;
+  right: 7px;
+  width: 63px;
+  /* padding-left: 5px; */
+  /* text-align: center; */
+  padding: 8px 8px 8px 8px;
   font-size: 14px;
   font-weight: 200;
   z-index: 0;

@@ -361,3 +361,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
   border:solid #98c2ff 1px;
 }
+
+
+#virtualclassCont #listppt .linkppt:hover {
+  /*border: 1px solid #ccc;*/
+  padding : 2px;
+  cursor : move;
+}

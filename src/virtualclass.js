@@ -497,6 +497,7 @@
                 if (app == "SharePresentation") {
                     //debugger;
                     if ("virtualclass" + app != virtualclass.previous) {
+
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
                     }
 
@@ -571,7 +572,21 @@
                         if(currVideo && currVideo.init && currVideo.init.videoUrl  && currVideo.fromReload ){
                             var hidepopup =true;
                         }
+
+
                         if(roles.hasControls() && app == 'Video'){
+                            if ("virtualclass" + app != virtualclass.previous) {
+
+
+                                var dashboardnav = document.querySelector('#dashboardnav button');
+                                if (dashboardnav != null) {
+                                    dashboardnav.setAttribute("data-currapp","Video")
+                                    if (dashboardnav.classList.contains('clicked')) {
+                                        dashboardnav.classList.remove("clicked")  ;
+
+                                    }
+                                }
+                            }
                             virtualclass.vutil.triggerDashboard(app,hidepopup);
                         }
 

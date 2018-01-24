@@ -923,6 +923,14 @@
             afterPptSaved:function(pptObj){
                 var idPostfix = pptObj.fileuuid;
                 // var docId = 'docs' + doc;
+
+                if(pptObj.hasOwnProperty("disabled")){
+                    pptObj.status=0
+                }else{
+                    pptObj.status=1
+                }
+
+
                 this.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', 'virtualclassSharePresentation', 'sharePt', pptObj.status);
                 this.pages[idPostfix].init(idPostfix, pptObj.URL);
                 this.pptClickHandler(pptObj);
@@ -937,7 +945,7 @@
                 titleCont.setAttribute("data-placement", "bottom");
                 titleCont.setAttribute("title", pptObj.URL);
 
-                if (pptObj.status == "0") {
+                if (pptObj.hasOwnProperty("disabled")) {
                     this._disable(pptObj.fileuuid)
                     if(ppt){
                         ppt.classList.add("disable");
@@ -949,6 +957,12 @@
                         ppt.classList.add("enable");
                     }
                 }
+                if(virtualclass.sharePt.currId == pptObj.fileuuid){
+
+                    ppt.classList.add("playing")
+
+                }
+
 
 
                // virtualclass.sharePt.activePrs(virtualclass.sharePt.currId);
@@ -1003,26 +1017,47 @@
                 var ppt = document.getElementById("mainpppt" + _id);
                 ppt.style.opacity = .3;
                 ppt.style.pointerEvents = 'none';
+
+                var link = document.querySelector("#linkppt" + _id)
+                if(link.classList.contains("enable")){
+                    link.classList.remove("enable");
+                }
+                link.classList.add("disable");
+
+
+
                 if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
                     virtualclass.sharePt.ppts.forEach(function (elem, i) {
-                        if (elem["id"] == _id) {
+                        if (elem["fileuuid"] == _id) {
+                            elem.disabled=0
                             elem.status = 0;
+
                         }
                     })
                 }
+
             },
 
             /*
              * to enable  ppt in the pptlist
              */
             _enable: function (_id) {
+
+                var link = document.querySelector("#linkppt" + _id)
+                if(link.classList.contains("disable")){
+                    link.classList.remove("diable");
+                }
+                link.classList.add("enable");
+
+
                 var ppt = document.getElementById("mainpppt" + _id);
                 if(ppt) {
                     ppt.style.opacity = 1;
                     ppt.style.pointerEvents = 'auto';
                     if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
                         virtualclass.sharePt.ppts.forEach(function (elem, i) {
-                            if (elem["id"] == _id) {
+                            if (elem["fileuuid"] == _id) {
+                                delete(elem.disabled);
                                 elem.status = 1;
                             }
                         })

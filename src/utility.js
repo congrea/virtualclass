@@ -577,17 +577,6 @@
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){
-                //debugger;
-                // if(virtualclass.videoUl.yts){
-                //     if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
-                //         prvAppObj.metaData = {
-                //             'init': virtualclass.yts.videoId,
-                //             startFrom: virtualclass.yts.player.getCurrentTime(),
-                //             type:'yts'
-                //         };
-                //     }
-                //
-                // }else{
                     if(virtualclass.videoUl.player){
                         var start=virtualclass.videoUl.player.currentTime();
                     }
@@ -600,6 +589,8 @@
                             yts:virtualclass.videoUl.yts,
                             online:virtualclass.videoUl.online,
                             isPaused:virtualclass.videoUl.isPaused,
+
+
 
                         },
                         startFrom: start,

@@ -532,13 +532,13 @@
 	font-size: 11px;
 }
 
-#virtualclassCont.congrea .zoomIn .congtooltip:hover:after {
+#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
 	top: 47px;
 	width: 50px;
-	right: 1010px;
+	right: 455px;
+	left: auto;
 	height: 20px;
-	left: 807px;
 	position: fixed;
 }
 
@@ -546,9 +546,9 @@
 	border: #ccc solid 1px;
 	top: 47px;
 	width: 53px;
-	right: 1010px;
+	right: 403px;
 	height: 20px;
-	left: 815px;
+	left: auto;
 	position: fixed;
 }
 
@@ -556,9 +556,9 @@
 	border: #ccc solid 1px;
 	top: 47px;
 	width: 66px;
-	right: 1010px;
+	right: 342px;
 	height: 20px;
-	left: 821px;
+	left: auto;
 	position: fixed;
 }
 
@@ -1235,7 +1235,7 @@
 #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
 	text-decoration : none;
 	outline-width : 0;
-	z-index : 1101 !important;
+	z-index : 1103 !important;
 	text-align : center;
 	line-height : 20px;
 	display : block;
@@ -2319,13 +2319,13 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea[data-currapp='Video'] .modal, #virtualclassCont.congrea[data-currapp='SharePresentation'] .modal{
-	width: calc(100% - 388px);
+	width: calc(100% - 383px);
 	margin-left: 0;
 	/*background-color: rgba(0, 0, 0, 0.7);*/
 	border-width: 0;
 	border-radius: 0;
 	margin-left : 59px;
-	height : 94vh;
+	height : 95vh;
 	background: none;
 }
 

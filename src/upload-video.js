@@ -361,8 +361,8 @@
                     virtualclass.videoUl.showVideoList();
                 }
                 var currId = virtualclass.videoUl.currPlaying || storedId;
-                if (currId) {
-                    virtualclass.videoUl.activeVideoClass(currId);
+                if (virtualclass.videoUl.videoId) {
+                    virtualclass.videoUl.activeVideoClass(virtualclass.videoUl.videoId);
                 }
             },
 
@@ -420,6 +420,8 @@
                     }
                     if(video){
                         video.addEventListener("click", function () {
+                            virtualclass.videoUl.isPaused=false;
+
                             if(vidObj.filetype == "video_yts"){
                                 virtualclass.videoUl.yts=true;
                                 virtualclass.videoUl.online=false
@@ -792,7 +794,7 @@
 
             findNextVideoId:function(index){
                 var list = document.querySelectorAll("#listvideo .linkvideo");
-                 if(index <= list.length){
+                 if(index < list.length){
                      return list[index].getAttribute("data-rid")
                  }else{
                      return false
@@ -1003,23 +1005,30 @@
                 },
 
                 videojsPlayer: function (videoUrl, vidId, startFrom) {
-                    var player = videojs("dispVideo"); //TODO, generating error need to handle
-                    if (roles.hasControls()) {
-                        if (!($('.vjs-autoPlay-button').length)) {
-                            virtualclass.videoUl.UI.appendAutoPlayButton(player);
+                    if(!virtualclass.videoUl.player){
+                        var player = videojs("dispVideo"); //TODO, generating error need to handle
+                        if (roles.hasControls()) {
+                            if (!($('.vjs-autoPlay-button').length)) {
+                                virtualclass.videoUl.UI.appendAutoPlayButton(player);
+                            }
+                            var autoPlayBtn = document.getElementById("autoPlayListBtn")
+                            if (autoPlayBtn) {
+                                autoPlayBtn.innerHTML = virtualclass.videoUl.innerHtml;
+                                autoPlayBtn.className = virtualclass.videoUl.autoPlayClass;
+                            }
                         }
-                        var autoPlayBtn = document.getElementById("autoPlayListBtn")
-                        if (autoPlayBtn) {
-                            autoPlayBtn.innerHTML = virtualclass.videoUl.innerHtml;
-                            autoPlayBtn.className = virtualclass.videoUl.autoPlayClass;
-                        }
+
+                        virtualclass.videoUl.player = player;
+                        virtualclass.videoUl.UI.attachPlayerHandler(player, vidId, videoUrl);
                     }
-                    virtualclass.videoUl.player = player;
-                    virtualclass.videoUl.UI.setPlayerUrl(player, videoUrl, startFrom);
-                    virtualclass.videoUl.UI.attachPlayerHandler(player, vidId, videoUrl);
+
+                    virtualclass.videoUl.UI.setPlayerUrl( virtualclass.videoUl.player, videoUrl, startFrom);
+
                 },
                 attachPlayerHandler: function (player, vidId, videoUrl) {
 
+
+                   // player.off("pause");
                     player.on("pause", function (e) {
                         console.log("paused");
                         if (roles.hasControls()) {
@@ -1028,6 +1037,8 @@
                         virtualclass.videoUl.isPaused=true;
 
                     });
+
+                    //player.off("play");
                     player.on("play", function (e) {
                         console.log("play");
                         if (roles.hasControls()) {
@@ -1037,9 +1048,6 @@
 
                     });
 
-                    player.on("fullscreenchange", function (e) {
-                        //virtualclass.videoUl.UI.onfullscreenChange(player);
-                    });
                     player.off("ended");
 
                     player.on("ended", function (e) {
@@ -1119,16 +1127,18 @@
 
                     }
 
-                    if (startFrom) {
+                   // if (startFrom) {
                         player.ready(function(){
                            var myPlayer = this;
                            if(!virtualclass.videoUl.isPaused){
                                myPlayer.play();
                            }
-                           myPlayer.currentTime(startFrom);
+                            if (startFrom) {
+                                myPlayer.currentTime(startFrom);
+                            }
                        });
 
-                    }
+                  //  }
                     console.log(startFrom)
 
                 },
@@ -1206,7 +1216,32 @@
                         if(player.poster_){
                             player.poster_="";
                         }
-                        virtualclass.videoUl.autoPlayList(index + 1,list);
+
+                        // findNextVideoId:function(index){
+                        //     var list = document.querySelectorAll("#listvideo .linkvideo");
+                        //     if(index <= list.length){
+                        //         return list[index].getAttribute("data-rid")
+                        //     }else{
+                        //         return false
+                        //     }
+                        //
+                        // },
+
+                        if(virtualclass.videoUl.findNextVideoId(index + 1)){
+                            virtualclass.videoUl.autoPlayList(index + 1,list);
+                        }else{
+                             virtualclass.videoUl.isPaused=true;
+                            // player.on("play", function (e) {
+                            //     console.log("play");
+                            //     player.pause();
+                                // if (roles.hasControls()) {
+                                //     ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
+                                // }
+                                // virtualclass.videoUl.isPaused=false;
+
+                           // });
+                        }
+
 
                     }
 

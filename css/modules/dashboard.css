@@ -104,6 +104,15 @@
 
 #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"]{
   border-top-color:#3585d5;
+
+}
+
+#virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"] .controlCont {
+  pointer-events :  none;
+}
+
+#virtualclassCont.congrea #listnotes .currentNav .controlCont {
+  pointer-events : none;
 }
 
 #virtualclassCont.congrea #docsListContainer {

@@ -216,14 +216,16 @@
                 var width = measureRes.width;
 
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-                if(virtualclass.currApp !=  'DocumentShare'){
-                    width = (width-50);
-                }
+                width = (width-50);
                 canvasWrapper.style.width = width;  //37
 
                 var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
+                if(virtualclass.currApp ==  'DocumentShare'){
+                    toolWrapperHeight += 20;
+                }
+
                 var canWrapperHeight = measureRes.height - toolWrapperHeight;
 
                 canvas.parentNode.height = canWrapperHeight;

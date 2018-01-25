@@ -62,7 +62,7 @@
 
 #virtualclassCont.congrea .ui-chatbox-msg {
     clear: both;
-    font-size: 12px;
+    font-size: 0px;
     line-height: 16px;
 }
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
@@ -640,7 +640,7 @@
     border-radius: 100%;
     border: #bbb solid 1px;
     width: 52px;
-    height: 45px;
+    height: 40px;
     margin-bottom: 5px;
 }
 #virtualclassCont.congrea .commonChatCon {

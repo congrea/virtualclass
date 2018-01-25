@@ -43,7 +43,7 @@
   position: absolute;
   text-align: center;
   text-transform: uppercase;
-  width: 110px;
+  width: 85px;
   border-radius: 5px;
 }
 
@@ -220,7 +220,7 @@
 
 #virtualclassCont.congrea #chat_div .controllereditorCode {
   float: left;
-  width: 25px;
+  /*width: 25px;*/
   text-align: center;
 }
 

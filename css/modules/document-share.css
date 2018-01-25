@@ -763,7 +763,7 @@
 }
 
 #virtualclassCont.congrea #listdocs {
-    max-height : 82vh;
+    max-height : 85vh;
     overflow : auto;
 }
 
@@ -772,7 +772,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] #dashboardContainer .modal-body {
-    height : 94.2%;
+    height : calc(100% - 57px);
 }
 
 #virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview{

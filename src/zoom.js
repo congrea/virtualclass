@@ -24,20 +24,32 @@
                 var elem = document.querySelector('.zoomControler');
                 var that = this;
 
+                var that = this;
                 var zoomIn = elem.querySelector('.zoomIn');
                 zoomIn.addEventListener('click', function (){
-                    that.zoomIn();
+                    that.zoomAction('zoomIn');
                 });
 
                 var zoomOut = elem.querySelector('.zoomOut');
                 zoomOut.addEventListener('click', function (){
-                    that.zoomOut();
+                    that.zoomAction('zoomOut');
                 });
 
                 var fitScreen = elem.querySelector('.fitScreen');
                 fitScreen.addEventListener('click', function (){
-                    that.fitToScreen();
+                    that.zoomAction('fitToScreen');
                 });
+
+            },
+
+
+            zoomAction : function (fnName){
+                var cthis = this;
+                setTimeout(
+                    function (){
+                        cthis[fnName].call(cthis);
+                    },300
+                );
             },
 
             zoomIn : function (normalZoom){
@@ -60,7 +72,7 @@
                         virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
                     }
                 }
-                },
+            },
 
             zoomOut : function (){
                 var wid = virtualclass.gObj.currWb;

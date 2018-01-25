@@ -1022,7 +1022,7 @@
 
 #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
 	width : 52px;
-	height : 45px;
+	height : 40px;
 	margin : 3px 0 0 2px;
 	outline : 1px solid #5A5757;
 	border: solid 1px;
@@ -1321,7 +1321,7 @@
 }
 
 #virtualclassCont.congrea.student #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.congtooltip:hover:after, #virtualclassCont.congrea.teacher #memlist .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls .controleCont a.congtooltip:hover:after {
-	bottom : -8px;
+	bottom : -11px;
 	left : auto;
 	right: -8px;
 }
@@ -1519,6 +1519,7 @@
 
 #virtualclassCont.congrea{
 	width : 100%;
+	overflow-y : hidden;
 }
 
 #virtualclassCont.congrea .other-client:before {
@@ -2661,8 +2662,8 @@
 }
 
 #virtualclassCont.congrea #memlist .congtooltip:hover:after {
-	bottom : -6em;
-	left : -14em;
+	bottom: -3em;
+	left: -13em;
 	text-transform: capitalize;
 }
 
@@ -3028,9 +3029,9 @@
 	overflow: hidden;
 }
 
-#virtualclassCont.congrea.teacher .zoomControler{
-	display: none;
-}
+/*#virtualclassCont.congrea.teacher .virtualclassScreenShare .zoomControler{*/
+	/*display: none;*/
+/*}*/
 
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
@@ -3201,11 +3202,35 @@
    margin-left: 0px; 
 }
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
-#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]{
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
+#alleditorCodeContainer [data-action="enable"]{
 	padding:0px !important;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]{
 	background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
 	color:#fff !important;
+}
+
+#virtualclassCont.congrea.playMode .zoomControler{
+	display: none;
+}
+
+#virtualclassCont.congrea #chat_room{
+	padding:0px;
+}
+
+#virtualclassCont.congrea .user-details.media-body.congtooltip{
+	z-index: 1104 !important;
+}
+
+#virtualclassCont.congrea .commonChatCon a:hover,#virtualclassCont.congrea.student .commonChatCon a:hover{
+  color: #6cad9d !important;
+	text-decoration: none;
+}
+
+#alleditorCodeContainer [data-action="disable"]{
+	padding:0px !important;
+	background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
+	color: #fff !important;
 }

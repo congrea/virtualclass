@@ -85,7 +85,6 @@
                         });
                 },
             //endpoint: 'https://uploadmedia.congrea.net',
-            //nirmala aws
             uploaderFn: function (obj) {
                 var dataObj = {
                     element: obj.wrapper,
@@ -256,41 +255,8 @@
                 // if(obj.hasOwnProperty('validation')){
                 //     dataObj.allowedExtensions = obj.validation;
                 // }
-
-
-                var galleryUploader= new qq.s3.FineUploader(dataObj);
-
-                // var dragAndDropModule = new qq.DragAndDrop({
-                //         dropZoneElements: [document.getElementById('listvideo')],
-                //         classes: {
-                //             dropActive: "videos"
-                //         },
-                //         callbacks: {
-                //             processingDroppedFiles: function() {
-                //                 alert("procesing dropped file")
-                //                 //TODO: display some sort of a "processing" or spinner graphic
-                //             },
-                //             processingDroppedFilesComplete: function(files) {
-                //                 //TODO: hide spinner/processing graphic
-                //                 alert("proceessing dropped file complete")
-                //                 fineUploaderBasicInstance.addFiles(files); //this submits the dropped files to Fine Uploader
-                //             }
-                //         }
-                //     })
-                //
-                //     fineUploaderBasicInstance = new qq.FineUploaderBasic({
-                //         request: {
-                //             endpoint: 'https://uploadmedia.congrea.net',
-                //             accessKey: "AKIAJV7RJOFBDFVY62EQ"
-                //         },
-                //     });
-
-
-
-
-
-
-           //     console.log(galleryUploader._options.objectProperties.key);
+               
+                    var galleryUploader = new qq.s3.FineUploader(dataObj);
             },
 
             onDragEnter : function (e){

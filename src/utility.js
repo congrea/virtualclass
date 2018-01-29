@@ -2,10 +2,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/** To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /*  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -81,53 +77,6 @@
             }
         },
 
-        setContainerWidth2 : function(res, app) {
-            var reduceHeight;
-            if (virtualclass.isPlayMode) {
-                reduceHeight += 75;
-            }else {
-                if (app == 'SharePresentation') {
-                    if(document.querySelector('#virtualclass' + app + '.pptSharing') != null){
-                        reduceHeight = 120;
-                    } else {
-                        //reduceHeight = reduceHeight - 42;
-                        reduceHeight = 28;
-                    }
-                }else if(app == 'Yts'){
-                    reduceHeight = 28;
-                }else if (app == 'EditorCode'){
-                    reduceHeight = 16;
-                }else {
-                    reduceHeight = 70;
-                }
-            }
-
-
-            var appId = 'virtualclassWhiteboard';
-            if (typeof virtualclass.previous != 'undefined') {
-
-                if ('virtualclass' + app != virtualclass.previous) {
-                    appId = 'virtualclass' + app;
-                } else {
-                    appId = virtualclass.previous;
-                }
-                //  appId = virtualclass.previous;
-            }
-
-            var appName = appId.split('virtualclass')[1];
-
-            appId = 'virtualclass' + virtualclass.vutil.capitalizeFirstLetter(appName);
-
-            var appCont = document.getElementById(appId);
-
-            virtualclass.gObj.currAppHeight  = (res.height - reduceHeight);
-            return;
-            if(appCont != null){
-                appCont.style.height = (res.height - reduceHeight) + 'px';
-                appCont.style.height = virtualclass.gObj.containerHeight + 'px';
-            }
-        },
-
         //TODO very critical and important for remove return
         setContainerWidth : function(res, app) {
             if(app != null){
@@ -158,14 +107,12 @@
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
                     if(virtualclass.gObj.currWb != null){
-                        var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
-                        var offset = vcan.utility.getElementOffset(leftSideBar);
+                        var offset = virtualclass.vutil.getElementOffset(leftSideBar);
                         leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
                     }
                 } else {
                     leftSideBarWidth = roles.hasControls() ? 60 : 5;
                 }
-
 
                 if (virtualclass.isPlayMode) {
                     reduceHeight += 75;

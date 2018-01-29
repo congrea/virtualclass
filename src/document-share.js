@@ -1210,7 +1210,7 @@
                             if(currElem != null){
                                 this.getScreen(currElem);
                             } else {
-                                alert(slideNum + ' is not found ');
+                                console.log('Document-Sharing:-'+ slideNum + ' is not found ');
                             }
                         },
 
@@ -1540,14 +1540,15 @@
 
             removePagesFromStructure: function (id){
                 var result = [];
-                for(var i in this.allNotes){
-                    if(this.allNotes[i].lc_content_id == id){
+                var i;
+                for(i in this.allNotes){
+                    totalExecute++;
+                    if(this.allNotes[i].id.indexOf(id) > -1){
                         this._removePageFromStructure(this.allNotes[i].id);
-                        this.removePagesFromStructure(id); // again we call the deltePages as allPages array is re-arranged
+                        //this.removePagesFromStructure(id); // again we call the deltePages as allPages array is re-arranged
                     }
                 }
             },
-
 
             _removePageFromStructure : function (id){
                 this.removeWhiteboardFromStorage('_doc_'+ id+'_'+ id);

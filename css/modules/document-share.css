@@ -778,3 +778,8 @@
 #virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview{
     pointer-events : none;
 }
+
+
+#virtualclassCont.congrea #notesContainer .note {
+    height : 94.5vh;
+}

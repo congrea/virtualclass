@@ -153,9 +153,12 @@
              * and highlight the naviation of that screen
              */
             setNoteScreen : function (docsObj){
-                var doc = this.getDocId(docsObj.slideNumber);
-                this.docs.executeScreen(doc, 'fromreload', undefined, docsObj.slideNumber);
-                this.setScreenByOrder(doc);
+               if(document.querySelector('#note' + docsObj.slideNumber + '.current.note') == null){
+                   var doc = this.getDocId(docsObj.slideNumber);
+                    this.docs.executeScreen(doc, 'fromreload', undefined, docsObj.slideNumber);
+                    this.setScreenByOrder(doc);  
+               }
+              
             },
 
             /**
@@ -716,8 +719,8 @@
                         cont.appendChild(elem);
                         elem.id ='DocumentShareDashboard'
                     }
-
-                    if(document.querySelector('.docsDbCont') == null) {
+                   
+                    if(document.querySelector('#docsDbCont') == null) {
                         // Creating  DOC's Dashboard
                         document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard("DocumentShare");
                         if(roles.hasControls()){
@@ -725,7 +728,7 @@
                             if(document.querySelector('#DocumentShareDashboard .qq-gallery')== null){
                                 virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                             }
-                            }
+                        }
                     }
                 },
 

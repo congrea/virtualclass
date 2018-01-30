@@ -115,7 +115,7 @@
                 divNode.className = "textBoxContainer";
                 divNode.style.position = 'absolute';
 
-                divNode.style.left = ((vcan.main.offset.x + obj.x) - virtualclass.leftPosX) + "px";
+                divNode.style.left = (obj.x - virtualclass.leftPosX) + "px";
                 divNode.style.top = (obj.y-virtualclass.topPosY) + "px";
 
                 var textNode = document.createElement('textarea');

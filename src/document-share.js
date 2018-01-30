@@ -107,7 +107,7 @@
                         }
                     } else if(this.allDocs != null && Object.keys(this.allDocs).length > 0){
                         console.log('Do nothing');
-                        this.afterFirstRequestDocs(this.allDocs, true);
+                        this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs, true);
                     } else {
                         // Only send the request to server
                         // when the docs is not in storage
@@ -164,7 +164,7 @@
             /**
              * This display the notes acorrding to order
              * Whatever the order will be on this.order,
-             * there will be dislay the notes according to this
+             * there will be display the notes according to this
              */
             setScreenByOrder : function (currDoc){
                 if(this.order != null && this.order.length > 0){
@@ -642,6 +642,9 @@
                     this.removePagesUI(doc);
                     if(!virtualclass.dts.noteExist()){
                         virtualclass.vutil.showUploadMsg('docsuploadContainer'); // file uploader container
+                        virtualclass.dts.docs.currNote = 0;
+                        virtualclass.dts.docs.currDoc = undefined;
+                        virtualclass.gObj.currWb = null;
                     }
 
                     if(!virtualclass.dts.docSelected()){
@@ -779,6 +782,10 @@
                     }
                 },
 
+                /**
+                 * Display leftbar navigation
+                 *
+                 */
                 createDocsNav : function (elem, docId){
                     // Please put below comment into console to create dummy
                     // var docScreenContainer = document.getElementById('docScreenContainer');
@@ -907,7 +914,7 @@
                     var cthis = this;
                     return function (){
                         if(typeof virtualclass.dts.docs.note == 'object'){
-                            virtualclass.vutil.updateCurrentDoc(doc, virtualclass.dts.docs.note.currNote);
+                            virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
                         }
                         cthis.executeScreen(doc);
                     }
@@ -1280,7 +1287,7 @@
                 if(appWrapper != null){
                     appWrapper.parentNode.removeChild(appWrapper);
                 } else {
-                    alert('Element is null');
+                    console.log('Element is null');
                 }
                 virtualclass.dts = null;
             },
@@ -1623,7 +1630,7 @@
                     if(note != null){
                         ioAdapter.mustSend({'dts': {noteSt: note.dataset.status, note:id}, 'cf': 'dts'});
                     }else {
-                        alert('Element is null');
+                        console.log('Element is null');
                     }
                 }
             },

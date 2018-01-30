@@ -106,10 +106,9 @@
 
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
                 if (leftSideBar != null) {
-                    if(virtualclass.gObj.currWb != null){
-                        var offset = virtualclass.vutil.getElementOffset(leftSideBar);
-                        leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
-                    }
+                    var offset = virtualclass.vutil.getElementOffset(leftSideBar);
+                    leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
+
                 } else {
                     leftSideBarWidth = roles.hasControls() ? 60 : 5;
                 }

@@ -761,7 +761,6 @@
         // Store for document sharing data
         dstdata : {
             handleResult : function(event){
-                //alert('document share init');
 
                 var cursor = event.target.result;
                 if (cursor) {

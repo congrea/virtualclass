@@ -66,9 +66,9 @@
                 var elem = this.canvasWrapper;
                 var topPosY = elem.scrollTop;
                 var leftPosX = elem.scrollLeft;
-                // virtualclass.topPosY = 79;
-                // virtualclass.topPosY = topPosY;
-                // virtualclass.leftPosX = leftPosX;
+                 // using for text box wrapper on whiteboard
+                 virtualclass.topPosY = topPosY;
+                 virtualclass.leftPosX = leftPosX;
 
                 this.topPosY = topPosY;
                 this.leftPosX = leftPosX;

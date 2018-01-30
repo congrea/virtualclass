@@ -48,7 +48,7 @@
             this.httpObj.setRequestHeader('x-api-key', wbUser.lkey);
             this.httpObj.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
             this.httpObj.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
-            this.httpObj.setRequestHeader('x-congrea-room', wbUser.rm);
+            this.httpObj.setRequestHeader('x-congrea-room', wbUser.room);
             this.httpObj.setRequestHeader('Content-Type', 'application/json');
             this.httpObj.withCredentials = false;
             this.httpObj.send(params);
@@ -67,7 +67,7 @@
             this.httpObj.setRequestHeader('x-api-key', wbUser.lkey);
             this.httpObj.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
             this.httpObj.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
-            this.httpObj.setRequestHeader('x-congrea-room', wbUser.rm);
+            this.httpObj.setRequestHeader('x-congrea-room', wbUser.room);
 
             this.httpObj.setRequestHeader('Content-Type', 'application/json');
             this.httpObj.withCredentials = true;

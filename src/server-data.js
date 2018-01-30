@@ -25,7 +25,7 @@ var serverData = {
         xhr.setRequestHeader('x-api-key', wbUser.lkey);
         xhr.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
         xhr.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
-        xhr.setRequestHeader('x-congrea-room', wbUser.rm);
+        xhr.setRequestHeader('x-congrea-room', wbUser.room);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(null);
 

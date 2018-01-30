@@ -628,26 +628,13 @@
                     if (virtualclass.currApp == 'SharePresentation' || (virtualclass.currApp == 'Video')) {
                         virtualclass.vutil.initDashboardNav(currVideo);
                         if(virtualclass.currApp == 'Video'){
-
-                            // if(!(currVideo && currVideo.init && (currVideo.init.videoUrl|| currVideo.fromReload))){
-                            // if(!(currVideo)){
-                            //     var dashboardnav =  document.querySelector('#dashboardnav button');
-                            //     if(dashboardnav != null){
-                            //         dashboardnav.click();
-                            //     }
-                            // }
-                            // var currElem = document.querySelector("#linkvideo"+currVideo.init.videoId);
-                            // if(currElem){
-                            //     currElem.classList.add("playing");
-                            // }
-
+                            console.log('currApp ' + virtualclass.currApp);
                         }else{
                             if(!(virtualclass.sharePt.localStoragFlag)){
                                 var dashboardnav =  document.querySelector('#dashboardnav button');
                                 if(dashboardnav != null){
                                     dashboardnav.click();
                                 }
-
                             }
                         }
 
@@ -1074,7 +1061,6 @@
                         dstData = setTimeout(
                             function (){
                                 cthis.appInitiator.DocumentShare.apply(cthis.appInitiator, args);
-
                             },100
                         )
                     } else {
@@ -1082,14 +1068,14 @@
                         // misspacket on new user does not work
                         cthis.appInitiator.makeReadyDsShare.apply(cthis.appInitiator, args);
                         virtualclass.vutil.initDashboardNav();
-                        http://localhost/bench.html
-                            /** This condition is satisfied when user page refresh without selecting any docs **/
-                            if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
-                                var dashboardnav =  document.querySelector('#dashboardnav button');
-                                if(dashboardnav != null) {
-                                    dashboardnav.click();
-                                }
+
+                        /** This condition is satisfied when user page refresh without selecting any docs **/
+                        if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
+                            var dashboardnav =  document.querySelector('#dashboardnav button');
+                            if(dashboardnav != null) {
+                                dashboardnav.click();
                             }
+                        }
 
                         if(dstData != null){
                             clearTimeout(dstData);

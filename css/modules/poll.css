@@ -101,6 +101,7 @@
   font-weight:normal;
   font-size: 0.91em;
   letter-spacing: 0.03em;
+  line-height: 20px;
 }
 
 #virtualclassCont.congrea #qnLabelCont,
@@ -171,7 +172,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassPoll .stdoptn {
-  margin-left:3px;
+  margin-left:6px;
 }
 
 #virtualclassCont.congrea #virtualclassPoll .stdrslt {
@@ -329,4 +330,10 @@ pointer-events:none;
 
 #virtualclassCont.congrea #addMoreCont #addMoreOption{
   color : #757272;
+}
+
+#virtualclassCont.congrea #editPollModal #settingCont .panel,
+#virtualclassCont.congrea #editPollModal #resultLayout label,
+#virtualclassCont.congrea #editPollModal #pollModalBody label{
+  font-size: 14px;
 }

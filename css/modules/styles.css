@@ -155,7 +155,7 @@
 
 #virtualclassCont.congrea .commandToolsWrapper{
 	position: relative;
-	z-index: 0;
+	z-index: 1;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #dataInfoHeading {
@@ -536,7 +536,7 @@
 	border: #ccc solid 1px;
 	top: 47px;
 	width: 50px;
-	right: 455px;
+	right: 434px;
 	left: auto;
 	height: 20px;
 	position: fixed;
@@ -546,7 +546,7 @@
 	border: #ccc solid 1px;
 	top: 47px;
 	width: 53px;
-	right: 403px;
+	right: 389px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -556,7 +556,7 @@
 	border: #ccc solid 1px;
 	top: 47px;
 	width: 66px;
-	right: 342px;
+	right: 338px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -2319,6 +2319,10 @@
 	z-index: 1102;
 }
 
+#virtualclassCont.congrea #editPollModal.modal{
+	z-index: 1104;
+}
+
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea[data-currapp='Video'] .modal, #virtualclassCont.congrea[data-currapp='SharePresentation'] .modal{
 	width: calc(100% - 383px);
 	margin-left: 0;
@@ -2357,7 +2361,8 @@
 }
 #virtualclassCont.congrea .modal-body textarea{
 	margin: 10px 0 !important;
-
+	min-width: 100% !important;
+	max-width: 100% !important;
 	/*min-height: 50px;*/
 }
 #virtualclassCont.congrea .modal-body #qnTxCont
@@ -2376,8 +2381,8 @@
 }
 
 #virtualclassCont.congrea .modal a.close{
-	position:relative;
-	top: -36px;
+	position: absolute;
+	top: 13px;
 	right: 5px;
 }
 /*#virtualclassCont.congrea .modal label{*/
@@ -2392,6 +2397,7 @@
 	/*-webkit-border-radius: 6px;*/
 	/*-moz-border-radius: 6px;*/
 	/*border-radius: 4px;*/
+	position: relative;
 }
 #virtualclassCont.congrea #newPollBtncourse,
 #virtualclassCont.congrea #newPollBtnsite{
@@ -3022,7 +3028,7 @@
 	top: 12px;
 	text-align: right;
 	float: right;
-	right: 362px;
+	right: 351px;
 	/*bottom: 670px;*/
 	/* height: 50px; */
 	z-index: 2019;
@@ -3118,7 +3124,7 @@
   border-radius: 4px;
   margin: 0 0 10px 5px;
   display: inline-block;
-  padding: 4px 12px;
+  padding: 4px 7px;
   /* margin-bottom: 0; */
   /* font-size: 14px; */
   line-height: 20px;
@@ -3195,6 +3201,7 @@
 #virtualclassCont.congrea .videoTitleCont {
    width: 67.333333%;
    padding-right: 0px;
+	 float: left;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
@@ -3224,7 +3231,7 @@
 	z-index: 1104 !important;
 }
 
-#virtualclassCont.congrea .commonChatCon a:hover,#virtualclassCont.congrea.student .commonChatCon a:hover{
+#virtualclassCont.congrea .commonChatCon a:hover,#virwtualclassCont.congrea.student .commonChatCon a:hover{
   color: #6cad9d !important;
 	text-decoration: none;
 }
@@ -3233,4 +3240,29 @@
 	padding:0px !important;
 	background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
 	color: #fff !important;
+}
+
+@media (max-width: 1175px) {
+	#virtualclassCont.congrea #newDocBtn .glyphicon-upload:before{
+		content: "\e027";
+		font-size: 2em;
+	}
+	#virtualclassCont.congrea #newDocBtn .uploadBtnTxt{
+		display:none;
+	}
+}
+#virtualclassCont.congrea #resultLayoutBody .alert-error {
+	background-color: #f2dede;
+	border-color: #eed3d7;
+	color: #b94a48;
+}
+#virtualclassCont.congrea #pollModalBody #optsTxCont {
+	font-size: 14px;
+	line-height: 20px;
+	color: #333;
+	padding-left: 20px;
+}
+
+#virtualclassCont.congrea #editQuizModal.modal{
+  z-index: 1104;
 }

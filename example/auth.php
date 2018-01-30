@@ -22,9 +22,9 @@ function my_curl_request($url, $post_data, $key, $secret){
 // send auth detail to server
 $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
-$licensekey = 'r9E53R0eJG34REFMyhFun8mZWUQVeT3l5DBGSwQL';
-$secret = 'IogyMNj7UQoWyazdbeyNmCtscNgDqrw9PMHCA1JvR7rqi0DtfchCPL41zlFZMb9B';
-$room = '2_15';
+$licensekey = 'Wmqyg9MPQU9D1pOLBSvUN2mthVNhUMQ55RlA2wpn';
+$secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6';
+
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => 't', 'room' => $room);
 $post_data = json_encode($post_data);
 //echo $post_data;
@@ -49,7 +49,7 @@ $rid = "wss://$rid->result";
 <?php echo " wbUser.auth_user='".$authusername."';"; ?>
 <?php echo " wbUser.auth_pass='".$authpassword."';"; ?>
 <?php echo " wbUser.path='".$rid."';";?>
-<?php echo " wbUser.rm='".$room."';";?>
+<?php echo " wbUser.room='".$room."';";?>
 <?php echo " wbUser.lkey='".$licensekey."';"; ?>
 <?php //echo "imageurl='./images/quality-support.png';"; ?>
 </script>

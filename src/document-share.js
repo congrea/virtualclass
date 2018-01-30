@@ -107,7 +107,7 @@
                         }
                     } else if(this.allDocs != null && Object.keys(this.allDocs).length > 0){
                         console.log('Do nothing');
-                        this.afterFirstRequestDocs(this.allDocs, true);
+                        this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs, true);
                     } else {
                         // Only send the request to server
                         // when the docs is not in storage
@@ -164,7 +164,7 @@
             /**
              * This display the notes acorrding to order
              * Whatever the order will be on this.order,
-             * there will be dislay the notes according to this
+             * there will be display the notes according to this
              */
             setScreenByOrder : function (currDoc){
                 if(this.order != null && this.order.length > 0){
@@ -637,11 +637,15 @@
 
                     (typeof fromReload != 'undefined') ? this.createNoteNav(fromReload) : this.createNoteNav();
                     this.updateLinkNotes(this.docs.currNote);
+                    virtualclass.dts.setCurrentNav(this.docs.currNote);
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 } else {
                     this.removePagesUI(doc);
                     if(!virtualclass.dts.noteExist()){
                         virtualclass.vutil.showUploadMsg('docsuploadContainer'); // file uploader container
+                        virtualclass.dts.docs.currNote = 0;
+                        virtualclass.dts.docs.currDoc = undefined;
+                        virtualclass.gObj.currWb = null;
                     }
 
                     if(!virtualclass.dts.docSelected()){
@@ -652,6 +656,17 @@
                         }
                     }
                 }
+
+                var currNavApp = document.querySelector('#listnotes .currentNav');
+                if(currNavApp == null){
+                    var firstNote = document.querySelector('#listnotes .linknotes');
+                    if(firstNote != null){
+                         firstNote.classList.add('currentNav');
+                         virtualclass.dts.currNote = firstNote.dataset.rid
+
+                    }
+                }
+
 
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);
@@ -779,6 +794,10 @@
                     }
                 },
 
+                /**
+                 * Display leftbar navigation
+                 *
+                 */
                 createDocsNav : function (elem, docId){
                     // Please put below comment into console to create dummy
                     // var docScreenContainer = document.getElementById('docScreenContainer');
@@ -907,7 +926,7 @@
                     var cthis = this;
                     return function (){
                         if(typeof virtualclass.dts.docs.note == 'object'){
-                            virtualclass.vutil.updateCurrentDoc(doc, virtualclass.dts.docs.note.currNote);
+                            virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
                         }
                         cthis.executeScreen(doc);
                     }
@@ -981,6 +1000,7 @@
                         this.curr(screen);
                     }
                 },
+
 
                 /**
                  * Create whitebaord/annoation tool for each slide/note
@@ -1210,7 +1230,7 @@
                             if(currElem != null){
                                 this.getScreen(currElem);
                             } else {
-                                alert(slideNum + ' is not found ');
+                                console.log('Document-Sharing:-'+ slideNum + ' is not found ');
                             }
                         },
 
@@ -1280,7 +1300,7 @@
                 if(appWrapper != null){
                     appWrapper.parentNode.removeChild(appWrapper);
                 } else {
-                    alert('Element is null');
+                    console.log('Element is null');
                 }
                 virtualclass.dts = null;
             },
@@ -1540,14 +1560,15 @@
 
             removePagesFromStructure: function (id){
                 var result = [];
-                for(var i in this.allNotes){
-                    if(this.allNotes[i].lc_content_id == id){
+                var i;
+                for(i in this.allNotes){
+                    totalExecute++;
+                    if(this.allNotes[i].id.indexOf(id) > -1){
                         this._removePageFromStructure(this.allNotes[i].id);
-                        this.removePagesFromStructure(id); // again we call the deltePages as allPages array is re-arranged
+                        //this.removePagesFromStructure(id); // again we call the deltePages as allPages array is re-arranged
                     }
                 }
             },
-
 
             _removePageFromStructure : function (id){
                 this.removeWhiteboardFromStorage('_doc_'+ id+'_'+ id);
@@ -1622,7 +1643,7 @@
                     if(note != null){
                         ioAdapter.mustSend({'dts': {noteSt: note.dataset.status, note:id}, 'cf': 'dts'});
                     }else {
-                        alert('Element is null');
+                        console.log('Element is null');
                     }
                 }
             },
@@ -1706,12 +1727,16 @@
                 if(listnotes != null){
                     listnotes.classList.remove('currentNav');
                 }
+                this.setCurrentNav(id);
+            },
+
+            setCurrentNav : function (id){
                 var linknotes = document.querySelector('#linknotes' + id);
                 if(linknotes != null){
                     linknotes.classList.add('currentNav');
                 }
-
             },
+
             /**
              * This function perform after upload the documenttion
              * @param id expects the upload file id,

@@ -104,7 +104,7 @@
                             'x-api-key':  wbUser.lkey,
                             'x-congrea-authuser': wbUser.auth_user,
                             'x-congrea-authpass': wbUser.auth_pass,
-                            'x-congrea-room': wbUser.rm
+                            'x-congrea-room': wbUser.room
                         }
                     },
                     uploadSuccess: {
@@ -113,7 +113,7 @@
                             'x-api-key':  wbUser.lkey,
                             'x-congrea-authuser': wbUser.auth_user,
                             'x-congrea-authpass': wbUser.auth_pass,
-                            'x-congrea-room': wbUser.rm
+                            'x-congrea-room': wbUser.room
                         }
                     },
                     retry: {

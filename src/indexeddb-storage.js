@@ -617,7 +617,7 @@
             },
 
             endSession: function (onlyStoredData) {
-                //debugger;
+
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
@@ -736,6 +736,10 @@
                 if(typeof virtualclass.dts == 'object' && virtualclass.dts != null){
                     virtualclass.dts.destroyDts();
                 }
+
+                virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
+                virtualclass.serverData.fetchAllData();
+
             }
         },
 
@@ -757,7 +761,6 @@
         // Store for document sharing data
         dstdata : {
             handleResult : function(event){
-                //alert('document share init');
 
                 var cursor = event.target.result;
                 if (cursor) {

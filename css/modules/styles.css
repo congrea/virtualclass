@@ -2099,6 +2099,24 @@
 
 }
 
+#virtualclassCont.congrea .pollResultNotify .close{
+	position: relative;
+	top: -2px;
+	/* font-size: 14px !important; */
+	float: right;
+	right: -21px;
+	line-height: 20px;
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none;
+	font-size: 20px;
+	font-weight: 700;
+	color: #000;
+	opacity: .2;
+}
+
 #virtualclassCont.congrea .close:hover{
 	color:#fff !important;
 }
@@ -2578,7 +2596,7 @@
 	padding: 30px 20px;
 	position: absolute;
 	top: 40%;
-	width: 480px;
+	width: 30%;
 	text-align: center;
 	box-shadow: 0 0 8px #ddd;
 	left: 0;
@@ -3251,10 +3269,37 @@
 		display:none;
 	}
 }
+#virtualclassCont.congrea #resultLayoutBody .alert-info {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #3a87ad;
+	padding: 8px 35px 8px 14px;
+	margin-bottom: 20px;
+	text-shadow: 0 1px 0 rgba(255,255,255,.5);
+	border: 1px solid #fbeed5;
+	border-radius: 4px;
+	font-size: 14px;
+}
+#virtualclassCont.congrea.student #resultLayoutBody label,
+#virtualclassCont.congrea.student #resultLayoutBody #optnNonVotd span
+#virtualclassCont.congrea.student #layoutPollBody span{
+  font-size: 14px;
+	color:#3e3434;
+}
+#virtualclassCont.congrea.student #resultLayoutBody {
+	margin-right: auto;
+	margin-left: auto;
+}
 #virtualclassCont.congrea #resultLayoutBody .alert-error {
 	background-color: #f2dede;
 	border-color: #eed3d7;
 	color: #b94a48;
+	padding: 8px 35px 8px 14px;
+	margin-bottom: 20px;
+	text-shadow: 0 1px 0 rgba(255,255,255,.5);
+	border: 1px solid #fbeed5;
+	border-radius: 4px;
+	font-size: 14px;
 }
 #virtualclassCont.congrea #pollModalBody #optsTxCont {
 	font-size: 14px;
@@ -3265,4 +3310,20 @@
 
 #virtualclassCont.congrea #editQuizModal.modal{
   z-index: 1104;
+}
+
+#virtualclassCont.congrea.teacher #resultLayoutBody #nonVotTqn .opt,
+#virtualclassCont.congrea.student #stdPollContainer #stdOptionCont .opt,
+#virtualclassCont.congrea.student #resultLayout #optnNonVotd .opt {
+	float: left;
+	margin-top: 4px;
+	margin-right: 5px;
+}
+
+#virtualclassCont.congrea.student #resultLayout #optnNonVotd span{
+	font-size:13px;
+}
+
+#virtualclassCont.congrea.teacher #editPollModal #qnTxCont{
+	margin-left:7px;
 }

@@ -27,6 +27,9 @@ define('DEBUG', true);
 error_reporting(E_ALL);
 
 include('en.php');
+
+$room = (isset($_GET['room'])) ? $_GET['room'] : '2_15';
+
 include('auth.php');
 
 function get_string($phrase) {
@@ -230,7 +233,7 @@ if($meetingmode){
 
 $cont_class .= ' pt_' . $pushtotalk;
 
-$room = (isset($_GET['room'])) ? $_GET['room'] : '215';
+
 if (isset($_GET['name'])) {
     $uname = $_GET['name'];
 } else {
@@ -356,12 +359,12 @@ $cmid = 5;
     wbUser.id =  '<?php echo $uid; ?>';
     wbUser.socketOn =  '<?php echo $info; ?>';
     wbUser.dataInfo =  '0';
-    wbUser.room =  '<?php echo $cmid .'_'.$cmid ?>';
+    wbUser.room =  '<?php echo $room; ?>';
     wbUser.sid =  '<?php echo $sid; ?>';
     wbUser.role =  '<?php echo $r; ?>';
     wbUser.lname =  '<?php echo $lname; ?>';
     wbUser.name =  '<?php echo $uname; ?>';
-    
+   
     wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
 
 

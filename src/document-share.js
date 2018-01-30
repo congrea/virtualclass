@@ -637,6 +637,7 @@
 
                     (typeof fromReload != 'undefined') ? this.createNoteNav(fromReload) : this.createNoteNav();
                     this.updateLinkNotes(this.docs.currNote);
+                    virtualclass.dts.setCurrentNav(this.docs.currNote);
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 } else {
                     this.removePagesUI(doc);
@@ -655,6 +656,17 @@
                         }
                     }
                 }
+
+                var currNavApp = document.querySelector('#listnotes .currentNav');
+                if(currNavApp == null){
+                    var firstNote = document.querySelector('#listnotes .linknotes');
+                    if(firstNote != null){
+                         firstNote.classList.add('currentNav');
+                         virtualclass.dts.currNote = firstNote.dataset.rid
+
+                    }
+                }
+
 
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);
@@ -988,6 +1000,7 @@
                         this.curr(screen);
                     }
                 },
+
 
                 /**
                  * Create whitebaord/annoation tool for each slide/note
@@ -1714,12 +1727,16 @@
                 if(listnotes != null){
                     listnotes.classList.remove('currentNav');
                 }
+                this.setCurrentNav(id);
+            },
+
+            setCurrentNav : function (id){
                 var linknotes = document.querySelector('#linknotes' + id);
                 if(linknotes != null){
                     linknotes.classList.add('currentNav');
                 }
-
             },
+
             /**
              * This function perform after upload the documenttion
              * @param id expects the upload file id,

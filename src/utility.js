@@ -1658,7 +1658,7 @@
             var btn = document.getElementById("uploadVideo")
             if(btn != null){
                 btn.addEventListener("click", function (){
-                    var element = document.querySelector('#videoDashboard .qq-upload-button-selector.qq-upload-button input');
+                    var element = document.querySelector('#VideoDashboard .qq-upload-button-selector.qq-upload-button input');
                     if(element != null){
                         element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
                     }else {
@@ -1854,11 +1854,14 @@
 
                                  if(virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')){
                                      virtualclass.dts.moveProgressbar();
+
+                                     if(virtualclass.dts.docs.currNote != null){
+                                        virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
+                                     }
                                  }
                              }
                            }
                         );
-
                         if(currVideo){
                             virtualclass.vutil.readyDashboard(currVideo);
                         }

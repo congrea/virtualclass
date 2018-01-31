@@ -120,16 +120,17 @@
                 var videos = this.getActiveVideos();
                 var sortedItems = [];
 
+                var orderChange = false;
                 for(j=0; j<videos.length; j++){
                     if(order.indexOf(videos[j].fileuuid) <= -1){
                         order.push(videos[j].fileuuid);
+                        orderChange = true;
                     }
-                    // for(k=0; k<order.length; k++){
-                    //     if(order[k] == videos[j].fileuuid){
-                    //         sortedItems.push(videos[j]);
-                    //
-                    //     }
-                    // }
+                }
+                if(orderChange){
+                    virtualclass.videoUl.order = order;
+                    virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+                    orderChange = false;
                 }
 
                 for (var i = 0; i < order.length; i++) {
@@ -216,12 +217,21 @@
                 var object = response;
             },
 
+            updateOrder : function (){
+                var activeVideos = this.getActiveVideos();
+                if(activeVideos.length != this.order.length){
+                    var videos = activeVideos.map(video => video.fileuuid);
+                    this.order = videos;
+                }
+                this.sendOrder(this.order);
+            },
+
             afterUploadVideo: function (id, xhr, res) {
                 var res = res.result;
                 if(res == 'success'){
                     var url = 'https://api.congrea.net/t/GetDocumentStatus';
                     var that = this;
-
+                    that.updateOrder();
                     virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
                     virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
                     virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
@@ -245,28 +255,6 @@
                 } else {
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 }
-
-                var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
-                if(msz){
-                    msz.style.display="none";
-                }
-            },
-
-
-            afterUploadVideo2: function (id, xhr, res) {
-                var res = res.result;
-                if(res == 'success'){
-                    virtualclass.videoUl.order.push(res.resultdata.id);
-                    virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-                    virtualclass.videoUl.showUploadMsz("video upload success","alert-success");
-                } else if (res == "Failed" || res == "error" || res == "duplicate") {
-                    alert("video upload failed");
-                } else {
-                    alert("video upload failed");
-                    virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
-                }
-
-
 
                 var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
                 if(msz){
@@ -1316,15 +1304,13 @@
                         } else {
                             vidObj.type = "video_yts"
                         }
-
+                    var that = this;
                     virtualclass.xhrn.sendData(vidObj, url, function (response) {
-                        // virtualclass.videoUl.afterUploadFile(vidObj);
+                        that.updateOrder();
                         virtualclass.videoUl.order.push(vidObj.uuid);
 
                         // TODO, Critical this need be re-enable
-                        // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
                         virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-
                         virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     });
 

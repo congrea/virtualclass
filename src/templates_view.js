@@ -217,9 +217,11 @@ this["JST"]["templates/documentSharing/dashboard.hbs"] = Handlebars.template({"1
 
   return "<div class='dbContainer' data-app=\""
     + alias3(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
-    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\" class=\"btn-default btn\"><span class=\"glyphicon glyphicon-upload\"></span>"
+    + "\" id=\"docsDbCont\">\n  <div id=\"docsListContainer\" class=\"col-sm-2\">\n    <div id=\"listdocs\" class=\"listPages pages list-group\"></div>\n    <div id=\"newdocsBtnCont\">\n      <button id=\"newDocBtn\" class=\"btn-default btn\"><span class=\"glyphicon glyphicon-upload\" title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Udocument",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n    <div id=\"docsuploadContainer\" class=\"col-sm-12\">  </div>\n"
+    + "\"></span><span class=\"uploadBtnTxt\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Udocument",{"name":"getString","hash":{},"data":data}))
+    + "</span></button>\n    </div>\n  </div>\n\n  <div class=\"dashboardview col-sm-10\">\n    <div id=\"docsuploadContainer\" class=\"col-sm-12\">  </div>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  </div>\n</div>";
 },"useData":true});

@@ -101,6 +101,7 @@
   font-weight:normal;
   font-size: 0.91em;
   letter-spacing: 0.03em;
+  line-height: 20px;
 }
 
 #virtualclassCont.congrea #qnLabelCont,
@@ -155,7 +156,7 @@
 #virtualclassCont.congrea #virtualclassPoll #stdPollContainer #optnNonVotd span,
 #virtualclassCont.congrea #virtualclassPoll #stdPollContainer #stdOptionCont span,
 #virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > tbody > tr > td {
-  font-size: 0.91em;
+  font-size: 0.91em !important;
   letter-spacing: 0.03em;
 }
 
@@ -171,7 +172,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassPoll .stdoptn {
-  margin-left:3px;
+  margin-left:6px;
 }
 
 #virtualclassCont.congrea #virtualclassPoll .stdrslt {
@@ -276,7 +277,7 @@ pointer-events:none;
   padding: 30px 20px;
   position: absolute;
   top: 40%;
-  width: 480px;
+  width: 30%;
   text-align: center;
   box-shadow: 0 0 8px #ddd;
   left: 0;
@@ -330,3 +331,23 @@ pointer-events:none;
 #virtualclassCont.congrea #addMoreCont #addMoreOption{
   color : #757272;
 }
+
+#virtualclassCont.congrea #editPollModal #settingCont .panel,
+#virtualclassCont.congrea #editPollModal #resultLayout label,
+#virtualclassCont.congrea #editPollModal #pollModalBody label,
+#virtualclassCont.congrea.student #stdPollContainer label,
+#virtualclassCont.congrea #editPollModal #timerCont,
+#virtualclassCont.congrea #editPollModal #receivedVotes,
+#virtualclassCont.congrea #editPollModal #nonVotTqn,
+#virtualclassCont.congrea.student #stdPollContainer #timerCont{
+  font-size: 14px;
+}
+
+#virtualclassCont.congrea #virtualclassPoll #stdPollContainer #stdOptionCont span{
+  font-size: 12px !important;
+}
+
+#virtualclassCont.congrea #virtualclassPoll #stdPollContainer .alert-success{
+  padding:12px !important;
+}
+

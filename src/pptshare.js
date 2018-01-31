@@ -211,10 +211,12 @@
                     tmpdiv = document.createElement('div');
                 tmpdiv.id = "listppt";
                 tmpdiv.className = "ppts";
+                var orderChange = false;
 
                 for(var j=0; j < virtualclass.sharePt.activeppts.length; j++){
-                    if(order.indexOf(virtualclass.sharePt.activeppts[j]) <= -1){
+                    if(order.indexOf(virtualclass.sharePt.activeppts[j].fileuuid) <= -1){
                         order.push(virtualclass.sharePt.activeppts[j].fileuuid);
+                        orderChange = true;
                     }
                 }
 
@@ -224,8 +226,13 @@
                         tmpdiv.appendChild(elem);
                     }
                 }
-                container.parentNode.replaceChild(tmpdiv, container);
 
+                container.parentNode.replaceChild(tmpdiv, container);
+                if(orderChange){
+                    virtualclass.sharePt.order = order;
+                    virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order);
+                    orderChange = false;
+                }
             },
 
 
@@ -838,8 +845,12 @@
                 var url = ' https://api.congrea.net/t/addURL';
                 pptObj.type = 'presentation';
                 var that = this;
-
                 virtualclass.xhrn.sendData(pptObj, url, function (response) {
+                    var ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
+                    if(ppts.length != virtualclass.sharePt.order.length){
+                        virtualclass.sharePt.order = ppts;
+                    }
+
                     virtualclass.sharePt.order.push(pptObj.uuid);
                     virtualclass.vutil.sendOrder("presentation", virtualclass.sharePt.order)
                     virtualclass.sharePt.getPptList();
@@ -942,15 +953,6 @@
 
                 }
 
-
-
-               // virtualclass.sharePt.activePrs(virtualclass.sharePt.currId);
-                //requestorder
-                // virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
-
-                 // virtualclass.sharePt.order.push(res.resultdata.id); nirmala
-                 // virtualclass.sharePt.xhrOrderSend(virtualclass.sharePt.order); nirmala
-               // this.calculateHeight();
             },
             extractTitle:function(url){
                 var title;
@@ -1076,7 +1078,7 @@
                         }
                        // virtualclass.sharePt.afterPptSaved(pptObj);
                     });
-                    virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
+                    virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order);
 
                 }
 

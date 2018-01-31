@@ -1107,7 +1107,6 @@
             },
 
             attachFunction: function () {
-                //debugger;
                 var allAppOptions = document.getElementsByClassName("appOptions");
                 for (var i = 0; i < allAppOptions.length; i++) {
                     var anchTag = allAppOptions[i].getElementsByTagName('a')[0];

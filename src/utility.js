@@ -541,7 +541,7 @@
                         },
                         startFrom: start,
                         isAutoplay:virtualclass.videoUl.autoPlayFlag
-                        
+
                     };
 
                     console.log(prvAppObj);

@@ -469,13 +469,12 @@
                 this.list = storedData.data.list;
                 this.count = storedData.data.count;
                 this.currResultView = storedData.data.view;
-
                 var totalUsers = storedData.data.totalUsers;
                 this.reloadGraph();
                 this.noOfVotes(totalUsers);
 
                 if (isTimer) {
-                    this.UI.resultView(isTimer);
+                    //this.UI.resultView(isTimer);
                     var min = this.nTimer.min;
                     var sec = this.nTimer.sec;
 

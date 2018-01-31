@@ -112,9 +112,7 @@
 }
 
 
-#virtualclassCont.congrea .currentNav .mainpreview {
-  box-shadow: 0 0 6px rgb(96, 96, 97);
-}
+
 /*old*/
 
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="0"]::before {

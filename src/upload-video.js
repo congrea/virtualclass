@@ -29,7 +29,7 @@
                 this.pages = {};
                 virtualclass.previrtualclass = 'virtualclass' + "Video";
                 virtualclass.previous = 'virtualclass' + "Video";
-
+                this.autoPlayFlag=1;
                 if (typeof videoObj != 'undefined') {
                     if (videoObj.init != 'studentlayout') {
                         this.videoId = videoObj.init.videoId || videoObj.init;
@@ -37,7 +37,12 @@
                         this.yts=videoObj.init.yts;
                         this.online=videoObj.init.online;
                         this.isPaused= videoObj.init.isPaused;
+
                     }
+                    if(typeof videoObj.isAutoplay !='undefined'){
+                        this.autoPlayFlag= videoObj.isAutoplay;
+                    }
+
                 }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
@@ -660,7 +665,7 @@
                 } else if (msg.videoUl.hasOwnProperty('play')) {
                     this.playVideo(msg.videoUl.play);
                     virtualclass.videoUl.isPaused=false;
-                };
+                }
             },
 
             enablePlayer: function () {
@@ -729,8 +734,9 @@
                             virtualclass.videoUl.videoToStudent(currVideoObj);
 
                             if (virtualclass.videoUl.player) {
-                                // virtualclass.videoUl.player.on("ready",function(){
-                                virtualclass.videoUl.player.play();
+                                // virtualclass.videoUl.player.on("ready",function() {
+                                //     virtualclass.videoUl.player.play();
+                                // })
                             }
                             this.activeVideoClass(currVideoObj.id);
 
@@ -1019,9 +1025,10 @@
                         }
 
                         virtualclass.videoUl.player = player;
-                        virtualclass.videoUl.UI.attachPlayerHandler(player, vidId, videoUrl);
+                        virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
                     }
-
+                    // virtualclass.videoUl.player.reset();
+                    virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
                     virtualclass.videoUl.UI.setPlayerUrl( virtualclass.videoUl.player, videoUrl, startFrom);
 
                 },
@@ -1048,11 +1055,11 @@
 
                     });
 
-                    player.off("ended");
-
-                    player.on("ended", function (e) {
-                        virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
-                    });
+                    // player.off("ended");
+                    //
+                    // player.on("ended", function (e) {
+                    //     virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
+                    // });
                 },
                 // todo to modify
                 switchDisplay: function (videoCont, videoUrl) {
@@ -1110,7 +1117,7 @@
                     if(player.poster_){
                         player.poster_="";
                     }
-
+                      player.reset();
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
@@ -1179,6 +1186,17 @@
                         cthis.style.color = "red";
 
                     }
+
+                },
+                onEndedHandler:function(player,vidId,videoUrl){
+
+                    player.off("ended");
+
+                    player.on("ended", function (e) {
+                        virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
+                    });
+
+
 
                 },
 

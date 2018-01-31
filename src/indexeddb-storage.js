@@ -163,8 +163,9 @@
                                 var roomCreatedTime = result.createdDate;
                                 var baseDate = new Date().getTime();
                                 var totalTime = baseDate - roomCreatedTime;
+                                // Session is clear after 2 hour continous session
                                 //////////////////////1sec-1min--1hr--2hr/////////
-                                if (totalTime > (1000 * 60 * 60 * 2) || result.room != wbUser.room) {
+                                if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
                                     that.config.endSession();
                                 }
                             }

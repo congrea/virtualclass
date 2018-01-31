@@ -495,7 +495,7 @@
                             timerWrapper.appendChild(elem);
                         }
                         elem.innerHTML = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "00" : sec);
-                        this.noneVoted();
+                        this.testNoneVoted();
                         var msz = document.getElementById("pollResultMsz");
                         if (msz) {
                             msz.parentNode.removeChild(msz);

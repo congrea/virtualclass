@@ -14,9 +14,12 @@
 }
 #virtualclassCont .icon-create-new:before {
   content: "\e3ba";
-  font-size: 20px;
+  font-size: 18px;
   line-height: 12px;
-  margin-left: 0px;
+  margin-top: 3px;
+  margin-left: -1px;
+  margin-right: 2px;
+  float: left;
 }
 #virtualclassCont .icon-poll:before {
   content: "\e916";

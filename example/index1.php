@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -154,6 +157,7 @@ $quality = 'low';
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "poll/graphs/c3.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "SlickQuiz/css/slickQuiz.css" ?> />
 <?php
+
 $cssdebug = 1;
 define('SCRIPT_ROOT', $whiteboardpath);
 ?>
@@ -421,6 +425,8 @@ if ($info) {
 <script src="<?php echo $whiteboardpath . "poll/graphs/c3.js" ?>"></script>
 
 <script src ="<?php echo $whiteboardpath.'s3/s3.fine-uploader.js'; ?>"></script>
+</head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>
 </body>
+</html>

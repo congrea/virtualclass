@@ -661,12 +661,14 @@
                 if(currNavApp == null){
                     var firstNote = document.querySelector('#listnotes .linknotes');
                     if(firstNote != null){
-                         firstNote.classList.add('currentNav');
-                         virtualclass.dts.currNote = firstNote.dataset.rid
-
+                        virtualclass.dts.currNote = firstNote.dataset.rid;
+                        var mainp = document.querySelector('#mainpnotes'+virtualclass.dts.currNote);
+                        // Clicking on default doc's navigation
+                        if(mainp != null){
+                            mainp.click();
+                        }
                     }
                 }
-
 
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);

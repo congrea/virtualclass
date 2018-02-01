@@ -987,7 +987,6 @@
                 var message = virtualclass.lang.getString('pclose');
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirmClose,"close",pollType);
 
-
             },
             saveQuestion: function (elem, qIndex, pollType) {
                 if (pollType == "course") {
@@ -1348,7 +1347,12 @@
                     if (flagnonzero) {
                         // virtualclass.poll.showGraph();
                         var chart = document.getElementById("chart");
-                        chart.style.display = "block";
+
+                        if (virtualclass.poll.currResultView != 'list') {
+                            chart.style.display = "block";
+                        }
+                        
+                       // chart.style.display = "block";
                     }
                     else {
                         virtualclass.poll.noneVoted(pollType);

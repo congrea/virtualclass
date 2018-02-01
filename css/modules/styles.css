@@ -1003,6 +1003,8 @@
 #virtualclassCont.congrea canvas {
 	border-radius: 3px;
 	padding: 0;
+    height: auto;
+    max-height: calc(100vh - 120px);
 }
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap canvas {margin: -44px 0 -40px 44%;}
 @media (max-width: 620px) {
@@ -2877,7 +2879,7 @@
 @media (min-height:768px){
 	#dashboardnav {
 
-		top: 640px !important;
+		top: 670px !important;
 		left: -4px;
 		height: 45px;
 		border:0px;

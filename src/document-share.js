@@ -1846,6 +1846,11 @@
 
             docSelected : function (){
                 return document.querySelector('#listdocs .linkdocs[data-selected="1"]');
+            },
+
+            isUploaderExist : function (){
+                var uploadElem =  document.querySelector('#docsuploadContainer .qq-uploader-selector');
+                return (uploadElem != null);
             }
         };
     }

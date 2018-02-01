@@ -6,7 +6,7 @@
   /*height: 87%;*/
   max-height:none;
   padding : 0;
-  /*overflow: hidden;*/
+  height: calc(100vh - 70px);
 
 }
 
@@ -104,6 +104,7 @@
   padding: 8px;
   color : #fff;
   height : 71%;
+    min-height: 40px;
 }
 
 
@@ -391,14 +392,14 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #videoUrlContainer .btn-default {
-  height: 63px;
+  height: 48px;
   width: 60px;
   float: right;
   box-shadow: none;
   border-width: 0;
   border-radius: 0 0 4px 0;
   position: absolute;
-  right: 0px;
+  right: 1px;
 }
 
 /*@media (min-width: 1270px) {*/
@@ -544,3 +545,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
   z-index: 0 !important;
 }
+
+@media (max-height: 768px) {
+    #virtualclassCont #dashboardContainer .modal .modal-content {
+        min-height: calc(100vh - 52px);
+    }
+}
+    

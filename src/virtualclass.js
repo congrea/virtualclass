@@ -1060,7 +1060,13 @@
                     if(!virtualclass.gObj.hasOwnProperty('docs')){
                         dstData = setTimeout(
                             function (){
-                                cthis.appInitiator.DocumentShare.apply(cthis.appInitiator, args);
+                                /*  Handles alerting element is null
+                                    If user comes to session after 2 hour,
+                                    and the application was Document share when he left the session
+                                 */
+                                if(virtualclass.currApp == 'DocumentShare'){
+                                    cthis.appInitiator.DocumentShare.apply(cthis.appInitiator, args);
+                                }
                             },100
                         )
                     } else {

@@ -541,7 +541,7 @@
             _removePageUI : function (noteId, typeDoc){
                 var orderId =  this.order.indexOf(noteId);
                 if (orderId >= 0) {
-                    this.order.splice( orderId, 1);
+                    this.order.splice(orderId, 1);
                 }
                 var note = document.querySelector('#notesContainer #note' + noteId);
                 if(note != null){
@@ -613,6 +613,7 @@
 
                 //var addSlide = this.toggleSlideWithOrder(doc, slides);
                 if(addSlide){
+                    // TODO, order is fine now, but we have to hanlde this gracefully as done in video and ppt
                     this.addPages(slides);
 
                     var cthis = this;
@@ -661,12 +662,14 @@
                 if(currNavApp == null){
                     var firstNote = document.querySelector('#listnotes .linknotes');
                     if(firstNote != null){
-                         firstNote.classList.add('currentNav');
-                         virtualclass.dts.currNote = firstNote.dataset.rid
-
+                        virtualclass.dts.currNote = firstNote.dataset.rid;
+                        var mainp = document.querySelector('#mainpnotes'+virtualclass.dts.currNote);
+                        // Clicking on default doc's navigation
+                        if(mainp != null){
+                            mainp.click();
+                        }
                     }
                 }
-
 
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);

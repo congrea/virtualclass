@@ -2240,15 +2240,7 @@
                 if (isNonZero) {
                     chart.style.display = "block";
                 }
-                //temp
-                require.config({
-                    // baseUrl: '/js',
-                    paths: {
-                        d3: "https://d3js.org/d3.v3.min"
-                    }
-                });
 
-                require(["d3", "c3"], function (d3, c3) {
                     virtualclass.poll.piChart = c3.generate({
                         data: {
                             // iris data from R
@@ -2265,10 +2257,10 @@
                             },
                             onmouseout: function (d, i) {
                                 console.log("onmouseout", d, i);
-                            }
+                            },
                         },
                     });
-                });
+               // });
 
                 virtualclass.poll.currResultView = "pi"
                 if (typeof virtualclass.poll.pollState["data"] != 'undefined') {
@@ -2380,55 +2372,19 @@
                 Data.type = "bar"
                 Data.columns = columns;
                 var chart = document.getElementById("chart");
-                if (chart) {
-                    // require.config({
-                    //     // baseUrl: '/js',
-                    //     paths: {
-                    //         d3: "https://d3js.org/d3.v3.min"
-                    //     }
-                    // });
-                    //
-                    // require(["d3", "c3"], function (d3, c3) {
-                    //     virtualclass.poll.chart = c3.generate({
-                    //         bindto: "#chart",
-                    //         transition: {
-                    //             duration:null
-                    //         },
-                    //         data: Data,
-                    //         bar: {
-                    //             width: 100 // this makes bar width 100px
-                    //         }
-                    //     });
-                    // });
-
+                 if (chart) {
                     chart.style.display = "none";
-                }
+                 }
 
-                onReady('#chart', function() {
-                    var chart = c3.generate({
+                    virtualclass.poll.chart  = c3.generate({
                         bindto: "#chart",
                         data:Data,
                         bar:{
                             width:100
 
                         },
-                        axis: {
-                            y: {
-                                padding: {
-                                    bottom: 0
-                                },
-                                min: 0
-                            },
-                            x: {
-                                padding: {
-                                    left: 0
-                                },
-                                min: 0,
-
-                            }
-                        }
                     });
-                });
+
 
                 // Set a timeout so that we can ensure that the `chart` element is created.
                 function onReady(selector, callback) {
@@ -2643,7 +2599,6 @@
                     pi.addEventListener('click', virtualclass.poll.createPiChart);
 
                     if (roles.hasControls()) {
-
                         var elem = document.querySelector("#chartMenuCont #rList");
                         elem.addEventListener('click', virtualclass.poll.listView)
                     }

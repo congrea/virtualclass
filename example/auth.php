@@ -53,10 +53,3 @@ $rid = "wss://$rid->result";
 <?php echo " wbUser.lkey='".$licensekey."';"; ?>
 <?php //echo "imageurl='./images/quality-support.png';"; ?>
 </script>
-<script type="text/javascript">
-	//earlier cookie is using
-    <?php //echo "auth_user='".$authusername."';"; ?>
-    <?php //echo "auth_pass='".$authpassword."';"; ?>
-    <?php //echo "path='".$rid."';";?>
-    <?php //echo "imageurl='./images/quality-support.png';";?>
-</script>

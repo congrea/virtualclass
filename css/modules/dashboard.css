@@ -13,8 +13,7 @@
   height : 7%;
 }
 #virtualclassCont #dashboardContainer .modal-body {
-  height : 100%;
-  max-height : 100%;
+  height : auto;
   padding : 0;
 }
 
@@ -25,7 +24,7 @@
 }
 
 #virtualclassCont.congrea .dashboardview {
-  height : 98%;
+  height: calc(100vh - 118px);
   margin : 0;
   padding :0;
 }
@@ -333,7 +332,7 @@
 @media (max-height: 768px){
   #virtualclassCont.congrea #dashboardnav {
     position: absolute;
-    top: 585px;
+    top: 606px;
     left: -5px;
   }
 }
@@ -342,4 +341,9 @@
     position:absolute;
     top:73px;
   }
+}
+
+#virtualclassCont.congrea .currentNav .mainpreview {
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+  pointer-events : none;
 }

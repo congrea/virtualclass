@@ -180,24 +180,21 @@
                 if (typeof vcan.main.canvas != 'undefined') {
                     var canvas = vcan.main.canvas;
                     ctx = vcan.main.canvas.getContext('2d');
-                    canvas.width = measureRes.width;
+                    canvas.width = measureRes.width ;
 
                     var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
 
-                    if(virtualclass.currApp == 'Whiteboard'){
-                        canvasWrapper.style.width = (canvas.width);  //37
-                    }else {
-                        canvasWrapper.style.width = (canvas.width);  //37
-                    }
+                    canvasWrapper.style.width = (canvas.width) + 'px';
 
                     // for handle the scroll on whiteboard during the play mode
                     var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
                     var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                     canvas.height = measureRes.height - toolWrapperHeight;
-                    canvas.parentNode.height = canvas.height;
-                    canvasWrapper.style.height = canvas.height-30;
 
+                    canvas.parentNode.height = canvas.height + 'px';
+                    canvasWrapper.style.height = (canvas.height-30) + 'px';
+                    console.log('canvasWrapper height' + canvasWrapper.style.height);
 
                     console.log("canvas width " + canvas.width);
                     //var element = document.getElementById('canvas');
@@ -223,13 +220,12 @@
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 if(virtualclass.currApp ==  'DocumentShare'){
-                    toolWrapperHeight += 20;
+                    toolWrapperHeight += 10;
                 }
 
                 var canWrapperHeight = measureRes.height - toolWrapperHeight;
-
-                canvas.parentNode.height = canWrapperHeight;
-                canvasWrapper.style.height = canWrapperHeight-30;
+                canvasWrapper.style.height = (canWrapperHeight-30)+'px';
+                console.log('canvasWrapper height' + canvasWrapper.style.height);
             }
         },
         // TODO this function is not being invoked

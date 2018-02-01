@@ -148,13 +148,16 @@
                     ssType.style.width = res.width + "px";
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
                 }else if(appId == 'virtualclassDocumentShare'){
-                    var wb = virtualclass.gObj.currWb;
-                    if(wb != null){
-                        var canWrapper = document.querySelector('#canvasWrapper' +wb);
 
-                        canWrapper.style.width = res.width + "px";
-                        canWrapper.style.height = res.height + "px";
-                    }
+                    // var wb = virtualclass.gObj.currWb;
+                    // if(wb != null){
+                    //     return;
+                    //     var canWrapper = document.querySelector('#canvasWrapper' +wb);
+                    //
+                    //     canWrapper.style.width = res.width + "px";
+                    //     canWrapper.style.height = res.height + "px";
+                    //     // virtualclass.system.setAppDimension(wb, true);
+                    // }
                 }
                 console.log('Container width ' + appId + ' ' + res.width );
 
@@ -1703,26 +1706,17 @@
 
             //upload.requesteEndPoint = "https://local.vidya.io/congrea_te_online/example/upload.php";
 
+            
             virtualclass.fineUploader.uploaderFn(upload);
 
             if(type != 'video') {
                 var cont = document.querySelector("#DocumentShareDashboard #docsUploadMsz");
                 var upMsz = document.createElement("div");
-                if(cont){
+                if (cont) {
                     cont.appendChild(upMsz);
                 }
-                // var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
-                // if (msz) {
-                //     upMsz.appendChild(msz);
-                //     msz.style.display = "block";
-                // }
             }
 
-
-            // TODO this need to be outside the function
-            // if(type == 'video'){
-            //     virtualclass.videoUl.UI.inputUrl();
-            // }
         },
 
         xhrSendWithForm : function (data, methodname, cb){
@@ -1875,11 +1869,9 @@
                     if(!virtualclass.dts.noteExist()){
                         this.readyDashboard();
                     } else {
-                       var uploadElem = document.querySelector('.qq-uploader-selector qq-uploade');
-                       if(uploadElem == null){
-                            //this.readyDashboard();
+                        if(!virtualclass.dts.isUploaderExist()){
                             virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
-                       }
+                        }
                         var dtitle = document.getElementById('dashboardnav');
                         dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
                     }
@@ -1927,7 +1919,9 @@
                 document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
                 virtualclass.dts.init();
                 virtualclass.vutil.attachEventToUploadTab();
-                virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                if(!virtualclass.dts.isUploaderExist()){
+                    virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
+                }
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listnotes');
             }else if(currApp == 'Video'){

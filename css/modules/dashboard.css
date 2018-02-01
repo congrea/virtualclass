@@ -4,7 +4,7 @@
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
-  overflow-y: auto;
+  overflow-y: hidden;
   /*height: 85%;*/
   /*max-height: 85%;*/
   padding : 0;
@@ -336,10 +336,29 @@
     left: -5px;
   }
 }
+
+@media (max-height: 700px){
+  #virtualclassCont.congrea #dashboardnav {
+    position: absolute;
+    top: 538px;
+    left: -5px;
+  }
+}
+
 @media (max-height: 768px){
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
     top:73px;
+  }
+}
+
+@media (max-height: 700px){
+  #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
+    position:absolute;
+    top: 10px;
+  }
+  #virtualclassCont.congrea #pptuploadContainer{
+    top:10px;
   }
 }
 

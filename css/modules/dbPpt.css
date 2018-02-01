@@ -368,3 +368,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   padding : 2px;
   cursor : move;
 }
+:global .embed-footer-buttons{
+  display:none !important;
+}

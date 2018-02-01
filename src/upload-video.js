@@ -1304,9 +1304,8 @@
                         } else {
                             vidObj.type = "video_yts"
                         }
-                    var that = this;
                     virtualclass.xhrn.sendData(vidObj, url, function (response) {
-                        that.updateOrder();
+                        virtualclass.videoUl.updateOrder();
                         virtualclass.videoUl.order.push(vidObj.uuid);
 
                         // TODO, Critical this need be re-enable

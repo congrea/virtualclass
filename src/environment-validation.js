@@ -192,8 +192,8 @@
                     var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                     canvas.height = measureRes.height - toolWrapperHeight;
 
-                    canvas.parentNode.height = canvas.height + 'px';
-                    canvasWrapper.style.height = (canvas.height-30) + 'px';
+                    // canvas.parentNode.height = canvas.height + 'px';
+                    canvasWrapper.style.height = (canvas.height-20) + 'px';
                     console.log('canvasWrapper height' + canvasWrapper.style.height);
 
                     console.log("canvas width " + canvas.width);
@@ -213,18 +213,21 @@
                 var width = measureRes.width;
 
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-                width = (width-50);
-                canvasWrapper.style.width = width;  //37
+
+                var reduceWidth = (virtualclass.currApp == 'Whiteboard') ? 40 : 50;
+                width = (width-reduceWidth);
+
+                canvasWrapper.style.width = width +'px';  //37
 
                 var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 if(virtualclass.currApp ==  'DocumentShare'){
-                    toolWrapperHeight += 10;
+                    toolWrapperHeight += 5;
                 }
 
-                var canWrapperHeight = measureRes.height - toolWrapperHeight;
-                canvasWrapper.style.height = (canWrapperHeight-30)+'px';
+                var canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
+                canvasWrapper.style.height = canWrapperHeight+'px';
                 console.log('canvasWrapper height' + canvasWrapper.style.height);
             }
         },

@@ -148,13 +148,16 @@
                     ssType.style.width = res.width + "px";
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
                 }else if(appId == 'virtualclassDocumentShare'){
-                    var wb = virtualclass.gObj.currWb;
-                    if(wb != null){
-                        var canWrapper = document.querySelector('#canvasWrapper' +wb);
 
-                        canWrapper.style.width = res.width + "px";
-                        canWrapper.style.height = res.height + "px";
-                    }
+                    // var wb = virtualclass.gObj.currWb;
+                    // if(wb != null){
+                    //     return;
+                    //     var canWrapper = document.querySelector('#canvasWrapper' +wb);
+                    //
+                    //     canWrapper.style.width = res.width + "px";
+                    //     canWrapper.style.height = res.height + "px";
+                    //     // virtualclass.system.setAppDimension(wb, true);
+                    // }
                 }
                 console.log('Container width ' + appId + ' ' + res.width );
 

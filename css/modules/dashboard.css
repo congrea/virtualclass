@@ -356,6 +356,12 @@
 @media (max-height: 700px){
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
+    top: 55px;
+  }
+  #virtualclassCont.congrea.teacher[data-currapp="Video"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
+  #virtualclassCont.congrea.teacher[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
+  #virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] #virtualclassAppLeftPanel #virtualclassOptionsCont{
+    position:absolute;
     top: 10px;
   }
   #virtualclassCont.congrea #pptuploadContainer{

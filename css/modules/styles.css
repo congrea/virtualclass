@@ -1003,9 +1003,11 @@
 #virtualclassCont.congrea canvas {
 	border-radius: 3px;
 	padding: 0;
-    height: auto;
-    max-height: calc(100vh - 120px);
+
+    /*height: auto;*/
+    /*max-height: calc(100vh - 120px);*/
 }
+
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap canvas {margin: -44px 0 -40px 44%;}
 @media (max-width: 620px) {
 	#virtualclassCont.congrea canvas {margin-left: 38%; max-width: 78px;}
@@ -3190,7 +3192,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
-	z-index: 1;
+	z-index: 2;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr >th,

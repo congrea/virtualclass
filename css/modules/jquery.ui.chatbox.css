@@ -68,6 +68,12 @@
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
     font-size: 12px;
 }
+
+#virtualclassCont.congrea .ui-chatbox-msg .commonChatCon .text{
+    word-break: break-word;
+    padding: 3px;
+}
+
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
     text-align: right;
     float: right;

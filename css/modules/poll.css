@@ -237,9 +237,13 @@ color:black;
 }
 #virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .viewOpt label{
   font-weight:normal !important;
+  word-break: break-word;
 }
 #virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .viewOpt input{
   margin-left:-19px !important;
+  margin-top: 5px;
+  float:left;
+
 }
 #virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .viewOpt{
   padding-left:22px;

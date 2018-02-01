@@ -652,6 +652,7 @@
 .text {
     color: #464646;
     letter-spacing: 0.5px;
+    word-break: break-word;
 }
 
 #virtualclassCont.congrea.student .vmchat_bar_button {

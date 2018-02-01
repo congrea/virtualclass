@@ -469,13 +469,12 @@
                 this.list = storedData.data.list;
                 this.count = storedData.data.count;
                 this.currResultView = storedData.data.view;
-
                 var totalUsers = storedData.data.totalUsers;
                 this.reloadGraph();
                 this.noOfVotes(totalUsers);
 
                 if (isTimer) {
-                    this.UI.resultView(isTimer);
+                    //this.UI.resultView(isTimer);
                     var min = this.nTimer.min;
                     var sec = this.nTimer.sec;
 
@@ -496,7 +495,7 @@
                             timerWrapper.appendChild(elem);
                         }
                         elem.innerHTML = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "00" : sec);
-                        this.noneVoted();
+                        this.testNoneVoted();
                         var msz = document.getElementById("pollResultMsz");
                         if (msz) {
                             msz.parentNode.removeChild(msz);
@@ -988,7 +987,6 @@
                 var message = virtualclass.lang.getString('pclose');
                 virtualclass.popup.confirmInput(message, virtualclass.poll.askConfirmClose,"close",pollType);
 
-
             },
             saveQuestion: function (elem, qIndex, pollType) {
                 if (pollType == "course") {
@@ -1349,7 +1347,12 @@
                     if (flagnonzero) {
                         // virtualclass.poll.showGraph();
                         var chart = document.getElementById("chart");
-                        chart.style.display = "block";
+
+                        if (virtualclass.poll.currResultView != 'list') {
+                            chart.style.display = "block";
+                        }
+                        
+                       // chart.style.display = "block";
                     }
                     else {
                         virtualclass.poll.noneVoted(pollType);

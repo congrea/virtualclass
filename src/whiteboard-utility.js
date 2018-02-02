@@ -188,14 +188,7 @@
                     console.log('Some ERROR removed.');
                 }
 
-                var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
-                // while(allTextWrapper.length > 0){
-                //     allTextWrapper[0].parentNode.removeChild(allTextWrapper[0]);
-                // }
-
-                for(var i=0; i<allTextWrapper.length; i++){
-                    allTextWrapper[i].parentNode.removeChild(allTextWrapper[i]);
-                }
+                virtualclass.vutil.removeAllTextWrapper();
 
             },
             /**

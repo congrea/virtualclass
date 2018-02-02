@@ -1462,7 +1462,7 @@
 
 #virtualclassCont.congrea #errorContainer {
 	position: fixed;
-	bottom: 7%;
+	bottom: 11%;
 	left: 29%;
 	color : rgba(131, 14, 14, 0.93);
 	z-index : 10
@@ -3330,4 +3330,12 @@
 
 #virtualclassCont.congrea.teacher #editPollModal #qnTxCont{
 	margin-left:7px;
+}
+
+#virtualclassCont.congrea .vmchat_room_bt.congtooltip{
+	display:block;
+}
+#virtualclassCont.congrea #layoutQuizBody .table-responsive {
+	overflow-y: scroll;
+	height: 90vh;
 }

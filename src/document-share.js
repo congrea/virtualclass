@@ -1565,6 +1565,7 @@
             },
 
             removePagesFromStructure: function (id){
+                this.allDocs[id].deleted = '0';
                 var result = [];
                 var i;
                 for(i in this.allNotes){

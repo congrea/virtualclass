@@ -109,6 +109,7 @@
              * @returns nothing
              */
             drawTextBoxWrapper: function (obj, boxNumber, mtext) {
+                virtualclass.vutil.removeAllTextWrapper();
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var divNode = document.createElement('div');
                 divNode.id = "box" + boxNumber;

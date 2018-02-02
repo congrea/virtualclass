@@ -786,3 +786,9 @@
     #virtualclassCont.congrea #listdocs {height: calc(100vh - 136px);
 }
 }
+
+#virtualclassCont.congrea.pdfRendering .nvgt.next,
+#virtualclassCont.congrea.pdfRendering .nvgt.prev{
+    pointer-events: none;
+    opacity: 0.5;
+}

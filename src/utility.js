@@ -1706,7 +1706,7 @@
 
             //upload.requesteEndPoint = "https://local.vidya.io/congrea_te_online/example/upload.php";
 
-            
+
             virtualclass.fineUploader.uploaderFn(upload);
 
             if(type != 'video') {
@@ -2397,6 +2397,30 @@
 
         isResponseAvailable : function (reponse){
             return (reponse != undefined && reponse != 'undefined' && reponse != null)
+        },
+
+        navWhiteboard : function (cthis, func, dthis){
+            this.removeAllTextWrapper();
+            if(virtualclass.gObj.hasOwnProperty('wbNav')){
+                clearTimeout(virtualclass.gObj.wbNav);
+            }
+            virtualclass.gObj.wbNav = setTimeout(
+                function (){
+                    if(typeof dthis != 'undefined'){
+                        func.call(cthis, dthis);
+                    }else {
+                        func.call(cthis);
+                    }
+
+                }, virtualclass.gObj.wbNavtime
+            )
+        },
+
+        removeAllTextWrapper : function (){
+            var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
+            for(var i=0; i<allTextWrapper.length; i++){
+                allTextWrapper[i].parentNode.removeChild(allTextWrapper[i]);
+            }
         }
     };
     window.vutil = vutil;

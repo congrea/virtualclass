@@ -9,16 +9,19 @@
             var nextButton = document.querySelector('#virtualclassWhiteboard.whiteboard .next');
             if (nextButton != null) {
                 nextButton.onclick = function () {
-                    that.next(this);
+                    //that.next();
+                    virtualclass.vutil.navWhiteboard(that, that.next);
                 }
             }
             var prevButton = document.querySelector('#virtualclassWhiteboard.whiteboard .prev');
             if (prevButton != null) {
                 prevButton.onclick = function () {
-                    that.prev();
+                    // that.prev();
+                    virtualclass.vutil.navWhiteboard(that, that.prev);
                 }
             }
         },
+
 
         /**
          * TODO, this should be merged with dislaySlide on document-share.js
@@ -51,7 +54,7 @@
             }
         },
 
-        next: function (cthis) {
+        next: function () {
             this.hideElement();
             var wid = this.whiteboardWrapperExist('next');
             if (wid == null) {

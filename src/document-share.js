@@ -1078,13 +1078,16 @@
                                 if(roles.hasControls()){
                                     var prev = document.querySelector(screen + " .prev");
                                     var next = document.querySelector(screen + " .next");
-
                                     var dthis = this;
 
-                                    prev.onclick = function(){ dthis.prevSlide(cthis);};
-                                    next.onclick = function(){ dthis.nextSlide(cthis);};
-                                }
+                                    prev.onclick = function(){
+                                        virtualclass.vutil.navWhiteboard(dthis, dthis.prevSlide, cthis);
+                                    };
 
+                                    next.onclick = function(){
+                                        virtualclass.vutil.navWhiteboard(dthis, dthis.nextSlide, cthis);
+                                    };
+                                }
                             } else {
                                 alert("no element");
                             }
@@ -1562,10 +1565,10 @@
             },
 
             removePagesFromStructure: function (id){
+                this.allDocs[id].deleted = '0';
                 var result = [];
                 var i;
                 for(i in this.allNotes){
-                    totalExecute++;
                     if(this.allNotes[i].id.indexOf(id) > -1){
                         this._removePageFromStructure(this.allNotes[i].id);
                         //this.removePagesFromStructure(id); // again we call the deltePages as allPages array is re-arranged

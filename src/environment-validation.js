@@ -170,7 +170,7 @@
             }
         },
 
-        /*
+        /*   TODO, this funciton should be merged with, setCanvasWrapperDimension
          * Setting dimension of the canvas
          */
         setCanvasDimension: function (measureRes, id) {
@@ -189,7 +189,7 @@
                     // for handle the scroll on whiteboard during the play mode
                     var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
 
-                    var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
+                    var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : ((virtualclass.currApp == 'Whiteboard') ? rHeight + 30 : rHeight);
                     canvas.height = measureRes.height - toolWrapperHeight;
 
                     // canvas.parentNode.height = canvas.height + 'px';
@@ -214,12 +214,19 @@
 
                 var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
 
-                var reduceWidth = (virtualclass.currApp == 'Whiteboard') ? 40 : 50;
+                var reduceWidth = 50;
+
+                if(virtualclass.currApp == 'Whiteboard'){
+                    reduceWidth = 40;
+                } else if(!roles.hasControls() && (virtualclass.currApp == 'DocumentShare')){
+                    reduceWidth = 0;
+                }
+
                 width = (width-reduceWidth);
 
                 canvasWrapper.style.width = width +'px';  //37
 
-                var rHeight =  (virtualclass.isPlayMode) ? 85 : 15;
+                var rHeight =  (virtualclass.isPlayMode) ? 85 : 40;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 if(virtualclass.currApp ==  'DocumentShare'){
@@ -227,7 +234,9 @@
                 }
 
                 var canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
+
                 canvasWrapper.style.height = canWrapperHeight+'px';
+                console.log('canvasWrapper height' + canvasWrapper.style.width);
                 console.log('canvasWrapper height' + canvasWrapper.style.height);
             }
         },

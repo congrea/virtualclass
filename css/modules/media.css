@@ -212,7 +212,7 @@
 
 #virtualclassCont.congrea a#contrAudioAll:hover {
   text-decoration: none;
-  height:49px;
+  /*height:49px;*/
 }
 
 #virtualclassCont.congrea #contrAudioAllImg.congtooltip:hover:after {

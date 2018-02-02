@@ -46,7 +46,7 @@
                 uploadingFiles : [],
                 docOrder : {},
                 fetchedData : false,
-                wbNavtime : 300
+                wbNavtime : 0
             },
 
             enablePreCheck : true,

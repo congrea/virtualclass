@@ -9,6 +9,12 @@
             pdfScale : 1,
             url : "",
             init : function (canvas, currNote){
+
+                var virtualclasElem = document.querySelector('#virtualclassCont');
+                if(virtualclasElem != null){
+                    virtualclasElem.classList.add('pdfRendering');
+                }
+
                 io.globallock = true;
                 virtualclass.gObj.firstNormalRender = false;
                 // hello suman
@@ -457,6 +463,11 @@
                             setTimeout(
                                 function (){
                                     io.globallock = false;
+                                    // remove class from main container
+                                    var virtualclasElem = document.querySelector('#virtualclassCont');
+                                    if(virtualclasElem != null){
+                                        virtualclasElem.classList.remove('pdfRendering');
+                                    }
                                     io.onRecJson(null);
 
                                     if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){

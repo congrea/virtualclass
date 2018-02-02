@@ -368,9 +368,11 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   padding : 2px;
   cursor : move;
 }
+
+
 @media (max-height:956px){
   #virtualclassCont.congrea #pptListContainer {height: calc(100vh - 210px);}
 }
- @media (max-height:768px){
+@media (max-height:768px){
    #virtualclassCont.congrea #pptListContainer {height: calc(100vh - 188px);}
- }
+}

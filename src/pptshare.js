@@ -637,7 +637,9 @@
                                     frame.contentWindow.postMessage(JSON.stringify({method: 'setState', args: [receivemsg.pptMsg.state]}), '*');
                                 }
                             }
+
                         }
+
                     }
                 },
 

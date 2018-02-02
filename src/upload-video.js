@@ -1304,9 +1304,8 @@
                         } else {
                             vidObj.type = "video_yts"
                         }
-                    var that = this;
                     virtualclass.xhrn.sendData(vidObj, url, function (response) {
-                        that.updateOrder();
+                        virtualclass.videoUl.updateOrder();
                         virtualclass.videoUl.order.push(vidObj.uuid);
 
                         // TODO, Critical this need be re-enable
@@ -1381,6 +1380,7 @@
                         upload.cb = virtualclass.videoUl.afterUploadVideo;
                         upload.cthis = 'video';
                         upload.multiple = false;
+                        upload.maxSize=200*1024*1024;
                         upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
                         upload.wrapper = document.getElementById(elemArr[0]);
                         virtualclass.fineUploader.uploaderFn(upload);

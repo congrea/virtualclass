@@ -45,7 +45,8 @@
                 currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
                 uploadingFiles : [],
                 docOrder : {},
-                fetchedData : false
+                fetchedData : false,
+                wbNavtime : 300
             },
 
             enablePreCheck : true,

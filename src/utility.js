@@ -2400,6 +2400,7 @@
         },
 
         navWhiteboard : function (cthis, func, dthis){
+            this.removeAllTextWrapper();
             if(virtualclass.gObj.hasOwnProperty('wbNav')){
                 clearTimeout(virtualclass.gObj.wbNav);
             }
@@ -2413,6 +2414,13 @@
 
                 }, virtualclass.gObj.wbNavtime
             )
+        },
+
+        removeAllTextWrapper : function (){
+            var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
+            for(var i=0; i<allTextWrapper.length; i++){
+                allTextWrapper[i].parentNode.removeChild(allTextWrapper[i]);
+            }
         }
     };
     window.vutil = vutil;

@@ -322,7 +322,8 @@ pointer-events:none;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive{
-  height:93%;
+  height: 92%;
+  overflow: auto;
   /*border-bottom: 1px solid lightgray;*/
   border-top: 0px solid #ddddddad;
 }

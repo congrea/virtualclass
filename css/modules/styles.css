@@ -1550,7 +1550,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
 }
 #virtualclassCont.congrea #playControllerWrapper #playProgress, #virtualclassCont.congrea #playController #playProgress #playProgressBar , #virtualclassCont.congrea #preCheckProgress .progressBar {
-	height: 0px;
+	height: 5px;
 	width:100%;
 }
 
@@ -3103,7 +3103,7 @@
 
 
 #virtualclassCont.congrea .zoomControler {
-	display : none;
+	/*display : none;*/
 }
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
@@ -3337,5 +3337,5 @@
 }
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {
 	overflow-y: scroll;
-	height: 90vh;
+	height: 98%;
 }

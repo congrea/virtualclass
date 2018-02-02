@@ -22,7 +22,7 @@
 #virtualclassEditorRich #synchMessageBox, .writeModeBox {
   background: #EBECC6;
   font-size: 13px;
-  padding: 8px 8px 8px 8px;
+  padding: 2px 8px 2px 8px;
   border: #e6dda4 1px solid;
 }
 
@@ -38,7 +38,7 @@
 }
 
 #virtualclassCont.congrea .writeModeBox {
-  top: 33px;
+  top: 47px;
   right: 0px;
   position: absolute;
   text-align: center;
@@ -74,12 +74,12 @@
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: absolute;
-  top: 40px;
+  top: 48px;
   right: 0px;
   width: 63px;
   /* padding-left: 5px; */
   /* text-align: center; */
-  padding: 6px 8px 6px 8px;
+  padding: 2px 8px 2px 8px;
   font-size: 14px;
   font-weight: 200;
   z-index: 0;
@@ -231,7 +231,24 @@
 }
 
 #virtualclassCont.congrea #alleditorCodeContainer{
-  border-radius: 8px !important;
+  border-radius: 5px !important;
   top: 6px;
-  right: 20px;
+  right: 6px;
+}
+
+#virtualclassCont.congrea.student[data-currapp="EditorCode"] #EditorCodewriteModeBox{
+  top: 6px;
+  right: 6px;
+
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 85px;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 2px 8px 2px 8px;
+}
+
+#virtualclassCont.congrea.teacher[data-currapp="ScreenShare"] .zoomControler{
+  display:none;
 }

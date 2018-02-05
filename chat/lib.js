@@ -206,8 +206,8 @@ function messageUpdate(e) {
         if (virtualclass.chat.chatroombox) {
             $("#chat_room").chatroom("option").messageSent(from, msg);
         } else {
-            if ($("div#chat_room").length == 0) {
-                var d = document.createElement('div');
+            if ($("ul#chat_room").length == 0) {
+                var d = document.createElement('ul');
                 d.id = 'chat_room';
                 document.body.appendChild(d);
                 virtualclass.chat.chatroombox = $("#chat_room").chatroom({
@@ -299,7 +299,7 @@ function statusUpdate(from, msg, prop) {
 }
 
 function common_chatbox_update(from, msg) {
-    if ($("div#chat_room").length) {
+    if ($("ul#chat_room").length) {
         $("#chat_room").chatroom("option").messageSent(from, msg);
     }
 }
@@ -353,7 +353,7 @@ function displaycomChatHistory() {
     //if(sessionStorage.length > 1 || (sessionStorage.length == 1 && sessionStorage.getItem('chatroom_status') == null) ){
     var storageChat = localStorage.getItem('chatroom');
     if (storageChat != null) {
-        var d = document.createElement('div');
+        var d = document.createElement('ul');
         d.id = 'chat_room';
         document.body.appendChild(d);
         var data = JSON.parse(storageChat);

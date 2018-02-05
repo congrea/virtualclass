@@ -9,7 +9,7 @@
          * Initializing webRtc and browser
          * @return system object 
          */
-        init: function () { 
+        init: function () {
             this.wbRtc = {};
             this.wbRtc.className = 'webrtcCont';
             this.mybrowser = {};

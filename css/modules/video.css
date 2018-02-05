@@ -48,3 +48,8 @@
   text-align: center;
   /*border : none;*/
 }
+
+#virtualclassCont.congrea #videoPlayerCont{
+  height:94vh;
+  width : 102%;
+}

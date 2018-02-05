@@ -783,7 +783,7 @@
     height : 94.5vh;
 }
 @media (max-height: 768px) {
-    #virtualclassCont.congrea #listdocs {height: calc(100vh - 136px);
+    #virtualclassCont.congrea #listdocs {height: calc(100vh - 145px);
 }
 }
 

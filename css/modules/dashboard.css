@@ -115,7 +115,7 @@
 }
 
 #virtualclassCont.congrea #docsListContainer {
-  height : 98.35%;
+  height : 98vh;
   width : 18.5%;
   border-right : 1px solid #eee;
 }
@@ -372,4 +372,11 @@
 #virtualclassCont.congrea .currentNav .mainpreview {
   box-shadow: 0 0 6px rgb(96, 96, 97);
   pointer-events : none;
+}
+
+#virtualclassCont #dashboardContainer .modal .modal-content {
+  /*height: 87%;*/
+  max-height:none;
+  padding : 0;
+  height: calc(100vh - 55px);
 }

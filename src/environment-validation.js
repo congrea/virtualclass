@@ -9,7 +9,7 @@
          * Initializing webRtc and browser
          * @return system object 
          */
-        init: function () {
+        init: function () { 
             this.wbRtc = {};
             this.wbRtc.className = 'webrtcCont';
             this.mybrowser = {};
@@ -193,7 +193,8 @@
                     canvas.height = measureRes.height - toolWrapperHeight;
 
                     // canvas.parentNode.height = canvas.height + 'px';
-                    canvasWrapper.style.height = (canvas.height-20) + 'px';
+
+                    canvasWrapper.style.height = (canvas.height-30) + 'px';
                     console.log('canvasWrapper height' + canvasWrapper.style.height);
 
                     console.log("canvas width " + canvas.width);
@@ -216,17 +217,20 @@
 
                 var reduceWidth = 50;
 
+
+                var reduceHeight = 40;
                 if(virtualclass.currApp == 'Whiteboard'){
                     reduceWidth = 40;
                 } else if(!roles.hasControls() && (virtualclass.currApp == 'DocumentShare')){
                     reduceWidth = 0;
+                    reduceHeight = 50;
                 }
 
                 width = (width-reduceWidth);
 
                 canvasWrapper.style.width = width +'px';  //37
 
-                var rHeight =  (virtualclass.isPlayMode) ? 85 : 40;
+                var rHeight =  (virtualclass.isPlayMode) ? 85 : reduceHeight;
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 if(virtualclass.currApp ==  'DocumentShare'){

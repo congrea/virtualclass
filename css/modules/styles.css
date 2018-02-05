@@ -32,7 +32,7 @@
 }
 
 #virtualclassCont.congrea {
-	height : 100%;
+	height : 97vh;
 }
 
 #virtualclassCont.congrea #divForReloadMsg {
@@ -1083,12 +1083,16 @@
 	margin-bottom : 3px;
 }
 
-#virtualclassCont.congrea #chat_div .ui-memblist-usr .controls span {
+#virtualclassCont.congrea.student #chat_div .ui-memblist-usr .controls span {
 	font-size: 13px;
 	font-weight : 200;
 	float: left;
 	margin-top: 4px;
-	margin-right: 2px;
+	margin-right: 6px;
+}
+
+#virtualclassCont.congrea. #chat_div .ui-memblist-usr .controls span {
+  margin-right: 2px;
 }
 
 #virtualclassCont.congrea #chatroom_text .icon-arrow-down, #virtualclassCont.congrea #chatroom_text .icon-arrow-up{
@@ -1213,7 +1217,7 @@
 
 
 #virtualclassCont.congrea {
-	height : 99%;
+	height : 99vh;
 }
 
 #virtualclassCont.congrea .controls a.audEnableSign img {
@@ -1549,9 +1553,15 @@
 	background: linear-gradient(to bottom, #f7f7f8 0%,#eeeef0 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
 }
-#virtualclassCont.congrea #playControllerWrapper #playProgress, #virtualclassCont.congrea #playController #playProgress #playProgressBar , #virtualclassCont.congrea #preCheckProgress .progressBar {
-	height: 5px;
+
+#virtualclassCont.congrea #preCheckProgress .progressBar {
+	height: 0px;
 	width:100%;
+}
+
+#virtualclassCont.congrea #playControllerWrapper #playProgress,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #playController #playProgress .progressBar{
+  height:5px !important;
 }
 
 #virtualclassCont.congrea a.vceditor-btn{
@@ -2245,7 +2255,7 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel {
 	float : right;
 	width : 320px;
-	height: 99.9vh;
+  height: calc(100vh - 20px);
 	border-left: 1px solid #bbb;
 }
 
@@ -3103,7 +3113,7 @@
 
 
 #virtualclassCont.congrea .zoomControler {
-	/*display : none;*/
+	display : none;
 }
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
@@ -3336,6 +3346,6 @@
 	display:block;
 }
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {
-	overflow-y: scroll;
-	height: 98%;
+  overflow: auto;
+  height: 100%;
 }

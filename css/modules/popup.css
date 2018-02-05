@@ -34,7 +34,7 @@
 #virtualclassCont.congrea .rv-vanilla-modal {
 	position:absolute;
 	top:-100%;
-	left:45%;
+	left:55%;
 	width: 27%;
 	min-height:auto;
 	background:#fff;
@@ -47,23 +47,26 @@
 	margin:-300px 0 0 -22.5%;
 	z-index: 1000000;
 }
+
+#virtualclassCont.congrea #popupContainer div#about-modal[data-curr-popup="chromeExt"] {
+	left: 45% !important;
+}
+
+/*#virtualclassCont.congrea #popupContainer .rv-vanilla-modal[data-curr-popup="chromeExt"] #chromeExtMiss{*/
+	/*left:45% !important;*/
+/*}*/
+
 #virtualclassCont.congrea .rv-vanilla-modal-is-open {
 	top: 55%;
 }
-.rv-vanilla-modal {
-	position:absolute;
-	top:-100%;
-	left:58%;
-	width: 27%;
-	min-height:auto;
-	background:#fff;
-	z-index:10;
-	-webkit-transition:.3s all ease-out;
-	transition:.3s all ease-out;
-	border-radius:4px;
-	-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,.3);
-	box-shadow:0 0 6px 0 rgba(0,0,0,.3);
-	margin:-300px 0 0 -22.5%;
+#virtualclassCont.congrea .rv-vanilla-modal {
+	/*position: absolute;*/
+	/*width: calc(64% - 325px);*/
+	/*!* height: 200px; *!*/
+	/*z-index: 1000000;*/
+	/*top: 50%;*/
+	/*left: 40%;*/
+	/*margin: -100px 0 0 -150px;*/
 }
 .rv-vanilla-modal-is-open {
 	top: 55%;

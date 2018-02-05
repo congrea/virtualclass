@@ -792,3 +792,8 @@
     pointer-events: none;
     opacity: 0.5;
 }
+
+
+#virtualclassCont.congrea.pdfRendering .commandToolsWrapper {
+    pointer-events : none;
+}

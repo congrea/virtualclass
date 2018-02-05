@@ -441,6 +441,7 @@ var PopUp = (function (window, undefined) {
 
     PopUp.prototype.chromeExtMissing = function () {
         var element = document.getElementById('about-modal');
+        element.dataset.currPopup = 'chromeExt';
         virtualclass.popup.open(element);
         this.hideAllPopups();
         var sessionEndMsg = document.getElementById("chromeExtMiss");
@@ -450,6 +451,7 @@ var PopUp = (function (window, undefined) {
         sessionEndClose.addEventListener('click',
             function () {
                 virtualclass.popup.closeElem();
+                element.dataset.currPopup = '';
             });
     };
 

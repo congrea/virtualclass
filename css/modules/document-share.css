@@ -533,7 +533,7 @@
 
 
 #virtualclassCont.congrea .whiteboard .next {
-    right : 380px;
+    right : 349px;
 }
 
 #virtualclassCont.congrea .nvgt.next::after {
@@ -783,7 +783,7 @@
     height : 94.5vh;
 }
 @media (max-height: 768px) {
-    #virtualclassCont.congrea #listdocs {height: calc(100vh - 136px);
+    #virtualclassCont.congrea #listdocs {height: calc(100vh - 145px);
 }
 }
 

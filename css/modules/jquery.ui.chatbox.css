@@ -597,8 +597,12 @@
 }
 
 #virtualclassCont.congrea #chat_room{
-    height:109%;
+    height:calc(100vh - 400px);
     margin: 0px;
+}
+
+#virtualclassCont.congrea.student #chat_room {
+    height: calc(100vh - 400px) !important;
 }
 
 #virtualclassCont.congrea .usern span {
@@ -672,6 +676,10 @@
 }
 #virtualclassCont.congrea.student a.inner_bt:hover {
     height: 50px;
+}
+
+#virtualclassCont.congrea.teacher #audioWidget a#rightCtlr:hover {
+    height: 49px;
 }
 
 #virtualclassCont.congrea #audioWidget a#videoPacketInfo:hover,

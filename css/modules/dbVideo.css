@@ -2,13 +2,6 @@
   /*width : 85% !important;*/
 }
 
-#virtualclassCont #dashboardContainer .modal .modal-content {
-  /*height: 87%;*/
-  max-height:none;
-  padding : 0;
-  height: calc(100vh - 70px);
-
-}
 
 #virtualclassCont #dashboardContainer .modal .modal-header {
   height : 70px;
@@ -21,7 +14,7 @@
 
 #virtualclassCont #listvideo {
   height: 81vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom :0;
   margin-top : 8px;
 }

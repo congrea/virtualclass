@@ -1091,6 +1091,10 @@
 	margin-right: 2px;
 }
 
+#virtualclassCont.congrea.student #chat_div .ui-memblist-usr .controls span {
+	margin-right: 6px;
+}
+
 #virtualclassCont.congrea #chatroom_text .icon-arrow-down, #virtualclassCont.congrea #chatroom_text .icon-arrow-up{
 	padding-left: 7px;
 }
@@ -1549,9 +1553,14 @@
 	background: linear-gradient(to bottom, #f7f7f8 0%,#eeeef0 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f8', endColorstr='#eeeef0',GradientType=0 ); /* IE6-9 */
 }
-#virtualclassCont.congrea #playControllerWrapper #playProgress, #virtualclassCont.congrea #playController #playProgress #playProgressBar , #virtualclassCont.congrea #preCheckProgress .progressBar {
-	height: 5px;
+#virtualclassCont.congrea #preCheckProgress .progressBar {
+	height: 0px;
 	width:100%;
+}
+
+#virtualclassCont.congrea #playControllerWrapper #playProgress,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #playController #playProgress .progressBar{
+   height:5px !important;
 }
 
 #virtualclassCont.congrea a.vceditor-btn{
@@ -2529,9 +2538,7 @@
 }
 
 
-#videoPlayerCont{
-	height:94vh;
-}
+
 #dispVideo{
 	height:82vh;
 	width:85%;
@@ -3103,7 +3110,7 @@
 
 
 #virtualclassCont.congrea .zoomControler {
-	/*display : none;*/
+	display : none;
 }
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
@@ -3336,6 +3343,6 @@
 	display:block;
 }
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {
-	overflow-y: scroll;
-	height: 98%;
+	overflow-y: auto;
+	height: 100%;
 }

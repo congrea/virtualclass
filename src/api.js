@@ -9,5 +9,4 @@ var api = {
 	GetRoomMetaData : 'https://api.congrea.net/t/GetRoomMetaData',
 	addURL : 'https://api.congrea.net/t/addURL',
 	GetDocumentStatus : 'https://api.congrea.net/t/GetDocumentStatus',
-
 }

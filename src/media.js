@@ -1084,15 +1084,22 @@
                                 p  = 0;
                             }
                             var md = p * td;
-                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
+                            // Sends video when the websocket is connected
+                            if(virtualclass.vutil.webSocketConnected()){
+                                virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
+                            }
+
                             //console.log("send time " + (d + md) + new Date().getSeconds());
                         } else {
-                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
+                            if(virtualclass.vutil.webSocketConnected()){
+                                virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
+                            }
                             //console.log("send time " + d + new Date().getSeconds());
                         }
                     }
-
-                    virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, 300);
+                    if(virtualclass.vutil.webSocketConnected()){
+                        virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, 300);
+                    }
                     // Breaking user id into bytes
                     function breakintobytes(val, l) {
                         var numstring = val.toString();

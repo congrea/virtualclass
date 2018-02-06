@@ -848,9 +848,11 @@
                 pptObj.type = 'presentation';
                 var that = this;
                 virtualclass.xhrn.sendData(pptObj, url, function (response) {
-                    var ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
-                    if(ppts.length != virtualclass.sharePt.order.length){
-                        virtualclass.sharePt.order = ppts;
+                    if(virtualclass.sharePt.hasOwnProperty('activeppts')){
+                        var ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
+                        if(ppts.length != virtualclass.sharePt.order.length){
+                            virtualclass.sharePt.order = ppts;
+                        }
                     }
 
                     virtualclass.sharePt.order.push(pptObj.uuid);

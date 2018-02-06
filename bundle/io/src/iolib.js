@@ -321,7 +321,7 @@ var io = {
                     type: "member_added",
                     message: receivemsg.users,
                     newuser: newuser,
-                    newJoinId : receivemsg.action
+                    newJoinUser : receivemsg.user
                 });
 
                 break;

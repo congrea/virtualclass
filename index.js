@@ -745,29 +745,23 @@ $(document).ready(function () {
 
         $(document).on("member_added", function (e) {
             var sType;
-            if(e.hasOwnProperty('cmadd')){
-                e.message = virtualclass.tempConnectedUsers;
-                // console.log('Member, ping received from ' + virtualclass.jId);
-            } else {
-                virtualclass.tempConnectedUsers = e.message;
-            }
 
             if(typeof virtualclass.connectedUsers == 'undefined'){
                 virtualclass.connectedUsers = [];
             }
-
-            virtualclass.jId = e.newJoinId;
-            // alert('Join user ' + virtualclass.jId);
+            var joinUserObj = e.newJoinUser;
+            virtualclass.jId = joinUserObj.userid;
 
             var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
-
             if(upos != -1){
                 virtualclass.connectedUsers.splice(upos, 1);
             }
-            virtualclass.connectedUsers.push(getJoinUser(virtualclass.tempConnectedUsers, virtualclass.jId));
+
+            virtualclass.connectedUsers.push(joinUserObj);
 
             // Get the new joiner user id and object
-            virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
+            virtualclass.joinUser = joinUserObj;
+
 
             // set the default value related about video quality, internet latency and frame rate
             if (virtualclass.jId == virtualclass.gObj.uid) {
@@ -1452,8 +1446,7 @@ $(document).ready(function () {
             this.mem_add = function (e){
                 $.event.trigger({
                     type: "member_added",
-                    message: e.message.user,
-                    newJoinId : e.fromUser.userid,
+                    newJoinUser: e.message.user,
                     cmadd : true
                 });
             }

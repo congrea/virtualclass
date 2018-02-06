@@ -153,7 +153,7 @@
                         var canWrapper = document.querySelector('#canvasWrapper' +wb);
 
                         canWrapper.style.width = res.width + "px";
-                        canWrapper.style.height = res.height + "px";
+                        canWrapper.style.height = (res.height-130) + "px";
                         // virtualclass.system.setAppDimension(wb, true);
                     }
                 }

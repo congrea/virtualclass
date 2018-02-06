@@ -174,7 +174,7 @@
             data.page = 0;
         }
         
-        virtualclass.xhrn.sendData(data, 'https://api.congrea.net/t/UpdateDocumentStatus', function (msg){
+        virtualclass.xhrn.sendData(data, virtualclass.api.UpdateDocumentStatus, function (msg){
             console.log('Msg ' + msg);
         });
        // this.xhrSend(data);

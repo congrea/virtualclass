@@ -253,7 +253,7 @@
                     page : 0
                 }
                // var videoid = id;
-                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var url =  virtualclass.api.UpdateDocumentStatus;
                 var that = this;
                 // virtualclass.xhrn.sendFormData({uuid:videoid}, url, function (msg) {
                 //     that.afterDeleteCallback(msg)
@@ -358,7 +358,7 @@
                     page : 0
                 }
                 var videoid = id;
-                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var url =  virtualclass.api.UpdateDocumentStatus;
                 var that = this;
                 // virtualclass.xhrn.sendFormData({uuid:videoid}, url, function (msg) {
                 //     that.afterDeleteCallback(msg)
@@ -844,7 +844,7 @@
                 pptObj.uuid = id;
                 pptObj.URL = vUrl;
                 pptObj.title = vUrl;
-                var url = ' https://api.congrea.net/t/addURL';
+                var url = virtualclass.api.addURL;
                 pptObj.type = 'presentation';
                 var that = this;
                 virtualclass.xhrn.sendData(pptObj, url, function (response) {

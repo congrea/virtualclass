@@ -146,12 +146,15 @@
                     this.system.setBrowserDetails();
                 }
 
+                virtualclass.api = window.api;
+
                 virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
                 virtualclass.xhr = window.xhr;
                 virtualclass.xhr.init();
 
                 /** This both have to merge **/
                 virtualclass.xhrn = window.xhrn;
+
                 virtualclass.xhrn.init();
                 this.xhrn.getAcess(function (response){
                     if(response != 'ERROR' || response != 'Error'){
@@ -181,6 +184,8 @@
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
+
+
                 this.serverData = serverData;
                 if(roles.hasControls()){
                     this.serverData.fetchAllData(); // gets all data from server at very first

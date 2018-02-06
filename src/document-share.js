@@ -1516,7 +1516,7 @@
                     page : 0
                 }
 
-                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var url =  virtualclass.app.UpdateDocumentStatus;
                 var that = this;
 
                 var cthis = this;
@@ -1551,7 +1551,7 @@
                     page : pid
                 }
 
-                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var url =  virtualclass.app.UpdateDocumentStatus;
                 var that = this;
 
                 var cthis = this;

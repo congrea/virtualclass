@@ -153,7 +153,7 @@
                         var canWrapper = document.querySelector('#canvasWrapper' +wb);
 
                         canWrapper.style.width = res.width + "px";
-                        canWrapper.style.height = res.height + "px";
+                        canWrapper.style.height = (res.height-130) + "px";
                         // virtualclass.system.setAppDimension(wb, true);
                     }
                 }
@@ -2336,12 +2336,12 @@
         sendOrder : function (type, order,cb){
             virtualclass.gObj.docOrder[type] = order;
             var data = {order: JSON.stringify(virtualclass.gObj.docOrder)};
-            var url = 'https://api.congrea.net/t/UpdateRoomMetaData'
+            var url = virtualclass.api.UpdateRoomMetaData
             virtualclass.xhrn.sendData(data, url,cb);
         },
 
         requestOrder : function (type, cb){
-            var url = 'https://api.congrea.net/t/GetRoomMetaData';
+            var url = virtualclass.api.GetRoomMetaData;
             var cthis = this;
             virtualclass.xhrn.sendData({noting:true}, url, function (response) {
                 if (response == "Error") {

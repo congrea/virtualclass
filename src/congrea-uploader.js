@@ -93,12 +93,14 @@
                     multiple : obj.multiple,
                     validation :  {allowedExtensions : obj.validation, minSizeLimit : (4*1024),sizeLimit :obj.maxSize}, // minimum file should be 4kb limit
                     request: {
-                        endpoint: 'https://uploadmedia.congrea.net',
+                        //endpoint: 'https://uploadmedia.congrea.net',
+                        endpoint: virtualclass.api.uploadMedia,
                         accessKey: "AKIAJV7RJOFBDFVY62EQ"
                     },
 
                     signature: {
-                        endpoint: 'https://api.congrea.net/t/upload',
+                        //   endpoint: 'https://api.congrea.net/t/upload',
+                        endpoint: virtualclass.api.upload,
                         version: 4,
                         customHeaders: {
                             'x-api-key':  wbUser.lkey,
@@ -108,7 +110,8 @@
                         }
                     },
                     uploadSuccess: {
-                        endpoint: 'https://api.congrea.net/t/uploadSuccess',
+                        //endpoint: 'https://api.congrea.net/t/uploadSuccess',
+                        endpoint: virtualclass.api.uploadSuccess,
                         customHeaders: {
                             'x-api-key':  wbUser.lkey,
                             'x-congrea-authuser': wbUser.auth_user,

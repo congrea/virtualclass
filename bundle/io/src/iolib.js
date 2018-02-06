@@ -162,7 +162,7 @@ var io = {
 
         var jobj;
 
-        if (this.sock && this.sock.readyState == 1) { // If Socket is ready
+        if (virtualclass.vutil.webSocketConnected()) { // If Socket is ready
             if (io.packetQueue.length > 0) {
                 for (var i = 0; i < io.packetQueue.length; i++) {
                     var tmp_jobj = JSON.parse(io.packetQueue[i]);
@@ -244,7 +244,7 @@ var io = {
     },
     sendBinary: function(msg) {
         "use strict";
-        if ((this.sock && this.sock.readyState == 1)) {
+        if (virtualclass.vutil.webSocketConnected()) {
             this.sock.send(msg.buffer);
         }
 

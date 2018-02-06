@@ -466,18 +466,20 @@ var videoHost = {
         // this.initVideoInfo();
 
         setInterval(
-                function () {
-                    //console.log("Video Frame Rate :" +  virtualclass.videoHost.gObj.video_count);
-                    virtualclass.videoHost.gObj.video_count = 0;
-                }, 1000
-                );
+            function () {
+                //console.log("Video Frame Rate :" +  virtualclass.videoHost.gObj.video_count);
+                virtualclass.videoHost.gObj.video_count = 0;
+            }, 1000
+        );
 
         setInterval(
-                function () {
+            function () {
+                if(virtualclass.vutil.webSocketConnected()){
                     ioAdapter.sendPing();
-                }, 1000
-                );
-        //nirmala
+                }
+            }, 2000
+        );
+
         this.fromLocalStorage();
         this.resetPrecheck();
 

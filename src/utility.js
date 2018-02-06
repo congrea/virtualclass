@@ -2419,6 +2419,10 @@
             for(var i=0; i<allTextWrapper.length; i++){
                 allTextWrapper[i].parentNode.removeChild(allTextWrapper[i]);
             }
+        },
+
+        webSocketConnected : function (){
+            return (io.sock && io.sock.readyState == 1);
         }
     };
     window.vutil = vutil;

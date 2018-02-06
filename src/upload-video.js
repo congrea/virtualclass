@@ -229,7 +229,7 @@
             afterUploadVideo: function (id, xhr, res) {
                 var res = res.result;
                 if(res == 'success'){
-                    var url = 'https://api.congrea.net/t/GetDocumentStatus';
+                    var url = virtualclass.api.GetDocumentStatus;
                     var that = this;
                     that.updateOrder();
                     virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
@@ -549,7 +549,7 @@
                 virtualclass.vutil.sendOrder(type,  order);
 
                 // var data = {order:order.toString(), data:'video'};
-                // var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
+                // var url = virtualclass.api.UpdateRoomMetaData;
                 // virtualclass.xhrn.sendData(data, url, function (){});
             },
 
@@ -862,7 +862,7 @@
                     page : 0
                 }
                 var videoid = id;
-                var url =  'https://api.congrea.net/t/UpdateDocumentStatus';
+                var url =  virtualclass.api.UpdateDocumentStatus;
                 var that = this;
                 // virtualclass.xhrn.sendFormData({uuid:videoid}, url, function (msg) {
                 //     that.afterDeleteCallback(msg)
@@ -921,7 +921,7 @@
 
             xhrOrderSend: function (order) {
                 var data = {order:order.toString()};
-                var url = 'https://api.congrea.net/t/UpdateRoomMetaData';
+                var url = virtualclass.api.UpdateRoomMetaData;
                 virtualclass.xhrn.sendData(data, url, function (){
                     // virtualclass.videoUl.UI.awsr();
                     virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
@@ -1295,7 +1295,7 @@
                     vidObj.URL = input.value;
                     vidObj.title = input.value;
 
-                    var url = ' https://api.congrea.net/t/addURL';
+                    var url = virtualclass.api.addURL;
 
                     var videoId = virtualclass.videoUl.getVideoId(input.value);
 
@@ -1432,7 +1432,7 @@
                 // nirmala aws
                 awsr:function(){
                     var data= "Demo";
-                    this.postAjax("https://api.congrea.net/t/GetDocumentURLs",data)
+                    this.postAjax(virtualclass.api.GetDocumentURLs,data)
                 },
 
 

@@ -4,7 +4,7 @@ var serverData = {
     fetchAllData : function (cb){
         console.log('Fetch all data');
         this.cb = cb;
-        this.requestData("https://api.congrea.net/t/GetDocumentURLs");
+        this.requestData(virtualclass.api.GetDocumentURLs);
     },
 
     requestData :function(url) {
@@ -244,7 +244,7 @@ var serverData = {
     },
 
     pollingStatus : function (cb){
-        var url = 'https://api.congrea.net/t/GetDocumentStatus';
+        var url = virtualclass.api.GetDocumentStatus;
         if(virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')){
             clearTimeout(virtualclass.gObj.pollingDocumentStatus);
         }

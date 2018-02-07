@@ -19,7 +19,7 @@
             tempFolder : "documentSharing",
 
             init: function(docsObj) {
-                this.firstRequest = false;
+                 this.firstRequest = false;
                 firstTime = true;
 
                 if(virtualclass.gObj.hasOwnProperty('dstAll') &&  typeof virtualclass.gObj.dstAll == 'string'){
@@ -113,7 +113,7 @@
                         // when the docs is not in storage
                         if(roles.hasControls()){
                             this.firstRequestDocs();
-                            this.firstRequest = true;
+                            // this.firstRequest = true;
                         }
                     }
                 }
@@ -272,6 +272,7 @@
                     virtualclass.serverData.fetchAllData(function (){
                         ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
                         that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+                        that.firstRequest = true;
                     });
                 }else {
                     // TODO, this should be called without setTimeout
@@ -1516,7 +1517,7 @@
                     page : 0
                 }
 
-                var url =  virtualclass.app.UpdateDocumentStatus;
+                var url =  virtualclass.api.UpdateDocumentStatus;
                 var that = this;
 
                 var cthis = this;
@@ -1551,7 +1552,7 @@
                     page : pid
                 }
 
-                var url =  virtualclass.app.UpdateDocumentStatus;
+                var url =  virtualclass.api.UpdateDocumentStatus;
                 var that = this;
 
                 var cthis = this;

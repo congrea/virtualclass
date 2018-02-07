@@ -1953,11 +1953,9 @@
                     var hidepopup= true;
                  }
                 var dashboardnav =  document.querySelector('#dashboardnav button');
-                if(dashboardnav != null && !hidepopup){
+                if(dashboardnav != null && !hidepopup && !virtualclass.vutil.isDashboardOpened()){
                     dashboardnav.click();
                 }
-
-
 
             } else if (currApp == "SharePresentation"){
                 var dtitle = document.getElementById('dashboardnav');
@@ -2423,6 +2421,11 @@
 
         webSocketConnected : function (){
             return (io.sock && io.sock.readyState == 1);
+        },
+
+        isDashboardOpened : function (navButton){
+            var navButton = document.querySelector('#dashboardnav button');
+            return (navButton != null && navButton.classList.contains('clicked'));
         }
     };
     window.vutil = vutil;

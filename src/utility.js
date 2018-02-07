@@ -530,15 +530,11 @@
 
                     prvAppObj.metaData = {
                         'init': {
-
                             videoId:virtualclass.videoUl.videoId,
                             videoUrl:virtualclass.videoUl.videoUrl,
                             yts:virtualclass.videoUl.yts,
                             online:virtualclass.videoUl.online,
                             isPaused:virtualclass.videoUl.isPaused,
-
-
-
                         },
                         startFrom: start,
                         isAutoplay:virtualclass.videoUl.autoPlayFlag
@@ -614,13 +610,9 @@
              * while user refresh the page at other App(eg:- video)
              * rather than document sharing
              */
-            if(virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
-                && (typeof virtualclass.dts.pages == 'object')){
-                var docsObj = {};
-                docsObj.docs = virtualclass.dts.pages;
-                docsObj.order = JSON.stringify(virtualclass.dts.order);
-                docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
-                localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+
+            if(virtualclass.hasOwnProperty('dts')){
+                virtualclass.dts.upateInStorage();
             }
 
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
@@ -637,6 +629,7 @@
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
             io.disconnect();
         },
+
         initOnBeforeUnload: function(bname) {
             //debugger;
             if (bname == 'iOS') {
@@ -1953,11 +1946,9 @@
                     var hidepopup= true;
                  }
                 var dashboardnav =  document.querySelector('#dashboardnav button');
-                if(dashboardnav != null && !hidepopup){
+                if(dashboardnav != null && !hidepopup && !virtualclass.vutil.isDashboardOpened()){
                     dashboardnav.click();
                 }
-
-
 
             } else if (currApp == "SharePresentation"){
                 var dtitle = document.getElementById('dashboardnav');
@@ -2423,6 +2414,11 @@
 
         webSocketConnected : function (){
             return (io.sock && io.sock.readyState == 1);
+        },
+
+        isDashboardOpened : function (navButton){
+            var navButton = document.querySelector('#dashboardnav button');
+            return (navButton != null && navButton.classList.contains('clicked'));
         }
     };
     window.vutil = vutil;

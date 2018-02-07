@@ -340,7 +340,7 @@
         'validateurlmsg' : 'Invalid Url',
         "NotSupportedError" : 'Only secure orgins(https) are allowed for Audio and Video.',
         'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing',
-        'noPoll':' ‘There is no question available for poll. Kindly click on ‘add new’ button to add question',
+        'noPoll': "There is no question available for poll. Kindly click on ‘add new’ button to add question",
         'noResultStd':"You are not permitted to see the result",
         'editTitle':"Edit Title",
         'votesuccessPbt':"Vote has been submitted successfully ,You are not permitted to see the result",

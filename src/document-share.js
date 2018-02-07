@@ -258,6 +258,7 @@
                     this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
                     // this.pages[docId].init(id, this.allDocs[id].title);
                     this.pages[docId].init(id, this.allDocs[id].filename);
+                    this.upateInStorage();
                 }
             },
 
@@ -426,7 +427,6 @@
                 var cthis = virtualclass.dts;
                 virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
                 ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
-
                 cthis.removeNoDocsElem();
                 cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
                 cthis.allNotes = virtualclass.dts.fetchAllNotes();
@@ -1531,6 +1531,7 @@
                 delete this.pages['docs'+id];
                 this.removePagesUI(id);
                 this.removePagesFromStructure(id);
+                this.upateInStorage();
             },
 
             _deleteNote : function (id, typeDoc){
@@ -1855,6 +1856,18 @@
             isUploaderExist : function (){
                 var uploadElem =  document.querySelector('#docsuploadContainer .qq-uploader-selector');
                 return (uploadElem != null);
+            },
+
+            // Update in lcoal Storage
+            upateInStorage : function (){
+                if(virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
+                    && (typeof virtualclass.dts.pages == 'object')){
+                    var docsObj = {};
+                    docsObj.docs = virtualclass.dts.pages;
+                    docsObj.order = JSON.stringify(virtualclass.dts.order);
+                    docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
+                    localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+                }
             }
         };
     }

@@ -784,7 +784,7 @@
             // when we are in replay mode we don't need send the object to other user
             if (msg.hasOwnProperty('createArrow')) {
                 var jobj = JSON.stringify(msg);
-                virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
+                virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
             } else {
                 if (msg.hasOwnProperty('repObj')) { // For Whiteboard
                     if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {

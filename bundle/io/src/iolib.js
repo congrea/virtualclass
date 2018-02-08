@@ -386,6 +386,36 @@ var io = {
                     message: receivemsg.m
                 });
                 break;
+
+            case "Text_Limit_Exeed":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Text_Limit_Exeed"
+                });
+                break;
+
+            case "Binary_Limit_Exeed":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Text_Limit_Exeed"
+                });
+                break;
+
+            case "Max_rooms":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Max_rooms"
+                });
+                break;
+
+            case "Max_users":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Max_rooms"
+                });
+                break;
+
+
         }
         //} catch (e) {
         //    console.log("Error catched   : " + e);

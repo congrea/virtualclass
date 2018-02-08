@@ -1976,6 +1976,7 @@
 	padding:20px;
 	border-radius:5px;
 	text-align:center;
+	z-index : 1150;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
@@ -2922,10 +2923,11 @@
 	border-radius: 20px;
 	color: #ffffff;
 	position: relative;
-	top: -26px;
-	right: -27px;
+	top: -8px;
+	right: -4%;
 	font-family: sans-serif;
-	cursor: pointer
+	cursor: pointer;
+	float: right;
 }
 
 #virtualclassCont.congrea #popupContainer #uploadvideourl {

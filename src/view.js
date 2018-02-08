@@ -44,28 +44,45 @@
          * @param  addBefore id of the containere before which error container to be placed
          * @return errorCont.id id of the error container
          */
-        createErrorMsg: function (msg, contId, addBefore) {
-
+        createErrorMsg: function (msg, contId, addBefore, attribute) {
+            var classes = 'error';
             var errorCont = document.getElementById(contId);
             if (errorCont == null) {
                 var errorCont = document.createElement('div');
                 errorCont.id = contId;
-                errorCont.innerHTML = msg;
+
+                errorCont.innerHTML = '<span className="'+classes+'">'+msg+'</span>';
+
             } else {
-                var errMsg = msg + "<br /> " + errorCont.innerHTML;
-                errorCont.innerHTML = errMsg;
+                if(attribute != null){
+                    if(attribute.hasOwnProperty('className')){
+                        var elem = document.querySelector('#' + contId + '.' + attribute.className);
+                        if(elem != null){
+                            elem.parentNode.removeChild(elem);
+                        }
+                        classes += ' ' + attribute.className;
+                    }
+                }
+
+                var spanMsg = '<span className="'+classes+'">'+msg+'</span>';
+
+                errorCont.innerHTML = spanMsg;
             }
 
-            //sumanfnew
-            var closebutton = document.createElement('span');
-            closebutton.id = 'closeMsg';
-            closebutton.innerHTML = "X";
+            var msgId = 'closeMsg';
+            closebutton = document.querySelector('#'+msgId);
+
+            if(closebutton == null){
+                var closebutton = document.createElement('span');
+                closebutton.id = 'closeMsg';
+                closebutton.innerHTML = "X";
+                errorCont.appendChild(closebutton);
+            }
+
             closebutton.onclick = function (){
                 var parentelem = document.querySelector('#'+contId);
                 parentelem.parentNode.removeChild(parentelem);
             }
-
-            errorCont.appendChild(closebutton);
 
             var addBeforeElem = document.getElementById(addBefore);
             addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);

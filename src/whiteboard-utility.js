@@ -874,7 +874,7 @@
                 var wid = virtualclass.gObj.currWb;
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
-                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
+                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
                 } else {
                     if (msg.hasOwnProperty('repObj')) {
                         if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {

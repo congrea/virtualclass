@@ -400,7 +400,7 @@ var io = {
             case "Binary_Limit_Exeed":
                 // console.log('Case:- PONG');
                 $.event.trigger({
-                    type: "Text_Limit_Exeed"
+                    type: "Binary_Limit_Exeed"
                 });
                 break;
 

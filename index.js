@@ -884,7 +884,7 @@ $(document).ready(function () {
             delete virtualclass.gObj['doEndSession'];
         }
 
-        $(document).on(virtualclass.lang.getString('Text_Limit_Exeed'), function (e) {
+        $(document).on("Text_Limit_Exeed", function (e) {
             virtualclass.view.createErrorMsg(virtualclass.lang.getString('Text_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Text_Limit_Exeed'});
         });
 

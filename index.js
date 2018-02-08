@@ -277,6 +277,8 @@ $(document).ready(function () {
             if(virtualclass.gObj.meetingMode){
                 virtualclass.multiVideo.onUserRemove(removeUser);
             }
+
+
         });
 
         var disableEditor = function (editor) {
@@ -892,11 +894,13 @@ $(document).ready(function () {
 
         $(document).on("Unauthenticated", function (e) {
             virtualclass.view.createErrorMsg(virtualclass.lang.getString('Unauthenticated'), 'errorContainer', 'chatWidget', {className : 'Unauthenticated'});
+            virtualclass.vutil.stopConnection();
         });
 
         $(document).on("Multiple_login", function (e) {
             virtualclass.chat.removedPrvLoggedInDetail();
             virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'chatWidget', {className : 'Multiple_login'});
+            virtualclass.vutil.stopConnection();
         });
 
         $(document).on("Max_rooms", function (e) {
@@ -959,6 +963,7 @@ $(document).ready(function () {
         });
 
         $(document).on("connectionopen", function (e) {
+            virtualclass.gObj.invalidlogin = false;
             var setTimeReady = 6000;
             // There will take more time to connect socket when teacher will
             // Come from become Teacher

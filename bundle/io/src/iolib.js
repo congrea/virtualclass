@@ -125,7 +125,10 @@ var io = {
             setTimeout(function() {
                 // For prevent to send any packet to other during save session
                 // and download session
-                if (!virtualclass.gObj.hasOwnProperty('saveSession') && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !virtualclass.recorder.uploadInProcess) {
+                if (!virtualclass.gObj.hasOwnProperty('saveSession') &&
+                    !virtualclass.gObj.hasOwnProperty('downloadProgress') &&
+                    !virtualclass.recorder.uploadInProcess &&
+                    !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {
                     scope.wsconnect();
                 }
             }, 5000);

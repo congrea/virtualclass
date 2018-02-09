@@ -90,6 +90,7 @@ function updateOnlineUserText (){
 }
 
 function memberUpdate(e, addType) {
+  // TODO e.message now does not contain complete list of users. Function needs to be updated.
     if(addType ==  'removed'){
         var userUI = document.querySelector('#ml'+e.removeUser);
         if(userUI != null){

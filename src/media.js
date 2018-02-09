@@ -1010,7 +1010,7 @@
                     }
                     var cvideo = this;
                     var frame;
-                    randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
+                    randomTime = Math.floor(Math.random()*(8000-3000+1)+3000); // Random number between 3000 & 8000
                     var totalMembers = -1;
 
                     function sendSmallVideo() {
@@ -1063,43 +1063,40 @@
                         }
 
                         //TODO Find out why the would send each time rather than one
-
-                        virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
-
-                        var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
-                        var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);
-                        var uid = breakintobytes(virtualclass.gObj.uid, 8);
-                        var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3]]);// First parameter represents  the protocol rest for user id
-                        var sendmsg = new Uint8ClampedArray(encodedframe.length + scode.length);
-                        sendmsg.set(scode);
-                        sendmsg.set(encodedframe, scode.length);
-                        ioAdapter.sendBinary(sendmsg);
+                        if(virtualclass.vutil.webSocketConnected()) {
+                          virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
+                          var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
+                          var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);
+                          var uid = breakintobytes(virtualclass.gObj.uid, 8);
+                          var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3]]);// First parameter represents  the protocol rest for user id
+                          var sendmsg = new Uint8ClampedArray(encodedframe.length + scode.length);
+                          sendmsg.set(scode);
+                          sendmsg.set(encodedframe, scode.length);
+                          ioAdapter.sendBinary(sendmsg);
+                          // console.log("send time " + new Date());
+                        }
                         clearInterval(virtualclass.gObj.video.smallVid);
-                        var d = 2000 + (virtualclass.gObj.totalUser.length * 2500);
-                        if (totalMembers != virtualclass.gObj.totalUser) { // BUG : totalUser  is not a number it is an array
-                            totalMembers = virtualclass.gObj.totalUser.length;
-                            var p = virtualclass.gObj.totalUser.indexOf(virtualclass.gObj.uid);
+                        var d = randomTime + (virtualclass.connectedUsers.length * 2500);
+                        if (totalMembers != virtualclass.connectedUsers.length) {
+                            totalMembers = virtualclass.connectedUsers.length;
+                            var p = -1;
+                            for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                                if (virtualclass.connectedUsers[0].userid == virtualclass.gObj.uid) {
+                                  p = i;
+                                }
+                            }
                             var td = d / totalMembers;
                             if(p < 0){
                                 p  = 0;
                             }
                             var md = p * td;
-                            // Sends video when the websocket is connected
-                            if(virtualclass.vutil.webSocketConnected()){
-                                virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
-                            }
 
-                            //console.log("send time " + (d + md) + new Date().getSeconds());
+                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
                         } else {
-                            if(virtualclass.vutil.webSocketConnected()){
-                                virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
-                            }
-                            //console.log("send time " + d + new Date().getSeconds());
+                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
                         }
                     }
-                    if(virtualclass.vutil.webSocketConnected()){
-                        virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, 300);
-                    }
+                    virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, randomTime);
                     // Breaking user id into bytes
                     function breakintobytes(val, l) {
                         var numstring = val.toString();

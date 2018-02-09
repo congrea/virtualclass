@@ -340,7 +340,7 @@
         'validateurlmsg' : 'Invalid Url',
         "NotSupportedError" : 'Only secure orgins(https) are allowed for Audio and Video.',
         'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing',
-        'noPoll':' ‘There is no question available for poll. Kindly click on ‘add new’ button to add question',
+        'noPoll': "There is no question available for poll. Kindly click on ‘add new’ button to add question",
         'noResultStd':"You are not permitted to see the result",
         'editTitle':"Edit Title",
         'votesuccessPbt':"Vote has been submitted successfully ,You are not permitted to see the result",
@@ -352,7 +352,12 @@
         'minoption':'enter atleast two options',
         'delblank' :'remove the blank option',
         'NotAllowedError':'Webcam is disabled',
+        'Text_Limit_Exeed' : 'Warning: High TX Usage',
+        'Binary_Limit_Exeed' : 'Warning: High BN Usage',
+        'Unauthenticated' : 'Error: Access Invalid',
+        'Multiple_login' : 'Error: Access Invalid, Multiple Logins',
+        'Max_rooms' : 'Error: Max rooms limit reached',
+        'Max_users' : 'Error: Max users limit reached'
     };
-
     window.message = message;
 })(window);

@@ -44,6 +44,7 @@ var ioAdapter = {
         }
 
         if (this.sendWithDelayIdentifier.hasOwnProperty("uniqueIdentifier")) {
+            console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
             clearTimeout(this.sendWithDelayIdentifier.uniqueIdentifier);
         }
 
@@ -119,6 +120,11 @@ var ioAdapter = {
     },
 
     sendSpeed: function (msg) {
+        "use strict";
+        ioAdapter.sendWithDelayAndDrop (msg, null, 'realSendSpeed', 'sendSpeed', 1000);
+    },
+
+    realSendSpeed: function (msg) {
         "use strict";
         var cfun = 'speed';
         io.send(msg, cfun);

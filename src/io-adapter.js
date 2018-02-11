@@ -43,14 +43,16 @@ var ioAdapter = {
             delay = 1000;
         }
 
-        if (this.sendWithDelayIdentifier.hasOwnProperty("uniqueIdentifier")) {
+        if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
             console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
-            clearTimeout(this.sendWithDelayIdentifier.uniqueIdentifier);
+            clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
+            ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
         }
 
-        this.sendWithDelayIdentifier.uniqueIdentifier =  setTimeout (function () {
+        ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] =  setTimeout (function () {
             console.log ("Sending With Delay " + sendFunction + " message " + JSON.stringify(msg));
             ioAdapter[sendFunction](msg);
+            ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
         },delay)
 
     },

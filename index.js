@@ -608,7 +608,7 @@ $(document).ready(function () {
 
                 // Send to everyone that the teacher is connected
                 // for remove for extra cover of read only mode with editor
-                ioAdapter.send({'cf': 'tConn'});
+                ioAdapter.sendWithDelayAndDrop ({'cf': 'tConn'}, null, 'send', 'tConn', 1000);
 
             }
 

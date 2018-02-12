@@ -320,13 +320,22 @@ var io = {
                 }
                 io.uniquesids = receivemsg.clientids;
                 //update users
-                $.event.trigger({
+                var msg = {
                     type: "member_added",
-                    message: receivemsg.users,
                     newuser: newuser,
-                    newJoinUser : receivemsg.user
-                });
+                    joinUser : receivemsg.action
+                }
 
+                if(receivemsg.hasOwnProperty('users')){
+                    msg.message = receivemsg.users;
+                    msg.users = true;
+
+                }else if(receivemsg.hasOwnProperty('user')){
+                    msg.message = receivemsg.user;
+                    msg.user = true;
+                }
+
+                $.event.trigger(msg);
                 break;
             case "broadcastToAll":
             case "broadcast":

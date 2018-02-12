@@ -518,25 +518,17 @@ $(document).ready(function () {
                     console.log('From localStorage, cannot perform the override role action');
                 }
             } else {
-                //  console.log('Join user  ' + virtualclass.jId);
-                var iamObj =  {user : {img : wbUser.imageurl, lname:wbUser.lname, name: wbUser.name, role : wbUser.role, userid : wbUser.id}, cf : 'mem_add'};
-
-                /* Clouser is used to retain the joined userid on SetTimeout */
-                (function(e, iamObj, jId){
-                    setTimeout(function () {
-                        sayHelloToNewUser(e, iamObj, jId);
-                    }, 3000);
-                }(e, iamObj, virtualclass.jId));
+                console.log('Does not need to say hello to new user');
             }
-
-            // Handle other thing as usual
-
-            // console.log('Member add :- join as normal ' + virtualclass.joinUser.role + ' join id ' + virtualclass.jId);
 
             ioPingPong.ping(e);
 
             // e.message.sort(sortUserList);
-            e.message = [virtualclass.joinUser];
+            // e.message = [virtualclass.joinUser];
+            if(!Array.isArray(e.message)){
+                e.message = [e.message];
+            }
+
             memberUpdateWithDelay(e, 'added');
 
             // virtualclass.gObj.video.updateVideoContHeight();
@@ -751,19 +743,25 @@ $(document).ready(function () {
             if(typeof virtualclass.connectedUsers == 'undefined'){
                 virtualclass.connectedUsers = [];
             }
-            var joinUserObj = e.newJoinUser;
-            virtualclass.jId = joinUserObj.userid;
 
-            var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
-            if(upos != -1){
-                virtualclass.connectedUsers.splice(upos, 1);
+            if(e.hasOwnProperty('user')){
+                var joinUserObj = e.message;
+                virtualclass.jId = joinUserObj.userid;
+
+                var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
+                if(upos != -1){
+                    virtualclass.connectedUsers.splice(upos, 1);
+                }
+                virtualclass.connectedUsers.push(joinUserObj);
+                // Get the new joiner user id and object
+                virtualclass.joinUser = joinUserObj;
+            }else if(e.hasOwnProperty('users')){
+                virtualclass.jId = e.joinUser;
+                virtualclass.connectedUsers = e.message;
+                virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
+            }else {
+                console.log('User packet is not receving');
             }
-
-            virtualclass.connectedUsers.push(joinUserObj);
-
-            // Get the new joiner user id and object
-            virtualclass.joinUser = joinUserObj;
-
 
             // set the default value related about video quality, internet latency and frame rate
             if (virtualclass.jId == virtualclass.gObj.uid) {
@@ -825,7 +823,8 @@ $(document).ready(function () {
             } else {
                 // this will be the usual case:-
                 defaultOperation(e, sType);
-                if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) && (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
+                if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) &&
+                    (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
                     virtualclass.vutil.createBecomeTeacherWidget();
                 }
             }

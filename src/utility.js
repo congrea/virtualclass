@@ -150,10 +150,10 @@
                 }else if(appId == 'virtualclassDocumentShare'){
                     var wb = virtualclass.gObj.currWb;
                     if(wb != null){
+                        // This dimension is setting when window is being resized
                         var canWrapper = document.querySelector('#canvasWrapper' +wb);
-
                         canWrapper.style.width = res.width + "px";
-                        canWrapper.style.height = (res.height-130) + "px";
+                        canWrapper.style.height = (res.height-60) + "px";
                         // virtualclass.system.setAppDimension(wb, true);
                     }
                 }

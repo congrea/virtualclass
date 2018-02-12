@@ -534,9 +534,9 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 47px;
+	top: 55px;
 	width: 50px;
-	right: 434px;
+	right: 425px;
 	left: auto;
 	height: 20px;
 	position: fixed;
@@ -544,19 +544,19 @@
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 47px;
-	width: 53px;
-	right: 389px;
-	height: 20px;
-	left: auto;
-	position: fixed;
+    top: 55px;
+    width: 53px;
+    right: 378px;
+    height: 20px;
+    left: auto;
+    position: fixed;
 }
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 47px;
+	top: 55px;
 	width: 66px;
-	right: 338px;
+	right: 333px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -1030,7 +1030,7 @@
 	margin : 3px 0 0 2px;
 	outline : 1px solid #5A5757;
 	border: solid 1px;
-	border-radius: 100%;
+	border-radius: 20%;
 	object-fit: cover;
 }
 
@@ -1078,7 +1078,7 @@
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
 	border : #bbb solid 1px;
-	border-radius: 100%;
+	border-radius: 20%;
 	outline : none;
 	margin-bottom : 3px;
 }
@@ -1131,7 +1131,7 @@
 	margin-bottom: 10px;
 	margin-right: 10px;
 	padding : 0px;
-	border-radius : 100%;
+	border-radius : 20%;
 	border : #bbb solid 1px;
 	width: 52px;
 	height: 45px;
@@ -3348,3 +3348,17 @@
 	overflow-y: auto;
 	height: 100%;
 }
+#virtualclassCont.congrea .whiteboardContainer .commandToolsWrapper .tool .congtooltip:hover:after{
+    bottom: -30px !important;
+    left : 0em;
+}
+
+#virtualclassCont.congrea #audioWidget .congtooltip:hover:after{
+    bottom:-27px;
+    left:0px;
+}
+
+#virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {
+    bottom: -43px;
+    left: -72px;
+

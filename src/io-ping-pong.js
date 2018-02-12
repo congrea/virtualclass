@@ -6,21 +6,8 @@ var ioPingPong = {
         if (e.type == 'member_added' && roles.hasAdmin()) {
             var session = this.sessionName();
             var msg = {ping: 'ping', cf: 'pong', session: session};
-            if (virtualclass.gObj.uid != virtualclass.jId) { // Only send to new member
-                ioAdapter.mustSendUser(msg, virtualclass.jId);
-                console.log('PING TO ' + virtualclass.jId);
-                ioAdapter.mustSend(msg);
-                console.log('PING BROADCAST');
-            } else { // I am new, so send to all
-                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if (virtualclass.connectedUsers[i].userid != virtualclass.gObj.uid) { // Ignore self
-                        ioAdapter.mustSendUser(msg, e.message[i].userid);
-                        console.log('PING TO ' + e.message[i].userid);
-                    }
-                }
-                ioAdapter.mustSend(msg);
-                console.log('PING BROADCAST');
-            }
+            ioAdapter.sendWithDelayAndDrop (msg, null, 'mustSend', 'pingAll', 3000);
+            console.log('PING BROADCAST');
         }
     },
     pong: function (e) {

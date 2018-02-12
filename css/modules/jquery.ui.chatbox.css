@@ -60,12 +60,19 @@
     border-color: #6699FF;
 }
 
-#virtualclassCont.congrea .ui-chatbox-msg {
+#virtualclassCont.congrea .ui-chatbox-msg,
+#virtualclassCont.congrea.student .ui-chatbox-msg {
     clear: both;
     font-size: 12px;
+    padding: 4px;
     list-style: none;
     line-height: 16px;
 }
+
+#virtualclassCont.congrea.student .ui-chatbox-msg{
+    padding: 4px;
+}
+
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
     font-size: 12px;
     margin-top: 5px;
@@ -689,4 +696,13 @@
 
 #congreaChatCont .chat-img.pull-left{
     margin-top:5px;
+}
+
+#virtualclassCont.congrea .ui-widget-header,
+#virtualclassCont.congrea.student .ui-widget-header{
+   padding-left: 2px !important;
+}
+
+#virtualclassCont.congrea #congreaChatCont .icon-chatImg.chatImg{
+margin-right:10px !important;
 }

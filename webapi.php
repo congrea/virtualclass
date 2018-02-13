@@ -1,3 +1,3 @@
 <?php 
-echo  "nothing";
+echo  '{ "nothing":"nothing" }';
 ?>

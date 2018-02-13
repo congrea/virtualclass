@@ -596,6 +596,12 @@
                 checkDeviceSupport();
 
             }
+        },
+
+        webpInit : function (){
+            virtualclass.modernizr.on('webp', function (result) {
+                virtualclass.system.webpSupport = (result) ? true : false;
+            });
         }
     };
 

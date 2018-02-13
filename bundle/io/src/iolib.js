@@ -375,7 +375,7 @@ var io = {
                 console.log('Case:- leftroom');
                 $.event.trigger({
                     type: "member_removed",
-                    message: receivemsg.users
+                    message: receivemsg.user
                 });
                 break;
             case "Unauthenticated":

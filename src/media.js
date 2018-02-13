@@ -1370,6 +1370,10 @@
                         cthis._handleUserMedia(virtualclass.gObj.uid);
                     }
                 }
+
+
+                virtualclass.videoHost.renderSelfVideo(stream);
+
                 setTimeout(
                     function (){
                         cthis.stream = cthis.video.tempStream;

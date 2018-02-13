@@ -1052,7 +1052,6 @@
 
         createCommandWrapper: function(id) {
             var vcan = virtualclass.wb[id].vcan;
-            //alert(virtualclass.system.device);
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = virtualclass.gObj.commandToolsWrapperId[id];
             cmdToolsWrapper.className = "commandToolsWrapper";
@@ -1066,7 +1065,6 @@
         },
 
         createRoleWrapper : function() {
-            //alert(virtualclass.system.device);
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = 'commandToolsWrapper_doc_0_0';
             cmdToolsWrapper.className = "commandToolsWrapper";

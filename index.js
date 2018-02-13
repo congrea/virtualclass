@@ -991,12 +991,18 @@ $(document).ready(function () {
         });
 
 
-        function processImage(msg) {
+        function processImage(msg, vtype) {
             var data_pack = new Uint8ClampedArray(msg);
-            var recmsg = data_pack.subarray(1, data_pack.length);
+            var recmsg = data_pack.subarray(2, data_pack.length);
+            if(vtype == 1){
+                var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
+                var imgType = "webp";
+            }else {
+                var b64encoded = "data:image/jpeg;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
+                var imgType = "jpeg";
+            }
 
-            var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg))
-            virtualclass.videoHost.drawReceivedImage(b64encoded, {x: 0, y: 0});
+            virtualclass.videoHost.drawReceivedImage(b64encoded, imgType, {x: 0, y: 0});
             virtualclass.videoHost.gObj.video_count++;
         }
 
@@ -1035,7 +1041,7 @@ $(document).ready(function () {
                     virtualclass.gObj.video.video.process(e.message);
                     break;
                 case 21 : // teacher big video
-                    processImage(e.message);
+                    processImage(e.message, data_pack[1]);
 
             }
         });
@@ -1393,9 +1399,6 @@ $(document).ready(function () {
                 virtualclass.wb[virtualclass.gObj.currWb].response.replayAll();
             };
 
-            this.teacherVideo = function (e) {
-                virtualclass.videoHost.drawReceivedImage(e.message.videoSlice, e.message.des);
-            };
 
             // documnetation sharing
             this.dts = function (e) {

@@ -16,7 +16,7 @@ function WebPDecDemo(canvasId) {
 	img = document.createElement("img");
 
 
-	WebPDecodeAndDraw = function (data, context){
+	WebPDecodeAndDraw = function (data, canvas, context){
 		if (!!window.Worker) {
 
 			webpToPng.postMessage({
@@ -128,3 +128,7 @@ function WebPDecDemo(canvasId) {
 		finishDecoding();
 	};
 };
+
+
+
+

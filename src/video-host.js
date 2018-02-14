@@ -304,7 +304,7 @@ var videoHost = {
                     };
                     img.src = imgData;
                 } else {
-                    loadfile(imgData, that.videoPartCont); // for browsers that do not support webp
+                    loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
                 }
             }, myVideoDelay = (16382/sampleRate)*1000*4
         );

@@ -51,7 +51,6 @@ var WebPDecodeAndDraw = function (data) {
         alert('error');
     }
 
-
     var mode = decoder.WEBP_CSP_MODE;
 
     //output_buffer.colorspace = bitstream.has_alpha.value ? MODE_BGRA : MODE_BGR;
@@ -111,19 +110,6 @@ var WebPDecodeAndDraw = function (data) {
             }
         );
 
-        //return outputData;
-
-
-        //var context = canvas.getContext('2d');
-        //var output = context.createImageData(canvas.width, canvas.height);
-        //
-        //canvas.height=biHeight;
-        //canvas.width=biWidth;
-        //
-        ////	output.data =  new Uint8ClampedArray(outputData);
-        //var outputBinData = new Uint8ClampedArray(outputData);
-        //output.data.set(outputBinData);
-        //context.putImageData(output, 0, 0);
 
     }
 };

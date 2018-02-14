@@ -1132,40 +1132,22 @@
                 },
 
                 drawReceivedImage : function(imgData, imgType, d, uid) {
-
-                        // canvas2 = document.getElementById('mycanvas2');
                     this.remoteVid = document.getElementById("video" + uid);
-                    this.remoteVidCont = this.remoteVid.getContext('2d');
-                    videoPartCont = true;
+                    if(this.remoteVid != null){
+                        this.remoteVidCont = this.remoteVid.getContext('2d');
 
+                        if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
+                            var img = new Image();
+                            var that = this;
+                            img.onload = function (){
+                                that.remoteVidCont.drawImage(img, d.x, d.y);
+                            };
+                            img.src = imgData;
+                        } else {
 
-                    var that = this;
-                    if(typeof virtualclass.gObj.video.audio.Html5Audio != 'undefined'){
-                        sampleRate = virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate;
-                    }else {
-                        if(typeof sampleRate == 'undefined'){
-                            sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
+                            loadfile(imgData, this.remoteVid, this.videoPartCont); // for browsers that do not support webp
                         }
                     }
-
-                    setTimeout(
-                        function (){
-                            this.remoteVid = document.getElementById("video" + uid);
-                            this.remoteVidCont = this.remoteVid.getContext('2d');
-
-                            if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
-                                var img = new Image();
-                                img.onload = function (){
-                                    that.remoteVidCont.drawImage(img, d.x, d.y);
-                                };
-                                img.src = imgData;
-                            } else {
-
-                                // For browsers that do not support webp
-                                loadfile(imgData, that.remoteVidCont);
-                            }
-                        }, 10
-                    );
                 },
 
 

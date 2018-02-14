@@ -131,7 +131,7 @@ var videoHost = {
             this.UI.hideVideo();
         }
     },
-    //nirmala 
+    //nirmala
     //todo *to be called only if flag  available in localstorage
     //todo to modify later
     fromLocalStorage: function () {
@@ -459,7 +459,7 @@ var videoHost = {
 
         setInterval(
             function () {
-                if(virtualclass.vutil.webSocketConnected()){
+                if(io.webSocketConnected()){
                     ioAdapter.sendPing();
                 }
             }, 2000

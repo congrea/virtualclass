@@ -269,7 +269,6 @@ var videoHost = {
             array[i] = raw.charCodeAt(i);
         }
         return array;
-
     },
     /**
      * The teacher/host video is shown at participate side

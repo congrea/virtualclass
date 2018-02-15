@@ -40,7 +40,7 @@ var videoHost = {
         this.height = height;
         this.gObj.videoSwitch = 1;//nirmala
         if (roles.hasAdmin()) {
-            if ((virtualclass.system.mybrowser.name == 'Chrome')) {
+            // if ((virtualclass.system.mybrowser.name == 'Chrome')) {
                 this._init();
                 //var session = { audio: false, video: { width: width, height: height } };
                 /*
@@ -67,22 +67,21 @@ var videoHost = {
                 //     that.getMediaStream(stream);
                 // }, this.onError);
 
-                setTimeout(
-                    function (){
-                        if(typeof virtualclass.gObj.video.tempStream == 'undefined'){
-                            that.getMediaStream(virtualclass.gObj.video.stream);
-                        }
-
-                    },2000
-                );
 
                 //this.UI.controller();//nirmala
-            }
+            //}
         } else {
             this.setCanvasAttr('videoPartCan', 'videoParticipate');
             //this.setCanvasAttr('videoPartCan', 'videoParticipate');
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
+        }
+    },
+
+    renderSelfVideo : function (stream){
+        if(typeof virtualclass.gObj.video.tempStream == 'undefined'){
+            console.log('Media attached stream');
+            this.getMediaStream(stream);
         }
     },
     /**
@@ -128,12 +127,11 @@ var videoHost = {
             this.UI.displayVideo();
 
         } else if (msg.congCtr.videoSwitch == "off") {
-            virtualclass.videoHost.gObj.videoSwitch = 0;            this.UI.hideVideo();
-
+            virtualclass.videoHost.gObj.videoSwitch = 0;
+            this.UI.hideVideo();
         }
-
     },
-    //nirmala 
+    //nirmala
     //todo *to be called only if flag  available in localstorage
     //todo to modify later
     fromLocalStorage: function () {
@@ -188,19 +186,7 @@ var videoHost = {
      *  Getting the stream for teacher/host video
      *  @param stream expects medea stream, eventually converts into video
      */
-    getMediaStreamOld: function (stream) {
-        this.videoHostSrc = document.getElementById("videoHostSource");
-        this.videoHostSrc.width = this.width;
-        this.videoHostSrc.height = this.height;
 
-        virtualclass.vhAdpt.attachMediaStream(this.videoHostSrc, stream);
-        var that = this;
-        setTimeout(
-                function () {
-                    that.shareVideo();
-                }, 2000
-            );
-    },
 
     getMediaStream: function (stream) {
         this.videoHostSrc = document.getElementById("videoHostSource");
@@ -222,7 +208,6 @@ var videoHost = {
      * and send it to other users
      */
 
-    //nirmala
     shareVideo: function () {
         var resA = 1;
         var resB = 1;
@@ -230,14 +215,12 @@ var videoHost = {
         this.imageSlices = this.getImageSlices(resA, resB);
         var that = this;
         setInterval(
-                function () {
-                    if (that.gObj.videoSwitch) {
-                        that._shareVideo(that, resA, resB);
-                    }
-
-                },
-                120
-                );
+            function () {
+                if (that.gObj.videoSwitch) {
+                    that._shareVideo(that, resA, resB);
+                }
+            },
+        120);
     },
     //nirmala
     _shareVideo: function (that, resA, resB) {
@@ -252,17 +235,24 @@ var videoHost = {
             var d = {x: 0, y: 0};
             // you increase the the value, increase the quality
             // 0.4 and 9 need 400 to 500 kb/persecond
-            var sendimage = that.vidHostSlice.toDataURL("image/webp", 0.6);
+            if (virtualclass.system.webpSupport) {
+                var sendimage = that.vidHostSlice.toDataURL("image/webp", 0.6);
+                var vidType = 1;
+            } else {
+                var sendimage = that.vidHostSlice.toDataURL("image/jpeg", 0.3);
+                var vidType = 0;
+            }
+
             that.vidHostSliceCon.clearRect(0, 0, that.width, that.height);
-            that.sendInBinary(sendimage);
+            that.sendInBinary(sendimage, vidType);
             // ioAdapter.send({'videoSlice' : sendimage, 'des' : d, 'cf' : 'teacherVideo'});
         }
 
 
     },
-    sendInBinary: function (sendimage) {
+    sendInBinary: function (sendimage, vidType) {
         sendimage = this.convertDataURIToBinary(sendimage);
-        var scode = new Int8Array([21]); // Status Code teacher video
+        var scode = new Int8Array([21, vidType]); // Status Code teacher video
         var sendmsg = new Int8Array(sendimage.length + scode.length);
         sendmsg.set(scode);
         sendmsg.set(sendimage, scode.length); // First element is status code (101)
@@ -286,8 +276,8 @@ var videoHost = {
      * @param imgData expects image which has to be drawn
      * @param d expects destination x and y
      */
-    drawReceivedImage : function(imgData, d) {
-        if(typeof videoPartCont == 'undefined'){
+    drawReceivedImage : function(imgData, imgType, d) {
+        if(typeof vid0eoPartCont == 'undefined'){
             // canvas2 = document.getElementById('mycanvas2');
             this.videoPartCan = document.getElementById('videoParticipate');
             this.videoPartCont = this.videoPartCan.getContext('2d');
@@ -308,14 +298,14 @@ var videoHost = {
 
         setTimeout(
             function (){
-                if(virtualclass.system.mybrowser.name == 'Chrome'){
+                if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
                     var img = new Image();
                     img.onload = function (){
                         that.videoPartCont.drawImage(img, d.x, d.y);
-                    }
+                    };
                     img.src = imgData;
                 } else {
-                    loadfile(imgData, that.videoPartCont); // for firefox
+                    loadfile(imgData, that.videoPartCont); // for browsers that do not support webp
                 }
             }, myVideoDelay = (16382/sampleRate)*1000*4
         );
@@ -439,26 +429,21 @@ var videoHost = {
     },
     initVideoInfo: function () {
         var that = this;
-        if (roles.hasAdmin() && virtualclass.system.mybrowser.name == 'Firefox') {
-            virtualclass.vutil.removeVideoHostContainer();
-        } else {
-            that.videoInfoInterval =  setInterval(
-                function () {
-                    // MYSPEED, internet connection
-                    //  virtualclass.videoHost.gObj.video_count, frame rate
-                    // time_diff, Latency
+        that.videoInfoInterval =  setInterval(
+            function () {
+                // MYSPEED, internet connection
+                //  virtualclass.videoHost.gObj.video_count, frame rate
+                // time_diff, Latency
 
-                    if (roles.hasAdmin()) {
-                        virtualclass.videoHost.gObj.video_count = virtualclass.videoHost.gObj.teacherVideoQuality;
-                    }
-                    //for now, we are disabling the video infor
+                if (roles.hasAdmin()) {
+                    virtualclass.videoHost.gObj.video_count = virtualclass.videoHost.gObj.teacherVideoQuality;
+                }
+                //for now, we are disabling the video infor
 
-                    virtualclass.videoHost.updateVideoInfo(virtualclass.videoHost.gObj.MYSPEED, virtualclass.videoHost.gObj.video_count, virtualclass.videoHost.gObj.time_diff);
-                    //
-                }, 1000
-            );
-
-        }
+                virtualclass.videoHost.updateVideoInfo(virtualclass.videoHost.gObj.MYSPEED, virtualclass.videoHost.gObj.video_count, virtualclass.videoHost.gObj.time_diff);
+                //
+            }, 1000
+        );
     },
     afterSessionJoin: function () {
         var speed = roles.hasAdmin() ? 1 : virtualclass.videoHost.gObj.MYSPEED;
@@ -466,18 +451,20 @@ var videoHost = {
         // this.initVideoInfo();
 
         setInterval(
-                function () {
-                    //console.log("Video Frame Rate :" +  virtualclass.videoHost.gObj.video_count);
-                    virtualclass.videoHost.gObj.video_count = 0;
-                }, 1000
-                );
+            function () {
+                //console.log("Video Frame Rate :" +  virtualclass.videoHost.gObj.video_count);
+                virtualclass.videoHost.gObj.video_count = 0;
+            }, 1000
+        );
 
         setInterval(
-                function () {
+            function () {
+                if(io.webSocketConnected()){
                     ioAdapter.sendPing();
-                }, 1000
-                );
-        //nirmala
+                }
+            }, 2000
+        );
+
         this.fromLocalStorage();
         this.resetPrecheck();
 

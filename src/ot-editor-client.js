@@ -9,6 +9,10 @@
  *
  */
 (function (window) {
+
+    var latestPacket = 0;
+    var latestCursorPacket = 0;
+    var sendSelection = null;
     "use strict";
     var EditorClient = (function () {
         'use strict';
@@ -249,7 +253,50 @@
             if (this.state instanceof Client.AwaitingWithBuffer) {
                 return;
             }
-            this.serverAdapter.sendCursor(cursor);
+
+            if(cursor != null && cursor.hasOwnProperty('position')){
+                var startPosition = cursor.position;
+            }
+
+
+            if(cursor != null && cursor.hasOwnProperty('selectionEnd')){
+                var selectionEnd = cursor.selectionEnd;
+            }
+
+            if (latestPacket === 0) {
+                if (startPosition != null && selectionEnd != null) {
+                    this.serverAdapter.sendCursor(cursor);
+                    latestPacket = 1;
+
+                } else {
+                    this.serverAdapter.sendCursor(cursor);
+                }
+            } else {
+                if (startPosition != null && selectionEnd != null) {
+
+                    if(sendSelection != null){
+                        clearTimeout(sendSelection);
+
+                    }
+                    latestCursorPacket = cursor;
+                    var that = this;
+                     sendSelection = setTimeout(
+                        function (){
+                            that.serverAdapter.sendCursor(cursor);
+                            latestCursorPacket = null;
+                        },300
+                    );
+                 } else { // not selection
+                    if (latestCursorPacket != null) {
+                        this.serverAdapter.sendCursor(latestCursorPacket);
+                        latestCursorPacket = null;
+                    }
+                    this.serverAdapter.sendCursor(cursor);
+                    latestPacket = 0;
+                }
+            }
+            startPosition = null;
+            selectionEnd = null;
         };
 
         EditorClient.prototype.sendOperation = function (revision, operation) {

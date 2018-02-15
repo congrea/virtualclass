@@ -138,9 +138,6 @@ var precheck = {
 
             if(virtualclass.system.mybrowser.name != 'Chrome'){
                 var msg =  virtualclass.lang.getString('notsupportbrowser', [virtualclass.system.mybrowser.name]);
-                if(roles.hasAdmin()){
-                    virtualclass.vutil.removeVideoHostContainer();
-                }
             }else {
                 var msg =  virtualclass.lang.getString('congreainchrome');
             }

@@ -23,6 +23,7 @@ var io = {
     uniquesids: null,
     serial: null,
     globallock: false,
+    readyToSend: false,
     globalmsgjson: [],
     packetQueue: [],
     init: function(cfg, callback) {
@@ -45,13 +46,14 @@ var io = {
         }
         var scope = this;
         this.sock.onopen = function() {
+            this.readyToSend = false;
             console.log("Connected to " + scope.cfg.rid);
 
             $.event.trigger({
                 type: "connectionopen"
             });
             //authenticate user
-            scope.userauthenticat();
+            scope.userauthenticate();
 
             // user join chat room
             scope.addclient();
@@ -125,14 +127,17 @@ var io = {
             setTimeout(function() {
                 // For prevent to send any packet to other during save session
                 // and download session
-                if (!virtualclass.gObj.hasOwnProperty('saveSession') && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !virtualclass.recorder.uploadInProcess) {
+                if (!virtualclass.gObj.hasOwnProperty('saveSession') &&
+                    !virtualclass.gObj.hasOwnProperty('downloadProgress') &&
+                    !virtualclass.recorder.uploadInProcess &&
+                    !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {
                     scope.wsconnect();
                 }
             }, 5000);
         };
 
     },
-    userauthenticat: function() {
+    userauthenticate: function() {
         "use strict";
         var obj = {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
         var jobj = 'F-AH-'+JSON.stringify(obj);
@@ -162,7 +167,7 @@ var io = {
 
         var jobj;
 
-        if (this.sock && this.sock.readyState == 1) { // If Socket is ready
+        if (this.webSocketConnected()) { // If Socket is ready
             if (io.packetQueue.length > 0) {
                 for (var i = 0; i < io.packetQueue.length; i++) {
                     var tmp_jobj = JSON.parse(io.packetQueue[i]);
@@ -244,7 +249,7 @@ var io = {
     },
     sendBinary: function(msg) {
         "use strict";
-        if ((this.sock && this.sock.readyState == 1)) {
+        if (this.webSocketConnected()) {
             this.sock.send(msg.buffer);
         }
 
@@ -284,6 +289,12 @@ var io = {
         //    });
         //}
     },
+
+    // Check if websocket is ready to send
+    webSocketConnected: function (){
+        return (io.sock && io.sock.readyState == 1 && this.readyToSend == true);
+    },
+
     onRecJson: function(receivemsg) {
         if (io.globallock === false ) {
             if (io.globalmsgjson.length > 0) {
@@ -306,6 +317,7 @@ var io = {
         switch (receivemsg.type) {
             case "joinroom":
                 console.log("New user join room " + receivemsg.users);
+                this.readyToSend = true;
                 /* identifying new user from list*/
                 var newuser = null;
                 if (io.uniquesids != null) {
@@ -317,13 +329,22 @@ var io = {
                 }
                 io.uniquesids = receivemsg.clientids;
                 //update users
-                $.event.trigger({
+                var msg = {
                     type: "member_added",
-                    message: receivemsg.users,
                     newuser: newuser,
-                    newJoinId : receivemsg.action
-                });
+                    joinUser : receivemsg.action
+                }
 
+                if(receivemsg.hasOwnProperty('users')){
+                    msg.message = receivemsg.users;
+                    msg.users = true;
+
+                }else if(receivemsg.hasOwnProperty('user')){
+                    msg.message = receivemsg.user;
+                    msg.user = true;
+                }
+
+                $.event.trigger(msg);
                 break;
             case "broadcastToAll":
             case "broadcast":
@@ -363,7 +384,7 @@ var io = {
                 console.log('Case:- leftroom');
                 $.event.trigger({
                     type: "member_removed",
-                    message: receivemsg.users
+                    message: receivemsg.user
                 });
                 break;
             case "Unauthenticated":
@@ -386,6 +407,36 @@ var io = {
                     message: receivemsg.m
                 });
                 break;
+
+            case "Text_Limit_Exeed":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Text_Limit_Exeed"
+                });
+                break;
+
+            case "Binary_Limit_Exeed":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Binary_Limit_Exeed"
+                });
+                break;
+
+            case "Max_rooms":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Max_rooms"
+                });
+                break;
+
+            case "Max_users":
+                // console.log('Case:- PONG');
+                $.event.trigger({
+                    type: "Max_rooms"
+                });
+                break;
+
+
         }
         //} catch (e) {
         //    console.log("Error catched   : " + e);

@@ -150,10 +150,10 @@
                 }else if(appId == 'virtualclassDocumentShare'){
                     var wb = virtualclass.gObj.currWb;
                     if(wb != null){
+                        // This dimension is setting when window is being resized
                         var canWrapper = document.querySelector('#canvasWrapper' +wb);
-
                         canWrapper.style.width = res.width + "px";
-                        canWrapper.style.height = (res.height-130) + "px";
+                        canWrapper.style.height = (res.height-60) + "px";
                         // virtualclass.system.setAppDimension(wb, true);
                     }
                 }
@@ -530,15 +530,11 @@
 
                     prvAppObj.metaData = {
                         'init': {
-
                             videoId:virtualclass.videoUl.videoId,
                             videoUrl:virtualclass.videoUl.videoUrl,
                             yts:virtualclass.videoUl.yts,
                             online:virtualclass.videoUl.online,
                             isPaused:virtualclass.videoUl.isPaused,
-
-
-
                         },
                         startFrom: start,
                         isAutoplay:virtualclass.videoUl.autoPlayFlag
@@ -614,13 +610,9 @@
              * while user refresh the page at other App(eg:- video)
              * rather than document sharing
              */
-            if(virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
-                && (typeof virtualclass.dts.pages == 'object')){
-                var docsObj = {};
-                docsObj.docs = virtualclass.dts.pages;
-                docsObj.order = JSON.stringify(virtualclass.dts.order);
-                docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
-                localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+
+            if(virtualclass.hasOwnProperty('dts')){
+                virtualclass.dts.upateInStorage();
             }
 
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
@@ -637,6 +629,7 @@
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
             io.disconnect();
         },
+
         initOnBeforeUnload: function(bname) {
             //debugger;
             if (bname == 'iOS') {
@@ -791,7 +784,7 @@
             // when we are in replay mode we don't need send the object to other user
             if (msg.hasOwnProperty('createArrow')) {
                 var jobj = JSON.stringify(msg);
-                virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 100);
+                virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
             } else {
                 if (msg.hasOwnProperty('repObj')) { // For Whiteboard
                     if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
@@ -1059,7 +1052,6 @@
 
         createCommandWrapper: function(id) {
             var vcan = virtualclass.wb[id].vcan;
-            //alert(virtualclass.system.device);
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = virtualclass.gObj.commandToolsWrapperId[id];
             cmdToolsWrapper.className = "commandToolsWrapper";
@@ -1073,7 +1065,6 @@
         },
 
         createRoleWrapper : function() {
-            //alert(virtualclass.system.device);
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = 'commandToolsWrapper_doc_0_0';
             cmdToolsWrapper.className = "commandToolsWrapper";
@@ -1953,11 +1944,9 @@
                     var hidepopup= true;
                  }
                 var dashboardnav =  document.querySelector('#dashboardnav button');
-                if(dashboardnav != null && !hidepopup){
+                if(dashboardnav != null && !hidepopup && !virtualclass.vutil.isDashboardOpened()){
                     dashboardnav.click();
                 }
-
-
 
             } else if (currApp == "SharePresentation"){
                 var dtitle = document.getElementById('dashboardnav');
@@ -2419,6 +2408,18 @@
             for(var i=0; i<allTextWrapper.length; i++){
                 allTextWrapper[i].parentNode.removeChild(allTextWrapper[i]);
             }
+        },
+
+        isDashboardOpened : function (navButton){
+            var navButton = document.querySelector('#dashboardnav button');
+            return (navButton != null && navButton.classList.contains('clicked'));
+        },
+
+        stopConnection : function (){
+            if(io.webSocketConnected()){
+                io.sock.close();
+            }
+            virtualclass.gObj.invalidlogin = true;
         }
     };
     window.vutil = vutil;

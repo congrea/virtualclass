@@ -305,7 +305,9 @@ otAdapter = function () {
             ioAdapter.mustSend(msg);
         } else {
             //TODO Check if it is possible avoid going through iolib
-            ioAdapter.mustSendAll(msg);
+            setTimeout( function() { // We want to slow down OT to reduce frequency of msgs
+              ioAdapter.mustSendAll(msg);
+            }, 300);
         }
     };
     return otAdapter;

@@ -13,7 +13,7 @@
 }
 
 #virtualclassCont #listvideo {
-  height: 81vh;
+  height: calc(100vh - 200px);
   overflow-y: auto;
   margin-bottom :0;
   margin-top : 8px;

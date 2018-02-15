@@ -277,6 +277,8 @@ $(document).ready(function () {
             if(virtualclass.gObj.meetingMode){
                 virtualclass.multiVideo.onUserRemove(removeUser);
             }
+
+
         });
 
         var disableEditor = function (editor) {
@@ -516,25 +518,17 @@ $(document).ready(function () {
                     console.log('From localStorage, cannot perform the override role action');
                 }
             } else {
-                //  console.log('Join user  ' + virtualclass.jId);
-                var iamObj =  {user : {img : wbUser.imageurl, lname:wbUser.lname, name: wbUser.name, role : wbUser.role, userid : wbUser.id}, cf : 'mem_add'};
-
-                /* Clouser is used to retain the joined userid on SetTimeout */
-                (function(e, iamObj, jId){
-                    setTimeout(function () {
-                        sayHelloToNewUser(e, iamObj, jId);
-                    }, 3000);
-                }(e, iamObj, virtualclass.jId));
+                console.log('Does not need to say hello to new user');
             }
-
-            // Handle other thing as usual
-
-            // console.log('Member add :- join as normal ' + virtualclass.joinUser.role + ' join id ' + virtualclass.jId);
 
             ioPingPong.ping(e);
 
             // e.message.sort(sortUserList);
-            e.message = [virtualclass.joinUser];
+            // e.message = [virtualclass.joinUser];
+            if(!Array.isArray(e.message)){
+                e.message = [e.message];
+            }
+
             memberUpdateWithDelay(e, 'added');
 
             // virtualclass.gObj.video.updateVideoContHeight();
@@ -606,7 +600,7 @@ $(document).ready(function () {
 
                 // Send to everyone that the teacher is connected
                 // for remove for extra cover of read only mode with editor
-                ioAdapter.send({'cf': 'tConn'});
+                ioAdapter.sendWithDelayAndDrop ({'cf': 'tConn'}, null, 'send', 'tConn', 1000);
 
             }
 
@@ -745,29 +739,29 @@ $(document).ready(function () {
 
         $(document).on("member_added", function (e) {
             var sType;
-            if(e.hasOwnProperty('cmadd')){
-                e.message = virtualclass.tempConnectedUsers;
-                // console.log('Member, ping received from ' + virtualclass.jId);
-            } else {
-                virtualclass.tempConnectedUsers = e.message;
-            }
 
             if(typeof virtualclass.connectedUsers == 'undefined'){
                 virtualclass.connectedUsers = [];
             }
 
-            virtualclass.jId = e.newJoinId;
-            // alert('Join user ' + virtualclass.jId);
+            if(e.hasOwnProperty('user')){
+                var joinUserObj = e.message;
+                virtualclass.jId = joinUserObj.userid;
 
-            var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
-
-            if(upos != -1){
-                virtualclass.connectedUsers.splice(upos, 1);
+                var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
+                if(upos != -1){
+                    virtualclass.connectedUsers.splice(upos, 1);
+                }
+                virtualclass.connectedUsers.push(joinUserObj);
+                // Get the new joiner user id and object
+                virtualclass.joinUser = joinUserObj;
+            }else if(e.hasOwnProperty('users')){
+                virtualclass.jId = e.joinUser;
+                virtualclass.connectedUsers = e.message;
+                virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
+            }else {
+                console.log('User packet is not receving');
             }
-            virtualclass.connectedUsers.push(getJoinUser(virtualclass.tempConnectedUsers, virtualclass.jId));
-
-            // Get the new joiner user id and object
-            virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
 
             // set the default value related about video quality, internet latency and frame rate
             if (virtualclass.jId == virtualclass.gObj.uid) {
@@ -829,7 +823,8 @@ $(document).ready(function () {
             } else {
                 // this will be the usual case:-
                 defaultOperation(e, sType);
-                if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) && (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
+                if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) &&
+                    (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
                     virtualclass.vutil.createBecomeTeacherWidget();
                 }
             }
@@ -888,8 +883,31 @@ $(document).ready(function () {
             delete virtualclass.gObj['doEndSession'];
         }
 
+        $(document).on("Text_Limit_Exeed", function (e) {
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Text_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Text_Limit_Exeed'});
+        });
+
+        $(document).on("Binary_Limit_Exeed", function (e) {
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Binary_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Binary_Limit_Exeed'});
+        });
+
+        $(document).on("Unauthenticated", function (e) {
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Unauthenticated'), 'errorContainer', 'chatWidget', {className : 'Unauthenticated'});
+            virtualclass.vutil.stopConnection();
+        });
+
         $(document).on("Multiple_login", function (e) {
             virtualclass.chat.removedPrvLoggedInDetail();
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'chatWidget', {className : 'Multiple_login'});
+            virtualclass.vutil.stopConnection();
+        });
+
+        $(document).on("Max_rooms", function (e) {
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_rooms'), 'errorContainer', 'chatWidget', {className : 'Max_rooms'});
+        });
+
+        $(document).on("Max_users", function (e) {
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_users'), 'errorContainer', 'chatWidget', {className : 'Max_users'});
         });
 
         $(document).on("PONG", function (e) {
@@ -944,6 +962,7 @@ $(document).ready(function () {
         });
 
         $(document).on("connectionopen", function (e) {
+            virtualclass.gObj.invalidlogin = false;
             var setTimeReady = 6000;
             // There will take more time to connect socket when teacher will
             // Come from become Teacher
@@ -972,12 +991,18 @@ $(document).ready(function () {
         });
 
 
-        function processImage(msg) {
+        function processImage(msg, vtype) {
             var data_pack = new Uint8ClampedArray(msg);
-            var recmsg = data_pack.subarray(1, data_pack.length);
+            var recmsg = data_pack.subarray(2, data_pack.length);
+            if(vtype == 1){
+                var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
+                var imgType = "webp";
+            }else {
+                var b64encoded = "data:image/jpeg;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
+                var imgType = "jpeg";
+            }
 
-            var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg))
-            virtualclass.videoHost.drawReceivedImage(b64encoded, {x: 0, y: 0});
+            virtualclass.videoHost.drawReceivedImage(b64encoded, imgType, {x: 0, y: 0});
             virtualclass.videoHost.gObj.video_count++;
         }
 
@@ -1016,7 +1041,7 @@ $(document).ready(function () {
                     virtualclass.gObj.video.video.process(e.message);
                     break;
                 case 21 : // teacher big video
-                    processImage(e.message);
+                    processImage(e.message, data_pack[1]);
 
             }
         });
@@ -1374,9 +1399,6 @@ $(document).ready(function () {
                 virtualclass.wb[virtualclass.gObj.currWb].response.replayAll();
             };
 
-            this.teacherVideo = function (e) {
-                virtualclass.videoHost.drawReceivedImage(e.message.videoSlice, e.message.des);
-            };
 
             // documnetation sharing
             this.dts = function (e) {
@@ -1452,8 +1474,7 @@ $(document).ready(function () {
             this.mem_add = function (e){
                 $.event.trigger({
                     type: "member_added",
-                    message: e.message.user,
-                    newJoinId : e.fromUser.userid,
+                    newJoinUser: e.message.user,
                     cmadd : true
                 });
             }

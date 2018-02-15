@@ -137,6 +137,9 @@
                     console.log('Indexeddb does not support');
                 }
 
+                virtualclass.modernizr = Modernizr;
+                this.system.webpInit();
+
                 this.dirtyCorner = window.dirtyCorner;
                 this.html.init(this);
                 this.adapter = window.adapter;

@@ -154,7 +154,7 @@
             
             // this.reArrangeElements(wids)
         },
-        
+         /** this is only for whitebaord not for docs **/
          reArrangeElements : function (order){
             var container = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
             var tmpdiv = document.createElement('div');

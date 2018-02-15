@@ -3,6 +3,7 @@ var ioAdapter = {
     serial: -1, // It is serial number of sent packet, normally set to current number
     userSerial: [], // It is serial number of sent packet to individual user
     userAdapterMustData: [], // It contains all data that is must for all users to have for individual users
+    sendWithDelayIdentifier: {},
     //TODO - Store to IndexDB
 
 
@@ -21,6 +22,39 @@ var ioAdapter = {
         if (typeof this.userAdapterMustData[uid] == 'undefined') {
             this.userAdapterMustData[uid] = [];
         }
+    },
+
+    /*
+     Sends message after a delay.
+     If we get more msgs from same uniqueIdentifier before it was sent,
+     it would drop last msg and preserve latest message.
+     */
+    sendWithDelayAndDrop: function (msg, msgarg, sendFunction, uniqueIdentifier, delay) {
+        if (msg == null) {
+            return;
+        }
+        if (sendFunction == null) {
+            return;
+        }
+        if (uniqueIdentifier == null) {
+            uniqueIdentifier = 0;
+        }
+        if (delay == null) {
+            delay = 1000;
+        }
+
+        if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
+            console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
+            clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
+            ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
+        }
+
+        ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] =  setTimeout (function () {
+            console.log ("Sending With Delay " + sendFunction + " message " + JSON.stringify(msg));
+            ioAdapter[sendFunction](msg);
+            ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
+        },delay)
+
     },
 
     mustSend: function (msg) {
@@ -88,6 +122,11 @@ var ioAdapter = {
     },
 
     sendSpeed: function (msg) {
+        "use strict";
+        ioAdapter.sendWithDelayAndDrop (msg, null, 'realSendSpeed', 'sendSpeed', 1000);
+    },
+
+    realSendSpeed: function (msg) {
         "use strict";
         var cfun = 'speed';
         io.send(msg, cfun);

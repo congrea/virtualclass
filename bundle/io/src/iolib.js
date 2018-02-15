@@ -23,6 +23,7 @@ var io = {
     uniquesids: null,
     serial: null,
     globallock: false,
+    readyToSend: false,
     globalmsgjson: [],
     packetQueue: [],
     init: function(cfg, callback) {
@@ -45,13 +46,14 @@ var io = {
         }
         var scope = this;
         this.sock.onopen = function() {
+            this.readyToSend = false;
             console.log("Connected to " + scope.cfg.rid);
 
             $.event.trigger({
                 type: "connectionopen"
             });
             //authenticate user
-            scope.userauthenticat();
+            scope.userauthenticate();
 
             // user join chat room
             scope.addclient();
@@ -135,7 +137,7 @@ var io = {
         };
 
     },
-    userauthenticat: function() {
+    userauthenticate: function() {
         "use strict";
         var obj = {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
         var jobj = 'F-AH-'+JSON.stringify(obj);
@@ -165,7 +167,7 @@ var io = {
 
         var jobj;
 
-        if (virtualclass.vutil.webSocketConnected()) { // If Socket is ready
+        if (this.webSocketConnected()) { // If Socket is ready
             if (io.packetQueue.length > 0) {
                 for (var i = 0; i < io.packetQueue.length; i++) {
                     var tmp_jobj = JSON.parse(io.packetQueue[i]);
@@ -247,7 +249,7 @@ var io = {
     },
     sendBinary: function(msg) {
         "use strict";
-        if (virtualclass.vutil.webSocketConnected()) {
+        if (this.webSocketConnected()) {
             this.sock.send(msg.buffer);
         }
 
@@ -287,6 +289,12 @@ var io = {
         //    });
         //}
     },
+
+    // Check if websocket is ready to send
+    webSocketConnected: function (){
+        return (io.sock && io.sock.readyState == 1 && this.readyToSend == true);
+    },
+
     onRecJson: function(receivemsg) {
         if (io.globallock === false ) {
             if (io.globalmsgjson.length > 0) {
@@ -309,6 +317,7 @@ var io = {
         switch (receivemsg.type) {
             case "joinroom":
                 console.log("New user join room " + receivemsg.users);
+                this.readyToSend = true;
                 /* identifying new user from list*/
                 var newuser = null;
                 if (io.uniquesids != null) {

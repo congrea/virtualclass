@@ -7,6 +7,15 @@
  *
  */
 (function (window) {
+    function breakintobytes(val, l) {
+        var numstring = val.toString();
+        for (var i = numstring.length; i < l; i++) {
+            numstring = '0' + numstring;
+        }
+        var parts = numstring.match(/[\S]{1,2}/g) || [];
+        return parts;
+    }
+
     repMode = false;
     //var io = window.io;
     /*
@@ -171,19 +180,19 @@
                             context.stroke();
                         },
 
-                        canvasForVideo: function () {
-                            var videoParent = cthis.video.myVideo.parentNode;
-                            var graphCanvas = document.createElement("canvas");
-                            graphCanvas.width = this.width + 3;
-                            graphCanvas.height = this.height;
-
-                            graphCanvas.id = "graphCanvas";
-                            videoParent.style.position = "relative";
-                            graphCanvas.style.position = "absolute";
-                            graphCanvas.style.left = 0;
-                            graphCanvas.style.top = -7;
-                            videoParent.appendChild(graphCanvas);
-                        }
+                        // canvasForVideo: function () {
+                        //     var videoParent = cthis.video.myVideo.parentNode;
+                        //     var graphCanvas = document.createElement("canvas");
+                        //     graphCanvas.width = this.width + 3;
+                        //     graphCanvas.height = this.height;
+                        //
+                        //     graphCanvas.id = "graphCanvas";
+                        //     videoParent.style.position = "relative";
+                        //     graphCanvas.style.position = "absolute";
+                        //     graphCanvas.style.left = 0;
+                        //     graphCanvas.style.top = -7;
+                        //     videoParent.appendChild(graphCanvas);
+                        // }
 
                     };
                     this.attachFunctionsToAudioWidget();// to attach functions to audio widget
@@ -662,32 +671,32 @@
                     }
                 },
 
-                // TODO this is not being invoked
-                calcAverage: function () {
-                    var array = new Uint8Array(analyser.frequencyBinCount);
-                    analyser.getByteFrequencyData(array);
-                    var values = 0;
-                    var length = array.length;
-                    for (var i = 0; i < length; i++) {
-                        values += array[i];
-                    }
-                    this.graph.average = values / length;
-                },
+                // // TODO this is not being invoked
+                // calcAverage: function () {
+                //     var array = new Uint8Array(analyser.frequencyBinCount);
+                //     analyser.getByteFrequencyData(array);
+                //     var values = 0;
+                //     var length = array.length;
+                //     for (var i = 0; i < length; i++) {
+                //         values += array[i];
+                //     }
+                //     this.graph.average = values / length;
+                // },
 
                 //this is not using right now
-                audioInGraph: function () {
-                    var cvideo = cthis.video;
-                    if (roles.hasControls()) {
-                        var avg = this.graph.height - (this.graph.height * this.graph.average) / 100;
-                        cvideo.tempVidCont.beginPath();
-                        cvideo.tempVidCont.moveTo(cvideo.tempVid.width - this.graph.width, this.graph.height);
-                        cvideo.tempVidCont.lineTo(cvideo.tempVid.width - this.graph.width, avg);
-                        cvideo.tempVidCont.lineWidth = this.graph.width;
-                        cvideo.tempVidCont.strokeStyle = "rgba(247, 25, 77, 1)";
-                        cvideo.tempVidCont.closePath();
-                        cvideo.tempVidCont.stroke();
-                    }
-                },
+                // audioInGraph: function () {
+                //     var cvideo = cthis.video;
+                //     if (roles.hasControls()) {
+                //         var avg = this.graph.height - (this.graph.height * this.graph.average) / 100;
+                //         cvideo.tempVidCont.beginPath();
+                //         cvideo.tempVidCont.moveTo(cvideo.tempVid.width - this.graph.width, this.graph.height);
+                //         cvideo.tempVidCont.lineTo(cvideo.tempVid.width - this.graph.width, avg);
+                //         cvideo.tempVidCont.lineWidth = this.graph.width;
+                //         cvideo.tempVidCont.strokeStyle = "rgba(247, 25, 77, 1)";
+                //         cvideo.tempVidCont.closePath();
+                //         cvideo.tempVidCont.stroke();
+                //     }
+                // },
 
                 queue: function (packets, uid) {
                     if (!this.hasOwnProperty('audioToBePlay')) {
@@ -1003,8 +1012,22 @@
                  * interval depends on the number of users
                  */
                 //TODO function defined in function they can be separately defined
+
+
+
+                sendInBinary: function (sendimage) {
+                    var user = {
+                        name: virtualclass.gObj.uName,
+                        id: virtualclass.gObj.uid
+                    };
+                    if(io.webSocketConnected()) {
+                       virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
+                        ioAdapter.sendBinary(sendimage);
+                    }
+
+                },
+
                 send: function () {
-                    // debugger;
                     if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
                         clearInterval(virtualclass.gObj.video.smallVid);
                     }
@@ -1012,77 +1035,51 @@
                     var frame;
                     randomTime = Math.floor(Math.random()*(8000-3000+1)+3000); // Random number between 3000 & 8000
                     var totalMembers = -1;
-
+                    var that = this;
                     function sendSmallVideo() {
-                        if (roles.hasControls()) {
-
-                            // this block of code is not producing any output
-                            if (typeof graphCanvas == "undefined") {
-
-                                var graphCanvas = document.getElementById("graphCanvas");
-                                if (graphCanvas != null) {
-                                    cthis.audio.graph.cvCont = graphCanvas.getContext('2d');
-                                }
-                            }
-                            if (graphCanvas != null) {
-
-                                cthis.audio.graph.cvCont.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
-                            }
-                        }
+                        var resA = 1;
+                        var resB = 1;
                         cvideo.tempVidCont.clearRect(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
-                        if (window.navigator.userAgent.match('Firefox')) {
-                            drawVideoForFireFox();
-                        } else {
-                            cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
-                        }
-                        //Firefox issue, the video is not available for image at early stage
-                        function drawVideoForFireFox() {
-                            try {
-                                cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
-                            } catch (e) {
-                                if (e.name == "NS_ERROR_NOT_AVAILABLE") {
-                                    // Wait a bit before trying again; you may wish to change the
-                                    // length of this delay.
-                                    setTimeout(drawVideoForFireFox, 100);
-                                } else {
-                                    throw e;
-                                }
-                            }
-                        }
+                        cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
 
-                        if (roles.hasControls()) {
-                            // cthis.audio.graph.display();
-                        }
-                        //frame = cvideo.tempVid.toDataURL("image/jpg", 0.2);
                         var user = {
                             name: virtualclass.gObj.uName,
                             id: virtualclass.gObj.uid
                         };
+
                         if (roles.hasControls()) {
                             user.role = virtualclass.gObj.uRole;
                         }
 
-                        //TODO Find out why the would send each time rather than one
-                        if(virtualclass.vutil.webSocketConnected()) {
-                          virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
-                          var frame = cvideo.tempVidCont.getImageData(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
-                          var encodedframe = virtualclass.dirtyCorner.encodeRGB(frame.data);
-                          var uid = breakintobytes(virtualclass.gObj.uid, 8);
-                          var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3]]);// First parameter represents  the protocol rest for user id
-                          var sendmsg = new Uint8ClampedArray(encodedframe.length + scode.length);
-                          sendmsg.set(scode);
-                          sendmsg.set(encodedframe, scode.length);
-                          ioAdapter.sendBinary(sendmsg);
-                          // console.log("send time " + new Date());
+                        var d = {x: 0, y: 0};
+                        // you increase the the value, increase the quality
+                        // 0.4 and 9 need 400 to 500 kb/persecond
+                        if (virtualclass.system.webpSupport) {
+                            var sendimage = cvideo.tempVid.toDataURL("image/webp", 0.6);
+                            var vidType = 1;
+                        } else {
+                            var sendimage = cvideo.tempVid.toDataURL("image/jpeg", 0.3);
+                            var vidType = 0;
                         }
+
+                        sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
+
+                        var uid = breakintobytes(virtualclass.gObj.uid, 8);
+                        var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
+                        var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
+                        sendmsg.set(scode);
+                        sendmsg.set(sendimage, scode.length);
+                        that.sendInBinary(sendmsg);
+
                         clearInterval(virtualclass.gObj.video.smallVid);
+
                         var d = randomTime + (virtualclass.connectedUsers.length * 2500);
                         if (totalMembers != virtualclass.connectedUsers.length) {
                             totalMembers = virtualclass.connectedUsers.length;
                             var p = -1;
                             for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                                 if (virtualclass.connectedUsers[0].userid == virtualclass.gObj.uid) {
-                                  p = i;
+                                    p = i;
                                 }
                             }
                             var td = d / totalMembers;
@@ -1090,15 +1087,16 @@
                                 p  = 0;
                             }
                             var md = p * td;
-
                             virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
                         } else {
                             virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
                         }
                     }
+
+
                     virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, randomTime);
                     // Breaking user id into bytes
-                    function breakintobytes(val, l) {
+                    function breakintobytes2(val, l) {
                         var numstring = val.toString();
                         for (var i = numstring.length; i < l; i++) {
                             numstring = '0' + numstring;
@@ -1107,6 +1105,7 @@
                         return parts;
                     }
                 },
+
                 /*
                  * Calulate dimensions of the  video
                  * and sends the video
@@ -1115,22 +1114,44 @@
                     cthis.video.calcDimension();
                     cthis.video.send();
                 },
+
                 /*
                  * Play the received video with out slicing it
                  * @param  uid
                  * @param  msg video message received
 
                  */
-                playWithoutSlice: function (uid, msg) {
+                playWithoutSlice: function (uid, msg, vtype) {
                     //  console.log('uid ' + uid);
                     this.remoteVid = document.getElementById("video" + uid);
                     //TODO remove validation
                     if (this.remoteVid != null) {
                         this.remoteVidCont = this.remoteVid.getContext('2d');
-                        var imgData = virtualclass.dirtyCorner.decodeRGB(msg, this.remoteVidCont, this.remoteVid);
+
                         this.remoteVidCont.putImageData(imgData, 0, 0);
                     }
                 },
+
+                drawReceivedImage : function(imgData, imgType, d, uid) {
+                    this.remoteVid = document.getElementById("video" + uid);
+                    if(this.remoteVid != null){
+                        this.remoteVidCont = this.remoteVid.getContext('2d');
+
+                        if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
+                            var img = new Image();
+                            var that = this;
+                            img.onload = function (){
+                                that.remoteVidCont.drawImage(img, d.x, d.y);
+                            };
+                            img.src = imgData;
+                        } else {
+
+                            loadfile(imgData, this.remoteVid, this.videoPartCont); // for browsers that do not support webp
+                        }
+                    }
+                },
+
+
                 //TODO this function is not being used
                 justForDemo: function () {
                     var maxHeight = 250;
@@ -1212,8 +1233,18 @@
                 process: function (msg) {
                     var data_pack = new Uint8ClampedArray(msg);
                     var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
-                    var recmsg = data_pack.subarray(5, data_pack.length);
-                    virtualclass.gObj.video.video.playWithoutSlice(uid, recmsg);
+                    var recmsg = data_pack.subarray(6, data_pack.length);
+                    if(data_pack[5] == 1){
+                        var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
+                        var imgType = "webp";
+                    }else {
+                        var b64encoded = "data:image/jpeg;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
+                        var imgType = "jpeg";
+                    }
+
+
+                    // virtualclass.gObj.video.video.playWithoutSlice(uid, recmsg, imgType);
+                    virtualclass.gObj.video.video.drawReceivedImage(b64encoded, imgType, {x:0, y:0}, uid);
                 }
             },
 
@@ -1371,8 +1402,11 @@
                     }
                 }
 
-
-                virtualclass.videoHost.renderSelfVideo(stream);
+                if(roles.hasAdmin()){
+                    virtualclass.videoHost.isDomReady(function (){
+                        virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
+                    });
+                }
 
                 setTimeout(
                     function (){

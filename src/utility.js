@@ -2410,17 +2410,13 @@
             }
         },
 
-        webSocketConnected : function (){
-            return (io.sock && io.sock.readyState == 1);
-        },
-
         isDashboardOpened : function (navButton){
             var navButton = document.querySelector('#dashboardnav button');
             return (navButton != null && navButton.classList.contains('clicked'));
         },
 
         stopConnection : function (){
-            if(virtualclass.vutil.webSocketConnected()){
+            if(io.webSocketConnected()){
                 io.sock.close();
             }
             virtualclass.gObj.invalidlogin = true;

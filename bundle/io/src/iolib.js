@@ -26,6 +26,10 @@ var io = {
     readyToSend: false,
     globalmsgjson: [],
     packetQueue: [],
+    binMsgQueue: [],
+    jsnMsgQueue: [],
+    recBinMsgQueue: [],
+    recjsnMsgQueue: null,
     init: function(cfg, callback) {
         "use strict";
         this.cfg = cfg;
@@ -64,40 +68,40 @@ var io = {
                 //return;
                 io.onRecBinary(e)
             } else {
-                var msg = JSON.parse(e.data); //msg.user is from user/*
-                //io.onRecJson(msg);
+                var cleanJson = io.cleanRecJson(e.data);
+                if (cleanJson) {
+                  var msg = JSON.parse(cleanJson); //msg.user is from user/*
+                  this.recjsnMsgQueue = '';
 
-                //return;
-                if (msg.hasOwnProperty('m')) {
-                    if (msg.m.hasOwnProperty('serial')) {
-                        ioMissingPackets.checkMissing(msg);
-                    } else if (msg.m.hasOwnProperty('reqMissPac')) {
-                        // there is bing upload the content then we will not send miss packet
-                        if (!virtualclass.recorder.hasOwnProperty('startUpload')) {
-                            ioMissingPackets.sendMissedPackets(msg);
-                        }
-
-                    } else if (msg.m.hasOwnProperty('missedpackets')) {
-                        ioMissingPackets.fillExecutedStore(msg);
-                    } else if (msg.m.hasOwnProperty('userSerial')) {
-                        ioMissingPackets.userCheckMissing(msg);
-                    } else if (msg.m.hasOwnProperty('userReqMissPac')) {
-                        // there is bing upload the content then we will not send miss packet
-                        if (!virtualclass.recorder.hasOwnProperty('startUpload')) {
-                            ioMissingPackets.userSendMissedPackets(msg);
-                        }
-
-                    } else if (msg.m.hasOwnProperty('userMissedpackets')) {
-                        ioMissingPackets.userFillExecutedStore(msg);
-                    } else {
-                        //return; // for temporary
-                        io.onRecSave(msg, e.data);
-                        io.onRecJson(msg);
-                    }
-                } else {
-                    //return; // for temporary
-                    io.onRecSave(msg, e.data);
-                    io.onRecJson(msg);
+                  if (msg.hasOwnProperty('m')) {
+                      if (msg.m.hasOwnProperty('serial')) {
+                          ioMissingPackets.checkMissing(msg);
+                      } else if (msg.m.hasOwnProperty('reqMissPac')) {
+                          // there is bing upload the content then we will not send miss packet
+                          if (!virtualclass.recorder.hasOwnProperty('startUpload')) {
+                              ioMissingPackets.sendMissedPackets(msg);
+                          }
+                      } else if (msg.m.hasOwnProperty('missedpackets')) {
+                          ioMissingPackets.fillExecutedStore(msg);
+                      } else if (msg.m.hasOwnProperty('userSerial')) {
+                          ioMissingPackets.userCheckMissing(msg);
+                      } else if (msg.m.hasOwnProperty('userReqMissPac')) {
+                          // there is bing upload the content then we will not send miss packet
+                          if (!virtualclass.recorder.hasOwnProperty('startUpload')) {
+                              ioMissingPackets.userSendMissedPackets(msg);
+                          }
+                      } else if (msg.m.hasOwnProperty('userMissedpackets')) {
+                          ioMissingPackets.userFillExecutedStore(msg);
+                      } else {
+                          //return; // for temporary
+                          io.onRecSave(msg, cleanJson);
+                          io.onRecJson(msg);
+                      }
+                  } else {
+                      //return; // for temporary
+                      io.onRecSave(msg, cleanJson);
+                      io.onRecJson(msg);
+                  }
                 }
             }
 
@@ -209,7 +213,7 @@ var io = {
                         user: userObj,
                         m: obj.arg.msg
                     };
-                    var jobj = 'F-BR-'+JSON.stringify(sobj);
+                    var jobj = 'F-BR-{"0'+JSON.stringify(sobj);
                 } else {
                     var sobj = {
                         type: 'broadcastToAll',
@@ -222,7 +226,7 @@ var io = {
                     while (touser.length < 12) {
                         touser = '0'+touser;
                     }
-                    var jobj = 'F-BRU-{"'+touser+JSON.stringify(sobj);
+                    var jobj = 'F-BRU-{"'+touser+'{"0'+JSON.stringify(sobj);
                 }
                 break;
             case "ping":
@@ -242,15 +246,100 @@ var io = {
         }
 
         // console.log('Total time ' + timeSec +', String send ' + jobj);
-
-        this.sock.send(jobj);
-        this.sock.onerror = function(error) {
+        if (jobj.length <= 800000) { //800k
+          this.sock.send(jobj);
+          this.sock.onerror = function(error) {
+          }
+        } else {
+          this.jsnMsgQueue = this.chunkSubstr(jobj, 750000); // 750k
+          if (this.jsnMsgQueue) {
+            for (var i=0; i<this.jsnMsgQueue.length; i++) {
+              this.sock.send(this.jsnMsgQueue[i]);
+            }
+          }
+          this.jsnMsgQueue = [];
         }
+    },
+    chunkSubstr: function(str, size) {
+      if (str.startsWith('F-BR-{"0')) {
+        var prefix = 'F-BR-{"';
+        str = str.replace('F-BR-{"0','');
+      } else if (str.startsWith('F-BRU-{"')) {
+        var prefix = str.substring(0, 22);
+        str = str.substring(23, str.length);
+      } else {
+        return false;
+      }
+      const numChunks = Math.ceil(str.length / size)
+      const chunks = new Array(numChunks)
+      for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+        chunks[i] = str.substr(o, size)
+        if (i == 0) {
+          chunks[i] = prefix + '1' + chunks[i];
+        } else if (i < numChunks-1) {
+          chunks[i] = prefix + '2' + chunks[i];
+        } else {
+          chunks[i] = prefix + '3' + chunks[i];
+        }
+      }
+      return chunks
+    },
+    cleanRecJson: function (str) {
+      if (!str.startsWith('{"0{"') && !str.startsWith('{"1{"') && !str.startsWith('{"2') && !str.startsWith('{"3')) {
+        return str;
+      } else if (str.startsWith('{"0{"')){
+        str = str.replace('{"0{"','{"');
+        return str;
+      }
+      if (str.startsWith('{"1{"')){
+        this.recjsnMsgQueue = str.replace('{"1{"','{"');
+      } else if (str.startsWith('{"2')){
+        this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"2','');
+      } else if (str.startsWith('{"3')){
+        this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"3','');
+        return this.recjsnMsgQueue;
+      } else {
+        this.recjsnMsgQueue = '';
+        return false;
+      }
+      return false;
     },
     sendBinary: function(msg) {
         "use strict";
-        if (this.webSocketConnected()) {
-            this.sock.send(msg.buffer);
+        var type = null;
+        if (this.webSocketConnected() && msg.length) {
+          if (msg.length <= 800000) { // Less than 800K
+            if (msg.constructor === Int8Array) {
+              var msg1 = new Int8Array(msg.length + 2);
+            } else if (msg.constructor === Uint8ClampedArray) {
+              var msg1 = new Uint8ClampedArray(msg.length + 2);
+            }
+            msg1.set([msg[0], 0]);
+            msg1.set(msg, 2);
+            this.sock.send(msg1.buffer);
+          } else {
+            this.binMsgQueue = [];
+            const len = 750000; // 750k
+            for (let i=0, c=0; i<msg.length;c++){
+              const chunk = msg.slice(i, i + len);
+              if (msg.constructor === Int8Array) {
+                this.binMsgQueue[c] = new Int8Array(chunk.length + 2);
+              } else if (msg.constructor === Uint8ClampedArray) {
+                this.binMsgQueue[c] = new Uint8ClampedArray(chunk.length + 2);
+              }
+              this.binMsgQueue[c].set([msg[0], 2]); // Continue
+              this.binMsgQueue[c].set(chunk, 2);
+              if (chunk.length) {
+                i += chunk.length;
+              }
+            }
+            this.binMsgQueue[0][1]=1; // Start
+            this.binMsgQueue[this.binMsgQueue.length-1][1]=3; // End
+            for (var i=0; i<this.binMsgQueue.length; i++) {
+              this.sock.send(this.binMsgQueue[i].buffer);
+            }
+            this.binMsgQueue = [];
+          }
         }
 
     },
@@ -273,13 +362,41 @@ var io = {
         //try {
         var scope = this;
         if (e.data instanceof ArrayBuffer) {
-            $.event.trigger({
-                type: "binrec",
-                message: e.data
-            });
             var data_pack = new Uint8Array(e.data);
-            var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
-            ioStorage.dataBinaryStore(msg);
+            if (data_pack[1] == 0) { // All OK
+              data_pack = data_pack.subarray(2);
+              var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
+              $.event.trigger({
+                  type: "binrec",
+                  message: msg.buffer
+              });
+              ioStorage.dataBinaryStore(msg);
+            } else if (data_pack[1] == 1) { // Start of packet
+              this.recBinMsgQueue = [];
+              this.recBinMsgQueue[0]=data_pack.subarray(2);
+            } else if (data_pack[1] == 2) { // Continue packet
+              if (this.recBinMsgQueue.length > 0) {
+                this.recBinMsgQueue.push(data_pack.subarray(2));
+              }
+            } else if (data_pack[1] == 3) { // End packet
+              if (this.recBinMsgQueue.length > 0) {
+                this.recBinMsgQueue.push(data_pack.subarray(2));
+                var totalsize=0;
+                for (var i=0; i<this.recBinMsgQueue.length; i++) {
+                  totalsize = totalsize + this.recBinMsgQueue[i].length;
+                }
+                var msg = (data_pack[0] == 101) ? new Int8Array(totalsize) : new Uint8ClampedArray(totalsize);
+                for (var i=0,s=0; i<this.recBinMsgQueue.length; i++) {
+                  msg.set(this.recBinMsgQueue[i], s);
+                  s = s + this.recBinMsgQueue[i].length;
+                }
+                $.event.trigger({
+                    type: "binrec",
+                    message: msg.buffer
+                });
+                ioStorage.dataBinaryStore(msg);
+              }
+            }
         }
         //} catch (e) {
         //    console.log("Error catched   : " + e);

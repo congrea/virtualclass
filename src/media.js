@@ -1401,8 +1401,11 @@
                     }
                 }
 
-
-                virtualclass.videoHost.renderSelfVideo(stream);
+                if(roles.hasAdmin()){
+                    virtualclass.videoHost.isDomReady(function (){
+                        virtualclass.videoHost.renderSelfVideo(stream);
+                    });
+                }
 
                 setTimeout(
                     function (){

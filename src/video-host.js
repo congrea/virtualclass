@@ -39,37 +39,21 @@ var videoHost = {
         this.width = width;
         this.height = height;
         this.gObj.videoSwitch = 1;//nirmala
+        this.domReady = false;
         if (roles.hasAdmin()) {
-            // if ((virtualclass.system.mybrowser.name == 'Chrome')) {
-                this._init();
-                //var session = { audio: false, video: { width: width, height: height } };
-                /*
-                 var session = {
-                 audio: false,
-                 video: {
-                 width: {ideal: width, max: 320 },
-                 height: { ideal: height, max: 240 }
-                 }
-                 }; */
 
-                // var session = {
-                //     audio: false,
-                //     video: true
-                // };
+            this._init();
+            //var session = { audio: false, video: { width: width, height: height } };
+            /*
+             var session = {
+             audio: false,
+             video: {
+             width: {ideal: width, max: 320 },
+             height: { ideal: height, max: 240 }
+             }
+             }; */
 
-
-                var that = this;
-
-                // virtualclass.vhAdpt = virtualclass.adapter();
-
-                // var cNavigator = virtualclass.vhAdpt.init(navigator);
-                // cNavigator.getUserMedia(session, function (stream) {
-                //     that.getMediaStream(stream);
-                // }, this.onError);
-
-
-                //this.UI.controller();//nirmala
-            //}
+            this.domReady = true;
         } else {
             this.setCanvasAttr('videoPartCan', 'videoParticipate');
             //this.setCanvasAttr('videoPartCan', 'videoParticipate');
@@ -84,6 +68,23 @@ var videoHost = {
             this.getMediaStream(stream);
         }
     },
+
+    isDomReady : function (cb){
+        var that = this;
+        if(!this.domReady){
+            this.domreadyCheck = setTimeout(
+                function (){
+                    cb();
+                },1000
+            );
+        }else {
+            if(this.domreadyCheck !=  null){
+                clearTimeout(this.domreadyCheck);
+            }
+        }
+    },
+
+
     /**
      * Initialsize the various canvas attribute
      *  for slice canvas, host canvas and participate canvas
@@ -304,6 +305,7 @@ var videoHost = {
                     };
                     img.src = imgData;
                 } else {
+
                     loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
                 }
             }, myVideoDelay = (16382/sampleRate)*1000*4

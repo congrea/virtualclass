@@ -4,12 +4,12 @@ onmessage = function (e) {
     var mdata;
 
     if(e.data.hasOwnProperty('vdata')){
-        WebPDecodeAndDraw(e.data.vdata);
+        WebPDecodeAndDraw(e.data.vdata, e.data. canid);
     }
 }
 
 
-var WebPDecodeAndDraw = function (data) {
+var WebPDecodeAndDraw = function (data, canid) {
 
     var start = new Date();
 
@@ -101,15 +101,14 @@ var WebPDecodeAndDraw = function (data) {
             };
         }
 
-
         //var vdata =  new Uint8ClampedArray(outputData);
         postMessage( {
                 vdata : new Uint8ClampedArray(outputData),
                 bh  : biHeight,
-                bw  : biWidth
+                bw  : biWidth,
+                canid : canid
             }
         );
-
 
     }
 };

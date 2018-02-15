@@ -1020,10 +1020,11 @@
                         name: virtualclass.gObj.uName,
                         id: virtualclass.gObj.uid
                     };
-                    if(virtualclass.vutil.webSocketConnected()) {
+                    if(io.webSocketConnected()) {
                        virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
+                        ioAdapter.sendBinary(sendimage);
                     }
-                    ioAdapter.sendBinary(sendimage);
+
                 },
 
                 send: function () {
@@ -1403,7 +1404,7 @@
 
                 if(roles.hasAdmin()){
                     virtualclass.videoHost.isDomReady(function (){
-                        virtualclass.videoHost.renderSelfVideo(stream);
+                        virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
                     });
                 }
 

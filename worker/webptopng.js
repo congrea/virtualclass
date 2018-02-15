@@ -4,12 +4,12 @@ onmessage = function (e) {
     var mdata;
 
     if(e.data.hasOwnProperty('vdata')){
-        WebPDecodeAndDraw(e.data.vdata);
+        WebPDecodeAndDraw(e.data.vdata, e.data. canid);
     }
 }
 
 
-var WebPDecodeAndDraw = function (data) {
+var WebPDecodeAndDraw = function (data, canid) {
 
     var start = new Date();
 
@@ -50,7 +50,6 @@ var WebPDecodeAndDraw = function (data) {
     if (status != StatusCode.VP8_STATUS_OK) {
         alert('error');
     }
-
 
     var mode = decoder.WEBP_CSP_MODE;
 
@@ -102,28 +101,14 @@ var WebPDecodeAndDraw = function (data) {
             };
         }
 
-
         //var vdata =  new Uint8ClampedArray(outputData);
         postMessage( {
                 vdata : new Uint8ClampedArray(outputData),
                 bh  : biHeight,
-                bw  : biWidth
+                bw  : biWidth,
+                canid : canid
             }
         );
-
-        //return outputData;
-
-
-        //var context = canvas.getContext('2d');
-        //var output = context.createImageData(canvas.width, canvas.height);
-        //
-        //canvas.height=biHeight;
-        //canvas.width=biWidth;
-        //
-        ////	output.data =  new Uint8ClampedArray(outputData);
-        //var outputBinData = new Uint8ClampedArray(outputData);
-        //output.data.set(outputBinData);
-        //context.putImageData(output, 0, 0);
 
     }
 };

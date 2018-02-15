@@ -74,7 +74,7 @@ function loadfile2(filename,type) {
 
 
 
-function loadfile(imgData, context) {
+function loadfile(imgData, canvas, context) {
 	if (typeof type==='undefined') type='dec';
 	//document.getElementById('testbild').innerHTML='server query....';
 	if (type==='dec') {
@@ -95,7 +95,7 @@ function loadfile(imgData, context) {
 					var response = convertResponseBodyToText(http.responseBody);
 				}
 				if (type==='dec')
-					WebPDecodeAndDraw(response, context);
+					WebPDecodeAndDraw(response, canvas, context);
 			} //else alert('Cannot load file. Please, try again');
 		};
 		http.send(null);

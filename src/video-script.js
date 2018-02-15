@@ -16,28 +16,35 @@ function WebPDecDemo(canvasId) {
 	img = document.createElement("img");
 
 
-	WebPDecodeAndDraw = function (data, context){
+	WebPDecodeAndDraw = function (data, canvas, context){
 		if (!!window.Worker) {
-
 			webpToPng.postMessage({
-				vdata: data
+				vdata: data,
+				canid : canvas.id
 			});
 
-			webpToPng.onmessage = function (e){
-				var context = canvas.getContext('2d');
-				var output = context.createImageData(canvas.width, canvas.height);
 
-				canvas.height = e.data.bh;
-				canvas.width = e.data.bw;
 
-				//	output.data =  new Uint8ClampedArray(outputData);
-				output.data.set(e.data.vdata);
-				context.putImageData(output, 0, 0);
-			}
 		}
+
+        if (!!window.Worker) {
+            webpToPng.onmessage = function (e){
+                var canvas = document.querySelector('#' + e.data.canid);
+                var context = canvas.getContext('2d');
+                var output = context.createImageData(canvas.width, canvas.height);
+
+                canvas.height = e.data.bh;
+                canvas.width = e.data.bw;
+
+                //	output.data =  new Uint8ClampedArray(outputData);
+                output.data.set(e.data.vdata);
+                context.putImageData(output, 0, 0);
+            }
+        }
+        canvas = canvas;
 	}
 
-	
+
 
 	function drawBitmap(bitmap,WebPImage) {
 		// (re)draw image, when size change
@@ -128,3 +135,7 @@ function WebPDecDemo(canvasId) {
 		finishDecoding();
 	};
 };
+
+
+
+

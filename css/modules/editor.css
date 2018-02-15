@@ -84,6 +84,14 @@
   font-weight: 200;
   z-index: 0;
 }
+@-moz-document url-prefix() {
+  #virtualclassCont.congrea #alleditorRichContainer {
+    top: 46px;
+  }
+  #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover::after {
+    bottom: -27px;
+  }
+}
 
 #virtualclassCont.congrea #virtualclassYtsTool, #virtualclassCont.congrea #virtualclassEditorCodeTool {
   border-bottom: none !important;

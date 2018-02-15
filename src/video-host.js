@@ -219,7 +219,9 @@ var videoHost = {
         setInterval(
             function () {
                 if (that.gObj.videoSwitch) {
-                    that._shareVideo(that, resA, resB);
+                    if (io.webSocketConnected()){
+                      that._shareVideo(that, resA, resB);
+                    }
                 }
             },
         120);

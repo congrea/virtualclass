@@ -186,6 +186,10 @@
                         this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
                         console.log('Note status ' + this.order[i] + ' -->' + this.allNotes[this.order[i]].status);
                     }
+
+                    /** Earlier it was in noteStatus() which causes the performance issue **/
+                    this.storeInDocs(this.allNotes);
+
                 }
             },
 
@@ -674,7 +678,6 @@
 
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);
-                    console.log('Document share:- ' + this.order.toString());
                 }
             },
 
@@ -855,6 +858,7 @@
                         }
                     }
                 }
+                this.storeInDocs(this.allNotes);
             },
 
             createNoteNavAlt : function (fromReload){
@@ -872,6 +876,10 @@
                         this.noteStatus(this.order[i], status);
                     }
 
+                }
+
+                if(typeof fromReload == 'undefined'){
+                    this.storeInDocs(this.allNotes);
                 }
             },
 
@@ -1417,6 +1425,7 @@
                     this._removePageFromStructure(dts.rmsnote);
                 }else if(dts.hasOwnProperty('noteSt')){
                     this.noteStatus(dts.note, dts.noteSt);
+                    this.storeInDocs(this.allNotes);
                 } else if(dts.hasOwnProperty('docSt')){
                     this.docStatus(dts.doc, dts.docSt);
                 }else if (dts.hasOwnProperty('order_recived')){
@@ -1612,6 +1621,7 @@
                     this.noteStatus(nid, status);
                     this.updatePageNavStatus(nid, status);
                 }
+                this.storeInDocs(this.allNotes);
                 if(roles.hasControls()){
                     ioAdapter.mustSend({'dts': {docSt: status, doc:id}, 'cf': 'dts'});
                 }
@@ -1637,11 +1647,13 @@
 
             _noteDisable : function (id){
                 this.noteStatus(id);
+                this.storeInDocs(this.allNotes);
                 this.sendNoteStatus(id)
             },
 
             _noteEnable : function (id){
                 this.noteStatus(id);
+                this.storeInDocs(this.allNotes);
                 this.sendNoteStatus(id);
             },
 
@@ -1677,7 +1689,7 @@
                     var noteObj = this.allNotes[id];
                     noteObj.status = note.dataset.status;
                     this.allNotes[id] = noteObj;
-                    this.storeInDocs(this.allNotes);
+                    // this.storeInDocs(this.allNotes);
                 } else {
                     console.log('there is no element #note' + id);
                 }

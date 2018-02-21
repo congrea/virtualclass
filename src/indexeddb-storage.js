@@ -787,12 +787,10 @@
             var t = that.db.transaction(["dstall"], "readwrite");
             var objectStore = t.objectStore("dstall");
             objectStore.clear();
-            
 
-            // localStorage.setItem('repObjs', data); Enable for debugging
+
             var allNotes = JSON.stringify(virtualclass.dts.allNotes);
             t.objectStore("dstall").add({dstalldocs: data, allNotes : allNotes, timeStamp: new Date().getTime(), id: 10});
-            console.log('Storing notes ' + Object.keys(virtualclass.dts.allNotes).length);
         },
         
         

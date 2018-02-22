@@ -53,6 +53,14 @@ var videoHost = {
              }
              }; */
 
+            let canvas  = document.createElement('canvas');
+            canvas.id = 'dummyCangas';
+            canvas.width = 40;
+            canvas.height = 40;
+            document.querySelector('#virtualclassApp').appendChild(canvas);
+
+            WebPDecDemo('dummyCangas');
+
             this.domReady = true;
         } else {
             this.setCanvasAttr('videoPartCan', 'videoParticipate');

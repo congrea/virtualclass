@@ -136,11 +136,12 @@ var precheck = {
             }
 
 
-            if(virtualclass.system.mybrowser.name != 'Chrome'){
-                var msg =  virtualclass.lang.getString('notsupportbrowser', [virtualclass.system.mybrowser.name]);
-            }else {
-                var msg =  virtualclass.lang.getString('congreainchrome');
-            }
+            // if(virtualclass.system.mybrowser.name != 'Chrome'){
+            //     var msg =  virtualclass.lang.getString('notsupportbrowser', [virtualclass.system.mybrowser.name]);
+            // }else {
+            //     var msg =  virtualclass.lang.getString('congreainchrome');
+            // }
+            var msg =  virtualclass.lang.getString('congreainchrome');
 
             virtualclass.precheck.createMessage(msgSelector, msg, 'information');
 

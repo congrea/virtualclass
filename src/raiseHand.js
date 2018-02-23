@@ -86,6 +86,8 @@
                          var stdR= document.getElementById("congHr")
                          stdR.classList.remove("disable");
                          stdR.classList.add("enable")
+                         var rhElem = document.querySelector("#stickybar #icHr");
+                         rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
 
 
                      }

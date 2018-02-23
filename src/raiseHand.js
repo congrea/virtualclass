@@ -13,14 +13,10 @@
         return {
             stdRhEnable:"enabled",
             init: function (obj) {
-
                 this. stdRhEnable="enabled";
                 if(!roles.hasControls()){
                     this. stdRaiseHandler();
-                }
-
-                if(!roles.hasControls()){
-                    virtualclass.raiseHand.stdRhEnable=localStorage.getItem("stdRhEnable");
+                    this.stdRhEnable=localStorage.getItem("stdRhEnable");
                     if(this.stdRhEnable &&this.stdRhEnable =="disabled" ){
                         var cont = document.querySelector("#stickybar #congHr");
                         var rhElem =  document.querySelector("#icHr");
@@ -55,47 +51,51 @@
             // to modify this
             raiseMessage:function(rMsg){
                 if(roles.hasControls()){
+                    this.onMsgRecTr(rMsg.data);
 
-                    console.log(rMsg.data.user);
-                    var userid= rMsg.data.user
-                    var controlContainer = document.getElementById(rMsg.data.user + 'contRaiseH');
-                    var anch = document.getElementById(rMsg.data.user + 'contRaiseAnch');
-                    var cont = document.getElementById(rMsg.data.user + 'contrRaiseHandImg');
-                    // controlContainer.removeChild(controlContainer.firstChild);
-                    // localStorage.removeItem('aId');
-
-                    if(rMsg.data.action=="enable"){
-                        this.trRaisehEnable(userid);
-                        this.moveRhUsersUp();
-
-                    }
-                    else{
-
-                        virtualclass.user.control.updateUser(rMsg.data.user, 'raiseHand',false);
-                        controlContainer.classList.remove("enabled");
-                        controlContainer.classList.add("disabled");
-                        cont.setAttribute('data-raisehand-disable',true)
-                        anch.setAttribute('data-title',"disabled")
-                        controlContainer.style.pointerEvents="none";
-                        this.moveRhUsersDn(rMsg.data.user)
-                    }
 
                 }else{
-                     if(rMsg.data.action == "disable"){
-                         this.stdRhEnable="enabled";
-                         var stdR= document.getElementById("congHr")
-                         stdR.classList.remove("disable");
-                         stdR.classList.add("enable")
-                         var rhElem = document.querySelector("#stickybar #icHr");
-                         rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
-
-
-                     }
+                    this.onMsgRecStd(rMsg.data)
                 }
 
+            },
+            onMsgRecTr:function(msg){
+                var userid= msg.user
+                var controlContainer = document.getElementById(userid+ 'contRaiseH');
+                var anch = document.getElementById(userid + 'contRaiseAnch');
+                var cont = document.getElementById(userid + 'contrRaiseHandImg');
+                // controlContainer.removeChild(controlContainer.firstChild);
+                // localStorage.removeItem('aId');
+
+                if(msg.action=="enable"){
+                    this.trRaisehEnable(userid);
+                    this.moveRhUsersUp();
+
+                }
+                else{
+
+                    virtualclass.user.control.updateUser(userid, 'raiseHand',false);
+                    controlContainer.classList.remove("enabled");
+                    controlContainer.classList.add("disabled");
+                    cont.setAttribute('data-raisehand-disable',true)
+                    anch.setAttribute('data-title',"disabled")
+                    controlContainer.style.pointerEvents="none";
+                    this.moveRhUsersDn(userid)
+                }
 
             },
 
+            onMsgRecStd:function(msg){
+                if(msg.action == "disable"){
+                    this.stdRhEnable="enabled";
+                    var stdR= document.getElementById("congHr")
+                    stdR.classList.remove("disable");
+                    stdR.classList.add("enable")
+                    var rhElem = document.querySelector("#stickybar #icHr");
+                    rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
+                }
+
+            },
             moveRhUsersUp:function(){
                 var ctrEn = document.querySelectorAll(".controllerRaiseH")
                 for(var i =0; i <ctrEn.length ;i++){
@@ -122,8 +122,6 @@
 
             // to verify
             trRaisehEnable:function(userid){
-                debugger;
-
                 var controlContainer = document.getElementById(userid + 'contRaiseH');
                 var anch = document.getElementById(userid + 'contRaiseAnch');
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');

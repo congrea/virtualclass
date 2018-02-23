@@ -3359,6 +3359,68 @@
 }
 
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {
-    bottom: -43px;
-    left: -72px;
+	bottom: -43px;
+	left: -72px;
 
+}
+#congreaChatCont .ui-memblist-usr  .controllerRaiseH.disabled span{
+	color: rgba(198, 198, 198,1);
+}
+#congreaChatCont .ui-memblist-usr  .controllerRaiseH.enabled span{
+	color:green !important;
+	opacity:1;
+}
+
+.congrea #stickybar #congHr.enable{
+	opacity:1;
+	background-color: #f5f5f5;
+	width:30px;
+	height:30px;
+	position :fixed;
+	float:right;
+	right:340px;
+	bottom:7px;
+	cursor:pointer;
+}
+
+.congrea #stickybar #congHr.disable{
+	opacity:0.4;
+	background-color: #c6c6c6;
+	width:30px;
+	height:30px;
+	position :fixed;
+	float:right;
+	right:340px;
+	bottom:7px;
+
+}
+.congrea .controllerRaiseH .icon-RaiseHandImg:before {
+	content: "\e962";
+}
+.congrea #icHr:before {
+	content: "\e962";
+	font-size: 21px;
+	color:black;
+}
+.congrea #stickybar #icHr:after {
+  position:absolute !important;
+	bottom:35px !important;
+
+}
+
+.congrea .controleCont.controllerRaiseH.disabled{
+	pointer-events: none;
+}
+.congrea .controllerRaiseH{
+	margin-right: 8px;
+}
+
+.congrea #stickybar #congHr {
+	border-radius: 3px;
+}
+
+#virtualclassCont.congrea #icHr{
+	display: inline;
+	position: absolute;
+	font-size: 14px;
+}

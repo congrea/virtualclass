@@ -19,6 +19,7 @@
             rw: "",
             poll:"",
             quiz:"",
+            raiseHand:"",
             //lang: {},
             error: [],
             pdfRender : {},
@@ -125,6 +126,7 @@
                 this.multiVideo = window.MultiVideo;
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
+
                 // this.pdfRender = window.pdfRender();
 
                 if(this.system.isIndexedDbSupport()){
@@ -259,6 +261,9 @@
                 precheck.addEventListener("click",function(){
                     virtualclass.precheck.init(virtualclass.precheck);
                 })
+
+                this.raiseHand= window.raiseHand;
+                this.raiseHand.init();
             },
 
             networkStatus: function(){

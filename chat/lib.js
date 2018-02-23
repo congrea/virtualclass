@@ -34,12 +34,14 @@ function displayChatUserList(users){
 
             }
             myDivResult = "";
-
-            if(virtualclass.gObj.uid != virtualclass.jId){
-                virtualclass.user.initControlHanlder(users[i].userid);
+            // to verify
+            if((virtualclass.gObj.uid != users[i].userid) && (virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher())){
+                virtualclass.user.initControlHandler(users[i].userid);
             }
         }
+
     }
+
 }
 
 function displayChatOfflineUserList (users){
@@ -139,6 +141,10 @@ function memberUpdate(e, addType) {
                         userDiv.classList.add("mySelf");
                     }
                 }
+            }
+
+            if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
+                virtualclass.raiseHand.moveRhUsersUp();
             }
 
         } else {

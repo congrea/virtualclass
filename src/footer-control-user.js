@@ -217,6 +217,15 @@
                                 editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
                             }
                         }
+                    }else if (controls[i] == 'RaiseHand'){
+
+                        if (uObj && userObj.hasOwnProperty('raiseHand')) {
+                            var rhEnable = (userObj.raiseHand) ? true : false;
+                        } else {
+                            var rhEnable = true;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'RaiseHand', 'RaiseHand');
+
                     }
                 }
             },
@@ -465,7 +474,9 @@
                     }
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
-
+                    if(control =='RaiseHand'){
+                        virtualclass.raiseHand.trRaisehEnable(userId)
+                    }
 
                     virtualclass.user.control.updateUser(userId, label, true);
                 },
@@ -658,6 +669,10 @@
                         //controlContainer.parentNode.removeChild(controlContainer);
                     }
                 },
+
+
+
+
                 _chat: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
@@ -728,6 +743,10 @@
                     } else {
                         virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
                     }
+                },
+                _RaiseHand:function(userId,action){
+                    // to disable only ..
+                    virtualclass.raiseHand.disableRaiseH(userId)
                 },
 
 
@@ -917,6 +936,7 @@
 
                 //TODO this function name should be convert into updateControlAtLocalStorage
                 updateUser: function (uid, key, val) {
+
                     //var userId =  localStorage.getItem(uid);
                     var userId = localStorage.getItem('virtualclass' + uid);
                     var uObj = {};
@@ -1169,7 +1189,7 @@
                 footerDiv.dataset.role = role;
             },
 
-            initControlHanlder : function (userId){
+            initControlHandler : function (userId){
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 // Assign event handler
                 var that = this;
@@ -1195,6 +1215,7 @@
                 for(var i=0; i<allSpans.length; i++){
                     (
                         function (i){
+
                             allSpans[i].addEventListener('click',
                                 function (){
                                     that.control.init.call(that, allSpans[i]);
@@ -1234,7 +1255,15 @@
                                 }
                             }
                         }
+                    }else if(allSpans[i].className.indexOf('RaiseHand') > -1) {
+                        if (uObj && userObj.hasOwnProperty('raiseHand')) {
+                            var rhEnable = (userObj.raiseHand) ? true : false;
+                        } else {
+                            var rhEnable = false;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
                     }
+
                 }
             }
         }

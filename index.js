@@ -140,6 +140,8 @@ $(document).ready(function () {
             virtualclass.popup.waitMsg();
         }
 
+
+
         //  virtualclass.popup.waitMsg();
 
         // If the page is being refreshed from Become Teacher Link
@@ -242,6 +244,7 @@ $(document).ready(function () {
                 500 //increase 500 ms for indexeddb which was not ready till popup was display
             );
         }
+
 
         if (virtualclass.isPrecheck != null) {
             if (typeof virtualclass.videoHost.gObj.MYSPEED == 'undefined') {
@@ -736,6 +739,9 @@ $(document).ready(function () {
             });
             return index;
         }
+
+
+
 
         $(document).on("member_added", function (e) {
             var sType;
@@ -1515,6 +1521,10 @@ $(document).ready(function () {
                     virtualclass.gObj.wbCount = e.message.wbCount;
                     virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
                 }
+            }
+
+            this.raiseHand= function(e){
+                virtualclass.raiseHand.raiseMessage(e.message);
             }
 
             // this.scx = function (e){

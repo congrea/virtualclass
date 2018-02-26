@@ -619,7 +619,7 @@
 
             if(!roles.hasControls()){
                 if(virtualclass.hasOwnProperty('raiseHand')){
-                    virtualclass.raiseHand.upateInStorage();
+                    virtualclass.raiseHand.updateInStorage();
                 }
             }
 

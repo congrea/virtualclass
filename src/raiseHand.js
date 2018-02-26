@@ -1,6 +1,5 @@
-
 (function (window, document) {
-    var i = 0;
+
     /**
      * This is the main object which has properties and methods
      * Through this properties and methods all the front stuff is happening
@@ -8,8 +7,6 @@
      */
 
     var raiseHand = function (config) {
-
-
         return {
             stdRhEnable:"enabled",
             init: function (obj) {
@@ -45,7 +42,7 @@
                 document.getElementById(userid+ "contRaiseAnch").setAttribute('data-title', "disabled")
                 controlContainer.style.pointerEvents = "none";
                 virtualclass.user.control.updateUser(userid, 'raiseHand',false);
-                virtualclass.raiseHand.moveRhUsersDn(userid)
+                virtualclass.raiseHand.moveDownInList(userid)
             },
 
             // to modify this
@@ -53,34 +50,30 @@
                 if(roles.hasControls()){
                     this.onMsgRecTr(rMsg.data);
 
-
                 }else{
                     this.onMsgRecStd(rMsg.data)
                 }
 
             },
             onMsgRecTr:function(msg){
+                console.log("raiseStd"+msg.action);
                 var userid= msg.user
                 var controlContainer = document.getElementById(userid+ 'contRaiseH');
                 var anch = document.getElementById(userid + 'contRaiseAnch');
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');
-                // controlContainer.removeChild(controlContainer.firstChild);
-                // localStorage.removeItem('aId');
 
                 if(msg.action=="enable"){
                     this.trRaisehEnable(userid);
-                    this.moveRhUsersUp();
-
+                    this.moveUpInList();
                 }
-                else{
-
+                else if(msg.action=="disable"){
                     virtualclass.user.control.updateUser(userid, 'raiseHand',false);
                     controlContainer.classList.remove("enabled");
                     controlContainer.classList.add("disabled");
                     cont.setAttribute('data-raisehand-disable',true)
                     anch.setAttribute('data-title',"disabled")
                     controlContainer.style.pointerEvents="none";
-                    this.moveRhUsersDn(userid)
+                    this.moveDownInList(userid)
                 }
 
             },
@@ -96,7 +89,7 @@
                 }
 
             },
-            moveRhUsersUp:function(){
+            moveUpInList:function(){
                 var ctrEn = document.querySelectorAll(".controllerRaiseH")
                 for(var i =0; i <ctrEn.length ;i++){
                     if(ctrEn[i].classList.contains("enabled")){
@@ -110,13 +103,11 @@
                 }
 
             },
-            moveRhUsersDn:function(userid){
+            moveDownInList:function(userid){
                 var ctrEn = document.querySelectorAll(".controllerRaiseH.enabled")
                 var userLink = document.getElementById(userid +"contRaiseH");
                 if(ctrEn.length >0) {
-                    //ctrEn[ctrEn.length-1].parentNode.parentNode.insertBefore( userLink.parentNode.parentNode);
-                    userLink.parentNode.parentNode.parentNode.insertBefore(userLink.parentNode.parentNode,ctrEn[ctrEn.length-1].parentNode.parentNode.nextSibling)
-
+                    userLink.parentNode.parentNode.parentNode.insertBefore(userLink.parentNode.parentNode,ctrEn[ctrEn.length-1].parentNode.parentNode.nextSibling);
                 }
             },
 
@@ -147,15 +138,14 @@
                 cont.setAttribute('data-raisehand-disable',true)
                 anch.setAttribute('data-title',virtualclass.lang.getString("RaiseHandDisable"))
                 controlContainer.style.pointerEvents="visible";
-                virtualclass.raiseHand.moveRhUsersDn(userid)
+                virtualclass.raiseHand.moveDownInList(userid)
 
             },
 
-            upateInStorage:function(){
-                if(!roles.hasControls()){
-                    console.log("nirmala")
+            updateInStorage:function(){
+
                     localStorage.setItem("stdRhEnable",this.stdRhEnable)
-                }
+
 
             },
 

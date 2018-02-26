@@ -66,11 +66,9 @@
                     }
                     console.log('Chat add user ' + peer.userid)
                     var template=virtualclass.getTemplate("chatuser","chat");
-
                     // $(box).append(template({"peer": usr}));
                     // $(box).append(template({"peer": usr}));
                     var userHtml =  template({"peer": usr});
-
                     return userHtml;
                 },
 

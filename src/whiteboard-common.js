@@ -18,6 +18,17 @@
                 prevButton.onclick = function () {
                     // that.prev();
                     virtualclass.vutil.navWhiteboard(that, that.prev);
+                    /** to set the dimension of whiteboard during window is resized **/
+                    var currWb = virtualclass.wb[virtualclass.gObj.currWb];
+                    if(typeof currWb == 'object'){
+                        /* To handle the dimension of whiteboard on previous click, */
+                        setTimeout(
+                            function (){
+                                system.setAppDimension(null, 'resize');
+                                virtualclass.view.window.resize();
+                            },200
+                        );
+                    }
                 }
             }
         },
@@ -163,7 +174,11 @@
             for (var i = 0; i < order.length; i++) {
                 id = 'note_doc_0_'+order[i];
                 dnode = document.getElementById(id);
-                tmpdiv.appendChild(dnode);
+                if(tmpdiv != null){
+                    tmpdiv.appendChild(dnode);
+                } else {
+                    console.log("Error temp div is null " + tmpdiv);
+                }
             }
             container.parentNode.replaceChild(tmpdiv, container);
         },

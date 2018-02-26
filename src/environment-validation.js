@@ -613,7 +613,6 @@
             if (window.earlierWidth != window.innerWidth) {
                  system.setAppDimension(null, 'resize');
                  virtualclass.view.window.resize();
-
             }
         }
     );

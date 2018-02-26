@@ -130,7 +130,7 @@
                 var containerHeight = document.getElementById('commandToolsWrapper');
 
 
-                console.log( ' leftSideBarWidth=' + leftSideBarWidth);
+                //console.log( ' leftSideBarWidth=' + leftSideBarWidth);
                 var extraWidth = 20;
                 if(virtualclass.currApp == 'Whiteboard' ||   virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation'){
                     extraWidth = 20;

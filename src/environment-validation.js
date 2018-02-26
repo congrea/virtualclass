@@ -402,7 +402,7 @@
                     virtualclass.error.push(virtualclass.lang.getString('operaBrowserIssue', [bname, bversion]));
                 }
 
-            } else if (bname == 'Safari') {
+            } else if (bname == 'SafarisupportedOld') {
                 if (bversion >= 8) {
                     if (roles.hasControls()) {
                         virtualclass.vutil.initDisableVirtualClass();
@@ -461,8 +461,8 @@
                     virtualclass.error.push(virtualclass.lang.getString('ieBrowserIssue'));
                     virtualclass.vutil.initDisableVirtualClass();
                 } else {
-                    virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
-                    virtualclass.vutil.initDisableVirtualClass();
+                  //  virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
+                  //  virtualclass.vutil.initDisableVirtualClass();
                 }
 //                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
             }
@@ -613,7 +613,6 @@
             if (window.earlierWidth != window.innerWidth) {
                  system.setAppDimension(null, 'resize');
                  virtualclass.view.window.resize();
-
             }
         }
     );

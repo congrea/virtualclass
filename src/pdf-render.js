@@ -17,8 +17,6 @@
 
                 io.globallock = true;
                 virtualclass.gObj.firstNormalRender = false;
-                // hello suman
-                var sumanbogati ="";
                 if(typeof currNote != 'undefined'){
                     var note = virtualclass.dts.getNote(currNote);
                     this.url = note.pdf;
@@ -424,6 +422,8 @@
 
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
+                // console.log('Canvas width from Pdf ' + canvas.width);
+                // console.log('Canvas height from Pdf ' + canvas.height);
                 var wrapper = canvas.parentNode;
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
                 var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(wrapper.style.height);

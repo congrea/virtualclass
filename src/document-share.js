@@ -1091,6 +1091,7 @@
 
                                     prev.onclick = function(){
                                         virtualclass.vutil.navWhiteboard(dthis, dthis.prevSlide, cthis);
+
                                     };
 
                                     next.onclick = function(){
@@ -1165,6 +1166,12 @@
                                     } else {
                                         this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
+                                    }
+
+                                    /** to set the dimension of whiteboard during window is resized **/
+                                    var currWb = virtualclass.wb['_doc_'+cthis.docs.currNote+ '_' + cthis.docs.currNote];
+                                    if(typeof currWb == 'object'){
+                                        system.setAppDimension(null, 'resize');
                                     }
 
                                 }else{

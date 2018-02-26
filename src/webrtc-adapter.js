@@ -4801,7 +4801,7 @@
 
 
 
-                    } else if (navigator.webkitGetUserMedia) {
+                    } else if (navigator.webkitGetUserMedia && typeof suman != 'undefined') {
 //                            alert('this is for chrome');
                         console.log("This appears to be Chrome");
 
@@ -4837,7 +4837,14 @@
                                 return this.remoteStreams;
                             };
                         }
-                    } else {
+                    }else if(navigator.mediaDevices){
+                        this.attachMediaStream = function (element, stream) {
+                            var url = window.URL || window.webkitURL;
+                            element.src = url ? url.createObjectURL(stream) : stream;
+                            element.play();
+
+                        };
+                    }else {
                         console.log("Browser does not appear to be WebRTC-capable");
                     }
 

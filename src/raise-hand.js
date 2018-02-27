@@ -12,7 +12,7 @@
             init: function (obj) {
                 this. stdRhEnable="enabled";
                 if(!roles.hasControls()){
-                    this. stdRaiseHandler();
+                    this.attachHandlerAtStudent();
                     this.stdRhEnable=localStorage.getItem("stdRhEnable");
                     if(this.stdRhEnable &&this.stdRhEnable =="disabled" ){
                         var cont = document.querySelector("#stickybar #congHr");
@@ -27,7 +27,7 @@
 
             },
 
-            disableRaiseH:function(userid){
+            disableRaiseHand:function(userid){
                 var controlContainer = document.getElementById(userid + 'contRaiseH');
                 ioAdapter.mustSendUser({
                     'data': {
@@ -45,17 +45,17 @@
                 virtualclass.raiseHand.moveDownInList(userid)
             },
 
-            // to modify this
-            raiseMessage:function(rMsg){
+
+            onMsgRec:function(rMsg){
                 if(roles.hasControls()){
-                    this.onMsgRecTr(rMsg.data);
+                    this.msgRecAtTeacher(rMsg.data);
 
                 }else{
-                    this.onMsgRecStd(rMsg.data)
+                    this.msgRecAtStudent(rMsg.data)
                 }
 
             },
-            onMsgRecTr:function(msg){
+            msgRecAtTeacher:function(msg){
                 console.log("raiseStd"+msg.action);
                 var userid= msg.user
                 var controlContainer = document.getElementById(userid+ 'contRaiseH');
@@ -63,7 +63,7 @@
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');
 
                 if(msg.action=="enable"){
-                    this.trRaisehEnable(userid);
+                    this.enableRaiseHand(userid);
                     this.moveUpInList();
                 }
                 else if(msg.action=="disable"){
@@ -78,7 +78,7 @@
 
             },
 
-            onMsgRecStd:function(msg){
+            msgRecAtStudent:function(msg){
                 if(msg.action == "disable"){
                     this.stdRhEnable="enabled";
                     var stdR= document.getElementById("congHr")
@@ -95,24 +95,21 @@
                     if(ctrEn[i].classList.contains("enabled")){
                         if(i!=0){
                             // to simplify
-                            ctrEn[i].parentNode.parentNode.parentNode.insertBefore(ctrEn[i].parentNode.parentNode, ctrEn[0].parentNode.parentNode);
-
+                            ctrEn[i].closest('.ui-memblist-usr').parentNode.insertBefore(ctrEn[i].closest('.ui-memblist-usr'), ctrEn[0].closest('.ui-memblist-usr'));
                         }
-
                     }
                 }
-
             },
             moveDownInList:function(userid){
                 var ctrEn = document.querySelectorAll(".controllerRaiseH.enabled")
                 var userLink = document.getElementById(userid +"contRaiseH");
                 if(ctrEn.length >0) {
-                    userLink.parentNode.parentNode.parentNode.insertBefore(userLink.parentNode.parentNode,ctrEn[ctrEn.length-1].parentNode.parentNode.nextSibling);
+                    userLink.closest('.ui-memblist-usr').parentNode.insertBefore(userLink.closest('.ui-memblist-usr'),ctrEn[ctrEn.length-1].closest('.ui-memblist-usr').nextSibling);
                 }
             },
 
             // to verify
-            trRaisehEnable:function(userid){
+            enableRaiseHand:function(userid){
                 var controlContainer = document.getElementById(userid + 'contRaiseH');
                 var anch = document.getElementById(userid + 'contRaiseAnch');
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');
@@ -125,31 +122,12 @@
                 controlContainer.style.pointerEvents="visible"
 
             },
-            ansNotify:function(userid,controlContainer,cont,anch){
-                ioAdapter.mustSendUser({
-                    'data': {
-
-                        action:"disable"
-                    },
-                    'cf': 'raiseHand'
-                }, userid);
-                controlContainer.classList.remove("enabled");
-                controlContainer.classList.add("disabled");
-                cont.setAttribute('data-raisehand-disable',true)
-                anch.setAttribute('data-title',virtualclass.lang.getString("RaiseHandDisable"))
-                controlContainer.style.pointerEvents="visible";
-                virtualclass.raiseHand.moveDownInList(userid)
-
-            },
 
             updateInStorage:function(){
-
-                    localStorage.setItem("stdRhEnable",this.stdRhEnable)
-
-
+                localStorage.setItem("stdRhEnable",this.stdRhEnable)
             },
 
-            stdRaiseHandler:function(){
+            attachHandlerAtStudent:function(){
                 var cont = document.querySelector("#stickybar #congHr");
                 cont.addEventListener('click',function(){
                     var rhElem = document.querySelector("#stickybar #icHr");
@@ -182,6 +160,5 @@
 
         }
     };
-
     window.raiseHand = raiseHand();
 })(window, document);

@@ -1524,7 +1524,7 @@ $(document).ready(function () {
             }
 
             this.raiseHand= function(e){
-                virtualclass.raiseHand.raiseMessage(e.message);
+                virtualclass.raiseHand.onMsgRec(e.message);
             }
 
             // this.scx = function (e){

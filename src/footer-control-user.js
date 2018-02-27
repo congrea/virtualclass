@@ -475,7 +475,7 @@
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
                     if(control =='RaiseHand'){
-                        virtualclass.raiseHand.trRaisehEnable(userId)
+                        virtualclass.raiseHand.enableRaiseHand(userId)
                     }
 
                     virtualclass.user.control.updateUser(userId, label, true);
@@ -746,7 +746,7 @@
                 },
                 _RaiseHand:function(userId,action){
                     // to disable only ..
-                    virtualclass.raiseHand.disableRaiseH(userId)
+                    virtualclass.raiseHand.disableRaiseHand(userId)
                 },
 
 

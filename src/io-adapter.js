@@ -135,6 +135,6 @@ var ioAdapter = {
     sendBinary: function (msg) {
         "use strict";
         io.sendBinary(msg);
-        ioStorage.dataBinaryStore(msg)
+        // ioStorage.dataBinaryStore(msg)
     }
 };

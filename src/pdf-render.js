@@ -41,6 +41,8 @@
                 var doc = {};
                 doc.url = this.url;
                 doc.withCredentials = true;
+                doc.disableAutoFetch = true;
+                console.log('Request pdf ' + doc.url);
                 PDFJS.getDocument(doc).then(function (pdf) {
                         that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');}, true);
                     // that.displayPage(pdf, 1, true);

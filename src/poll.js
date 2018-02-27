@@ -830,7 +830,7 @@
                     var link3 = document.querySelector("#deleteQn"+pollType + index+" span");
                     link3.setAttribute("title", virtualclass.lang.getString('dltDisabled'));
                     link3.style.cursor="default";
-                    link1.classList.add("disabled");
+                    link3.classList.add("disabled");
 
                 }
                 this.attachEvent("publishQn" + pollType + index, "click", this.publishHandler, item, pollType, index);
@@ -1351,7 +1351,7 @@
                         if (virtualclass.poll.currResultView != 'list') {
                             chart.style.display = "block";
                         }
-                        
+
                        // chart.style.display = "block";
                     }
                     else {

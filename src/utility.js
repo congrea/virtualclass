@@ -617,6 +617,16 @@
 
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
 
+            if(!roles.hasControls()){
+                if(virtualclass.hasOwnProperty('raiseHand')){
+                    virtualclass.raiseHand.updateInStorage();
+                }
+            }
+
+
+
+
+
             console.dir('Previous object ' + prvAppObj);
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));

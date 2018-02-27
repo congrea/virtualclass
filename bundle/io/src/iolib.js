@@ -246,12 +246,12 @@ var io = {
         }
 
         // console.log('Total time ' + timeSec +', String send ' + jobj);
-        if (jobj.length <= 800000) { //800k
+        if (jobj.length <= 600000) { //600k
           this.sock.send(jobj);
           this.sock.onerror = function(error) {
           }
         } else {
-          this.jsnMsgQueue = this.chunkSubstr(jobj, 750000); // 750k
+          this.jsnMsgQueue = this.chunkSubstr(jobj, 550000); // 550k
           if (this.jsnMsgQueue) {
             for (var i=0; i<this.jsnMsgQueue.length; i++) {
               this.sock.send(this.jsnMsgQueue[i]);
@@ -294,10 +294,14 @@ var io = {
       if (str.startsWith('{"1{"')){
         this.recjsnMsgQueue = str.replace('{"1{"','{"');
       } else if (str.startsWith('{"2')){
-        this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"2','');
-      } else if (str.startsWith('{"3')){
-        this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"3','');
-        return this.recjsnMsgQueue;
+          if (this.recjsnMsgQueue.length > 0){
+              this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"2','');
+          }
+      } else if (str.startsWith('{"3')) {
+          if (this.recjsnMsgQueue.length > 0){
+              this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"3','');
+              return this.recjsnMsgQueue;
+          }
       } else {
         this.recjsnMsgQueue = '';
         return false;
@@ -308,7 +312,7 @@ var io = {
         "use strict";
         var type = null;
         if (this.webSocketConnected() && msg.length) {
-          if (msg.length <= 800000) { // Less than 800K
+          if (msg.length <= 600000) { // Less than 600K
             if (msg.constructor === Int8Array) {
               var msg1 = new Int8Array(msg.length + 2);
             } else if (msg.constructor === Uint8ClampedArray) {
@@ -317,9 +321,10 @@ var io = {
             msg1.set([msg[0], 0]);
             msg1.set(msg, 2);
             this.sock.send(msg1.buffer);
+            ioStorage.dataBinaryStore(msg1);
           } else {
             this.binMsgQueue = [];
-            const len = 750000; // 750k
+            const len = 550000; // 550k
             for (let i=0, c=0; i<msg.length;c++){
               const chunk = msg.slice(i, i + len);
               if (msg.constructor === Int8Array) {
@@ -335,8 +340,9 @@ var io = {
             }
             this.binMsgQueue[0][1]=1; // Start
             this.binMsgQueue[this.binMsgQueue.length-1][1]=3; // End
-            for (var i=0; i<this.binMsgQueue.length; i++) {
+            for (let i=0; i<this.binMsgQueue.length; i++) {
               this.sock.send(this.binMsgQueue[i].buffer);
+              ioStorage.dataBinaryStore(this.binMsgQueue[i]);
             }
             this.binMsgQueue = [];
           }
@@ -364,13 +370,15 @@ var io = {
         if (e.data instanceof ArrayBuffer) {
             var data_pack = new Uint8Array(e.data);
             if (data_pack[1] == 0) { // All OK
+
               data_pack = data_pack.subarray(2);
               var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
+              ioStorage.dataBinaryStore(msg);
               $.event.trigger({
                   type: "binrec",
                   message: msg.buffer
               });
-              ioStorage.dataBinaryStore(msg);
+
             } else if (data_pack[1] == 1) { // Start of packet
               this.recBinMsgQueue = [];
               this.recBinMsgQueue[0]=data_pack.subarray(2);
@@ -390,11 +398,12 @@ var io = {
                   msg.set(this.recBinMsgQueue[i], s);
                   s = s + this.recBinMsgQueue[i].length;
                 }
+                ioStorage.dataBinaryStore(msg);
                 $.event.trigger({
                     type: "binrec",
                     message: msg.buffer
                 });
-                ioStorage.dataBinaryStore(msg);
+
               }
             }
         }

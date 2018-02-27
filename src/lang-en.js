@@ -358,6 +358,10 @@
         'Multiple_login' : 'Error: Access Invalid, Multiple Logins',
         'Max_rooms' : 'Error: Max rooms limit reached',
         'Max_users' : 'Error: Max users limit reached',
+        'RaiseHandDisable':'disable',
+        'RaiseHandEnable':'Hand Raised',
+        'RaiseHandStdEnabled':'Raise Hand',
+        'RaiseHandStdDisabled':'Raised Hand',
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
     };
     window.message = message;

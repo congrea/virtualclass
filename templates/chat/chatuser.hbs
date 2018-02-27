@@ -11,11 +11,17 @@
   </div>
   {{#if peer.notSelf}}
     <div id="{{peer.userid}}ControlContainer" class="controls">
+
         {{#if peer.isTeacher}}
            <div id="{{peer.userid}}contrAssignCont" class="controleCont roleassign">
              <a id="{{peer.userid}}contrAssignAnch" class="congtooltip" data-title="Transfer Controls">
                <span id="{{peer.userid}}contrAssignImg" data-assign-disable="false" class="icon-assignImg enable assignImg contImg"></span></a>
            </div>
+            <div id="{{peer.userid}}contRaiseH" class="controleCont controllerRaiseH disabled">
+              <a id="{{peer.userid}}contRaiseAnch" class="congtooltip" data-title="disabled">
+               <span id="{{peer.userid}}contrRaiseHandImg" data-raisehand-disable="true" class="icon-RaiseHandImg RaiseHandImg contImg"></span></a>
+             </div>
+
         {{/if}}
         <div class="controleCont" id="{{peer.userid}}contrAudCont">
           <a class="congtooltip" data-title="Mute" id="{{peer.userid}}contrAudAnch">

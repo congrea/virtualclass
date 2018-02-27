@@ -25,8 +25,6 @@
                 var control= roles.hasAdmin();
                 var template=virtualclass.getTemplate("stickycont","chat");
                 $("#stickycontainer").append(template({"control":control}));
-                // footerbar
-
                  $('#chatroom_bt2 .inner_bt').click(function () {
                     $('#chatroom_bt2').addClass('active');
                     $('#user_list').removeClass('active');

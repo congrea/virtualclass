@@ -507,6 +507,10 @@
                     vcContainer.dataset.currapp =  this.currApp;
                 }
 
+                if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
+                    this.prevScreen.unShareScreen();
+                }
+
                 // call the function with passing dynamic variablesc
                 if (app == "SharePresentation") {
                     //debugger;
@@ -808,10 +812,7 @@
                                 virtualclass.wb[id].attachToolFunction(commonWrapperId, true, id);
                             }
                         }
-                        if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
 
-                            this.prevScreen.unShareScreen();
-                        }
 
                         var vcan = virtualclass.wb[id].vcan;
                         //important this need only if user draw the whiteboard
@@ -876,10 +877,7 @@
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
-                    if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
 
-                        this.prevScreen.unShareScreen();
-                    }
 
 //                    if (typeof this.previous != 'undefined') {
 //                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {

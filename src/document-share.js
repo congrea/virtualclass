@@ -1256,24 +1256,37 @@
                             }
                         },
 
+                        isPdfRendered : function(){
+                            var pdfRenderElem = document.querySelector('#canvas'+virtualclass.gObj.currWb);
+                            if(pdfRenderElem != null){
+                               return pdfRenderElem.parentNode.dataset.hasOwnProperty('pdfrender');
+                            }
+                            return false;
+                        },
+
                         /**
                          * Create the screen with Whiteboard and Current slide
                          */
-                        getScreen : function(note, userClicked){
+                        getScreen : function(note, userClicked) {
                             this.currSlide = note.dataset.slide;
                             this.currNote = note.dataset.slide;
                             virtualclass.dts.currDoc = this.doc;
 
                             this.slideTo(note);
 
-                            if(!this.isWhiteboardExist(this.currNote)){
+                            // todo, critical that's need to be enable and handle properly
+
+                            if (!this.isWhiteboardExist(this.currNote)) {
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
-                            }else {
+                            } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)){
+                                delete virtualclass.wb[virtualclass.gObj.currWb];
+                                virtualclass.dts.docs.createWhiteboard(this.currNote);
+                            } else {
                                 // If there is a zoom, that needs to apply at in next/previous screen,
                                 virtualclass.zoom.normalRender();
                             }
 
-                            virtualclass.vutil.updateCurrentDoc(this.currNote);
+                                virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 
                             setTimeout(

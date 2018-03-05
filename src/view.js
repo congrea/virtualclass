@@ -334,15 +334,25 @@
         }
         
         $('#chat_div').css('max-height', height + 'px');
-        
+
+
         virtualclass.chat.boxHeight = height;
         if((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
             && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb != 'undefined'
         ){
-            var fitToscreen = document.querySelector('.zoomControler .fitScreen');
-            if(fitToscreen != null){
-                fitToscreen.click();
+
+            /** Remove black screen on resizing of doucmet sharing window **/
+            if(virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')){
+                clearTimeout(virtualclass.gObj.fitToScreenOnResize);
             }
+            virtualclass.gObj.fitToScreenOnResize = setTimeout(
+                function (){
+                    var fitToscreen = document.querySelector('.zoomControler .fitScreen');
+                    if(fitToscreen != null){
+                        fitToscreen.click();
+                    }
+                },700
+            );
         }
     }
 

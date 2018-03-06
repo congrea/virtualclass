@@ -797,3 +797,35 @@
 #virtualclassCont.congrea.pdfRendering .commandToolsWrapper {
     pointer-events : none;
 }
+
+#virtualclassCont.congrea .docPdfLoader {
+    display : none;
+}
+
+/** Shows the loader sign during PDF loading **/
+#virtualclassCont.congrea.pdfRendering .docPdfLoader {
+    display : block;
+    /*border: 16px solid #f3f3f3;*/
+    border: 16px solid #e2e0e0;
+    border-radius: 50%;
+    border-top: 16px solid;
+    border-top-color: 'linear-gradient(to right, #34404c 0%, #515e69 100%)';
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin2 2s linear infinite;
+    margin: auto;
+    bottom: 32%;
+    position: relative;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin2 {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

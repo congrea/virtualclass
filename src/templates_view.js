@@ -356,7 +356,7 @@ this["JST"]["templates/documentSharing/screen.hbs"] = Handlebars.template({"1":f
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n  </div>\n  <!--"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "-->\n</div>\n\n";
+    + "-->\n  <div class=\"docPdfLoader\"></div>\n</div>\n\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

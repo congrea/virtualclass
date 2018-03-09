@@ -623,10 +623,11 @@
             // TODO this should be enable and should test proper way
             // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
-            //by nirmala
             var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
             localStorage.setItem('videoSwitch',videoSwitch);
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
+            localStorage.setItem('shareToAll', virtualclass.gObj.shareToAll);
+            localStorage.setItem('studentss', virtualclass.gObj.studentScreenShare);
             io.disconnect();
         },
 
@@ -2386,7 +2387,7 @@
             return (reponse != undefined && reponse != 'undefined' && reponse != null)
         },
 
-        navWhiteboard : function (cthis, func, dthis){
+        navWhiteboard    : function (cthis, func, dthis){
             this.removeAllTextWrapper();
             if(virtualclass.gObj.hasOwnProperty('wbNav')){
                 clearTimeout(virtualclass.gObj.wbNav);
@@ -2420,7 +2421,14 @@
                 io.sock.close();
             }
             virtualclass.gObj.invalidlogin = true;
-        }
+        },
+
+        // shareStudentScreen : function (){
+        //     console.log("shubham");
+        //     var appName = "ScreenShare";
+        //     virtualclass.gObj.studentScreenShare = true;
+        //     virtualclass.makeAppReady(appName, "byclick");
+        // }
     };
     window.vutil = vutil;
 })(window);

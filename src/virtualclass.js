@@ -46,7 +46,9 @@
                 uploadingFiles : [],
                 docOrder : {},
                 fetchedData : false,
-                wbNavtime : 0
+                wbNavtime : 0,
+                shareToAll : (localStorage.getItem('shareToAll') != null) ? JSON.parse(localStorage.getItem('shareToAll')) : false,
+                studentScreenShare  : (localStorage.getItem('studentss') != null) ? JSON.parse(localStorage.getItem('studentss')) : false,
             },
 
             enablePreCheck : true,
@@ -1178,7 +1180,7 @@
 
 
                 } else {
-
+                    //alert(virtualclass.currApp);
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     //  this.currApp = appName; //could be dangerous
                     if (!this.PrvAndCurrIsWss(this.previous, appName)) {

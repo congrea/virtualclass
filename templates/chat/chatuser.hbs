@@ -11,6 +11,12 @@
   </div>
   {{#if peer.notSelf}}
     <div id="{{peer.userid}}ControlContainer" class="controls">
+      {{#if peer.isTeacher}}
+        <div class="controleCont" id="{{peer.userid}}contrstdscreenCont">
+          <a class="congtooltip"  data-title="Disable stdscreen" id="{{peer.userid}}contrstdscreenAnch">
+            <span class="icon-stdscreenImg enable stdscreenImg contImg" data-chat-disable="false" id="{{peer.userid}}contrstdscreenImg"></span></a>
+        </div>
+      {{/if}}
         {{#if peer.isTeacher}}
            <div id="{{peer.userid}}contrAssignCont" class="controleCont roleassign">
              <a id="{{peer.userid}}contrAssignAnch" class="congtooltip" data-title="Transfer Controls">

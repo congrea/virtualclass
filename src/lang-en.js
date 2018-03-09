@@ -359,6 +359,9 @@
         'Max_rooms' : 'Error: Max rooms limit reached',
         'Max_users' : 'Error: Max users limit reached',
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
+        'stdscreenshare' : 'you want to sahre your screen',
+        'selfview' : "Self View",
+        'sharetoall' : "Share To All"
     };
     window.message = message;
 })(window);

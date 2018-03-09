@@ -3359,6 +3359,7 @@
 }
 
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {
-    bottom: -43px;
-    left: -72px;
+	bottom: -43px;
+	left: -72px;
+}
 

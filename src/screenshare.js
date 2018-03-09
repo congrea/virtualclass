@@ -6,10 +6,11 @@
 var globalImageData = {};
 var newCanvas;
 
+
 (function (window) {
     "use strict";
-    var changeonresize, resizecalled, prvWidth, prvHeight, prvVWidth, prvVHeight, app, dim;
 
+    var changeonresize, resizecalled, prvWidth, prvHeight, prvVWidth, prvVHeight, app, dim;
     function callback(error) {
         virtualclass.vutil.initInstallChromeExt(error);
     }
@@ -141,6 +142,7 @@ var newCanvas;
                     if (typeof vtype != 'undefined') {
                         virtualclass.recorder.recImgPlay = true;
                     }
+                    var stool = "ScreenShare";
                     virtualclass.makeAppReady(stool);
                 } else {
                     if (virtualclass.currApp != "ScreenShare") {
@@ -329,7 +331,7 @@ var newCanvas;
 
                 navigator2.mediaDevices.getUserMedia(constraints).then(function (stream) {
                     virtualclass.ss._init();
-                    if(roles.hasControls()){
+                    if((roles.hasControls() && !virtualclass.gObj.studentScreenShare) || virtualclass.gObj.studentScreenShare){
                         //callback(err, stream);
                         virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
 
@@ -346,11 +348,12 @@ var newCanvas;
                                 }
                                 lastTime = stream.currentTime;
                             }, 500);
-                        }
-                    }else {
+                         }
+                        } else {
                         console.log('Set previous app as current app if teacher reclaim role during screen share');
                         virtualclass.ss.setCurrentApp();
                     }
+
                 }).catch(function (error) {
                     virtualclass.ss.setCurrentApp();
                     if (typeof error == 'string') {
@@ -372,6 +375,7 @@ var newCanvas;
 
         return {
             prevStream: false,
+
             /*
              * This function is invoked on clicking screen share icon .
              * At the teacher's window screen share application is started ,
@@ -386,15 +390,15 @@ var newCanvas;
                 this.manualStop = false;
 
                 //if(roles.hasControls() && !virtualclass.hasOwnProperty('repType')){
-                if (roles.hasControls() && !virtualclass.recorder.recImgPlay) {
+                if (roles.hasControls() && !virtualclass.recorder.recImgPlay && !virtualclass.gObj.studentScreenShare) {
 
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
                     //this.tempCurrApp = virtualclass.vutil.capitalizeFirstLetter(screen.app);
                     //}
-                } else {
-
-
+                } else if(roles.isStudent() && virtualclass.gObj.studentScreenShare){
+                    this.readyTostart(screen.app);
+                }else {
                     this._init();
                 }
             },
@@ -442,7 +446,9 @@ var newCanvas;
 
                     this.html.UI.call(this, virtualclass.gObj.uRole);
 
-                    if (roles.hasControls() && !virtualclass.recorder.recImgPlay) {
+
+                    if (((roles.hasControls() && !virtualclass.recorder.recImgPlay) && !virtualclass.gObj.studentScreenShare) ||
+                        roles.isStudent() && virtualclass.gObj.studentScreenShare){
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
                 }
@@ -818,7 +824,7 @@ var newCanvas;
                 function sendResizeWindow() {
                     console.log('RESIZE');
 
-                    if(roles.hasControls()){
+                    if(roles.hasControls() || virtualclass.gObj.studentScreenShare){
                         prvVWidth = that.video.offsetWidth;
                         prvVHeight = that.video.offsetHeight;
                         resA = Math.round(that.localtempCanvas.height / 12);
@@ -959,6 +965,15 @@ var newCanvas;
                     virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
                 }
             },
+
+            isAbleToScreenShare : function (){
+                  if(roles.isStudent() && virtualclass.gObj.studentScreenShare){
+                      return true;
+                  }else if((roles.hasControls() && !virtualclass.gObj.studentScreenShare)){
+                      return true;
+                  }
+                  return false;
+            },
             /*
              * Creating user interface part for the screen share
              */
@@ -968,26 +983,65 @@ var newCanvas;
                  * @user role of the user
                  */
                 UI: function (user) {
-                    var hascontrol = roles.hasControls();
-                    var recImgPlay = virtualclass.recorder.recImgPlay;
-                    var main = virtualclass.getTemplate('ssmainDiv');
-                    var roleControl = {
-                        control: hascontrol,
-                        recImg : recImgPlay
-                    };
-                    var mainConthtml = main(roleControl);
+                        var hascontrol = virtualclass.ss.isAbleToScreenShare();
+                        var viewcontrol = roles.hasControls();
+                        var recImgPlay = virtualclass.recorder.recImgPlay;
+                        var main = virtualclass.getTemplate('ssmainDiv');
+                        var roleControl = {
+                            control: hascontrol,
+                            recImg: recImgPlay,
+                            scrctrl : viewcontrol
+                        };
 
-                    $('#virtualclassAppLeftPanel').append(mainConthtml);
+                        var mainConthtml = main(roleControl);
 
-                    function css(element, styles) {
-                        if (typeof styles == 'string') {
-                            element.style.cssText += ';' + styles;
+                        $('#virtualclassAppLeftPanel').append(mainConthtml);
+                        if(viewcontrol){
+                            this.html.initScreenController();
+                        }
+
+                        function css(element, styles) {
+                            if (typeof styles == 'string') {
+                                element.style.cssText += ';' + styles;
+                            }
+                        }
+                        if(roles.hasControls() && virtualclass.gObj.studentScreenShare) {
+                            setTimeout(
+                                function () {
+                                    ioAdapter.mustSend({'cf': 'sview'});
+                                }, 2000
+                            )
+                        }
+                    // return mainCont;
+                },
+
+                initScreenController : function (){
+                    var elem =  document.querySelector('#screenController .selfView');
+                    if(elem != null){
+                        elem.onclick = function(elem){
+                            ioAdapter.mustSend({'cf': 'sview'});
+                            elem.currentTarget.classList.add('clicked');
+                            var shareElem =  document.querySelector('#screenController .shareToAll');
+                            if(shareElem != null){
+                                shareElem.classList.remove('clicked');
+                            }
                         }
                     }
 
-
-                    // return mainCont;
+                    var elem =  document.querySelector('#screenController .shareToAll');
+                    if(elem != null){
+                        elem.onclick = function(elem){
+                            ioAdapter.mustSend({'cf': 'sToAll'});
+                            elem.currentTarget.classList.add('clicked');
+                            var selfViewElem =  document.querySelector('#screenController .selfView');
+                            if(selfViewElem != null){
+                                selfViewElem.classList.remove('clicked');
+                            }
+                        }
+                    }
                 },
+
+
                 /*
                  * @param container object containg width and height property
                  * @aspectRatio a fractional value

@@ -45,10 +45,13 @@
 
             zoomAction : function (fnName){
                 var cthis = this;
-                setTimeout(
+                if(virtualclass.gObj.hasOwnProperty('zoomActionTime')){
+                   clearTimeout(virtualclass.gObj.zoomActionTime);
+                }
+                virtualclass.gObj.zoomActionTime = setTimeout(
                     function (){
                         cthis[fnName].call(cthis);
-                    },300
+                    },200
                 );
             },
 

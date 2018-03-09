@@ -140,6 +140,8 @@ $(document).ready(function () {
             virtualclass.popup.waitMsg();
         }
 
+
+
         //  virtualclass.popup.waitMsg();
 
         // If the page is being refreshed from Become Teacher Link
@@ -242,6 +244,7 @@ $(document).ready(function () {
                 500 //increase 500 ms for indexeddb which was not ready till popup was display
             );
         }
+
 
         if (virtualclass.isPrecheck != null) {
             if (typeof virtualclass.videoHost.gObj.MYSPEED == 'undefined') {
@@ -746,6 +749,9 @@ $(document).ready(function () {
             });
             return index;
         }
+
+
+
 
         $(document).on("member_added", function (e) {
             var sType;
@@ -1574,20 +1580,24 @@ $(document).ready(function () {
             }
 
             // Share screenshare to all
-            this.sToAll = function (){
+            this.sToAll = function () {
                 var elem = document.getElementById("virtualclassScreenShareLocal");
-                if(elem != null){
+                if (elem != null) {
                     elem.style.display = 'block';
                 }
                 virtualclass.gObj.shareToAll = true;
                 console.log('Share, to all');
+
+            }
+
+            this.raiseHand= function(e){
+                virtualclass.raiseHand.onMsgRec(e.message);
             }
 
             // this.scx = function (e){
             //     virtualclass.pdfRender.setScrollPositionX(e.message);
             // }
         };
-
 
         // TODO this shoudl be remove, after precheck feature is enabled
     }

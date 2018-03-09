@@ -36,11 +36,18 @@ var precheck = {
         //);
     },
 
+    cancelRequestAnimation : function (){
+        if(virtualclass.precheck.hasOwnProperty('reqAnimationFrame')){
+            cancelAnimationFrame(virtualclass.precheck.reqAnimationFrame);
+        }
+    },
+
     wholeSytemCheck : function () {
         this[this.totalTest[0]].perform();
     },
 
     _next : function (curr, cb){
+        virtualclass.precheck.cancelRequestAnimation();
         var test = this[curr].next;
         virtualclass.precheck.updateProgressBar(test);
         if((!this[test].hasOwnProperty('alreadyDone') || this[test].hasOwnProperty('alreadyDone') && test == 'bandwidth')){
@@ -52,6 +59,8 @@ var precheck = {
 
             if(test == 'speaker'){
                 this[test]._play(); //play the audio while next buttong is clicked
+            }else if (test == 'mic'){
+                this[test].visualize();
             }
         }
 
@@ -65,6 +74,7 @@ var precheck = {
 
 
     _prev : function (curr, cb){
+        virtualclass.precheck.cancelRequestAnimation();
         var test = this[curr].prev;
         virtualclass.precheck.hide('#preCheckcontainer .precheck.'+curr);
         virtualclass.precheck.display('#preCheckcontainer .precheck.'+test);
@@ -74,6 +84,8 @@ var precheck = {
 
         if(test == 'speaker'){
             this[test]._play(); //play the audio while previous button is clicked
+        } else if (test == 'mic'){
+            this[test].visualize();
         }
 
         if(typeof cb != 'undefined'){
@@ -136,11 +148,12 @@ var precheck = {
             }
 
 
-            if(virtualclass.system.mybrowser.name != 'Chrome'){
-                var msg =  virtualclass.lang.getString('notsupportbrowser', [virtualclass.system.mybrowser.name]);
-            }else {
-                var msg =  virtualclass.lang.getString('congreainchrome');
-            }
+            // if(virtualclass.system.mybrowser.name != 'Chrome'){
+            //     var msg =  virtualclass.lang.getString('notsupportbrowser', [virtualclass.system.mybrowser.name]);
+            // }else {
+            //     var msg =  virtualclass.lang.getString('congreainchrome');
+            // }
+            var msg =  virtualclass.lang.getString('congreainchrome');
 
             virtualclass.precheck.createMessage(msgSelector, msg, 'information');
 
@@ -289,6 +302,8 @@ var precheck = {
                 testAudio.pause();
                 testAudio.currentTime = 0
             });
+
+            virtualclass.precheck.cancelRequestAnimation();
         }
     },
 
@@ -351,7 +366,8 @@ var precheck = {
             canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
             function draw() {
-                requestAnimationFrame(draw);
+
+                virtualclass.precheck.reqAnimationFrame = requestAnimationFrame(draw);
 
                 /*
                  setTimeout(function (){

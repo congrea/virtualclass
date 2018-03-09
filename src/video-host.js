@@ -53,6 +53,14 @@ var videoHost = {
              }
              }; */
 
+            let canvas  = document.createElement('canvas');
+            canvas.id = 'dummyCanvas';
+            canvas.width = 40;
+            canvas.height = 40;
+            document.querySelector('#virtualclassApp').appendChild(canvas);
+
+            WebPDecDemo('dummyCanvas');
+
             this.domReady = true;
         } else {
             this.setCanvasAttr('videoPartCan', 'videoParticipate');
@@ -219,7 +227,9 @@ var videoHost = {
         setInterval(
             function () {
                 if (that.gObj.videoSwitch) {
-                    that._shareVideo(that, resA, resB);
+                    if (io.webSocketConnected()){
+                      that._shareVideo(that, resA, resB);
+                    }
                 }
             },
         120);

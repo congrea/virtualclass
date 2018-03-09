@@ -186,6 +186,10 @@
                         this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
                         console.log('Note status ' + this.order[i] + ' -->' + this.allNotes[this.order[i]].status);
                     }
+
+                    /** Earlier it was in noteStatus() which causes the performance issue **/
+                    this.storeInDocs(this.allNotes);
+
                 }
             },
 
@@ -674,7 +678,6 @@
 
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);
-                    console.log('Document share:- ' + this.order.toString());
                 }
             },
 
@@ -855,6 +858,7 @@
                         }
                     }
                 }
+                this.storeInDocs(this.allNotes);
             },
 
             createNoteNavAlt : function (fromReload){
@@ -872,6 +876,10 @@
                         this.noteStatus(this.order[i], status);
                     }
 
+                }
+
+                if(typeof fromReload == 'undefined'){
+                    this.storeInDocs(this.allNotes);
                 }
             },
 
@@ -1083,6 +1091,7 @@
 
                                     prev.onclick = function(){
                                         virtualclass.vutil.navWhiteboard(dthis, dthis.prevSlide, cthis);
+
                                     };
 
                                     next.onclick = function(){
@@ -1157,6 +1166,12 @@
                                     } else {
                                         this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
+                                    }
+
+                                    /** to set the dimension of whiteboard during window is resized **/
+                                    var currWb = virtualclass.wb['_doc_'+cthis.docs.currNote+ '_' + cthis.docs.currNote];
+                                    if(typeof currWb == 'object'){
+                                        system.setAppDimension(null, 'resize');
                                     }
 
                                 }else{
@@ -1241,24 +1256,37 @@
                             }
                         },
 
+                        isPdfRendered : function(){
+                            var pdfRenderElem = document.querySelector('#canvas'+virtualclass.gObj.currWb);
+                            if(pdfRenderElem != null){
+                               return pdfRenderElem.parentNode.dataset.hasOwnProperty('pdfrender');
+                            }
+                            return false;
+                        },
+
                         /**
                          * Create the screen with Whiteboard and Current slide
                          */
-                        getScreen : function(note, userClicked){
+                        getScreen : function(note, userClicked) {
                             this.currSlide = note.dataset.slide;
                             this.currNote = note.dataset.slide;
                             virtualclass.dts.currDoc = this.doc;
 
                             this.slideTo(note);
 
-                            if(!this.isWhiteboardExist(this.currNote)){
+                            // todo, critical that's need to be enable and handle properly
+
+                            if (!this.isWhiteboardExist(this.currNote)) {
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
-                            }else {
+                            } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)){
+                                delete virtualclass.wb[virtualclass.gObj.currWb];
+                                virtualclass.dts.docs.createWhiteboard(this.currNote);
+                            } else {
                                 // If there is a zoom, that needs to apply at in next/previous screen,
                                 virtualclass.zoom.normalRender();
                             }
 
-                            virtualclass.vutil.updateCurrentDoc(this.currNote);
+                                virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 
                             setTimeout(
@@ -1417,6 +1445,7 @@
                     this._removePageFromStructure(dts.rmsnote);
                 }else if(dts.hasOwnProperty('noteSt')){
                     this.noteStatus(dts.note, dts.noteSt);
+                    this.storeInDocs(this.allNotes);
                 } else if(dts.hasOwnProperty('docSt')){
                     this.docStatus(dts.doc, dts.docSt);
                 }else if (dts.hasOwnProperty('order_recived')){
@@ -1612,6 +1641,7 @@
                     this.noteStatus(nid, status);
                     this.updatePageNavStatus(nid, status);
                 }
+                this.storeInDocs(this.allNotes);
                 if(roles.hasControls()){
                     ioAdapter.mustSend({'dts': {docSt: status, doc:id}, 'cf': 'dts'});
                 }
@@ -1637,11 +1667,13 @@
 
             _noteDisable : function (id){
                 this.noteStatus(id);
+                this.storeInDocs(this.allNotes);
                 this.sendNoteStatus(id)
             },
 
             _noteEnable : function (id){
                 this.noteStatus(id);
+                this.storeInDocs(this.allNotes);
                 this.sendNoteStatus(id);
             },
 
@@ -1677,7 +1709,7 @@
                     var noteObj = this.allNotes[id];
                     noteObj.status = note.dataset.status;
                     this.allNotes[id] = noteObj;
-                    this.storeInDocs(this.allNotes);
+                    // this.storeInDocs(this.allNotes);
                 } else {
                     console.log('there is no element #note' + id);
                 }

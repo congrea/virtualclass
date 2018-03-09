@@ -43,7 +43,6 @@
      */
     page.prototype.createPageNav = function (elem) {
         var listDtype = 'list' + this.type;
-        console.log("nirmala",listDtype);
         var docNav = document.getElementById(listDtype);
         var lid = 'link' + this.type + this.rid;
         var cthis = this;
@@ -70,15 +69,20 @@
             this.UI.controller.init(this, lid);
 
         } else if (this.type == 'notes') {
-
             var nstemplate = virtualclass.getTemplate('notesNav', virtualclass.dts.tempFolder);
-            var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
             var note  = virtualclass.dts.getNote(this.rid);
             context.content_path = note.thumbnail;
-            context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
-            context.thumbCount++;
+            /** There is does not need thumbnail now,
+             * if we need this, we need to find different way instead of executing document.querySelectorAll()
+             * **/
+
+            // var allThumbnail = document.querySelectorAll('#list' + this.type + ' .link' + this.type);
+            // context.thumbCount = (allThumbnail != null && allThumbnail.length > 0) ? allThumbnail.length :  0;
+            // context.thumbCount++;
+
             docNav.insertAdjacentHTML('beforeend', nstemplate(context));
             this.UI.controller.init(this, lid);
+
         }else if(this.type == 'ppt'){
             var pptNav=document.getElementById("listppt");
             if(pptNav){

@@ -684,18 +684,10 @@
 }
 
 #virtualclassCont.congrea .icon-stdscreenImg.enable:before{
-  content: "\e0e2";
+  content: "\e602";
   position: relative;
   top: -1px;
   font-size: 17px;
   color: black;
   margin-right: 5px;
-}
-
-#virtualclassCont.congrea .icon-stdscreenImg.block:before{
-  color:#778899;
-  content: "\e0e2";
-  position: relative;
-  top: -1px;
-  font-size: 17px;
 }

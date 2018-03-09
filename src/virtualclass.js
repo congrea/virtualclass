@@ -19,6 +19,7 @@
             rw: "",
             poll:"",
             quiz:"",
+            raiseHand:"",
             //lang: {},
             error: [],
             pdfRender : {},
@@ -127,6 +128,7 @@
                 this.multiVideo = window.MultiVideo;
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
+
                 // this.pdfRender = window.pdfRender();
 
                 if(this.system.isIndexedDbSupport()){
@@ -261,6 +263,9 @@
                 precheck.addEventListener("click",function(){
                     virtualclass.precheck.init(virtualclass.precheck);
                 })
+
+                this.raiseHand= window.raiseHand;
+                this.raiseHand.init();
             },
 
             networkStatus: function(){
@@ -502,6 +507,10 @@
                     //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.dataset.currapp =  this.currApp;
+                }
+
+                if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
+                    this.prevScreen.unShareScreen();
                 }
 
                 // call the function with passing dynamic variablesc
@@ -805,10 +814,7 @@
                                 virtualclass.wb[id].attachToolFunction(commonWrapperId, true, id);
                             }
                         }
-                        if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
 
-                            this.prevScreen.unShareScreen();
-                        }
 
                         var vcan = virtualclass.wb[id].vcan;
                         //important this need only if user draw the whiteboard
@@ -873,10 +879,7 @@
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
-                    if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
 
-                        this.prevScreen.unShareScreen();
-                    }
 
 //                    if (typeof this.previous != 'undefined') {
 //                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {

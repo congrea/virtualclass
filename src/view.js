@@ -297,13 +297,14 @@
             virtualclass.wb[cwb].vcan.renderAll();
         }
         view.windowResizeFinished();
-        window.earlierWidth = window.innerWidth;
-        if(virtualclass.currApp == 'Whiteboard'){
-            if(virtualclass.gObj.currWb != null){
-                system.setCanvasDimension(res, (wid != null) ? wid : virtualclass.gObj.currWb);
-                virtualclass.wb[virtualclass.gObj.currWb].vcan.renderAll();
-            }
-        }
+
+        // window.earlierWidth = window.innerWidth;
+        // if(virtualclass.currApp == 'Whiteboard'){
+        //     if(virtualclass.gObj.currWb != null){
+        //         system.setCanvasDimension(res, (wid != null) ? wid : virtualclass.gObj.currWb);
+        //         virtualclass.wb[virtualclass.gObj.currWb].vcan.renderAll();
+        //     }
+        // }
     },
 
     // this funciton is triggered when
@@ -333,8 +334,26 @@
         }
         
         $('#chat_div').css('max-height', height + 'px');
-        
+
+
         virtualclass.chat.boxHeight = height;
+        if((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
+            && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb != 'undefined'
+        ){
+
+            /** Remove black screen on resizing of doucmet sharing window **/
+            if(virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')){
+                clearTimeout(virtualclass.gObj.fitToScreenOnResize);
+            }
+            virtualclass.gObj.fitToScreenOnResize = setTimeout(
+                function (){
+                    var fitToscreen = document.querySelector('.zoomControler .fitScreen');
+                    if(fitToscreen != null){
+                        fitToscreen.click();
+                    }
+                },700
+            );
+        }
     }
 
 //TODO

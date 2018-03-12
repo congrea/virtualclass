@@ -4,6 +4,13 @@
         SCALE_FACTOR = 1.02;//global 18/05/2015
         var dstData = null;
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
+        var  studentSSstatus = localStorage.getItem('studentSSstatus');
+        if(studentSSstatus != null){
+            studentSSstatus = JSON.parse(localStorage.getItem('studentSSstatus'));
+        }else {
+            studentSSstatus = {sharing:false, mesharing: false, shareToAll : false};
+        }
+
         return {
 
             isPlayMode :playMode,
@@ -47,9 +54,8 @@
                 uploadingFiles : [],
                 docOrder : {},
                 fetchedData : false,
-                wbNavtime : 0,
-                shareToAll : (localStorage.getItem('shareToAll') != null) ? JSON.parse(localStorage.getItem('shareToAll')) : false,
-                studentScreenShare  : (localStorage.getItem('studentss') != null) ? JSON.parse(localStorage.getItem('studentss')) : false,
+                wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
+                studentSSstatus : studentSSstatus,
             },
 
             enablePreCheck : true,
@@ -433,10 +439,11 @@
                     // remove case situation
                     if (this.previous.toUpperCase() != ('virtualclass' + this.currApp).toUpperCase()) {
                         //try{
-                        document.getElementById(virtualclass.previous).style.display = 'none';
-//                        }catch(e){
-//
-//                        }
+                        let prevElem = document.getElementById(virtualclass.previous);
+                        if(prevElem != null){
+                            prevElem.style.display = 'none';
+                        }
+
                         if (typeof appId != 'undefined') {
                             if (appId.toUpperCase() == "EDITORRICH") {
                                 var editorCode = document.getElementById("virtualclassEditorCode");
@@ -553,17 +560,17 @@
                         if(typeof cusEvent == 'undefined'){
                             args[1] = (cusEvent);
                         }
-                       
+
                         var id =  (typeof data != 'undefined') ? '_doc_' + data : '_doc_0_'+virtualclass.gObj.currSlide;
                         args[2] = id;
 
                         args.push('virtualclassWhiteboard');
 
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
-                        
+
                          prevapp = JSON.parse(prevapp);
 
-                       
+
                         //if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
                         if(!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null){
                              var wIds = localStorage.getItem('wIds');
@@ -578,7 +585,7 @@
                              }
                             //virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;
                         }
-                        
+
                     //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
@@ -734,7 +741,7 @@
                                              wnote.innerHTML = wbHtml;
                                         }else {
                                              var wbHtml = "<div id='"+wnoteid+"' data-wb-id='"+id+"' class='canvasContainer current'>" + wbTemplate({cn:id, hasControl : roles.hasControls()}) + "</div>";
-                                             
+
                                             if(id != '_doc_0_0'){
                                                 whiteboardContainer.insertAdjacentHTML('beforeend', wbHtml);
                                             } else {
@@ -1001,7 +1008,7 @@
                                      virtualclass.dts.init(docsObj);
                                 },1000
                             )
-                           
+
                         } else {
                             virtualclass.dts.init();
                         }

@@ -555,8 +555,6 @@
                             }
 
                             this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                            this.control['_' + ctrType].call(this.control, userId, action);
-
                         }
                     }
                 },

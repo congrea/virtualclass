@@ -331,7 +331,7 @@ var newCanvas;
 
                 navigator2.mediaDevices.getUserMedia(constraints).then(function (stream) {
                     virtualclass.ss._init();
-                    if((roles.hasControls() && !virtualclass.gObj.studentScreenShare) || virtualclass.gObj.studentScreenShare){
+                    if((roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) || virtualclass.gObj.studentSSstatus.mesharing){
                         //callback(err, stream);
                         virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
 
@@ -390,13 +390,13 @@ var newCanvas;
                 this.manualStop = false;
 
                 //if(roles.hasControls() && !virtualclass.hasOwnProperty('repType')){
-                if (roles.hasControls() && !virtualclass.recorder.recImgPlay && !virtualclass.gObj.studentScreenShare) {
+                if (roles.hasControls() && !virtualclass.recorder.recImgPlay && !virtualclass.gObj.studentSSstatus.mesharing) {
 
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
                     //this.tempCurrApp = virtualclass.vutil.capitalizeFirstLetter(screen.app);
                     //}
-                } else if(roles.isStudent() && virtualclass.gObj.studentScreenShare){
+                } else if(roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing){
                     this.readyTostart(screen.app);
                 }else {
                     this._init();
@@ -447,8 +447,8 @@ var newCanvas;
                     this.html.UI.call(this, virtualclass.gObj.uRole);
 
 
-                    if (((roles.hasControls() && !virtualclass.recorder.recImgPlay) && !virtualclass.gObj.studentScreenShare) ||
-                        roles.isStudent() && virtualclass.gObj.studentScreenShare){
+                    if (((roles.hasControls() && !virtualclass.recorder.recImgPlay) && !virtualclass.gObj.studentSSstatus.mesharing) ||
+                        roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing){
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
                 }
@@ -514,6 +514,7 @@ var newCanvas;
              *
              */
             unShareScreen: function () {
+                console.log('Unshare the screen');
                 this.video.src = "";
                 this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
                 clearInterval(virtualclass.clear);
@@ -525,13 +526,31 @@ var newCanvas;
                     this.currentStream.getTracks()[0].stop();
                 }
                 virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+                this.clearScreenShare();
             },
+
+            clearScreenShare : function (){
+                if(typeof virtualclass.prevScreen != 'undefined' && virtualclass.prevScreen.hasOwnProperty('currentStream')){
+                    delete virtualclass.prevScreen.currentStream;
+                }
+
+                virtualclass.gObj.studentSSstatus.mesharing = false;
+                virtualclass.gObj.studentSSstatus.shareToAll = false;
+                var elem = document.querySelector('#virtualclassScreenShare');
+                if(elem != null){
+                    elem.parentNode.removeChild(elem);
+                }
+                delete virtualclass.ss;
+                virtualclass.ss = '';
+            },
+
             /*
              * It clears the canvas
              */
             removeStream: function () {
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
                 this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
+                this.clearScreenShare();
             },
             /*
              * Initializing the recorder to record the scrren that will be shared
@@ -824,7 +843,7 @@ var newCanvas;
                 function sendResizeWindow() {
                     console.log('RESIZE');
 
-                    if(roles.hasControls() || virtualclass.gObj.studentScreenShare){
+                    if(roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing){
                         prvVWidth = that.video.offsetWidth;
                         prvVHeight = that.video.offsetHeight;
                         resA = Math.round(that.localtempCanvas.height / 12);
@@ -967,9 +986,9 @@ var newCanvas;
             },
 
             isAbleToScreenShare : function (){
-                  if(roles.isStudent() && virtualclass.gObj.studentScreenShare){
+                  if(roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing){
                       return true;
-                  }else if((roles.hasControls() && !virtualclass.gObj.studentScreenShare)){
+                  }else if((roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing)){
                       return true;
                   }
                   return false;
@@ -1005,10 +1024,10 @@ var newCanvas;
                                 element.style.cssText += ';' + styles;
                             }
                         }
-                        if(roles.hasControls() && virtualclass.gObj.studentScreenShare) {
+                        if(roles.hasControls() && virtualclass.gObj.studentSSstatus.mesharing) {
                             setTimeout(
                                 function () {
-                                    ioAdapter.mustSend({'cf': 'sview'});
+                                    ioAdapter.mustSend({'cf': 'sview', firstSs : true});
                                 }, 2000
                             )
                         }

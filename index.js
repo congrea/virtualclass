@@ -550,7 +550,7 @@ $(document).ready(function () {
 
             if (roles.hasAdmin()) {
                 if (virtualclass.gObj.uid == virtualclass.jId) {
-                    if(!virtualclass.gObj.studentScreenShare){
+                    if(!virtualclass.gObj.studentSSstatus.mesharing){
                         if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
                             ioAdapter.mustSend({'eddata': 'currAppEditor', et: virtualclass.currApp});
                         }
@@ -681,7 +681,7 @@ $(document).ready(function () {
                 if (typeof sType !== 'undefined' && sType !== null) {
                     initShareScreen(sType, 2000);
                 }
-            }else if (roles.isStudent() && virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.studentScreenShare) {
+            }else if (roles.isStudent() && virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.studentSSstatus.mesharing) {
                 sType = 'ss';
                 //There might need some time to executing missed packets
                 initShareScreen(sType, 5000);
@@ -1038,8 +1038,7 @@ $(document).ready(function () {
                     var stype = 'ss';
                     var sTool = 'ScreenShare';
                     if(roles.hasControls()){
-                        virtualclass.gObj.studentScreenShare = true;
-
+                        virtualclass.gObj.studentSSstatus.mesharing = true;
                     }
                     if (!virtualclass.hasOwnProperty('studentScreen')) {
                         virtualclass.studentScreen = new studentScreen();
@@ -1048,13 +1047,13 @@ $(document).ready(function () {
                     // The binary data is coming on teacher when user download the session
                     // which actually should not, workaround for now
 
-                    if (!roles.hasControls() || virtualclass.gObj.studentScreenShare) {
+                    if (!roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing) {
                         virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
                     }
 
-                    if(virtualclass.gObj.studentScreenShare && roles.isStudent()){
+                    if(virtualclass.gObj.studentSSstatus.sharing && roles.isStudent()){
                         var elem = document.getElementById("virtualclassScreenShareLocal");
-                         if(virtualclass.gObj.shareToAll){
+                         if(virtualclass.gObj.studentSSstatus.shareToAll){
                              if(elem != null){
                                  elem.style.display = 'block';
                              }
@@ -1305,8 +1304,11 @@ $(document).ready(function () {
             this.unshareScreen = function (e) {
                 var app = e.message.st;
                 if (typeof virtualclass[app] === 'object') {
+                    console.log('Unshare the screen at student');
                     virtualclass[app].prevImageSlices = [];
                     virtualclass[app].removeStream();
+
+
                 }
             };
 
@@ -1558,7 +1560,7 @@ $(document).ready(function () {
                 virtualclass.popup.confirmInput(message,function (confirm){
                     if(confirm){
                         if(roles.isStudent()){
-                            virtualclass.gObj.studentScreenShare = true;
+                            virtualclass.gObj.studentSSstatus.mesharing = true;
                         }
                         var appName = "ScreenShare";
                         virtualclass.makeAppReady(appName, "byclick");
@@ -1570,12 +1572,15 @@ $(document).ready(function () {
             // Self view, but display none to others
             this.sview = function(e){
                 var elem = document.getElementById("virtualclassScreenShareLocal");
-                if(roles.isStudent() && !virtualclass.gObj.studentScreenShare) {
+                if(roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) {
                     if(elem != null){
                         elem.style.display = "none";
                     }
                 }
-                virtualclass.gObj.shareToAll = false;
+                if(e.message.hasOwnProperty('firstSs')){
+                    virtualclass.gObj.studentSSstatus.sharing = true;
+                }
+                virtualclass.gObj.studentSSstatus.shareToAll = false;
                 console.log('Share, self view');
             }
 
@@ -1585,7 +1590,7 @@ $(document).ready(function () {
                 if (elem != null) {
                     elem.style.display = 'block';
                 }
-                virtualclass.gObj.shareToAll = true;
+                virtualclass.gObj.studentSSstatus.shareToAll = true;
                 console.log('Share, to all');
 
             }

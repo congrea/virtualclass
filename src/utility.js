@@ -636,8 +636,11 @@
             var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
             localStorage.setItem('videoSwitch',videoSwitch);
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-            localStorage.setItem('shareToAll', virtualclass.gObj.shareToAll);
-            localStorage.setItem('studentss', virtualclass.gObj.studentScreenShare);
+            localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
+            
+            // localStorage.setItem('shareToAll', virtualclass.gObj.studentSSstatus.shareToAll);
+            // localStorage.setItem('studentss', virtualclass.gObj.studentSSstatus.mesharing);
+            
             io.disconnect();
         },
 
@@ -2433,7 +2436,7 @@
         // shareStudentScreen : function (){
         //     console.log("shubham");
         //     var appName = "ScreenShare";
-        //     virtualclass.gObj.studentScreenShare = true;
+        //     virtualclass.gObj.studentSSstatus.mesharing = true;
         //     virtualclass.makeAppReady(appName, "byclick");
         // }
     };

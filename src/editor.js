@@ -112,8 +112,10 @@
                     }
 
                     //when presenter OR Teacher click on edit button
-                    ioAdapter.mustSendAll({eddata: 'init', et: this.etype, cf: 'eddata'});
 
+                    if(!virtualclass.gObj.studentSSstatus.sharing){
+                        ioAdapter.mustSendAll({eddata: 'init', et: this.etype, cf: 'eddata'});
+                    }
 
                 } else {
                     if (roles.hasAdmin()) {

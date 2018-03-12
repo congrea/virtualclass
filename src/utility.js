@@ -458,6 +458,7 @@
                 virtualclass.storage.clearStorageData();
                 return;
             }
+            console.log('screen-detail init');
 
             if (typeof virtualclass.storage.wholeStoreData != 'undefined') {
                 var obj = JSON.parse(virtualclass.storage.wholeStoreData);
@@ -496,6 +497,16 @@
             console.log(virtualclass.currApp);
             if (virtualclass.currApp == 'ScreenShare') {
                 prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window
+                var teacherId = virtualclass.vutil.whoIsTeacher();
+                if(virtualclass.gObj.studentSSstatus.mesharing){
+                    ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
+                }
+
+                if((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()){
+                    console.log('screen-detail is saving into storage');
+                    localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
+                }
+
             } else if ((virtualclass.currApp == 'Yts')) {
                 if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
                     prvAppObj.metaData = {
@@ -623,10 +634,6 @@
                 }
             }
 
-
-
-
-
             console.dir('Previous object ' + prvAppObj);
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
@@ -636,11 +643,8 @@
             var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
             localStorage.setItem('videoSwitch',videoSwitch);
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-            localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
-            
-            // localStorage.setItem('shareToAll', virtualclass.gObj.studentSSstatus.shareToAll);
-            // localStorage.setItem('studentss', virtualclass.gObj.studentSSstatus.mesharing);
-            
+
+
             io.disconnect();
         },
 

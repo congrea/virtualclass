@@ -1591,12 +1591,22 @@ $(document).ready(function () {
                     elem.style.display = 'block';
                 }
                 virtualclass.gObj.studentSSstatus.shareToAll = true;
+                virtualclass.gObj.studentSSstatus.sharing = true;
                 console.log('Share, to all');
-
             }
 
             this.raiseHand= function(e){
                 virtualclass.raiseHand.onMsgRec(e.message);
+            }
+
+            this.rmStdScreen = function(e){
+                var editorRichTool  = document.querySelector('#virtualclassEditorRichTool a');
+                if(editorRichTool != null){
+                    editorRichTool.click(editorRichTool);
+                }
+
+                virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+                virtualclass.ss.clearScreenShare();
             }
 
             // this.scx = function (e){

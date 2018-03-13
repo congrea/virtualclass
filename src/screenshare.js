@@ -21,8 +21,7 @@ var newCanvas;
         if(newCanvas == null){
             var newCanvas = document.createElement('canvas');
             newCanvas.id = "virtualclassScreenShareLocalVideoNew";
-            canvasCont.appendChild(newCanvas);
-        }
+            canvasCont.appendChild(newCanvas)}
 
         newCanvas.width = imageData.width;
         newCanvas.height = imageData.height;
@@ -599,6 +598,7 @@ var newCanvas;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.getVideoTracks()[0].onended = function (name) {
                     if (that.ssByClick) {
+
                         var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
                         if(elem){
                             elem.style.display="none";
@@ -606,23 +606,25 @@ var newCanvas;
                         that.video.src = "";
                         that.localtempCont.clearRect(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
                         clearInterval(virtualclass.clear);
-                        //that.prevImageSlices = [];
+
                         that.initPrevImage();
+                        that.clearScreenShare();
                         virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
+                        if(roles.hasControls()){
+                            virtualclass.vutil.initDefaultApp();
+                        }else {
+                            // Student unshares the screen by clicking stop button
+                            var teacherId = virtualclass.vutil.whoIsTeacher();
+                            ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
+                        }
+
                         that.prevStream = false;
                         that.prevScreen = "";
                         virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same
 
-                        //if (typeof virtualclass[] === 'object') {
-                        //     virtualclass["ss"].prevImageSlices = [];
-                           // virtualclass["ss"].removeStream();
 
-                        // virtualclass.vutil.removeClass('audioWidget', "fixed");
-                        // that.localCanvas = document.getElementById(virtualclass["ss"].local + "Video");
-                        // that.localCont = virtualclass["ss"].localCanvas.getContext('2d');
-                        // that.localCont.clearRect(0, 0, that.localCanvas.width, that.localCanvas.height);
-                        //}
-                        // virtualclass.prevScreen.unShareScreen();
+                        console.log('Stop by clicking');
+
                     } else {
                         that.ssByClick = true;
                     }
@@ -1026,12 +1028,20 @@ var newCanvas;
                                 element.style.cssText += ';' + styles;
                             }
                         }
+
                         if(roles.hasControls() && virtualclass.gObj.studentSSstatus.mesharing) {
-                            setTimeout(
-                                function () {
-                                    ioAdapter.mustSend({'cf': 'sview', firstSs : true});
-                                }, 2000
-                            )
+                            setTimeout(() => {
+                                var selector = 'selfView';
+                                var view = 'sview';
+                                if(virtualclass.gObj.studentSSstatus.shareToAll){
+                                     selector = 'shareToAll';
+                                     view = 'shareToAll'
+                                }
+                                var elem = document.querySelector('#screenController .'+selector);
+                                if(elem !=  null){
+                                    elem.click();
+                                }
+                            }, 2000);
                         }
                     // return mainCont;
                 },
@@ -1041,6 +1051,7 @@ var newCanvas;
                     if(elem != null){
                         elem.onclick = function(elem){
                             ioAdapter.mustSend({'cf': 'sview'});
+                            virtualclass.gObj.studentSSstatus.shareToAll = false;
                             elem.currentTarget.classList.add('clicked');
                             var shareElem =  document.querySelector('#screenController .shareToAll');
                             if(shareElem != null){
@@ -1052,6 +1063,7 @@ var newCanvas;
                     var elem =  document.querySelector('#screenController .shareToAll');
                     if(elem != null){
                         elem.onclick = function(elem){
+                            virtualclass.gObj.studentSSstatus.shareToAll = true;
                             ioAdapter.mustSend({'cf': 'sToAll'});
                             elem.currentTarget.classList.add('clicked');
                             var selfViewElem =  document.querySelector('#screenController .selfView');

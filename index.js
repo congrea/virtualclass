@@ -1600,13 +1600,11 @@ $(document).ready(function () {
             }
 
             this.rmStdScreen = function(e){
-                var editorRichTool  = document.querySelector('#virtualclassEditorRichTool a');
-                if(editorRichTool != null){
-                    editorRichTool.click(editorRichTool);
-                }
-
+                virtualclass.vutil.initDefaultApp();
                 virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
-                virtualclass.ss.clearScreenShare();
+                if(typeof virtualclass.ss == 'object'){
+                    virtualclass.ss.clearScreenShare();
+                }
             }
 
             // this.scx = function (e){

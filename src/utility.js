@@ -2437,12 +2437,13 @@
             virtualclass.gObj.invalidlogin = true;
         },
 
-        // shareStudentScreen : function (){
-        //     console.log("shubham");
-        //     var appName = "ScreenShare";
-        //     virtualclass.gObj.studentSSstatus.mesharing = true;
-        //     virtualclass.makeAppReady(appName, "byclick");
-        // }
+        initDefaultApp : () => {
+            var editorRichTool  = document.querySelector('#virtualclassEditorRichTool a');
+            if(editorRichTool != null){
+                editorRichTool.click(editorRichTool);
+            }
+        }
+
     };
     window.vutil = vutil;
 })(window);

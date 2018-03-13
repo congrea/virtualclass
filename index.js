@@ -1589,6 +1589,7 @@ $(document).ready(function () {
                 }
                 if(e.message.hasOwnProperty('firstSs')){
                     virtualclass.gObj.studentSSstatus.sharing = true;
+
                 }
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 console.log('Share, self view');

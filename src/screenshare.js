@@ -1040,7 +1040,8 @@ var newCanvas;
                                 }
                                 var elem = document.querySelector('#screenController .'+selector);
                                 if(elem !=  null){
-                                    elem.click();
+                                    elem.classList.add('clicked');
+                                    ioAdapter.mustSend({'cf': view, firstSs : true});
                                 }
                             }, 2000);
                         }

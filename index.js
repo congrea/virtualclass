@@ -1591,12 +1591,20 @@ $(document).ready(function () {
                     elem.style.display = 'block';
                 }
                 virtualclass.gObj.studentSSstatus.shareToAll = true;
+                virtualclass.gObj.studentSSstatus.sharing = true;
                 console.log('Share, to all');
-
             }
 
             this.raiseHand= function(e){
                 virtualclass.raiseHand.onMsgRec(e.message);
+            }
+
+            this.rmStdScreen = function(e){
+                virtualclass.vutil.initDefaultApp();
+                virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+                if(typeof virtualclass.ss == 'object'){
+                    virtualclass.ss.clearScreenShare();
+                }
             }
 
             // this.scx = function (e){

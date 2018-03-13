@@ -541,6 +541,7 @@ var newCanvas;
                 if(elem != null){
                     elem.parentNode.removeChild(elem);
                 }
+                virtualclass.vutil.removeSSsharing();
                 delete virtualclass.ss;
                 virtualclass.ss = '';
             },
@@ -677,7 +678,7 @@ var newCanvas;
             },
 
             /*
-             * sending the video to the student in the form of encoded data
+             * sendi bng the video to the student in the form of encoded data
              * status code is also sent with the encoded data
              *screen is shared in the form of video
              *@return sendmsg encoded data and status code together

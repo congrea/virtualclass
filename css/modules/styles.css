@@ -3424,3 +3424,8 @@
 	position: absolute;
 	font-size: 14px;
 }
+
+
+#chat_div .controleCont.ssSharing{
+	border:1px solid green;
+}

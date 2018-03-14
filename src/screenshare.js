@@ -1046,7 +1046,7 @@ var newCanvas;
                     // return mainCont;
                 },
 
-                initScreenController : function (){
+                initScreenControllerOld : function (){
                     var elem =  document.querySelector('#screenController .selfView');
                     if(elem != null){
                         elem.onclick = function(elem){
@@ -1074,6 +1074,27 @@ var newCanvas;
                     }
                 },
 
+                initScreenController : function (){
+                    var elem =  document.querySelector('#screenController .share');
+                    if(elem != null){
+                        elem.onclick = function(elem){
+                            var share;
+                            var classList = elem.currentTarget.classList;
+                            if(classList.contains('selfView')){
+                                classList.remove('selfView');
+                                classList.add('shareToAll');
+                                elem.currentTarget.children[0].innerHTML = 'Share to all';
+                                share = 'sview';
+                            }else if(classList.contains('shareToAll')){
+                                classList.remove('shareToAll');
+                                classList.add('selfView');
+                                elem.currentTarget.children[0].innerHTML = 'Self view';
+                                share = 'sToAll';
+                            }
+                            ioAdapter.mustSend({'cf': share});
+                        }
+                    }
+                },
 
                 /*
                  * @param container object containg width and height property

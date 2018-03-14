@@ -2444,7 +2444,7 @@
             }
         },
 
-
+        /** Indicates the sign who(student) is screen sharing **/
         initssSharing : (uid) => {
             virtualclass.gObj.studentSSstatus.whoIsSharing = uid;
             var elem = document.getElementById(uid + 'contrstdscreenCont');
@@ -2452,11 +2452,14 @@
                 elem.classList.add('ssSharing');
             }
         },
+
+        /** Remove the sign from the student that who was screen sharing **/
         removeSSsharing : () => {
             var controleCont = document.querySelector('#chat_div .controleCont.ssSharing');
             if(controleCont != null){
                 controleCont.classList.remove('ssSharing');
             }
+            delete virtualclass.gObj.studentSSstatus.whoIsSharing;
         }
     };
     window.vutil = vutil;

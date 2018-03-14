@@ -533,7 +533,6 @@ var newCanvas;
                 if(typeof virtualclass.prevScreen != 'undefined' && virtualclass.prevScreen.hasOwnProperty('currentStream')){
                     delete virtualclass.prevScreen.currentStream;
                 }
-
                 virtualclass.gObj.studentSSstatus.mesharing = false;
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;

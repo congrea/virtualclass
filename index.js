@@ -1554,7 +1554,7 @@ $(document).ready(function () {
                 }
             }
 
-            this.ssn = function(e){
+            this.reqscreen = function(e){
                 console.log(e.message);
                 var message = virtualclass.lang.getString('stdscreenshare');
                 virtualclass.popup.confirmInput(message,function (confirm){
@@ -1562,11 +1562,21 @@ $(document).ready(function () {
                         if(roles.isStudent()){
                             virtualclass.gObj.studentSSstatus.mesharing = true;
                         }
+
+                        ioAdapter.mustSendUser({
+                             cf : 'sshare_user'
+                        }, e.fromUser.userid);
+
                         var appName = "ScreenShare";
                         virtualclass.makeAppReady(appName, "byclick");
                     }
                 });
+            }
 
+            this.sshare_user = (e) => {
+                virtualclass.vutil.removeSSsharing();
+                virtualclass.gObj.studentSSstatus.whoIsSharing = e.fromUser.userid;
+                virtualclass.vutil.initssSharing(e.fromUser.userid);
             }
 
             // Self view, but display none to others
@@ -1579,6 +1589,7 @@ $(document).ready(function () {
                 }
                 if(e.message.hasOwnProperty('firstSs')){
                     virtualclass.gObj.studentSSstatus.sharing = true;
+
                 }
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 console.log('Share, self view');

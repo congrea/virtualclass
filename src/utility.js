@@ -2442,8 +2442,22 @@
             if(editorRichTool != null){
                 editorRichTool.click(editorRichTool);
             }
-        }
+        },
 
+
+        initssSharing : (uid) => {
+            virtualclass.gObj.studentSSstatus.whoIsSharing = uid;
+            var elem = document.getElementById(uid + 'contrstdscreenCont');
+            if(elem != null){
+                elem.classList.add('ssSharing');
+            }
+        },
+        removeSSsharing : () => {
+            var controleCont = document.querySelector('#chat_div .controleCont.ssSharing');
+            if(controleCont != null){
+                controleCont.classList.remove('ssSharing');
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

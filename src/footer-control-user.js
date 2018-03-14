@@ -753,7 +753,7 @@
                 },
 
                 _stdscreen: function (userId) {
-                        virtualclass.vutil.beforeSend({'ssn': true, toUser: userId, 'cf' : 'ssn'}, userId);
+                        virtualclass.vutil.beforeSend({'reqscreen': true, toUser: userId, 'cf' : 'reqscreen'}, userId);
                 },
 
 
@@ -1271,8 +1271,12 @@
                             var rhEnable = false;
                         }
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
-                    }
 
+                    } else if(allSpans[i].className.indexOf('stdscreen') > -1) {
+                        if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
+                            virtualclass.vutil.initssSharing(virtualclass.gObj.studentSSstatus.whoIsSharing);
+                        }
+                    }
                 }
             }
         }

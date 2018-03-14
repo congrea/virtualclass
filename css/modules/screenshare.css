@@ -149,31 +149,15 @@
   left : -2000;
 }
 
-#virtualclassCont.congrea #screenController .selfView button{
-  left: 10px;
+
+#virtualclassCont.congrea #screenController .share button{
+  left: 57px;
   color: #fff;
-  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
+  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%) !important;
   border: 1px solid white;
   position: absolute;
   z-index: 10000;
   cursor: pointer;
-
-}
-
-#virtualclassCont.congrea #screenController .shareToAll button{
-  left: 100px;
-  color: #fff;
-  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
-  border: 1px solid white;
-  position: absolute;
-  z-index: 10000;
-  cursor: pointer;
-}
-
-
-#screenController .shareToAll.clicked button, #screenController .selfView.clicked button{
-  border: 2px solid green !important;
-  background-color: gray !important;
 }
 
 #virtualclassCont.congrea[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{

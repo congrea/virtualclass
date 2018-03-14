@@ -1028,53 +1028,57 @@ var newCanvas;
                                 element.style.cssText += ';' + styles;
                             }
                         }
-
                         if(roles.hasControls() && virtualclass.gObj.studentSSstatus.mesharing) {
+                            var that  = this;
+
                             setTimeout(() => {
-                                var selector = 'selfView';
-                                var view = 'sview';
+                                var elem = document.querySelector('#screenController .share');
                                 if(virtualclass.gObj.studentSSstatus.shareToAll){
-                                     selector = 'shareToAll';
-                                     view = 'shareToAll'
+                                    that.html.changeSsInfoSelf(elem);
+                                    var view = 'sToAll';
+                                }else {
+                                    that.html.changeSsInfoShareToAll(elem);
+                                    var view = 'sview';
                                 }
-                                var elem = document.querySelector('#screenController .'+selector);
-                                if(elem !=  null){
-                                    elem.classList.add('clicked');
-                                    ioAdapter.mustSend({'cf': view, firstSs : true});
-                                }
+                                ioAdapter.mustSend({'cf': view, firstSs : true});
+
                             }, 2000);
                         }
                     // return mainCont;
                 },
 
                 initScreenController : function (){
-                    var elem =  document.querySelector('#screenController .selfView');
+                    var elem =  document.querySelector('#screenController .share');
                     if(elem != null){
+                        var that = this;
                         elem.onclick = function(elem){
-                            ioAdapter.mustSend({'cf': 'sview'});
-                            virtualclass.gObj.studentSSstatus.shareToAll = false;
-                            elem.currentTarget.classList.add('clicked');
-                            var shareElem =  document.querySelector('#screenController .shareToAll');
-                            if(shareElem != null){
-                                shareElem.classList.remove('clicked');
+                            var share;
+                            var classList = elem.currentTarget.classList;
+                            if(classList.contains('selfView')){ // Screen is sharing to all
+                                that.changeSsInfoSelf(elem.currentTarget);
+                                share = 'sToAll';
+                            }else if(classList.contains('shareToAll')){ // Screen is sharing to self
+                                that.changeSsInfoShareToAll(elem.currentTarget);
+                                share = 'sview';
                             }
-                        }
-                    }
-
-                    var elem =  document.querySelector('#screenController .shareToAll');
-                    if(elem != null){
-                        elem.onclick = function(elem){
-                            virtualclass.gObj.studentSSstatus.shareToAll = true;
-                            ioAdapter.mustSend({'cf': 'sToAll'});
-                            elem.currentTarget.classList.add('clicked');
-                            var selfViewElem =  document.querySelector('#screenController .selfView');
-                            if(selfViewElem != null){
-                                selfViewElem.classList.remove('clicked');
-                            }
+                            ioAdapter.mustSend({'cf': share});
                         }
                     }
                 },
 
+                changeSsInfoSelf : function (elem){
+                    elem.classList.remove('selfView');
+                    elem.classList.add('shareToAll');
+                    elem.children[0].innerHTML = 'Self View'; // for next time
+                    virtualclass.gObj.studentSSstatus.shareToAll = true;
+                },
+
+                changeSsInfoShareToAll : function (elem){
+                    elem.classList.remove('shareToAll');
+                    elem.classList.add('selfView');
+                    elem.children[0].innerHTML = 'Share To All'; // for next time
+                    virtualclass.gObj.studentSSstatus.shareToAll = false;
+                },
 
                 /*
                  * @param container object containg width and height property

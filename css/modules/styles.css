@@ -2706,14 +2706,14 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber{
 	height: 50px;
 	/*width: 20%;*/
-	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	border-right: 1px solid rgba(254, 254, 254, 0.2);
 	padding-top: 15px;
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber{
 	height: 50px;
 	/*width: 25%;*/
-	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	border-right: 1px solid rgba(254, 254, 254, 0.2);
 	padding-top: 15px;
 }
 
@@ -2722,7 +2722,7 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 	height: 50px;
 	/*width: 20%;*/
-	border-left:1px solid #757474;
+	border-left:1px solid rgba(254, 254, 254, 0.2)!important;
 }
 
 
@@ -2731,7 +2731,7 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 	height: 50px;
 	/*width: 25%;*/
-	border-left:1px solid #757474;
+	border-left:1px solid rgba(254, 254, 254, 0.2)!important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #ntkstatus{
@@ -3373,7 +3373,7 @@
 
 .congrea #stickybar #congHr.enable{
 	opacity:1;
-	background-color: #f5f5f5;
+	background-color: #f5f5f5 !important;
 	width:30px;
 	height:30px;
 	position :fixed;
@@ -3385,7 +3385,7 @@
 
 .congrea #stickybar #congHr.disable{
 	opacity:0.4;
-	background-color: #c6c6c6;
+	background-color: #c6c6c6!important;
 	width:30px;
 	height:30px;
 	position :fixed;
@@ -3400,7 +3400,7 @@
 .congrea #icHr:before {
 	content: "\e962";
 	font-size: 21px;
-	color:black;
+	color:black !important;
 }
 .congrea #stickybar #icHr:after {
   position:absolute !important;
@@ -3424,3 +3424,40 @@
 	position: absolute;
 	font-size: 14px;
 }
+
+/* border color     */
+  #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
+  border: 1px solid rgba(254,254,254,0.2) !important;
+
+	}
+
+#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
+	border-bottom: 0px solid rgba(254,254,254,0.2) !important;
+}
+#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
+	border-right: 1px solid rgba(254,254,254,0.2) !important;
+	color: #fff;
+}
+
+#virtualclassCont.congrea a.vceditor-btn:active {
+	background-color: #28323c;
+	border: 1px solid rgba(254,254,254,0.2) !important;
+	color: #fff;
+}
+#virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
+	background-color: rgba(254,254,254,0.2) !important;
+	border-color: #555;
+}
+#virtualclassCont.congrea .videoSwitchCont {
+	border-right: 1px solid rgba(254,254,254,0.2) !important;
+}
+#virtualclassCont.congrea #videoList #newVideoBtnCont {
+	border-bottom: 1px solid rgba(254,254,254,0.2) !important;
+	background: #fff;
+}
+#virtualclassCont.congrea .vmchat_room_bt,
+#virtualclassCont.congrea .vmchat_bar_button,
+#virtualclassCont.congrea .prechk,
+#virtualclassCont.congrea .videoSwitchCont {
+	border-right: 1px solid rgba(254,254,254,0.2) !important; }
+

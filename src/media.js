@@ -211,6 +211,7 @@
                         var sendmsg = new Int8Array(msg.length + scode.length);
                         sendmsg.set(scode);
                         sendmsg.set(msg, scode.length); // First element is status code (101)
+                        return;
                         ioAdapter.sendBinary(sendmsg);
 
                         virtualclass.gObj.video.audio.setAudioStatus(adStatus);
@@ -1016,6 +1017,7 @@
 
 
                 sendInBinary: function (sendimage) {
+                    return;
                     var user = {
                         name: virtualclass.gObj.uName,
                         id: virtualclass.gObj.uid
@@ -1069,6 +1071,7 @@
                         var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
                         sendmsg.set(scode);
                         sendmsg.set(sendimage, scode.length);
+                        return;
                         that.sendInBinary(sendmsg);
 
                         clearInterval(virtualclass.gObj.video.smallVid);

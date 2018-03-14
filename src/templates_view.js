@@ -189,7 +189,7 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function
 },"3":function(container,depth0,helpers,partials,data) {
     return "\n";
 },"5":function(container,depth0,helpers,partials,data) {
-    return "    <div class=\"handRaise enable\" id=\"congHr\"  >\n      <a class=\"stdRaiseHand\">\n        <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable cgIcon  congtooltip\" data-title=\"raise hand\">\n        </span>\n      </a>\n    </div>\n";
+    return "    <div class=\"handRaise enable\" id=\"congHr\"  >\n      <a class=\"stdRaiseHand\">\n        <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable  congtooltip\" data-title=\"raise hand\">\n        </span>\n      </a>\n    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 

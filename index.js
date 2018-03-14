@@ -1554,6 +1554,8 @@ $(document).ready(function () {
                 }
             }
 
+            /***** Start Student Screen Sharing *****/
+            /* Handle teacher request for screen sharing **/
             this.reqscreen = function(e){
                 console.log(e.message);
                 var message = virtualclass.lang.getString('stdscreenshare');
@@ -1573,6 +1575,7 @@ $(document).ready(function () {
                 });
             }
 
+            /** Knows the id of student who is screen sharing **/
             this.sshare_user = (e) => {
                 virtualclass.vutil.removeSSsharing();
                 virtualclass.gObj.studentSSstatus.whoIsSharing = e.fromUser.userid;
@@ -1606,10 +1609,7 @@ $(document).ready(function () {
                 console.log('Share, to all');
             }
 
-            this.raiseHand= function(e){
-                virtualclass.raiseHand.onMsgRec(e.message);
-            }
-
+            /** This happens when student does page refresh during the share is being shared  **/
             this.rmStdScreen = function(e){
                 virtualclass.vutil.initDefaultApp();
                 virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
@@ -1617,10 +1617,12 @@ $(document).ready(function () {
                     virtualclass.ss.clearScreenShare();
                 }
             }
+            /***** End Student Screen Sharing *****/
 
-            // this.scx = function (e){
-            //     virtualclass.pdfRender.setScrollPositionX(e.message);
-            // }
+            this.raiseHand= function(e){
+                virtualclass.raiseHand.onMsgRec(e.message);
+            }
+
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

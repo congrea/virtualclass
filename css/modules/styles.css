@@ -3426,6 +3426,6 @@
 }
 
 
-#chat_div .controleCont.ssSharing{
-	border:1px solid green;
+#chat_div .controleCont.ssSharing .icon-stdscreenImg.enable:before{
+	color: green;
 }

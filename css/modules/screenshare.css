@@ -153,11 +153,12 @@
 #virtualclassCont.congrea #screenController .share button{
   left: 57px;
   color: #fff;
-  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%) !important;
+  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
   border: 1px solid white;
   position: absolute;
   z-index: 10000;
   cursor: pointer;
+  font-weight: bold;
 }
 
 #virtualclassCont.congrea[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{

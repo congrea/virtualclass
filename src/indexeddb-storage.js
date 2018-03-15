@@ -631,6 +631,7 @@
                 virtualclass.gObj.studentSSstatus.mesharing = false;
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
+                delete virtualclass.gObj.whoIsSharing;
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 

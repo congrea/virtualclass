@@ -555,6 +555,8 @@
                             }
 
                             this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
+                            this.control['_' + ctrType].call(this.control, userId, action);
+
                         }
                     }
                 },
@@ -1274,7 +1276,7 @@
 
                     } else if(allSpans[i].className.indexOf('stdscreen') > -1) {
                         if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
-                            virtualclass.vutil.initssSharing(virtualclass.gObj.studentSSstatus.whoIsSharing);
+                            virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
                         }
                     }
                 }

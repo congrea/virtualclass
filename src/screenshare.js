@@ -853,6 +853,7 @@ var newCanvas;
                         resA = Math.round(that.localtempCanvas.height / 12);
                         resB = Math.round(that.localtempCanvas.width / 12);
                         var createdImg = getDataFullScreenResize(that.type);
+                        virtualclass.vutil.informIamSharing();
                         ioAdapter.sendBinary(createdImg);
                         calcBandwidth(createdImg.length / 128); // In Kbps
                         changeonresize = 0;
@@ -907,7 +908,9 @@ var newCanvas;
                             if (e.data.needFullScreen == 1) { //sending full screen here
 
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
+                                virtualclass.vutil.informIamSharing();
                                 ioAdapter.sendBinary(createdImg);
+
                                 var localBandwidth = (createdImg.length / 128); // In Kbps
                             } else if (e.data.masterSlice != null) {
                                 ioAdapter.sendBinary(e.data.masterSlice);

@@ -2446,7 +2446,7 @@
 
         /** Indicates the sign who(student) is screen sharing **/
         initssSharing : (uid) => {
-            virtualclass.gObj.studentSSstatus.whoIsSharing = uid;
+            virtualclass.gObj.whoIsSharing = uid;
             var elem = document.getElementById(uid + 'contrstdscreenCont');
             if(elem != null){
                 elem.classList.add('ssSharing');
@@ -2459,7 +2459,17 @@
             if(controleCont != null){
                 controleCont.classList.remove('ssSharing');
             }
-            delete virtualclass.gObj.studentSSstatus.whoIsSharing;
+            delete virtualclass.gObj.whoIsSharing;
+        },
+
+        /** Inoforming to the teacher that I am sharing the screen **/
+        informIamSharing : () => {
+            var teacher = virtualclass.vutil.whoIsTeacher();
+            if(roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing){
+                ioAdapter.mustSendUser({
+                    cf : 'sshare_user'
+                }, teacher);
+            }
         }
     };
     window.vutil = vutil;

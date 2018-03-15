@@ -699,6 +699,7 @@ $(document).ready(function () {
                         sType = virtualclass.getDataFullScreen(sType);
                         var createdImg = virtualclass.getDataFullScreen('ss');
                         ioAdapter.sendBinary(createdImg);
+                        virtualclass.vutil.informIamSharing();
                         sType = null;
                         console.log('Send full-screen image');
                     },setTime
@@ -1565,9 +1566,9 @@ $(document).ready(function () {
                             virtualclass.gObj.studentSSstatus.mesharing = true;
                         }
 
-                        ioAdapter.mustSendUser({
-                             cf : 'sshare_user'
-                        }, e.fromUser.userid);
+                        // ioAdapter.mustSendUser({
+                        //      cf : 'sshare_user'
+                        // }, e.fromUser.userid);
 
                         var appName = "ScreenShare";
                         virtualclass.makeAppReady(appName, "byclick");
@@ -1578,7 +1579,7 @@ $(document).ready(function () {
             /** Knows the id of student who is screen sharing **/
             this.sshare_user = (e) => {
                 virtualclass.vutil.removeSSsharing();
-                virtualclass.gObj.studentSSstatus.whoIsSharing = e.fromUser.userid;
+                virtualclass.gObj.whoIsSharing = e.fromUser.userid;
                 virtualclass.vutil.initssSharing(e.fromUser.userid);
             }
 
@@ -1615,6 +1616,8 @@ $(document).ready(function () {
                 virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
                 if(typeof virtualclass.ss == 'object'){
                     virtualclass.ss.clearScreenShare();
+                }else {
+                    virtualclass.vutil.removeSSsharing();
                 }
             }
             /***** End Student Screen Sharing *****/

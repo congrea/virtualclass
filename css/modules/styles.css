@@ -2700,7 +2700,10 @@
 #virtualclassCont.congrea #memlist .congtooltip:hover:after {
 	bottom: -3em;
 	left: -13em;
+	top: -15px;
+	height: 21px;
 	text-transform: capitalize;
+	padding: 0px;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber{
@@ -3373,7 +3376,8 @@
 
 .congrea #stickybar #congHr.enable{
 	opacity:1;
-	background-color: #f5f5f5;
+	/*background-color: #f5f5f5;*/
+	border: 1px solid white;
 	width:30px;
 	height:30px;
 	position :fixed;
@@ -3385,7 +3389,8 @@
 
 .congrea #stickybar #congHr.disable{
 	opacity:0.4;
-	background-color: #c6c6c6;
+	background-color: #1d1c1c;
+	border:1px solid #ffffff;
 	width:30px;
 	height:30px;
 	position :fixed;
@@ -3400,7 +3405,7 @@
 .congrea #icHr:before {
 	content: "\e962";
 	font-size: 21px;
-	color:black;
+	color: #fdfafa;
 }
 .congrea #stickybar #icHr:after {
   position:absolute !important;

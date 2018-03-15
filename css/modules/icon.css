@@ -682,3 +682,12 @@
   content: "\e95e";
   font-size: 18px;
 }
+
+#virtualclassCont.congrea .icon-stdscreenImg.enable:before{
+  content: "\e602";
+  position: relative;
+  top: -1px;
+  font-size: 17px;
+  color: black;
+  margin-right: 5px;
+}

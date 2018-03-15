@@ -439,7 +439,7 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .user-details .usern {
-    width: 50%;
+    width: 40%;
     float: left;
     font-size: 14px;
     text-transform: capitalize;
@@ -656,7 +656,7 @@
     font-size:14px;
 }
 #virtualclassCont.congrea .primary {
-    border-radius: 100%;
+    border-radius: 20%;
     border: #bbb solid 1px;
     width: 52px;
     height: 40px;

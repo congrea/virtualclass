@@ -380,7 +380,7 @@
 }
 
 #virtualclassCont.congrea a[title]:hover:after {
-	content : attr(title);
+	/*content : attr(title);*/
 	padding : 4px 8px;
 	color : rgba(0, 0, 0, 0.5);
 	position : absolute;
@@ -1880,7 +1880,7 @@
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos{
 	margin-top: 7px;
 	margin-bottom: 7px;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 
 
@@ -3361,8 +3361,8 @@
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {
 	bottom: -43px;
 	left: -72px;
-
 }
+
 #congreaChatCont .ui-memblist-usr  .controllerRaiseH.disabled span{
 	color: rgba(198, 198, 198,1);
 }
@@ -3425,6 +3425,7 @@
 	font-size: 14px;
 }
 
+
 /* border color     */
   #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
   border: 1px solid rgba(254,254,254,0.2) !important;
@@ -3459,5 +3460,10 @@
 #virtualclassCont.congrea .vmchat_bar_button,
 #virtualclassCont.congrea .prechk,
 #virtualclassCont.congrea .videoSwitchCont {
-	border-right: 1px solid rgba(254,254,254,0.2) !important; }
+	border-right: 1px solid rgba(254,254,254,0.2) !important;
+}
+
+#chat_div .controleCont.ssSharing{
+	border:1px solid green;
+}
 

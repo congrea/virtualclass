@@ -1,5 +1,6 @@
 <div id="virtualclassScreenShare" class="virtualclass ">
   {{#if control}}
+
     {{#if recImg}}
       <div id="virtualclassScreenShareLocalTemp">
         <canvas id="virtualclassScreenShareLocalTempVideo" width="1440" height="738"></canvas>
@@ -15,11 +16,20 @@
       <h3 id="screenShrMsg" class="alert alert-info">{{getString 'screensharemsg'}}</h3>
     </div>
     {{/if}}
+
   {{else}}
     <div id="virtualclassScreenShareLocal" class="Local">
       <canvas id="virtualclassScreenShareLocalVideo" width="886" height="724"></canvas>
     </div>
+    {{#if scrctrl}}
+      <div id="screenController">
+        <div class="share selfView">
+          <button type="button">{{getString 'sharetoall'}}</button>
+        </div>
+      </div>
+      {{/if}}
   {{/if}}
+
   {{#if control}}
     {{#unless recImg}}
       <div id="virtualclassScreenShareLocalTemp">

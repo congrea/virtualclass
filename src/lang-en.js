@@ -363,6 +363,9 @@
         'RaiseHandStdEnabled':'Raise Hand',
         'RaiseHandStdDisabled':'Raised Hand',
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
+        'stdscreenshare' : 'you want to sahre your screen',
+        'selfview' : "Self View",
+        'sharetoall' : "Share To All"
     };
     window.message = message;
 })(window);

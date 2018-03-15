@@ -524,35 +524,38 @@
                     } else {
                         var action, ctrType, boolVal;
                         //TODO this should be generalise
-                        if (control == 'Chat') {
-                            tag.className = 'contrChatBlock';
-                            ctrType = 'chat'
-                        } else if (control == 'Aud') {
-                            ctrType = 'audio';
+                        if (control == 'stdscreen') {
+                            ctrType = 'stdscreen';
+                            this.control['_' + ctrType].call(this.control, userId);
                         } else {
-                            ctrType = control;
-                        }
+                            if (control == 'Chat') {
+                                tag.className = 'contrChatBlock';
+                                ctrType = 'chat'
+                            } else if (control == 'Aud') {
+                                ctrType = 'audio';
+                            } else {
+                                ctrType = control;
+                            }
 
-                        if (typeof defaultAction != 'undefined') {
-                            boolVal = (defaultAction == 'enable') ? true : false;
+                            if (typeof defaultAction != 'undefined') {
+                                boolVal = (defaultAction == 'enable') ? true : false;
 
-                            action = (boolVal) ? 'enable' : 'block';
-
-                        } else {
-                            if (tag.getAttribute('data-' + ctrType + '-disable') == 'true') {
-                                action = 'enable';
-                                boolVal = true;
+                                action = (boolVal) ? 'enable' : 'block';
 
                             } else {
-                                action = 'block';
-                                boolVal = false;
+                                if (tag.getAttribute('data-' + ctrType + '-disable') == 'true') {
+                                    action = 'enable';
+                                    boolVal = true;
 
+                                } else {
+                                    action = 'block';
+                                    boolVal = false;
+
+                                }
                             }
+
+                            this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
                         }
-
-                        this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                        this.control['_' + ctrType].call(this.control, userId, action);
-
                     }
                 },
 
@@ -748,6 +751,12 @@
                     // to disable only ..
                     virtualclass.raiseHand.disableRaiseHand(userId)
                 },
+
+                _stdscreen: function (userId) {
+                        virtualclass.vutil.beforeSend({'reqscreen': true, toUser: userId, 'cf' : 'reqscreen'}, userId);
+                },
+
+
 
 
                 audioWidgetEnable: function (notActive) {
@@ -1262,8 +1271,12 @@
                             var rhEnable = false;
                         }
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
-                    }
 
+                    } else if(allSpans[i].className.indexOf('stdscreen') > -1) {
+                        if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
+                            virtualclass.vutil.initssSharing(virtualclass.gObj.studentSSstatus.whoIsSharing);
+                        }
+                    }
                 }
             }
         }

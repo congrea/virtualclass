@@ -458,6 +458,7 @@
                 virtualclass.storage.clearStorageData();
                 return;
             }
+            console.log('screen-detail init');
 
             if (typeof virtualclass.storage.wholeStoreData != 'undefined') {
                 var obj = JSON.parse(virtualclass.storage.wholeStoreData);
@@ -496,6 +497,16 @@
             console.log(virtualclass.currApp);
             if (virtualclass.currApp == 'ScreenShare') {
                 prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window
+                var teacherId = virtualclass.vutil.whoIsTeacher();
+                if(virtualclass.gObj.studentSSstatus.mesharing){
+                    ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
+                }
+
+                if((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()){
+                    console.log('screen-detail is saving into storage');
+                    localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
+                }
+
             } else if ((virtualclass.currApp == 'Yts')) {
                 if (typeof virtualclass.yts.videoId != 'undefined' && typeof virtualclass.yts.player == 'object') {
                     prvAppObj.metaData = {
@@ -623,20 +634,17 @@
                 }
             }
 
-
-
-
-
             console.dir('Previous object ' + prvAppObj);
 
             localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
             // TODO this should be enable and should test proper way
             // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
-            //by nirmala
             var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
             localStorage.setItem('videoSwitch',videoSwitch);
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
+
+
             io.disconnect();
         },
 
@@ -2393,7 +2401,7 @@
             return (reponse != undefined && reponse != 'undefined' && reponse != null)
         },
 
-        navWhiteboard : function (cthis, func, dthis){
+        navWhiteboard    : function (cthis, func, dthis){
             this.removeAllTextWrapper();
             if(virtualclass.gObj.hasOwnProperty('wbNav')){
                 clearTimeout(virtualclass.gObj.wbNav);
@@ -2427,6 +2435,31 @@
                 io.sock.close();
             }
             virtualclass.gObj.invalidlogin = true;
+        },
+
+        initDefaultApp : () => {
+            var editorRichTool  = document.querySelector('#virtualclassEditorRichTool a');
+            if(editorRichTool != null){
+                editorRichTool.click(editorRichTool);
+            }
+        },
+
+        /** Indicates the sign who(student) is screen sharing **/
+        initssSharing : (uid) => {
+            virtualclass.gObj.studentSSstatus.whoIsSharing = uid;
+            var elem = document.getElementById(uid + 'contrstdscreenCont');
+            if(elem != null){
+                elem.classList.add('ssSharing');
+            }
+        },
+
+        /** Remove the sign from the student that who was screen sharing **/
+        removeSSsharing : () => {
+            var controleCont = document.querySelector('#chat_div .controleCont.ssSharing');
+            if(controleCont != null){
+                controleCont.classList.remove('ssSharing');
+            }
+            delete virtualclass.gObj.studentSSstatus.whoIsSharing;
         }
     };
     window.vutil = vutil;

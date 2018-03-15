@@ -550,21 +550,23 @@ $(document).ready(function () {
 
             if (roles.hasAdmin()) {
                 if (virtualclass.gObj.uid == virtualclass.jId) {
-                    if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
-                        ioAdapter.mustSend({'eddata': 'currAppEditor', et: virtualclass.currApp});
-                    }
+                    if(!virtualclass.gObj.studentSSstatus.mesharing){
+                        if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
+                            ioAdapter.mustSend({'eddata': 'currAppEditor', et: virtualclass.currApp});
+                        }
 
-                    // On reload or new connection, make sure all students have same editor data
-                    if (virtualclass.editorRich.isVcAdapterIsReady('editorRich')) {
-                        virtualclass.editorRich.responseToRequest();
-                    } else {
-                        console.log('Editor Rich vcAdapter is not ready');
-                    }
+                        // On reload or new connection, make sure all students have same editor data
+                        if (virtualclass.editorRich.isVcAdapterIsReady('editorRich')) {
+                            virtualclass.editorRich.responseToRequest();
+                        } else {
+                            console.log('Editor Rich vcAdapter is not ready');
+                        }
 
-                    if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
-                        virtualclass.editorCode.responseToRequest();
-                    } else {
-                        console.log('Editor Code vcAdapter is not ready');
+                        if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
+                            virtualclass.editorCode.responseToRequest();
+                        } else {
+                            console.log('Editor Code vcAdapter is not ready');
+                        }
                     }
 
                     if (virtualclass.currApp === 'Yts') {
@@ -676,25 +678,33 @@ $(document).ready(function () {
                         ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout'}, 'cf': 'videoUl'}, virtualclass.jId);
                     }
                 }
-
                 if (typeof sType !== 'undefined' && sType !== null) {
-                    //TODO this should be into function
-                    if (typeof virtualclass.getDataFullScreen == 'function') {
-                        if(virtualclass.gObj.hasOwnProperty('sendScreen')){
-                            clearTimeout(virtualclass.gObj.sendScreen);
-                        }
-                        virtualclass.gObj.sendScreen = setTimeout(
-                            function (){
-                                sType = virtualclass.getDataFullScreen(sType);
-                                var createdImg = virtualclass.getDataFullScreen('ss');
-                                ioAdapter.sendBinary(createdImg);
-                                sType = null;
-                                console.log('Send full-screen image');
-                            },2000
-                        );
-                    }
+                    initShareScreen(sType, 2000);
                 }
+            }else if (roles.isStudent() && virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.studentSSstatus.mesharing) {
+                sType = 'ss';
+                //There might need some time to executing missed packets
+                initShareScreen(sType, 5000);
             }
+        }
+
+        function initShareScreen (sType, setTime){
+            //TODO this should be into function
+            if (typeof virtualclass.getDataFullScreen == 'function') {
+                if(virtualclass.gObj.hasOwnProperty('sendScreen')){
+                    clearTimeout(virtualclass.gObj.sendScreen);
+                }
+                virtualclass.gObj.sendScreen = setTimeout(
+                    function (){
+                        sType = virtualclass.getDataFullScreen(sType);
+                        var createdImg = virtualclass.getDataFullScreen('ss');
+                        ioAdapter.sendBinary(createdImg);
+                        sType = null;
+                        console.log('Send full-screen image');
+                    },setTime
+                );
+            }
+
         }
 
         // function selfJoin(jId) {
@@ -1027,15 +1037,33 @@ $(document).ready(function () {
                 case 204:
                     var stype = 'ss';
                     var sTool = 'ScreenShare';
+                    if(roles.hasControls()){
+                        virtualclass.gObj.studentSSstatus.mesharing = true;
+                    }
                     if (!virtualclass.hasOwnProperty('studentScreen')) {
                         virtualclass.studentScreen = new studentScreen();
                     }
 
                     // The binary data is coming on teacher when user download the session
                     // which actually should not, workaround for now
-                    if (!roles.hasControls()) {
+
+                    if (!roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing) {
                         virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
                     }
+
+                    if(virtualclass.gObj.studentSSstatus.sharing && roles.isStudent()){
+                        var elem = document.getElementById("virtualclassScreenShareLocal");
+                         if(virtualclass.gObj.studentSSstatus.shareToAll){
+                             if(elem != null){
+                                 elem.style.display = 'block';
+                             }
+                         }else{
+                             if(elem != null){
+                                 elem.style.display = 'none';
+                             }
+                         }
+                    }
+
                     break;
                 case 101: // Audio
                     if (!virtualclass.gObj.video.audio.otherSound) {
@@ -1276,8 +1304,11 @@ $(document).ready(function () {
             this.unshareScreen = function (e) {
                 var app = e.message.st;
                 if (typeof virtualclass[app] === 'object') {
+                    console.log('Unshare the screen at student');
                     virtualclass[app].prevImageSlices = [];
                     virtualclass[app].removeStream();
+
+
                 }
             };
 
@@ -1520,14 +1551,77 @@ $(document).ready(function () {
                 }
             }
 
+            /***** Start Student Screen Sharing *****/
+            /* Handle teacher request for screen sharing **/
+            this.reqscreen = function(e){
+                console.log(e.message);
+                var message = virtualclass.lang.getString('stdscreenshare');
+                virtualclass.popup.confirmInput(message,function (confirm){
+                    if(confirm){
+                        if(roles.isStudent()){
+                            virtualclass.gObj.studentSSstatus.mesharing = true;
+                        }
+
+                        ioAdapter.mustSendUser({
+                             cf : 'sshare_user'
+                        }, e.fromUser.userid);
+
+                        var appName = "ScreenShare";
+                        virtualclass.makeAppReady(appName, "byclick");
+                    }
+                });
+            }
+
+            /** Knows the id of student who is screen sharing **/
+            this.sshare_user = (e) => {
+                virtualclass.vutil.removeSSsharing();
+                virtualclass.gObj.studentSSstatus.whoIsSharing = e.fromUser.userid;
+                virtualclass.vutil.initssSharing(e.fromUser.userid);
+            }
+
+            // Self view, but display none to others
+            this.sview = function(e){
+                var elem = document.getElementById("virtualclassScreenShareLocal");
+                if(roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) {
+                    if(elem != null){
+                        elem.style.display = "none";
+                    }
+                }
+                if(e.message.hasOwnProperty('firstSs')){
+                    virtualclass.gObj.studentSSstatus.sharing = true;
+
+                }
+                virtualclass.gObj.studentSSstatus.shareToAll = false;
+                console.log('Share, self view');
+            }
+
+            // Share screenshare to all
+            this.sToAll = function () {
+                var elem = document.getElementById("virtualclassScreenShareLocal");
+                if (elem != null) {
+                    elem.style.display = 'block';
+                }
+                virtualclass.gObj.studentSSstatus.shareToAll = true;
+                virtualclass.gObj.studentSSstatus.sharing = true;
+                console.log('Share, to all');
+            }
+
+            /** This happens when student does page refresh during the share is being shared  **/
+            this.rmStdScreen = function(e){
+                virtualclass.vutil.initDefaultApp();
+                virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+                if(typeof virtualclass.ss == 'object'){
+                    virtualclass.ss.clearScreenShare();
+                }
+            }
+            /***** End Student Screen Sharing *****/
+
             this.raiseHand= function(e){
                 virtualclass.raiseHand.onMsgRec(e.message);
             }
 
-            // this.scx = function (e){
-            //     virtualclass.pdfRender.setScrollPositionX(e.message);
-            // }
         };
+
         // TODO this shoudl be remove, after precheck feature is enabled
     }
 });

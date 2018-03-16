@@ -86,6 +86,7 @@
                     stdR.classList.add("enable")
                     var rhElem = document.querySelector("#stickybar #icHr");
                     rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
+                    rhElem.setAttribute("data-action","enable");
                 }
 
             },

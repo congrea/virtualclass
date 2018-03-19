@@ -95,6 +95,7 @@ var colorSelector ={
         color= "#473295";
         color ="#4778C2";
 
+
         var brightness = this.calcBrightness(color)
         var iconColor;
         if (brightness > 125) {
@@ -165,7 +166,7 @@ var colorSelector ={
 
         }
 
-        var border ="1px solid "+allbg.fcolor
+        var border ="0.3px solid "+allbg.fcolor
         var css = "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, " +
             "#virtualclassCont.congrea #virtualclassOptionsCont," +
             " #virtualclassCont.congrea .commandToolsWrapper" +
@@ -269,13 +270,21 @@ var colorSelector ={
             "#virtualclassCont.congrea .zoomControler button" +
             "{background-image: linear-gradient(to bottom,#fff,#e6e6e6)!important ; }"+
 
-            "#virtualclassCont.congrea #congdashboard .close" +
+            "#virtualclassCont.congrea #congdashboard .modal-header .close" +
             "{opacity :1; width :100px; height:25px}"+
+
 
             "#virtualclassCont.congrea .modal-header .btn-default ,"+
             "#virtualclassCont.congrea .modal .btn-default ,"+
             "#virtualclassCont.congrea .precheck .btn-default "+
-            "{color :"+frontColor +"!important} ";
+            "{color :"+frontColor +"!important} "+
+
+
+            "#virtualclassCont.congrea .vjs-control-bar .vjs-autoPlay-button " +
+            "{background:none !important ;}"+
+            "#virtualclassCont.congrea .vjs-control-bar .vjs-button " +
+
+            "{background:none !important ; border:none !important}";
 
             this.addCss(css);
 

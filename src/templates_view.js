@@ -558,9 +558,13 @@ this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(co
 this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "          <li role=\"presentation\" id=\"coursePollTab\" class=\"navListTab active\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls you will create are course specific\" >\n            <a href=\"#\">"
+  return "          <li role=\"presentation\" id=\"coursePollTab\" class=\"navListTab active\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"coursePoll",{"name":"getString","hash":{},"data":data}))
+    + "\" >\n            <a href=\"#\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Cpoll",{"name":"getString","hash":{},"data":data}))
-    + "</a>\n          </li>\n          <li role=\"presentation\" id=\"sitePollTab\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"Polls created here are of site level\" >\n            <a href=\"# \">"
+    + "</a>\n          </li>\n          <li role=\"presentation\" id=\"sitePollTab\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sitePoll",{"name":"getString","hash":{},"data":data}))
+    + "\" >\n            <a href=\"# \">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Spoll",{"name":"getString","hash":{},"data":data}))
     + "</a>\n          </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {

@@ -365,7 +365,9 @@
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
         'stdscreenshare' : 'you want to sahre your screen',
         'selfview' : "Self View",
-        'sharetoall' : "Share To All"
+        'sharetoall' : "Share To All",
+        'coursePoll' :"Created polls are of course level",
+        'sitePoll' :"Created polls are of site level",
     };
     window.message = message;
 })(window);

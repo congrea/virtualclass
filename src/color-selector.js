@@ -1,29 +1,26 @@
 (function(window){
 var colorSelector ={
     // to be made dynamic
-    makeThemeReady:function(color){
-
+    makeThemeReady:function(){
+         var color = virtualclassSetting.theme.selectedColor;
+         // temp..to be dynamic
         color="pink";
         color="green";
-
-        color ="#4778C2";
-
         color ="#F2D9F2";
-        color= "#473295";
         color ="#71D089";
         color ="#0E2A16";
-        color ="#6F2569";
+
         color ="#CBE7B6";
         color ="#140F2E";
         color ="#F2FAF0";
         color ="#9FDFC1";
         color ="#CAB3E6";
         color ="#361B50";
-         color ="black";
-        // color ="#1C1F0A";
-        // color ="#0B1B09";
-         color ="#E8FF9E";
-         color ="#FFFFF0"; // brightness 253
+        color ="black";
+        color ="#1C1F0A";
+         color ="#0B1B09";
+        color ="#E8FF9E";
+        color ="#FFFFF0"; // brightness 253
         color  ="#FFFEE0"; //251
         color ="#EFFFCC"; //244
         color ="#FFFDC7";//247
@@ -57,19 +54,13 @@ var colorSelector ={
         color ="#FFBDD6";//212
         color ="#FFBDD6";//212
 
-        color ="#ACE5FF";//215
-        color ="#b2e5ff";//217
-        color ="#B7E5FF";//218
-
-        color ="#ffc8d7";//218//lighter(218 -225)//////
-
         color ="#FFC7FC" //222
         color ="#FFCCEC";//223
         color ="#bfe9ff";//223
         color ="#bfe9ff";//223 //th
         color ="#c0eaff";//224 //th as white
 
-        color ="#D8E3AB";//217
+
         color ="#E4F6EE";//240
         color ="#EBFFB8";//241
         color ="#B1B83D";//168
@@ -83,17 +74,33 @@ var colorSelector ={
         color ="#57002A"
         color ="#AD004B"
         color ="#5C9DFF"
+        color="#143D39";
+        color ="#fdfdff";//253
+        color ="#ffe7f3";//240
+        color ="#FFE6F0";//239
+        color ="#ffe1dd";//234
+        color ="#ffddd6";//230
+        color ="#ffd5c9";//224
 
-        //color="#143D39";
-         var brightness = this.calcBrightness(color)
+        color ="#ffc8d7";//218//lighter(218 -255)//////
 
+        color ="#ACE5FF";//215
+        color ="#b2e5ff";//217
+        color ="#B7E5FF";//218
 
+        color ="#D8E3AB";//217
+        color ="white";
+        color ="#D8E3AB";//217
+        color ="#6F2569";
+        color= "#473295";
+        color ="#4778C2";
+
+        var brightness = this.calcBrightness(color)
         var iconColor;
         if (brightness > 125) {
             iconColor="black";
         } else {
             iconColor="white";
-
         }
 
         var allbg={};
@@ -121,7 +128,6 @@ var colorSelector ={
                 hover.fcolor=chroma(color).darken(.5).hex();
                 hover.scolor=chroma(color).darken(.8).hex();
 
-
             }else{
                 active.fcolor=chroma(color).darken(.8).hex();
                 active.scolor=chroma(color).darken(.6).hex();
@@ -134,8 +140,6 @@ var colorSelector ={
 
         allbg.fcolor = color;
         allbg.scolor = chroma(color).brighten().hex();
-
-
         var frontColor =iconColor;
         active.frontColor=iconColor;
         hover.frontColor=iconColor;
@@ -147,6 +151,45 @@ var colorSelector ={
         this.makeThemeReadyPoll(frontColor,allbg,active,hover,brightness);
         this.makeThemeReadyPresentation(frontColor,allbg,active,hover,brightness);
         this.makeThemeReadyDocument(frontColor,allbg,active,hover);
+
+        this.lightColorCustomize(frontColor,allbg,active,hover,brightness)
+
+    },
+
+    lightColorCustomize:function(frontColor,allbg,active,hover,brightness){
+
+
+        if(brightness >=218) {
+            allbg.fcolor = chroma(allbg.fcolor).darken(.4).hex();
+            allbg.scolor = chroma(allbg.fcolor).darken().hex();
+
+        }
+
+        var border ="1px solid "+allbg.fcolor
+        var css = "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, " +
+            "#virtualclassCont.congrea #virtualclassOptionsCont," +
+            " #virtualclassCont.congrea .commandToolsWrapper" +
+            "{border:"+border +" !important;}"+
+            "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
+            "#virtualclassCont.congrea #audioWidget li,"+
+            "#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab li"+
+            "{border-right: 0.5px solid "+allbg.fcolor +"!important;}"+
+            "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, " +
+            "#virtualclassCont.congrea #audioWidget"+
+            "{border:"+border+" !important}"+
+            "#virtualclassCont.congrea .btn.btn-default ," +
+            "#virtualclassCont.congrea .vceditor-toolbar ,"+
+            "#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab,"+
+            "#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,"+
+             "#virtualclassCont.congrea #layoutQuiz .navbar ,"+
+            "#virtualclassCont.congrea button ,"+
+            "#virtualclassCont.congrea #navigator"+
+            " {border:"+border+" !important}" +
+            "#virtualclassCont.congrea .btn.btn-default ,"+
+            "#virtualclassCont.congrea .btn-default "+
+            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
+        this.addCss(css);
+
     },
 
 
@@ -171,17 +214,15 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn.clicked" +
             "{background: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important} "+
 
-            "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, " +
-
             "#virtualclassCont.congrea #navigator, " +
             "#virtualclassCont.congrea #layoutQuiz .navbar, " +
             "#virtualclassCont.congrea .commandToolsWrapper, " +
-            "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, " +
             "#virtualclassCont.congrea #playButton, " +
-            "#virtualclassCont.congrea #confirmCancel #confirmCancelButton," +
             "#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText" +
             "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
 
+            "#virtualclassCont.congrea #virtualclassOptionsCont:first-child " +
+            "{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
 
             "#virtualclassCont.congrea .commandToolsWrapper" +
             "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
@@ -219,7 +260,17 @@ var colorSelector ={
             "{color:"+frontColor+"!important}"+
 
             "#virtualclassCont.congrea .icon-publish2:before" +
-            "{color:"+active.fcolor+"!important}";
+            "{color:"+active.fcolor+"!important}" +
+                
+            "#virtualclassCont.congrea button ,"+
+            "#virtualclassCont.congrea .btn-default "+
+            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
+
+            "#virtualclassCont.congrea .zoomControler button" +
+            "{background-image: linear-gradient(to bottom,#fff,#e6e6e6)!important ; }"+
+
+            "#virtualclassCont.congrea #congdashboard .close" +
+            "{ color:"+frontColor+"!important ;opacity :1; width :100px; height:25px}"
 
             this.addCss(css);
 
@@ -248,7 +299,7 @@ var colorSelector ={
 
             "#virtualclassCont.congrea .commandToolsWrapper .tool.active a" +
             "{background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100% !important)} ";
-            this.addCss(css);
+        this.addCss(css);
 
 
     },
@@ -293,13 +344,13 @@ var colorSelector ={
 
         }
 
-        var css="#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont button{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} " +
-            "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+        var css= "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
             "#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, " +
             "#virtualclassCont.congrea #listvideo .linkvideo .controls .editanch:before, "+
             "#virtualclassCont.congrea #listvideo .linkvideo .controls:before{color:"+iconColor+"!important}"+
             "#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before{color:"+hover.fcolor+"!important}"+
             "#virtualclassCont.congrea #VideoDashboard button{color:"+frontColor+"!important}"+
+            "#virtualclassCont.congrea #VideoDashboard button{border:1px solid"+frontColor+"!important}"+
             "#virtualclassCont.congrea #listvideo .linkvideo.playing{border:solid "+allbg.fcolor+" 1px!important}";
         this.addCss(css);
     },
@@ -312,15 +363,15 @@ var colorSelector ={
         }
 
         var css= "#virtualclassCont.congrea #virtualclassPoll .btn.btn-default, "+
-            "#virtualclassCont.congrea #virtualclassPoll #resultLayoutHead button, "+
+
             "#virtualclassCont.congrea #virtualclassPoll #stdPollContainer #btnVote"+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+";}"+
+            "{color:"+frontColor+";}"+
             "#virtualclassCont.congrea .bootstrap .pollNavBar > li > a {color:"+frontColor+" ; }"+
             "#virtualclassCont.congrea .bootstrap .navListTab:hover"+
             "{background: linear-gradient(to bottom, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important;color:"+hover.frontColor+"!important;}"+
             "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before{color:"+iconColor+"!important}" +
-            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}" ;
+            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}";
 
         this.addCss(css);
     },
@@ -328,12 +379,12 @@ var colorSelector ={
         var iconColor = allbg.fcolor;
         if(brightness >180){
             iconColor = active.fcolor;
-            hover.fcolor = chroma(active.fcolor).darker();
+            hover.fcolor = chroma(active.fcolor).darken();
         }
 
 
         var css= "#virtualclassCont.congrea #SharePresentationDashboard .btn-default"+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
+            "{color:"+frontColor+"!important;}"+
             "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
             "#virtualclassCont.congrea #SharePresentationDashboard .controls:before{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #SharePresentationDashboard .controls:hover:before{color:"+hover.fcolor+"!important}" ;
@@ -345,7 +396,8 @@ var colorSelector ={
             "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='0']"+
             "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
             "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='1']"+
-            "{background: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important;color:"+active.frontColor+"!important;}";
+            "{background: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important;" +
+            "color:"+active.frontColor+"!important;border-top-color: "+frontColor +" }";
 
         this.addCss(css);
     },

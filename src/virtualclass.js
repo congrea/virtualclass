@@ -273,7 +273,7 @@
                 this.raiseHand= window.raiseHand;
                 this.raiseHand.init();
                 virtualclass.colorSelector = window.colorSelector;
-                this.colorSelector.makeThemeReady("blue");
+                this.colorSelector.makeThemeReady();
             },
 
             networkStatus: function(){

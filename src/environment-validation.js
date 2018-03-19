@@ -603,6 +603,11 @@
             virtualclass.modernizr.on('webp', function (result) {
                 virtualclass.system.webpSupport = (result) ? true : false;
             });
+        },
+
+        initResize : function (){
+            system.setAppDimension(null, 'resize');
+            virtualclass.view.window.resize();
         }
     };
 
@@ -611,16 +616,21 @@
     // TODO two event listener for the same event resize
     window.addEventListener('resize',
         function () {
-            if (window.earlierWidth != window.innerWidth) {
-                 system.setAppDimension(null, 'resize');
-                 virtualclass.view.window.resize();
+            system.initResize();
 
+            // system.setAppDimension(null, 'resize');
+            // virtualclass.view.window.resize();
 
-            }
-            if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-                window.earlierWidth = window.innerWidth;
-            }
+            // if (window.earlierWidth != window.innerWidth) {
+            //      system.setAppDimension(null, 'resize');
+            //      virtualclass.view.window.resize();
+            // }
+
+            // if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+            //     window.earlierWidth = window.innerWidth;
+            // }
         }
+
     );
 
     // window.addEventListener('resize',

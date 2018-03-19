@@ -614,6 +614,11 @@
             if (window.earlierWidth != window.innerWidth) {
                  system.setAppDimension(null, 'resize');
                  virtualclass.view.window.resize();
+
+
+            }
+            if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+                window.earlierWidth = window.innerWidth;
             }
         }
     );

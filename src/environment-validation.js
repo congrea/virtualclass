@@ -207,6 +207,7 @@
             }
         },
 
+        /** Handle container dimension 1**/
         setCanvasWrapperDimension: function (measureRes, id) {
             var vcan = virtualclass.wb[id].vcan;
             if (typeof vcan.main.canvas != 'undefined') {
@@ -234,13 +235,13 @@
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 if(virtualclass.currApp ==  'DocumentShare'){
-                    toolWrapperHeight += 5;
+                    toolWrapperHeight += 40;
                 }
 
                 var canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
 
                 canvasWrapper.style.height = canWrapperHeight+'px';
-                console.log('canvasWrapper height' + canvasWrapper.style.width);
+                console.log('canvasWrapper width' + canvasWrapper.style.width);
                 console.log('canvasWrapper height' + canvasWrapper.style.height);
             }
         },
@@ -602,6 +603,11 @@
             virtualclass.modernizr.on('webp', function (result) {
                 virtualclass.system.webpSupport = (result) ? true : false;
             });
+        },
+
+        initResize : function (){
+            system.setAppDimension(null, 'resize');
+            virtualclass.view.window.resize();
         }
     };
 
@@ -610,11 +616,21 @@
     // TODO two event listener for the same event resize
     window.addEventListener('resize',
         function () {
-            if (window.earlierWidth != window.innerWidth) {
-                 system.setAppDimension(null, 'resize');
-                 virtualclass.view.window.resize();
-            }
+            system.initResize();
+
+            // system.setAppDimension(null, 'resize');
+            // virtualclass.view.window.resize();
+
+            // if (window.earlierWidth != window.innerWidth) {
+            //      system.setAppDimension(null, 'resize');
+            //      virtualclass.view.window.resize();
+            // }
+
+            // if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+            //     window.earlierWidth = window.innerWidth;
+            // }
         }
+
     );
 
     // window.addEventListener('resize',

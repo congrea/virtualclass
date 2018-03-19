@@ -500,7 +500,9 @@
                              */
                             virtualclass.vutil.triggerDashboard(app, 'hidepopup');
                         }
+
                     }
+                    system.initResize();
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -527,7 +529,7 @@
 
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
 
-                         prevapp = JSON.parse(prevapp);
+                        prevapp = JSON.parse(prevapp);
 
 
                         //if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
@@ -548,6 +550,7 @@
                     //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
+                        system.initResize();
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));

@@ -104,10 +104,16 @@
                 var page = virtualclass.pdfRender[wid].page;
                 var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
-                var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
-                this.prvCanvasScale = this.canvasScale;
-                this.canvasScale = viewport.scale;
-                virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
+                try {
+                    var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
+                    this.prvCanvasScale = this.canvasScale;
+                    this.canvasScale = viewport.scale;
+                    virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
+                }catch (error){
+                    debugger;
+                    console.log('Error ' + error);
+                }
+
             },
 
             normalRender : function (){

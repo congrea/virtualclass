@@ -78,6 +78,7 @@
         },
 
         //TODO very critical and important for remove return
+        /** Handle container dimension 1**/
         setContainerWidth : function(res, app) {
             if(app != null){
                 var appId = 'virtualclass' + app;
@@ -157,8 +158,7 @@
                         // virtualclass.system.setAppDimension(wb, true);
                     }
                 }
-                console.log('Container width ' + appId + ' ' + res.width );
-
+                console.log('Container width ' + appId + ' ' + res.width);
             }else {
                 console.log(appCont + ' is not found ');
             }

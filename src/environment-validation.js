@@ -207,6 +207,7 @@
             }
         },
 
+        /** Handle container dimension 1**/
         setCanvasWrapperDimension: function (measureRes, id) {
             var vcan = virtualclass.wb[id].vcan;
             if (typeof vcan.main.canvas != 'undefined') {
@@ -234,13 +235,13 @@
 
                 var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
                 if(virtualclass.currApp ==  'DocumentShare'){
-                    toolWrapperHeight += 5;
+                    toolWrapperHeight += 40;
                 }
 
                 var canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
 
                 canvasWrapper.style.height = canWrapperHeight+'px';
-                console.log('canvasWrapper height' + canvasWrapper.style.width);
+                console.log('canvasWrapper width' + canvasWrapper.style.width);
                 console.log('canvasWrapper height' + canvasWrapper.style.height);
             }
         },

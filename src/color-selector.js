@@ -264,13 +264,18 @@ var colorSelector ={
                 
             "#virtualclassCont.congrea button ,"+
             "#virtualclassCont.congrea .btn-default "+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
+            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important } "+
 
             "#virtualclassCont.congrea .zoomControler button" +
             "{background-image: linear-gradient(to bottom,#fff,#e6e6e6)!important ; }"+
 
             "#virtualclassCont.congrea #congdashboard .close" +
-            "{ color:"+frontColor+"!important ;opacity :1; width :100px; height:25px}"
+            "{opacity :1; width :100px; height:25px}"+
+
+            "#virtualclassCont.congrea .modal-header .btn-default ,"+
+            "#virtualclassCont.congrea .modal .btn-default ,"+
+            "#virtualclassCont.congrea .precheck .btn-default "+
+            "{color :"+frontColor +"!important} ";
 
             this.addCss(css);
 

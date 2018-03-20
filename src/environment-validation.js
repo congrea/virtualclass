@@ -141,7 +141,7 @@
                 var width = resolution.width - (offsetLeft + 350);
 
             }
-            var height = resolution.height - offset.y;
+            var height = resolution.height - (offset.y);
             return {'width': (width), 'height': (height)};
         },
         /*
@@ -240,6 +240,7 @@
 
                 var canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
 
+                //canvas wrapper height 1
                 canvasWrapper.style.height = canWrapperHeight+'px';
                 console.log('canvasWrapper width' + canvasWrapper.style.width);
                 console.log('canvasWrapper height' + canvasWrapper.style.height);

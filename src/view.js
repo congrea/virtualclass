@@ -295,7 +295,9 @@
                 res.height -= 100;
             }else {
                 res.height -= 40;
+
             }
+
         }
 
         console.log('Container height ' + res.height);
@@ -306,7 +308,8 @@
         if(typeof cwb != 'undefined' && (typeof virtualclass.wb[cwb] != 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')){
             virtualclass.wb[cwb].vcan.renderAll();
         }
-        view.windowResizeFinished();
+        view.windowResizeFinished()
+
     },
 
     // this funciton is triggered when

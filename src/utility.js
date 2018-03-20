@@ -154,6 +154,7 @@
                         // This dimension is setting when window is being resized
                         var canWrapper = document.querySelector('#canvasWrapper' +wb);
                         canWrapper.style.width = res.width + "px";
+                        //canvas wrapper height 2
                         canWrapper.style.height = (res.height-60) + "px";
                         // virtualclass.system.setAppDimension(wb, true);
                     }

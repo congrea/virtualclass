@@ -110,7 +110,6 @@
                     this.canvasScale = viewport.scale;
                     virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
                 }catch (error){
-                    debugger;
                     console.log('Error ' + error);
                 }
 

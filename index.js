@@ -1550,7 +1550,7 @@ $(document).ready(function () {
                     }
                     virtualclass.wbCommon.displaySlide(wid);
                     console.log('whiteboard slide received=' + wid);
-
+                    virtualclass.vutil.resizeWindowIfBigger();
                 }else if(e.message.hasOwnProperty('wbCount')){
                     virtualclass.gObj.wbCount = e.message.wbCount;
                     virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);

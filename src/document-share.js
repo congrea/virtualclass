@@ -1417,6 +1417,8 @@
                             // In normal case
                             this.docs.note.getScreen(note);
                             console.log(virtualclass.gObj.currWb + ' ' + 'document share :- Normal Case');
+
+
                         }else{
                             alert('Note is null');
                         }
@@ -1456,6 +1458,7 @@
                     if(studentMsg != null){
                         studentMsg.parentNode.removeChild(studentMsg);
                     }
+                    virtualclass.vutil.resizeWindowIfBigger();
                 }
             },
 

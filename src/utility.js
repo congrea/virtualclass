@@ -2474,7 +2474,19 @@
                     cf : 'sshare_user'
                 }, teacher);
             }
-        }
+        },
+
+        resizeWindowIfBigger : function (){
+            var currWb = virtualclass.gObj.currWb;
+            var canvasWrapper = document.querySelector('#canvasWrapper' + currWb);
+            if(canvasWrapper != null){
+                var diff = window.innerWidth - (canvasWrapper.offsetWidth + 320);
+                if(diff > 60){
+                    console.log('Resize event is triggered');
+                    system.initResize();
+                }
+            }
+        },
     };
     window.vutil = vutil;
 })(window);

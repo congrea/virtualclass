@@ -58,29 +58,25 @@ if (isset($_GET['themeS'])) {
   $themeS ="green";
 }
 
-
-
 if (isset($_GET['editorbtn-color'])) {
     $editorbtn_color = $_GET['editorbtn-color'];
-} else {
-  $editorbtn_color ="ns";
 }
 
 if (isset($_GET['editorbtn-front-color'])) {
     $editorbtn_front_color = $_GET['editorbtn-front-color'];
 } else {
-  $editorbtn_front_color ="white";
+  $editorbtn_front_color ="#1c22ee";
 }
 
 if (isset($_GET['primary-bg-color'])) {
     $allbg_fcolor = $_GET['primary-bg-color'];
 } else {
-    $allbg_fcolor = 'ns';
+    $allbg_fcolor = '#004d00';
 }
 if (isset($_GET['secondry-bg-color'])) {
     $allbg_scolor = $_GET['secondry-bg-color'];
 } else {
-    $allbg_scolor = 'ns';
+    $allbg_scolor = '#004d12';
 }
 if (isset($_GET['main-front-color'])) {
     $main_front_color = $_GET['main-front-color'];
@@ -89,38 +85,37 @@ if (isset($_GET['main-front-color'])) {
 }
 
 
-
 if (isset($_GET['active-primary-color'])) {
     $active_fcolor = $_GET['active-primary-color'];
 } else {
-    $active_fcolor = 'ns';
+    $active_fcolor = '#c5cc19';
 }
 if (isset($_GET['active-secondry-color'])) {
     $active_scolor = $_GET['active-secondry-color'];
 } else {
-    $active_scolor = 'ns';
+    $active_scolor = '#008010';
 }
 if (isset($_GET['hover-primary-color'])) {
     $hover_fcolor = $_GET['hover-primary-color'];
 } else {
-    $hover_fcolor = 'ns';
+    $hover_fcolor = '#ee3938';
 }
 if (isset($_GET['hover-secondry-color'])) {
     $hover_scolor = $_GET['hover-secondry-color'];
 } else {
-    $hover_scolor= 'ns';
+    $hover_scolor= '#ff315d';
 }
 
 
 if (isset($_GET['hover-front-color'])) {
     $hover_front_color = $_GET['hover-front-color'];
 } else {
-    $hover_front_color = 'white';
+    $hover_front_color = '#008000';
 }
 if (isset($_GET['active-front-color'])) {
     $active_front_color = $_GET['active-front-color'];
 } else {
-    $active_front_color= 'ns';
+    $active_front_color= '#ee2e7f';
 }
 
 
@@ -341,7 +336,7 @@ if($audactive){
     virtualclassSetting.themeSetting.allbgScolor='<?php echo $allbg_scolor; ?>';
     virtualclassSetting.themeSetting.activeFcolor='<?php echo $active_fcolor; ?>';
     virtualclassSetting.themeSetting.activeScolor='<?php echo $active_scolor; ?>';
-      virtualclassSetting.themeSetting.activeFrontColor='<?php echo $active_front_color; ?>';
+    virtualclassSetting.themeSetting.activeFrontColor='<?php echo $active_front_color; ?>';
     virtualclassSetting.themeSetting.hoverFcolor='<?php echo $hover_fcolor; ?>';
     virtualclassSetting.themeSetting.hoverScolor='<?php echo $hover_scolor; ?>';
     virtualclassSetting.themeSetting.hoverFrontColor='<?php echo $hover_front_color; ?>';

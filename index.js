@@ -1482,11 +1482,8 @@ $(document).ready(function () {
 
 
             this.videoUl= function(e){
-
                 if(e.fromUser.userid != virtualclass.gObj.uid){
-
                     virtualclass.videoUl.onmessage(e.message);
-
                 }
             }
             //nirmala

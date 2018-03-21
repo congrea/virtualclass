@@ -221,7 +221,7 @@
 }
 
 #virtualclassCont.congrea.student .vmchat_room_bt{
-    width:160px;
+    width:40%;
 }
 #virtualclassCont.congrea #usertab_icon {
     background: url('/virtualclass/images/offline.png') no-repeat top left;
@@ -675,7 +675,7 @@
 }
 
 #virtualclassCont.congrea.student .vmchat_bar_button {
-    width:160px;
+    width:40% !important;
 }
 
 #virtualclassCont.congrea a.inner_bt:hover{

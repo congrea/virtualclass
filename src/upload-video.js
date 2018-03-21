@@ -1007,7 +1007,7 @@
                             }
                             var autoPlayBtn = document.getElementById("autoPlayListBtn")
                             if (autoPlayBtn) {
-                                autoPlayBtn.innerHTML = virtualclass.videoUl.innerHtml;
+                               // autoPlayBtn.innerHTML = virtualclass.videoUl.innerHtml;
                                 autoPlayBtn.className = virtualclass.videoUl.autoPlayClass;
                             }
                         }
@@ -1139,15 +1139,15 @@
                 },
                 //  todo  modify
                 appendAutoPlayButton: function (player) {
-                    var on = '<div>auto play is on</div>'
-                    var off = '<div>auto play is off</div>'
-                    virtualclass.videoUl.innerHtml = virtualclass.videoUl.autoPlayFlag ? on : off;
+                    // var on = '<div>auto play is on</div>'
+                    // var off = '<div>auto play is off</div>'
+                    // virtualclass.videoUl.innerHtml = virtualclass.videoUl.autoPlayFlag ? on : off;
                     virtualclass.videoUl.autoPlayClass = virtualclass.videoUl.autoPlayFlag ? 'vjs-autoPlay-button vjs-control on' : 'vjs-autoPlay-button vjs-control off';
 
                     player.controlBar.addChild('button', {
                         'el': videojs.createEl('button', {
                             className: 'vjs-autoPlay-button vjs-control on',
-                            innerHTML: '<div>auto play is on</div>',
+                            // innerHTML: '<div>auto play</div>',
                             id: "autoPlayListBtn",
                             role: 'button',
                             title:'Auto Play',
@@ -1164,13 +1164,13 @@
                         virtualclass.videoUl.autoPlayFlag = 1;
                         cthis.classList.remove("off");
                         cthis.classList.add("on");
-                        cthis.innerHTML = "auto play is on"
+                        // cthis.innerHTML = "auto play is on"
                         cthis.style.color = "green";
                     } else {
                         virtualclass.videoUl.autoPlayFlag = 0;
                         cthis.classList.remove("on");
                         cthis.classList.add("off");
-                        cthis.innerHTML = "auto play is off";
+                        // cthis.innerHTML = "auto play is off";
                         cthis.style.color = "red";
 
                     }

@@ -3,10 +3,10 @@
     <nav id="navigator" class="nav navbar">
       <ul class="nav nav-tabs pollNavBar">
         {{#if control}}
-          <li role="presentation" id="coursePollTab" class="navListTab active" data-toggle="popover" data-trigger="hover" data-content="Polls you will create are course specific" >
+          <li role="presentation" id="coursePollTab" class="navListTab active" data-toggle="popover" data-trigger="hover" data-content="{{getString 'coursePoll'}}" >
             <a href="#">{{getString 'Cpoll'}}</a>
           </li>
-          <li role="presentation" id="sitePollTab" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="Polls created here are of site level" >
+          <li role="presentation" id="sitePollTab" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="{{getString 'sitePoll'}}" >
             <a href="# ">{{getString 'Spoll'}}</a>
           </li>
         {{else}}

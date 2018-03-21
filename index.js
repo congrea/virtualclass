@@ -1444,7 +1444,9 @@ $(document).ready(function () {
                 console.log('Document share :- message received ' + e.message.serial);
                 console.dir(e.message.dts);
                 if (e.message.dts.hasOwnProperty('init')) {
+                    virtualclass.gObj.screenRh = 100;
                     virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
+                    virtualclass.gObj.screenRh = 60;
                 } else if (typeof virtualclass.dts == 'object') {
                     virtualclass.dts.onmessage(e);
                 }
@@ -1548,7 +1550,7 @@ $(document).ready(function () {
                     }
                     virtualclass.wbCommon.displaySlide(wid);
                     console.log('whiteboard slide received=' + wid);
-
+                    virtualclass.vutil.resizeWindowIfBigger();
                 }else if(e.message.hasOwnProperty('wbCount')){
                     virtualclass.gObj.wbCount = e.message.wbCount;
                     virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);

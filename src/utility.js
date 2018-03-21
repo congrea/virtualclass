@@ -155,10 +155,13 @@
                         var canWrapper = document.querySelector('#canvasWrapper' +wb);
                         canWrapper.style.width = res.width + "px";
                         //canvas wrapper height 2
-                        canWrapper.style.height = (res.height-60) + "px";
+                        canWrapper.style.height = (res.height-virtualclass.gObj.screenRh) + "px";
+
+                        console.log('Canvas wrapper height ' + canWrapper.style.height);
                         // virtualclass.system.setAppDimension(wb, true);
                     }
                 }
+
                 console.log('Container width ' + appId + ' ' + res.width);
             }else {
                 console.log(appCont + ' is not found ');
@@ -2471,7 +2474,19 @@
                     cf : 'sshare_user'
                 }, teacher);
             }
-        }
+        },
+
+        resizeWindowIfBigger : function (){
+            var currWb = virtualclass.gObj.currWb;
+            var canvasWrapper = document.querySelector('#canvasWrapper' + currWb);
+            if(canvasWrapper != null){
+                var diff = window.innerWidth - (canvasWrapper.offsetWidth + 320);
+                if(diff > 60){
+                    console.log('Resize event is triggered');
+                    system.initResize();
+                }
+            }
+        },
     };
     window.vutil = vutil;
 })(window);

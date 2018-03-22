@@ -56,6 +56,7 @@
                 fetchedData : false,
                 wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
+                screenRh : 60,
             },
 
             enablePreCheck : true,
@@ -983,10 +984,12 @@
                             virtualclass.dts.sendCurrentDoc();
                             virtualclass.dts.sendCurrentSlide();
                             //var slide = virtualclass.dts.docs[virtualclass.dts.docs.currDoc].currSlide;
-                            var slide = virtualclass.dts.docs.currNote;
-                            if( slide > 0 ){
-                                virtualclass.vutil.updateCurrentDoc(slide);
-                            }
+                        }
+                        
+                        var slide = virtualclass.dts.docs.currNote;
+                        // if( typeof slide != 'undefined' ){
+                        if( typeof slide != 'undefined' ){
+                            virtualclass.vutil.updateCurrentDoc(slide);
                         }
                     }
 
@@ -1156,7 +1159,16 @@
                     appName = appName.substring(0, appName.indexOf("Tool"));
                     //  this.currApp = appName; //could be dangerous
                     if (!this.PrvAndCurrIsWss(this.previous, appName)) {
+                        if(virtualclass.currApp == 'DocumentShare'){
+                            virtualclass.gObj.screenRh = 160;
+                        }
                         this.makeAppReady(appName, "byclick");
+                        setTimeout(
+                            function (){
+                                virtualclass.gObj.screenRh = 60;
+                            },
+                            1500
+                        );
                     } else {
                         alert(virtualclass.lang.getString('screensharealready'));
                     }

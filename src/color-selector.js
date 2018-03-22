@@ -4,95 +4,95 @@ var colorSelector ={
     makeThemeReady:function(){
          var color = virtualclassSetting.theme.selectedColor;
          // temp..to be dynamic
-        color="pink";
-        color="green";
-        color ="#F2D9F2";
-        color ="#71D089";
-        color ="#0E2A16";
-
-        color ="#CBE7B6";
-        color ="#140F2E";
-        color ="#F2FAF0";
-        color ="#9FDFC1";
-        color ="#CAB3E6";
-        color ="#361B50";
-        color ="black";
-        color ="#1C1F0A";
-         color ="#0B1B09";
-        color ="#E8FF9E";
-        color ="#FFFFF0"; // brightness 253
-        color  ="#FFFEE0"; //251
-        color ="#EFFFCC"; //244
-        color ="#FFFDC7";//247
-
-         color ="#CDEEDE";
-
-        color ="#E8FF9E";
-
-        color ="#E8FF9E"; //237 fine
-        color ="#B3FFFF"; //232 fine
-
-        color ="#E8FFAD";//239 w
-
-        color ="#D1E5FF"; //226 w
-        color ="#F1D6FF";
-        color ="#A8E6FF" //214 //perfect
-
-
-        color ="#bfe9ff";//223 //th
-        color ="#c0eaff";//224 //th as white
-        color ="#bfe9ff";//223
-        color ="#c7eeff";//228 // 228 -255 (w)
-        color = "#D6F1FF";//235 //white
-        color ="#D1FFED"; //239 w
-        color ="#EBFFB8"; //241 near
-        color ="#C2476A";
-        color ="#FFE0EC";//235(white)
-        color ="#FFE5F7";//239
-        color ="#FFCCEC";//223
-        color ="#FFBDD6";//212
-        color ="#FFBDD6";//212
-        color ="#FFBDD6";//212
-
-        color ="#FFC7FC" //222
-        color ="#FFCCEC";//223
-        color ="#bfe9ff";//223
-        color ="#bfe9ff";//223 //th
-        color ="#c0eaff";//224 //th as white
-
-
-        color ="#E4F6EE";//240
-        color ="#EBFFB8";//241
-        color ="#B1B83D";//168
-        color="#9E2800";//71
-        color ="#002D8F";//43 (main color to be kept)
-        color ="#00802D";
-        color ="#272900";//36
-        color ="#9E003D"//54
-        color ="#D69A00"
-        color ="#280038"//18
-        color ="#57002A"
-        color ="#AD004B"
-        color ="#5C9DFF"
-        color="#143D39";
-        color ="#fdfdff";//253
-        color ="#ffe7f3";//240
-        color ="#FFE6F0";//239
-        color ="#ffe1dd";//234
-        color ="#ffddd6";//230
-        color ="#ffd5c9";//224
-
-        color ="#ffc8d7";//218//lighter(218 -255)//////
-
-        color ="#ACE5FF";//215
-        color ="#b2e5ff";//217
-        color ="#B7E5FF";//218
-
-        color ="#D8E3AB";//217
-        color ="white";
-        color ="#D8E3AB";//217
-        color ="#6F2569";
-        color= "#473295";
+        // color="pink";
+        // color="green";
+        // color ="#F2D9F2";
+        // color ="#71D089";
+        // color ="#0E2A16";
+        //
+        // color ="#CBE7B6";
+        // color ="#140F2E";
+        // color ="#F2FAF0";
+        // color ="#9FDFC1";
+        // color ="#CAB3E6";
+        // color ="#361B50";
+        // color ="black";
+        // color ="#1C1F0A";
+        //  color ="#0B1B09";
+        // color ="#E8FF9E";
+        // color ="#FFFFF0"; // brightness 253
+        // color  ="#FFFEE0"; //251
+        // color ="#EFFFCC"; //244
+        // color ="#FFFDC7";//247
+        //
+        //  color ="#CDEEDE";
+        //
+        // color ="#E8FF9E";
+        //
+        // color ="#E8FF9E"; //237 fine
+        // color ="#B3FFFF"; //232 fine
+        //
+        // color ="#E8FFAD";//239 w
+        //
+        // color ="#D1E5FF"; //226 w
+        // color ="#F1D6FF";
+        // color ="#A8E6FF" //214 //perfect
+        //
+        //
+        // color ="#bfe9ff";//223 //th
+        // color ="#c0eaff";//224 //th as white
+        // color ="#bfe9ff";//223
+        // color ="#c7eeff";//228 // 228 -255 (w)
+        // color = "#D6F1FF";//235 //white
+        // color ="#D1FFED"; //239 w
+        // color ="#EBFFB8"; //241 near
+        // color ="#C2476A";
+        // color ="#FFE0EC";//235(white)
+        // color ="#FFE5F7";//239
+        // color ="#FFCCEC";//223
+        // color ="#FFBDD6";//212
+        // color ="#FFBDD6";//212
+        // color ="#FFBDD6";//212
+        //
+        // color ="#FFC7FC" //222
+        // color ="#FFCCEC";//223
+        // color ="#bfe9ff";//223
+        // color ="#bfe9ff";//223 //th
+        // color ="#c0eaff";//224 //th as white
+        //
+        //
+        // color ="#E4F6EE";//240
+        // color ="#EBFFB8";//241
+        // color ="#B1B83D";//168
+        // color="#9E2800";//71
+        // color ="#002D8F";//43 (main color to be kept)
+        // color ="#00802D";
+        // color ="#272900";//36
+        // color ="#9E003D"//54
+        // color ="#D69A00"
+        // color ="#280038"//18
+        // color ="#57002A"
+        // color ="#AD004B"
+        // color ="#5C9DFF"
+        // color="#143D39";
+        // color ="#fdfdff";//253
+        // color ="#ffe7f3";//240
+        // color ="#FFE6F0";//239
+        // color ="#ffe1dd";//234
+        // color ="#ffddd6";//230
+        // color ="#ffd5c9";//224
+        //
+        // color ="#ffc8d7";//218//lighter(218 -255)//////
+        //
+        // color ="#ACE5FF";//215
+        // color ="#b2e5ff";//217
+        // color ="#B7E5FF";//218
+        //
+        // color ="#D8E3AB";//217
+        // color ="white";
+        // color ="#D8E3AB";//217
+        // color ="#6F2569";
+        // color= "#473295";
         color ="#4778C2";
 
 
@@ -200,7 +200,7 @@ var colorSelector ={
         var c = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
         var brightness = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
         console.log(brightness);
-        alert(brightness);
+        //alert(brightness);
         return brightness
     },
 

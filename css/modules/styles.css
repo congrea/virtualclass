@@ -1164,7 +1164,7 @@
 #virtualclassCont.congrea #speakerPressOnce {
 	/*width : 20%;*/
 	height : 50px;
-	padding-top: 10px;
+	padding-top: 11px;
 }
 
 #virtualclassCont.congrea.student #speakerPressOnce{
@@ -2548,6 +2548,17 @@
 	border-top-right-radius: 8px;
 	margin-bottom: -1px;
 }
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions {
+    margin-bottom: -1px;
+}
 
 /* New CSS */
 
@@ -3374,32 +3385,27 @@
 	opacity:1;
 }
 
-#virtualclassCont.congrea #congHr.enable{
+#virtualclassCont.congrea  #congHr.enable{
 	opacity:1;
-
 	/*background-color: #f5f5f5;*/
 	border: 1px solid white;
-
 	width:30px;
 	height:30px;
 	position :relative;
-	/*float:right;*/
-	left:20px;
-	top:10px;
-	/*bottom:7px;*/
+	top: 11px;
+	left: 14px;
 	cursor:pointer;
 }
 
 #virtualclassCont.congrea #congHr.disable{
 	opacity:0.4;
 	background-color: #1d1c1c;
-	/*border:1px solid #ffffff;*/
+	border:1px solid #ffffff;
 	width:30px;
 	height:30px;
 	position :relative;
-	/*float:right;*/
-	left: 20px;
-	top:10px;
+	top: 11px;
+	left: 14px;
 
 }
 #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before {
@@ -3409,27 +3415,30 @@
 	content: "\e962";
 	font-size: 21px;
 	color: #fdfafa;
+	position:relative;
+	right: 13px;
+	bottom: 12px;
 }
-#virtualclassCont.congrea #icHr:after {
+#virtualclassCont.congrea  #icHr:after {
   position:absolute !important;
 	bottom:35px !important;
 
 }
 
-.congrea .controleCont.controllerRaiseH.disabled{
+#virtualclassCont.congrea .controleCont.controllerRaiseH.disabled{
 	pointer-events: none;
 }
-.congrea .controllerRaiseH{
+#virtualclassCont.congrea .controllerRaiseH{
 	margin-right: 8px;
 }
 
-#virtualclassCont.congrea #congHr {
+#virtualclassCont.congrea  #congHr {
 	border-radius: 3px;
 }
 
 #virtualclassCont.congrea #icHr{
-	/*display: inline;*/
-	/*position: absolute;*/
+	display: inline;
+	position: absolute;
 	font-size: 14px;
 }
 

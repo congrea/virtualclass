@@ -211,9 +211,10 @@
   font-size: 18px;
 }
 
-#virtualclassCont.congrea a#contrAudioAll:hover {
+#virtualclassCont.congrea a#contrAudioAll, #virtualclassCont.congrea a#contrAudioAll:hover {
   text-decoration: none;
-  /*height:49px;*/
+  line-height: 28px;
+  height: 52px;
 }
 
 #virtualclassCont.congrea #contrAudioAllImg.congtooltip:hover:after {

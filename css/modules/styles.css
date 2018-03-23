@@ -1233,11 +1233,13 @@
 }
 
 #virtualclassCont.congrea .ui-widget.disable {
-	opacity : 0.4000000059604644775390625;
+	opacity : 0.4;
+	position:relative;
 }
 
 #virtualclassCont.congrea .ui-widget.enable {
 	opacity : 1;
+	position:relative;
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
@@ -2445,7 +2447,7 @@
 	margin-top : 10px;
 }
 #virtualclassCont.congrea .addMoreCont a:hover{
-	color: #727272 !important;
+	/*color: #727272 !important;*/
 	text-decoration: none !important;
 }
 #virtualclassCont.congrea .appOptions.active a span::before{
@@ -2675,9 +2677,9 @@
 	padding-top: 0px;
 	color:green;
 }
-#virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget.enable {
-	position: absolute;
-}
+/*#virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget.enable {*/
+	/*position: absolute;*/
+/*}*/
 
 #virtualclassCont.congrea #tech_support_save{
 	position: absolute;

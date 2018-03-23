@@ -515,7 +515,7 @@
 }
 
 #virtualclassCont.congrea.student[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea.student[data-currapp="EditorCode"] .vmchat_bar_button{
-    width:160px;
+    width:40%;
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
@@ -593,7 +593,10 @@
     color: #333 !important;
 }
 
-#virtualclassCont.congrea .ui-chatroom {top: 50px;}
+#virtualclassCont.congrea .ui-chatroom {
+    top: 50px;
+    position:absolute !important;
+}
 
 #virtualclassCont.congrea #chat_div{
     overflow-y: auto;

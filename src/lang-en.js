@@ -250,7 +250,7 @@
         'dsDbheading' : 'Document Dashboard',
         'DocumentSharedbHeading' : 'Document Dashboard',
         'SharePresentationdbHeading' : 'Presentation Dashboard',
-        'VideodbHeading' : 'Video Dashboard',
+        'VideodbHeading' : 'Close Video Dashboard',
         'bandslow' : 'Bandwidth is low',
         'bandfast' : 'Bandwidth is high',
         'bandmedium' : 'Bandwidth is medium',

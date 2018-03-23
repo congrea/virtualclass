@@ -1856,6 +1856,7 @@
                              }else {
                                  virtualclass.vutil.initDashboard(virtualclass.currApp);
                                  this.classList.add('clicked');
+                                 virtualclass.dashBoard.dashBoardClickTooltip();
 
                                  if(virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')){
                                      virtualclass.dts.moveProgressbar();

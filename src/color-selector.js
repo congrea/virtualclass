@@ -188,7 +188,7 @@ var colorSelector ={
             " {border:"+border+" !important}" +
             "#virtualclassCont.congrea .btn.btn-default ,"+
             "#virtualclassCont.congrea .btn-default "+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
         this.addCss(css);
 
     },
@@ -207,35 +207,35 @@ var colorSelector ={
     makeThemeReadyMainCont : function (frontColor,allbg,active,hover){
 
         var css= "#virtualclassCont.congrea .ui-widget-header" +
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
 
             "#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn" +
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
 
             "#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn.clicked" +
-            "{background: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important} "+
+            "{background-image: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important} "+
 
             "#virtualclassCont.congrea #navigator, " +
             "#virtualclassCont.congrea #layoutQuiz .navbar, " +
             "#virtualclassCont.congrea .commandToolsWrapper, " +
             "#virtualclassCont.congrea #playButton, " +
             "#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText" +
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
 
             "#virtualclassCont.congrea #virtualclassOptionsCont:first-child " +
-            "{background: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
+            "{background-image: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
 
             "#virtualclassCont.congrea .commandToolsWrapper" +
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active, " +
             "#virtualclassCont.congrea .commandToolsWrapper .tool.active a " +
-            "{background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)} "+
+            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)} "+
 
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, " +
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, " +
             "#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
             "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover" +
-            "{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
+            "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 
             "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,"+
             "#virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton"+
@@ -265,7 +265,7 @@ var colorSelector ={
                 
             "#virtualclassCont.congrea button ,"+
             "#virtualclassCont.congrea .btn-default "+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important } "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important } "+
 
             "#virtualclassCont.congrea .zoomControler button" +
             "{background-image: linear-gradient(to bottom,#fff,#e6e6e6)!important ; }"+
@@ -303,16 +303,16 @@ var colorSelector ={
             "{background-color: "+active.frontColor+"} " +
 
             "#virtualclassCont.congrea .vceditor-toolbar" +
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
 
             "#virtualclassCont.congrea a.vceditor-btn:hover" +
             "{color:"+hover.frontColor +"!important}"+
 
             "#virtualclassCont.congrea a.vceditor-btn:hover" +
-            "{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
+            "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 
             "#virtualclassCont.congrea .commandToolsWrapper .tool.active a" +
-            "{background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100% !important)} ";
+            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100% !important)} ";
         this.addCss(css);
 
 
@@ -323,7 +323,7 @@ var colorSelector ={
     {
         var css ="#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText," +
             "#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget" +
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
             "#virtualclassCont.congrea #chatWidget .chatBarTab"+
             "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
 
@@ -335,12 +335,12 @@ var colorSelector ={
             "#virtualclassCont.congrea #audioTest-box:hover," +
             "#virtualclassCont.congrea #playButton:hover, " +
             "#virtualclassCont.congrea #alwaysPress:hover" +
-            "{background: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
+            "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 
             "#virtualclassCont.congrea .vmchat_support.active ," +
             "#virtualclassCont.congrea .vmchat_room_bt.active," +
             "#virtualclassCont.congrea .vmchat_bar_button.active "+
-            "{background: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
+            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
 
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgIcon:before" +
             "{color:"+hover.frontColor +"!important}"+
@@ -358,7 +358,7 @@ var colorSelector ={
 
         }
 
-        var css= "#virtualclassCont.congrea .ui-widget-header{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+        var css= "#virtualclassCont.congrea .ui-widget-header{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
             "#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, " +
             "#virtualclassCont.congrea #listvideo .linkvideo .controls .editanch:before, "+
             "#virtualclassCont.congrea #listvideo .linkvideo .controls:before{color:"+iconColor+"!important}"+
@@ -382,7 +382,7 @@ var colorSelector ={
             "{color:"+frontColor+";}"+
             "#virtualclassCont.congrea .bootstrap .pollNavBar > li > a {color:"+frontColor+" ; }"+
             "#virtualclassCont.congrea .bootstrap .navListTab:hover"+
-            "{background: linear-gradient(to bottom, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important;color:"+hover.frontColor+"!important;}"+
+            "{background-image: linear-gradient(to bottom, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important;color:"+hover.frontColor+"!important;}"+
             "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}";
@@ -408,9 +408,9 @@ var colorSelector ={
     makeThemeReadyDocument:function(frontColor,allbg,active,hover){
         var css= "#virtualclassCont.congrea #DocumentShareDashboard #newDocBtn, "+
             "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='0']"+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
             "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='1']"+
-            "{background: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important;" +
+            "{background-image: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important;" +
             "color:"+active.frontColor+"!important;border-top-color: "+frontColor +" }";
 
         this.addCss(css);

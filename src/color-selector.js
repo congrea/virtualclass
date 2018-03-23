@@ -93,7 +93,7 @@ var colorSelector ={
         // color ="#D8E3AB";//217
         // color ="#6F2569";
         // color= "#473295";
-        color ="#4778C2";
+        //color ="#4778C2";
 
 
         var brightness = this.calcBrightness(color)

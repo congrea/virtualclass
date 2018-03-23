@@ -56,7 +56,7 @@ if (isset($_POST['color'])) {
 }
 else{
 	/* to change color */
-	 $selected_color = "green";
+	// $selected_color = "green";
 }
 
 if (isset($_GET['meetingmode'])) {

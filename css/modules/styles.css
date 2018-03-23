@@ -2445,7 +2445,7 @@
 	margin-top : 10px;
 }
 #virtualclassCont.congrea .addMoreCont a:hover{
-	color: #727272 !important;
+	/*color: #727272 !important;*/
 	text-decoration: none !important;
 }
 #virtualclassCont.congrea .appOptions.active a span::before{

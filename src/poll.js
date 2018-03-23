@@ -2477,6 +2477,7 @@
                             if (!btn) {
                                 var btn = document.createElement("button");
                                 btn.id = "closePoll";
+                                btn.className="btn btn-default"
                                 head.appendChild(btn);
                                 btn.innerHTML = "Close Poll";
                                 btn.addEventListener("click", function(){

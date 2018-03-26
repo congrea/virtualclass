@@ -51,78 +51,13 @@ if (isset($_GET['themecolor'])) {
     $theme = 'gray';
 }
 
-
-if (isset($_GET['themeS'])) {
-   $themeS = $_GET['themeS'];
-} else {
-  $themeS ="green";
+if (isset($_POST['color'])) {
+    $selected_color = $_POST['color'];
 }
-
-
-
-if (isset($_GET['editorbtn-color'])) {
-    $editorbtn_color = $_GET['editorbtn-color'];
-} else {
-  $editorbtn_color ="ns";
+else{
+	/* to change color */
+	// $selected_color = "green";
 }
-
-if (isset($_GET['editorbtn-front-color'])) {
-    $editorbtn_front_color = $_GET['editorbtn-front-color'];
-} else {
-  $editorbtn_front_color ="white";
-}
-
-if (isset($_GET['primary-bg-color'])) {
-    $allbg_fcolor = $_GET['primary-bg-color'];
-} else {
-    $allbg_fcolor = 'ns';
-}
-if (isset($_GET['secondry-bg-color'])) {
-    $allbg_scolor = $_GET['secondry-bg-color'];
-} else {
-    $allbg_scolor = 'ns';
-}
-if (isset($_GET['main-front-color'])) {
-    $main_front_color = $_GET['main-front-color'];
-} else {
-    $main_front_color= 'white';
-}
-
-
-
-if (isset($_GET['active-primary-color'])) {
-    $active_fcolor = $_GET['active-primary-color'];
-} else {
-    $active_fcolor = 'ns';
-}
-if (isset($_GET['active-secondry-color'])) {
-    $active_scolor = $_GET['active-secondry-color'];
-} else {
-    $active_scolor = 'ns';
-}
-if (isset($_GET['hover-primary-color'])) {
-    $hover_fcolor = $_GET['hover-primary-color'];
-} else {
-    $hover_fcolor = 'ns';
-}
-if (isset($_GET['hover-secondry-color'])) {
-    $hover_scolor = $_GET['hover-secondry-color'];
-} else {
-    $hover_scolor= 'ns';
-}
-
-
-if (isset($_GET['hover-front-color'])) {
-    $hover_front_color = $_GET['hover-front-color'];
-} else {
-    $hover_front_color = 'white';
-}
-if (isset($_GET['active-front-color'])) {
-    $active_front_color = $_GET['active-front-color'];
-} else {
-    $active_front_color= 'ns';
-}
-
 
 if (isset($_GET['meetingmode'])) {
     $meetingmode = $_GET['meetingmode'];
@@ -333,19 +268,9 @@ if($audactive){
     virtualclassSetting.classes = '<?php echo $classes; ?>';
     virtualclassSetting.audio_tooltip = '<?php echo $audio_tooltip; ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
-    virtualclassSetting.theme = '<?php echo $themeS; ?>';
-    virtualclassSetting.themeSetting={};
-    virtualclassSetting.themeSetting.edbtnBgColor='<?php echo $editorbtn_color; ?>';
-    virtualclassSetting.themeSetting.edbtnFrontColor='<?php echo $editorbtn_front_color; ?>';
-    virtualclassSetting.themeSetting.allbgFcolor='<?php echo $allbg_fcolor; ?>';
-    virtualclassSetting.themeSetting.allbgScolor='<?php echo $allbg_scolor; ?>';
-    virtualclassSetting.themeSetting.activeFcolor='<?php echo $active_fcolor; ?>';
-    virtualclassSetting.themeSetting.activeScolor='<?php echo $active_scolor; ?>';
-      virtualclassSetting.themeSetting.activeFrontColor='<?php echo $active_front_color; ?>';
-    virtualclassSetting.themeSetting.hoverFcolor='<?php echo $hover_fcolor; ?>';
-    virtualclassSetting.themeSetting.hoverScolor='<?php echo $hover_scolor; ?>';
-    virtualclassSetting.themeSetting.hoverFrontColor='<?php echo $hover_front_color; ?>';
-     virtualclassSetting.themeSetting.mainFrontColor='<?php echo $main_front_color; ?>';
+    virtualclassSetting.theme={};
+	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
+
 
 </script>
 <?php

@@ -15,8 +15,8 @@
                     this.attachHandlerAtStudent();
                     this.stdRhEnable=localStorage.getItem("stdRhEnable");
                     if(this.stdRhEnable &&this.stdRhEnable =="disabled" ){
-                        var cont = document.querySelector("#stickybar #congHr");
-                        var rhElem =  document.querySelector("#icHr");
+                        var cont = document.querySelector("#virtualclassCont.congrea #congHr");
+                        var rhElem =  document.querySelector("#virtualclassCont.congrea #icHr");
                         rhElem.setAttribute("data-action","disable");
                         cont.classList.remove("enable");
                         cont.classList.add("disable");
@@ -84,14 +84,17 @@
                     var stdR= document.getElementById("congHr")
                     stdR.classList.remove("disable");
                     stdR.classList.add("enable")
-                    var rhElem = document.querySelector("#stickybar #icHr");
-                    rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
+                    var rhElem = document.querySelector("#virtualclassCont.congrea #icHr");
+                    //rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
                     rhElem.setAttribute("data-action","enable");
+
+                    var handCont = document.querySelector("#virtualclassCont.congrea #congHr");
+                    handCont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
                 }
 
             },
             moveUpInList:function(){
-                var ctrEn = document.querySelectorAll(".controllerRaiseH")
+                var ctrEn = document.querySelectorAll("#virtualclassCont.congrea .controllerRaiseH")
                 for(var i =0; i <ctrEn.length ;i++){
                     if(ctrEn[i].classList.contains("enabled")){
                         if(i!=0){
@@ -102,7 +105,7 @@
                 }
             },
             moveDownInList:function(userid){
-                var ctrEn = document.querySelectorAll(".controllerRaiseH.enabled")
+                var ctrEn = document.querySelectorAll("#virtualclassCont.congrea .controllerRaiseH.enabled")
                 var userLink = document.getElementById(userid +"contRaiseH");
                 if(ctrEn.length >0) {
                     userLink.closest('.ui-memblist-usr').parentNode.insertBefore(userLink.closest('.ui-memblist-usr'),ctrEn[ctrEn.length-1].closest('.ui-memblist-usr').nextSibling);
@@ -129,9 +132,9 @@
             },
 
             attachHandlerAtStudent:function(){
-                var cont = document.querySelector("#stickybar #congHr");
+                var cont = document.querySelector("#virtualclassCont.congrea #congHr");
                 cont.addEventListener('click',function(){
-                    var rhElem = document.querySelector("#stickybar #icHr");
+                    var rhElem = document.querySelector("#virtualclassCont.congrea #icHr");
                     var toUser = virtualclass.vutil.whoIsTeacher();
                     ioAdapter.mustSendUser({
                         'data': {
@@ -145,13 +148,17 @@
                         rhElem.setAttribute("data-action","disable");
                         cont.classList.remove("enable");
                         cont.classList.add("disable");
-                        rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdDisabled"));
+
+                        var handCont = document.querySelector("#virtualclassCont.congrea #congHr");
+                        handCont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdDisabled"));
                         virtualclass.raiseHand.stdRhEnable="disabled";
                     }else{
                         rhElem.setAttribute("data-action","enable")
                         cont.classList.add("enable");
                         cont.classList.remove("disable");
-                        rhElem.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
+
+                        var handCont = document.querySelector("#virtualclassCont.congrea #congHr");
+                        handCont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
                         virtualclass.raiseHand.stdRhEnable="enabled";
                     }
 

@@ -328,7 +328,7 @@
         'Prev' : 'Prev',
         'Next' : 'Next',
         'JoinSession' : 'Join Session',
-        'chromeExtMiss' : "Congrea needs 'Desktop Selector' pugins to share the Screen.<br />" +
+        'chromeExtMiss' : "Congrea needs 'Desktop Selector' plugin to share the Screen.<br />" +
         "You can download this from <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a>",
         'etDisabledA':'Cannt edit,poll attempted',
         'etDisabledCr':'Can be edited by creator of the poll',
@@ -363,9 +363,11 @@
         'RaiseHandStdEnabled':'Raise Hand',
         'RaiseHandStdDisabled':'Raised Hand',
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
-        'stdscreenshare' : 'you want to sahre your screen',
+        'stdscreenshare' : 'you want to share your screen',
         'selfview' : "Self View",
-        'sharetoall' : "Share To All"
+        'sharetoall' : "Share To All",
+        'coursePoll' :"Created polls are of course level",
+        'sitePoll' :"Created polls are of site level",
     };
     window.message = message;
 })(window);

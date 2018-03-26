@@ -710,3 +710,8 @@
 #virtualclassCont.congrea #congreaChatCont .icon-chatImg.chatImg{
 margin-right:10px !important;
 }
+
+ #virtualclassCont.congrea #virtualclassAppRightPanel li:hover ,
+ #virtualclassCont.congrea #virtualclassAppRightPanel li a:hover{
+
+ }

@@ -247,7 +247,7 @@
         'audiolatency' : 'Audio Latency',
         'videoquality' : 'Video Quality',
         'docName' : 'Document Dashboard',
-        'dsDbheading' : 'Document Dashboard',
+        'dsDbheading' : 'Close Document Dashboard',
         'DocumentSharedbHeading' : 'Document Dashboard',
         'SharePresentationdbHeading' : 'Presentation Dashboard',
         'VideodbHeading' : 'Close Video Dashboard',
@@ -368,6 +368,12 @@
         'sharetoall' : "Share To All",
         'coursePoll' :"Created polls are of course level",
         'sitePoll' :"Created polls are of site level",
+        'closevideoDashboard' : "Close Video Dashboard",
+        'closeSharePresentationdbHeading' : "Close Presentation Dashboard",
+        'closedsDbheading' : "Close Document Dashboard",
+        'openvideoDashboard' : "Video Dashboard",
+        'openSharePresentationdbHeading' : "Presentation Dashboard",
+        'opendsDbheading' : "Document Dashboard"
     };
     window.message = message;
 })(window);

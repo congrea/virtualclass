@@ -39,7 +39,8 @@ var dashBoard = {
                 var navButton =  document.querySelector('#dashboardnav button');
                 if(navButton != null){
                     navButton.classList.remove('clicked');
-                    dashBoard.removePreviousTooltip();
+                    var Dtype = "open";
+                    dashBoard.dashBoardClickTooltip(Dtype);
                 }
             });
         }
@@ -52,32 +53,17 @@ var dashBoard = {
         }
     },
 
-    dashBoardClickTooltip : function(){
+    dashBoardClickTooltip : function(Dtype){
         var dashBoardButton = document.querySelector('#dashboardnav button');
-        var buttonTitle = dashBoardButton.parentNode.getAttribute("data-title");
-        if(buttonTitle == "Video Dashboard"){
-            dashBoardButton.parentNode.setAttribute("data-title", "Close Video Dashboard");
-        }else if(buttonTitle == "Presentation Dashboard"){
-            dashBoardButton.parentNode.setAttribute("data-title", "Close Presentation Dashboard");
-        }else if(buttonTitle == "Document Dashboard"){
-            dashBoardButton.parentNode.setAttribute("data-title", "Close Document Dashboard");
+        if(virtualclass.currApp == 'Video'){
+            dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype+'videoDashboard'));
+        }else if(virtualclass.currApp == "SharePresentation"){
+            dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype+'SharePresentationdbHeading'));
+        }else if(virtualclass.currApp == 'DocumentShare'){
+            dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype+'dsDbheading'));
         }else{
-            console.log("dashboard close button not perform");
+            console.log("dashboard tooltip not working properly");
         }
 
-    },
-
-    removePreviousTooltip : function(){
-        var prevButton = document.querySelector('#dashboardnav button');
-        var prevbuttonTitle = prevButton.parentNode.getAttribute("data-title");
-        if(prevbuttonTitle == "Close Video Dashboard"){
-            prevButton.parentNode.setAttribute("data-title", "Video Dashboard");
-        }else if(prevbuttonTitle == "Close Presentation Dashboard"){
-            prevButton.parentNode.setAttribute("data-title", "Presentation Dashboard");
-        }else if(prevbuttonTitle == "Close Document Dashboard"){
-            prevButton.parentNode.setAttribute("data-title", "Document Dashboard");
-        }else{
-            console.log("Dashboard menu button not perform");
-        }
     }
 }

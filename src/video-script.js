@@ -29,6 +29,7 @@ function WebPDecDemo(canvasId) {
 
         if (!!window.Worker) {
             webpToPng.onmessage = function (e){
+
                 var canvas = document.querySelector('#' + e.data.canid);
                 var context = canvas.getContext('2d');
                 var output = context.createImageData(canvas.width, canvas.height);
@@ -39,6 +40,8 @@ function WebPDecDemo(canvasId) {
                 //	output.data =  new Uint8ClampedArray(outputData);
                 output.data.set(e.data.vdata);
                 context.putImageData(output, 0, 0);
+                virtualclass.gObj.isReadyForVideo = true;
+                console.log('Total length ' + e.data.tl);
             }
         }
         canvas = canvas;

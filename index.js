@@ -1611,7 +1611,7 @@ $(document).ready(function () {
             /** This happens when student does page refresh during the share is being shared  **/
             this.rmStdScreen = function(e){
                 virtualclass.vutil.initDefaultApp();
-                virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+                virtualclass.vutil.beforeSend({'unshareScreen': true, st: 'ss', 'cf': 'unshareScreen'});
                 if(typeof virtualclass.ss == 'object'){
                     virtualclass.ss.clearScreenShare();
                 }else {

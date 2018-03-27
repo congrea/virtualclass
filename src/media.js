@@ -534,24 +534,21 @@
                 recorderProcess: function (e) {
                     var currTime = new Date().getTime();
                     if (!repMode) {
-                        var left = e.inputBuffer.getChannelData(0);
-                        // for (var i = 0; i < left.length; i++) {
-                        //     // left[i] = Math.random()/5;
-                        // }
-
-                        var samples = this.resampler.resampler(left);
-
                         if (!this.recordAudio) {
                             this.recordingLength += this.bufferSize;
                         }
-                        var leftSix = convertFloat32ToInt16(samples);
 
-                        var send = this.audioInLocalStorage(leftSix);
+                        // This is not using any more
 
-                        if (this.hasOwnProperty('storeAudio') && this.storeAudio) {
-                            this.audioForTesting(leftSix);
-                        }
+                        // if (this.hasOwnProperty('storeAudio') && this.storeAudio) {
+                        //     this.audioForTesting(leftSix);
+                        // }
+
                         if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
+                            var left = e.inputBuffer.getChannelData(0);
+                            var samples = this.resampler.resampler(left);
+                            var leftSix = convertFloat32ToInt16(samples);
+                            var send = this.audioInLocalStorage(leftSix);
                             this.slienceDetection(send, leftSix);
                         }
 

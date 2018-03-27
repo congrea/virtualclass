@@ -674,16 +674,24 @@
                 var wrapper = canvas.parentNode;
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
 
-                if(canvasWidth > wrapperWidth){
-                    wrapper.classList.add('scrollX');
-                }
+
                 var that = this;
                 this.displayPage(this.shownPdf,  1, function (){
                     for(wid in virtualclass.pdfRender){
                         that.fitToScreenWhiteboardObjects(wid);
                     }
-
                 });
+                setTimeout(
+                    function (){
+                        if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
+                            wrapper.classList.add('scrollX');
+                        }else {
+                            wrapper.classList.remove('scrollX');
+                        }
+                    },500
+                );
+
+
             },
 
             fitToScreenWhiteboardObjects : function (wid){

@@ -329,8 +329,8 @@ var colorSelector ={
 
             "#virtualclassCont.congrea #stickycontainer .inner_bt:hover, "+
             "#virtualclassCont.congrea #stickycontainer #contrAudioAll:hover, "+
-            "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover, "+
-            "#virtualclassCont.congrea #virtualclassAppRightPanel li a:hover," +
+            // "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover, "+
+            // "#virtualclassCont.congrea #virtualclassAppRightPanel li a:hover," +
             "#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover," +
             "#virtualclassCont.congrea #audioTest-box:hover," +
             "#virtualclassCont.congrea #playButton:hover, " +
@@ -384,7 +384,9 @@ var colorSelector ={
             "#virtualclassCont.congrea .bootstrap .navListTab:hover"+
             "{background-image: linear-gradient(to bottom, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important;color:"+hover.frontColor+"!important;}"+
             "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
-            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before{color:"+iconColor+"!important}" +
+            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before," +
+            "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont button span:before"+
+            "{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}";
 
         this.addCss(css);

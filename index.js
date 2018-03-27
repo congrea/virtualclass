@@ -1077,7 +1077,6 @@ $(document).ready(function () {
                     break;
                 case 21 : // teacher big video
                     processImage(e.message, data_pack[1]);
-
             }
         });
 

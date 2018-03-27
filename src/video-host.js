@@ -316,8 +316,10 @@ var videoHost = {
                     };
                     img.src = imgData;
                 } else {
-
-                    loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
+                    if(virtualclass.gObj.isReadyForVideo){
+                        virtualclass.gObj.isReadyForVideo = false;
+                        loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
+                     }
                 }
             }, myVideoDelay = (16382/sampleRate)*1000*4
         );

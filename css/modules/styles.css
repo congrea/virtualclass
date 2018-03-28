@@ -1258,9 +1258,11 @@
 	border:none;
 }
 
-#virtualclassSessionEndTool, #virtualclassCont.congrea #virtualclassSessionEndTool {
-	padding : 10px 5px;
-}
+/** microsoft edge **/
+/*#virtualclassSessionEndTool, #virtualclassCont.congrea #virtualclassSessionEndTool {*/
+	/*padding : 10px 5px;*/
+/*}*/
+
 
 #virtualclassCont.congrea #speakerPressonceAnch span.attention:hover {
 	background: rgb(238,159,7);
@@ -2562,6 +2564,7 @@
     margin-bottom: -1px;
 }
 
+
 /* New CSS */
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
@@ -3490,3 +3493,14 @@
 
 }
 
+/* Handle edge browser issue start **/
+
+#virtualclassCont.congrea #virtualclassOptionsCont .appOptions{
+	height : 30px;
+}
+
+#virtualclassCont.congrea .vmchat_room_bt .inner_bt {
+	width : 130px;
+}
+
+/* Handle edge browser issue end **/

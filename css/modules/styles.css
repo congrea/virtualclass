@@ -3485,9 +3485,9 @@
 	border-right: 1px solid rgba(254,254,254,0.2) !important;
 }
 
-#chat_div .controleCont.ssSharing {
-	border: 1px solid green;
-}
+/*#chat_div .controleCont.ssSharing {*/
+	/*border: 1px solid green;*/
+/*}*/
 #chat_div .controleCont.ssSharing .icon-stdscreenImg.enable:before{
 	color: green;
 

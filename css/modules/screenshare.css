@@ -30,7 +30,7 @@
 }
 
 #virtualclassScreenShareTool {
-  padding: 10px 5px;
+  /*padding: 10px 5px;*/ /* microsoft edge **/
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions.active {

@@ -31,7 +31,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboardTool {
-  padding: 10px 5px;
+  /*padding: 10px 5px;*/ /** suman microsoft edge ***/
 }
 
 #virtualclassCont.congrea #vcanvas #whiteBoardMsg {

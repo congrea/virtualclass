@@ -50,7 +50,10 @@
                     function (){
                         console.log('PDF render initiate 1');
                         PDFJS.getDocument(doc).then(function (pdf) {
-                            that.displayPage(pdf, 1, function (){ console.log('Pdf share : put in main children');}, true);
+                            that.displayPage(pdf, 1, function (){
+                                //console.log('Pdf share : put in main children');
+                                },
+                                true);
                             // that.displayPage(pdf, 1, true);
                             that.shownPdf = pdf;
                         });

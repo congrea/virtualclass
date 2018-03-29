@@ -448,6 +448,7 @@
         },
 
         beforeLoad: function () {
+            virtualclass.gObj.windowLoading = true;
             // If user does page refresh after session saved and does not start new session  by clicking on element
             // Then we need to clear the session on page refresh
             if(virtualclass.recorder.hasOwnProperty('doSessionClear')){
@@ -504,6 +505,8 @@
                 var teacherId = virtualclass.vutil.whoIsTeacher();
                 if(virtualclass.gObj.studentSSstatus.mesharing){
                     ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
+                }else if(roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing){
+                    virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
                 }
 
                 if((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()){

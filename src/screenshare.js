@@ -597,7 +597,7 @@ var newCanvas;
                 this.prevStream = true;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.getVideoTracks()[0].onended = function (name) {
-                    if (that.ssByClick) {
+                    if (that.ssByClick && !virtualclass.gObj.hasOwnProperty('windowLoading')) {
 
                         var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
                         if(elem){
@@ -909,6 +909,7 @@ var newCanvas;
 
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
                                 virtualclass.vutil.informIamSharing();
+
                                 ioAdapter.sendBinary(createdImg);
 
                                 var localBandwidth = (createdImg.length / 128); // In Kbps

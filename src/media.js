@@ -1448,20 +1448,22 @@
                 var stream = cthis.video.tempStream;
 
                 if (typeof stream != 'undefined') {
-                    var vidContainer = cthis.video.createVideoElement();
-                    virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+                    if(virtualclass.system.mediaDevices.hasWebcam) {
+                        var vidContainer = cthis.video.createVideoElement();
+                        virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
-                    cthis.video.insertTempVideo(vidContainer);
-                    cthis.video.tempVideoInit();
-                    cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+                        cthis.video.insertTempVideo(vidContainer);
+                        cthis.video.tempVideoInit();
+                        cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
 
-                    virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
+                        virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
 
-                    cthis.video.myVideo.muted = true;
-                    cthis.stream = cthis.video.tempStream;
-                    cthis.video.myVideo.onloadedmetadata = function () {
-                        cthis.video.startToStream();
-                        //virtualclass.precheck.webcam.createVideo();
+                        cthis.video.myVideo.muted = true;
+                        cthis.stream = cthis.video.tempStream;
+                        cthis.video.myVideo.onloadedmetadata = function () {
+                            cthis.video.startToStream();
+                            //virtualclass.precheck.webcam.createVideo();
+                        }
                     }
                 }
                 userMedia = true;

@@ -542,7 +542,11 @@ var newCanvas;
                 }
                 virtualclass.vutil.removeSSsharing();
                 delete virtualclass.ss;
+                if(virtualclass.hasOwnProperty('studentScreen')){
+                    delete virtualclass.studentScreen;
+                }
                 virtualclass.ss = '';
+
             },
 
             /*

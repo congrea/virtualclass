@@ -536,6 +536,7 @@ var newCanvas;
                 virtualclass.gObj.studentSSstatus.mesharing = false;
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
+                localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
                 var elem = document.querySelector('#virtualclassScreenShare');
                 if(elem != null){
                     elem.parentNode.removeChild(elem);
@@ -601,7 +602,7 @@ var newCanvas;
                 this.prevStream = true;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.getVideoTracks()[0].onended = function (name) {
-                    if (that.ssByClick && !virtualclass.gObj.hasOwnProperty('windowLoading')) {
+                    if (that.ssByClick) {
 
                         var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
                         if(elem){
@@ -614,8 +615,13 @@ var newCanvas;
                         that.initPrevImage();
                         that.clearScreenShare();
                         virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
-                        if(roles.hasControls()){
-                            virtualclass.vutil.initDefaultApp();
+                        console.log('Sending unshare screen with users ' + virtualclass.gObj.totalUser);
+                        if(roles.hasControls() ){
+                            // virtualclass.vutil.initDefaultApp();
+                            if(!virtualclass.gObj.hasOwnProperty('windowLoading')){
+                                virtualclass.vutil.initDefaultApp();
+                            }
+
                         }else {
                             // Student unshares the screen by clicking stop button
                             var teacherId = virtualclass.vutil.whoIsTeacher();

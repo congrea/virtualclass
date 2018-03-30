@@ -2411,7 +2411,10 @@
         },
 
         navWhiteboard    : function (cthis, func, dthis){
-            this.removeAllTextWrapper();
+            // this.removeAllTextWrapper();
+            if(virtualclass.vutil.isTextWrapperExist()){
+                virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+            }
             if(virtualclass.gObj.hasOwnProperty('wbNav')){
                 clearTimeout(virtualclass.gObj.wbNav);
             }
@@ -2492,6 +2495,11 @@
                 }
             }
         },
+
+        isTextWrapperExist : function (){
+            return (document.querySelectorAll('.canvasWrapper .textBoxContainer').length > 0);
+        }
+
     };
     window.vutil = vutil;
 })(window);

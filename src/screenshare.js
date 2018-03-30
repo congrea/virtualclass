@@ -546,8 +546,8 @@ var newCanvas;
                 if(virtualclass.hasOwnProperty('studentScreen')){
                     delete virtualclass.studentScreen;
                 }
+                virtualclass.zoom.removeZoomController();
                 virtualclass.ss = '';
-
             },
 
             /*

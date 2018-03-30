@@ -125,6 +125,13 @@
                         console.log('canvasScale is not defined yet.');
                     }
                 }
+            },
+
+            removeZoomController : function (){
+                var zoomControler = document.querySelector('#virtualclassApp .zoomControler');
+                if(zoomControler != null){
+                    zoomControler.parentNode.removeChild(zoomControler);
+                }
             }
         };
     }

@@ -506,7 +506,7 @@
                 if(virtualclass.gObj.studentSSstatus.mesharing){
                     ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
                 }else if(roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing){
-                    virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
+                    virtualclass.vutil.beforeSend({'unshareScreen': true, st: 'ss', 'cf': 'unshareScreen'});
                 }
 
                 if((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()){

@@ -9,6 +9,7 @@
     var raiseHand = function (config) {
         return {
             stdRhEnable:"enabled",
+            rhCount :0,
             init: function (obj) {
                 this. stdRhEnable="enabled";
                 if(!roles.hasControls()){
@@ -20,7 +21,7 @@
                         rhElem.setAttribute("data-action","disable");
                         cont.classList.remove("enable");
                         cont.classList.add("disable");
-                        localStorage.removeItem("stdRhEnable")
+                        localStorage.removeItem("stdRhEnable");
                     }
 
                 }
@@ -43,6 +44,10 @@
                 controlContainer.style.pointerEvents = "none";
                 virtualclass.user.control.updateUser(userid, 'raiseHand',false);
                 virtualclass.raiseHand.moveDownInList(userid)
+                this.rhCount --;
+                if(!this.rhCount ){
+                    document.querySelector("#user_list .hand_bt").classList.remove("highlight");
+                }
             },
 
 
@@ -65,8 +70,7 @@
                 if(msg.action=="enable"){
                     this.enableRaiseHand(userid);
                     this.moveUpInList();
-                }
-                else if(msg.action=="disable"){
+                } else if(msg.action=="disable"){
                     virtualclass.user.control.updateUser(userid, 'raiseHand',false);
                     controlContainer.classList.remove("enabled");
                     controlContainer.classList.add("disabled");
@@ -74,6 +78,11 @@
                     anch.setAttribute('data-title',"disabled")
                     controlContainer.style.pointerEvents="none";
                     this.moveDownInList(userid)
+                    this.rhCount --;
+                    if(!this.rhCount ){
+                        document.querySelector("#user_list .hand_bt").classList.remove("highlight");
+                    }
+
                 }
 
             },
@@ -123,7 +132,12 @@
                 controlContainer.classList.add("enabled");
                 cont.setAttribute('data-raisehand-disable',false)
                 anch.setAttribute('data-title',virtualclass.lang.getString("RaiseHandEnable"));
-                controlContainer.style.pointerEvents="visible"
+                controlContainer.style.pointerEvents="visible";
+                this.rhCount ++;
+                var handbt =   document.querySelector("#user_list .hand_bt");
+                if(!handbt.classList.contains("highlight")){
+                    handbt.classList.add("highlight");
+                }
 
             },
 

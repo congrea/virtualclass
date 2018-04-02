@@ -491,6 +491,7 @@
 	font-size : 14px;
 }
 
+
 #virtualclassCont.congrea .user-details .controls .congtooltip  {
 	position : static;
 }
@@ -508,10 +509,10 @@
 	background : #fff;
 	border : #ccc solid 1px;
 	border-radius : 0.25em;
-	bottom : -3em;
+	bottom : 4.6em;
 	content : attr(data-title);
 	display : block;
-	left : -1em;
+	left : -2.01em;
 	padding : 0.2em 0.5em;
 	position : absolute;
 	white-space : nowrap;
@@ -570,7 +571,7 @@
 	content : attr(data-title);
 	display : block;
 	left : -6em;
-	padding : 0.5em 0.7em;
+	padding : 0.2em 0.5em;
 	position : absolute;
 	white-space : nowrap;
 	z-index : 100;
@@ -1308,6 +1309,12 @@
 	bottom : 4.5em;
 	left: 1em;
 	z-index : 10000;
+}
+#virtualclass.congrea .handRaise.congtooltip:hover:after{
+	bottom:4.5em;
+	left:auto;
+	right:0.1em;
+	z-index:10000;
 }
 
 #virtualclassCont.congrea .close.congtooltip:hover:after , #virtualclassCont.congrea #usertab_text.congtooltip.open:hover:after {
@@ -3213,7 +3220,7 @@
 }
 
 #virtualclassCont.congrea #stickycontainer .uiMuteAll{
-	width:19%;
+	width:calc(20% - 3px);
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
@@ -3370,7 +3377,7 @@
 }
 
 #virtualclassCont.congrea #audioWidget .congtooltip:hover:after{
-    bottom:-27px;
+    bottom:-31px;
     left:0px;
 }
 
@@ -3388,27 +3395,20 @@
 }
 
 #virtualclassCont.congrea  #congHr.enable{
-	opacity:1;
-	/*background-color: #f5f5f5;*/
-	border: 1px solid white;
-	width:30px;
-	height:30px;
+	width:20%;
 	position :relative;
-	top: 11px;
-	left: 14px;
+	left:0;
+	top:0;
 	cursor:pointer;
+	border-radius: 0;
 }
 
 #virtualclassCont.congrea #congHr.disable{
 	opacity:0.4;
-	background-color: #1d1c1c;
-	border:1px solid #ffffff;
-	width:30px;
-	height:30px;
+	width:20%;
 	position :relative;
-	top: 11px;
-	left: 14px;
-
+	top:0;
+	left:0;
 }
 #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before {
 	content: "\e962";
@@ -3417,9 +3417,7 @@
 	content: "\e962";
 	font-size: 21px;
 	color: #fdfafa;
-	position:relative;
-	right: 13px;
-	bottom: 12px;
+
 }
 #virtualclassCont.congrea  #icHr:after {
   position:absolute !important;
@@ -3465,7 +3463,7 @@
 	color: #fff;
 }
 #virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
-	background-color: rgba(254,254,254,0.2) !important;
+	background-color: rgba(254,254,254,0.2);
 	border-color: #555;
 }
 #virtualclassCont.congrea .videoSwitchCont {
@@ -3490,3 +3488,104 @@
 
 }
 
+
+#virtualclassCont.congrea .user-details.media-body{
+	display : inline;
+	position : relative;
+	font-size : 14px;
+}
+
+#virtualclassCont.congrea .ui-chatbox-msg{
+	word-break: break-all;
+}
+
+
+#virtualclassCont.congrea #stickybar .ui-tabs-anchor {
+	width: 89%;
+	height: 100%;
+}
+
+#virtualclassCont.congrea .ui-memblist-usr.teacher {
+	background-color: #f8f7dc;
+	border-bottom: 1px solid #8f8f8f;
+	border-top: 1px solid #ddda86;
+
+}
+/*#virtualclassCont.congrea .chatBarTab .hand_bt.highlight{*/
+	/*background: linear-gradient(to bottom, #d8e496 0%,#d8e496 100%) !important;*/
+/*}*/
+
+
+
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
+	width: 29px;
+	height: 30px;
+	position: relative;
+	float: right;
+	padding: 7px 7px;
+}
+
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt{
+
+	/*/background-color: #fff4f6;*/
+	color: #fdfdff !important;
+}
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight{
+  display:block ;
+
+}
+#virtualclassCont.congrea .chatBarTab .hand_bt.highlight .icon-raisehand:before{
+	color: #cd1e22 !important;
+
+}
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt,#virtualclassCont.congrea.teacher .chatBarTab .hand_bt:hover,#virtualclassCont.congrea.teacher .chatBarTab .hand_bt:focus{
+
+	background:none !important;
+	border:none !important;
+}
+
+#virtualclassCont.congrea.teacher a.inner_bt{
+	float:left;
+}
+
+#virtualclassCont.congrea a.inner_bt.congtooltip:hover:after{
+	bottom:4.5em !important;
+	left: 1em !important;
+}
+
+#virtualclassCont.congrea .hand_bt.congtooltip:hover:after{
+	bottom:2.7em !important;
+	left: -1.7em !important;
+}
+
+#virtualclassCont.congrea.teacher a.inner_bt {
+	float: left;
+	width: 100%;
+}
+span#usertab_text {
+	float: left;
+}
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
+	width: 29px;
+	height: 30px;
+	position: fixed;
+	right: 61px;
+	float: right;
+	padding: 7px 7px;
+}
+
+.embed-footer{
+
+	display:none !important;
+
+}
+html.decks.embed.loaded .embed-footer {
+	opacity: 0!important;
+	color:red;
+}
+
+/*#virtualclassCont.congrea #raisehand_icon .icon-raisehand:before {*/
+	/*content: "\e962";*/
+	/*font-size: 16px;*/
+	/*color:white;*/
+/*}*/

@@ -691,3 +691,12 @@
   color: black;
   margin-right: 5px;
 }
+
+#virtualclassCont.congrea .icon-raisehand:before {
+  content: "\e962";
+  font-size: 16px;
+  display:none;
+
+}
+
+

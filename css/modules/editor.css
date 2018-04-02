@@ -1,4 +1,3 @@
-
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions {
   border-top-right-radius: 0px;
   margin-bottom: -1px;
@@ -90,7 +89,7 @@
     top: 46px;
   }
   #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover::after {
-    bottom: -27px;
+    bottom: -22px;
   }
 }
 

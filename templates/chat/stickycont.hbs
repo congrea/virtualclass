@@ -5,11 +5,25 @@
       <span id="chatroom_text" class="cgText">{{getString 'Chatroom'}}</span>
     </a>
   </li>
-  <li class="vmchat_bar_button congtooltip active" id="user_list" data-title="Private Chat">
-    <a class="inner_bt" id="yui_3_17_2_1_1496985300499_68">
-      <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'Pchat'}}</span></span>
+    {{#if control}}
+    <li class="vmchat_bar_button  active" id="user_list" >
+      <a class="inner_bt congtooltip" id="yui_3_17_2_1_1496985300499_68" data-title="Private Chat">
+        <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'Pchat'}}</span></span>
+      </a>
+    <a class="hand_bt congtooltip" data-title = "raise hand">
+      <span id="raisehand_icon"><span class="icon-raisehand cgIcon"></span></span>
     </a>
-  </li>
+
+    </li>
+      {{else}}
+      <li class="vmchat_bar_button congtooltip  active" id="user_list" data-title="Private Chat">
+
+        <a class="inner_bt " id="yui_3_17_2_1_1496985300499_68" >
+          <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'Pchat'}}</span></span>
+        </a>
+
+      </li>
+    {{/if}}
   {{#if control}}
     <li class="uiMuteAll">
       <a id="contrAudioAll">
@@ -19,7 +33,6 @@
           </span>
       </a>
     </li>
-
   {{else}}
     <li class = "handRaise enable congtooltip " id ="congHr" data-title ="raise hand">
 
@@ -27,7 +40,6 @@
           <span id="icHr" data-action="enable" class="icon-hr-enable" >
           </span>
         </a>
-
     </li>
   {{/if}}
 </ul>

@@ -235,7 +235,7 @@
 
 /* css for chat romm */
 #virtualclassCont.congrea .ui-chatroom {
-    position: fixed;
+    position: absolute;
     bottom:38px;
     padding: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
@@ -594,7 +594,7 @@
 }
 
 #virtualclassCont.congrea .ui-chatroom {
-    top: 50px;
+    top: 52px;
     position:absolute !important;
 }
 
@@ -685,12 +685,12 @@
     height:52px;
     line-height:27px;
 }
-#virtualclassCont.congrea.student a.inner_bt:hover {
+#virtualclassCont.congrea.student .vmchat_room_bt.ui-state-highlight{
     height: 50px;
 }
 
 #virtualclassCont.congrea.teacher #audioWidget a#rightCtlr:hover {
-    height: 49px;
+    height: 40px;
 }
 
 #virtualclassCont.congrea #audioWidget a#videoPacketInfo:hover,
@@ -711,7 +711,10 @@
 margin-right:10px !important;
 }
 
- #virtualclassCont.congrea #virtualclassAppRightPanel li:hover ,
- #virtualclassCont.congrea #virtualclassAppRightPanel li a:hover{
-
+ #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover{
+     height: 52px;
+     line-height:27px;
+ }
+ #virtualclasscont.congrea.student a.inner_bt:hover{
+     height:52px;
  }

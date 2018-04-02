@@ -339,8 +339,8 @@
 }
 #virtualclassCont.congrea#onlineUsers  a{
     text-decoration:none;
-    font-size:16px;
-    float:left;
+    /*font-size:16px;*/
+    /*float:left;*/
 }
 
 /* tab css */
@@ -660,7 +660,7 @@
 }
 #virtualclassCont.congrea .primary {
     border-radius: 20%;
-    border: #bbb solid 1px;
+    /*border: #bbb solid 1px;*/
     width: 52px;
     height: 40px;
     margin-bottom: 5px;

@@ -88,22 +88,23 @@ var WebPDecodeAndDraw = function (data, canid) {
         var start = new Date();
         var biHeight=output_buffer.height; var biWidth=output_buffer.width;
 
-        var totalLength = 0;
-        var outputData = [];
-        for (var h=0;h<biHeight;h++) {
-            for (var w=0;w<biWidth;w++) {
-                outputData[2+w*4+(biWidth*4)*h] = bitmap[2+w*4+(biWidth*4)*h];
-                outputData[1+w*4+(biWidth*4)*h] = bitmap[1+w*4+(biWidth*4)*h];
-                outputData[0+w*4+(biWidth*4)*h] = bitmap[0+w*4+(biWidth*4)*h];
-                outputData[3+w*4+(biWidth*4)*h] = bitmap[3+w*4+(biWidth*4)*h];
-                //console.log('totallenghtImgage ' + (totallenghtImgage ++));
-
-            };
-        }
-
-        //var vdata =  new Uint8ClampedArray(outputData);
+        //var outputData = [];
+        // var temvalue1;
+        // for (var h=0;h<biHeight;h++) {
+        //     for (var w=0;w<biWidth;w++) {
+        //         temvalue1 = w*4+(biWidth*4)*h;
+        //         outputData[2+temvalue1] = bitmap[2+temvalue1];
+        //         outputData[1+temvalue1] = bitmap[1+temvalue1];
+        //         outputData[0+temvalue1] = bitmap[0+temvalue1];
+        //         outputData[3+temvalue1] = bitmap[3+temvalue1];
+        //         //console.log('totallenghtImgage ' + (totallenghtImgage ++));
+        //         totalLength++;
+        //     };
+        // }
+                //var vdata =  new Uint8ClampedArray(outputData);
+        bitmap.pop();
         postMessage( {
-                vdata : new Uint8ClampedArray(outputData),
+                vdata : new Uint8ClampedArray(bitmap),
                 bh  : biHeight,
                 bw  : biWidth,
                 canid : canid

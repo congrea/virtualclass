@@ -536,12 +536,17 @@ var newCanvas;
                 virtualclass.gObj.studentSSstatus.mesharing = false;
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
+                localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
                 var elem = document.querySelector('#virtualclassScreenShare');
                 if(elem != null){
                     elem.parentNode.removeChild(elem);
                 }
                 virtualclass.vutil.removeSSsharing();
                 delete virtualclass.ss;
+                if(virtualclass.hasOwnProperty('studentScreen')){
+                    delete virtualclass.studentScreen;
+                }
+                virtualclass.zoom.removeZoomController();
                 virtualclass.ss = '';
             },
 
@@ -610,8 +615,13 @@ var newCanvas;
                         that.initPrevImage();
                         that.clearScreenShare();
                         virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
-                        if(roles.hasControls()){
-                            virtualclass.vutil.initDefaultApp();
+                        console.log('Sending unshare screen with users ' + virtualclass.gObj.totalUser);
+                        if(roles.hasControls() ){
+                            // virtualclass.vutil.initDefaultApp();
+                            if(!virtualclass.gObj.hasOwnProperty('windowLoading')){
+                                virtualclass.vutil.initDefaultApp();
+                            }
+
                         }else {
                             // Student unshares the screen by clicking stop button
                             var teacherId = virtualclass.vutil.whoIsTeacher();
@@ -909,6 +919,7 @@ var newCanvas;
 
                                 var createdImg = virtualclass.getDataFullScreen(that.type);
                                 virtualclass.vutil.informIamSharing();
+
                                 ioAdapter.sendBinary(createdImg);
 
                                 var localBandwidth = (createdImg.length / 128); // In Kbps

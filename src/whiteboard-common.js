@@ -174,7 +174,7 @@
             for (var i = 0; i < order.length; i++) {
                 id = 'note_doc_0_'+order[i];
                 dnode = document.getElementById(id);
-                if(tmpdiv != null){
+                if(tmpdiv != null && dnode != null){
                     tmpdiv.appendChild(dnode);
                 } else {
                     console.log("Error temp div is null " + tmpdiv);

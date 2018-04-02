@@ -39,7 +39,8 @@ var dashBoard = {
                 var navButton =  document.querySelector('#dashboardnav button');
                 if(navButton != null){
                     navButton.classList.remove('clicked');
-
+                    var Dtype = "open";
+                    dashBoard.dashBoardClickTooltip(Dtype);
                 }
             });
         }
@@ -49,6 +50,19 @@ var dashBoard = {
         var navButton = document.querySelector('#dashboardnav button');
         if(navButton != null){
             navButton.classList.add('clicked');
+        }
+    },
+
+    dashBoardClickTooltip : function(Dtype){
+        var dashBoardButton = document.querySelector('#dashboardnav button');
+        if(virtualclass.currApp == 'Video'){
+            dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype+'videoDashboard'));
+        }else if(virtualclass.currApp == "SharePresentation"){
+            dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype+'SharePresentationdbHeading'));
+        }else if(virtualclass.currApp == 'DocumentShare'){
+            dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype+'dsDbheading'));
+        }else{
+            console.log("dashboard tooltip not working properly");
         }
 
     }

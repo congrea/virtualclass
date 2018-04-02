@@ -448,6 +448,7 @@
         },
 
         beforeLoad: function () {
+            virtualclass.gObj.windowLoading = true;
             // If user does page refresh after session saved and does not start new session  by clicking on element
             // Then we need to clear the session on page refresh
             if(virtualclass.recorder.hasOwnProperty('doSessionClear')){
@@ -504,6 +505,8 @@
                 var teacherId = virtualclass.vutil.whoIsTeacher();
                 if(virtualclass.gObj.studentSSstatus.mesharing){
                     ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
+                }else if(roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing){
+                    virtualclass.vutil.beforeSend({'unshareScreen': true, st: 'ss', 'cf': 'unshareScreen'});
                 }
 
                 if((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()){
@@ -1856,6 +1859,8 @@
                              }else {
                                  virtualclass.vutil.initDashboard(virtualclass.currApp);
                                  this.classList.add('clicked');
+                                 var Dtype = "close";
+                                 virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
 
                                  if(virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')){
                                      virtualclass.dts.moveProgressbar();
@@ -2406,7 +2411,10 @@
         },
 
         navWhiteboard    : function (cthis, func, dthis){
-            this.removeAllTextWrapper();
+            // this.removeAllTextWrapper();
+            if(virtualclass.vutil.isTextWrapperExist()){
+                virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+            }
             if(virtualclass.gObj.hasOwnProperty('wbNav')){
                 clearTimeout(virtualclass.gObj.wbNav);
             }
@@ -2487,6 +2495,11 @@
                 }
             }
         },
+
+        isTextWrapperExist : function (){
+            return (document.querySelectorAll('.canvasWrapper .textBoxContainer').length > 0);
+        }
+
     };
     window.vutil = vutil;
 })(window);

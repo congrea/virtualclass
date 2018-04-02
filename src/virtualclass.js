@@ -57,6 +57,7 @@
                 wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
+                isReadyForVideo : true,
             },
 
             enablePreCheck : true,
@@ -543,7 +544,12 @@
                              if(wIds != null && wIds.length > 0 ){
                                 virtualclass.wbCommon.readyElements(wIds);
                                 //virtualclass.gObj.currSlide = prevapp.wbcs;
+
                                 //virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
+                                 if(virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(virtualclass.gObj.currSlide) == -1){
+                                     console.log('wids, From virtualclass ');
+                                     wIds.push(virtualclass.gObj.currSlide);
+                                 }
                                 virtualclass.wbCommon.reArrangeElements(wIds);
                                 virtualclass.gObj.wbRearrang = true;
                                 virtualclass.gObj.wIds = wIds;

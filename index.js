@@ -1077,7 +1077,6 @@ $(document).ready(function () {
                     break;
                 case 21 : // teacher big video
                     processImage(e.message, data_pack[1]);
-
             }
         });
 
@@ -1308,8 +1307,7 @@ $(document).ready(function () {
                     console.log('Unshare the screen at student');
                     virtualclass[app].prevImageSlices = [];
                     virtualclass[app].removeStream();
-
-
+                    virtualclass.currApp = 'EditorRich';
                 }
             };
 
@@ -1612,7 +1610,7 @@ $(document).ready(function () {
             /** This happens when student does page refresh during the share is being shared  **/
             this.rmStdScreen = function(e){
                 virtualclass.vutil.initDefaultApp();
-                virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+                virtualclass.vutil.beforeSend({'unshareScreen': true, st: 'ss', 'cf': 'unshareScreen'});
                 if(typeof virtualclass.ss == 'object'){
                     virtualclass.ss.clearScreenShare();
                 }else {

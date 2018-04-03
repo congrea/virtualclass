@@ -140,6 +140,10 @@ function memberUpdate(e, addType) {
                     if (userDiv != null) {
                         userDiv.classList.add("mySelf");
                     }
+                    if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
+                        userDiv.classList.remove("student");
+                        userDiv.classList.add("teacher");
+                    }
                 }
             }
 

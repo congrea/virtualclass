@@ -191,17 +191,17 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 },"useData":true});
 
 this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"vmchat_bar_button  active\" id=\"user_list\" >\n\n      <a class=\"inner_bt congtooltip\" id=\"yui_3_17_2_1_1496985300499_68\" data-title=\"Private Chat\">\n        <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
+    return "    <li class=\"vmchat_bar_button  active\" id=\"user_list\" >\n      <a class=\"inner_bt congtooltip\" id=\"yui_3_17_2_1_1496985300499_68\" data-title=\"Private Chat\">\n        <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pchat",{"name":"getString","hash":{},"data":data}))
-    + "</span></span>\n      </a>\n    <a class=\"hand_bt congtooltip\" data-title = \"raise hand\">\n      <span id=\"raisehand_icon\"><span class=\"icon-raisehand cgIcon\"></span></span>\n    </a>\n      <!--<a class=\"hand_bt\">-->\n        <!--<span id=\"raisehand_icon\"><span class=\"icon-raisehand cgIcon congtooltip\" data-title=\"raise hand\"></span></span>-->\n      <!--</a>-->\n    </li>\n";
+    + "</span></span>\n      </a>\n    <a class=\"hand_bt congtooltip\" data-title = \"raise hand\">\n      <span id=\"raisehand_icon\"><span class=\"icon-raisehand cgIcon\"></span></span>\n    </a>\n\n    </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "      <li class=\"vmchat_bar_button congtooltip  active\" id=\"user_list\" data-title=\"Private Chat\">\n\n        <a class=\"inner_bt \" id=\"yui_3_17_2_1_1496985300499_68\" >\n          <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pchat",{"name":"getString","hash":{},"data":data}))
-    + "</span></span>\n        </a>\n\n      </li>\n\n\n\n";
+    + "</span></span>\n        </a>\n\n      </li>\n";
 },"5":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"uiMuteAll\">\n      <a id=\"contrAudioAll\">\n          <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable cgIcon\"\n                data-title=\"Mute All\">\n          </span>\n      </a>\n    </li>\n\n";
+    return "    <li class=\"uiMuteAll\">\n      <a id=\"contrAudioAll\">\n          <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable cgIcon\"\n                data-title=\"Mute All\">\n          </span>\n      </a>\n    </li>\n";
 },"7":function(container,depth0,helpers,partials,data) {
-    return "    <li class = \"handRaise enable congtooltip \" id =\"congHr\" data-title =\"raise hand\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\" >\n          </span>\n        </a>\n\n    </li>\n";
+    return "    <li class = \"handRaise enable congtooltip \" id =\"congHr\" data-title =\"raise hand\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\" >\n          </span>\n        </a>\n    </li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -209,7 +209,6 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"Chatroom",{"name":"getString","hash":{},"data":data}))
     + "</span>\n    </a>\n  </li>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + "\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "</ul>\n<div id=\"stickybar\" class=\"maximize\" style=\"z-index: 2000;\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n\n  <div class=\"footerCtr\" id=\"congFooterCtr\">\n    <div class=\"vmchat_search\" id=\"congUserSearch\">\n      <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n             placeholder=\"Search user\">\n    </div>\n  </div>\n\n\n</div>";
 },"useData":true});
@@ -378,6 +377,18 @@ this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
     + "ContainerAnch\" href=\"#\" data-action=\"enable\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"EnAll",{"name":"getString","hash":{},"data":data}))
+    + "</a>\n</div>";
+},"useData":true});
+
+this["JST"]["templates/editor/editorcntrol.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"all"
+    + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
+    + "Container\" class=\"editorController\">\n  <a id=\"all"
+    + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
+    + "ContainerAnch\" href=\"#\" data-action=\"disable\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"DsAll",{"name":"getString","hash":{},"data":data}))
     + "</a>\n</div>";
 },"useData":true});
 
@@ -896,7 +907,7 @@ this["JST"]["templates/ppt/ppt.hbs"] = Handlebars.template({"1":function(contain
 },"useData":true});
 
 this["JST"]["templates/ppt/pptiframe.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"iframecontainer\">\n  <iframe id=\"pptiframe\" name=\"congreaPrIframe\">\n  </iframe>\n</div>\n";
+    return "<div id=\"iframecontainer\">\n  <iframe id=\"pptiframe\">\n  </iframe>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

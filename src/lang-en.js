@@ -341,6 +341,7 @@
         "NotSupportedError" : 'Only secure orgins(https) are allowed for Audio and Video.',
         'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing',
         'noPoll': "There is no question available for poll. Kindly click on ‘add new’ button to add question",
+        'noPollNoAdmin':"There is no question available for poll and only admin can create site level poll",
         'noResultStd':"You are not permitted to see the result",
         'editTitle':"Edit Title",
         'votesuccessPbt':"Vote has been submitted successfully ,You are not permitted to see the result",

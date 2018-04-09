@@ -817,7 +817,7 @@
                 var video = document.getElementById("mainpvideo" + _id);
                 video.style.opacity = .3;
                 video.style.pointerEvents = 'none';
-                
+
                 if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
                     virtualclass.videoUl.videos.forEach(function (elem, i) {
                         if (elem["fileuuid"] == _id) {
@@ -1105,7 +1105,8 @@
                     if(player.poster_){
                         player.poster_="";
                     }
-                      player.reset();
+
+                      /*player.reset(); */
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');

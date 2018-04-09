@@ -544,4 +544,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
         min-height: calc(100vh - 52px);
     }
 }
+
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable .mainpreview:before{
+  cursor:default !important;
+}
     

@@ -774,6 +774,7 @@ $(document).ready(function () {
                 virtualclass.joinUser = joinUserObj;
             }else if(e.hasOwnProperty('users')){
                 virtualclass.jId = e.joinUser;
+
                 virtualclass.connectedUsers = e.message;
                 virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
             }else {

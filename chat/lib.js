@@ -13,6 +13,17 @@ var myDivResult = "";
 
 function displayChatUserList(users){
     for(var i=0; i<users.length; i++){
+        // to move
+        // if(( users[i].userid) ==   virtualclass.vutil.whoIsTeacher()){
+        //     if(i !=0){
+        //         var usr = users[i] ;
+        //         users.splice(i, 1);
+        //         users.unshift(usr);
+        //
+        //     }
+        //
+        // }
+
         if (document.getElementById('video' + users[i].userid) == null) {
             myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
         //    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
@@ -140,11 +151,14 @@ function memberUpdate(e, addType) {
                     if (userDiv != null) {
                         userDiv.classList.add("mySelf");
                     }
-                    if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
-                        userDiv.classList.remove("student");
-                        userDiv.classList.add("teacher");
-                    }
+
                 }
+                var usr = document.querySelector("#ml"+userlist[i].userid)
+                if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
+                    usr.classList.remove("student");
+                    usr.classList.add("teacher");
+                }
+
             }
 
             if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {

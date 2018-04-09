@@ -66,8 +66,9 @@
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
                 if (typeof virtualclass.videoUl == 'object') {
                     if (typeof virtualclass.videoUl.player == "object") {
-                        virtualclass.videoUl.player.dispose();
-
+                        if(typeof virtualclass.videoUl.player.dispose !='undefined'){
+                            virtualclass.videoUl.player.dispose();
+                        }
                     }
                 }
                 virtualclass.storage.config.endSession();
@@ -617,7 +618,9 @@
 
                     if (typeof virtualclass.videoUl.player == 'object') {
                         // debugger;
-                        virtualclass.videoUl.player.reset();
+                        // if(typeof virtualclass.videoUl.player.reset !='undefined'){
+                        //     virtualclass.videoUl.player.reset();
+                        // }
                         delete( virtualclass.videoUl.player);
                     }
 

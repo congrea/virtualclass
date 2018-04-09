@@ -718,3 +718,9 @@ margin-right:10px !important;
  #virtualclasscont.congrea.student a.inner_bt:hover{
      height:52px;
  }
+
+#virtualclassCont.congrea  .ui-widget-content.ui-chatbox-input-box.disable{
+
+ opacity:0.4;
+}
+

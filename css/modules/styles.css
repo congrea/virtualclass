@@ -3578,4 +3578,11 @@ span#usertab_text {
 	width : 130px;
 }
 
+#virtualclassCont.congrea .vjs-volume-control.vjs-control.vjs-volume-horizontal{
+	position:relative;
+	bottom:21px;
+}
+#virtualclassCont.congrea .video-js .vjs-control:before{
+	line-height: 1;
+}
 

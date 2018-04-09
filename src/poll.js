@@ -2415,7 +2415,10 @@
 
                     var template=virtualclass.getTemplate("pollmain","poll");
                     var control = roles.hasAdmin() ? true : false;
-                    $("#virtualclassApp #virtualclassAppLeftPanel").append(template({"control": control}));
+
+                    // $("#virtualclassApp #virtualclassAppLeftPanel").append(template({"control": control}));
+
+                    virtualclass.vutil.insertAppLayout(template({"control": control}));
 
                     if (roles.hasAdmin()) {
                         var coursePollNav = document.querySelector("#coursePollTab");

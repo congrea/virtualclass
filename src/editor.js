@@ -432,7 +432,10 @@
                     if (document.getElementById(this.id) == null) {
                         var containertemplate = virtualclass.getTemplate('editorrich', 'editor');
                         var containerhtml = containertemplate({"type":virtualclass.vutil.capitalizeFirstLetter(classes), "class":classes});
-                        $('#virtualclassAppLeftPanel').append(containerhtml);
+                        // $('#virtualclassAppLeftPanel').append(containerhtml);
+
+                        virtualclass.vutil.insertAppLayout(containerhtml);
+
                     }
                 },
 

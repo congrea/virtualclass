@@ -329,7 +329,8 @@
                     var appCont = document.querySelector('#virtualclassApp #virtualclassAppLeftPanel');
                     var appOptCont = virtualclass.getTemplate('appTools');
                     var appOptCont1=appOptCont();
-                    $('#virtualclassAppLeftPanel').append(appOptCont1);
+                    //$('#virtualclassAppLeftPanel').append(appOptCont1);
+                    virtualclass.vutil.insertAppLayout(appOptCont1);
                     if (virtualclass.gObj.hasOwnProperty('errNotScreenShare')) {
                         virtualclass.view.disableSSUI();
                     }

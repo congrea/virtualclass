@@ -1334,7 +1334,8 @@
                     var control= roles.hasControls()?true:false;
                     var data ={"control":control};
                     var template=virtualclass.getTemplate("ppt","ppt");
-                    $('#virtualclassAppLeftPanel').append(template(data));
+                    // $('#virtualclassAppLeftPanel').append(template(data));
+                    virtualclass.vutil.insertAppLayout(template(data));
                     // var btn = document.querySelector("#virtualclassCont #pptuploadContainer #submitpurl");
                     // btn.addEventListener('click',function(){
                     //     virtualclass.sharePt.initNewPpt();

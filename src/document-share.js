@@ -725,7 +725,12 @@
                         var control= roles.hasAdmin()?true:false;
                         var data ={"control":control};
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
-                        $('#virtualclassAppLeftPanel').append(template(data));
+                        // $('#virtualclassAppLeftPanel').append(template(data));
+
+                        //$('#virtualclassAppLeftPanel').append(template(data));
+
+                        virtualclass.vutil.insertAppLayout(template(data));
+
 
                         if(document.querySelector('#congdashboard') ==  null){
                             // Creating Document Dashboard Container

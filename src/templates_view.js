@@ -1,7 +1,7 @@
 this["JST"] = this["JST"] || {};
 
 this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"virtualclassOptionsCont\" style=\"z-index: 100;\">\n  <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n    <a class=\"congtooltip\" data-title=\"Share Video\" href=\"#\"><span class=\"icon-videoUpload cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassPollTool\">\n    <a class=\"congtooltip\" data-title=\"Poll\" href=\"#\"><span class=\"icon-poll cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n    <a class=\"congtooltip\" data-title=\"Quiz\" href=\"#\"><span class=\"icon-quiz cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n    <a class=\"congtooltip\" data-title=\"Text Editor\" href=\"#\"><span class=\"icon-editorRich cgIcon\"></span></a>\n  </div>\n  <div class=\"appOptions\" id=\"virtualclassWhiteboardTool\">\n    <a class=\"congtooltip\" data-doc=\"_doc0_0\" data-title=\"Whiteboard\" href=\"#\"><span class=\"icon-whiteboard cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassScreenShareTool\">\n    <a class=\"congtooltip\" data-title=\"Screen Share\" href=\"#\"><span class=\"icon-screenshare cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassEditorCodeTool\">\n    <a class=\"congtooltip\" data-title=\"Code Editor\" href=\"#\"><span class=\"icon-editorCode cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassSharePresentationTool\">\n    <a class=\"congtooltip\" data-title=\"Share Presentation\" href=\"#\"><span class=\"icon-sharePresentation cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassDocumentShareTool\">\n    <a class=\"congtooltip\" data-title=\"Document Sharing\" href=\"#\"><span class=\"icon-documentShare cgIcon\"></span></a>\n  </div>\n\n  <div class=\"appOptions\" id=\"virtualclassSessionEndTool\">\n    <a class=\"congtooltip\" data-title=\"Session End\" href=\"#\"><span class=\"icon-sessionend cgIcon\"></span></a>\n  </div>\n</div>";
+    return "<div id=\"virtualclassAppOptionsCont\" style=\"z-index: 100;\">\n  <div id=\"virtualclassOptionsCont\" style=\"z-index: 100;\">\n    <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n      <a class=\"congtooltip\" data-title=\"Share Video\" href=\"#\"><span class=\"icon-videoUpload cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassPollTool\">\n      <a class=\"congtooltip\" data-title=\"Poll\" href=\"#\"><span class=\"icon-poll cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n      <a class=\"congtooltip\" data-title=\"Quiz\" href=\"#\"><span class=\"icon-quiz cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n      <a class=\"congtooltip\" data-title=\"Text Editor\" href=\"#\"><span class=\"icon-editorRich cgIcon\"></span></a>\n    </div>\n    <div class=\"appOptions\" id=\"virtualclassWhiteboardTool\">\n      <a class=\"congtooltip\" data-doc=\"_doc0_0\" data-title=\"Whiteboard\" href=\"#\"><span class=\"icon-whiteboard cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassScreenShareTool\">\n      <a class=\"congtooltip\" data-title=\"Screen Share\" href=\"#\"><span class=\"icon-screenshare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassEditorCodeTool\">\n      <a class=\"congtooltip\" data-title=\"Code Editor\" href=\"#\"><span class=\"icon-editorCode cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassSharePresentationTool\">\n      <a class=\"congtooltip\" data-title=\"Share Presentation\" href=\"#\"><span class=\"icon-sharePresentation cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassDocumentShareTool\">\n      <a class=\"congtooltip\" data-title=\"Document Sharing\" href=\"#\"><span class=\"icon-documentShare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassSessionEndTool\">\n      <a class=\"congtooltip\" data-title=\"Session End\" href=\"#\"><span class=\"icon-sessionend cgIcon\"></span></a>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/appToolsMeeting.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -191,17 +191,17 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 },"useData":true});
 
 this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"vmchat_bar_button  active\" id=\"user_list\" >\n\n      <a class=\"inner_bt congtooltip\" id=\"yui_3_17_2_1_1496985300499_68\" data-title=\"Private Chat\">\n        <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
+    return "    <li class=\"vmchat_bar_button  active\" id=\"user_list\" >\n      <a class=\"inner_bt congtooltip\" id=\"yui_3_17_2_1_1496985300499_68\" data-title=\"Private Chat\">\n        <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pchat",{"name":"getString","hash":{},"data":data}))
-    + "</span></span>\n      </a>\n    <a class=\"hand_bt congtooltip\" data-title = \"raise hand\">\n      <span id=\"raisehand_icon\"><span class=\"icon-raisehand cgIcon\"></span></span>\n    </a>\n      <!--<a class=\"hand_bt\">-->\n        <!--<span id=\"raisehand_icon\"><span class=\"icon-raisehand cgIcon congtooltip\" data-title=\"raise hand\"></span></span>-->\n      <!--</a>-->\n    </li>\n";
+    + "</span></span>\n      </a>\n    <a class=\"hand_bt congtooltip\" data-title = \"raise hand\">\n      <span id=\"raisehand_icon\"><span class=\"icon-raisehand cgIcon\"></span></span>\n    </a>\n\n    </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "      <li class=\"vmchat_bar_button congtooltip  active\" id=\"user_list\" data-title=\"Private Chat\">\n\n        <a class=\"inner_bt \" id=\"yui_3_17_2_1_1496985300499_68\" >\n          <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pchat",{"name":"getString","hash":{},"data":data}))
-    + "</span></span>\n        </a>\n\n      </li>\n\n\n\n";
+    + "</span></span>\n        </a>\n\n      </li>\n";
 },"5":function(container,depth0,helpers,partials,data) {
-    return "    <li class=\"uiMuteAll\">\n      <a id=\"contrAudioAll\">\n          <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable cgIcon\"\n                data-title=\"Mute All\">\n          </span>\n      </a>\n    </li>\n\n";
+    return "    <li class=\"uiMuteAll\">\n      <a id=\"contrAudioAll\">\n          <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                class=\"icon-all-audio-disable cgIcon\"\n                data-title=\"Mute All\">\n          </span>\n      </a>\n    </li>\n";
 },"7":function(container,depth0,helpers,partials,data) {
-    return "    <li class = \"handRaise enable congtooltip \" id =\"congHr\" data-title =\"raise hand\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\" >\n          </span>\n        </a>\n\n    </li>\n";
+    return "    <li class = \"handRaise enable congtooltip \" id =\"congHr\" data-title =\"raise hand\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\" >\n          </span>\n        </a>\n    </li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -209,7 +209,6 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"Chatroom",{"name":"getString","hash":{},"data":data}))
     + "</span>\n    </a>\n  </li>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + "\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "</ul>\n<div id=\"stickybar\" class=\"maximize\" style=\"z-index: 2000;\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n\n  <div class=\"footerCtr\" id=\"congFooterCtr\">\n    <div class=\"vmchat_search\" id=\"congUserSearch\">\n      <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n             placeholder=\"Search user\">\n    </div>\n  </div>\n\n\n</div>";
 },"useData":true});
@@ -417,7 +416,7 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
 
   return ((stack1 = container.invokePartial(partials.appTools,depth0,{"name":"appTools","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
 },"8":function(container,depth0,helpers,partials,data) {
-    return "    <span class=\"nvgt prev\"></span>\n    <span class=\"nvgt next\"></span>\n";
+    return "      <span class=\"nvgt prev\"></span>\n      <span class=\"nvgt next\"></span>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -426,9 +425,9 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     + "\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\">\n    <div class=\"whiteboardContainer\"> </div>\n\n"
+    + "  <div id=\"virtualclassAppContainer\">\n    <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\">\n      <div class=\"whiteboardContainer\"> </div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    \n  </div>\n</div>\n";
+    + "\n    </div>\n  </div>\n</div>\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -896,7 +895,7 @@ this["JST"]["templates/ppt/ppt.hbs"] = Handlebars.template({"1":function(contain
 },"useData":true});
 
 this["JST"]["templates/ppt/pptiframe.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"iframecontainer\">\n  <iframe id=\"pptiframe\" name=\"congreaPrIframe\">\n  </iframe>\n</div>\n";
+    return "<div id=\"iframecontainer\">\n  <iframe id=\"pptiframe\">\n  </iframe>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

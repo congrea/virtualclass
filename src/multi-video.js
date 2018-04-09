@@ -72,7 +72,8 @@
         var videoWrapper = document.querySelector('#virtualclassMultiVideo');
         if(videoWrapper == null){
           var template=virtualclass.getTemplate("multiVideoMain");
-          $('#virtualclassAppLeftPanel').append(template());
+          // $('#virtualclassAppLeftPanel').append(template());
+            virtualclass.vutil.insertAppLayout(template());
         }
       },
 

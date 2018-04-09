@@ -1847,8 +1847,11 @@
                     var context = {app : virtualclass.currApp};
                     var dbNavHtml = dbNavTemp(context);
 
-                    var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
-                    virtualclassOptionsCont.insertAdjacentHTML('afterend', dbNavHtml);
+                    //var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
+
+                    var virtualclassAppOptionsCont = document.querySelector('#virtualclassAppOptionsCont');
+
+                    virtualclassAppOptionsCont.insertAdjacentHTML('beforeend', dbNavHtml);
 
                     var dashboardnav =  document.querySelector('#dashboardnav button');
                     if(dashboardnav != null){
@@ -2497,8 +2500,15 @@
 
         isTextWrapperExist : function (){
             return (document.querySelectorAll('.canvasWrapper .textBoxContainer').length > 0);
-        }
+        },
 
+        // insertAppLayout : function (html){
+        //     $('#virtualclassAppContainer').append(containerhtml);
+        // }
+
+        insertAppLayout : (html) => {
+            $('#virtualclassAppContainer').append(html);
+        }
     };
     window.vutil = vutil;
 })(window);

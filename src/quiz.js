@@ -907,7 +907,8 @@
                     }
 
                     var divQuiz = virtualclass.view.customCreateElement('div', this.id, this.class);
-                    virtualclass.vutil.insertIntoLeftBar(divQuiz);
+                    //virtualclass.vutil.insertIntoLeftBar(divQuiz);
+                    virtualclass.vutil.insertAppLayout(divQuiz);
                     this.layout(divQuiz)
                 },
 

@@ -155,7 +155,8 @@
                         var control = roles.hasAdmin() ? true : false;
                         var data = {"control": control};
                         var template = JST['templates/videoupload/videoupload.hbs'];
-                        $('#virtualclassAppLeftPanel').append(template(data));
+//                        $('#virtualclassAppLeftPanel').append(template(data));
+                        virtualclass.vutil.insertAppLayout(template(data));
 
 
                     }

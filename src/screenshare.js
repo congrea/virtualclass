@@ -1032,7 +1032,10 @@ var newCanvas;
 
                         var mainConthtml = main(roleControl);
 
-                        $('#virtualclassAppLeftPanel').append(mainConthtml);
+                        // $('#virtualclassAppLeftPanel').append(mainConthtml);
+                        virtualclass.vutil.insertAppLayout(mainConthtml);
+
+
                         if(viewcontrol){
                             this.html.initScreenController();
                         }

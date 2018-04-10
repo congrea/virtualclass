@@ -895,11 +895,10 @@
                             allChatDivCont[i].style.pointerEvents = "visible";
                             //virtualclass.user.control.enable(allChatDivCont[i].id.slice(2), 'chat', 'Chat', 'chat');
                         }
-                        // var chatIcon=allChatDivCont[i].querySelector('.icon-chatImg');
-                        //
-                        // if(chatIcon && !chatIcon.classList.contains("enable")){
-                        //     chatIcon.classList.add("enable");
-                        // }
+                        var chatIcon=allChatDivCont[i].querySelector('.icon-chatImg');
+                        if(chatIcon && !chatIcon.classList.contains("enable")){
+                            chatIcon.classList.add("enable");
+                        }
 
                     }
                     var listTab = document.querySelector("#user_list");
@@ -910,10 +909,17 @@
                     // if(supportTab.classList.contains("active")){
                     //     supportTab.classList.remove("active")
                     // }
-                   var chatroomTab = document.querySelector("#chatroom_bt2");
+                    var chatroomTab = document.querySelector("#chatroom_bt2");
                     if(chatroomTab.classList.contains("active")){
                         chatroomTab.classList.remove("active")
                     }
+
+                    var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
+                    for (var i = 0; i < allChatBoxes.length; i++) {
+                        this.makeElemEnable(allChatBoxes[i]);
+                    }
+
+
                 },
 
                 makeElemEnable: function (elem) {

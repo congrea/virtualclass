@@ -61,17 +61,20 @@
                             if (typeof videoObj != 'undefined') {
 
                                 // this.UI.defaultLayoutForStudent();
+                                // to b e modified
                                 if (!videoObj.hasOwnProperty('fromReload')) {
                                     if (this.videoId == undefined || typeof this.videoId == 'undefined') {
-                                        this.UI.defaultLayoutForStudent();
+                                       // this.UI.defaultLayoutForStudent();
                                     }else if(typeof this.videoId == 'object' && this.videoId.yts == false){
-                                        this.UI.defaultLayoutForStudent();
+                                       // this.UI.defaultLayoutForStudent();
                                     } else {
                                         var url = videoObj.url || videoObj.init.videoUrl;
                                         if(typeof url != 'undefined' && url != '' && videoObj.init != 'studentlayout'){
                                             (typeof startFrom == 'undefined') ? this.UI.displayVideo(videoObj.id, url) : this.UI.displayVideo(videoObj.id, url, startFrom);
                                         }
                                     }
+                                }else{
+                                    this.fromReload(this.videoId, this.videoUrl, startFrom);
                                 }
                             } else {
                                // this.UI.defaultLayoutForStudent();
@@ -227,8 +230,8 @@
             },
 
             afterUploadVideo: function (id, xhr, res) {
-                var res = res.result;
-                if(res == 'success'){
+                var res = res.success;
+                if(res ){
                     var url = virtualclass.api.GetDocumentStatus;
                     var that = this;
                     that.updateOrder();
@@ -250,9 +253,9 @@
                     virtualclass.gObj.uploadingFiles = [];
                     virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
 
-                } else if (res == "Failed" || res == "error" || res == "duplicate") {
-                    virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 } else {
+                    alert(res);
+                    debugger;
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 }
 
@@ -1130,6 +1133,8 @@
                            var myPlayer = this;
                            if(!virtualclass.videoUl.isPaused){
                                myPlayer.play();
+                           }else{
+                               myPlayer.paused();
                            }
                             if (startFrom) {
                                 myPlayer.currentTime(startFrom);

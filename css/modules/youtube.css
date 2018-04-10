@@ -1,14 +1,9 @@
-#virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.student.presenter #virtualclassVideo {
-  margin-left: 45px;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.student.presenter #virtualclassVideo {*/
+  /*margin-left: 45px;*/
+/*}*/
 
 #virtualclassCont.congrea.educator #virtualclassVideo {
   margin-left: 7px;
-}
-
-#virtualclassCont.congrea.student #virtualclassVideo {
-  /*margin-left: 10px;*/
-  margin-left: -8px;
 }
 
 #virtualclassCont.congrea.student #virtualclassVideo p {
@@ -83,6 +78,6 @@
   color: #777;
 }
 
-#virtualclassCont.congrea #virtualclassVideo {
-  margin-top : 5px;
-}
+/*#virtualclassCont.congrea #virtualclassVideo {*/
+  /*margin-top : 5px;*/
+/*}*/

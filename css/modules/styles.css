@@ -2373,7 +2373,7 @@
 	border-width: 0;
 	border-radius: 0;
 	margin-left : 59px;
-	height : 95vh;
+	/*height : 95vh;*/
 	background: none;
 }
 
@@ -2551,10 +2551,11 @@
 
 
 
-#dispVideo{
-	height:82vh;
-	width:85%;
-}
+/*#dispVideo{*/
+	/*height:82vh;*/
+	/*width:85%;*/
+/*}*/
+
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool.appOptions {
 	border-top-right-radius: 8px;
 	margin-bottom: -1px;
@@ -3203,9 +3204,9 @@
 	margin-top : 3px;
 }
 
-#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
-	padding-bottom : 30px;
-}
+/*#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {*/
+	/*padding-bottom : 30px;*/
+/*}*/
 
 /** For now the role transfer button is disabled, this should be enabled at later **/
 
@@ -3577,5 +3578,3 @@ span#usertab_text {
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
 	width : 130px;
 }
-
-

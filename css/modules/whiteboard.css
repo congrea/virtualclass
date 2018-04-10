@@ -70,9 +70,9 @@
   top: 1%;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassWhiteboard, #virtualclassCont.congrea.presenter #virtualclassWhiteboard {
-  margin-left: 60px;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassWhiteboard, #virtualclassCont.congrea.presenter #virtualclassWhiteboard {*/
+  /*margin-left: 60px;*/
+/*}*/
 
 #virtualclassCont.congrea.educator #virtualclassWhiteboard {
   margin-left: 3px;

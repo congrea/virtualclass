@@ -80,6 +80,7 @@
         //TODO very critical and important for remove return
         /** Handle container dimension 1**/
         setContainerWidth : function(res, app) {
+            return;
             if(app != null){
                 var appId = 'virtualclass' + app;
             } else {

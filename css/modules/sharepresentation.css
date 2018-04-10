@@ -1,11 +1,6 @@
-
-#virtualclassCont.congrea.student #virtualclassSharePresentation {
-  margin-left : 5px;
-}
-
-#virtualclassCont.congrea.teacher #virtualclassSharePresentation {
-  margin-left: 60px;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassSharePresentation {*/
+  /*margin-left: 60px;*/
+/*}*/
 
 #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation {
   margin-left: 55px;
@@ -86,10 +81,10 @@
 }
 
 #virtualclassCont.congrea #iframecontainer {
-  height : 94vh;
-  width : 99%;
+  /*height : 94vh;*/
+  /*width : 99%;*/
   display : block;
-  margin-top : 3px;
+  margin-top : 0.3%;
 }
 
 #virtualclassCont.congrea.student #iframecontainer {

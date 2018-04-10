@@ -148,6 +148,7 @@
          * setting dimension of the application
          */
         setAppDimension: function (id, canvasWrapper) {
+            return;
             var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
 
             //var mainWrapper =  document.getElementById('virtualclassCont');

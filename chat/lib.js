@@ -174,6 +174,14 @@ function memberUpdate(e, addType) {
             virtualclass.chat.setChatDisplay();
         }
 
+        if(virtualclass.currApp != 'EditorRich'){
+            virtualclass.user.control.toggleDisplayEditorController('EditorRich', 'none');
+        }else if(virtualclass.currApp != 'EditorCode'){
+            virtualclass.user.control.toggleDisplayEditorController('EditorCode', 'none');
+        }else{
+            console.log("read write mode not working");
+        }
+
         var memList = document.querySelector('#memlist');
         if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
             memList.style.display = 'block';

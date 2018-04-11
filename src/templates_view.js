@@ -380,18 +380,6 @@ this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler
     + "</a>\n</div>";
 },"useData":true});
 
-this["JST"]["templates/editor/editorcntrol.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "<div id=\"all"
-    + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "Container\" class=\"editorController\">\n  <a id=\"all"
-    + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "ContainerAnch\" href=\"#\" data-action=\"disable\">"
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"DsAll",{"name":"getString","hash":{},"data":data}))
-    + "</a>\n</div>";
-},"useData":true});
-
 this["JST"]["templates/editor/editorrich.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 

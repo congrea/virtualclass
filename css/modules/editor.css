@@ -260,3 +260,29 @@
 #virtualclassCont.congrea.teacher[data-currapp="ScreenShare"] .zoomControler{
   display:none;
 }
+
+#virtualclassCont.congrea.teacher[data-currapp="EditorRich"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="EditorCode"] .controllereditorCode
+{
+  display:block !important;
+}
+
+#virtualclassCont.congrea.teacher[data-currapp="EditorCode"] .controllereditorRich{
+  display:none !important;
+}
+
+#virtualclassCont.congrea.teacher[data-currapp="Video"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="Video"] .controllereditorCode,
+#virtualclassCont.congrea.teacher[data-currapp="Poll"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="Poll"] .controllereditorCode,
+#virtualclassCont.congrea.teacher[data-currapp="Quiz"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="Quiz"] .controllereditorCode,
+#virtualclassCont.congrea.teacher[data-currapp="Whiteboard"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="Whiteboard"] .controllereditorCode,
+#virtualclassCont.congrea.teacher[data-currapp="SharePresentation"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="SharePresentation"] .controllereditorCode,
+#virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] .controllereditorCode
+{
+  display:none !important;
+}

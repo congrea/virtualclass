@@ -21,7 +21,7 @@
 #virtualclassCont.congrea .page_wrapper {
     overflow: hidden;
     position: relative;
-    height: 280px;
+    /*height: 280px;*/
     top: auto;
 }
 
@@ -99,10 +99,10 @@
     pointer-events: none;
 }
 
-#virtualclassCont.congrea .page_wrapper {
-    /*height: 600px;*/
-    height : 95vh;
-}
+/*#virtualclassCont.congrea .page_wrapper {*/
+    /*!*height: 600px;*!*/
+    /*height : 95vh;*/
+/*}*/
 
 /*#listnotes {*/
 /*width: 1600px;*/
@@ -481,9 +481,9 @@
     margin-top: -73px;
 }
 
-#virtualclassCont.congrea .pageContainer {
-    height: 572px;
-}
+/*#virtualclassCont.congrea .pageContainer {*/
+    /*height: 572px;*/
+/*}*/
 
 #virtualclassCont.congrea .nvgt {
     position: absolute;
@@ -780,9 +780,9 @@
 }
 
 
-#virtualclassCont.congrea #notesContainer .note {
-    height : 94.5vh;
-}
+/*#virtualclassCont.congrea #notesContainer .note {*/
+    /*height : 94.5vh;*/
+/*}*/
 @media (max-height: 768px) {
     #virtualclassCont.congrea #listdocs {height: calc(100vh - 145px);
 }

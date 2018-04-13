@@ -3070,9 +3070,9 @@
 	position :absolute;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {
-	height : 90vh;
-}
+/*#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {*/
+	/*height : 90vh;*/
+/*}*/
 
 
 #virtualclassCont.congrea .zoomControler{

@@ -234,18 +234,6 @@
 
                     var sendData = {'createArrow': true, x: x, y: y, 'cf': 'createArrow'}
 
-                    if(virtualclass.gObj.pdfdebugg){
-                        var vp = virtualclass.pdfRender[virtualclass.gObj.currWb].actualMousePointerOnViewPort({x:  ev.currX, y :  ev.currY});
-                        if(vp != null){
-                            if(vp.x != null){
-                                sendData.vpx = vp.x;
-                            }
-
-                            if(vp.y != null){
-                                sendData.vpy = vp.y;
-                            }
-                        }
-                    }
                     virtualclass.vutil.beforeSend(sendData);
                 }
             }

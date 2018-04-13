@@ -846,7 +846,7 @@ this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">
 
   return "<div class=\""
     + alias4(((helper = (helper = helpers.className || (depth0 != null ? depth0.className : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"className","hash":{},"data":data}) : helper)))
-    + "\" id=\"link"
+    + " row\" id=\"link"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\"\n     data-screen="
@@ -862,10 +862,10 @@ this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\" class=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "Title tooltip2\"></div>\n  <div id=\"controlCont"
+    + "Title tooltip2 col-md-10\">\n\n  </div>\n  <div id=\"controlCont"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
-    + "\" class=\"controlCont\">\n    <div class=\"controls mainpreview\" id=\"mainp"
+    + "\" class=\"controlCont col-md-2\">\n    <div class=\"controls mainpreview\" id=\"mainp"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\" data-screen=\""

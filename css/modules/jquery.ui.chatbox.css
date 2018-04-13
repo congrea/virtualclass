@@ -2,7 +2,7 @@
 /*css for chatbox*/
 #virtualclassCont.congrea .ui-chatbox {
     position: relative;
-    bottom:282px;
+    bottom:287px;
     padding: 0px;
     border-bottom: none;
     z-index: -1;
@@ -115,9 +115,9 @@
     float: right;
 }
 
-#virtualclassCont.congrea .ui-memblist-log .userImg.ui-memblist-usr.teacher a img {
-    padding: 4px 10px !important;
-}
+/*#virtualclassCont.congrea .ui-memblist-log .userImg.ui-memblist-usr.teacher a img {*/
+    /*padding: 4px 10px !important;*/
+/*}*/
 
 #virtualclassCont.congrea .ui-memblist-log div.teacher:last-child {
     margin-bottom:0px !important;
@@ -159,6 +159,7 @@
 #virtualclassCont.congrea #stickybar .footerCtr .vmchat_search input[type="text"] {
     height: 32px;
     margin: 4px 10px 10px 5px;
+    padding:4px;
     width: 316px;
     color: #555;
     font: icon;
@@ -455,7 +456,7 @@
     cursor: pointer;
 }
 
-#virtualclassCont.congrea .ui-memblist-usr.mySelf .user-details .usern {margin-top: 15px;}
+/*#virtualclassCont.congrea .ui-memblist-usr.mySelf .user-details .usern {margin-top: 15px;}*/
 
 #virtualclassCont.congrea .ui-memblist-usr a span{
     font-size: 12px;

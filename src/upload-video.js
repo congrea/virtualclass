@@ -254,8 +254,6 @@
                     virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
 
                 } else {
-                    alert(res);
-                    debugger;
                     virtualclass.videoUl.showUploadMsz("video upload failed","alert-error");
                 }
 

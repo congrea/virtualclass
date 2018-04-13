@@ -31,7 +31,6 @@
             error: [],
             pdfRender : {},
             clearGlobalLock : '',
-
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -600,9 +599,9 @@
                     virtualclass.system.setAppDimension();
                 }
 
-                if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
-                    virtualclass.yts.destroyYT();
-                }
+                // if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
+                //     virtualclass.yts.destroyYT();
+                // }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {
                     // to verify this
                     virtualclass.videoUl.videoUrl ="";

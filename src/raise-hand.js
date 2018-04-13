@@ -16,11 +16,12 @@
                     this.attachHandlerAtStudent();
                     this.stdRhEnable=localStorage.getItem("stdRhEnable");
                     if(this.stdRhEnable &&this.stdRhEnable =="disabled" ){
-                        var cont = document.querySelector("#virtualclassCont.congrea #congHr");
                         var rhElem =  document.querySelector("#virtualclassCont.congrea #icHr");
                         rhElem.setAttribute("data-action","disable");
+                        var cont = document.querySelector("#virtualclassCont.congrea #congHr");
                         cont.classList.remove("enable");
                         cont.classList.add("disable");
+                        cont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdDisabled"));
                         localStorage.removeItem("stdRhEnable");
                     }
 

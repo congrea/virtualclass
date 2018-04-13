@@ -416,6 +416,7 @@ function displayPvtChatHistory() {
     //Private chat data populated on page referesh
     if (localStorage.getItem(wbUser.sid) != null) {
         var data = JSON.parse(localStorage.getItem(wbUser.sid));
+        console.log(data)
         $.each(data, function (id, msgarr) {
 //            counter++;
 //            idList.push(id);
@@ -424,6 +425,7 @@ function displayPvtChatHistory() {
             virtualclass.chat.idList.push(id);
 
             $.each(msgarr, function (i, msgobj) {
+                console.log(msgobj);
                 if (i < 1) {
 
                     if(id == virtualclass.chat.supportId){

@@ -1218,12 +1218,6 @@
                 virtualclass.poll.interfaceToSave(saveQn, item.category);
             },
             publishPoll: function (item, type) {
-                if(item.category){
-                    type ="course";
-                }
-                else{
-                    type ="site";
-                }
                 virtualclass.poll.dataToStd.question = item.questiontext;
                 virtualclass.poll.dataToStd.qId = item.questionid;
                 virtualclass.poll.dataToStd.options = item.options;

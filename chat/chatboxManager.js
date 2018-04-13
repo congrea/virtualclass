@@ -107,7 +107,6 @@ var chatboxManager = function() {
             boxList.push(id);
             showList.push(id);
         }
-   
         if (user.class == "support") {
             if (($(('#cb' + id) + '.support')).length == 0) {
                 $('#cb' + id).addClass("support").removeClass("privateChat");

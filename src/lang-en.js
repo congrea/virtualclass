@@ -362,7 +362,7 @@
         'RaiseHandDisable':'disable',
         'RaiseHandEnable':'Hand Raised',
         'RaiseHandStdEnabled':'Raise Hand',
-        'RaiseHandStdDisabled':'Raised Hand',
+        'RaiseHandStdDisabled':'Undo Raise Hand',
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
         'stdscreenshare' : 'you want to share your screen',
         'selfview' : "Self View",

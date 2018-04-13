@@ -837,6 +837,12 @@
                     var div = document.getElementById("chatrm");
                     if (div != null) {
                         this.makeElemDisable(div);
+
+                    }
+                    var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
+                    if(chatInput){
+                        chatInput.classList.add("disable");
+                        chatInput.disabled = true;
                     }
                 },
                 disbaleAllChatBox: function () {
@@ -870,6 +876,14 @@
                     if (div != null) {
                         this.makeElemEnable(div);
                     }
+
+                    var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
+                    if(chatInput){
+                        chatInput.classList.remove("disable");
+                        chatInput.disabled = false;
+                    }
+
+
                     //var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
                     var allChatBoxes = document.getElementById('stickycontainer').getElementsByClassName('ui-chatbox');
                     for (var i = 0; i < allChatBoxes.length; i++) {
@@ -879,7 +893,13 @@
                     for (var i = 0; i < allChatDivCont.length; i++) {
                         if(!allChatDivCont[i].classList.contains('mySelf')){
                             allChatDivCont[i].style.pointerEvents = "visible";
+                            //virtualclass.user.control.enable(allChatDivCont[i].id.slice(2), 'chat', 'Chat', 'chat');
                         }
+                        var chatIcon=allChatDivCont[i].querySelector('.icon-chatImg');
+                        if(chatIcon && !chatIcon.classList.contains("enable")){
+                            chatIcon.classList.add("enable");
+                        }
+
                     }
                     var listTab = document.querySelector("#user_list");
                     if(!listTab.classList.contains("active")){
@@ -889,10 +909,17 @@
                     // if(supportTab.classList.contains("active")){
                     //     supportTab.classList.remove("active")
                     // }
-                   var chatroomTab = document.querySelector("#chatroom_bt2");
+                    var chatroomTab = document.querySelector("#chatroom_bt2");
                     if(chatroomTab.classList.contains("active")){
                         chatroomTab.classList.remove("active")
                     }
+
+                    var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
+                    for (var i = 0; i < allChatBoxes.length; i++) {
+                        this.makeElemEnable(allChatBoxes[i]);
+                    }
+
+
                 },
 
                 makeElemEnable: function (elem) {

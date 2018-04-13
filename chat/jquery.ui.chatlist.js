@@ -63,6 +63,12 @@
 
                     if(roles.hasControls()){
                         usr.isTeacher = true;
+
+                    }
+                    if(peer.role=="t"){
+                        peer.role="teacher"
+                    }else if(peer.role == 's'){
+                        peer.role="student";
                     }
                     console.log('Chat add user ' + peer.userid)
                     var template=virtualclass.getTemplate("chatuser","chat");

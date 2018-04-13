@@ -31,7 +31,6 @@
             error: [],
             pdfRender : {},
             clearGlobalLock : '',
-
             gObj: {
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -66,8 +65,9 @@
                 virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
                 if (typeof virtualclass.videoUl == 'object') {
                     if (typeof virtualclass.videoUl.player == "object") {
-                        virtualclass.videoUl.player.dispose();
-
+                        if(typeof virtualclass.videoUl.player.dispose !='undefined'){
+                            virtualclass.videoUl.player.dispose();
+                        }
                     }
                 }
                 virtualclass.storage.config.endSession();
@@ -599,9 +599,9 @@
                     virtualclass.system.setAppDimension();
                 }
 
-                if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
-                    virtualclass.yts.destroyYT();
-                }
+                // if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
+                //     virtualclass.yts.destroyYT();
+                // }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {
                     // to verify this
                     virtualclass.videoUl.videoUrl ="";
@@ -618,7 +618,9 @@
 
                     if (typeof virtualclass.videoUl.player == 'object') {
                         // debugger;
-                        virtualclass.videoUl.player.reset();
+                        // if(typeof virtualclass.videoUl.player.reset !='undefined'){
+                        //     virtualclass.videoUl.player.reset();
+                        // }
                         delete( virtualclass.videoUl.player);
                     }
 

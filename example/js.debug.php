@@ -121,7 +121,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chroma.js"></script>
-<script type="text/javascript" src="/virtualclass/src/modernizr.js?ver=<?php echo $version ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video.min.js"></script>

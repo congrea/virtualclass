@@ -2242,22 +2242,32 @@
             return number.toFixed(2);
         },
 
+
         getElemM : function (wrapper, type){
             if(type == 'Y'){
-                var res = document.querySelector('#' + wrapper).style.height;
+                var res = document.querySelector('#' + wrapper).offsetHeight;
             }else if(type == 'X'){
-                var res = document.querySelector('#' + wrapper).style.width;
+                var res = document.querySelector('#' + wrapper).offsetWidth;
+            }
+            return this.getValueWithoutPixel(res);
+        },
+
+        getElemM2 : function (wrapper, type){
+            if(type == 'Y'){
+                var res = document.querySelector('#' + wrapper).offsetHeight;
+            }else if(type == 'X'){
+                var res = document.querySelector('#' + wrapper).offsetWidth;
             }
             return this.getValueWithoutPixel(res);
         },
 
         getElemHeight : function (wrapper){
-            var heighPx = document.querySelector('#' + wrapper).style.height;
+            var heighPx = document.querySelector('#' + wrapper).offsetHeight;
             return this.getValueWithoutPixel(heighPx);
         },
 
         getElemWidth : function (wrapper){
-            var widthPx = document.querySelector('#' + wrapper).style.width;
+            var widthPx = document.querySelector('#' + wrapper).offsetWidth;
             return this.getValueWithoutPixel(widthPx);
         },
 

@@ -83,10 +83,10 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard {
-  float: none;
+  /*float: none;*/
   /*overflow: hidden; */
-  width: auto;
   margin-right: 6px;
+  border: 1px solid #e7eae7;
 }
 
 #virtualclassCont.congrea #screen-docs .whiteboard {

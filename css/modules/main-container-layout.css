@@ -79,3 +79,22 @@
 #virtualclassCont.congrea.student #virtualclassSharePresentation {
   margin-left : 3px;
 }
+
+#virtualclassCont.congrea #whiteboardContainer {
+  width : auto;
+  height : auto;
+}
+
+
+#virtualclassCont.congrea.teacher #virtualclassWhiteboard .canvasWrapper{
+  height : calc(100vh - 100px);
+}
+
+#virtualclassCont.congrea.student #virtualclassWhiteboard .canvasWrapper{
+  height : calc(100vh - 40px);
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboard .canvasWrapper {
+  width : auto;
+  overflow : auto;
+}

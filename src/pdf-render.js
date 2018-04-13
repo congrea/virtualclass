@@ -95,40 +95,60 @@
                 elem.onscroll = function (){
                     that.onScroll(elem);
                 }
-
             },
 
             onScroll : function (elem, defaultCall){
-                var topPosY, leftPosX;
+                if(roles.hasControls()){
+                    var topPosY, leftPosX;
 
 
-                topPosY = elem.scrollTop;
-                leftPosX = elem.scrollLeft;
+                    topPosY = elem.scrollTop;
+                    leftPosX = elem.scrollLeft;
 
-                var sendData = null;
+                    var sendData = null;
 
-                if(topPosY > 0){
-                    // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
-                    var tempData = this._scroll(leftPosX, topPosY, elem, 'Y');
-                    if(tempData != null){
-                        sendData  = tempData;
-                    }
-                }
-
-                if(leftPosX > 0){
-                    var resX = this._scroll(leftPosX, topPosY, elem, 'X');
-                    if(sendData != null){
-                        // Merging the object resX with sendData
-                        if(resX != null){
-                            sendData = Object.assign(sendData, resX);
+                    if(topPosY > 0){
+                        // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
+                        var tempData = this._scroll(leftPosX, topPosY, elem, 'Y');
+                        if(tempData != null){
+                            sendData  = tempData;
                         }
                     }
-                }
 
-                if(sendData != null){
-                    sendData.cf =  'sc';
-                    virtualclass.vutil.beforeSend(sendData);
-                    this.currentScroll = sendData;
+                    if(leftPosX > 0){
+                        var resX = this._scroll(leftPosX, topPosY, elem, 'X');
+                        if(sendData != null){
+                            // Merging the object resX with sendData
+                            if(resX != null){
+                                sendData = Object.assign(sendData, resX);
+                            }
+                        }
+                    }
+
+                    if(sendData != null){
+                        sendData.cf =  'sc';
+                        if(virtualclass.gObj.hasOwnProperty('wbScrollTime')){
+                            clearTimeout(virtualclass.gObj.wbScrollTime);
+                        }
+                        virtualclass.gObj.wbScrollTime = setTimeout(
+                            () => {
+                                console.log('Scroll performs ');
+                                virtualclass.vutil.beforeSend(sendData);
+                            },1000
+                        )
+
+                        this.currentScroll = sendData;
+                    }
+                }else {
+                    if(virtualclass.pdfRender[virtualclass.gObj.currWb] != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb].firstTime == 'undefined'){
+                       // console.log('Setting scroll');
+                       // var obj = {
+                       //     scY : 1,
+                       //     vpY : 30
+                       // }
+                       // virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(obj);
+                       // virtualclass.pdfRender[virtualclass.gObj.currWb].firstTime = true;
+                    }
                 }
             },
 
@@ -180,6 +200,9 @@
 
             },
 
+            /** In below code tp represents scroll type
+             * X and Y
+             */
             scroll : {
                 caclculatePosition : function (obj, pos, ms, type){
                     var scrollM = this.getDimension(obj, ms, type);
@@ -301,6 +324,7 @@
             },
 
             customMoustPointer : function (obj, tp, pos){
+
                 if(virtualclass.gObj.pdfdebugg){
                     if(typeof obj != 'undefined'){
                         if(this.scroll.hasOwnProperty(tp)){
@@ -311,6 +335,12 @@
 
 //                console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
                 this.scroll[tp].e = pos;
+                //  e is mouse's position
+                console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
+                console.log('Scroll '  + tp + ' b ' + this.scroll[tp].b);
+                console.log('Scroll '  + tp + ' c ' + this.scroll[tp].c);
+                console.log('Scroll '  + tp + ' d ' + this.scroll[tp].d);
+                console.log('Scroll '  + tp + ' e ' + this.scroll[tp].e);
 
                 if(this.scroll[tp].e > this.scroll[tp].c){
                     var scrollPos = this.scroll[tp].b + (this.scroll[tp].d - this.scroll[tp].c);
@@ -323,6 +353,7 @@
                        this.canvasWrapper.scrollTop = scrollPos;
                     } else {
                         this.canvasWrapper.scrollLeft = scrollPos
+                        console.log('Scroll left ' + this.canvasWrapper.scrollLeft);
                     }
 
                     this.scroll[tp].b = scrollPos;
@@ -335,7 +366,7 @@
                     if ((this.scroll[tp].c - scrollPos) < this.scroll[tp].e) {
                         scrollPos = ((this.scroll[tp].b + this.scroll[tp].c) / 2) - this.scroll[tp].e;
                     }
-                    console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
+                    // console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
                     // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                     if(tp == 'Y'){
                         this.canvasWrapper.scrollTop = this.canvasWrapper.scrollTop - scrollPos;
@@ -384,7 +415,7 @@
                 var scrollPos = {};
                 if(this.currentScroll !=  null){
                     scrollPos = Object.assign(scrollPos, this.currentScroll);
-                    console.log('Send scroll ' + this.currentScroll);
+                    console.log('Send scroll first time ' + this.currentScroll);
                     var that = this;
                     that.currentScrolltoUser = toUser;
                     // scrollPos.cf = 'scf';

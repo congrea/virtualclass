@@ -210,6 +210,8 @@
 
         /** Handle container dimension 1**/
         setCanvasWrapperDimension: function (measureRes, id) {
+            console.log('Width of canvas wrapper, not seeting ');
+            return;
             var vcan = virtualclass.wb[id].vcan;
             if (typeof vcan.main.canvas != 'undefined') {
                 var canvas = vcan.main.canvas;

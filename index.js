@@ -484,6 +484,17 @@ $(document).ready(function () {
             }
         }
 
+        function sendCursorToNewUser(e, jId){
+            if(!e.hasOwnProperty('cmadd')){
+                if(roles.hasControls()){
+                    var wid = virtualclass.gObj.currWb;
+                    if(virtualclass.pdfRender[wid] != null ){
+                        virtualclass.pdfRender[wid].sendCurrentScroll(jId);
+                    }
+                }
+            }
+        }
+
         var memberUpdateWithDelay_timer;
 
         function memberUpdateWithDelay(e, f) {
@@ -522,6 +533,8 @@ $(document).ready(function () {
                 }
             } else {
                 console.log('Does not need to say hello to new user');
+                // We nee to send the current cursor to new user for for whiteboards
+                //sendCursorToNewUser(e, virtualclass.jId);
             }
 
             ioPingPong.ping(e);

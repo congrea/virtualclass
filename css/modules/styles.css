@@ -3578,4 +3578,9 @@ span#usertab_text {
 	width : 130px;
 }
 
-
+#virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {
+	display: inline-block;
+	position: relative;
+	line-height: 14px;
+	bottom: 12px;
+}

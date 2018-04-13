@@ -153,11 +153,11 @@ function memberUpdate(e, addType) {
                     }
 
                 }
-                var usr = document.querySelector("#ml"+userlist[i].userid)
-                if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
-                    usr.classList.remove("student");
-                    usr.classList.add("teacher");
-                }
+                // var usr = document.querySelector("#ml"+userlist[i].userid)
+                // if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
+                //     usr.classList.remove("student");
+                //     usr.classList.add("teacher");
+                // }
 
             }
 

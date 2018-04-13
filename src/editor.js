@@ -130,14 +130,24 @@
                 if (document.getElementById(containerId) == null) {
                     console.log('For Enable all, Button is creating');
 
-                    var actionToPerform = 'enable';
+                    var actionToPerform;
+
                     var editortemplate = virtualclass.getTemplate('edenableall', 'editor');
                     var editorhtml = editortemplate({'type1':editorType});
                     $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
 
                     var editorControllerAnch = document.getElementById(containerId + 'Anch');
+                    var editorModestatus = localStorage.getItem(editorType+'mode');
+                    if(editorModestatus !== null){
+                        if((editorType == "editorRich" && editorModestatus == "disable") || (editorType == "editorCode" && editorModestatus == "disable")) {
+                            editorControllerAnch.dataset.action = "disable";
+                            editorControllerAnch.innerHTML = "Disable All";
+                        }
+                    }
+                    console.log('Editor type ' + editorType);
 
                     editorControllerAnch.addEventListener('click', function () {
+                        console.log('Editor type ' + editorType + ' clicked');
                         var editorControllerAnch = document.getElementById(containerId + 'Anch');
                         if (editorControllerAnch != null) {
                             actionToPerform = editorControllerAnch.dataset.action;
@@ -149,6 +159,7 @@
                                 editorControllerAnch.innerHTML = "Enable All";
                             }
                         }
+                        localStorage.setItem(editorType+'mode' , editorControllerAnch.dataset.action);
                         virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
                     });
 

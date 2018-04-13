@@ -169,9 +169,13 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "<div class=\"userImg ui-memblist-usr online student media\" id=\"ml"
+  return "<div class=\"userImg ui-memblist-usr online media "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.role : stack1), depth0))
+    + "\" id=\"ml"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" data-role=\"student\">\n\n  <div class=\"user-details media-body\">\n    <a href=\"#"
+    + "\" data-role="
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.role : stack1), depth0))
+    + ">\n  <div class=\"user-details media-body\">\n    <a href=\"#"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "\" class=\"pull-left\">\n      <img class=\"media-object\" src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.img : stack1), depth0))

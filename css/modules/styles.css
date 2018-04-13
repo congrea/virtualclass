@@ -3587,25 +3587,10 @@ span#usertab_text {
 	width : 130px;
 }
 
-#virtualclassCont.congrea .vjs-volume-control.vjs-control.vjs-volume-horizontal{
-	position:relative;
-	bottom:21px;
-}
-#virtualclassCont.congrea .video-js .vjs-control:before{
-	line-height: 1;
-}
-#virtualclassCont.congrea #congHr.disable #icHr {
-	opacity: 0.4;
-}
-#virtualclassCont.congrea .handRaise.disable.congtooltip:hover:after {
-	left: -4.01em;
+#virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {
+	display: inline-block;
+	position: relative;
+	line-height: 14px;
+	bottom: 12px;
 }
 
-#virtualclassCont.congrea #chat_div .controleCont{
-	float : left;
-	text-align: center;
-}
-
-#virtualclassCont.congrea.student #chat_div .controleCont{
-	margin-right: 5px;
-}

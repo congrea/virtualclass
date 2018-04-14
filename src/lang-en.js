@@ -374,7 +374,8 @@
         'closedsDbheading' : "Close Document Dashboard",
         'openvideoDashboard' : "Video Dashboard",
         'openSharePresentationdbHeading' : "Presentation Dashboard",
-        'opendsDbheading' : "Document Dashboard"
+        'opendsDbheading' : "Document Dashboard",
+        'Skip':"Skip Precheck",
     };
     window.message = message;
 })(window);

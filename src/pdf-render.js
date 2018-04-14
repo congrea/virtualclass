@@ -351,8 +351,13 @@
                 //virtualclass.zoom.canvasScale = canvasScale;
                 var scale = this.pdfScale;
                 if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
-                     scale = virtualclass.zoom.canvasScale;
+                    if(virtualclass.zoom.canvasScale > 0){
+                        scale = virtualclass.zoom.canvasScale;
+                    }else {
+                        console.log('Why negative value');
+                    }
                 }
+
                 var wb = virtualclass.gObj.currWb;
 
                 // var canvas = document.getElementById('canvas'+wb);

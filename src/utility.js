@@ -630,7 +630,7 @@
              * rather than document sharing
              */
 
-            if(virtualclass.hasOwnProperty('dts')){
+            if(virtualclass.hasOwnProperty('dts') && virtualclass.dts != null){
                 virtualclass.dts.upateInStorage();
             }
 

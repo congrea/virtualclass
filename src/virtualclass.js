@@ -58,6 +58,7 @@
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
                 isReadyForVideo : true,
+                pingstatus : {},
             },
 
             enablePreCheck : true,
@@ -199,6 +200,7 @@
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
+                virtualclass.network = new Network();
 
 
                 this.serverData = serverData;

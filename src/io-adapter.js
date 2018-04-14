@@ -115,10 +115,10 @@ var ioAdapter = {
         io.send(msg, cfun, touser);
     },
 
-    sendPing: function () {
+    sendPing: function (time) {
         "use strict";
         var cfun = 'ping';
-        io.send(Date.now(), cfun);
+        io.send(time, cfun);
     },
 
     sendSpeed: function (msg) {

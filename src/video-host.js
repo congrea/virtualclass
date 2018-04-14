@@ -7,6 +7,7 @@
 
 var BASE64_MARKER = ';base64,';
 
+
 var videoHost = {
     gObj: {},
     // Contain all the related variables
@@ -471,18 +472,12 @@ var videoHost = {
             }, 1000
         );
 
-        setInterval(
-            function () {
-                if(io.webSocketConnected()){
-                    ioAdapter.sendPing();
-                }
-            }, 2000
-        );
-
+        virtualclass.network.initToPing(1000);
         this.fromLocalStorage();
         this.resetPrecheck();
-
     },
+
+
     //nirmala
     resetPrecheck: function () {
         this._resetPrecheck();

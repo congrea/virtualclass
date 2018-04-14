@@ -941,6 +941,9 @@ $(document).ready(function () {
         });
 
         $(document).on("PONG", function (e) {
+            virtualclass.gObj.pingstatus[e.message] = true;
+            virtualclass.network.initToPing(1000);
+
             virtualclass.videoHost.gObj.time_diff = e.timeStamp - e.message;
             if (virtualclass.videoHost.gObj.MYSPEED <= 4 && virtualclass.videoHost.gObj.time_diff > 1200) {
                 virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN = 0;

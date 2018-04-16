@@ -65,9 +65,9 @@ Network.prototype.variations = function() {
 // SPEED 1 is best, 5 is worst
 Network.prototype.adaptiveMedia = function() {
     if (virtualclass.videoHost.gObj.MYSPEED <= 4 && (
-                this.latency > (this.avgLatency * 4)) ||
+                this.latency > (this.avgLatency * 4) ||
                 this.audioPlayLength > 4 ||
-                this.avgLatency > this.minLatency * 2
+                this.avgLatency > this.minLatency * 2)
         ) {
         // Very high latency or incorrect LipSync or high average latency, disable video
         this.MYSPEED_COUNTER_OK = 0;
@@ -100,4 +100,14 @@ Network.prototype.setSpeed = function(speed) {
     virtualclass.videoHost.gObj.MYSPEED = speed;
     ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
     console.log("CHANGE SPEED TO " + virtualclass.videoHost.gObj.MYSPEED);
+    this.hideTeacherVideo(speed);
 };
+
+Network.prototype.hideTeacherVideo = function(speed) {
+    if(roles.isStudent() && speed >= 5){
+        var videoCanvas = document.querySelector('#videoParticipate');
+        var videoCanvasContext = videoCanvas.getContext('2d');
+        videoCanvasContext.fillStyle = "#000000";
+        videoCanvasContext.fillRect(0, 0, videoCanvas.offsetWidth, videoCanvas.offsetHeight);
+    }
+}

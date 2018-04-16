@@ -308,17 +308,19 @@ var videoHost = {
 
         setTimeout(
             function (){
-                if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
-                    var img = new Image();
-                    img.onload = function (){
-                        that.videoPartCont.drawImage(img, d.x, d.y);
-                    };
-                    img.src = imgData;
-                } else {
-                    if(virtualclass.gObj.isReadyForVideo){
-                        virtualclass.gObj.isReadyForVideo = false;
-                        loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
-                     }
+                if (virtualclass.videoHost.gObj.MYSPEED < 5) {
+                    if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
+                        var img = new Image();
+                        img.onload = function (){
+                            that.videoPartCont.drawImage(img, d.x, d.y);
+                        };
+                        img.src = imgData;
+                    } else {
+                        if(virtualclass.gObj.isReadyForVideo){
+                            virtualclass.gObj.isReadyForVideo = false;
+                            loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
+                         }
+                    }
                 }
             }, myVideoDelay = (16382/sampleRate)*1000*3
         );

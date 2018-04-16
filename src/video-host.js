@@ -495,16 +495,25 @@ var videoHost = {
             var virtualclassPreCheck = document.getElementById('preCheckcontainer');
             virtualclassPreCheck.style.display = 'none';
 
-            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            virtualclassPreCheck.style.display = 'none';
-
             var virtualclassApp = document.getElementById('virtualclassApp');
             virtualclassApp.style.display = 'block';
             // localStorage.setItem('precheck', true);
             virtualclass.videoHost._resetPrecheck();
 
         });
+        var skip =   document.querySelector('#preCheckcontainer .skip');
+        if(skip){
+            skip.addEventListener('click', function () {
+                var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                virtualclassPreCheck.style.display = 'none';
+                var virtualclassApp = document.getElementById('virtualclassApp');
+                virtualclassApp.style.display = 'block';
+                // localStorage.setItem('precheck', true);
+                virtualclass.videoHost._resetPrecheck();
 
+            });
+
+        }
     },
     //nirmala
     _resetPrecheck: function () {

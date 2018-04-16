@@ -257,3 +257,14 @@
 #virtualclassCont.congrea.teacher[data-currapp="ScreenShare"] .zoomControler{
   display:none;
 }
+
+#virtualclassCont.congrea.teacher[data-currapp="EditorRich"] .controllereditorRich,
+#virtualclassCont.congrea.teacher[data-currapp="EditorCode"] .controllereditorCode
+{
+  display:block !important;
+}
+
+#virtualclassCont.congrea.teacher .controllereditorRich,
+#virtualclassCont.congrea.teacher .controllereditorCode {
+  display:none !important;
+}

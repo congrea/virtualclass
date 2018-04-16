@@ -539,7 +539,6 @@
                     prvAppObj.metaData = null; // if video is not started to share.
                 }
             }else if(virtualclass.currApp=="Poll"){
-
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
             }else if(virtualclass.currApp=="Video"){

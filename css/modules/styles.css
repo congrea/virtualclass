@@ -1179,6 +1179,7 @@
 	text-align: center;
 }
 
+
 #virtualclassCont.congrea .audEnableSign {
 	width : 12px;
 	height : 12px;
@@ -3408,11 +3409,11 @@
 }
 
 #virtualclassCont.congrea #congHr.disable{
-	opacity:0.4;
 	width:20%;
 	position :relative;
 	top:0;
 	left:0;
+	cursor:pointer;
 }
 #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before {
 	content: "\e962";
@@ -3423,6 +3424,13 @@
 	color: #fdfafa;
 
 }
+
+#virtualclassCont.congrea .handRaise.disable #icHr:before {
+	color: #fd2812;
+}
+
+
+
 #virtualclassCont.congrea  #icHr:after {
   position:absolute !important;
 	bottom:35px !important;
@@ -3505,6 +3513,7 @@
 #virtualclassCont.congrea #stickybar .ui-tabs-anchor {
 	width: 89%;
 	height: 100%;
+	margin-top: 7px;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
@@ -3577,4 +3586,47 @@ span#usertab_text {
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
 	width : 130px;
+}
+
+#virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {
+	display: inline-block;
+	position: relative;
+	line-height: 14px;
+	bottom: 12px;
+}
+#virtualclassCont.congrea .vjs-volume-control.vjs-control.vjs-volume-horizontal{
+	position:relative;
+	bottom:21px;
+}
+#virtualclassCont.congrea .video-js .vjs-control:before{
+	line-height: 1;
+}
+#virtualclassCont.congrea #congHr.disable #icHr {
+	opacity: 0.4;
+}
+#virtualclassCont.congrea .handRaise.disable.congtooltip:hover:after {
+	left: -4.01em;
+}
+
+#virtualclassCont.congrea #chat_div .controleCont{
+	float : left;
+	text-align: center;
+}
+
+#virtualclassCont.congrea.student #chat_div .controleCont{
+	margin-right: 5px;
+}
+
+#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp.zoomCtrAdd .zoomControler{
+	display:block !important;
+
+}
+#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp .zoomControler{
+	display:none ;
+
+}
+
+
+#virtualclassCont.congrea #precheckSkip .skip {
+	display : none;
 }

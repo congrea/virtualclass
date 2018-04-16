@@ -43,7 +43,7 @@
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
                 meetingMode : +(wbUser.meetingMode),
                 chromeExt : false,
-                pdfdebugg : false, //To draw scroll for debugging process
+                pdfdebugg : true, //To draw scroll for debugging process
                 wbInitHandle : false,
                 wbCount : 0,
                 prvWindowSize : false,
@@ -56,7 +56,7 @@
                 wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
-                isReadyForVideo : true,
+                isReadyForVideo : true
             },
 
             enablePreCheck : true,
@@ -199,6 +199,7 @@
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
+                virtualclass.network = new Network();
 
 
                 this.serverData = serverData;

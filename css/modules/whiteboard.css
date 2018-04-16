@@ -70,9 +70,9 @@
   top: 1%;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassWhiteboard, #virtualclassCont.congrea.presenter #virtualclassWhiteboard {
-  margin-left: 60px;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassWhiteboard, #virtualclassCont.congrea.presenter #virtualclassWhiteboard {*/
+  /*margin-left: 60px;*/
+/*}*/
 
 #virtualclassCont.congrea.educator #virtualclassWhiteboard {
   margin-left: 3px;
@@ -83,15 +83,15 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard {
-  float: none;
+  /*float: none;*/
   /*overflow: hidden; */
-  width: auto;
   margin-right: 6px;
+  border: 1px solid #e7eae7;
 }
 
 #virtualclassCont.congrea #screen-docs .whiteboard {
   margin-left: 0px;
-  margin-right: 20px;
+  /*margin-right: 20px;*/
 }
 
 #virtualclassCont.congrea #docScreenContainer .pageContainer {

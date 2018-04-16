@@ -484,6 +484,17 @@ $(document).ready(function () {
             }
         }
 
+        function sendCursorToNewUser(e, jId){
+            if(!e.hasOwnProperty('cmadd')){
+                if(roles.hasControls()){
+                    var wid = virtualclass.gObj.currWb;
+                    if(virtualclass.pdfRender[wid] != null ){
+                        virtualclass.pdfRender[wid].sendCurrentScroll(jId);
+                    }
+                }
+            }
+        }
+
         var memberUpdateWithDelay_timer;
 
         function memberUpdateWithDelay(e, f) {
@@ -522,6 +533,8 @@ $(document).ready(function () {
                 }
             } else {
                 console.log('Does not need to say hello to new user');
+                // We nee to send the current cursor to new user for for whiteboards
+                //sendCursorToNewUser(e, virtualclass.jId);
             }
 
             ioPingPong.ping(e);
@@ -929,36 +942,8 @@ $(document).ready(function () {
         });
 
         $(document).on("PONG", function (e) {
-            virtualclass.videoHost.gObj.time_diff = e.timeStamp - e.message;
-            if (virtualclass.videoHost.gObj.MYSPEED <= 4 && virtualclass.videoHost.gObj.time_diff > 1200) {
-                virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN = 0;
-                virtualclass.videoHost.gObj.MYSPEED_COUNTER++;
-                if (virtualclass.videoHost.gObj.MYSPEED_COUNTER > 2) {
-                    virtualclass.videoHost.gObj.MYSPEED++;
-                    ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
-                    console.log("REDUCE SPEED TO " + virtualclass.videoHost.gObj.MYSPEED);
-                    virtualclass.videoHost.gObj.MYSPEED_COUNTER = 0;
-                }
-            } else if (virtualclass.videoHost.gObj.time_diff < 500) {
-                virtualclass.videoHost.gObj.MYSPEED_COUNTER = 0;
-                if (virtualclass.videoHost.gObj.time_diff < 400 && virtualclass.videoHost.gObj.MYSPEED > 1) {
-                    virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN++;
-                    if ((virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN > 10 && virtualclass.videoHost.gObj.MYSPEED > 2)
-                        || (virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN > 30 && virtualclass.videoHost.gObj.MYSPEED > 1 &&
-                        virtualclass.videoHost.gObj.MYSPEED_CHANGE <= 2)) {
-                        virtualclass.videoHost.gObj.MYSPEED--;
-                        ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
-                        console.log("INCREASE SPEED TO " + virtualclass.videoHost.gObj.MYSPEED);
-                        virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN = 0;
-                        if (virtualclass.videoHost.gObj.MYSPEED == 1) {
-                            virtualclass.videoHost.gObj.MYSPEED_CHANGE++;
-                        }
-
-                    }
-                }
-            }
-            //console.log("PONG " + (virtualclass.videoHost.gObj.time_diff) + " UP Counter is at " + virtualclass.videoHost.gObj.MYSPEED_COUNTER  + " Speed " + virtualclass.videoHost.gObj.MYSPEED);
-            //console.log("PONG " + (virtualclass.videoHost.gObj.time_diff) + " DOWN Counter is at " + virtualclass.videoHost.gObj.MYSPEED_COUNTER_DOWN  + " Speed " + virtualclass.videoHost.gObj.MYSPEED);
+            virtualclass.network.latency = e.timeStamp - e.message;
+            virtualclass.network.initToPing(1000);
         });
 
         $(document).on("authentication_failed", function (e) {

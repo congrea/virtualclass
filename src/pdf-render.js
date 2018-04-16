@@ -57,11 +57,13 @@
                             // that.displayPage(pdf, 1, true);
                             that.shownPdf = pdf;
                         });
+
                         if(!roles.hasControls()){
                             that.topPosY = 0;
                             that.leftPosX = 0;
                         }
                         that.scrollEvent();
+
                     },1000
                 );
             },
@@ -89,46 +91,57 @@
                 this.topPosY = topPosY;
                 this.leftPosX = leftPosX;
 
-                var that  = this;
-
                 var that =  this;
                 elem.onscroll = function (){
                     that.onScroll(elem);
                 }
-
             },
 
             onScroll : function (elem, defaultCall){
+                var topPosY = elem.scrollTop;
+                var leftPosX = elem.scrollLeft;
+
                 var topPosY, leftPosX;
 
 
                 topPosY = elem.scrollTop;
                 leftPosX = elem.scrollLeft;
 
-                var sendData = null;
+                //var sendData = null;
+
+                // if(topPosY > 0){
+                //     // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
+                //     var tempData = this._scroll(leftPosX, topPosY, elem, 'Y');
+                //     if(tempData != null){
+                //         sendData  = tempData;
+                //     }
+                // }
 
                 if(topPosY > 0){
-                    // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
-                    var tempData = this._scroll(leftPosX, topPosY, elem, 'Y');
-                    if(tempData != null){
-                        sendData  = tempData;
-                    }
+                    this._scroll(leftPosX, topPosY, elem, 'Y');
                 }
 
                 if(leftPosX > 0){
-                    var resX = this._scroll(leftPosX, topPosY, elem, 'X');
-                    if(sendData != null){
-                        // Merging the object resX with sendData
-                        if(resX != null){
-                            sendData = Object.assign(sendData, resX);
-                        }
-                    }
+                    this._scroll(leftPosX, topPosY, elem, 'X')
                 }
 
-                if(sendData != null){
-                    sendData.cf =  'sc';
-                    virtualclass.vutil.beforeSend(sendData);
-                    this.currentScroll = sendData;
+
+                // if(leftPosX > 0){
+                //     var resX = this._scroll(leftPosX, topPosY, elem, 'X');
+                //     if(sendData != null){
+                //         // Merging the object resX with sendData
+                //         if(resX != null){
+                //             sendData = Object.assign(sendData, resX);
+                //         }
+                //     }
+                // }
+
+                // if(sendData != null){
+                //     this.currentScroll = sendData;
+                // }
+
+                if(!roles.hasControls()){
+                    virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({scX : leftPosX, scY : topPosY});
                 }
             },
 
@@ -180,137 +193,64 @@
 
             },
 
+            /** In below code tp represents scroll type
+             * X and Y
+             */
             scroll : {
-                caclculatePosition : function (obj, pos, ms, type){
-                    var scrollM = this.getDimension(obj, ms, type);
+                caclculatePosition : function (pos, canvas, type){
                     this.type = type;
-
-                    /*
-                    * TODO, this should be done with global object
-                    * */
-                    if(virtualclass.gObj.pdfdebugg){
-                        this.draw(scrollM, pos);
-                    }
 
                     var tp = this.type;
                     if(this[tp] == null){
                         this[tp] = {};
                     }
-                    this[tp].a = pos;
-                    this[tp].d = this[tp].a + scrollM;
+                    this[tp].a = 0;
+                    this[tp].d = canvas; // Canvas's with or height
+
                     var wrapperId = 'canvasWrapper'+virtualclass.gObj.currWb;
                     var studentWrapper = document.querySelector('#'+wrapperId);
                     if(studentWrapper != null){
-                    if(this.type == 'X'){
-                        this[tp].b = studentWrapper.scrollLeft;
-                    }else if(this.type == 'Y'){
-                        this[tp].b = studentWrapper.scrollTop;
-                    }
-
-                    this[tp].studentVPm = virtualclass.vutil.getElemM(wrapperId, tp);
-
-                    this[tp].c = this[tp].b + this[tp].studentVPm;
-                    }
-                },
-
-                getDimension : function (obj, ms, type){
-                    var ms = (obj['vp' + type] * ms) / 100;
-                    if(type == 'Y'){
-                        this.scrollHeight =  ms;
-                    }else if(type == 'X'){
-                        this.scrollWidth = ms;
-                    }
-                    return ms;
-                },
-
-                draw : function (scrollM, pos){
-                    var sdiv = document.querySelector('#scrollDiv' + this.type + virtualclass.gObj.currWb);
-                    if(sdiv == null){
-                        var sdiv = document.createElement('div');
-                        sdiv.className = 'scrollDiv'+this.type;
-                        sdiv.id = 'scrollDiv'+ this.type + virtualclass.gObj.currWb;
-                        var pdfRender =  virtualclass.pdfRender[virtualclass.gObj.currWb];
-                        var canvasWrapper = pdfRender.canvasWrapper;
-                         //var canvasWrapper = this.canvasWrapper;
-                        if(canvasWrapper != null){
-                            canvasWrapper.appendChild(sdiv);
+                        if(this.type == 'X'){
+                            this[tp].b = studentWrapper.scrollLeft;
+                        }else if(this.type == 'Y'){
+                            this[tp].b = studentWrapper.scrollTop;
                         }
+
+                        this[tp].studentVPm = virtualclass.vutil.getElemM(wrapperId, tp);
+                        this[tp].c = this[tp].b + this[tp].studentVPm;
                     }
 
-                    if(this.type == 'Y'){
-                        sdiv.style.height = scrollM + 'px';
-                        sdiv.style.top = pos + 'px';
-                    } else if(this.type == 'X'){
-                        sdiv.style.width = scrollM + 'px';
-                        sdiv.style.left = pos + 'px';
-                    }
-                }
+                    // console.log('Scroll custom ' + tp + ' a ' + this[tp].a);
+                    // console.log('Scroll custom ' + tp + ' b ' + this[tp].b);
+                    // console.log('Scroll custom ' + tp + ' c ' + this[tp].c);
+                    // console.log('Scroll custom ' + tp + ' d ' + this[tp].d);
+                    // console.log('Scroll custom ' + tp + ' e ' + this[tp].e);
+
+                },
+
             },
 
             //for student
             setScrollPosition : function (obj){
                 if(obj.hasOwnProperty('scY') && obj.scY != null){
-                    if(obj.hasOwnProperty('pr')){
-                        obj.vpY = 0;
-                        // canvasWrapper = this.canvasWrapper;
-                        // canvasWrapper.scrollTop = 0;
-                        this.canvasWrapper.scrollTop = 0;
-                    }
-
-                    // var canvasHeight =  virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas.height;
-                    var canvasHeight =  this.canvas.height;
-                    var topPosY = ( obj.scY *  canvasHeight) / 100;
-
-                    this.scroll.caclculatePosition(obj, topPosY, canvasHeight, 'Y');
-
+                    this.scroll.caclculatePosition(obj.scY, this.canvas.height, 'Y');
                 }
-
                 if(obj.hasOwnProperty('scX') && obj.scX != null){
-                    if(obj.hasOwnProperty('pr')){
-                        obj.vpX = 0;
-                        // canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
-                        this.canvasWrapper.scrollLeft = 0;
-                    }else {
-                        var canvasWidth =  this.canvas.width;
-                        var leftPosX = ( obj.scX *  canvasWidth) / 100;
-                        this.scroll.caclculatePosition(obj, leftPosX, canvasWidth, 'X');
-                    }
-
+                    this.scroll.caclculatePosition(obj.scX, this.canvas.width, 'X');
                 }
             },
 
-            actualMousePointerOnViewPort : function(ev){
-                // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-                var result = null;
-
-                if(this.actualVpY != null){
-                    var y  = ev.y - this.canvasWrapper.scrollTop;
-                    var vpy = (y / this.actualVpY ) * 100 ;
-                    result = {y:vpy};
-                }
-
-                if( this.actualVpX != null){
-                    if(result ==  null){
-                        result = {};
-                    }
-                    var x  = ev.x - this.canvasWrapper.scrollLeft;
-                    var vpx = (x / this.actualVpX ) * 100
-                    result.x = vpx;
-                }
-                return result;
-            },
 
             customMoustPointer : function (obj, tp, pos){
-                if(virtualclass.gObj.pdfdebugg){
-                    if(typeof obj != 'undefined'){
-                        if(this.scroll.hasOwnProperty(tp)){
-                            this.setCustomMoustPointer(obj, tp);
-                        }
-                    }
-                }
 
 //                console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
                 this.scroll[tp].e = pos;
+                //  e is mouse's position
+                console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
+                console.log('Scroll '  + tp + ' b ' + this.scroll[tp].b);
+                console.log('Scroll '  + tp + ' c ' + this.scroll[tp].c);
+                console.log('Scroll '  + tp + ' d ' + this.scroll[tp].d);
+                console.log('Scroll '  + tp + ' e ' + this.scroll[tp].e);
 
                 if(this.scroll[tp].e > this.scroll[tp].c){
                     var scrollPos = this.scroll[tp].b + (this.scroll[tp].d - this.scroll[tp].c);
@@ -323,6 +263,7 @@
                        this.canvasWrapper.scrollTop = scrollPos;
                     } else {
                         this.canvasWrapper.scrollLeft = scrollPos
+                        console.log('Scroll left ' + this.canvasWrapper.scrollLeft);
                     }
 
                     this.scroll[tp].b = scrollPos;
@@ -335,7 +276,7 @@
                     if ((this.scroll[tp].c - scrollPos) < this.scroll[tp].e) {
                         scrollPos = ((this.scroll[tp].b + this.scroll[tp].c) / 2) - this.scroll[tp].e;
                     }
-                    console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
+                    // console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
                     // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
                     if(tp == 'Y'){
                         this.canvasWrapper.scrollTop = this.canvasWrapper.scrollTop - scrollPos;
@@ -384,7 +325,7 @@
                 var scrollPos = {};
                 if(this.currentScroll !=  null){
                     scrollPos = Object.assign(scrollPos, this.currentScroll);
-                    console.log('Send scroll ' + this.currentScroll);
+                    console.log('Send scroll first time ' + this.currentScroll);
                     var that = this;
                     that.currentScrolltoUser = toUser;
                     // scrollPos.cf = 'scf';
@@ -410,8 +351,13 @@
                 //virtualclass.zoom.canvasScale = canvasScale;
                 var scale = this.pdfScale;
                 if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
-                     scale = virtualclass.zoom.canvasScale;
+                    if(virtualclass.zoom.canvasScale > 0){
+                        scale = virtualclass.zoom.canvasScale;
+                    }else {
+                        console.log('Why negative value');
+                    }
                 }
+
                 var wb = virtualclass.gObj.currWb;
 
                 // var canvas = document.getElementById('canvas'+wb);
@@ -501,7 +447,9 @@
                                                 if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
                                                     virtualclass.zoom.normalRender();
                                                     virtualclass.gObj.firstNormalRender = true;
-                                                    virtualclass.vutil.setDefaultScroll();   
+                                                    //virtualclass.vutil.setDefaultScroll();
+                                                    var scrollObj = {scX : 1, scY : 1}
+                                                    virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
                                                 }
                                               
                                             }, 10

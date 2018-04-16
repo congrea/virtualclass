@@ -6,16 +6,16 @@
 #virtualclassCont.congrea #virtualclassScreenShare {
   float: left;
   border: #ccc solid 1px;
-  height: 100%;
+  /*height: 100%;*/
 }
 
-#virtualclassCont.congrea #virtualclassScreenShare {
-  margin-left: 55px;
-}
+/*#virtualclassCont.congrea #virtualclassScreenShare {*/
+  /*margin-left: 55px;*/
+/*}*/
 
-#virtualclassCont.congrea #virtualclassScreenShare {
-  width: 99%;
-}
+/*#virtualclassCont.congrea #virtualclassScreenShare {*/
+  /*width: 99%;*/
+/*}*/
 
 #virtualclassCont.congrea.student #virtualclassScreenShare {
   margin-left: 5px;
@@ -43,9 +43,7 @@
   /*margin-right: 5px;*/
 /*}*/
 
-#virtualclassScreenShare {
-  margin-top: 8px;
-}
+
 
 #virtualclassCont.congrea.educator #virtualclassScreenShare {
   margin-left: 9px;
@@ -73,9 +71,9 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
-#virtualclassCont.congrea #virtualclassScreenShare {
-  height: 95vh;
-}
+/*#virtualclassCont.congrea #virtualclassScreenShare {*/
+  /*height: 95vh;*/
+/*}*/
 
 /*#virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg {*/
   /*width: 250px;*/
@@ -135,13 +133,9 @@
   overflow-x : scroll;
 }
 
-#virtualclassCont.congrea.student #virtualclassScreenShare{
-  margin:0px 10px 0px 10px;
-}
-
-#virtualclassCont.congrea.playMode #virtualclassScreenShare {
-  height: 93vh;
-}
+/*#virtualclassCont.congrea.playMode #virtualclassScreenShare {*/
+  /*height: 93vh;*/
+/*}*/
 
 #virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo{
   position : absolute;

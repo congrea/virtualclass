@@ -2374,7 +2374,7 @@
 	border-width: 0;
 	border-radius: 0;
 	margin-left : 59px;
-	height : 95vh;
+	/*height : 95vh;*/
 	background: none;
 }
 
@@ -2552,10 +2552,11 @@
 
 
 
-#dispVideo{
-	height:82vh;
-	width:85%;
-}
+/*#dispVideo{*/
+	/*height:82vh;*/
+	/*width:85%;*/
+/*}*/
+
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool.appOptions {
 	border-top-right-radius: 8px;
 	margin-bottom: -1px;
@@ -3070,9 +3071,9 @@
 	position :absolute;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {
-	height : 90vh;
-}
+/*#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {*/
+	/*height : 90vh;*/
+/*}*/
 
 
 #virtualclassCont.congrea .zoomControler{
@@ -3204,9 +3205,9 @@
 	margin-top : 3px;
 }
 
-#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
-	padding-bottom : 30px;
-}
+/*#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {*/
+	/*padding-bottom : 30px;*/
+/*}*/
 
 /** For now the role transfer button is disabled, this should be enabled at later **/
 
@@ -3623,4 +3624,9 @@ span#usertab_text {
 #virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp .zoomControler{
 	display:none ;
 
+}
+
+
+#virtualclassCont.congrea #precheckSkip .skip {
+	display : none;
 }

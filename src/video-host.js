@@ -24,8 +24,6 @@ var videoHost = {
 
     setDefaultValue: function (speed) {
         virtualclass.videoHost.gObj.MYSPEED = speed || 1;
-        virtualclass.videoHost.gObj.MYSPEED_COUNTER = 0;
-        virtualclass.videoHost.gObj.time_diff = 0;
         virtualclass.videoHost.gObj.teacherVideoQuality = this.getTeacherVideoQuality();
         virtualclass.videoHost.gObj.video_count = 0;
     },
@@ -322,7 +320,7 @@ var videoHost = {
                         loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
                      }
                 }
-            }, myVideoDelay = (16382/sampleRate)*1000*4
+            }, myVideoDelay = (16382/sampleRate)*1000*3
         );
     },
     onError: function (err) {
@@ -472,7 +470,7 @@ var videoHost = {
             }, 1000
         );
 
-        virtualclass.network.initToPing(1000);
+        virtualclass.network.initToPing(10000);
         this.fromLocalStorage();
         this.resetPrecheck();
     },

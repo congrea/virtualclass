@@ -3615,3 +3615,12 @@ span#usertab_text {
 #virtualclassCont.congrea.student #chat_div .controleCont{
 	margin-right: 5px;
 }
+
+#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp.zoomCtrAdd .zoomControler{
+	display:block !important;
+
+}
+#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp .zoomControler{
+	display:none ;
+
+}

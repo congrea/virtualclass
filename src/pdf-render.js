@@ -379,25 +379,25 @@
                 var context = canvas.getContext('2d');
 
                 canvas.height = viewport.height;
-                canvas.width = viewport.width;
+                canvas.width = viewport.width + (80); // The view port provides less width(90)
                 // console.log('Canvas width from Pdf ' + canvas.width);
                 // console.log('Canvas height from Pdf ' + canvas.height);
-                var wrapper = canvas.parentNode;
-                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
-                var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(wrapper.style.height);
-                if( canvas.width  > wrapperWidth){
-                    wrapper.classList.add('cscrollX');
-                }else {
-                    wrapper.classList.remove('cscrollX');
-                }
-
-                var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.height);
-
-                if(canvas.height > wrapperHeight){
-                    wrapper.classList.add('cscrollY');
-                }else {
-                    wrapper.classList.remove('cscrollY');
-                }
+                // var wrapper = canvas.parentNode;
+                // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
+                // var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(wrapper.style.height);
+                // if( canvas.width  > wrapperWidth){
+                //     wrapper.classList.add('cscrollX');
+                // }else {
+                //     wrapper.classList.remove('cscrollX');
+                // }
+                //
+                // var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.height);
+                //
+                // if(canvas.height > wrapperHeight){
+                //     wrapper.classList.add('cscrollY');
+                // }else {
+                //     wrapper.classList.remove('cscrollY');
+                // }
 
                 var renderContext = {
                     canvasContext: context,

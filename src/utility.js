@@ -1788,11 +1788,13 @@
 
 
         setChatContHeight : function (height){
+             return;
             $('#chatWidget').height(height);
             this.setChatHeight(height);
         },
 
         setChatHeight : function (height){
+            return;
             var height = height - 40;
             if(virtualclass.isPlayMode){
                 var height = height+64;

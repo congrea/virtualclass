@@ -1,3 +1,7 @@
+#virtualclassCont.congrea {
+	height : 100vh;
+}
+
 #virtualclassCont.teacher #virtualclassAppContainer{
   width : calc(100vw - 387px);
   /*margin-left : 60px;*/

@@ -221,6 +221,7 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbVideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/right-sidebar.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/theme/$theme".".css" ?> />
 <?php
@@ -294,7 +295,7 @@ $cmid = 5;
     wbUser.role =  '<?php echo $r; ?>';
     wbUser.lname =  '<?php echo $lname; ?>';
     wbUser.name =  '<?php echo $uname; ?>';
-   
+
     wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
 
 

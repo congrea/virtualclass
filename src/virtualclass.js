@@ -998,7 +998,7 @@
                             virtualclass.dts.sendCurrentSlide();
                             //var slide = virtualclass.dts.docs[virtualclass.dts.docs.currDoc].currSlide;
                         }
-                        
+
                         var slide = virtualclass.dts.docs.currNote;
                         // if( typeof slide != 'undefined' ){
                         if( typeof slide != 'undefined' ){
@@ -1221,7 +1221,7 @@
                 var contPara = {'whiteboardPath' : whiteboardPath};
 
                 /** Registering the partials which have setting paramter **/
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;
@@ -1234,7 +1234,7 @@
                         context.isControl= roles.hasControls();
                         context.isMettingMode= (virtualclass.gObj.meetingMode) && (roles.isStudent());
 
-                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools' || initTemplates[i] == 'appSettingDetail'){
                         context = isControl;
                     }
                     this.makeReadyTemplate(initTemplates[i], context);

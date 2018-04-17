@@ -1,10 +1,26 @@
 <div id="virtualclassAppRightPanel" class="rightbar bootstrap">
+    {{> ('getVideoType') }}
   {{!-- Audio widget --}}
   {{> audioWidget}}
-  {{> ('getVideoType') }}
+
   {{!-- Chat widget --}}
-  <div id="chatWidget">
-    <div id="stickycontainer"></div>
-    <div id="congreaChatCont"></div>
+
+  <div id="rightSubContainer" class="">
+      {{> appSettingDetail}}
+      <div id="chatWidget">
+          <div id="congreaChatMainCont">
+            <div id="congreaChatCont"> </div>
+
+            <div class="footerCtr" id="congFooterCtr">
+              <div class="vmchat_search" id="congUserSearch">
+                <input type="text" id="congreaUserSearch" class="search"
+                       placeholder="Search user">
+              </div>
+            </div>
+        </div>
+
+      <div id="stickycontainer"></div>
+
   </div>
+</div>
 </div>

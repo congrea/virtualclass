@@ -305,7 +305,7 @@
                         }
                         action = true;
                         localStorage.setItem('editorRich', action);
-                        
+
                     } else {
                         // If editor rich is disabled
                         if (virtualclass.gObj.uid == msg.toUser) {
@@ -768,7 +768,7 @@
                         if(typeof notActive == 'undefined'){
                              studentSpeaker.className = 'active';
                         }
-                        
+
 
                         studentSpeaker.style.opacity = "1";
                         studentSpeaker.style.pointerEvents = "visible";
@@ -779,6 +779,7 @@
 
                 //move into media.js
                 audioWidgetDisable: function (reason) {
+                   virtualclass.system.mediaDevices.hasWebcam = false;
                     var ad = {ac:'false'};
 
                     var aud = localStorage.getItem('audEnable');
@@ -807,6 +808,7 @@
                         virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
 
+                    virtualclass.vutil.addClass('virtualclassCont', 'nowebcam')
                 },
 
                 audioDisable : function (){
@@ -1149,17 +1151,17 @@
                         }
                     });
                 }
-               
+
 
                  //anchorTag.appendChild(spanTag);
                 // var parentNode = document.getElementById(mainTagId).getElementsByClassName(tagClass)[0];
                 // parentNode.appendChild(anchorTag);
                 var parentNode=document.querySelector("#"+mainTagId+" ."+tagClass);
                // parentNode.appendChild(anchorTag);
-                
-                
+
+
             },
-            
+
             chatBoxesSwitch: function () {
                 //debugger;
                 if (virtualclass.chat.chatroombox) {
@@ -1192,12 +1194,12 @@
                         iconarrowButton.classList.remove('icon-arrow-up')
 
                     }
-                    
+
                 }
 
             },
-            
-            
+
+
             toogleAudioIcon : function (){
                 var audioController = document.getElementById('contrAudioAllImg');
                 if (audioController != null) {

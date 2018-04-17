@@ -1345,6 +1345,7 @@
 
                 if(webcam == false){
                     virtualclass.user.control.videoDisable();
+                    virtualclass.vutil.addClass('virtualclassAppRightPanel', 'noWebcam');
                 }
 
             },
@@ -1368,10 +1369,14 @@
                     audio = JSON.parse(audio);
                     if(audio.ac == 'false'){
                         // if reason is video disabled from browser.
-                        if(audio.r == 'vd'){
-                            virtualclass.user.control.audioWidgetEnable();
+                        if(audio.hasOwnProperty('r') && audio.r == 'vd'){
+                          virtualclass.user.control.audioWidgetEnable();
                         } else {
-                            virtualclass.user.control.audioWidgetDisable();
+                           if(typeof stream != 'undefined'){
+                              virtualclass.user.control.audioWidgetEnable();
+                           } else {
+                              virtualclass.user.control.audioWidgetDisable();
+                           }
                         }
 
                     }else {

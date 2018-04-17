@@ -145,8 +145,8 @@
 
 /*right pannel*/
 #virtualclassCont.congrea #speakerPressonceAnch span {
-  width: 40px;
-  height: 20px;
+  width: 33px; /* changed from 40px */
+  height: 17px; /*20px*/
   display: inline-block;
   /*margin-top: 20px;*/
   position: relative;
@@ -172,15 +172,15 @@
   transition: all 1s ease-in;
   cursor: pointer;
   right: 9px;
-  top: 5px;
+  top: 8px;
 }
 
 #virtualclassCont.congrea #speakerPressOnce span i {
   position: absolute;
   top: -3px;
   right: 24px;
-  width: 16px;
-  height: 25px;
+  width: 11px; /* Changed from 16px */
+  height: 22px; /*25px*/
   display: block;
   border-radius: 2px;
   -webkit-transition: all 200ms ease;
@@ -209,7 +209,7 @@
   top: -6px;
   font-weight: normal;
   font-size: 11px;
-  left: 18px;
+  left: 13px; /* changed from 18px */
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber::before {

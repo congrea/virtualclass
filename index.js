@@ -1475,6 +1475,14 @@ $(document).ready(function () {
                 if(e.fromUser.userid != virtualclass.gObj.uid){
                     virtualclass.videoHost.onmessage(e.message);
                 }
+
+                var videoMode = e.message.congCtr.videoSwitch;
+                if(videoMode == 'off'){
+                    virtualclass.vutil.addClass('virtualclassCont', 'videoff');
+                }else {
+                   document.querySelector('#virtualclassCont').classList.remove('videoff');
+                }
+
             }
 
             this.tsr = function (e){

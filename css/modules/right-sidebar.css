@@ -1,0 +1,43 @@
+/* New Id's & Classes */
+
+#virtualclassCont.congrea #appSettingCtrl :hover {
+   height:55px !important;
+}
+
+#virtualclassCont.congrea #appSettingCtrl span a {
+   font-size:22px;
+   cursor:pointer;
+   text-align:center;
+}
+
+#virtualclassCont.congrea #rightSubContainer #appSettingDetail{
+   display : none;
+}
+
+#virtualclassCont.congrea #rightSubContainer {
+	clear : both;
+}
+
+
+#virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource{
+	display : none;
+}
+
+#virtualclassCont.congrea #chatWidget {
+	height : 100%;
+}
+
+#virtualclassCont.congrea #rightSubContainer, #virtualclassCont #congreaChatMainCont {
+	height : calc(100% - 290px);
+}
+
+#virtualclassCont.congrea.videoff #rightSubContainer, #virtualclassCont.videoff #congreaChatMainCont {
+	height : calc(100% - 48px);
+}
+
+#virtualclassCont.congrea.teacher.nowebcam #rightSubContainer, #virtualclassCont.congrea.student.videooff #rightSubContainer{
+	height : calc(100% - 50px);
+}
+ #virtualclassCont #congreaChatMainCont {
+	 height : calc(100% - 44px);
+ }

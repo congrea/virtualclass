@@ -7,6 +7,7 @@
 
 var BASE64_MARKER = ';base64,';
 
+
 var videoHost = {
     gObj: {},
     // Contain all the related variables
@@ -23,8 +24,6 @@ var videoHost = {
 
     setDefaultValue: function (speed) {
         virtualclass.videoHost.gObj.MYSPEED = speed || 1;
-        virtualclass.videoHost.gObj.MYSPEED_COUNTER = 0;
-        virtualclass.videoHost.gObj.time_diff = 0;
         virtualclass.videoHost.gObj.teacherVideoQuality = this.getTeacherVideoQuality();
         virtualclass.videoHost.gObj.video_count = 0;
     },
@@ -309,19 +308,21 @@ var videoHost = {
 
         setTimeout(
             function (){
-                if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
-                    var img = new Image();
-                    img.onload = function (){
-                        that.videoPartCont.drawImage(img, d.x, d.y);
-                    };
-                    img.src = imgData;
-                } else {
-                    if(virtualclass.gObj.isReadyForVideo){
-                        virtualclass.gObj.isReadyForVideo = false;
-                        loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
-                     }
+                if (virtualclass.videoHost.gObj.MYSPEED < 5) {
+                    if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
+                        var img = new Image();
+                        img.onload = function (){
+                            that.videoPartCont.drawImage(img, d.x, d.y);
+                        };
+                        img.src = imgData;
+                    } else {
+                        if(virtualclass.gObj.isReadyForVideo){
+                            virtualclass.gObj.isReadyForVideo = false;
+                            loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
+                         }
+                    }
                 }
-            }, myVideoDelay = (16382/sampleRate)*1000*4
+            }, myVideoDelay = (16382/sampleRate)*1000*3
         );
     },
     onError: function (err) {
@@ -471,18 +472,12 @@ var videoHost = {
             }, 1000
         );
 
-        setInterval(
-            function () {
-                if(io.webSocketConnected()){
-                    ioAdapter.sendPing();
-                }
-            }, 2000
-        );
-
+        virtualclass.network.initToPing(10000);
         this.fromLocalStorage();
         this.resetPrecheck();
-
     },
+
+
     //nirmala
     resetPrecheck: function () {
         this._resetPrecheck();
@@ -500,16 +495,25 @@ var videoHost = {
             var virtualclassPreCheck = document.getElementById('preCheckcontainer');
             virtualclassPreCheck.style.display = 'none';
 
-            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            virtualclassPreCheck.style.display = 'none';
-
             var virtualclassApp = document.getElementById('virtualclassApp');
             virtualclassApp.style.display = 'block';
             // localStorage.setItem('precheck', true);
             virtualclass.videoHost._resetPrecheck();
 
         });
+        var skip =   document.querySelector('#preCheckcontainer .skip');
+        if(skip){
+            skip.addEventListener('click', function () {
+                var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                virtualclassPreCheck.style.display = 'none';
+                var virtualclassApp = document.getElementById('virtualclassApp');
+                virtualclassApp.style.display = 'block';
+                // localStorage.setItem('precheck', true);
+                virtualclass.videoHost._resetPrecheck();
 
+            });
+
+        }
     },
     //nirmala
     _resetPrecheck: function () {

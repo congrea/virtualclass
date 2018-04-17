@@ -1036,8 +1036,18 @@ var newCanvas;
                         virtualclass.vutil.insertAppLayout(mainConthtml);
 
 
-                        if(viewcontrol){
+                         if(viewcontrol){
                             this.html.initScreenController();
+                        }
+                         var app= document.querySelector(".congrea #virtualclassApp");
+                        if(!hascontrol){
+
+                             if(!app.classList.contains('zoomCtr')){
+                                 app.classList.add("zoomCtrAdd");
+                             }
+
+                        }else{
+                            app.classList.remove("zoomCtrAdd");
                         }
 
                         function css(element, styles) {

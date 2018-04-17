@@ -544,4 +544,23 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
         min-height: calc(100vh - 52px);
     }
 }
-    
+
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable .mainpreview:before{
+  cursor:default !important;
+}
+
+#virtualclassCont.congrea .video-js .vjs-progress-control {
+  margin-left: 20px;
+}
+
+#virtualclassCont.congrea  .video-js .vjs-control:before {
+
+}
+#virtualclassCont.congrea  .video-js .vjs-control-bar .vjs-play-control:before,#virtualclassCont.congrea .video-js .vjs-fullscreen-control:before{
+  top:7px;
+}
+
+#virtualclassCont.congrea  .linkvideo.links.video.enable.playing .controls.status{
+    pointer-events:none;
+    opacity:.3;
+}

@@ -59,9 +59,11 @@
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.wb[wid] == 'object'){
                     var canvas = virtualclass.wb[wid].vcan.main.canvas;
-                    var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
+                    // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
+                    var wrapperWidth = canvas.parentNode.offsetWidth;
 
                     this.prvCanvasScale = this.canvasScale;
+                   // alert('canvas scale');
                     this.canvasScale = this.canvasScale * SCALE_FACTOR;
 
                     console.log('Canvas scale ' + this.canvasScale);
@@ -83,7 +85,8 @@
                 var canvas = virtualclass.wb[wid].vcan.main.canvas;
                 var wrapper = canvas.parentNode;
                 //var canvas = this.canvas;
-                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
+                // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
+                var wrapperWidth = canvas.parentNode.offsetWidth;
 
                 this.prvCanvasScale = this.canvasScale;
 
@@ -103,10 +106,15 @@
                 var wid = virtualclass.gObj.currWb;
                 var page = virtualclass.pdfRender[wid].page;
                 var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
-                var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
+
+                // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
+
+                var wrapperWidth = canvas.parentNode.offsetWidth;
+
                 try {
                     var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
                     this.prvCanvasScale = this.canvasScale;
+                    // alert('canvas scale 2');
                     this.canvasScale = viewport.scale;
                     virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
                 }catch (error){

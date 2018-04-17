@@ -766,14 +766,19 @@
                     if(this.audioToBePlay[uid].length == 0){
                         ac[uid] = 0;
                     }
+
+                    if (this.audioToBePlay[uid].length >= 1){
+                        virtualclass.network.audioPlayLength = this.audioToBePlay[uid].length;
+                    }
+
                     console.log("Audio " + this.audioToBePlay[uid].length + " uid " + uid);
-                    if (this.audioToBePlay[uid].length >= 19) { // 7 seconds
+                    if (this.audioToBePlay[uid].length >= 13) { // 5 seconds
                         // console.log("Audio Buffer Full");
-                        while (this.audioToBePlay[uid].length >= 11) { // 4 seconds
+                        while (this.audioToBePlay[uid].length >= 5) { // 2 seconds
                             virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                    } else if(ac[uid] >= 3) { // 1 second
+                    } else if(ac[uid] >= 2) { // .7 second
                         // console.log("start audio");
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                     } else {
@@ -1340,6 +1345,7 @@
 
                 if(webcam == false){
                     virtualclass.user.control.videoDisable();
+                    virtualclass.vutil.addClass('virtualclassAppRightPanel', 'noWebcam');
                 }
 
             },
@@ -1363,10 +1369,14 @@
                     audio = JSON.parse(audio);
                     if(audio.ac == 'false'){
                         // if reason is video disabled from browser.
-                        if(audio.r == 'vd'){
-                            virtualclass.user.control.audioWidgetEnable();
+                        if(audio.hasOwnProperty('r') && audio.r == 'vd'){
+                          virtualclass.user.control.audioWidgetEnable();
                         } else {
-                            virtualclass.user.control.audioWidgetDisable();
+                           if(typeof stream != 'undefined'){
+                              virtualclass.user.control.audioWidgetEnable();
+                           } else {
+                              virtualclass.user.control.audioWidgetDisable();
+                           }
                         }
 
                     }else {

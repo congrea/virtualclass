@@ -250,7 +250,7 @@
         'dsDbheading' : 'Close Document Dashboard',
         'DocumentSharedbHeading' : 'Document Dashboard',
         'SharePresentationdbHeading' : 'Presentation Dashboard',
-        'VideodbHeading' : 'Close Video Dashboard',
+        'VideodbHeading' : 'Video Dashboard',
         'bandslow' : 'Bandwidth is low',
         'bandfast' : 'Bandwidth is high',
         'bandmedium' : 'Bandwidth is medium',
@@ -341,6 +341,7 @@
         "NotSupportedError" : 'Only secure orgins(https) are allowed for Audio and Video.',
         'httpsmissing' : 'Only secure orgins(https) are allowed for Screen sharing',
         'noPoll': "There is no question available for poll. Kindly click on ‘add new’ button to add question",
+        'noPollNoAdmin':"There is no question available for poll and only admin can create site level poll",
         'noResultStd':"You are not permitted to see the result",
         'editTitle':"Edit Title",
         'votesuccessPbt':"Vote has been submitted successfully ,You are not permitted to see the result",
@@ -361,7 +362,7 @@
         'RaiseHandDisable':'disable',
         'RaiseHandEnable':'Hand Raised',
         'RaiseHandStdEnabled':'Raise Hand',
-        'RaiseHandStdDisabled':'Raised Hand',
+        'RaiseHandStdDisabled':'Undo Raise Hand',
         'NotReadableError' : 'Please ensure that same webcam is not being used <br /> in multiple browsers or multiple applications.',
         'stdscreenshare' : 'you want to share your screen',
         'selfview' : "Self View",
@@ -373,7 +374,8 @@
         'closedsDbheading' : "Close Document Dashboard",
         'openvideoDashboard' : "Video Dashboard",
         'openSharePresentationdbHeading' : "Presentation Dashboard",
-        'opendsDbheading' : "Document Dashboard"
+        'opendsDbheading' : "Document Dashboard",
+        'Skip':"Skip Precheck",
     };
     window.message = message;
 })(window);

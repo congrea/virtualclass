@@ -34,6 +34,39 @@ var precheck = {
         //        that.wholeSytemCheck();
         //    }, 10000
         //);
+        var skip =   document.querySelector('#preCheckcontainer .skip');
+        if(skip){
+            skip.addEventListener('click', function () {
+
+                if(localStorage.getItem('precheck')){
+                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                    virtualclassPreCheck.style.display = 'none';
+                    var virtualclassApp = document.getElementById('virtualclassApp');
+                    virtualclassApp.style.display = 'block';
+                    // localStorage.setItem('precheck', true);
+                    virtualclass.videoHost._resetPrecheck();
+
+                }else{
+                    virtualclass.popup.waitMsg();
+                    virtualclass.makeReadySocket();
+
+                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                    virtualclassPreCheck.style.display = 'none';
+
+                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                    virtualclassPreCheck.style.display = 'none';
+
+                    var virtualclassApp = document.getElementById('virtualclassApp');
+                    virtualclassApp.style.display = 'block';
+                    localStorage.setItem('precheck', true);
+
+                    virtualclass.videoHost.afterSessionJoin();
+
+                }
+            });
+
+        }
+
     },
 
     cancelRequestAnimation : function (){
@@ -516,6 +549,7 @@ var precheck = {
 
                 });
             }
+
 
             //virtualclass.precheck._perform(4000, this.curr)
         },

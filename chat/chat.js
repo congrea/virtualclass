@@ -216,7 +216,6 @@
                             //delete tab
                             var panelId = $(this).closest("li").remove().attr("aria-controls");
                             $("#" + panelId).remove();
-
                             delete virtualclass.chat.vmstorage[tabid]; //delete variable storage
                         },
                         toggle: function () {

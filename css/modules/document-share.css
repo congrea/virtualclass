@@ -21,7 +21,7 @@
 #virtualclassCont.congrea .page_wrapper {
     overflow: hidden;
     position: relative;
-    height: 280px;
+    /*height: 280px;*/
     top: auto;
 }
 
@@ -86,9 +86,9 @@
     display: block;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.container, #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen {
-    width: 90%;
-}
+/*#virtualclassCont.congrea #virtualclassDocumentShare.container, #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen {*/
+    /*width: 90%;*/
+/*}*/
 
 #virtualclassCont.congrea .pages .links[data-status='0'] {
     opacity: 0.5;
@@ -99,10 +99,10 @@
     pointer-events: none;
 }
 
-#virtualclassCont.congrea .page_wrapper {
-    /*height: 600px;*/
-    height : 95vh;
-}
+/*#virtualclassCont.congrea .page_wrapper {*/
+    /*!*height: 600px;*!*/
+    /*height : 95vh;*/
+/*}*/
 
 /*#listnotes {*/
 /*width: 1600px;*/
@@ -130,9 +130,9 @@
     z-index: 20;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
-    height: 88vh;
-}
+/*#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {*/
+    /*height: 88vh;*/
+/*}*/
 
 #virtualclassCont.congrea #screen-docs .listPages {
     margin-top: -9px;
@@ -168,21 +168,22 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
-    width: calc(100% - 70px);
-    height: calc(100vh - 54px) !important;
+    /*width: calc(100% - 70px);*/
+    /*height: calc(100vh - 54px) !important;*/
+
     /*padding: 20px;*/
     border: 1px solid #d6d5d5;
     text-align: center;
     float: left;
     margin:0;
-    margin-left : 60px;
+    /*margin-left : 60px;*/
 
 }
 
-#virtualclassCont.congrea.student #virtualclassDocumentShare.virtualclass.container {
-    width: calc(100% - 20px) !important;
-    margin-left : 10px !important;
-}
+/*#virtualclassCont.congrea.student #virtualclassDocumentShare.virtualclass.container {*/
+    /*!*width: calc(100% - 20px) !important;*!*/
+    /*!*margin-left : 10px !important;*!*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #documentScreen {
     width: 100%;
@@ -480,9 +481,9 @@
     margin-top: -73px;
 }
 
-#virtualclassCont.congrea .pageContainer {
-    height: 572px;
-}
+/*#virtualclassCont.congrea .pageContainer {*/
+    /*height: 572px;*/
+/*}*/
 
 #virtualclassCont.congrea .nvgt {
     position: absolute;
@@ -779,9 +780,9 @@
 }
 
 
-#virtualclassCont.congrea #notesContainer .note {
-    height : 94.5vh;
-}
+/*#virtualclassCont.congrea #notesContainer .note {*/
+    /*height : 94.5vh;*/
+/*}*/
 @media (max-height: 768px) {
     #virtualclassCont.congrea #listdocs {height: calc(100vh - 145px);
 }

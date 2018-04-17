@@ -188,9 +188,7 @@
 
                                 var dashbaord = document.querySelector('#DocumentShareDashboard');
 
-
                             }
-
                             if(dashbaord != null){
                                 dashbaord.classList.remove('uploading');
                             }

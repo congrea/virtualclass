@@ -1,10 +1,7 @@
-#virtualclassCont.congrea.student #virtualclassQuiz{
-  margin-left: 6px;
-}
 
-#virtualclassCont.congrea.teacher #virtualclassQuiz{
-  margin-left: 60px;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassQuiz{*/
+  /*margin-left: 60px;*/
+/*}*/
 /* congrea quiz */
 #virtualclassQuiz {margin-right: 6px;}
 
@@ -29,8 +26,6 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-width: 0 1px 1px 1px;
-  height: 85vh;
-
 }
 #virtualclassCont.congrea #layoutQuizBody .quizList{
   margin: 0;
@@ -286,9 +281,9 @@ span.sch {
   font-size: 15px;
 }
 
-#virtualclassCont.congrea #virtualclassQuiz{
-  margin-top : 5px;
-}
+/*#virtualclassCont.congrea #virtualclassQuiz{*/
+  /*margin-top : 5px;*/
+/*}*/
 
 .path-mod-congrea-quiz ul.answers {
   padding:0px;

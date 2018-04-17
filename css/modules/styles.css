@@ -1179,6 +1179,7 @@
 	text-align: center;
 }
 
+
 #virtualclassCont.congrea .audEnableSign {
 	width : 12px;
 	height : 12px;
@@ -1217,9 +1218,7 @@
 }
 
 
-#virtualclassCont.congrea {
-	height : 99vh;
-}
+
 
 #virtualclassCont.congrea .controls a.audEnableSign img {
 	margin-left : -2px;
@@ -2373,7 +2372,7 @@
 	border-width: 0;
 	border-radius: 0;
 	margin-left : 59px;
-	height : 95vh;
+	/*height : 95vh;*/
 	background: none;
 }
 
@@ -2551,20 +2550,21 @@
 
 
 
-#dispVideo{
-	height:82vh;
-	width:85%;
-}
+/*#dispVideo{*/
+	/*height:82vh;*/
+	/*width:85%;*/
+/*}*/
+
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool.appOptions {
 	border-top-right-radius: 8px;
 	margin-bottom: -1px;
 }
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool.appOptions, 
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool.appOptions, 
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions, 
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions, 
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions, 
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassPollTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassQuizTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions,
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions {
@@ -3070,9 +3070,9 @@
 	position :absolute;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {
-	height : 90vh;
-}
+/*#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {*/
+	/*height : 90vh;*/
+/*}*/
 
 
 #virtualclassCont.congrea .zoomControler{
@@ -3204,9 +3204,9 @@
 	margin-top : 3px;
 }
 
-#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {
-	padding-bottom : 30px;
-}
+/*#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing {*/
+	/*padding-bottom : 30px;*/
+/*}*/
 
 /** For now the role transfer button is disabled, this should be enabled at later **/
 
@@ -3264,7 +3264,7 @@
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
    width:100%;
-   margin-left: 0px; 
+   margin-left: 0px;
 }
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
@@ -3408,11 +3408,11 @@
 }
 
 #virtualclassCont.congrea #congHr.disable{
-	opacity:0.4;
 	width:20%;
 	position :relative;
 	top:0;
 	left:0;
+	cursor:pointer;
 }
 #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before {
 	content: "\e962";
@@ -3423,6 +3423,13 @@
 	color: #fdfafa;
 
 }
+
+#virtualclassCont.congrea .handRaise.disable #icHr:before {
+	color: #fd2812;
+}
+
+
+
 #virtualclassCont.congrea  #icHr:after {
   position:absolute !important;
 	bottom:35px !important;
@@ -3505,6 +3512,7 @@
 #virtualclassCont.congrea #stickybar .ui-tabs-anchor {
 	width: 89%;
 	height: 100%;
+	margin-top: 7px;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
@@ -3578,17 +3586,47 @@ span#usertab_text {
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
 	width : 130px;
 }
- /* New Id's & Classes */
 
-#more-control-info {
-    text-align:center;
+
+#virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {
+	display: inline-block;
+	position: relative;
+	line-height: 14px;
+	bottom: 12px;
+}
+#virtualclassCont.congrea .vjs-volume-control.vjs-control.vjs-volume-horizontal{
+	position:relative;
+	bottom:21px;
+}
+#virtualclassCont.congrea .video-js .vjs-control:before{
+	line-height: 1;
+}
+#virtualclassCont.congrea #congHr.disable #icHr {
+	opacity: 0.4;
+}
+#virtualclassCont.congrea .handRaise.disable.congtooltip:hover:after {
+	left: -4.01em;
 }
 
-#more-controls :hover {
-    height:55px !important;
+#virtualclassCont.congrea #chat_div .controleCont{
+	float : left;
+	text-align: center;
 }
 
-#more-controls span a {
-    font-size:22px;
-    cursor:pointer;
+#virtualclassCont.congrea.student #chat_div .controleCont{
+	margin-right: 5px;
+}
+
+#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp.zoomCtrAdd .zoomControler{
+	display:block !important;
+
+}
+#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp .zoomControler{
+	display:none ;
+
+}
+
+
+#virtualclassCont.congrea #precheckSkip .skip {
+	display : none;
 }

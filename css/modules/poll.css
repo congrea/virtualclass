@@ -2,9 +2,9 @@
   opacity:.3;
 }
 
-#virtualclassCont.congrea #virtualclassPoll {
-  margin-left: 60px;
-}
+/*#virtualclassCont.congrea #virtualclassPoll {*/
+  /*margin-left: 60px;*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassPoll {
   margin-right: 6px;
@@ -42,7 +42,8 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-width: 0 1px 1px 1px;
-  height: 85vh;
+  /*height: 85vh;*/
+
 }
 
 #virtualclassCont.congrea.student #layoutPollBody {
@@ -114,9 +115,9 @@
   color: #3C3C3C;
 }
 
-#virtualclassCont.congrea.student #virtualclassPoll {
-  margin-left:6px;
-}
+/*#virtualclassCont.congrea.student #virtualclassPoll {*/
+  /*margin-left:6px;*/
+/*}*/
 
 #virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > tbody > tr > td {
   padding:15px;

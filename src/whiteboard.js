@@ -73,7 +73,10 @@
                 virtualclass.wb[id].canvas = vcan.create('#canvas'+id);
                 var canvasObj = vcan.main.canvas;
                 canvasObj.setAttribute('tabindex', '0');  //this does for set chrome
-                canvasObj.focus();
+
+
+                // canvasObj.focus();
+
 
                 //IMPORTANT  this is changed during the UNIT testing
                 //onkeydown event is working into all browser.
@@ -90,6 +93,11 @@
 
                 this.arrowInit();
                 this._init(id);
+                // var canvas = document.querySelector('#' +canvasObj.id);
+                // if(canvas != null){
+                //
+                //      canvas.focus();
+                // }
             },
 
             _init: function (id) {

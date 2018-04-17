@@ -2746,7 +2746,7 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
-	height: 50px;
+/*	height: 50px;* comment out/
 	/*width: 20%;*/
 	border-left:1px solid rgba(254, 254, 254, 0.2)!important;
 }
@@ -2860,7 +2860,7 @@
 	margin-top: 5px;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 17px 3px 17px 21px !important;
+	padding: 15px 28px 23px 46px !important;
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
@@ -2928,7 +2928,8 @@
 
 
 #virtualclassCont.congrea.orginalTeacher #audioWidget #mainAudioPanel li {
-	width : 20%;
+	width : 33.3%; /*changed from 20% as remove some controls */
+    text-align:center !important;
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel li {
@@ -3219,7 +3220,7 @@
 }
 
 #virtualclassCont.congrea .vmchat_room_bt, #virtualclassCont.congrea .vmchat_bar_button{
-	width:40%;
+	width:50% !important; /* Changed from 40% */
 }
 
 #virtualclassCont.congrea #stickycontainer .uiMuteAll{
@@ -3507,7 +3508,7 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
-	background-color: #f8f7dc;
+/*	background-color: #f8f7dc;*/
 	border-bottom: 1px solid #8f8f8f;
 	border-top: 1px solid #ddda86;
 
@@ -3577,5 +3578,17 @@ span#usertab_text {
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
 	width : 130px;
 }
+ /* New Id's & Classes */
 
+#more-control-info {
+    text-align:center;
+}
 
+#more-controls :hover {
+    height:55px !important;
+}
+
+#more-controls span a {
+    font-size:22px;
+    cursor:pointer;
+}

@@ -8,9 +8,11 @@
       </a>
     </li>
 
+<!--
     <li class="prechk congtooltip" data-title="Precheck" id="precheckTest">
       <a><span class="precheck cgIcon"  id="precheckSetting" ></span></a>
     </li>
+-->
 
     {{#if isControl}}
       <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
@@ -29,11 +31,18 @@
     {{/if}}
 
 
+<!--
     <li id="videSpeedNumber" class="suggestion congtooltip" data-suggestion="{{suggestion}}" data-title="{{getString 'proposedspeed'}}"> </li>
     <li id="vedioPacket" >
       <a id="videoPacketInfo">
         <span id="videLatency" class="latency  congtooltip" data-latency="slow" data-title="slow">  </span>
       </a>
     </li>
+-->
+  <li id="more-controls" class="congotooltip">
+    <a id="more-control-info">
+        <span>&#9776;</span>  
+    </a>    
+  </li>    
   </ul>
 </div>

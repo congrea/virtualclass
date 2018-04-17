@@ -1,10 +1,12 @@
 <div id="virtualclassAppRightPanel" class="rightbar bootstrap">
+    {{> ('getVideoType') }}
   {{!-- Audio widget --}}
   {{> audioWidget}}
-  {{> ('getVideoType') }}
+  
   {{!-- Chat widget --}}
   <div id="chatWidget">
+      <div id="congreaChatCont"></div>
     <div id="stickycontainer"></div>
-    <div id="congreaChatCont"></div>
+    
   </div>
 </div>

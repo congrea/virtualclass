@@ -43,7 +43,7 @@
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
                 meetingMode : +(wbUser.meetingMode),
                 chromeExt : false,
-                pdfdebugg : false, //To draw scroll for debugging process
+                pdfdebugg : true, //To draw scroll for debugging process
                 wbInitHandle : false,
                 wbCount : 0,
                 prvWindowSize : false,
@@ -56,7 +56,7 @@
                 wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
-                isReadyForVideo : true,
+                isReadyForVideo : true
             },
 
             enablePreCheck : true,
@@ -199,6 +199,7 @@
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
+                virtualclass.network = new Network();
 
 
                 this.serverData = serverData;
@@ -1006,7 +1007,7 @@
                             virtualclass.dts.sendCurrentSlide();
                             //var slide = virtualclass.dts.docs[virtualclass.dts.docs.currDoc].currSlide;
                         }
-                        
+
                         var slide = virtualclass.dts.docs.currNote;
                         // if( typeof slide != 'undefined' ){
                         if( typeof slide != 'undefined' ){
@@ -1229,7 +1230,7 @@
                 var contPara = {'whiteboardPath' : whiteboardPath};
 
                 /** Registering the partials which have setting paramter **/
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;
@@ -1242,7 +1243,7 @@
                         context.isControl= roles.hasControls();
                         context.isMettingMode= (virtualclass.gObj.meetingMode) && (roles.isStudent());
 
-                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools' || initTemplates[i] == 'appSettingDetail'){
                         context = isControl;
                     }
                     this.makeReadyTemplate(initTemplates[i], context);

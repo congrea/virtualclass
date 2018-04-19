@@ -1,18 +1,10 @@
 <ul class="chatBarTab nav navbar-nav">
-  <li class="vmchat_room_bt congtooltip" data-title="Common Chat" id="chatroom_bt2">
-    <a class="inner_bt">
-      <span id="chatroom_icon"><span class="icon-chatroom cgIcon"></span></span>
-      <span id="chatroom_text" class="cgText">{{getString 'Chatroom'}}</span>
-    </a>
-  </li>
     {{#if control}}
     <li class="vmchat_bar_button  active" id="user_list" >
       <a class="inner_bt congtooltip" id="yui_3_17_2_1_1496985300499_68" data-title="Private Chat">
         <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'Pchat'}}</span></span>
       </a>
-    <a class="hand_bt congtooltip" data-title = "raise hand">
-      <span id="raisehand_icon"><span class="icon-raisehand cgIcon"></span></span>
-    </a>
+
 
     </li>
       {{else}}
@@ -24,15 +16,15 @@
 
       </li>
     {{/if}}
+  <li class="vmchat_room_bt congtooltip" data-title="Common Chat" id="chatroom_bt2">
+    <a class="inner_bt">
+      <span id="chatroom_icon"><span class="icon-chatroom cgIcon"></span></span>
+      <span id="chatroom_text" class="cgText">{{getString 'Chatroom'}}</span>
+    </a>
+  </li>
+
+<!-- pass control student -->
   {{#if control}}
-    <li class="uiMuteAll">
-      <a id="contrAudioAll">
-          <span class="cgIcon"id="contrAudioAllImg" data-action="disable"
-                class="icon-all-audio-disable cgIcon"
-                data-title="Mute All">
-          </span>
-      </a>
-    </li>
   {{else}}
     <li class = "handRaise enable congtooltip " id ="congHr" data-title ="raise hand">
 
@@ -42,6 +34,7 @@
         </a>
     </li>
   {{/if}}
+
 </ul>
 <div id="stickybar" class="maximize" style="z-index: 2000;">
   <div id="tabs" class="tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all">
@@ -49,12 +42,7 @@
         role="tablist"></ul>
   </div>
 
-  <div class="footerCtr" id="congFooterCtr">
-    <div class="vmchat_search" id="congUserSearch">
-      <input type="text" id="congreaUserSearch" class="search"
-             placeholder="Search user">
-    </div>
-  </div>
+
 
 
 </div>

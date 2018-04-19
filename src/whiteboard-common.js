@@ -24,10 +24,12 @@
                         /* To handle the dimension of whiteboard on previous click, */
                         setTimeout(
                             function (){
-                                system.setAppDimension(null, 'resize');
-                                virtualclass.view.window.resize();
+                                virtualclass.zoom.normalRender();
+                                // system.setAppDimension(null, 'resize');
+                                // virtualclass.view.window.resize();
                             },200
                         );
+
                     }
                 }
             }

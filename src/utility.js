@@ -80,6 +80,7 @@
         //TODO very critical and important for remove return
         /** Handle container dimension 1**/
         setContainerWidth : function(res, app) {
+            return;
             if(app != null){
                 var appId = 'virtualclass' + app;
             } else {
@@ -627,7 +628,7 @@
              * rather than document sharing
              */
 
-            if(virtualclass.hasOwnProperty('dts')){
+            if(virtualclass.hasOwnProperty('dts') && virtualclass.dts != null){
                 virtualclass.dts.upateInStorage();
             }
 
@@ -1789,11 +1790,13 @@
 
 
         setChatContHeight : function (height){
+             return;
             $('#chatWidget').height(height);
             this.setChatHeight(height);
         },
 
         setChatHeight : function (height){
+            return;
             var height = height - 40;
             if(virtualclass.isPlayMode){
                 var height = height+64;
@@ -2260,22 +2263,32 @@
             return number.toFixed(2);
         },
 
+
         getElemM : function (wrapper, type){
             if(type == 'Y'){
-                var res = document.querySelector('#' + wrapper).style.height;
+                var res = document.querySelector('#' + wrapper).offsetHeight;
             }else if(type == 'X'){
-                var res = document.querySelector('#' + wrapper).style.width;
+                var res = document.querySelector('#' + wrapper).offsetWidth;
+            }
+            return this.getValueWithoutPixel(res);
+        },
+
+        getElemM2 : function (wrapper, type){
+            if(type == 'Y'){
+                var res = document.querySelector('#' + wrapper).offsetHeight;
+            }else if(type == 'X'){
+                var res = document.querySelector('#' + wrapper).offsetWidth;
             }
             return this.getValueWithoutPixel(res);
         },
 
         getElemHeight : function (wrapper){
-            var heighPx = document.querySelector('#' + wrapper).style.height;
+            var heighPx = document.querySelector('#' + wrapper).offsetHeight;
             return this.getValueWithoutPixel(heighPx);
         },
 
         getElemWidth : function (wrapper){
-            var widthPx = document.querySelector('#' + wrapper).style.width;
+            var widthPx = document.querySelector('#' + wrapper).offsetWidth;
             return this.getValueWithoutPixel(widthPx);
         },
 

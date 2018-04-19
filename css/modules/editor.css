@@ -4,9 +4,9 @@
   margin-top: -1px;
 }
 
-#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {
-  margin-left: 60px;
-}
+/*#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {*/
+  /*margin-left: 60px;*/
+/*}*/
 
 #virtualclassCont.congrea.student #virtualclassCont.congrea #virtualclassEditorRich {
   margin-left: 35px;
@@ -55,9 +55,6 @@
   height: 100%;
 }
 
-#virtualclassEditorCode, #virtualclassEditorCodeBody {
-  height: 101%;
-}
 
 #virtualclassCont.congrea div.CodeMirror-cursors {
   visibility: visible !important;
@@ -105,7 +102,7 @@
 
 #virtualclassCont.congrea #virtualclassEditorRichBody {
   position: relative;
-  height: 100%;
+  /*height: 100%;*/
 }
 
 #virtualclassCont.congrea #alleditorRichContainer {
@@ -148,13 +145,13 @@
   position: relative;
 }
 
-#virtualclassCont.congrea.orginalTeacher #virtualclassEditorRichBody,
-#virtualclassCont.congrea.orginalTeacher #virtualclassEditorCodeBody,
-#virtualclassCont.congrea.teacher #virtualclassEditorRichBody,
-#virtualclassCont.congrea.teacher #virtualclassEditorCodeBody {
-  width: 100%;
+/*#virtualclassCont.congrea.orginalTeacher #virtualclassEditorRichBody,*/
+/*#virtualclassCont.congrea.orginalTeacher #virtualclassEditorCodeBody,*/
+/*#virtualclassCont.congrea.teacher #virtualclassEditorRichBody,*/
+/*#virtualclassCont.congrea.teacher #virtualclassEditorCodeBody {*/
+  /*width: 100%;*/
 
-}
+/*}*/
 
 #virtualclassCont.congrea.removedAssign #virtualclassEditorRichBody, #virtualclassCont.congrea.removedAssign #virtualclassEditorCodeBody {
   margin-right: 0;
@@ -207,9 +204,9 @@
   top: 3%;
 }
 
-#virtualclassCont.congrea #virtualclassEditorRich {
-  margin-right: 6px;
-}
+/*#virtualclassCont.congrea #virtualclassEditorRich {*/
+  /*margin-right: 6px;*/
+/*}*/
 
 #virtualclassCont.congrea.student.pt_enable #virtualclassAppLeftPanel #virtualclassEditorRich {
   float: none;
@@ -220,13 +217,13 @@
   margin-left: 60px;
 }
 
-#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {
-  height: 95vh;
-}
+/*#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {*/
+  /*height: 95vh;*/
+/*}*/
 
-#virtualclassCont.congrea.educator #virtualclassEditorCode, #virtualclassCont.congrea.educator #virtualclassEditorRich {
-  height: 93vh;
-}
+/*#virtualclassCont.congrea.educator #virtualclassEditorCode, #virtualclassCont.congrea.educator #virtualclassEditorRich {*/
+  /*height: 93vh;*/
+/*}*/
 
 #virtualclassCont.congrea #chat_div .controllereditorCode {
   float: left;

@@ -135,7 +135,9 @@
                 if (Object.keys(this.coursequiz).length > 0) {
                     for ( var k in this.coursequiz) {
                         if (this.coursequiz.hasOwnProperty(k)) {
-                            this.displayQuizes (this.coursequiz[k], k);
+                            if(! +this.coursequiz[k].quizstatus){
+                                this.displayQuizes (this.coursequiz[k], k);
+                            }
                         }
                     }
                     this.UI.listHeader();
@@ -171,8 +173,9 @@
                 formData.append("user", this.uid);
                 var scope = this;
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_quiz", function (data) {
-
+                    console.log(data);
                     var getContent = JSON.parse(data);
+
                     if(getContent['status'] == 0) {
                         var cont = document.getElementById("bootstrapQzCont");
                         cont.innerHTML = getContent['message'];
@@ -513,8 +516,8 @@
                     if (document.querySelector('#timeText') != null) {
                         document.querySelector('#timeText').textContent = "Quiz has been closed";
                     }
-                    var resPage = document.querySelector("#slickQuiz .quizResults").style.display;
-                    if(resPage != 'block') {
+                    var resPage = document.querySelector("#slickQuiz .quizResults");
+                    if(resPage && resPage.style.display != 'block') {
                         // click submit button of student screen
                         var arr = document.querySelectorAll('#slickQuiz .nextQuestion');
                         var arrlength = arr.length-1;

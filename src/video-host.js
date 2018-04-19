@@ -39,6 +39,7 @@ var videoHost = {
         this.width = width;
         this.height = height;
         this.gObj.videoSwitch = 1;//nirmala
+        this.gObj.stdStopSmallVid =false;
         this.domReady = false;
         if (roles.hasAdmin()) {
 
@@ -108,27 +109,29 @@ var videoHost = {
         this.vidHostSlice.globalCompositeOperation = "multiply";
     },
     //nirmala
-    videoHandler: function (that) {
-        var video;
-        if (that.classList.contains("on")) {
-            that.classList.remove("on");
-            that.classList.add("off");
-            virtualclass.videoHost.gObj.videoSwitch = 0;
-            video = "off";
-            var tooltip = document.querySelector(".videoSwitchCont");
-            tooltip.dataset.title="turn video on"
-        } else {
-            that.classList.remove("off");
-            that.classList.add("on");
-            virtualclass.videoHost.gObj.videoSwitch = 1;
-            video = "on"
-            var tooltip = document.querySelector(".videoSwitchCont");
-            tooltip.dataset.title="turn video off"
-        }
-
-        ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
-
-    },
+    // videoHandler: function (that) {
+    //     var video;
+    //     if (that.classList.contains("on")) {
+    //         that.classList.remove("on");
+    //         that.classList.add("off");
+    //         virtualclass.videoHost.gObj.videoSwitch = 0;
+    //         video = "off";
+    //         var tooltip = document.querySelector(".videoSwitchCont");
+    //         tooltip.dataset.title="turn video on"
+    //     } else {
+    //         that.classList.remove("off");
+    //         that.classList.add("on");
+    //         virtualclass.videoHost.gObj.videoSwitch = 1;
+    //         video = "on"
+    //         var tooltip = document.querySelector(".videoSwitchCont");
+    //         tooltip.dataset.title="turn video off"
+    //     }
+    //     if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
+    //         ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
+    //     }else {
+    //         alert("student video off ");
+    //     }
+    // },
     //nirmala
     onmessage: function (msg) {
         console.log(msg);
@@ -141,9 +144,37 @@ var videoHost = {
             this.UI.hideVideo();
         }
     },
+    stdVideoCtrlMsg:function(data){
+        var userid = data.fromUser.userid;
+        if(data.message.stdVideoCtr.videoSwitch) {
+            this.setUserIcon(userid);
+        }else{
+            this.removeUserIcon(userid);
+        }
+    },
+    setUserIcon:function(userid){
+
+        var isVideo = document.querySelector("#ml"+userid+" .user-details .pull-left .videoWrapper");
+        if(isVideo){
+            isVideo.parentNode.removeChild(isVideo);
+        }
+
+        var imgCont = document.querySelector("#ml"+userid+" .user-details .pull-left")
+       var imgElem = document.querySelector("#ml"+userid+" .user-details .pull-left img");
+        if(!imgElem){
+            var img = document.createElement('img');
+            img.classList.add('media-object');
+            img.setAttribute("src",whiteboardPath +"images/quality-support.png")
+            imgCont.appendChild(img);
+            console.log("set User icon");
+        }
+    },
+    removeUserIcon:function(){
+        console.log("Remove User icon");
+    },
     //nirmala
     //todo *to be called only if flag  available in localstorage
-    //todo to modify later
+    //todo to modify later ** to modify
     fromLocalStorage: function () {
         var videoSwitch = localStorage.getItem("videoSwitch");
         if (typeof videoSwitch != 'undefined' && videoSwitch) {
@@ -166,12 +197,11 @@ var videoHost = {
                     }
                 }
 
-            } else {
+            }else {
                 if(!virtualclass.gObj.meetingMode){
-                    if (+videoSwitch) {
+                    if (videoSwitch) {
                         virtualclass.videoHost.UI.displayVideo();
                     } else {
-
                         virtualclass.videoHost.UI.hideVideo();
                     }
                 }
@@ -179,6 +209,39 @@ var videoHost = {
             // localStorage.removeItem("videoSwitch");
         }
 
+        var stdVideoSwitch = localStorage.getItem("stdVideoSwitch");
+        if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
+            virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
+
+            if (!roles.hasControls()) {
+                var sw = document.getElementById("videoSwitch");
+                if (sw) {
+                    if (!stdVideoSwitch) {
+                        if (sw.classList.contains("off")) {
+                            sw.classList.add("on");
+                            sw.classList.remove("off");
+                        }
+                    } else {
+                        if (sw.classList.contains("on")) {
+                            sw.classList.add("off");
+                            sw.classList.remove("on");
+                        }
+
+                    }
+                }
+
+            } else {
+                // if(!virtualclass.gObj.meetingMode){
+                //     if (+videoSwitch) {
+                //         virtualclass.videoHost.UI.displayVideo();
+                //     } else {
+                //
+                //         virtualclass.videoHost.UI.hideVideo();
+                //     }
+                // }
+            }
+             localStorage.removeItem("stdVideoSwitch");
+        }
     },
     /** Setting canvas attribut like
      * width, height, context etc

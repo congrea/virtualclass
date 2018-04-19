@@ -3624,3 +3624,24 @@ span#usertab_text {
 	display:none ;
 
 }
+#stickycontainer div.select {
+	display: inline-block;
+	margin: 0 0 1em 0;
+}
+#stickycontainer #container p.small {
+	font-size: 0.7em;
+}
+#stickycontainer #container  label {
+	width: 12em;
+	display: inline-block;
+}
+#WebRtcIoContainer.disable{
+	display:none;
+}
+#webRtcIo{
+	display:none;
+}
+#audioVisualaizer{
+	width:60px;
+	height:200px;
+}

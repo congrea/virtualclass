@@ -12,13 +12,12 @@
       <a><span class="precheck cgIcon"  id="precheckSetting" ></span></a>
     </li>
 
-    {{#if isControl}}
-      <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
-        <a id="rightCtlr">
-          <span id="videoSwitch" data-action="disable" class="video on" ></span>
-        </a>
-      </li>
-    {{/if}}
+    <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
+      <a id="rightCtlr">
+        <span id="videoSwitch" data-action="disable" class="video on" ></span>
+      </a>
+    </li>
+
 
     {{#if isMettingMode}}
       <li class="videoSwitchCont congtooltip" data-title="Video off" id="congCtrBar">
@@ -35,5 +34,12 @@
         <span id="videLatency" class="latency  congtooltip" data-latency="slow" data-title="slow">  </span>
       </a>
     </li>
+
+    <li id="webRtcIo" class="io" data-suggestion="" >
+      <a id="ancIo">
+        <span id="wbRcio" class="rtc  congtooltip"  data-title="webrtc io"> IO </span>
+      </a>
+    </li>
+
   </ul>
 </div>

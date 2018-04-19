@@ -266,7 +266,7 @@
                         vol > (minthreshold * 2) || // Current max volume
                         thdiff <= 4 ) { // We are not ready for this algo
                         this.audioSend(send, audStatus);
-                        audioWasSent = 3;
+                        audioWasSent = 1;
                         // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
@@ -772,9 +772,9 @@
                     }
 
                     console.log("Audio " + this.audioToBePlay[uid].length + " uid " + uid);
-                    if (this.audioToBePlay[uid].length >= 13) { // 5 seconds
+                    if (this.audioToBePlay[uid].length >= 10) { // 4 seconds
                         // console.log("Audio Buffer Full");
-                        while (this.audioToBePlay[uid].length >= 5) { // 2 seconds
+                        while (this.audioToBePlay[uid].length >= 3) { // 1 seconds
                             virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();

@@ -52,4 +52,27 @@ $rid = "wss://$rid->result";
 <?php echo " wbUser.room='".$room."';";?>
 <?php echo " wbUser.lkey='".$licensekey."';"; ?>
 <?php //echo "imageurl='./images/quality-support.png';"; ?>
+
+/*
+var Thread = {
+	sleep: function(ms) {
+		var start = Date.now();
+
+		while (true) {
+			var clock = (Date.now() - start);
+			if (clock >= ms) break;
+		}
+
+	}
+};
+
+setInterval(
+    function (){
+        console.log('sleeping start');
+        Thread.sleep(1500);
+        console.log('sleeping stop');
+    }, 2000
+)
+*/
 </script>
+

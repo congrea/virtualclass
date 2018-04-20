@@ -6,6 +6,7 @@
  * video for multiple users.
  *
  */
+
 (function (window) {
     function breakintobytes(val, l) {
         var numstring = val.toString();
@@ -219,7 +220,7 @@
                     }
                 },
                 // if there is silece then audio will not be transmitted
-                slienceDetection: function (send, leftSix) {
+                silenceDetection: function (send, leftSix) {
                     var audStatus;
                     var vol = 0;
                     var sum = 0;
@@ -531,7 +532,9 @@
                  * Calls silenceDetection function to detect silence
                  * @param e where e is the event object
                  */
-                recorderProcess: function (e) {
+
+                        
+               recorderProcess: function (left) {
                     var currTime = new Date().getTime();
                     if (!repMode) {
                         if (!this.recordAudio) {
@@ -545,11 +548,11 @@
                         // }
 
                         if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
-                            var left = e.inputBuffer.getChannelData(0);
+                            // var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
                             var send = this.audioInLocalStorage(leftSix);
-                            this.slienceDetection(send, leftSix);
+                            this.silenceDetection(send, leftSix);
                         }
 
                     }
@@ -640,33 +643,22 @@
                  * otherwise set to false
                  */
 
-                play: function (uid) {
+                play: function (uid, audioChunks) {
                     if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                     }
-                    if(typeof sNode[uid] != 'object'){
-                        console.log('script processor node is created');
-                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
-                        sNodePak[uid] = 0;
-                        sNode[uid].onaudioprocess = function (event){
-                            var output = event.outputBuffer.getChannelData(0);
-                            var newAud = virtualclass.gObj.video.audio.getAudioChunks(uid);
-                            if(typeof newAud != 'undefined'){
-                                // console.log('Audio from user ' + uid);
-                                for (i = 0; i < newAud.length; i++) {
-                                    output[i] = newAud[i];
-                                }
-                                sNodePak[uid] = newAud[16383];
-                            }else {
-                                for (i = 0; i < output.length; i++) {
-                                    output[i] = sNodePak[uid];
-                                }
-                            }
-                        };
-                        sNode[uid].connect(this.Html5Audio.audioContext.destination);
 
+                    if(typeof sNode[uid] != 'object'){
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'/worker/receiver-audio-processor.js').then(() => {
+                            sNode[uid] = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'receiver-audio-processor');
+                            sNode[uid].connect(cthis.audio.Html5Audio.audioContext.destination);
+                            
+                       });
+                    } else {
+                        sNode[uid].port.postMessage({audio : audioChunks})
                     }
-                },
+
+               },
 
                 // // TODO this is not being invoked
                 // calcAverage: function () {
@@ -695,15 +687,10 @@
                 //     }
                 // },
 
-                queue: function (packets, uid) {
-                    if (!this.hasOwnProperty('audioToBePlay')) {
-                        this.audioToBePlay = {};
-                    }
-                    if (!this.audioToBePlay.hasOwnProperty(uid)) {
-                        this.audioToBePlay[uid] = [];
-                    }
+              
 
-                    var samples = G711.decode(packets, {
+                queue: function (packets, uid) {
+                   var samples = G711.decode(packets, {
                         alaw: this.encMode == "alaw" ? true : false,
                         floating_point: true,
                         Eight: true
@@ -727,31 +714,7 @@
                     }
 
                     var samples = this.resamplerdecode[uid].resampler(samples);
-                    // this.audioToBePlay[uid].push(new Float32Array(samples));
-
-                    if(typeof allAudioArr[uid] == 'undefined'){
-                        allAudioArr[uid] = [];
-                    }
-
-                    /**
-                     * Making single Queue Audio for specific user
-                     */
-                    for(var i=0; i<samples.length; i++){
-                        allAudioArr[uid].push(samples[i]);
-                    }
-
-                    if(typeof ac[uid] == 'undefined'){
-                        ac[uid] = 0;
-                    }
-
-                    /* Picking up an audio chunk and giving
-                     * to Audio Queue, to handle 44.1khz and 48khz
-                     */
-                    while (allAudioArr[uid].length >= 16384) {
-                        var arrChunk =  allAudioArr[uid].splice(0, 16384);
-                        this.audioToBePlay[uid].push(new Float32Array(arrChunk));
-                        ac[uid]++;
-                    }
+                    return samples;
                 },
 
 
@@ -763,6 +726,7 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
+
                     if(this.audioToBePlay[uid].length == 0){
                         ac[uid] = 0;
                     }
@@ -852,34 +816,23 @@
                  * which is connected to gain node that controles the volume
                  * it eventually plays audio
                  */
+                
                 manuPulateStream: function () {
                     var stream = cthis.stream;
-                    /* if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
-                     virtualclass.wb.recordStarted = new Date().getTime();
-                     localStorage.setItem('recordStart', virtualclass.wb.recordStarted);
-                     } else {
-                     virtualclass.wb.recordStarted = localStorage.getItem('recordStart');
-                     } */
-                    var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
-                    cthis.audio.bufferSize = 16384;
-                    // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
-                    // https://code.google.com/p/chromium/issues/detail?id=360378
-                    // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                    grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                    grec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
+                    cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/audio-processor.js').then(() => {
+                        var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+                        let audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
+                        audioInput.connect(audioNode);
+                        audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
 
-                    gainNode = cthis.audio.Html5Audio.audioContext.createGain();
-                    gainNode.gain.value = 0.9;
-
-                    filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
-                    filter.type = "lowpass";
-                    filter.frequency.value = 1000;
-
-                    audioInput.connect(filter);
-                    filter.connect(gainNode);
-                    gainNode.connect(grec);
-                    grec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                        audioNode.port.onmessage = function (event){
+                            var audio = event.data.audio;
+                            cthis.audio.recorderProcess(audio);
+                        }
+                    });
                 },
+
+
                 /*
                  *  Setting the record start time to the current time
                  *  and setting the replay mode to false
@@ -916,8 +869,9 @@
                         virtualclass.user.control.audioSign(user, "create");
                     }
 
-                    virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                    virtualclass.gObj.video.audio.play(uid);
+                    let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                    virtualclass.gObj.video.audio.play(uid, packets);
+
 
                     // if (!virtualclass.gObj.hasOwnProperty(uid) || !virtualclass.gObj[uid].hasOwnProperty('isplaying')) {
                     //     virtualclass.gObj[uid] = {};

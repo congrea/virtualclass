@@ -133,7 +133,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>io/src/js/lib/ga.js?ver=<?php echo $version ?>"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
 
 

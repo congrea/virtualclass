@@ -8,10 +8,10 @@
 
 'use strict';
 
-var videoElement = document.querySelector('#WebRtcIoContainer video');
-var audioInputSelect = document.querySelector('#WebRtcIoContainer select#audioSource');
-var audioOutputSelect = document.querySelector('#WebRtcIoContainer select#audioOutput');
-var videoSelect = document.querySelector('#WebRtcIoContainer select#videoSource');
+var videoElement = document.querySelector('#webRtcIoContainer video');
+var audioInputSelect = document.querySelector('#webRtcIoContainer select#audioSource');
+var audioOutputSelect = document.querySelector('#webRtcIoContainer select#audioOutput');
+var videoSelect = document.querySelector('#webRtcIoContainer select#videoSource');
 var selectors = [audioInputSelect, audioOutputSelect, videoSelect];
 
 audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);

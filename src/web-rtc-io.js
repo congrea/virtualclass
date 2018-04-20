@@ -11,14 +11,14 @@
 
             init:function(){
                 var template = virtualclass.getTemplate('rtcIo');
-                $("#virtualclassApp  #chatWidget #stickycontainer").append(template());
+                $("#virtualclassApp  #settingMedia").append(template());
 
                 var io = document.querySelector('#virtualclassCont.congrea  #ancIo');
                 if(io){
 
                     io.addEventListener('click',function(){
-                        var ioCont = document.querySelector("#virtualclassApp #WebRtcIoContainer.disable");
-                     if(ioCont){
+                        var ioCont = document.querySelector("#virtualclassApp #webRtcIoContainer");
+                     if(ioCont.classList.contains('disable')){
                          ioCont.style.display="block";
                          ioCont.classList.remove('disable');
                      }else{

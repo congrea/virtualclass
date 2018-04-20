@@ -41,3 +41,26 @@
  #virtualclassCont #congreaChatMainCont {
 	 height : calc(100% - 44px);
  }
+/*   n */
+#virtualclassCont.congrea #rightSubContainer #appSettingDetail.active{
+   display : block;
+}
+#virtualclassCont.congrea #chatWidget {
+	display:none;
+}
+#virtualclassCont.congrea #chatWidget.active {
+	display:block;
+}
+
+#virtualclassCont.congrea #WebRtcIoContainer{
+	height:100px;
+	width:200px;
+}
+#virtualclassCont.congrea #appSettingDetail,#virtualclassCont.congrea #appSettingDetail a{
+	color:black!important;
+}
+
+#virtualclassCont.congrea #WebRtcIoContainer video{
+	width:200px;
+	height:200px;
+}

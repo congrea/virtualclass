@@ -284,6 +284,9 @@
                 this.rtcIo= window.rtcIo;
                 this.rtcIo.init();
 
+                this.appSetting= window.appSetting;
+                this.appSetting.init();
+
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();

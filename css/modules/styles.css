@@ -3636,13 +3636,17 @@ span#usertab_text {
 	width: 12em;
 	display: inline-block;
 }
-#WebRtcIoContainer.disable{
+#webRtcIoContainer.disable{
 	display:none;
 }
-#webRtcIo{
-	display:none;
-}
+
 #audioVisualaizer{
 	width:60px;
 	height:200px;
 }
+
+#virtualclassCont.congrea #webRtcIoContainer video{
+	width:200px;
+	height:200px;
+}
+

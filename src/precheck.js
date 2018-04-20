@@ -53,8 +53,6 @@ var precheck = {
                     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
                     virtualclassPreCheck.style.display = 'none';
 
-                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                    virtualclassPreCheck.style.display = 'none';
 
                     var virtualclassApp = document.getElementById('virtualclassApp');
                     virtualclassApp.style.display = 'block';
@@ -63,10 +61,11 @@ var precheck = {
                     virtualclass.videoHost.afterSessionJoin();
 
                 }
+
+                virtualclass.gObj.precheckScrn=false;
             });
 
         }
-
     },
 
     cancelRequestAnimation : function (){
@@ -510,14 +509,7 @@ var precheck = {
                 var tempVideo = document.getElementById("webcamTempVideo");
                 tempVideo.className = 'novideo';
             }
-
-            //virtualclass.precheck.initHandler(('#preCheckcontainer .precheck #'+this.curr + 'Buttons .prev'), this.curr);
-
-//            virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
             virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
-
-
-//            virtualclass.precheck.initHandler((preCheck+ ' #joinSession' + ' .prev'), this.curr);
 
 
 
@@ -547,6 +539,7 @@ var precheck = {
                     //    }, 2000
                     //);
 
+                    virtualclass.gObj.precheckScrn=false;
                 });
             }
 

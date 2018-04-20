@@ -1031,6 +1031,27 @@ $(document).ready(function () {
                         virtualclass.studentScreen = new studentScreen();
                     }
 
+                    if(virtualclass.gObj.precheckScrn){
+                        if(localStorage.getItem('precheck')){
+                            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                            virtualclassPreCheck.style.display = 'none';
+                            var virtualclassApp = document.getElementById('virtualclassApp');
+                            virtualclassApp.style.display = 'block';
+                            virtualclass.videoHost._resetPrecheck();
+
+                        }else{
+                            virtualclass.popup.waitMsg();
+                            virtualclass.makeReadySocket();
+                            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                            virtualclassPreCheck.style.display = 'none';
+                            var virtualclassApp = document.getElementById('virtualclassApp');
+                            virtualclassApp.style.display = 'block';
+                            localStorage.setItem('precheck', true);
+                            virtualclass.videoHost.afterSessionJoin();
+                        }
+                        virtualclass.gObj.precheckScrn=false;
+                    }
+
                     // The binary data is coming on teacher when user download the session
                     // which actually should not, workaround for now
 
@@ -1616,7 +1637,11 @@ $(document).ready(function () {
             this.raiseHand= function(e){
                 virtualclass.raiseHand.onMsgRec(e.message);
             }
-
+            this.stdVideoCtrl= function(e){
+                if(e.fromUser.userid != virtualclass.gObj.uid){
+                    virtualclass.videoHost.stdVideoCtrlMsg(e);
+                }
+            }
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

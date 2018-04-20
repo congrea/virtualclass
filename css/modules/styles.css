@@ -3625,8 +3625,28 @@ span#usertab_text {
 	display:none ;
 
 }
-
-
-#virtualclassCont.congrea #precheckSkip .skip {
-	display : none;
+#stickycontainer div.select {
+	display: inline-block;
+	margin: 0 0 1em 0;
 }
+#stickycontainer #container p.small {
+	font-size: 0.7em;
+}
+#stickycontainer #container  label {
+	width: 12em;
+	display: inline-block;
+}
+#webRtcIoContainer.disable{
+	display:none;
+}
+
+#audioVisualaizer{
+	width:60px;
+	height:200px;
+}
+
+#virtualclassCont.congrea #webRtcIoContainer video{
+	width:200px;
+	height:200px;
+}
+

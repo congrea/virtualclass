@@ -1039,6 +1039,10 @@
                     var totalMembers = -1;
                     var that = this;
                     function sendSmallVideo() {
+
+                        // if(virtualclass.gObj.stdStopSmallVid){
+                        //     clearInterval(virtualclass.gObj.video.smallVid)
+                        // }
                         var resA = 1;
                         var resB = 1;
                         cvideo.tempVidCont.clearRect(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
@@ -1065,16 +1069,16 @@
                         }
 
                         sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-
-                        var uid = breakintobytes(virtualclass.gObj.uid, 8);
-                        var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
-                        var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
-                        sendmsg.set(scode);
-                        sendmsg.set(sendimage, scode.length);
-                        that.sendInBinary(sendmsg);
-
+                        if(!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || roles.hasControls() ){
+                            //clearInterval(virtualclass.gObj.video.smallVid)
+                            var uid = breakintobytes(virtualclass.gObj.uid, 8);
+                            var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
+                            var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
+                            sendmsg.set(scode);
+                            sendmsg.set(sendimage, scode.length);
+                            that.sendInBinary(sendmsg);
+                        }
                         clearInterval(virtualclass.gObj.video.smallVid);
-
                         var d = randomTime + (virtualclass.connectedUsers.length * 2500);
                         if (totalMembers != virtualclass.connectedUsers.length) {
                             totalMembers = virtualclass.connectedUsers.length;
@@ -1093,8 +1097,8 @@
                         } else {
                             virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
                         }
-                    }
 
+                    }
 
                     virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, randomTime);
                     // Breaking user id into bytes

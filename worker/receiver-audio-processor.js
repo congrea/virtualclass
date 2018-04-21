@@ -6,14 +6,14 @@
 class ReceiverAudioProcessor extends AudioWorkletProcessor {
 	constructor() {
         super();
-        this.audioToBePlay = [];
-        this.allAudioArr = [];
-        this.ac = 0;
+        this.audioToPlay = [];
+        this.lastAudioTone;
+        this.audioDelaySent = false;
+        this.audioDelay = false;
         var that = this;
 
 		this.port.onmessage = (msg) => {
-            var audio = msg.data.audio;
-            that.queue(audio);
+            that.queue(msg.data.audio);
         }
     }
 
@@ -21,17 +21,8 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * Making single Queue Audio
      */
     queue (samples) {
-        for(var i=0; i<samples.length; i++){
-            this.allAudioArr.push(samples[i]);
-        }
-
-        /* Picking up an audio chunk and giving
-		 * to Audio Queue, to handle 44.1khz and 48khz
-		 */
-        while (this.allAudioArr.length >= 128) {
-            var arrChunk = this.allAudioArr.splice(0, 128);
-            this.audioToBePlay.push(new Float32Array(arrChunk));
-            this.ac++;
+        for (let i=0, c=128; c <= samples.length; i=c, c=c+128) {
+            this.audioToPlay.push(samples.slice(i, c));
         }
 	}
 
@@ -40,17 +31,18 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * @returns {*} the audio packet with length of 128
      */
     getAudioChunks () {
-		if(this.audioToBePlay.length == 0){
-			this.ac = 0;
-		}
-		if (this.audioToBePlay.length >= (13 * 128)) { // 5 seconds
-			while (this.audioToBePlay.length >= (5 * 128)) { // 2 seconds
-                this.audioToBePlay.shift();
+		if (this.audioToPlay.length >= (2432)) { // 7 seconds
+            // if audio length is more than 7 seconds, truncate it to 3 seconds
+			while (this.audioToPlay.length >= (1024)) { // 3 seconds
+                this.audioToPlay.shift();
 			}
-			return this.audioToBePlay.shift();
-		} else if(this.ac >= 2 * 128) { // .7 second
-			return this.audioToBePlay.shift();
-		}
+			return this.audioToPlay.shift();
+		} else if(this.audioToPlay.length >= 256) { // .7 second
+            // Start playing once we have queue of at least 0.7 seconds
+			return this.audioToPlay.shift();
+		} else {
+            return null;
+        }
 	}
 
     /**
@@ -59,12 +51,15 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      */
     process(inputs, outputs) {
         let input = this.getAudioChunks();
-        if(typeof input != 'undefined'){
-            let output =  outputs[0][0];
-            for (let i = 0; i < output.length; ++i) {
-                output[i] = (input[i]);
+        if(input !== null){
+            outputs[0][0].set(input, 0);
+            this.lastAudioTone = input[127];
+		} else {
+            // Avoid tick sound
+            for (let i = 0; i < 128; i++) {
+                outputs[0][0][i] = this.lastAudioTone;
             }
-		}
+        }
 		return true;
     }
 }

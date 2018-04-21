@@ -225,7 +225,6 @@
                 this.system.mediaDevices.getMediaDeviceInfo();
 
 
-
                 if (app == this.apps[1]) {
                     this.system.setAppDimension();
                 }

@@ -19,7 +19,7 @@ class AudioProcessor extends AudioWorkletProcessor {
         this.audios.set(input, this.position);
 		this.position += input.length;
 		if(this.position >= 16384){
-			this.port.postMessage({audio : this.audios})
+			this.port.postMessage({audio : this.audios});
 			this.audios = new Float32Array(16384);
 			this.position =  0;
 		}

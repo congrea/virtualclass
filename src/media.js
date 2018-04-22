@@ -663,7 +663,7 @@
                         cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/receiver-audio-processor.js').then(() => {
                             sNode[uid] = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'receiver-audio-processor');
                             sNode[uid].connect(cthis.audio.Html5Audio.audioContext.destination);
-                            
+
                        });
                     } else {
                         sNode[uid].port.postMessage({audio : audioChunks})
@@ -882,8 +882,14 @@
                     var stream = cthis.stream;
                     cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/audio-processor.js').then(() => {
                         var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+
+                        filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
+                        filter.type = "lowpass";
+                        filter.frequency.value = 1000;
+
+                        audioInput.connect(filter);
                         let audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
-                        audioInput.connect(audioNode);
+                        filter.connect(audioNode);
                         audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
 
                         audioNode.port.onmessage = function (event){
@@ -909,16 +915,12 @@
                     grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                     grec.onaudioprocess = cthis.audio.recorderProcessFallback.bind(cthis.audio);
 
-                    gainNode = cthis.audio.Html5Audio.audioContext.createGain();
-                    gainNode.gain.value = 0.9;
-
                     filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                     filter.type = "lowpass";
                     filter.frequency.value = 1000;
 
                     audioInput.connect(filter);
-                    filter.connect(gainNode);
-                    gainNode.connect(grec);
+                    filter.connect(grec);
                     grec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 },
 

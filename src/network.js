@@ -10,7 +10,6 @@ function Network () {
     this.minLatency = 999999;
     this.countLatency = 0;
     this.avgLatency = 1;
-    this.audioPlayLength = 1;
     this.MYSPEED_COUNTER_OK = 0;
     this.MYSPEED_COUNTER_HIGH = 0;
 
@@ -49,7 +48,7 @@ Network.prototype.initToPing = function(time) {
 };
 
 Network.prototype.variations = function() {
-    if (this.latency && this.latency < 3000) {
+    if (this.latency && this.latency < 3000 && this.latency > 0) {
         this.sumLatency = this.sumLatency + this.latency;
         this.countLatency++;
         this.avgLatency = Math.round(this.sumLatency / this.countLatency);
@@ -65,23 +64,23 @@ Network.prototype.variations = function() {
 
 // SPEED 1 is best, 5 is worst
 Network.prototype.adaptiveMedia = function() {
-    if (virtualclass.videoHost.gObj.MYSPEED < 3 && (this.latency >= 3000 || ( this.minLatency < 999999  && (this.latency > (this.minLatency * 3) || this.audioPlayLength >= 5)))) {
-        // Very high latency or incorrect LipSync, disable video
+    if (virtualclass.videoHost.gObj.MYSPEED < 3 && (this.latency >= 3000 || ( this.minLatency < 999999  && (this.latency > (this.minLatency * 3))))) {
+        // Very high latency, disable video
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH++;
-        console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + ' audioPlayLength ' + this.audioPlayLength + " speed " + virtualclass.videoHost.gObj.MYSPEED);
-        if (virtualclass.videoHost.gObj.MYSPEED == 1 && this.MYSPEED_COUNTER_HIGH >= 2) {
+        console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+        if (virtualclass.videoHost.gObj.MYSPEED == 1 && this.MYSPEED_COUNTER_HIGH >= 3) {
             this.MYSPEED_COUNTER_HIGH = 0;
             this.setSpeed(2);
-        } else if (virtualclass.videoHost.gObj.MYSPEED == 2 && this.MYSPEED_COUNTER_HIGH >= 2) {
+        } else if (virtualclass.videoHost.gObj.MYSPEED == 2 && this.MYSPEED_COUNTER_HIGH >= 4) {
             this.MYSPEED_COUNTER_HIGH = 0;
             this.setSpeed(3);
         }
-    } else if (virtualclass.videoHost.gObj.MYSPEED > 1 && this.minLatency < 999999 && this.latency < (this.minLatency * 2) && this.audioPlayLength <= 3) {
+    } else if (virtualclass.videoHost.gObj.MYSPEED > 1 && this.minLatency < 999999 && this.latency < (this.minLatency * 2)) {
         // Latency is ok, giving a chance of video recovery
         this.MYSPEED_COUNTER_OK++;
         this.MYSPEED_COUNTER_HIGH = 0;
-        console.log('OK count ' + this.MYSPEED_COUNTER_OK + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + ' audioPlayLength ' + this.audioPlayLength + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+        console.log('OK count ' + this.MYSPEED_COUNTER_OK + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         if (virtualclass.videoHost.gObj.MYSPEED > 2 && this.MYSPEED_COUNTER_OK >= 4) {
             this.MYSPEED_COUNTER_OK = 0;
             this.setSpeed(2);
@@ -90,7 +89,7 @@ Network.prototype.adaptiveMedia = function() {
             this.setSpeed(1);
         }
     } else {
-        console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + ' audioPlayLength ' + this.audioPlayLength + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+        console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH = 0;
     }

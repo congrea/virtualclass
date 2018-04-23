@@ -135,7 +135,9 @@
                 if (Object.keys(this.coursequiz).length > 0) {
                     for ( var k in this.coursequiz) {
                         if (this.coursequiz.hasOwnProperty(k)) {
-                            this.displayQuizes (this.coursequiz[k], k);
+                            if(! +this.coursequiz[k].quizstatus){
+                                this.displayQuizes (this.coursequiz[k], k);
+                            }
                         }
                     }
                     this.UI.listHeader();
@@ -513,8 +515,8 @@
                     if (document.querySelector('#timeText') != null) {
                         document.querySelector('#timeText').textContent = "Quiz has been closed";
                     }
-                    var resPage = document.querySelector("#slickQuiz .quizResults").style.display;
-                    if(resPage != 'block') {
+                   var resPage = document.querySelector("#slickQuiz .quizResults");
+                    if(resPage && resPage.style.display != 'block') {
                         // click submit button of student screen
                         var arr = document.querySelectorAll('#slickQuiz .nextQuestion');
                         var arrlength = arr.length-1;

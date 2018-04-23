@@ -6,6 +6,7 @@
  * video for multiple users.
  *
  */
+
 (function (window) {
     function breakintobytes(val, l) {
         var numstring = val.toString();
@@ -52,6 +53,7 @@
     var sNode = {};
     var ac = {};
     var sNodePak = {};
+
 //        var AudioContext = AudioContext || webkitAudioContext;
     /*
      * this returns an object that contains various Properties
@@ -219,7 +221,7 @@
                     }
                 },
                 // if there is silece then audio will not be transmitted
-                slienceDetection: function (send, leftSix) {
+                silenceDetection: function (send, leftSix) {
                     var audStatus;
                     var vol = 0;
                     var sum = 0;
@@ -524,34 +526,47 @@
                     }
                     return bufView;
                 },
+
+
                 /*
-                 * recorderProcess is bind with the audio
-                 * downsamples channel data
-                 * encodes the samples
-                 * Calls silenceDetection function to detect silence
-                 * @param e where e is the event object
+                 * Resamples the audio and silence detection, and broadcast audio
                  */
-                recorderProcess: function (e) {
+               recorderProcess: function (left) {
                     var currTime = new Date().getTime();
                     if (!repMode) {
                         if (!this.recordAudio) {
                             this.recordingLength += this.bufferSize;
                         }
 
-                        // This is not using any more
+                        if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
+                            // var left = e.inputBuffer.getChannelData(0);
+                            var samples = this.resampler.resampler(left);
+                            var leftSix = convertFloat32ToInt16(samples);
+                            var send = this.audioInLocalStorage(leftSix);
+                            this.silenceDetection(send, leftSix);
+                        }
 
-                        // if (this.hasOwnProperty('storeAudio') && this.storeAudio) {
-                        //     this.audioForTesting(leftSix);
-                        // }
+                    }
+                },
+
+                /*
+                 * Resamples the audio and silence detection, and broadcast audio
+                 * it's fallback method in case of not supporting audio worklet
+                 */
+                recorderProcessFallback : function (e) {
+                    var currTime = new Date().getTime();
+                    if (!repMode) {
+                        if (!this.recordAudio) {
+                            this.recordingLength += this.bufferSize;
+                        }
 
                         if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
                             var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
                             var send = this.audioInLocalStorage(leftSix);
-                            this.slienceDetection(send, leftSix);
+                            this.silenceDetection(send, leftSix);
                         }
-
                     }
                 },
 
@@ -631,71 +646,66 @@
                     samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
                     (typeof testAudio != 'undefined') ? virtualclass.gObj.video.audio.play(samples, uid, testAudio) : virtualclass.gObj.video.audio.play(samples, uid);
                 },
+
+
                 /*
-                 * To connect the context nodes from source to destination
-                 * And to play the audio
-                 * @param  receivedAudio A float32Array of merged recordings
+                 * This function plays the audio with using audio worklet
                  * @param  uid User id
-                 * @param  testAudio A boolean value , is true if there is a test audio to be played
-                 * otherwise set to false
+                 * @param  audioChunks that need be played
                  */
 
-                play: function (uid) {
+                play: function (uid, audioChunks) {
                     if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                     }
+
                     if(typeof sNode[uid] != 'object'){
-                        console.log('script processor node is created');
-                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
-                        sNodePak[uid] = 0;
-                        sNode[uid].onaudioprocess = function (event){
-                            var output = event.outputBuffer.getChannelData(0);
-                            var newAud = virtualclass.gObj.video.audio.getAudioChunks(uid);
-                            if(typeof newAud != 'undefined'){
-                                // console.log('Audio from user ' + uid);
-                                for (i = 0; i < newAud.length; i++) {
-                                    output[i] = newAud[i];
-                                }
-                                sNodePak[uid] = newAud[16383];
-                            }else {
-                                for (i = 0; i < output.length; i++) {
-                                    output[i] = sNodePak[uid];
-                                }
-                            }
-                        };
-                        sNode[uid].connect(this.Html5Audio.audioContext.destination);
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/receiver-audio-processor.js').then(() => {
+                            sNode[uid] = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'receiver-audio-processor');
+                            sNode[uid].connect(cthis.audio.Html5Audio.audioContext.destination);
 
+                       });
+                    } else {
+                        sNode[uid].port.postMessage({audio : audioChunks})
                     }
-                },
 
-                // // TODO this is not being invoked
-                // calcAverage: function () {
-                //     var array = new Uint8Array(analyser.frequencyBinCount);
-                //     analyser.getByteFrequencyData(array);
-                //     var values = 0;
-                //     var length = array.length;
-                //     for (var i = 0; i < length; i++) {
-                //         values += array[i];
-                //     }
-                //     this.graph.average = values / length;
-                // },
+               },
 
-                //this is not using right now
-                // audioInGraph: function () {
-                //     var cvideo = cthis.video;
-                //     if (roles.hasControls()) {
-                //         var avg = this.graph.height - (this.graph.height * this.graph.average) / 100;
-                //         cvideo.tempVidCont.beginPath();
-                //         cvideo.tempVidCont.moveTo(cvideo.tempVid.width - this.graph.width, this.graph.height);
-                //         cvideo.tempVidCont.lineTo(cvideo.tempVid.width - this.graph.width, avg);
-                //         cvideo.tempVidCont.lineWidth = this.graph.width;
-                //         cvideo.tempVidCont.strokeStyle = "rgba(247, 25, 77, 1)";
-                //         cvideo.tempVidCont.closePath();
-                //         cvideo.tempVidCont.stroke();
-                //     }
-                // },
+                /*
+                 * This function plays the audio with using Script Processor Node which is deprecated,
+                 * it's a fallback method in case of audio worklet is not supported.
+                 * @param  uid is User Id
+                 * @param  audioChunks that need be played
+                */
+                playWithFallback :  function (uid)  {
+                   if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
+                       this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                   }
+                   var that = this;
+                   if(typeof sNode[uid] != 'object'){
+                       console.log('script processor node is created');
+                       sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
+                       sNodePak[uid] = 0;
+                       sNode[uid].onaudioprocess = function (event){
+                           var output = event.outputBuffer.getChannelData(0);
+                           var newAud = that.getAudioChunks(uid);
+                           if(typeof newAud != 'undefined'){
+                               // console.log('Audio from user ' + uid);
+                               for (i = 0; i < newAud.length; i++) {
+                                   output[i] = newAud[i];
+                               }
+                               sNodePak[uid] = newAud[16383];
+                           }else {
+                               for (i = 0; i < output.length; i++) {
+                                   output[i] = sNodePak[uid];
+                               }
+                           }
+                       };
+                       sNode[uid].connect(this.Html5Audio.audioContext.destination);
+                   }
+               },
 
-                queue: function (packets, uid) {
+                queueWithFallback : function (packets, uid) {
                     if (!this.hasOwnProperty('audioToBePlay')) {
                         this.audioToBePlay = {};
                     }
@@ -752,6 +762,35 @@
                         this.audioToBePlay[uid].push(new Float32Array(arrChunk));
                         ac[uid]++;
                     }
+
+                },
+
+                queue: function (packets, uid) {
+                   var samples = G711.decode(packets, {
+                        alaw: this.encMode == "alaw" ? true : false,
+                        floating_point: true,
+                        Eight: true
+                    });
+
+                    /* On absence of Webcam but Headphone,
+                     The Audio context should be generated on Student side by following code */
+
+                    if(typeof this.resamplerdecode != 'object'){
+                        this.resamplerdecode  = {};
+                    }
+
+                    if(typeof this.resamplerdecode[uid] != 'object'){
+                        if(typeof this.Html5Audio != 'object'){
+                            this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                        }
+
+                        if(typeof this.resamplerdecode[uid] != "object"){
+                            this.resamplerdecode[uid] =  new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
+                        }
+                    }
+
+                    var samples = this.resamplerdecode[uid].resampler(samples);
+                    return samples;
                 },
 
 
@@ -763,26 +802,15 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
-                    if(this.audioToBePlay[uid].length == 0){
-                        ac[uid] = 0;
-                    }
-
-                    if (this.audioToBePlay[uid].length >= 1){
-                        virtualclass.network.audioPlayLength = this.audioToBePlay[uid].length;
-                    }
-
-                    console.log("Audio " + this.audioToBePlay[uid].length + " uid " + uid);
-                    if (this.audioToBePlay[uid].length >= 10) { // 4 seconds
-                        // console.log("Audio Buffer Full");
-                        while (this.audioToBePlay[uid].length >= 3) { // 1 seconds
-                            virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                    if(this.audioToBePlay != null){
+                        if (this.audioToBePlay[uid].length >= 19) { // 7 seconds
+                            while (this.audioToBePlay[uid].length >= 8) { // 3 seconds
+                                virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                            }
+                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                        } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
+                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
-                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                    } else if(ac[uid] >= 2) { // .7 second
-                        // console.log("start audio");
-                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                    } else {
-                        // console.log("waiting for buffer");
                     }
                 },
 
@@ -845,41 +873,57 @@
                         audioRep();
                     }
                 },
-                /*
-                 * It creates a mediaStreamSourceNode object
-                 * It creates the buffer to process the audio
-                 * and connects mediaStreamSourceNode to buffer
-                 * which is connected to gain node that controles the volume
-                 * it eventually plays audio
-                 */
+
+                /**
+                 * It connects the stream received from Mic/GetUserMedia to audio context,
+                 * and getting the audio chunks from audio worklet
+                 **/
                 manuPulateStream: function () {
                     var stream = cthis.stream;
-                    /* if (!virtualclass.vutil.chkValueInLocalStorage('recordStart')) {
-                     virtualclass.wb.recordStarted = new Date().getTime();
-                     localStorage.setItem('recordStart', virtualclass.wb.recordStarted);
-                     } else {
-                     virtualclass.wb.recordStarted = localStorage.getItem('recordStart');
-                     } */
+                    cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/audio-processor.js').then(() => {
+                        var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+
+                        filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
+                        filter.type = "lowpass";
+                        filter.frequency.value = 1000;
+
+                        audioInput.connect(filter);
+                        let audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
+                        filter.connect(audioNode);
+                        audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
+
+                        audioNode.port.onmessage = function (event){
+                            var audio = event.data.audio;
+                            cthis.audio.recorderProcess(audio);
+                        }
+                    });
+                },
+
+                /**
+                 * It connects the stream received from Mic/GetUserMedia to audio context,
+                 * and getting the audio chunks from script processor node.
+                 * It's a fallback method in case of not supporting Audio worklet
+                 **/
+                manuPulateStreamWithFallback : function () {
+                    var stream = cthis.stream;
+
                     var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
                     cthis.audio.bufferSize = 16384;
                     // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
                     // https://code.google.com/p/chromium/issues/detail?id=360378
                     // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
                     grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                    grec.onaudioprocess = cthis.audio.recorderProcess.bind(cthis.audio);
-
-                    gainNode = cthis.audio.Html5Audio.audioContext.createGain();
-                    gainNode.gain.value = 0.9;
+                    grec.onaudioprocess = cthis.audio.recorderProcessFallback.bind(cthis.audio);
 
                     filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                     filter.type = "lowpass";
                     filter.frequency.value = 1000;
 
                     audioInput.connect(filter);
-                    filter.connect(gainNode);
-                    gainNode.connect(grec);
+                    filter.connect(grec);
                     grec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 },
+
                 /*
                  *  Setting the record start time to the current time
                  *  and setting the replay mode to false
@@ -916,17 +960,13 @@
                         virtualclass.user.control.audioSign(user, "create");
                     }
 
-                    virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                    virtualclass.gObj.video.audio.play(uid);
-
-                    // if (!virtualclass.gObj.hasOwnProperty(uid) || !virtualclass.gObj[uid].hasOwnProperty('isplaying')) {
-                    //     virtualclass.gObj[uid] = {};
-                    //     virtualclass.gObj[uid].isplaying = true;
-                    //     virtualclass.gObj.video.audio.getChunks(uid);
-                    //
-                    // } else if (virtualclass.gObj[uid].isplaying == false) {
-                    //     virtualclass.gObj.video.audio.getChunks(uid);
-                    // }
+                    if(virtualclass.gObj.video.detectAudioWorklet()){
+                        let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                        virtualclass.gObj.video.audio.play(uid, packets);
+                    }else {
+                        virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                        virtualclass.gObj.video.audio.playWithFallback(uid);
+                    }
                 },
                 /*
                  * To extract user id of sender and data from the receied message
@@ -1418,7 +1458,12 @@
                 setTimeout(
                     function (){
                         cthis.stream = cthis.video.tempStream;
-                        cthis.audio.manuPulateStream();
+                        if(cthis.detectAudioWorklet()) {
+                            cthis.audio.manuPulateStream();
+                        }else {
+                            cthis.audio.manuPulateStreamWithFallback();
+                        }
+
                     }, 1000
                 );
 
@@ -1583,6 +1628,14 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
+            },
+
+
+            detectAudioWorklet : () => {
+                let context = new OfflineAudioContext(1, 1, 44100);
+                return Boolean(
+                    context.audioWorklet &&
+                    typeof context.audioWorklet.addModule === 'function');
             }
         }
     };

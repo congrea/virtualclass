@@ -249,6 +249,8 @@
                 } else {
                     virtualclass.makeReadySocket();
                 }
+                   virtualclass.gObj.precheckScrn= false;
+
                 // For initialize the Teacher Video
                 if(!virtualclass.gObj.meetingMode){
                     virtualclass.videoHost.init(320 , 240);
@@ -270,11 +272,19 @@
                 //nirmala
                 var precheck = document.getElementById("precheckSetting");
                 precheck.addEventListener("click",function(){
+                     virtualclass.gObj.precheckScrn= true;
                     virtualclass.precheck.init(virtualclass.precheck);
                 })
 
                 this.raiseHand= window.raiseHand;
                 this.raiseHand.init();
+
+                this.rtcIo= window.rtcIo;
+                this.rtcIo.init();
+
+                this.appSetting= window.appSetting;
+                this.appSetting.init();   
+
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();

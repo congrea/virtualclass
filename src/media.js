@@ -222,7 +222,6 @@
                 },
                 // if there is silece then audio will not be transmitted
                 silenceDetection: function (send, leftSix) {
-                    this.audioSend(send, audStatus);
                     var audStatus;
                     var vol = 0;
                     var sum = 0;

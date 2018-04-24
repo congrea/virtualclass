@@ -13,17 +13,24 @@
                 this.audioInputSelect = document.querySelector('#webRtcIoContainer select#audioSource');
                 this.audioOutputSelect = document.querySelector('#webRtcIoContainer select#audioOutput');
                 this.videoSelect = document.querySelector('#webRtcIoContainer select#videoSource');
+                this.mainVideoElement= document.querySelector('#videoHostSource');
                 this.selectors = [this.audioInputSelect, this.audioOutputSelect, this.videoSelect];
                 this.audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
                 navigator.mediaDevices.enumerateDevices().then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
                 this.audioInputSelect.addEventListener('change',function(){
                     virtualclass.appSettingMedia.start();
+
                 })
                 this.audioOutputSelect.addEventListener('change',function(){
                     virtualclass.appSettingMedia.changeAudioDestination()
                 });
                 this.videoSelect.addEventListener('change',function(){
                     virtualclass.appSettingMedia.start();
+                    // if(virtualclass.appSettingMedia.videoElement.srcObject){
+                    //     virtualclass.gObj.video.handleUserMedia(virtualclass.appSettingMedia.videoElement.srcObject)
+                    // }
+
+                   // virtualclass.gObj.video.handleUserMedia(virtualclass.appSettingMedia.gotStream)
                 });
                 virtualclass.appSettingMedia.start();
             },
@@ -93,6 +100,7 @@
             gotStream: function (stream) {
                 window.stream = stream; // make stream available to console
                 virtualclass.appSettingMedia.videoElement.srcObject = stream;
+                virtualclass.appSettingMedia.mainVideoElement.srcObject = stream;
                 return navigator.mediaDevices.enumerateDevices();
             },
             start:function() {
@@ -107,8 +115,9 @@
                     audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
                     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
                 };
-                // navigator.mediaDevices.getUserMedia(constraints).then(virtualclass.appSettingMedia.gotStream).
-                // then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
+                navigator.mediaDevices.getUserMedia(constraints).then(virtualclass.appSettingMedia.gotStream).
+                then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
+
             },
             handleError:function(error) {
                 console.log('navigator.getUserMedia error: ', error);

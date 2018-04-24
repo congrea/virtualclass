@@ -195,7 +195,7 @@ var videoHost = {
 
             }else {
                 if(!virtualclass.gObj.meetingMode){
-                    if (videoSwitch) {
+                    if (+videoSwitch) {
                         virtualclass.videoHost.UI.displayVideo();
                     } else {
                         virtualclass.videoHost.UI.hideVideo();

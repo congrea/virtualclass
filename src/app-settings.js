@@ -37,7 +37,7 @@
                 this.rtcIo();
             },
             rtcIo:function(){
-                var template = virtualclass.getTemplate('rtcIo');
+                var template = virtualclass.getTemplate('appSettingMedia');
                 $("#virtualclassApp  #settingMedia").append(template());
 
                 var io = document.querySelector('#virtualclassCont.congrea  #ancIo');
@@ -54,11 +54,6 @@
                         }
                     });
                 }
-                    // var script = document.createElement('script');
-                    // script.src =  window.whiteboardPath+"src/app-setting-media.js";
-                    // document.body.appendChild(script);
-
-
             }
         }
     };

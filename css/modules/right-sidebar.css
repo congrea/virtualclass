@@ -48,10 +48,10 @@
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive{
 	display : none;
 }
-#virtualclassCont.congrea #chatWidget.deactive {
+#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {
 	display:none;
 }
-#virtualclassCont.congrea #chatWidget.active {
+#virtualclassCont.congrea #chatWidget.active #congreaChatMainCont{
 	display:block;
 }
 

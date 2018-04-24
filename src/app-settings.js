@@ -34,8 +34,32 @@
 
                     });
                 }
-
+                this.rtcIo();
             },
+            rtcIo:function(){
+                var template = virtualclass.getTemplate('rtcIo');
+                $("#virtualclassApp  #settingMedia").append(template());
+
+                var io = document.querySelector('#virtualclassCont.congrea  #ancIo');
+                if(io){
+
+                    io.addEventListener('click',function(){
+                        var ioCont = document.querySelector("#virtualclassApp #webRtcIoContainer");
+                        if(ioCont.classList.contains('disable')){
+                            ioCont.style.display="block";
+                            ioCont.classList.remove('disable');
+                        }else{
+                            ioCont.style.display="none";
+                            ioCont.classList.add('disable');
+                        }
+                    });
+                }
+                    // var script = document.createElement('script');
+                    // script.src =  window.whiteboardPath+"src/app-setting-media.js";
+                    // document.body.appendChild(script);
+
+
+            }
         }
     };
     window.appSetting = appSetting();

@@ -278,11 +278,15 @@
                 this.raiseHand= window.raiseHand;
                 this.raiseHand.init();
 
-                this.rtcIo= window.rtcIo;
-                this.rtcIo.init();
+                // this.rtcIo= window.rtcIo;
+                // this.rtcIo.init();
 
                 this.appSetting= window.appSetting;
-                this.appSetting.init();   
+                this.appSetting.init();
+
+                this.appSettingMedia= window. appSettingMedia;
+                this.appSettingMedia.init();
+
 
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){

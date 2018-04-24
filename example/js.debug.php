@@ -130,5 +130,6 @@
 <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/web-rtc-io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-setting-media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

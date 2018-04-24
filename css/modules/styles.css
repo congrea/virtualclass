@@ -269,10 +269,12 @@
 
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
-	box-shadow : 0 0 1px #333;
+	box-shadow : 0 0 1px green;
+/*
 	border-radius : 2px;
 	outline : none;
 	margin-bottom : 3px;
+*/
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr span {
@@ -1078,7 +1080,7 @@
 }
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
-	border : #bbb solid 1px;
+	border : #3c4953 solid 1px;
 	border-radius: 20%;
 	outline : none;
 	margin-bottom : 3px;
@@ -1852,7 +1854,7 @@
 
 
 #virtualclassCont.congrea .ui-memblist-usr.student , #virtualclassCont.congrea .ui-memblist-usr.mySelf.teacher[data-role="p"] , #virtualclassCont.congrea .ui-memblist-usr.mySelf.student[data-role="s"] {
-	border-bottom:#ddd 1px solid;
+/*	border-bottom:#ddd 1px solid;*/
 }
 
 #virtualclassCont.congrea .ui-memblist-usr[data-role="p"]{
@@ -2781,6 +2783,7 @@
 @media (min-width: 768px){
 	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
 		float:none !important;
+        height:45px !important;
 	}
 }
 
@@ -2860,7 +2863,7 @@
 	margin-top: 5px;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 15px 28px 23px 46px !important;
+	padding: 15px 28px 15px 46px !important;
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
@@ -3243,7 +3246,7 @@
 
 #virtualclassCont.congrea.teacher .ui-widget-content,
 #virtualclassCont.congrea.student .ui-widget-content {
-    background-color : #ffffff;
+/*    background-color : #ffffff;*/
 }
 
 #virtualclassCont.congrea.teacher .ui-corner-all.ui-chatbox-icon,
@@ -3391,7 +3394,7 @@
 }
 
 #congreaChatCont .ui-memblist-usr  .controllerRaiseH.disabled span{
-	color: rgba(198, 198, 198,1);
+	color: rgb(61, 74, 85);
 }
 #congreaChatCont .ui-memblist-usr  .controllerRaiseH.enabled span{
 	color:green !important;
@@ -3512,13 +3515,15 @@
 #virtualclassCont.congrea #stickybar .ui-tabs-anchor {
 	width: 89%;
 	height: 100%;
-	margin-top: 7px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+/*	margin-top: 7px;*/
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
 /*	background-color: #f8f7dc;*/
-	border-bottom: 1px solid #8f8f8f;
-	border-top: 1px solid #ddda86;
+/*	border-bottom: 1px solid #8f8f8f;*/
+/*	border-top: 1px solid #ddda86;*/
 
 }
 

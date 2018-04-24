@@ -5,9 +5,13 @@ this["JST"]["templates/appSettingDetail.hbs"] = Handlebars.template({"1":functio
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"appSettingDetail\">\n  App setting details here\n  <div id=\"settingMedia\">\n"
+  return "<div id=\"appSettingDetail\">\n  App setting details here\n  <div id=\"settingAudioVideo\">\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "  </div>\n  <div id=\"settingGeneral\">\n    <div id=\"settingPrecheck\">\n      <div class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n        <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n      </div>\n    </div>\n  </div>\n</div>\n";
+    + "  </div>\n  <div id=\"settingGeneral\">\n    <div id=\"settingPrecheck\">\n      <div class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n        <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n      </div>\n    </div>\n  </div>\n   <div id=\"settingMedia\">\n    <div id=\"webRtcIo\" class=\"io\" data-suggestion=\"\" >\n      <a id=\"ancIo\">\n        <span id=\"wbRcio\" class=\"rtc  congtooltip\"  data-title=\"webrtc io\">settingMedia </span>\n      </a>\n    </div>\n  </div>\n  \n</div>\n";
+},"useData":true});
+
+this["JST"]["templates/appSettingMedia.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "\n<div id=\"webRtcIoContainer\" class =\"rtcIo disable\" >\n\n\n  <!--<div class=\"highlight\">-->\n    <!--<p>New codelab: <a href=\"https://codelabs.developers.google.com/codelabs/webrtc-web\">Realtime communication with WebRTC</a></p>-->\n  <!--</div>-->\n\n  <!--<h1><a href=\"//webrtc.github.io/samples/\" title=\"WebRTC samples homepage\">WebRTC samples</a><span>Select sources &amp; outputs</span></h1>-->\n\n  <!--<p>Get available audio, video sources and audio output devices from <code>-->\n    <!--mediaDevices.enumerateDevices()</code> then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p>-->\n\n  <div class=\"select\">\n    <label for=\"audioSource\">Audio input source: </label><select id=\"audioSource\"></select>\n  </div>\n\n  <div class=\"select\">\n    <label for=\"audioOutput\">Audio output destination: </label><select id=\"audioOutput\"></select>\n  </div>\n\n  <div class=\"select\">\n    <label for=\"videoSource\">Video source: </label><select id=\"videoSource\"></select>\n  </div>\n\n  <video id=\"video\" playsinline autoplay></video>\n\n  <!--<p class=\"small\"><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.</p>-->\n</div>\n\n\n";
 },"useData":true});
 
 this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -37,15 +41,13 @@ this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"1":function(con
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
     + "\" data-meeting=\""
     + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
-    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect cgIcon\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </li>\n\n<!--\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n    </li>\n-->\n\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n"
+    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressonceLabel\" class=\"silenceDetect cgIcon\" data-silence-detect=\"stop\"> <i> </i> </span>\n      </a>\n    </li>\n\n<!--\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n    </li>\n-->\n\n      <li class=\"videoSwitchCont congtooltip\" data-title=\"Video off\" id=\"congCtrBar\">\n        <a id=\"rightCtlr\">\n          <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on\" ></span>\n        </a>\n      </li>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isMettingMode : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n\n<!--\n    <li id=\"videSpeedNumber\" class=\"suggestion congtooltip\" data-suggestion=\""
     + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
     + "\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
-    + "\"> </li>\n    <li id=\"vedioPacket\" >\n      <a id=\"videoPacketInfo\">\n        <span id=\"videLatency\" class=\"latency  congtooltip\" data-latency=\"slow\" data-title=\"slow\">  </span>\n      </a>\n    </li>\n-->\n  <li id=\"appSettingCtrl\" class=\"congotooltip\">\n    <a id=\"appSettingCtrlAnchor\">\n        <span>&#9776;</span>\n    </a>\n  </li>\n  </ul>\n</div>\n";
+    + "\"> </li>\n    <li id=\"vedioPacket\" >\n      <a id=\"videoPacketInfo\">\n        <span id=\"videLatency\" class=\"latency  congtooltip\" data-latency=\"slow\" data-title=\"slow\">  </span>\n      </a>\n    </li>\n-->\n  <li id=\"appSettingCtrl\" class=\"congotooltip chatActive\">\n    <a id=\"appSettingCtrlAnchor\">\n        <span>&#9776;</span>\n    </a>\n  </li>\n  </ul>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -467,7 +467,6 @@
                     virtualclass.user.control._enable(elem, control, toUser, label);
                 },
                 _enable: function (elem, control, userId, label) {
-
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
                     if (control == 'audio') {
                         elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
@@ -477,7 +476,6 @@
                     if(control =='RaiseHand'){
                         virtualclass.raiseHand.enableRaiseHand(userId)
                     }
-
                     virtualclass.user.control.updateUser(userId, label, true);
                 },
 
@@ -496,7 +494,6 @@
                     } else {
                         searchBy = "Img";
                     }
-
                     var compId = tag.id;
                     var ep = compId.indexOf("contr");
                     var userId = compId.substring(0, ep);
@@ -560,7 +557,6 @@
                         }
                     }
                 },
-
                 init_old: function (tag) {
                     var compId = tag.id;
                     var ep = compId.indexOf("contr");
@@ -651,8 +647,6 @@
                             if(erContTag.dataset.editorrichDisable == 'true'){
                                 virtualclass.user.control.init.call(virtualclass.user, erContTag);
                             }
-
-
                             var ecContId =  userId + 'contreditorCodeImg';
                             var ecContTag = document.getElementById(ecContId);
 
@@ -670,8 +664,6 @@
                         var controlContainer = document.getElementById(fromUserId + 'ControlContainer').getElementsByClassName('controleCont')[0];
                         controlContainer.removeChild(controlContainer.firstChild);
                         localStorage.removeItem('aId');
-
-                        //controlContainer.parentNode.removeChild(controlContainer);
                     }
                 },
 
@@ -694,7 +686,6 @@
                         virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
                     }
                 },
-
 
                 _audioAll : function (userId, action) {
                     if (action == 'enable') {

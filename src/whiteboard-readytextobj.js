@@ -109,6 +109,16 @@
              * @returns nothing
              */
             drawTextBoxWrapper: function (obj, boxNumber, mtext) {
+                var boxWidth = 350;
+                var viewPort = document.querySelector('#vcanvas' + virtualclass.gObj.currWb);
+                if(viewPort != null ){
+                    var offsetWidth = viewPort.offsetWidth; // 900
+                    var posDiff = (viewPort.offsetWidth - obj.x);
+                    if(posDiff < boxWidth){
+                        obj.x =  obj.x - boxWidth  - posDiff;
+                    }
+                }
+
                 virtualclass.vutil.removeAllTextWrapper();
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var divNode = document.createElement('div');

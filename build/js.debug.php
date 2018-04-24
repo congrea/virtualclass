@@ -118,4 +118,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.4.1/Youtube.min.js"></script>
 <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/web-rtc-io.js?ver=<?php echo $version ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

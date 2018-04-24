@@ -1106,14 +1106,14 @@
                         }
 
                         sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-
-                        var uid = breakintobytes(virtualclass.gObj.uid, 8);
-                        var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
-                        var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
-                        sendmsg.set(scode);
-                        sendmsg.set(sendimage, scode.length);
-                        that.sendInBinary(sendmsg);
-
+                        if(!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || roles.hasControls() ){
+                            var uid = breakintobytes(virtualclass.gObj.uid, 8);
+                            var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
+                            var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
+                            sendmsg.set(scode);
+                            sendmsg.set(sendimage, scode.length);
+                            that.sendInBinary(sendmsg);
+                        }
                         clearInterval(virtualclass.gObj.video.smallVid);
 
                         var d = randomTime + (virtualclass.connectedUsers.length * 2500);
@@ -1371,9 +1371,15 @@
                         if(virtualclass.gObj.meetingMode){
                             virtualclass.multiVideo.init();
                         }
+                        virtualclass.appSettingMedia.gotStream(stream).
+                        then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
+
+
                     }).catch(function (e) {
                         that.handleUserMediaError(e);
                     });
+                   // virtualclass.appSettingMedia.init();
+
                 }
 
 

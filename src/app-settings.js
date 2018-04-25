@@ -39,7 +39,6 @@
             rtcIo:function(){
                 var template = virtualclass.getTemplate('appSettingMedia');
                 $("#virtualclassApp  #settingMedia").append(template());
-
             }
         }
     };

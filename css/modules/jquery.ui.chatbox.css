@@ -41,6 +41,7 @@
     clear: both;
 }
 
+/*
 #virtualclassCont.congrea .ui-chatbox-input-box {
     height: 32px;
     color:#555;
@@ -50,6 +51,7 @@
     font: icon;
     margin: 4px 10px 10px 5px;
 }
+*/
 
 #virtualclassCont.congrea .ui-chatbox-icon {
     float: right!important;
@@ -431,11 +433,11 @@
 #virtualclassCont.congrea .ui-widget-content .ui-corner-all{
     border: none;
     min-height: 38px;
-    padding-right: 330px;
+    padding-right: 30px;
 }
 
 #virtualclassCont.congrea .user-details .usern .media-heading{
-    color:#6cad9d;
+    color:#0a4f16;
     letter-spacing: 0.5px;
 }
 
@@ -444,7 +446,7 @@
     float: left;
     font-size: 14px;
     text-transform: capitalize;
-    margin-top: 22px;
+    margin:19px 10px;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -595,7 +597,7 @@
 }
 
 #virtualclassCont.congrea .ui-chatroom {
-    top: 52px;
+    top: 7px;
     position:absolute !important;
 }
 
@@ -604,7 +606,7 @@
 }
 
 #virtualclassCont.congrea .ui-widget-content{
-    border: none;
+/*    border: none;*/
 }
 
 #virtualclassCont.congrea #chat_room{
@@ -622,6 +624,8 @@
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {
     width: 100%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 #virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_text,#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_icon{

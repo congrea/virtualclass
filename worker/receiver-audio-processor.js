@@ -8,8 +8,7 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
         super();
         this.audioToPlay = [];
         this.lastAudioTone;
-        this.audioDelaySent = false;
-        this.audioDelay = false;
+        this.allAudioArr = [];
         var that = this;
 
 		this.port.onmessage = (msg) => {
@@ -21,8 +20,13 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * Making single Queue Audio
      */
     queue (samples) {
-        for (let i=0, c=128; c <= samples.length; i=c, c=c+128) {
-            this.audioToPlay.push(samples.slice(i, c));
+        // Avoid tick sound
+        for(let i=0; i<samples.length; i++){
+            this.allAudioArr.push(samples[i]);
+        }
+        while (this.allAudioArr.length >= 128) {
+            let arrChunk =  this.allAudioArr.splice(0, 128);
+            this.audioToPlay.push(new Float32Array(arrChunk));
         }
 	}
 
@@ -54,13 +58,13 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
         if(input !== null){
             outputs[0][0].set(input, 0);
             this.lastAudioTone = input[127];
-		} else {
+        } else {
             // Avoid tick sound
             for (let i = 0; i < 128; i++) {
                 outputs[0][0][i] = this.lastAudioTone;
             }
         }
-		return true;
+        return true;
     }
 }
 

@@ -666,6 +666,7 @@
 
                        });
                     } else {
+                        console.log('Posting audio ' + audioChunks.length);
                         sNode[uid].port.postMessage({audio : audioChunks})
                     }
 
@@ -885,7 +886,7 @@
 
                         filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                         filter.type = "lowpass";
-                        filter.frequency.value = 1000;
+                        filter.frequency.value = 2000;
 
                         audioInput.connect(filter);
                         let audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
@@ -917,7 +918,7 @@
 
                     filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                     filter.type = "lowpass";
-                    filter.frequency.value = 1000;
+                    filter.frequency.value = 2000;
 
                     audioInput.connect(filter);
                     filter.connect(grec);

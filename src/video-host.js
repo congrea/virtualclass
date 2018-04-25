@@ -172,7 +172,15 @@ var videoHost = {
     //todo *to be called only if flag  available in localstorage
     //todo to modify later 
     fromLocalStorage: function () {
-     var videoSwitch = localStorage.getItem("videoSwitch");
+        var videoSwitch ="";
+        if(roles.hasControls()){
+             videoSwitch = localStorage.getItem("videoSwitch");
+            localStorage.removeItem("videoSwitch");
+        }else{
+            var stdVideoSwitch = JSON.parse(localStorage.getItem("stdVideoSwitch"));
+            localStorage.removeItem("stdVideoSwitch");
+        }
+
         if (typeof videoSwitch != 'undefined' && videoSwitch) {
             virtualclass.videoHost.gObj.videoSwitch = +videoSwitch;
 
@@ -201,33 +209,38 @@ var videoHost = {
                         virtualclass.videoHost.UI.hideVideo();
                     }
                 }
+
+
+
+
             }
-            localStorage.removeItem("videoSwitch");
+           // localStorage.removeItem("videoSwitch");
         }
+        if(!roles.hasControls()){
+            if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
+                virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
 
-        var stdVideoSwitch = localStorage.getItem("stdVideoSwitch");
-        if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
-            virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
-
-            if (!roles.hasControls()) {
-                var sw = document.getElementById("videoSwitch");
-                if (sw) {
-                    if (!stdVideoSwitch) {
-                        if (sw.classList.contains("off")) {
-                            sw.classList.add("on");
+                if (!roles.hasControls()) {
+                    var sw = document.getElementById("videoSwitch");
+                    if (sw) {
+                        if (!stdVideoSwitch) {
+                           // if (sw.classList.contains("on")) {
                             sw.classList.remove("off");
-                        }
-                    } else {
-                        if (sw.classList.contains("on")) {
+                            sw.classList.add("on");
+
+
+                           // }
+                        } else {
                             sw.classList.add("off");
                             sw.classList.remove("on");
+
                         }
-
                     }
-                }
 
+                }
+                // localStorage.removeItem("stdVideoSwitch");
             }
-            localStorage.removeItem("stdVideoSwitch");
+
         }
 
     },

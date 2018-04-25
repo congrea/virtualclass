@@ -1,7 +1,46 @@
 
-<div id="webRtcIoContainer" class ="rtcIo disable" >
+<div id="webRtcIoContainer" class ="rtcIo" >
 
-
+ <label>Media</label>
+    <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A/I Source
+    <div class="audio-options">
+      <select class="ui search dropdown">
+      <option value="">Options</option>
+      <option value="AL">1234254365747568767858758776</option>
+      <option value="AK">2</option>
+      <option value="AZ">3</option>
+      <option value="AR">4</option>
+      </select>
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A/O Destination
+    <div class="audio-options">
+      <select class="ui search dropdown">
+      <option value="">Options</option>
+      <option value="AL">1</option>
+      <option value="AK">2</option>
+      <option value="AZ">3</option>
+      <option value="AR">4</option>
+      </select>
+    </div>
+  </li>
+  <li class="list-group-item clearfix justify-content-between align-items-center">
+    Video source
+      <div class="audio-options">
+      <select class="ui search dropdown">
+          <option value="">Options</option>
+          <option value="AL">Left</option>
+          <option value="AK">Right</option>
+          <option value="AZ">Top</option>
+          <option value="AZ">Bottom</option>
+      </select>
+      </div> 
+      <video id="video" playsinline autoplay></video>
+  </li>
+</ul>
   <!--<div class="highlight">-->
     <!--<p>New codelab: <a href="https://codelabs.developers.google.com/codelabs/webrtc-web">Realtime communication with WebRTC</a></p>-->
   <!--</div>-->
@@ -23,7 +62,7 @@
     <label for="videoSource">Video source: </label><select id="videoSource"></select>
   </div>
 
-  <video id="video" playsinline autoplay></video>
+  
 
   <!--<p class="small"><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.</p>-->
 </div>

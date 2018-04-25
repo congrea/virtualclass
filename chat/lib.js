@@ -78,26 +78,30 @@ function displayChatOfflineUserList (users){
 }
 
 function updateOnlineUserText (){
-    if (roles.hasAdmin()) {
-        if(virtualclass.chat.userList.length > 0){
+    if (roles.hasAdmin() ) {
+        if (virtualclass.chat.userList.length > 0) {
             document.querySelector('#usertab_text').innerHTML = "";
             if (roles.hasAdmin()) {
                 var text = "Users (" + virtualclass.connectedUsers.length + "/" + virtualclass.chat.userList.length + ")";
-            }else{
+            } else {
                 var text = " Users (" + count + ")";
             }
 
-            var onlineUser  = document.querySelector('#onlineusertext');
+            var onlineUser = document.querySelector('#onlineusertext');
 
-            if(onlineUser == null){
-                document.querySelector('#usertab_text').innerHTML =  "<span id='onlineusertext' class='cgText'>"+text+"</span>";
+            if (onlineUser == null) {
+                document.querySelector('#usertab_text').innerHTML = "<span id='onlineusertext' class='cgText'>" + text + "</span>";
             } else {
                 onlineUser.innerHTML = text;
             }
-        }else {
+        } else if (virtualclass.chat.userList.nothing == "nothing") {
+            //in case of without moodle
+            document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>";
+        } else {
             console.log('Chat list is not fetched yet.');
         }
-    } else {
+    }
+    else {
         document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>" ;
     }
 }

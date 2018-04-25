@@ -3222,7 +3222,7 @@
 	pointer-events : none;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt, #virtualclassCont.congrea .vmchat_bar_button{
+#virtualclassCont.congrea.teacher .vmchat_room_bt, #virtualclassCont.congrea.teacher .vmchat_bar_button{
 	width:50% !important; /* Changed from 40% */
 }
 
@@ -3577,7 +3577,6 @@ span#usertab_text {
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
 	width: 29px;
 	height: 30px;
-	position: fixed;
 	right: 61px;
 	float: right;
 	padding: 7px 7px;

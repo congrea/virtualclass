@@ -1162,14 +1162,15 @@
                     spanTag.className = 'slider round icon-all-audio-enable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
                     var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
-                    input.removeAttribute("checked")
+                    input.setAttribute("checked","true")
+
                 }else{
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
                     spanTag.className = 'slider round icon-all-audio-disable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('muteAll');
                      var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
-                    input.setAttribute("checked","true")
+                    input.removeAttribute("checked");
 
                 }
 

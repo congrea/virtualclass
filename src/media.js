@@ -1371,8 +1371,8 @@
                         if(virtualclass.gObj.meetingMode){
                             virtualclass.multiVideo.init();
                         }
-                        virtualclass.appSettingMedia.gotStream(stream).
-                        then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
+                        // virtualclass.appSettingMedia.gotStream(stream).
+                        // then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
 
 
                     }).catch(function (e) {

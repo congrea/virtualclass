@@ -1104,27 +1104,28 @@
              * @constructor
              */
             UIaudioAll : function (mainTagId, tagClass){
-                // var anchorTag = document.createElement('a');
-                // anchorTag.id = 'contrAudioAll';
-                //
-                //
-                //
-                // var spanTag = document.createElement('span');
-                // spanTag.id = 'contrAudioAllImg';
 
-                var spanTag= document.getElementById("contrAudioAllImg")
+
+               // var spanTag= document.getElementById("contrAudioAllImg")
+                var spanTag= document.querySelector(".bulkUserActions #contrAudioAllImg");
+
                 var allAudAction = localStorage.getItem('allAudAction');
 
                 if(allAudAction != null &&  allAudAction == 'disable'){
                     //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
-                    spanTag.className = 'icon-all-audio-enable congtooltip cgIcon';
+                    spanTag.className = 'slider round icon-all-audio-enable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
+                    var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
+                    input.removeAttribute("checked")
                 }else{
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
-                    spanTag.className = 'icon-all-audio-disable congtooltip cgIcon';
+                    spanTag.className = 'slider round icon-all-audio-disable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('muteAll');
+                     var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
+                    input.setAttribute("checked","true")
+
                 }
 
 
@@ -1134,7 +1135,7 @@
                 } else {
                     var that = this;
                     spanTag.addEventListener('click', function (){
-                        var audioController = document.getElementById('contrAudioAllImg');
+                        var audioController = document.querySelector(".bulkUserActions #contrAudioAllImg");
                         var actionToPerform = that.toogleAudioIcon();
                         if(typeof actionToPerform != 'undefined'){
                             localStorage.setItem('allAudAction', actionToPerform);
@@ -1192,7 +1193,7 @@
 
 
             toogleAudioIcon : function (){
-                var audioController = document.getElementById('contrAudioAllImg');
+                var audioController = document.querySelector(".bulkUserActions #contrAudioAllImg");
                 if (audioController != null) {
                     actionToPerform = audioController.dataset.action;
 
@@ -1200,14 +1201,15 @@
 
                         audioController.dataset.action = 'disable';
                         //audioController.innerHTML = "Dis Aud All";
-                        audioController.className = 'icon-all-audio-disable congtooltip';
+
+                        audioController.className = 'slider round icon-all-audio-disable congtooltip';
 
                         audioController.dataset.title = virtualclass.lang.getString('muteAll');
 
                     } else {
                         audioController.dataset.action = 'enable';
                         //audioController.innerHTML = "En Aud All";
-                        audioController.className = 'icon-all-audio-enable congtooltip';
+                        audioController.className = 'slider round icon-all-audio-enable congtooltip';
                         audioController.dataset.title = virtualclass.lang.getString('unmuteAll');
 
                     }

@@ -279,11 +279,11 @@
 
 /*bottom bar*/
 
-#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before {
-  content: "\e610";
-  font-size: 17px;
-  color: rgba(255, 255, 255, 0.8);
-}
+/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before {*/
+  /*!*content: "\e610";*!*/
+  /*font-size: 17px;*/
+  /*color: rgba(255, 255, 255, 0.8);*/
+/*}*/
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel .prechk .precheck:before {
   content: "\e911";

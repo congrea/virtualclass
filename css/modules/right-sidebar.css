@@ -20,6 +20,7 @@
 
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail{
    display : none;
+    overflow:scroll;
 }
 
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
@@ -169,19 +170,10 @@
     cursor:pointer;
 }
 #virtualclassCont #appSettingDetail .pre-check-btn:hover {
-    display: inline-block;
-    min-width: 18px;
-    padding: 3px 7px;
-    margin-left:4px;
-    margin-right:4px;
-    font-size: 12px;
-    font-weight: normal;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
+    
     background-color: #2196F3;
     border-radius: 4px;
-    float:right;
+    
 }
 #virtualclassCont #appSettingDetail #usersMuteSwitch:before {
     content: "\e611";
@@ -216,3 +208,32 @@
     margin-top:-3px;
 }
 
+/*   n */
+#virtualclassCont.congrea #rightSubContainer #appSettingDetail.active{
+   display : block;
+}
+#virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive{
+	display : none;
+}
+#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {
+	display:none;
+}
+#virtualclassCont.congrea #chatWidget.active #congreaChatMainCont{
+	display:block;
+}
+
+#virtualclassCont.congrea #WebRtcIoContainer{
+	height:100px;
+	width:200px;
+}
+
+
+#virtualclassCont.congrea #WebRtcIoContainer video{
+	width:200px;
+	height:200px;
+}
+
+.audio-options select{
+    text-overflow: ellipsis;
+    width:83px;
+}

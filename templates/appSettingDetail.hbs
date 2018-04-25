@@ -1,47 +1,41 @@
 <div id="appSettingDetail">
-    
-  <label class="bulk">Bulk User Action</label>
+
+  <div class="bulkUserActions"> 
+  <label class="bulk">Bulk User Actions</label>
     <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center"><span id="usersMuteSwitch"></span>
-    Mute all Audio
-    <label class="switch">
-      <input type="checkbox">
-      <span class="slider round"  ></span>
-    </label>
+      <li class="list-group-item d-flex justify-content-between align-items-center"><span id="usersMuteSwitch"></span>
+        Mute all Audio
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"  ></span>
+        </label>
+
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span id="usersVideoSwitch"></span>
+        Disable all Videos
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </li>
+   </ul>
+    </div> 
     
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-      <span id="usersVideoSwitch"></span>
-    Disable all Videos
-    <label class="switch">
-      <input type="checkbox">
-      <span class="slider round"></span>
-    </label>
-  </li>
-</ul>
-    
-    <label>General</label>
-    <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center"><span id="validate-precheck"></span>
-    Validate App Prerequites
-    <span class="pre-check-btn">start</span>
-  </li>
-  
-</ul>
+<!--
     <label>Media</label>
     <ul class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-center">
     Audio
     <div class="audio-options">
-  <select class="ui search dropdown">
-  <option value="">Options</option>
-  <option value="AL">1</option>
-  <option value="AK">2</option>
-  <option value="AZ">3</option>
-  <option value="AR">4</option>
-</select>
-
-</div>
+      <select class="ui search dropdown">
+      <option value="">Options</option>
+      <option value="AL">1</option>
+      <option value="AK">2</option>
+      <option value="AZ">3</option>
+      <option value="AR">4</option>
+      </select>
+    </div>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     Video
@@ -54,13 +48,26 @@
           <option value="AZ">Bottom</option>
       </select>
       </div> 
-<!--      {{> ('getVideoType') }}-->
 
   </li>
 </ul>
-   
+-->
+ <div id="settingGeneral">
+      <label>General</label>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center"><span id="validate-precheck"></span>
+            Validate App Prerequites
+            <span class="pre-check-btn"><div id="settingPrecheck">
+              <div class="prechk" data-title="Precheck" id="precheckTest">
+                <span class="precheck cgIcon"  id="precheckSetting" >Start</span>
+              </div>
+        </div></span>
+            </li>
+        </ul>
     
-  <div id="settingMedia">
+  </div>  
+    
+  <div id="settingAudioVideo" style="display:none;">
     {{#if hasControl}}
       <div class="uiMuteAll">
         <a id="contrAudioAll">
@@ -72,11 +79,16 @@
       </div>
     {{/if}}
   </div>
-  <div id="settingGeneral">
-    <div id="settingPrecheck">
-      <div class="prechk congtooltip" data-title="Precheck" id="precheckTest">
-        <a><span class="precheck cgIcon"  id="precheckSetting" ></span></a>
-      </div>
+
+  
+   <div id="settingMedia">
+    <div id="webRtcIo" class="io" data-suggestion="" >
+<!--
+      <a id="ancIo">
+        <span id="wbRcio" class="rtc  congtooltip"  data-title="webrtc io" >settingMedia </span>
+      </a>
+-->
     </div>
   </div>
+  
 </div>

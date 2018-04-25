@@ -376,6 +376,7 @@
         'openSharePresentationdbHeading' : "Presentation Dashboard",
         'opendsDbheading' : "Document Dashboard",
         'Skip':"Skip Precheck",
+        'videooff' : "video off"
     };
     window.message = message;
 })(window);

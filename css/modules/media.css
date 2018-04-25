@@ -167,6 +167,13 @@
   font-weight: normal;
 }
 
+#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {
+  content: "\ea2a";
+  color: #535151;
+  font-size: 120%;
+  font-weight: normal;
+}
+
 #virtualclassCont.congrea #alwaysPress .audioTool a {
   text-transform: uppercase;
   font-size: 10px;

@@ -891,6 +891,29 @@
                         var chatIcon=allChatDivCont[i].querySelector('.icon-chatImg');
                         if(chatIcon && !chatIcon.classList.contains("enable")){
                             chatIcon.classList.add("enable");
+                            chatIcon.setAttribute("data-chat-disable", "false");
+                        }
+
+                        var txteditorIcon = allChatDivCont[i].querySelector('.icon-editorRichImg');
+                        if(txteditorIcon && txteditorIcon.classList.contains("enable")){
+                            txteditorIcon.classList.remove("enable");
+                            txteditorIcon.classList.add("block");
+                            txteditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('editorRichDisable'));
+                            txteditorIcon.setAttribute("data-editorrich-disable", "true");
+                        }
+
+                        var codeeditorIcon = allChatDivCont[i].querySelector('.icon-editorCodeImg');
+                        if(codeeditorIcon && codeeditorIcon.classList.contains("enable")){
+                            codeeditorIcon.classList.remove("enable");
+                            codeeditorIcon.classList.add("block");
+                            codeeditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('editorCodeDisable'));
+                            codeeditorIcon.setAttribute("data-editorcode-disable", "true");
+                        }
+
+                        var muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
+                        if(muteIcon && muteIcon.classList.contains("block")){
+                            muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('disableAudio'));
+                            muteIcon.setAttribute("data-audio-disable", "false");
                         }
 
                     }
@@ -912,6 +935,28 @@
                         this.makeElemEnable(allChatBoxes[i]);
                     }
 
+
+                },
+
+                resetmediaSetting : function(){ //if mute all contains enable
+                    var mutebtn = document.getElementById("contrAudioAllImg");
+                    if(mutebtn && mutebtn.classList.contains("icon-all-audio-enable")){
+                        mutebtn.classList.remove("icon-all-audio-enable");
+                        mutebtn.classList.add("icon-all-audio-disable");
+                        mutebtn.setAttribute("data-title", virtualclass.lang.getString('muteAll'));
+                        if(mutebtn.dataset.action == "enable") {
+                            mutebtn.dataset.action = "disable";
+                        }
+                    }
+
+                    var vidbtn = document.getElementById("videoSwitch");
+                    if(vidbtn && vidbtn.classList.contains("video")){
+                        vidbtn.classList.remove("video" , "off");
+                        vidbtn.classList.add("video" , "on");
+                        var tvideoElem = document.getElementById("rightCtlr");
+                        tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
+                        virtualclass.videoHost.gObj.videoSwitch = 1;
+                    }
 
                 },
 
@@ -1298,6 +1343,20 @@
                         if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
                             virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
                         }
+                    }else if(allSpans[i].className.indexOf('editorRich') > -1){
+                        if (uObj && userObj.hasOwnProperty('editorRich')) {
+                            var edEnable = (userObj.editorRich) ? true : false;
+                        } else {
+                            var edEnable = false;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
+                    }else if(allSpans[i].className.indexOf('editorCode') > -1){
+                        if (uObj && userObj.hasOwnProperty('editorCode')) {
+                            var edcEnable = (userObj.editorCode) ? true : false;
+                        } else {
+                            var edcEnable = false;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], edcEnable, 'editorCode', 'editorCode');
                     }
                 }
             }

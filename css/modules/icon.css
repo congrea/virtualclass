@@ -171,8 +171,8 @@
   -o-transition: all 1s ease-in;
   transition: all 1s ease-in;
   cursor: pointer;
-  right: 9px;
-  top: 8px;
+  right: 6%;
+  top: 10%;
 }
 
 #virtualclassCont.congrea #speakerPressOnce span i {

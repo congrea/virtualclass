@@ -8,7 +8,8 @@
   /*cursor: pointer;*/
   float: left;
   margin-left: 14px;
-  height: auto;
+  height: 45px;
+  overflow:hidden;
 }
 
 #virtualclassCont.congrea #audioWidget ul li {

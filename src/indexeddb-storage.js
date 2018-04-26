@@ -623,6 +623,9 @@
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
+                delete virtualclass.chat.vmstorage;
+                virtualclass.chat.vmstorage = {};
+
 
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;

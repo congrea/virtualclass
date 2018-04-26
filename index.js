@@ -1643,6 +1643,12 @@ $(document).ready(function () {
                 }
             }
 
+            this.toggleVideo=function(e){
+                if(e.fromUser.userid != virtualclass.gObj.uid){
+                    virtualclass.videoHost.toggleVideoMsg(e);
+                }
+            }
+
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

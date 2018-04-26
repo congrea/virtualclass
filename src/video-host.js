@@ -149,6 +149,17 @@ var videoHost = {
             this.removeUserIcon(userid);
         }
     },
+    toggleVideoMsg:function(data){
+        var sw = document.querySelector(".videoSwitchCont #videoSwitch");
+        sw.click();
+        if(data.message.action == "enable") {
+            sw.style.pointerEvents ="visible";
+        }else{
+            sw.style.pointerEvents ="none";
+
+        }
+    },
+
     setUserIcon:function(userid){
         var isVideo = document.querySelector("#ml"+userid+" .user-details .pull-left .videoWrapper");
         if(isVideo){

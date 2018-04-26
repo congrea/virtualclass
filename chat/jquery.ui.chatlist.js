@@ -187,6 +187,7 @@
             self.options.boxManager.init(self);
             if (roles.hasAdmin()) {
                 virtualclass.user.UIaudioAll('congFooterCtr', 'uiMuteAll');
+                virtualclass.user.UIvideoAll('congFooterCtr', 'uiMuteAll');
             }
         },
         _setOption: function (option, value) {

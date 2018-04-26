@@ -377,7 +377,9 @@
         'opendsDbheading' : "Document Dashboard",
         'Skip':"Skip Precheck",
         'videooff' : "video off",
-        'raiseHandNotify':"student(s) raised hand"
+        'raiseHandNotify':"student(s) raised hand",
+        'disableVideoAll':"Disable Video All",
+        'enableVideoAll':"Enable Video All"
     };
     window.message = message;
 })(window);

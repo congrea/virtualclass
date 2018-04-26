@@ -446,7 +446,7 @@
     float: left;
     font-size: 14px;
     text-transform: capitalize;
-    margin:19px 10px;
+    margin:19px 6px;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -522,7 +522,7 @@
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
-    background-color: rgba(0,0,0,0.25);
+    background-color: #395161;
     cursor: pointer;
 }
 
@@ -624,8 +624,10 @@
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {
     width: 100%;
+/*
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+*/
 }
 
 #virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_text,#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_icon{
@@ -635,6 +637,8 @@
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
     pointer-events : visible;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.offline {
@@ -730,5 +734,5 @@ margin-right:10px !important;
 }
 
 #virtualclassCont.congrea #stickybar{
-  width: calc(100% - 325px);
+  width: calc(100% - 321px); /*changed from 325px */
 }

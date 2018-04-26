@@ -3222,7 +3222,7 @@
 	pointer-events : none;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt, #virtualclassCont.congrea .vmchat_bar_button{
+#virtualclassCont.congrea.teacher .vmchat_room_bt, #virtualclassCont.congrea.teacher .vmchat_bar_button{
 	width:50% !important; /* Changed from 40% */
 }
 
@@ -3541,6 +3541,9 @@
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight{
 	display:block ;
+	border: solid red 1px;
+	border-radius: 11px;
+	color:red;
 
 }
 #virtualclassCont.congrea .chatBarTab .hand_bt.highlight .icon-raisehand:before{
@@ -3548,9 +3551,8 @@
 
 }
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt,#virtualclassCont.congrea.teacher .chatBarTab .hand_bt:hover,#virtualclassCont.congrea.teacher .chatBarTab .hand_bt:focus{
-
 	background:none !important;
-	border:none !important;
+	/*//border:none !important;*/
 }
 
 #virtualclassCont.congrea.teacher a.inner_bt{
@@ -3575,12 +3577,12 @@ span#usertab_text {
 	float: left;
 }
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
-	width: 29px;
-	height: 30px;
-	position: fixed;
-	right: 61px;
-	float: right;
-	padding: 7px 7px;
+	width: 26px;
+	height: 27px;
+	right: 33px;
+	position: relative;
+	bottom: 29px;
+
 }
 
 /* Handle edge browser issue start **/

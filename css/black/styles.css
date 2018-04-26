@@ -2344,11 +2344,11 @@
 	left: -8px;
 	color:#e2440c;
 }
-#virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{
-	content: "\e610";
-	font-size: 18px;
-	color: #444;
-}
+/*#virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before{*/
+	/*content: "\e610";*/
+	/*font-size: 18px;*/
+	/*color: #444;*/
+/*}*/
 
 #virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-enable:before{
 	content: "\e611";

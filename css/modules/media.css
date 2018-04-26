@@ -209,15 +209,15 @@
   display: none;
 }
 
-#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{
-  content: "\e610";
-  font-size: 18px;
-}
+/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{*/
+  /*!*content: "\e610";*!*/
+  /*font-size: 18px;*/
+/*}*/
 
-#virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {
-  content: "\e611";
-  font-size: 18px;
-}
+/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {*/
+  /*!*content: "\e611";*!*/
+  /*font-size: 18px;*/
+/*}*/
 
 #virtualclassCont.congrea a#contrAudioAll, #virtualclassCont.congrea a#contrAudioAll:hover {
   text-decoration: none;

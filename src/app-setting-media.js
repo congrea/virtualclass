@@ -26,11 +26,6 @@
                 });
                 this.videoSelect.addEventListener('change',function(){
                     virtualclass.appSettingMedia.start();
-                    // if(virtualclass.appSettingMedia.videoElement.srcObject){
-                    //     virtualclass.gObj.video.handleUserMedia(virtualclass.appSettingMedia.videoElement.srcObject)
-                    // }
-
-                   // virtualclass.gObj.video.handleUserMedia(virtualclass.appSettingMedia.gotStream)
                 });
                 virtualclass.appSettingMedia.start();
             },

@@ -1517,9 +1517,7 @@
                         cthis.video.insertTempVideo(vidContainer);
                         cthis.video.tempVideoInit();
                         cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
-
                         virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
-
                         cthis.video.myVideo.muted = true;
                         cthis.stream = cthis.video.tempStream;
                         cthis.video.myVideo.onloadedmetadata = function () {

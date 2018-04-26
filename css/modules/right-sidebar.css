@@ -1,4 +1,9 @@
 /* New Id's & Classes */
+#audioWidget ul li a {
+    padding-top:12px !important;
+    padding-bottom:12px !important;
+}
+
 
 #virtualclassCont.congrea #appSettingCtrl :hover {
    height:55px !important;
@@ -9,9 +14,18 @@
    cursor:pointer;
    text-align:center;
 }
+#virtualclassCont.congrea #appSettingCtrl span {
+   font-size:19px;
+}
 
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail{
    display : none;
+    overflow:scroll;
+}
+
+#virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
+/*    display:none;*/
+    height : calc(100% - 45px);
 }
 
 #virtualclassCont.congrea #rightSubContainer {
@@ -28,16 +42,198 @@
 }
 
 #virtualclassCont.congrea #rightSubContainer, #virtualclassCont #congreaChatMainCont {
-	height : calc(100% - 290px);
+	height : calc(100% - 279px);
 }
 
 #virtualclassCont.congrea.videoff #rightSubContainer, #virtualclassCont.videoff #congreaChatMainCont {
-	height : calc(100% - 48px);
+	height : calc(100% - 45px);
 }
 
 #virtualclassCont.congrea.teacher.nowebcam #rightSubContainer, #virtualclassCont.congrea.student.videooff #rightSubContainer{
-	height : calc(100% - 50px);
+	height : calc(100% - 45px);
 }
  #virtualclassCont #congreaChatMainCont {
-	 height : calc(100% - 44px);
+	 
  }
+#virtualclassCont .footerCtr {
+    position: absolute;
+    bottom: 48px;
+    width:100%;
+    text-align:center;
+    margin:10px 0;
+    
+} 
+#virtualclassCont .footerCtr input {
+    padding: 7px;
+    width: 90%;
+    background-color: #fff;
+    border-radius:5px;
+   
+} 
+
+
+#virtualclassCont #chatWidget #stickycontainer ul li .inner_bt {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.user_search {
+    content: "\f0c0";
+    font-size:18px;
+    font-family:'icomoon';
+    color:grey;
+}
+#congreaChatCont .ui-widget-content #chat_div .ui-memblist-usr {
+    height:52px;
+}
+
+#appSettingDetail {
+    margin-left:10px;
+    margin-right:10px;
+}
+#appSettingDetail .bulk {
+    margin-top:20px;
+
+}
+#appSettingDetail label {
+    margin-left:10px;
+    margin-right:10px;
+    font-weight:normal;
+    font-size:17px;
+}
+#virtualclassCont #appSettingDetail {
+	 height : calc(100% - 45px);
+ }
+#virtualclassCont #appSettingDetail .switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 15px;
+    float:right;
+}
+#virtualclassCont #appSettingDetail .switch input {
+    display:none;
+}
+#virtualclassCont #appSettingDetail .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: grey;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+#virtualclassCont #appSettingDetail .slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+#virtualclassCont #appSettingDetail input:checked + .slider {
+  background-color: #37da52;
+}
+
+#virtualclassCont #appSettingDetail input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+#virtualclassCont #appSettingDetail input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+#virtualclassCont #appSettingDetail .slider.round {
+  border-radius: 34px;
+}
+#virtualclassCont #appSettingDetail .slider.round:before {
+  border-radius: 50%;
+}
+#virtualclassCont #appSettingDetail .pre-check-btn {
+    display: inline-block;
+    min-width: 18px;
+    padding: 3px 7px;
+    margin-left:4px;
+    margin-right:4px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    background-color: #777;
+    border-radius: 4px;
+    float:right;
+    cursor:pointer;
+}
+#virtualclassCont #appSettingDetail .pre-check-btn:hover {
+    
+    background-color: #2196F3;
+    border-radius: 4px;
+    
+}
+#virtualclassCont #appSettingDetail #usersMuteSwitch:before {
+    content: "\e611";
+    font-weight: normal;
+    font-size: 15px;
+    font-family: 'icomoon';
+    color: grey;
+    padding-left:5px;
+    padding-right:5px;
+}
+#virtualclassCont #appSettingDetail #usersVideoSwitch:before {
+    content: "\e611";
+    font-weight: normal;
+    font-size: 15px;
+    font-family: 'icomoon';
+    color: grey;
+    padding-left:5px;
+    padding-right:5px;
+}
+#virtualclassCont #appSettingDetail #validate-precheck:before {
+    content: "\f00c";
+    font-weight: normal;
+    font-size: 15px;
+    font-family: 'icomoon';
+    color: grey;
+    padding-left:5px;
+    padding-right:5px;
+}
+#virtualclassCont #appSettingDetail .audio-options {
+    display:inline-block;
+    float:right;
+    margin-top:-3px;
+}
+
+/*   n */
+#virtualclassCont.congrea #rightSubContainer #appSettingDetail.active{
+   display : block;
+}
+#virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive{
+	display : none;
+}
+#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {
+	display:none;
+}
+#virtualclassCont.congrea #chatWidget.active #congreaChatMainCont{
+	display:block;
+}
+
+#virtualclassCont.congrea #WebRtcIoContainer{
+	height:100px;
+	width:200px;
+}
+
+
+#virtualclassCont.congrea #WebRtcIoContainer video{
+	width:200px;
+	height:200px;
+}
+
+.audio-options select{
+    text-overflow: ellipsis;
+    width:83px;
+}

@@ -647,11 +647,12 @@
             // TODO this should be enable and should test proper way
             // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
-            var videoSwitch= virtualclass.videoHost.gObj.videoSwitch;
-            localStorage.setItem('videoSwitch',videoSwitch);
+            if(roles.hasControls()){
+                localStorage.setItem('videoSwitch',virtualclass.videoHost.gObj.videoSwitch );
+            }else{
+                localStorage.setItem('stdVideoSwitch',virtualclass.videoHost.gObj.stdStopSmallVid)
+            }
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-
-
             io.disconnect();
         },
 
@@ -2170,29 +2171,46 @@
         },
 
         videoHandler: function (that) {
-            var video;
+         var video;
             if (that.classList.contains("on")) {
                 that.classList.remove("on");
                 that.classList.add("off");
-                virtualclass.videoHost.gObj.videoSwitch = 0;
+               // virtualclass.videoHost.gObj.videoSwitch = 0;
                 video = "off";
                 var tooltip = document.querySelector(".videoSwitchCont");
                 tooltip.dataset.title="video on"
+                if(roles.hasControls()){
+                    virtualclass.videoHost.gObj.videoSwitch = 0;
+
+                }else{
+                     virtualclass.videoHost.gObj.stdStopSmallVid = true;
+                }
+
+
             } else {
                 that.classList.remove("off");
                 that.classList.add("on");
-                virtualclass.videoHost.gObj.videoSwitch = 1;
+
                 video = "on"
                 var tooltip = document.querySelector(".videoSwitchCont");
-                tooltip.dataset.title="video off"
+                tooltip.dataset.title = "video off"
+                if (roles.hasControls()) {
+                    virtualclass.videoHost.gObj.videoSwitch = 1;
+
+                } else {
+                    virtualclass.videoHost.gObj.stdStopSmallVid = false;
+                }
             }
 
             if(virtualclass.gObj.meetingMode){
                virtualclass.multiVideo.disableVideo();
-            }else {
+            }else if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
                 ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
             }
 
+            if(!roles.hasControls()){
+                ioAdapter.mustSend({'stdVideoCtr': {videoSwitch:  virtualclass.videoHost.gObj.stdStopSmallVid}, 'cf': 'stdVideoCtrl'});
+            }
         },
 
         isChromeExtension : function (){

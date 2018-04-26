@@ -30,6 +30,7 @@
     var storage = {
       //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         dbVersion: 6,
+        sessionEndFlag:false,
         init: function (firstDataStore) {
              
             /***
@@ -618,7 +619,7 @@
             },
 
             endSession: function (onlyStoredData) {
-
+                virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
@@ -682,6 +683,12 @@
 
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
 
+                virtualclass.user.control.resetmediaSetting();
+
+                if(roles.isStudent()){
+                    var teacherVid = document.getElementById("videoHostContainer");
+                    teacherVid.style.display = "block";
+                }
 
 
                 if(roles.hasAdmin()){

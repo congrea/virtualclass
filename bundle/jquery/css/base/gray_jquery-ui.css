@@ -829,8 +829,8 @@ body .ui-tooltip {
      background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
      background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
      background-image: linear-gradient(#fbfbfb, #d4d4d4);
-*/
      border:#bac0cd 1px solid;
+*/
 
 }
 #tabs.ui-widget-content{
@@ -1239,7 +1239,7 @@ background-position: -64px -128px !important;
 .ui-corner-top,
 .ui-corner-left,
 .ui-corner-tl {
-	border-top-left-radius: 4px/*{cornerRadius}*/;
+/*	border-top-left-radius: 4px{cornerRadius};*/
 }
 .ui-corner-all,
 .ui-corner-top,
@@ -1251,7 +1251,7 @@ background-position: -64px -128px !important;
 .ui-corner-bottom,
 .ui-corner-left,
 .ui-corner-bl {
-	border-bottom-left-radius: 4px/*{cornerRadius}*/;
+/*	border-bottom-left-radius: 4px{cornerRadius};*/
 }
 .ui-corner-all,
 .ui-corner-bottom,
@@ -1336,7 +1336,7 @@ background-position: -64px -128px !important;
 }
 
 .ui-widget-content{
-	border: 1px solid #a4a4a4;
+/*	border: 1px solid #a4a4a4;*/
 }
 
 .ui-widget-header{

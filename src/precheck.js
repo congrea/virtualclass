@@ -37,7 +37,6 @@ var precheck = {
         var skip =   document.querySelector('#preCheckcontainer .skip');
         if(skip){
             skip.addEventListener('click', function () {
-
                 if(localStorage.getItem('precheck')){
                     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
                     virtualclassPreCheck.style.display = 'none';
@@ -59,10 +58,9 @@ var precheck = {
                     var virtualclassApp = document.getElementById('virtualclassApp');
                     virtualclassApp.style.display = 'block';
                     localStorage.setItem('precheck', true);
-
                     virtualclass.videoHost.afterSessionJoin();
-
                 }
+                virtualclass.gObj.precheckScrn=false;
             });
 
         }

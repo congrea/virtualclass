@@ -146,11 +146,12 @@
                             })
 
                     .click(function (event) {
+                        delete virtualclass.chat.vmstorage[self.options.id][0].box;
                         uiChatbox.hide();
                         self.options.boxClosed(self.options.id);
                         $("#tabcb" + self.options.id).remove();
-                        delete virtualclass.chat.vmstorage[self.options.id]; //delete variable storage
-                        localStorage.removeItem(self.options.id);//delete local storage
+                        // delete virtualclass.chat.vmstorage[self.options.id]; //delete variable storage
+                        //localStorage.removeItem(self.options.id);//delete local storage
                         // to be verified
                         if(virtualclass.chat.idList && virtualclass.chat.idList.length){
                              var index= virtualclass.chat.idList.indexOf(self.options.id);

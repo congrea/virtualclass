@@ -3,20 +3,23 @@
   <div class="bulkUserActions"> 
   <label class="bulk">Bulk User Actions</label>
     <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center"><span id="usersMuteSwitch"></span>
-        <span>Mute all Audio</span>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center" id ="contrAudioAll"><span id="usersMuteSwitch"></span>
+        Mute all Audio
+
         <label class="switch">
-          <input type="checkbox">
-          <span class="slider round"  ></span>
+          <input type="checkbox" >
+          <span class="slider round icon-all-audio-enable congtooltip" id ="contrAudioAllImg" ></span>
         </label>
 
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span id="usersVideoSwitch"></span>
-        <span>Disable all Videos</span>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center" id ="contrVideoAll">
+        <span id="usersVideoSwitch"></span>
+        Disable all Videos
         <label class="switch">
           <input type="checkbox">
-          <span class="slider round"></span>
+          <span class="slider round icon-all-video-enable congtooltip" id ="contrVideoAllImg" ></span>
         </label>
       </li>
    </ul>

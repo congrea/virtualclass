@@ -155,8 +155,10 @@
                         //idList.push(id);
                         virtualclass.chat.counter++;
                         virtualclass.chat.idList.push(id);
-                        virtualclass.chat.vmstorage[id] = [];
-                        virtualclass.chat.vmstorage[id].push({userid: id, name: name});
+                        if(!virtualclass.chat.vmstorage.hasOwnProperty(id)){
+                            virtualclass.chat.vmstorage[id] = [];
+                            virtualclass.chat.vmstorage[id].push({userid: id, name: name});
+                        }
                     }
 
                     chatboxManager.addBox(id,
@@ -174,12 +176,14 @@
                             $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
                         }
                     });
+
+                    if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+                        displayUserSinglePvtChatHistory(id)
+                    }
+
                     id = null;
                     name = null;
                 }
-
-
-
             });
 
             self._setWidth(self.options.width);
@@ -187,6 +191,7 @@
             self.options.boxManager.init(self);
             if (roles.hasAdmin()) {
                 virtualclass.user.UIaudioAll('congFooterCtr', 'uiMuteAll');
+                virtualclass.user.UIvideoAll('congFooterCtr', 'uiMuteAll');
             }
         },
         _setOption: function (option, value) {

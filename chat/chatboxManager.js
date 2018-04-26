@@ -70,10 +70,9 @@ var chatboxManager = function() {
     var addBox = function(id, user,name) {
         var idx1 = showList.indexOf(id);
         var idx2 = boxList.indexOf(id);
-        if(idx1 != -1) {
-            // found one in show box, do nothing
-        }
-        else if(idx2 != -1) {
+        if(idx1 != -1){
+            console.log('Do nothing');
+        } else if(idx2 != -1) {
             // exists, but hidden
             // show it and put it back to showList
 
@@ -107,6 +106,18 @@ var chatboxManager = function() {
             boxList.push(id);
             showList.push(id);
         }
+
+        // var chatBox = document.querySelector('#cb' + id);
+        // if(chatBox != null) {
+        //     var elem = document.querySelector('#cb' + id+ ' .ui-chatbox-msg');
+        //     if(elem == null){
+        //         if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+        //             var chat = {};
+        //              //  chat[id] = virtualclass.chat.vmstorage[id];
+        //              // displayPvtChatHistory(chat);
+        //         }
+        //     }
+        // }
         if (user.class == "support") {
             if (($(('#cb' + id) + '.support')).length == 0) {
                 $('#cb' + id).addClass("support").removeClass("privateChat");
@@ -117,7 +128,9 @@ var chatboxManager = function() {
             if ($('#cb' + id + '.privateChat').length == 0) {
                 $('#cb' + id).addClass("privateChat").removeClass("support");
             }
-
+        }
+        if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+            virtualclass.chat.vmstorage[id][0].box = 'opened';
         }
     };
 

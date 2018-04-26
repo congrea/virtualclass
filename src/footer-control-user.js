@@ -129,7 +129,6 @@
 
 
                 var aRoleEnable = roles.isEducator() ? false : true;
-
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 var isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
                 //var this should be in normalize in function
@@ -891,6 +890,29 @@
                         var chatIcon=allChatDivCont[i].querySelector('.icon-chatImg');
                         if(chatIcon && !chatIcon.classList.contains("enable")){
                             chatIcon.classList.add("enable");
+                            chatIcon.setAttribute("data-chat-disable", "false");
+                        }
+
+                        var txteditorIcon = allChatDivCont[i].querySelector('.icon-editorRichImg');
+                        if(txteditorIcon && txteditorIcon.classList.contains("enable")){
+                            txteditorIcon.classList.remove("enable");
+                            txteditorIcon.classList.add("block");
+                            txteditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('editorRichDisable'));
+                            txteditorIcon.setAttribute("data-editorrich-disable", "true");
+                        }
+
+                        var codeeditorIcon = allChatDivCont[i].querySelector('.icon-editorCodeImg');
+                        if(codeeditorIcon && codeeditorIcon.classList.contains("enable")){
+                            codeeditorIcon.classList.remove("enable");
+                            codeeditorIcon.classList.add("block");
+                            codeeditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('editorCodeDisable'));
+                            codeeditorIcon.setAttribute("data-editorcode-disable", "true");
+                        }
+
+                        var muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
+                        if(muteIcon && muteIcon.classList.contains("block")){
+                            muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('disableAudio'));
+                            muteIcon.setAttribute("data-audio-disable", "false");
                         }
 
                     }
@@ -912,6 +934,28 @@
                         this.makeElemEnable(allChatBoxes[i]);
                     }
 
+
+                },
+
+                resetmediaSetting : function(){ //if mute all contains enable
+                    var mutebtn = document.getElementById("contrAudioAllImg");
+                    if(mutebtn && mutebtn.classList.contains("icon-all-audio-enable")){
+                        mutebtn.classList.remove("icon-all-audio-enable");
+                        mutebtn.classList.add("icon-all-audio-disable");
+                        mutebtn.setAttribute("data-title", virtualclass.lang.getString('muteAll'));
+                        if(mutebtn.dataset.action == "enable") {
+                            mutebtn.dataset.action = "disable";
+                        }
+                    }
+
+                    var vidbtn = document.getElementById("videoSwitch");
+                    if(vidbtn && vidbtn.classList.contains("video")){
+                        vidbtn.classList.remove("video" , "off");
+                        vidbtn.classList.add("video" , "on");
+                        var tvideoElem = document.getElementById("rightCtlr");
+                        tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
+                        virtualclass.videoHost.gObj.videoSwitch = 1;
+                    }
 
                 },
 
@@ -1095,6 +1139,10 @@
                     }
                 }
             },
+            toggleAllVideo:function(action){
+                ioAdapter.mustSend({'action': action,  'cf': 'toggleVideo'});
+
+            },
 
             /**
              * Create Audio all Enable/Disable buttons with
@@ -1104,37 +1152,39 @@
              * @constructor
              */
             UIaudioAll : function (mainTagId, tagClass){
-                // var anchorTag = document.createElement('a');
-                // anchorTag.id = 'contrAudioAll';
-                //
-                //
-                //
-                // var spanTag = document.createElement('span');
-                // spanTag.id = 'contrAudioAllImg';
 
-                var spanTag= document.getElementById("contrAudioAllImg")
+
+               // var spanTag= document.getElementById("contrAudioAllImg")
+                var spanTag= document.querySelector(".bulkUserActions #contrAudioAllImg");
+
                 var allAudAction = localStorage.getItem('allAudAction');
 
                 if(allAudAction != null &&  allAudAction == 'disable'){
-                    //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
-                    spanTag.className = 'icon-all-audio-enable congtooltip cgIcon';
+                    spanTag.className = 'slider round icon-all-audio-enable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
+                    var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
+                    input.setAttribute("checked","true");
+                    var cont = document.querySelector(".congrea #contrAudioAll");
+                    cont.classList.add("enable")
+
                 }else{
-                    //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
-                    spanTag.className = 'icon-all-audio-disable congtooltip cgIcon';
+                    spanTag.className = 'slider round icon-all-audio-disable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('muteAll');
+                     var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
+                    input.removeAttribute("checked");
+                    var cont = document.querySelector(".congrea #contrAudioAll");
+                    cont.classList.add("disable")
+
                 }
-
-
                 if(virtualclass.isPlayMode){
                     anchorTag.pointerEvents = "none";
                     anchorTag.style.cursor = "default";
                 } else {
                     var that = this;
                     spanTag.addEventListener('click', function (){
-                        var audioController = document.getElementById('contrAudioAllImg');
+                        var audioController = document.querySelector(".bulkUserActions #contrAudioAllImg");
                         var actionToPerform = that.toogleAudioIcon();
                         if(typeof actionToPerform != 'undefined'){
                             localStorage.setItem('allAudAction', actionToPerform);
@@ -1149,6 +1199,52 @@
                 // parentNode.appendChild(anchorTag);
                 var parentNode=document.querySelector("#"+mainTagId+" ."+tagClass);
                // parentNode.appendChild(anchorTag);
+
+
+            },
+            UIvideoAll:function(){
+                var spanTag= document.querySelector(".bulkUserActions #contrVideoAllImg");
+
+                var allVideoAction = localStorage.getItem('allVideoAction');
+
+                if(allVideoAction != null &&  allVideoAction == 'disable'){
+                    //spanTag.innerHTML = "En Aud All";
+                    spanTag.setAttribute('data-action', 'enable');
+                    spanTag.className = 'slider round icon-all-video-enable congtooltip cgIcon';
+                    spanTag.dataset.title = virtualclass.lang.getString('Enable Video All');
+                    var input = document.querySelector(".bulkUserActions #contrVideoAll input ")
+                    input.setAttribute("checked","true");
+
+                    var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");
+                    cont.classList.add("enable");
+                }else{
+                    //spanTag.innerHTML = "Dis Aud All";
+                    spanTag.setAttribute('data-action', 'disable');
+                    spanTag.className = 'slider round icon-all-video-disable congtooltip cgIcon';
+                    spanTag.dataset.title = virtualclass.lang.getString('Disable Video All');
+                    var input = document.querySelector(".bulkUserActions #contrVideoAll input ")
+                    input.removeAttribute("checked");
+                    var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");
+                    cont.classList.add("disable");
+
+                }
+
+                if(virtualclass.isPlayMode){
+                    anchorTag.pointerEvents = "none";
+                    anchorTag.style.cursor = "default";
+                } else {
+                    var that = this;
+                    spanTag.addEventListener('click', function (){
+                        var audioController = document.querySelector(".bulkUserActions #contrVideoAllImg");
+                        var actionToPerform = that.toggleVideoIcon();
+                        if(typeof actionToPerform != 'undefined'){
+                            localStorage.setItem('allVideoAction', actionToPerform);
+                            that.toggleAllVideo(actionToPerform);
+                        }
+                    });
+                }
+
+
 
 
             },
@@ -1192,7 +1288,7 @@
 
 
             toogleAudioIcon : function (){
-                var audioController = document.getElementById('contrAudioAllImg');
+                var audioController = document.querySelector(".bulkUserActions #contrAudioAllImg");
                 if (audioController != null) {
                     actionToPerform = audioController.dataset.action;
 
@@ -1200,16 +1296,46 @@
 
                         audioController.dataset.action = 'disable';
                         //audioController.innerHTML = "Dis Aud All";
-                        audioController.className = 'icon-all-audio-disable congtooltip';
+
+                        audioController.className = 'slider round icon-all-audio-disable congtooltip';
 
                         audioController.dataset.title = virtualclass.lang.getString('muteAll');
+
+                        var cont = document.querySelector(".congrea .bulkUserActions #contrAudioAll");
+                        cont.classList.add("disable");
+                        cont.classList.remove("enable");
 
                     } else {
                         audioController.dataset.action = 'enable';
                         //audioController.innerHTML = "En Aud All";
-                        audioController.className = 'icon-all-audio-enable congtooltip';
+                        audioController.className = 'slider round icon-all-audio-enable congtooltip';
                         audioController.dataset.title = virtualclass.lang.getString('unmuteAll');
+                        var cont = document.querySelector(".congrea .bulkUserActions #contrAudioAll");
+                        cont.classList.add("enable");
+                        cont.classList.remove("disable");
+                    }
+                    return actionToPerform;
+                }
+            },
+            toggleVideoIcon:function(){
+                var videoController = document.querySelector(".bulkUserActions #contrVideoAllImg");
+                if (videoController != null) {
+                    actionToPerform = videoController.dataset.action;
+                    if (videoController.dataset.action == 'enable') {
+                        videoController.dataset.action = 'disable';
+                        videoController.className = 'slider round icon-all-video-disable congtooltip';
+                        videoController.dataset.title = virtualclass.lang.getString('disableVideoAll');
+                        var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");
+                        cont.classList.add("disable");
+                        cont.classList.remove("enable");
 
+                    } else {
+                        videoController.dataset.action = 'enable';
+                        videoController.className = 'slider round icon-all-video-enable congtooltip';
+                        videoController.dataset.title = virtualclass.lang.getString('enableVideoAll');
+                        var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");
+                        cont.classList.add("enable");
+                        cont.classList.remove("disable");
                     }
                     return actionToPerform;
                 }
@@ -1298,6 +1424,20 @@
                         if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
                             virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
                         }
+                    }else if(allSpans[i].className.indexOf('editorRich') > -1){
+                        if (uObj && userObj.hasOwnProperty('editorRich')) {
+                            var edEnable = (userObj.editorRich) ? true : false;
+                        } else {
+                            var edEnable = false;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
+                    }else if(allSpans[i].className.indexOf('editorCode') > -1){
+                        if (uObj && userObj.hasOwnProperty('editorCode')) {
+                            var edcEnable = (userObj.editorCode) ? true : false;
+                        } else {
+                            var edcEnable = false;
+                        }
+                        virtualclass.user.control.changeAttribute(userId, allSpans[i], edcEnable, 'editorCode', 'editorCode');
                     }
                 }
             }

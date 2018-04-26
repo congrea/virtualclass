@@ -168,7 +168,8 @@
                 history: function () {
                     var chatEnable = null;
                     if (localStorage.getItem(wbUser.sid) != null) {
-                        displayPvtChatHistory();
+                        var data = JSON.parse(localStorage.getItem(wbUser.sid));
+                        displayPvtChatHistory(data);
                         chatEnable = localStorage.getItem('chatEnable');
                         if (chatEnable != null && chatEnable == "false") {
                             virtualclass.user.control.disbaleAllChatBox();
@@ -216,7 +217,7 @@
                             //delete tab
                             var panelId = $(this).closest("li").remove().attr("aria-controls");
                             $("#" + panelId).remove();
-                            delete virtualclass.chat.vmstorage[tabid]; //delete variable storage
+                            // delete virtualclass.chat.vmstorage[tabid]; //delete variable storage
                         },
                         toggle: function () {
                             /* Hide box when click on user tab */

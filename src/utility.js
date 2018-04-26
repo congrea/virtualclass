@@ -298,7 +298,6 @@
                         if(roles.hasControls()){
                             virtualclass.vutil.clickOutSideCanvas();
                         }
-
                     };
                 }
             }

@@ -78,26 +78,30 @@ function displayChatOfflineUserList (users){
 }
 
 function updateOnlineUserText (){
-    if (roles.hasAdmin()) {
-        if(virtualclass.chat.userList.length > 0){
+    if (roles.hasAdmin() ) {
+        if (virtualclass.chat.userList.length > 0) {
             document.querySelector('#usertab_text').innerHTML = "";
             if (roles.hasAdmin()) {
                 var text = "Users (" + virtualclass.connectedUsers.length + "/" + virtualclass.chat.userList.length + ")";
-            }else{
+            } else {
                 var text = " Users (" + count + ")";
             }
 
-            var onlineUser  = document.querySelector('#onlineusertext');
+            var onlineUser = document.querySelector('#onlineusertext');
 
-            if(onlineUser == null){
-                document.querySelector('#usertab_text').innerHTML =  "<span id='onlineusertext' class='cgText'>"+text+"</span>";
+            if (onlineUser == null) {
+                document.querySelector('#usertab_text').innerHTML = "<span id='onlineusertext' class='cgText'>" + text + "</span>";
             } else {
                 onlineUser.innerHTML = text;
             }
-        }else {
+        } else if (virtualclass.chat.userList.nothing == "nothing") {
+            //in case of without moodle
+            document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>";
+        } else {
             console.log('Chat list is not fetched yet.');
         }
-    } else {
+    }
+    else {
         document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>" ;
     }
 }
@@ -276,13 +280,19 @@ function messageUpdate(e) {
             if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
                 virtualclass.chat.counter++;
                 virtualclass.chat.idList.push(from.userid);
-                virtualclass.chat.vmstorage[from.userid] = [];
-                virtualclass.chat.vmstorage[from.userid].push({
-                    userid: from.userid,
-                    name: from.name + ' ' + from.lname
-                });
+                if(!virtualclass.chat.vmstorage.hasOwnProperty(from.userid)){
+                    virtualclass.chat.vmstorage[from.userid] = [];
+                    virtualclass.chat.vmstorage[from.userid].push({
+                        userid: from.userid,
+                        name: from.name + ' ' + from.lname
+                    });
+                }
             }
-            chatboxManager.addBox(from.userid,
+
+            // In case of history exist
+            var chatBox = document.querySelector('#cb' + from.userid);
+            if(chatBox == null){
+                chatboxManager.addBox(from.userid,
                 {
                     dest: "dest" + virtualclass.chat.counter, // not used in demo
                     title: "box" + virtualclass.chat.counter,
@@ -290,6 +300,11 @@ function messageUpdate(e) {
                     last_name: from.lname
                     //you can add your own options too
                 });
+
+                if(virtualclass.chat.vmstorage.hasOwnProperty(from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1){
+                    displayUserSinglePvtChatHistory(from.userid);
+                }
+            }
 
             var did = from.userid;
 
@@ -411,23 +426,19 @@ function displaycomChatHistory() {
 /*
  preserve private chat on page refersh
  */
-function displayPvtChatHistory() {
-
+function displayPvtChatHistory(data) {
+    var boxOpen = false;
     //Private chat data populated on page referesh
-    if (localStorage.getItem(wbUser.sid) != null) {
-        var data = JSON.parse(localStorage.getItem(wbUser.sid));
-        console.log(data)
-        $.each(data, function (id, msgarr) {
-//            counter++;
-//            idList.push(id);
-
-            virtualclass.chat.counter++;
-            virtualclass.chat.idList.push(id);
-
-            $.each(msgarr, function (i, msgobj) {
-                console.log(msgobj);
-                if (i < 1) {
-
+    console.log(data)
+    $.each(data, function (id, msgarr) {
+        virtualclass.chat.counter++;
+        virtualclass.chat.idList.push(id);
+        $.each(msgarr, function (i, msgobj) {
+            if (i < 1) {
+                if(msgobj.hasOwnProperty('box')){
+                    boxOpen = true
+                }
+                if(boxOpen){
                     if(id == virtualclass.chat.supportId){
                         msgobj.name ="support"; // to find alternative
                     }
@@ -443,25 +454,32 @@ function displayPvtChatHistory() {
                             $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
                         }
                     });
-                } else {
+                }
+
+            } else {
+                if(boxOpen){
                     $("#" + id).chatbox("option").messageSent(id, msgobj, msgobj.msg);
                 }
-            });
-            if(id == virtualclass.chat.supportId){
-                var support = document.getElementById("cb"+virtualclass.chat.supportId);
-                if(support){
-                    support.classList.add("support");
-                }
 
-            }
-
-
-            if (localStorage.getItem(id) == 'hidden') {
-                $("#cb" + id).hide(); //hide box on page refersh
-                $("#tabcb" + id).removeClass('ui-state-active'); //make tab disable on page refersh
             }
         });
-    }
+
+        boxOpen = false
+
+
+        if(id == virtualclass.chat.supportId){
+            var support = document.getElementById("cb"+virtualclass.chat.supportId);
+            if(support){
+                support.classList.add("support");
+            }
+
+        }
+        if (localStorage.getItem(id) == 'hidden') {
+            $("#cb" + id).hide(); //hide box on page refersh
+            $("#tabcb" + id).removeClass('ui-state-active'); //make tab disable on page refersh
+        }
+    });
+
 }
 
 
@@ -538,4 +556,17 @@ function sortCommonChat(){
         return +(a.dataset.msgtime) - +(b.dataset.msgtime);
     })
         .appendTo( $wrapper );
+}
+
+
+function displayUserSinglePvtChatHistory(userid){
+    $("#" + userid +" .ui-chatbox-msg").remove();
+    var msgarr = virtualclass.chat.vmstorage[userid];
+    if(msgarr.length > 1){
+        $.each(msgarr, function (i, msgobj) {
+            if(i > 0){
+                $("#" + userid).chatbox("option").messageSent(userid, msgobj, msgobj.msg);
+            }
+        });
+    }
 }

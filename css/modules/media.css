@@ -167,6 +167,13 @@
   font-weight: normal;
 }
 
+#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {
+  content: "\ea2a";
+  color: #535151;
+  font-size: 120%;
+  font-weight: normal;
+}
+
 #virtualclassCont.congrea #alwaysPress .audioTool a {
   text-transform: uppercase;
   font-size: 10px;
@@ -202,15 +209,15 @@
   display: none;
 }
 
-#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{
-  content: "\e610";
-  font-size: 18px;
-}
+/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{*/
+  /*!*content: "\e610";*!*/
+  /*font-size: 18px;*/
+/*}*/
 
-#virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {
-  content: "\e611";
-  font-size: 18px;
-}
+/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {*/
+  /*!*content: "\e611";*!*/
+  /*font-size: 18px;*/
+/*}*/
 
 #virtualclassCont.congrea a#contrAudioAll, #virtualclassCont.congrea a#contrAudioAll:hover {
   text-decoration: none;

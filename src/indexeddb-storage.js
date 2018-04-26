@@ -623,6 +623,9 @@
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
+                delete virtualclass.chat.vmstorage;
+                virtualclass.chat.vmstorage = {};
+
 
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
@@ -680,6 +683,12 @@
 
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
 
+                virtualclass.user.control.resetmediaSetting();
+
+                if(roles.isStudent()){
+                    var teacherVid = document.getElementById("videoHostContainer");
+                    teacherVid.style.display = "block";
+                }
 
 
                 if(roles.hasAdmin()){

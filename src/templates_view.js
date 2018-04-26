@@ -209,7 +209,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
 this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "    <li class=\"vmchat_bar_button  active\" id=\"user_list\" >\n      <a class=\"inner_bt congtooltip\"  data-title=\"Private Chat\">\n        <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pchat",{"name":"getString","hash":{},"data":data}))
-    + "</span></span>\n      </a>\n      <a class=\"rHandNotify hand_bt congtooltip\">\n        <span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\">rh</span></span>\n      </a>\n\n    </li>\n";
+    + "</span></span>\n      </a>\n      <a class=\"rHandNotify hand_bt congtooltip\">\n        <span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span>\n      </a>\n\n    </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "      <li class=\"vmchat_bar_button congtooltip  active\" id=\"user_list\" data-title=\"Private Chat\">\n\n        <a class=\"inner_bt \"  >\n          <span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pchat",{"name":"getString","hash":{},"data":data}))

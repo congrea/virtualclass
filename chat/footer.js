@@ -28,7 +28,25 @@
                  $('#chatroom_bt2 .inner_bt').click(function () {
                     $('#chatroom_bt2').addClass('active');
                     $('#user_list').removeClass('active');
-                    // $('#congreaSupport').removeClass("active")
+
+                     var setting = document.querySelector("#appSettingCtrl");
+                     var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
+                     var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
+                     if(setting.classList.contains('settingActive')){
+                         setting.classList.remove('settingActive');
+                         setting.classList.add("chatActive");
+                     }
+                     chat.classList.remove("deactive");
+                     if(!chat.classList.contains('active')){
+                         chat.classList.add("active");
+                     }
+                     settingD.classList.remove("active");
+                     settingD.classList.remove("active");
+                     if(! settingD.classList.contains('deactive')){
+                         settingD.classList.add("deactive");
+                     }
+
+                     // $('#congreaSupport').removeClass("active")
                     $('#chatroom_bt2').removeClass('ui-state-highlight');
                     virtualclass.chat.chatWindow="common";
                     if ($("ul#chat_room").length == 0) {
@@ -84,6 +102,25 @@
                     $('#chatroom_bt2').removeClass('active');
                     // $('#congreaSupport').removeClass('active');
                     $('#user_list').addClass('active');
+                    var setting = document.querySelector("#appSettingCtrl");
+                    var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
+                    var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
+                    if(setting.classList.contains('settingActive')){
+                        setting.classList.remove('settingActive');
+                        setting.classList.add("chatActive");
+
+                    }
+
+                    chat.classList.remove("deactive");
+                    if(!chat.classList.contains('active')){
+                        chat.classList.add("active");
+                    }
+
+                    settingD.classList.remove("active");
+                    if(! settingD.classList.contains('deactive')){
+                        settingD.classList.add("deactive");
+                    }
+
 //                $('#chatrm').addClass("hide").removeClass('show');
 //                $('#memlist').addClass('show').removeClass('hide');
                     virtualclass.chat.chatWindow="private";

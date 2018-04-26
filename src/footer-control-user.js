@@ -129,7 +129,6 @@
 
 
                 var aRoleEnable = roles.isEducator() ? false : true;
-
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 var isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
                 //var this should be in normalize in function

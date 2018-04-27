@@ -524,6 +524,7 @@
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
     background-color: #395161;
     cursor: pointer;
+    height:38px;
 }
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button{
@@ -669,7 +670,7 @@
 }
 #virtualclassCont.congrea .primary {
     border-radius: 20%;
-    /*border: #bbb solid 1px;*/
+    border: #bbb solid 1px;
     width: 52px;
     height: 40px;
     margin-bottom: 5px;

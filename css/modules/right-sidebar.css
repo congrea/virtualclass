@@ -2,6 +2,7 @@
 #audioWidget ul li a {
     padding-top:12px !important;
     padding-bottom:12px !important;
+    text-align:center;
 }
 
 
@@ -21,6 +22,10 @@
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail{
    display : none;
     overflow:scroll;
+     height : calc(100% - 45px);
+    margin-left:10px;
+    margin-right:10px;
+    font-family: Helvetica ;
 }
 
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
@@ -59,7 +64,7 @@
     position: absolute;
     bottom: 48px;
     width:100%;
-    text-align:center;
+    text-align:right;
     margin:10px 0;
     
 } 
@@ -71,6 +76,27 @@
    
 } 
 
+#virtualclassCont .footerCtr input[type=text], #virtualclassCont .footerCtr input#ta_chrm2 {
+    width: 150px;
+    box-sizing: border-box;
+    border: 1px solid #4b5863b3;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    padding: 8px 10px 8px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin-right:10px;
+}
+#virtualclassCont .footerCtr input {
+    font-weight: normal;
+    font-size: 11px;
+    font-family: 'icomoon';
+}
+
+#virtualclassCont .footerCtr input[type=text]:focus {
+    width: 90%;
+}
 
 #virtualclassCont #chatWidget #stickycontainer ul li .inner_bt {
     padding-top: 10px;
@@ -86,29 +112,28 @@
     height:52px;
 }
 
-#appSettingDetail {
-    margin-left:10px;
-    margin-right:10px;
-}
+
 #appSettingDetail .bulk {
-    margin-top:20px;
+    margin-top: 14px;
+    margin-bottom: 6px;
 
 }
 #appSettingDetail label {
     margin-left:10px;
     margin-right:10px;
-    font-weight:normal;
+    margin-top:6px;
+    margin-bottom:6px;
+    font-weight:500;
     font-size:17px;
 }
-#virtualclassCont #appSettingDetail {
-	 height : calc(100% - 45px);
- }
+
 #virtualclassCont #appSettingDetail .switch {
   position: relative;
   display: inline-block;
-  width: 36px;
-  height: 15px;
+  width: 34px;
+  height: 13px;
     float:right;
+    margin:0 ;
 }
 #virtualclassCont #appSettingDetail .switch input {
     display:none;
@@ -127,8 +152,8 @@
 #virtualclassCont #appSettingDetail .slider:before {
   position: absolute;
   content: "";
-  height: 12px;
-  width: 13px;
+  height: 11px;
+  width: 11px;
   left: 2px;
   bottom: 2px;
   background-color: white;
@@ -157,8 +182,6 @@
     display: inline-block;
     min-width: 18px;
     padding: 3px 7px;
-    margin-left:4px;
-    margin-right:4px;
     font-size: 12px;
     font-weight: normal;
     line-height: 1;
@@ -171,7 +194,7 @@
 }
 #virtualclassCont #appSettingDetail .pre-check-btn:hover {
     
-    background-color: #2196F3;
+    background-color: #395265;
     border-radius: 4px;
     
 }
@@ -185,13 +208,13 @@
     padding-right:5px;
 }
 #virtualclassCont #appSettingDetail #usersVideoSwitch:before {
-    content: "\e611";
+    content: "\e906";
     font-weight: normal;
-    font-size: 15px;
+    font-size: 18px;
     font-family: 'icomoon';
     color: grey;
     padding-left:5px;
-    padding-right:5px;
+    padding-right:10px;
 }
 #virtualclassCont #appSettingDetail #validate-precheck:before {
     content: "\f00c";
@@ -236,4 +259,40 @@
 .audio-options select{
     text-overflow: ellipsis;
     width:83px;
+}
+
+.closeSetting:before {
+    content: "\f00c";
+    font-weight: normal;
+    font-size: 15px;
+    font-family: 'icomoon';
+    color: grey;
+}
+.settingActive .setting-btn:before {
+    content: "\e606";
+    font-weight: normal;
+    font-size: 21px;
+    font-family: 'icomoon';
+    color: white;
+}
+#audioWidget .settingActive {
+    background-color:#4e5d6c;
+}
+#audioWidget .chatActive .setting-btn:before {
+    content:"\f0ca";
+    font-weight: normal;
+    font-size: 19px;
+    font-family: 'icomoon';
+    color: white;
+    font-weight:normal;
+}
+#appSettingDetail .list-group {
+    font-size:15px !important;
+}
+#appSettingDetail .list-group .list-group-item {
+    padding:12px 14px !important;
+    letter-spacing: 0.02em;
+}
+#virtualclassCont #appSettingDetail .slider:hover {
+    background-color: #395265;
 }

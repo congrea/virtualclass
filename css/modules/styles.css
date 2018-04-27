@@ -1130,14 +1130,14 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr a img {
-	margin-top : 10px;
-	margin-bottom: 10px;
-	margin-right: 10px;
+	margin-top : 7px;
+	margin-bottom: 7px;
+	margin-right: 5px;
 	padding : 0px;
 	border-radius : 20%;
-	/*border : #bbb solid 1px;*/
+	border : #bbb solid 1px;
 	width: 52px;
-	height: 45px;
+	height: 40px;
 	cursor: pointer;
 }
 
@@ -2936,12 +2936,9 @@
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel li {
-	width : 25%;
+	width : 33.3%;
 }
 
-/*#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li{*/
-/*!*width : 33%;*!*/
-/*}*/
 
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
 	width : 20%;
@@ -3522,7 +3519,7 @@
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
 /*	background-color: #f8f7dc;*/
-/*	border-bottom: 1px solid #8f8f8f;*/
+/*    border-bottom: 1px dotted #8f8f8f;*/
 /*	border-top: 1px solid #ddda86;*/
 
 }
@@ -3658,3 +3655,4 @@ span#usertab_text {
 	height:200px;
     margin: 5px 20px;
 }
+

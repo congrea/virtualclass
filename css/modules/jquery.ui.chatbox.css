@@ -239,7 +239,7 @@
 /* css for chat romm */
 #virtualclassCont.congrea .ui-chatroom {
     position: absolute;
-    bottom:38px;
+    bottom:99px;
     padding: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
     z-index: 100;
@@ -446,7 +446,7 @@
     float: left;
     font-size: 14px;
     text-transform: capitalize;
-    margin:19px 10px;
+    margin:19px 6px;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -522,8 +522,9 @@
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
-    background-color: rgba(0,0,0,0.25);
+    background-color: #395161;
     cursor: pointer;
+    height:38px;
 }
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button{
@@ -624,8 +625,10 @@
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {
     width: 100%;
+/*
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+*/
 }
 
 #virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_text,#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_icon{
@@ -635,6 +638,8 @@
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
     pointer-events : visible;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.offline {
@@ -665,7 +670,7 @@
 }
 #virtualclassCont.congrea .primary {
     border-radius: 20%;
-    /*border: #bbb solid 1px;*/
+    border: #bbb solid 1px;
     width: 52px;
     height: 40px;
     margin-bottom: 5px;
@@ -730,5 +735,5 @@ margin-right:10px !important;
 }
 
 #virtualclassCont.congrea #stickybar{
-  width: calc(100% - 325px);
+  width: calc(100% - 321px); /*changed from 325px */
 }

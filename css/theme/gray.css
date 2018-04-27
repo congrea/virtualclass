@@ -24,7 +24,8 @@
   background: linear-gradient(to right, #34404c 0%, #515e69 100%);
   /* W3C */ }
 #virtualclassCont.congrea #chatWidget .chatBarTab {
-  background: #34404c; }
+  background: #434f5b;
+height:38px;}
 /*#virtualclassCont.congrea #speakerPressonceAnch {*/
 /*border-right: 1px solid #5d6b76; }*/
 #virtualclassCont.congrea .vmchat_room_bt,

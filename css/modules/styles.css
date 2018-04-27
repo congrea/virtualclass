@@ -1130,14 +1130,14 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr a img {
-	margin-top : 10px;
-	margin-bottom: 10px;
-	margin-right: 10px;
+	margin-top : 7px;
+	margin-bottom: 7px;
+	margin-right: 5px;
 	padding : 0px;
 	border-radius : 20%;
-	/*border : #bbb solid 1px;*/
+	border : #bbb solid 1px;
 	width: 52px;
-	height: 45px;
+	height: 40px;
 	cursor: pointer;
 }
 
@@ -2936,12 +2936,9 @@
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel li {
-	width : 25%;
+	width : 33.3%;
 }
 
-/*#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li{*/
-/*!*width : 33%;*!*/
-/*}*/
 
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
 	width : 20%;
@@ -3222,7 +3219,7 @@
 	pointer-events : none;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt, #virtualclassCont.congrea .vmchat_bar_button{
+#virtualclassCont.congrea.teacher .vmchat_room_bt, #virtualclassCont.congrea.teacher .vmchat_bar_button{
 	width:50% !important; /* Changed from 40% */
 }
 
@@ -3522,7 +3519,7 @@
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
 /*	background-color: #f8f7dc;*/
-/*	border-bottom: 1px solid #8f8f8f;*/
+/*    border-bottom: 1px dotted #8f8f8f;*/
 /*	border-top: 1px solid #ddda86;*/
 
 }
@@ -3541,6 +3538,9 @@
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight{
 	display:block ;
+	border: solid red 1px;
+	border-radius: 11px;
+	color:red;
 
 }
 #virtualclassCont.congrea .chatBarTab .hand_bt.highlight .icon-raisehand:before{
@@ -3548,9 +3548,8 @@
 
 }
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt,#virtualclassCont.congrea.teacher .chatBarTab .hand_bt:hover,#virtualclassCont.congrea.teacher .chatBarTab .hand_bt:focus{
-
 	background:none !important;
-	border:none !important;
+	/*//border:none !important;*/
 }
 
 #virtualclassCont.congrea.teacher a.inner_bt{
@@ -3575,12 +3574,12 @@ span#usertab_text {
 	float: left;
 }
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
-	width: 29px;
-	height: 30px;
-	position: fixed;
-	right: 61px;
-	float: right;
-	padding: 7px 7px;
+	width: 26px;
+	height: 27px;
+	right: 33px;
+	position: relative;
+	bottom: 29px;
+
 }
 
 /* Handle edge browser issue start **/
@@ -3655,4 +3654,7 @@ span#usertab_text {
 	width:230px;
 	height:200px;
     margin: 5px 20px;
+
 }
+
+

@@ -67,6 +67,7 @@
                 var controlContainer = document.getElementById(userid+ 'contRaiseH');
                 var anch = document.getElementById(userid + 'contRaiseAnch');
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');
+                var rh = document.querySelector("#user_list .hand_bt");
 
                 if(msg.action=="enable"){
                     this.enableRaiseHand(userid);
@@ -85,7 +86,14 @@
                     }
 
                 }
-
+                var text = document.querySelector("#user_list .hand_bt  #notifyText")
+                if(this.rhCount){
+                    text.innerHTML=  this.rhCount;
+                }else{
+                     text.innerHTML= "";
+                     rh.classList.remove('congtooltip');
+                     rh.removeAttribute('data-title');
+                }
             },
 
             msgRecAtStudent:function(msg){
@@ -139,7 +147,14 @@
                 if(!handbt.classList.contains("highlight")){
                     handbt.classList.add("highlight");
                 }
+                var text = document.querySelector("#user_list .hand_bt  #notifyText")
+                text.innerHTML=  this.rhCount;
 
+                var tooltip = document.querySelector("#user_list .hand_bt");
+                    if(!tooltip.classList.contains('congtooltip')){
+                       tooltip.classList.add('congtooltip')
+                    }
+                    tooltip.setAttribute('data-title',virtualclass.lang.getString("raiseHandNotify"));
             },
 
             updateInStorage:function(){

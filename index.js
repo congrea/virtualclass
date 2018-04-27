@@ -137,7 +137,7 @@ $(document).ready(function () {
             virtualclass.makePreCheckAvailable = true;
         } else {
             virtualclass.makePreCheckAvailable = false;
-            virtualclass.popup.waitMsg();
+            virtualclass.popup.waitMsg('refresh');
         }
 
 
@@ -1640,6 +1640,12 @@ $(document).ready(function () {
             this.stdVideoCtrl= function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){
                     virtualclass.videoHost.stdVideoCtrlMsg(e);
+                }
+            }
+
+            this.toggleVideo=function(e){
+                if(e.fromUser.userid != virtualclass.gObj.uid){
+                    virtualclass.videoHost.toggleVideoMsg(e);
                 }
             }
 

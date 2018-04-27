@@ -36,13 +36,17 @@
   {{/if}}
 
 </ul>
-<div id="stickybar" class="maximize" style="z-index: 2000;">
+<div id="stickybar" class="maximize something-happend" style="z-index: 2000;">
   <div id="tabs" class="tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"
         role="tablist"></ul>
   </div>
-
-
-
+  <div id="networkStatusContainer">
+    <div id="videoLatency">
+      <div id="proposedSpeed">
+        <span id="proposedSpeed-inner" class="latency  congtooltip" data-latency="slow" data-title="slow"> &nbsp; </span>
+      </div>
+    </div>
+  </div>
 
 </div>

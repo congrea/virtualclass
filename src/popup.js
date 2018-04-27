@@ -160,6 +160,10 @@ var PopUp = (function (window, undefined) {
                 console.log('zIndex performing');
                 chatRoom.style.zIndex = 1;
             }
+
+            // remove connecting class
+            var networkStatusContainer  = document.querySelector('#networkStatusContainer');
+            networkStatusContainer.classList.remove('connecting-room')
         }
     },
 
@@ -435,8 +439,9 @@ var PopUp = (function (window, undefined) {
             virtualclass.popup.open(element);
             this.hideAllPopups();
             document.getElementById('waitMsgCont').style.display = 'block';
+            var networkStatusContainer  = document.querySelector('#networkStatusContainer');
+            virtualclass.network.netWorkElementIsReady();
         }
-
     };
 
     PopUp.prototype.chromeExtMissing = function () {

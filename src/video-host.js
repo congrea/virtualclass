@@ -461,7 +461,8 @@ var videoHost = {
             latency = "fast";
         }
 
-        var videoSpeed = document.getElementById('videSpeedNumber');
+        // var videoSpeed = document.getElementById('videSpeedNumber');
+        var videoSpeed = document.getElementById('proposedSpeed');
         if(videoSpeed){
             videoSpeed.dataset.suggestion = speed;
         }
@@ -474,11 +475,11 @@ var videoHost = {
 
         //videoFrameRate.innerHTML = frameRate;
         // todo to  validate
-        var videLatency = document.getElementById('videLatency');
-        if(videLatency){
-            videLatency.dataset.latency = latency;
+            var videoLatency = document.getElementById('videoLatency');
+        if(videoLatency){
+            videoLatency.dataset.latency = latency;
             var text = virtualclass.lang.getString('band'+latency);
-            videLatency.dataset.title = text;
+            videoLatency.dataset.title = text;
 
         }
         //videLatency.innerHTML =  latency;

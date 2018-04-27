@@ -118,3 +118,20 @@ Network.prototype.resetVariations = function() {
   this.avgLatency = 1;
   this.minLatency = 999999;
 };
+
+
+
+Network.prototype.netWorkElementIsReady = function (){
+    var networkStatusContainer  = document.querySelector('#networkStatusContainer');
+    if(networkStatusContainer == null){
+        var that = this;
+        virtualclass.gObj.connectingRoom = setTimeout(
+            function (){
+                that.netWorkElementIsReady();
+            }, 1000
+        );
+    }else {
+        networkStatusContainer.classList.add('connecting-room');
+        clearTimeout(virtualclass.gObj.connectingRoom);
+    }
+}

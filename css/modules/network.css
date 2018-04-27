@@ -1,0 +1,66 @@
+#virtualclassCont.congrea #networkStatusContainer {
+  position: relative;
+  top: -37px;
+  width: 50px;
+  float: right;
+  left: 2px;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {
+  width: 30px;
+  height: 28px;
+  position: relative;
+  top: 4px;
+  left: 8px;
+  border-radius: 50%;
+}
+
+
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='high']{
+  background : #37da52;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='medium']{
+  background : #ef9c55;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='low']
+{
+  background : #bf4a4a;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel #videoLatency[data-latency='slow'] {
+  background : #ec0707;
+}
+
+
+#virtualclassCont.congrea #networkStatusContainer.connecting-room{
+  paddin-left :2px;
+}
+
+
+#virtualclassCont.congrea #networkStatusContainer #videoLatency {
+  width: 46px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+
+#virtualclassCont.congrea #networkStatusContainer.connecting-room #videoLatency{
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #d02323;
+  border-radius: 50%;
+  width: 37px;
+  height: 37px;
+  animation: spin 2s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#virtualclassCont.congrea #networkStatusContainer.connecting-room #proposedSpeed {
+  display : none;
+}

@@ -2437,8 +2437,15 @@
                 var deactiveElem = '#listdocs';
             }
 
-            virtualclass.vutil.makeElementActive(activeElem);
-            virtualclass.vutil.makeElementDeactive(deactiveElem);
+            var elem = document.querySelector('#'+ virtualclass.currApp + 'Dashboard');
+            if(elem != null && !elem.classList.contains('uploading')) {
+                virtualclass.vutil.makeElementActive(activeElem);
+                virtualclass.vutil.makeElementDeactive(deactiveElem);
+
+            }else{
+                virtualclass.vutil.makeElementDeactive(activeElem);
+            }
+
         },
 
         isResponseAvailable : function (reponse){

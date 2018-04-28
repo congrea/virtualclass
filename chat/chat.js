@@ -78,7 +78,7 @@
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.remove("active");
                             }
-                            var search = document.querySelector("#virtualclassCont.congrea #stickycontainer #congreaUserSearch");
+                            var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
                             if(search){
                                  search.style.display="none";
                             }
@@ -108,6 +108,28 @@
                         }
 
                     }
+                    var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
+                    if(privateChat.classList.contains('active')){
+                        var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
+                        if(chatInput){
+                            chatInput.style.display="none";
+                        }
+                        var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
+                        if(search){
+                            search.style.display="block";
+                        }
+                    }else{
+                        var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
+                        if(chatInput){
+                            chatInput.style.display="block";
+                        }
+                        var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
+                        if(search){
+                            search.style.display="none";
+                        }
+
+                    }
+
                 },
 
 

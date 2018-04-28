@@ -285,8 +285,6 @@
                 this.appSetting.init();
 
                 this.appSettingMedia= window. appSettingMedia;
-                this.appSettingMedia.init();
-
 
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
@@ -617,12 +615,15 @@
                     virtualclass.videoUl.videoUrl ="";
                     virtualclass.videoUl.videoId ="";
 
-                    var dispVideo = document.getElementById("dispVideo")
+                    var dispVideo = document.querySelector(".congrea #dispVideo")
                     if (dispVideo) {
                         dispVideo.style.display = "none";
+                        var video = document.querySelector(".congrea #dispVideo video")
+                        if(video){
+                            video.setAttribute("src",'');
+                        }
+
                     }
-
-
                     $('.congrea #listvideo .playing').removeClass('playing');
                     $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
@@ -906,11 +907,8 @@
                             virtualclass.yts.init(videoObj, videoObj.startFrom);
 
                         }else{
-
                             virtualclass.videoUl.init();
-
                         }
-
                     }else{
                         virtualclass.videoUl.init();
                     }
@@ -943,7 +941,6 @@
                 editor: function(app) {
                     //showing controllers from footer
                     this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'), app.length), 'block');
-
                     var revision = 0;
                     var clients = [];
                     var docs = "";

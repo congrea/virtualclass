@@ -49,6 +49,18 @@
                 if(!this.rhCount ){
                     document.querySelector("#user_list .hand_bt").classList.remove("highlight");
                 }
+
+                var text = document.querySelector("#user_list .hand_bt  #notifyText")
+                if(this.rhCount){
+                    text.innerHTML=  this.rhCount;
+                }else{
+                    var rh = document.querySelector("#user_list .hand_bt");
+                    text.innerHTML= "";
+                    rh.classList.remove('congtooltip');
+                    rh.removeAttribute('data-title');
+                    document.querySelector("#user_list .hand_bt").classList.remove("highlight");
+                }
+
             },
 
 
@@ -67,7 +79,7 @@
                 var controlContainer = document.getElementById(userid+ 'contRaiseH');
                 var anch = document.getElementById(userid + 'contRaiseAnch');
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');
-                var rh = document.querySelector("#user_list .hand_bt");
+
 
                 if(msg.action=="enable"){
                     this.enableRaiseHand(userid);
@@ -90,6 +102,7 @@
                 if(this.rhCount){
                     text.innerHTML=  this.rhCount;
                 }else{
+                    var rh = document.querySelector("#user_list .hand_bt");
                      text.innerHTML= "";
                      rh.classList.remove('congtooltip');
                      rh.removeAttribute('data-title');

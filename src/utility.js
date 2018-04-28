@@ -2160,20 +2160,23 @@
         },
 
         videoController: function () {
-            var elem = document.getElementById("videoSwitch");
-            if(elem){
-                elem.addEventListener("click", function () {
-                    virtualclass.vutil.videoHandler(this);
+            var ctr = document.querySelector(".congrea .videoSwitchCont")
+
+          // // var elem = document.getElementById("videoSwitch");
+            if(ctr){
+                ctr.addEventListener("click", function () {
+                    virtualclass.vutil.videoHandler();
                 })
             }
 
         },
 
-        videoHandler: function (that) {
+        videoHandler: function () {
          var video;
-            if (that.classList.contains("on")) {
-                that.classList.remove("on");
-                that.classList.add("off");
+             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
+            if (sw.classList.contains("on")) {
+                sw.classList.remove("on");
+                sw.classList.add("off");
                // virtualclass.videoHost.gObj.videoSwitch = 0;
                 video = "off";
                 var tooltip = document.querySelector(".videoSwitchCont");
@@ -2187,8 +2190,8 @@
 
 
             } else {
-                that.classList.remove("off");
-                that.classList.add("on");
+                sw.classList.remove("off");
+                sw.classList.add("on");
 
                 video = "on"
                 var tooltip = document.querySelector(".videoSwitchCont");

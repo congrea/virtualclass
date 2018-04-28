@@ -15,24 +15,54 @@
   border-radius: 50%;
 }
 
-
-
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='high']{
-  background : #37da52;
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalthree,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalfoure,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalfive,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalsix,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalone,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signaltwo,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg circle.signal{
+  fill : #37da52;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='medium']{
-  background : #ef9c55;
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalfive,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalsix,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalone,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signaltwo,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg circle.signal{
+  fill : #ef9c55;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='low']
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalthree,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalfoure {
+  fill : #A9A9A9;
+}
+
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalfive,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalsix,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg circle.signal,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signal{
+  fill : #ec0707;
+}
+
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalthree,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalfoure,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalone,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signaltwo {
+  fill : #A9A9A9;
+}
+
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg circle.signal,
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalone,
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signaltwo,
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalthree,
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalfoure,
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalfive,
+#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalsix
 {
-  background : #bf4a4a;
+  fill : #ec0707;
 }
-#virtualclassCont.congrea #virtualclassAppRightPanel #videoLatency[data-latency='slow'] {
-  background : #ec0707;
-}
-
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room{
   paddin-left :2px;
@@ -43,6 +73,7 @@
   width: 46px;
   height: 35px;
   border-radius: 5px;
+  /*background-color: white;*/
 }
 
 
@@ -68,8 +99,8 @@
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard:before{
-  content: "\e604";
-  font-size: 34px;
+  content: "\e966";
+  font-size: 30px;
   margin-right: 5px;
 
 }

@@ -23,7 +23,7 @@
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signaltwo,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg circle.signal{
-  fill : #37da52;
+  fill : #A2F255;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalfive,
@@ -31,7 +31,7 @@
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalone,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signaltwo,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg circle.signal{
-  fill : #ef9c55;
+  fill : #E6EC33;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalthree,
@@ -43,7 +43,7 @@
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalsix,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg circle.signal,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signal{
-  fill : #ec0707;
+  fill : #F2BF55;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalthree,

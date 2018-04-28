@@ -1415,7 +1415,8 @@
                         audio = JSON.parse(audio);
                         if(audio.ac == 'false'){
                             if((audio.hasOwnProperty('r') && audio.r == 'vd') || typeof stream != 'undefined'){
-                                virtualclass.user.control.audioWidgetEnable();
+                                // Passing true ensures that audio does not triggered automatically
+                                virtualclass.user.control.audioWidgetEnable(true);
                             } else {
                                 virtualclass.user.control.mediaWidgetDisable();
                             }

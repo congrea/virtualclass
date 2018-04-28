@@ -630,7 +630,7 @@
                    }
                 }
 
-                virtualclass.raiseHand.disableRaiseHand();
+               // virtualclass.raiseHand.disableRaiseHand();
 
                 virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator

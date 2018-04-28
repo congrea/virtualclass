@@ -253,7 +253,7 @@
                 // For initialize the Teacher Video
                 if(!virtualclass.gObj.meetingMode){
                     virtualclass.videoHost.init(320 , 240);
-                    virtualclass.networkStatus();
+                    //virtualclass.networkStatus();
                 } else {
                     // virtualclass.multiVideo.init();
 
@@ -293,10 +293,6 @@
                     this.colorSelector.makeThemeReady();
                 }
 
-            },
-
-            networkStatus: function(){
-                virtualclass.videoHost.initVideoInfo();
             },
 
             makeReadySocket : function (){

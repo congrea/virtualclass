@@ -60,6 +60,7 @@ Network.prototype.variations = function() {
       this.resetVariations();
     }
     this.adaptiveMedia();
+
 };
 
 // SPEED 1 is best, 5 is worst
@@ -68,6 +69,7 @@ Network.prototype.adaptiveMedia = function() {
         // Very high latency, disable video
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH++;
+        this.updateNetworkInfo("slow");
         console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         if (virtualclass.videoHost.gObj.MYSPEED == 1 && this.MYSPEED_COUNTER_HIGH >= 3) {
             this.MYSPEED_COUNTER_HIGH = 0;
@@ -80,6 +82,7 @@ Network.prototype.adaptiveMedia = function() {
         // Latency is ok, giving a chance of video recovery
         this.MYSPEED_COUNTER_OK++;
         this.MYSPEED_COUNTER_HIGH = 0;
+        this.updateNetworkInfo("fast");
         console.log('OK count ' + this.MYSPEED_COUNTER_OK + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         if (virtualclass.videoHost.gObj.MYSPEED > 2 && this.MYSPEED_COUNTER_OK >= 4) {
             this.MYSPEED_COUNTER_OK = 0;
@@ -89,9 +92,36 @@ Network.prototype.adaptiveMedia = function() {
             this.setSpeed(1);
         }
     } else {
+        this.updateNetworkInfo("fast");
         console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH = 0;
+    }
+};
+
+Network.prototype.updateNetworkInfo = function(latency) {
+    var speed;
+    if (virtualclass.videoHost.gObj.MYSPEED == 1) {
+        speed = "high";
+    } else if (virtualclass.videoHost.gObj.MYSPEED == 2) {
+        speed = "medium";
+    } else if (virtualclass.videoHost.gObj.MYSPEED == 3) {
+        speed = "low";
+    }
+
+    // var videoSpeed = document.getElementById('videSpeedNumber');
+    var videoSpeed = document.getElementById('proposedSpeed');
+    if(videoSpeed){
+        videoSpeed.dataset.suggestion = speed;
+    }
+
+    //videoFrameRate.innerHTML = frameRate;
+    // todo to  validate
+    var networkLatency = document.getElementById('networkLatency');
+    if(networkLatency){
+        networkLatency.dataset.latency = latency;
+        var text = virtualclass.lang.getString('band'+latency);
+        networkLatency.dataset.title = text;
     }
 };
 

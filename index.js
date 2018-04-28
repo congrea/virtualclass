@@ -1006,7 +1006,6 @@ $(document).ready(function () {
             }
 
             virtualclass.videoHost.drawReceivedImage(b64encoded, imgType, {x: 0, y: 0});
-            virtualclass.videoHost.gObj.video_count++;
         }
 
         /**

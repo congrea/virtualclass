@@ -23,8 +23,8 @@
    display : none;
     overflow:scroll;
      height : calc(100% - 45px);
-    margin-left:10px;
-    margin-right:10px;
+    padding-left:10px;
+    padding-right:10px;
     font-family: Helvetica ;
 }
 
@@ -113,14 +113,7 @@
 }
 
 
-#appSettingDetail .bulk {
-    margin-top: 14px;
-    margin-bottom: 6px;
-
-}
 #appSettingDetail label {
-    margin-left:10px;
-    margin-right:10px;
     margin-top:6px;
     margin-bottom:6px;
     font-weight:500;
@@ -131,7 +124,7 @@
   position: relative;
   display: inline-block;
   width: 34px;
-  height: 13px;
+  height: 14px;
     float:right;
     margin:0 ;
 }
@@ -152,10 +145,11 @@
 #virtualclassCont #appSettingDetail .slider:before {
   position: absolute;
   content: "";
-  height: 11px;
-  width: 11px;
-  left: 2px;
-  bottom: 2px;
+  height: 12px;
+  width: 12px;
+  left: 1px;
+  top:1px;
+  bottom:1px;  
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -183,7 +177,8 @@
     min-width: 18px;
     padding: 3px 7px;
     font-size: 12px;
-    font-weight: normal;
+    font-weight: 100;
+    letter-spacing:.7px;
     line-height: 1;
     color: #fff;
     text-align: center;
@@ -204,36 +199,36 @@
     font-size: 15px;
     font-family: 'icomoon';
     color: grey;
-    padding-left:5px;
-    padding-right:5px;
 }
 #virtualclassCont #appSettingDetail #usersVideoSwitch:before {
-    content: "\e906";
+    content: "\e966";
     font-weight: normal;
     font-size: 18px;
     font-family: 'icomoon';
     color: grey;
-    padding-left:5px;
-    padding-right:10px;
 }
 #virtualclassCont #appSettingDetail #validate-precheck:before {
-    content: "\f00c";
+    content: "\e968";
     font-weight: normal;
     font-size: 15px;
     font-family: 'icomoon';
     color: grey;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 #virtualclassCont #appSettingDetail .audio-options {
     display:inline-block;
     float:right;
     margin-top:-3px;
+    width:115px;
+    height:21px;
+    position: relative;
 }
 
 /*   n */
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail.active{
    display : block;
+    background-color:#eee;
 }
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive{
 	display : none;
@@ -256,26 +251,27 @@
 	height:200px;
 }
 
-.audio-options select{
+#virtualclassCont.congrea .audio-options select{
     text-overflow: ellipsis;
-    width:83px;
+    width:128px;
+    font-size:13px;
 }
 
-.closeSetting:before {
+#virtualclassCont.congrea .closeSetting:before {
     content: "\f00c";
     font-weight: normal;
     font-size: 15px;
     font-family: 'icomoon';
     color: grey;
 }
-.settingActive .setting-btn:before {
+#virtualclassCont.congrea .settingActive .setting-btn:before {
     content: "\e606";
     font-weight: normal;
     font-size: 21px;
     font-family: 'icomoon';
     color: white;
 }
-#audioWidget .settingActive {
+#virtualclassCont.congrea #audioWidget .settingActive {
     background-color:#4e5d6c;
 }
 #audioWidget .chatActive .setting-btn:before {
@@ -289,10 +285,62 @@
 #appSettingDetail .list-group {
     font-size:15px !important;
 }
-#appSettingDetail .list-group .list-group-item {
+#appSettingDetail .list-group .lists-cont{
     padding:12px 14px !important;
     letter-spacing: 0.02em;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: white;
 }
 #virtualclassCont #appSettingDetail .slider:hover {
     background-color: #395265;
+}
+#virtualclassCont #appSettingDetail .video_toggle {
+    margin-top:4px;
+}
+
+#virtualclassCont #appSettingDetail .audio-options:after {
+    content: '\e967';
+    font-family:'icomoon';
+    color: #000;
+    right: 2px;
+    top: 3px;
+    height: 16px;
+    border-left: 1px solid #8d98a4;
+    position: absolute;
+    pointer-events: none;
+}
+
+
+#virtualclassCont #appSettingDetail select::-ms-expand {
+display: none;
+}
+
+#virtualclassCont #appSettingDetail .audio-options select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;  
+  display: block;
+  height: 21px;
+  float: right;
+  padding: 0 24px 0 8px;
+  color: #000;
+  background-color: rgb(248, 248, 248);
+  background-image: none;
+  border: 1px solid rgb(166, 166, 166);
+  -ms-word-break: normal;
+  word-break: normal;
+}
+#virtualclassCont #appSettingDetail .appSettingIcons {
+    display:inline-block;
+    width:25px;
+    height:16px;
+}
+#virtualclassCont #appSettingDetail .app-settings-rbs {
+    margin-top:12px;
+    margin-bottom:12px;
+}
+#virtualclassCont #appSettingDetail .setting-heading {
+    padding-left:7px;
+    background-color:#3950601f;
 }

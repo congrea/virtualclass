@@ -511,7 +511,7 @@
 	background : #fff;
 	border : #ccc solid 1px;
 	border-radius : 0.25em;
-	bottom : 4.6em;
+	bottom : 2.6em;
 	content : attr(data-title);
 	display : block;
 	left : -2.01em;
@@ -1309,8 +1309,8 @@
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover:after {
-	bottom : 4.5em;
-	left: 1em;
+	bottom : 3.5em;
+	left: 5em;
 	z-index : 10000;
 }
 #virtualclass.congrea .handRaise.congtooltip:hover:after{
@@ -3557,8 +3557,8 @@
 }
 
 #virtualclassCont.congrea a.inner_bt.congtooltip:hover:after{
-	bottom:4.5em !important;
-	left: 1em !important;
+	bottom:3.5em !important;
+	left: 5em !important;
 }
 
 #virtualclassCont.congrea .hand_bt.congtooltip:hover:after{
@@ -3655,4 +3655,39 @@ span#usertab_text {
 	height:200px;
     margin: 5px 20px;
 }
-
+.selectbox {
+    box-sizing: border-box;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 9pt;
+    display: inline-block;
+    float: left;
+    margin: 2px;
+    background: #fff;
+    width: 150px;
+    position: relative;
+}
+.selectbox_label {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: #fff;
+    color: #202020;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    transition: 150ms linear all;
+    box-shadow: 1px 1px 10px #eee;
+}
+.selectbox_label:after {
+    content: "";
+    display: inline;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #202020;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 150ms linear all;
+}

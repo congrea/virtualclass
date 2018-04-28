@@ -56,16 +56,16 @@
                 }
 
                 if (virtualclass.gObj.hasOwnProperty('audIntDisable')) {
-                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.user.control.mediaWidgetDisable();
                 }
 
                 if (virtualclass.gObj.hasOwnProperty('errNotDesktop')) {
-                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.user.control.mediaWidgetDisable();
                     virtualclass.vutil.disableVirtualClass();
                 }
             } else {
                 if (virtualclass.gObj.hasOwnProperty('audIntDisable') || virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.user.control.mediaWidgetDisable();
                 }
             }
         },

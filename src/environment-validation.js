@@ -416,7 +416,7 @@
                     } else {
                         virtualclass.vutil.initDisableAudVid();
                         virtualclass.error.push(virtualclass.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
-                        virtualclass.user.control.audioWidgetDisable();
+                        virtualclass.user.control.mediaWidgetDisable();
                     }
                 } else {
                     virtualclass.vutil.initDisableVirtualClass();

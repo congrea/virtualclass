@@ -137,7 +137,7 @@ $(document).ready(function () {
             virtualclass.makePreCheckAvailable = true;
         } else {
             virtualclass.makePreCheckAvailable = false;
-            virtualclass.popup.waitMsg();
+            virtualclass.popup.waitMsg('refresh');
         }
 
 

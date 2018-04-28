@@ -78,7 +78,7 @@
 
                      var chatbox = document.getElementById("ta_chrm2");
                      if (chatbox) {
-                         chatbox.style.display = "";
+                         chatbox.style.display = "block";
                      }
 
                     var memlist = document.getElementById('memlist');
@@ -86,7 +86,7 @@
                         memlist.style.display = "none";
                     }
 
-                     var searchbox = document.getElementById('congreaUserSearch');
+                     var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
                      if (searchbox) {
                          searchbox.style.display = "none";
                      }
@@ -135,15 +135,19 @@
                         chatbox.style.display = "none";
                     }
 
-                    var searchbox = document.getElementById('congreaUserSearch');
+                    var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
                     if (searchbox) {
-                        searchbox.style.display = "";
+                        searchbox.style.display = "block";
                     }
 
                     var memlist = document.getElementById("memlist");
                     if (memlist) {
                         memlist.style.display = "block";
                     }
+
+
+
+
                 }),
 
             // $(document).on("click", '#congreaSupport', function (event) {

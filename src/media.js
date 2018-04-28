@@ -199,6 +199,13 @@
                     };
                     this.attachFunctionsToAudioWidget();// to attach functions to audio widget
                 },
+
+                muteButtonToogle : function (){
+                    var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                    if(speakerPressOnce != null && (speakerPressOnce.dataset.audioPlaying && speakerPressOnce.dataset.audioPlaying == 'true')){
+                        speakerPressOnce.click();
+                    }
+                },
                 /*
                  * To send message and
                  * To set audio status of the audio
@@ -1352,7 +1359,7 @@
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
-                    audio : true
+                    audio : virtualclass.system.mediaDevices.hasMicrophone
                 };
 
                 cthis.video.init();
@@ -1361,25 +1368,15 @@
                 if (!virtualclass.vutil.isPlayMode()) {
                     virtualclass.adpt = new virtualclass.adapter();
                     var cNavigator = virtualclass.adpt.init(navigator);
-
-                    //  cNavigator.getUserMedia(session, this.handleUserMedia, this.handleUserMediaError);
-
-
-                    //return;
                     cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                         that.handleUserMedia(stream)
                         if(virtualclass.gObj.meetingMode){
                             virtualclass.multiVideo.init();
                         }
-                        // virtualclass.appSettingMedia.gotStream(stream).
-                        // then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
-
 
                     }).catch(function (e) {
                         that.handleUserMediaError(e);
                     });
-                   // virtualclass.appSettingMedia.init();
-
                 }
 
 
@@ -1407,30 +1404,29 @@
 
 
             handleUserMedia: function (stream) {
-                virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
 
-                if(audio != null){
-                    audio = JSON.parse(audio);
-                    if(audio.ac == 'false'){
-                        // if reason is video disabled from browser.
-                        if(audio.hasOwnProperty('r') && audio.r == 'vd'){
-                          virtualclass.user.control.audioWidgetEnable();
-                        } else {
-                           if(typeof stream != 'undefined'){
-                              virtualclass.user.control.audioWidgetEnable();
-                           } else {
-                              virtualclass.user.control.audioWidgetDisable();
-                           }
+                if(virtualclass.system.mediaDevices.hasMicrophone){
+                    virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+                    if(audio != null){
+                        audio = JSON.parse(audio);
+                        if(audio.ac == 'false'){
+                            if((audio.hasOwnProperty('r') && audio.r == 'vd') || typeof stream != 'undefined'){
+                                virtualclass.user.control.audioWidgetEnable();
+                            } else {
+                                virtualclass.user.control.mediaWidgetDisable();
+                            }
+                        }else {
+                            virtualclass.user.control.audioWidgetEnable(true);
                         }
-
-                    }else {
-                        virtualclass.user.control.audioWidgetEnable(true);
+                    } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
+                        virtualclass.user.control.audioWidgetEnable();
                     }
-                } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
-                    virtualclass.user.control.audioWidgetEnable();
+                }else {
+                    virtualclass.user.control.audioDisable();
                 }
 
                 var mediaStreamTrack = stream.getVideoTracks()[0];
@@ -1440,11 +1436,7 @@
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    // errorMessage('Permission denied!');
                 }
-
-                // virtualclass.precheck.webcam.createVideo();
-
 
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
@@ -1610,7 +1602,7 @@
                   virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
                 }
 
-                virtualclass.user.control.audioWidgetDisable('vd');
+                virtualclass.user.control.mediaWidgetDisable('vd');
                 virtualclass.view.disappearBox('WebRtc');
                 localStorage.setItem('dvid', true);
                 console.log('navigator.getUserMedia error: ', error);

@@ -619,6 +619,19 @@
             },
 
             endSession: function (onlyStoredData) {
+                virtualclass.gObj.video.audio.muteButtonToogle();
+                //Remove all chat user list
+                var chatUsers  = document.querySelectorAll('#chat_div .ui-memblist-usr');
+                if(chatUsers.length > 0){
+                   for(let i=0; i<chatUsers.length; i++){
+                       if(chatUsers[i] != null){
+                           chatUsers[i].parentNode.removeChild(chatUsers[i]);
+                       }
+                   }
+                }
+
+                virtualclass.raiseHand.disableRaiseHand();
+
                 virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');

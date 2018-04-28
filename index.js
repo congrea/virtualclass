@@ -209,7 +209,7 @@ $(document).ready(function () {
             var audioEnable = localStorage.getItem('audEnable');
             if (audioEnable !== null) {
                 if (audioEnable.ac === 'false') {
-                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.user.control.mediaWidgetDisable();
                     virtualclass.gObj.audioEnable = false;
                 }
             }
@@ -1262,7 +1262,7 @@ $(document).ready(function () {
             //disable audio
             this.dia = function (e) {
                 if (e.message.toUser == virtualclass.gObj.uid) {
-                    virtualclass.user.control.audioWidgetDisable();
+                    virtualclass.user.control.mediaWidgetDisable();
                     virtualclass.gObj.audioEnable = false;
                 } else {
                     virtualclass.user.control.disable(e.message.toUser, 'audio', 'Aud', 'aud');

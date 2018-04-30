@@ -320,13 +320,14 @@ $(document).ready(function () {
             }
 
             if(!roles.hasControls()) {
-                if (!isTeacherExistWhenRemoveUser(e.message)) {
+                if (e.message.role =='t') {
                     var vcCont = document.querySelector("#virtualclassCont.congrea");
-                    if (vcCont.classList.contains("tr_available")) {
+                    if (vcCont) {
                         vcCont.classList.remove("tr_available");
                     }
                 }
             }
+
         });
 
         $(document).on("error", function (e) {
@@ -914,7 +915,7 @@ $(document).ready(function () {
             }
 
             if(!roles.hasControls()) {
-                if (virtualclass.vutil.whoIsTeacher()) {
+                if (e.message[0].role == 't' || ((virtualclass.gObj.uid == virtualclass.jId)&& virtualclass.vutil.whoIsTeacher())) {
                     var vcCont = document.querySelector("#virtualclassCont.congrea");
                     if (!vcCont.classList.contains('tr_available')) {
                         vcCont.classList.add("tr_available");

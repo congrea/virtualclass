@@ -318,6 +318,15 @@ $(document).ready(function () {
                     virtualclass.vutil.createBecomeTeacherWidget();
                 }
             }
+
+            if(!roles.hasControls()) {
+                if (!isTeacherExistWhenRemoveUser(e.message)) {
+                    var vcCont = document.querySelector("#virtualclassCont.congrea");
+                    if (vcCont.classList.contains("tr_available")) {
+                        vcCont.classList.remove("tr_available");
+                    }
+                }
+            }
         });
 
         $(document).on("error", function (e) {
@@ -787,7 +796,6 @@ $(document).ready(function () {
                 virtualclass.joinUser = joinUserObj;
             }else if(e.hasOwnProperty('users')){
                 virtualclass.jId = e.joinUser;
-
                 virtualclass.connectedUsers = e.message;
                 virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
             }else {
@@ -879,8 +887,8 @@ $(document).ready(function () {
 
             if (isAnyOnePresenter() && (virtualclass.joinUser.role == 't' || virtualclass.joinUser.role == 'e') && virtualclass.jId != virtualclass.gObj.uid) {
                 virtualclass.vutil.removeBecomeTeacherWidget();
-            }
 
+            }
             if (roles.hasControls()) {
                 virtualclass.poll.updateUsersOnPoll();
             }
@@ -905,6 +913,19 @@ $(document).ready(function () {
                 virtualclass.multiVideo.onUserJoin(virtualclass.jId);
             }
 
+            if(!roles.hasControls()) {
+                if (virtualclass.vutil.whoIsTeacher()) {
+                    var vcCont = document.querySelector("#virtualclassCont.congrea");
+                    if (!vcCont.classList.contains('tr_available')) {
+                        vcCont.classList.add("tr_available");
+                    }
+                } else {
+                    var vcCont = document.querySelector("#virtualclassCont.congrea");
+                    if (vcCont) {
+                        vcCont.classList.remove("tr_available");
+                    }
+                }
+            }
         });
 
         var overrideRoleTeacher = function () {
@@ -1647,6 +1668,8 @@ $(document).ready(function () {
                     virtualclass.videoHost.toggleVideoMsg(e);
                 }
             }
+          
+
 
         };
 

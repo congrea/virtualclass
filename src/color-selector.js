@@ -341,10 +341,14 @@ var colorSelector ={
             "#virtualclassCont.congrea #alwaysPress:hover" +
             "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 
+
+
             "#virtualclassCont.congrea .vmchat_support.active ," +
             "#virtualclassCont.congrea .vmchat_room_bt.active," +
-            "#virtualclassCont.congrea .vmchat_bar_button.active "+
-            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%)}"+
+            "#virtualclassCont.congrea .vmchat_bar_button.active, "+
+            "#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .settingActive," +
+            "#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .handRaise.disable" +
+            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important}"+
 
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgIcon:before" +
             "{color:"+hover.frontColor +"!important}"+

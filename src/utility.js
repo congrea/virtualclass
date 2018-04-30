@@ -635,8 +635,9 @@
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
 
             if(!roles.hasControls()){
-                if(virtualclass.hasOwnProperty('raiseHand')){
-                    virtualclass.raiseHand.updateInStorage();
+                var elem =  document.querySelector("#virtualclassCont.congrea #congHr.disable");
+                if(elem){
+                    elem.click();
                 }
             }
 
@@ -651,6 +652,10 @@
             }else{
                 localStorage.setItem('stdVideoSwitch',virtualclass.videoHost.gObj.stdStopSmallVid)
             }
+
+
+
+
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
             io.disconnect();
         },

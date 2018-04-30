@@ -473,7 +473,7 @@
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
                     if(control =='RaiseHand'){
-                        virtualclass.raiseHand.enableRaiseHand(userId)
+                       virtualclass.raiseHand._raiseHand(userId)
                     }
                     virtualclass.user.control.updateUser(userId, label, true);
                 },

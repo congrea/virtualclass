@@ -920,11 +920,6 @@ $(document).ready(function () {
                     if (!vcCont.classList.contains('tr_available')) {
                         vcCont.classList.add("tr_available");
                     }
-                } else {
-                    var vcCont = document.querySelector("#virtualclassCont.congrea");
-                    if (vcCont) {
-                        vcCont.classList.remove("tr_available");
-                    }
                 }
             }
         });

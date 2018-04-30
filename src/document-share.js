@@ -1618,11 +1618,23 @@
                 }
             },
 
+            updateInAllDocs : function (noteid){
+                var docId = virtualclass.dts.currDoc.substring(4, virtualclass.dts.currDoc.length);
+                doc = this.allDocs[docId];
+                doc.notes[noteid].deletedn = noteid;
+                for(var i=0; i< doc.notesarr.length; i++ ){
+                    if(doc.notesarr[i].id == noteid){
+                        doc.notesarr[i].deletedn = noteid;
+                    }
+                }
+            },
+
             _removePageFromStructure : function (id){
                 this.removeWhiteboardFromStorage('_doc_'+ id+'_'+ id);
                 // delete this.allNotes[id];
                 this.allNotes[id].deletedn = id;
                 this.storeInDocs(this.allNotes); //new pages save into docs
+                this.updateInAllDocs(id);
             },
 
             _disable : function (id){

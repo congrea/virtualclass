@@ -12,8 +12,9 @@
         }
 
         return {
-
             isPlayMode :playMode,
+            /* TODO, editorCode should be removed in proper way,
+              the apps should not be in array but should handle in better way I*/
             apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
@@ -1121,11 +1122,14 @@
                 var allAppOptions = document.getElementsByClassName("appOptions");
                 for (var i = 0; i < allAppOptions.length; i++) {
                     var anchTag = allAppOptions[i].getElementsByTagName('a')[0];
-                    var that = this;
-                    clickedAnchor = anchTag;
-                    anchTag.onclick = function () {
-                        that.initlizer(this);
-                    };
+                    // DON'T attach editor code tool
+                    if(allAppOptions[i].id != 'virtualclassEditorCodeTool'){
+                        var that = this;
+                        clickedAnchor = anchTag;
+                        anchTag.onclick = function () {
+                            that.initlizer(this);
+                        };
+                    }
                 }
             },
 

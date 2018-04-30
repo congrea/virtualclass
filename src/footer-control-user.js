@@ -473,7 +473,7 @@
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
                     if(control =='RaiseHand'){
-                        virtualclass.raiseHand.enableRaiseHand(userId)
+                       virtualclass.raiseHand._raiseHand(userId)
                     }
                     virtualclass.user.control.updateUser(userId, label, true);
                 },
@@ -1204,7 +1204,8 @@
                     //spanTag.innerHTML = "En Aud All";
                     spanTag.setAttribute('data-action', 'enable');
                     spanTag.className = 'slider round icon-all-video-enable congtooltip cgIcon';
-                    spanTag.dataset.title = virtualclass.lang.getString('Enable Video All');
+                    spanTag.dataset.title = virtualclass.lang.getString('enableVideoAll');
+
                     var input = document.querySelector(".bulkUserActions #contrVideoAll input ")
                     input.setAttribute("checked","true");
 
@@ -1214,7 +1215,7 @@
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
                     spanTag.className = 'slider round icon-all-video-disable congtooltip cgIcon';
-                    spanTag.dataset.title = virtualclass.lang.getString('Disable Video All');
+                    spanTag.dataset.title = virtualclass.lang.getString('disableVideoAll');
                     var input = document.querySelector(".bulkUserActions #contrVideoAll input ")
                     input.removeAttribute("checked");
                     var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");

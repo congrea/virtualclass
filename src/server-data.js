@@ -61,103 +61,103 @@ var serverData = {
         var prefix = "https://media.congrea.net/";
         var doc="https://media.congrea.net";
         var  imageUrl,pdfUrl,thnailUrl;
+        var cpath; // common path
 
         for(var j =0; j<arr.length; j++) {
             if(arr[j].hasOwnProperty('filetype')){
                 switch(arr[j].filetype.S) {
                     case "doc":
                         var obj=this.processObj(arr[j]);
-                        // obj.urls={};
-                        // obj.urls.image={};
-                        // obj.urls.pdf={};
-                        // obj.urls.thumbnail={};
-
-                        var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
+                        cpath = arr[j].processed_data.M.commonpath.S;
                         var count = parseInt(arr[j].processed_data.M.count.N);
-                        var prefix, num, noteId;
-                        var notes = {};
-                        obj.notes = {}
-                        obj.notesarr = [];
-                        var deletedNotes = [];
-                        var disabledNotes = [];
-                        if(obj.hasOwnProperty('deletednes')){
-                            deletedNotes = obj.deletednes;
-                        }
 
-                        if(obj.hasOwnProperty('disablednes')){
-                            disabledNotes = obj.disablednes;
-                        }
+                        if(cpath != null && count != null){
+                            var docPrefix = doc +"/" +arr[j].processed_data.M.commonpath.S;
+                            var prefix, num, noteId;
+                            var notes = {};
+                            obj.notes = {}
+                            obj.notesarr = [];
+                            var deletedNotes = [];
+                            var disabledNotes = [];
 
-
-                        for(var i =1 ; i<= count; i++){
-                            num =pad(i,3);
-                            imageUrl = docPrefix +"/image/"+num+"."+arr[j].processed_data.M.image.M.type.S;
-                            pdfUrl = docPrefix +"/pdf/"+num+".pdf";
-                            thnailUrl = docPrefix +"/thumbnail/"+num+"."+arr[j].processed_data.M.thumbnail.M.type.S;
-
-                            if(i > 99 ){
-                                noteId = obj.fileuuid + '_'+ i;
-                            }else if(i > 9){
-                                noteId = obj.fileuuid+'_0' + i
-                            }else {
-                                noteId = obj.fileuuid+'_00' + i;
+                            if(obj.hasOwnProperty('deletednes')){
+                                deletedNotes = obj.deletednes;
                             }
-                            var tobj = {};
-                            if(deletedNotes.length > 0){
-                                if(deletedNotes.indexOf(i) > -1){
-                                    tobj.deletedn = noteId;
+
+                            if(obj.hasOwnProperty('disablednes')){
+                                disabledNotes = obj.disablednes;
+                            }
+
+
+                            for(var i =1 ; i<= count; i++){
+                                num =pad(i,3);
+                                imageUrl = docPrefix +"/image/"+num+"."+arr[j].processed_data.M.image.M.type.S;
+                                pdfUrl = docPrefix +"/pdf/"+num+".pdf";
+                                thnailUrl = docPrefix +"/thumbnail/"+num+"."+arr[j].processed_data.M.thumbnail.M.type.S;
+
+                                if(i > 99 ){
+                                    noteId = obj.fileuuid + '_'+ i;
+                                }else if(i > 9){
+                                    noteId = obj.fileuuid+'_0' + i
+                                }else {
+                                    noteId = obj.fileuuid+'_00' + i;
                                 }
-                            }
-                            tobj.id = noteId;
-                            tobj.pdf = pdfUrl;
-                            tobj.image = imageUrl;
-                            tobj.thumbnail = thnailUrl;
+                                var tobj = {};
+                                if(deletedNotes.length > 0){
+                                    if(deletedNotes.indexOf(i) > -1){
+                                        tobj.deletedn = noteId;
+                                    }
+                                }
+                                tobj.id = noteId;
+                                tobj.pdf = pdfUrl;
+                                tobj.image = imageUrl;
+                                tobj.thumbnail = thnailUrl;
 
-                            // if(obj.fileuuid == "1b34ab80-3db3-4f86-8a98-b4cd3d024aa1"){
-                            //     debugger;
-                            // }
 
-                            if(disabledNotes.length > 0){
-                                if(disabledNotes.indexOf(i) > -1){
-                                    tobj.status = 0;
+                                if(disabledNotes.length > 0){
+                                    if(disabledNotes.indexOf(i) > -1){
+                                        tobj.status = 0;
+                                    }else {
+                                        tobj.status = 1;
+                                    }
                                 }else {
                                     tobj.status = 1;
                                 }
-                            }else {
-                                tobj.status = 1;
+                                obj.notes[noteId] = tobj;
+                                obj.notesarr.push(tobj);
                             }
-                            obj.notes[noteId] = tobj;
-                            obj.notesarr.push(tobj);
+
+                            processedArr.push(obj);
+                            this.rawData.docs.push(obj);
                         }
-
-                        processedArr.push(obj);
-                        this.rawData.docs.push(obj);
-                        break;
-
+                    break;
                     case  'video':
-                        var obj=this.processObj(arr[j]);
-                        var add  = obj.filepath.substr(0,obj.filepath.lastIndexOf("/"));
-                        obj.urls={};
-                        obj.urls.thumbnail={};
-                        obj.urls.videos={};
-                        obj.urls.main_video =prefix+ add+"/video/play_video.m3u8";
-                        obj.urls.videos["0400k"]=prefix+add+"/video/0400k/video.m3u8";
-                        obj.urls.videos["0600k"]=prefix+add+"/video/0600k/video.m3u8";
-                        obj.urls.videos["1000k"]=prefix+add+"/video/1000k/video.m3u8";
-                        obj.urls.videos["1500k"]=prefix+add+"/video/1500k/video.m3u8";
-                        obj.urls.videos["2000k"]=prefix+add+"/video/2000k/video.m3u8";
+                        if(arr[j].processed_data != null && arr[j].processed_data.S == 'COMPLETED'){
+                            var obj=this.processObj(arr[j]);
+
+                            var add  = obj.filepath.substr(0,obj.filepath.lastIndexOf("/"));
+                            obj.urls={};
+                            obj.urls.thumbnail={};
+                            obj.urls.videos={};
+                            obj.urls.main_video =prefix+ add+"/video/play_video.m3u8";
+                            obj.urls.videos["0400k"]=prefix+add+"/video/0400k/video.m3u8";
+                            obj.urls.videos["0600k"]=prefix+add+"/video/0600k/video.m3u8";
+                            obj.urls.videos["1000k"]=prefix+add+"/video/1000k/video.m3u8";
+                            obj.urls.videos["1500k"]=prefix+add+"/video/1500k/video.m3u8";
+                            obj.urls.videos["2000k"]=prefix+add+"/video/2000k/video.m3u8";
 
 
-                        obj.urls.thumbnail["0400k"]=prefix+add+"/video/0400k/thumbs/00001.png";
-                        obj.urls.thumbnail["0600k"]=prefix+add+"/video/0600k/thumbs/00001.png";
-                        obj.urls.thumbnail["1000k"]=prefix+add+"/video/1000k/thumbs/00001.png";
-                        obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
-                        obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
-                        processedArr.push(obj);
-                        this.rawData.video.push(obj);
+                            obj.urls.thumbnail["0400k"]=prefix+add+"/video/0400k/thumbs/00001.png";
+                            obj.urls.thumbnail["0600k"]=prefix+add+"/video/0600k/thumbs/00001.png";
+                            obj.urls.thumbnail["1000k"]=prefix+add+"/video/1000k/thumbs/00001.png";
+                            obj.urls.thumbnail["1500k"]=prefix+add+"/video/1500k/thumbs/00001.png";
+                            obj.urls.thumbnail["2000k"]=prefix+add+"/video/2000k/thumbs/00001.png";
+                            processedArr.push(obj);
+                            this.rawData.video.push(obj);
+                        }
                         break;
 
-                    case 'video_yts':
+                        case 'video_yts':
                         console.log('Handle youtube');
                         var obj = this.processVidUrlObj(arr[j]);
                         obj.urls={};

@@ -347,123 +347,106 @@
             },
 
             renderPage : function  (page, firstTime)  {
+                if(virtualclass.gObj.currWb != null){
 
-                //virtualclass.zoom.canvasScale = canvasScale;
-                var scale = this.pdfScale;
-                if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
-                    if(virtualclass.zoom.canvasScale > 0){
-                        scale = virtualclass.zoom.canvasScale;
-                    }else {
-                        console.log('Why negative value');
+                    //virtualclass.zoom.canvasScale = canvasScale;
+                    var scale = this.pdfScale;
+                    if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
+                        if(virtualclass.zoom.canvasScale > 0){
+                            scale = virtualclass.zoom.canvasScale;
+                        }else {
+                            console.log('Why negative value');
+                        }
                     }
-                }
 
-                var wb = virtualclass.gObj.currWb;
+                    var wb = virtualclass.gObj.currWb;
 
-                // var canvas = document.getElementById('canvas'+wb);
-                //  var canvas = this.canvas;
-                var canvas = virtualclass.wb[wb].vcan.main.canvas;
+                    // var canvas = document.getElementById('canvas'+wb);
+                    //  var canvas = this.canvas;
+                    var canvas = virtualclass.wb[wb].vcan.main.canvas;
 
-                if(this.firstTime){
-                    var viewport = this.calculateScaleAtFirst(page, canvas);
-                    virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
-                    if(virtualclass.zoom.canvasScale == null){
-                        virtualclass.zoom.canvasScale =  viewport.scale;
-                    }else {
+                    if(this.firstTime){
+                        var viewport = this.calculateScaleAtFirst(page, canvas);
+                        virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
+                        if(virtualclass.zoom.canvasScale == null){
+                            virtualclass.zoom.canvasScale =  viewport.scale;
+                        }else {
+                            var viewport = page.getViewport(scale);
+                        }
+                    }else  {
                         var viewport = page.getViewport(scale);
                     }
-                }else  {
-                    var viewport = page.getViewport(scale);
+
+                    var context = canvas.getContext('2d');
+
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width + (80); // The view port provides less width(90)
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    var that = this;
+
+                    page.render(renderContext).then(
+                        function (){
+                            console.log('PDF rendered actual 2');
+                            var url = canvas.toDataURL('image/jpeg');
+                            canvas.style.background = 'url(' + url + ')';
+                            canvas.parentNode.dataset.pdfrender = true;
+                            canvas.style.backgroundRepeat = 'no-repeat';
+                            that[wb] = {pdfrender : true};
+
+                            if(firstTime != undefined){
+                                setTimeout(
+                                    function (){
+                                        that.initWhiteboardData(virtualclass.gObj.currWb);
+                                    },500
+                                );
+
+                            }
+
+                            displayCb();
+                            if (typeof that.shownPdf == "object") {
+                                setTimeout(
+                                    function (){
+                                        io.globallock = false;
+                                        // remove class from main container
+                                        var virtualclasElem = document.querySelector('#virtualclassCont');
+                                        if(virtualclasElem != null){
+                                            virtualclasElem.classList.remove('pdfRendering');
+                                        }
+                                        io.onRecJson(null);
+
+                                        if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
+                                            clearTimeout(virtualclass.gObj.pdfNormalTimeout);
+                                        }
+
+                                        if(!virtualclass.gObj.firstNormalRender){
+                                            virtualclass.gObj.pdfNormalTimeout =  setTimeout(
+                                                function (){
+                                                    console.log('pdfNormal render');
+                                                    if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                                                        virtualclass.zoom.normalRender();
+                                                        virtualclass.gObj.firstNormalRender = true;
+                                                        //virtualclass.vutil.setDefaultScroll();
+                                                        var scrollObj = {scX : 1, scY : 1}
+                                                        virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
+                                                    }
+
+                                                }, 10
+                                            );
+                                        }
+                                    },10
+                                );
+                                // virtualclass.zoom.normalRender();
+                            } else {
+                                console.log("We should have a PDF here");
+                            }
+                        }
+                    );
                 }
-
-                var context = canvas.getContext('2d');
-
-                canvas.height = viewport.height;
-                canvas.width = viewport.width + (80); // The view port provides less width(90)
-                // console.log('Canvas width from Pdf ' + canvas.width);
-                // console.log('Canvas height from Pdf ' + canvas.height);
-                // var wrapper = canvas.parentNode;
-                // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
-                // var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(wrapper.style.height);
-                // if( canvas.width  > wrapperWidth){
-                //     wrapper.classList.add('cscrollX');
-                // }else {
-                //     wrapper.classList.remove('cscrollX');
-                // }
-                //
-                // var wrapperHeight = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.height);
-                //
-                // if(canvas.height > wrapperHeight){
-                //     wrapper.classList.add('cscrollY');
-                // }else {
-                //     wrapper.classList.remove('cscrollY');
-                // }
-
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-
-                var that = this;
-
-                page.render(renderContext).then(
-                    function (){
-                        console.log('PDF rendered actual 2');
-                        var url = canvas.toDataURL('image/jpeg');
-                        canvas.style.background = 'url(' + url + ')';
-                        canvas.parentNode.dataset.pdfrender = true;
-                        canvas.style.backgroundRepeat = 'no-repeat';
-                        that[wb] = {pdfrender : true};
-
-                        if(firstTime != undefined){
-                            setTimeout(
-                                function (){
-                                    that.initWhiteboardData(virtualclass.gObj.currWb);
-                                },500
-                            );
-
-                        }
-
-                        displayCb();
-                        if (typeof that.shownPdf == "object") {
-                            setTimeout(
-                                function (){
-                                    io.globallock = false;
-                                    // remove class from main container
-                                    var virtualclasElem = document.querySelector('#virtualclassCont');
-                                    if(virtualclasElem != null){
-                                        virtualclasElem.classList.remove('pdfRendering');
-                                    }
-                                    io.onRecJson(null);
-
-                                    if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
-                                        clearTimeout(virtualclass.gObj.pdfNormalTimeout);
-                                    }
-
-                                    if(!virtualclass.gObj.firstNormalRender){
-                                        virtualclass.gObj.pdfNormalTimeout =  setTimeout(
-                                            function (){
-                                                console.log('pdfNormal render');
-                                                if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-                                                    virtualclass.zoom.normalRender();
-                                                    virtualclass.gObj.firstNormalRender = true;
-                                                    //virtualclass.vutil.setDefaultScroll();
-                                                    var scrollObj = {scX : 1, scY : 1}
-                                                    virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
-                                                }
-                                              
-                                            }, 10
-                                        );
-                                    }
-                                },10
-                            );
-                            // virtualclass.zoom.normalRender();
-                        } else {
-                            console.log("We should have a PDF here");
-                        }
-                    }
-                );
-
             },
 
             // displayPage : function (pdf, num, firstTime) {

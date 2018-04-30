@@ -22,16 +22,16 @@
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalone,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signaltwo,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal,
-#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg circle.signal{
-  fill : #A2F255;
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal{
+  fill : #91BF38;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalfive,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalsix,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalone,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signaltwo,
-#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg circle.signal{
-  fill : #E6EC33;
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signal{
+  fill : #E1E842;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalthree,
@@ -41,9 +41,9 @@
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalfive,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalsix,
-#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg circle.signal,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signal,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signal{
-  fill : #F2BF55;
+  fill : #FB9C42;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalthree,
@@ -53,15 +53,15 @@
   fill : #A9A9A9;
 }
 
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg circle.signal,
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalone,
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signaltwo,
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalthree,
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalfoure,
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalfive,
-#virtualclassCont.congrea  #videoLatency[data-latency='slow'] svg path.signalsix
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signal,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalone,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signaltwo,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalthree,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalfoure,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalfive,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalsix
 {
-  fill : #ec0707;
+  fill : #B32F46;
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room{
@@ -92,27 +92,26 @@
   display : block;
 }
 
-
-
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #proposedSpeed {
   display : none;
 }
 
-#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard:before{
-  content: "\e966";
-  font-size: 30px;
-  margin-right: 5px;
-
+#virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon .icon-whiteboard #svg-spinner{
+  display: none;
 }
-#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon {
-  animation-name: spin;
-  animation-duration: 2000ms;
+
+#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner{
+  transition-property: transform;
+  animation-name: rotate;
+  animation-duration: 1.2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-
+  margin-left: 8px;
+  display: block;
+  margin-top: 2px;
 }
 
-@keyframes spin {
+@keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }

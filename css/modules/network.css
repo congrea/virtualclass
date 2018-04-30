@@ -15,24 +15,54 @@
   border-radius: 50%;
 }
 
-
-
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='high']{
-  background : #37da52;
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalthree,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalfoure,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalfive,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalsix,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalone,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signaltwo,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal{
+  fill : #91BF38;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='medium']{
-  background : #ef9c55;
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalfive,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalsix,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalone,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signaltwo,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signal{
+  fill : #E1E842;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed[data-suggestion='low']
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalthree,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='medium'] svg path.signalfoure {
+  fill : #A9A9A9;
+}
+
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalfive,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalsix,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signal,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signal{
+  fill : #FB9C42;
+}
+
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalthree,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalfoure,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signalone,
+#virtualclassCont.congrea  #proposedSpeed[data-suggestion='low'] svg path.signaltwo {
+  fill : #A9A9A9;
+}
+
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signal,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalone,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signaltwo,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalthree,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalfoure,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalfive,
+#virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalsix
 {
-  background : #bf4a4a;
+  fill : #B32F46;
 }
-#virtualclassCont.congrea #virtualclassAppRightPanel #videoLatency[data-latency='slow'] {
-  background : #ec0707;
-}
-
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room{
   paddin-left :2px;
@@ -43,6 +73,7 @@
   width: 46px;
   height: 35px;
   border-radius: 5px;
+  /*background-color: white;*/
 }
 
 
@@ -61,27 +92,26 @@
   display : block;
 }
 
-
-
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #proposedSpeed {
   display : none;
 }
 
-#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard:before{
-  content: "\e604";
-  font-size: 34px;
-  margin-right: 5px;
-
+#virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon .icon-whiteboard #svg-spinner{
+  display: none;
 }
-#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon {
-  animation-name: spin;
-  animation-duration: 2000ms;
+
+#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner{
+  transition-property: transform;
+  animation-name: rotate;
+  animation-duration: 1.2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-
+  margin-left: 8px;
+  display: block;
+  margin-top: 2px;
 }
 
-@keyframes spin {
+@keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }

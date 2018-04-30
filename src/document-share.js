@@ -500,10 +500,10 @@
                 console.log(virtualclass.gObj.currWb + ' ' + 'document share : request ' + filepath);
 
                 var relativeDocs =  this.getDocs(filepath);
-
                 var dsStatus = document.querySelector('#linkdocs'+filepath).dataset.selected;
                 ioAdapter.mustSend({'dts': {dres: filepath, 'ds' : (1-(+dsStatus)) },  'cf': 'dts' });
                 return relativeDocs;
+
             },
 
             /**
@@ -990,9 +990,12 @@
                     var cthis = virtualclass.dts;
                     if(roles.hasControls() && typeof fromReload == 'undefined') {
                         var notes = cthis.requestSlides(doc);
-                        cthis.onResponseFiles(doc, notes);
-                        if(typeof cb != 'undefined'){ cb(); }
-
+                        if(notes != null){
+                            cthis.onResponseFiles(doc, notes);
+                            if(typeof cb != 'undefined'){ cb(); }
+                        }else {
+                            console.log('There is no data');
+                        }
                     } else if(typeof slide != undefined){
                         // this should be removed
                         if(typeof doc == 'string' && doc.indexOf('docs') > -1){
@@ -1740,8 +1743,11 @@
             // Return the pages from specific page
             getDocs : function (id){
                 console.log("--------------");
-                console.log(virtualclass.gObj.dstAll);
-                return this.allDocs[id].notesarr;
+                if(this.allDocs != null && typeof this.allDocs[id] == 'object'){
+                    return this.allDocs[id].notesarr;
+                }else {
+                    console.log('There is no document with the id ' + id);
+                }
             },
 
             /**

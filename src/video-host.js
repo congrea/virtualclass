@@ -463,7 +463,7 @@ var videoHost = {
         this.setDefaultValue(speed);
         // this.initVideoInfo();
 
-        virtualclass.network.initToPing(10000);
+        virtualclass.network.initToPing(10000); // Wait 10 seconds for everything to be ready
         this.fromLocalStorage();
         this.resetPrecheck();
     },

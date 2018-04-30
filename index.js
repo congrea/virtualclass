@@ -1278,7 +1278,8 @@ $(document).ready(function () {
             //disable audio
             this.dia = function (e) {
                 if (e.message.toUser == virtualclass.gObj.uid) {
-                    virtualclass.user.control.mediaWidgetDisable();
+                    // virtualclass.user.control.mediaWidgetDisable();
+                    virtualclass.user.control.audioDisable();
                     virtualclass.gObj.audioEnable = false;
                 } else {
                     virtualclass.user.control.disable(e.message.toUser, 'audio', 'Aud', 'aud');

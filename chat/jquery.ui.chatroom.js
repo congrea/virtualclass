@@ -144,7 +144,8 @@
                     .addClass('ui-widget-content ' + 'ui-chatbox-input-box ')
                     .prop('id', 'ta_chrm2')
                         .prop('placeholder','Send message...')
-                    .appendTo(document.getElementById("congUserSearch"))
+                        .css('display','none')
+                    .appendTo(document.querySelector(".congrea #congchatBarInput"))
                     .keydown(function (event) {
                         if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
                             msg = $.trim($(this).val());

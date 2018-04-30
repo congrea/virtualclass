@@ -748,9 +748,6 @@
                         virtualclass.vutil.beforeSend({'reqscreen': true, toUser: userId, 'cf' : 'reqscreen'}, userId);
                 },
 
-
-
-
                 audioWidgetEnable: function (notActive) {
                     localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
                     if(localStorage.getItem('dvid') == null){
@@ -758,17 +755,13 @@
                         if(typeof notActive == 'undefined'){
                              studentSpeaker.className = 'active';
                         }
-
-
                         studentSpeaker.style.opacity = "1";
                         studentSpeaker.style.pointerEvents = "visible";
                     }
-
-
                 },
 
                 //move into media.js
-                audioWidgetDisable: function (reason) {
+                mediaWidgetDisable: function (reason) {
                    virtualclass.system.mediaDevices.hasWebcam = false;
                     var ad = {ac:'false'};
 

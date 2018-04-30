@@ -10,22 +10,11 @@ var BASE64_MARKER = ';base64,';
 
 var videoHost = {
     gObj: {},
-    // Contain all the related variables
-    //
-    //
-    //gObj : {
-    //    MYSPEED : 1,
-    //    MYSPEED_COUNTER : 0,
-    //    time_diff : 0,
-    //    teacherVideoQuality : 16,
-    //    video_count : 0
-    //},
 
 
     setDefaultValue: function (speed) {
         virtualclass.videoHost.gObj.MYSPEED = speed || 1;
         virtualclass.videoHost.gObj.teacherVideoQuality = this.getTeacherVideoQuality();
-        virtualclass.videoHost.gObj.video_count = 0;
     },
     /**
      * initialize various actions like, for get user media,
@@ -458,56 +447,6 @@ var videoHost = {
         }
         return c.join("");
     },
-    updateVideoInfo: function (speed, frameRate, latency) {
-        //   console.log("frame rate " + frameRate);
-
-        if (speed == 1) {
-            speed = "high";
-        } else if (speed == 2) {
-            speed = "medium";
-        } else if (speed == 3) {
-            speed = "low";
-        }
-
-        if (frameRate >= 6) {
-            frameRate = "high";
-        } else if (frameRate >= 2) {
-            frameRate = "medium";
-        } else if (frameRate >= 0) {
-            frameRate = "low";
-        }
-
-        if (latency >= 1000) {
-            latency = "slow";
-        } else if (latency >= 700) {
-            latency = "medium";
-        } else {
-            latency = "fast";
-        }
-
-        var videoSpeed = document.getElementById('videSpeedNumber');
-        if(videoSpeed){
-            videoSpeed.dataset.suggestion = speed;
-        }
-
-        // todo to  validate
-        var videoFrameRate = document.getElementById('videoFrameRate');
-        if(videoFrameRate){
-            videoFrameRate.dataset.quality = frameRate;
-        }
-
-        //videoFrameRate.innerHTML = frameRate;
-        // todo to  validate
-        var videLatency = document.getElementById('videLatency');
-        if(videLatency){
-            videLatency.dataset.latency = latency;
-            var text = virtualclass.lang.getString('band'+latency);
-            videLatency.dataset.title = text;
-
-        }
-        //videLatency.innerHTML =  latency;
-
-    },
     getTeacherVideoQuality: function () {
         virtualclass.videoHost.gObj.teacherVideoQuality = 16;
         var videoHostSource = document.querySelector('#virtualclassCont.teacher #videoHostSource');
@@ -518,35 +457,11 @@ var videoHost = {
         }
         return virtualclass.videoHost.gObj.teacherVideoQuality;
     },
-    initVideoInfo: function () {
-        var that = this;
-        that.videoInfoInterval =  setInterval(
-            function () {
-                // MYSPEED, internet connection
-                //  virtualclass.videoHost.gObj.video_count, frame rate
-                // time_diff, Latency
 
-                if (roles.hasAdmin()) {
-                    virtualclass.videoHost.gObj.video_count = virtualclass.videoHost.gObj.teacherVideoQuality;
-                }
-                //for now, we are disabling the video infor
-
-                virtualclass.videoHost.updateVideoInfo(virtualclass.videoHost.gObj.MYSPEED, virtualclass.videoHost.gObj.video_count, virtualclass.videoHost.gObj.time_diff);
-                //
-            }, 1000
-        );
-    },
     afterSessionJoin: function () {
         var speed = roles.hasAdmin() ? 1 : virtualclass.videoHost.gObj.MYSPEED;
         this.setDefaultValue(speed);
         // this.initVideoInfo();
-
-        setInterval(
-            function () {
-                //console.log("Video Frame Rate :" +  virtualclass.videoHost.gObj.video_count);
-                virtualclass.videoHost.gObj.video_count = 0;
-            }, 1000
-        );
 
         virtualclass.network.initToPing(10000);
         this.fromLocalStorage();

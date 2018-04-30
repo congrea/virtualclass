@@ -12,6 +12,10 @@
                 var toggle = document.querySelector("#virtualclassCont.congrea #appSettingCtrl");
                 var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
                 var setting = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
+
+                var privateChatTab = document.querySelector("#virtualclassCont.congrea .vmchat_bar_button");
+                var commonChatTab = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt");
+
                 if(toggle){
                     toggle.addEventListener('click',function(){
                         if(toggle.classList.contains('chatActive')){
@@ -21,7 +25,14 @@
                             chat.classList.add("deactive")
                             setting.classList.add("active");
                             setting.classList.remove("deactive");
-
+                            if(privateChatTab.classList.contains("active")){
+                                privateChatTab.classList.remove('active');
+                            }
+                            if(commonChatTab.classList.contains("active")){
+                                commonChatTab.classList.remove('active');
+                            }
+                            virtualclass.appSetting.rtcIo();
+                            virtualclass.appSettingMedia.init();
 
                         }else{
                             toggle.classList.add('chatActive');
@@ -29,16 +40,29 @@
                             chat.classList.remove("deactive");
                             chat.classList.add("active");
                             setting.classList.remove("active");
-                            setting.classList.add("deactive")
+                            setting.classList.add("deactive");
+
+                            var memberList =   document.querySelector(".congrea #memlist.enable");
+                            if(memberList){
+                                privateChatTab.classList.add("active");
+                            }
+                            var commonChat =   document.querySelector(".congrea #chatrm.enable");
+                            if(commonChat){
+                                commonChatTab.classList.add("active");
+                            }
                         }
 
                     });
                 }
-                this.rtcIo();
+
             },
             rtcIo:function(){
-                var template = virtualclass.getTemplate('appSettingMedia');
-                $("#virtualclassApp  #settingMedia").append(template());
+                var mediaCont = document.querySelector(".congrea #webRtcIoContainer");
+                if(!mediaCont){
+                    var template = virtualclass.getTemplate('appSettingMedia');
+                    $("#virtualclassApp  #settingMedia").append(template());
+                }
+
             }
         }
     };

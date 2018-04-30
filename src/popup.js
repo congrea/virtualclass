@@ -160,6 +160,10 @@ var PopUp = (function (window, undefined) {
                 console.log('zIndex performing');
                 chatRoom.style.zIndex = 1;
             }
+
+            // remove connecting class
+            var networkStatusContainer  = document.querySelector('#networkStatusContainer');
+            networkStatusContainer.classList.remove('connecting-room')
         }
     },
 
@@ -429,14 +433,23 @@ var PopUp = (function (window, undefined) {
 
 
 
-    PopUp.prototype.waitMsg = function (){
+    PopUp.prototype.waitMsg = function (pageLoad){
         if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
             var element = document.getElementById('about-modal');
             virtualclass.popup.open(element);
             this.hideAllPopups();
             document.getElementById('waitMsgCont').style.display = 'block';
-        }
+            var networkStatusContainer  = document.querySelector('#networkStatusContainer');
 
+            var time = 0;
+            if(typeof pageLoad != 'undefined'){
+                time = 1300;
+            }
+            setTimeout(() => {
+                virtualclass.network.netWorkElementIsReady();
+            }, time);
+
+        }
     };
 
     PopUp.prototype.chromeExtMissing = function () {

@@ -3654,7 +3654,9 @@ span#usertab_text {
 	width:230px;
 	height:200px;
     margin: 5px 20px;
+
 }
+
 .selectbox {
     box-sizing: border-box;
     font-family: Helvetica,Arial,sans-serif;
@@ -3691,3 +3693,4 @@ span#usertab_text {
     transform: translateY(-50%);
     transition: 150ms linear all;
 }
+

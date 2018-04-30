@@ -77,6 +77,7 @@
 } 
 
 #virtualclassCont .footerCtr input[type=text], #virtualclassCont .footerCtr input#ta_chrm2 {
+    float:right;
     width: 150px;
     box-sizing: border-box;
     border: 1px solid #4b5863b3;
@@ -193,7 +194,14 @@
     border-radius: 4px;
     
 }
-#virtualclassCont #appSettingDetail #usersMuteSwitch:before {
+#virtualclassCont #appSettingDetail .disable #usersMuteSwitch:before {
+    content: "\e610";
+    font-weight: normal;
+    font-size: 15px;
+    font-family: 'icomoon';
+    color: grey;
+}
+#virtualclassCont #appSettingDetail .enable #usersMuteSwitch:before {
     content: "\e611";
     font-weight: normal;
     font-size: 15px;
@@ -288,8 +296,8 @@
 #appSettingDetail .list-group .lists-cont{
     padding:12px 14px !important;
     letter-spacing: 0.02em;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     background-color: white;
 }
 #virtualclassCont #appSettingDetail .slider:hover {
@@ -337,8 +345,12 @@ display: none;
     height:16px;
 }
 #virtualclassCont #appSettingDetail .app-settings-rbs {
-    margin-top:12px;
-    margin-bottom:12px;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+#virtualclassCont #appSettingDetail .bulkUserActions {
+    margin-top:15px;
+    margin-bottom:15px;
 }
 #virtualclassCont #appSettingDetail .setting-heading {
     padding-left:7px;

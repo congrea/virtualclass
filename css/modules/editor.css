@@ -268,3 +268,8 @@
 #virtualclassCont.congrea.teacher .controllereditorCode {
   display:none !important;
 }
+
+/** TODO, the code editor should be removed in proper way **/
+#virtualclassCont.congrea #virtualclassEditorCodeTool {
+  display : none;
+}

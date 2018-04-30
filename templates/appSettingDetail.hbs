@@ -1,9 +1,10 @@
 <div id="appSettingDetail">
 
-  <div class="bulkUserActions app-settings-rbs">
-      <div class="setting-heading">
+ {{#if hasControl}}
+  <div class="bulkUserActions app-setting-rbs">
+    <div class="setting-heading">
         <label class="bulk">Bulk User Actions</label>
-      </div>
+    </div>
     <ul class="list-group">
 
       <li class="lists-cont d-flex justify-content-between align-items-center" id ="contrAudioAll">
@@ -29,9 +30,10 @@
     </div> 
     
 
+{{/if}}
  <div id="settingGeneral" class="app-settings-rbs">
      <div class="setting-heading">
-       <label>General</label>
+      <label>General</label>
      </div>
         <ul class="list-group">
             <li class="lists-cont d-flex justify-content-between align-items-center">

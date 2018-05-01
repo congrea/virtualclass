@@ -652,10 +652,6 @@
             }else{
                 localStorage.setItem('stdVideoSwitch',virtualclass.videoHost.gObj.stdStopSmallVid)
             }
-
-
-
-
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
             io.disconnect();
         },

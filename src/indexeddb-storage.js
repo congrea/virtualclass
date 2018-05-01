@@ -809,6 +809,11 @@
                 if(audio){
                     audio.classList.remove("enable");
                     audio.classList.add("disable");
+                    var chbox = document.querySelector(".congrea #contrAudioAll input")
+                    if(chbox){
+                        chbox.removeAttribute("checked");
+                    }
+
                   //  var chbox = document.querySelector(".congrea #usersMuteSwitch input");
 
                 }
@@ -816,6 +821,11 @@
                 if(video){
                     video.classList.remove("enable");
                     video.classList.add("disable")
+                    var chbox = document.querySelector(".congrea #contrVideoAll input")
+                    if(chbox){
+                        chbox.removeAttribute("checked");
+                    }
+
                 }
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};

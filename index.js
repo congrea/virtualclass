@@ -922,6 +922,8 @@ $(document).ready(function () {
                     }
                 }
             }
+
+
         });
 
         var overrideRoleTeacher = function () {
@@ -1250,6 +1252,7 @@ $(document).ready(function () {
                     virtualclass.gObj.chatEnable = true;
                     virtualclass.vutil.beforeSend({'enc': true, 'cf': 'enc', ouser: e.message.toUser});
                 }
+                document.querySelector('#chatWidget').classList.remove('chat_disabled');
 
             };
 

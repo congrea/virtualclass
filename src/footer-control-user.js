@@ -836,12 +836,15 @@
                         this.makeElemDisable(allChatBoxes[i]);
                     }
                 },
+
+                /** TODO this function should be removed, use the mechanism, which is using at chat.init() in chat.js **/
                 disableOnLineUser: function () {
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
                     for (var i = 0; i < allChatDivCont.length; i++) {
                         allChatDivCont[i].style.pointerEvents = "none";
                     }
                 },
+
                 makeElemDisable: function (elem) {
                     if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                         elem.classList.remove('enable');

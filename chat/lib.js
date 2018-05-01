@@ -238,14 +238,6 @@ function memberUpdate(e, addType) {
         }
     }
 
-    /** Disable Chat **/
-    var chatEnable = localStorage.getItem('chatEnable');
-    if(chatEnable != null && virtualclass.jId && virtualclass.gObj.uid && !checkChatDisabled){
-        if (chatEnable == "false") {
-            virtualclass.user.control.disableOnLineUser();
-        }
-        checkChatDisabled = true;
-    }
 }
 
 function messageUpdate(e) {

@@ -3385,8 +3385,8 @@
 }
 
 #virtualclassCont.congrea #audioWidget .congtooltip:hover:after{
-    bottom:-31px;
-    left:0px;
+    bottom:5px;
+    left:84px;
 }
 
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {

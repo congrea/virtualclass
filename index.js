@@ -1662,12 +1662,9 @@ $(document).ready(function () {
 
             this.toggleVideo=function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){
-                    virtualclass.videoHost.toggleVideoMsg(e);
+                    virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }
-          
-
-
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

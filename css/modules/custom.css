@@ -1,6 +1,7 @@
 
 #virtualclassCont.congrea #virtualclassPreCheck #browserNext {width: 100%;}
-#virtualclassCont.congrea  #virtualclassPreCheck.bootstrap .btn {margin:10px; border-color: #c2c2c2;
+#virtualclassCont.congrea  #virtualclassPreCheck.bootstrap .btn {
+border-color: #c2c2c2;
 float:right;}
 
 #virtualclassCont.congrea #virtualclassPreCheck .testName {
@@ -15,6 +16,8 @@ float:right;}
     border-radius: 3px;
     padding: 12px;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .result div.errorMsg {

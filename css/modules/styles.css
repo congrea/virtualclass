@@ -2881,7 +2881,7 @@
 
 @media (min-width: 768px) {
 	#preCheckcontainer .modal-body{
-		max-height:513px;
+/*		max-height:513px;*/
 	}
 }
 
@@ -3385,8 +3385,8 @@
 }
 
 #virtualclassCont.congrea #audioWidget .congtooltip:hover:after{
-    bottom:-31px;
-    left:0px;
+    bottom:5px;
+    left:84px;
 }
 
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {
@@ -3663,5 +3663,12 @@ span#usertab_text {
 #virtualclassCont.congrea .handRaise{
  pointer-events: none;
 	opacity: .5;
+}
+#virtualclassCont.congrea.tr_available .handRaise{
+pointer-events: visible;
+opacity: 1;
 
-
+}
+#virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
+    padding:0 !important;
+}

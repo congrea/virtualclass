@@ -1,7 +1,6 @@
 #virtualclassCont.congrea #audioWidget .Tool .congtooltip:hover:after, #virtualclassCont.congrea #audioWidget .audioTool .congtooltip:hover:after {
-  bottom: -2em;
-  left: auto;
-  right: 0px;
+  bottom: 2px;
+  left: 84px;
 }
 
 #virtualclassCont.congrea #audioWidget {
@@ -225,19 +224,6 @@
   height: 52px;
 }
 
-/*
-#virtualclassCont.congrea #contrAudioAllImg.congtooltip:hover:after {
-  bottom: 3.2em;
-  left: -2.8em;
-  padding: 0.6em 1em;
-}
-*/
-
-#virtualclassCont.congrea #audioWidget .congtooltip:hover:after {
-    bottom:10%;
-    right:10px;
-    left:30px;
-}
 
 
 #virtualclassCont.congrea.student.presenter #mainAudioPanel {

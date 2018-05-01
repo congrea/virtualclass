@@ -138,14 +138,16 @@ var videoHost = {
             this.removeUserIcon(userid);
         }
     },
-    toggleVideoMsg:function(data){
+    toggleVideoMsg:function(action){
         var sw = document.querySelector(".videoSwitchCont #videoSwitch");
         sw.click();
-        if(data.message.action == "enable") {
-            sw.style.pointerEvents ="visible";
+        var videoSwitchCont = document.querySelector('#congCtrBar');
+        if(action == "enable") {
+            videoSwitchCont.style.pointerEvents ="visible";
+            videoSwitchCont.style.opacity = "1";
         }else{
-            sw.style.pointerEvents ="none";
-
+            videoSwitchCont.style.pointerEvents = "none";
+            videoSwitchCont.style.opacity = "0.5";
         }
     },
 
@@ -219,24 +221,12 @@ var videoHost = {
         if(!roles.hasControls()){
             if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
                 virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
-
-                if (!roles.hasControls()) {
-                    var sw = document.getElementById("videoSwitch");
-                    if (sw) {
-                        if (!stdVideoSwitch) {
-                           // if (sw.classList.contains("on")) {
-                            sw.classList.remove("off");
-                            sw.classList.add("on");
-
-
-                           // }
-                        } else {
-                            sw.classList.add("off");
-                            sw.classList.remove("on");
-
-                        }
+                if (roles.isStudent()) {
+                    if (stdVideoSwitch) {
+                        virtualclass.videoHost.toggleVideoMsg('disable');
+                    } else {
+                        virtualclass.videoHost.toggleVideoMsg('enable');
                     }
-
                 }
                 // localStorage.removeItem("stdVideoSwitch");
             }

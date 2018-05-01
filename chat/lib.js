@@ -11,6 +11,7 @@ var chatResults = [];
 //TODO, displayChatUserList and displayChatOfflineUserList should be merged into one function
 var myDivResult = "";
 
+var checkChatDisabled = false;
 function displayChatUserList(users){
     for(var i=0; i<users.length; i++){
         // to move
@@ -143,6 +144,7 @@ function memberUpdate(e, addType) {
 
 
             displayChatUserList(userlist);
+
             for(var i=0; i<userlist.length; i++){
                 if (userlist[i].userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
                     var vidTag = document.getElementById('video' + virtualclass.gObj.uid);
@@ -234,6 +236,15 @@ function memberUpdate(e, addType) {
         if(userVid != null){
             userVid.play();
         }
+    }
+
+    /** Disable Chat **/
+    var chatEnable = localStorage.getItem('chatEnable');
+    if(chatEnable != null && virtualclass.jId && virtualclass.gObj.uid && !checkChatDisabled){
+        if (chatEnable == "false") {
+            virtualclass.user.control.disableOnLineUser();
+        }
+        checkChatDisabled = true;
     }
 }
 

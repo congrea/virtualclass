@@ -49,6 +49,9 @@
 #virtualclassCont.congrea #rightSubContainer, #virtualclassCont #congreaChatMainCont {
 	height : calc(100% - 279px);
 }
+#virtualclassCont.congrea #virtualclassAppRightPanel.hide #rightSubContainer  {
+    height : 94.3vh;
+}
 
 #virtualclassCont.congrea.videoff #rightSubContainer, #virtualclassCont.videoff #congreaChatMainCont {
 	height : calc(100% - 45px);

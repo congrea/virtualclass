@@ -1517,8 +1517,12 @@ $(document).ready(function () {
                 var videoMode = e.message.congCtr.videoSwitch;
                 if(videoMode == 'off'){
                     virtualclass.vutil.addClass('virtualclassCont', 'videoff');
+                    virtualclass.vutil.addClass('virtualclassAppRightPanel', 'hide');
+                    virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'show');
                 }else {
                    document.querySelector('#virtualclassCont').classList.remove('videoff');
+                    virtualclass.vutil.addClass('virtualclassAppRightPanel', 'show');
+                    virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'hide');
                 }
 
             }
@@ -1662,12 +1666,9 @@ $(document).ready(function () {
 
             this.toggleVideo=function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){
-                    virtualclass.videoHost.toggleVideoMsg(e);
+                    virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }
-          
-
-
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

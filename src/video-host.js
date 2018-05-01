@@ -57,6 +57,15 @@ var videoHost = {
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
         }
+
+        var rightPanel = document.querySelector('#virtualclassAppRightPanel');
+        if(rightPanel != null){
+            var teacherVideo = localStorage.getItem('tvideo');
+            if(teacherVideo == null){
+                teacherVideo = 'show';
+            }
+            rightPanel.classList.add(teacherVideo);
+        }
     },
 
     renderSelfVideo : function (stream){
@@ -118,18 +127,20 @@ var videoHost = {
         ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
 
     },
-    //nirmala
+
     onmessage: function (msg) {
         console.log(msg);
         if (msg.congCtr.videoSwitch == "on") {
             virtualclass.videoHost.gObj.videoSwitch = 1;
             this.UI.displayVideo();
-
+            localStorage.tvideo = 'show';
         } else if (msg.congCtr.videoSwitch == "off") {
             virtualclass.videoHost.gObj.videoSwitch = 0;
             this.UI.hideVideo();
+            localStorage.tvideo = 'hide';
         }
     },
+
     stdVideoCtrlMsg:function(data){
         var userid = data.fromUser.userid;
         if(data.message.stdVideoCtr.videoSwitch) {
@@ -138,14 +149,16 @@ var videoHost = {
             this.removeUserIcon(userid);
         }
     },
-    toggleVideoMsg:function(data){
+    toggleVideoMsg:function(action){
         var sw = document.querySelector(".videoSwitchCont #videoSwitch");
         sw.click();
-        if(data.message.action == "enable") {
-            sw.style.pointerEvents ="visible";
+        var videoSwitchCont = document.querySelector('#congCtrBar');
+        if(action == "enable") {
+            videoSwitchCont.style.pointerEvents ="visible";
+            videoSwitchCont.style.opacity = "1";
         }else{
-            sw.style.pointerEvents ="none";
-
+            videoSwitchCont.style.pointerEvents = "none";
+            videoSwitchCont.style.opacity = "0.5";
         }
     },
 
@@ -219,24 +232,12 @@ var videoHost = {
         if(!roles.hasControls()){
             if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
                 virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
-
-                if (!roles.hasControls()) {
-                    var sw = document.getElementById("videoSwitch");
-                    if (sw) {
-                        if (!stdVideoSwitch) {
-                           // if (sw.classList.contains("on")) {
-                            sw.classList.remove("off");
-                            sw.classList.add("on");
-
-
-                           // }
-                        } else {
-                            sw.classList.add("off");
-                            sw.classList.remove("on");
-
-                        }
+                if (roles.isStudent()) {
+                    if (stdVideoSwitch) {
+                        virtualclass.videoHost.toggleVideoMsg('disable');
+                    } else {
+                        virtualclass.videoHost.toggleVideoMsg('enable');
                     }
-
                 }
                 // localStorage.removeItem("stdVideoSwitch");
             }

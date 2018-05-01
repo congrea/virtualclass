@@ -951,6 +951,7 @@
                         var tvideoElem = document.getElementById("rightCtlr");
                         tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
                         virtualclass.videoHost.gObj.videoSwitch = 1;
+                        virtualclass.videoHost.toggleVideoMsg('enable', true);
                     }
 
                 },

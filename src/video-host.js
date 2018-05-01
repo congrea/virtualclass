@@ -149,9 +149,11 @@ var videoHost = {
             this.removeUserIcon(userid);
         }
     },
-    toggleVideoMsg:function(action){
+    toggleVideoMsg:function(action, notClick){
         var sw = document.querySelector(".videoSwitchCont #videoSwitch");
-        sw.click();
+        if(typeof notClick == 'undefined'){
+            sw.click();
+        }
         var videoSwitchCont = document.querySelector('#congCtrBar');
         if(action == "enable") {
             videoSwitchCont.style.pointerEvents ="visible";

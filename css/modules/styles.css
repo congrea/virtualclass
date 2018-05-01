@@ -871,7 +871,7 @@
 
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
 	border-radius: 3px;
-	margin: 0 auto 18px;
+	margin: 0 auto 10px;
 	float: none;
 	width: 100%;
 }
@@ -2380,8 +2380,8 @@
 
 #virtualclassCont.congrea .modal.fade.in {top: 0;}
 #virtualclassCont.congrea .modal .modal-content{
-	padding: 20px;
-	padding-bottom: 5px;
+	padding: 15px;
+/*	padding-bottom: 5px;u*/
 }
 #virtualclassCont.congrea .modal .modal-header{
 	padding: 0;
@@ -2662,7 +2662,7 @@
 
 #virtualclassCont.congrea .modal .modal-content, #virtualclassCont.congrea #contQzBody {
 	max-height: calc(100vh - 88px);
-	overflow-y: auto;
+/*	overflow-y: auto;*/
 }
 #virtualclassCont.congrea .modal-body .qscolor {
 	background-color: #e8f4f5;
@@ -3245,7 +3245,11 @@
 #virtualclassCont.congrea.student .ui-widget-content {
 /*    background-color : #ffffff;*/
 }
-
+#virtualclassCont.congrea.teacher .ui-widget-content textarea,
+#virtualclassCont.congrea.student .ui-widget-content textarea {
+    margin-left:5px;
+    margin-right:5px;
+}
 #virtualclassCont.congrea.teacher .ui-corner-all.ui-chatbox-icon,
 #virtualclassCont.congrea.student .ui-corner-all.ui-chatbox-icon{
    max-height: 42px !important;
@@ -3529,7 +3533,7 @@
 	height: 30px;
 	position: relative;
 	float: right;
-	padding: 7px 7px;
+	padding: 3px 7px;
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt{
@@ -3538,9 +3542,9 @@
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight{
 	display:block ;
-	border: solid red 1px;
-	border-radius: 11px;
-	color:red;
+	border: solid white 1px;
+	border-radius: 7px;
+	color:#00ff10 !important;
 
 }
 #virtualclassCont.congrea .chatBarTab .hand_bt.highlight .icon-raisehand:before{
@@ -3576,9 +3580,9 @@ span#usertab_text {
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
 	width: 26px;
 	height: 27px;
-	right: 33px;
+	right: 18px;
 	position: relative;
-	bottom: 29px;
+	bottom: 33px;
 
 }
 

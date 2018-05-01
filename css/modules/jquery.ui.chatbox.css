@@ -408,7 +408,7 @@
 
 /*----------------Susmita----------------*/
 #virtualclassCont.congrea .ui-state-default, #virtualclassCont.congrea .ui-widget-content .ui-state-default, #virtualclassCont.congrea .ui-widget-header .ui-state-default{
-    height: 40px;
+    height: 38px;
     border: 1px solid #ccc;
     border-top: none;
     border-radius: 0;
@@ -433,7 +433,7 @@
 #virtualclassCont.congrea .ui-widget-content .ui-corner-all{
     border: none;
     min-height: 38px;
-    padding-right: 30px;
+    padding-right: 50px;
 }
 
 #virtualclassCont.congrea .user-details .usern .media-heading{

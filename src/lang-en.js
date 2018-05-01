@@ -375,7 +375,7 @@
         'openvideoDashboard' : "Video Dashboard",
         'openSharePresentationdbHeading' : "Presentation Dashboard",
         'opendsDbheading' : "Document Dashboard",
-        'Skip':"Skip Precheck",
+        'Skip':"Close",
         'videooff' : "video off",
         'raiseHandNotify':"student(s) raised hand",
         'disableVideoAll':"Disable Video All",

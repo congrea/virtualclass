@@ -77,17 +77,15 @@
 } 
 
 #virtualclassCont .footerCtr input[type=text], #virtualclassCont .footerCtr input#ta_chrm2 {
-    float:right;
-    width: 150px;
+    width: 90%
     box-sizing: border-box;
     border: 1px solid #4b5863b3;
     border-radius: 4px;
     font-size: 16px;
     background-color: white;
     padding: 8px 10px 8px 10px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-    margin-right:10px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 #virtualclassCont .footerCtr input {
     font-weight: normal;
@@ -95,9 +93,6 @@
     font-family: 'icomoon';
 }
 
-#virtualclassCont .footerCtr input[type=text]:focus {
-    width: 90%;
-}
 
 #virtualclassCont #chatWidget #stickycontainer ul li .inner_bt {
     padding-top: 10px;
@@ -208,8 +203,15 @@
     font-family: 'icomoon';
     color: grey;
 }
-#virtualclassCont #appSettingDetail #usersVideoSwitch:before {
+#virtualclassCont #appSettingDetail .disable #usersVideoSwitch:before {
     content: "\e966";
+    font-weight: normal;
+    font-size: 18px;
+    font-family: 'icomoon';
+    color: grey;
+}
+#virtualclassCont #appSettingDetail .enable #usersVideoSwitch:before {
+    content: "\e96a";
     font-weight: normal;
     font-size: 18px;
     font-family: 'icomoon';

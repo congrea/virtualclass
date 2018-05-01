@@ -523,10 +523,12 @@
     margin-right: 3px;
 }
 
-#virtualclassCont.congrea .next {
+#virtualclassCont.congrea .next, #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip {
     right: 22px;
 }
-
+#virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip {
+    margin-top:0px;
+}
 
 #virtualclassCont.congrea .whiteboard .prev {
     left: 60px;

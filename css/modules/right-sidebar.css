@@ -153,17 +153,20 @@
   -webkit-transition: .4s;
   transition: .4s;
 }
-#virtualclassCont #appSettingDetail input:checked + .slider {
+#virtualclassCont #appSettingDetail #contrAudioAll.enable .slider  {
   background-color: #37da52;
+}
+#virtualclassCont #appSettingDetail #contrVideoAll.enable .slider {
+background-color: #37da52;
 }
 
 #virtualclassCont #appSettingDetail input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
 }
-#virtualclassCont #appSettingDetail input:checked + .slider:before {
-  -webkit-transform: translateX(18px);
-  -ms-transform: translateX(18px);
-  transform: translateX(18px);
+#virtualclassCont #appSettingDetail li.enable .slider:before {
+-webkit-transform: translateX(18px);
+-ms-transform: translateX(18px);
+transform: translateX(18px);
 }
 #virtualclassCont #appSettingDetail .slider.round {
   border-radius: 34px;

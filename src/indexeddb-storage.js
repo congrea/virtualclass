@@ -14,7 +14,7 @@
     var tarr = [];
     var dataStore = false;
     var dataAllStore = false;
-  //  var totalDataStored = localStorage.getItem('totalStored');
+    //  var totalDataStored = localStorage.getItem('totalStored');
     function initToServer(cb) {
         if (typeof cb == 'function') {
             virtualclass.recorder.sendDataToServer();
@@ -28,23 +28,23 @@
     }
 
     var storage = {
-      //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
+        //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         dbVersion: 6,
         sessionEndFlag:false,
         init: function (firstDataStore) {
-             
+
             /***
              * Which table, what doing
              *  allData => For Store all the data of virtualclass for play session at later.
-                executedStoreAll => To store the executed data of users till now
-                dataAdapterAll => To store the must data of all user.
-                dataUserAdapterAll =>  To Store the must data of all user on particular user
-                chunkData => To save chunk data which would be convert into file as later.
-                wbData => To store the whiteboard data. 
-                config => For store the date of created session of particular room, 
-                  By which, we calculate the time(after 48 hour we are 
-                  ending the session for that particular room)
-                executedUserStoreAll => for store the missed packet of according to user.
+             executedStoreAll => To store the executed data of users till now
+             dataAdapterAll => To store the must data of all user.
+             dataUserAdapterAll =>  To Store the must data of all user on particular user
+             chunkData => To save chunk data which would be convert into file as later.
+             wbData => To store the whiteboard data.
+             config => For store the date of created session of particular room,
+             By which, we calculate the time(after 48 hour we are
+             ending the session for that particular room)
+             executedUserStoreAll => for store the missed packet of according to user.
              */
             this.reclaim = roles.isEducator();
             that = this;
@@ -52,7 +52,7 @@
 
             this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData", "dstall"];
 
-             //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
+            //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
             //  Try and Catch not supporting here
             var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
@@ -114,16 +114,16 @@
 
                 if (!thisDb.objectStoreNames.contains("dstdata")) {
                     thisDb.createObjectStore("dstdata", {keyPath: 'timeStamp', autoIncrement: true});
-                }  
-                
+                }
+
                 if (!thisDb.objectStoreNames.contains("pollStorage")) {
                     thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp',autoIncrement: true});
                 }
-                
+
                 if (!thisDb.objectStoreNames.contains("quizData")) {
                     thisDb.createObjectStore("quizData", {keyPath: 'quizkey'});
                 }
-                
+
                 if (!thisDb.objectStoreNames.contains("dstall")) {
                     thisDb.createObjectStore("dstall", {keyPath: 'timeStamp', autoIncrement: true});
                 }
@@ -185,15 +185,15 @@
             //console.log("whiteboard data store");
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
-                // objectStore.clear();
-                //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
-                // localStorage.setItem('repObjs', data); Enable for debugging
-                t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
+            // objectStore.clear();
+            //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
+            // localStorage.setItem('repObjs', data); Enable for debugging
+            t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
 
-           // t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
+            // t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
             return false;
         },
-        
+
         //related poll
         pollStore:function(store){
             setTimeout(function(){
@@ -217,7 +217,7 @@
             var t = that.db.transaction(["executedStoreAll"], "readwrite");
             var objectStore = t.objectStore("executedStoreAll");
             t.objectStore("executedStoreAll").put({executedData: data, id: 6, serialKey: serialKey}); // Using add can cause errors
-            
+
             t.onerror = function ( e ) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
@@ -228,8 +228,8 @@
             var t = that.db.transaction(["dataAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataAdapterAll");
             t.objectStore("dataAdapterAll").put({adaptData: data, id: 5, serialKey: serialKey}); // Using add can cause errors
-            
-             t.onerror = function ( e ) {
+
+            t.onerror = function ( e ) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
@@ -240,8 +240,8 @@
             var t = that.db.transaction(["dataUserAdapterAll"], "readwrite");
             var objectStore = t.objectStore("dataUserAdapterAll");
             t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
-            
-            // hack for firefox 
+
+            // hack for firefox
             // problem https://bugzilla.mozilla.org/show_bug.cgi?id=872873
             // solution https://github.com/aaronpowell/db.js/issues/98
             t.onerror = function ( e ) {
@@ -301,13 +301,13 @@
             this.wholeStoreData = data;
             this.prevTime = currTime;
         },
-		quizStorage: function(quizkey, data){
-			var t = that.db.transaction(["quizData"], "readwrite");
+        quizStorage: function(quizkey, data){
+            var t = that.db.transaction(["quizData"], "readwrite");
             var objectStore = t.objectStore("quizData");
             //objectStore.clear();
 
-			t.objectStore("quizData").put({qzData: data, quizkey: quizkey});
-		},
+            t.objectStore("quizData").put({qzData: data, quizkey: quizkey});
+        },
 
         displayData: function () {
             var transaction = that.db.transaction(["virtualclass"], "readonly");
@@ -370,7 +370,7 @@
 
             }
         },
-             // related poll 
+        // related poll
         getAllDataOfPoll: function (table, cb) {
 
             var dbDefined = false;
@@ -623,14 +623,14 @@
                 //Remove all chat user list
                 var chatUsers  = document.querySelectorAll('#chat_div .ui-memblist-usr');
                 if(chatUsers.length > 0){
-                   for(let i=0; i<chatUsers.length; i++){
-                       if(chatUsers[i] != null){
-                           chatUsers[i].parentNode.removeChild(chatUsers[i]);
-                       }
-                   }
+                    for(let i=0; i<chatUsers.length; i++){
+                        if(chatUsers[i] != null){
+                            chatUsers[i].parentNode.removeChild(chatUsers[i]);
+                        }
+                    }
                 }
 
-               // virtualclass.raiseHand.disableRaiseHand();
+                // virtualclass.raiseHand.disableRaiseHand();
 
                 virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
@@ -716,7 +716,7 @@
                 if(typeof virtualclass.yts == 'object'){
                     clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
                 }
-                
+
                 if(typeof virtualclass.sharePt == 'object') {
                     virtualclass.sharePt.UI.removeIframe();
                 }
@@ -753,9 +753,9 @@
                 } else {
                     console.log('Editor mode disable');
                 }
-                
+
                 console.log('New role before clear ' + virtualclass.gObj.uRole);
-                //virtualclass.gObj.uRole // update the role at 
+                //virtualclass.gObj.uRole // update the role at
                 that.config.createNewSession();
                 console.log('New role after clear ' + virtualclass.gObj.uRole);
                 if(!virtualclass.enablePreCheck){
@@ -765,6 +765,57 @@
 
                 if(typeof virtualclass.dts == 'object' && virtualclass.dts != null){
                     virtualclass.dts.destroyDts();
+                }
+
+                if(typeof virtualclass.raiseHand == 'object' && virtualclass.raiseHand != null){
+                    if(!roles.hasControls()){
+                        var rh = document.querySelector(".congrea .handRaise.disable");
+                        if(rh){
+                            rh.classList.remove('disable');
+                            rh.classList.add('enable');
+                            rh.setAttribute('data-title',"Raise Hand");
+                            var icon = document.querySelector(".congrea .handRaise #icHr");
+                            icon.setAttribute('data-action','enable')
+                            virtualclass.raiseHand.stdRhEnable="enabled";
+
+                        }
+
+                    }else{
+                        virtualclass.raiseHand.rhCount=0
+                        virtualclass.raiseHand.rhCountR=0
+                        var handBt = document.querySelector(".congrea .vmchat_bar_button .hand_bt.highlight");
+                        if(handBt){
+                            handBt.classList.remove('highlight');
+                        }
+                        var text = document.querySelector(".congrea .vmchat_bar_button .hand_bt #notifyText");
+                        text.innerHTML="";
+                    }
+                }
+
+                var muteAll = document.querySelector(".congrea .slider.icon-all-audio-enable");
+                if(muteAll){
+                    muteAll.className= "slider round congtooltip icon-all-audio-disable";
+                    muteAll.setAttribute('data-action','disable');
+                    muteAll.setAttribute('data-title','Mute All');
+                }
+                var disVideoAll = document.querySelector(".congrea .slider.icon-all-video-enable");
+                if(disVideoAll){
+                    disVideoAll.className= "slider round congtooltip icon-all-video-disable";
+                    disVideoAll.setAttribute('data-action','disable');
+                    disVideoAll.setAttribute('data-title','Disable Video');
+                }
+
+                var audio = document.querySelector(".congrea #contrAudioAll.enable");
+                if(audio){
+                    audio.classList.remove("enable");
+                    audio.classList.add("disable");
+                  //  var chbox = document.querySelector(".congrea #usersMuteSwitch input");
+
+                }
+                var video = document.querySelector(".congrea #contrVideoAll.enable");
+                if(video){
+                    video.classList.remove("enable");
+                    video.classList.add("disable")
                 }
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
@@ -786,8 +837,8 @@
 
             // localStorage.setItem('repObjs', data); Enable for debugging
             t.objectStore("dstdata").add({alldocs: data, timeStamp: new Date().getTime(), id: 9});
-        }, 
-        
+        },
+
         // Store for document sharing data
         dstdata : {
             handleResult : function(event){
@@ -810,7 +861,7 @@
                 }
             }
         },
-        
+
         dstAllStore : function (data){
             var data = JSON.stringify(data);
             var t = that.db.transaction(["dstall"], "readwrite");
@@ -821,8 +872,8 @@
             var allNotes = JSON.stringify(virtualclass.dts.allNotes);
             t.objectStore("dstall").add({dstalldocs: data, allNotes : allNotes, timeStamp: new Date().getTime(), id: 10});
         },
-        
-        
+
+
         // Store for document sharing data
         dstall : {
             handleResult : function(event){
@@ -860,7 +911,7 @@
             if(table == 'dstdata'){
                 virtualclass.gObj.docs = 'init';
             }
-            
+
             if(table == 'dstall'){
                 virtualclass.gObj.dstall = 'init';
             }
@@ -909,8 +960,8 @@
                 cursor.continue();
             }
         },
-        
-        // Get quiz data, store in array based on 
+
+        // Get quiz data, store in array based on
         // key and then return array of object
         getQuizData : function (cb){
             var dbDefined = false;
@@ -924,11 +975,11 @@
                     }, 500
                 );
             }
-            if(dbDefined){                
+            if(dbDefined){
                 var t = that.db.transaction(["quizData"], "readonly");
                 var objectStore = t.objectStore("quizData");
                 var dataArr = [];
-                
+
                 objectStore.openCursor().onsuccess = function (event) {
                     var cursor = event.target.result;
                     if (cursor) {
@@ -936,19 +987,19 @@
                         dataArr[cursor.value.quizkey] = cursor.value.qzData;
                         cursor.continue();
                     } else {
-                        cb(dataArr);    
-                    }                    
+                        cb(dataArr);
+                    }
                 }
             }
         },
-        
+
         // Clear all data from given table
         clearTableData: function (table) {
             var t = that.db.transaction([table], "readwrite");
             var objectStore = t.objectStore(table);
             objectStore.clear();
         },
-        
+
         // get whiteboard data accoring to whieboard id
         getWbData : function (wbId, cb){
             var dbDefined = false;

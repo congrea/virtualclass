@@ -10,11 +10,17 @@
         return {
             stdRhEnable:"enabled",
             rhCount :0,
+            rhCountR:0,
             init: function (obj) {
-                this. stdRhEnable="enabled";
+                this.stdRhEnable="enabled";
                 if(!roles.hasControls()){
                     this.attachHandlerAtStudent();
-                    this.stdRhEnable=localStorage.getItem("stdRhEnable");
+
+                    if(virtualclass.vutil.whoIsTeacher()){
+
+
+                    }
+                    // this.stdRhEnable=localStorage.getItem("stdRhEnable");
                     if(this.stdRhEnable &&this.stdRhEnable =="disabled" ){
                         var rhElem =  document.querySelector("#virtualclassCont.congrea #icHr");
                         rhElem.setAttribute("data-action","disable");
@@ -22,7 +28,7 @@
                         cont.classList.remove("enable");
                         cont.classList.add("disable");
                         cont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdDisabled"));
-                        localStorage.removeItem("stdRhEnable");
+                        //localStorage.removeItem("stdRhEnable");
                     }
 
                 }
@@ -45,13 +51,13 @@
                 controlContainer.style.pointerEvents = "none";
                 virtualclass.user.control.updateUser(userid, 'raiseHand',false);
                 virtualclass.raiseHand.moveDownInList(userid)
-                this.rhCount --;
+                 this.rhCount --;
                 if(!this.rhCount ){
                     document.querySelector("#user_list .hand_bt").classList.remove("highlight");
                 }
 
                 var text = document.querySelector("#user_list .hand_bt  #notifyText")
-                if(this.rhCount){
+                if(this.rhCount > 0){
                     text.innerHTML=  this.rhCount;
                 }else{
                     var rh = document.querySelector("#user_list .hand_bt");
@@ -62,7 +68,6 @@
                 }
 
             },
-
 
             onMsgRec:function(rMsg){
                 if(roles.hasControls()){
@@ -99,7 +104,7 @@
 
                 }
                 var text = document.querySelector("#user_list .hand_bt  #notifyText")
-                if(this.rhCount){
+                if(this.rhCount > 0){
                     text.innerHTML=  this.rhCount;
                 }else{
                     var rh = document.querySelector("#user_list .hand_bt");
@@ -145,6 +150,12 @@
 
             // to verify
             enableRaiseHand:function(userid){
+                this.rhCount ++;
+                this._enableRaiseHand(this.rhCount,userid);
+
+            },
+
+            _enableRaiseHand:function(count,userid){
                 var controlContainer = document.getElementById(userid + 'contRaiseH');
                 var anch = document.getElementById(userid + 'contRaiseAnch');
                 var cont = document.getElementById(userid + 'contrRaiseHandImg');
@@ -155,19 +166,27 @@
                 cont.setAttribute('data-raisehand-disable',false)
                 anch.setAttribute('data-title',virtualclass.lang.getString("RaiseHandEnable"));
                 controlContainer.style.pointerEvents="visible";
-                this.rhCount ++;
+                //count++;
+
                 var handbt =   document.querySelector("#user_list .hand_bt");
                 if(!handbt.classList.contains("highlight")){
                     handbt.classList.add("highlight");
                 }
-                var text = document.querySelector("#user_list .hand_bt  #notifyText")
-                text.innerHTML=  this.rhCount;
 
+                var text = document.querySelector("#user_list .hand_bt  #notifyText")
+                text.innerHTML= count;
                 var tooltip = document.querySelector("#user_list .hand_bt");
-                    if(!tooltip.classList.contains('congtooltip')){
-                       tooltip.classList.add('congtooltip')
-                    }
-                    tooltip.setAttribute('data-title',virtualclass.lang.getString("raiseHandNotify"));
+                if(!tooltip.classList.contains('congtooltip')){
+                    tooltip.classList.add('congtooltip')
+                }
+                tooltip.setAttribute('data-title',virtualclass.lang.getString("raiseHandNotify"));
+
+            },
+            _raiseHand:function(userid){
+                this.rhCountR++;
+                this.rhCount= this.rhCountR;
+                this._enableRaiseHand(this.rhCountR,userid);
+
             },
 
             updateInStorage:function(){
@@ -179,7 +198,7 @@
                 cont.addEventListener('click',function(){
                     var rhElem = document.querySelector("#virtualclassCont.congrea #icHr");
                     var toUser = virtualclass.vutil.whoIsTeacher();
-                    ioAdapter.mustSendUser({
+                    ioAdapter.sendUser({
                         'data': {
                             user: wbUser.id,
                             action:rhElem.getAttribute("data-action")
@@ -191,7 +210,6 @@
                         rhElem.setAttribute("data-action","disable");
                         cont.classList.remove("enable");
                         cont.classList.add("disable");
-
                         var handCont = document.querySelector("#virtualclassCont.congrea #congHr");
                         handCont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdDisabled"));
                         virtualclass.raiseHand.stdRhEnable="disabled";
@@ -199,7 +217,6 @@
                         rhElem.setAttribute("data-action","enable")
                         cont.classList.add("enable");
                         cont.classList.remove("disable");
-
                         var handCont = document.querySelector("#virtualclassCont.congrea #congHr");
                         handCont.setAttribute("data-title",virtualclass.lang.getString("RaiseHandStdEnabled"));
                         virtualclass.raiseHand.stdRhEnable="enabled";

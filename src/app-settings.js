@@ -51,7 +51,6 @@
                                 commonChatTab.classList.add("active");
                             }
                         }
-
                     });
                 }
 

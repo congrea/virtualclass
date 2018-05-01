@@ -225,11 +225,20 @@
   height: 52px;
 }
 
+/*
 #virtualclassCont.congrea #contrAudioAllImg.congtooltip:hover:after {
   bottom: 3.2em;
   left: -2.8em;
   padding: 0.6em 1em;
 }
+*/
+
+#virtualclassCont.congrea #audioWidget .congtooltip:hover:after {
+    bottom:10%;
+    right:10px;
+    left:30px;
+}
+
 
 #virtualclassCont.congrea.student.presenter #mainAudioPanel {
   border-right: 0px;

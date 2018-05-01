@@ -57,6 +57,15 @@ var videoHost = {
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
         }
+
+        var rightPanel = document.querySelector('#virtualclassAppRightPanel');
+        if(rightPanel != null){
+            var teacherVideo = localStorage.getItem('tvideo');
+            if(teacherVideo == null){
+                teacherVideo = 'show';
+            }
+            rightPanel.classList.add(teacherVideo);
+        }
     },
 
     renderSelfVideo : function (stream){
@@ -118,18 +127,20 @@ var videoHost = {
         ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
 
     },
-    //nirmala
+
     onmessage: function (msg) {
         console.log(msg);
         if (msg.congCtr.videoSwitch == "on") {
             virtualclass.videoHost.gObj.videoSwitch = 1;
             this.UI.displayVideo();
-
+            localStorage.tvideo = 'show';
         } else if (msg.congCtr.videoSwitch == "off") {
             virtualclass.videoHost.gObj.videoSwitch = 0;
             this.UI.hideVideo();
+            localStorage.tvideo = 'hide';
         }
     },
+
     stdVideoCtrlMsg:function(data){
         var userid = data.fromUser.userid;
         if(data.message.stdVideoCtr.videoSwitch) {

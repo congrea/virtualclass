@@ -746,3 +746,7 @@ margin-right:10px !important;
 {
     display:none;
 }
+
+#virtualclassCont.congrea #chatWidget.chat_disabled .ui-memblist-usr.online {
+    pointer-events : none;
+}

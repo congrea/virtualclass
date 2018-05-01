@@ -45,6 +45,16 @@
                     //nirmala
                     //  this.fetchChatUsers();
 
+
+                    console.log('chat local storage start ');
+                    /** Disable Chat **/
+                    var chatEnable = localStorage.getItem('chatEnable');
+                    if(chatEnable != null){
+                        if (chatEnable == "false") {
+                            document.querySelector('#chatWidget').classList.add('chat_disabled');
+                        }
+                    }
+
                 },
 
                 /** TODO , that should be handle properly for simple layout **/

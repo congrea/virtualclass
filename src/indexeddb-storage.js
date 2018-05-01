@@ -649,6 +649,8 @@
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;
+                virtualclass.videoHost.gObj.stdStopSmallVid= false;
+                virtualclass.videoHost.gObj.videoSwitch = 1
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 

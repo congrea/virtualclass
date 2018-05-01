@@ -2,7 +2,7 @@
 /*css for chatbox*/
 #virtualclassCont.congrea .ui-chatbox {
     position: relative;
-    bottom:287px;
+    bottom:255px;
     padding: 0px;
     border-bottom: none;
     z-index: -1;
@@ -410,6 +410,8 @@
 #virtualclassCont.congrea .ui-state-default, #virtualclassCont.congrea .ui-widget-content .ui-state-default, #virtualclassCont.congrea .ui-widget-header .ui-state-default{
     height: 38px;
     border: 1px solid #ccc;
+    height: 37px;
+    /*border: 1px solid #ccc;*/
     border-top: none;
     border-radius: 0;
     -webkit-border-bottom-right-radius: 6px;
@@ -582,7 +584,7 @@
 }
 
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active{
-    border: 1px solid #5d6b76;
+    /*border: 1px solid #5d6b76;*/
 }
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a{
     color:#d3dce5;
@@ -736,4 +738,11 @@ margin-right:10px !important;
 
 #virtualclassCont.congrea #stickybar{
   width: calc(100% - 321px); /*changed from 325px */
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .ui-tabs-anchor,
+#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default a.ui-corner-all,
+#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .icon-minus
+{
+    display:none;
 }

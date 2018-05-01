@@ -934,7 +934,7 @@ body .ui-tooltip {
 	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* IE10+ */
 	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ) !important; /* IE6-9 */
-	border: 1px solid #aaaaaa !important;
+	/*border: 1px solid #aaaaaa !important;*/
 }
 
 .ui-state-hover,
@@ -1301,7 +1301,7 @@ background-position: -64px -128px !important;
 	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ); /* IE6-9 */
-    border: 1px solid #aaaaaa !important;
+    /*border: 1px solid #aaaaaa !important;*/
 }
 
 .ui-widget-header {
@@ -1349,7 +1349,7 @@ background-position: -64px -128px !important;
 }
 
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight{
-    background: #d8e496 !important;
+    /*background: #d8e496 !important;*/
 }
 
 

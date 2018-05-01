@@ -3660,41 +3660,8 @@ span#usertab_text {
     margin: 5px 20px;
 
 }
+#virtualclassCont.congrea .handRaise{
+ pointer-events: none;
+	opacity: .5;
 
-.selectbox {
-    box-sizing: border-box;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 9pt;
-    display: inline-block;
-    float: left;
-    margin: 2px;
-    background: #fff;
-    width: 150px;
-    position: relative;
-}
-.selectbox_label {
-    cursor: pointer;
-    padding: 5px 10px;
-    background: #fff;
-    color: #202020;
-    position: relative;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    border: 1px solid #eee;
-    transition: 150ms linear all;
-    box-shadow: 1px 1px 10px #eee;
-}
-.selectbox_label:after {
-    content: "";
-    display: inline;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #202020;
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: 150ms linear all;
-}
 

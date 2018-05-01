@@ -116,3 +116,12 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+#virtualclassCont.congrea.student #virtualclassAppRightPanel.show #videoHostContainer{
+  display : block;
+}
+
+#virtualclassCont.congrea.student #virtualclassAppRightPanel.hide #videoHostContainer{
+  display : none;
+}

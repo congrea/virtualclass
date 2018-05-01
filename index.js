@@ -1517,8 +1517,12 @@ $(document).ready(function () {
                 var videoMode = e.message.congCtr.videoSwitch;
                 if(videoMode == 'off'){
                     virtualclass.vutil.addClass('virtualclassCont', 'videoff');
+                    virtualclass.vutil.addClass('virtualclassAppRightPanel', 'hide');
+                    virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'show');
                 }else {
                    document.querySelector('#virtualclassCont').classList.remove('videoff');
+                    virtualclass.vutil.addClass('virtualclassAppRightPanel', 'show');
+                    virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'hide');
                 }
 
             }

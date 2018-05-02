@@ -603,7 +603,6 @@ var newCanvas;
                 // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
                 this.currentStream.getVideoTracks()[0].onended = function (name) {
                     if (that.ssByClick) {
-
                         var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
                         if(elem){
                             elem.style.display="none";

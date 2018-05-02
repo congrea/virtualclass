@@ -2549,6 +2549,26 @@
 
         insertAppLayout : (html) => {
             $('#virtualclassAppContainer').append(html);
+        },
+        prechkScrnShare:function(){
+            if(localStorage.getItem('precheck')){
+                var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                virtualclassPreCheck.style.display = 'none';
+                var virtualclassApp = document.getElementById('virtualclassApp');
+                virtualclassApp.style.display = 'block';
+                virtualclass.videoHost._resetPrecheck();
+
+            }else{
+                virtualclass.popup.waitMsg();
+                virtualclass.makeReadySocket();
+                var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+                virtualclassPreCheck.style.display = 'none';
+                var virtualclassApp = document.getElementById('virtualclassApp');
+                virtualclassApp.style.display = 'block';
+                localStorage.setItem('precheck', true);
+                virtualclass.videoHost.afterSessionJoin();
+            }
+            virtualclass.gObj.precheckScrn=false;
         }
     };
     window.vutil = vutil;

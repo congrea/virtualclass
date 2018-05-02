@@ -1510,6 +1510,7 @@ $(document).ready(function () {
                     virtualclass.vutil.addClass('virtualclassCont', 'videoff');
                     virtualclass.vutil.addClass('virtualclassAppRightPanel', 'hide');
                     virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'show');
+                    virtualclass.videoHost.setUserIcon(e.fromUser.userid );
                 }else {
                    document.querySelector('#virtualclassCont').classList.remove('videoff');
                     virtualclass.vutil.addClass('virtualclassAppRightPanel', 'show');

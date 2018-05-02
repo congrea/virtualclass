@@ -1113,7 +1113,7 @@
                         }
 
                         sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-                        if(!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || roles.hasControls() ){
+                        if(!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || (roles.hasControls() && virtualclass.videoHost.gObj.videoSwitch )){
                             var uid = breakintobytes(virtualclass.gObj.uid, 8);
                             var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
                             var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);

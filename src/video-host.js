@@ -240,7 +240,7 @@ var videoHost = {
                     }
                 }
                 // localStorage.removeItem("stdVideoSwitch");
-            }
+            }!virtualclass.videoHost.gObj
 
         }
 

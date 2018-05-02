@@ -1404,26 +1404,38 @@
 
 
             handleUserMedia: function (stream) {
-
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
-
                 if(virtualclass.system.mediaDevices.hasMicrophone){
                     virtualclass.gObj.video.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
-                        if(audio.ac == 'false'){
-                            if((audio.hasOwnProperty('r') && audio.r == 'vd') || typeof stream != 'undefined'){
-                                // Passing true ensures that audio does not triggered automatically
-                                virtualclass.user.control.audioWidgetEnable(true);
+                        if(audio.ac == 'false' || audio.ac == false){
+                            if(audio.hasOwnProperty('r') && audio.r == 'vd'){
+                                virtualclass.user.control.audioWidgetEnable();
                             } else {
-                                virtualclass.user.control.mediaWidgetDisable();
+
+                                if(roles.isStudent()){
+                                    virtualclass.user.control.audioDisable();
+                                    virtualclass.gObj.audioEnable = false;
+
+                                }else {
+                                    virtualclass.user.control.audioWidgetEnable();
+                                    virtualclass.gObj.audioEnable = true;
+                                }
+
+                                if(typeof stream != 'undefined'){
+                                    virtualclass.user.control.videoEnable();
+                                }
                             }
                         }else {
+                            virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
+
                     } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
+                        virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable();
                     }
                 }else {

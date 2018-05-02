@@ -1280,6 +1280,11 @@ $(document).ready(function () {
 
             //disable audio
             this.dia = function (e) {
+                var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
+                    virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');
+                }
+
                 if (e.message.toUser == virtualclass.gObj.uid) {
                     // virtualclass.user.control.mediaWidgetDisable();
                     virtualclass.user.control.audioDisable();

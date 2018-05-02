@@ -12,7 +12,7 @@
 }
 
 #virtualclassCont #virtualclassAppContainer{
-  height : calc(100vh - 45px);
+  height : calc(100vh - 57px);
 }
 
 #virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody{

@@ -2148,10 +2148,9 @@
 }
 
 #virtualclassCont.congrea #congdashboard .close {
-	margin-right: 8px;
-	color: #0e0e0e;
-	font-weight: bold;
-	margin-top: 3px;
+	margin:7px;
+	color: #fff; /* changed from 0e0e0e */
+	font-weight: normal; /* bold */
 }
 
 #virtualclassCont.congrea #beTeacher {
@@ -3243,7 +3242,7 @@
 
 #virtualclassCont.congrea.teacher .ui-widget-content,
 #virtualclassCont.congrea.student .ui-widget-content {
-/*    background-color : #ffffff;*/
+    background-color : #ffffff;
 }
 #virtualclassCont.congrea.teacher .ui-widget-content textarea,
 #virtualclassCont.congrea.student .ui-widget-content textarea {
@@ -3672,3 +3671,4 @@ opacity: 1;
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
     padding:0 !important;
 }
+

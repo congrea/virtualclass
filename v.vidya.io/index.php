@@ -236,7 +236,7 @@ if ($room) {
 
         .CodeMirror {
             height: auto;
-            border: 1px solid #c9c9c9;
+/*            border: 1px solid #c9c9c9;*/
         }
 
         .CodeMirror pre {
@@ -246,7 +246,7 @@ if ($room) {
 
         .CodeMirror {
             height: auto;
-            border: 1px solid #ddd;
+/*            border: 1px solid #ddd;*/
         }
 
         .CodeMirror pre {

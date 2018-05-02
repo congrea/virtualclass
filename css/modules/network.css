@@ -1,18 +1,19 @@
 #virtualclassCont.congrea #networkStatusContainer {
   position: relative;
-  top: -37px;
+  top: -33px;
   width: 50px;
-  float: right;
-  left: 2px;
+  left: 7px;
+  float:right;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {
   width: 30px;
-  height: 28px;
+  height: 30px;
   position: relative;
-  top: 4px;
-  left: 8px;
-  border-radius: 50%;
+  top: -6px;
+  background-color:white;
+  border-radius:5px;
+    padding:4px;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalthree,

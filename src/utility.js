@@ -474,6 +474,9 @@
             //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
             localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+            if(typeof virtualclass.gObj.audioEnable != 'undefined' ){
+                localStorage.setItem('audEnable', JSON.stringify({'ac' : virtualclass.gObj.audioEnable}));
+            }
 
             localStorage.removeItem('otherRole');
 

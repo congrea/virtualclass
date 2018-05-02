@@ -3672,3 +3672,10 @@ opacity: 1;
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
     padding:0 !important;
 }
+
+/** suman start **/
+#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled #ta_chrm2 {
+	opacity : 0.5;
+	pointer-events:  none;
+}
+/** suman end **/

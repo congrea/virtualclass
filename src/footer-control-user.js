@@ -749,6 +749,7 @@
                 },
 
                 audioWidgetEnable: function (notActive) {
+                    console.log('Audio enable true' );
                     localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
                     if(localStorage.getItem('dvid') == null){
                         var studentSpeaker = document.getElementById('speakerPressOnce');
@@ -775,7 +776,7 @@
                         ad.r = reason;
                     }
 
-
+                    console.log('audEnable ' + ad)
                     localStorage.setItem('audEnable', JSON.stringify(ad));
 
                     var studentSpeaker = document.getElementById('audioWidget');
@@ -811,8 +812,15 @@
                     }
                 },
 
+                videoEnable : function (){
+                    var videoIcon = document.getElementById('congCtrBar');
+                    if(videoIcon != null){
+                        videoIcon.style.opacity = "1";
+                        videoIcon.style.pointerEvents = "visible";
+                    }
+                },
+
                 allChatDisable: function () {
-                    localStorage.setItem('chatEnable', "false");
                     this.disableCommonChat();
                     this.disbaleAllChatBox();
                     this.disableOnLineUser();
@@ -831,17 +839,24 @@
                     }
                 },
                 disbaleAllChatBox: function () {
+                    localStorage.setItem('chatEnable', "false");
+                    var chat_div  = document.querySelector('#virtualclassAppRightPanel');
+                    chat_div.classList.add('chat_disabled');
+
                     var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
                     for (var i = 0; i < allChatBoxes.length; i++) {
                         this.makeElemDisable(allChatBoxes[i]);
                     }
                 },
+
+                /** TODO this function should be removed, use the mechanism, which is using at chat.init() in chat.js **/
                 disableOnLineUser: function () {
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
                     for (var i = 0; i < allChatDivCont.length; i++) {
                         allChatDivCont[i].style.pointerEvents = "none";
                     }
                 },
+
                 makeElemDisable: function (elem) {
                     if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                         elem.classList.remove('enable');
@@ -856,7 +871,9 @@
                 },
                 allChatEnable: function () {
                     localStorage.setItem('chatEnable', "true");
-                    //common chat
+                    var chat_div  = document.querySelector('#virtualclassAppRightPanel');
+                    chat_div.classList.remove('chat_disabled');
+
                     var div = document.getElementById("chatrm");
                     if (div != null) {
                         this.makeElemEnable(div);
@@ -948,6 +965,7 @@
                         var tvideoElem = document.getElementById("rightCtlr");
                         tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
                         virtualclass.videoHost.gObj.videoSwitch = 1;
+                        virtualclass.videoHost.toggleVideoMsg('enable', true);
                     }
 
                 },

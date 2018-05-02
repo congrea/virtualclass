@@ -150,6 +150,7 @@ var videoHost = {
             this.removeUserIcon(userid);
         }
     },
+
     toggleVideoMsg:function(action){
         var videoSwitchCont = document.querySelector('#congCtrBar');
         if(action == "enable") {

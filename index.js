@@ -1656,6 +1656,8 @@ $(document).ready(function () {
 
             this.toggleVideo=function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){
+                    var sw = document.querySelector(".videoSwitchCont #videoSwitch");
+                    sw.click();
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }

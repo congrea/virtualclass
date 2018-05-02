@@ -29,6 +29,7 @@ var videoHost = {
         this.gObj.videoSwitch = 1;//nirmala
         this.gObj.stdStopSmallVid =false;
         this.domReady = false;
+        this.allStdVideoOff=false;
         if (roles.hasAdmin()) {
 
             this._init();
@@ -150,16 +151,32 @@ var videoHost = {
         }
     },
     toggleVideoMsg:function(action){
-        var sw = document.querySelector(".videoSwitchCont #videoSwitch");
-        sw.click();
         var videoSwitchCont = document.querySelector('#congCtrBar');
         if(action == "enable") {
             videoSwitchCont.style.pointerEvents ="visible";
             videoSwitchCont.style.opacity = "1";
-        }else{
+            virtualclass.videoHost.gObj.allStdVideoOff= false;
+        }
+        else{
             videoSwitchCont.style.pointerEvents = "none";
             videoSwitchCont.style.opacity = "0.5";
+            virtualclass.videoHost.gObj.allStdVideoOff= true;
         }
+    },
+    toggleStdVideoIcon:function(action){
+        var swCont = document.querySelector(".congrea .videoSwitchCont")
+        var sw  = document.querySelector('.congrea #rightCtlr #videoSwitch');
+         if(action == "enable") {
+             sw.setAttribute("data-action","disable")
+             sw.className ="video on"
+             swCont.setAttribute("data-title","Video off");
+        }
+         else{
+             sw.setAttribute("data-action","enable")
+             sw.className ="video off";
+             swCont.setAttribute("data-title","Video On");
+
+         }
     },
 
     setUserIcon:function(userid){
@@ -191,6 +208,10 @@ var videoHost = {
             localStorage.removeItem("videoSwitch");
         }else{
             var stdVideoSwitch = JSON.parse(localStorage.getItem("stdVideoSwitch"));
+            localStorage.removeItem("stdVideoSwitch");
+
+            var allStdVideoOff = JSON.parse(localStorage.getItem("allStdVideoOff"));
+            virtualclass.videoHost.gObj.allStdVideoOff =allStdVideoOff;
             localStorage.removeItem("stdVideoSwitch");
         }
 
@@ -232,15 +253,19 @@ var videoHost = {
         if(!roles.hasControls()){
             if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
                 virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
-                if (roles.isStudent()) {
+
                     if (stdVideoSwitch) {
-                        virtualclass.videoHost.toggleVideoMsg('disable');
+                        virtualclass.videoHost.toggleStdVideoIcon('disable');
                     } else {
-                        virtualclass.videoHost.toggleVideoMsg('enable');
+                        virtualclass.videoHost.toggleStdVideoIcon('enable');
                     }
-                }
-                // localStorage.removeItem("stdVideoSwitch");
-            }!virtualclass.videoHost.gObj
+
+            }
+            if(virtualclass.videoHost.gObj.allStdVideoOff){
+                virtualclass.videoHost.toggleVideoMsg('disable');
+            }else{
+                virtualclass.videoHost.toggleVideoMsg('enable');
+            }
 
         }
 

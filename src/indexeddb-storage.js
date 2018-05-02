@@ -651,6 +651,7 @@
                 delete virtualclass.gObj.whoIsSharing;
                 virtualclass.videoHost.gObj.stdStopSmallVid= false;
                 virtualclass.videoHost.gObj.videoSwitch = 1
+                virtualclass.videoHost.gObj.allStdVideoOff=false
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
@@ -826,6 +827,9 @@
                         chbox.removeAttribute("checked");
                     }
 
+                }
+                if(!roles.hasControls()){
+                    virtualclass.videoHost.toggleVideoMsg('enable');
                 }
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};

@@ -1,10 +1,11 @@
 var precheck = {
+    currTest:"",
     init : function (){
         // $("#myModal").modal();
         $('#myModal').modal({backdrop: 'static', keyboard: false});
 
         this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
-
+         this.currTest="browser";
         //virtualclass.error.push("something wrong happend");
 
         //this.totalTest = [
@@ -60,6 +61,12 @@ var precheck = {
                     localStorage.setItem('precheck', true);
                     virtualclass.videoHost.afterSessionJoin();
                 }
+
+                if( virtualclass.precheck.currTest== 'speaker'){
+                    var testAudio = document.getElementById('vcSpeakerCheckAudio');
+                    testAudio.pause();
+                    testAudio.currentTime = 0
+                }
                 virtualclass.gObj.precheckScrn=false;
             });
 
@@ -80,6 +87,7 @@ var precheck = {
     _next : function (curr, cb){
         virtualclass.precheck.cancelRequestAnimation();
         var test = this[curr].next;
+        virtualclass.precheck.currTest=test
         virtualclass.precheck.updateProgressBar(test);
         if((!this[test].hasOwnProperty('alreadyDone') || this[test].hasOwnProperty('alreadyDone') && test == 'bandwidth')){
             // Only perform the test if it's not already done
@@ -100,7 +108,6 @@ var precheck = {
             cb();
         }
         this[test].alreadyDone = true;
-
     },
 
 
@@ -312,6 +319,7 @@ var precheck = {
                 //virtualclass.precheck._perform(1000, that.curr);
             // }
         },
+
 
         _play : function (){
             var preCheck = "#preCheckcontainer .precheck";

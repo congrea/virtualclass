@@ -95,6 +95,7 @@ body {
     width:100%;
     text-align:right;
     margin:10px 0;
+    z-index:99999;
     
 } 
 #virtualclassCont .footerCtr input {

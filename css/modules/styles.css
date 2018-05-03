@@ -1855,6 +1855,7 @@
 
 #virtualclassCont.congrea .ui-memblist-usr.student , #virtualclassCont.congrea .ui-memblist-usr.mySelf.teacher[data-role="p"] , #virtualclassCont.congrea .ui-memblist-usr.mySelf.student[data-role="s"] {
 /*	border-bottom:#ddd 1px solid;*/
+        background-color: #e8e8e8;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr[data-role="p"]{
@@ -2148,10 +2149,15 @@
 }
 
 #virtualclassCont.congrea #congdashboard .close {
-	margin-right: 8px;
-	color: #0e0e0e;
-	font-weight: bold;
-	margin-top: 3px;
+	margin: 5px;
+    display: inline-block;
+    color: white;
+    border: 1px solid white;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 4px;
+    font-weight: normal;
+    letter-spacing: 1.3px;
 }
 
 #virtualclassCont.congrea #beTeacher {
@@ -2393,6 +2399,7 @@
 #page-mod-congrea-classroom .close{
 	float: right !important;
 }
+/*
 #virtualclassCont.congrea .close:hover,
 #virtualclassCont.congrea .close:active,
 #virtualclassCont.congrea .close:focus{
@@ -2400,6 +2407,14 @@
 	outline: none;
 	background: none;
 }
+*/
+#virtualclassCont.congrea .close:hover,
+#virtualclassCont.congrea .close:active,
+#virtualclassCont.congrea .close:focus{
+	color: #000 !important;
+	background-color:#fff !important;
+}
+
 #virtualclassCont.congrea .modal-backdrop{
 	z-index: 0;
 }
@@ -3243,7 +3258,7 @@
 
 #virtualclassCont.congrea.teacher .ui-widget-content,
 #virtualclassCont.congrea.student .ui-widget-content {
-/*    background-color : #ffffff;*/
+    background-color : #ffffff;
 }
 #virtualclassCont.congrea.teacher .ui-widget-content textarea,
 #virtualclassCont.congrea.student .ui-widget-content textarea {
@@ -3522,7 +3537,7 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
-/*	background-color: #f8f7dc;*/
+	background-color: #f8f7dc;
 /*    border-bottom: 1px dotted #8f8f8f;*/
 /*	border-top: 1px solid #ddda86;*/
 
@@ -3672,3 +3687,11 @@ opacity: 1;
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
     padding:0 !important;
 }
+
+
+/** suman start **/
+#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled #ta_chrm2 {
+	opacity : 0.5;
+	pointer-events:  none;
+}
+/** suman end **/

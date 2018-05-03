@@ -1113,7 +1113,7 @@
                         }
 
                         sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-                        if(!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || roles.hasControls() ){
+                        if(!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || (roles.hasControls() && virtualclass.videoHost.gObj.videoSwitch )){
                             var uid = breakintobytes(virtualclass.gObj.uid, 8);
                             var scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
                             var sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
@@ -1404,26 +1404,38 @@
 
 
             handleUserMedia: function (stream) {
-
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
-
                 if(virtualclass.system.mediaDevices.hasMicrophone){
                     virtualclass.gObj.video.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
-                        if(audio.ac == 'false'){
-                            if((audio.hasOwnProperty('r') && audio.r == 'vd') || typeof stream != 'undefined'){
-                                // Passing true ensures that audio does not triggered automatically
-                                virtualclass.user.control.audioWidgetEnable(true);
+                        if(audio.ac == 'false' || audio.ac == false){
+                            if(audio.hasOwnProperty('r') && audio.r == 'vd'){
+                                virtualclass.user.control.audioWidgetEnable();
                             } else {
-                                virtualclass.user.control.mediaWidgetDisable();
+
+                                if(roles.isStudent()){
+                                    virtualclass.user.control.audioDisable();
+                                    virtualclass.gObj.audioEnable = false;
+
+                                }else {
+                                    virtualclass.user.control.audioWidgetEnable();
+                                    virtualclass.gObj.audioEnable = true;
+                                }
+
+                                if(typeof stream != 'undefined'){
+                                    virtualclass.user.control.videoEnable();
+                                }
                             }
                         }else {
+                            virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
+
                     } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
+                        virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable();
                     }
                 }else {

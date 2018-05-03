@@ -499,6 +499,9 @@
     border-radius: 50px;
     /*border: 1px solid #eee;*/
 }
+#virtualclassCont.congrea .next {
+    right:10px;
+}
 
 #virtualclassCont.congrea .nvgt:hover {
     opacity: 1;

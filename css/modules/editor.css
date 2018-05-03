@@ -70,7 +70,7 @@
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: absolute;
-  top: 45px;
+  top: 25px;
   right: 0px;
   width: 55px;
   height: 18px;
@@ -126,7 +126,7 @@
   background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
   border-top-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 3px;
 
 }
 

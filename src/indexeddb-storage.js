@@ -630,6 +630,10 @@
                     }
                 }
 
+                if(virtualclass.gObj.precheckScrn){
+                    virtualclass.vutil. prechkScrnShare();
+                }
+
                 // virtualclass.raiseHand.disableRaiseHand();
 
                 virtualclass.storage.config.sessionEndFlag =true;

@@ -610,9 +610,9 @@
         },
 
         initResize : function (){
+            virtualclass.vutil.addClass('virtualclassCont', 'resizeWindow');
             system.setAppDimension(null, 'resize');
             virtualclass.view.window.resize();
-
         }
     };
 

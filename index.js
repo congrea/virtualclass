@@ -922,6 +922,8 @@ $(document).ready(function () {
                     }
                 }
             }
+
+
         });
 
         var overrideRoleTeacher = function () {
@@ -1048,25 +1050,8 @@ $(document).ready(function () {
                     }
 
                      if(virtualclass.gObj.precheckScrn){
-                        if(localStorage.getItem('precheck')){
-                            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                            virtualclassPreCheck.style.display = 'none';
-                            var virtualclassApp = document.getElementById('virtualclassApp');
-                            virtualclassApp.style.display = 'block';
-                            virtualclass.videoHost._resetPrecheck();
-
-                        }else{
-                            virtualclass.popup.waitMsg();
-                            virtualclass.makeReadySocket();
-                            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                            virtualclassPreCheck.style.display = 'none';
-                            var virtualclassApp = document.getElementById('virtualclassApp');
-                            virtualclassApp.style.display = 'block';
-                            localStorage.setItem('precheck', true);
-                            virtualclass.videoHost.afterSessionJoin();
-                        }
-                        virtualclass.gObj.precheckScrn=false;
-                    }    
+                         virtualclass.vutil. prechkScrnShare();
+                     }
 
                     // The binary data is coming on teacher when user download the session
                     // which actually should not, workaround for now
@@ -1250,6 +1235,7 @@ $(document).ready(function () {
                     virtualclass.gObj.chatEnable = true;
                     virtualclass.vutil.beforeSend({'enc': true, 'cf': 'enc', ouser: e.message.toUser});
                 }
+                document.querySelector('#chatWidget').classList.remove('chat_disabled');
 
             };
 
@@ -1277,6 +1263,11 @@ $(document).ready(function () {
 
             //disable audio
             this.dia = function (e) {
+                var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
+                    virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');
+                }
+
                 if (e.message.toUser == virtualclass.gObj.uid) {
                     // virtualclass.user.control.mediaWidgetDisable();
                     virtualclass.user.control.audioDisable();
@@ -1519,6 +1510,7 @@ $(document).ready(function () {
                     virtualclass.vutil.addClass('virtualclassCont', 'videoff');
                     virtualclass.vutil.addClass('virtualclassAppRightPanel', 'hide');
                     virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'show');
+                    virtualclass.videoHost.setUserIcon(e.fromUser.userid );
                 }else {
                    document.querySelector('#virtualclassCont').classList.remove('videoff');
                     virtualclass.vutil.addClass('virtualclassAppRightPanel', 'show');
@@ -1593,10 +1585,16 @@ $(document).ready(function () {
             this.reqscreen = function(e){
                 console.log(e.message);
                 var message = virtualclass.lang.getString('stdscreenshare');
+
+                if(virtualclass.gObj.precheckScrn){
+                    virtualclass.vutil.prechkScrnShare();
+
+                }
                 virtualclass.popup.confirmInput(message,function (confirm){
                     if(confirm){
                         if(roles.isStudent()){
                             virtualclass.gObj.studentSSstatus.mesharing = true;
+
                         }
 
                         // ioAdapter.mustSendUser({

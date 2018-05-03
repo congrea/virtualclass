@@ -392,8 +392,7 @@ var colorSelector ={
             "#virtualclassCont.congrea .bootstrap .navListTab:hover"+
             "{color:"+hover.frontColor+"!important;}"+
             "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
-            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before," +
-            "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont button span:before"+
+            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before" +
             "{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}";
 

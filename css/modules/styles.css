@@ -3696,3 +3696,7 @@ opacity: 1;
 	pointer-events:  none;
 }
 /** suman end **/
+.bootstrap .navbar {
+    border: none !important;
+    min-height:48px !important;
+}

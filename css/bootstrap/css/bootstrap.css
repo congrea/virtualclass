@@ -4255,9 +4255,9 @@
 }
 .bootstrap .navbar {
   position: relative;
-  min-height: 48px; /* Changed from 50px */
+  min-height: 50px;
   margin-bottom: 20px;
-/*  border: 1px solid transparent;*/
+  border: 1px solid transparent;
 }
 @media (min-width: 768px) {
   .bootstrap .navbar {

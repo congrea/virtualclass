@@ -1,13 +1,28 @@
 /* New Id's & Classes */
+
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 1px;
+}
 #audioWidget ul li a {
-    padding-top:12px !important;
-    padding-bottom:12px !important;
+    padding-top:14px !important;
+    padding-bottom:9px !important;
     text-align:center;
 }
 
+#virtualclassCont.congrea #virtualclassAppRightPanel {height: 100vh;}
 
 #virtualclassCont.congrea #appSettingCtrl :hover {
    height:55px !important;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
+    background: #4c5963 none;
+    height: 48px;
+}
+#virtualclassCont.congrea #audioWidget .settingActive {
+    background: #2d3741 none;
 }
 
 #virtualclassCont.congrea #appSettingCtrl span a {
@@ -22,22 +37,30 @@
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail{
    display : none;
     overflow:scroll;
-     height : calc(100% - 45px);
-    padding-left:10px;
-    padding-right:10px;
+     height : calc(100% - 48px);
     font-family: Helvetica ;
 }
 
+#virtualclassCont.congrea #rightSubContainer #chatWidget .chatBarTab {
+    background-color: #4c5963;
+    height: 48px;
+}
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
 /*    display:none;*/
     height : calc(100% - 45px);
+}
+
+#virtualclassCont.congrea #rightSubContainer .prechk {
+    border-right-width: 0 !important;
 }
 
 #virtualclassCont.congrea #rightSubContainer {
 	clear : both;
 }
 
-
+#virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
+    height: auto;
+}
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource{
 	display : none;
 }
@@ -45,9 +68,12 @@
 #virtualclassCont.congrea #chatWidget {
 	height : 100%;
 }
-
+#virtualclassCont.congrea #virtualclassAppRightPanel {
+    border-left-width: 0;
+}
 #virtualclassCont.congrea #rightSubContainer, #virtualclassCont #congreaChatMainCont {
-	height : calc(100% - 279px);
+	height : calc(100% - 287px);
+    border-left: 1px solid #dfdfdf;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel.hide #rightSubContainer  {
     height : 94.3vh;
@@ -95,12 +121,6 @@
     font-size: 11px;
     font-family: 'icomoon';
 }
-
-
-#virtualclassCont #chatWidget #stickycontainer ul li .inner_bt {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 .user_search {
     content: "\f0c0";
     font-size:18px;
@@ -111,19 +131,19 @@
     height:52px;
 }
 
-
 #appSettingDetail label {
     margin-top:6px;
     margin-bottom:6px;
     font-weight:500;
-    font-size:17px;
+    font-size:16px;
+    color: #3d454c;
 }
 
 #virtualclassCont #appSettingDetail .switch {
   position: relative;
   display: inline-block;
-  width: 34px;
-  height: 14px;
+  width: 43px;
+  height: 22px;
     float:right;
     margin:0 ;
 }
@@ -137,17 +157,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: grey;
+  background-color: #7d8c99;
   -webkit-transition: .4s;
   transition: .4s;
 }
 #virtualclassCont #appSettingDetail .slider:before {
   position: absolute;
   content: "";
-  height: 12px;
-  width: 12px;
-  left: 1px;
-  top:1px;
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  top:3px;
   bottom:1px;  
   background-color: white;
   -webkit-transition: .4s;
@@ -157,35 +177,35 @@
   background-color: #37da52;
 }
 #virtualclassCont #appSettingDetail #contrVideoAll.enable .slider {
-background-color: #37da52;
+background-color: #05b688;
 }
 
 #virtualclassCont #appSettingDetail input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
 }
 #virtualclassCont #appSettingDetail li.enable .slider:before {
--webkit-transform: translateX(18px);
--ms-transform: translateX(18px);
-transform: translateX(18px);
+-webkit-transform: translateX(21px);
+-ms-transform: translateX(21px);
+transform: translateX(21px);
 }
 #virtualclassCont #appSettingDetail .slider.round {
-  border-radius: 34px;
+  border-radius: 3px;
 }
 #virtualclassCont #appSettingDetail .slider.round:before {
-  border-radius: 50%;
+  border-radius: 3px;
 }
 #virtualclassCont #appSettingDetail .pre-check-btn {
     display: inline-block;
     min-width: 18px;
-    padding: 3px 7px;
+    padding: 6px 10px;
     font-size: 12px;
-    font-weight: 100;
+    font-weight: 400;
     letter-spacing:.7px;
     line-height: 1;
     color: #fff;
     text-align: center;
-    background-color: #777;
-    border-radius: 4px;
+    background-color: #4b5762;
+    border-radius: 3px;
     float:right;
     cursor:pointer;
 }
@@ -200,35 +220,35 @@ transform: translateX(18px);
     font-weight: normal;
     font-size: 15px;
     font-family: 'icomoon';
-    color: grey;
+    color: #858f97;
 }
 #virtualclassCont #appSettingDetail .enable #usersMuteSwitch:before {
     content: "\e611";
     font-weight: normal;
-    font-size: 15px;
+    font-size: 14px;
     font-family: 'icomoon';
-    color: grey;
+    color: #858f97;
 }
 #virtualclassCont #appSettingDetail .disable #usersVideoSwitch:before {
     content: "\e966";
     font-weight: normal;
     font-size: 18px;
     font-family: 'icomoon';
-    color: grey;
+    color: #858f97;
 }
 #virtualclassCont #appSettingDetail .enable #usersVideoSwitch:before {
     content: "\e96a";
     font-weight: normal;
     font-size: 18px;
     font-family: 'icomoon';
-    color: grey;
+    color: #858f97;
 }
 #virtualclassCont #appSettingDetail #validate-precheck:before {
     content: "\e968";
     font-weight: normal;
     font-size: 15px;
     font-family: 'icomoon';
-    color: grey;
+    color: #858f97;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -244,7 +264,7 @@ transform: translateX(18px);
 /*   n */
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail.active{
    display : block;
-    background-color:#eee;
+    background-color:#fff;
 }
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive{
 	display : none;
@@ -269,8 +289,10 @@ transform: translateX(18px);
 
 #virtualclassCont.congrea .audio-options select{
     text-overflow: ellipsis;
-    width:128px;
+    width:104px;
     font-size:13px;
+    border-width: 0;
+    background: #fff none;
 }
 
 #virtualclassCont.congrea .closeSetting:before {
@@ -283,7 +305,7 @@ transform: translateX(18px);
 #virtualclassCont.congrea .settingActive .setting-btn:before {
     content: "\e606";
     font-weight: normal;
-    font-size: 21px;
+    font-size: 24px;
     font-family: 'icomoon';
     color: white;
 }
@@ -302,9 +324,11 @@ transform: translateX(18px);
     font-size:15px !important;
 }
 #appSettingDetail .list-group .lists-cont{
-    padding:12px 14px !important;
+    padding:5px 14px !important;
     letter-spacing: 0.02em;
     margin-top: 4px;
+    color: #5e666c;
+    font-size: 13px;
     margin-bottom: 4px;
     background-color: white;
 }
@@ -322,31 +346,56 @@ transform: translateX(18px);
     right: 2px;
     top: 3px;
     height: 16px;
-    border-left: 1px solid #8d98a4;
     position: absolute;
     pointer-events: none;
 }
 
+#virtualclassCont.congrea #webRtcIoContainer video {
+    width: 290px;
+    height: auto;
+    margin: 20px 0 15px;
+    border-radius: 4px;
+}
+
+#rightSubContainer #appSettingDetail #settingMedia .list-group .lists-cont:before {
+    content: "\e966";
+    font-weight: normal;
+    font-size: 18px;
+    font-family: 'icomoon';
+    color: #858f97;
+    margin-right: 10px;
+    margin-top: -6px;
+    float: left;
+}
+#appSettingDetail #settingMedia .list-group .lists-cont {
+    margin-bottom: 6px;
+}
 
 #virtualclassCont #appSettingDetail select::-ms-expand {
 display: none;
 }
 
 #virtualclassCont #appSettingDetail .audio-options select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;  
-  display: block;
-  height: 21px;
-  float: right;
-  padding: 0 24px 0 8px;
-  color: #000;
-  background-color: rgb(248, 248, 248);
-  background-image: none;
-  border: 1px solid rgb(166, 166, 166);
-  -ms-word-break: normal;
-  word-break: normal;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;  
+    display: block;
+    height: 21px;
+    float: right;
+    padding: 0 18px 0 5px;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+/*
+#virtualclassCont #appSettingDetail .audio-options select option {
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+*/
 #virtualclassCont #appSettingDetail .appSettingIcons {
     display:inline-block;
     width:25px;
@@ -357,10 +406,18 @@ display: none;
     margin-bottom:15px;
 }
 #virtualclassCont #appSettingDetail .bulkUserActions {
-    margin-top:15px;
     margin-bottom:15px;
 }
 #virtualclassCont #appSettingDetail .setting-heading {
-    padding-left:7px;
-    background-color:#3950601f;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 6px 14px;
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+
+@media (min-width: 768px){
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
+    height: 48px !important;
+    }
 }

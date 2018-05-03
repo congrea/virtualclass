@@ -653,7 +653,9 @@
             if(roles.hasControls()){
                 localStorage.setItem('videoSwitch',virtualclass.videoHost.gObj.videoSwitch );
             }else{
-                localStorage.setItem('stdVideoSwitch',virtualclass.videoHost.gObj.stdStopSmallVid)
+                localStorage.setItem('stdVideoSwitch',virtualclass.videoHost.gObj.stdStopSmallVid);
+                localStorage.setItem('allStdVideoOff',  virtualclass.videoHost.gObj.allStdVideoOff);
+
             }
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
             io.disconnect();

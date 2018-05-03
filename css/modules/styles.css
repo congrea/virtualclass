@@ -1855,7 +1855,7 @@
 
 #virtualclassCont.congrea .ui-memblist-usr.student , #virtualclassCont.congrea .ui-memblist-usr.mySelf.teacher[data-role="p"] , #virtualclassCont.congrea .ui-memblist-usr.mySelf.student[data-role="s"] {
 /*	border-bottom:#ddd 1px solid;*/
-        background-color: #e8e8e8;
+    
 }
 
 #virtualclassCont.congrea .ui-memblist-usr[data-role="p"]{
@@ -2174,6 +2174,7 @@
 	text-decoration: none;
 	text-transform: uppercase;
 	border:#70ab6b 1px solid;
+    display:none;
 }
 
 #virtualclassCont.congrea #beTeacher:hover{
@@ -2347,7 +2348,7 @@
 
 #virtualclassCont.congrea .bootstrap .nav-tabs > li > a{
 	border-radius: 6px 6px 0 0;
-	padding: 6px 15px;
+	padding: 4px 12px;
 }
 
 #virtualclassCont.congrea .headerContainer{
@@ -2685,7 +2686,7 @@
 	border-radius: 4px;
 }
 #virtualclassCont.congrea .vchead  {
-	margin: 15px;
+	margin: 12.5px 15px;
 	font-size: 1.2em;
 	text-shadow: none;
 }

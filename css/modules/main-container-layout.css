@@ -16,7 +16,7 @@
 }
 
 #virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody{
-  height : calc(100% - 58px);
+  height : calc(100% - 48px); /* changed from 58px */
 }
 
 #virtualclassCont.congrea #virtualclassVideo, #virtualclassCont.congrea #videoPlayerCont, #virtualclassCont.congrea #dispVideo,

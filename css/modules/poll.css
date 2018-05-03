@@ -18,10 +18,11 @@
 #virtualclassCont.congrea .bootstrap .pollNavBar {
   border-bottom: none !important;
   margin-left: 20px;
+    margin-top:6px;
 }
 
 #virtualclassCont.congrea .bootstrap .pollNavBar li {
-  margin-top: 15px;
+  margin-top: 6px;
   margin-right: 10px;
   font-size: 1.2em;
 }

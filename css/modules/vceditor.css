@@ -18,9 +18,8 @@
 }
 
 #virtualclassCont.congrea .vceditor-with-toolbar .CodeMirror {
-  top: 56px;
+  top: 70px;
   padding-left: 10px;
-  padding-right:10px;
 }
 
 #virtualclassCont.congrea .vceditor-with-toolbar .CodeMirror-lines {
@@ -34,9 +33,10 @@
 #virtualclassCont.congrea.presenter #virtualclassEditorRich, #virtualclassCont.congrea.presenter #virtualclassEditorCode, #virtualclassCont.congrea.presenter #virtualclassScreenShare{margin-left : 60px}
 
 #virtualclassCont.congrea .vceditor-toolbar {
-  height: 48px; /* Changed from 68px */
-  line-height: 48px;
+  height: 68px;
+  line-height: 60px;
   padding-left: 22px;
+  border-bottom: 1px solid #c9c9c9;
 
   /* Don't select text when double-clicking in toolbar */
   -webkit-touch-callout: none;
@@ -119,7 +119,7 @@
 
 #virtualclassCont.congrea .vceditor-btn-group {
 
-  margin: 11px 7px 11px 0;
+  margin: 19px 7px 0 0;
   display: inline-block;
 }
 
@@ -421,10 +421,3 @@
     border: 1px solid #555;
     color: #fff;
 }
-
-
-
-
-
-
-

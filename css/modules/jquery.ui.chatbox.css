@@ -605,6 +605,8 @@
 
 #virtualclassCont.congrea #chat_div{
     overflow-y: auto;
+    position: relative;
+    padding-top: 52px;
 }
 
 #virtualclassCont.congrea .ui-widget-content{
@@ -650,6 +652,9 @@
 }
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.mySelf{
     pointer-events : none !important;
+    position: absolute;
+    top: 0;
+    width:100%;
 }
 
 #virtualclassCont.congrea #chat_room .ui-chatbox-msg{

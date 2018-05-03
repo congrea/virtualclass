@@ -150,6 +150,9 @@
 
 #virtualclassCont.congrea #congdashboard.modal .modal-header{
   padding : 6px;
+  background-color: #34404c;
+  color: white;
+  height: 48px;
 }
 
 /** for dashboard grid  view */
@@ -378,5 +381,5 @@
   /*height: 87%;*/
   max-height:none;
   padding : 0;
-  height: calc(100vh - 45px);
+  height: calc(100vh - 57px);
 }

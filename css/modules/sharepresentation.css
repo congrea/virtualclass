@@ -99,3 +99,6 @@
   display:inline;
   text-align: center;
 }
+embed-footer {
+     display:none !important; 
+}

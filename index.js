@@ -1665,7 +1665,14 @@ $(document).ready(function () {
             this.toggleVideo=function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){
                     var sw = document.querySelector(".videoSwitchCont #videoSwitch");
-                    sw.click();
+                    if(sw.classList.contains("off") &&  e.message.action == "disable"){
+                        console.log("do nothing");
+                    }else if(sw.classList.contains("on")  &&  e.message.action == "enable") {
+                        console.log("don nothing");
+                    }else{
+                        sw.click();
+                    }
+
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }

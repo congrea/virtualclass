@@ -37,7 +37,7 @@
 }
 
 #virtualclassCont.congrea .writeModeBox {
-  top: 35px;
+  top: 47px;
   right: 0px;
   position: absolute;
   text-align: center;
@@ -70,10 +70,12 @@
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: absolute;
-  top: 25px;
+  top: 45px;
   right: 0px;
   width: 55px;
   height: 18px;
+  /* padding-left: 5px; */
+  /* text-align: center; */
   padding: 5px 8px 0px 8px;
   font-size: 12px;
   font-weight: 200;
@@ -124,7 +126,7 @@
   background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
   border-top-left-radius: 5px;
-  border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 5px;
 
 }
 

@@ -1,9 +1,9 @@
 #virtualclassCont.congrea #networkStatusContainer {
   position: relative;
-  top: -33px;
-  width: 50px;
-  left: 7px;
-  float:right;
+    top: -33px;
+    width: 46px;
+    left: 7px;
+    float: right;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {
@@ -101,7 +101,12 @@
 #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon .icon-whiteboard #svg-spinner{
   display: none;
 }
-
+#virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
+    margin-top: -7px;
+    margin-right: 8px;
+    padding-right: 8px;
+    float: right;
+}
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner{
   transition-property: transform;
   animation-name: rotate;

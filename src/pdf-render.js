@@ -438,6 +438,7 @@
                                                 }, 10
                                             );
                                         }
+                                        virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
                                     },10
                                 );
                                 // virtualclass.zoom.normalRender();

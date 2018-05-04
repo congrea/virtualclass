@@ -3697,6 +3697,11 @@ opacity: 1;
 	opacity : 0.5;
 	pointer-events:  none;
 }
+
+#virtualclassCont.resizeWindow #virtualclassWhiteboard .nvgt, #virtualclassCont.resizeWindow #screen-docs .nvgt{
+	pointer-events: none;
+	opacity : 0.5;
+}
 /** suman end **/
 .bootstrap .navbar {
     border: none !important;

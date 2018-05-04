@@ -103,6 +103,8 @@ body {
     bottom: 48px;
     width:100%;
     text-align:right;
+    margin:10px 0;
+    z-index:99999;
     margin:10px 0 15px;
     
 } 

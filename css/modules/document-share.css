@@ -767,7 +767,7 @@
 
 #virtualclassCont.congrea #listdocs {
     overflow : auto;
-    height: calc(100vh - 153px);
+    height: calc(100vh - 145px);
 }
 
 #virtualclassCont.congrea #docsUploadMsz {

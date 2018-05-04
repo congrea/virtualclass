@@ -24,8 +24,10 @@
 
 #virtualclassCont.congrea #layoutQuizBody{
   padding: 20px;
+/*
   border: 1px solid #ccc;
   border-width: 0 1px 1px 1px;
+*/
 }
 #virtualclassCont.congrea #layoutQuizBody .quizList{
   margin: 0;

@@ -349,14 +349,17 @@
 
             afterRequestOrder : function (content){
                 this.order.length = 0;
-                // this.order = content.split(',');
                 this.order = content;
-                var docId = 'docs' + this.getDocId(this.order[0]);
-                // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-                console.log('From database doc share order ' + this.order.join(','));
-                this.setScreenByOrder(docId);
-                this.docs.currNote = this.order[0];
-                this.docs.displayScreen(docId, this.order[0]);
+                var doc = this.getDocId(this.order[0]);
+                if(virtualclass.dts.allDocs.hasOwnProperty(doc)){
+                    var docId = 'docs' + doc;
+                    // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
+                    console.log('From database doc share order ' + this.order.join(','));
+                    this.setScreenByOrder(docId);
+                    this.docs.currNote = this.order[0];
+                    this.docs.displayScreen(docId, this.order[0]);
+                }
+
             },
 
             /**

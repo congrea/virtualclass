@@ -985,6 +985,10 @@
                     var data_pack = new Int8Array(msg);
                     var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     return [uid, data_pack.subarray(5, data_pack.length)];
+                },
+
+                removeAudioFromLocalStorage : function (){
+                    localStorage.removeItem('audEnable');
                 }
 
             },
@@ -1442,13 +1446,16 @@
                     virtualclass.user.control.audioDisable();
                 }
 
+                var that = this;
                 var mediaStreamTrack = stream.getVideoTracks()[0];
                 if (typeof mediaStreamTrack != "undefined") {
                     mediaStreamTrack.onended = function () {//for Chrome.
                         virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
+                        virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
+                    virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;
@@ -1638,6 +1645,7 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
+                virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
             },
 
 

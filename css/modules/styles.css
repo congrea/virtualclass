@@ -3708,5 +3708,7 @@ opacity: 1;
     min-height:48px !important;
 }
 .bootstrap .modal-content {
-    border:none !important;
+    border-top:none !important;
+    border-bottom:none !important;
+    border-left:none !important;
 }

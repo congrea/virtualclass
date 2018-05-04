@@ -988,6 +988,7 @@
                 },
 
                 removeAudioFromLocalStorage : function (){
+                    console.log('Remove audio from local storage');
                     localStorage.removeItem('audEnable');
                 }
 
@@ -1406,43 +1407,26 @@
              * @param stream object
              */
 
-
             handleUserMedia: function (stream) {
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
+
                 if(virtualclass.system.mediaDevices.hasMicrophone){
                     virtualclass.gObj.video.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
-                        if(audio.ac == 'false' || audio.ac == false){
-                            if(audio.hasOwnProperty('r') && audio.r == 'vd'){
-                                virtualclass.user.control.audioWidgetEnable();
-                            } else {
-
-                                if(roles.isStudent()){
-                                    virtualclass.user.control.audioDisable();
-                                    virtualclass.gObj.audioEnable = false;
-
-                                }else {
-                                    virtualclass.user.control.audioWidgetEnable();
-                                    virtualclass.gObj.audioEnable = true;
-                                }
-
-                                if(typeof stream != 'undefined'){
-                                    virtualclass.user.control.videoEnable();
-                                }
-                            }
-                        }else {
+                        if((audio.ac == 'false' || audio.ac == false)){
+                            virtualclass.gObj.audioEnable = false;
+                            virtualclass.user.control.audioDisable(true);
+                        }else if(audio.ac == 'true' || audio.ac == true){
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-
-                    } else if(virtualclass.vutil.elemHasAnyClass('audioWidget') && audioWiget.classList.contains('deactive')){
-                        virtualclass.gObj.audioEnable = true;
-                        virtualclass.user.control.audioWidgetEnable();
+                    } else if(typeof stream != 'undefined'){
+                        virtualclass.user.control.audioWidgetEnable(true);
                     }
-                }else {
+                } else {
                     virtualclass.user.control.audioDisable();
                 }
 
@@ -1451,11 +1435,11 @@
                 if (typeof mediaStreamTrack != "undefined") {
                     mediaStreamTrack.onended = function () {//for Chrome.
                         virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
-                        virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
+                        // virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
+                    //virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;
@@ -1645,7 +1629,7 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
-                virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
+                //virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
             },
 
 

@@ -12,7 +12,6 @@ $(document).ready(function () {
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
-
         window.pageEnter = new Date().getTime();
         var virtualclass = new window.virtualclass();
 
@@ -1263,6 +1262,7 @@ $(document).ready(function () {
 
             //disable audio
             this.dia = function (e) {
+                virtualclass.gObj.audioEnable = false;
                 var speakerPressOnce = document.querySelector('#speakerPressOnce');
                 if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
                     virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');

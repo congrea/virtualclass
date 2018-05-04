@@ -1451,11 +1451,11 @@
                 if (typeof mediaStreamTrack != "undefined") {
                     mediaStreamTrack.onended = function () {//for Chrome.
                         virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
-                        that.removeAudioFromLocalStorage();
+                        virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    that.removeAudioFromLocalStorage();
+                    virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;

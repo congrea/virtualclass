@@ -537,9 +537,9 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 55px;
+	bottom:53px;
 	width: 50px;
-	right: 425px;
+	right: 440px;
 	left: auto;
 	height: 20px;
 	position: fixed;
@@ -547,9 +547,9 @@
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-    top: 55px;
+    bottom:53px;
     width: 53px;
-    right: 378px;
+    right: 394px;
     height: 20px;
     left: auto;
     position: fixed;
@@ -557,9 +557,9 @@
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 55px;
+	bottom: 53px;
 	width: 66px;
-	right: 333px;
+	right: 334px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -3202,7 +3202,7 @@
   margin: 0 0 10px 5px;
   display: inline-block;
   padding: 4px 7px;
-  line-height: 20px;
+/*  line-height: 20px;*/
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -3246,7 +3246,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
-	z-index: 2;
+	z-index: 999999;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr >th,
@@ -3711,4 +3711,12 @@ opacity: 1;
     border-top:none !important;
     border-bottom:none !important;
     border-left:none !important;
+    border-color:#bbb;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel.noWebcam #videoHostContainer{
+    display : none;
+}
+#virtualclassCont.congrea #screen-docs .pageContainer  .congtooltip:hover:after {
+    bottom:-30px !important;
+    left: 4px;
 }

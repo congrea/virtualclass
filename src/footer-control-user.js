@@ -777,7 +777,7 @@
                     }
 
                     console.log('audEnable ' + ad)
-                    localStorage.setItem('audEnable', JSON.stringify(ad));
+                    // localStorage.setItem('audEnable', JSON.stringify(ad));
 
                     var studentSpeaker = document.getElementById('audioWidget');
                     studentSpeaker.style.opacity = "1";

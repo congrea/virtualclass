@@ -50,6 +50,9 @@ body {
 /*    display:none;*/
     height : calc(100% - 48px);
 }
+#virtualclassCont.congrea.student #rightSubContainer #congreaChatMainCont {
+    height : calc(100% - 49px);
+}
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
     background: #2d3741 none;
     height: auto;
@@ -64,6 +67,15 @@ body {
 
 #virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
     height: auto;
+}
+#virtualclassCont.congrea.student #rightSubContainer a.inner_bt, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt:hover {
+    height: 48px;
+}
+#virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon:hover {
+    float: left;
+}
+#virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr:before {
+    margin-left: -10px;
 }
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource{
 	display : none;
@@ -101,10 +113,12 @@ body {
 #virtualclassCont .footerCtr {
     position: absolute;
     bottom: 48px;
-    width:100%;
-    text-align:right;
-    margin:10px 0 15px;
-    
+    width: 100%;
+    text-align: right;
+    background: #fff;
+    margin: 0;
+    padding: 10px 0 15px;
+    z-index: 10000;
 } 
 #virtualclassCont .footerCtr input {
     padding: 7px;
@@ -433,6 +447,28 @@ display: none;
 }
 #virtualclassCont.congrea .congtooltip:hover:after {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer a.inner_bt.congtooltip:hover:after {
+    bottom: 4.5em !important;
+    right: 3.4em !important;
+    left: auto !important;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
+    bottom: 4.5em;
+    left: auto;
+    right: 2.4em;
+}
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
+    right: 1em;
+}
+
+#virtualclassCont.congrea .handRaise.congtooltip:hover:after {
+    border-radius: 0.25em;
+    bottom: 4.8em;
+    right: 0.2em;
+    left: auto;
+    padding: 0.2em 0.42em;
+    text-transform: capitalize;
 }
 
 /* Responsive */

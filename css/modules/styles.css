@@ -1172,8 +1172,8 @@
 
 #virtualclassCont.congrea.student #speakerPressOnce{
 	width : 25%;
-	height : 50px;
-	padding-top: 10px;
+	height : 48px;
+	padding-top: 14px;
 }
 
 #virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {
@@ -2882,7 +2882,7 @@
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 17px 11px 17px 21px !important;
+	padding: 18px 31px 14px 35px !important;
 }
 
 #dashboardnav .btn-primary {

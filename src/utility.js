@@ -1706,7 +1706,7 @@
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
             } else {
-                upload.validation = ['doc', 'docx', 'txt', 'html', 'xml', 'odt', 'ott', 'pdf', 'ppt', 'pptx', 'pot', 'pps', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
+                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'odt', 'ott', 'pdf', 'ppt', 'pptx', 'pot', 'pps', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
                 upload.maxSize=20*1024*1024;

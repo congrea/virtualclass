@@ -172,7 +172,7 @@
     /*height: calc(100vh - 54px) !important;*/
 
     /*padding: 20px;*/
-    border: 1px solid #d6d5d5;
+    
     text-align: center;
     float: left;
     margin:0;
@@ -374,8 +374,8 @@
     margin: -2px 3px 3px;
     background: #fff;
     position: absolute;
-    bottom: -3px;
-    right: -3px;
+    bottom: 1px;
+    right: -9px;
     box-shadow: 0 0 3px rgb(96, 96, 97);
     width:45px;
 }
@@ -384,14 +384,14 @@
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"] {
     float: left;
     font-size: 0px;
-    margin: 1px 6px 0px;
+/*    margin: 1px 6px 0px;*/
     height: 14px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
     float: left;
     font-size: 0px;
-    margin: 0px 3px -2px 1px;
+/*    margin: 0px 3px -2px 1px;*/
     height: 14px;
 }
 

@@ -617,7 +617,13 @@
     height:calc(100vh - 400px);
     margin: 0px;
 }
-
+#virtualclassCont.congrea.teacher.nowebcam #chat_room{
+    height:calc(100vh - 183px);
+    margin: 0px;
+}
+#virtualclassCont.congrea.student .vidHide #chat_room {
+    height: calc(100vh - 178px) !important;
+}
 #virtualclassCont.congrea.student #chat_room {
     height: calc(100vh - 400px) !important;
 }

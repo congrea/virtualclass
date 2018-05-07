@@ -768,6 +768,8 @@
 #virtualclassCont.congrea #listdocs {
     overflow : auto;
     height: calc(100vh - 145px);
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
 }
 
 #virtualclassCont.congrea #docsUploadMsz {

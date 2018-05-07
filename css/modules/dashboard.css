@@ -117,7 +117,6 @@
 #virtualclassCont.congrea #docsListContainer {
   height : 98vh;
   width : 18.5%;
-  border-right : 1px solid #eee;
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs .controls.delete{

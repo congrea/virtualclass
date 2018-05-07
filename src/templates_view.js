@@ -1172,5 +1172,5 @@ this["JST"]["templates/youtube/ytscontrol.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"zoomControler\">\n  <button class=\"zoomIn\"><span class=\"congtooltip\" data-title=\"Zoon In\" ><i class=\"icon-zoonIn\"></i></span></button>\n  <button class=\"zoomOut\"><span class=\"congtooltip\" data-title=\"Zoom Out\" ><i class=\"icon-zoomOut\"></i></span></button>\n  <button class=\"fitScreen\"><span class=\"congtooltip\" data-title=\"Fit to screen\" ><i class=\"icon-fitScreen\"></i></span></button>\n</div>";
+    return "<div class=\"zoomControler\">\n  <div class=\"zoomIn\"><span class=\"congtooltip\" data-title=\"Zoom In\" ><i class=\"icon-zoonIn\"></i></span></div>\n  <div class=\"zoomOut\"><span class=\"congtooltip\" data-title=\"Zoom Out\" ><i class=\"icon-zoomOut\"></i></span></div>\n  <div class=\"fitScreen\"><span class=\"congtooltip\" data-title=\"Fit to screen\" ><i class=\"icon-fitScreen\"></i></span></div>\n</div>";
 },"useData":true});

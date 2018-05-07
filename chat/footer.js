@@ -208,8 +208,14 @@
             function searchUser() {
                 var arr = [];
                 virtualclass.connectedUsers.forEach(function (item) {
-                    arr.push(item.name.toLowerCase());
+                    if(item.userid != virtualclass.gObj.uid){
+                        var obj={
+                            'id':item.userid,
+                            'name':item.name.toLowerCase()
+                        };
 
+                        arr.push(obj);
+                    }
                 });
 
                 var text = document.getElementById("congreaUserSearch").value;
@@ -217,11 +223,11 @@
 
             }
             function _searchUser(arr, search) {
-                arr.forEach(function (elem, index) {
-                    if (elem.indexOf(search) != -1) {
-                        $('#ml' + virtualclass.connectedUsers[index].userid).show();
+                arr.forEach(function (obj, index) {
+                    if (obj['name'].indexOf(search) != -1) {
+                        $('#ml' + obj['id']).show();
                     } else {
-                        $('#ml' + virtualclass.connectedUsers[index].userid).hide();
+                        $('#ml' + obj['id']).hide();
                     }
 
                 })

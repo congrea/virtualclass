@@ -2162,7 +2162,14 @@
     font-weight: normal;
     letter-spacing: 1.3px;
 }
-
+#virtualclassCont.congrea #congdashboard #docsUploadMsz  .close {
+    background-color:#2f6f2794;
+    margin-top: -2px;
+}
+#virtualclassCont.congrea #congdashboard #docsUploadMsz  .close:hover {
+    background-color:#2f6f2794;
+    border-color:green;
+}
 #virtualclassCont.congrea #beTeacher {
 	background: #7bb876 none repeat scroll 0 0;
 	border-radius: 4px;
@@ -3278,11 +3285,6 @@
    margin: -3px 2px 3px !important;
 }
 
-#virtualclassCont.congrea .videoTitleCont {
-   width: 67.333333%;
-   padding-right: 0px;
-	 float: left;
-}
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
    width:100%;

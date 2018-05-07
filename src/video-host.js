@@ -578,28 +578,23 @@ var videoHost = {
 
     UI: {
         displayVideo: function () {
-            var host = document.getElementById("videoHostContainer");
-
+            var host = document.querySelector(".congrea #videoHostContainer");
             host.classList.add("show")
             host.classList.remove("hide");
 
             var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
             rightbar.classList.add("vidShow")
-
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
             rightbar.classList.remove("vidHide")
            // virtualclass.view._windowResizeFinished();
 
         },
         hideVideo: function () {
-            var host = document.getElementById("videoHostContainer");
+            var host = document.querySelector(".congrea #videoHostContainer");
             host.classList.remove("show");
             host.classList.add("hide");
 
             var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
             rightbar.classList.add("vidHide")
-
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
             rightbar.classList.remove("vidShow")
         }
 

@@ -3696,6 +3696,15 @@ opacity: 1;
     border-left:none !important;
     border-color:#bbb;
 }
+
+#virtualclassCont.congrea #videoHostContainer.show{
+	display:block;
+}
+
+#virtualclassCont.congrea #videoHostContainer.hide{
+	display:none;
+
+}
 #virtualclassCont.congrea #virtualclassAppRightPanel.noWebcam #videoHostContainer{
     display : none;
 }

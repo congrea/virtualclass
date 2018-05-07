@@ -53,10 +53,13 @@ var videoHost = {
 
             this.domReady = true;
         } else {
+
+
             this.setCanvasAttr('videoPartCan', 'videoParticipate');
             //this.setCanvasAttr('videoPartCan', 'videoParticipate');
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
+            virtualclass.videoHost.UI.hideVideo();
         }
 
         var rightPanel = document.querySelector('#virtualclassAppRightPanel');
@@ -318,7 +321,7 @@ var videoHost = {
         setInterval(
             function () {
                 if (that.gObj.videoSwitch) {
-                    if (io.webSocketConnected()){
+                    if (io.webSocketConnected()&& virtualclass.system.mediaDevices.hasWebcam){
                       that._shareVideo(that, resA, resB);
                     }
                 }
@@ -396,6 +399,12 @@ var videoHost = {
             if(typeof sampleRate == 'undefined'){
                 sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
             }
+        }
+        if(virtualclass.gObj.isReadyForVideo){
+            if(document.querySelector("#virtualclassCont.congrea #videoHostContainer.hide")){
+                virtualclass.videoHost.UI.displayVideo();
+            }
+
         }
 
         setTimeout(
@@ -566,20 +575,32 @@ var videoHost = {
     }
 
    },
-    //nirmala
+
     UI: {
         displayVideo: function () {
             var host = document.getElementById("videoHostContainer");
-            host.style.display = "block";
-            virtualclass.view._windowResizeFinished();
+
+            host.classList.add("show")
+            host.classList.remove("hide");
+
+            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+            rightbar.classList.add("vidShow")
+
+            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+            rightbar.classList.remove("vidHide")
+           // virtualclass.view._windowResizeFinished();
 
         },
         hideVideo: function () {
             var host = document.getElementById("videoHostContainer");
-            host.style.display = "none";
-            virtualclass.view._windowResizeFinished();
+            host.classList.remove("show");
+            host.classList.add("hide");
 
+            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+            rightbar.classList.add("vidHide")
 
+            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+            rightbar.classList.remove("vidShow")
         }
 
     }

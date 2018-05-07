@@ -1395,6 +1395,8 @@
                 if(webcam == false){
                     virtualclass.user.control.videoDisable();
                     virtualclass.vutil.addClass('virtualclassAppRightPanel', 'noWebcam');
+                    //virtualclass.videoHost.UI.hideVideo();
+
                 }
 
             },

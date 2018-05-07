@@ -469,7 +469,23 @@ var newCanvas;
              *
              */
             onError: function (e) {
-                virtualclass.ss.setCurrentApp();
+               // virtualclass.ss.setCurrentApp();
+                if(virtualclass.previous){
+                    var previous =virtualclass.previous
+                    virtualclass.currApp =  previous.split('virtualclass')[1];
+                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+
+                } else if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
+                    virtualclass.currApp = virtualclass.previousApp.name;
+                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                }
+                if(virtualclass.currApp=='Video' || virtualclass.currApp=='SharePresentation' || virtualclass.currApp=='DocumentShare'){
+                    if(roles.hasControls()){
+                        virtualclass.vutil.initDashboardNav();
+                    }
+                }
+
+
                 console.log("Error " + e);
             },
             /*

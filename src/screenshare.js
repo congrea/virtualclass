@@ -193,24 +193,14 @@ var newCanvas;
                     if(zoomIn != null){
                         var that = this;
                         zoomIn.onclick = function (elem){
-                            virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * that.SCALE_FACTOR;
-                            virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * that.SCALE_FACTOR;
-
-                            that.scale = that.scale * that.SCALE_FACTOR;
-                            renderImage(globalImageData);
-
-                            that.addScroll();
+                            that.zoomIn();
                         }
                     }
 
                     if(zoomOut != null){
                         var that = this;
                         zoomOut.onclick = function (){
-                            that.scale = that.scale / that.SCALE_FACTOR;
-                            virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1/that.SCALE_FACTOR);
-                            virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) *(1/that.SCALE_FACTOR);
-                            renderImage(globalImageData);
-                            that.addScroll();
+                            that.zoomOut();
                         }
                     }
 
@@ -224,6 +214,26 @@ var newCanvas;
 
                 this.szoom = true;
             },
+
+            zoomIn : function (){
+              virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * this.SCALE_FACTOR;
+              virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR;
+
+              this.scale = this.scale * this.SCALE_FACTOR;
+              renderImage(globalImageData);
+
+              this.addScroll();
+            },
+
+            zoomOut : function (){
+              this.scale = this.scale / this.SCALE_FACTOR;
+              virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1/this.SCALE_FACTOR);
+              virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) *(1/this.SCALE_FACTOR);
+              renderImage(globalImageData);
+                this.addScroll();
+            },
+
+
 
             addScroll : function (){
                 var canvasWidth = virtualclass.ss.localCanvas.width;
@@ -469,7 +479,23 @@ var newCanvas;
              *
              */
             onError: function (e) {
-                virtualclass.ss.setCurrentApp();
+               // virtualclass.ss.setCurrentApp();
+                if(virtualclass.previous){
+                    var previous =virtualclass.previous
+                    virtualclass.currApp =  previous.split('virtualclass')[1];
+                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+
+                } else if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
+                    virtualclass.currApp = virtualclass.previousApp.name;
+                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                }
+                if(virtualclass.currApp=='Video' || virtualclass.currApp=='SharePresentation' || virtualclass.currApp=='DocumentShare'){
+                    if(roles.hasControls()){
+                        virtualclass.vutil.initDashboardNav();
+                    }
+                }
+
+
                 console.log("Error " + e);
             },
             /*

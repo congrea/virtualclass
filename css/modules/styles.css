@@ -3731,3 +3731,11 @@ opacity: 1;
     bottom:-30px !important;
     left: 4px;
 }
+
+#virtualclassCont.congrea  #docMsgStudent {
+	display : block;
+}
+
+#virtualclassCont.congrea  .noteDisplay #docMsgStudent{
+	display : none;
+}

@@ -52,8 +52,10 @@
                     function (){
                         if(virtualclass.currApp == 'ScreenShare'){
                             virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
+                        }else {
+                            cthis[fnName].call(cthis);
                         }
-                        cthis[fnName].call(cthis);
+
                     },200
                 );
             },

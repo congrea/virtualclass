@@ -305,8 +305,12 @@
         dimensionMatch: function(wbc, ssc) {
             var wbcWidth = document.getElementById(wbc).offsetWidth;
             var optionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
-            var sscWidth = document.getElementById(ssc).offsetWidth + optionsContWidth;
-            return (sscWidth == wbcWidth);
+            var sscElem = document.getElementById(ssc);
+            if(sscElem != null){
+                var sscWidth = sscElem.offsetWidth + optionsContWidth;
+                return (sscWidth == wbcWidth);
+            }
+            return false;
         },
         disableAppsBar: function() {
             var appBarCont = document.getElementById('virtualclassOptionsCont');

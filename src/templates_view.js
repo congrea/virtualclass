@@ -865,10 +865,10 @@ this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\" class=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "Title tooltip2 col-md-10\">\n\n  </div>\n  <div id=\"controlCont"
+    + "Title tooltip2 col-md-9\">\n\n  </div>\n  <div id=\"controlCont"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
-    + "\" class=\"controlCont col-md-2\">\n    <div class=\"controls mainpreview\" id=\"mainp"
+    + "\" class=\"controlCont col-md-3\">\n    <div class=\"controls mainpreview\" id=\"mainp"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\" data-screen=\""
@@ -1044,7 +1044,7 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"1":fu
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1), depth0))
     + "\" draggable=\"true\">\n  <div class=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "TitleCont col-md-10\" id =\"videoTitleCont"
+    + "TitleCont col-md-9\" id =\"videoTitleCont"
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\">\n    <div id=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -1059,7 +1059,7 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"1":fu
     + "\"></a>\n    </div>\n  </div>\n\n  <div id=\"controlCont"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
-    + "\" class=\"controlCont col-md-2\">\n    <div class=\"controls mainpreview \" id=\"mainp"
+    + "\" class=\"controlCont col-md-3\">\n    <div class=\"controls mainpreview \" id=\"mainp"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\" data-screen=\""

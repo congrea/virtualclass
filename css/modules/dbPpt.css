@@ -7,14 +7,12 @@
 
 #virtualclassCont #listppt .pptTitle{
   height:42px;
-  text-align:center;
-  margin-left: 28px;
+  padding-left: 28px;
   top: 14px;
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 50%;
 }
 
 #virtualclassCont #dashboardContainer .modal-body {
@@ -252,7 +250,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #pptListContainer{
   /*height : 89%;*/
-  height: 85vh;
+  height: 80vh;
   overflow-y: auto;
 }
 
@@ -311,7 +309,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #listppt .linkppt:nth-child(odd)
 {
-  background-color: #f9f9f9;
+  background-color: #4b576221;
 }
 #virtualclassCont.congrea #listppt .linkppt .mainpreview::before {
   content: "\ea15";

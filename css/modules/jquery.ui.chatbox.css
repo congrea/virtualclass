@@ -621,6 +621,9 @@
 #virtualclassCont.congrea.student #chat_room {
     height: calc(100vh - 400px) !important;
 }
+#virtualclassCont.videoff.student #chat_room {
+    height: calc(100vh - 106px) !important;
+}
 
 #virtualclassCont.congrea .usern span {
     margin-left : 6px;

@@ -271,8 +271,7 @@ var colorSelector ={
             "{background-image: linear-gradient(to bottom,#fff,#e6e6e6)!important ; }"+
 
             "#virtualclassCont.congrea #congdashboard .modal-header .close" +
-            "{opacity :1; width :100px; height:25px}"+
-
+            "{opacity :1;}"+
 
             "#virtualclassCont.congrea .modal-header .btn-default ,"+
             "#virtualclassCont.congrea .modal .btn-default ,"+
@@ -366,13 +365,17 @@ var colorSelector ={
 
         }
 
-        var css= "#virtualclassCont.congrea .ui-widget-header{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
+        var css= "#virtualclassCont.congrea .ui-widget-header," +
+            "#virtualclassCont.congrea #congdashboard .modal-header " +
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
             "#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, " +
             "#virtualclassCont.congrea #listvideo .linkvideo .controls .editanch:before, "+
             "#virtualclassCont.congrea #listvideo .linkvideo .controls:before{color:"+iconColor+"!important}"+
             "#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before{color:"+hover.fcolor+"!important}"+
             "#virtualclassCont.congrea #VideoDashboard button{color:"+frontColor+"!important}"+
             "#virtualclassCont.congrea #VideoDashboard button{border:1px solid"+frontColor+"!important}"+
+            "#virtualclassCont.congrea .modal-header button.close" +
+            "{background-color: "+active.frontColor+"!important} " +
             "#virtualclassCont.congrea #listvideo .linkvideo.playing{border:solid "+allbg.fcolor+" 1px!important}";
         this.addCss(css);
     },

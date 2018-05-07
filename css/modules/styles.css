@@ -3712,3 +3712,11 @@ opacity: 1;
     border-bottom:none !important;
     border-left:none !important;
 }
+
+#virtualclassCont.congrea #videoHostContainer.show{
+	display:block;
+}
+
+#virtualclassCont.congrea #videoHostContainer.hide{
+	display:none;
+}

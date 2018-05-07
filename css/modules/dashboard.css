@@ -117,7 +117,6 @@
 #virtualclassCont.congrea #docsListContainer {
   height : 98vh;
   width : 18.5%;
-  border-right : 1px solid #eee;
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs .controls.delete{
@@ -318,7 +317,7 @@
 
 
 #virtualclassCont #dashboardnav .btn-primary {
-  background : linear-gradient(to bottom, #51a0ef 0%, #0556a7 100%) !important;
+  background : linear-gradient(to bottom, #495560 0%, #39434a 100%) !important;
   height: 48px !important;
   margin-left: 8px !important;
   border-radius: 50%;

@@ -1093,12 +1093,11 @@
                             clearTimeout(dstData);
                         }
 
-                        if(virtualclass.gObj.currWb != null){
-                            if(virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
+                        if(virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] != 'undefined' &&
+                            virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].hasOwnProperty('page')
+                            && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
                                 virtualclass.zoom.normalRender();
-                            }
                         }
-
                     }
                 },
 

@@ -25,7 +25,17 @@
                 if(virtualclass.gObj.hasOwnProperty('dstAll') &&  typeof virtualclass.gObj.dstAll == 'string'){
                     this.storageRawData = null;
                 }else {
-                    this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
+
+                    if(virtualclass.gObj.dstAll == null || Object.keys(virtualclass.gObj.dstAll).length == 0){
+                        //In case of storing metata data of docs in local storage but not storing
+                        docsObj = undefined;
+                        localStorage.removeItem('dtsdocs');
+                        this.storageRawData = null;
+                    }else {
+                        this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
+                    }
+
+
                     this.allNotes = virtualclass.gObj.dstAllNotes;
                     if(roles.isStudent()){
                         virtualclass.serverData.rawData.docs = this.storageRawData;

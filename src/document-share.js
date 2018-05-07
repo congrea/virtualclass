@@ -25,7 +25,17 @@
                 if(virtualclass.gObj.hasOwnProperty('dstAll') &&  typeof virtualclass.gObj.dstAll == 'string'){
                     this.storageRawData = null;
                 }else {
-                    this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
+
+                    if(virtualclass.gObj.dstAll == null && Object.keys(virtualclass.gObj.dstAll).length == 0){
+                        //In case of storing metata data of docs in local storage but not storing
+                        docsObj = undefined;
+                        localStorage.removeItem('dtsdocs');
+                        this.storageRawData = null;
+                    }else {
+                        this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
+                    }
+
+
                     this.allNotes = virtualclass.gObj.dstAllNotes;
                     if(roles.isStudent()){
                         virtualclass.serverData.rawData.docs = this.storageRawData;
@@ -83,12 +93,15 @@
 
 
                 if(typeof docsObj != 'undefined' ){
+
                     if(docsObj.init != 'layout' && docsObj.init != 'studentlayout'){
                         if(this.storageRawData != null){
                             this.rawToProperData(this.storageRawData, 'fromStorage');
                         }
                         // docsObj.init = layout means first layout
                         this.setNoteScreen(docsObj);
+                    }else if(firstTime && roles.isStudent()) {
+                        this.rawToProperData(this.storageRawData, 'fromStorage');
                     }
                 } else {
                     // Check if there is already docs in local storage
@@ -726,7 +739,8 @@
                     var docShareCont = document.getElementById(this.id);
                     if(docShareCont == null){
                         var control= roles.hasAdmin()?true:false;
-                        var data ={"control":control};
+                        var data ={"control": roles.hasControls()};
+
                         var template = virtualclass.getTemplate('docsMain', 'documentSharing');
                         // $('#virtualclassAppLeftPanel').append(template(data));
 
@@ -977,7 +991,9 @@
                     var filePath = data.dres;
                     this.currDoc = filePath;
                     var relativeDocs =  virtualclass.dts.getDocs(filePath);
-                    virtualclass.dts.onResponseFiles(filePath, relativeDocs, data.ds);
+                    if(relativeDocs != null){
+                        virtualclass.dts.onResponseFiles(filePath, relativeDocs, data.ds);
+                    }
                     // TODO, disabling following can be critical, with new api
                     // virtualclass.vutil.updateCurrentDoc(this.currDoc, 1);
                 },
@@ -1005,13 +1021,15 @@
                             doc = doc.split('docs')[1];
                         }
                         var slides = cthis.getDocs(doc);
-                        if(typeof fromReload == 'undefined'){
-                            cthis.onResponseFiles(doc, slides, undefined, slide);
-                        } else {
-                            cthis.onResponseFiles(doc, slides, undefined, slide, 'fromReload');
-                        }
+                        if(slides != null){
+                            if(typeof fromReload == 'undefined'){
+                                cthis.onResponseFiles(doc, slides, undefined, slide);
+                            } else {
+                                cthis.onResponseFiles(doc, slides, undefined, slide, 'fromReload');
+                            }
 
-                        if(typeof cb != 'undefined'){ cb();}
+                            if(typeof cb != 'undefined'){ cb();}
+                        }
                     }
 
                 },

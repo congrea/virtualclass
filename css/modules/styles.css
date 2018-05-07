@@ -537,9 +537,9 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 55px;
+	bottom:53px;
 	width: 50px;
-	right: 425px;
+	right: 440px;
 	left: auto;
 	height: 20px;
 	position: fixed;
@@ -547,9 +547,9 @@
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-    top: 55px;
+    bottom:53px;
     width: 53px;
-    right: 378px;
+    right: 394px;
     height: 20px;
     left: auto;
     position: fixed;
@@ -557,9 +557,9 @@
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	top: 55px;
+	bottom: 53px;
 	width: 66px;
-	right: 333px;
+	right: 334px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -1172,8 +1172,8 @@
 
 #virtualclassCont.congrea.student #speakerPressOnce{
 	width : 25%;
-	height : 50px;
-	padding-top: 10px;
+	height : 48px;
+	padding-top: 14px;
 }
 
 #virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {
@@ -2162,7 +2162,14 @@
     font-weight: normal;
     letter-spacing: 1.3px;
 }
-
+#virtualclassCont.congrea #congdashboard #docsUploadMsz  .close {
+    background-color:#2f6f2794;
+    margin-top: -2px;
+}
+#virtualclassCont.congrea #congdashboard #docsUploadMsz  .close:hover {
+    background-color:#2f6f2794;
+    border-color:green;
+}
 #virtualclassCont.congrea #beTeacher {
 	background: #7bb876 none repeat scroll 0 0;
 	border-radius: 4px;
@@ -2886,7 +2893,7 @@
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 17px 11px 17px 21px !important;
+	padding: 18px 31px 14px 35px !important;
 }
 
 #dashboardnav .btn-primary {
@@ -3202,7 +3209,7 @@
   margin: 0 0 10px 5px;
   display: inline-block;
   padding: 4px 7px;
-  line-height: 20px;
+/*  line-height: 20px;*/
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -3246,7 +3253,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
-	z-index: 2;
+	z-index: 999999;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr >th,
@@ -3278,11 +3285,6 @@
    margin: -3px 2px 3px !important;
 }
 
-#virtualclassCont.congrea .videoTitleCont {
-   width: 67.333333%;
-   padding-right: 0px;
-	 float: left;
-}
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
    width:100%;
@@ -3711,6 +3713,7 @@ opacity: 1;
     border-top:none !important;
     border-bottom:none !important;
     border-left:none !important;
+    border-color:#bbb;
 }
 
 #virtualclassCont.congrea #videoHostContainer.show{
@@ -3719,4 +3722,12 @@ opacity: 1;
 
 #virtualclassCont.congrea #videoHostContainer.hide{
 	display:none;
+
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel.noWebcam #videoHostContainer{
+    display : none;
+}
+#virtualclassCont.congrea #screen-docs .pageContainer  .congtooltip:hover:after {
+    bottom:-30px !important;
+    left: 4px;
 }

@@ -3112,6 +3112,7 @@
 	overflow: hidden;
     background-color: #404c57;
     border-bottom: none;
+    border-right: none;
 }
 
 /*#virtualclassCont.congrea.teacher .virtualclassScreenShare .zoomControler{*/

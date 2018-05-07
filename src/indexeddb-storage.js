@@ -635,7 +635,7 @@
                 }
 
                 // virtualclass.raiseHand.disableRaiseHand();
-
+                virtualclass.gObj.audioEnable =true;
                 virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');

@@ -50,6 +50,9 @@
                 }
                 virtualclass.gObj.zoomActionTime = setTimeout(
                     function (){
+                        if(virtualclass.currApp == 'ScreenShare'){
+                            virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
+                        }
                         cthis[fnName].call(cthis);
                     },200
                 );

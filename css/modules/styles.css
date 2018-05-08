@@ -3110,7 +3110,7 @@
 	right: 369px;
 	z-index: 2019;
 	overflow: hidden;
-    background-color: #404c57;
+    background: linear-gradient(to bottom, #34404c 0%, #515e69 100%) !important;
     border-bottom: none;
     border-right: none;
 }

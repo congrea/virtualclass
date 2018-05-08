@@ -97,7 +97,12 @@
 
 #virtualclassCont.congrea #presentationurl.form-control{
   display:inline;
-  text-align: center;
+/*  text-align: center;*/
+    padding-left:10px;
+    padding-right:10px;
+}
+#virtualclassCont.congrea #presentationurl.form-control::placeholder {
+    text-align:center;
 }
 embed-footer {
      display:none !important; 

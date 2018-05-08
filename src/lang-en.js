@@ -281,7 +281,7 @@
         'adminusr' : 'Admin user',
         'Chatroom' : 'Chatroom',
         'pchat' : 'Private chat',
-        'Udocument' : 'Upload document',
+        'Udocument' : 'Upload Document',
         'mybsharedoc' : 'Document will shared shortly',
         'status' : 'Status',
         'delete' : 'Delete',
@@ -321,7 +321,7 @@
         'EHTMLPresentUrl' : 'Enter HTML5 presentation url.',
         'preWllBshortly' : 'Presentation will be shared shortly',
         'clicktoplay' : 'Play',
-        'uploadvideo' : 'Upload video from device',
+        'uploadvideo' : 'Upload Video',
         'onlinevideo' : '+',
         'Vwllbshrshortly' : 'Video will be shared shortly',
         'canvasmissing' : 'Canvas is missing in your browsers. Please update your browser to the latest version',
@@ -379,7 +379,7 @@
         'videooff' : "video off",
         'raiseHandNotify':"student(s) raised hand",
         'disableVideoAll':"Disable Video All",
-        'enableVideoAll':"Enable Video All"
+        'enableVideoAll':"Enable Video All",
     };
     window.message = message;
 })(window);

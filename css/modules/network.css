@@ -1,19 +1,21 @@
 #virtualclassCont.congrea #networkStatusContainer {
   position: relative;
-    top: -33px;
-    width: 46px;
-    left: 7px;
+    top: -48px;
+    width: 48px;
+    left:-1px;
+    height:48px;
     float: right;
+    background-color: #2e3942;
+    border: 1px solid rgba(254,254,254,0.2) !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {
   width: 30px;
   height: 30px;
   position: relative;
-  top: -6px;
-  background-color:white;
-  border-radius:5px;
-    padding:4px;
+  top: 9px;
+  padding:4px;
+  left:9px;
 }
 
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signalthree,
@@ -24,7 +26,7 @@
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signaltwo,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal,
 #virtualclassCont.congrea  #proposedSpeed[data-suggestion='high'] svg path.signal{
-  fill : #91BF38;
+  fill : #00FF00;
 }
 
 
@@ -80,13 +82,6 @@
 
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #videoLatency{
-  /*border: 6px solid #f3f3f3;*/
-  /*border-top: 6px solid #d02323;*/
-  /*border-radius: 50%;*/
-  /*width: 37px;*/
-  /*height: 37px;*/
-  /*animation: spin 2s linear infinite;*/
-  /*margin-left: 8px;*/
   display : none;
 }
 
@@ -102,9 +97,9 @@
   display: none;
 }
 #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
-    margin-top: -7px;
+    margin-top: 5px;
     margin-right: 8px;
-    padding-right: 8px;
+    margin-left:9px;
     float: right;
 }
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner{
@@ -130,4 +125,10 @@
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel.hide #videoHostContainer{
   display : none;
+}
+#virtualclassCont.congrea  #proposedSpeed #svgContainer svg {
+    
+}
+#virtualclassCont.congrea  #proposedSpeed #svgContainer {
+    
 }

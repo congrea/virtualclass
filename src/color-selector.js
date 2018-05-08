@@ -267,8 +267,6 @@ var colorSelector ={
             "#virtualclassCont.congrea .btn-default "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important } "+
 
-            "#virtualclassCont.congrea .zoomControler button" +
-            "{background-image: linear-gradient(to bottom,#fff,#e6e6e6)!important ; }"+
 
             "#virtualclassCont.congrea #congdashboard .modal-header .close" +
             "{opacity :1;}"+
@@ -325,9 +323,9 @@ var colorSelector ={
     {
         var css ="#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText," +
             "#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget" +
-            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
             "#virtualclassCont.congrea #chatWidget .chatBarTab"+
-            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)}"+
+            "{background: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important}"+
 
             "#virtualclassCont.congrea #stickycontainer .inner_bt:hover, "+
             "#virtualclassCont.congrea #stickycontainer .stdRaiseHand:hover, "+

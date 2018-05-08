@@ -26,7 +26,7 @@
                     this.storageRawData = null;
                 }else {
 
-                    if(virtualclass.gObj.dstAll == null && Object.keys(virtualclass.gObj.dstAll).length == 0){
+                    if(virtualclass.gObj.dstAll == null || (typeof virtualclass.gObj.dstAll != 'undefined' && Object.keys(virtualclass.gObj.dstAll).length == 0)){
                         //In case of storing metata data of docs in local storage but not storing
                         docsObj = undefined;
                         localStorage.removeItem('dtsdocs');
@@ -75,22 +75,7 @@
                         console.log(virtualclass.gObj.currWb + ' ' + 'Document share Teacher layout ');
                     }
                     // this.UI.attachDocsNav();
-                } else {
-                    // if user is student
-                    var docScreenContainer = document.getElementById('docScreenContainer');
-                    if(docScreenContainer != null){
-                        var studentMsg = document.querySelector('#docMsgStudent');
-                        if(studentMsg == null){
-                            var docMsg  = document.createElement('span');
-                            docMsg.id = "docMsgStudent";
-                            docMsg.innerHTML = "There might be share the Docs";
-                            docScreenContainer.appendChild(docMsg);
-                        }
-                    } else {
-                        alert("Container is null");
-                    }
                 }
-
 
                 if(typeof docsObj != 'undefined' ){
 
@@ -675,6 +660,12 @@
                         if(docsObj != null){
                             docsObj.slideNumber = null;
                             localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+                        }
+                        if(roles.isStudent()){
+                            var docsContainer = document.querySelector('#docScreenContainer');
+                            if(docsContainer != null){
+                                docsContainer.classList.remove('noteDisplay');
+                            }
                         }
                     }
                 }
@@ -1283,6 +1274,10 @@
                             } else {
                                 console.log('Document-Sharing:-'+ slideNum + ' is not found ');
                             }
+                            var docsContainer = document.querySelector('#docScreenContainer');
+                            if(docsContainer != null){
+                                docsContainer.classList.add('noteDisplay');
+                            }
                         },
 
                         isPdfRendered : function(){
@@ -1482,11 +1477,8 @@
                 }else if (dts.hasOwnProperty('order_recived')){
                     this.afterRequestOrder(dts.order_recived);
                 }
+
                 if(!dts.hasOwnProperty('dres')){
-                    var studentMsg = document.querySelector('#docMsgStudent');
-                    if(studentMsg != null){
-                        studentMsg.parentNode.removeChild(studentMsg);
-                    }
                     virtualclass.vutil.resizeWindowIfBigger();
                 }
             },

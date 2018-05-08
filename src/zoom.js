@@ -50,7 +50,12 @@
                 }
                 virtualclass.gObj.zoomActionTime = setTimeout(
                     function (){
-                        cthis[fnName].call(cthis);
+                        if(virtualclass.currApp == 'ScreenShare'){
+                            virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
+                        }else {
+                            cthis[fnName].call(cthis);
+                        }
+
                     },200
                 );
             },
@@ -104,23 +109,24 @@
 
             fitToScreen : function (){
                 var wid = virtualclass.gObj.currWb;
-                var page = virtualclass.pdfRender[wid].page;
-                var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
+                if(typeof virtualclass.pdfRender[wid] != 'undefined'){
+                    var page = virtualclass.pdfRender[wid].page;
+                    var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
 
-                // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
+                    // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
 
-                var wrapperWidth = canvas.parentNode.offsetWidth;
+                    var wrapperWidth = canvas.parentNode.offsetWidth;
 
-                try {
-                    var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
-                    this.prvCanvasScale = this.canvasScale;
-                    // alert('canvas scale 2');
-                    this.canvasScale = viewport.scale;
-                    virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
-                }catch (error){
-                    console.log('Error ' + error);
+                    try {
+                        var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
+                        this.prvCanvasScale = this.canvasScale;
+                        // alert('canvas scale 2');
+                        this.canvasScale = viewport.scale;
+                        virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
+                    }catch (error){
+                        console.log('Error ' + error);
+                    }
                 }
-
             },
 
             normalRender : function (){

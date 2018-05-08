@@ -53,3 +53,16 @@
   height:94vh;
   width : 102%;
 }
+
+@media (max-width: 1175px) {
+  #virtualclassCont.congrea #uploadVideo .glyphicon-upload.videoupload-icon:before {
+    content: "\e027";
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 1175px) {
+  #virtualclassCont.congrea #uploadVideo .videobtntxt {
+    display: none;
+  }
+}

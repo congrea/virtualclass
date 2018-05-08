@@ -224,7 +224,7 @@
 }
 
 #virtualclassCont.congrea.student .vmchat_room_bt{
-    width:40%;
+    width:38%;
 }
 #virtualclassCont.congrea #usertab_icon {
     background: url('/virtualclass/images/offline.png') no-repeat top left;
@@ -519,7 +519,7 @@
 }
 
 #virtualclassCont.congrea.student[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea.student[data-currapp="EditorCode"] .vmchat_bar_button{
-    width:40%;
+    width:47%;
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
@@ -764,4 +764,22 @@ margin-right:10px !important;
 
 #virtualclassCont.congrea #chatWidget.chat_disabled .ui-memblist-usr.online {
     pointer-events : none;
+}
+
+#virtualclassCont.congrea #chatrm{
+    display:none;
+}
+#virtualclassCont.congrea #memlist{
+    display:none;
+}
+
+
+#virtualclassCont.congrea #memlist.enable{
+    display:block;
+}
+#virtualclassCont.congrea #chatrm.enable{
+    display:block;
+}
+#virtualclassCont.congrea #ta_chrm2{
+  display:none;
 }

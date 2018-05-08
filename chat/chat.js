@@ -74,17 +74,21 @@
                     });
                 },
                 setChatDisplay: function () {
+                    var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
+                    var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
+
                     var chat = localStorage.getItem('chatWindow');
                     if (chat != null && chat == "common") {
                         var chatroom = document.getElementById("chatrm");
                         if (chatroom) {
-                            chatroom.style.display = "block";
+                            chatroom.classList.add("enable")
+
                             var chatroomBtn = document.getElementById("chatroom_bt2");
                             chatroomBtn.classList.add("active");
 
                             var list = document.getElementById("memlist");
                             if (list) {
-                                list.style.display = "none";
+                                list.classList.remove("enable")
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.remove("active");
                             }
@@ -97,7 +101,7 @@
                         } else {
                             var list = document.getElementById("memlist");
                             if (list) {
-                                list.style.display = "block";
+                                list.classList.add("enable")
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.add("active");
                             }
@@ -112,28 +116,28 @@
                     } else {
                         var list = document.getElementById("memlist");
                         if (list) {
-                            list.style.display = "block";
+                            list.classList.add("enable");
                             var listBtn = document.getElementById("user_list");
                             listBtn.classList.add("active");
+                        }
+
+                        if(chatInput){
+                            chatInput.style.display="none";
                         }
 
                     }
                     var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
                     if(privateChat.classList.contains('active')){
-                        var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
                         if(chatInput){
                             chatInput.style.display="none";
                         }
-                        var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
                         if(search){
                             search.style.display="block";
                         }
                     }else{
-                        var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
                         if(chatInput){
                             chatInput.style.display="block";
                         }
-                        var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
                         if(search){
                             search.style.display="none";
                         }
@@ -160,7 +164,7 @@
                         this. _showChatUserList(userlist);
                         displayChatOfflineUserList(userlist);
                         // $("div#memlist").css({display: 'block'});
-                        document.querySelector('div#memlist').style.display = 'block'
+                        document.querySelector('div#memlist').classList.add("enable");
 
                     }
                 },
@@ -294,7 +298,7 @@
 
                     $("#user_list .inner_bt #usertab_icon").css({'background': 'url(' + window.whiteboardPath + 'images/offline.png)no-repeat top left'});
                     $("#chatroom_bt .inner_bt #chatroom_text").text(lang.chatroom + " (0)");
-                    $('div#memlist').css('display', 'none');
+                    $('div#memlist').removeClass("enable");
                 },
                 removeChatHighLight: function (id) {
                     var chatCont = document.getElementById(id);

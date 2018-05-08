@@ -36,10 +36,13 @@ body {
 }
 
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail{
-   display : none;
+    display : none;
     overflow: auto;
-     height : calc(100% - 48px);
+    height : calc(100% - 48px);
     font-family: Helvetica ;
+}
+#virtualclassCont.congrea.student #rightSubContainer #appSettingDetail{
+    height : calc(100% - 49px);
 }
 
 #virtualclassCont.congrea #rightSubContainer #chatWidget .chatBarTab {
@@ -70,7 +73,7 @@ body {
     height: auto;
 }
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt:hover {
-    height: 48px;
+    height: auto;
 }
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon:hover {
     float: left;
@@ -119,7 +122,7 @@ body {
     background: #fff;
     margin: 0;
     padding: 10px 0 15px;
-    z-index: 10000;
+    z-index: 1000;
 } 
 #virtualclassCont .footerCtr input {
     padding: 7px;
@@ -181,7 +184,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #7d8c99;
+  background-color: #5d6b76;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -243,46 +246,46 @@ transform: translateX(21px);
     
 }
 #virtualclassCont #appSettingDetail .disable #usersMuteSwitch:before {
-    content: "\e972";
-    font-weight: normal;
-    font-size: 19px;
-    font-family: 'icomoon';
-    margin-top: 1px;
-    float: left;
-    color: #737c83;
-}
-#virtualclassCont #appSettingDetail .enable #usersMuteSwitch:before {
     content: "\e973";
     font-weight: normal;
-    font-size: 19px;
-    margin-top: 1px;
+    font-size: 17px;
+    font-family: 'icomoon';
+    margin-top: 3px;
+    float: left;
+    color: #464646;
+}
+#virtualclassCont #appSettingDetail .enable #usersMuteSwitch:before {
+    content: "\e972";
+    font-weight: normal;
+    font-size: 17px;
+    margin-top: 3px;
     float: left;
     font-family: 'icomoon';
-    color: #737c83;
+    color: #464646;
 }
 #virtualclassCont #appSettingDetail .disable #usersVideoSwitch:before {
-    content: "\e96d";
-    font-weight: normal;
-    font-size: 18px;
-    margin-top: 2px;
-    float: left;
-    font-family: 'icomoon';
-    color: #737c83;
-}
-#virtualclassCont #appSettingDetail .enable #usersVideoSwitch:before {
     content: "\e96c";
     font-weight: normal;
-    font-size: 18px;
+    font-size: 17px;
+    margin-top: 3px;
     float: left;
-    margin-top: 2px;
     font-family: 'icomoon';
-    color: #737c83;
+    color: #464646;
+}
+#virtualclassCont #appSettingDetail .enable #usersVideoSwitch:before {
+    content: "\e96d";
+    font-weight: normal;
+    font-size: 17px;
+    float: left;
+    margin-top: 3px;
+    font-family: 'icomoon';
+    color: #464646;
 }
 #virtualclassCont #appSettingDetail #validate-precheck:before {
     content: "\e974";
     font-size: 15px;
     font-family: 'icomoon';
-    color: #737c83;
+    color: #464646;
     float: left;
     margin-top: 3px;
     font-weight: 600;
@@ -361,7 +364,7 @@ transform: translateX(21px);
     padding:5px 14px !important;
     letter-spacing: 0.02em;
     margin-top: 4px;
-    color: #5e666c;
+    color: #464646;
     font-size: 13px;
     margin-bottom: 4px;
     background-color: white;
@@ -373,7 +376,7 @@ transform: translateX(21px);
 #virtualclassCont #appSettingDetail .audio-options:after {
     content: '\e975';
     font-family:'icomoon';
-    color: #5e666c;
+    color: #464646;
     right: 0;
     top: 5px;
     font-size: 12px;
@@ -395,8 +398,8 @@ transform: translateX(21px);
     font-weight: normal;
     font-size: 17px;
     font-family: 'icomoon';
-    color: #737c83;
-    margin-right: 10px;
+    color: #464646;
+    margin-right: 7px;
     margin-top: -2px;
     float: left;
 }
@@ -425,7 +428,61 @@ display: none;
     font-family: 'icomoon';
     color: #fff;
     margin-right: 5px;
-    float: left;
+}
+#virtualclassCont.congrea.student #rightSubContainer a.inner_bt {
+    padding: 15px 8px 15px 14px;
+}
+#virtualclassCont.congrea.student #rightSubContainer #user_list a.inner_bt {
+    padding: 14px 8px 15px 14px;
+}
+#virtualclassCont.congrea.student #rightSubContainer #chatroom_bt2 a.inner_bt {
+    padding: 17px 8px 12px 14px;
+}
+#virtualclassCont.congrea #rightSubContainer a.inner_bt {
+    padding: 14px 0;
+}
+#virtualclassCont.congrea #rightSubContainer #chatroom_bt2 a.inner_bt {
+    padding: 17px 0 11px;
+}
+#virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text {
+    float: none;
+}
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
+    display: block;
+    border: solid white 1px;
+    border-radius: 7px;
+    color: #00ff10 !important;
+}
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
+    width: auto;
+    height: 22px;
+    right: 5px;
+    position: relative;
+    border-radius: 3px !important;
+    bottom: 47px;
+}
+#virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
+    background: rgba(251,20,20,0.92) none !important;
+    border-width: 0 !important;
+    color: #fff !important;
+    font-size: 11px;
+    padding: 1px 6px;
+    font-weight: 500;
+}
+
+#virtualclassCont.congrea #rightSubContainer .hand_bt.congtooltip:hover:after {
+    bottom: 4.32em !important;
+    left: auto !important;
+    position: fixed;
+    right: 9em !important;
+    z-index: 1001; 
+}
+#virtualclassCont.congrea.student #rightSubContainer a.inner_bt span#usertab_text {
+    float: none;
+    text-align: center;
+}
+#virtualclassCont.congrea #rightSubContainer .vmchat_room_bt .inner_bt {
+    width: 100%;
 }
 
 #virtualclassCont #appSettingDetail .audio-options select {
@@ -436,7 +493,7 @@ display: none;
     height: 21px;
     float: right;
     padding: 0 14px 0 2px;
-    color: #5e666c;
+    color: #464646;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -444,7 +501,7 @@ display: none;
 
 #virtualclassCont #appSettingDetail .appSettingIcons {
     display:inline-block;
-    width:25px;
+    width:22px;
     height:16px;
 }
 #virtualclassCont #appSettingDetail .app-settings-rbs {
@@ -483,27 +540,33 @@ display: none;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .audioTool a.congtooltip:hover:after {
     right: 233px;
+    top: 212px !important;
 }
 #virtualclassCont.congrea .congtooltip:hover:after {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer a.inner_bt.congtooltip:hover:after {
-    bottom: 4.5em !important;
+    bottom: 4.72em !important;
     right: 3.4em !important;
     left: auto !important;
 }
-#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
+ #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
+    bottom: 4.72em;
+    left: auto;
+    right: 2.4em;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after {
     bottom: 4.5em;
     left: auto;
     right: 2.4em;
 }
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
-    right: 1em;
+    right: 2em;
 }
 
 #virtualclassCont.congrea .handRaise.congtooltip:hover:after {
     border-radius: 0.25em;
-    bottom: 4.8em;
+    bottom: 4.72em;
     right: 0.2em;
     left: auto;
     padding: 0.2em 0.42em;

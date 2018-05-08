@@ -1830,7 +1830,7 @@
                     }
 
                     virtualclass.gObj.uploadingFiles = [];
-                    this.showUploadMsz("document upload success","alert-success");
+                    this.showUploadMsz("Document upload success","alert-success");
                 } else if (response.message == 'duplicate'){
                     //alert(virtualclass.lang.getString('duplicateUploadMsg'));
                     this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'),"alert-error");

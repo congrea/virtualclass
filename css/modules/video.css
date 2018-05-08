@@ -45,10 +45,13 @@
 #virtualclassCont.congrea #videourl{
   display : inline;
   height:100% !important;
-  text-align: center;
+    padding-left:10px;
+    padding-right:10px;
   /*border : none;*/
 }
-
+#virtualclassCont.congrea #videourl::placeholder {
+    text-align:center;
+}
 #virtualclassCont.congrea #videoPlayerCont{
   height:94vh;
   width : 102%;

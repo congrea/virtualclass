@@ -271,9 +271,9 @@ this["JST"]["templates/documentSharing/dashboard.hbs"] = Handlebars.template({"1
 this["JST"]["templates/documentSharing/docsMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "\n        <!--<div id=\"docsListContainer\">-->\n          <!--<div id=\"newdocsBtnCont\">-->\n            <!--<button id=\"newDocBtn\">Upload Documents</button>-->\n          <!--</div>-->\n          <!--<div id=\"listdocs\" class=\"listPages pages\"></div>-->\n        <!--</div>-->\n\n";
 },"3":function(container,depth0,helpers,partials,data) {
-    return "        <span id=\"docMsgStudent\">"
+    return "        <p id=\"docMsgStudent\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"mybsharedoc",{"name":"getString","hash":{},"data":data}))
-    + "</span>\n";
+    + "</p>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 

@@ -62,11 +62,14 @@ var precheck = {
                     virtualclass.videoHost.afterSessionJoin();
                 }
 
-                if(virtualclass.precheck.currTest== 'speaker'){
+                // if(virtualclass.precheck.currTest== 'speaker'){
                     var testAudio = document.getElementById('vcSpeakerCheckAudio');
-                    testAudio.pause();
-                    testAudio.currentTime = 0
-                }
+                    if(testAudio){
+                        testAudio.pause();
+                        testAudio.currentTime = 0
+                    }
+
+                // }
                 virtualclass.gObj.precheckScrn=false;
             });
 

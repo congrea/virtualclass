@@ -196,31 +196,31 @@ function memberUpdate(e, addType) {
 
         var memList = document.querySelector('#memlist');
         if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
-            memList.style.display = 'block';
+            memList.classList.add("enable");
             var chatrm = document.querySelector('#chatrm');
             if(chatrm !=  null){
-                chatrm.style.display = 'none';
+                chatrm.classList.remove("enable");
             }
         }else {
-            memList.style.display = 'none'
+            memList.classList.remove("enable")
         }
 
         var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
+        var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
+        var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
         if(privateChat.classList.contains('active')){
-            var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
+
             if(chatInput){
                 chatInput.style.display="none";
             }
-            var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
+
             if(search){
                 search.style.display="block";
             }
         }else{
-            var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
             if(chatInput){
                 chatInput.style.display="block";
             }
-            var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
             if(search){
                 search.style.display="none";
             }
@@ -288,9 +288,8 @@ function messageUpdate(e) {
         virtualclass.chat.commonChat.push(cmsg);
 
         if ($('#chatroom_bt2.active').length == 0) {
-
             $('#chatroom_bt2').addClass('ui-state-highlight');
-            $('#chatrm').css('display', 'none');
+            $('#chatrm').removeClass('enable');
 
         }
 

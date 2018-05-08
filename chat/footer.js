@@ -83,7 +83,7 @@
 
                     var memlist = document.getElementById('memlist');
                     if (memlist) {
-                        memlist.style.display = "none";
+                        memlist.classList.remove("enable");
                     }
 
                      var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
@@ -92,8 +92,8 @@
                      }
 
                     var chatroom = document.getElementById('chatrm');
-                    if (chatroom) {
-                        chatroom.style.display = "block";
+                    if (!chatroom.classList.contains("enable")) {
+                        chatroom.classList.add("enable");
                     }
 
                 });
@@ -127,7 +127,7 @@
                     this.classList.add("active");
                     var chatroom = document.getElementById("chatrm");
                     if (chatroom) {
-                        chatroom.style.display = "none";
+                        chatroom.classList.remove("enable");
                     }
 
                     var chatbox = document.getElementById("ta_chrm2");
@@ -142,7 +142,8 @@
 
                     var memlist = document.getElementById("memlist");
                     if (memlist) {
-                        memlist.style.display = "block";
+                        memlist.classList.add("enable")
+
                     }
 
 

@@ -764,3 +764,21 @@ margin-right:10px !important;
 #virtualclassCont.congrea #chatWidget.chat_disabled .ui-memblist-usr.online {
     pointer-events : none;
 }
+
+#virtualclassCont.congrea #chatrm{
+    display:none;
+}
+#virtualclassCont.congrea #memlist{
+    display:none;
+}
+
+
+#virtualclassCont.congrea #memlist.enable{
+    display:block;
+}
+#virtualclassCont.congrea #chatrm.enable{
+    display:block;
+}
+#virtualclassCont.congrea #ta_chrm2{
+  display:none;
+}

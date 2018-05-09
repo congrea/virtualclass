@@ -488,7 +488,7 @@
 }
 
 #virtualclassCont.congrea .congtooltip {
-	display : inline;
+/*	display : inline;*/
 	position : relative;
 	font-size : 14px;
 }
@@ -1165,15 +1165,14 @@
 }
 
 #virtualclassCont.congrea #speakerPressOnce {
-	/*width : 20%;*/
-	height : 50px;
-	padding-top: 11px;
+	width: 33.3%;
+    text-align: center !important;
+    height:48px;
 }
 
 #virtualclassCont.congrea.student #speakerPressOnce{
 	width : 25%;
 	height : 48px;
-	padding-top: 14px;
 }
 
 #virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {
@@ -3214,10 +3213,10 @@
 
 
 #virtualclassCont.congrea .zoomControler  div {
-  font-size: 11px;
+  font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 12px 17px;
+  padding: 10px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -3226,6 +3225,11 @@
   border-right:1px solid rgba(254,254,254,0.2) ;
     float:left;
 }
+
+#virtualclassCont.congrea .zoomControler  div:nth-child(3){
+    border-right:none;
+}
+
 #virtualclassCont.congrea .zoomControler div:hover{
     background-color:#2e3842;
 }

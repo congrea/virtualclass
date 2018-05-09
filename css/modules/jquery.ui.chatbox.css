@@ -66,7 +66,7 @@
 #virtualclassCont.congrea.student .ui-chatbox-msg {
     clear: both;
     font-size: 12px;
-    padding: 4px;
+    padding: 3px;
     list-style: none;
     line-height: 16px;
 }
@@ -82,7 +82,7 @@
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon .text{
     word-break: break-word;
-    padding: 3px;
+    padding: 2px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
@@ -669,7 +669,7 @@
 }
 
 #virtualclassCont.congrea #chat_room .ui-chatbox-msg{
-    border-bottom: 1px solid #eee;
+/*    border-bottom: 1px solid #eee;*/
 }
 #virtualclassCont.congrea #chat_room .text-muted {
     color: #bbb;

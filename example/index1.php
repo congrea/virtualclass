@@ -48,7 +48,7 @@ $whiteboardpath = "https://local.vidya.io/virtualclass/";
 if (isset($_GET['themecolor'])) {
     $theme = $_GET['themecolor'];
 } else {
-    $theme = 'gray';
+    $theme = 'black';
 }
 
 if (isset($_POST['color'])) {

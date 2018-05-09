@@ -118,7 +118,6 @@
                         'ui-memblist'
                     )
                     .attr('id', 'memlist')
-                    .css('display', 'none')
             uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
                 .addClass('ui-widget-content ' +
                     'ui-memblist-content '

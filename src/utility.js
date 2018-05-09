@@ -2190,7 +2190,7 @@
                // virtualclass.videoHost.gObj.videoSwitch = 0;
                 video = "off";
                 var tooltip = document.querySelector(".videoSwitchCont");
-                tooltip.dataset.title="video on"
+                tooltip.dataset.title="Video on"
                 if(roles.hasControls()){
                     virtualclass.videoHost.gObj.videoSwitch = 0;
 
@@ -2205,7 +2205,7 @@
 
                 video = "on"
                 var tooltip = document.querySelector(".videoSwitchCont");
-                tooltip.dataset.title = "video off"
+                tooltip.dataset.title = "Video off"
                 if (roles.hasControls()) {
                     virtualclass.videoHost.gObj.videoSwitch = 1;
 

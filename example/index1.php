@@ -51,6 +51,18 @@ if (isset($_GET['themecolor'])) {
     $theme = 'black';
 }
 
+/** This disables Poll and Quiz, if Congrea is not served from CMS/LMS **/
+$from_cms = false;
+$fromcmsclass = "nocms ";
+if (isset($_POST['fromcms'])) {
+	if($_POST['fromcms'] || $_POST['fromcms'] == 'true'){
+		$from_cms = true;
+		$fromcmsclass = "cms ";
+	}
+}
+
+$cont_class = $fromcmsclass;
+
 if (isset($_POST['color'])) {
     $selected_color = $_POST['color'];
 }
@@ -131,7 +143,7 @@ define('SCRIPT_ROOT', $whiteboardpath);
 
 <?php
 $isplay = false;
-$cont_class = 'congrea ';
+$cont_class .= 'congrea ';
 if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
     $isplay = true;
     $cont_class .= "playMode ";
@@ -297,6 +309,7 @@ $cmid = 5;
     wbUser.role =  '<?php echo $r; ?>';
     wbUser.lname =  '<?php echo $lname; ?>';
     wbUser.name =  '<?php echo $uname; ?>';
+    wbUser.from_cms =  '<?php echo $from_cms; ?>';
 
     wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
 

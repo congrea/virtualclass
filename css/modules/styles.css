@@ -3734,3 +3734,9 @@ opacity: 1;
 #virtualclassCont.congrea  .noteDisplay #docMsgStudent{
 	display : none;
 }
+
+#virtualclassCont.congrea.nocms #virtualclassPollTool, #virtualclassCont.congrea.nocms #virtualclassQuizTool{
+	display : none;
+	opacity : 0.5;
+	pointer-events:  none;
+}

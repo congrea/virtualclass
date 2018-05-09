@@ -9,6 +9,7 @@
     var appSettingMedia = function (config) {
         return {
             init: function () {
+                this.type;
                 this.videoElement = document.querySelector('#webRtcIoContainer video');
                 this.audioInputSelect = document.querySelector('#webRtcIoContainer select#audioSource');
                 this.audioOutputSelect = document.querySelector('#webRtcIoContainer select#audioOutput');
@@ -18,16 +19,16 @@
                 this.audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
                 navigator.mediaDevices.enumerateDevices().then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
                 this.audioInputSelect.addEventListener('change',function(){
-                    virtualclass.appSettingMedia.start();
+                    virtualclass.appSettingMedia.start('audio');
 
                 })
                 this.audioOutputSelect.addEventListener('change',function(){
                     virtualclass.appSettingMedia.changeAudioDestination()
                 });
                 this.videoSelect.addEventListener('change',function(){
-                    virtualclass.appSettingMedia.start();
+                    virtualclass.appSettingMedia.start('video');
                 });
-                virtualclass.appSettingMedia.start();
+//                virtualclass.appSettingMedia.start('video');
             },
             gotDevices: function (deviceInfos) {
                 var values =   virtualclass.appSettingMedia.selectors.map(function (select) {
@@ -96,22 +97,43 @@
                 window.stream = stream; // make stream available to console
                 virtualclass.appSettingMedia.videoElement.srcObject = stream;
                 virtualclass.appSettingMedia.mainVideoElement.srcObject = stream;
+
+                //if(typeof virtualclass.appSettingMedia.type != 'undefined' && virtualclass.appSettingMedia.type == 'audio'){
+                    virtualclass.gObj.video.stream = stream;
+                    virtualclass.gObj.video.audio._manuPulateStream();
+                //}
                 return navigator.mediaDevices.enumerateDevices();
             },
-            start:function() {
+            start:function(type) {
+                this.type = type;
                 if (window.stream) {
                     window.stream.getTracks().forEach(function (track) {
                         track.stop();
                     });
                 }
+
                 var audioSource = virtualclass.appSettingMedia.audioInputSelect.value;
                 var videoSource = virtualclass.appSettingMedia.videoSelect.value;
-                var constraints = {
-                    audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-                    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
-                };
-                navigator.mediaDevices.getUserMedia(constraints).then(virtualclass.appSettingMedia.gotStream).
-                then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
+                var constraints = {};
+
+                constraints.video = {};
+                constraints.video.deviceId =  videoSource ? {exact: videoSource} : undefined;
+
+                if(type == 'video'){
+                    constraints.audio = true;
+                    var e = document.getElementById("audioSource");
+                    var audioSource = e.options[e.selectedIndex].value;
+                    if(audioSource != null){
+                        constraints.audio = {deviceId: audioSource ? {exact: audioSource} : undefined};
+                    }
+                } else {
+                    constraints.audio = {deviceId: audioSource ? {exact: audioSource} : undefined};
+                }
+
+                var congreaVideoSettingCont = document.querySelector('#congreaVideoSettingCont');
+                congreaVideoSettingCont.dataset.settingType = type;
+
+                navigator.mediaDevices.getUserMedia(constraints).then(virtualclass.appSettingMedia.gotStream).then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
 
             },
             handleError:function(error) {

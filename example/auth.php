@@ -22,8 +22,12 @@ function my_curl_request($url, $post_data, $key, $secret){
 // send auth detail to server
 $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
+/*
 $licensekey = 'Wmqyg9MPQU9D1pOLBSvUN2mthVNhUMQ55RlA2wpn';
-$secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6';
+$secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6'; */
+
+$licensekey = 'RQiz30KaTB8JX0yT2b12D7pkKgIDV58m4nCQ0ssb';
+$secret = 'FLvuYb8Bd55On05hDKXlLiCy2Ft2f18UMEpLQyn3DsR1tWi6Hfstx52zKvCZxLUk';
 
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => 't', 'room' => $room);
 $post_data = json_encode($post_data);

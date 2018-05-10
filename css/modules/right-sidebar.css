@@ -121,7 +121,7 @@ body {
     text-align: right;
     background: #fff;
     margin: 0;
-    padding: 10px 0 15px;
+    padding: 7px 0 7px;
     z-index: 1000;
 } 
 #virtualclassCont .footerCtr input {
@@ -132,16 +132,16 @@ body {
 } 
 
 #virtualclassCont .footerCtr input[type=text], #virtualclassCont .footerCtr input#ta_chrm2 {
-    width: calc(100% - 30px);
+    width: 95%;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     box-sizing: border-box;
     border: 1px solid #4b5863b3;
     border-radius: 4px;
     font-size: 16px;
     background-color: white;
-    padding: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
+    padding: 7px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
 }
 #virtualclassCont .footerCtr input {
     font-weight: normal;
@@ -527,6 +527,9 @@ display: none;
     top: 51px;
 }
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
+    top: 51px;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel.vidHide #audioWidget .congtooltip:hover:after {
     top: 51px;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {

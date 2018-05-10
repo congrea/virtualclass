@@ -149,7 +149,7 @@
 
 #virtualclassCont.congrea #congdashboard.modal .modal-header{
   padding : 6px;
-  background-color: #34404c;
+  background: linear-gradient(to bottom, #34404c 0%, #515e69);
   color: white;
   height: 48px;
 }
@@ -253,6 +253,7 @@
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
   text-align :left;
   margin-left : 6%;
+    font-size:13px;
 
 }
 

@@ -330,14 +330,6 @@
     margin: 0 0px 0 7PX;
 }
 
-#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"]::before {
-    content: "\e9d1";
-    font-family: 'icomoon';
-    font-size: 12px;
-    padding-top: 0px;
-    color: #606060;
-}
-
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #screen-docs .note .imageContainer {
     position: absolute;
     padding: 25px 0;
@@ -348,22 +340,6 @@
     z-index: -1;
     position: relative;
     height: auto;
-}
-
-#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"]::before {
-    content: "\e9ce";
-    font-family: 'icomoon';
-    font-size: 12px;
-    padding-top: 0px;
-    color: #606060;
-}
-
-#virtualclassCont.congrea #listnotes .linknotes.links .controls.delete::before {
-    content: "\ea0f";
-    font-family: 'icomoon';
-    font-size: 13px;
-    padding-top: 0px;
-    color: #606060;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
@@ -378,21 +354,6 @@
     right: -9px;
     box-shadow: 0 0 3px rgb(96, 96, 97);
     width:45px;
-}
-
-
-#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"] {
-    float: left;
-    font-size: 0px;
-/*    margin: 1px 6px 0px;*/
-    height: 14px;
-}
-
-#virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
-    float: left;
-    font-size: 0px;
-/*    margin: 0px 3px -2px 1px;*/
-    height: 14px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links span.thumbList {
@@ -415,29 +376,9 @@
     height : 100%;
 }
 
-#virtualclassCont.congrea #listnotes .linknotes.links {
-    /*float: left;*/
-}
-
-/*#virtualclassCont.congrea #listnotes .linknotes.links.currentNav {*/
-/*width: 70px;*/
-/*margin: 3px;*/
-/*padding: 0;*/
-/*height: 52px;*/
-/*}*/
-
 #virtualclassCont.congrea #listnotes .linknotes.links.currentNav .controlCont {
     display: none;
 }
-
-/*#virtualclassCont.congrea #listnotes .linknotes.links.currentNav img {*/
-/*border-width: 0px !important;*/
-/*height: auto !important;*/
-/*max-width: 60px;*/
-/*min-height: 42px;*/
-/*max-height: 42px;*/
-/*margin: 0;*/
-/*}*/
 
 #virtualclassCont.congrea #listnotes .linknotes.links.currentNav span.thumbList {
     padding: 2px 8px;
@@ -454,13 +395,6 @@
     border-radius: 3px;
     height: 95px;
     margin-bottom : 30px;
-}
-
-/*#virtualclassCont.congrea .linkdocs[data-selected='1'] .mainpreview {*/
-
-#virtualclassCont.congrea .linkdocs[data-selected='1'] {
-    /*border-width: 0;*/
-
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1'] .controlCont {
@@ -481,10 +415,6 @@
     margin-top: -73px;
 }
 
-/*#virtualclassCont.congrea .pageContainer {*/
-    /*height: 572px;*/
-/*}*/
-
 #virtualclassCont.congrea .nvgt {
     position: absolute;
     top: 300px;
@@ -497,7 +427,6 @@
     width: 50px;
     opacity: 0.9;
     border-radius: 50px;
-    /*border: 1px solid #eee;*/
 }
 #virtualclassCont.congrea .next {
     right:10px;
@@ -526,7 +455,6 @@
     margin-right: 3px;
 }
 
-
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip {
     margin-top:0px;
 }
@@ -534,7 +462,6 @@
 #virtualclassCont.congrea .whiteboard .prev {
     left: 60px;
 }
-
 
 #virtualclassCont.congrea .whiteboard .next {
     right : 349px;
@@ -583,10 +510,6 @@
     float: left;
 }
 
-/*#virtualclassCont.conextngrea .note {*/
-/*width : 85%;*/
-/*}*/
-
 #screen-docs .pageContainer {
     margin : auto;
 }
@@ -600,17 +523,6 @@
     margin:auto;
 }
 
-/*#virtualclassCont.congrea #congdashboard #docsListContainer{*/
-/*float:left;*/
-/*}*/
-
-
-/*#virtualclassCont.congrea .dashboardview, #virtualclassCont #docsuploadContainer{*/
-/*width : 85%;*/
-/*float: left;*/
-/*}*/
-
-
 #virtualclassCont .qq-upload-button-selector.qq-upload-button {
     display : none;
 }
@@ -621,14 +533,9 @@
 
 #virtualclassCont #docsuploadContainer {
     position: absolute;
-    /*top: 5px;*/
-    /*left: 150px;*/
 }
 
-
 #virtualclassCont #docsuploadContainer {
-    /*width: 70%*/
-    /*z-index : -1;*/
     pointer-events : none;
 }
 
@@ -637,24 +544,96 @@
     height: 85vh;
     max-height: 100%;
     border:none;
-
 }
 
 #virtualclassCont #docsListContainer .controlCont .controls.status{
+    display : none;
+}
+#virtualclassCont #docsListContainer .controlCont .controls.status {
     display : none;
 }
 
 #virtualclassCont.congrea .linknotes[data-selected='1'] .mainpreview {
     border : 3px solid green;
 }
+#virtualclassCont.congrea #listnotes .linknotes.links .controlCont.showCtr {
+    display: none !important;
+}
+#virtualclassCont.congrea #listnotes .linknotes:hover .controlCont.showCtr {
+    display: block !important;
+}
+#virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
+    float: left;
+    border-width: 0;
+    background: transparent none;
+    position: absolute;
+    bottom: 3px;
+    right: -3px;
+    box-shadow: none;
+    width: 125px;
+}
 
 #virtualclassCont.congrea #DocumentShareDashboard .controlCont{
     display:none;
 }
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"], #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"] {
+    float: left;
+    font-size: 0px;
+    height: 14px;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
+    float: right;
+    font-size: 0px;
+    height: 14px;
+    width: 13px;
+}
+
 #virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr{
     display:block!important;
 }
 
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"]::before {
+    background: #f5f5f5;
+    content: "\e9ce";
+    font-family: 'icomoon';
+    padding: 2px 1px 2px 3px;
+    font-size: 11px;
+    color: #606060;
+    float: right;
+    margin-top: -3px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"]::before {
+    background: #fafafa none;
+    content: "\e9d1";
+    font-family: 'icomoon';
+    font-size: 11px;
+    border-radius: 2px;
+    padding: 2px 1px 2px 3px;
+    border: 1px solid #ccc;
+    margin-top: -3px;
+    color: #606060;
+    float: right;
+    
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controls.delete::before {
+    background: #f5f5f5;
+    content: "\ea0f";
+    font-family: 'icomoon';
+    font-size: 12px;
+    padding: 2px 0px 1px 2px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #606060;
+}
+#virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
+    display: none;
+}
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
     font-size : 0.88em;
@@ -666,7 +645,6 @@
     -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;
     max-width: 115px;
-    /*float: left;*/
     font-family: monospace;
 }
 
@@ -677,17 +655,14 @@
     z-index:2;
 }
 
-
 #virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li{
     width:70%;
     margin-left:10%;
-
 }
 
 #virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li .qq-thumbnail-wrapper{
     display:none;
 }
-
 
 #virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz li .qq-file-info{
     margin-left:40%;
@@ -740,7 +715,6 @@
     outline-offset: 0px;
 }
 
-
 #virtualclassCont.congrea #videoUrlContainer{
     display :block;
 }
@@ -749,17 +723,6 @@
     pointer-events : none;
     opacity : 0.5;
 }
-
-/** TODO, that should be removed and validated later **/
-/*#docsuploadContainer div:last-child {*/
-/*display : none;*/
-/*!*position : absolute;*!*/
-/*!*top : 0;*!*/
-/*!*left : -2133;*!*/
-/*}*/
-
-/*nirmala*/
-/*#virtualclassCont.congrea[data-currapp='DocumentShare'] #docsuploadContainer div:last-child {*/
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] #congdashboard .modal-header{
     height : 44px;
@@ -784,10 +747,6 @@
     pointer-events : none;
 }
 
-
-/*#virtualclassCont.congrea #notesContainer .note {*/
-    /*height : 94.5vh;*/
-/*}*/
 @media (max-height: 768px) {
     #virtualclassCont.congrea #listdocs {height: calc(100vh - 145px);
 }
@@ -799,7 +758,6 @@
     opacity: 0.5;
 }
 
-
 #virtualclassCont.congrea.pdfRendering .commandToolsWrapper {
     pointer-events : none;
 }
@@ -808,7 +766,6 @@
     display : none;
 }
 
-/** Shows the loader sign during PDF loading **/
 #virtualclassCont.congrea.pdfRendering .docPdfLoader {
     display : block;
     /*border: 16px solid #f3f3f3;*/

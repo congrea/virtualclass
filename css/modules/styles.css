@@ -3423,7 +3423,7 @@
 }
 
 #virtualclassCont.congrea  #congHr.enable{
-	width:15%;
+	width:20%;
 	position :relative;
 	left:0;
 	top:0;
@@ -3629,9 +3629,7 @@ span#usertab_text {
 #virtualclassCont.congrea .video-js .vjs-control:before{
 	line-height: 1;
 }
-#virtualclassCont.congrea #congHr.disable #icHr {
-	opacity: 0.4;
-}
+
 #virtualclassCont.congrea .handRaise.disable.congtooltip:hover:after {
 	left: -4.01em;
 }

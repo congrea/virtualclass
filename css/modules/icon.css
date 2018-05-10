@@ -690,6 +690,8 @@
     font-weight: 100;
     font-variant: normal;
     -webkit-font-smoothing: antialiased;
+    float:left;
+    margin-top:1px;
 }
 
 #virtualclassCont.congrea .icon-zoomOut:before{
@@ -698,6 +700,8 @@
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
+    float:left;
+    margin-top:1px;
 
 }
 
@@ -706,7 +710,9 @@
   font-size: 22px;
      font-weight: 100;
     font-variant: normal;
-    -webkit-font-smoothing: antialiased;    
+    -webkit-font-smoothing: antialiased;
+    float:left;
+    margin-top:1px;
   
 }
 

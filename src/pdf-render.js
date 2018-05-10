@@ -381,7 +381,8 @@
 
                     canvas.height = viewport.height;
                     canvas.width = viewport.width + (80); // The view port provides less width(90)
-
+                    console.log('Pdf Canvas width ' + canvas.width);
+                    console.log('Pdf Canvas height ' + canvas.height);
                     var renderContext = {
                         canvasContext: context,
                         viewport: viewport
@@ -670,7 +671,9 @@
             },
 
             calculateScaleAtFirst : function (page, canvas){
-                var viewport = page.getViewport((+(canvas.parentNode.offsetWidth)-100) / page.getViewport(1.0).width);
+              //  var viewport = page.getViewport((+(canvas.parentNode.offsetWidth)-100) / page.getViewport(1.0).width);
+                // 380 = right side bar (320) + left bar (60)
+                var viewport = page.getViewport((+(window.innerWidth - 480) / page.getViewport(1.0).width));
                 this.firstTime = false;
                 return viewport;
             },

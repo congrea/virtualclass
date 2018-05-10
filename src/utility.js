@@ -615,7 +615,7 @@
 
             if(virtualclass.zoom.canvasScale != null){
                 var canvasScale = (+virtualclass.zoom.canvasScale);
-                console.log('canvasScale ' + canvasScale);
+                console.log('Canvas pdf scale ' + canvasScale);
                 if(virtualclass.vutil.isNumeric(canvasScale)){
                     localStorage.setItem('wbcScale', canvasScale);
                 };

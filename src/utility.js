@@ -1840,8 +1840,8 @@
         },
 
         appIsForEducator : function (app){
-            for(var i=6; i<virtualclass.apps.length; i++){
-                if(virtualclass.apps[i] ==  app){
+            for(var i in virtualclass.apps){
+                if(virtualclass.apps[i] == app){
                     return false;
                 }
             }

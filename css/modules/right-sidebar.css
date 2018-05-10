@@ -106,7 +106,7 @@ body {
 }
 
 #virtualclassCont.congrea.teacher.nowebcam #rightSubContainer, #virtualclassCont.congrea.student.videoff #rightSubContainer{
-	height : calc(100% - 47px);
+	height : calc(100% - 48px);
 }
 #virtualclassCont.congrea.student .vidHide #rightSubContainer {
 	height : calc(100% - 47px) !important;
@@ -301,6 +301,13 @@ transform: translateX(21px);
     position: relative;
 }
 
+#virtualclassCont #appSettingDetail #congreaVideoSettingCont[data-setting-type="audio"] {
+    display:none;
+}
+
+#virtualclassCont #appSettingDetail #congreaVideoSettingCont[data-setting-type="video"] {
+    display:block;
+} 
 /*   n */
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail.active{
    display : block;
@@ -527,20 +534,20 @@ display: none;
     bottom: auto;
 }
 #virtualclassCont.congrea.student.videoff #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
-    top: 51px;
+    top: 51px !important;
 }
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
-    top: 51px;
+    top: 51px !important;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel.vidHide #audioWidget .congtooltip:hover:after {
-    top: 51px;
+    top: 51px !important;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {
     right: 126px;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .audioTool a.congtooltip:hover:after {
     right: 233px;
-    top: 212px !important;
+    top: 212px ;
 }
 #virtualclassCont.congrea .congtooltip:hover:after {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;

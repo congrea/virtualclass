@@ -1986,7 +1986,7 @@
 	padding-left : 1%;
 	height : 48px;
 	box-shadow : none;
-	border-radius: 0 0 5px 5px;
+	border-radius: 0 0 0 5px;
 }
 .canvasWrapper {
     clear:both;
@@ -2899,6 +2899,7 @@
 }
 #virtualclassCont.congrea .dashboardContainer .modal-header h4 {
 	margin-top: 5px;
+    font-weight: normal;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
 	padding: 15px 28px 15px 46px !important;
@@ -3120,7 +3121,7 @@
 	text-align: right;
 	float: right;
 	right: 369px;
-	z-index: 2019;
+	z-index: 2000;
 	overflow: hidden;
     background: linear-gradient(to bottom, #34404c 0%, #515e69 100%) !important;
     border-bottom: none;
@@ -3216,7 +3217,7 @@
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 10px 18px;
+  padding: 11.5px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;

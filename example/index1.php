@@ -52,6 +52,7 @@ if (isset($_GET['themecolor'])) {
 }
 
 /** This disables Poll and Quiz, if Congrea is not served from CMS/LMS **/
+$_POST['fromcms'] = true;
 $from_cms = false;
 $fromcmsclass = "nocms ";
 if (isset($_POST['fromcms'])) {

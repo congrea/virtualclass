@@ -882,21 +882,38 @@
                     }
                 },
 
+                _manuPulateStream : function (){
+                    var cthis = virtualclass.gObj.video;
+                    setTimeout(
+                        function (){
+                            if(cthis.detectAudioWorklet()) {
+                                cthis.audio.manuPulateStream();
+                            }else {
+                                cthis.audio.manuPulateStreamWithFallback();
+                            }
+                        }, 1000
+                    );
+                },
+
                 /**
                  * It connects the stream received from Mic/GetUserMedia to audio context,
                  * and getting the audio chunks from audio worklet
                  **/
                 manuPulateStream: function () {
                     var stream = cthis.stream;
+                    if(typeof audioNode != 'undefined'){
+                        audioNode.disconnect();
+                    }
                     cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/audio-processor.js').then(() => {
-                        var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+                        let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
                         filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                         filter.type = "lowpass";
                         filter.frequency.value = 2000;
 
                         audioInput.connect(filter);
-                        let audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
+
+                        audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
                         filter.connect(audioNode);
                         audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
 
@@ -1347,19 +1364,18 @@
                 **/
                 if(virtualclass.gObj.meetingMode){
                     if(webcam){
-                        var webcam = {
-                            width : {
-                                max :  288,
-                            },
-                            height : {
-                                max :  162
-                            },
-                            frameRate : {
-                                max :  6
-                            }
-                        }
+                        var webcam = { width : {
+                            max :  288,
+                        },
+                        height : {
+                            max :  162
+                        },
+                        frameRate : {
+                            max :  6
+                        }}
                     }
                 }
+
 
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
@@ -1460,19 +1476,13 @@
                     });
                 }
 
-                setTimeout(
-                    function (){
-                        cthis.stream = cthis.video.tempStream;
-                        if(cthis.detectAudioWorklet()) {
-                            cthis.audio.manuPulateStream();
-                        }else {
-                            cthis.audio.manuPulateStreamWithFallback();
-                        }
-
-                    }, 1000
-                );
-
+                if(virtualclass.system.mediaDevices.hasMicrophone){
+                    cthis.stream = cthis.video.tempStream;
+                    cthis.audio._manuPulateStream();
+                }
             },
+
+
             /*
              * Adding the class student or teacher to the each user's div
              * @param  id User id

@@ -1954,7 +1954,7 @@
                 virtualclass.vutil.makeElementActive('#listnotes');
             }else if(currApp == 'Video'){
                 var dtitle = document.getElementById('dashboardnav');
-                dtitle.setAttribute('data-title', virtualclass.lang.getString('VideodbHeading'));
+//                dtitle.setAttribute('data-title', virtualclass.lang.getString('VideodbHeading'));
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')

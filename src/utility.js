@@ -615,7 +615,7 @@
 
             if(virtualclass.zoom.canvasScale != null){
                 var canvasScale = (+virtualclass.zoom.canvasScale);
-                console.log('canvasScale ' + canvasScale);
+                console.log('Canvas pdf scale ' + canvasScale);
                 if(virtualclass.vutil.isNumeric(canvasScale)){
                     localStorage.setItem('wbcScale', canvasScale);
                 };
@@ -1840,8 +1840,8 @@
         },
 
         appIsForEducator : function (app){
-            for(var i=6; i<virtualclass.apps.length; i++){
-                if(virtualclass.apps[i] ==  app){
+            for(var i in virtualclass.apps){
+                if(virtualclass.apps[i] == app){
                     return false;
                 }
             }

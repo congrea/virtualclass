@@ -182,7 +182,7 @@
 
   MultiVideo.onmessage = function (message, fromUser){
     if(message.hasOwnProperty('_init')){
-       virtualclass.makeAppReady(virtualclass.apps[10]);
+       virtualclass.makeAppReady(virtualclass.apps.mv);
       // this.displayVideo();
 
     }else if(message.hasOwnProperty('offer')){

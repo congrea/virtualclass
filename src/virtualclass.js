@@ -60,7 +60,8 @@
                 wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
-                isReadyForVideo : true
+                isReadyForVideo : true,
+                defaultApp : 'Whiteboard'
             },
 
             enablePreCheck : true,

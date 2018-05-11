@@ -119,7 +119,15 @@
 
                    // var wrapperWidth = canvas.parentNode.offsetWidth;
                     // 380 = right side bar (320) + left bar (60)
-                    var wrapperWidth = (window.innerWidth - 380);
+
+                    var virtualclassCont = document.querySelector('#virtualclassCont');
+                    if(virtualclassCont != null){
+                        var containerWidth = virtualclassCont.offsetWidth;
+                    }else {
+                        var containerWidth = window.innerWidth;
+                    }
+
+                    var wrapperWidth = (containerWidth - 380);
 
                     try {
                         var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);

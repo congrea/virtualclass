@@ -673,7 +673,15 @@
             calculateScaleAtFirst : function (page, canvas){
               //  var viewport = page.getViewport((+(canvas.parentNode.offsetWidth)-100) / page.getViewport(1.0).width);
                 // 380 = right side bar (320) + left bar (60)
-                var viewport = page.getViewport((+(window.innerWidth - 480) / page.getViewport(1.0).width));
+
+                var virtualclassCont = document.querySelector('#virtualclassCont');
+                if(virtualclassCont != null){
+                    var containerWidth = virtualclassCont.offsetWidth;
+                }else {
+                    var containerWidth = window.innerWidth;
+                }
+
+                var viewport = page.getViewport((+(containerWidth - 480) / page.getViewport(1.0).width));
                 this.firstTime = false;
                 return viewport;
             },

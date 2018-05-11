@@ -15,7 +15,10 @@
             isPlayMode :playMode,
             /* TODO, editorCode should be removed in proper way,
               the apps should not be in array but should handle in better way I*/
-            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
+//            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
+            apps: {wb : "Whiteboard", ss: "ScreenShare", yt: 'Yts', er :'EditorRich',
+                ec: 'EditorCode', sp: 'SharePresentation', poll: 'Poll', vid : 'Video', ds: 'DocumentShare', quiz: 'Quiz', mv : 'MultiVideo'},
+
             appSessionEnd: "virtualclassSessionEnd",
             appAudioTest: "virtualclassAudioTest",
 
@@ -57,7 +60,8 @@
                 wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
-                isReadyForVideo : true
+                isReadyForVideo : true,
+                defaultApp : 'Whiteboard'
             },
 
             enablePreCheck : true,
@@ -107,19 +111,19 @@
 
                 this.gObj.congCourse = typeof (window.congCourse != 'undefiend') ? window.congCourse : 0;
 
-                this.wbConfig = {id: "virtualclass" + this.apps[0], classes: "appOptions"};
-                this.ssConfig = {id: "virtualclass" + this.apps[1], classes: "appOptions"};
-                // this.ytsConfig = {id: "virtualclass" + this.apps[2], classes: "appOptions"};
-                this.edConfig = {id: "virtualclass" + this.apps[3], classes: "appOptions"};
-                this.edCodeConfig = {id: "virtualclass" + this.apps[4], classes: "appOptions"};
-                this.ptConfig = {id: "virtualclass" + this.apps[5], classes: "appOptions"};
-                this.plConfig ={id:"virtualclass"+this.apps[6],classes:"appOptions"};
-                this.viConfig ={id:"virtualclass"+this.apps[7],classes:"appOptions"};
-                this.dtsConfig = {id: "virtualclass" + this.apps[8], classes: "appOptions"};
-                this.qzConfig = {id:"virtualclass"+this.apps[9],classes:"appOptions"};
-                this.mvConfig = {id:"virtualclass"+this.apps[10],classes:"appOptions"};
+                this.wbConfig = {id: "virtualclass" + virtualclass.apps.wb, classes: "appOptions"};
+                this.ssConfig = {id: "virtualclass" + virtualclass.apps.ss, classes: "appOptions"};
+                // this.ytsConfig = {id: "virtualclass" + virtualclass.apps.yt, classes: "appOptions"};
+                this.edConfig = {id: "virtualclass" + virtualclass.apps.er, classes: "appOptions"};
+                this.edCodeConfig = {id: "virtualclass" + virtualclass.apps.ec, classes: "appOptions"};
+                this.ptConfig = {id: "virtualclass" + virtualclass.apps.sp, classes: "appOptions"};
+                this.plConfig ={id:"virtualclass"+virtualclass.apps.poll,classes:"appOptions"};
+                this.viConfig ={id:"virtualclass"+virtualclass.apps.vid,classes:"appOptions"};
+                this.dtsConfig = {id: "virtualclass" + virtualclass.apps.ds, classes: "appOptions"};
+                this.qzConfig = {id:"virtualclass"+this.apps.quiz,classes:"appOptions"};
+                this.mvConfig = {id:"virtualclass"+this.apps.mv,classes:"appOptions"};
 
-                //this.wssConfig = { id : "virtualclass" + this.apps[2], classes : "appOptions"};
+                //this.wssConfig = { id : "virtualclass" + virtualclass.apps.yt, classes : "appOptions"};
                 this.user = new window.user();
                 // this.lang.getString = window.getString;
                 // this.lang.message = window.message;
@@ -226,7 +230,7 @@
                 this.system.mediaDevices.getMediaDeviceInfo();
 
 
-                if (app == this.apps[1]) {
+                if (app == virtualclass.apps.ss) {
                     this.system.setAppDimension();
                 }
 
@@ -468,7 +472,7 @@
                 this.view = window.view;
                 this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
                 console.log('Current App init ' + this.currApp);
-                if (app != this.apps[1]) {
+                if (app != virtualclass.apps.ss) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && roles.hasControls()) {
                         virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                     }
@@ -483,7 +487,7 @@
                 }
 
                 //if not screen share
-                if (app != this.apps[1]) {
+                if (app != virtualclass.apps.ss) {
                     this.dispvirtualclassLayout(app);
                     //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
@@ -604,11 +608,11 @@
                 }
                 this.previrtualclass = this.previous;
 
-                if (app != this.apps[0] && app != this.apps[1] ) {
+                if (app != virtualclass.apps.wb && app != virtualclass.apps.ss ) {
                     virtualclass.system.setAppDimension();
                 }
 
-                // if (app != this.apps[1] && app != this.apps[2]&& app != this.apps[7] && virtualclass.hasOwnProperty('yts')) {
+                // if (app != virtualclass.apps.ss && app != virtualclass.apps.yt&& app != virtualclass.apps.vid && virtualclass.hasOwnProperty('yts')) {
                 //     virtualclass.yts.destroyYT();
                 // }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {
@@ -947,7 +951,7 @@
                     var docs = "";
                     var operations = "";
 
-                    if (app == this.apps[3]) {
+                    if (app == virtualclass.apps.er) {
                         virtualclass.editorRich.init(revision, clients, docs, operations);
                         this.previous = virtualclass.edConfig.id;
                     } else {
@@ -1201,7 +1205,7 @@
             },
 
             PrvAndCurrIsWss: function (previous, appName) {
-                return (previous == 'virtualclassWholeScreenShare' && appName == this.apps[2]) ? true : false;
+                return (previous == 'virtualclassWholeScreenShare' && appName == virtualclass.apps.yt) ? true : false;
             },
 
             prvCurrUsersSame: function () {

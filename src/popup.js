@@ -434,21 +434,21 @@ var PopUp = (function (window, undefined) {
 
 
     PopUp.prototype.waitMsg = function (pageLoad){
+        var time = 0;
+        if(typeof pageLoad != 'undefined'){
+            time = 1300;
+        }
+        setTimeout(() => {
+            virtualclass.network.netWorkElementIsReady();
+        }, time);
+
+        return;
         if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
             var element = document.getElementById('about-modal');
             virtualclass.popup.open(element);
             this.hideAllPopups();
             document.getElementById('waitMsgCont').style.display = 'block';
             var networkStatusContainer  = document.querySelector('#networkStatusContainer');
-
-            var time = 0;
-            if(typeof pageLoad != 'undefined'){
-                time = 1300;
-            }
-            setTimeout(() => {
-                virtualclass.network.netWorkElementIsReady();
-            }, time);
-
         }
     };
 

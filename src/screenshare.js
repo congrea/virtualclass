@@ -135,7 +135,7 @@ var newCanvas;
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
                 app = stype;
-                var screenCont = document.getElementById('virtualclass' +  virtualclass.apps[1]);
+                var screenCont = document.getElementById('virtualclass' +  virtualclass.apps.ss);
 
                 if (typeof virtualclass[app] != 'object' || screenCont == null) {
                     if (typeof vtype != 'undefined') {
@@ -467,7 +467,7 @@ var newCanvas;
              * @param app it stores the string screenshare
              */
             readyTostart: function (app) {
-                if (app == virtualclass.apps[1]) {
+                if (app == virtualclass.apps.ss) {
 
                     this.getScreen();
                 }

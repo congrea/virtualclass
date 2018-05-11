@@ -91,7 +91,7 @@ $(document).ready(function () {
                 }
             }
         } else {
-            var appIs = "EditorRich";
+            var appIs = virtualclass.gObj.defaultApp;
         }
 
         if (typeof videoObj == 'undefined') {
@@ -1292,17 +1292,17 @@ $(document).ready(function () {
 
             //whiteboard ready
             this.dispWhiteboard = function (e) {
-                virtualclass.makeAppReady(virtualclass.apps[0], undefined, e.message.d);
+                virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d);
             };
             this.ppt = function (e) {
                 if (e.fromUser.userid != virtualclass.gObj.uid) {
                     if (e.message.hasOwnProperty('init')) {
-                        virtualclass.makeAppReady(virtualclass.apps[5]);
+                        virtualclass.makeAppReady(virtualclass.apps.sp);
                     } else {
                         if (typeof virtualclass.sharePt != 'object') {
                             //If virtualclass.ssharePt is not ready at participate side, then we
                             // will create it first then only proceed to next ppt packet
-                            virtualclass.makeAppReady(virtualclass.apps[5]);
+                            virtualclass.makeAppReady(virtualclass.apps.sp);
                             virtualclass.sharePt.onmessage({
                                 pptMsg: e.message.ppt.init,
                                 cf: 'ppt',
@@ -1406,7 +1406,7 @@ $(document).ready(function () {
             //Clear All
             this.clearAll = function (e) {
                 if (typeof virtualclass.wb != 'object') {
-                    virtualclass.makeAppReady(virtualclass.apps[0]);
+                    virtualclass.makeAppReady(virtualclass.apps.wb);
                 }
                 virtualclass.wb[virtualclass.gObj.currWb].response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb[virtualclass.gObj.currWb].oTeacher);
             };
@@ -1431,7 +1431,7 @@ $(document).ready(function () {
             //Display Whiteboard Data
             this.repObj = function (e) {
                 if (typeof virtualclass.wb != 'object') {
-                    virtualclass.makeAppReady(virtualclass.apps[0]);
+                    virtualclass.makeAppReady(virtualclass.apps.wb);
                 } else {
                     //if(!roles.hasControls()){
                     // Teacher does not need this message

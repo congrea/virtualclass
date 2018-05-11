@@ -21,9 +21,13 @@ newScrollVal = 0;
                 var canvasEl = document.getElementById(cid);
 
                 var offset = vcan.utility.getElementOffset(canvasEl);
+                // If offset is 0 then we have to give default offset
+                if(offset.x == 0 ){
+                    offset.x = 53;
+                    offset.y = 48;
+                }
                 vcanMain.offset = offset;
               //    vcanMain.offset.x = 0;
-
                 return offset;
             },
             /**

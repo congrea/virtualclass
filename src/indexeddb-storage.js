@@ -605,7 +605,7 @@
                     ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
                 }
 
-                virtualclass.makeAppReady(virtualclass.apps[3]);
+                virtualclass.makeAppReady(virtualclass.gObj.defaultApp);
 
                 var currTime = new Date().getTime();
                 if (typeof that.db != 'undefined') {

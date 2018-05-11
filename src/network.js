@@ -23,7 +23,7 @@ Network.prototype.pingToServer = function() {
 };
 
 /**
- * Sleeps for 10 seconds if PONG msg is received from server after two seconds
+ * Sleeps for 10 seconds if PONG msg is received from server after two seconds.
  * @param time is miliseconds at which, the applicaton pings the server
  */
 Network.prototype.initToPing = function(time) {
@@ -92,7 +92,11 @@ Network.prototype.adaptiveMedia = function() {
             this.setSpeed(1);
         }
     } else {
-        this.updateNetworkInfo("fast");
+        if (this.latency > 2000) {
+            this.updateNetworkInfo("slow");
+        } else {
+            this.updateNetworkInfo("fast");
+        }
         console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH = 0;

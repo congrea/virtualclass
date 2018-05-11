@@ -3743,3 +3743,8 @@ opacity: 1;
 	opacity : 0.5;
 	pointer-events:  none;
 }
+
+
+#virtualclassCont.congrea.pdfRendering .zoomControler{
+	pointer-events: none;
+}

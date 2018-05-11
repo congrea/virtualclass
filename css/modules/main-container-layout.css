@@ -8,7 +8,7 @@
 }
 
 #virtualclassCont.student #virtualclassAppContainer {
-  width : calc(100vw - 327px);
+  width : calc(100vw - 320px);
 }
 
 #virtualclassCont #virtualclassAppContainer{
@@ -55,7 +55,7 @@
 }
 
 #virtualclassCont.congrea.student #virtualclassEditorRich, #virtualclassCont.congrea.student #virtualclassEditorCode{
-  margin:0px 10px 0px 3px;
+/*  margin:0px 10px 0px 3px;*/
 }
 
 #virtualclassCont.congrea.student #virtualclassVideo {

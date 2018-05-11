@@ -15,6 +15,7 @@
                         var canvasScale = localStorage.getItem('wbcScale');
                         if(canvasScale != null){
                             this.canvasScale = canvasScale;
+                            console.log('Canvas pdf scale ' + this.canvasScale);
                         }
                     }
                 }
@@ -71,7 +72,7 @@
                    // alert('canvas scale');
                     this.canvasScale = this.canvasScale * SCALE_FACTOR;
 
-                    console.log('Canvas scale ' + this.canvasScale);
+                    console.log('Canvas pdf scale ' + this.canvasScale);
 
                     var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
                     var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
@@ -96,6 +97,7 @@
                 this.prvCanvasScale = this.canvasScale;
 
                 this.canvasScale = this.canvasScale / SCALE_FACTOR;
+                console.log('Canvas pdf scale ' + this.canvasScale);
 
                 var actualWidth  = virtualclass.vutil.getWidth(canvas) * (1 / SCALE_FACTOR);
                 var actualHeight = virtualclass.vutil.getHeight(canvas) * (1 / SCALE_FACTOR);
@@ -115,13 +117,24 @@
 
                     // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
 
-                    var wrapperWidth = canvas.parentNode.offsetWidth;
+                   // var wrapperWidth = canvas.parentNode.offsetWidth;
+                    // 380 = right side bar (320) + left bar (60)
+
+                    var virtualclassCont = document.querySelector('#virtualclassCont');
+                    if(virtualclassCont != null){
+                        var containerWidth = virtualclassCont.offsetWidth;
+                    }else {
+                        var containerWidth = window.innerWidth;
+                    }
+
+                    var wrapperWidth = (containerWidth - 380);
 
                     try {
                         var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
                         this.prvCanvasScale = this.canvasScale;
                         // alert('canvas scale 2');
                         this.canvasScale = viewport.scale;
+                        console.log('Canvas pdf scale ' + this.canvasScale);
                         virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
                     }catch (error){
                         console.log('Error ' + error);
@@ -134,6 +147,7 @@
                 if(typeof virtualclass.pdfRender[wid].shownPdf == 'object'){
                     if(virtualclass.zoom.canvasScale != null){
                         virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
+                        console.log('Canvas pdf scale ' + this.canvasScale);
                         virtualclass.zoom.zoomIn('normalRender');
                     } else {
                         console.log('canvasScale is not defined yet.');

@@ -596,6 +596,12 @@
                             }
                             virtualclass.videoUl.videoId = null;
                             virtualclass.videoUl.videoUrl = null;
+                            var video = document.querySelector(".congrea #dispVideo video")
+                            var ytube =  document.querySelector(".congrea #dispVideo iframe")
+                            var cont = video ?video:ytube;
+                            if(cont){
+                                cont.setAttribute("src",'');
+                            }
                         }
                     }
                 } else {
@@ -895,6 +901,13 @@
                                 ioAdapter.mustSend({'videoUl':'videoDelete', 'cf': 'videoUl'});
                                 virtualclass.videoUl.videoId = null;
                                 virtualclass.videoUl.videoUrl = null;
+                                var video = document.querySelector(".congrea #dispVideo video");
+                                var ytube =  document.querySelector(".congrea #dispVideo iframe");
+                                var cont = video ?video:ytube;
+                                if(cont){
+                                    cont.setAttribute("src",'');
+                                }
+
                             }
                         }
                         if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){

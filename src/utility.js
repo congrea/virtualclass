@@ -508,7 +508,7 @@
             var prvAppObj = {name: virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp)};
             console.log(virtualclass.currApp);
             if (virtualclass.currApp == 'ScreenShare') {
-                prvAppObj.name = "EditorRich"; //not saving screen share but show Editor Rich default window
+                prvAppObj.name = virtualclass.gObj.defaultApp; //not saving screen share but show Editor Rich default window
                 var teacherId = virtualclass.vutil.whoIsTeacher();
                 if(virtualclass.gObj.studentSSstatus.mesharing){
                     ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);

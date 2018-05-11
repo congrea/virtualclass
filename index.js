@@ -91,7 +91,7 @@ $(document).ready(function () {
                 }
             }
         } else {
-            var appIs = "Whiteboard";
+            var appIs = virtualclass.gObj.defaultApp;
         }
 
         if (typeof videoObj == 'undefined') {

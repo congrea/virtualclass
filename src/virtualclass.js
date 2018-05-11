@@ -626,7 +626,6 @@
                         if(video){
                             video.setAttribute("src",'');
                         }
-
                     }
                     $('.congrea #listvideo .playing').removeClass('playing');
                     $('.congrea #listvideo .removeCtr').removeClass('removeCtr');

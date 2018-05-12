@@ -96,7 +96,7 @@ var colorSelector ={
         //color ="#4778C2";
 
 
-        var brightness = this.calcBrightness(color)
+        var brightness = this.calcBrightness(color);
         var iconColor;
         if (brightness > 125) {
             iconColor="black";
@@ -113,7 +113,7 @@ var colorSelector ={
         hover.scolor=chroma(color).brighten(1.8).hex();
         // to be modified
         if(brightness<50){
-            if(brightness <=20){
+            if(brightness <=10){
                 active.fcolor=chroma(color).brighten(2).hex();
                 active.scolor=chroma(color).brighten(3).hex();
             }else{
@@ -167,26 +167,25 @@ var colorSelector ={
         }
 
         var border ="0.05em solid "+allbg.fcolor
-        var css = "#virtualclassCont.congrea #virtualclassOptionsCont:first-child, " +
-            "#virtualclassCont.congrea #virtualclassOptionsCont," +
-            " #virtualclassCont.congrea .commandToolsWrapper" +
+        var css = " #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #navigator, " +
+            "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget" +
             "{border:"+border +" !important;}"+
+            "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #audioWidget li" +
+            "{border-right:"+border +" !important;}"+
+            "#virtualclassCont.congrea .zoomControler" +
+            "{border-left:"+border +" !important;}"+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
             "#virtualclassCont.congrea #audioWidget li,"+
             "#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab li"+
             "{border-right: 0.01em solid "+allbg.fcolor +"!important;}"+
-            "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, " +
-            "#virtualclassCont.congrea #audioWidget"+
-            "{border:"+border+" !important}"+
             "#virtualclassCont.congrea .btn.btn-default ," +
             "#virtualclassCont.congrea .vceditor-toolbar ,"+
             "#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab,"+
             "#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,"+
-             "#virtualclassCont.congrea #layoutQuiz .navbar ,"+
+            "#virtualclassCont.congrea #layoutQuiz .navbar ,"+
             "#virtualclassCont.congrea button ,"+
-            "#virtualclassCont.congrea #navigator"+
-            " {border:"+border+" !important}" +
             "#virtualclassCont.congrea .btn.btn-default ,"+
+            "#virtualclassCont.congrea .zoomControler ,"+
             "#virtualclassCont.congrea .btn-default "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
         this.addCss(css);
@@ -199,7 +198,7 @@ var colorSelector ={
         var rgb = chroma(color).rgb();
         var c = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
         var brightness = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
-        console.log(brightness);
+        console.log("brightne" + brightness);
         //alert(brightness);
         return brightness
     },
@@ -401,6 +400,7 @@ var colorSelector ={
     },
     makeThemeReadyPresentation:function(frontColor,allbg,active,hover,brightness){
         var iconColor = allbg.fcolor;
+        // if(brightness >180){
         if(brightness >180){
             iconColor = active.fcolor;
             hover.fcolor = chroma(active.fcolor).darken();

@@ -69,7 +69,15 @@ if (isset($_POST['color'])) {
 }
 else{
 	/* to change color */
-	 $selected_color = "";
+
+	 $selected_color = "#021317";
+	  // $selected_color = "#34404c";
+	 //  $selected_color = "#22673D";
+	 // $selected_color = "#25606F";
+	  // $selected_color = "#5B7DC8";
+	   // $selected_color = "#A83841";
+	    // $selected_color = "#9fa1a3";
+	 //   $selected_color = "#a2c5e8";
 }
 
 if (isset($_GET['meetingmode'])) {
@@ -238,7 +246,7 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/network.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/color.css" ?> />
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/theme/$theme".".css" ?> />
+
 <?php
 } else {
     $PAGE->requires->css(new moodle_url($CFG->wwwroot . '/mod/congrea/bundle/virtualclass/css/'.$theme.'.min.css'));

@@ -2784,7 +2784,6 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
-#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 /*	height: 50px;* comment out/
 	/*width: 20%;*/
@@ -3123,7 +3122,7 @@
 	right: 369px;
 	z-index: 2000;
 	overflow: hidden;
-    background: linear-gradient(to bottom, #34404c 0%, #515e69 100%) !important;
+    background-image: linear-gradient(to bottom, #34404c 0%, #515e69 100%) !important;
     border-bottom: none;
     border-right: none;
 }

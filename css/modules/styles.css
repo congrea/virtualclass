@@ -595,7 +595,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions .congtooltip:hover:after {
-	padding : 0.7em 1em;
+	padding : 0.3em .8em;
 	right : auto;
 	left : 52px;
 	bottom : -0.4em;
@@ -1902,8 +1902,8 @@
 }
 
 #virtualclassOptionsCont .appOptions a.congtooltip:hover:after{
-	line-height: 20px !important;
-	bottom: -5px!important;
+	bottom: 2px !important;
+    
 }
 
 #virtualclassCont.congrea.playMode.student .writeModeBox{top: -60px;}
@@ -3105,6 +3105,7 @@
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler,
 #virtualclassCont.congrea[data-currapp='ScreenShare'] .zoomControler{
 	display : block;
+    background-image: none !important;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassSharePresentation {
@@ -3140,7 +3141,7 @@
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 11.5px 18px;
+  padding: 9.5px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;

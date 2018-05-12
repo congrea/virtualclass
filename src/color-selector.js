@@ -167,12 +167,12 @@ var colorSelector ={
         }
 
         var border ="0.05em solid "+allbg.fcolor
-        var css = " #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #navigator, " +
+        var css = " #virtualclassCont.congrea #navigator, " +
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget" +
             "{border:"+border +" !important;}"+
-            "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #audioWidget li" +
+            "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
-            "#virtualclassCont.congrea .zoomControler" +
+            "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer" +
             "{border-left:"+border +" !important;}"+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
             "#virtualclassCont.congrea #audioWidget li,"+
@@ -191,7 +191,6 @@ var colorSelector ={
         this.addCss(css);
 
     },
-
 
      // front color to be calculated
     calcBrightness:function(color){

@@ -1596,9 +1596,10 @@ $(document).ready(function () {
                             virtualclass.gObj.studentSSstatus.mesharing = true;
 
                         }
-
                         var appName = "ScreenShare";
                         virtualclass.makeAppReady(appName, "byclick");
+                    }else{
+                        virtualclass.vutil.beforeSend({'sd': true, 'cf': 'raiseHand'});
                     }
                 });
             }
@@ -1650,7 +1651,7 @@ $(document).ready(function () {
             /***** End Student Screen Sharing *****/
 
             this.raiseHand= function(e){
-                virtualclass.raiseHand.onMsgRec(e.message);
+                virtualclass.raiseHand.onMsgRec(e);
             }
             this.stdVideoCtrl= function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){

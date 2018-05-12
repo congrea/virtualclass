@@ -1831,10 +1831,10 @@
             // Minutes part from the timestamp
             var minutes = "0" + date.getMinutes();
             // Seconds part from the timestamp
-            var seconds = "0" + date.getSeconds();
+           // var seconds = "0" + date.getSeconds();
 
             // Will display time in 10:30:23 format
-            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            var formattedTime = hours + ':' + minutes.substr(-2);
 
             return formattedTime;
         },

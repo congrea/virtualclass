@@ -7,8 +7,8 @@ body {
     letter-spacing: 1px;
 }
 #audioWidget ul li a {
-    padding-top:14px !important;
-    padding-bottom:9px !important;
+    padding-top:13px !important;
+    padding-bottom:12px !important;
     text-align:center;
 }
 
@@ -200,20 +200,17 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-#virtualclassCont #appSettingDetail #contrAudioAll.enable .slider  {
+#virtualclassCont #appSettingDetail .bulkUserActions li.disable .slider  {
   background-color: #05b688;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.on:before {
     color: #05b688;
 }
-#virtualclassCont #appSettingDetail #contrVideoAll.enable .slider {
-background-color: #05b688;
-}
 
 #virtualclassCont #appSettingDetail input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
 }
-#virtualclassCont #appSettingDetail li.enable .slider:before {
+#virtualclassCont #appSettingDetail li.disable .slider:before {
 -webkit-transform: translateX(21px);
 -ms-transform: translateX(21px);
 transform: translateX(21px);

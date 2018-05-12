@@ -22,7 +22,6 @@
   background: #EBECC6;
   font-size: 13px;
   padding: 2px 8px 2px 8px;
-  border: #e6dda4 1px solid;
 }
 
 #virtualclassEditorRich #synchMessageBox p {
@@ -37,13 +36,12 @@
 }
 
 #virtualclassCont.congrea .writeModeBox {
-  top: 26px;
+  top: 28.3px;
   right: 0px;
   position: absolute;
   text-align: center;
   text-transform: uppercase;
   width: 85px;
-  border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
 }
 

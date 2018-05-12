@@ -292,7 +292,7 @@
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{
-  margin-left: 74px;
+  margin-left: 89px;
   margin-bottom: 27px;
   top: 11px;
   height: 20px;
@@ -352,20 +352,20 @@
 @media (max-height: 768px){
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
-    top:73px;
+    top:144px; /* Changed from 73px */
   }
 }
 
 @media (max-height: 700px){
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
-    top: 55px;
+    top: 117px;
   }
   #virtualclassCont.congrea.teacher[data-currapp="Video"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
   #virtualclassCont.congrea.teacher[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
   #virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
-    top: 10px;
+    top: 117px;
   }
   #virtualclassCont.congrea #pptuploadContainer{
     top:10px;

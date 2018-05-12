@@ -84,19 +84,16 @@
   font-size: 28px;
   position: relative;
   top: 3px;
-  margin-right: 6px;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboardTool .icon-whiteboard:before {
   content: "\e604";
   font-size: 34px;
-  margin-right: 5px;
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {
   content: "\e602";
   font-size: 32px;
-  margin-right: 5px;
 }
 
 #virtualclassCont.congrea #virtualclassYtsTool .icon-youtubeshare:before {
@@ -109,7 +106,6 @@
   font-size: 22px;
   position: relative;
   top: 3px;
-  margin-right: 5px;
 }
 
 #virtualclassCont.congrea .icon-sharePresentation:before {
@@ -118,7 +114,6 @@
   color: #444;
   position: relative;
   top: 2px;
-  margin-right: 5px;
 }
 
 #virtualclassDocumentShareTool .icon-documentShare:before {
@@ -616,7 +611,15 @@
   font-size: 23px;
   color:red;
 }
-
+#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel span#videoSwitch.video.on:before {
+  content : "\e912";
+  font-weight : normal;
+  font-size : 11px;
+  color:gray;
+  font-family: 'icomoon';
+  font-size: 23px;
+  color:red;
+}
 #virtualclassCont.congrea #virtualclassCont .icon-chatImg.enable:before {
   content : "\f075";
   color: #34b532;
@@ -691,7 +694,7 @@
     font-variant: normal;
     -webkit-font-smoothing: antialiased;
     float:left;
-    margin-top:1px;
+    margin-bottom:1px;
 }
 
 #virtualclassCont.congrea .icon-zoomOut:before{
@@ -701,7 +704,7 @@
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
     float:left;
-    margin-top:1px;
+    margin-bottom:1px;
 
 }
 
@@ -712,7 +715,7 @@
     font-variant: normal;
     -webkit-font-smoothing: antialiased;
     float:left;
-    margin-top:1px;
+    margin-bottom:1px;
   
 }
 

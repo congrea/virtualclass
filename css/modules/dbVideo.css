@@ -104,6 +104,7 @@
 #virtualclassCont.congrea #congdashboard.modal .modal-header{
   padding : 6px;
   border-bottom-left-radius: 5px;
+    border:none !important;
 }
 
 

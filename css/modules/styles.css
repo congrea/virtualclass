@@ -1095,7 +1095,7 @@
 }
 
 #virtualclassCont.congrea.student #chat_div .ui-memblist-usr .controls span {
-	margin-right: 6px;
+	margin-right: 10px;
 }
 
 #virtualclassCont.congrea #chatroom_text .icon-arrow-down, #virtualclassCont.congrea #chatroom_text .icon-arrow-up{
@@ -1903,7 +1903,7 @@
 
 #virtualclassOptionsCont .appOptions a.congtooltip:hover:after{
 	line-height: 20px !important;
-	bottom: -20px!important;
+	bottom: -5px!important;
 }
 
 #virtualclassCont.congrea.playMode.student .writeModeBox{top: -60px;}
@@ -1929,9 +1929,10 @@
 	border: 1px solid #c8ddb8;
 	border-radius: 5px;
 	color: #3a773c;
-	margin: 28% auto;
+	margin: 31% auto;
 	padding: 30px 20px;
-    width: 26%;
+    width: 30%;
+    margin-top:40%;
     text-align: center;
 	box-shadow: 0 0 8px #ddd;
 }
@@ -2594,7 +2595,7 @@
 	/*width:85%;*/
 /*}*/
 
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassVideoTool.appOptions {
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool.appOptions {
 	border-top-right-radius: 8px;
 	margin-bottom: -1px;
 }
@@ -2901,11 +2902,11 @@
     font-weight: normal;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 15px 28px 15px 46px !important;
+	padding: 12.5px 19px !important;
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 18px 31px 14px 35px !important;
+	padding: 13px 30px 13px 30px !important;
 }
 
 #dashboardnav .btn-primary {
@@ -3122,7 +3123,6 @@
 	right: 369px;
 	z-index: 2000;
 	overflow: hidden;
-    background-image: linear-gradient(to bottom, #34404c 0%, #515e69 100%) !important;
     border-bottom: none;
     border-right: none;
 }
@@ -3629,9 +3629,6 @@ span#usertab_text {
 	line-height: 1;
 }
 
-#virtualclassCont.congrea .handRaise.disable.congtooltip:hover:after {
-	left: -4.01em;
-}
 
 #virtualclassCont.congrea #chat_div .controleCont{
 	float : left;
@@ -3639,7 +3636,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea.student #chat_div .controleCont{
-	margin-right: 5px;
+/*	margin-right: 5px;*/
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp.zoomCtrAdd .zoomControler{
@@ -3677,10 +3674,7 @@ span#usertab_text {
     margin: 5px 20px;
 
 }
-#virtualclassCont.congrea .handRaise{
- pointer-events: none;
-	opacity: .5;
-}
+
 #virtualclassCont.congrea.tr_available .handRaise{
 pointer-events: visible;
 opacity: 1;

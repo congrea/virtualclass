@@ -2785,7 +2785,6 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
-#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 /*	height: 50px;* comment out/
 	/*width: 20%;*/
@@ -3736,4 +3735,9 @@ opacity: 1;
 	display : none;
 	opacity : 0.5;
 	pointer-events:  none;
+}
+
+
+#virtualclassCont.congrea.pdfRendering .zoomControler{
+	pointer-events: none;
 }

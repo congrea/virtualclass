@@ -1,18 +1,19 @@
 #virtualclassCont.congrea #networkStatusContainer {
   position: relative;
-    top: -48px;
-    width: 48px;
-    left:-1px;
-    height:48px;
+    top: -44px;
+    width: 50px;
+    left:0px;
+    height:44px;
     float: right;
-    border: 1px solid rgba(254,254,254,0.2) !important;
+    border-left: 1px solid rgba(254,254,254,0.2) !important;
+    border-right: 1px solid rgba(254,254,254,0.2) !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {
   width: 30px;
   height: 30px;
   position: relative;
-  top: 8px;
+  top:10px;
   padding:4px;
   left:9px;
 }
@@ -96,7 +97,7 @@
   display: none;
 }
 #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
-    margin-top: 5px;
+    margin-top: 9px;
     margin-right: 8px;
     margin-left:9px;
     float: right;

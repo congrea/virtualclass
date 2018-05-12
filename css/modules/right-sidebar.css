@@ -425,13 +425,19 @@ transform: translateX(21px);
 #virtualclassCont #appSettingDetail select::-ms-expand {
 display: none;
 }
+#virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text #onlineusertext {
+    position: relative;
+}
 #virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text #onlineusertext:before {
     font-weight: normal;
     content: "\e971";
     font-size: 18px;
     font-family: 'icomoon';
+    line-height: 19px;
     color: #fff;
     margin-right: 5px;
+    margin: 1px 0 -3px -23px;
+    position: absolute;
 }
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt {
     padding: 15px 8px 15px 14px;

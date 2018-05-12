@@ -871,6 +871,10 @@
                         }
                     }
                 }
+                var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable")
+                if(!btn){
+                    virtualclass.vutil.showFinishBtn();
+                }
                 this.storeInDocs(this.allNotes);
             },
 
@@ -949,11 +953,17 @@
 
                 goToDocs : function (doc){
                     var cthis = this;
+
                     return function (){
                         if(typeof virtualclass.dts.docs.note == 'object'){
                             virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
                         }
                         cthis.executeScreen(doc);
+                        if(Object.keys(virtualclass.dts.notes).length){
+                            virtualclass.vutil.showFinishBtn()
+                        }else{
+                            virtualclass.vutil.removeFinishBtn()
+                        }
                     }
                 },
 
@@ -975,7 +985,11 @@
                             cthis.currNote = note;
                             cthis.note.currentSlide(note);
                         }
+
+
                     }
+
+
                 },
 
                 studentExecuteScreen : function (data){

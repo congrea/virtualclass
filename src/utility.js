@@ -1885,6 +1885,7 @@
                                      }
                                  }
                              }
+                            // virtualclass.vutil.removeFinishBtn();
                            }
                         );
                         if(currVideo){
@@ -1896,6 +1897,7 @@
                 if(virtualclass.currApp == 'DocumentShare'){
                     if(!virtualclass.dts.noteExist()){
                         this.readyDashboard();
+
                     } else {
                         if(!virtualclass.dts.isUploaderExist()){
                             virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
@@ -1907,12 +1909,13 @@
                     if(typeof currVideo == 'undefined'){
                         this.readyDashboard();
                     }
-
+                    virtualclass.vutil.removeFinishBtn();
                     // if(!(currVideo && currVideo.init && currVideo.init.videoUrl)){
                     //     this.readyDashboard();
                     // }
                 } else {
                     this.readyDashboard();
+                    virtualclass.vutil.removeFinishBtn();
                 }
 
             }
@@ -1998,6 +2001,8 @@
                 }
 
             }
+            // in case dashboard already created and button is enabled in previous app
+
         },
 
         initDashboard : function (currApp, hidepopup){
@@ -2578,7 +2583,21 @@
                 virtualclass.videoHost.afterSessionJoin();
             }
             virtualclass.gObj.precheckScrn=false;
-        }
+        },
+        showFinishBtn:function(){
+            var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button") ;
+            if(btn){
+                btn.classList.add("enable")
+            }
+        },
+
+        removeFinishBtn:function(){
+            var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable") ;
+            if(btn){
+                btn.classList.remove("enable")
+            }
+
+        },
     };
     window.vutil = vutil;
 })(window);

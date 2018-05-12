@@ -3743,3 +3743,11 @@ opacity: 1;
 	opacity : 0.5;
 	pointer-events:  none;
 }
+
+
+#virtualclassCont.congrea  #dashboardContainer .modal-header button {
+	display:none;
+}
+#virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
+	display:block;
+}

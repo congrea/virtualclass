@@ -355,8 +355,9 @@
                     virtualclass.videoUl.showVideoList();
                 }
                 var currId = virtualclass.videoUl.currPlaying || storedId;
-                if (virtualclass.videoUl.videoId) {
+                if (virtualclass.videoUl.videoUrl) {
                     virtualclass.videoUl.activeVideoClass(virtualclass.videoUl.videoId);
+                    virtualclass.vutil.showFinishBtn();
                 }
             },
 
@@ -380,6 +381,9 @@
                     });
                 }
                // virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+
+
+               // virtualclass.vutil.removeFinishBtn();
                 virtualclass.vutil.makeElementActive('#listvideo');
 
             },
@@ -448,6 +452,9 @@
 
                             virtualclass.videoUl.videoToStudent(toStd);
                             virtualclass.videoUl.videoId = vidObj.fileuuid;
+
+                            virtualclass.vutil.showFinishBtn();
+
                             virtualclass.dashBoard.close();
                         });
 
@@ -600,7 +607,7 @@
                             var ytube =  document.querySelector(".congrea #dispVideo iframe")
                             var cont = video ?video:ytube;
                             if(cont){
-                                cont.setAttribute("src",'');
+                                cont.removeAttribute("src");
                             }
                         }
                     }
@@ -885,14 +892,9 @@
                     var type ="saved";
                     var elem = document.getElementById("linkvideo" + id);
                     if (elem) {
-                        // if(elem.classList.contains("yts")){
-                        //     type="yts"
-                        // }else if(elem.classList.contains("online")){
-                        //     type="online";
-                        // }
                         elem.parentNode.removeChild(elem);
-                        //virtualclass.videoUl.order=[];
 
+                        // if current playing video is deleted
                         if(virtualclass.videoUl.videoId == id ){
                             // if(type !="yts"){
                             var playerCont = document.querySelector("#videoPlayerCont");
@@ -907,7 +909,7 @@
                                 if(cont){
                                     cont.setAttribute("src",'');
                                 }
-
+                                virtualclass.vutil.removeFinishBtn();
                             }
                         }
                         if(virtualclass.videoUl.videos && virtualclass.videoUl.videos.length){
@@ -929,6 +931,12 @@
                             // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
                             virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
                         }
+                        if(!virtualclass.videoUl.videos.length){
+                            // if not being shown
+                            virtualclass.vutil.removeFinishBtn();
+
+                        }
+
                     }
                 }
             },

@@ -119,7 +119,7 @@
   border-top: none;
 }
 
-#virtualclassCont.congrea #speakerPressing .congtooltip:hover:after, #virtualclassCont.congrea #speakerPressOnce .congtooltip:hover:after, #virtualclassCont.congrea #audioTest .congtooltip:hover:after {
+ #virtualclassCont.congrea #audioTest .congtooltip:hover:after {
   line-height: 16px;
 }
 

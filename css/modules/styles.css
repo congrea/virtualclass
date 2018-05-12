@@ -595,7 +595,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions .congtooltip:hover:after {
-	padding : 0.7em 1em;
+	padding : 0.3em .8em;
 	right : auto;
 	left : 52px;
 	bottom : -0.4em;
@@ -1902,8 +1902,8 @@
 }
 
 #virtualclassOptionsCont .appOptions a.congtooltip:hover:after{
-	line-height: 20px !important;
-	bottom: -5px!important;
+	bottom: 2px !important;
+    
 }
 
 #virtualclassCont.congrea.playMode.student .writeModeBox{top: -60px;}

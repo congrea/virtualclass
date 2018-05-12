@@ -1,7 +1,9 @@
 /*left pannel*/
 #virtualclassCont .icon-videoUpload:before {
-  content: "\e92d";
-  font-size: 26px;
+   content: "\e92d";
+   font-size: 26px;
+   margin-left: 2px;
+   line-height: 30px;
 }
 
 #virtualclassVideo button#newVideoBtn::before {
@@ -24,22 +26,9 @@
 #virtualclassCont .icon-poll:before {
   content: "\e916";
   font-size: 28px;
-  margin-right: 3px;
+  margin-right: 0;
 }
-/*#virtualclassCont .icon-setting:before {*/
-/*content: "\e991";*/
-/*font-size: 13px;*/
-/*color:#4c4c4c;*/
-/*font-weight: bold;*/
-/*}*/
-/*#virtualclassCont .icon-help:before {*/
-/*content: "\e928";*/
-/*color:#4c4c4c;*/
-/*}*/
-/*#virtualclassCont .icon-creator:before {*/
-/*content: "\e923";*/
-/*color:#4c4c4c;*/
-/*}*/
+
 #virtualclassCont .icon-pencil2:before {
   content: "\f044";
   font-size: 18px !important;
@@ -70,7 +59,7 @@
 #virtualclassCont .icon-quiz:before {
   content: "\e915";
   font-size: 26px;
-  margin-right: 2px;
+  margin-right: -1px;
 }
 
 #virtualclassCont .icon-publish2:before {
@@ -84,6 +73,7 @@
   font-size: 28px;
   position: relative;
   top: 3px;
+  left: 0;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboardTool .icon-whiteboard:before {
@@ -94,6 +84,7 @@
 #virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {
   content: "\e602";
   font-size: 32px;
+  margin-left: 0px;
 }
 
 #virtualclassCont.congrea #virtualclassYtsTool .icon-youtubeshare:before {
@@ -113,7 +104,8 @@
   font-size: 32px;
   color: #444;
   position: relative;
-  top: 2px;
+  top: 0px;
+  left: 0px;
 }
 
 #virtualclassDocumentShareTool .icon-documentShare:before {
@@ -122,6 +114,7 @@
   color: #444;
   position: relative;
   top: 2px;
+  left: 1px;
 }
 
 #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont button#newVideoBtn::before {
@@ -134,42 +127,10 @@
 }
 
 #virtualclassCont.congrea #virtualclassSessionEndTool .icon-sessionend:before {
-  font-size: 30px;
-  content: "\e9b6";
+   font-size: 30px;
+   content: "\e9b6";
+   margin-left: 3px;
 }
-
-
-/*
-#virtualclassCont.congrea #speakerPressonceAnch span {
-  width: 33px; 
-  height: 17px; 
-  display: inline-block;
-  position: relative;
-  border-radius: 2px;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-  background: rgb(138, 138, 138);
-  background: -webkit-linear-gradient(top, rgba(138, 138, 138, 1) 0%, rgba(140, 140, 140, 1) 14%, rgba(159, 159, 159, 1) 72%, rgba(164, 164, 164, 1) 100%);
-  background: -moz-linear-gradient(top, rgba(138, 138, 138, 1) 0%, rgba(140, 140, 140, 1) 14%, rgba(159, 159, 159, 1) 72%, rgba(164, 164, 164, 1) 100%);
-  background: -o-linear-gradient(top, rgba(138, 138, 138, 1) 0%, rgba(140, 140, 140, 1) 14%, rgba(159, 159, 159, 1) 72%, rgba(164, 164, 164, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(138, 138, 138, 1) 0%, rgba(140, 140, 140, 1) 14%, rgba(159, 159, 159, 1) 72%, rgba(164, 164, 164, 1) 100%);
-  background: linear-gradient(top, rgba(138, 138, 138, 1) 0%, rgba(140, 140, 140, 1) 14%, rgba(159, 159, 159, 1) 72%, rgba(164, 164, 164, 1) 100%);
-  box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-  line-height: 30px;
-  font-style: normal;
-  color: #fff;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  -moz-transition: all 1s ease-in;
-  -webkit-transition: all 1s ease-in;
-  -o-transition: all 1s ease-in;
-  transition: all 1s ease-in;
-  cursor: pointer;
-  right: 6%;
-  top: 10%;
-}
-*/
 
 #virtualclassCont.congrea #speakerPressOnce span i {
   position: absolute;

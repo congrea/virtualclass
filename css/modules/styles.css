@@ -2607,10 +2607,10 @@
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool.appOptions,
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions {
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
     margin-bottom: -1px;
 }
-
 
 /* New CSS */
 
@@ -2628,31 +2628,6 @@
 	float: left;
 	position: relative;
 }
-
-/* Responsive CSS */
-
-/*@media (max-width: 1840px ){*/
-/*#dispVideo {width: 82%;}*/
-/*}*/
-/*@media (max-width: 1740px ){*/
-/*#dispVideo {width: 80%;}*/
-/*}*/
-/*@media (max-width: 1480px ){*/
-/*#dispVideo {width: 77%;}*/
-/*}*/
-/*@media (max-width: 1370px ){*/
-/*#dispVideo {width: 74%;}*/
-/*}*/
-/*@media (max-width: 1280px ){*/
-/*!*#dispVideo {width: 72%;}*!*/
-/*}*/
-/*@media (max-width: 1160px ){*/
-/*#dispVideo {width: 68%;}*/
-/*#virtualclassCont.congrea #dispVideo {margin-left: 46px;}*/
-/*}*/
-/*@media (max-width: 1024px ){*/
-/*#dispVideo {width: 65%;}*/
-/*}*/
 
 #virtualclassCont.congrea #virtualclassVideo .linkvideo.playing{
 	border:solid green 1px;
@@ -2728,9 +2703,6 @@
 	padding-top: 0px;
 	color:green;
 }
-/*#virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget.enable {*/
-	/*position: absolute;*/
-/*}*/
 
 #virtualclassCont.congrea #tech_support_save{
 	position: absolute;
@@ -2779,7 +2751,6 @@
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber{
 	height: 50px;
-	/*width: 25%;*/
 	border-right: 1px solid rgba(254, 254, 254, 0.2);
 	padding-top: 15px;
 }
@@ -2787,11 +2758,8 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
-/*	height: 50px;* comment out/
-	/*width: 20%;*/
 	border-left:1px solid rgba(254, 254, 254, 0.2)!important;
 }
-
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .prechk,
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
@@ -2826,25 +2794,11 @@
 	}
 }
 
-/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont {*/
-/*height:15%;*/
-
 /*}*/
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont,
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
 	padding:0px;
 }
-
-/*@media (min-width: 700px){*/
-/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {*/
-/*width:80%;*/
-/*}*/
-/*}*/
-/*@media (min-width: 992px){*/
-/*#virtualclassCont.congrea #dashboardContainer #videoUrlContainer {*/
-/*width:80%;*/
-/*}*/
-/*}*/
 
 /** For handling the overlap of audio and video in firefox **/
 #virtualclassCont.congrea #audioWidget {
@@ -2969,7 +2923,6 @@
 	width: 469px;
 }
 
-
 #virtualclassCont.congrea.orginalTeacher #audioWidget #mainAudioPanel li {
 	width : 33.3%; /*changed from 20% as remove some controls */
     text-align:center !important;
@@ -2978,7 +2931,6 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel li {
 	width : 33.3%;
 }
-
 
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
 	width : 20%;
@@ -3033,7 +2985,6 @@
 	opacity: 0.8;
 }
 
-
 #virtualclassCont.congrea #generalMessage{
 	display: block;
 	width: 300px;
@@ -3041,7 +2992,6 @@
 	margin-top: 20px;
 	padding : 10px;
 }
-
 
 #virtualclassCont.congrea #popupContainer #generalMessageClose:before {
 	content: "X";
@@ -3054,7 +3004,6 @@
 	cursor: pointer;
 }
 
-
 #virtualclassCont.congrea #zoomControler  {
 	position: absolute;
 	top: 0;
@@ -3066,11 +3015,9 @@
 	margin : 5px;
 }
 
-
 #virtualclassCont.congrea .scrollX {
 	overflow : scroll;
 }
-
 
 #virtualclassCont.congrea .canvasWrapper.cscrollX {
 	overflow-x : scroll;
@@ -3079,7 +3026,6 @@
 #virtualclassCont.congrea .canvasWrapper.cscrollY {
 	overflow-y: scroll
 }
-
 
 #virtualclassCont.congrea .canvasWrapper .scrollDivY{
 	width : 5px;
@@ -3102,18 +3048,12 @@
 	position : relative;
 }
 
-
 #virtualclassCont.congrea .canvasWrapper .mousepointer {
 	width : 5px;
 	height : 10px;
 	background-color : green;
 	position :absolute;
 }
-
-/*#virtualclassCont.congrea #virtualclassDocumentShare #docScreenContainer {*/
-	/*height : 90vh;*/
-/*}*/
-
 
 #virtualclassCont.congrea .zoomControler{
 	border:1px solid rgba(254,254,254,0.2) ;
@@ -3128,11 +3068,6 @@
     border-right: none;
 }
 
-/*#virtualclassCont.congrea.teacher .virtualclassScreenShare .zoomControler{*/
-	/*display: none;*/
-/*}*/
-
-
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
 	display : none;
 }
@@ -3141,37 +3076,27 @@
 	display : block;
 }
 
-/*#virtualclassCont.congrea #virtualclassScreenShare {*/
-/*overflow : scroll;*/
-/*}*/
-
 #virtualclassCont.congrea.student #virtualclassScreenShareLocalVideoNew {
 	position : absolute;
 	top : -1333px;
 	left : -13333px
 }
 
-
 #virtualclassCont.congrea.student #virtualclassScreenShare{
 	margin-top : 0;
 }
-
 
 #virtualclassCont.congrea #virtualclassWhiteboard.whiteboard .nvgt {
 	display : none;
 }
 
-
 #virtualclassCont.congrea[data-currapp='Whiteboard'] #virtualclassWhiteboard.whiteboard .nvgt{
 	display : block;
 }
 
-
-
 #virtualclassCont.congrea #tech_support_save{
 	display : none;
 }
-
 
 #virtualclassCont.congrea .zoomControler {
 	display : none;
@@ -3211,7 +3136,6 @@
 #virtualclassCont.congrea.playMode #virtualclassApp {
 	height: 99vh;
 }
-
 
 #virtualclassCont.congrea .zoomControler  div {
   font-size: 22px;
@@ -3284,7 +3208,6 @@
 #virtualclassCont.congrea #listppt .linkppt .mainpreview {
    margin: -3px 2px 3px !important;
 }
-
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
    width:100%;
@@ -3445,19 +3368,15 @@
 	content: "\e962";
 	font-size: 21px;
 	color: #fdfafa;
-
 }
 
 #virtualclassCont.congrea .handRaise.disable #icHr:before {
 	color: #fd2812;
 }
 
-
-
 #virtualclassCont.congrea  #icHr:after {
   position:absolute !important;
 	bottom:35px !important;
-
 }
 
 #virtualclassCont.congrea .controleCont.controllerRaiseH.disabled{
@@ -3477,12 +3396,12 @@
 	font-size: 14px;
 }
 
-
 /* border color     */
-  #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
-  border: 1px solid rgba(254,254,254,0.2) !important;
 
-	}
+#virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
+     border: 1px solid rgba(254,254,254,0.2) !important;
+     border-left-width: 0 !important;
+}
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
 	border-bottom: 0px solid rgba(254,254,254,0.2) !important;

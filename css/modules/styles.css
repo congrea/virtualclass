@@ -514,7 +514,7 @@
 	bottom : 2.6em;
 	content : attr(data-title);
 	display : block;
-	left : -2.01em;
+/*	right:0px;*/
 	padding : 0.2em 0.5em;
 	position : absolute;
 	white-space : nowrap;

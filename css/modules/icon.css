@@ -696,4 +696,11 @@
 
 }
 
+#virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:before {
+   content: "\f00e";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 17px;
+    color: dimgray;
+}
 

@@ -844,7 +844,23 @@ this["JST"]["templates/ppt/dashboard.hbs"] = Handlebars.template({"compiler":[7,
     + "\" class=\"form-control\">\n        <input type=\"submit\" id=\"submitpurl\" class =\"btn-default\"value=\"Save\">\n      </div>\n    </div>\n  </div>\n</div>\n\n\n";
 },"useData":true});
 
-this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.escapeExpression;
+
+  return "      <div class=\"controls status\" data-status=\""
+    + alias1(container.lambda(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1), depth0))
+    + "\"  title=\""
+    + alias1((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"disable",{"name":"getString","hash":{},"data":data}))
+    + "\"><a class=\"statusanch\"></a></div>\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.escapeExpression;
+
+  return "      <div class=\"controls status\" data-status=\""
+    + alias1(container.lambda(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1), depth0))
+    + "\"  title=\""
+    + alias1((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"enable",{"name":"getString","hash":{},"data":data}))
+    + "\"><a class=\"statusanch\"></a></div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression, alias5=container.lambda;
 
   return "<div class=\""
@@ -876,9 +892,9 @@ this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"compiler":[7,">
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\"\n         data-rid=\""
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
-    + "\"></div>\n    <div class=\"controls status\" data-status=\""
-    + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1), depth0))
-    + "\"><a class=\"statusanch\"></a></div>\n    <div class=\"controls delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
+    + "\" title=\"Play\"></div>\n"
+    + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
+    + "    <div class=\"controls delete\" title =\"Delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/ppt/mszdisplay.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -3657,7 +3657,13 @@ opacity: 1;
 	pointer-events:  none;
 }
 
-
+#virtualclassCont.congrea  #dashboardContainer .modal-header button {
+	display:none;
+}
+#virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
+	display: block;
+}
 #virtualclassCont.congrea.pdfRendering .zoomControler{
 	pointer-events: none;
+
 }

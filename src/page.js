@@ -545,7 +545,7 @@
                 status2: function (elem, cthis) {
                     //alert(cthis.rid + ' from events');
                     if (+(elem.dataset.status) == 0) {
-                        if(cthis.type == "video"){
+                        if(cthis.type == "video" || cthis.type == "ppt"){
                             elem.title = 'Disable';
                         }else{
                             elem.title = 'Hide';
@@ -553,7 +553,7 @@
                         cthis.status = 1;
                         cthis.enable();
                     } else {
-                        if(cthis.type == "video"){
+                        if(cthis.type == "video" || cthis.type == "ppt"){
                             elem.title = 'Enable';
                         }else{
                             elem.title = 'Show';
@@ -574,7 +574,7 @@
                  status: function (elem, cthis) {
                     //alert(cthis.rid + ' from events');
                     if (+(elem.dataset.status) == 0) {
-                        if(cthis.type == "video"){
+                        if(cthis.type == "video" || cthis.type == "ppt"){
                             elem.title = 'Disable';
                         }else{
                             elem.title = 'Hide';
@@ -582,7 +582,7 @@
                         cthis.status = 1;
                         cthis.enable();
                     } else {
-                        if(cthis.type == "video"){
+                        if(cthis.type == "video" || cthis.type == "ppt"){
                             elem.title = 'Enable';
                         }else{
                             elem.title = 'Show';

@@ -7,7 +7,8 @@
   /*whiteboard*/
   /*Session save popup*/ }
   #virtualclassCont.congrea #virtualclassOptionsCont {
-    border: #E2E2E4 5px solid; }
+/*    border: #E2E2E4 5px solid; */
+}
   #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont,
   #virtualclassCont.congrea #videoList #newVideoBtnCont {
     border-bottom: 1px solid #aaa;
@@ -95,7 +96,7 @@
   #virtualclassCont.congrea .vceditor-toolbar {
     background-color: #021317; }
   #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
-    background: #021317 none; }
+    background: #333636 none !important; }
   #virtualclassCont.congrea .commandToolsWrapper,
   #virtualclassCont.congrea .rv-vanilla-modal-header,
   #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
@@ -139,13 +140,13 @@
     /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #0a0c0d), color-stop(100%, #212121));
     /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%) !important;
     /* Chrome10+,Safari5.1+ */
     background: -o-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
     /* Opera 12+ */
     background: -ms-radial-gradient(center, ellipse cover, #0a0c0d 0%, #212121 100%);
     /* IE10+ */
-    background: radial-gradient(ellipse at center, #0a0c0d 0%, #212121 100%);
+    background: radial-gradient(ellipse at center, #0a0c0d 0%, #212121 100%) !important;
     /* W3C */ }
   #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
   #virtualclassCont.congrea #confirmCancelButton,
@@ -200,5 +201,13 @@
     /* W3C */ }
   #virtualclassCont.congrea .bootstrap .pollNavBar > li > a:hover {
     color: #555; }
-
+#virtualclassCont.congrea #congdashboard.modal .modal-header {
+    background: linear-gradient(to right, #021317 0%, #333636 100%);
+}
+#virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text .cgText {
+    color:#fff !important;
+}
+#virtualclassCont.congrea .bootstrap .nav > li > a:hover, #virtualclassCont.congrea .bootstrap .nav > li > a:hover:active, #virtualclassCont.congrea .bootstrap .nav > li > a:focus {
+    background: #021317 none !important;
+}
 /*# sourceMappingURL=black.css.map */

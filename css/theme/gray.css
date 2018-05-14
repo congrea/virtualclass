@@ -46,8 +46,7 @@ height:38px;}
   /* IE10+ */
   background: linear-gradient(to bottom, #515e69 0%, #34404c 100%) !important;
   /* W3C */ }
-#virtualclassCont.congrea #tabs.ui-widget-content {
-  box-shadow: 0 0 5px #aaa; }
+
 #virtualclassCont.congrea #navigator,
 #virtualclassCont.congrea #layoutQuiz .navbar {
   background: -moz-linear-gradient(top, #34404c 0%, #515e69);

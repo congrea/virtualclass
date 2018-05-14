@@ -13,7 +13,7 @@
   width: 30px;
   height: 30px;
   position: relative;
-  top:10px;
+  top:9px;
   padding:4px;
   left:9px;
 }
@@ -97,7 +97,7 @@
   display: none;
 }
 #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
-    margin-top: 9px;
+    margin-top: 6px;
     margin-right: 8px;
     margin-left:9px;
     float: right;
@@ -118,7 +118,6 @@
   100% { transform: rotate(360deg); }
 }
 
-
 #virtualclassCont.congrea.student #virtualclassAppRightPanel.show #videoHostContainer{
   display : block;
 }
@@ -126,9 +125,7 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel.hide #videoHostContainer{
   display : none;
 }
-#virtualclassCont.congrea  #proposedSpeed #svgContainer svg {
-    
-}
+
 #virtualclassCont.congrea  #proposedSpeed #svgContainer {
-    
+        margin-top: -1px;
 }

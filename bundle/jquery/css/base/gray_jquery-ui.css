@@ -1291,6 +1291,7 @@ background-position: -64px -128px !important;
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
+    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
 	background: #d8e496; /* Old browsers */
 	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)); /* Chrome,Safari4+ */

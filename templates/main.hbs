@@ -1,6 +1,8 @@
 {{> precheck}}
 <div id="virtualclassApp" style="display: block;">
-
+ {{#if isPlay}}
+    {{> recordingControl}}
+  {{/if}}
   {{> rightBar }}
   {{> leftBar}}
   {{> popupCont}}

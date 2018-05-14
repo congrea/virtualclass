@@ -309,7 +309,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #listppt .linkppt:nth-child(odd)
 {
-  background-color: #4b576221;
+  background-color: #9ba1a71f;
 }
 #virtualclassCont.congrea #listppt .linkppt .mainpreview::before {
   content: "\ea15";

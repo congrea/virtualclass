@@ -292,9 +292,8 @@
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{
-  margin-left: 89px;
-  margin-bottom: 27px;
   top: 11px;
+    left:60px;
   height: 20px;
 }
 

@@ -34,6 +34,9 @@ body {
 #virtualclassCont.congrea #appSettingCtrl span {
    font-size:19px;
 }
+#virtualclassCont.congrea #audioWidget ul li#appSettingCtrl span {
+    color:#fff !important;
+}
 
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail{
     display : none;
@@ -186,6 +189,9 @@ body {
   background-color: #5d6b76;
   -webkit-transition: .4s;
   transition: .4s;
+}
+#virtualclassCont #appSettingDetail .slider.congtooltip:hover:after {
+    right:0;
 }
 #virtualclassCont #appSettingDetail .slider:before {
   position: absolute;
@@ -469,7 +475,7 @@ display: none;
     right: 5px;
     position: relative;
     border-radius: 3px !important;
-    bottom: 47px;
+    bottom: 39px;
 }
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
     background: rgba(251,20,20,0.92) none !important;

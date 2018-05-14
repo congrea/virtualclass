@@ -428,9 +428,7 @@
     opacity: 0.9;
     border-radius: 50px;
 }
-#virtualclassCont.congrea .next {
-    right:10px;
-}
+
 
 #virtualclassCont.congrea .nvgt:hover {
     opacity: 1;
@@ -457,6 +455,11 @@
 
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip {
     margin-top:0px;
+    float:right;
+    margin-right: 8px;
+    border: 1px dotted #ccc;
+    padding: 0px 2px;
+    border-radius: 3px;
 }
 
 #virtualclassCont.congrea .whiteboard .prev {

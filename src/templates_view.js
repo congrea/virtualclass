@@ -47,11 +47,7 @@ this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"1":function(con
     + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
     + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressingbtn\" class=\"silenceDetect cgIcon\" data-silence-detect=\"stop\"></span>\n      </a>\n    </li>\n\n<!--\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n    </li>\n-->\n\n      <li class=\"videoSwitchCont congtooltip\" data-title=\"Video off\" id=\"congCtrBar\">\n        <a id=\"rightCtlr\">\n          <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on\" ></span>\n        </a>\n      </li>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isMettingMode : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n\n<!--\n    <li id=\"videSpeedNumber\" class=\"suggestion congtooltip\" data-suggestion=\""
-    + alias4(((helper = (helper = helpers.suggestion || (depth0 != null ? depth0.suggestion : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"suggestion","hash":{},"data":data}) : helper)))
-    + "\" data-title=\""
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"proposedspeed",{"name":"getString","hash":{},"data":data}))
-    + "\"> </li>\n    <li id=\"vedioPacket\" >\n      <a id=\"videoPacketInfo\">\n        <span id=\"videLatency\" class=\"latency  congtooltip\" data-latency=\"slow\" data-title=\"slow\">  </span>\n      </a>\n    </li>\n-->\n  <li id=\"appSettingCtrl\" class=\"congotooltip chatActive\">\n    <a id=\"appSettingCtrlAnchor\">\n        <span>&#9776;</span>\n    </a>\n  </li>\n  </ul>\n</div>\n";
+    + "\n\n  <li id=\"appSettingCtrl\" class=\"congtooltip chatActive\">\n    <a id=\"appSettingCtrlAnchor\">\n        <span>&#9776;</span>\n    </a>\n  </li>\n  </ul>\n</div>\n";
 },"useData":true});
 
 this["JST"]["templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1194,5 +1190,5 @@ this["JST"]["templates/youtube/ytscontrol.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"zoomControler\">\n  <div class=\"zoomIn\"><span class=\"congtooltip\" data-title=\"Zoom In\" ><i class=\"icon-zoonIn\"></i></span></div>\n  <div class=\"zoomOut\"><span class=\"congtooltip\" data-title=\"Zoom Out\" ><i class=\"icon-zoomOut\"></i></span></div>\n  <div class=\"fitScreen\"><span class=\"congtooltip\" data-title=\"Fit to screen\" ><i class=\"icon-fitScreen\"></i></span></div>\n</div>";
+    return "<div class=\"zoomControler\">\n  <div class=\"zoomIn\"><span class=\"congtooltip\" data-title=\"Zoom In\" ><i class=\"icon-zoonIn cgIcon\"></i></span></div>\n  <div class=\"zoomOut\"><span class=\"congtooltip\" data-title=\"Zoom Out\" ><i class=\"icon-zoomOut cgIcon\"></i></span></div>\n  <div class=\"fitScreen\"><span class=\"congtooltip\" data-title=\"Fit to screen\" ><i class=\"icon-fitScreen cgIcon\"></i></span></div>\n</div>";
 },"useData":true});

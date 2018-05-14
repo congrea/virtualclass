@@ -607,7 +607,7 @@
                             var ytube =  document.querySelector(".congrea #dispVideo iframe")
                             var cont = video ?video:ytube;
                             if(cont){
-                                cont.removeAttribute("src");
+                                cont.setAttribute("src","");
                             }
                         }
                     }

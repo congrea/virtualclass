@@ -159,3 +159,15 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="red"]:before{
+  color:#FF0000;
+}
+
+#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="orange"]:before{
+  color:#FF8C00;
+}
+
+#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="green"]:before{
+  color:#006400;
+}

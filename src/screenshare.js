@@ -510,7 +510,7 @@ var newCanvas;
 
                         window.postMessage({type: 'getScreen', id: 1}, '*');
                     } else {
-
+                        virtualclass.vutil.beforeSend({'ext': true, 'cf': 'raiseHand'});
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         chrome.webstore.install(url, function () {
                                 window.location.reload();

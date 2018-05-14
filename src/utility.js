@@ -2511,9 +2511,9 @@
         /** Indicates the sign who(student) is screen sharing **/
         initssSharing : (uid) => {
             virtualclass.gObj.whoIsSharing = uid;
-            var elem = document.getElementById(uid + 'contrstdscreenCont');
+            var elem = document.getElementById(uid + 'contrstdscreenImg');
             if(elem != null){
-                elem.classList.add('ssSharing');
+                elem.setAttribute('data-dcolor', 'green');
             }
         },
 

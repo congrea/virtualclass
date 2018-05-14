@@ -184,7 +184,7 @@ var colorSelector ={
             "#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,"+
             "#virtualclassCont.congrea #layoutQuiz .navbar ,"+
             "#virtualclassCont.congrea button ,"+
-            "#virtualclassCont.congrea .btn.btn-default ,"+
+            // "#virtualclassCont.congrea .btn.btn-default ,"+
             "#virtualclassCont.congrea .zoomControler ,"+
             "#virtualclassCont.congrea .btn-default "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
@@ -242,7 +242,7 @@ var colorSelector ={
             "#virtualclassCont.congrea .appOptions:hover .cgIcon:before" +
             "{color:"+hover.frontColor +"!important}"+
 
-            "#virtualclassCont.congrea .active .cgIcon:before" +
+             "#virtualclassCont.congrea .active .cgIcon:before" +
             "{color:"+active.frontColor +"!important}"+
 
 
@@ -260,7 +260,7 @@ var colorSelector ={
 
             "#virtualclassCont.congrea .icon-publish2:before" +
             "{color:"+active.fcolor+"!important}" +
-                
+
             "#virtualclassCont.congrea button ,"+
             "#virtualclassCont.congrea .btn-default "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important } "+
@@ -278,9 +278,17 @@ var colorSelector ={
             "#virtualclassCont.congrea .vjs-control-bar .vjs-autoPlay-button " +
             "{background:none !important ;}"+
             "#virtualclassCont.congrea .vjs-control-bar .vjs-button " +
+            "{background:none !important ; border:none !important}" +
 
-            "{background:none !important ; border:none !important}";
 
+            "#virtualclassCont.congrea  .zoomControler div:hover"+
+            "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
+
+            "#virtualclassCont.congrea  #onlineusertext:before"+
+            "{color :"+frontColor +"!important} "+
+
+            "#virtualclassCont.congrea  #playController button"+
+            "{background-image:none !important}" ;
             this.addCss(css);
 
     },
@@ -336,8 +344,6 @@ var colorSelector ={
             "#virtualclassCont.congrea #alwaysPress:hover" +
             "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 
-
-
             "#virtualclassCont.congrea .vmchat_support.active ," +
             "#virtualclassCont.congrea .vmchat_room_bt.active," +
             "#virtualclassCont.congrea .vmchat_bar_button.active, "+
@@ -348,8 +354,12 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgIcon:before" +
             "{color:"+hover.frontColor +"!important}"+
 
+            "#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrlAnchor span" +
+            "{color:"+frontColor+"!important}"+
+
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText" +
             "{color:"+hover.frontColor +"!important}";
+
             this.addCss(css);
 
     },
@@ -370,7 +380,6 @@ var colorSelector ={
             "#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before{color:"+hover.fcolor+"!important}"+
             "#virtualclassCont.congrea #VideoDashboard button{color:"+frontColor+"!important}"+
             "#virtualclassCont.congrea #VideoDashboard button{border:1px solid"+frontColor+"!important}"+
-            "#virtualclassCont.congrea .modal-header button.close" +
             "{background-color: "+active.frontColor+"!important} " +
             "#virtualclassCont.congrea #listvideo .linkvideo.playing{border:solid "+allbg.fcolor+" 1px!important}";
         this.addCss(css);
@@ -393,7 +402,11 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, "+
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before" +
             "{color:"+iconColor+"!important}" +
-            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}";
+            "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}" +
+             "#virtualclassCont.congrea #virtualclassPoll .modal button.close " +
+            "{background-image: none !important ;background-color:none !important}";
+
+        ;
 
         this.addCss(css);
     },
@@ -415,13 +428,8 @@ var colorSelector ={
     },
 
     makeThemeReadyDocument:function(frontColor,allbg,active,hover){
-        var css= "#virtualclassCont.congrea #DocumentShareDashboard #newDocBtn, "+
-            "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='0']"+
-            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important;}"+
-            "#virtualclassCont.congrea #DocumentShareDashboard .linkdocs.links[data-selected='1']"+
-            "{background-image: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important;" +
-            "color:"+active.frontColor+"!important;border-top-color: "+frontColor +" }";
-
+        var css= "#virtualclassCont.congrea #DocumentShareDashboard #newDocBtn "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;color:"+frontColor+"!important}" ;
         this.addCss(css);
     },
 

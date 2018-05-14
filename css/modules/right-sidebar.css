@@ -83,7 +83,9 @@ body {
     float: left;
 }
 #virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr:before {
-    margin-left: -10px;
+    margin-left: -8px;
+    float: left;
+    margin-top: -4px;
 }
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource{
 	display : none;
@@ -458,7 +460,7 @@ display: none;
     padding: 12px 0;
 }
 #virtualclassCont.congrea #rightSubContainer #chatroom_bt2 a.inner_bt {
-    padding: 17px 0 11px;
+    padding: 15px 0 12px;
 }
 #virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text {
     float: none;

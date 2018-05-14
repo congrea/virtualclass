@@ -145,7 +145,6 @@
                                 if (mdata['currId'] != null) {
                                     virtualclass.sharePt.currId = mdata['currId'];
                                 }
-
                             }
                         }
                         // TODO this should be checked propery and should located inside nested function
@@ -332,8 +331,13 @@
                                 console.log(virtualclass.sharePt.order);
                                 virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order)
                             }
+                            var slide = document.querySelector(".congrea #pptiframe");
+                            if(slide && slide.getAttribute("src")){
+                                virtualclass.vutil.showFinishBtn();
+                            }else{
+                                virtualclass.vutil.removeFinishBtn();
+                            }
                         }
-
                         if(virtualclass.sharePt.currId == id ){
                             // if(type !="yts"){
                             var ptCont = document.querySelector("#pptiframe");
@@ -342,9 +346,12 @@
                                 ioAdapter.mustSend({pptMsg: "deletePrt", cf: 'ppt',currId:virtualclass.sharePt.currId});
                                 virtualclass.sharePt.currId = null;
                                 virtualclass.sharePt.pptUrl=null;
+                                virtualclass.vutil.removeFinishBtn();
 
                             }
                         }
+
+
                     }
                 }
 
@@ -1086,6 +1093,10 @@
 
                 }
 
+                var slide = document.querySelector(".congrea #pptiframe");
+                if(slide && slide.getAttribute("src")){
+                    virtualclass.vutil.showFinishBtn();
+                }
 
                 //todo to verify this
                 //virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
@@ -1185,6 +1196,11 @@
                 ioAdapter.mustSend({pptMsg: "displayframe", cf: 'ppt', user: "all", cfpt : 'displayframe'});
                 ioAdapter.mustSend({pptMsg: urlValue, cf: 'ppt',  user: "all", cfpt : 'setUrl'});
                 frame.style.display = "visible";
+
+                var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable")
+                if(!btn){
+                    virtualclass.vutil.showFinishBtn();
+                }
 
             },
             /*

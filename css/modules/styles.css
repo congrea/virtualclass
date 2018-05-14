@@ -502,8 +502,8 @@
 	position : absolute;
 	top : 130px;
 	border-left : 0;
-	border-bottom-right-radius : 10px;
-	border-top-right-radius : 10px;
+	border-bottom-right-radius : 8px;
+	border-top-right-radius : 8px;
 	z-index : 0;
 }
 
@@ -699,8 +699,8 @@
 }
 
 #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #dataInfoHeading {
-	padding-left : 1%;
-	width : 99%;
+	padding-left : 0;
+	width : 100%;
 }
 
 #virtualclassCont.congrea #videos #localVideo {
@@ -1074,6 +1074,7 @@
 	display: -webkit-box;
 	line-height: 16px;
 	max-height: 32px;
+    color: #fff;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 	width: 160px;
@@ -1984,7 +1985,7 @@
 #virtualclassCont.congrea .rv-vanilla-modal-header,
 #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText{
 	padding-bottom : 0;
-	padding-left : 1%;
+	padding-left : 0;
 	height : 48px;
 	box-shadow : none;
 	border-radius: 0 0 0 5px;
@@ -2116,13 +2117,16 @@
 
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a:hover span:before,
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active a span:before,
-#virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a:hover,
+
 #virtualclassCont.congrea #alwaysPress:hover,
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #askPlay #playButton:before,
 
 #virtualclassCont.congrea .ui-widget-header .icon-user:before {
 	color:#fff;
+}
+#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {
+    border-bottom-left-radius: 6px;
 }
 
 #virtualclassCont.congrea #popupContainer #about-modal{
@@ -2615,7 +2619,7 @@
 /* New CSS */
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
-	padding: 11px 18px;
+	padding: 11px 18px 12px;
 }
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
 	text-decoration: none;
@@ -2818,7 +2822,6 @@
 	height : 100%;
 	padding:0px;
 	margin:0px;
-
 }
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer {
 	width:calc(100% - 200px);
@@ -2826,23 +2829,13 @@
 	height : 100%;
 	padding:0px;
 	margin:0px;
-	/*background : #f9f9f9;*/
-	/*margin-left : 1%;*/
-	/*border-top-left-radius: 5px;*/
-	/*border-bottom-left-radius: 5px;*/
 }
-/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont  #uploadBtnCont #uploadVideo {*/
-/*width:99%;*/
-/*}*/
-/*#virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #submitURL {*/
-/*width:10%;*/
-/*}*/
+
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
 	width: calc(100% - 6px);
 	border-left: 1px solid #dcd6d6 !important;
 	border-top: 1px solid #dcd6d6 !important;
 	border-bottom: 1px solid #dcd6d6 !important;
-	/* margin-right: 0.5%; */
 	border-radius: 4px 0 4px 0;
 	border-width: 0;
 }
@@ -2861,6 +2854,16 @@
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
 	padding: 13px 30px 13px 30px !important;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
+    width: 40px;
+    height: 50px;
+    content: "On";
+    font-size: 13px;
+    background: green;
+    float: left;
+    padding: 5px;
 }
 
 #dashboardnav .btn-primary {
@@ -3026,7 +3029,7 @@
 	overflow-y: scroll
 }
 
-#virtualclassCont.congrea .canvasWrapper .scrollDivY{
+#virtualclassCont.congrea .canvasWrapper .scrollDivY {
 	width : 5px;
 	border : 2px solid red;
 	position : absolute;
@@ -3054,8 +3057,7 @@
 	position :absolute;
 }
 
-#virtualclassCont.congrea .zoomControler{
-	border:1px solid rgba(254,254,254,0.2) ;
+#virtualclassCont.congrea .zoomControler {
 	position: fixed;
 	bottom:1px;
 	text-align: right;
@@ -3657,7 +3659,13 @@ opacity: 1;
 	pointer-events:  none;
 }
 
-
+#virtualclassCont.congrea  #dashboardContainer .modal-header button {
+	display:none;
+}
+#virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
+	display: block;
+}
 #virtualclassCont.congrea.pdfRendering .zoomControler{
 	pointer-events: none;
+
 }

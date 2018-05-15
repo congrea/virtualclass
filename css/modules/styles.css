@@ -2861,7 +2861,9 @@
     font-weight: normal;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 12.5px 19px !important;
+	padding: 11.5px 19px !important;
+    width: 100%;
+    float: left;
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
@@ -2869,13 +2871,21 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
-    width: 40px;
-    height: 50px;
-    content: "On";
-    font-size: 13px;
-    background: green;
+    width: 30px;
+    height: 24px;
+    background: #019b1b;
+    border-radius: 3px 0 0 3px;
     float: left;
-    padding: 5px;
+    padding: 1px 6px;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel .deactive #speakerPressingbtn {
+    width: 30px;
+    height: 24px;
+    background: #ca0101;
+    border-radius: 3px 0 0 3px;
+    float: left;
+    padding: 2px 5px 0 5px;
 }
 
 #dashboardnav .btn-primary {

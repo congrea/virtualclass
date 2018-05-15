@@ -70,7 +70,7 @@ if (isset($_POST['color'])) {
 else{
 	/* to change color */
 
-	 $selected_color = "#a2c5e8";
+	 $selected_color = "#021317";
 	  // $selected_color = "#34404c";
 	 //  $selected_color = "#22673D";
 	 // $selected_color = "#25606F";

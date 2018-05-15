@@ -381,9 +381,8 @@
 
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:before{
   content : "\e609";
-  font-size: 20px;
-  position: relative;
-  top: 4px;
+  font-size: 16px;
+  font-weight:bold;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:before{

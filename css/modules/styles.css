@@ -1252,6 +1252,9 @@
 	line-height : 20px;
 	display : block;
 }
+#virtualclassCont.congrea.playMode #virtualclassOptionsCont, .congtooltip {
+    line-height:inherit;
+}
 #virtualclassCont.congrea #virtualclassSessionEndTool.active a span {
 	color : #fff !important;
 }
@@ -1513,9 +1516,10 @@
 }
 
 #virtualclassCont.congrea .recButton {
-	margin: 0px 5px;
+	margin: 0px 7px;
 	display:inline;
 	float: left;
+    text-align: center;
 }
 
 
@@ -1585,13 +1589,12 @@
 #virtualclassCont.congrea #playController{
 	margin: 0 auto;
 	position: relative;
-	width: 650px;
+	width: 751px;
 }
 
 #virtualclassCont.congrea #playController{
 	padding: 18px 15px 36px;
-	border-left: #ddd 1px solid;
-	border-right: #ddd 1px solid;
+	
 }
 
 #virtualclassCont.congrea #playController #repTimeCont{
@@ -1600,24 +1603,26 @@
 	padding-right: 10px;
 	border-left: #ddd 1px solid;
 	padding-left: 15px;
-	color: #555;
+	color: #fff;
 	font-size: 14px;
-}
-
-#virtualclassCont.congrea #repTimeCont #totalRepTime{
-	color: #888;
 }
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8{
 	background-color: transparent;
 	border: medium none;
 	cursor: pointer;
-	color:#676666;
+	color:#fff;
 }
 
-#virtualclassCont.congrea #playController #recPlayCont #recPlay:hover, #virtualclassCont.congrea #playController #recPlayCont #recPause:hover, #virtualclassCont.congrea #playController #ff2Cont #ff2:hover, #virtualclassCont.congrea #playController #ff8Cont #ff8:hover{
-	color:#222222;
+#virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after,  #virtualclassCont.congrea #playController #ff2Cont #ff2.congtooltip:hover:after, #virtualclassCont.congrea #playController #ff8Cont #ff8.congtooltip:hover:after, #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover:after {
+	bottom:1.6em !important;
 }
+#virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover {
+    background-color:transparent !important;
+    border-radius:inherit !important;
+    
+}
+
 
 #replayContainer #replayClose{
 	position: absolute;
@@ -1739,25 +1744,31 @@
 
 #virtualclassCont.congrea div#playControllerCont{
 	margin: 0 auto;
-	width: 860px;
+	width: 820px;
 }
 #virtualclassCont.congrea div#playControllerCont{
 	min-height: 60px;
+        
 }
-
+#virtualclassCont.congrea div.playControllerMainCont {
+    background: linear-gradient(to bottom, #112126 0%, #34404c 100%) !important;
+}
 
 #virtualclassCont.congrea #playController, #virtualclassCont.congrea #replayFromStart{
 	float: left;
 }
 #virtualclassCont.congrea #playController{
-	padding: 25px 15px 25px;
+    padding-top: 19px;
+    padding-bottom: 16px;
 }
 
 #virtualclassCont.congrea #playControllerCont #replayFromStart{
-	margin-left: 15px;
-	margin-top: 12px;
+	margin:0 7px;
 }
-
+#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart {
+    background-color:transparent !important;
+    border:none !important;
+}
 #virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, #sessionEndMsgCont.popupWindow,
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body, #virtualclassCont.congrea #chromeExtMiss{
 	color: #6a8a13;
@@ -2006,6 +2017,7 @@
 	border-radius:5px;
 	text-align:center;
 	z-index : 1150;
+    max-width : 550px;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
@@ -3136,7 +3148,7 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassApp {
-	height: 99vh;
+	height: 100vh;
 }
 
 #virtualclassCont.congrea .zoomControler  div {

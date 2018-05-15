@@ -488,8 +488,8 @@
 
 #virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
 
-#virtualclassCont.congrea.playMode.student .ui-memblist{
-    bottom:40px;
+#virtualclassCont.congrea.playMode #chat_div{
+    padding-top:0px;
 }
 #virtualclassCont.congrea.playMode.student .ui-chatroom{
     z-index: 0 !important;

@@ -131,7 +131,7 @@
     font-weight:bold;
     position:fixed;
     bottom:0;
-    z-index:2000;
+    z-index:1000;
 }
 #virtualclassCont.congrea #stickybar .footerCtr {
     float: right;
@@ -488,8 +488,8 @@
 
 #virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
 
-#virtualclassCont.congrea.playMode.student .ui-memblist{
-    bottom:40px;
+#virtualclassCont.congrea.playMode #chat_div{
+    padding-top:0px;
 }
 #virtualclassCont.congrea.playMode.student .ui-chatroom{
     z-index: 0 !important;
@@ -645,7 +645,7 @@
 }
 
 #virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_text,#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_icon{
-    color:black;
+    color:black !important;
 
 }
 

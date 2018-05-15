@@ -36,13 +36,14 @@
 }
 
 #virtualclassCont.congrea .writeModeBox {
-  top: 28.3px;
-  right: 0px;
-  position: absolute;
+  bottom: 15px;
+  right: 372px;
+  position: fixed;
   text-align: center;
   text-transform: uppercase;
   width: 85px;
   border-top-left-radius: 5px;
+    z-index:2000;
 }
 
 #virtualclassEditorRich, #virtualclassEditorCode {
@@ -67,9 +68,9 @@
 }
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
-  position: absolute;
-  top: 25px;
-  right: 0px;
+  position: fixed;
+  bottom: 9px;
+  right: 372px;
   width: auto;
   height: 18px;
   /* padding-left: 5px; */
@@ -77,7 +78,7 @@
   padding: 5px 8px 0px 8px;
   font-size: 12px;
   font-weight: 200;
-  z-index: 0;
+  z-index: 2000;
 }
 @-moz-document url-prefix() {
   #virtualclassCont.congrea #alleditorRichContainer {

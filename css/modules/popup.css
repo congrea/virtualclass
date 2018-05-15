@@ -177,6 +177,9 @@
 	height: 20px;
 	border:none;
 }
+#virtualclassCont.congrea #playProgressBar.progressBar {
+    height:5px;
+}
 #virtualclassCont.congrea #askplayMessage {
 	font-size: 14px;
 	text-align: left;
@@ -313,7 +316,7 @@
 }
 
 
-#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirmCancelButton, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton, #virtualclassCont.congrea #playButton{
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirmCancelButton, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton, #virtualclassCont.congrea #playButton{
 	background-image: none;
 	background-color: #34404c;
 	color: #fff;

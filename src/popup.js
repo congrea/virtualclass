@@ -442,6 +442,10 @@ var PopUp = (function (window, undefined) {
             virtualclass.network.netWorkElementIsReady();
         }, time);
 
+        if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
+            this.hideAllPopups();
+        }
+
         return;
         if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
             var element = document.getElementById('about-modal');

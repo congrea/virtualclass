@@ -19,7 +19,29 @@ this["JST"]["templates/appSettingMedia.hbs"] = Handlebars.template({"compiler":[
 },"useData":true});
 
 this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"virtualclassAppOptionsCont\" style=\"z-index: 100;\">\n  <div id=\"virtualclassOptionsCont\" style=\"z-index: 100;\">\n\n    <div class=\"appOptions\" id=\"virtualclassWhiteboardTool\">\n      <a class=\"congtooltip\" data-doc=\"_doc0_0\" data-title=\"Whiteboard\" href=\"#\"><span class=\"icon-whiteboard cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassDocumentShareTool\">\n      <a class=\"congtooltip\" data-title=\"Document Sharing\" href=\"#\"><span class=\"icon-documentShare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassScreenShareTool\">\n      <a class=\"congtooltip\" data-title=\"Screen Share\" href=\"#\"><span class=\"icon-screenshare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n      <a class=\"congtooltip\" data-title=\"Share Video\" href=\"#\"><span class=\"icon-videoUpload cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassPollTool\">\n      <a class=\"congtooltip\" data-title=\"Poll\" href=\"#\"><span class=\"icon-poll cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n      <a class=\"congtooltip\" data-title=\"Quiz\" href=\"#\"><span class=\"icon-quiz cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n      <a class=\"congtooltip\" data-title=\"Text Editor\" href=\"#\"><span class=\"icon-editorRich cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassEditorCodeTool\">\n      <a class=\"congtooltip\" data-title=\"Code Editor\" href=\"#\"><span class=\"icon-editorCode cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassSharePresentationTool\">\n      <a class=\"congtooltip\" data-title=\"Share Presentation\" href=\"#\"><span class=\"icon-sharePresentation cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassSessionEndTool\">\n      <a class=\"congtooltip\" data-title=\"Session End\" href=\"#\"><span class=\"icon-sessionend cgIcon\"></span></a>\n    </div>\n\n  </div>\n</div>";
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"virtualclassAppOptionsCont\" style=\"z-index: 100;\">\n  <div id=\"virtualclassOptionsCont\" style=\"z-index: 100;\">\n\n    <div class=\"appOptions\" id=\"virtualclassWhiteboardTool\">\n      <a class=\"congtooltip\" data-doc=\"_doc0_0\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Whiteboard",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-whiteboard cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassDocumentShareTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"DocumentSharing",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-documentShare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassScreenShareTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ScreenShare",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-screenshare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ShareVideo",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-videoUpload cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassPollTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Poll",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-poll cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Quiz",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-quiz cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"TextEditor",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-editorRich cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassEditorCodeTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"CodeEditor",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-editorCode cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassSharePresentationTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"SharePresentation",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-sharePresentation cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassSessionEndTool\">\n      <a class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"SessionEnd",{"name":"getString","hash":{},"data":data}))
+    + "\" href=\"#\"><span class=\"icon-sessionend cgIcon\"></span></a>\n    </div>\n\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/appToolsMeeting.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -892,9 +914,13 @@ this["JST"]["templates/ppt/linkPpt.hbs"] = Handlebars.template({"1":function(con
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
     + "\"\n         data-rid=\""
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
-    + "\" title=\"Play\"></div>\n"
+    + "\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Play",{"name":"getString","hash":{},"data":data}))
+    + "\"></div>\n"
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + "    <div class=\"controls delete\" title =\"Delete\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
+    + "    <div class=\"controls delete\" title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Delete",{"name":"getString","hash":{},"data":data}))
+    + "\">\n      <a class=\"deleteanch\"></a>\n    </div>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/ppt/mszdisplay.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1151,21 +1177,37 @@ this["JST"]["templates/whiteboard/toolbar.hbs"] = Handlebars.template({"compiler
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"commandToolsWrapper\">\n  <div id=\"t_rectangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"rectangle\">\n    <a href=\"#\" data-title=\"Rectangle\" class=\"congtooltip\"><span class=\"icon-rectangle cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_line"
+    + "\" class=\"tool\" data-tool=\"rectangle\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Rectangle",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"><span class=\"icon-rectangle cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_line"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"line\">\n    <a href=\"#\" data-title=\"Line\" class=\"congtooltip\"> <span class=\"icon-line cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_freeDrawing"
+    + "\" class=\"tool\" data-tool=\"line\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Line",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-line cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_freeDrawing"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"freeDrawing\">\n    <a href=\"#\" data-title=\"Free hand\" class=\"congtooltip\"> <span class=\"icon-freeDrawing cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_oval"
+    + "\" class=\"tool\" data-tool=\"freeDrawing\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Freehand",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-freeDrawing cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_oval"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"oval\">\n    <a href=\"#\" data-title=\"Oval\" class=\"congtooltip\"> <span class=\"icon-oval cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_triangle"
+    + "\" class=\"tool\" data-tool=\"oval\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Oval",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-oval cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_triangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"triangle\">\n    <a href=\"#\" data-title=\"Triangle\" class=\"congtooltip\"> <span class=\"icon-triangle cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_text"
+    + "\" class=\"tool\" data-tool=\"triangle\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Triangle",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-triangle cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_text"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"text\">\n    <a href=\"#\" data-title=\"Text\" class=\"congtooltip\"> <span class=\"icon-text cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_activeall"
+    + "\" class=\"tool\" data-tool=\"text\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Text",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-text cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_activeall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"activeAll\">\n    <a href=\"#\" data-title=\"Active All\" class=\"congtooltip\"> <span class=\"icon-activeAll cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_clearall"
+    + "\" class=\"tool\" data-tool=\"activeAll\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ActiveAll",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-activeAll cgIcon\"></span></a>\n  </div>\n\n  <div id=\"t_clearall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"clearAll\">\n    <a href=\"#\" data-title=\"Clear All\" class=\"congtooltip\"> <span class=\"icon-clearAll cgIcon\"></span></a>\n  </div>\n</div>";
+    + "\" class=\"tool\" data-tool=\"clearAll\">\n    <a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ClearAll",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"> <span class=\"icon-clearAll cgIcon\"></span></a>\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/youtube/yts.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

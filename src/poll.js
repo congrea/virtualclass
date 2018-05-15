@@ -2077,7 +2077,7 @@
 
                 var number = virtualclass.poll.uniqueUsers.length ? virtualclass.poll.uniqueUsers.length : 0;
                 if (number) {
-                    participients = number - 1;
+                    participients = number;
                 }
 
                 var votes = document.getElementById("receivedVotes");
@@ -2419,7 +2419,7 @@
                                 btn.id = "closePoll";
                                 btn.className="btn btn-default"
                                 head.appendChild(btn);
-                                btn.innerHTML = "Close Poll";
+                                btn.innerHTML = "Close voting";
                                 btn.addEventListener("click", function(){
                                     virtualclass.poll.closePoll(pollType)
 

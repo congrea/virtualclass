@@ -81,7 +81,7 @@
                     virtualclass.prevScreen.unShareScreen();
                 }
 
-                virtualclass.previrtualclass = "virtualclassEditorRich";
+                virtualclass.previrtualclass = "virtualclass" + virtualclass.gObj.defaultApp;
             },
 
             init: function (urole, app, videoObj) {

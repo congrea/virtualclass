@@ -287,6 +287,13 @@ var colorSelector ={
             "#virtualclassCont.congrea  #onlineusertext:before"+
             "{color :"+frontColor +"!important} "+
 
+            "#virtualclassCont.congrea  #recordPlay #playButton:before"+
+            "{color :"+frontColor +"!important} "+
+
+            "#virtualclassCont.congrea #recordingHeaderContainer  "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
+
+
             "#virtualclassCont.congrea  #playController button"+
             "{background-image:none !important}" ;
             this.addCss(css);
@@ -403,7 +410,8 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before" +
             "{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}" +
-             "#virtualclassCont.congrea #virtualclassPoll .modal button.close " +
+             "#virtualclassCont.congrea #virtualclassPoll .modal button.close ," +
+            "#virtualclassCont.congrea  .alert .close " +
             "{background-image: none !important ;background-color:none !important}";
 
         ;

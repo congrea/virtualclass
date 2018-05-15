@@ -28,6 +28,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width:50%;
+  font-size: .91em
 }
 #virtualclassCont #listvideo .noVideo .videoTitle {
   overflow: inherit;
@@ -569,4 +570,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea  .linkvideo.links.video.enable.playing .controls.status{
     pointer-events:none;
     opacity:.3;
+}
+#virtualclassCont.congrea #VideoDashboard #videoPopup #uploadMsz button.qq-upload-cancel-selector.qq-upload-cancel {
+    display:none;
 }

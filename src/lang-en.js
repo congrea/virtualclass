@@ -380,6 +380,18 @@
         'raiseHandNotify':"Student(s) raised hand",
         'disableVideoAll':"Disable Video All",
         'enableVideoAll':"Enable Video All",
+        'bulkUserActions':"Bulk User Actions",
+        'muteAllAudio':"Mute All Audio",
+        'disableAllVideo':"Disable All Videos",
+        'general':"General",
+        'appPrerequites':"Validate App Prerequites",
+        'precheckStart':'Start',
+        'Precheck':"Precheck",
+        "media":"Media",
+        'audioInput':"Audio Input",
+        'audioOutput':"Audio Output",
+        'videoInput':"Video Input",
+        'setting':"Setting",
     };
     window.message = message;
 })(window);

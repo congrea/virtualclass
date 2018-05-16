@@ -392,6 +392,19 @@
         'audioOutput':"Audio Output",
         'videoInput':"Video Input",
         'setting':"Setting",
+        'transferControls':"Transfer Controls",
+        'requestScreenShare':"Request ScreenShare",
+        'disabled':"disabled",
+        'userList':"User list",
+        'raiseHand':"raise hand",
+        'zoomIn':"Zoom in",
+        'zoomOut':"Zoom out",
+        'fitToScreen':"Fit to screen",
+        'docUploadSuccess':"Document upload success",
+        'disableAll':"Collaborate",
+        'enableAll':"Collaborate",
+        'receivedVotes':"Received Votes",
+        'closeVoting':"Close voting",
     };
     window.message = message;
 })(window);

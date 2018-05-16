@@ -130,8 +130,7 @@ height:38px;}
   background-color: #34404c;
   color: #fff; }
 #virtualclassCont.congrea #confirm #confirmOk #confirmOkButton:hover,
-#virtualclassCont.congrea #playButton:hover,
-#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover {
+#virtualclassCont.congrea #playButton:hover{
   background-color: #515e69 !important; }
 #virtualclassCont.congrea #confirmCancel #confirmCancelButton {
   background-color: #34404c;

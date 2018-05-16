@@ -101,9 +101,8 @@ body {
 	height : calc(100% - 287px);
 }
 #virtualclassCont.congrea.playMode #rightSubContainer, #virtualclassCont #congreaChatMainCont {
-    height : calc(100% - 285px);
+    height : calc(100% - 287px);
 }
-
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
     background: #4c5863 none !important;
 }

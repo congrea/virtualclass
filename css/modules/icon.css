@@ -283,26 +283,34 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .deactive #speakerPressingbtnIcon:before {
-    content: "\e979";
+    content: "\e983";
     font-weight: normal;
-    font-size: 17px;
+    font-size: 20px;
     font-family: 'icomoon';
-    float: left;
-    padding: 2px 4px;
-    background: #000;
-    border-radius: 0 3px 3px 0;
-    color: #fff;
+    color: red !important;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtnIcon:before {
-    content: "\e97a";
+    content: "\e982";
     font-weight: normal;
-    font-size: 17px;
+    font-size: 20px;
     font-family: 'icomoon';
-    float: left;
-    padding: 2px 4px;
-    background: #000;
-    border-radius: 0 3px 3px 0;
-    color: #fff;
+    color:#37da52 !important;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #speakerPressingbtnIcon.silenceDetect[data-silence-detect="notSending"]:before {
+    content: "\e982";
+    font-weight: normal;
+    font-size: 20px;
+    font-family: 'icomoon';
+    color:orange !important;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel .deactive #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]:before {
+    content: "\e983";
+    font-weight: normal;
+    font-size: 20px;
+    font-family: 'icomoon';
+    color: red !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-rectangle:before {

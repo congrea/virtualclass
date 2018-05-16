@@ -565,7 +565,7 @@
 
                     var elem = document.getElementById("congreaPollVoters")
                     if (elem) {
-                        elem.innerHTML = "Recevied Votes";
+                        elem.innerHTML = virtualclass.lang.getString('receivedVotes');
                     }
                     virtualclass.poll.count = {};
                 }
@@ -1255,7 +1255,6 @@
             },
 
             publishHandler2: function () {
-                var message = "poll published";
                 var message = "poll published";
                 virtualclass.poll.showMsg("mszBoxPoll", message, "alert-success");
 
@@ -2419,7 +2418,7 @@
                                 btn.id = "closePoll";
                                 btn.className="btn btn-default"
                                 head.appendChild(btn);
-                                btn.innerHTML = "Close voting";
+                                btn.innerHTML = virtualclass.lang.getString('closeVoting');
                                 btn.addEventListener("click", function(){
                                     virtualclass.poll.closePoll(pollType)
 
@@ -2573,31 +2572,31 @@
                     cont.appendChild(elem);
 
                 },
-
-                addAnc: function (navId, text, active) {
-                    var elem = document.getElementById(navId);
-                    var anc = document.createElement('a');
-                    anc.id = navId + "Anch";
-                    anc.href = "#";
-                    if (elem != null) {
-                        var iconButton = document.createElement('span');
-                        iconButton.className = "icon-" + "pollNav";
-                        iconButton.id = "icon-" + text;
-                        iconButton.innerHTML = text;
-
-                        iconButton.setAttribute("data-toogle", "tooltip");
-                        iconButton.setAttribute("data-placement", "bottom");
-                        iconButton.setAttribute("title", text);
-
-                        anc.appendChild(iconButton);
-                        anc.dataset.title = text;
-                        anc.className = 'tooltip';
-                        if (typeof active != 'undefined') {
-                            anc.classList.add(active);
-                        }
-                        elem.appendChild(anc);
-                    }
-                },
+                //
+                // addAnc: function (navId, text, active) {
+                //     var elem = document.getElementById(navId);
+                //     var anc = document.createElement('a');
+                //     anc.id = navId + "Anch";
+                //     anc.href = "#";
+                //     if (elem != null) {
+                //         var iconButton = document.createElement('span');
+                //         iconButton.className = "icon-" + "pollNav";
+                //         iconButton.id = "icon-" + text;
+                //         iconButton.innerHTML = text;
+                //
+                //         iconButton.setAttribute("data-toogle", "tooltip");
+                //         iconButton.setAttribute("data-placement", "bottom");
+                //         iconButton.setAttribute("title", text);
+                //
+                //         anc.appendChild(iconButton);
+                //         anc.dataset.title = text;
+                //         anc.className = 'tooltip';
+                //         if (typeof active != 'undefined') {
+                //             anc.classList.add(active);
+                //         }
+                //         elem.appendChild(anc);
+                //     }
+                // },
                 createOption: function (qIndex, type) {
                     var optsCont = document.getElementById('optsTxCont');
                     var elem = optsCont.querySelectorAll(':scope .opt');

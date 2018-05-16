@@ -1,8 +1,8 @@
 <ul class="chatBarTab nav navbar-nav">
     {{#if control}}
     <li class="vmchat_bar_button  active" id="user_list" >
-      <a class="inner_bt congtooltip"  data-title="Private Chat">
-        <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'privateChat'}}</span></span>
+      <a class="inner_bt congtooltip"  data-title="{{getString 'privateChat'}}">
+        <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'userList'}}</span></span>
       </a>
       <a class="rHandNotify hand_bt">
         <span id="rhtab_text"><span id="notifyText" class="cgText"></span></span>
@@ -10,10 +10,10 @@
 
     </li>
       {{else}}
-      <li class="vmchat_bar_button congtooltip  active" id="user_list" data-title="Private Chat">
+      <li class="vmchat_bar_button congtooltip  active" id="user_list" data-title="{{getString 'privateChat'}}">
 
         <a class="inner_bt "  >
-          <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'privateChat'}}</span></span>
+          <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'userList'}}</span></span>
         </a>
 
       </li>
@@ -28,7 +28,7 @@
 <!-- pass control student -->
   {{#if control}}
   {{else}}
-    <li class = "handRaise enable congtooltip " id ="congHr" data-title ="raise hand">
+    <li class = "handRaise enable congtooltip " id ="congHr" data-title ="{{getString 'raiseHand'}}">
 
         <a class="stdRaiseHand">
           <span id="icHr" data-action="enable" class="icon-hr-enable cgIcon" >
@@ -38,7 +38,7 @@
   {{/if}}
 
 </ul>
-<div id="stickybar" class="maximize something-happend" style="z-index: 2000;">
+<div id="stickybar" class="maximize something-happend">
   <div id="tabs" class="tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"
         role="tablist"></ul>

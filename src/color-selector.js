@@ -412,7 +412,9 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:before" +
             "{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}" +
-             "#virtualclassCont.congrea #virtualclassPoll .modal button.close ," +
+            "#virtualclassCont.congrea #virtualclassPoll #navigator #stdPollHeader"+
+            "{color:"+frontColor+";}"+
+            "#virtualclassCont.congrea #virtualclassPoll .modal button.close ," +
             "#virtualclassCont.congrea  .alert .close " +
             "{background-image: none !important ;background-color:none !important}";
 

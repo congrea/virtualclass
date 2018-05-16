@@ -1,7 +1,7 @@
 
 <div id="webRtcIoContainer" class ="rtcIo" >
     <div class="setting-heading">
-        <label>Media</label>
+        <label>{{getString 'media'}}</label>
     </div>
     <ul class="list-group"> 
 <!--
@@ -15,21 +15,21 @@
 -->
         
  <li class="lists-cont d-flex justify-content-between align-items-center ainput">
-    Audio Input
+    {{getString 'audioInput'}}
       <div class="audio-options" >
           <select id="audioSource">
           </select>     
      </div>  
   </li>
   <li class="lists-cont d-flex justify-content-between align-items-center aoutput">
-    Audio Output
+    {{getString 'audioOutput'}}
       <div class="audio-options" >
           <select id="audioOutput">
           </select>     
      </div>  
   </li>
   <li class="lists-cont clearfix justify-content-between align-items-center vinput">
-    Video Input
+    {{getString 'videoInput'}}
       <div class="audio-options" >
           <select id="videoSource">
           </select>     

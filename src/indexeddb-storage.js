@@ -619,6 +619,11 @@
             },
 
             endSession: function (onlyStoredData) {
+                var currApp = document.querySelector('virtualclass' + virtualclass.currApp);
+                if(currApp != null){
+                    currApp.style.display = 'none';
+                }
+
                 virtualclass.gObj.video.audio.muteButtonToogle();
                 //Remove all chat user list
                 var chatUsers  = document.querySelectorAll('#chat_div .ui-memblist-usr');
@@ -697,7 +702,7 @@
                 virtualclass.gObj.currSlide = 0;
 
                 //var prvAppObj = {name : "EditorRich"};
-                virtualclass.currApp = "EditorRich"; // default app
+                virtualclass.currApp = virtualclass.gObj.defaultApp; // default app
 
                 virtualclass.user.control.audioWidgetEnable(true) // Enable the audio if disabled
 
@@ -728,7 +733,7 @@
 
                 console.log('Session End.');
 
-                virtualclass.previous = "virtualclassEditorRich";
+                virtualclass.previous = "virtualclass" + virtualclass.currApp;
 
                 // True when fethcing data from indexeddb, there would not data store into table of indexeddb if it is true
                 //  so need to do false

@@ -295,10 +295,12 @@ var colorSelector ={
 
             "#virtualclassCont.congrea #recordingHeaderContainer  "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
+            "#virtualclassCont.congrea  #virtualclassApp .playControllerMainCont "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
 
 
             "#virtualclassCont.congrea  #playController button"+
-            "{background-image:none !important}" ;
+            "{background-image:none !important;color:"+frontColor+"!important}" ;
             this.addCss(css);
 
     },

@@ -12,7 +12,8 @@
 }
 
 #virtualclassCont #virtualclassAppContainer{
-  height : calc(100vh - 51px);
+  /*height : calc(100vh - 51px);*/
+  height : calc(100vh - 44px);
 }
 
 #virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody{
@@ -58,21 +59,23 @@
 /*  margin:0px 10px 0px 3px;*/
 }
 
-#virtualclassCont.congrea.student #virtualclassVideo {
-  margin-left: 2px;
-}
+/*#virtualclassCont.congrea.student #virtualclassVideo {*/
+  /*margin-left: 2px;*/
+/*}*/
 
+/*
 #virtualclassCont.congrea.student #virtualclassQuiz{
-  margin-left: 4px;
+  /*margin-left: 4px;*/
 }
+*/
 
 #virtualclassCont.congrea.student #virtualclassPoll {
-  margin-left : 3px;
+  /*margin-left : 3px;*/
   margin-top : 2px;
 }
 
 #virtualclassCont.congrea.student #virtualclassDocumentShare.virtualclass.container {
-  margin-left : 4px;
+  /*margin-left : 4px;*/
 }
 
 #virtualclassCont.congrea.student #virtualclassScreenShare{
@@ -80,9 +83,9 @@
 }
 
 
-#virtualclassCont.congrea.student #virtualclassSharePresentation {
-  margin-left : 3px;
-}
+/*#virtualclassCont.congrea.student #virtualclassSharePresentation {*/
+  /*margin-left : 3px;*/
+/*}*/
 
 #virtualclassCont.congrea #whiteboardContainer {
   width : auto;
@@ -101,4 +104,9 @@
 #virtualclassCont.congrea .canvasWrapper {
   width : auto;
   overflow : auto;
+}
+
+
+#virtualclassCont.congrea.teacher #virtualclassVideo,  #virtualclassCont.congrea.teacher #virtualclassSharePresentation{
+  margin-left : 2px;
 }

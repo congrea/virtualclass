@@ -317,3 +317,12 @@ span.sch {
   right: 320px;
   font-size: medium;
 }
+
+#virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassPoll #layoutPoll .nav.navbar{
+  max-height : 48px;
+
+}
+
+#virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
+  border-radius : 0;
+}

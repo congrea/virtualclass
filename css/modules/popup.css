@@ -169,7 +169,7 @@
 }
 /* modify this  in  moodle css  ***    */
 #virtualclassCont.congrea .progressBar {
-    background-color: #93b42f;
+    background-color: #56b349;
 	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
 	box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
 	-webkit-transition: width .6s ease;
@@ -331,7 +331,7 @@
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #confirmCancelButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover{
 	background-image: none;
 }
-#confirm #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #playButton:hover, #virtualclassCont.congrea #playButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover{
+#confirm #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #playButton:hover, #virtualclassCont.congrea #playButton:hover{
 	background-image: none;
 	background-color:#515e69 !important;
 	border:none;

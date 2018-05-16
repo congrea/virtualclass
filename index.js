@@ -946,7 +946,7 @@ $(document).ready(function () {
         });
 
         $(document).on("Multiple_login", function (e) {
-            virtualclass.chat.removedPrvLoggedInDetail();
+            //virtualclass.chat.removedPrvLoggedInDetail();
             virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'chatWidget', {className : 'Multiple_login'});
             virtualclass.vutil.stopConnection();
         });

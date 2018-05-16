@@ -285,7 +285,7 @@
         'mybsharedoc' : 'Document will shared shortly',
         'status' : 'Status',
         'delete' : 'Delete',
-        'EnAll' : 'Enable all',
+        'collaborate' : 'Collaborate',
         'pleasewaitWhSynNewCont' : 'Please wait a while. Syncing new content.',
         'PEdit' : 'Poll edit',
         'Question' : 'Question :',

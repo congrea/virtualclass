@@ -141,7 +141,7 @@
                     if(editorModestatus !== null){
                         if((editorType == "editorRich" && editorModestatus == "disable") || (editorType == "editorCode" && editorModestatus == "disable")) {
                             editorControllerAnch.dataset.action = "disable";
-                            editorControllerAnch.innerHTML = virtualclass.lang.getString('disableAll');
+                            //editorControllerAnch.innerHTML = "Disable all";
                         }
                     }
                     console.log('Editor type ' + editorType);
@@ -153,10 +153,14 @@
                             actionToPerform = editorControllerAnch.dataset.action;
                             if (editorControllerAnch.dataset.action == 'enable') {
                                 editorControllerAnch.dataset.action = 'disable';
-                                editorControllerAnch.innerHTML = virtualclass.lang.getString('disableAll');
+                                editorControllerAnch.classList.remove("icon-collaboratecrose");
+                                editorControllerAnch.classList.add("icon-collaborate");
+                                //editorControllerAnch.innerHTML = "collaborate";
                             } else {
+                                editorControllerAnch.classList.remove("icon-collaborate");
+                                editorControllerAnch.classList.add("icon-collaboratecrose");
                                 editorControllerAnch.dataset.action = 'enable';
-                                editorControllerAnch.innerHTML = virtualclass.lang.getString('enableAll');
+                                //editorControllerAnch.innerHTML = "collaborate";
                             }
                         }
                         localStorage.setItem(editorType+'mode' , editorControllerAnch.dataset.action);

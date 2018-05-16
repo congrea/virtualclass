@@ -440,9 +440,9 @@ this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
     + "Container\" class=\"editorController\">\n  <a id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "ContainerAnch\" href=\"#\" data-action=\"enable\">"
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"EnAll",{"name":"getString","hash":{},"data":data}))
-    + "</a>\n</div>";
+    + "ContainerAnch\" href=\"#\" data-action=\"enable\"> <span> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"collaborate",{"name":"getString","hash":{},"data":data}))
+    + "</span></a>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/editor/editorrich.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -136,7 +136,7 @@ var PopUp = (function (window, undefined) {
 
             var stickBar = document.getElementById('stickybar');
             if (stickBar != null) {
-                stickBar.style.zIndex = 2000;
+                stickBar.style.zIndex = 1000;
             }
 
             var commandToolsWrapper = document.getElementById('commandToolsWrapper');

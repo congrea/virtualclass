@@ -380,6 +380,33 @@
         'raiseHandNotify':"Student(s) raised hand",
         'disableVideoAll':"Disable Video All",
         'enableVideoAll':"Enable Video All",
+
+        'bulkUserActions':"Bulk User Actions",
+        'muteAllAudio':"Mute All Audio",
+        'disableAllVideo':"Disable All Videos",
+        'general':"General",
+        'appPrerequites':"Validate App Prerequites",
+        'precheckStart':'Start',
+        'Precheck':"Precheck",
+        "media":"Media",
+        'audioInput':"Audio Input",
+        'audioOutput':"Audio Output",
+        'videoInput':"Video Input",
+        'setting':"Setting",
+        'transferControls':"Transfer Controls",
+        'requestScreenShare':"Request ScreenShare",
+        'disabled':"disabled",
+        'userList':"User list",
+        'raiseHand':"raise hand",
+        'zoomIn':"Zoom in",
+        'zoomOut':"Zoom out",
+        'fitToScreen':"Fit to screen",
+        'docUploadSuccess':"Document upload success",
+        'disableAll':"Collaborate",
+        'enableAll':"Collaborate",
+        'receivedVotes':"Received Votes",
+        'closeVoting':"Close voting",
+
         'Whiteboard' : "Whiteboard",
         'DocumentSharing' : "Document Sharing",
         'ScreenShare' : "Screen Share",
@@ -405,6 +432,7 @@
         'FF8': "Fast Forward 8",
         'Replay': "Replay from Start.",
         'Finish': "Finish"
+
     };
     window.message = message;
 })(window);

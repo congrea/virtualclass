@@ -141,7 +141,7 @@
                     if(editorModestatus !== null){
                         if((editorType == "editorRich" && editorModestatus == "disable") || (editorType == "editorCode" && editorModestatus == "disable")) {
                             editorControllerAnch.dataset.action = "disable";
-                            editorControllerAnch.innerHTML = "Disable all";
+                            editorControllerAnch.innerHTML = virtualclass.lang.getString('disableAll');
                         }
                     }
                     console.log('Editor type ' + editorType);
@@ -153,10 +153,10 @@
                             actionToPerform = editorControllerAnch.dataset.action;
                             if (editorControllerAnch.dataset.action == 'enable') {
                                 editorControllerAnch.dataset.action = 'disable';
-                                editorControllerAnch.innerHTML = "Disable all";
+                                editorControllerAnch.innerHTML = virtualclass.lang.getString('disableAll');
                             } else {
                                 editorControllerAnch.dataset.action = 'enable';
-                                editorControllerAnch.innerHTML = "Enable all";
+                                editorControllerAnch.innerHTML = virtualclass.lang.getString('enableAll');
                             }
                         }
                         localStorage.setItem(editorType+'mode' , editorControllerAnch.dataset.action);

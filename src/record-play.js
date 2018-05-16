@@ -372,6 +372,7 @@
 
                         virtualclass.recorder.startNewSessionAfterFinish();
                         console.log('Socket ' + io.sock.readyState);
+                        virtualclass.popup.closePopup(); // Does not need popup, it says application is trying to connect
                         io.disconnect();
                         setTimeout(
                             function(){

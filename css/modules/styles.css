@@ -3243,8 +3243,8 @@
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]{
-	background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
-	color:#fff !important;
+	/*background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);*/
+	/*color:#fff !important;*/
 }
 
 #virtualclassCont.congrea.playMode .zoomControler{

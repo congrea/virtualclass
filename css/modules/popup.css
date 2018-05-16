@@ -375,15 +375,42 @@
 	font-weight: normal;
 	padding: 10px 24px;
 	border-radius: 5px !important;
-}
-#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
-	background-color: #ccc;
-	font-weight: normal;
-	padding: 10px 22px;
-	border-radius: 10px !important;
-	color: #555;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
+#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"]:before{
+  content: "\e982";
+	font-size: 18px;
+  font-family: icomoon;
+	line-height: 1;
+	color:red;
+	position: relative;
+	top: 1px;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]:before{
+	content: "\e97e";
+	font-size: 18px;
+	font-family: icomoon;
+	line-height: 1;
+	position: relative;
+	top: 1px;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"]{
+	/*background-color: #ccc;*/
+	/*font-weight: normal;*/
+	/*padding: 10px 22px;*/
+	/*border-radius: 10px !important;*/
+	/*color: #555;*/
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch span{
+	position: relative;
+	top: -2px;
+
+}
 #virtualclassCont.congrea #speakerPressingAnch #speakerPressingtext{
 	color:#fff;
 }

@@ -172,7 +172,8 @@ var colorSelector ={
             "{border:"+border +" !important;}"+
             "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
-            "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer" +
+            "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer, " +
+            "#virtualclassCont.congrea #alleditorRichContainer" +
             "{border-left:"+border +" !important;}"+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
             "#virtualclassCont.congrea #audioWidget li,"+
@@ -184,6 +185,7 @@ var colorSelector ={
             "#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,"+
             "#virtualclassCont.congrea #layoutQuiz .navbar ,"+
             "#virtualclassCont.congrea button ,"+
+            "#virtualclassCont.congrea #alleditorRichContainer ,"+
             // "#virtualclassCont.congrea .btn.btn-default ,"+
             "#virtualclassCont.congrea .zoomControler ,"+
             "#virtualclassCont.congrea .btn-default "+
@@ -232,6 +234,7 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, " +
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, " +
             "#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
+            "#virtualclassCont.congrea #alleditorRichContainer:hover, " +
             "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover" +
             "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 

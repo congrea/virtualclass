@@ -69,8 +69,8 @@
 }
 
 #virtualclassCont.congrea .icon-editorRich:before {
-  content: "\e605";
-  font-size: 28px;
+  content: "\e97e";
+  font-size: 23px;
   position: relative;
   top: 3px;
   left: 0;
@@ -196,6 +196,10 @@
   font-size: 16px;
 }
 
+#virtualclassCont.congrea .ui-state-highlight #chatroom_icon .icon-chatroom:before {
+    color:#000 !important;
+}
+
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg:before {
   content: "\f064";
   color: #535151;
@@ -253,7 +257,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.on:before {
-    content: "\e913";
+    content: "\e97d";
     font-weight: normal;
     font-size: 11px;
     font-family: 'icomoon';
@@ -406,9 +410,8 @@
 
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:before{
   content : "\e609";
-  font-size: 20px;
-  position: relative;
-  top: 4px;
+  font-size: 16px;
+  font-weight:bold;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:before{
@@ -589,7 +592,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.off:before {
-  content : "\e912";
+  content : "\e97b";
   font-weight : normal;
   font-size : 11px;
   color:gray;

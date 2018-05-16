@@ -1,4 +1,10 @@
-/* global virtualclass, ioAdapter */
+// This file is part of Vidyamantra - http:www.vidyamantra.com/
+/**@Copyright 2017  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author  Nirmala Mehta <http://www.vidyamantra.com>
+ * This file is responsible for poll creating ,publishing,result display
+ * saving polls in database and retrieving .
+
+ */
 (function (window) {
     var poll = function () {
 
@@ -408,7 +414,10 @@
 
                 }
                 this.interfaceToFetchList(category);
-                this.reloadTeacherPublish(storedData);
+                if(storedData.pollClosed !="yes"){
+                    this.reloadTeacherPublish(storedData);
+                }
+
                 this.list = storedData.data.list;
 
                 var data = {
@@ -424,7 +433,7 @@
                     pollType: pollType
                 };
 
-                if (typeof storedData.data.pollClosed != 'undefined') {
+                if (typeof storedData.data.pollClosed != 'undefined' && storedData.pollClosed !="yes") {
                     this.UI.pollClosedUI();
                     var msg = virtualclass.lang.getString('Pclosed');
                     this.showMsg("resultLayoutHead", msg, "alert-success");

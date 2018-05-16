@@ -422,7 +422,7 @@
     width: 30px;
     opacity: 0.6;
     cursor : pointer;
-
+    right:10px;
     background: #dcdcdc none;
     width: 50px;
     opacity: 0.9;
@@ -794,4 +794,7 @@
 @keyframes spin2 {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+#virtualclassCont.congrea .dashboardview #docsUploadMsz button.qq-upload-cancel-selector.qq-upload-cancel {
+    display:none;
 }

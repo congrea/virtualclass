@@ -400,6 +400,11 @@
         'ClearAll': "Clear All",
         'Play': "Play",
         'Delete': "Delete",
+        'Pause': "Pause",
+        'FF2': "Fast Forward 2",
+        'FF8': "Fast Forward 8",
+        'Replay': "Replay from Start.",
+        'Finish': "Finish"
     };
     window.message = message;
 })(window);

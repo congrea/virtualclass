@@ -380,6 +380,7 @@
         'raiseHandNotify':"Student(s) raised hand",
         'disableVideoAll':"Disable Video All",
         'enableVideoAll':"Enable Video All",
+
         'bulkUserActions':"Bulk User Actions",
         'muteAllAudio':"Mute All Audio",
         'disableAllVideo':"Disable All Videos",
@@ -405,6 +406,33 @@
         'enableAll':"Collaborate",
         'receivedVotes':"Received Votes",
         'closeVoting':"Close voting",
+
+        'Whiteboard' : "Whiteboard",
+        'DocumentSharing' : "Document Sharing",
+        'ScreenShare' : "Screen Share",
+        'ShareVideo' : "Share Video",
+        'Poll' : "Poll",
+        'Quiz' : "Quiz",
+        'TextEditor' : "Text Editor",
+        'CodeEditor' : "Code Editor",
+        'SharePresentation' : "Share Presentation",
+        'SessionEnd' : "Session End",
+        'Rectangle': "Rectangle",
+        'Line': "Line",
+        'Freehand': "Free hand",
+        'Oval': "Oval",
+        'Triangle': "Triangle",
+        'Text': "Text",
+        'ActiveAll': "Active All",
+        'ClearAll': "Clear All",
+        'Play': "Play",
+        'Delete': "Delete",
+        'Pause': "Pause",
+        'FF2': "Fast Forward 2",
+        'FF8': "Fast Forward 8",
+        'Replay': "Replay from Start.",
+        'Finish': "Finish"
+
     };
     window.message = message;
 })(window);

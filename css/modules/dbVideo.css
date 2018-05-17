@@ -131,7 +131,7 @@
 #virtualclassCont.congrea #listvideo .linkvideo .controls.delete::before {
   content: "\e920";
   font-family: 'icomoon';
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.3;
 }
 
@@ -213,11 +213,17 @@
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="1"],
-#virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="0"],
-#virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete{
+#virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="0"]{
   float: left;
   font-size: 0px;
-  margin: -5px 1px 1px 0px;
+  margin: -5px 1px 3px 0px;
+  height: 20px;
+  padding-top:2px;
+}
+#virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete {
+    float: left;
+  font-size: 0px;
+  margin: -5px 1px 1px -3px;
   height: 20px;
   padding-top:2px;
 }

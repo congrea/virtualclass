@@ -959,7 +959,7 @@
                     }
 
                     var vidbtn = document.getElementById("videoSwitch");
-                    if(vidbtn && vidbtn.classList.contains("video")){
+                    if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
                         vidbtn.classList.remove("video" , "off");
                         vidbtn.classList.add("video" , "on");
                         var tvideoElem = document.getElementById("rightCtlr");

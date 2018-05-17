@@ -2589,6 +2589,12 @@
             if(btn){
                 btn.classList.add("enable")
             }
+
+            if(virtualclass.currApp == 'DocumentShare'){
+                var virtualclassContainer = document.querySelector('#virtualclassAppLeftPanel');
+                virtualclassContainer.classList.add('showZoom');
+                virtualclassContainer.classList.remove('hideZoom');
+            }
         },
 
         removeFinishBtn:function(){
@@ -2596,6 +2602,12 @@
             if(btn){
                 btn.classList.remove("enable")
             }
+            if(virtualclass.currApp == 'DocumentShare'){
+                var virtualclassContainer = document.querySelector('#virtualclassAppLeftPanel');
+                virtualclassContainer.classList.add('hideZoom');
+                virtualclassContainer.classList.remove('showZoom');
+            }
+
 
         },
     };

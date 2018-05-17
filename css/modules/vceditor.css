@@ -49,6 +49,10 @@
   border-bottom-left-radius: 5px;
 }
 
+#virtualclassCont.congrea.student .vceditor-toolbar{
+  border-bottom-left-radius : 0px;
+}
+
 #virtualclassCont.congrea .vceditor-toolbar-wrapper {
   display: inline-block;
   line-height: 14px;

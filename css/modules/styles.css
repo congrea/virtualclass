@@ -1252,8 +1252,14 @@
 	line-height : 20px;
 	display : block;
 }
-#virtualclassCont.congrea.playMode #virtualclassOptionsCont {
-    line-height:inherit;
+#playControllerCont #playController button.congtooltip {
+    line-height:1 !important;
+}
+
+#playControllerCont #playController div#recPlayCont, #playControllerCont #playController div#recPauseCont, #playControllerCont #playController div#ff2Cont, #playControllerCont #playController div#ff8Cont, #playControllerCont #playController div#replayFromStart {
+    width:38px;
+    height:22px;
+    text-align:center;
 }
 #virtualclassCont.congrea #virtualclassSessionEndTool.active a span {
 	color : #fff !important;
@@ -1360,16 +1366,6 @@
 	font-size: 11px;
 	padding-left: 4px;
 	padding-right: 4px;
-}
-
-#virtualclassCont.congrea #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel.silenceDetect[data-silence-detect="notSending"], #virtualclassCont.congrea #speakerPressOnce .silenceDetect[data-silence-detect="notSending"] {
-	background: #e06f0d; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #e06f0d), color-stop(100%, #f4a52e)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #e06f0d 0%, #f4a52e 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center, #e06f0d 0%, #f4a52e 100%); /* W3C */
 }
 
 #virtualclassCont.congrea #speakerPressOnce i.silenceDetect[data-silence-detect="sending"] {
@@ -1526,8 +1522,8 @@
 #virtualclassCont.congrea #playProgress {
 	background-color: #676666;
 	float: left;
-	margin-left: 20px;
-	margin-top: 11px;
+	margin-left: 12px;
+	margin-top: 9px;
 	text-align: center;
 	width: 350px;
 	height: 5px;
@@ -1589,7 +1585,7 @@
 #virtualclassCont.congrea #playController{
 	margin: 0 auto;
 	position: relative;
-	width: 762px;
+	width: 780px;
 }
 
 #virtualclassCont.congrea #playController #repTimeCont{
@@ -1600,19 +1596,27 @@
 	padding-left: 15px;
 	color: #fff;
 	font-size: 14px;
-        margin-top: 5px;
+    margin-top: 4px;
 }
 
-#virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8{
+#virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {
 	background-color: transparent;
 	border: medium none;
 	cursor: pointer;
 	color:#fff;
 }
 
-#virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after,  #virtualclassCont.congrea #playController #ff2Cont #ff2.congtooltip:hover:after, #virtualclassCont.congrea #playController #ff8Cont #ff8.congtooltip:hover:after, #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover:after {
-	bottom:1.6em !important;
+#virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after,  #virtualclassCont.congrea #playController #ff2Cont #ff2.congtooltip:hover:after, #virtualclassCont.congrea #playController #ff8Cont #ff8.congtooltip:hover:after {
+	bottom:-2.9em !important;
+    right:-.6em !important;
+    padding:.3em .4em;
 }
+#virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover:after {
+    bottom:-2.8em !important;
+    right:-.6em !important;
+    padding:.3em .4em;
+}
+
 #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover {
     background-color:transparent !important;
     border-radius:inherit !important;
@@ -1740,10 +1744,10 @@
 
 #virtualclassCont.congrea div#playControllerCont{
 	margin: 0 auto;
-	width: 820px;
+	width: 780px;
 }
 #virtualclassCont.congrea div#playControllerCont{
-	min-height: 60px;
+	min-height:48px;
         
 }
 #virtualclassCont.congrea div.playControllerMainCont {
@@ -1754,7 +1758,7 @@
 	float: left;
 }
 #virtualclassCont.congrea #playController{
-    padding-top: 19px;
+    padding-top: 12px;
     padding-bottom: 12px;
 }
 
@@ -1794,7 +1798,6 @@
 }
 
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart{
-	padding: 5px 10px 12px;
 	border: none;
 	font-size: 13px;
 	border: #ddd 1px solid;
@@ -1813,11 +1816,6 @@
 
 /* player box congtooltip*/
 
-#virtualclassCont.congrea #virtualclassCont.congrea #playControllerCont #playController .congtooltip:hover:after, #virtualclassCont.congrea #playControllerCont #replayFromStart .congtooltip:hover:after{
-	left: 1em;
-	bottom: -3em;
-	padding: 8px;
-}
 
 #virtualclassCont.congrea .rv-vanilla-modal-body #progressContainer #totProgressCont #progress, #virtualclassCont.congrea .rv-vanilla-modal-body #progressContainer #indvProgressCont #indProgress{
 	background-color: #f5f5f5;
@@ -1834,7 +1832,7 @@
 
 #virtualclassCont.congrea #playController .controlActive{
 	pointer-events:  none;
-	opacity : 0.5;
+	    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px #73f175;
 }
 
 #virtualclassCont.congrea #virtualclassCont.congrea.orginalTeacher #vcanvas{
@@ -1963,10 +1961,7 @@
 	left:4px !important;
 }
 
-#playController div button.congtooltip[data-title="Fast Forward 2"]:hover:after, #playController div button.congtooltip[data-title="Fast Forward 8"]:hover:after, #playController div button.tooltip[data-title="Play"]:hover:after, #playController div button.tooltip[data-title="Pause"]:hover:after{
-	left:0px;
-	bottom:-27px !important;
-}
+
 #downloadFileCont #downloadButton:hover{
 	background-color: #a6c24e;
 }
@@ -2232,7 +2227,7 @@
 }
 
 /* Play mode */
-#virtualclassCont.congrea #recordFinishedMessage{color:#6a8a13; text-align: center; font-weight: normal; font-size: 14px;}
+#virtualclassCont.congrea #recordFinishedMessage{color:#6a8a13 !important; text-align: center; font-weight: normal; font-size: 14px;}
 #virtualclassCont.congrea #popupContainer #recordingContainer .rv-vanilla-modal-body #progressContainer #totProgressCont #totalProgressLabel,
 #virtualclassCont.congrea #popupContainer #recordingContainer .rv-vanilla-modal-body #progressContainer #indvProgressCont #indvProgressLabel{color:#333;}
 
@@ -2860,13 +2855,13 @@
     font-weight: normal;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 11.5px 19px !important;
+	padding: 13.5px 19px 9.5px 19px !important;
     width: 100%;
     float: left;
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a{
-	padding: 13px 30px 13px 30px !important;
+	padding: 13px 30px 12px 30px !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
@@ -3149,7 +3144,7 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel{
-	height : 98.9vh;
+	height : 100vh;
 }
 
 #virtualclassCont.congrea #playControllerCont {
@@ -3243,8 +3238,8 @@
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]{
-	background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
-	color:#fff !important;
+	/*background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);*/
+	/*color:#fff !important;*/
 }
 
 #virtualclassCont.congrea.playMode .zoomControler{

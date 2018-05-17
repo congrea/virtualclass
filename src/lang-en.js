@@ -430,7 +430,9 @@
         'FF2': "Fast forward 2",
         'FF8': "Fast forward 8",
         'Replay': "Replay from start.",
-        'Finish': "Finish"
+        'Finish': "Finish",
+        'oncollaboration': "Collaboration on",
+        'offcollaboration': "Collaboration off"
 
     };
     window.message = message;

@@ -298,6 +298,8 @@ var colorSelector ={
             "#virtualclassCont.congrea  #virtualclassApp .playControllerMainCont "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
 
+            "#virtualclassCont.congrea  .dbContainer .qq-cancel-button-selector"+
+            "{color :"+frontColor +"!important} "+
 
             "#virtualclassCont.congrea  #playController button"+
             "{background-image:none !important;color:"+frontColor+"!important}" ;
@@ -370,7 +372,13 @@ var colorSelector ={
             "{color:"+frontColor+"!important}"+
 
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText" +
-            "{color:"+hover.frontColor +"!important}";
+            "{color:"+hover.frontColor +"!important}"+
+
+             "#virtualclassCont.congrea #virtualclassAppRightPanel .handRaise.enable #icHr" +
+             "{color:"+frontColor +"!important}";
+
+
+
 
             this.addCss(css);
 

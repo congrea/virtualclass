@@ -825,3 +825,11 @@
 #virtualclassCont.congrea .dashboardview #docsUploadMsz button.qq-upload-cancel-selector.qq-upload-cancel {
     display:none;
 }
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom .zoomControler{
+    display : block;
+}
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .hideZoom .zoomControler{
+    display : none;
+}

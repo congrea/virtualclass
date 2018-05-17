@@ -959,10 +959,11 @@
                             virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
                         }
                         cthis.executeScreen(doc);
+
                         if(Object.keys(virtualclass.dts.notes).length){
-                            virtualclass.vutil.showFinishBtn()
+                            virtualclass.vutil.showFinishBtn();
                         }else{
-                            virtualclass.vutil.removeFinishBtn()
+                            virtualclass.vutil.removeFinishBtn();
                         }
                     }
                 },

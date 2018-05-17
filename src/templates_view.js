@@ -438,7 +438,9 @@ this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler
 
   return "<div id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "Container\" class=\"editorController\">\n  <a id=\"all"
+    + "Container\" class=\"editorController congtooltip\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"oncollaboration",{"name":"getString","hash":{},"data":data}))
+    + "\">\n  <a id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
     + "ContainerAnch\" href=\"#\" data-action=\"enable\"> <span> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"collaborate",{"name":"getString","hash":{},"data":data}))

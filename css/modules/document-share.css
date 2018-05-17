@@ -1,5 +1,6 @@
 #virtualclassCont.congrea .screen {
     display: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 #virtualclassCont.congrea .current {
@@ -565,6 +566,9 @@
 #virtualclassCont.congrea #listnotes .linknotes:hover .controlCont.showCtr {
     display: block !important;
 }
+#virtualclassCont.congrea #listnotes .linknotes.currentNav:hover .controlCont.showCtr {
+    display: none !important;
+}
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
     float: left;
     border-width: 0;
@@ -643,12 +647,26 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    line-height: 34px;     /* fallback */
+    line-height: 30px;     /* fallback */
     max-height: 32px;      /* fallback */
     -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;
     max-width: 115px;
     font-family: monospace;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #444;
+}
+#virtualclassCont.congrea .dbContainer .linkdocs[data-selected="1"] .mainpreview {
+    color: #3490de;
+}
+#virtualclassCont.congrea .dbContainer .linkdocs[data-selected="1"] .mainpreview::before {
+    content: "\f00c";
+    font-family: 'icomoon';
+    font-size: 12px;
+    padding: 2px 0px 1px 2px;
+    color: #3490de;
+    position: absolute;
+    right: 5px;
 }
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list{
@@ -732,12 +750,21 @@
 }
 
 #virtualclassCont.congrea #listdocs {
-    overflow : auto;
-    height: calc(100vh - 145px);
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
+    overflow: auto;
+    height: calc(100vh - 150px);
+    border: 1px solid #ddd;
+    border-bottom-width: 0;
+    border-radius: 5px 5px 0 0;
+    margin-top: 5px;
+    margin-left: 3px;
 }
-
+#virtualclassCont.congrea #DocumentShareDashboard #newDocBtn {
+    float: right;
+    width: calc(100% - 3px);
+}
+#virtualclassCont.congrea #congdashboard.modal .modal-header {
+    margin-left: 3px;
+}
 #virtualclassCont.congrea #docsUploadMsz {
     height : auto;
 }
@@ -797,4 +824,12 @@
 }
 #virtualclassCont.congrea .dashboardview #docsUploadMsz button.qq-upload-cancel-selector.qq-upload-cancel {
     display:none;
+}
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom .zoomControler{
+    display : block;
+}
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .hideZoom .zoomControler{
+    display : none;
 }

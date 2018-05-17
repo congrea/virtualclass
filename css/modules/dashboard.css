@@ -61,7 +61,8 @@
   /*margin-right: 3px;*/
 }
 #virtualclassCont.congrea  #listdocs .list-group-item {
-  padding: 10px 0;
+   padding: 6px 0;
+   margin-bottom: 2px;
 }
 #virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before {
   content: "\e961";
@@ -70,6 +71,13 @@
   padding-top: 0px;
   color: #888888;
   margin-left: -5px;
+}
+#virtualclassCont.congrea #listdocs .list-group-item[data-selected="0"] .controls.delete::before, #virtualclassCont.congrea #listdocs .list-group-item[data-selected="1"] .controls.delete::before {
+    display: none;
+}
+#virtualclassCont.congrea #listdocs .list-group-item[data-selected="0"]:hover .controls.delete::before {
+    display: block;
+    color: #101010;
 }
 
 #virtualclassCont.congrea .dbContainer .linkdocs, #virtualclassCont.congrea .dbContainer .linkdocs  .controlCont {
@@ -87,7 +95,8 @@
 
 #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"] .controls.delete::before, #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"],
 #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"]:hover .controls.delete::before {
-  color: #6b6767;
+   color: #464646;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"] .controlCont {
@@ -100,7 +109,7 @@
 
 #virtualclassCont.congrea #docsListContainer {
   height : 98vh;
-  width : 18.5%;
+  width : 21.5%;
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs .controls.delete{
@@ -109,17 +118,17 @@
 
 @media (min-width: 768px) {
   .bootstrap .dashboardview.col-sm-10 {
-    width: 81.333333%;
+    width: 77.333333%;
   }
 }
 
 #virtualclassCont.congrea #newDocBtn.btn-default{
   width: 100%;
-  border: 1px solid #bdbdbd;
+  border: 1px solid #34404c;
   border-radius: 0;
   background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
-  border-top-left-radius: 3px;
-  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   padding: 8px;
   color : #fff;
   height : 100%;
@@ -184,12 +193,21 @@
 #listdocs.listPages {
   list-style:none;
   margin:0;
-  padding:0;
+  padding:8px;
   margin:0 auto;
 }
 
 .bootstrap #listdocs.listPages .list-group-item.links {
   border :none;
+}
+#virtualclassCont.congrea .linkdocs {
+    border: 1px solid #fff !important;
+}
+#virtualclassCont.congrea .linkdocs:hover {
+    background-color: #fff;
+    color: black;
+    border: 1px solid #ddd !important;
+    border-radius: 4px;
 }
 
 #listdocs.listPages .links{
@@ -198,15 +216,11 @@
   display:block;
   padding:12px;
 }
+#listdocs.listPages .links
 
-.bootstrap .list-group-item:last-child{
+.bootstrap .list-group-item:last-child {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-}
-
-.bootstrap .list-group-item:first-child {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
 }
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
@@ -217,8 +231,6 @@
 }
 
 .bootstrap #listdocs.listPages .list-group-item.links{
-  border-top:1px solid #e5e7e8;
-  border-bottom:1px solid #e5e7e8;
   height : auto;
 }
 
@@ -227,11 +239,7 @@
   color : #0a4f16;
   text-align : center;
   border-bottom: 1px solid #ccc;
-  /*background: -webkit-linear-gradient(top, rgb(119, 121, 123), #31424a);*/
-  /*background: -moz-linear-gradient(top, rgb(119, 121, 123), #31424a);*/
-  /*background: -o-linear-gradient(top, rgb(119, 121, 123), #31424a);*/
-  background: #f3f3f3;
-
+  background: #fff;
 }
 
 #virtualclassCont.congrea .fileSize {
@@ -246,7 +254,6 @@
   width: 57px;
   margin-left: 0px;
   border:0px;
-  /*margin-top:66px;*/
 }
 
 #virtualclassCont.congrea #dashboardnav.congtooltip:hover:after{

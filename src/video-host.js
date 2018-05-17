@@ -514,7 +514,7 @@ var videoHost = {
             joinSession.parentNode.appendChild(btn);
             joinSession.parentNode.removeChild(joinSession)
             btn.classList.add('precheckComplete', 'btn', 'btn-default');
-            btn.innerHTML = "precheck complete"
+            btn.innerHTML = virtualclass.lang.getString('prechkcmplt');
         }
 
         var precheck = document.querySelector('#joinSession .precheckComplete');

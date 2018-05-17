@@ -190,6 +190,7 @@ var colorSelector ={
             "#virtualclassCont.congrea .zoomControler ,"+
             "#virtualclassCont.congrea .btn-default "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
+
         this.addCss(css);
 
     },
@@ -374,13 +375,12 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText" +
             "{color:"+hover.frontColor +"!important}"+
 
-             "#virtualclassCont.congrea #virtualclassAppRightPanel .handRaise.enable #icHr" +
-             "{color:"+frontColor +"!important}";
+             "#virtualclassCont.congrea #virtualclassAppRightPanel .handRaise.enable #icHr:before" +
+             "{color:"+frontColor +"!important}"+
 
-
-
-
-            this.addCss(css);
+             "#virtualclassCont.congrea #virtualclassAppRightPanel .pre-check-btn"+
+             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important ;color:"+frontColor +"!important} ";
+              this.addCss(css);
 
     },
 

@@ -1,9 +1,10 @@
 (function (window, document) {
 
-    /**
-     * This is the main object which has properties and methods
-     * Through this properties and methods all the front stuff is happening
-     * eg:- creating, storing and replaying the objects
+    // This file is part of Vidyamantra - http:www.vidyamantra.com/
+    /**@Copyright 2018  Vidya Mantra EduSystems Pvt. Ltd.
+     * @author  Nirmala Mehta <http://www.vidyamantra.com>
+     * This file is to add  raise hand feature .
+     * student can raise hand if they have queries
      */
 
     var raiseHand = function (config) {
@@ -15,11 +16,6 @@
                 this.stdRhEnable="enabled";
                 if(!roles.hasControls()){
                     this.attachHandlerAtStudent();
-
-                    if(virtualclass.vutil.whoIsTeacher()){
-
-
-                    }
                     // this.stdRhEnable=localStorage.getItem("stdRhEnable");
                     if(this.stdRhEnable &&this.stdRhEnable =="disabled" ){
                         var rhElem =  document.querySelector("#virtualclassCont.congrea #icHr");

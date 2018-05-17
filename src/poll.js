@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2017  Vidya Mantra EduSystems Pvt. Ltd.
+/**@Copyright 2016  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Nirmala Mehta <http://www.vidyamantra.com>
  * This file is responsible for poll creating ,publishing,result display
  * saving polls in database and retrieving .
@@ -282,7 +282,7 @@
                 } else if (storedData["currScreen"] == "voted") {
                     this.reloadVotedScrn(storedData);
                     setTimeout(function(){
-                        var pollR= document.querySelector(".student #navigator");
+                        var pollR= document.querySelector("#virtualclassCont.congrea.student #navigator #pollResult");
                         if(pollR){
                             pollR.style.display="none";
 
@@ -356,6 +356,12 @@
             },
 
             reloadStdResult: function (storedData) {
+                var mszbox = document.getElementById("mszBoxPoll");
+                if (mszbox) {
+                   mszbox.style.display ="none";
+                }
+
+
                 this.dataRec = storedData.data.stdPoll;
                 if (this.dataRec) {
                     this.dataRec.newTime = storedData.data.timer;
@@ -1427,12 +1433,10 @@
                     elem.parentNode.removeChild(elem);
                 }
 
-
-
-                var layoutPoll = document.getElementById("layoutPoll");
-                if (layoutPoll) {
-                    layoutPoll.style.display = "block";
-                }
+                 var pollHeader = document.querySelector('.congrea.student #virtualclassPoll #navigator #stdPollHeader');
+                if (pollHeader) {
+                     pollHeader.style.display = "block";
+                 }
                 var obj={};
                 obj.question= virtualclass.poll.dataRec.options;
                 var template=virtualclass.getTemplate("pollStd","poll");
@@ -1471,7 +1475,7 @@
                     timer: virtualclass.poll.newUserTime
 
                 }
-                var nav = document.getElementById("navigator");
+                var nav = document.querySelector("#virtualclassCont.congrea.student #navigator #pollResult");
                 if(nav){
                     nav.style.display="none";
                 }
@@ -1769,8 +1773,8 @@
             },
 
             resultDisplay: function (count) {
-                var layout = document.getElementById("layoutPoll");
-                layout.style.display = "none";
+                // var layout = document.getElementById("layoutPoll");
+                // layout.style.display = "none";
                 var resultLayout = document.getElementById("resultLayout")
                 if (resultLayout) {
                     resultLayout.parentNode.removeChild(resultLayout);
@@ -2385,7 +2389,7 @@
                             virtualclass.poll.interfaceToFetchList(virtualclass.poll.cmid);
                         });
                     }else{
-                        var resultNav = document.querySelector('.congrea.student #virtualclassPoll #navigator');
+                        var resultNav = document.querySelector("#virtualclassCont.congrea.student #navigator #pollResult");
                         resultNav.style.display="none";
 
 
@@ -2393,13 +2397,22 @@
 
                             if(obj){
                                 virtualclass.poll.previousResult= obj
-                                var resultNav = document.querySelector('.congrea.student #virtualclassPoll #navigator');
-                                resultNav.style.display="block";
+                                var resultNav = document.querySelector("#virtualclassCont.congrea.student #navigator #pollResult");
+                                if(resultNav){
+                                    resultNav.style.display="block";
+                                }
+
+                                var pollText =document.querySelector("#virtualclassCont.congrea.student #navigator #stdPollHeader");
+                                if(pollText){
+                                    pollText.style.display="none";
+                                }
+
                             }
                         });
-                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator a');
+                        var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator #pollResult');
                         stdNav.addEventListener('click', function () {
                             virtualclass.poll.showStudentPollReport(virtualclass.poll.previousResult);
+                            stdNav.classList.remove('active')
                         });
 
                     }

@@ -18,11 +18,12 @@
   color: #535151;
 }
 
-#virtualclassEditorRich #synchMessageBox, .writeModeBox {
-  background: #EBECC6;
-  font-size: 13px;
-  padding: 2px 8px 2px 8px;
-}
+/*#virtualclassEditorRich #synchMessageBox, .writeModeBox {*/
+  /*background: #EBECC6;*/
+  /*font-size: 13px;*/
+  /*padding: 2px 8px 2px 8px;*/
+  /*dispaly:none;*/
+/*}*/
 
 #virtualclassEditorRich #synchMessageBox p {
   margin: 0;
@@ -35,15 +36,16 @@
   z-index: 5;
 }
 
-#virtualclassCont.congrea .writeModeBox {
-  bottom: 15px;
-  right: 372px;
-  position: fixed;
-  text-align: center;
-  text-transform: uppercase;
-  width: 85px;
-  border-top-left-radius: 5px;
-    z-index:2000;
+#virtualclassCont.congrea #EditorRichwriteModeBox .writeModeBox {
+  /*bottom: 15px;*/
+  /*right: 372px;*/
+  /*position: fixed;*/
+  /*text-align: center;*/
+  /*text-transform: uppercase;*/
+  /*width: 85px;*/
+  /*border-top-left-radius: 5px;*/
+    /*z-index:2000;*/
+  dispaly:none;
 }
 
 #virtualclassEditorRich, #virtualclassEditorCode {
@@ -69,16 +71,17 @@
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: fixed;
-  bottom: 9px;
+  bottom: 0px;
   right: 372px;
   width: auto;
-  height: 18px;
+  height: 39px;
   /* padding-left: 5px; */
   /* text-align: center; */
   padding: 5px 8px 0px 8px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 200;
   z-index: 2000;
+  line-height: 3;
 }
 @-moz-document url-prefix() {
   #virtualclassCont.congrea #alleditorRichContainer {
@@ -124,9 +127,6 @@
   background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
   background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
-  border-top-left-radius: 5px;
-  border-bottom-right-radius: 3px;
-
 }
 
 #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover {
@@ -272,3 +272,10 @@
 #virtualclassCont.congrea #virtualclassEditorCodeTool {
   display : none;
 }
+
+#virtualclassCont.congrea #alleditorRichContainer.icon-collaborate:before{
+  content: "\e97e";
+  font-size: 18px;
+  font-family: icomoon;
+}
+

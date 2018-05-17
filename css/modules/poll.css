@@ -36,6 +36,8 @@
   font-size:16px;
 }
 
+
+
 #virtualclassCont.congrea #navigator.nav.navbar {
   margin-bottom: 0;
 }
@@ -47,9 +49,9 @@
 
 }
 
-#virtualclassCont.congrea.student #layoutPollBody {
-  height: 93vh;
-}
+/*#virtualclassCont.congrea.student #layoutPollBody {*/
+  /*height: 93vh;*/
+/*}*/
 
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont {
@@ -356,5 +358,18 @@ pointer-events:none;
 
 #virtualclassCont.congrea #virtualclassPoll #stdPollContainer .alert-success{
   padding:12px !important;
+
 }
 
+#virtualclassCont.congrea.student #virtualclassPoll .pollNavBar > li.active{
+  color: #000;
+  font-size:16px;
+}
+#virtualclassCont.congrea.student .bootstrap .pollNavBar > li {
+  text-shadow: none;
+  font-size: 16px;
+}
+
+#virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
+  font-size:18px;
+}

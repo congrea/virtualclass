@@ -3610,9 +3610,14 @@ span#usertab_text {
     margin: 5px 20px;
 
 }
+#virtualclassCont.congrea .handRaise{
+	pointer-events: none;
+	opacity: .5;
+
+}
 
 #virtualclassCont.congrea.tr_available .handRaise{
-pointer-events: visible;
+pointer-events: visible !important;
 opacity: 1;
 
 }

@@ -74,15 +74,19 @@
   bottom: 0px;
   right: 372px;
   width: auto;
-  height: 39px;
+  max-height: 44px;
   /* padding-left: 5px; */
   /* text-align: center; */
-  padding: 5px 8px 0px 8px;
+  padding: 12px 8px 8px 8px;
   font-size: 13px;
   font-weight: 200;
   z-index: 2000;
-  line-height: 3;
 }
+
+#virtualclassCont.congrea #alleditorRichContainer.congtooltip:hover:after {
+    bottom:3.8em !important;
+}
+
 @-moz-document url-prefix() {
   #virtualclassCont.congrea #alleditorRichContainer {
     top: 46px;

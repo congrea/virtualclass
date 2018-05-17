@@ -3195,7 +3195,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
-	z-index: 999999;
+	z-index: 1000;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr >th,
@@ -3477,7 +3477,7 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
-	background-color: #f8f7dc;
+	background-color: #28353914;
 /*    border-bottom: 1px dotted #8f8f8f;*/
 /*	border-top: 1px solid #ddda86;*/
 
@@ -3687,4 +3687,20 @@ opacity: 1;
     top: -2px;
     right: 3px;
     color: inherit;
+}
+#virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable {
+    width:80%;
+    margin:10px auto;
+    box-shadow: 0 0 8px #ddd;
+}
+#virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close {
+    color:green !important;
+    background-color:transparent;
+    border:1px solid green;
+}
+#virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close:hover {
+    background-color:transparent !important;
+}
+#virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:hover:before {
+    color:red !important;
 }

@@ -338,6 +338,7 @@
   /*height: 87%;*/
   max-height:none;
   padding : 0;
-  height: calc(100vh - 48px);
+  /*height: calc(100vh - 48px);*/
+  height: calc(100vh - 44px);
   border-radius: 0 !important;
 }

@@ -483,7 +483,7 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return "\n<div id=\"virtualclassAppLeftPanel\" class=\"leftbar\" data-surname=\""
+  return "\n<div id=\"virtualclassAppLeftPanel\" class=\"leftbar hideZoom\" data-surname=\""
     + container.escapeExpression(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
     + "\">\n \n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")

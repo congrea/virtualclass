@@ -379,7 +379,7 @@
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"]:before{
-  content: "\e982";
+  content: "\e984";
 	font-size: 18px;
   font-family: icomoon;
 	line-height: 1;

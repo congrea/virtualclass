@@ -257,7 +257,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.on:before {
-    content: "\e97d";
+    content: "\e985";
     font-weight: normal;
     font-size: 11px;
     font-family: 'icomoon';

@@ -63,11 +63,11 @@
   /*margin-left: 2px;*/
 /*}*/
 
-/*
+
 #virtualclassCont.congrea.student #virtualclassQuiz{
   /*margin-left: 4px;*/
 }
-*/
+
 
 #virtualclassCont.congrea.student #virtualclassPoll {
   /*margin-left : 3px;*/
@@ -94,11 +94,12 @@
 
 
 #virtualclassCont.congrea.teacher .canvasWrapper{
-  height : calc(100vh - 98px);
+  /*height : calc(100vh - 98px);*/
+  height : calc(100vh - 93px)
 }
 
 #virtualclassCont.congrea.student .canvasWrapper{
-  height : calc(100vh - 50px);
+  height : calc(100vh - 44px);
 }
 
 #virtualclassCont.congrea .canvasWrapper {

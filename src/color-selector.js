@@ -169,7 +169,9 @@ var colorSelector ={
         var border ="0.05em solid "+allbg.fcolor
         var css =
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget" +
-            "{border:"+border +" !important;}"+
+            "{border-top:"+border +" !important;}"+
+            "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
+            "{border:0 !important;}"+
             "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
             "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer, " +
@@ -298,6 +300,8 @@ var colorSelector ={
             "#virtualclassCont.congrea  #virtualclassApp .playControllerMainCont "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
 
+            "#virtualclassCont.congrea  .dbContainer .qq-cancel-button-selector"+
+            "{color :"+frontColor +"!important} "+
 
             "#virtualclassCont.congrea  #playController button"+
             "{background-image:none !important;color:"+frontColor+"!important}" ;
@@ -370,7 +374,13 @@ var colorSelector ={
             "{color:"+frontColor+"!important}"+
 
             "#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText" +
-            "{color:"+hover.frontColor +"!important}";
+            "{color:"+hover.frontColor +"!important}"+
+
+             "#virtualclassCont.congrea #virtualclassAppRightPanel .handRaise.enable #icHr" +
+             "{color:"+frontColor +"!important}";
+
+
+
 
             this.addCss(css);
 

@@ -2091,7 +2091,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions{
-	border: 1px solid #5d6b76;
+	/*border: 1px solid #5d6b76;*/
 }
 
 #virtualclassCont.congrea #containerWb .commandToolsWrapper .tool.active a {
@@ -3415,8 +3415,8 @@
 /* border color     */
 
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
-     border: 1px solid rgba(254,254,254,0.2) !important;
-     border-left-width: 0 !important;
+     /*border: 1px solid rgba(254,254,254,0.2) !important;*/
+     /*border-left-width: 0 !important;*/
 }
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
@@ -3610,9 +3610,14 @@ span#usertab_text {
     margin: 5px 20px;
 
 }
+#virtualclassCont.congrea .handRaise{
+	pointer-events: none;
+	opacity: .5;
+
+}
 
 #virtualclassCont.congrea.tr_available .handRaise{
-pointer-events: visible;
+pointer-events: visible !important;
 opacity: 1;
 
 }

@@ -589,3 +589,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard #videoPopup #uploadMsz button.qq-upload-cancel-selector.qq-upload-cancel {
     display:none;
 }
+
+#virtualclassCont.congrea #congdashboard .qq-alert-dialog-selector{
+  max-width:50%;
+}

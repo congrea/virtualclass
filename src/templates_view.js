@@ -263,7 +263,7 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function
 },"7":function(container,depth0,helpers,partials,data) {
     return "    <li class = \"handRaise enable congtooltip \" id =\"congHr\" data-title =\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"raiseHand",{"name":"getString","hash":{},"data":data}))
-    + "\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable cgIcon\" >\n          </span>\n        </a>\n    </li>\n";
+    + "\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\" >\n          </span>\n        </a>\n    </li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -438,7 +438,9 @@ this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler
 
   return "<div id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "Container\" class=\"editorController\">\n  <a id=\"all"
+    + "Container\" class=\"editorController congtooltip\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"oncollaboration",{"name":"getString","hash":{},"data":data}))
+    + "\">\n  <a id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
     + "ContainerAnch\" href=\"#\" data-action=\"enable\"> <span> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"collaborate",{"name":"getString","hash":{},"data":data}))
@@ -869,7 +871,7 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay_message",{"name":"getString","hash":{},"data":data}))
     + "</p>\n      <div id=\"replayClose\" class=\"close icon-close\"></div>\n      <button id=\"replayButton\" class=\"icon-repeat cgText\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay",{"name":"getString","hash":{},"data":data}))
-    + " </button>\n    </div>\n\n    <div id=\"confirm\" class=\"popupWindow simple-box\"></div>\n\n    <div id=\"sessionEndMsgCont\" class=\"popupWindow\">\n      <span id=\"sessionEndClose\" class=\"icon-close\"></span>\n      <span id=\"sessionEndMsg\" class=\"cgText\"> "
+    + " </button>\n    </div>\n\n    <div id=\"confirm\" class=\"popupWindow simple-box\"></div>\n\n    <div id=\"sessionEndMsgCont\" class=\"popupWindow\">\n      <span id=\"sessionEndClose\" class=\"icon-close\"></span>\n      <span id=\"sessionEndMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionendmsg",{"name":"getString","hash":{},"data":data}))
     + " </span>\n    </div>\n\n    <div id=\"uploadvideourl\" class=\"popupWindow\">\n      <span id=\"endSessionclose\" class=\"icon-close\"></span>\n      <span id=\"endSessionMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))

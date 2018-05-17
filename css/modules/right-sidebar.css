@@ -31,9 +31,7 @@ body {
    cursor:pointer;
    text-align:center;
 }
-#virtualclassCont.congrea #appSettingCtrl span {
-   font-size:19px;
-}
+
 #virtualclassCont.congrea #audioWidget ul li#appSettingCtrl span {
     color:#fff !important;
 }
@@ -101,9 +99,8 @@ body {
 	height : calc(100% - 287px);
 }
 #virtualclassCont.congrea.playMode #rightSubContainer, #virtualclassCont #congreaChatMainCont {
-    height : calc(100% - 285px);
+    height : calc(100% - 287px);
 }
-
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
     background: #4c5863 none !important;
 }
@@ -214,7 +211,7 @@ body {
   background-color: #05b688;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.on:before {
-    color: #05b688;
+    color: #09b208;
 }
 
 #virtualclassCont #appSettingDetail input:focus + .slider {
@@ -367,7 +364,7 @@ transform: translateX(21px);
 #audioWidget .chatActive .setting-btn:before {
     content:"\e96f";
     font-weight: normal;
-    font-size: 19px;
+    font-size: 20px;
     font-family: 'icomoon';
     color: white;
     font-weight:normal;

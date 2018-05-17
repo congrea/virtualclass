@@ -10,9 +10,13 @@
             <a href="# ">{{getString 'Spoll'}}</a>
           </li>
         {{else}}
-          <li role="presentation" id="pollResult" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="show result">
+          <li role="presentation" id="pollResult" class="navListTab" data-toggle="popover" data-trigger="hover" data-content="show previous result">
             <a href="# ">{{getString 'Presult'}}</a>
           </li>
+          <li role="presentation" id="stdPollHeader" class="navListTab"  data-content="Poll">
+            Poll
+          </li>
+
         {{/if}}
       </ul>
 

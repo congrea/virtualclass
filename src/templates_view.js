@@ -97,7 +97,7 @@ this["JST"]["templates/audioWidget.hbs"] = Handlebars.template({"1":function(con
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
     + "\" data-meeting=\""
     + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
-    + "\" name=\"speakerPressonceAnch\">\n        <span id=\"speakerPressingbtn\" class=\"silenceDetect cgIcon\" data-silence-detect=\"stop\"></span>\n                    <span id=\"speakerPressingbtnIcon\" class=\"audioIcon\"></span>\n\n      </a>\n    </li>\n\n<!--\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n    </li>\n-->\n\n      <li class=\"videoSwitchCont congtooltip\" data-title=\""
+    + "\" name=\"speakerPressonceAnch\"> \n        <span id=\"speakerPressingbtnIcon\" class=\"audioIcon silenceDetect cgIcon\" data-silence-detect=\"stop\"></span>\n      </a>\n    </li>\n\n<!--\n    <li class=\"prechk congtooltip\" data-title=\"Precheck\" id=\"precheckTest\">\n      <a><span class=\"precheck cgIcon\"  id=\"precheckSetting\" ></span></a>\n    </li>\n-->\n\n      <li class=\"videoSwitchCont congtooltip\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videooff",{"name":"getString","hash":{},"data":data}))
     + "\" id=\"congCtrBar\">\n        <a id=\"rightCtlr\">\n          <span id=\"videoSwitch\" data-action=\"disable\" class=\"video on\" ></span>\n        </a>\n      </li>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isMettingMode : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -440,9 +440,9 @@ this["JST"]["templates/editor/edenableall.hbs"] = Handlebars.template({"compiler
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
     + "Container\" class=\"editorController\">\n  <a id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "ContainerAnch\" href=\"#\" data-action=\"enable\">"
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"EnAll",{"name":"getString","hash":{},"data":data}))
-    + "</a>\n</div>";
+    + "ContainerAnch\" href=\"#\" data-action=\"enable\"> <span> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"collaborate",{"name":"getString","hash":{},"data":data}))
+    + "</span></a>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/editor/editorrich.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -620,9 +620,9 @@ this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(c
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Spoll",{"name":"getString","hash":{},"data":data}))
     + "</a>\n          </li>\n";
 },"3":function(container,depth0,helpers,partials,data) {
-    return "          <li role=\"presentation\" id=\"pollResult\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"show result\">\n            <a href=\"# \">"
+    return "          <li role=\"presentation\" id=\"pollResult\" class=\"navListTab\" data-toggle=\"popover\" data-trigger=\"hover\" data-content=\"show previous result\">\n            <a href=\"# \">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Presult",{"name":"getString","hash":{},"data":data}))
-    + "</a>\n          </li>\n";
+    + "</a>\n          </li>\n          <li role=\"presentation\" id=\"stdPollHeader\" class=\"navListTab\"  data-content=\"Poll\">\n            Poll\n          </li>\n\n";
 },"5":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 

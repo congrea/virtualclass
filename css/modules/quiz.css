@@ -300,6 +300,29 @@ span.sch {
   font-size: 14px;
 }
 
+
+#virtualclassCont.congrea.student #layoutQuizBody #stdQuizMszLayout {
+  background-color: #f9f9f9;
+  border: 1px solid #c8ddb8;
+  border-radius: 5px;
+  color: #3a773c;
+  margin: 0 auto;
+  padding: 30px 20px;
+  position: absolute;
+  top: 40%;
+  width: 26%;
+  text-align: center;
+  box-shadow: 0 0 8px #ddd;
+  left: 0;
+  right: 320px;
+  font-size: medium;
+}
+
 #virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassPoll #layoutPoll .nav.navbar{
   max-height : 48px;
+
+}
+
+#virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
+  border-radius : 0;
 }

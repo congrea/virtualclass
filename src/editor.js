@@ -155,11 +155,13 @@
                                 editorControllerAnch.dataset.action = 'disable';
                                 editorControllerAnch.classList.remove("icon-collaboratecrose");
                                 editorControllerAnch.classList.add("icon-collaborate");
+                                editorControllerAnch.parentNode.setAttribute("data-title", virtualclass.lang.getString('offcollaboration'));
                                 //editorControllerAnch.innerHTML = "collaborate";
                             } else {
                                 editorControllerAnch.classList.remove("icon-collaborate");
                                 editorControllerAnch.classList.add("icon-collaboratecrose");
                                 editorControllerAnch.dataset.action = 'enable';
+                                editorControllerAnch.parentNode.setAttribute("data-title", virtualclass.lang.getString('oncollaboration'));
                                 //editorControllerAnch.innerHTML = "collaborate";
                             }
                         }

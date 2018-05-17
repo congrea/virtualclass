@@ -169,7 +169,9 @@ var colorSelector ={
         var border ="0.05em solid "+allbg.fcolor
         var css =
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget" +
-            "{border:"+border +" !important;}"+
+            "{border-top:"+border +" !important;}"+
+            "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
+            "{border:0 !important;}"+
             "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
             "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer, " +

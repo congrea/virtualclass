@@ -833,3 +833,13 @@
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'] .hideZoom .zoomControler{
     display : none;
 }
+
+#virtualclassCont.congrea .linknotes[data-selected='0'] .controlCont:hover {
+    pointer-events : none;
+    cursor: default;
+}
+
+#virtualclassCont.congrea .linknotes[data-selected='0'] .controlCont .status:hover {
+    pointer-events : visible;
+    cursor: pointer;
+}

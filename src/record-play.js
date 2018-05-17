@@ -457,6 +457,7 @@
                 virtualclass.gObj.saveSession = true;
                 var downloadButton = document.createElement('button');
                 downloadButton.id = 'downloadButton';
+                downloadButton.className = 'cgText';
                 downloadButton.innerHTML = virtualclass.lang.getString('downloadFile');
 
 
@@ -523,6 +524,8 @@
                         virtualclass.recorder.storeDone = 0;
                         virtualclass.popup.closeElem();
                     }
+
+                    virtualclass.popup.closePopup();
                 });
             });
         },

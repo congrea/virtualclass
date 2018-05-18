@@ -432,7 +432,8 @@
         'Replay': "Replay from start.",
         'Finish': "Finish",
         'oncollaboration': "Collaboration on",
-        'offcollaboration': "Collaboration off"
+        'offcollaboration': "Collaboration off",
+        'reloadDoc':"Reload doument",
 
     };
     window.message = message;

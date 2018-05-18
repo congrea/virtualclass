@@ -606,7 +606,7 @@
 #virtualclassCont.congrea #chat_div{
     overflow-y: auto;
     position: relative;
-    padding-top: 55px;
+    padding-top: 53px;
 }
 
 #virtualclassCont.congrea .ui-widget-content{
@@ -619,7 +619,7 @@
 }
 
 #virtualclassCont.congrea.teacher.nowebcam #chat_room{
-    height:calc(100vh - 183px);
+    height:calc(100vh - 153px);
     margin: 0px;
 }
 #virtualclassCont.congrea.student .vidHide #chat_room {
@@ -651,8 +651,6 @@
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
     pointer-events : visible;
-    margin-top: 3px;
-    margin-bottom: 3px;
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.offline {

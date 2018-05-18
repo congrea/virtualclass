@@ -537,9 +537,9 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom:53px;
+	bottom:3.8em;
 	width: 50px;
-	right: 440px;
+	right: 486px;
 	left: auto;
 	height: 20px;
 	position: fixed;
@@ -547,9 +547,9 @@
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-    bottom:53px;
+    bottom:3.8em;
     width: 61px;
-    right: 394px;
+    right: 420px;
     height: 20px;
     left: auto;
     position: fixed;
@@ -557,9 +557,9 @@
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom: 53px;
+	bottom: 3.8em;
 	width: 77px;
-	right: 334px;
+	right: 352px;
 	height: 20px;
 	left: auto;
 	position: fixed;

@@ -564,6 +564,15 @@
 	left: auto;
 	position: fixed;
 }
+#virtualclassCont.congrea .reloadNote .congtooltip:hover:after {
+	border: #ccc solid 1px;
+	bottom: 52px;
+	width: 103px;
+	right: 288px;
+	height: 20px;
+	left: auto;
+	position: fixed;
+}
 
 #virtualclassCont.congrea #videLatency.congtooltip:hover:after{
 	background : #fff;

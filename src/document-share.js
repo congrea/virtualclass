@@ -666,6 +666,11 @@
                             if(docsContainer != null){
                                 docsContainer.classList.remove('noteDisplay');
                             }
+
+                            var cont = "cont_" + virtualclass.gObj.wb;
+                            if(cont != null){
+                                cont.style.display = 'block';
+                            }
                         }
                     }
                 }

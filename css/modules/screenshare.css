@@ -84,7 +84,16 @@
 #virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
   position : absolute;
   visibility: hidden;
-  left : -2000;
+
+}
+
+#virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo{
+  position : absolute;
+  visibility: visible;
+}
+
+#virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideoNew {
+  display : none;
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareLocalTempVideo {

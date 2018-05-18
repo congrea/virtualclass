@@ -3719,3 +3719,7 @@ opacity: 1;
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:hover:before {
     color:red !important;
 }
+
+#virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomControler .reloadNote {
+	display:none!important;
+}

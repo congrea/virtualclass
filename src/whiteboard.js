@@ -215,6 +215,17 @@
              * @param expects the mouse down event.
              */
             objInit: function (evt) {
+                if(typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
+                    typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != 'undefined' && this.parentNode.id.indexOf('t_text') < 0){
+                    // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+                    //virtualclass.vutil.removeAllTextWrapper();
+                    var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
+                    if(allTextWrapper.length > 0){
+                        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+                    }
+                }
+
+
                 var wbId = virtualclass.vutil.getWhiteboardId(this.parentNode);
                 var vcan = virtualclass.wb[wbId].vcan;
 

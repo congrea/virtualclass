@@ -25,7 +25,7 @@
 }
 #virtualclassCont .icon-poll:before {
   content: "\e916";
-  font-size: 28px;
+  font-size: 27px;
   margin-right: 0;
 }
 
@@ -600,7 +600,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.off:before {
-  content : "\e97b";
+  content : "\e987";
   font-weight : normal;
   font-size : 11px;
   color:gray;
@@ -744,10 +744,11 @@
 }
 
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:before {
-   content: "\f00e";
+   content: "\e986";
     font-weight: normal;
     font-family: 'icomoon';
     font-size: 17px;
     color: dimgray;
+    font-weight:bold;
 }
 

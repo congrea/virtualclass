@@ -564,7 +564,7 @@ display: none;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer a.inner_bt.congtooltip:hover:after {
-    bottom: 4.72em !important;
+    bottom: 3.8em !important;
     right: 2.2em !important;
     left: auto !important;
         padding: .3em .8em;
@@ -575,7 +575,7 @@ display: none;
     right: 2.4em;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after {
-    bottom: 4.5em;
+    bottom: 4.1em;
     left: auto;
     right: 2.4em;
 }

@@ -269,7 +269,7 @@
 
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
-	box-shadow : 0 0 1px green;
+	box-shadow : 0 0 1px blue;
 /*
 	border-radius : 2px;
 	outline : none;
@@ -537,9 +537,9 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom:53px;
+	bottom:3.8em;
 	width: 50px;
-	right: 440px;
+	right: 486px;
 	left: auto;
 	height: 20px;
 	position: fixed;
@@ -547,9 +547,9 @@
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-    bottom:53px;
+    bottom:3.8em;
     width: 61px;
-    right: 394px;
+    right: 420px;
     height: 20px;
     left: auto;
     position: fixed;
@@ -557,9 +557,9 @@
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom: 53px;
+	bottom: 3.8em;
 	width: 77px;
-	right: 334px;
+	right: 352px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -1842,6 +1842,7 @@
 #virtualclassCont.congrea #playController .controlActive{
 	pointer-events:  none;
 	    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px #73f175;
+        box-shadow: 0px 2px 2px 1px #8d98a4;
 }
 
 #virtualclassCont.congrea #virtualclassCont.congrea.orginalTeacher #vcanvas{
@@ -3204,7 +3205,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
-	z-index: 999999;
+	z-index: 1000;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr >th,
@@ -3486,7 +3487,7 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.teacher {
-	background-color: #f8f7dc;
+	background-color: #28353914;
 /*    border-bottom: 1px dotted #8f8f8f;*/
 /*	border-top: 1px solid #ddda86;*/
 
@@ -3701,4 +3702,20 @@ opacity: 1;
     top: -2px;
     right: 3px;
     color: inherit;
+}
+#virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable {
+    width:80%;
+    margin:10px auto;
+    box-shadow: 0 0 8px #ddd;
+}
+#virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close {
+    color:green !important;
+    background-color:transparent;
+    border:1px solid green;
+}
+#virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close:hover {
+    background-color:transparent !important;
+}
+#virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:hover:before {
+    color:red !important;
 }

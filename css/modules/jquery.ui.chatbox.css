@@ -438,7 +438,7 @@
 }
 
 #virtualclassCont.congrea .user-details .usern .media-heading{
-    color:#0a4f16;
+    color:#3585d5;
     letter-spacing: 0.5px;
 }
 
@@ -606,7 +606,7 @@
 #virtualclassCont.congrea #chat_div{
     overflow-y: auto;
     position: relative;
-    padding-top: 55px;
+    padding-top: 53px;
 }
 
 #virtualclassCont.congrea .ui-widget-content{
@@ -619,7 +619,7 @@
 }
 
 #virtualclassCont.congrea.teacher.nowebcam #chat_room{
-    height:calc(100vh - 183px);
+    height:calc(100vh - 153px);
     margin: 0px;
 }
 #virtualclassCont.congrea.student .vidHide #chat_room {
@@ -651,8 +651,6 @@
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
     pointer-events : visible;
-    margin-top: 3px;
-    margin-bottom: 3px;
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.offline {
@@ -665,7 +663,8 @@
     position: absolute;
     top: 0;
     width:100%;
-    background-color: #e8e8e8; */
+    background-image: linear-gradient(120deg, #fff 0%, #d1e8f6 100%);
+/*    background-image: linear-gradient(135deg, #f5f7fa 0%, #f0ededfa 100%); */
 }
 
 #virtualclassCont.congrea #chat_room .ui-chatbox-msg{
@@ -681,7 +680,7 @@
 }
 
 #virtualclassCont.congrea .commonChatCon .primary-font {
-    color: #6cad9d;
+    color: #3585d5;
     letter-spacing: 0.5px;
     font-size:14px;
 }

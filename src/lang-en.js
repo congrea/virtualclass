@@ -53,9 +53,9 @@
         'assignDisable': "Reclaim Controls",
 
         'editorRichDisable': "Write Mode",
-        //'editorRichEnable': "Read Only",
+        'editorRichEnable': "Read Only",
 
-        'editorCodeDisable': "Write Mode",
+        //'editorCodeDisable': "Write Mode",
         //'editorCodeEnable': "Read Only",
 
         'audioEnable': "Mute",

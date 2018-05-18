@@ -417,4 +417,6 @@
 .rv-vanilla-modal-title{
 	color:#fff;
 }
-
+#virtualclassCont.congrea #popupContainer #about-modal #recordingContainer .rv-vanilla-modal-body #progressContainer #indvProgressCont #indProgress #indProgressBar {
+        background-color: #56b349;
+}

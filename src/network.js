@@ -70,7 +70,7 @@ Network.prototype.adaptiveMedia = function() {
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH++;
         this.updateNetworkInfo("slow");
-        console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+        //console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         if (virtualclass.videoHost.gObj.MYSPEED == 1 && this.MYSPEED_COUNTER_HIGH >= 3) {
             this.MYSPEED_COUNTER_HIGH = 0;
             this.setSpeed(2);
@@ -83,7 +83,7 @@ Network.prototype.adaptiveMedia = function() {
         this.MYSPEED_COUNTER_OK++;
         this.MYSPEED_COUNTER_HIGH = 0;
         this.updateNetworkInfo("fast");
-        console.log('OK count ' + this.MYSPEED_COUNTER_OK + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+        // console.log('OK count ' + this.MYSPEED_COUNTER_OK + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         if (virtualclass.videoHost.gObj.MYSPEED > 2 && this.MYSPEED_COUNTER_OK >= 4) {
             this.MYSPEED_COUNTER_OK = 0;
             this.setSpeed(2);
@@ -97,7 +97,7 @@ Network.prototype.adaptiveMedia = function() {
         } else {
             this.updateNetworkInfo("fast");
         }
-        console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+      //  console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
         this.MYSPEED_COUNTER_OK = 0;
         this.MYSPEED_COUNTER_HIGH = 0;
     }

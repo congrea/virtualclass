@@ -380,6 +380,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 #virtualclassCont.congrea #VideoDashboard #uploadMsz .close{
   z-index:2;
+  padding: 2px 5px 4px 6px;
 }
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li{

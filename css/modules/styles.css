@@ -3177,6 +3177,9 @@
   border-right:1px solid rgba(254,254,254,0.2) ;
     float:left;
 }
+#virtualclassCont.congrea .zoomControler  div.reloadNote {
+    padding:10.5px 18px;
+} 
 
 #virtualclassCont.congrea .zoomControler  div:nth-child(3){
     border-right:none;

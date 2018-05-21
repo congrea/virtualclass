@@ -619,10 +619,6 @@
                     // to verify this
                     virtualclass.videoUl.videoUrl ="";
                     virtualclass.videoUl.videoId ="";
-                    // if($('iframe#player').length){
-                    //     $('iframe#player').remove();
-                    // }
-
                     // $('.vjs-tech').each(function(){
                     //     var el_src = $(this).attr("src");
                     //     $(this).attr("src",el_src);
@@ -652,9 +648,6 @@
                         // }
                         delete( virtualclass.videoUl.player);
                     }
-
-
-
 
                 }
                 if(roles.hasControls()) {

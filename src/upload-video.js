@@ -691,10 +691,9 @@
             },
 
             playVideo: function (seekVal) {
-                 //if(!virtualclass.videoUl.isPaused){
-                    virtualclass.videoUl.player.play();
+                  // virtualclass.videoUl.player.play();
                     virtualclass.videoUl.player.currentTime(seekVal);
-                // }
+                    virtualclass.videoUl.player.play();
 
             },
 

@@ -88,7 +88,7 @@
 }
 
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo{
-  position : absolute;
+  position : static; /* To add the scroll */
   visibility: visible;
 }
 

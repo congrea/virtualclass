@@ -1043,6 +1043,10 @@ $(document).ready(function () {
                     var sTool = 'ScreenShare';
                     if(roles.hasControls()){
                         virtualclass.gObj.studentSSstatus.mesharing = true;
+                        var virtualclassCont = document.querySelector('#virtualclassCont');
+                        if(virtualclassCont != ''){
+                            virtualclassCont.classList.add('studentScreenSharing');
+                        }
                     }
                     if (!virtualclass.hasOwnProperty('studentScreen')) {
                         virtualclass.studentScreen = new studentScreen();

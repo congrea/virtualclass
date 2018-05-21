@@ -662,9 +662,17 @@
                             localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
                         }
                         if(roles.isStudent()){
-                            var docsContainer = document.querySelector('#docScreenContainer');
-                            if(docsContainer != null){
-                                docsContainer.classList.remove('noteDisplay');
+                           
+
+                            var cont = document.querySelector("#cont" + virtualclass.gObj.currWb);
+                            if(cont != null){
+                                cont.style.display = 'block';
+                                
+                            }else {
+                                 var docsContainer = document.querySelector('#docScreenContainer');
+                                if(docsContainer != null){
+                                    docsContainer.classList.remove('noteDisplay');
+                                }
                             }
                         }
                     }
@@ -1609,8 +1617,6 @@
                     ioAdapter.mustSend({'dts': {rmsnote: id}, 'cf': 'dts'});
                 }
 
-                var cthis = this;
-
                 var idarr = id.split('_');
                 var doc = idarr[0];
                 var pid = parseInt(idarr[1]);
@@ -1622,16 +1628,30 @@
                 }
 
                 var url =  virtualclass.api.UpdateDocumentStatus;
-                var that = this;
-
+                
                 var cthis = this;
-
                 virtualclass.xhrn.sendData(data, url, function (msg) {
                     var res = JSON.parse(msg);
                     if(res.status == 'ok'){
                         cthis.sendOrder(cthis.order);
                     }
                 });
+                
+               //Check if there is exist any noted
+               var noteExit = false;
+               var mainDoc = virtualclass.dts.allDocs[doc];
+               if(mainDoc != null){
+                   for(var i=0; i<mainDoc.notesarr.length; i++){
+                       if(!mainDoc.notesarr[i].hasOwnProperty('deletedn')){
+                           noteExit = true;
+                          break;  
+                       }
+                   }
+               }
+               if(!noteExit){
+                  this._delete(doc); 
+               }
+               
             },
 
             removePagesFromStructure: function (id){
@@ -1647,13 +1667,18 @@
             },
 
             updateInAllDocs : function (noteid){
-                var docId = virtualclass.dts.currDoc.substring(4, virtualclass.dts.currDoc.length);
+               // var docId = virtualclass.dts.currDoc.substring(4, virtualclass.dts.currDoc.length);
+               var docId = noteid.split('_')[0];
                 doc = this.allDocs[docId];
-                doc.notes[noteid].deletedn = noteid;
-                for(var i=0; i< doc.notesarr.length; i++ ){
-                    if(doc.notesarr[i].id == noteid){
-                        doc.notesarr[i].deletedn = noteid;
+                if(typeof doc.notes[noteid] != 'undefined'){
+                    doc.notes[noteid].deletedn = noteid;
+                    for(var i=0; i< doc.notesarr.length; i++ ){
+                        if(doc.notesarr[i].id == noteid){
+                            doc.notesarr[i].deletedn = noteid;
+                        }
                     }
+                }else {
+                    console.log('The note with the id ' + noteid + ' is not available');
                 }
             },
 

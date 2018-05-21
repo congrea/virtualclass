@@ -560,6 +560,7 @@ var newCanvas;
                     delete virtualclass.prevScreen.currentStream;
                 }
                 virtualclass.gObj.studentSSstatus.mesharing = false;
+                virtualclass.vutil.removeSharingClass();
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));

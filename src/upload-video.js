@@ -691,10 +691,9 @@
             },
 
             playVideo: function (seekVal) {
-                 //if(!virtualclass.videoUl.isPaused){
-                    virtualclass.videoUl.player.play();
+                  // virtualclass.videoUl.player.play();
                     virtualclass.videoUl.player.currentTime(seekVal);
-                // }
+                    virtualclass.videoUl.player.play();
 
             },
 
@@ -1133,7 +1132,7 @@
                       /*player.reset(); */
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
-                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
+                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
                         player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if (virtualclass.videoUl.online) {

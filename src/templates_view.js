@@ -1278,5 +1278,7 @@ this["JST"]["templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))
     + "\" ><i class=\"icon-zoomOut cgIcon\"></i></span></div>\n  <div class=\"fitScreen\"><span class=\"congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
-    + "\" ><i class=\"icon-fitScreen cgIcon\"></i></span></div>\n</div>";
+    + "\" ><i class=\"icon-fitScreen cgIcon\"></i></span></div>\n  <div class=\"reloadNote\"><span class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"reloadDoc",{"name":"getString","hash":{},"data":data}))
+    + "\" ><i class=\"icon-reloadDoc cgIcon\"></i></span></div>\n</div>\n";
 },"useData":true});

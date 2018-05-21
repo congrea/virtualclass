@@ -690,6 +690,7 @@
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont:hover{
     cursor : pointer;
+    pointer-events : visible;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont .controls:hover::before{
@@ -833,12 +834,22 @@
     display : none;
 }
 
-#virtualclassCont.congrea .linknotes[data-selected='0'] .controlCont:hover {
+#virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont:hover {
     pointer-events : none;
     cursor: default;
 }
 
-#virtualclassCont.congrea .linknotes[data-selected='0'] .controlCont .status:hover {
+#virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont .status:hover{
     pointer-events : visible;
     cursor: pointer;
 }
+
+/*#virtualclassCont.congrea .linknotes.links[data-selected='0'] .controlCont:hover {*/
+    /*pointer-events : none;*/
+    /*cursor: default;*/
+/*}*/
+
+/*#virtualclassCont.congrea .linknotes.links[data-selected='0'] .controlCont .status:hover {*/
+    /*pointer-events : visible;*/
+    /*cursor: pointer;*/
+/*}*/

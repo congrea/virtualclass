@@ -655,6 +655,7 @@
                 virtualclass.wb = ""; // make white board empty
                 delete virtualclass.gObj.currWb; //deleting current whiteboard
                 virtualclass.gObj.studentSSstatus.mesharing = false;
+                virtualclass.vutil.removeSharingClass();
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;

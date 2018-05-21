@@ -2607,9 +2607,14 @@
                 virtualclassContainer.classList.add('hideZoom');
                 virtualclassContainer.classList.remove('showZoom');
             }
-
-
         },
+
+        removeSharingClass : function (){
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            if(virtualclassCont != ''){
+                virtualclassCont.classList.remove('studentScreenSharing');
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

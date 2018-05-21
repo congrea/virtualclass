@@ -9,7 +9,7 @@
             pdfScale : 1,
             url : "",
             init : function (canvas, currNote){
-
+                console.log('PDF render init');
                 var virtualclasElem = document.querySelector('#virtualclassCont');
                 if(virtualclasElem != null){
                     virtualclasElem.classList.add('pdfRendering');
@@ -246,11 +246,11 @@
 //                console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
                 this.scroll[tp].e = pos;
                 //  e is mouse's position
-                console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
-                console.log('Scroll '  + tp + ' b ' + this.scroll[tp].b);
-                console.log('Scroll '  + tp + ' c ' + this.scroll[tp].c);
-                console.log('Scroll '  + tp + ' d ' + this.scroll[tp].d);
-                console.log('Scroll '  + tp + ' e ' + this.scroll[tp].e);
+                // console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
+                // console.log('Scroll '  + tp + ' b ' + this.scroll[tp].b);
+                // console.log('Scroll '  + tp + ' c ' + this.scroll[tp].c);
+                // console.log('Scroll '  + tp + ' d ' + this.scroll[tp].d);
+                // console.log('Scroll '  + tp + ' e ' + this.scroll[tp].e);
 
                 if(this.scroll[tp].e > this.scroll[tp].c){
                     var scrollPos = this.scroll[tp].b + (this.scroll[tp].d - this.scroll[tp].c);

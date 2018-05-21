@@ -1133,7 +1133,7 @@
                       /*player.reset(); */
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
-                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube]}');
+                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
                         player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if (virtualclass.videoUl.online) {

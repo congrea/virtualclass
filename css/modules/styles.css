@@ -2446,7 +2446,6 @@
 #virtualclassCont.congrea .close:active,
 #virtualclassCont.congrea .close:focus{
 	color: #000 !important;
-	background-color:#fff !important;
 }
 
 #virtualclassCont.congrea .modal-backdrop{
@@ -3703,10 +3702,15 @@ opacity: 1;
     color:green !important;
     background-color:transparent;
     border:1px solid green;
+    padding: 2px 5px 3px 5px;
 }
 #virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close:hover {
     background-color:transparent !important;
 }
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:hover:before {
     color:red !important;
+}
+#VideoDashboard #videoPopup #uploadMsz .alert-dismissable.alert-success {
+    width:80% !important;
+    margin:-3px auto !important;
 }

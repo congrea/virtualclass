@@ -114,15 +114,15 @@
 .qq-gallery .qq-upload-list li {
     display: inline-block;
     position: relative;
-    max-width: 90%;
-    margin: 0 25px 25px 0;
-    padding: 0;
+    width: 80% !important;
+    margin: 0 10% 10px 10% !important;
+    padding: 5px;
     line-height: 16px;
     font-size: 13px;
     color: #424242;
     background-color: #FFFFFF;
     border-radius: 2px;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.22);
+    box-shadow: 0 1px 1px 1px orange;
     vertical-align: top;
 
     /* to ensure consistent size of tiles - may need to change if qq-max-size attr on preview img changes */
@@ -223,8 +223,7 @@
 }
 
 .qq-gallery .qq-file-info {
-    padding: 10px 6px 4px;
-    margin-top: -3px;
+    padding: 10px 6px 10px 6px;
     border-radius: 0 0 2px 2px;
     text-align: left;
     overflow: hidden;
@@ -232,6 +231,7 @@
 
 .qq-gallery .qq-file-info .qq-file-name {
     position: relative;
+    display:inline-block;
 }
 
 .qq-gallery .qq-upload-file {
@@ -249,8 +249,8 @@
     display: inline-block;
     background: url("loading.gif");
     position: absolute;
-    left: 37%;
-    top: 15px;
+    left: 10%;
+    top: 17px;
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
@@ -312,11 +312,9 @@
 }
 
 .qq-gallery .qq-upload-size {
-    float: left;
+    float: right;
     font-size: 11px;
-    color: #929292;
-    margin-bottom: 3px;
-    margin-right: 0;
+    margin-right: 10px;
     display: inline-block;
 }
 

@@ -25,7 +25,7 @@
 }
 #virtualclassCont .icon-poll:before {
   content: "\e916";
-  font-size: 27px;
+  font-size: 26px;
   margin-right: 0;
 }
 
@@ -736,7 +736,7 @@
    content: "\e986";
     font-weight: normal;
     font-family: 'icomoon';
-    font-size: 17px;
+    font-size: 15px;
     color: dimgray;
     font-weight:bold;
 }

@@ -619,6 +619,16 @@
                     // to verify this
                     virtualclass.videoUl.videoUrl ="";
                     virtualclass.videoUl.videoId ="";
+                    // $('.vjs-tech').each(function(){
+                    //     var el_src = $(this).attr("src");
+                    //     $(this).attr("src",el_src);
+                    // });
+                    var frame = document.getElementById("dispVideo_Youtube_api");
+                    if(frame && frame.contentWindow){
+                        frame.contentWindow.postMessage(
+                            '{"event":"command","func":"pauseVideo","args":""}',
+                            '*');
+                    }
 
                     var dispVideo = document.querySelector(".congrea #dispVideo")
                     if (dispVideo) {

@@ -691,7 +691,7 @@
 
             /**
              * removing error data from local storage
-             * and from inline memoery
+             * and from inline memory
              */
             removeEditorData: function () {
                 if (typeof this.cm == 'object') {

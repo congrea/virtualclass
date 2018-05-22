@@ -214,6 +214,13 @@
                     }else{
                         alert('there is no such element');
                     }
+                    if(!roles.hasControls()){
+                        var zoom = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
+                        if(zoom){
+                            zoom.classList.remove("hideZoom");
+                            zoom.classList.add("showZoom");
+                        }
+                    }
                 }
             },
 
@@ -673,6 +680,17 @@
                                 if(docsContainer != null){
                                     docsContainer.classList.remove('noteDisplay');
                                 }
+                                //if(!Object.keys(virtualclass.dts.notes).length){
+                                  //  if(!roles.hasControls()){
+                                        var zoomHide = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
+                                         var zoom = document.querySelector("#virtualclassAppLeftPanel");
+                                        if(!zoomHide){
+                                            zoom.classList.add("hideZoom");
+                                            zoom.classList.remove("showZoom");
+                                        }
+                                    //}
+                               // }
+
                             }
                         }
                     }
@@ -879,7 +897,7 @@
                         }
                     }
                 }
-                var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable")
+                var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
                 if(!btn){
                     virtualclass.vutil.showFinishBtn();
                 }
@@ -967,11 +985,12 @@
                             virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
                         }
                         cthis.executeScreen(doc);
-
-                        if(Object.keys(virtualclass.dts.notes).length){
-                            virtualclass.vutil.showFinishBtn();
-                        }else{
-                            virtualclass.vutil.removeFinishBtn();
+                        if(roles.hasControls()){
+                            if(Object.keys(virtualclass.dts.notes).length){
+                                virtualclass.vutil.showFinishBtn();
+                            }else{
+                                virtualclass.vutil.removeFinishBtn();
+                            }
                         }
                     }
                 },
@@ -1010,6 +1029,7 @@
                     }
                     // TODO, disabling following can be critical, with new api
                     // virtualclass.vutil.updateCurrentDoc(this.currDoc, 1);
+
                 },
 
                 /**

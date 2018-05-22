@@ -19,6 +19,14 @@
                         }
                     }
                 }
+                var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
+                 if(reload){
+                     if(virtualclass.currApp =="Whiteboard"){
+                        reload.setAttribute("data-title","Reload whiteboard")
+                     }else{
+                        reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
+                     }                                                   
+                 }
             },
 
             _initScaleController : function (){

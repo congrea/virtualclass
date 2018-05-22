@@ -436,7 +436,7 @@
                                                         virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
                                                     }
 
-                                                }, 10
+                                                }, 50 // 10 earlier
                                             );
                                         }
                                         virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
@@ -485,11 +485,13 @@
                         );
                     } else {
                         console.log('Pdf test, init whiteboard ');
+                        console.log('Start whiteboard replay from local storage');
                         virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
                     }
                 } else {
                     virtualclass.storage.getWbData(wb, function (){
                         if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
+                            console.log('Start whiteboard replay from local storage');
                             virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
                         }
                     });

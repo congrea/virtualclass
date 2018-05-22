@@ -25,7 +25,7 @@
 }
 #virtualclassCont .icon-poll:before {
   content: "\e916";
-  font-size: 27px;
+  font-size: 26px;
   margin-right: 0;
 }
 
@@ -691,7 +691,6 @@
     font-variant: normal;
     -webkit-font-smoothing: antialiased;
     float:left;
-    margin-bottom:1px;
 }
 
 #virtualclassCont.congrea .icon-zoomOut:before{
@@ -701,8 +700,6 @@
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
     float:left;
-    margin-bottom:1px;
-
 }
 
 #virtualclassCont.congrea .icon-fitScreen:before{
@@ -712,18 +709,15 @@
     font-variant: normal;
     -webkit-font-smoothing: antialiased;
     float:left;
-    margin-bottom:1px;
-  
 }
 #virtualclassCont.congrea .icon-reloadDoc:before{
-  content: "\e90c";
-  font-size: 20px;
+  content: "\e988";
+  font-size: 19px;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
   float:left;
-  margin-bottom:1px;
-
+  text-shadow:0 1px 0 #fff;
 }
 
 
@@ -747,7 +741,7 @@
    content: "\e986";
     font-weight: normal;
     font-family: 'icomoon';
-    font-size: 17px;
+    font-size: 15px;
     color: dimgray;
     font-weight:bold;
 }

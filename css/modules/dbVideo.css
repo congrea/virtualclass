@@ -16,7 +16,7 @@
   height: calc(100vh - 200px);
   overflow-y: auto;
   margin-bottom :0;
-  margin-top : 8px;
+  margin-top : 15px;
 }
 
 #virtualclassCont #listvideo .videoTitle{
@@ -380,6 +380,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 #virtualclassCont.congrea #VideoDashboard #uploadMsz .close{
   z-index:2;
+  padding: 2px 5px 4px 6px;
 }
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li{
@@ -395,7 +396,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li .qq-file-info{
-  margin-left:40%;
+  margin-left:15%;
 }
 
 #virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default {

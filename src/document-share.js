@@ -702,7 +702,7 @@
                     var firstElement = document.querySelector('#notesContainer .note');
                     if(firstElement != null){
                         this.docs.currNote = firstElement.dataset.slide;
-                        this.docs.currDoc = this.getDocId(firstElement.dataset.slide);
+                        this.docs.currDoc = 'docs'+this.getDocId(firstElement.dataset.slide);
                         this.docs.note.getScreen(firstElement);
                     }
                 }
@@ -1020,6 +1020,10 @@
 
                 executeScreen : function (doc, fromReload, cb, slide){
                     this.currDoc = doc;
+                    if(doc.indexOf('docs') == -1){
+                        this.currDoc = 'docs' + doc; // In case of missing docs
+                    }
+
                     var cthis = virtualclass.dts;
                     if(roles.hasControls() && typeof fromReload == 'undefined') {
                         var notes = cthis.requestSlides(doc);
@@ -1412,6 +1416,9 @@
                     virtualclass.makeAppReady('DocumentShare', undefined, {init : "studentlayout"});
                 }
                 var dts = e.message.dts;
+                if(dts.hasOwnProperty('docn') &&  dts.docn.indexOf('docs') == -1){
+                    dts.docn = 'docs' + dts.docn; // incaseof missing docs prefix
+                }
 
                 if(dts.hasOwnProperty('allNotes')){
                     this.allNotes = dts.allNotes;
@@ -1452,11 +1459,17 @@
                         // In student window, It will execute below else condition, it trigger for next slide
                         // In this case the docs are different so we need to initalize first
                         // doc and after that we need to call for next slide
+
+
                     } else if(typeof this.docs.note == 'object' && dts.docn != this.docs.num) {
                         this.docs.currNote = dts.slideTo;
                         this.docs.executeScreen(dts.docn, undefined);
-                        this.docs.note.currentSlide(dts.slideTo);
-
+                        var that = this;
+                        setTimeout(
+                            function (){
+                                that.docs.note.currentSlide(dts.slideTo);
+                            },500
+                        );
                     } else {
                         var note = document.querySelector('#note' + dts.slideTo);
                         if(note != null){

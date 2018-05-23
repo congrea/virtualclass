@@ -35,9 +35,10 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * @returns {*} the audio packet with length of 128
      */
     getAudioChunks () {
-		if (this.audioToPlay.length >= (2432)) { // 7 seconds
-            // if audio length is more than 7 seconds, truncate it to 3 seconds
-			while (this.audioToPlay.length >= (1024)) { // 3 seconds
+			console.log("Audo wQueue " + Math.round(this.audioToPlay.length/384) + " seconds");
+		if (this.audioToPlay.length >= (1152)) { // 3 seconds
+            // if audio length is more than 3 seconds, truncate it to 1 second
+			while (this.audioToPlay.length >= (384)) { // 1 second
                 this.audioToPlay.shift();
 			}
 			return this.audioToPlay.shift();

@@ -110,9 +110,18 @@ newScrollVal = 0;
                 var posY = 0;
                 var posX = 0;
                 if(virtualclass.gObj.currWb != null){
-                    var posY =  virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
-                    var posX =  virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
-                }
+                    if(typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY == 'undefined'){
+                        var posY =  0;
+                    }else {
+                        var posY =  virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
+                    }
+
+                    if(typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX == 'undefined'){
+                        var posX =  0;
+                    }else {
+                        var posX =  virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
+                    }
+               }
                 return {x: vcan.utility.pointerX(event)+posX, y: vcan.utility.pointerY(event) + posY};
             },
             /**

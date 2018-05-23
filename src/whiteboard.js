@@ -327,9 +327,9 @@
 
                 vcan.main.currUserCommand = cmd + 'Init';
 
-                if(roles.isStudent()){
-                    console.log(' cmd ' + cmd);
-                }
+                // if(roles.isStudent()){
+                //     console.log(' cmd ' + cmd);
+                // }
 
                 //if (cmd == 't_activeall'+ wbId) {
                 if (cmd  ==  't_activeall'+ wbId) {

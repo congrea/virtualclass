@@ -275,7 +275,7 @@
                         vol > (minthreshold * 2) || // Current max volume
                         thdiff <= 4 ) { // We are not ready for this algo
                         this.audioSend(send, audStatus);
-                        audioWasSent = 1;
+                        audioWasSent = 3;
                         // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
@@ -673,7 +673,6 @@
 
                        });
                     } else {
-                        console.log('Posting audio ' + audioChunks.length);
                         sNode[uid].port.postMessage({audio : audioChunks})
                     }
 
@@ -810,9 +809,10 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
+                  console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
                     if(this.audioToBePlay != null){
-                        if (this.audioToBePlay[uid].length >= 19) { // 7 seconds
-                            while (this.audioToBePlay[uid].length >= 8) { // 3 seconds
+                        if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
+                            while (this.audioToBePlay[uid].length >= 3) { // 1 second
                                 virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                             }
                             return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();

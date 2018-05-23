@@ -969,22 +969,6 @@
 
         },
 
-        handleResultNoUsing: function () {
-            var cursor = event.target.result;
-            if (cursor) {
-                if (cursor.value.hasOwnProperty('repObjs')) {
-                    var allObjs = JSON.parse(cursor.value.repObjs);
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(allObjs);
-                } else if (cursor.value.hasOwnProperty('audiostream')) {
-                    var allObjs = JSON.parse(cursor.value.audiostream);
-                    virtualclass.gObj.video.audio.assignFromLocal(allObjs);
-                } else if (cursor.value.hasOwnProperty('recObjs')) {
-                    virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
-                }
-                cursor.continue();
-            }
-        },
-
         // Get quiz data, store in array based on
         // key and then return array of object
         getQuizData : function (cb){

@@ -435,7 +435,8 @@
         'oncollaboration': "Collaboration on",
         'offcollaboration': "Collaboration off",
         'reloadDoc':"Reload doument",
-
+        'ssBtn':"Stop sharing",
+        'ssStop':"Stop screen sharing"
     };
     window.message = message;
 })(window);

@@ -164,7 +164,7 @@
   font-weight: bold;
 }
 
-#virtualclassCont.congrea[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{
+#virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{
   pointer-events: none;
   opacity: 0.5;
 }
@@ -180,3 +180,16 @@
 #virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="green"]:before{
   color:#006400;
 }
+
+#virtualclassCont.congrea #stopScreenShare  button{
+  left: 30%;
+  color: #fff;
+  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
+  border: 1px solid white;
+  position: fixed;
+  bottom: 50px;
+  z-index: 10000;
+  cursor: pointer;
+  font-weight: bold;
+}
+

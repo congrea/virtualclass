@@ -169,7 +169,6 @@ var newCanvas;
                             virtualclass[app].localCanvas.height = d.h;
                         }
                     }
-
                     virtualclass[app].drawImages(imgData);
                 }
 
@@ -1096,6 +1095,17 @@ var newCanvas;
                                 ioAdapter.mustSend({'cf': view, firstSs : true});
 
                             }, 2000);
+
+                            var ss = document.querySelector('#virtualclassCont  #stopScreenShare');
+                            if(ss){
+                                ss.addEventListener("click",function(){
+                                    ioAdapter.mustSendUser({'cf' : 'stopSs'},  virtualclass.gObj.whoIsSharing);
+                                    var cont = document.querySelector("#virtualclassCont.studentScreenSharing")
+                                    if(cont){
+                                        cont.classList.remove("studentScreenSharing");
+                                    }
+                                })
+                            }
                         }
                     // return mainCont;
                 },

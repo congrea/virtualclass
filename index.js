@@ -1047,6 +1047,7 @@ $(document).ready(function () {
                         if(virtualclassCont != ''){
                             virtualclassCont.classList.add('studentScreenSharing');
                         }
+
                     }
                     if (!virtualclass.hasOwnProperty('studentScreen')) {
                         virtualclass.studentScreen = new studentScreen();
@@ -1676,6 +1677,11 @@ $(document).ready(function () {
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }
+            this.stopSs= function(e){
+                virtualclass.ss.unShareScreen()
+
+            }
+
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

@@ -2585,7 +2585,7 @@
             virtualclass.gObj.precheckScrn=false;
         },
         showFinishBtn:function(){
-            var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button") ;
+            var btn = document.querySelector(".congrea #dashboardContainer .modal-header button") ;
             if(btn){
                 btn.classList.add("enable")
             }
@@ -2598,7 +2598,7 @@
         },
 
         removeFinishBtn:function(){
-            var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable") ;
+            var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable") ;
             if(btn){
                 btn.classList.remove("enable")
             }

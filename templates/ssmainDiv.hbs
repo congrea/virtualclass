@@ -36,5 +36,12 @@
         <canvas id="virtualclassScreenShareLocalTempVideo" width="900" height="740"></canvas>
       </div>
     {{/unless}}
-  {{/if}}
+
+    {{else}}
+      {{#if scrctrl}}
+        <div id="stopScreenShare" class="ss congtooltip" data-title="{{getString 'ssStop'}}">
+          <button type="button"> {{getString 'ssBtn'}}</button>
+        </div>
+      {{/if}}
+    {{/if}}
 </div>

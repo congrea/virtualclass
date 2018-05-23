@@ -188,6 +188,13 @@
             // objectStore.clear();
             //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
             // localStorage.setItem('repObjs', data); Enable for debugging
+            var tempData = JSON.parse(data);
+            if(tempData.length <= 0){
+                // alert('array is missing');
+                // debugger;
+                console.log('Whiteboard draw whole array is missing');
+            }
+
             t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
 
             // t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
@@ -447,10 +454,10 @@
                             virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
 
                         } else {
-                            virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
+                            virtualclass.gObj.tempReplayObjs['_doc_0_0'] = JSON.parse(cursor.value.repObjs);
                         }
-
-                        virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
+                        //
+                        // virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
                         storeFirstObj = true;
                     }
                     cursor.continue();
@@ -1030,6 +1037,7 @@
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
                     if(typeof wb.result != 'undefined'){
+                        console.log('Whiteboard start store from local storage');
                         virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
                         cb();

@@ -453,6 +453,7 @@
 
             // displayPage : function (pdf, num, firstTime) {
             displayPage : function (pdf, num, cb, firstTime) {
+
                 displayCb = cb;
                 var that = this;
                 pdf.getPage(num).then(function getPage(page) {

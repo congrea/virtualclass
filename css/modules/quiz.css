@@ -326,3 +326,31 @@ span.sch {
 #virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
   border-radius : 0;
 }
+
+#virtualclassCont.congrea #layoutQuiz #headerContainer{
+  display:none;
+}
+
+#virtualclassCont.congrea #layoutQuiz  #headerContainer.show{
+  display:table-header-group !important;
+}
+#virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz{
+  display:none;
+}
+
+#virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz.show{
+  border: 1px solid #c8ddb8;
+  border-radius: 5px;
+  /* color: #3a773c; */
+  margin: 0 auto;
+  padding: 30px 20px;
+  position: absolute;
+  top: 20%;
+  width: 480px;
+  text-align: center;
+  /* box-shadow: 0 0 8px #ddd; */
+  left: -230px;
+  right: 0;
+  font-size: medium;
+
+}

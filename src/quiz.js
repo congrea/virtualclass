@@ -129,18 +129,32 @@
              Check if quiz exit, call function to display list of quizes
              */
             displayQuizList: function () {
-
+                var isQuiz=false
                 virtualclass.quiz.dispList("course");
                 var listcont = document.getElementById("listquizcourse");
                 if (Object.keys(this.coursequiz).length > 0) {
                     for ( var k in this.coursequiz) {
                         if (this.coursequiz.hasOwnProperty(k)) {
                             if(! +this.coursequiz[k].quizstatus){
+                                isQuiz=true
                                 this.displayQuizes (this.coursequiz[k], k);
+
                             }
                         }
                     }
                     this.UI.listHeader();
+                    if(isQuiz){
+                        var header = document.querySelector("#virtualclassCont.congrea #layoutQuiz #headerContainer")
+                        if(!header.classList.contains("show")){
+                            header.classList.add("show")
+                        }
+                    }else{
+                        var mszBoxQuiz =document.querySelector("#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz");
+                        if(mszBoxQuiz){
+                            mszBoxQuiz.classList.add("show");
+                            mszBoxQuiz.innerHTML= virtualclass.lang.getString("noQuiz");
+                        }
+                    }
 
                 } else {
                     alert('No quiz to display');

@@ -372,7 +372,7 @@
         'coursePoll' :"Created polls are of course level",
         'sitePoll' :"Created polls are of site level",
         'closevideoDashboard' : "Close video dashboard",
-        'closeSharePresentationdbHeading' : "Close Presentation Dashboard",
+        'closeSharePresentationdbHeading' : "Close presentation dashboard",
         'closedsDbheading' : "Close document dashboard",
         'openvideoDashboard' : "Video dashboard",
         'openSharePresentationdbHeading' : "Presentation dashboard",

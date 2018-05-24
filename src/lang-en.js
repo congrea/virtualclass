@@ -436,7 +436,8 @@
         'offcollaboration': "Collaboration off",
         'reloadDoc':"Reload doument",
         'ssBtn':"Stop sharing",
-        'ssStop':"Stop screen sharing"
+        'ssStop':"Stop screen sharing",
+        'noQuiz':"No quiz available. Congrea supports only mutliple choice questions",
     };
     window.message = message;
 })(window);

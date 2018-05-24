@@ -1099,6 +1099,7 @@ var newCanvas;
                             var ss = document.querySelector('#virtualclassCont  #stopScreenShare');
                             if(ss){
                                 ss.addEventListener("click",function(){
+                                    virtualclass.vutil.initDefaultApp();
                                     ioAdapter.mustSendUser({'cf' : 'stopSs'},  virtualclass.gObj.whoIsSharing);
                                     var cont = document.querySelector("#virtualclassCont.studentScreenSharing")
                                     if(cont){

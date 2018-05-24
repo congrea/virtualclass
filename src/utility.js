@@ -2507,9 +2507,9 @@
         },
 
         initDefaultApp : () => {
-            var editorRichTool  = document.querySelector('#virtualclassEditorRichTool a');
-            if(editorRichTool != null){
-                editorRichTool.click(editorRichTool);
+            var defaultApp  = document.querySelector('#virtualclass'+virtualclass.gObj.defaultApp +'Tool a');
+            if(defaultApp != null){
+                defaultApp.click(defaultApp);
             }
         },
 

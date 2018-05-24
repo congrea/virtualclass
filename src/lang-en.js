@@ -438,7 +438,8 @@
         'offcollaboration': "Collaboration off",
         'reloadDoc':"Reload document",
         'ssBtn':"Stop sharing",
-        'ssStop':"Stop screen sharing"
+        'ssStop':"Stop screen sharing",
+        'pollresult' : "Previous result"
     };
     window.message = message;
 })(window);

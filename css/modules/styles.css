@@ -3729,3 +3729,9 @@ opacity: 1;
 #virtualclassCont.congrea .reloadNote .congtooltip[data-title="Reload Whiteboard"]:hover:after {
 	width: 120px!important;
 }
+
+#virtualclassCont.congrea.nowebcam.student  .videoSwitchCont{
+	pointer-events: none;
+	opacity:.5;
+
+}

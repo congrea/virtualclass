@@ -430,6 +430,7 @@
                 _disable: function (elem, control, userId, label) {
 
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
+                    elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "On"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
 
                     elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
@@ -907,7 +908,7 @@
                         if(txteditorIcon && txteditorIcon.classList.contains("enable")){
                             txteditorIcon.classList.remove("enable");
                             txteditorIcon.classList.add("block");
-                            txteditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('editorRichDisable'));
+                            txteditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('writemode'));
                             txteditorIcon.setAttribute("data-editorrich-disable", "true");
                         }
 
@@ -921,7 +922,7 @@
 
                         var muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
                         if(muteIcon && muteIcon.classList.contains("block")){
-                            muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('disableAudio'));
+                            muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('audioOn'));
                             muteIcon.setAttribute("data-audio-disable", "false");
                         }
 
@@ -1108,7 +1109,7 @@
                             allUserElem[i].classList.remove('block');
                             allUserElem[i].classList.add('enable');
                             allUserElem[i].parentNode.classList.add('tooltip');
-                            allUserElem[i].parentNode.setAttribute('data-title', virtualclass.lang.getString('assignEnable'));
+                            allUserElem[i].parentNode.setAttribute('data-title', virtualclass.lang.getString('transferControls'));
                             allUserElem[i].setAttribute('data-assign-disable', 'false');
                         } else {
                             allUserElem[i].classList.remove('enable');

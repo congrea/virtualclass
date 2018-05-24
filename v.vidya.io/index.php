@@ -501,12 +501,12 @@ if ($room) {
 				$dap = "false";
 				$classes = "audioTool";
 				$speakermsg = "Enable Speaker";
-				$audio_tooltip =  get_string('enableAudio');
+				$audio_tooltip =  get_string('audioOff');
 			} else {
 				$classes = "audioTool";
 				$speakermsg = "Disable Speaker";
 				$dap = "true";
-				$audio_tooltip =  get_string('disableAudio');
+				$audio_tooltip =  get_string('audioOn');
 			}
 			$classes .= ' ' .$audactive;
 		 ?>	

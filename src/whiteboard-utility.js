@@ -1031,6 +1031,11 @@
                     }
                 }
                // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
+               //  if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
+               //      virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+               //  }else {
+               //     // console.log('Whiteboard draw whole array is missing');
+               //  }
                 virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
             },
 
@@ -1054,7 +1059,7 @@
                 if(virtualclass.wb[wid].gObj.queue.hasOwnProperty(playedObj.uid + 1)){
                     return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
                 } else {
-                    console.log("Whiteboard Packet is " + (playedObj.uid + 1) +  " is not found in queue");
+                    //console.log("Whiteboard Packet is " + (playedObj.uid + 1) +  " is not found in queue");
                 }
 
                 return false;

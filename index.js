@@ -9,6 +9,7 @@ $(document).ready(function () {
     // This need to call after join the session
     window.onload  = function () {
         "use strict";
+        console.log('Whiteboard init very start');
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;

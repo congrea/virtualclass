@@ -2614,6 +2614,16 @@
             if(virtualclassCont != ''){
                 virtualclassCont.classList.remove('studentScreenSharing');
             }
+        },
+        
+        addNoteClass : function (){
+            if(roles.isStudent()){
+                var docScreenContainer = document.querySelector('#docScreenContainer');
+                if(docScreenContainer !=  null){
+                    docScreenContainer.classList.add('noteDisplay');
+                    console.log('add note display');
+                }
+            }
         }
     };
     window.vutil = vutil;

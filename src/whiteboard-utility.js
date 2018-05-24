@@ -1025,17 +1025,23 @@
                             virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
                         }
                     } else {
-                        console.log('Could not display whiteboard object with ' + repObjs[i].uid);
+
+                        console.log('Whiteboard, could not display  object with ' + repObjs[i].uid);
                        // virtualclass.wb[virtualclass.gObj.currWb].bridge.makeQueue(repObjs[i]);
                     }
                 }
-                console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
+               // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
+               //  if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
+               //      virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+               //  }else {
+               //     // console.log('Whiteboard draw whole array is missing');
+               //  }
                 virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
             },
 
             executeWhiteboardData  :  function (objToDisplay){
                 var wid = virtualclass.gObj.currWb;
-                console.log('received uid ' + objToDisplay.uid);
+                console.log('Whiteboard executed uid ' + objToDisplay.uid);
                 virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
                 virtualclass.wb[wid].response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);
@@ -1053,7 +1059,7 @@
                 if(virtualclass.wb[wid].gObj.queue.hasOwnProperty(playedObj.uid + 1)){
                     return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
                 } else {
-                    console.log("Packet" + (playedObj.uid + 1) +  "not found ");
+                    //console.log("Whiteboard Packet is " + (playedObj.uid + 1) +  " is not found in queue");
                 }
 
                 return false;

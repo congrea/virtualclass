@@ -673,7 +673,6 @@
 
                        });
                     } else {
-                        console.log('Posting audio ' + audioChunks.length);
                         sNode[uid].port.postMessage({audio : audioChunks})
                     }
 
@@ -810,6 +809,7 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
+                  console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
                     if(this.audioToBePlay != null){
                         if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
                             while (this.audioToBePlay[uid].length >= 3) { // 1 second

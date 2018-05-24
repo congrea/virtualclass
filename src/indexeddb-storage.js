@@ -188,12 +188,7 @@
             // objectStore.clear();
             //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
             // localStorage.setItem('repObjs', data); Enable for debugging
-            var tempData = JSON.parse(data);
-            if(tempData.length <= 0){
-                // alert('array is missing');
-                // debugger;
-                console.log('Whiteboard draw whole array is missing');
-            }
+
 
             t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
 

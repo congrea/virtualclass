@@ -653,6 +653,7 @@
                     this.updateLinkNotes(this.docs.currNote);
                     virtualclass.dts.setCurrentNav(this.docs.currNote);
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
+                    virtualclass.vutil.addNoteClass();
                 } else {
                     this.removePagesUI(doc);
                     if(!virtualclass.dts.noteExist()){
@@ -1208,6 +1209,7 @@
                             if(note != null ){
                                 note.classList.add('current');
                             }
+                            virtualclass.vutil.addNoteClass();
 
                         },
 

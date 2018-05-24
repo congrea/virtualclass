@@ -1031,12 +1031,12 @@
                     }
                 }
                // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
-                if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
-                    virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
-                }else {
-                   // console.log('Whiteboard draw whole array is missing');
-                }
-
+               //  if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
+               //      virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+               //  }else {
+               //     // console.log('Whiteboard draw whole array is missing');
+               //  }
+                virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
             },
 
             executeWhiteboardData  :  function (objToDisplay){

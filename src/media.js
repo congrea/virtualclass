@@ -152,10 +152,10 @@
                 init: function () {
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
-                    this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-
-                    // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8002.3, 1, 4096);
-                    this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+                    // this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                    //
+                    // // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8002.3, 1, 4096);
+                    // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
 //                    this.resamplerdecode = new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
 
                     //This part in not being used
@@ -1384,6 +1384,9 @@
                 };
 
                 cthis.video.init();
+                cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+
+                cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                 var that  = this;
 
                 if (!virtualclass.vutil.isPlayMode()) {

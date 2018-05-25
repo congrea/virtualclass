@@ -1032,7 +1032,7 @@
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
                     if(typeof wb.result != 'undefined'){
-                        console.log('Whiteboard start store from local storage');
+                        console.log('Whiteboard start store from local storage ' + wbId);
                         virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
                         cb();

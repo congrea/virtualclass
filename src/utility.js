@@ -2482,7 +2482,7 @@
                     }else {
                         func.call(cthis);
                     }
-
+                    console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
                 }, virtualclass.gObj.wbNavtime
             )
         },

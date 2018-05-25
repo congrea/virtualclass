@@ -13,6 +13,7 @@
                 var virtualclasElem = document.querySelector('#virtualclassCont');
                 if(virtualclasElem != null){
                     virtualclasElem.classList.add('pdfRendering');
+                    console.log('Add pdf rendering');
                 }
 
                 io.globallock = false;
@@ -403,9 +404,13 @@
                                 setTimeout(
                                     function (){
                                         that.initWhiteboardData(virtualclass.gObj.currWb);
+                                        var virtualclasElem = document.querySelector('#virtualclassCont');
+                                        if(virtualclasElem != null){
+                                            virtualclasElem.classList.remove('pdfRendering');
+                                            console.log('Remove pdf rendering');
+                                        } 
                                     },500
                                 );
-
                             }
 
                             displayCb();
@@ -414,10 +419,17 @@
                                     function (){
                                         io.globallock = false;
                                         // remove class from main container
-                                        var virtualclasElem = document.querySelector('#virtualclassCont');
+                                       /*if(firstTime != null){
+                                         var virtualclasElem = document.querySelector('#virtualclassCont');
+                                         if(virtualclasElem != null){
+                                            virtualclasElem.classList.remove('pdfRendering');
+                                            console.log('Remove pdf rendering');
+                                         }  
+                                       } */
+                                       /* var virtualclasElem = document.querySelector('#virtualclassCont');
                                         if(virtualclasElem != null){
                                             virtualclasElem.classList.remove('pdfRendering');
-                                        }
+                                        } */
                                         io.onRecJson(null);
 
                                         if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
@@ -436,7 +448,7 @@
                                                         virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
                                                     }
 
-                                                }, 50 // 10 earlier
+                                                }, 10 // 10 earlier
                                             );
                                         }
                                         virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');

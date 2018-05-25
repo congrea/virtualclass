@@ -1352,6 +1352,10 @@
                             if (!this.isWhiteboardExist(this.currNote)) {
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)){
+                                if(virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length > 0){
+                                    virtualclass.gObj.tempQueue[virtualclass.gObj.currWb] = virtualclass.wb[virtualclass.gObj.currWb].gObj.queue;
+                                }
+
                                 delete virtualclass.wb[virtualclass.gObj.currWb];
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             } else {

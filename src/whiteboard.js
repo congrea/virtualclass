@@ -12,6 +12,7 @@
      */
 
     var whiteboard = function (config, currWb) {
+        console.log('Whiteboard new one');
         var id = config.hasOwnProperty('id') ? config.id : "appWhitebaordCont";
         var classes = config.hasOwnProperty('class');
         //virtualclass.gObj.currWb = currWb;

@@ -716,6 +716,9 @@
                     if (!this.hasOwnProperty('audioToBePlay')) {
                         this.audioToBePlay = {};
                     }
+                    if (!this.hasOwnProperty('aChunksPlay')) {
+                        this.aChunksPlay = {};
+                    }
                     if (!this.audioToBePlay.hasOwnProperty(uid)) {
                         this.audioToBePlay[uid] = [];
                     }
@@ -811,16 +814,23 @@
                 getAudioChunks: function (uid) {
                   console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
                     if(this.audioToBePlay != null){
-                        if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
-                            while (this.audioToBePlay[uid].length >= 3) { // 1 second
-                                virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                            }
-                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                        } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
-                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
+                        while (this.audioToBePlay[uid].length >= 3) { // 1 second
+                          virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else if (this.audioToBePlay[uid].length > 0 && this.aChunksPlay[uid] == true) {
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else {
+                        this.aChunksPlay[uid] = false;
+                      }
                     }
-                },
+                  },
 
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {

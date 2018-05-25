@@ -35,7 +35,7 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * @returns {*} the audio packet with length of 128
      */
     getAudioChunks () {
-			console.log("Audo wQueue " + Math.round(this.audioToPlay.length/384) + " seconds");
+			//console.log("Audo wQueue " + Math.round(this.audioToPlay.length/384) + " seconds");
 		if (this.audioToPlay.length >= (1152)) { // 3 seconds
             // if audio length is more than 3 seconds, truncate it to 1 second
 			while (this.audioToPlay.length >= (384)) { // 1 second
@@ -55,13 +55,13 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * the following method is triggered continuously
      */
     process(inputs, outputs) {
-        let input = this.getAudioChunks();
+        var input = this.getAudioChunks();
         if(input !== null){
             outputs[0][0].set(input, 0);
             this.lastAudioTone = input[127];
         } else {
             // Avoid tick sound
-            for (let i = 0; i < 128; i++) {
+            for (var i = 0; i < 128; i++) {
                 outputs[0][0][i] = this.lastAudioTone;
             }
         }

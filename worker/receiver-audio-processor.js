@@ -7,7 +7,7 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
 	constructor() {
         super();
         this.audioToPlay = [];
-        this.lastAudioTone;
+        this.lastAudioTone = 0;
         this.allAudioArr = [];
         var that = this;
 

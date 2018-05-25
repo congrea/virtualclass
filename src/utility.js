@@ -2188,7 +2188,7 @@
 
         videoHandler: function () {
          var video;
-             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
+            var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
             if (sw.classList.contains("on")) {
                 sw.classList.remove("on");
                 sw.classList.add("off");
@@ -2202,6 +2202,18 @@
                 }else{
                      virtualclass.videoHost.gObj.stdStopSmallVid = true;
                 }
+                var hasVideo = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
+
+                if(hasVideo){
+
+                    virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
+                }else{
+                    virtualclass.gObj.delayVid="display";
+                }
+                virtualclass.videoHost.UI.hideVideo();
+
+                // virtualclass.videoHost.gObj.stdStopSmallVid = true;
+
 
 
             } else {
@@ -2216,7 +2228,19 @@
 
                 } else {
                     virtualclass.videoHost.gObj.stdStopSmallVid = false;
+
                 }
+                var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+
+                if(hasImg){
+
+                    virtualclass.videoHost.removeUserIcon(virtualclass.gObj.uid );
+                }else{
+                    virtualclass.gObj.delayVid="hide"
+                }
+                virtualclass.videoHost.UI.displayVideo()
+                // virtualclass.videoHost.gObj.stdStopSmallVid = false;
+
             }
 
             if(virtualclass.gObj.meetingMode){

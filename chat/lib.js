@@ -238,6 +238,11 @@ function memberUpdate(e, addType) {
         }
     }
 
+
+    if(virtualclass.gObj.delayVid == "display"){
+        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid)
+    }
+    virtualclass.gObj.delayVid ="";
 }
 
 function messageUpdate(e) {

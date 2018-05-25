@@ -112,7 +112,7 @@ body {
 #virtualclassCont.congrea.teacher.nowebcam #rightSubContainer, #virtualclassCont.congrea.student.videoff #rightSubContainer{
 	height : calc(100% - 48px);
 }
-#virtualclassCont.congrea.student .vidHide #rightSubContainer {
+#virtualclassCont.congrea .vidHide #rightSubContainer {
 	height : calc(100% - 47px) !important;
 }
  #virtualclassCont #congreaChatMainCont {

@@ -439,7 +439,7 @@
         'reloadDoc':"Reload document",
         'ssBtn':"Stop sharing",
         'ssStop':"Stop screen sharing",
-        'pollresult' : "Previous result"
+        'pollresult' : "Previous result",
         'noQuiz':"No quiz available. Congrea supports only mutliple choice questions",
     };
     window.message = message;

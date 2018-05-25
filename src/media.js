@@ -94,8 +94,9 @@
                     if(chatUser != null){
                         var childTag = chatUser.getElementsByTagName('a')[0];
                         var imgTag = childTag.getElementsByTagName('img')[0];
-                        childTag.className += ' hasVideo';
-
+                        if(!childTag.classList.contains("hasVideo")){
+                            childTag.className += ' hasVideo';
+                        }
                         childTag.replaceChild(vidCont, imgTag);
                     } else {
                         console.log('chatUser is Null');
@@ -1286,6 +1287,7 @@
                 insertTempVideo: function (beforeInsert) {
                     var tempVideo = document.createElement('canvas');
                     tempVideo.id = 'tempVideo';
+
                     beforeInsert.parentNode.insertBefore(tempVideo, beforeInsert);
                 },
                 // To initalize canvas element to video and to create it's 2d context

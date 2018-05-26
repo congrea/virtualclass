@@ -183,16 +183,9 @@
 
         store: function (data) {
             //console.log("whiteboard data store");
-            var t = that.db.transaction(["wbData"], "readwrite");
-            var objectStore = t.objectStore("wbData");
-            // objectStore.clear();
-            //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
-            // localStorage.setItem('repObjs', data); Enable for debugging
-
-
-            t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
-
-            // t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
+             var t = that.db.transaction(["wbData"], "readwrite");
+             var objectStore = t.objectStore("wbData");
+             objectStore.put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
             return false;
         },
 
@@ -662,8 +655,8 @@
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;
                 virtualclass.videoHost.gObj.stdStopSmallVid= false;
-                virtualclass.videoHost.gObj.videoSwitch = 1
-                virtualclass.videoHost.gObj.allStdVideoOff=false
+                virtualclass.videoHost.gObj.videoSwitch = 1;
+                virtualclass.videoHost.gObj.allStdVideoOff=false;
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
@@ -1032,7 +1025,7 @@
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
                     if(typeof wb.result != 'undefined'){
-                        console.log('Whiteboard start store from local storage');
+                        console.log('Whiteboard start store from local storage ' + wbId);
                         virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
                         cb();

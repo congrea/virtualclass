@@ -439,6 +439,7 @@
                 }
             },
             makeDefaultValue: function (cmd) {
+                // console.log('Whiteboard re-init queue');
                 var wid = virtualclass.gObj.currWb;
 
                 if (typeof cmd == 'undefined' || cmd != 't_clearall') {
@@ -775,6 +776,7 @@
             replayFromLocalStroage: function (allRepObjs) {
                 // alert('Replay from local storage');
                 console.log('PDF, Whiteboard is intializing');
+                // console.log('Whiteboard from local storage last Object ' + allRepObjs[allRepObjs.length - 1].uid);
 
                 var wid = virtualclass.gObj.currWb;
                 if (typeof (Storage) !== "undefined") {
@@ -1026,22 +1028,23 @@
                         }
                     } else {
 
-                        console.log('Whiteboard, could not display  object with ' + repObjs[i].uid);
+                        //console.log('Whiteboard, could not display  object with ' + repObjs[i].uid);
                        // virtualclass.wb[virtualclass.gObj.currWb].bridge.makeQueue(repObjs[i]);
                     }
                 }
                // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
-               //  if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
-               //      virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
-               //  }else {
-               //     // console.log('Whiteboard draw whole array is missing');
-               //  }
-                virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+                if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
+                    // console.log('Whiteboard saving storage ' + repObjs[repObjs.length-1].uid);
+                    virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+                }else {
+                   // console.log('Whiteboard draw whole array is missing');
+                }
+              //  virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
             },
 
             executeWhiteboardData  :  function (objToDisplay){
                 var wid = virtualclass.gObj.currWb;
-                console.log('Whiteboard executed uid ' + objToDisplay.uid);
+                // console.log('Whiteboard executed uid ' + objToDisplay.uid);
                 virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
                 virtualclass.wb[wid].response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);

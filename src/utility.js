@@ -2631,7 +2631,8 @@
                     console.log('add note display');
                 }
             }
-        }
+        },
+
     };
     window.vutil = vutil;
 })(window);

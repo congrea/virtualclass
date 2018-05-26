@@ -716,11 +716,11 @@
                             //     var myQueue = [];
                             // }
 
-                            if(typeof this.gObj.tempQueue[id] != 'undefined'){
-                                var myQueue = this.gObj.c[id];
-                            }else {
-                                var myQueue = [];
-                            }
+                            // if(typeof this.gObj.tempQueue[id] != 'undefined'){
+                            //     var myQueue = this.gObj.tempQueue[id];
+                            // }else {
+                            //     var myQueue = [];
+                            // }
 
                             if(typeof this.wb != 'object'){
                                 this.wb = {};
@@ -733,7 +733,11 @@
 
 
                             this.wb[id] = new window.whiteboard(this.wbConfig, id);
-                            this.wb[id].gObj.queue = myQueue;
+
+                            if(this.gObj.tempQueue[id] != null){
+                                this.wb[id].gObj.queue = this.gObj.tempQueue[id].slice();
+                                this.gObj.tempQueue[id] = null;
+                            }
 
                             // this.wb[id].UI.mainContainer(container, id);
                             if(virtualclass.currApp == 'Whiteboard'){

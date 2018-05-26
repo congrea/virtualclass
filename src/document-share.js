@@ -1348,14 +1348,18 @@
                             this.slideTo(note);
 
                             // todo, critical that's need to be enable and handle properly
+                            if(virtualclass.wb[virtualclass.gObj.currWb] != null) {
+                                console.log("whiteboard ============ " + virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length);
+                            }
+
+
+                            if(virtualclass.wb[virtualclass.gObj.currWb] != null && virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length > 0){
+                                virtualclass.gObj.tempQueue[virtualclass.gObj.currWb] = virtualclass.wb[virtualclass.gObj.currWb].gObj.queue;
+                            }
 
                             if (!this.isWhiteboardExist(this.currNote)) {
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)){
-                                if(virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length > 0){
-                                    virtualclass.gObj.tempQueue[virtualclass.gObj.currWb] = virtualclass.wb[virtualclass.gObj.currWb].gObj.queue;
-                                }
-
                                 delete virtualclass.wb[virtualclass.gObj.currWb];
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             } else {

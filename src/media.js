@@ -461,7 +461,7 @@
                         this.studentSpeak();
 
                         tag.setAttribute('data-audio-playing', "true");
-                        anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
+                        anchor.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
                         tag.className = "audioTool active";
 
 
@@ -469,7 +469,7 @@
                         this.studentNotSpeak();
                         tag.setAttribute('data-audio-playing', "false");
                         if(anchor){
-                            anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                            anchor.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
                         }
                         tag.className = "audioTool deactive";
                     }
@@ -716,6 +716,9 @@
                     if (!this.hasOwnProperty('audioToBePlay')) {
                         this.audioToBePlay = {};
                     }
+                    if (!this.hasOwnProperty('aChunksPlay')) {
+                        this.aChunksPlay = {};
+                    }
                     if (!this.audioToBePlay.hasOwnProperty(uid)) {
                         this.audioToBePlay[uid] = [];
                     }
@@ -811,16 +814,23 @@
                 getAudioChunks: function (uid) {
                   console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
                     if(this.audioToBePlay != null){
-                        if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
-                            while (this.audioToBePlay[uid].length >= 3) { // 1 second
-                                virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                            }
-                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                        } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
-                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
+                        while (this.audioToBePlay[uid].length >= 3) { // 1 second
+                          virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else if (this.audioToBePlay[uid].length > 0 && this.aChunksPlay[uid] == true) {
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else {
+                        this.aChunksPlay[uid] = false;
+                      }
                     }
-                },
+                  },
 
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {

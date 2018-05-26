@@ -1225,7 +1225,7 @@ $(document).ready(function () {
                     virtualclass.user.control.audioSign(user, 'remove');
                     anchorTag = document.getElementById(user.id + 'contrAudAnch');
                     if (anchorTag != null) {
-                        anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
+                        anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
                     }
                 }
                 return true;

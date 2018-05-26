@@ -423,7 +423,7 @@ var videoHost = {
                          }
                     }
                 }
-            }, myVideoDelay = ((16382/sampleRate)*1000*3)+100
+            }, myVideoDelay = ((16382/sampleRate)*1000*3)
         );
     },
     onError: function (err) {

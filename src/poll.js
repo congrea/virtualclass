@@ -2412,7 +2412,7 @@
                         var stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator #pollResult');
                         stdNav.addEventListener('click', function () {
                             virtualclass.poll.showStudentPollReport(virtualclass.poll.previousResult);
-                            stdNav.classList.remove('active')
+                            stdNav.classList.add('active');
                         });
 
                     }

@@ -10,6 +10,9 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
 				this.aChunksPlay = false;
         this.lastAudioTone = 0;
         this.allAudioArr = [];
+				this.b0 = 0;
+				this.b1 = 0;
+				this.b2 = 0;
         var that = this;
 
 		this.port.onmessage = (msg) => {
@@ -21,8 +24,12 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * Making single Queue Audio
      */
     queue (samples) {
-        // Avoid tick sound
+        // Avoid tick sound and average out signal
         for(let i=0; i<samples.length; i++){
+					  this.b0 = this.b1;
+					  this.b1 = this.b2;
+					  this.b2 = samples[i];
+					  samples[i] = (this.b0 + this.b1 + this.b2) / 3; // Comment this line to turn it off
             this.allAudioArr.push(samples[i]);
         }
         while (this.allAudioArr.length >= 128) {

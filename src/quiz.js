@@ -157,7 +157,11 @@
                     }
 
                 } else {
-                    alert('No quiz to display');
+                    var mszBoxQuiz =document.querySelector("#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz");
+                    if(mszBoxQuiz){
+                        mszBoxQuiz.classList.add("show");
+                        mszBoxQuiz.innerHTML= virtualclass.lang.getString("noQuiz");
+                    }
                 }
             },
 

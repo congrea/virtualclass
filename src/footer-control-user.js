@@ -430,7 +430,7 @@
                 _disable: function (elem, control, userId, label) {
 
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
-                    elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "On"));
+                    //elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "On"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
 
                     elem.className = "icon-" + control + "Img block" + ' ' + control + 'Img';
@@ -843,6 +843,7 @@
                     localStorage.setItem('chatEnable', "false");
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.add('chat_disabled');
+                    chat_div.classList.remove('chat_enabled');
 
                     var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
                     for (var i = 0; i < allChatBoxes.length; i++) {
@@ -859,12 +860,15 @@
                 },
 
                 makeElemDisable: function (elem) {
-                    if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
-                        elem.classList.remove('enable');
-                        elem.classList.add('disable');
-                    } else {
-                        elem.className = "disable";
+                    if(elem.id !="chatrm"){
+                        if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
+                            elem.classList.remove('enable');
+                            elem.classList.add('disable');
+                        } else {
+                            elem.className = "disable";
+                        }
                     }
+
                     var inputBox = elem.getElementsByClassName("ui-chatbox-input-box")[0];
                     if (inputBox != null) {
                         inputBox.disabled = true;
@@ -874,10 +878,11 @@
                     localStorage.setItem('chatEnable', "true");
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.remove('chat_disabled');
+                    chat_div.classList.add('chat_enabled');
 
                     var div = document.getElementById("chatrm");
                     if (div != null) {
-                        this.makeElemEnable(div);
+                       // this.makeElemEnable(div);
                     }
 
                     var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
@@ -1234,7 +1239,7 @@
                     //spanTag.innerHTML = "Dis Aud All";
                     spanTag.setAttribute('data-action', 'disable');
                     spanTag.className = 'slider round icon-all-video-disable congtooltip cgIcon';
-                    spanTag.dataset.title = virtualclass.lang.getString('disableVideoAll');
+                    spanTag.dataset.title = virtualclass.lang.getString('disableAllVideo');
                     var input = document.querySelector(".bulkUserActions #contrVideoAll input ")
                     input.removeAttribute("checked");
                     var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");
@@ -1337,7 +1342,7 @@
                     if (videoController.dataset.action == 'enable') {
                         videoController.dataset.action = 'disable';
                         videoController.className = 'slider round icon-all-video-disable congtooltip';
-                        videoController.dataset.title = virtualclass.lang.getString('disableVideoAll');
+                        videoController.dataset.title = virtualclass.lang.getString('disableAllVideo');
                         var cont = document.querySelector(".congrea .bulkUserActions #contrVideoAll");
                         cont.classList.add("disable");
                         cont.classList.remove("enable");

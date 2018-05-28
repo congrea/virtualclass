@@ -1112,6 +1112,11 @@
                                 virtualclass.zoom.normalRender();
                         }
                     }
+
+                    var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
+                    if(reload){
+                        reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
+                    }
                 },
 
                 MultiVideo : function (){

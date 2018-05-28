@@ -118,12 +118,12 @@
   100% { transform: rotate(360deg); }
 }
 
-#virtualclassCont.congrea.student #virtualclassAppRightPanel.show #videoHostContainer{
-  display : block;
+#virtualclassCont.congrea.student #virtualclassAppRightPanel.vidShow #videoHostContainer{
+  display : block!important;
 }
 
-#virtualclassCont.congrea.student #virtualclassAppRightPanel.hide #videoHostContainer{
-  display : none;
+#virtualclassCont.congrea.student #virtualclassAppRightPanel.vidHide #videoHostContainer{
+  display : none!important;
 }
 
 #virtualclassCont.congrea  #proposedSpeed #svgContainer {

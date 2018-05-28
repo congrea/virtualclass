@@ -85,6 +85,9 @@
                     if (memlist) {
                         memlist.classList.remove("enable");
                     }
+                    if(!memlist.classList.contains("disable")){
+                       memlist.classList.add("disable")
+                    }
 
                      var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
                      if (searchbox) {
@@ -95,6 +98,7 @@
                     if (!chatroom.classList.contains("enable")) {
                         chatroom.classList.add("enable");
                     }
+                    chatroom.classList.remove("disable")
 
                 });
 
@@ -129,6 +133,7 @@
                     if (chatroom) {
                         chatroom.classList.remove("enable");
                     }
+                    chatroom.classList.add("disable");
 
                     var chatbox = document.getElementById("ta_chrm2");
                     if (chatbox) {
@@ -145,6 +150,7 @@
                         memlist.classList.add("enable")
 
                     }
+                    memlist.classList.remove("disable")
 
 
 

@@ -86,7 +86,7 @@ body {
     margin-top: -4px;
 }
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource{
-	display : none;
+	display : none!important;
 }
 
 #virtualclassCont.congrea #chatWidget {

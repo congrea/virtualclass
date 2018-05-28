@@ -13,6 +13,7 @@
                 var virtualclasElem = document.querySelector('#virtualclassCont');
                 if(virtualclasElem != null){
                     virtualclasElem.classList.add('pdfRendering');
+                    console.log('Add pdf rendering');
                 }
 
                 io.globallock = false;
@@ -403,9 +404,13 @@
                                 setTimeout(
                                     function (){
                                         that.initWhiteboardData(virtualclass.gObj.currWb);
+                                        var virtualclasElem = document.querySelector('#virtualclassCont');
+                                        if(virtualclasElem != null){
+                                            virtualclasElem.classList.remove('pdfRendering');
+                                            console.log('Remove pdf rendering');
+                                        } 
                                     },500
                                 );
-
                             }
 
                             displayCb();
@@ -414,10 +419,17 @@
                                     function (){
                                         io.globallock = false;
                                         // remove class from main container
-                                        var virtualclasElem = document.querySelector('#virtualclassCont');
+                                       /*if(firstTime != null){
+                                         var virtualclasElem = document.querySelector('#virtualclassCont');
+                                         if(virtualclasElem != null){
+                                            virtualclasElem.classList.remove('pdfRendering');
+                                            console.log('Remove pdf rendering');
+                                         }  
+                                       } */
+                                       /* var virtualclasElem = document.querySelector('#virtualclassCont');
                                         if(virtualclasElem != null){
                                             virtualclasElem.classList.remove('pdfRendering');
-                                        }
+                                        } */
                                         io.onRecJson(null);
 
                                         if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
@@ -436,7 +448,7 @@
                                                         virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
                                                     }
 
-                                                }, 10
+                                                }, 10 // 10 earlier
                                             );
                                         }
                                         virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
@@ -453,6 +465,7 @@
 
             // displayPage : function (pdf, num, firstTime) {
             displayPage : function (pdf, num, cb, firstTime) {
+
                 displayCb = cb;
                 var that = this;
                 pdf.getPage(num).then(function getPage(page) {
@@ -485,11 +498,13 @@
                         );
                     } else {
                         console.log('Pdf test, init whiteboard ');
+                        console.log('Start whiteboard replay from local storage');
                         virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
                     }
                 } else {
                     virtualclass.storage.getWbData(wb, function (){
                         if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
+                            console.log('Start whiteboard replay from local storage');
                             virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
                         }
                     });

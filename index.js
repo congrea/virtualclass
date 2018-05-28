@@ -9,6 +9,7 @@ $(document).ready(function () {
     // This need to call after join the session
     window.onload  = function () {
         "use strict";
+        console.log('Whiteboard init very start');
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
@@ -1047,6 +1048,7 @@ $(document).ready(function () {
                         if(virtualclassCont != ''){
                             virtualclassCont.classList.add('studentScreenSharing');
                         }
+
                     }
                     if (!virtualclass.hasOwnProperty('studentScreen')) {
                         virtualclass.studentScreen = new studentScreen();
@@ -1099,11 +1101,11 @@ $(document).ready(function () {
 
             //critical, wrapping with if condition can be crtical,j validate proper if condition is not violating anything
 
-            if (typeof virtualclass.wb == 'object') {
-                if ((typeof virtualclass.wb[virtualclass.gObj.currWb] == 'object') && virtualclass.wb[virtualclass.gObj.currWb].hasOwnProperty('vcan')) {
-                    virtualclass.wb[virtualclass.gObj.currWb].gObj.myrepObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.getStates('replayObjs');
-                }
-            }
+            // if (typeof virtualclass.wb == 'object') {
+            //     if ((typeof virtualclass.wb[virtualclass.gObj.currWb] == 'object') && virtualclass.wb[virtualclass.gObj.currWb].hasOwnProperty('vcan')) {
+            //         virtualclass.wb[virtualclass.gObj.currWb].gObj.myrepObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.getStates('replayObjs');
+            //     }
+            // }
 
             if (recMsg.hasOwnProperty('cf')) {
                 if (typeof receiveFunctions[recMsg.cf] == 'function') {
@@ -1223,7 +1225,7 @@ $(document).ready(function () {
                     virtualclass.user.control.audioSign(user, 'remove');
                     anchorTag = document.getElementById(user.id + 'contrAudAnch');
                     if (anchorTag != null) {
-                        anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
+                        anchorTag.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
                     }
                 }
                 return true;
@@ -1434,18 +1436,19 @@ $(document).ready(function () {
 
             //Display Whiteboard Data
             this.repObj = function (e) {
+           //     console.log("whiteboard Incomming UID ===== " + e.message.repObj[0].uid);
+
                 if (typeof virtualclass.wb != 'object') {
                     virtualclass.makeAppReady(virtualclass.apps.wb);
-                } else {
-                    //if(!roles.hasControls()){
-                    // Teacher does not need this message
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
-                    //}
+                }
 
-                    // The packets came from teacher when he/she does not has control won't be display
-                    if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
-                        virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
-                    }
+                virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
+
+                // The packets came from teacher when he/she does not has control won't be display
+                if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
+                } else {
+                    console.log("whiteboard -------------------------- We just lost a packet");
                 }
             };
 
@@ -1676,6 +1679,11 @@ $(document).ready(function () {
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }
+            this.stopSs= function(e){
+                virtualclass.ss.unShareScreen()
+
+            }
+
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

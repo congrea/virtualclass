@@ -82,6 +82,7 @@ var io = {
                               ioMissingPackets.sendMissedPackets(msg);
                           }
                       } else if (msg.m.hasOwnProperty('missedpackets')) {
+                          console.log('Execute missed packets');
                           ioMissingPackets.fillExecutedStore(msg);
                       } else if (msg.m.hasOwnProperty('userSerial')) {
                           ioMissingPackets.userCheckMissing(msg);

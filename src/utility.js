@@ -194,7 +194,7 @@
                         appOptions[i].classList.remove('active');
                     }
                 }
-                console.log('Whiteboard Tool class:- is ' + prvTool + ' with app ' + app);
+                // console.log('Whiteboard Tool class:- is ' + prvTool + ' with app ' + app);
             }
             document.getElementById(app + "Tool").className += ' active';
         },
@@ -452,6 +452,11 @@
         },
 
         beforeLoad: function () {
+            if(virtualclass.currApp == 'DocumentShare'){
+                io.disconnect();
+            }
+
+            // console.log("whiteboard --=-=-=- DISCONNECT IO");
             virtualclass.gObj.windowLoading = true;
             // If user does page refresh after session saved and does not start new session  by clicking on element
             // Then we need to clear the session on page refresh
@@ -463,7 +468,6 @@
             // in that case we are not saving the data by clearing all storage data.
 
             if(localStorage.length == 0){
-
                 virtualclass.storage.clearStorageData();
                 return;
             }
@@ -662,7 +666,10 @@
 
             }
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-            io.disconnect();
+
+            if(virtualclass.currApp != 'DocumentShare'){
+                io.disconnect();
+            }
         },
 
         initOnBeforeUnload: function(bname) {
@@ -2163,12 +2170,12 @@
             var anchor = tag.getElementsByClassName('congtooltip')[0];
             if(status == 'true'){
                 tag.setAttribute('data-audio-playing', "true");
-                anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
+                anchor.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
                 tag.className = "audioTool active";
             }else {
                 tag.setAttribute('data-audio-playing', "false");
                 if(anchor){
-                    anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                    anchor.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
                 }
                 tag.className = "audioTool deactive";
             }
@@ -2482,7 +2489,7 @@
                     }else {
                         func.call(cthis);
                     }
-
+                    console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
                 }, virtualclass.gObj.wbNavtime
             )
         },
@@ -2507,9 +2514,9 @@
         },
 
         initDefaultApp : () => {
-            var editorRichTool  = document.querySelector('#virtualclassEditorRichTool a');
-            if(editorRichTool != null){
-                editorRichTool.click(editorRichTool);
+            var defaultApp  = document.querySelector('#virtualclass'+virtualclass.gObj.defaultApp +'Tool a');
+            if(defaultApp != null){
+                defaultApp.click(defaultApp);
             }
         },
 
@@ -2585,7 +2592,7 @@
             virtualclass.gObj.precheckScrn=false;
         },
         showFinishBtn:function(){
-            var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button") ;
+            var btn = document.querySelector(".congrea #dashboardContainer .modal-header button") ;
             if(btn){
                 btn.classList.add("enable")
             }
@@ -2598,7 +2605,7 @@
         },
 
         removeFinishBtn:function(){
-            var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable") ;
+            var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable") ;
             if(btn){
                 btn.classList.remove("enable")
             }
@@ -2613,6 +2620,16 @@
             var virtualclassCont = document.querySelector('#virtualclassCont');
             if(virtualclassCont != ''){
                 virtualclassCont.classList.remove('studentScreenSharing');
+            }
+        },
+        
+        addNoteClass : function (){
+            if(roles.isStudent()){
+                var docScreenContainer = document.querySelector('#docScreenContainer');
+                if(docScreenContainer !=  null){
+                    docScreenContainer.classList.add('noteDisplay');
+                    console.log('add note display');
+                }
             }
         }
     };

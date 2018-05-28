@@ -214,6 +214,13 @@
                     }else{
                         alert('there is no such element');
                     }
+                    if(!roles.hasControls()){
+                        var zoom = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
+                        if(zoom){
+                            zoom.classList.remove("hideZoom");
+                            zoom.classList.add("showZoom");
+                        }
+                    }
                 }
             },
 
@@ -646,6 +653,7 @@
                     this.updateLinkNotes(this.docs.currNote);
                     virtualclass.dts.setCurrentNav(this.docs.currNote);
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
+                    virtualclass.vutil.addNoteClass();
                 } else {
                     this.removePagesUI(doc);
                     if(!virtualclass.dts.noteExist()){
@@ -673,6 +681,17 @@
                                 if(docsContainer != null){
                                     docsContainer.classList.remove('noteDisplay');
                                 }
+                                //if(!Object.keys(virtualclass.dts.notes).length){
+                                  //  if(!roles.hasControls()){
+                                        var zoomHide = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
+                                         var zoom = document.querySelector("#virtualclassAppLeftPanel");
+                                        if(!zoomHide){
+                                            zoom.classList.add("hideZoom");
+                                            zoom.classList.remove("showZoom");
+                                        }
+                                    //}
+                               // }
+
                             }
                         }
                     }
@@ -879,7 +898,7 @@
                         }
                     }
                 }
-                var btn = document.querySelector(".congrea  #dashboardContainer .modal-header button.enable")
+                var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
                 if(!btn){
                     virtualclass.vutil.showFinishBtn();
                 }
@@ -967,11 +986,12 @@
                             virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
                         }
                         cthis.executeScreen(doc);
-
-                        if(Object.keys(virtualclass.dts.notes).length){
-                            virtualclass.vutil.showFinishBtn();
-                        }else{
-                            virtualclass.vutil.removeFinishBtn();
+                        if(roles.hasControls()){
+                            if(Object.keys(virtualclass.dts.notes).length){
+                                virtualclass.vutil.showFinishBtn();
+                            }else{
+                                virtualclass.vutil.removeFinishBtn();
+                            }
                         }
                     }
                 },
@@ -1010,6 +1030,7 @@
                     }
                     // TODO, disabling following can be critical, with new api
                     // virtualclass.vutil.updateCurrentDoc(this.currDoc, 1);
+
                 },
 
                 /**
@@ -1188,6 +1209,7 @@
                             if(note != null ){
                                 note.classList.add('current');
                             }
+                            virtualclass.vutil.addNoteClass();
 
                         },
 
@@ -1326,6 +1348,14 @@
                             this.slideTo(note);
 
                             // todo, critical that's need to be enable and handle properly
+                            if(virtualclass.wb[virtualclass.gObj.currWb] != null) {
+                                console.log("whiteboard ============ " + virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length);
+                            }
+
+
+                            if(virtualclass.wb[virtualclass.gObj.currWb] != null && virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length > 0){
+                                virtualclass.gObj.tempQueue[virtualclass.gObj.currWb] = virtualclass.wb[virtualclass.gObj.currWb].gObj.queue;
+                            }
 
                             if (!this.isWhiteboardExist(this.currNote)) {
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);

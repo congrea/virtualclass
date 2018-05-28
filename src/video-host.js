@@ -204,7 +204,7 @@ var videoHost = {
 
     //nirmala
     //todo *to be called only if flag  available in localstorage
-    //todo to modify later 
+    //todo to modify later
     fromLocalStorage: function () {
         var videoSwitch ="";
         if(roles.hasControls()){
@@ -409,7 +409,7 @@ var videoHost = {
 
         setTimeout(
             function (){
-                if (virtualclass.videoHost.gObj.MYSPEED < 5) {
+                if (virtualclass.videoHost.gObj.MYSPEED < 3) {
                     if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
                         var img = new Image();
                         img.onload = function (){
@@ -423,7 +423,7 @@ var videoHost = {
                          }
                     }
                 }
-            }, myVideoDelay = (16382/sampleRate)*1000*3
+            }, myVideoDelay = ((16382/sampleRate)*1000*3)
         );
     },
     onError: function (err) {

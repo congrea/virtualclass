@@ -183,14 +183,9 @@
 
         store: function (data) {
             //console.log("whiteboard data store");
-            var t = that.db.transaction(["wbData"], "readwrite");
-            var objectStore = t.objectStore("wbData");
-            // objectStore.clear();
-            //  console.log('Whiteboard Total Store ' + JSON.parse(data).length );
-            // localStorage.setItem('repObjs', data); Enable for debugging
-            t.objectStore("wbData").put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
-
-            // t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
+             var t = that.db.transaction(["wbData"], "readwrite");
+             var objectStore = t.objectStore("wbData");
+             objectStore.put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
             return false;
         },
 
@@ -447,10 +442,10 @@
                             virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
 
                         } else {
-                            virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
+                            virtualclass.gObj.tempReplayObjs['_doc_0_0'] = JSON.parse(cursor.value.repObjs);
                         }
-
-                        virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
+                        //
+                        // virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
                         storeFirstObj = true;
                     }
                     cursor.continue();
@@ -660,8 +655,8 @@
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;
                 virtualclass.videoHost.gObj.stdStopSmallVid= false;
-                virtualclass.videoHost.gObj.videoSwitch = 1
-                virtualclass.videoHost.gObj.allStdVideoOff=false
+                virtualclass.videoHost.gObj.videoSwitch = 1;
+                virtualclass.videoHost.gObj.allStdVideoOff=false;
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
@@ -969,22 +964,6 @@
 
         },
 
-        handleResultNoUsing: function () {
-            var cursor = event.target.result;
-            if (cursor) {
-                if (cursor.value.hasOwnProperty('repObjs')) {
-                    var allObjs = JSON.parse(cursor.value.repObjs);
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(allObjs);
-                } else if (cursor.value.hasOwnProperty('audiostream')) {
-                    var allObjs = JSON.parse(cursor.value.audiostream);
-                    virtualclass.gObj.video.audio.assignFromLocal(allObjs);
-                } else if (cursor.value.hasOwnProperty('recObjs')) {
-                    virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
-                }
-                cursor.continue();
-            }
-        },
-
         // Get quiz data, store in array based on
         // key and then return array of object
         getQuizData : function (cb){
@@ -1046,6 +1025,7 @@
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
                     if(typeof wb.result != 'undefined'){
+                        console.log('Whiteboard start store from local storage ' + wbId);
                         virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
                         cb();

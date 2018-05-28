@@ -39,6 +39,7 @@
          *
          */
         tool.mousedown = function (ev, cobj) {
+            // console.log('Whiteboard draw down');
 
             var wId = virtualclass.gObj.currWb;
             var ct = new Date().getTime();
@@ -119,7 +120,7 @@
          * @param expects mousemove event
          */
         tool.mousemove = function (ev, mouseup) {
-
+            // console.log('Whiteboard draw move');
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
@@ -244,6 +245,7 @@
          *  with last made object very specail
          */
         tool.mouseup = function (ev, cobj) {
+            //console.log('Whiteboard draw up');
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
                 ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);

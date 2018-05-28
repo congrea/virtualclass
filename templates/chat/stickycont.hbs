@@ -1,7 +1,7 @@
 <ul class="chatBarTab nav navbar-nav">
     {{#if control}}
     <li class="vmchat_bar_button  active" id="user_list" >
-      <a class="inner_bt congtooltip"  data-title="{{getString 'privateChat'}}">
+      <a class="inner_bt congtooltip"  data-title="{{getString 'userList'}}">
         <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'userList'}}</span></span>
       </a>
       <a class="rHandNotify hand_bt">
@@ -10,7 +10,7 @@
 
     </li>
       {{else}}
-      <li class="vmchat_bar_button congtooltip  active" id="user_list" data-title="{{getString 'privateChat'}}">
+      <li class="vmchat_bar_button congtooltip  active" id="user_list" data-title="{{getString 'userList'}}">
 
         <a class="inner_bt "  >
           <span id="usertab_text"><span id="onlineusertext" class="cgText">{{getString 'userList'}}</span></span>
@@ -28,7 +28,7 @@
 <!-- pass control student -->
   {{#if control}}
   {{else}}
-    <li class = "handRaise enable congtooltip " id ="congHr" data-title ="{{getString 'raiseHand'}}">
+    <li class = "handRaise enable congtooltip " id ="congHr" data-title ="{{getString 'RaiseHandStdEnabled'}}">
 
         <a class="stdRaiseHand">
           <span id="icHr" data-action="enable" class="icon-hr-enable" >

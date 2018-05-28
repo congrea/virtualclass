@@ -152,10 +152,10 @@
                 init: function () {
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
-                    this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-
-                    // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8002.3, 1, 4096);
-                    this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+                    // this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                    //
+                    // // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8002.3, 1, 4096);
+                    // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
 //                    this.resamplerdecode = new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
 
                     //This part in not being used
@@ -275,7 +275,7 @@
                         vol > (minthreshold * 2) || // Current max volume
                         thdiff <= 4 ) { // We are not ready for this algo
                         this.audioSend(send, audStatus);
-                        audioWasSent = 1;
+                        audioWasSent = 3;
                         // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
@@ -461,7 +461,7 @@
                         this.studentSpeak();
 
                         tag.setAttribute('data-audio-playing', "true");
-                        anchor.setAttribute('data-title', virtualclass.lang.getString('disableSpeaker'));
+                        anchor.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
                         tag.className = "audioTool active";
 
 
@@ -469,7 +469,7 @@
                         this.studentNotSpeak();
                         tag.setAttribute('data-audio-playing', "false");
                         if(anchor){
-                            anchor.setAttribute('data-title', virtualclass.lang.getString('enableSpeaker'));
+                            anchor.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
                         }
                         tag.className = "audioTool deactive";
                     }
@@ -673,7 +673,6 @@
 
                        });
                     } else {
-                        console.log('Posting audio ' + audioChunks.length);
                         sNode[uid].port.postMessage({audio : audioChunks})
                     }
 
@@ -716,6 +715,9 @@
                 queueWithFallback : function (packets, uid) {
                     if (!this.hasOwnProperty('audioToBePlay')) {
                         this.audioToBePlay = {};
+                    }
+                    if (!this.hasOwnProperty('aChunksPlay')) {
+                        this.aChunksPlay = {};
                     }
                     if (!this.audioToBePlay.hasOwnProperty(uid)) {
                         this.audioToBePlay[uid] = [];
@@ -810,17 +812,25 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
+                  console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
                     if(this.audioToBePlay != null){
-                        if (this.audioToBePlay[uid].length >= 19) { // 7 seconds
-                            while (this.audioToBePlay[uid].length >= 8) { // 3 seconds
-                                virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                            }
-                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                        } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
-                            return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
+                        while (this.audioToBePlay[uid].length >= 3) { // 1 second
+                          virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else if (this.audioToBePlay[uid].length > 0 && this.aChunksPlay[uid] == true) {
+                        this.aChunksPlay[uid] = true;
+                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
+                      } else {
+                        this.aChunksPlay[uid] = false;
+                      }
                     }
-                },
+                  },
 
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {
@@ -1384,6 +1394,9 @@
                 };
 
                 cthis.video.init();
+                cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+
+                cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                 var that  = this;
 
                 if (!virtualclass.vutil.isPlayMode()) {

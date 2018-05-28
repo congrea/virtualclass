@@ -2187,7 +2187,8 @@
         },
 
         videoHandler: function () {
-         var video;
+            var video;
+            var vidType="main";
             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
             if (sw.classList.contains("on")) {
                 sw.classList.remove("on");
@@ -2198,23 +2199,18 @@
                 tooltip.dataset.title="Video on"
                 if(roles.hasControls()){
                     virtualclass.videoHost.gObj.videoSwitch = 0;
-
                 }else{
                      virtualclass.videoHost.gObj.stdStopSmallVid = true;
+                     vidType="small";
                 }
                 var hasVideo = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
 
                 if(hasVideo){
-
                     virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
                 }else{
                     virtualclass.gObj.delayVid="display";
                 }
-                virtualclass.videoHost.UI.hideVideo();
-
-                // virtualclass.videoHost.gObj.stdStopSmallVid = true;
-
-
+                virtualclass.videoHost.UI.hideVideo(vidType);
 
             } else {
                 sw.classList.remove("off");
@@ -2228,6 +2224,7 @@
 
                 } else {
                     virtualclass.videoHost.gObj.stdStopSmallVid = false;
+                    vidType="small";
 
                 }
                 var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
@@ -2238,7 +2235,7 @@
                 }else{
                     virtualclass.gObj.delayVid="hide"
                 }
-                virtualclass.videoHost.UI.displayVideo()
+                virtualclass.videoHost.UI.displayVideo(vidType)
                 // virtualclass.videoHost.gObj.stdStopSmallVid = false;
 
             }

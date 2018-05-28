@@ -786,7 +786,7 @@
                         if(rh){
                             rh.classList.remove('disable');
                             rh.classList.add('enable');
-                            rh.setAttribute('data-title',"Raise Hand");
+                            rh.setAttribute('data-title',virtualclass.lang.getString("RaiseHandStdEnabled"));
                             var icon = document.querySelector(".congrea .handRaise #icHr");
                             icon.setAttribute('data-action','enable')
                             virtualclass.raiseHand.stdRhEnable="enabled";
@@ -847,6 +847,22 @@
                 var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
                 if(chatHighlight){
                     chatHighlight.classList.remove('ui-state-highlight');
+                }
+                var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #virtualclassAppRightPanel");
+                if(videoHide && videoHide.classList.contains("vidHide")){
+                    videoHide.classList.remove("vidHide");
+                    videoHide.classList.add("vidShow")
+                }
+
+                var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #videoHostContainer");
+                if(videoHide){
+                    videoHide.classList.remove("hide");
+                    videoHide.classList.add("show");
+                }
+
+                var videOff = document.querySelector("#virtualclassCont.congrea.student");
+                if(videOff && videOff.classList.contains("videoff")){
+                    videOff.classList.remove("videoff")
                 }
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};

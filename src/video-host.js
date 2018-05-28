@@ -622,25 +622,27 @@ var videoHost = {
    },
 
     UI: {
-        displayVideo: function () {
-            var host = document.querySelector(".congrea #videoHostContainer");
-            host.classList.add("show")
-            host.classList.remove("hide");
-
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
-            rightbar.classList.add("vidShow")
-            rightbar.classList.remove("vidHide")
-           // virtualclass.view._windowResizeFinished();
-
+        displayVideo: function (vidType) {
+            if(vidType != "small"){
+                var host = document.querySelector(".congrea #videoHostContainer");
+                host.classList.add("show")
+                host.classList.remove("hide");
+                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+                rightbar.classList.add("vidShow")
+                rightbar.classList.remove("vidHide")
+            }
         },
-        hideVideo: function () {
-            var host = document.querySelector(".congrea #videoHostContainer");
-            host.classList.remove("show");
-            host.classList.add("hide");
+        hideVideo: function (vidType) {
+            if(vidType != "small"){
+                var host = document.querySelector(".congrea #videoHostContainer");
+                host.classList.remove("show");
+                host.classList.add("hide");
+                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+                rightbar.classList.add("vidHide")
+                rightbar.classList.remove("vidShow")
 
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
-            rightbar.classList.add("vidHide")
-            rightbar.classList.remove("vidShow")
+            }
+
         }
 
     }

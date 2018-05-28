@@ -119,14 +119,14 @@
     padding: 5px;
     line-height: 16px;
     font-size: 13px;
-    color: #424242;
-    background-color: #FFFFFF;
+    color: #3585d5;
+    background-color: #d1e8f6;
     border-radius: 2px;
-    box-shadow: 0 1px 1px 1px orange;
+    box-shadow: 0 1px 1px 1px #dcd9d9;
     vertical-align: top;
 
     /* to ensure consistent size of tiles - may need to change if qq-max-size attr on preview img changes */
-    height: 50px;
+    
 }
 
 .qq-gallery .qq-upload-spinner,
@@ -250,7 +250,7 @@
     background: url("loading.gif");
     position: absolute;
     left: 10%;
-    top: 17px;
+    bottom: 21px;
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
@@ -297,6 +297,11 @@
     height: 15px;
     border-radius: 6px;
     margin-bottom: 3px;
+}
+
+#docsUploadMsz .qq-upload-list-selector .qq-progress-bar-container .qq-progress-bar {
+    height:6px;
+    margin-top:3px;
 }
 
 .qq-total-progress-bar {

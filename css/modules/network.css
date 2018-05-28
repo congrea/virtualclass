@@ -65,7 +65,7 @@
 #virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalfive,
 #virtualclassCont.congrea  #networkLatency[data-latency='slow'] svg path.signalsix
 {
-  fill : #B32F46;
+  fill : #ff0000;
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room{
@@ -127,5 +127,5 @@
 }
 
 #virtualclassCont.congrea  #proposedSpeed #svgContainer {
-        margin-top: -1px;
+        margin-top: -2px;
 }

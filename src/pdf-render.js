@@ -405,10 +405,12 @@
                                     function (){
                                         that.initWhiteboardData(virtualclass.gObj.currWb);
                                         var virtualclasElem = document.querySelector('#virtualclassCont');
-                                        if(virtualclasElem != null){
-                                            virtualclasElem.classList.remove('pdfRendering');
-                                            console.log('Remove pdf rendering');
-                                        } 
+                                        // if(virtualclasElem != null){
+                                        //     virtualclasElem.classList.remove('pdfRendering');
+                                        //     console.log('Remove pdf rendering');
+                                        // }
+
+
                                     },500
                                 );
                             }
@@ -488,18 +490,21 @@
             initWhiteboardData : function (wb){
                 /** Below condition is satisfied only if the whiteboard data is...
                  ..available in indexDB **/
+                console.log('Init whiteboard with timeout');
                 if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
                     if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
                         var that = this;
                         setTimeout(
                             function (){
                                 that.initWhiteboardData(wb);
+
                             },500
                         );
                     } else {
                         console.log('Pdf test, init whiteboard ');
                         console.log('Start whiteboard replay from local storage');
                         virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
+                        virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
                     }
                 } else {
                     virtualclass.storage.getWbData(wb, function (){
@@ -507,7 +512,14 @@
                             console.log('Start whiteboard replay from local storage');
                             virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
                         }
+
                     });
+
+                    setTimeout(
+                        function (){
+                            virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
+                        }, 500
+                    );
                 }
             },
 

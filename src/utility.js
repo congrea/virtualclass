@@ -791,7 +791,7 @@
                     function (){
                         virtualclass.gObj.video.init();
                         virtualclass.gObj.video.isInitiator = true;
-                    },200
+                    },500 // Let be ready every thing
                 );
             }
 
@@ -2631,7 +2631,8 @@
                     console.log('add note display');
                 }
             }
-        }
+        },
+
     };
     window.vutil = vutil;
 })(window);

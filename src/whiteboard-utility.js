@@ -145,6 +145,7 @@
              */
             clearAll: function (delRpNode, pkMode) {
                 var wid = virtualclass.gObj.currWb;
+                console.log('Whiteboard clear ' + wid);
                 //TODO this should be done in proper way
                 //virtualclass.recorder.items = [];
 
@@ -1026,10 +1027,6 @@
                         if(typeof fromBrowser != 'undefined'){
                             virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
                         }
-                    } else {
-
-                        //console.log('Whiteboard, could not display  object with ' + repObjs[i].uid);
-                       // virtualclass.wb[virtualclass.gObj.currWb].bridge.makeQueue(repObjs[i]);
                     }
                 }
                // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
@@ -1044,7 +1041,7 @@
 
             executeWhiteboardData  :  function (objToDisplay){
                 var wid = virtualclass.gObj.currWb;
-                // console.log('Whiteboard executed uid ' + objToDisplay.uid);
+                console.log('Whiteboard executed uid ' + objToDisplay.uid);
                 virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
                 virtualclass.wb[wid].response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);

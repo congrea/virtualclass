@@ -353,7 +353,7 @@
                             if (!confirm) {
                                 return true;
                             }
-
+                            console.log('Whiteboard clear init ' + wbId);
                             virtualclass.wb[wbId].utility.t_clearallInit();
                             virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
                             virtualclass.storage.clearSingleTable('wbData');

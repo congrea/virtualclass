@@ -265,7 +265,7 @@ var videoHost = {
                     }
 
             }
-            if(virtualclass.videoHost.gObj.allStdVideoOff){
+            if(virtualclass.videoHost.gObj.allStdVideoOff || ! virtualclass.system.mediaDevices.hasWebcam){
                 virtualclass.videoHost.toggleVideoMsg('disable');
             }else{
                 virtualclass.videoHost.toggleVideoMsg('enable');

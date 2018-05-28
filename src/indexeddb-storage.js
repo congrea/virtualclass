@@ -700,10 +700,14 @@
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = virtualclass.gObj.defaultApp; // default app
 
-                virtualclass.user.control.audioWidgetEnable(true) // Enable the audio if disabled
+                // hasMicrophone is true if audio is avaialble on hardware but the audio/video is disabled by user
+                if(!virtualclass.gObj.hasOwnProperty('disableCamByUser')) {
+                    virtualclass.user.control.audioWidgetEnable(true)
+                }else {
+                    virtualclass.user.control.audioDisable() // Enable the audio if disabled
+                }
 
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
-
                 virtualclass.user.control.resetmediaSetting();
 
                 if(roles.isStudent()){
@@ -833,7 +837,7 @@
                     }
 
                 }
-                if(!roles.hasControls()){
+                if(!roles.hasControls() && virtualclass.system.mediaDevices.hasWebcam){
                     virtualclass.videoHost.toggleVideoMsg('enable');
                 }
 

@@ -145,6 +145,7 @@
              */
             clearAll: function (delRpNode, pkMode) {
                 var wid = virtualclass.gObj.currWb;
+                console.log('Whiteboard clear ' + wid);
                 //TODO this should be done in proper way
                 //virtualclass.recorder.items = [];
 

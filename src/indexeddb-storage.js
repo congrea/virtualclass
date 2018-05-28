@@ -844,6 +844,11 @@
                     virtualclass.videoHost.toggleVideoMsg('enable');
                 }
 
+                var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
+                if(chatHighlight){
+                    chatHighlight.classList.remove('ui-state-highlight');
+                }
+
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
                 virtualclass.serverData.fetchAllData();
 

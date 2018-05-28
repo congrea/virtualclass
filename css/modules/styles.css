@@ -3080,7 +3080,7 @@
 
 #virtualclassCont.congrea .zoomControler {
 	position: fixed;
-	bottom:1px;
+	bottom:0;
 	text-align: right;
 	float: right;
 	right: 369px;
@@ -3164,7 +3164,7 @@
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 9.5px 18px;
+  padding: 11px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -3174,7 +3174,7 @@
     float:left;
 }
 #virtualclassCont.congrea .zoomControler  div.reloadNote {
-    padding:11px 18px;
+    padding:12.5px 18px;
 } 
 
 #virtualclassCont.congrea .zoomControler  div:nth-child(3){

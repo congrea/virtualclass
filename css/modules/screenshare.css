@@ -155,13 +155,12 @@
 #virtualclassCont.congrea #screenController .share button{
   left: 57px;
   color: #fff;
-  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
+  background: linear-gradient(to bottom, #2d60d4 0%, #2a79dc 100%) !important;
   border: 1px solid white;
   position: fixed;
   bottom: 9px;
   z-index: 10000;
   cursor: pointer;
-  font-weight: bold;
 }
 
 #virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{
@@ -182,14 +181,13 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare  button{
-  left: 30%;
+  left: 178px;
   color: #fff;
-  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
+  background: linear-gradient(to bottom, #d02b2b 0%, #dc2a2a 100%) !important;
   border: 1px solid white;
   position: fixed;
-  bottom: 50px;
-  z-index: 10000;
+  bottom: 9px;
+  z-index: 1000;
   cursor: pointer;
-  font-weight: bold;
 }
 

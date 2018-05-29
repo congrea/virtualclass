@@ -1941,10 +1941,10 @@
 	border: 1px solid #c8ddb8;
 	border-radius: 5px;
 	color: #3a773c;
-	margin: 31% auto;
+	margin: 0 auto;
+    margin-top:40vh;
 	padding: 30px 20px;
-    width: 30%;
-    margin-top:40%;
+    width: 26%;
     text-align: center;
 	box-shadow: 0 0 8px #ddd;
 }
@@ -2780,7 +2780,7 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 	height: 50px;
 	/*width: 25%;*/
-	border-left:1px solid rgba(254, 254, 254, 0.2)!important;
+/*	border-left:1px solid rgba(254, 254, 254, 0.2)!important;*/
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #ntkstatus{

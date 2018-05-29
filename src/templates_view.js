@@ -1075,7 +1075,7 @@ this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(conta
 },"13":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "        <div id=\"stopScreenShare\" class=\"ss congtooltip\" data-title=\""
+  return "        <div id=\"stopScreenShare\" class=\"ss\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssStop",{"name":"getString","hash":{},"data":data}))
     + "\">\n          <button type=\"button\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssBtn",{"name":"getString","hash":{},"data":data}))

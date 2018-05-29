@@ -544,6 +544,12 @@ display: none;
     position: fixed;
     bottom: auto;
 }
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {
+    top:209px;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after {
+    top:210px;
+}
 #virtualclassCont.congrea.student.videoff #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px !important;
 }

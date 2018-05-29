@@ -644,10 +644,6 @@
 */
 }
 
-#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_text,#virtualclassCont.congrea #chatroom_bt2.ui-state-highlight .inner_bt #chatroom_icon{
-    color:black !important;
-
-}
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
     pointer-events : visible;

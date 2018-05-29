@@ -564,7 +564,6 @@
 #virtualclassCont.congrea .reloadNote .congtooltip:hover:after {
 	border: #ccc solid 1px;
 	bottom: 3.8em;
-	width: 103px;
 	height: 20px;
 	left: auto;
 	position: fixed;
@@ -3656,14 +3655,14 @@ opacity: 1;
     border-color:#bbb;
 }
 
-#virtualclassCont.congrea #videoHostContainer.show{
-	display:block;
-}
+/*#virtualclassCont.congrea #videoHostContainer.show{*/
+	/*display:block;*/
+/*}*/
 
-#virtualclassCont.congrea #videoHostContainer.hide{
-	display:none;
+/*#virtualclassCont.congrea #videoHostContainer.hide{*/
+	/*display:none;*/
 
-}
+/*}*/
 #virtualclassCont.congrea #virtualclassAppRightPanel.noWebcam #videoHostContainer{
     display : none;
 }
@@ -3731,7 +3730,7 @@ opacity: 1;
 }
 
 #virtualclassCont.congrea.nowebcam.student  .videoSwitchCont{
-	pointer-events: none;
-	opacity:.5;
+	pointer-events: none!important;
+	opacity:.5!important;
 
 }

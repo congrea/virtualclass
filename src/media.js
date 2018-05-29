@@ -94,8 +94,9 @@
                     if(chatUser != null){
                         var childTag = chatUser.getElementsByTagName('a')[0];
                         var imgTag = childTag.getElementsByTagName('img')[0];
-                        childTag.className += ' hasVideo';
-
+                        if(!childTag.classList.contains("hasVideo")){
+                            childTag.className += ' hasVideo';
+                        }
                         childTag.replaceChild(vidCont, imgTag);
                     } else {
                         console.log('chatUser is Null');
@@ -152,11 +153,8 @@
                 init: function () {
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
-                    // this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                    //
-                    // // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8002.3, 1, 4096);
-                    // this.resampler = new Resampler(this.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
-//                    this.resamplerdecode = new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
+                    this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                    this.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
 
                     //This part in not being used
                     this.graph = {
@@ -1296,6 +1294,7 @@
                 insertTempVideo: function (beforeInsert) {
                     var tempVideo = document.createElement('canvas');
                     tempVideo.id = 'tempVideo';
+
                     beforeInsert.parentNode.insertBefore(tempVideo, beforeInsert);
                 },
                 // To initalize canvas element to video and to create it's 2d context
@@ -1394,11 +1393,12 @@
                 };
 
                 cthis.video.init();
-                cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-
-                cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+                // cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                // cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                 var that  = this;
-
+                // Default we disable audio and video
+                virtualclass.user.control.audioDisable();
+                virtualclass.user.control.videoDisable();
                 if (!virtualclass.vutil.isPlayMode()) {
                     virtualclass.adpt = new virtualclass.adapter();
                     var cNavigator = virtualclass.adpt.init(navigator);
@@ -1493,6 +1493,7 @@
                     cthis.stream = cthis.video.tempStream;
                     cthis.audio._manuPulateStream();
                 }
+                virtualclass.user.control.videoEnable();
             },
 
 
@@ -1648,6 +1649,11 @@
                     case 'PermissionDeniedError':
                     case 'SecurityError':
                         errorCode = 'nopermission';
+                        virtualclass.gObj.disableCamByUser = true;
+                        break;
+                    case 'NotAllowedError':
+                        errorCode = 'nopermission';
+                        virtualclass.gObj.disableCamByUser = true;
                         break;
                     default:
                         errorCode = 'rejected';

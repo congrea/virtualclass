@@ -757,24 +757,34 @@ margin-right:10px !important;
     display:none;
 }
 
+#virtualclassCont.congrea .chat_enabled #memlist.enable{
+    display:block;
+}
+#virtualclassCont.congrea .chat_enabled #chatrm.enable{
+    display:block;
+}
+
+
 #virtualclassCont.congrea #chatWidget.chat_disabled .ui-memblist-usr.online {
     pointer-events : none;
 }
 
-#virtualclassCont.congrea #chatrm{
-    display:none;
-}
-#virtualclassCont.congrea #memlist{
-    display:none;
+#virtualclassCont.congrea #chatrm.disable{
+    display:none!important;
 }
 
 
-#virtualclassCont.congrea #memlist.enable{
-    display:block;
+
+#virtualclassCont.congrea  #memlist.disable{
+    display:none!important;
 }
-#virtualclassCont.congrea #chatrm.enable{
-    display:block;
-}
+
+
+
 #virtualclassCont.congrea #ta_chrm2{
   display:none;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled #chatrm.enable{
+    opacity :.4;
 }

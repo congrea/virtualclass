@@ -1133,14 +1133,14 @@ var newCanvas;
                 changeSsInfoSelf : function (elem){
                     elem.classList.remove('selfView');
                     elem.classList.add('shareToAll');
-                    elem.children[0].innerHTML = 'Self View'; // for next time
+                    elem.children[0].innerHTML = 'Self view'; // for next time
                     virtualclass.gObj.studentSSstatus.shareToAll = true;
                 },
 
                 changeSsInfoShareToAll : function (elem){
                     elem.classList.remove('shareToAll');
                     elem.classList.add('selfView');
-                    elem.children[0].innerHTML = 'Share To All'; // for next time
+                    elem.children[0].innerHTML = 'Share to all'; // for next time
                     virtualclass.gObj.studentSSstatus.shareToAll = false;
                 },
 

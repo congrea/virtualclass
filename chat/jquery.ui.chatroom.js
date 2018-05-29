@@ -112,7 +112,7 @@
             if (localStorage.getItem('chatEnable') != null) {
                 var chatStatus = (localStorage.chatEnable == "true") ? "enable" : "disable";
             } else {
-                var chatStatus = "enable";
+                var chatStatus = "disable";
             }
 
             var self = this,

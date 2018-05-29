@@ -189,7 +189,7 @@ function memberUpdate(e, addType) {
                 // for handling if teacher refresh and user is left the session
                 virtualclass.chat.showChatListUsers();
             }
-
+            virtualclass.chat.setChatDisplay();
         } else if(virtualclass.jId == virtualclass.gObj.uid){
             virtualclass.chat.setChatDisplay();
         }
@@ -197,12 +197,16 @@ function memberUpdate(e, addType) {
         var memList = document.querySelector('#memlist');
         if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
             memList.classList.add("enable");
+            memList.classList.remove("disable");
+
             var chatrm = document.querySelector('#chatrm');
             if(chatrm !=  null){
                 chatrm.classList.remove("enable");
+                chatrm.classList.add("disable")
             }
         }else {
-            memList.classList.remove("enable")
+            memList.classList.remove("enable");
+            memList.classList.add("disable");
         }
 
         var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
@@ -238,6 +242,11 @@ function memberUpdate(e, addType) {
         }
     }
 
+
+    if(virtualclass.gObj.delayVid == "display"){
+        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid)
+    }
+    virtualclass.gObj.delayVid ="";
 }
 
 function messageUpdate(e) {

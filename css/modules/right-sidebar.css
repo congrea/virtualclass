@@ -86,7 +86,7 @@ body {
     margin-top: -4px;
 }
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource{
-	display : none;
+	display : none!important;
 }
 
 #virtualclassCont.congrea #chatWidget {
@@ -112,11 +112,11 @@ body {
 #virtualclassCont.congrea.teacher.nowebcam #rightSubContainer, #virtualclassCont.congrea.student.videoff #rightSubContainer{
 	height : calc(100% - 48px);
 }
-#virtualclassCont.congrea.student .vidHide #rightSubContainer {
+#virtualclassCont.congrea .vidHide #rightSubContainer {
 	height : calc(100% - 47px) !important;
 }
  #virtualclassCont #congreaChatMainCont {
-	 
+
  }
 #virtualclassCont .footerCtr {
     position: absolute;
@@ -605,7 +605,6 @@ display: none;
     right: 0.2em;
     left: auto;
     padding: 0.2em 0.42em;
-    text-transform: capitalize;
 }
 
 /* Responsive */
@@ -621,3 +620,11 @@ pointer-events: none !important;
 #virtualclassCont.congrea.nowebcam.teacher  #videoSwitchCont{
 pointer-events: none !important;
 }
+/* to verify */
+#virtualclassCont.congrea.student .videoff #rightSubContainer  {
+    height : calc(100% - 284px);
+}
+#virtualclassCont.congrea.student #rightSubContainer #congreaChatMainCont {
+    height : calc(100% - 45px);
+}
+

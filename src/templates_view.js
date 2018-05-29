@@ -58,7 +58,7 @@ this["JST"]["templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4
     + "\" href=\"#\"><span class=\"icon-screenshare cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassVideoTool\">\n      <a class=\"congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ShareVideo",{"name":"getString","hash":{},"data":data}))
     + "\" href=\"#\"><span class=\"icon-videoUpload cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassPollTool\">\n      <a class=\"congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Poll",{"name":"getString","hash":{},"data":data}))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"poll",{"name":"getString","hash":{},"data":data}))
     + "\" href=\"#\"><span class=\"icon-poll cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions\" id=\"virtualclassQuizTool\">\n      <a class=\"congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Quiz",{"name":"getString","hash":{},"data":data}))
     + "\" href=\"#\"><span class=\"icon-quiz cgIcon\"></span></a>\n    </div>\n\n    <div class=\"appOptions active\" id=\"virtualclassEditorRichTool\">\n      <a class=\"congtooltip\" data-title=\""
@@ -131,9 +131,9 @@ this["JST"]["templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"adminusr",{"name":"getString","hash":{},"data":data}))
     + "</a> <a href=\"#\" role=\"button\" class=\"ui-corner-all ui-chatbox-icon\"><span\n  class=\"ui-icon icon-close\"></span></a>\n  <div class=\"ui-widget ui-corner-top ui-chatbox\" id=\"cb"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\" style=\"width: 230px;\">\n    <div class=\"ui-widget-header ui-corner-top ui-chatbox-titlebar ui-dialog-header\"><span>"
+    + "\" style=\"width: 230px;\">\n    <div class=\"ui-widget-header ui-corner-top ui-chatbox-titlebar ui-dialog-header\"><span class=\"cgText\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"adminusr",{"name":"getString","hash":{},"data":data}))
-    + "</span><a href=\"#\"\n                                                                                                                class=\"ui-chatbox-icon\"\n                                                                                                                role=\"button\"><span\n      class=\"ui-icon icon-close\"></span></a><a href=\"#\" class=\"ui-chatbox-icon\" role=\"button\"><span\n      class=\"ui-icon icon-minus\"></span></a>\n    </div>\n    <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496992871757_60\">\n      <div id=\""
+    + "</span><a href=\"#\"\n                                                                                                                class=\"ui-chatbox-icon\"\n                                                                                                                role=\"button\"><span\n      class=\"ui-icon icon-close cgIcon\"></span></a><a href=\"#\" class=\"ui-chatbox-icon\" role=\"button\"><span\n      class=\"ui-icon icon-minus cgIcon\"></span></a>\n    </div>\n    <div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496992871757_60\">\n      <div id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" class=\"ui-widget-content ui-chatbox-log\">\n\n      </div>\n      <div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496992871757_59\"><textarea\n        class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -629,7 +629,7 @@ this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(c
     + "\">\n            <a href=\"# \">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Presult",{"name":"getString","hash":{},"data":data}))
     + "</a>\n          </li>\n          <li role=\"presentation\" id=\"stdPollHeader\" class=\"navListTab\"  data-content=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Poll",{"name":"getString","hash":{},"data":data}))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"poll",{"name":"getString","hash":{},"data":data}))
     + "\">\n            Poll\n          </li>\n\n";
 },"5":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
@@ -1032,7 +1032,7 @@ this["JST"]["templates/recordingControl.hbs"] = Handlebars.template({"compiler":
 this["JST"]["templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap\">\n"
+  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled\">\n"
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n\n  <div id=\"rightSubContainer\" class=\"\">\n"
@@ -1091,7 +1091,7 @@ this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(conta
 },"useData":true});
 
 this["JST"]["templates/teacherVideo.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <video id=\"videoHostSource\" autoplay=\"\" muted=\"muted\"></video>\n    <canvas id=\"videoHost\"></canvas>\n    <canvas id=\"videoHostSlice\"></canvas>\n";
+    return "    <video id=\"videoHostSource\" class=\"show\" autoplay=\"\" muted=\"muted\"></video>\n    <canvas id=\"videoHost\"></canvas>\n    <canvas id=\"videoHostSlice\"></canvas>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "    <div id=\"fromServer\">\n      <canvas id=\"videoParticipate\" > </canvas>\n    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

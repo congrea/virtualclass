@@ -700,10 +700,14 @@
                 //var prvAppObj = {name : "EditorRich"};
                 virtualclass.currApp = virtualclass.gObj.defaultApp; // default app
 
-                virtualclass.user.control.audioWidgetEnable(true) // Enable the audio if disabled
+                // hasMicrophone is true if audio is avaialble on hardware but the audio/video is disabled by user
+                if(!virtualclass.gObj.hasOwnProperty('disableCamByUser')) {
+                    virtualclass.user.control.audioWidgetEnable(true)
+                }else {
+                    virtualclass.user.control.audioDisable() // Enable the audio if disabled
+                }
 
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
-
                 virtualclass.user.control.resetmediaSetting();
 
                 if(roles.isStudent()){
@@ -779,7 +783,7 @@
                         if(rh){
                             rh.classList.remove('disable');
                             rh.classList.add('enable');
-                            rh.setAttribute('data-title',"Raise Hand");
+                            rh.setAttribute('data-title',virtualclass.lang.getString("RaiseHandStdEnabled"));
                             var icon = document.querySelector(".congrea .handRaise #icHr");
                             icon.setAttribute('data-action','enable')
                             virtualclass.raiseHand.stdRhEnable="enabled";
@@ -833,9 +837,55 @@
                     }
 
                 }
-                if(!roles.hasControls()){
+                if(!roles.hasControls() && virtualclass.system.mediaDevices.hasWebcam){
                     virtualclass.videoHost.toggleVideoMsg('enable');
                 }
+
+                var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
+                if(chatHighlight){
+                    chatHighlight.classList.remove('ui-state-highlight');
+                }
+                var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #virtualclassAppRightPanel");
+                if(videoHide && videoHide.classList.contains("vidHide")){
+                    videoHide.classList.remove("vidHide");
+                    videoHide.classList.add("vidShow")
+                }
+
+                var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #videoHostContainer");
+                if(videoHide){
+                    videoHide.classList.remove("hide");
+                    videoHide.classList.add("show");
+                }
+
+                var videOff = document.querySelector("#virtualclassCont.congrea.student");
+                if(videOff && videOff.classList.contains("videoff")){
+                    videOff.classList.remove("videoff")
+                }
+                var userList = document.querySelector("#virtualclassCont #memlist");
+                var chatrm = document.querySelector("#virtualclassCont #chatrm")
+
+                var listTab = document.querySelector("#user_list");
+                var chatroomTab = document.querySelector("#chatroom_bt2");
+
+
+                var userList = document.querySelector("#virtualclassCont #memlist");
+                var chatrm = document.querySelector("#virtualclassCont #chatrm");
+
+                if(!userList.classList.contains("enable")){
+                    userList.classList.add("enable");
+                    userList.classList.remove("disable")
+                    if(chatrm){
+                        chatrm.classList.add("disable");
+                        chatrm.classList.remove("enable")
+                    }
+                }
+                var listTab = document.querySelector("#user_list");
+                var chatroomTab = document.querySelector("#chatroom_bt2");
+
+                if(!listTab.classList.contains("active")){
+                    listTab.classList.add("active")
+                }
+                chatroomTab.classList.remove("active");
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
                 virtualclass.serverData.fetchAllData();

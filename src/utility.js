@@ -2161,7 +2161,7 @@
         showUploadMsg : function (appId){
             var elem = document.querySelector('#'+appId+' .qq-uploader-selector.qq-uploader.qq-gallery');
             if(elem != null){
-                elem.setAttribute('qq-drop-area-text', 'Drop File Here');
+                elem.setAttribute('qq-drop-area-text', virtualclass.lang.getString('dropfilehere'));
             }
         },
 
@@ -2170,12 +2170,12 @@
             var anchor = tag.getElementsByClassName('congtooltip')[0];
             if(status == 'true'){
                 tag.setAttribute('data-audio-playing', "true");
-                anchor.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
+                anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
                 tag.className = "audioTool active";
             }else {
                 tag.setAttribute('data-audio-playing', "false");
                 if(anchor){
-                    anchor.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
+                    anchor.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
                 }
                 tag.className = "audioTool deactive";
             }

@@ -468,9 +468,9 @@
                 },
                 _enable: function (elem, control, userId, label) {
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Enable"));
-                    if (control == 'audio') {
-                        elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
-                    }
+                    // if (control == 'audio') {
+                    //     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
+                    // }
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
                     if(control =='RaiseHand'){

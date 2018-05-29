@@ -237,7 +237,7 @@
                     that.updateOrder();
                     virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
                     virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-                    virtualclass.videoUl.showUploadMsz("Video upload success","alert-success");
+                    virtualclass.videoUl.showUploadMsz("Video uploaded successfully","alert-success");
 
                     for(var i=0; i<virtualclass.gObj.uploadingFiles.length; i++){
                         var fileObj = {};

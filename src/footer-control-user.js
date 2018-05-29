@@ -932,17 +932,28 @@
                         }
 
                     }
+
+                    var userList = document.querySelector("#virtualclassCont #memList.enable");
+                    var chatrm = document.querySelector("#virtualclassCont #chatrm.enable")
+
                     var listTab = document.querySelector("#user_list");
-                    if(!listTab.classList.contains("active")){
-                        listTab.classList.add("active")
+                    var chatroomTab = document.querySelector("#chatroom_bt2");
+                    if(userList && !listTab.classList.contains("active")){
+                        if(!listTab.classList.contains("active")){
+                            listTab.classList.add("active")
+                        }
+                        chatroomTab.classList.remove("active");
                     }
                     // var supportTab = document.querySelector("#congreaSupport");
                     // if(supportTab.classList.contains("active")){
                     //     supportTab.classList.remove("active")
                     // }
-                    var chatroomTab = document.querySelector("#chatroom_bt2");
-                    if(chatroomTab.classList.contains("active")){
-                        chatroomTab.classList.remove("active")
+
+                    if(chatrm){
+                        if(!chatroomTab.classList.contains("active")){
+                            chatroomTab.classList.add("active");
+                        }
+                        listTab.classList.remove("active")
                     }
 
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');

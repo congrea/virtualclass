@@ -132,8 +132,9 @@
                     var chatroom = document.getElementById("chatrm");
                     if (chatroom) {
                         chatroom.classList.remove("enable");
+                        chatroom.classList.add("disable");
                     }
-                    chatroom.classList.add("disable");
+
 
                     var chatbox = document.getElementById("ta_chrm2");
                     if (chatbox) {

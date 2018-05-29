@@ -933,7 +933,7 @@
 
                     }
 
-                    var userList = document.querySelector("#virtualclassCont #memList.enable");
+                    var userList = document.querySelector("#virtualclassCont #memlist.enable");
                     var chatrm = document.querySelector("#virtualclassCont #chatrm.enable")
 
                     var listTab = document.querySelector("#user_list");

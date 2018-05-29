@@ -861,6 +861,31 @@
                 if(videOff && videOff.classList.contains("videoff")){
                     videOff.classList.remove("videoff")
                 }
+                var userList = document.querySelector("#virtualclassCont #memlist");
+                var chatrm = document.querySelector("#virtualclassCont #chatrm")
+
+                var listTab = document.querySelector("#user_list");
+                var chatroomTab = document.querySelector("#chatroom_bt2");
+
+
+                var userList = document.querySelector("#virtualclassCont #memlist");
+                var chatrm = document.querySelector("#virtualclassCont #chatrm");
+
+                if(!userList.classList.contains("enable")){
+                    userList.classList.add("enable");
+                    userList.classList.remove("disable")
+                    if(chatrm){
+                        chatrm.classList.add("disable");
+                        chatrm.classList.remove("enable")
+                    }
+                }
+                var listTab = document.querySelector("#user_list");
+                var chatroomTab = document.querySelector("#chatroom_bt2");
+
+                if(!listTab.classList.contains("active")){
+                    listTab.classList.add("active")
+                }
+                chatroomTab.classList.remove("active");
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
                 virtualclass.serverData.fetchAllData();

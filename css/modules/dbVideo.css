@@ -265,15 +265,18 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 .playControllerMainCont #playControllerCont #playController #recPlay {
     padding:4px 13.5px 4px 13.5px;
-} 
-.playControllerMainCont #playControllerCont #playController #recPause, .playControllerMainCont #playControllerCont #playController #ff8{
+}
+.playControllerMainCont #playControllerCont #playController #recPause {
+    padding:4px 11px 4px 13px;
+}
+.playControllerMainCont #playControllerCont #playController #ff8{
     padding:4px 12px 4px 12px;
 }
 .playControllerMainCont #playControllerCont #playController #ff2{
     padding:4px 12.5px 4px 12.5px;
 }
 .playControllerMainCont #playControllerCont #playController .icon-Replayfromstart {
-    padding:4px 11px 4px 11px;
+    padding:3px 11px 3px 11px;
 }
 
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/
@@ -386,7 +389,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li{
   width:70%;
   margin-left:10%;
-  height:53%;
 
 }
 
@@ -442,10 +444,17 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #docsuploadContainer .qq-progress-bar{
   display:none;
 }
+#virtualclassCont.congrea #VideoDashboard #videoPopup #uploadMsz{
+  height:auto;
+}
+#virtualclassCont.congrea #VideoDashboard #videoPopup #uploadMsz .qq-upload-list-selector .qq-progress-bar-container-selector .qq-progress-bar-selector {
+    height:7px !important;
+    margin-top:3px !important;
+} 
+
 #virtualclassCont.congrea #VideoDashboard #uploadMsz{
   height:52px;
 }
-
 #virtualclassCont.congrea .linkvideo.opaq{
   opacity:.5;
 }

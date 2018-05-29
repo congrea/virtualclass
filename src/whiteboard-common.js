@@ -24,6 +24,7 @@
                         /* To handle the dimension of whiteboard on previous click, */
                         setTimeout(
                             function (){
+                                console.log('whiteboard zoom normal render');
                                 virtualclass.zoom.normalRender();
                                 // system.setAppDimension(null, 'resize');
                                 // virtualclass.view.window.resize();

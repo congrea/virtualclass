@@ -418,12 +418,12 @@
 
 #virtualclassCont.congrea .nvgt {
     position: absolute;
-    top: 300px;
+    top: 40vh;
     height: 50px;
     width: 30px;
     opacity: 0.6;
     cursor : pointer;
-    right:10px;
+    right:23px;
     background: #dcdcdc none;
     width: 50px;
     opacity: 0.9;

@@ -106,7 +106,7 @@
             virtualclass.posY = (obj.mp.y);
             virtualclass.posX = (obj.mp.x);
 
-            console.log('vm mouse cursor y=' + (virtualclass.posY));
+            // console.log('vm mouse cursor y=' + (virtualclass.posY));
 
             virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
 

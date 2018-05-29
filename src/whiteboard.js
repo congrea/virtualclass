@@ -12,6 +12,7 @@
      */
 
     var whiteboard = function (config, currWb) {
+        console.log('Whiteboard new one');
         var id = config.hasOwnProperty('id') ? config.id : "appWhitebaordCont";
         var classes = config.hasOwnProperty('class');
         //virtualclass.gObj.currWb = currWb;
@@ -352,7 +353,7 @@
                             if (!confirm) {
                                 return true;
                             }
-
+                            console.log('Whiteboard clear init ' + wbId);
                             virtualclass.wb[wbId].utility.t_clearallInit();
                             virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
                             virtualclass.storage.clearSingleTable('wbData');

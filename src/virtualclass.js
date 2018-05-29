@@ -61,7 +61,8 @@
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
                 isReadyForVideo : true,
-                defaultApp : 'Whiteboard'
+                defaultApp : 'Whiteboard',
+                tempQueue :{}
             },
 
             enablePreCheck : true,
@@ -708,14 +709,35 @@
 
                     if(typeof id != 'undefined'){
                         if (typeof this.wb[id] != 'object') {
+
+                            // if (this.wb[id] != null && this.wb[id].hasOwnProperty("gObj") && this.wb[id].gObj.queue != null) {
+                            //     var myQueue = this.wb[id].gObj.queue;
+                            // } else {
+                            //     var myQueue = [];
+                            // }
+
+                            // if(typeof this.gObj.tempQueue[id] != 'undefined'){
+                            //     var myQueue = this.gObj.tempQueue[id];
+                            // }else {
+                            //     var myQueue = [];
+                            // }
+
                             if(typeof this.wb != 'object'){
                                 this.wb = {};
                             }
+
+
                             virtualclass.gObj.commandToolsWrapperId[id] =  'commandToolsWrapper' + id;
                             this.wb[id] = {};
                             virtualclass.gObj.tempReplayObjs[id] = [];
 
+
                             this.wb[id] = new window.whiteboard(this.wbConfig, id);
+
+                            if(this.gObj.tempQueue[id] != null){
+                                this.wb[id].gObj.queue = this.gObj.tempQueue[id].slice();
+                                this.gObj.tempQueue[id] = null;
+                            }
 
                             // this.wb[id].UI.mainContainer(container, id);
                             if(virtualclass.currApp == 'Whiteboard'){

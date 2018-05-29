@@ -310,7 +310,7 @@ var videoHost = {
                     }
 
             }
-            if(virtualclass.videoHost.gObj.allStdVideoOff){
+            if(virtualclass.videoHost.gObj.allStdVideoOff || ! virtualclass.system.mediaDevices.hasWebcam){
                 virtualclass.videoHost.toggleVideoMsg('disable');
             }else{
                 virtualclass.videoHost.toggleVideoMsg('enable');
@@ -468,7 +468,7 @@ var videoHost = {
                          }
                     }
                 }
-            }, myVideoDelay = ((16382/sampleRate)*1000*3)+100
+            }, myVideoDelay = ((16382/sampleRate)*1000*3)
         );
     },
     onError: function (err) {

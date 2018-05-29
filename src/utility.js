@@ -194,7 +194,7 @@
                         appOptions[i].classList.remove('active');
                     }
                 }
-                console.log('Whiteboard Tool class:- is ' + prvTool + ' with app ' + app);
+                // console.log('Whiteboard Tool class:- is ' + prvTool + ' with app ' + app);
             }
             document.getElementById(app + "Tool").className += ' active';
         },
@@ -452,6 +452,11 @@
         },
 
         beforeLoad: function () {
+            if(virtualclass.currApp == 'DocumentShare'){
+                io.disconnect();
+            }
+
+            // console.log("whiteboard --=-=-=- DISCONNECT IO");
             virtualclass.gObj.windowLoading = true;
             // If user does page refresh after session saved and does not start new session  by clicking on element
             // Then we need to clear the session on page refresh
@@ -463,7 +468,6 @@
             // in that case we are not saving the data by clearing all storage data.
 
             if(localStorage.length == 0){
-
                 virtualclass.storage.clearStorageData();
                 return;
             }
@@ -662,7 +666,10 @@
 
             }
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-            io.disconnect();
+
+            if(virtualclass.currApp != 'DocumentShare'){
+                io.disconnect();
+            }
         },
 
         initOnBeforeUnload: function(bname) {
@@ -784,7 +791,7 @@
                     function (){
                         virtualclass.gObj.video.init();
                         virtualclass.gObj.video.isInitiator = true;
-                    },200
+                    },500 // Let be ready every thing
                 );
             }
 
@@ -2503,7 +2510,7 @@
                     }else {
                         func.call(cthis);
                     }
-
+                    console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
                 }, virtualclass.gObj.wbNavtime
             )
         },
@@ -2645,7 +2652,8 @@
                     console.log('add note display');
                 }
             }
-        }
+        },
+
     };
     window.vutil = vutil;
 })(window);

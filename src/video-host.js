@@ -59,7 +59,7 @@ var videoHost = {
             //this.setCanvasAttr('videoPartCan', 'videoParticipate');
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
-            virtualclass.videoHost.UI.hideVideo();
+            virtualclass.videoHost.UI.hideVideo()
         }
 
         var rightPanel = document.querySelector('#virtualclassAppRightPanel');
@@ -69,6 +69,30 @@ var videoHost = {
                 teacherVideo = 'show';
             }
             rightPanel.classList.add(teacherVideo);
+            if(roles.hasControls()){
+                var swVideo = localStorage.getItem('videoSwitch');
+                if(swVideo && swVideo == "0"){
+                    if(virtualclass.connectedUsers && virtualclass.connectedUsers.length){
+                        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid );
+                    }else{
+                        virtualclass.gObj.delayVid="display"
+                    }
+                    virtualclass.videoHost.UI.hideVideo()
+                }
+
+            }else{
+                var swVideo = JSON.parse(localStorage.getItem('stdVideoSwitch'));
+                if(swVideo){
+                    if(virtualclass.connectedUsers && virtualclass.connectedUsers.length){
+                        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid );
+                    }else{
+                        virtualclass.gObj.delayVid="display"
+                    }
+                    virtualclass.videoHost.UI.hideVideo()
+                }
+                console.log(swVideo);
+
+            }
         }
     },
 
@@ -184,12 +208,12 @@ var videoHost = {
     },
 
     setUserIcon:function(userid){
-        var isVideo = document.querySelector("#ml"+userid+" .user-details .pull-left .videoWrapper");
+        var isVideo = document.querySelector("#ml"+userid+" .user-details a .videoWrapper");
         if(isVideo){
             isVideo.parentNode.removeChild(isVideo);
         }
-        var imgCont = document.querySelector("#ml"+userid+" .user-details .pull-left")
-        var imgElem = document.querySelector("#ml"+userid+" .user-details .pull-left img");
+        var imgCont = document.querySelector("#ml"+userid+" .user-details a")
+        var imgElem = document.querySelector("#ml"+userid+" .user-details a img");
         if(!imgElem){
             var img = document.createElement('img');
             img.classList.add('media-object');
@@ -198,8 +222,29 @@ var videoHost = {
             console.log("set User icon");
         }
     },
-    removeUserIcon:function(){
+    removeUserIcon:function(userid){
         console.log("Remove User icon");
+         if(virtualclass.gObj.uid == userid){// for self
+             var vidContainer = cthis.video.createVideoElement();
+
+             virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+              var canvas = document.querySelector("#virtualclassCont #chat_div #ml"+virtualclass.gObj.uid +" #tempVideo");
+              if(!canvas){
+                  cthis.video.insertTempVideo(vidContainer);
+                  cthis.video.tempVideoInit();
+              }
+             cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+             virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
+             // cthis.video.myVideo.muted = true;
+             // cthis.stream = cthis.video.tempStream;
+             // cthis.video.myVideo.onloadedmetadata = function () {
+             //     cthis.video.startToStream();
+             //     //virtualclass.precheck.webcam.createVideo();
+             // }
+
+
+         }
+
     },
 
     //nirmala
@@ -577,25 +622,27 @@ var videoHost = {
    },
 
     UI: {
-        displayVideo: function () {
-            var host = document.querySelector(".congrea #videoHostContainer");
-            host.classList.add("show")
-            host.classList.remove("hide");
-
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
-            rightbar.classList.add("vidShow")
-            rightbar.classList.remove("vidHide")
-           // virtualclass.view._windowResizeFinished();
-
+        displayVideo: function (vidType) {
+            if(vidType != "small"){
+                var host = document.querySelector(".congrea #videoHostContainer");
+                host.classList.add("show")
+                host.classList.remove("hide");
+                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+                rightbar.classList.add("vidShow")
+                rightbar.classList.remove("vidHide")
+            }
         },
-        hideVideo: function () {
-            var host = document.querySelector(".congrea #videoHostContainer");
-            host.classList.remove("show");
-            host.classList.add("hide");
+        hideVideo: function (vidType) {
+            if(vidType != "small"){
+                var host = document.querySelector(".congrea #videoHostContainer");
+                host.classList.remove("show");
+                host.classList.add("hide");
+                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
+                rightbar.classList.add("vidHide")
+                rightbar.classList.remove("vidShow")
 
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
-            rightbar.classList.add("vidHide")
-            rightbar.classList.remove("vidShow")
+            }
+
         }
 
     }

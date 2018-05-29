@@ -52,6 +52,7 @@
                     if(chatEnable != null){
                         if (chatEnable == "false") {
                             document.querySelector('#chatWidget').classList.add('chat_disabled');
+                            document.querySelector('#chatWidget').classList.remove('chat_enabled');
                         }
                     }
 
@@ -82,6 +83,7 @@
                         var chatroom = document.getElementById("chatrm");
                         if (chatroom) {
                             chatroom.classList.add("enable")
+                            chatroom.classList.remove("disable")
 
                             var chatroomBtn = document.getElementById("chatroom_bt2");
                             chatroomBtn.classList.add("active");
@@ -89,6 +91,9 @@
                             var list = document.getElementById("memlist");
                             if (list) {
                                 list.classList.remove("enable")
+                                if(!list.classList.contains("disable")){
+                                   list.classList.add("disable")
+                                }
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.remove("active");
                             }
@@ -102,6 +107,8 @@
                             var list = document.getElementById("memlist");
                             if (list) {
                                 list.classList.add("enable")
+                                list.classList.remove("disable")
+
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.add("active");
                             }

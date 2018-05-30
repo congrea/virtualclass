@@ -1138,6 +1138,7 @@
 	margin-top : 7px;
 	margin-bottom: 7px;
 	margin-right: 5px;
+    margin-left:2px;
 	padding : 0px;
 	border-radius : 20%;
 	border : #bbb solid 1px;
@@ -1940,10 +1941,10 @@
 	border: 1px solid #c8ddb8;
 	border-radius: 5px;
 	color: #3a773c;
-	margin: 31% auto;
+	margin: 0 auto;
+    margin-top:40vh;
 	padding: 30px 20px;
-    width: 30%;
-    margin-top:40%;
+    width: 26%;
     text-align: center;
 	box-shadow: 0 0 8px #ddd;
 }
@@ -2178,8 +2179,8 @@
 #virtualclassCont.congrea #congdashboard .close {
 	margin: 5px;
     display: inline-block;
-    color: white;
-    border: 1px solid white;
+    color: green !important;
+    border: 1px solid green;
     padding: 5px;
     font-size: 13px;
     border-radius: 4px;
@@ -2187,7 +2188,6 @@
     letter-spacing: 1.3px;
 }
 #virtualclassCont.congrea #congdashboard #docsUploadMsz  .close, #virtualclassCont.congrea #congdashboard #VideoDashboard .close {
-    background-color:#2f6f2794;
     margin-top: -2px;
 }
 #virtualclassCont.congrea #congdashboard #docsUploadMsz  .close:hover {
@@ -2752,7 +2752,6 @@
 	left: -13em;
 	top: -15px;
 	height: 21px;
-	text-transform: capitalize;
 	padding: 0px;
 }
 
@@ -2779,7 +2778,7 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
 	height: 50px;
 	/*width: 25%;*/
-	border-left:1px solid rgba(254, 254, 254, 0.2)!important;
+/*	border-left:1px solid rgba(254, 254, 254, 0.2)!important;*/
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #ntkstatus{
@@ -3729,7 +3728,7 @@ opacity: 1;
 	width: 120px!important;
 }
 
-#virtualclassCont.congrea.nowebcam.student  .videoSwitchCont{
+#virtualclassCont.congrea.nowebcam  .videoSwitchCont{
 	pointer-events: none!important;
 	opacity:.5!important;
 

@@ -2422,7 +2422,7 @@
 
                     var nav =$("#virtualclassPoll .navListTab")
 
-                    nav.on("show.bs.popover", function () { $(this).data("bs.popover").tip().css({width:"500px"}); });
+                    nav.on("show.bs.popover", function () { $(this).data("bs.popover").tip().css({width:"140px"}); });
 
 
                 },

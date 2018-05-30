@@ -459,7 +459,7 @@
                         this.studentSpeak();
 
                         tag.setAttribute('data-audio-playing', "true");
-                        anchor.setAttribute('data-title', virtualclass.lang.getString('audioOn'));
+                        anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
                         tag.className = "audioTool active";
 
 
@@ -467,7 +467,7 @@
                         this.studentNotSpeak();
                         tag.setAttribute('data-audio-playing', "false");
                         if(anchor){
-                            anchor.setAttribute('data-title', virtualclass.lang.getString('audioOff'));
+                            anchor.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
                         }
                         tag.className = "audioTool deactive";
                     }

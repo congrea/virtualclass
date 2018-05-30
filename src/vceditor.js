@@ -1968,7 +1968,7 @@ var Vceditor = (function () {
         };
 
         Vceditor.prototype.makeImageDialog_ = function () {
-            this.makeDialog_('img', 'Insert image url');
+            this.makeDialog_('img', virtualclass.lang.getString('InsertimageURL'));
         };
 
         Vceditor.prototype.makeDialog_ = function (id, placeholder) {

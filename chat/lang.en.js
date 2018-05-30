@@ -1,9 +1,9 @@
 /*language file*/
 var lang = {
-    online: "Online Users",
+    online: "Online users",
     whos: "Who's online",
     chatroom: "Chatroom",
-    chatroom_header: "Common Chat",
+    chatroom_header: "Common chat",
     error: "Something bad happend. Sorry!",
     wserror: "Browser does not support WebSocket",
     sterror: "This browser doesn't support Web Storage standard"

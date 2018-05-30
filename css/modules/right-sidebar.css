@@ -113,7 +113,7 @@ body {
 	height : calc(100% - 48px);
 }
 #virtualclassCont.congrea .vidHide #rightSubContainer {
-	height : calc(100% - 47px) !important;
+	height : calc(100% - 48px) !important;
 }
  #virtualclassCont #congreaChatMainCont {
 
@@ -544,6 +544,12 @@ display: none;
     position: fixed;
     bottom: auto;
 }
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {
+    top:209px;
+}
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after {
+    top:210px;
+}
 #virtualclassCont.congrea.student.videoff #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px !important;
 }
@@ -619,6 +625,6 @@ pointer-events: none !important;
     height : calc(100% - 284px);
 }
 #virtualclassCont.congrea.student #rightSubContainer #congreaChatMainCont {
-    height : calc(100% - 45px);
+    height : calc(100% - 44px);
 }
 

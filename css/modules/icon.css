@@ -196,9 +196,6 @@
   font-size: 16px;
 }
 
-#virtualclassCont.congrea .ui-state-highlight #chatroom_icon .icon-chatroom:before {
-    color:#000 !important;
-}
 
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg:before {
   content: "\f064";

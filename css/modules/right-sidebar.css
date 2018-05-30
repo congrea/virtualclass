@@ -113,7 +113,7 @@ body {
 	height : calc(100% - 48px);
 }
 #virtualclassCont.congrea .vidHide #rightSubContainer {
-	height : calc(100% - 47px) !important;
+	height : calc(100% - 48px) !important;
 }
  #virtualclassCont #congreaChatMainCont {
 
@@ -625,6 +625,6 @@ pointer-events: none !important;
     height : calc(100% - 284px);
 }
 #virtualclassCont.congrea.student #rightSubContainer #congreaChatMainCont {
-    height : calc(100% - 45px);
+    height : calc(100% - 44px);
 }
 

@@ -30,9 +30,6 @@
   width:50%;
   font-size: .91em
 }
-#virtualclassCont #listvideo .noVideo .videoTitle {
-  overflow: inherit;
-}
 
 #virtualclassCont.congrea .dashboardview {
   margin : 0;
@@ -602,4 +599,9 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #congdashboard .qq-alert-dialog-selector{
   max-width:50%;
+}
+
+
+#virtualclassCont.congrea #VideoDashboard #uploadMsz .qq-upload-list-selector .qq-file-info .qq-file-name {
+    width:60%;
 }

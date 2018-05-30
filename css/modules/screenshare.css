@@ -153,14 +153,32 @@
 
 
 #virtualclassCont.congrea #screenController .share button{
-  left: 57px;
+  left: 50px;
   color: #fff;
-  background: linear-gradient(to bottom, #2d60d4 0%, #2a79dc 100%) !important;
-  border: 1px solid white;
+  border:none;
   position: fixed;
-  bottom: 9px;
-  z-index: 10000;
+  bottom: 0px;
+  z-index: 1000;
   cursor: pointer;
+  background-color: transparent;
+  padding: 13.5px;
+  border-left: 1px solid black;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: .1px;
+    border-radius: 0px;
+}
+
+#virtualclassCont.congrea #screenController .share button:hover {
+    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+}
+
+#virtualclassCont.congrea #screenController .share button:before {
+    content: "\e98b";
+    font-family: 'icomoon';
+    font-size: 16px;
+    color: #09b208;
+    padding-right: 13px;
+    float:left;
 }
 
 #virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{
@@ -181,13 +199,31 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare  button{
-  left: 178px;
+  left: 180px;
   color: #fff;
-  background: linear-gradient(to bottom, #d02b2b 0%, #dc2a2a 100%) !important;
-  border: 1px solid white;
+  border: none;
   position: fixed;
-  bottom: 9px;
+  bottom: 0px;
   z-index: 1000;
   cursor: pointer;
+  background-color: transparent;
+  padding: 13.5px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: .1px;
+    border-radius:0px;
 }
 
+#virtualclassCont.congrea #stopScreenShare  button:hover {
+    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+}
+
+#virtualclassCont.congrea #stopScreenShare  button:before {
+    content: "\e98d";
+    font-family: 'icomoon';
+    font-size: 16px;
+    color: red;
+    padding-right: 10px;
+    float:left;
+}

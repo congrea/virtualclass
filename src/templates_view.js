@@ -265,12 +265,14 @@ this["JST"]["templates/chat/stickycont.hbs"] = Handlebars.template({"1":function
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
     + "\">\n\n        <a class=\"stdRaiseHand\">\n          <span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\" >\n          </span>\n        </a>\n    </li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<ul class=\"chatBarTab nav navbar-nav\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + "  <li class=\"vmchat_room_bt congtooltip\" data-title=\"Common Chat\" id=\"chatroom_bt2\">\n    <a class=\"inner_bt\">\n      <span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>\n      <span id=\"chatroom_text\" class=\"cgText\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"Chatroom",{"name":"getString","hash":{},"data":data}))
+    + "  <li class=\"vmchat_room_bt congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
+    + "\" id=\"chatroom_bt2\">\n    <a class=\"inner_bt\">\n      <span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>\n      <span id=\"chatroom_text\" class=\"cgText\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Chatroom",{"name":"getString","hash":{},"data":data}))
     + "</span>\n    </a>\n  </li>\n\n<!-- pass control student -->\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "\n</ul>\n<div id=\"stickybar\" class=\"maximize something-happend\">\n  <div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\">\n    <ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\"\n        role=\"tablist\"></ul>\n  </div>\n  <div id=\"networkStatusContainer\" class=\"connecting-room\">\n    <div id=\"networkLatency\">\n      <div id=\"proposedSpeed\">\n        <div id=\"svgContainer\">\n          <svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n	          viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\">\n		         <path id = \"signalendpoint\" class = \"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733\n			         c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825\n			         c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267\n			         C235.925,381.841,236.775,382.691,236.775,383.825z\"/>\n		         <path id = \"mediumstepfst\" class = \"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083\n			         c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083\n			         c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583\n			         C365.408,241.591,369.375,243.008,373.625,243.008z\"/>\n		         <path id = \"lowstepfst\" class = \"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34\n			         s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133\n			         c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/>\n		         <path id = \"highstepfst\" class = \"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083\n			         c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083\n			         s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75\n			         C445.025,172.175,449.275,173.875,453.241,173.875z\"/>\n          </svg>\n        </div>\n      </div>\n    </div>\n\n    <div id=\"connectingRoomIcon\">\n     <span class=\"icon-whiteboard \">\n      <svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\">\n         <circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle>\n         <circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle>\n         <circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle>\n         <circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle>\n         <circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle>\n         <circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle>\n         <circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle>\n         <circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle>\n         <circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle>\n         <circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle>\n      </svg>\n     </span>\n    </div>\n  </div>\n\n</div>\n";
@@ -408,7 +410,9 @@ this["JST"]["templates/documentSharing/notesNav.hbs"] = Handlebars.template({"co
     + "\">\n      <a class=\"statusanch\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"status",{"name":"getString","hash":{},"data":data}))
     + alias4(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"status","hash":{},"data":data}) : helper)))
-    + "</a>\n    </div>\n\n    <div class=\"controls delete\" title=\"delete\">\n      <a class=\"deleteanch\">"
+    + "</a>\n    </div>\n\n    <div class=\"controls delete\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
+    + "\">\n      <a class=\"deleteanch\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
     + "</a>\n    </div>\n\n  </div>\n\n</div>\n";
 },"useData":true});
@@ -879,7 +883,7 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay",{"name":"getString","hash":{},"data":data}))
     + " </button>\n    </div>\n\n    <div id=\"confirm\" class=\"popupWindow simple-box\"></div>\n\n    <div id=\"sessionEndMsgCont\" class=\"popupWindow\">\n      <span id=\"sessionEndClose\" class=\"icon-close\"></span>\n      <span id=\"sessionEndMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionendmsg",{"name":"getString","hash":{},"data":data}))
-    + " </span>\n    </div>\n\n    <div id=\"uploadvideourl\" class=\"popupWindow\">\n      <span id=\"endSessionclose\" class=\"icon-close\"></span>\n      <span id=\"endSessionMsg\" class=\"cgText\"> "
+    + " </span>\n    </div>\n\n    <div id=\"uploadvideourl\" class=\"popupWindow\">\n      <span id=\"endSessionclose\" class=\"icon-close\"></span>\n      <span id=\"endSessionMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
     + " </span>\n    </div>\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
@@ -1030,14 +1034,16 @@ this["JST"]["templates/recordingControl.hbs"] = Handlebars.template({"compiler":
 },"useData":true});
 
 this["JST"]["templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
 
   return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled\">\n"
-    + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n\n  <div id=\"rightSubContainer\" class=\"\">\n"
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"indent":"      ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "      <div id=\"chatWidget\">\n          <div id=\"congreaChatMainCont\">\n            <div id=\"congreaChatCont\"> </div>\n\n            <div class=\"footerCtr\" id=\"congFooterCtr\">\n              <div class=\"vmchat_search\" id=\"congchatBarInput\">\n                <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n                       placeholder=\"Search User\">\n              </div>\n            </div>\n        </div>\n\n      <div id=\"stickycontainer\"></div>\n\n  </div>\n</div>\n</div>\n";
+    + "      <div id=\"chatWidget\">\n          <div id=\"congreaChatMainCont\">\n            <div id=\"congreaChatCont\"> </div>\n\n            <div class=\"footerCtr\" id=\"congFooterCtr\">\n              <div class=\"vmchat_search\" id=\"congchatBarInput\">\n                <input type=\"text\" id=\"congreaUserSearch\" class=\"search\"\n                       placeholder= \""
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
+    + "\">\n              </div>\n            </div>\n        </div>\n\n      <div id=\"stickycontainer\"></div>\n\n  </div>\n</div>\n</div>\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -1184,7 +1190,9 @@ this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
     + "\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
-    + "</span></button>\n  </div>\n  <div id=\"videoUrlContainer\">\n    <input id=\"videourl\" placeholder=\"Enter YouTube/online video Url \">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" ><i class=\"icon-savevideo cgIcon\">Save</i></button>\n  </div>\n\n</div>\n</div>";
+    + "</span></button>\n  </div>\n  <div id=\"videoUrlContainer\">\n    <input id=\"videourl\" placeholder=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"enteryouryoutubeurl",{"name":"getString","hash":{},"data":data}))
+    + "\">\n    <button  type=\"button\" id=\"submitURL\"class=\"btn btn-default\" ><i class=\"icon-savevideo cgIcon\">Save</i></button>\n  </div>\n\n</div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

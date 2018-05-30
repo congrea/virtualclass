@@ -1083,7 +1083,7 @@
                         // elem.appendChild(rightdiv);
 
                         var elstimeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-4');
-                        elstimeInnerdiv.innerHTML = "Elaspsed time : <span id=\"elsTime\">00:00</span>";
+                        elstimeInnerdiv.innerHTML = "Elapsed time : <span id=\"elsTime\">00:00</span>";
                         elem.appendChild(elstimeInnerdiv);
 
                         var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');

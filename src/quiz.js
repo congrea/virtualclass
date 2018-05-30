@@ -576,7 +576,7 @@
                         var attemptPercent = (correctAns / totalAttptedUsers)*100;
                     }
                     var pBar = document.getElementById('qPb_'+msg.quiz.questionId);
-                    pBar.innerHTML = attemptPercent + '% currect';
+                    pBar.innerHTML = attemptPercent + '% correct';
                     pBar.style.width = attemptPercent + '%';
 
                     if(typeof this.quizAttempted[msg.quiz.questionId] == 'undefined'){
@@ -655,7 +655,7 @@
                         var attemptPercent = attemptPt.toFixed(2);
 
                         var pBar = document.getElementById('qPb_'+key);
-                        pBar.innerHTML = attemptPercent + '% currect';
+                        pBar.innerHTML = attemptPercent + '% correct';
                         pBar.style.width = attemptPercent + '%';
                     }
                 }
@@ -1158,7 +1158,7 @@
                     pbarinnerdiv.setAttribute("aria-valuemin", "0");
                     pbarinnerdiv.setAttribute("aria-valuemax", "100");
                     pbarinnerdiv.style = "width:"+value+"%";
-                    pbarinnerdiv.innerHTML = value+"% Currect";
+                    pbarinnerdiv.innerHTML = value+"% Correct";
                     pbarOuterdiv.appendChild(pbarinnerdiv);
                     return pbarOuterdiv;
                 },

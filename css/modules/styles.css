@@ -1429,7 +1429,7 @@
 }
 
 #virtualclassCont.congrea.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.congrea.teacher #chat_div .controls .icon-assignImg.enable, #virtualclassCont.congrea.orginalTeacher #chat_div .controls span{
-	margin-left: 0px;
+	margin-left: 3px;
 }
 
 #virtualclassCont.congrea .appOptions.active a span:before{
@@ -2179,8 +2179,8 @@
 #virtualclassCont.congrea #congdashboard .close {
 	margin: 5px;
     display: inline-block;
-    color: green !important;
-    border: 1px solid green;
+    color: #fff !important;
+    border: 1px solid #fff;
     padding: 5px;
     font-size: 13px;
     border-radius: 4px;
@@ -3403,6 +3403,7 @@
 
 #virtualclassCont.congrea .controleCont.controllerRaiseH.disabled{
 	pointer-events: none;
+    display:none;
 }
 #virtualclassCont.congrea .controllerRaiseH{
 	margin-right: 8px;
@@ -3731,5 +3732,9 @@ opacity: 1;
 #virtualclassCont.congrea.nowebcam  .videoSwitchCont{
 	pointer-events: none!important;
 	opacity:.5!important;
+}
 
+#VideoDashboard #videoPopup #uploadMsz .alert-dismissable.alert-success button.close {
+    border:1px solid green !important;
+    color:green !important;
 }

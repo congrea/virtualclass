@@ -279,11 +279,11 @@ $audactive = false;
 if($audactive){
     $classes = "audioTool active";
     $dap = "true";
-    $audio_tooltip =  get_string('audioOn','congrea');
+    $audio_tooltip =  get_string('audioDisable','congrea');
 } else {
     $dap = "false";
     $classes = "audioTool deactive";
-    $audio_tooltip =  get_string('audioOff','congrea');
+    $audio_tooltip =  get_string('audioEnable','congrea');
 }
 ?>
 

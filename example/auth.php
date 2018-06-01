@@ -26,14 +26,14 @@ $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
 $licensekey = 'Wmqyg9MPQU9D1pOLBSvUN2mthVNhUMQ55RlA2wpn';
 $secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6'; */
 
-$licensekey = 'RQiz30KaTB8JX0yT2b12D7pkKgIDV58m4nCQ0ssb';
-$secret = 'FLvuYb8Bd55On05hDKXlLiCy2Ft2f18UMEpLQyn3DsR1tWi6Hfstx52zKvCZxLUk';
+$licensekey = 'v5aSD7ziyJpJgH3ghar8ojjiLaGtyTDaziofrblE1Ft2Fgwl';
+$secret = 'czjcCUVQ7V57OZ28vO3DqWXEZkiRqVcDvwP7rLYyG3Gv2IDxxHbYE9CDuUuUQHxl';
 
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => 't', 'room' => $room);
 $post_data = json_encode($post_data);
 //echo $post_data;
 $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $licensekey, $secret);
-// var_dump( $rid);exit;
+ // var_dump( $rid);exit;
 
 
 if (!$rid = json_decode($rid)) {
@@ -79,4 +79,3 @@ setInterval(
 )
 */
 </script>
-

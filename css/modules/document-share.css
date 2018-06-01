@@ -647,6 +647,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     line-height: 30px;     /* fallback */
+    height:30px;
     max-height: 32px;      /* fallback */
     -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;

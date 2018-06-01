@@ -98,6 +98,9 @@ body {
 #virtualclassCont.congrea #rightSubContainer, #virtualclassCont #congreaChatMainCont {
 	height : calc(100% - 287px);
 }
+#virtualclassCont.congrea.student #rightSubContainer {
+	height : calc(100% - 288px);
+}
 #virtualclassCont.congrea.playMode #rightSubContainer, #virtualclassCont #congreaChatMainCont {
     height : calc(100% - 287px);
 }

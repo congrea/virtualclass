@@ -454,7 +454,7 @@ var videoHost = {
 
         setTimeout(
             function (){
-                if (virtualclass.videoHost.gObj.MYSPEED < 3) {
+                if (virtualclass.isPlayMode || virtualclass.videoHost.gObj.MYSPEED < 3) {
                     if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
                         var img = new Image();
                         img.onload = function (){

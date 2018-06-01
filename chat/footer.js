@@ -76,31 +76,33 @@
 
                     }
 
-                     var chatbox = document.getElementById("ta_chrm2");
+                     var chatbox = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
                      if (chatbox) {
                          chatbox.style.display = "block";
                      }
 
-                    var memlist = document.getElementById('memlist');
+                    var memlist = document.querySelector("#virtualclassCont.congrea #memlist");
                     if (memlist) {
                         memlist.classList.remove("enable");
+                        if(!memlist.classList.contains("disable")){
+                            memlist.classList.add("disable")
+                        }
                     }
-                    if(!memlist.classList.contains("disable")){
-                       memlist.classList.add("disable")
-                    }
+
 
                      var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
                      if (searchbox) {
                          searchbox.style.display = "none";
                      }
 
-                    var chatroom = document.getElementById('chatrm');
-                    if (!chatroom.classList.contains("enable")) {
-                        chatroom.classList.add("enable");
-                    }
-                    chatroom.classList.remove("disable")
-
-                });
+                     var chatroom = document.querySelector("#virtualclassCont.congrea #chatrm");
+                     if(chatroom ){
+                         if(!chatroom.classList.contains("enable")){
+                             chatroom.classList.add("enable");
+                         }
+                         chatroom.classList.remove("disable")
+                     }
+                 });
 
                 $('#user_list').click(function () {
                     $('#chatroom_bt2').removeClass('active');
@@ -129,14 +131,16 @@
 //                $('#memlist').addClass('show').removeClass('hide');
                     virtualclass.chat.chatWindow="private";
                     this.classList.add("active");
-                    var chatroom = document.getElementById("chatrm");
+                    var chatroom = document.querySelector("#virtualclassCont.congrea #chatrm");
                     if (chatroom) {
                         chatroom.classList.remove("enable");
-                        chatroom.classList.add("disable");
+                        if(!chatroom.classList.contains("disable")){
+                            chatroom.classList.add("disable");
+                        }
                     }
 
 
-                    var chatbox = document.getElementById("ta_chrm2");
+                    var chatbox = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
                     if (chatbox) {
                         chatbox.style.display = "none";
                     }
@@ -146,15 +150,13 @@
                         searchbox.style.display = "block";
                     }
 
-                    var memlist = document.getElementById("memlist");
+                    var memlist = document.querySelector("#virtualclassCont.congrea #memlist");
                     if (memlist) {
-                        memlist.classList.add("enable")
-
+                        memlist.classList.remove("disable")
+                        if(!memlist.classList.contains("enable")){
+                            memlist.classList.add("enable")
+                        }
                     }
-                    memlist.classList.remove("disable")
-
-
-
 
                 }),
 

@@ -41,7 +41,7 @@
         'chatDisable' : "Enable chat",
         'chFireBrowsersIssue': 'Your browser {virtualclass1} {virtualclass2} needs updation, Congrea support Chrome 40+ and Firefox 35+.',
         'clearAllWarnMessageW': 'Do you really want to clear this whiteboard?',
-        'clearAllWarnMessageD': 'Do you really want to clear this drowings?',
+        'clearAllWarnMessageD': 'Do you really want to clear this drawings?',
         'closedsDbheading' : "Close document dashboard",
         'closeSharePresentationdbHeading' : "Close presentation dashboard",
         'closevideoDashboard' : "Close video dashboard",

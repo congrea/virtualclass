@@ -226,7 +226,7 @@
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) { 
                     $('#timeText').html('Time remaining <span id="qztime">' + plugin.config.quizTime + '</span>');
                 } else {
-                    $('#timeText').html('Elasped time <span id="qztime">00:00:00</span>');
+                    $('#timeText').html('Elapsed time <span id="qztime">00:00:00</span>');
                 }
                 $quizName.hide().html(plugin.config.nameTemplateText
                     .replace('%name', quizValues.info.name) ).fadeIn(1000, kN(key,1));             

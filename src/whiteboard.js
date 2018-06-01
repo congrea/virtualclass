@@ -348,7 +348,12 @@
                     }
                 //  } else if (cmd == 't_clearall'+ wbId) {
                 } else if (cmd == 't_clearall'+ wbId) {
-                    virtualclass.popup.confirmInput(virtualclass.lang.getString('clearAllWarnMessage'), function (confirm) {
+                    if(virtualclass.currApp == "Whiteboard"){
+                        var cofirmmessage = virtualclass.lang.getString('clearAllWarnMessageW');
+                    }else if(virtualclass.currApp == "DocumentShare"){
+                        cofirmmessage = virtualclass.lang.getString('clearAllWarnMessageD');
+                    }
+                    virtualclass.popup.confirmInput(cofirmmessage, function (confirm) {
                             //debugger;
                             if (!confirm) {
                                 return true;

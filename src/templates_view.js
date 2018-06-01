@@ -610,7 +610,7 @@ this["JST"]["templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(co
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label>\n    <div id=\"stdOptionCont\">\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n  </div>\n  <div id=\"stdContFooter\">\n    <input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value =\"vote\">\n  </div>\n</div>";
+    + "    </div>\n  </div>\n  <div id=\"stdContFooter\">\n    <input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value =\"Vote\">\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

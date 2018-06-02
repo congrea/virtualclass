@@ -1527,7 +1527,7 @@
 #virtualclassCont.congrea #playProgress {
 	background-color: #676666;
 	float: left;
-	margin-left: 12px;
+	margin-left: 18px;
 	margin-top: 9px;
 	text-align: center;
 	width: 350px;
@@ -3116,6 +3116,7 @@
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] #virtualclassWhiteboard.whiteboard .nvgt{
 	display : block;
+    text-align: center;
 }
 
 #virtualclassCont.congrea #tech_support_save{

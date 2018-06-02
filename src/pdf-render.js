@@ -658,35 +658,39 @@
             },
 
             fitToScreenWhiteboardObjects : function (wid){
-                var vcan = virtualclass.wb[wid].vcan;
-                var objects = vcan.main.children;
-                if(objects.length > 0){
-                    for (var i in objects) {
-                        var scaleX = objects[i].scaleX;
-                        var scaleY = objects[i].scaleY;
+                if(typeof virtualclass.wb[wid] == 'object'){
+                    var vcan = virtualclass.wb[wid].vcan;
+                    var objects = vcan.main.children;
+                    if(objects.length > 0){
+                        for (var i in objects) {
+                            var scaleX = objects[i].scaleX;
+                            var scaleY = objects[i].scaleY;
 
-                        var scaleFactor = ((virtualclass.zoom.canvasScale * 1)/(virtualclass.zoom.prvCanvasScale * 1));
-                        //  console.log('Fit-to-screen, sc('+virtualclass.zoom.canvasScale+' * 1) / psc('+virtualclass.prvCanvasScale+' * 1) = ' + scaleFactor);
+                            var scaleFactor = ((virtualclass.zoom.canvasScale * 1)/(virtualclass.zoom.prvCanvasScale * 1));
+                            //  console.log('Fit-to-screen, sc('+virtualclass.zoom.canvasScale+' * 1) / psc('+virtualclass.prvCanvasScale+' * 1) = ' + scaleFactor);
 
-                        var left = objects[i].x;
-                        var top = objects[i].y;
+                            var left = objects[i].x;
+                            var top = objects[i].y;
 
-                        // if (scaleFactor >= 1) {
-                        var tempLeft = left  * (scaleFactor );
-                        var tempTop = top  * (scaleFactor );
+                            // if (scaleFactor >= 1) {
+                            var tempLeft = left  * (scaleFactor );
+                            var tempTop = top  * (scaleFactor );
 
-                        objects[i].scaleX = scaleX * (scaleFactor );
-                        objects[i].scaleY = scaleY * (scaleFactor);
+                            objects[i].scaleX = scaleX * (scaleFactor );
+                            objects[i].scaleY = scaleY * (scaleFactor);
 
-                        objects[i].x = tempLeft;
-                        objects[i].y = tempTop;
+                            objects[i].x = tempLeft;
+                            objects[i].y = tempTop;
 
-                        objects[i].setCoords();
-                        virtualclass.wb[wid].scale = scaleX;
+                            objects[i].setCoords();
+                            virtualclass.wb[wid].scale = scaleX;
+                        }
                     }
-                }
 
-                vcan.renderAll();
+                    vcan.renderAll();
+                }else {
+                    console.log('Whiteboard missing');
+                }
             },
 
             isBiggerCanvasHeight : function (canvaS){

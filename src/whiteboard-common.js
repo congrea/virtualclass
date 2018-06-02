@@ -11,6 +11,21 @@
                 nextButton.onclick = function () {
                     //that.next();
                     virtualclass.vutil.navWhiteboard(that, that.next);
+
+                    if(wbCommon.hasOwnProperty('setNextWhiteboardTime')){
+                        clearTimeout(wbCommon.setNextWhiteboardTime);
+                    }
+
+                    if(virtualclass.currApp == 'Whiteboard'){
+                        wbCommon.setNextWhiteboardTime = setTimeout(
+                            function (){
+                                var zoomControlerFitToScreen = document.querySelector('.zoomControler .fitScreen');
+                                if(zoomControlerFitToScreen != null){
+                                    zoomControlerFitToScreen.click();
+                                }
+                            }, 500
+                        );
+                    }
                 }
             }
             var prevButton = document.querySelector('#virtualclassWhiteboard.whiteboard .prev');

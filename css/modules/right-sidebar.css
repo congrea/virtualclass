@@ -43,7 +43,7 @@ body {
     font-family: Helvetica ;
 }
 #virtualclassCont.congrea.student #rightSubContainer #appSettingDetail{
-    height : calc(100% - 45px);
+    height : calc(100% - 44px);
 }
 
 #virtualclassCont.congrea #rightSubContainer #chatWidget .chatBarTab {
@@ -102,7 +102,7 @@ body {
 	height : calc(100% - 288px);
 }
 #virtualclassCont.congrea.playMode #rightSubContainer, #virtualclassCont #congreaChatMainCont {
-    height : calc(100% - 287px);
+    height : calc(100% - 288px);
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
     background: #4c5863 none !important;

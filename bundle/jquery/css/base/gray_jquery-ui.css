@@ -1295,7 +1295,7 @@ background-position: -64px -128px !important;
 	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #4b84ed 0%,#4b84ed 100%) !important;
+	background: linear-gradient(to bottom, #53a93f 0%,#53a93f 100%) !important;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ); /* IE6-9 */
     /*border: 1px solid #aaaaaa !important;*/
 }

@@ -150,7 +150,8 @@ height:38px;}
 #virtualclassCont.congrea .bootstrap a, #virtualclassCont.congrea .bootstrap a:hover {
   color: #fff;}
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
-  border: 1px solid #5d6b76; }
+  border: 1px solid #5d6b76;
+border-left:0px}
 #virtualclassCont.congrea #alwaysPress .audioTool.active,
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool.active:hover,

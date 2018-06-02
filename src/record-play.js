@@ -831,7 +831,9 @@
                     recButton[i].onclick = function () {
                         var ffBy = this.id.split('ff')[1];
                         that.controller.fastForward(parseInt(ffBy, 10));
-                        that.doControlActive(this)
+                        if(this.parentNode.id != 'replayFromStart'){
+                            that.doControlActive(this)
+                        }
                     };
                 }
 

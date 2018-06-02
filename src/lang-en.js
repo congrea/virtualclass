@@ -339,6 +339,7 @@
         'Click on "Share Selected Device." option.' +
         '<div class="screenImages">' +
         '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" > <figcaption>Chrome</figcaption> </figure></div>',
+         'screensharereload' : 'Screen is not being shared. Please reload for the sharing.',
 
         'SecurityErrorExtFF' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
         'Go to camera icon on top left of the screen <br /> ' +
@@ -351,6 +352,7 @@
         'Click on "Share Selected Device." option.' +
         '<div class="screenImages">' +
         '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" > <figcaption>Chrome</figcaption> </figure></div>',
+        'TypeError' : 'Your webcam is not initialised properly. Please reload the page.'
     };
     window.message = message;
 })(window);

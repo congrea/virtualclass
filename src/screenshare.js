@@ -736,6 +736,10 @@ var newCanvas;
                     clearInterval(virtualclass.clear);
                 }
 
+                if(resA == 0 && resB == 0){
+                    virtualclass.view.createErrorMsg('screensharereload', 'errorContainer', 'chatWidget');
+                }
+
                 var screenIntervalTime = 1000;
                 /*
                  * To send full  encoded image data and status code

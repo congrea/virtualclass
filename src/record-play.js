@@ -15,7 +15,7 @@
     function destroyClickedElementForFirefox(event) {
         document.body.removeChild(event.target);
     }
-    var errorCodes = ['VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing', "invalidurl"];
+    var errorCodes = ['VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing', "invalidurl", 'VCE2'];
     var fromFille = 0;
     var recorder = {
         items: [],
@@ -325,8 +325,19 @@
                                 //TODO Show msg to user
                                 //create function & pass error msg as param
                                if(errorCodes.indexOf(msg) >= 0){
-                                  alert(virtualclass.lang.getString(msg));
-                                  virtualclass.recorder.initMakeAvailDownloadFile();
+                                   var totProgressCont = document.querySelector('#totProgressCont');
+                                   var errorCont = document.querySelector('#totProgressCont .recordingError');
+
+                                   if(errorCont == null){
+                                       var divCreated = "<div class='recordingError'>"+virtualclass.lang.getString(msg)+"</div>";
+                                       totProgressCont.insertAdjacentHTML('afterbegin', divCreated);
+                                   }else {
+                                       errorCont.innerHTML = virtualclass.lang.getString(msg);
+                                   }
+
+                                   if(roles.hasAdmin()){
+                                       virtualclass.recorder.initMakeAvailDownloadFile();
+                                   }
                                } else {
                                   console.log("Error message not found");
                                }

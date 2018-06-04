@@ -288,6 +288,7 @@
         'usermissing' : 'User is missing',
         'userList':"User's list",
         'validateurlmsg' : 'Invalid URL',
+        'VCE2' : 'No permission to recording session',
         'VCE4' : 'Record data is missing',
         'VCE5' : 'Unable to Record Data.',
         'VCE6' : 'Course module is missing.',

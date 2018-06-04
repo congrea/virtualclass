@@ -335,7 +335,9 @@
                                        errorCont.innerHTML = virtualclass.lang.getString(msg);
                                    }
 
-                                   virtualclass.recorder.initMakeAvailDownloadFile();
+                                   if(roles.hasAdmin()){
+                                       virtualclass.recorder.initMakeAvailDownloadFile();
+                                   }
                                } else {
                                   console.log("Error message not found");
                                }

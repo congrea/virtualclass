@@ -3753,3 +3753,9 @@ opacity: 1;
 #virtualclassCont.congrea.playMode #networkStatusContainer {
     display:none;
 }
+
+
+#virtualclassCont.congrea .recordingError {
+	color : #ff1934;
+	font-weight : bold;
+}

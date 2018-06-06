@@ -26,8 +26,8 @@ $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
 $licensekey = 'Wmqyg9MPQU9D1pOLBSvUN2mthVNhUMQ55RlA2wpn';
 $secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6'; */
 
-$licensekey = 'v5aSD7ziyJpJgH3ghar8ojjiLaGtyTDaziofrblE1Ft2Fgwl';
-$secret = 'czjcCUVQ7V57OZ28vO3DqWXEZkiRqVcDvwP7rLYyG3Gv2IDxxHbYE9CDuUuUQHxl';
+$licensekey = 'QROly9tGtQLHsCcVSICkfQHbqUkirXFb4jDaql1guIGXAihJ';
+$secret = 'mV50OT0T0ispp0Z7PiII92mEzzc14n4rj9r83s14KutavsilL13V4pzDZLF49Jvs';
 
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => 't', 'room' => $room);
 $post_data = json_encode($post_data);

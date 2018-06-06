@@ -372,9 +372,6 @@ if ($info) {
 
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="<?php echo $whiteboardpath . "poll/graphs/d3.js" ?>"></script>
-<script src="<?php echo $whiteboardpath . "poll/graphs/c3.js" ?>"></script>
-
 <script src ="<?php echo $whiteboardpath.'s3/s3.fine-uploader.js'; ?>"></script>
 </head>
 <body>

@@ -3738,3 +3738,14 @@ opacity: 1;
     border:1px solid green !important;
     color:green !important;
 }
+#virtualclassCont.congrea #chat_room li .chat-user-icon{
+	border: solid black 1px;
+	width: 40px;
+	height: 40px;
+	border-radius: 30px;
+	text-align: center;
+	padding-top: 12px;
+	margin-top: 5px;
+	font-size: large;
+}
+

@@ -26,7 +26,8 @@
                 init: function (elem) {
                     this.elem = elem;
                 },
-                addMsg: function (peer, msgObj) {
+                addMsg: function (peer, msgObj,userid) {
+                    this.groupChatImgColor(peer,userid)
                     var time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
                     var msg = msgObj.msg;
                     var self = this;
@@ -35,14 +36,16 @@
                     e.className="left clearfix";
                     box.append(e);
 
-                    var Img = document.createElement("span");
-                    Img.className="chat-img pull-left";
-                    e.appendChild(Img);
+                    var chatCont = document.createElement("div");
+                    chatCont.className = "chat-user-icon pull-left";
+                    e.appendChild(chatCont);
+                    chatCont.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
+                    chatCont.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
 
-                    var chatImg = document.createElement("img");
-                    chatImg.className="primary";
-                    chatImg.src= whiteboardPath +"images/quality-support.png";
-                    Img.appendChild(chatImg);
+                    var Img = document.createElement("span");
+                    Img.className="chat-img ";
+                    Img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
+                    chatCont.appendChild(Img);
 
                     var systemMessage = false;
                     // suman 25
@@ -68,7 +71,6 @@
 
                     chatContainer.appendChild(msgElement);
                     chatContainer.appendChild(msgTime);
-
                     e.appendChild(chatContainer);
 
                     // var msgCont = document.createElement('div');
@@ -84,6 +86,48 @@
                     self._scrollToBottom();
                     // sortCommonChat();
                 },
+                groupChatImgColor:function(peer,userid){
+                    var initial = this.getInitials(peer)
+
+
+                    var bgColor="green";
+                    var textColor="white"
+                    if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
+                        var user = (userid.toString()) + peer;
+                        bgColor = this.stringToHslColor(user , 60, 35)
+                        var brightness = virtualclass.vutil.calcBrightness(bgColor);
+                        if (brightness > 125) {
+                            textColor="black";
+                        } else {
+                            textColor="white";
+                        }
+                        virtualclass.gObj.chatIconColors[userid] ={
+                            bgColor:bgColor,
+                            textColor:textColor,
+                            initial:initial
+                        }
+                    }
+
+                },
+                stringToHslColor:function (str, s, l) {
+                    var hash = 0;
+                    for (var i = 0; i < str.length; i++) {
+                        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+                    }
+
+                    var h = hash % 360;
+                    return 'hsl('+h+', '+s+'%, '+l+'%)';
+                },
+                getInitials : function (string) {
+                    var names = string.split(' '),
+                        initials = names[0].substring(0, 1).toUpperCase();
+
+                    if (names.length > 1) {
+                        initials += names[names.length - 1].substring(0, 1).toUpperCase();
+                    }
+                    return initials;
+                },
+
                 highlightBox: function () {
                     var self = this;
                     self.elem.uiChatboxTitlebar.addClass("ui-state-highlight");
@@ -232,6 +276,7 @@
         },
         _position: function (offset) {
             this.uiChatbox.css("left", offset);
-        }
+        },
+
     });
 }(jQuery));

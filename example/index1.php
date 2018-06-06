@@ -114,7 +114,6 @@ $quality = 'low';
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "SlickQuiz/css/slickQuiz.css" ?> />
 <?php
 
-$cssdebug = 0;
 define('SCRIPT_ROOT', $whiteboardpath);
 ?>
 <style>

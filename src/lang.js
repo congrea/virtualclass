@@ -4,7 +4,7 @@
  */
 
 (function (window) {
-    /*
+    /**
      * @words expect array
      *
      */

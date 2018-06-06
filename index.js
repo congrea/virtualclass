@@ -2,7 +2,6 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 $.uiBackCompat = false;
-
 $(document).ready(function () {
     // for calculate the
     // Internet Speed, Frame Rate and Internet Latency

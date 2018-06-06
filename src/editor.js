@@ -201,9 +201,9 @@
 
                     },20
                 );
-
             },
-            /*
+
+            /**
              * By this function we creating the
              * Editor client and virtualclass adapter in ot.js
              * @param editorType expect editor type

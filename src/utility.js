@@ -562,7 +562,7 @@
                             videoUrl:virtualclass.videoUl.videoUrl,
                             yts:virtualclass.videoUl.yts,
                             online:virtualclass.videoUl.online,
-                            isPaused:virtualclass.videoUl.isPaused,
+                            isPaused:virtualclass.videoUl.isPaused
                         },
                         startFrom: start,
                         isAutoplay:virtualclass.videoUl.autoPlayFlag
@@ -2652,7 +2652,7 @@
                     console.log('add note display');
                 }
             }
-        },
+        }
 
     };
     window.vutil = vutil;

@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2015  Vidya Mantra EduSystems Pvt. Ltd.
+/***@Copyright 2015  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * this file creates the player object to play video and to send it's state changes to the receiver
  * receiver accordingly updates its state.
@@ -7,7 +7,7 @@
 (function (window, document) {
     //var io = window.io;
     var i = 0;
-    /**
+    /***
      * This is the main object which has properties and methods
      * Through this properties and methods all the front stuff is happening
      * eg:- creating, storing and replaying the objects
@@ -20,7 +20,7 @@
         return {
             retryForPalyer: 1, // Not being used
             player: '',
-            /*
+            /**
              * it creates the the necessary layout and containers to place
              * video and to input url
              * Call to the function to create player object
@@ -99,7 +99,7 @@
                 }
                 $('#videoPlayerCont').css({"display": "none"});
             },
-            /*
+            /**
              * this function is called  when we leave  the video player's page
              *
              */
@@ -116,13 +116,13 @@
                     }
                 }
             },
-            /*
+            /**
              * this object is for user interface
              */
             UI: {
                 id: 'virtualclassYts',
                 class: 'virtualclass',
-                /*
+                /**
                  * Creates container for the video and appends the container before audio widget
                  */
                 container: function () {
@@ -141,7 +141,7 @@
 
                 },
 
-                /*
+                /**
                  * This function is being called when the teacher's role is assigned to student
                  * A layout to place video is created by this function
                  * it creates layout to place video and url placeholder
@@ -182,7 +182,7 @@
                     // }
 
                 },
-                /*
+                /**
                  * Creating input  and submit element  for the url
                  * On clicking submit button an object containing video object is sent to the students
                  * Calling function to create player object
@@ -221,7 +221,7 @@
                     // });
 
                 },
-                /*
+                /**
                  * removeing the video url container
                  */
                 removeinputURL: function () {
@@ -232,7 +232,7 @@
                 }
 
             },
-            /*
+            /**
              * getting the video id from the url of the video
              * @param url url of the youtube video
              */
@@ -248,7 +248,7 @@
                 }
                 return false;
             },
-            /*
+            /**
              * It changes the state of the video based on the message received
              * @param  msg message object to sent information to the receiver
 
@@ -309,7 +309,7 @@
                     }
                 }
             },
-            /*
+            /**
              * Creates player object
              * @param  videoId
              * @param  playStratFrom If page is reloaded it starts from the last left position
@@ -387,7 +387,7 @@
                 }
 
             },
-            /*
+            /**
              * Once the player is ready  this is triggered  after every two second to
              * find the  video' s state ,position and mute or unmute.
              * it checks for  the video's current time , state and mute or unmute
@@ -427,7 +427,7 @@
 
                 }
             },
-            /*
+            /**
              * If video at sender's side is muted then an object is sent
              *  to reciver indicating that video is muted else object indicates unmute
              * @param {boolean} muted true if video is muted otherwise false
@@ -442,7 +442,7 @@
 
                 console.log('MUTED ' + muted);
             },
-            /*
+            /**
              * Send the seek position to the receiver.
              * @param seekto  video seek position in seconds
 
@@ -453,7 +453,7 @@
                 console.log('SEEK CHANGED ' + seekto);
             },
 
-            /*
+            /**
              * On state change , State of the video is being sent to the receiver
              * @param int state state of the video
              */
@@ -478,7 +478,7 @@
                     }
                 }
             },
-            /*
+            /**
              * this event handler is called when the player is ready
              * plays video, unmute video, sets it volume
              * and if the role is teacher he would be able to seek change
@@ -504,7 +504,7 @@
                 }
             },
 
-            /*
+            /**
              * After every two second a function is executed to find the seek position
              *
              */

@@ -2350,7 +2350,7 @@
                 shimChrome: true,
                 shimFirefox: true,
                 shimEdge: true,
-                shimSafari: true,
+                shimSafari: true
             };
 
             for (var key in opts) {
@@ -3513,7 +3513,7 @@
                             candidate: augmentedCandidate.candidate,
                             sdpMid: augmentedCandidate.sdpMid,
                             sdpMLineIndex: augmentedCandidate.sdpMLineIndex,
-                            usernameFragment: augmentedCandidate.usernameFragment,
+                            usernameFragment: augmentedCandidate.usernameFragment
                         };
                     };
                     return augmentedCandidate;

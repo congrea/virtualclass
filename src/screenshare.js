@@ -68,7 +68,7 @@ var newCanvas;
         }
     }
 
-    /*
+    /**
      * This returns an object that contains methods to initilize student screen
      * @returns an object to initilize student screen
      */
@@ -79,7 +79,7 @@ var newCanvas;
             SCALE_FACTOR : 1.04,
             szoom : false,
             base : {width : 0, height : 0},
-            /*
+            /**
              * Calculating the width and height of the student screen according the requirement of the-
              * application to be shared
              * And calling a function with the appropriate data to inilaize student screen
@@ -122,7 +122,7 @@ var newCanvas;
                         break;
                 }
             },
-            /*
+            /**
              * Initializes the student screen, makes the application ready
              * calls functions to set dimension of student screen
              * setting dimension of student's screen
@@ -310,7 +310,7 @@ var newCanvas;
             }
         }
     };
-    /*
+    /**
      * This function returns an object that contains all the functions necessary to use the application share screen
      * such as to initalize screen, get screen(screen selector window) on different browsers,
      * Creating container,
@@ -322,7 +322,7 @@ var newCanvas;
      *
      */
     var screenShare = function (config) {
-        /*
+        /**
          *
          */
         virtualclass.getSceenFirefox = function () {
@@ -384,7 +384,7 @@ var newCanvas;
         return {
             prevStream: false,
 
-            /*
+            /**
              * This function is invoked on clicking screen share icon .
              * At the teacher's window screen share application is started ,
              * And on student's window _init function is invoked to inilize screen
@@ -411,7 +411,7 @@ var newCanvas;
                 }
             },
 
-            /*
+            /**
              * Called when user select the screenshare
              * configuring the screen
              * inilizing student screen
@@ -461,7 +461,7 @@ var newCanvas;
                     }
                 }
             },
-            /*
+            /**
              * This function gets  screen reloaded with the url
              * @param app it stores the string screenshare
              */
@@ -472,7 +472,7 @@ var newCanvas;
                 }
 
             },
-            /*
+            /**
              * Displays the error if any
              * @param e error
              *
@@ -497,7 +497,7 @@ var newCanvas;
 
                 console.log("Error " + e);
             },
-            /*
+            /**
              * To Get screen for Firefox and chrome,
              * in case of crome if desktop extension is added it is used otherwise
              * it is added from the crome webstore
@@ -531,7 +531,7 @@ var newCanvas;
                     virtualclass.getSceenFirefox();
                 }
             },
-            /*
+            /**
              *  clear previous screen from teacher's window
              *  The operation beforeSend is performed that
              *  sends data to the student that previous screen is to be unshared
@@ -576,7 +576,7 @@ var newCanvas;
                 virtualclass.ss = '';
             },
 
-            /*
+            /**
              * It clears the canvas
              */
             removeStream: function () {
@@ -584,7 +584,7 @@ var newCanvas;
                 this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
                 this.clearScreenShare();
             },
-            /*
+            /**
              * Initializing the recorder to record the scrren that will be shared
              * And creating canvas element for the screen share,attaching
              * the media stream to the canvas element
@@ -677,7 +677,7 @@ var newCanvas;
                 //setStyleToElement(vidContainer, width, height);
                 var that = this;
                 var video;
-                /*
+                /**
                  * Event handler on loading meta data of the video
                  * Setting container width
                  * calling sharing function to share screen
@@ -711,7 +711,7 @@ var newCanvas;
                 }
             },
 
-            /*
+            /**
              * sendi bng the video to the student in the form of encoded data
              * status code is also sent with the encoded data
              *screen is shared in the form of video
@@ -741,7 +741,7 @@ var newCanvas;
                 }
 
                 var screenIntervalTime = 1000;
-                /*
+                /**
                  * To send full  encoded image data and status code
                  * @param  type type of the application
                  * @returns sendmsg message containg imagedata and encoded data
@@ -765,7 +765,7 @@ var newCanvas;
                     return sendmsg;
 
                 };
-                /* Encoded message is sent to student,
+                /** Encoded message is sent to student,
                  * Getting full video data on resize of the window
                  * @param  stype implies screenshare
                  * @returns {Uint8ClampedArray}
@@ -815,7 +815,7 @@ var newCanvas;
                     return sendmsg;
                 }
 
-                /*
+                /**
                  * Breaking  value into parts
                  * @param  val width or height
                  * @param l  length to make of val by appending zero
@@ -832,7 +832,7 @@ var newCanvas;
                     return parts;
                 }
 
-                /*
+                /**
                  * finding out whether previous dimention are same or not to the current  video dimension
                  * if there is change in dimension   resized window  data is sent
                  * otherwise image data slices will be sent
@@ -856,7 +856,7 @@ var newCanvas;
 
                 }
 
-                /*
+                /**
                  * Setting screen interval time based on the size of image to be sent
                  * @param  localBandwidth image size that is to be sent
                  *
@@ -877,7 +877,7 @@ var newCanvas;
                     }
                 }
 
-                /*
+                /**
                  * Getting the changed width and height of the new screen
                  * Creating image nd calculating bandwidth
                  * And sending binary data of image
@@ -911,7 +911,7 @@ var newCanvas;
                     return parts;
                 }
 
-                /*
+                /**
                  * Sending data in the form of  slices , to send only that part that is changed in the video of screen share
                  * image data is provided to the worker that is calulating change part for the main javascript thread
                  * @param type : type of the application
@@ -966,7 +966,7 @@ var newCanvas;
                 clearInterval(virtualclass.clear);
                 virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
             },
-            /*
+            /**
              *  returnting  width and height of screen share container
              * @return  an object  containing width and height
              */
@@ -974,7 +974,7 @@ var newCanvas;
                 var vidCont = document.getElementById(this.id + "Local");
                 return {width: vidCont.offsetWidth, height: vidCont.offsetHeight};
             },
-            /*
+            /**
              * Drawing the image over the canvas
              * @param rec image data
              * @param d dimension of the image
@@ -988,7 +988,7 @@ var newCanvas;
                     dtype: "drgb"
                 }, [rec.buffer]); // [[rec.buffer]] is passed to make available in Worker
             },
-            /*
+            /**
              * Setting with and height of container canvas at student's screen
              * @param cWidth width
              * @param cHeight height
@@ -1002,7 +1002,7 @@ var newCanvas;
                 this.localCanvas.height = cHeight;
                 console.log("normal width " + this.localCanvas.width);
             },
-            /*
+            /**
              * setting dimension of virtual class container and setting dimension of screen share canvas
              * at student's side
              * @param msg  dimension object for local canvas for screen share and virtual container
@@ -1040,11 +1040,11 @@ var newCanvas;
                   }
                   return false;
             },
-            /*
+            /**
              * Creating user interface part for the screen share
              */
             html: {
-                /*
+                /**
                  * Creating main catainer and local container for screen share
                  * @user role of the user
                  */
@@ -1148,7 +1148,7 @@ var newCanvas;
                     virtualclass.gObj.studentSSstatus.shareToAll = false;
                 },
 
-                /*
+                /**
                  * @param container object containg width and height property
                  * @aspectRatio a fractional value
                  * @return  an object containing modified width and height

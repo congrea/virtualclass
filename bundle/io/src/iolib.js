@@ -261,6 +261,7 @@ var io = {
           this.jsnMsgQueue = [];
         }
     },
+
     chunkSubstr: function(str, size) {
       if (str.startsWith('F-BR-{"0')) {
         var prefix = 'F-BR-{"';
@@ -271,8 +272,8 @@ var io = {
       } else {
         return false;
       }
-      const numChunks = Math.ceil(str.length / size)
-      const chunks = new Array(numChunks)
+      const numChunks = Math.ceil(str.length / size);
+      const chunks = new Array(numChunks);
       for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
         chunks[i] = str.substr(o, size)
         if (i == 0) {
@@ -285,6 +286,7 @@ var io = {
       }
       return chunks
     },
+
     cleanRecJson: function (str) {
       if (!str.startsWith('{"0{"') && !str.startsWith('{"1{"') && !str.startsWith('{"2') && !str.startsWith('{"3')) {
         return str;
@@ -309,6 +311,7 @@ var io = {
       }
       return false;
     },
+
     sendBinary: function(msg) {
         "use strict";
         var type = null;
@@ -350,6 +353,7 @@ var io = {
         }
 
     },
+
     onRecMessage: function(e) {
         if (e.data instanceof ArrayBuffer) {
             this.onRecBinary(e)
@@ -359,11 +363,13 @@ var io = {
             io.onRecJson(msg, e.data);
         }
     },
+
     onRecSave: function(msg, edata) {
         if (!msg.hasOwnProperty('userto') || (msg.hasOwnProperty('userto') && msg.m.hasOwnProperty('eddata'))) {
             ioStorage.completeStorage(edata);
         }
     },
+
     onRecBinary: function(e) {
         "use strict";
         //try {

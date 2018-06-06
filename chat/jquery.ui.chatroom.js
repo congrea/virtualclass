@@ -87,12 +87,10 @@
                     // sortCommonChat();
                 },
                 groupChatImgColor:function(peer,userid){
-                    var initial = this.getInitials(peer)
-
-
                     var bgColor="green";
                     var textColor="white"
                     if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
+                        var initial = this.getInitials(peer)
                         var user = (userid.toString()) + peer;
                         bgColor = this.stringToHslColor(user , 60, 35)
                         var brightness = virtualclass.vutil.calcBrightness(bgColor);

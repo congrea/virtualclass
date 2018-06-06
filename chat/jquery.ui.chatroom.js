@@ -27,7 +27,9 @@
                     this.elem = elem;
                 },
                 addMsg: function (peer, msgObj,userid) {
-                    this.groupChatImgColor(peer,userid)
+                    if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined") {
+                        this.groupChatImgColor(peer, userid)
+                    }
                     var time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
                     var msg = msgObj.msg;
                     var self = this;
@@ -89,7 +91,7 @@
                 groupChatImgColor:function(peer,userid){
                     var bgColor="green";
                     var textColor="white"
-                    if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
+                    //if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
                         var initial = this.getInitials(peer)
                         var user = (userid.toString()) + peer;
                         bgColor = this.stringToHslColor(user , 60, 35)
@@ -104,7 +106,7 @@
                             textColor:textColor,
                             initial:initial
                         }
-                    }
+                   // }
 
                 },
                 stringToHslColor:function (str, s, l) {

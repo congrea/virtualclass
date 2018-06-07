@@ -85,8 +85,6 @@
 	text-indent:inherit;
 }
 
-
-
 /* Misc visuals
 ----------------------------------*/
 
@@ -801,7 +799,7 @@ button.ui-button::-moz-focus-inner {
 	z-index: 9999;
 	max-width: 300px;
 	-webkit-box-shadow: 0 0 5px #aaa;
-	box-shadow: 0 0 5px #aaa;
+	
 }
 body .ui-tooltip {
 	border-width: 2px;
@@ -824,27 +822,46 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	/*
-         background-color: #d4d4d4;
-         background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
-         background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
-         background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
-         background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
-         background-image: linear-gradient(#fbfbfb, #d4d4d4);
-    */
-	border:#bac0cd 1px solid;
+/*
+	 background-color: #d4d4d4;
+     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
+     background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
+     background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
+     background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
+     background-image: linear-gradient(#fbfbfb, #d4d4d4);
+     border:#bac0cd 1px solid;
+*/
 
 }
+
+
 
 .ui-widget-content a {
 
 	color: #222222/*{fcContent}*/;
 }
+.ui-widget-header {
 
-#chat_div..ui-widget-content{
-	box-shadow: none !important;
+	 background-color: #d4d4d4 !important;
+
+     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
+     background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
+     background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
+     background-image: -o-linear-gradient(#fbfbfb, #d4d4d4);
+     background-image: linear-gradient(#fbfbfb, #d4d4d4);
+	border: 1px solid #8f8f8f/*{borderColorHeader}*/;
+	color: #222222/*{fcHeader}*/;
+	font-weight: bold;
 }
 
+#chat_div.ui-widget-content{
+
+	 box-shadow: none !important;
+}
+
+.ui-widget-header a {
+	color: #222222/*{fcHeader}*/;
+}
 
 /* Interaction states
 ----------------------------------*/
@@ -852,27 +869,27 @@ body .ui-tooltip {
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
+	color: #555555/*{fcDefault}*/;
 	text-decoration: none;
 }
 
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	background: #111516;
-	background: -moz-linear-gradient(top, #111516 0%, #464646 100%) !important;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#111516), color-stop(100%,#464646)) !important;
-	background: -webkit-linear-gradient(top, #111516 0%,#464646 100%) !important;
-	background: -o-linear-gradient(top, #111516 0%,#464646 100%) !important;
-	background: -ms-linear-gradient(top, #111516 0%,#464646 100%) !important;
-	background: linear-gradient(to bottom, #111516 0%,#464646 100%) !important;
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111516', endColorstr='#464646',GradientType=0 ) !important;
+	background: #3f4b56; /* Old browsers */
+	background: -moz-linear-gradient(top,  #48545f 0%, #36414c 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #48545f 0%,#36414c 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #48545f 0%,#36414c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48545f', endColorstr='#36414c',GradientType=0 ); /* IE6-9 */
+    border: #444 1px solid;
+
 }
 
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover{
-	background-image: none !important;
-	background-color: transparent !important;
+	background-image: none;
+	background-color: transparent;
 }
 
 .ui-state-hover a,
@@ -883,7 +900,7 @@ body .ui-tooltip {
 .ui-state-focus a:hover,
 .ui-state-focus a:link,
 .ui-state-focus a:visited {
-
+	color: #212121/*{fcHover}*/;
 	text-decoration: none;
 }
 .ui-state-active,
@@ -892,18 +909,53 @@ body .ui-tooltip {
 	border: 1px solid #aaaaaa/*{borderColorActive}*/;
 	background: #ffffff/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/;
 	font-weight: normal/*{fwDefault}*/;
-
+	color: #212121/*{fcActive}*/;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-
+	color: #212121/*{fcActive}*/;
 	text-decoration: none;
 }
 
 /* Interaction Cues
 ----------------------------------*/
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	background: #d8e496; /* Old browsers */
 
+	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)) !important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* IE10+ */
+	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ) !important; /* IE6-9 */
+	/*border: 1px solid #aaaaaa !important;*/
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover{
+	background-image: none !important;
+	background-color: transparent !important;
+}
+
+
+.ui-chatroom .ui-state-highlight{
+	background: #d8e496; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)) !important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%) !important; /* IE10+ */
+	background: linear-gradient(to bottom,  #d8e496 0%,#d8e496 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ) !important; /* IE6-9 */
+
+    border: 1px solid #aaaaaa !important;
+
+}
 
 
 .ui-state-highlight a,
@@ -960,26 +1012,32 @@ body .ui-tooltip {
 	width: 16px !important;
 	height: 16px !important;
 }
+
+
+.ui-icon {
+	width: 16px !important;
+	height: 16px !important;
+}
 .ui-icon,
-.ui-widget-content .ui-icon {
-	/*background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent};*/
-	background-image: none;
+.ui-widget-content .ui-icon, .ui-widget-header .ui-icon {
+		/*background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent};*/
+		background-image: none !important;
 }
 
 
 .ui-state-default .ui-icon {
 	/*background-image: url(images/ui-icons_888888_256x240.png);*/
 	background-image: none;
-}
+ }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
 	/*background-image: url(images/ui-icons_454545_256x240.png);*/
 	background-image: none;
-}
+ }
 .ui-state-active .ui-icon {
 	/*background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive};*/
 	background-image: none;
-}
+ }
 .ui-state-highlight .ui-icon {
 	/*background-image: url(images/ui-icons_2e83ff_256x240.png){iconsHighlight};*/
 	background-image: none;
@@ -1167,7 +1225,7 @@ body .ui-tooltip {
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
 .ui-icon-minusthick {
-	background-position: -64px -128px !important;
+background-position: -64px -128px !important;
 }
 
 
@@ -1179,25 +1237,25 @@ body .ui-tooltip {
 .ui-corner-top,
 .ui-corner-left,
 .ui-corner-tl {
-	border-top-left-radius: 4px/*{cornerRadius}*/;
+/*	border-top-left-radius: 4px{cornerRadius};*/
 }
 .ui-corner-all,
 .ui-corner-top,
 .ui-corner-right,
 .ui-corner-tr {
-	border-top-right-radius: 4px/*{cornerRadius}*/;
+/*	border-top-right-radius: 4px{cornerRadius};*/
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-left,
 .ui-corner-bl {
-	border-bottom-left-radius: 4px/*{cornerRadius}*/;
+/*	border-bottom-left-radius: 4px{cornerRadius};*/
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-right,
 .ui-corner-br {
-	border-bottom-right-radius: 4px/*{cornerRadius}*/;
+/*	border-bottom-right-radius: 4px{cornerRadius};*/
 }
 
 /* Overlays */
@@ -1216,82 +1274,79 @@ body .ui-tooltip {
 }
 
 
-/* black color */
+/* Gray color */
 
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+
+	background: #3f4b56; /* Old browsers */
+	background: -moz-linear-gradient(top,  #3f4b56 0%, #34404c 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #3f4b56 0%,#34404c 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #3f4b56 0%,#34404c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4b56', endColorstr='#34404c',GradientType=0 ); /* IE6-9 */
+}
 
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset);
-	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset;
-	background: #F7D18A !important; /* Old browsers */
-	background: -moz-linear-gradient(top,  #F7D18A 0%, #F4C161 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F7D18A), color-stop(100%,#e5deb2)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #F7D18A 0%,#F4C161 100%) !important !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #F7D18A 0%,#F4C161 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #F7D18A 0%,#F4C161 100%)!important; /* IE10+ */
-	background: linear-gradient(to bottom,  #F7D18A 0%,#F4C161 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7D18A', endColorstr='#F4C161',GradientType=0 ); /* IE6-9 */
-	border: 1px solid #aaaaaa !important;
+    color:#000;
+	background: #d8e496; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d8e496 0%, #d8e496 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e496), color-stop(100%,#d8e496)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #d8e496 0%,#d8e496 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #53a93f 0%,#53a93f 100%) !important;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e496', endColorstr='#d8e496',GradientType=0 ); /* IE6-9 */
+    /*border: 1px solid #aaaaaa !important;*/
 }
 
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before{
-	color:#333;
+.ui-widget-header {
+
+	background: #3f4b56; /* Old browsers */
+	background: -moz-linear-gradient(top,  #3f4b56 0%, #34404c 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3f4b56), color-stop(100%,#34404c)) !important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #3f4b56 0%,#34404c 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #3f4b56 0%,#34404c 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #3f4b56 0%,#34404c 100%) !important; /* IE10+ */
+	background: linear-gradient(to bottom,  #3f4b56 0%,#34404c 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4b56', endColorstr='#34404c',GradientType=0 ) !important; /* IE6-9 */
+}
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before {
+
+    color: #333;
 }
 
 .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before{
 	color:#fff !important;
 }
 
-.ui-chatroom .ui-state-highlight{
-	-webkit-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset !important;
-	-moz-box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset) !important;
-	box-shadow:  0 0 41px 3px rgba(252, 239, 161, 0.62) inset !important;
-	background: #f7d18a !important; /* Old browsers */
-	background: -moz-linear-gradient(top,  #f7d18a 0%, #f4c161 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7d18a), color-stop(100%,#f4c161)) !important; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #f7d18a 0%,#f4c161 100%) !important;  /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #f7d18a 0%,#f4c161 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #f7d18a 0%,#f4c161 100%) !important; /* IE10+ */
-	background: linear-gradient(to bottom,  #f7d18a 0%,#f4c161 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d18a', endColorstr='#f4c161',GradientType=0 ) !important; /* IE6-9 */
-	border: 1px solid #aaaaaa !important;
 
+.ui-widget-header a{
+
+	color:transparent;
 }
 
-.ui-widget-header {
-	background: #021317 !important; /* Old browsers */
-	background: -moz-linear-gradient(top, #021317 0%, #333636 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#021317), color-stop(100%,#333636)) !important; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #021317 0%,#333636 100%) !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #021317 0%,#333636 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #021317 0%,#333636 100%) !important; /* IE10+ */
-	background: linear-gradient(to bottom, #021317 0%,#333636 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#021317', endColorstr='#333636',GradientType=0 ) !important; /* IE6-9 */
-	border: 1px solid #333636 !important;
+.ui-state-default.ui-corner-bottom.ui-tabs-active a{
+	color:#fff;
 }
 
-#tabs.ui-widget-content{
-	box-shadow: 0 0 5px #aaa;
+.ui-widget-content{
+/*	border: 1px solid #a4a4a4;*/
 }
+
+.ui-widget-header{
+	border:#444 1px solid;
+}
+
 
 .ui-state-default.ui-corner-bottom.ui-tabs-active{
-	background: #333b3c; /* Old browsers */
-	background: -moz-linear-gradient(top,  #333b3c 0%, #272e30 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333b3c), color-stop(100%,#272e30)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #333b3c 0%,#272e30 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #333b3c 0%,#272e30 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333b3c', endColorstr='#272e30',GradientType=0 ); /* IE6-9 */
+	background : none !important;
 }
 
-.ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header.ui-state-highlight span{
-	color:#333;
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight{
+    /*background: #d8e496 !important;*/
 }
 
 
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close:before {
-	color: #333;
-}
+

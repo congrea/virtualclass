@@ -9,20 +9,15 @@ module.exports = function(grunt) {
         //},
 
         cssmin: {
-            css_w: {
-                src: ['css/white/styles.css', 'css/white/popup.css', 'css/white/jquery.ui.chatbox.css', 'css/white/vceditor.css'],
-                dest: 'css/white.min.css'
-            }
-            ,
-            css_g: {
-                src: ['css/gray/styles.css', 'css/gray/popup.css', 'css/gray/jquery.ui.chatbox.css', 'css/gray/vceditor.css'],
-
-                dest: 'css/gray.min.css'
-            },
             css_b: {
-                src: ['css/black/styles.css', 'css/black/popup.css', 'css/black/jquery.ui.chatbox.css', 'css/black/vceditor.css'],
+                src: ["css/modules/styles.css", "css/modules/popup.css", "css/modules/vceditor.css", "css/modules/document-share.css", "css/modules/editor.css",
+                    "css/modules/icon.css", "css/modules/media.css", "css/modules/poll.css", "css/modules/quiz.css", "css/modules/screenshare.css",
+                    "css/modules/sharepresentation.css", "css/modules/video.css", "css/modules/peervideo.css", "css/modules/whiteboard.css", "css/modules/youtube.css",
+                    "css/modules/jquery.ui.chatbox.css", "css/modules/progress.css", "css/modules/pbar.css", "css/modules/dashboard.css", "css/modules/dashboard.css",
+                    "css/modules/dbPpt.css", "css/modules/dbVideo.css", "css/bootstrap/css/bootstrap.css", "css/modules/multivideo.css",
+                    "css/modules/right-sidebar.css", "css/modules/network.css", "css/modules/main-container-layout.css", "css/modules/color.css","css/modules/custom.css"],
 
-                dest: 'css/black.min.css'
+                dest: 'css/modules.min.css'
             }
         },
 
@@ -69,7 +64,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.registerTask('default', ['handlebars']);
-
+  grunt.registerTask('mincss', ['cssmin']);
 
 };

@@ -7,7 +7,6 @@
             videoId: "",
             videoUrl: "",
             isfullscreen: false,
-            videos: [],
             order: [],
             currPlaying: "",
             autoPlayFlag: 1,

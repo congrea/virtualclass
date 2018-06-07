@@ -165,7 +165,7 @@
                             dest: "dest" + virtualclass.chat.counter, // not used in demo
                             title: "box" + virtualclass.chat.counter,
                             first_name: name,
-                            type: "privateChat",
+                            type: "privateChat"
                             //you can add your own options too
                         });
 

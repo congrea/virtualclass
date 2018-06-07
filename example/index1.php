@@ -108,13 +108,12 @@ $quality = 'low';
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "codemirror/lib/codemirror.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "bundle/jquery/css/base/" . $theme . "_jquery-ui.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "bundle/jquery/css/base/black_jquery-ui.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "poll/graphs/c3.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "SlickQuiz/css/slickQuiz.css" ?> />
 <?php
 
-$cssdebug = 1;
 define('SCRIPT_ROOT', $whiteboardpath);
 ?>
 <style>
@@ -213,9 +212,9 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 //$completion = new completion_info($course);
 //$completion->set_module_viewed($cm);
 // Checking moodle deugger is unable or disable.
-$info = 1;
 
 // File included if debugging on
+$info = 0;
 if($info) {
 ?>
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/styles.css" ?> />
@@ -249,7 +248,9 @@ if($info) {
 
 <?php
 } else {
-    $PAGE->requires->css(new moodle_url($CFG->wwwroot . '/mod/congrea/bundle/virtualclass/css/'.$theme.'.min.css'));
+?>
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules.min.css" ?> />
+  <?php
 }
 
 $sid = $uid;
@@ -351,19 +352,11 @@ $cmid = 5;
 
 
 <?php
-$info = 1;
+
 if ($info) {
     include('js.debug.php');
 } else {
-?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/wb.min.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
-
-<?php
+        include('js.php');
 }
 ?>
 

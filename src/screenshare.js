@@ -522,7 +522,9 @@ var newCanvas;
                                         virtualclass.popup.chromeExtMissing();
                                     }
                                 }else{
-                                    virtualclass.popup.chromeExtMissing();
+
+                                    virtualclass.vutil._inlineChomeExtensionStore();
+                                    //virtualclass.popup.chromeExtMissing();
                                 }
                             }
                         );

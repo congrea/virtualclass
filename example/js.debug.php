@@ -69,9 +69,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube-iframe-api.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
-
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>

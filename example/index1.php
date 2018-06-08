@@ -214,7 +214,7 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 // Checking moodle deugger is unable or disable.
 
 // File included if debugging on
-$info = 0;
+$info = 1;
 if($info) {
 ?>
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/styles.css" ?> />

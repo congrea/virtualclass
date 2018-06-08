@@ -1,6 +1,18 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/handlebars-v4.0.8.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-continuelist.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-xml.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-markdown.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/mo_slickQuiz.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-d3.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-c3.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
+<script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
@@ -59,10 +71,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube-iframe-api.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-continuelist.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-xml.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-markdown.js"></script>
+
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-rich-toolbar.js"></script>
@@ -102,7 +112,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/mo_slickQuiz.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
@@ -124,11 +134,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-setting-media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 
-<script src="<?php echo $whiteboardpath . "external/src/poll-d3.js" ?>"></script>
-<script src="<?php echo $whiteboardpath . "external/src/poll-c3.js" ?>"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
-<script src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
+

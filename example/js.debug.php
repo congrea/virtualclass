@@ -1,7 +1,21 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/io/src/iolib.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/handlebars-v4.0.8.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-continuelist.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-xml.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-markdown.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/mo_slickQuiz.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-d3.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-c3.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
+<script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
+<script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/bootstrap-3.3.7.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
+
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
@@ -57,12 +71,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube-iframe-api.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/youtube.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/lib/codemirror.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/addon/edit/continuelist.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/mode/xml/xml.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>codemirror/mode/markdown/markdown.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-rich-toolbar.js"></script>
@@ -83,14 +92,14 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/vceditor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chat.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/footer.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatlist.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatbox.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/jquery.ui.chatroom.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/chatboxManager.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lib.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>chat/lang.en.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-footer.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatlist.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatbox.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatroom.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-boxManager.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lib.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/precheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
@@ -102,13 +111,13 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>SlickQuiz/js/mo_slickQuiz.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/zoom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf-render.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common.js"></script>
@@ -124,12 +133,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-setting-media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>d3.v3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.4.1/Youtube.min.js"></script>
-<script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+

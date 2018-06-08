@@ -1,4 +1,4 @@
-importScripts('video-libwebp-0.1.3.min.js');
+importScripts('../external/worker/video-libwebp-0.1.3.min.js');
 
 onmessage = function (e) {
     var mdata;

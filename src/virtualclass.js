@@ -196,7 +196,7 @@
                 //simple code editor with markdown
                 virtualclass.editorCode = window.editor('editorCode', 'virtualclassEditorCode', 'virtualclassEditorCodeBody');
 
-                virtualclass.yts = window.yts();
+//                virtualclass.yts = window.yts();
                 virtualclass.poll= window.poll();
                 virtualclass.quiz= window.quiz();
                 virtualclass.videoUl= window.videoUl();

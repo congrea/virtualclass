@@ -1576,7 +1576,7 @@
                         return;
                     }
                     var user = {
-                        img: "https://local.vidya.io/congrea_te/images/quality-support.png",
+                        img: "https://local.vidya.io/virtualclass/resources/images/quality-support.png",
                         name: "suman" + i,
                         userid: 3 + i,
                         role: 's'

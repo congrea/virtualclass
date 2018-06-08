@@ -119,8 +119,8 @@ define('SCRIPT_ROOT', $whiteboardpath);
 <style>
     @font-face {
         font-family: 'icomoon';
-        src:url('/virtualclass/fonts/icomoon.eot?-jjdyd0');
-        src:url('/virtualclass/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+        src:url('/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
+        src:url('/virtualclass//resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
         font-weight: normal;
         font-style: normal;
     }
@@ -139,15 +139,7 @@ define('SCRIPT_ROOT', $whiteboardpath);
 </style>
 
 <link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
-<script src="https://vjs.zencdn.net/5.8.8/video.js"></script>
-<!-- If you'd like to support IE8 -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 <link href="<?php echo $whiteboardpath . 'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
-
-<!-- Fine Uploader JS file
-====================================================================== -->
-
-
 
 <?php
 $isplay = false;
@@ -343,13 +335,8 @@ $cmid = 5;
 
     }
 </script>
-<link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
-<script src="https://vjs.zencdn.net/5.8.8/video.js"></script>
-
-<!-- If you'd like to support IE8 -->
 
 <link href="<?php echo $whiteboardpath.'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
-
 
 <?php
 

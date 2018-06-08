@@ -1,6 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>bundle/jquery/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/handlebars-v4.0.8.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
@@ -126,11 +126,9 @@
 
 <script src="<?php echo $whiteboardpath . "external/src/poll-d3.js" ?>"></script>
 <script src="<?php echo $whiteboardpath . "external/src/poll-c3.js" ?>"></script>
-
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.4.1/Youtube.min.js"></script>
-<script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
 <script src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>

@@ -12,6 +12,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
+<script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/bootstrap-3.3.7.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
@@ -115,7 +117,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/zoom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf-render.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common.js"></script>

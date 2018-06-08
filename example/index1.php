@@ -138,7 +138,7 @@ define('SCRIPT_ROOT', $whiteboardpath);
     }
 </style>
 
-<link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+<link href="<?php echo $whiteboardpath . 'external/css/video-js.css'; ?>" rel="stylesheet">
 <link href="<?php echo $whiteboardpath . 'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
 
 <?php
@@ -351,7 +351,7 @@ if ($info) {
 ====================================================================== -->
 
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>

@@ -107,11 +107,11 @@ $latency = 'slow';
 $quality = 'low';
 ?>
 
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "codemirror/lib/codemirror.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/codemirror.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "bundle/jquery/css/base/black_jquery-ui.css" ?> />
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "poll/graphs/c3.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "SlickQuiz/css/slickQuiz.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/poll-c3.css" ?> />
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/slickQuiz.css" ?> />
 <?php
 
 define('SCRIPT_ROOT', $whiteboardpath);
@@ -120,7 +120,7 @@ define('SCRIPT_ROOT', $whiteboardpath);
     @font-face {
         font-family: 'icomoon';
         src:url('/virtualclass/fonts/icomoon.eot?-jjdyd0');
-        src:url('/virtualclass/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+        src:url('/virtualclass/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
         font-weight: normal;
         font-style: normal;
     }
@@ -142,7 +142,7 @@ define('SCRIPT_ROOT', $whiteboardpath);
 <script src="https://vjs.zencdn.net/5.8.8/video.js"></script>
 <!-- If you'd like to support IE8 -->
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
-<link href="<?php echo $whiteboardpath . 'fileuploader/js/fine-uploader-gallery.css'; ?>" rel="stylesheet">
+<link href="<?php echo $whiteboardpath . 'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
 
 <!-- Fine Uploader JS file
 ====================================================================== -->
@@ -303,7 +303,7 @@ if($audactive){
 // Output starts here.
 
 // Default image if webcam disable.
-$src = '/virtualclass/images/quality-support.png';
+$src = '/virtualclass/resources/images/quality-support.png';
 $cmid = 5;
 
 ?>
@@ -348,7 +348,7 @@ $cmid = 5;
 
 <!-- If you'd like to support IE8 -->
 
-<link href="<?php echo $whiteboardpath.'fileuploader/js/fine-uploader-gallery.css'; ?>" rel="stylesheet">
+<link href="<?php echo $whiteboardpath.'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
 
 
 <?php
@@ -365,10 +365,6 @@ if ($info) {
 
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="<?php echo $whiteboardpath . "poll/graphs/d3.js" ?>"></script>
-<script src="<?php echo $whiteboardpath . "poll/graphs/c3.js" ?>"></script>
-
-<script src ="<?php echo $whiteboardpath.'s3/s3.fine-uploader.js'; ?>"></script>
 </head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>

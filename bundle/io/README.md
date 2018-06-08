@@ -1,4 +1,0 @@
-vidya.io
-========
-
-Vidya.io

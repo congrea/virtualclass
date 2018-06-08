@@ -1,10 +1,10 @@
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+	/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta <http://www.vidyamantra.com>
  * @module Break recording data into chunks and compress.
  */
 
-importScripts('lzstring.js');
+importScripts('../external/worker/lzstring.js');
 
 var cn,  totalStore = 0;
 var sizemultiplier = 1024 * 1024;

@@ -699,6 +699,7 @@
                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
                        sNodePak[uid] = 0;
                        sNode[uid].onaudioprocess = function (event){
+                           //console.log('Audio process')
                            var output = event.outputBuffer.getChannelData(0);
                            var newAud = that.getAudioChunks(uid);
                            if(typeof newAud != 'undefined'){
@@ -1000,13 +1001,18 @@
                         virtualclass.user.control.audioSign(user, "create");
                     }
 
-                    if(virtualclass.gObj.video.detectAudioWorklet()){
-                        let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                        virtualclass.gObj.video.audio.play(uid, packets);
-                    }else {
-                        virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                        virtualclass.gObj.video.audio.playWithFallback(uid);
-                    }
+                    virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                    virtualclass.gObj.video.audio.playWithFallback(uid);
+
+                    // Uncomment the below code to enable audio worklet
+
+                    // if(virtualclass.gObj.video.detectAudioWorklet()){
+                    //     let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                    //     virtualclass.gObj.video.audio.play(uid, packets);
+                    // }else {
+                    //     virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                    //     virtualclass.gObj.video.audio.playWithFallback(uid);
+                    // }
                 },
                 /**
                  * To extract user id of sender and data from the receied message

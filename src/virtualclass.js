@@ -1154,7 +1154,7 @@
                         that.multiVideo._init();
                     }
                     this.previous = virtualclass.mvConfig.id;
-                },
+                }
             },
 
             attachFunction: function () {
@@ -1299,7 +1299,7 @@
                     main: this.getTemplate('main') ,
                     whiteboard: this.getTemplate('main', 'whiteboard'),
                     dashboardCont: this.getTemplate('dashboardCont'),
-                    multiVideo: this.getTemplate('multiVideo'),
+                    multiVideo: this.getTemplate('multiVideo')
 
                 });
             },

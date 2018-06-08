@@ -103,7 +103,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>SlickQuiz/js/mo_slickQuiz.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf.js"></script>
@@ -120,4 +119,5 @@
 <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-setting-media.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

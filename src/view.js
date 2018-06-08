@@ -5,7 +5,7 @@
 (function (window) {
     var doit;
     var view = {
-        /*
+        /**
          * Initializing the view 
          * @returns view object
          */
@@ -15,7 +15,7 @@
             this.virtualWindow = {};
             return this;
         },
-        /*
+        /**
          * 
          * @param  msg message to be displayed
          * @param  id id of the container
@@ -37,7 +37,7 @@
                 parTag.insertBefore(msgBox, parTag.childNodes[0]);
             }
         },
-        /*
+        /**
          * Generating error message
          * @param  msg Message to be displayed as an error
          * @param  contId id of the error container
@@ -88,7 +88,7 @@
             addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
             return errorCont.id;
         },
-        /*
+        /**
          * Removes the error message
          * @param  id of the error container
          * @param  onlyLatest boolean value  true or false
@@ -111,7 +111,7 @@
             var element = document.getElementById(id);
             element.parentNode.removeChild(element);
         },
-        /*
+        /**
          * Creating HTML element
          * @param  tagName tag to be created
          * @param  id id of the tag name
@@ -129,7 +129,7 @@
             }
             return tag;
         },
-        /*
+        /**
          * creating the message box to be displayed
          * @param  msg message to be displayed 
          * @param id id of the container
@@ -149,7 +149,7 @@
             divTag.appendChild(pTag);
             return divTag;
         },
-        /*
+        /**
          * Removing  message boxes those are not needed on selection of an api application.
          * @param classname classname of the message box that are not needed
          */
@@ -160,7 +160,7 @@
                 allDivs[0].parentNode.removeChild(allDivs[0]);
             }
         },
-        /*
+        /**
          * Checking for the availability of webRtc
          * @param classname class webRtc
          */
@@ -177,7 +177,7 @@
                 //this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
             }
         },
-        /*
+        /**
          * displaying the message on canvas drawing
          * @param  className
          */
@@ -193,7 +193,7 @@
                 this.displayMessage(msg, "canvasDrawMsgContChrome", this.msgBoxClass + className, 'containerWb', null, id);
             }
         },
-        /*
+        /**
          * Drawing the label
          * @param className class of the label
 
@@ -202,7 +202,7 @@
             var msg = virtualclass.lang.getString('drawArea');
             this.displayMessage(msg, "canvasDrawArea", this.msgBoxClass + className, 'containerWb', false, id);
         },
-        /*
+        /**
          * displaying message
          * @param  id   id of the element
          * @param  msg message to be displayed
@@ -226,7 +226,7 @@
             var virtualclassCont = document.getElementById(panelId);
             virtualclassCont.insertBefore(div, virtualclassCont.firstChild);
         },
-        /*
+        /**
          * Displaying server errors
          * @param id    id of the container to display message
          * @param msg   message to be displayed
@@ -238,7 +238,7 @@
             var vcanvas = document.getElementById('vcanvas');
             vcanvas.parentNode.insertBefore(div, vcanvas);
         },
-        /*
+        /**
          * 
          * @param  id id of the element to be removed
          * @returns 
@@ -249,7 +249,7 @@
                 errorDiv.parentNode.removeChild(errorDiv);
             }
         },
-        /*
+        /**
          * Disabling screen share user interface if screen share is not available
          */
         disableSSUI: function () {
@@ -259,7 +259,7 @@
                 sTool.style.pointerEvents = "none";
             }
         },
-        /*
+        /**
          * Disabling  left application bar if there is an error and virtual class need to be disabled
          * 
          */
@@ -346,7 +346,7 @@
             && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb != 'undefined'
         ){
 
-            /** Remove black screen on resizing of doucmet sharing window **/
+            /*** Remove black screen on resizing of doucmet sharing window **/
             if(virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')){
                 clearTimeout(virtualclass.gObj.fitToScreenOnResize);
             }

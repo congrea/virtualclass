@@ -23,7 +23,8 @@ module.exports = function(grunt) {
                 src: ['css/black/styles.css', 'css/black/popup.css', 'css/black/jquery.ui.chatbox.css', 'css/black/vceditor.css'],
 
                 dest: 'css/black.min.css'
-            }
+            },
+
         },
 
         handlebars: {

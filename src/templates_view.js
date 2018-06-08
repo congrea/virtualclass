@@ -1055,30 +1055,14 @@ this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(conta
 },"2":function(container,depth0,helpers,partials,data) {
     return "      <div id=\"virtualclassScreenShareLocalTemp\">\n        <canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"1440\" height=\"738\"></canvas>\n      </div>\n";
 },"4":function(container,depth0,helpers,partials,data) {
-    return "      <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative; width: 1536px; height: 677px;\">\n        <video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video>\n      </div>\n\n    <div id=\"virtualclassScreenShareLocalSmall\" class=\"Local \">\n      <video id=\"virtualclassScreenShareLocalVideosmall\" autoplay=\"true\" src=\" \"></video>\n\n      <h3 id=\"screenShrMsg\" class=\"alert alert-info\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"screensharemsg",{"name":"getString","hash":{},"data":data}))
-    + "</h3>\n    </div>\n";
-},"6":function(container,depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return "    <div id=\"virtualclassScreenShareLocal\" class=\"Local\">\n      <canvas id=\"virtualclassScreenShareLocalVideo\" width=\"886\" height=\"724\"></canvas>\n    </div>\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"7":function(container,depth0,helpers,partials,data) {
-    return "      <div id=\"screenController\">\n        <div class=\"share selfView\">\n          <button type=\"button\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"sharetoall",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n        </div>\n      </div>\n";
-},"9":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.recImg : depth0),{"name":"unless","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n";
-},"10":function(container,depth0,helpers,partials,data) {
-    return "      <div id=\"virtualclassScreenShareLocalTemp\">\n        <canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"900\" height=\"740\"></canvas>\n      </div>\n";
-},"12":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"13":function(container,depth0,helpers,partials,data) {
+  return "      <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative; width: 1536px; height: 677px;\">\n        <video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video>\n      </div>\n\n    <div id=\"virtualclassScreenShareLocalSmall\" class=\"Local \">\n      <video id=\"virtualclassScreenShareLocalVideosmall\" autoplay=\"true\" src=\" \"></video>\n\n      <h3 id=\"screenShrMsg\" class=\"alert alert-info\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"screensharemsg",{"name":"getString","hash":{},"data":data}))
+    + "</h3>\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\n";
+},"5":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "        <div id=\"stopScreenShare\" class=\"ss\" data-title=\""
@@ -1086,13 +1070,33 @@ this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(conta
     + "\">\n          <button type=\"button\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssBtn",{"name":"getString","hash":{},"data":data}))
     + "</button>\n        </div>\n";
+},"7":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div id=\"virtualclassScreenShareLocal\" class=\"Local\">\n      <canvas id=\"virtualclassScreenShareLocalVideo\" width=\"886\" height=\"724\"></canvas>\n    </div>\n"
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"8":function(container,depth0,helpers,partials,data) {
+    return "      <div id=\"screenController\">\n        <div class=\"share selfView\">\n          <button type=\"button\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"sharetoall",{"name":"getString","hash":{},"data":data}))
+    + "</button>\n        </div>\n      </div>\n";
+},"10":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.recImg : depth0),{"name":"unless","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n";
+},"11":function(container,depth0,helpers,partials,data) {
+    return "      <div id=\"virtualclassScreenShareLocalTemp\">\n        <canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"900\" height=\"740\"></canvas>\n      </div>\n";
+},"13":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<div id=\"virtualclassScreenShare\" class=\"virtualclass \">\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(12, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.program(13, data, 0),"data":data})) != null ? stack1 : "")
     + "</div>";
 },"useData":true});
 

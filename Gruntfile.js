@@ -9,6 +9,7 @@ module.exports = function(grunt) {
         //},
 
         cssmin: {
+            
             css_b: {
                 src: ["css/modules/styles.css", "css/modules/popup.css", "css/modules/vceditor.css", "css/modules/document-share.css", "css/modules/editor.css",
                     "css/modules/icon.css", "css/modules/media.css", "css/modules/poll.css", "css/modules/quiz.css", "css/modules/screenshare.css",

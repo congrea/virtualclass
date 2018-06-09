@@ -112,13 +112,23 @@ $quality = 'low';
 define('SCRIPT_ROOT', $whiteboardpath);
 ?>
 <style>
+/*
     @font-face {
         font-family: 'icomoon';
         src:url('/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
         src:url('/virtualclass//resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
         font-weight: normal;
         font-style: normal;
-    }
+    } */
+
+        @font-face {
+                font-family: 'icomoon';
+                src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0');
+                src:url('https://cdn.congrea.net/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+    
     .CodeMirror { height: auto; }
     .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
@@ -242,8 +252,8 @@ if($info) {
 <?php
 } else {
 ?>
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "build/css/modules.min.css" ?> />
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "build/css/external.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href="https://cdn.congrea.net/build/css/modules.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.congrea.net/build/css/external.min.css" />
   <?php
 }
 

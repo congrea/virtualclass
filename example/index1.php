@@ -251,9 +251,8 @@ if($info) {
 <?php
 } else {
 ?>
-  <link rel="stylesheet" type="text/css" href="https://cdn.congrea.net/build/css/modules.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.congrea.net/build/css/external.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://local.vidya.io/virtualclass/external/css/codemirror.css" />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/modules.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/external.min.css" ?> />
 
   <?php
 }

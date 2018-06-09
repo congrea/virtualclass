@@ -43,7 +43,7 @@ $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $lice
 
 
 if (!$rid = json_decode($rid)) {
-    echo "{\"error\": \"403\"}";exit;
+    echo "{\"error\": \"403: Please make sure key & secret are correct. Please try again after 5 minutes. \"}";exit;
 } elseif (isset($rid->message)) {
     echo "{\"error\": \"$rid->message\"}";exit;
 } elseif (!isset($rid->result)) {

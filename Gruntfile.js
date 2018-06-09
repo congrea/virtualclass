@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             },
 
             external_css : {
-                src : ["css/modules/codemirror.css", "css/modules/poll-c3.css", "external/css/slickQuiz.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
+                src : ["external/css/codemirror.css", "external/css/poll-c3.css", "external/css/slickQuiz.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
                 dest : 'build/css/external.min.css'
             }
         },

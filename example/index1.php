@@ -212,7 +212,6 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 $info = 0;
 if($info) {
 ?>
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/codemirror.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/poll-c3.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/slickQuiz.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/video-js.css" ?> />
@@ -254,6 +253,8 @@ if($info) {
 ?>
   <link rel="stylesheet" type="text/css" href="https://cdn.congrea.net/build/css/modules.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.congrea.net/build/css/external.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://local.vidya.io/virtualclass/external/css/codemirror.css" />
+
   <?php
 }
 

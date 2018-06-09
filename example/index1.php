@@ -107,11 +107,6 @@ $latency = 'slow';
 $quality = 'low';
 ?>
 
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/codemirror.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "bundle/jquery/css/base/black_jquery-ui.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/poll-c3.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/slickQuiz.css" ?> />
 <?php
 
 define('SCRIPT_ROOT', $whiteboardpath);
@@ -138,8 +133,6 @@ define('SCRIPT_ROOT', $whiteboardpath);
     }
 </style>
 
-<link href="<?php echo $whiteboardpath . 'external/css/video-js.css'; ?>" rel="stylesheet">
-<link href="<?php echo $whiteboardpath . 'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
 
 <?php
 $isplay = false;
@@ -206,9 +199,17 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 // Checking moodle deugger is unable or disable.
 
 // File included if debugging on
-$info = 1;
+$info = 0;
 if($info) {
 ?>
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/codemirror.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/poll-c3.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/slickQuiz.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/video-js.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/fine-uploader-gallery.css" ?> />
+
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/black_jquery-ui.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/styles.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/popup.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/vceditor.css" ?> />
@@ -241,7 +242,8 @@ if($info) {
 <?php
 } else {
 ?>
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "build/css/modules.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "build/css/external.min.css" ?> />
   <?php
 }
 
@@ -336,14 +338,13 @@ $cmid = 5;
     }
 </script>
 
-<link href="<?php echo $whiteboardpath.'external/css/fine-uploader-gallery.css'; ?>" rel="stylesheet">
 
 <?php
 
 if ($info) {
     include('js.debug.php');
 } else {
-        include('js.php');
+    include('js.php');
 }
 ?>
 

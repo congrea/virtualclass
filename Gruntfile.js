@@ -15,9 +15,14 @@ module.exports = function(grunt) {
                     "css/modules/sharepresentation.css", "css/modules/video.css", "css/modules/peervideo.css", "css/modules/whiteboard.css", "css/modules/youtube.css",
                     "css/modules/jquery.ui.chatbox.css", "css/modules/progress.css", "css/modules/pbar.css", "css/modules/dashboard.css", "css/modules/dashboard.css",
                     "css/modules/dbPpt.css", "css/modules/dbVideo.css", "css/bootstrap/css/bootstrap.css", "css/modules/multivideo.css",
-                    "css/modules/right-sidebar.css", "css/modules/network.css", "css/modules/main-container-layout.css", "css/modules/color.css","css/modules/custom.css"],
+                    "css/modules/right-sidebar.css", "css/modules/network.css", "css/modules/main-container-layout.css", "css/modules/color.css","css/modules/custom.css", "css/modules/black_jquery-ui.css"],
 
-                dest: 'css/modules.min.css'
+                dest: 'build/css/modules.min.css'
+            },
+
+            external_css : {
+                src : ["css/modules/codemirror.css", "css/modules/poll-c3.css", "external/css/slickQuiz.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
+                dest : 'build/css/external.min.css'
             }
         },
 

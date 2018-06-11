@@ -273,7 +273,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
     padding:4px 12.5px 4px 12.5px;
 }
 .playControllerMainCont #playControllerCont #playController .icon-Replayfromstart {
-    padding:3px 11px 3px 11px;
+    padding:0 8px;
+    box-shadow:none;
 }
 
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/

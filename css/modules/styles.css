@@ -1527,7 +1527,7 @@
 #virtualclassCont.congrea #playProgress {
 	background-color: #676666;
 	float: left;
-	margin-left: 12px;
+	margin-left: 18px;
 	margin-top: 9px;
 	text-align: center;
 	width: 350px;
@@ -1769,6 +1769,7 @@
 
 #virtualclassCont.congrea #playControllerCont #replayFromStart{
 	margin:0 7px;
+    margin-top:-2px;
 }
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart {
     background-color:transparent !important;
@@ -1831,7 +1832,6 @@
 }
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #askPlay #playButton:before{
 	position: relative;
-	left: -6px;
 	color:#93b42f;
 }
 
@@ -1839,6 +1839,10 @@
 	pointer-events:  none;
 	    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px #73f175;
         box-shadow: 0px 2px 2px 1px #8d98a4;
+}
+
+#virtualclassCont.congrea.playMode #playController #replayFromStart.controlActive {
+    box-shadow:none;
 }
 
 #virtualclassCont.congrea #virtualclassCont.congrea.orginalTeacher #vcanvas{
@@ -1944,7 +1948,7 @@
 	margin: 0 auto;
     margin-top:40vh;
 	padding: 30px 20px;
-    width: 26%;
+    width: 27%;
     text-align: center;
 	box-shadow: 0 0 8px #ddd;
 }
@@ -3112,6 +3116,7 @@
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] #virtualclassWhiteboard.whiteboard .nvgt{
 	display : block;
+    text-align: center;
 }
 
 #virtualclassCont.congrea #tech_support_save{
@@ -3383,6 +3388,12 @@
 	left:0;
 	cursor:pointer;
 }
+
+#virtualclassCont.congrea.playMode #congHr {
+    pointer-events: none !important;
+    opacity: .5;
+}
+
 #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before {
 	content: "\e962";
 }
@@ -3738,6 +3749,7 @@ opacity: 1;
     border:1px solid green !important;
     color:green !important;
 }
+
 #virtualclassCont.congrea #chat_room li .chat-user-icon{
 	border: solid black 1px;
 	width: 40px;
@@ -3747,5 +3759,16 @@ opacity: 1;
 	padding-top: 12px;
 	margin-top: 5px;
 	font-size: large;
+}
+
+
+#virtualclassCont.congrea.playMode #networkStatusContainer {
+    display:none;
+}
+
+
+#virtualclassCont.congrea .recordingError {
+	color : #ff1934;
+	font-weight : bold;
 }
 

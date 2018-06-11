@@ -201,17 +201,22 @@
         initInstallChromeExt: function(error) {
             if (error.name == 'EXTENSION_UNAVAILABLE') {
                 console.log('ask for inline installation');
-                //alert('ss' + chrome);
-                chrome.webstore.install('https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl',
-                    function(arg) {
-                        window.location.reload();
-                    },
-                    function(e) {
-                        alert(e);
-                    }
-                )
+                this._inlineChomeExtensionStore();
             }
         },
+
+        _inlineChomeExtensionStore : function (){
+            //alert('ss' + chrome);
+            chrome.webstore.install('https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl',
+                function(arg) {
+                    window.location.reload();
+                },
+                function(e) {
+                    alert(e);
+                }
+            )
+        },
+
         removeAppPanel: function() {
             var appPanel = document.getElementById('virtualclassOptionsCont');
             if (appPanel != null) {
@@ -562,7 +567,7 @@
                             videoUrl:virtualclass.videoUl.videoUrl,
                             yts:virtualclass.videoUl.yts,
                             online:virtualclass.videoUl.online,
-                            isPaused:virtualclass.videoUl.isPaused,
+                            isPaused:virtualclass.videoUl.isPaused
                         },
                         startFrom: start,
                         isAutoplay:virtualclass.videoUl.autoPlayFlag
@@ -1571,7 +1576,7 @@
                         return;
                     }
                     var user = {
-                        img: "https://local.vidya.io/congrea_te/images/quality-support.png",
+                        img: "https://local.vidya.io/virtualclass/resources/images/quality-support.png",
                         name: "suman" + i,
                         userid: 3 + i,
                         role: 's'
@@ -2261,14 +2266,14 @@
         isChromeExtension : function (){
             window.postMessage({type: 'isInstalled', id: 1}, '*');
             console.log('Chrome Extension:- Check');
-            setTimeout(
-                function (){
-                    if(!virtualclass.gObj.chromeExt){
-                        virtualclass.gObj.chromeExt = true;
-                    }
-                },
-                1500
-            );
+            // setTimeout(
+            //     function (){
+            //         if(!virtualclass.gObj.chromeExt){
+            //             virtualclass.gObj.chromeExt = true;
+            //         }
+            //     },
+            //     1500
+            // );
 
             window.addEventListener('message', function (event) {
                 if (event.data.type == 'yes') {
@@ -2652,7 +2657,7 @@
                     console.log('add note display');
                 }
             }
-        },
+        }
 
         calcBrightness:function(color){
             var rgb = chroma(color).rgb();

@@ -679,14 +679,6 @@
                     }
                 },
 
-                _audio: function (userId, action) {
-                    if (action == 'enable') {
-                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
-                    } else {
-                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
-                    }
-                },
-
                 _audioAll : function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
@@ -731,7 +723,6 @@
                         }, userId);
                     }
                 },
-
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
@@ -879,11 +870,6 @@
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.remove('chat_disabled');
                     chat_div.classList.add('chat_enabled');
-
-                    var div = document.getElementById("chatrm");
-                    if (div != null) {
-                       // this.makeElemEnable(div);
-                    }
 
                     var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
                     if(chatInput){

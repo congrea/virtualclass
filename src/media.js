@@ -19,7 +19,7 @@
 
     repMode = false;
     //var io = window.io;
-    /*
+    /**
      * To convert float to integer
      * @param  buffer: audio samples a Float32 bit  array
      * @returns buf : Int16Array buffer
@@ -55,7 +55,7 @@
     var sNodePak = {};
 
 //        var AudioContext = AudioContext || webkitAudioContext;
-    /*
+    /**
      * this returns an object that contains various Properties
      * to facilitate the capturing , saving, transmitting and
      *  rendering audio or video.
@@ -79,7 +79,7 @@
             videoContainerId: "videos",
 
 
-            /*
+            /**
              * Replaces image with  video
              * @param id Id of the user
              * @param vidCont Video wrapper to replace the image
@@ -130,7 +130,7 @@
             },
 
 
-            /*
+            /**
              * This property contains various property and methods to capture,save and tranmit
              * and listen audio
              */
@@ -178,7 +178,7 @@
                             context.strokeStyle = "rgba(32, 37, 247, 0.8)";
                             context.closePath();
                             context.stroke();
-                        },
+                        }
 
                         // canvasForVideo: function () {
                         //     var videoParent = cthis.video.myVideo.parentNode;
@@ -204,7 +204,8 @@
                         speakerPressOnce.click();
                     }
                 },
-                /*
+
+                /**
                  * To send message and
                  * To set audio status of the audio
                  * @param  msg Audio message
@@ -287,7 +288,8 @@
                     }
                     return send;
                 },
-                /*
+
+                /**
                  *  Setting the attribute data-silence-detect to sending or notSending or stop
                  * @param  audStatus audio status such sending , notsending or stop
                  */
@@ -308,7 +310,8 @@
                     };
                     imageObj.src = window.whiteboardPath + "images/" + imgName;
                 },
-                /*
+
+                /**
                  * Attaching functions to audioWidget
                  * Adding event listner on clicking audio tools
                  */
@@ -328,7 +331,8 @@
                         }
                     }
                 },
-                /*
+
+                /**
                  * It is invoked on clicking on or off button appeared on audio widget
                  * And it is invoked on clicking test audio
                  */
@@ -368,7 +372,8 @@
                     }
 
                 },
-                /*
+
+                /**
                  * If Push to talk audio tool is pressed down then audio is active
                  * and studentSpeak is invoked.
                  * And if push to talk audio tool is pressed up audio is deactive
@@ -430,7 +435,8 @@
                             }
                         });
                 },
-                /*
+
+                /**
                  * Attching function to audio press once tool in the audio widget
                  *
                  */
@@ -442,7 +448,8 @@
                         that.clickOnceSpeaker.call(that, speakerPressOnce.id)
                     });
                 },
-                /*
+
+                /**
                  * If Audio is enabled then clicking on it disbles it
                  * And if it is disbled then clicking on it enables it
                  * @param  id : Id of the audio tool
@@ -472,7 +479,7 @@
                         tag.className = "audioTool deactive";
                     }
                 },
-                /*
+                /**
                  * Audio tool element 'Push to talk' is active
                  * User speaks on mouse press down
                  * @param elem audio tool element
@@ -490,7 +497,7 @@
                     virtualclass.gObj.audMouseDown = true;
                     virtualclass.vutil.beforeSend({'sad': true, 'cf': 'sad'});
                 },
-                /*
+                /**
                  * Audio tool deactive
                  * @param elem audio tool element
                  */
@@ -510,7 +517,7 @@
                         virtualclass.vutil.beforeSend({'sad': false, 'cf': 'sad'}, null, true);
                     }
                 },
-                /*
+                /**
                  * Conversion from array buffer to string
                  * @param buf arrayBuffer
                  * @return string
@@ -518,7 +525,7 @@
                 ab2str: function (buf) {
                     return String.fromCharCode.apply(null, new Int8Array(buf));
                 },
-                /*
+                /**
                  * Conversion from string to array buffer
                  * @param str string
                  * @return bufView Array Buffer
@@ -533,7 +540,7 @@
                 },
 
 
-                /*
+                /**
                  * Resamples the audio and silence detection, and broadcast audio
                  */
                recorderProcess: function (left) {
@@ -554,7 +561,7 @@
                     }
                 },
 
-                /*
+                /**
                  * Resamples the audio and silence detection, and broadcast audio
                  * it's fallback method in case of not supporting audio worklet
                  */
@@ -575,7 +582,7 @@
                     }
                 },
 
-                /*
+                /**
                  * Encodes the sampled data
                  *@param leftSix audio data
                  *@return encoded  G711 encoded data
@@ -587,7 +594,7 @@
                     });
                     return encoded;
                 },
-                /*
+                /**
                  * To play recorded sound in audio testing after 5000ms of recording
                  * recoding is stored in an array audioForTest
                  * and to set the time out of audio testing
@@ -620,7 +627,7 @@
                         }, ((totTestTime * 2) + 1000  )
                     )
                 },
-                /*
+                /**
                  * pushing the encoded samples in audioForTest array
                  * setting the uid to false
                  * @param  leftSix audio samples
@@ -633,7 +640,7 @@
                     virtualclass.gObj.audioForTest.push(encoded);
                     virtualclass.gObj[virtualclass.gObj.uid] = false;
                 },
-                /*
+                /**
                  * it playes the recoded audio
                  * @param encChuncks encoded channel buffer recordings
                  * @param  uid user id
@@ -653,7 +660,7 @@
                 },
 
 
-                /*
+                /**
                  * This function plays the audio with using audio worklet
                  * @param  uid User id
                  * @param  audioChunks that need be played
@@ -676,7 +683,7 @@
 
                },
 
-                /*
+                /**
                  * This function plays the audio with using Script Processor Node which is deprecated,
                  * it's a fallback method in case of audio worklet is not supported.
                  * @param  uid is User Id
@@ -692,6 +699,7 @@
                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
                        sNodePak[uid] = 0;
                        sNode[uid].onaudioprocess = function (event){
+                           //console.log('Audio process')
                            var output = event.outputBuffer.getChannelData(0);
                            var newAud = that.getAudioChunks(uid);
                            if(typeof newAud != 'undefined'){
@@ -727,7 +735,7 @@
                         Eight: true
                     });
 
-                    /* On absence of Webcam but Headphone,
+                    /** On absence of Webcam but Headphone,
                      The Audio context should be generated on Student side by following code */
 
                     if(typeof this.resamplerdecode != 'object'){
@@ -762,7 +770,7 @@
                         ac[uid] = 0;
                     }
 
-                    /* Picking up an audio chunk and giving
+                    /** Picking up an audio chunk and giving
                      * to Audio Queue, to handle 44.1khz and 48khz
                      */
                     while (allAudioArr[uid].length >= 16384) {
@@ -780,7 +788,7 @@
                         Eight: true
                     });
 
-                    /* On absence of Webcam but Headphone,
+                    /** On absence of Webcam but Headphone,
                      The Audio context should be generated on Student side by following code */
 
                     if(typeof this.resamplerdecode != 'object'){
@@ -802,7 +810,7 @@
                 },
 
 
-                /*
+                /**
                  * Audio associated with the user id is played
                  * if length of audio is between 1 and 7
                  * the the audio is played
@@ -847,7 +855,7 @@
                         newSource.start(whenTime, offset);
                     }
                 },
-                /*
+                /**
                  * Merging  the channel buffer recordings  in the form of Float32Array
                  * channel Buffer is an array of recording chunks , length of each specified by the recordingLength
                  * @param  channelBuffer buffer of recodings
@@ -903,7 +911,7 @@
                     );
                 },
 
-                /**
+                /***
                  * It connects the stream received from Mic/GetUserMedia to audio context,
                  * and getting the audio chunks from audio worklet
                  **/
@@ -957,7 +965,7 @@
                     grec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 },
 
-                /*
+                /**
                  *  Setting the record start time to the current time
                  *  and setting the replay mode to false
                  *
@@ -968,7 +976,7 @@
                     this.recordAudio = false;
                     repMode = false;
                 },
-                /*
+                /**
                  * Recives the audio message from the sender
                  * And  Plays the received audio
                  * @param  msg Audio message received from the sender
@@ -993,15 +1001,20 @@
                         virtualclass.user.control.audioSign(user, "create");
                     }
 
-                    if(virtualclass.gObj.video.detectAudioWorklet()){
-                        let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                        virtualclass.gObj.video.audio.play(uid, packets);
-                    }else {
-                        virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                        virtualclass.gObj.video.audio.playWithFallback(uid);
-                    }
+                    virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                    virtualclass.gObj.video.audio.playWithFallback(uid);
+
+                    // Uncomment the below code to enable audio worklet
+
+                    // if(virtualclass.gObj.video.detectAudioWorklet()){
+                    //     let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
+                    //     virtualclass.gObj.video.audio.play(uid, packets);
+                    // }else {
+                    //     virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                    //     virtualclass.gObj.video.audio.playWithFallback(uid);
+                    // }
                 },
-                /*
+                /**
                  * To extract user id of sender and data from the receied message
                  * @param  msg recevied message from online users
                  * @returns {Array} userid received with the  message plus rest of the msz data
@@ -1018,7 +1031,7 @@
                 }
 
             },
-            /*
+            /**
              * video property contains all the properties and methods necessary for the manipulation
              * of the video
              */
@@ -1043,7 +1056,7 @@
                     this.myVideo.width = this.width;
                     this.myVideo.height = this.height;
                 },
-                /*
+                /**
                  *  remove user and corresponding video element
                  * @param id userid of the user to be removed
                  */
@@ -1053,7 +1066,7 @@
                         element.parentNode.removeChild(element);
                     }
                 },
-                /*
+                /**
                  * TO create Video container that replaces user image
                  * @param  user user object
 
@@ -1086,7 +1099,7 @@
                     var chatBoxHeight = sidebarHeight - videoHeight;
                     chatBox.style.height = chatBoxHeight + "px";
                 },
-                /*Send the small video and render it at the receiver's side
+                /**Send the small video and render it at the receiver's side
                  * And breaks user id into bytes
                  * Sets the interval for  send small video
                  * interval depends on the number of users
@@ -1186,7 +1199,7 @@
                     }
                 },
 
-                /*
+                /**
                  * Calulate dimensions of the  video
                  * and sends the video
                  */
@@ -1195,7 +1208,7 @@
                     cthis.video.send();
                 },
 
-                /*
+                /**
                  * Play the received video with out slicing it
                  * @param  uid
                  * @param  msg video message received
@@ -1269,7 +1282,7 @@
                         200
                     );
                 },
-                /*
+                /**
                  * Creates video element
                  * @returns video element
                  */
@@ -1287,7 +1300,7 @@
                     return parElement;
                 },
 
-                /*
+                /**
                  * To create canvas element to display video
                  * @param string beforInsert : The element before that video element to be inserted
                  */
@@ -1304,7 +1317,7 @@
                     cthis.video.tempVid.height = cthis.video.height;
                     cthis.video.tempVidCont = cthis.video.tempVid.getContext('2d');
                 },
-                /*
+                /**
                  * Extracting the user id of sender from the sent  message
                  * separating it from the audio
                  * And playing the video by calling playWithoutSlice
@@ -1329,7 +1342,7 @@
                 }
             },
 
-            /*
+            /**
              * It creates a mediator for getUSerMedia
              * and it prompts the user for permission to use video or audio device
              * it  inalizes the video
@@ -1362,7 +1375,7 @@
                         {googAudioMirroring: true},
                         {googNoiseReduction: true},
                         {VoiceActivityDetection: true}
-                    ],
+                    ]
 
                 };
 
@@ -1374,7 +1387,7 @@
                 if(virtualclass.gObj.meetingMode){
                     if(webcam){
                         var webcam = { width : {
-                            max :  288,
+                            max :  288
                         },
                         height : {
                             max :  162
@@ -1431,7 +1444,7 @@
             },
 
 
-            /*
+            /**
              * This function  is invoked with the resulting media stream object if the call to getUserMedia succeeds.
              * And invoke handleUSerMediaError in case of getusermedia error.
              * handleUSerMedia  initializes audio.
@@ -1497,7 +1510,7 @@
             },
 
 
-            /*
+            /**
              * Adding the class student or teacher to the each user's div
              * @param  id User id
              * @param  role user role
@@ -1520,7 +1533,7 @@
                 }
             },
 
-            /*
+            /**
              * Creates a video element
              * and  replaces the image with video
              * manipulates the audio
@@ -1550,7 +1563,7 @@
                 }
                 userMedia = true;
             },
-            /*
+            /**
              * Increasing chat container's height as number of users is increased
              * user box scroll, right bar scroll
              *
@@ -1585,7 +1598,7 @@
                     clearInterval(virtualclass.gObj.video.smallVid);
                 }
             },
-            /*
+            /**
              * Plays all videos of currentlly logged in users after an interval of 1040 ms
              * @param id footer chat  container id
              */
@@ -1604,7 +1617,7 @@
                 );
             },
 
-            /*
+            /**
              *TODO this function is not being invoked
              */
             existVideoContainer: function (user) {
@@ -1617,7 +1630,7 @@
                 return false;
             },
 
-            /*
+            /**
              * The function to invoke with the resulting MediaStreamError if the call to getUSerMedia fails.
              * disableing audioWiget
              * Disappearing all containers

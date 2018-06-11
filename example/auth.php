@@ -26,8 +26,15 @@ $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
 $licensekey = 'Wmqyg9MPQU9D1pOLBSvUN2mthVNhUMQ55RlA2wpn';
 $secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6'; */
 
-$licensekey = 'QROly9tGtQLHsCcVSICkfQHbqUkirXFb4jDaql1guIGXAihJ';
-$secret = 'mV50OT0T0ispp0Z7PiII92mEzzc14n4rj9r83s14KutavsilL13V4pzDZLF49Jvs';
+/*$licensekey = 'noqOqApeSflBnQn9VSibPQ19CHFxRjLuEWdzojnHVMrVNlRa';
+$secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
+
+/*$licensekey = 'U8ZhqgxOuaQrmOfdtDVBpcKO0ZpuNdM85CYl6Mb41CLGnY3F';
+$secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK'; */
+
+$licensekey = 'U8ZhqgxOuaQrmOfdtDVBpcKO0ZpuNdM85CYl6Mb41CLGnY3F';
+$secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK'; 
+
 
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => 't', 'room' => $room);
 $post_data = json_encode($post_data);
@@ -37,7 +44,7 @@ $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $lice
 
 
 if (!$rid = json_decode($rid)) {
-    echo "{\"error\": \"403\"}";exit;
+    echo "{\"error\": \"403: Please make sure key & secret are correct. Please try again after 5 minutes. \"}";exit;
 } elseif (isset($rid->message)) {
     echo "{\"error\": \"$rid->message\"}";exit;
 } elseif (!isset($rid->result)) {

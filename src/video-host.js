@@ -217,7 +217,7 @@ var videoHost = {
         if(!imgElem){
             var img = document.createElement('img');
             img.classList.add('media-object');
-            img.setAttribute("src",whiteboardPath +"images/quality-support.png")
+            img.setAttribute("src",whiteboardPath +"resources/images/quality-support.png")
             imgCont.appendChild(img);
             console.log("set User icon");
         }

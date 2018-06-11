@@ -2,7 +2,6 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 $.uiBackCompat = false;
-
 $(document).ready(function () {
     // for calculate the
     // Internet Speed, Frame Rate and Internet Latency
@@ -309,7 +308,7 @@ $(document).ready(function () {
         }
 
         $(document).on("member_removed", function (e) {
-            console.log('member_removed');
+            console.dir('member_removed ' + e.message.userid);
             // virtualclass.connectedUsers = e.message;
             // // critical removign this can be critical
 
@@ -778,6 +777,7 @@ $(document).ready(function () {
 
 
         $(document).on("member_added", function (e) {
+
             var sType;
 
             if(typeof virtualclass.connectedUsers == 'undefined'){
@@ -802,6 +802,7 @@ $(document).ready(function () {
             }else {
                 console.log('User packet is not receving');
             }
+            console.log('member_added ' + virtualclass.joinUser.userid);
 
             // set the default value related about video quality, internet latency and frame rate
             if (virtualclass.jId == virtualclass.gObj.uid) {

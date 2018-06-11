@@ -363,3 +363,8 @@ span.sch {
   overflow-y : auto;
   height : 60vh;
 }
+
+
+#virtualclassCont.congrea #slickQuiz ol.questions > li {
+  maring-top : -18px;
+}

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                     "css/modules/icon.css", "css/modules/media.css", "css/modules/poll.css", "css/modules/quiz.css", "css/modules/screenshare.css",
                     "css/modules/sharepresentation.css", "css/modules/video.css", "css/modules/peervideo.css", "css/modules/whiteboard.css", "css/modules/youtube.css",
                     "css/modules/jquery.ui.chatbox.css", "css/modules/progress.css", "css/modules/pbar.css", "css/modules/dashboard.css", "css/modules/dashboard.css",
-                    "css/modules/dbPpt.css", "css/modules/dbVideo.css", "css/bootstrap/css/bootstrap.css", "css/modules/multivideo.css",
+                    "css/modules/dbPpt.css", "css/modules/dbVideo.css", "css/modules/multivideo.css",
                     "css/modules/right-sidebar.css", "css/modules/network.css", "css/modules/main-container-layout.css", "css/modules/color.css","css/modules/custom.css", "css/modules/black_jquery-ui.css"],
 
                 dest: 'build/css/modules.min.css'
@@ -24,6 +24,11 @@ module.exports = function(grunt) {
             external_css : {
                 src : ["external/css/codemirror.css", "external/css/poll-c3.css", "external/css/slickQuiz.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
                 dest : 'build/css/external.min.css'
+            },
+
+            bootstrap_css : {
+                src : ["css/bootstrap/css/bootstrap.css"],
+                dest : 'css/bootstrap/css/bootstrap.min.css'
             }
         },
 

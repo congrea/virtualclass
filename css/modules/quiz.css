@@ -360,6 +360,6 @@ span.sch {
 }
 
 #virtualclassCont.congrea #slickQuiz .quizArea {
-  overflow-y : scroll;
+  overflow-y : auto;
   height : 60vh;
 }

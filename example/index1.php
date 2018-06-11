@@ -124,7 +124,10 @@ define('SCRIPT_ROOT', $whiteboardpath);
         @font-face {
                 font-family: 'icomoon';
                 src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0');
-                src:url('https://cdn.congrea.net/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+                src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
+                url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
+                url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
+                url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -216,6 +219,7 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/slickQuiz.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/video-js.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/fine-uploader-gallery.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/codemirror.css" ?> />
 
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/black_jquery-ui.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
@@ -241,21 +245,27 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dashboard.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbPpt.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbVideo.css" ?> />
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+
+
+
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/right-sidebar.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/network.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/color.css" ?> />
-
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
 <?php
 } else {
 ?>
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/modules.min.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/external.min.css" ?> />
-
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.min.css" ?> />
   <?php
 }
+
+?>
+
+<?php
 
 $sid = $uid;
 $role  = 'student';

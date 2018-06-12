@@ -22,13 +22,18 @@ module.exports = function(grunt) {
             },
 
             external_css : {
-                src : ["external/css/codemirror.css", "external/css/poll-c3.css", "external/css/slickQuiz.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
+                src : ["external/css/codemirror.css", "external/css/poll-c3.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
                 dest : 'build/css/external.min.css'
             },
 
             bootstrap_css : {
                 src : ["css/bootstrap/css/bootstrap.css"],
                 dest : 'css/bootstrap/css/bootstrap.min.css'
+            },
+
+            sliqquiz : {
+                src : 'external/css/slickQuiz.css',
+                dest : 'external/css/slickQuiz.min.css'
             }
         },
 

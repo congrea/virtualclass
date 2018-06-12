@@ -1,0 +1,339 @@
+/* BASE QUIZ STYLES */
+/* These styles ensure that the necessary elements are hidden for toggling */
+
+/* DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING!! */
+
+/*
+.startQuiz,
+.nextQuestion,
+.backToQuestion,
+.questions li.question,
+.questions li.question .responses,
+.questions li.question .responses .correct,
+.questions li.question .responses .incorrect,
+.quizResults {
+    display: none;
+}
+*/
+
+/* If response messages are disabled or only shown on quiz completion,
+   nextQuestion button IS checkAnswer button - so it must be displayed */
+/*
+.nextQuestion.checkAnswer {
+    display: block;
+}
+
+ol.questions,
+ul.answers,
+ul.responses,
+ol.questions li,
+ul.answers li,
+ul.responses li {
+    list-style-type: none;
+}
+*/
+
+/* Accessibility */
+/*
+.quizName span:first-child {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+*/
+/* Custom css written by pinky*/
+
+.path-mod-congrea-quiz .quizinfo {
+    text-align: center;
+}
+.path-mod-congrea-quiz h3 {
+    font-size: 18px;
+    margin: 15px 0 10px;
+}
+
+.path-mod-congrea-quiz strong { font-weight: bold; }
+.path-mod-congrea-quiz em { font-style: italic; }
+.path-mod-congrea-quiz ul { list-style-type: circle; }
+.path-mod-congrea-quiz ol { list-style-type: decimal; }
+.path-mod-congrea-quiz ol li { list-style-type: decimal; margin-left: 20px; }
+
+.path-mod-congrea-quiz .button {
+    float: left;
+    width: auto;
+    padding: 5px 15px;
+    color: #fff;
+    background-color: #005aa8;
+    background-image: linear-gradient(to bottom, #0070a8, #0038a8);
+    /*border: 1px solid #fff;*/
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+    margin: 1px;
+    /*background-color: #005aa8;
+    background-image: linear-gradient(to bottom, #0070a8, #0038a8);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);*/
+}
+/*.path-mod-congrea-quiz .button:hover {
+    background-color:darkslategray;
+}*/
+
+.path-mod-congrea-quiz .quizArea, .quizResults {
+    zoom: 1;
+}
+.path-mod-congrea-quiz .quizArea:before, .quizArea:after, .quizResults:before, .quizResults:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    font-size: 0;
+}
+.path-mod-congrea-quiz .quizArea:after, .quizResults:after {
+    clear: both;
+}
+
+.path-mod-congrea-quiz .questionCount {
+    font-size: 14px;
+    font-style: italic;
+}
+.path-mod-congrea-quiz .questionCount span {
+    font-weight: bold;
+}
+
+.path-mod-congrea-quiz ol.questions {
+    /*margin-top: 20px;*/
+    margin-left: 0;
+}
+.path-mod-congrea-quiz ol.questions li {
+    margin: 8px 0;
+}
+.path-mod-congrea-quiz ul.answers {
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+
+.path-mod-congrea-quiz ul.responses li {
+    margin: 10px 20px 20px;
+}
+.path-mod-congrea-quiz ul.responses li p span {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+}
+.path-mod-congrea-quiz ul.answers li.correct, ul.responses li.correct p span {
+    color: #6C9F2E;
+}
+.path-mod-congrea-quiz ul.responses li.incorrect p span {
+    color: #B5121B;
+}
+
+.path-mod-congrea-quiz .quizResults h3 {
+    margin: 0;
+}
+.path-mod-congrea-quiz .quizResults h3 span {
+    font-weight: normal;
+    font-style: italic;
+}
+.path-mod-congrea-quiz .quizResultsCopy {
+    clear: both;
+    margin-top: 20px;
+}
+
+
+/* BASE QUIZ STYLES */
+/* These styles ensure that the necessary elements are hidden for toggling */
+
+/* DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING!! */
+
+.path-mod-congrea-quiz .startQuiz,
+.path-mod-congrea-quiz .backToQuestion,
+.path-mod-congrea-quiz .nextQuestion,
+.path-mod-congrea-quiz .questions li.question,
+.path-mod-congrea-quiz .questions li.question .responses,
+.path-mod-congrea-quiz .questions li.question .responses .correct,
+.path-mod-congrea-quiz .questions li.question .responses .incorrect,
+.path-mod-congrea-quiz .quizResults {
+    display: none;
+}
+
+/* If response messages are disabled or only shown on quiz completion,
+   nextQuestion button IS checkAnswer button - so it must be displayed */
+.path-mod-congrea-quiz .nextQuestion.checkAnswer {
+    display: block;
+}
+
+.path-mod-congrea-quiz ol.questions,
+.path-mod-congrea-quiz ul.answers,
+.path-mod-congrea-quiz ul.responses,
+.path-mod-congrea-quiz ol.questions li,
+.path-mod-congrea-quiz ul.answers li,
+.path-mod-congrea-quiz ul.responses li {
+    list-style-type: none;
+    clear: both;
+}
+
+/* Accessibility */
+.path-mod-congrea-quiz .quizName span {
+    position: absolute;
+    top: -999px;
+}
+.path-mod-congrea-quiz ul.answers li.wrong{
+    color: red;
+}
+
+.path-mod-congrea-quiz .qnbutton {
+    display: block;
+    position: relative;
+    float: left;
+    width: 1.5em;
+    height: 1.5em;
+    overflow: hidden;
+    margin: 0.3em 0.3em 0.3em 0;
+    padding: 0;
+    border: 1px solid #bbb;
+    background: #fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.5em !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.path-mod-congrea-quiz .qnbutton.thispage {
+     border: 2px solid #666;
+}
+.path-mod-congrea-quiz .navblock {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none;
+    margin-bottom: 20px;
+    min-height: 40px;
+    padding: 5px 8px 6px;
+}
+.path-mod-congrea-quiz .questions .unflagged {
+     padding: 0 10px;
+     /*background:#fff url([[pix:i/unflagged]]) no-repeat left center;*/
+     background:#fff url("pix/unflagged.png") no-repeat left center;
+     cursor: pointer;
+}
+.path-mod-congrea-quiz .questions .flagged {
+     padding: 0 10px;
+     /*background:#fff url([[pix:i/flagged]]) no-repeat left center;*/
+     background:#fff url("pix/flagged.png") no-repeat left center;
+     cursor: pointer;
+}
+.path-mod-congrea-quiz span.questext{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 15px 0 10px;
+}
+.path-mod-congrea-quiz span.questext p{
+    display: inline;
+}
+.path-mod-congrea-quiz div.quesname{
+    margin: 15px 0 10px;
+}
+.path-mod-congrea-quiz .qnbutton.trafficlight {
+    /*background: url([[pix:exam|navflagged]]) no-repeat top right;*/
+    background: url("pix/navflagged.png") no-repeat top right;
+}
+
+.path-mod-congrea-quiz ul.responses li.correct{
+ background: #FCF8E3;
+ color: green;
+}
+.path-mod-congrea-quiz ul.responses li.incorrect{
+  background: #FCF8E3;
+ color: red;
+}
+
+.page-mod-congrea-quiz-view .qnbutton.notanswered, .page-mod-congrea-quiz-view .qnbutton.incorrect{
+    background-color: #fcc;
+}
+.path-mod-congrea-quiz .qnbutton.show.incorrect{
+    background-color: #fcc;
+}
+.path-mod-congrea-quiz .qnbutton.show.correct{
+    background-color: #cfc;
+}
+
+/* Custom CSS */
+
+.path-mod-congrea-quiz ol.questions li input[type="radio"], .path-mod-congrea-quiz ol.questions li input[type="checkbox"] {
+    margin-top: -5px;
+}
+.path-mod-congrea-quiz span.questext {font-weight: normal;}
+
+.path-mod-congrea-quiz .button {
+    text-shadow: none;
+    padding: 7px 12px !important;
+    margin: 16px 2px;
+    color: #337ab7 !important;
+    border-color: #337ab7 !important;
+}
+.path-mod-congrea-quiz .button:hover {
+	background-color: #337ab7 !important;
+    border-color: #337ab7 !important;
+    color: #fff !important;
+	text-decoration: none;
+}
+.path-mod-congrea-quiz .qnbutton.thispage {border-color: #337ab7;}
+#virtualclassCont.congrea #virtualclassQuiz .navbar {margin-bottom: 0;}
+.path-mod-congrea-quiz #quizModalBody #contQzHead .btn {
+	margin-bottom: 10px;
+	border-radius: 4px;
+}
+.path-mod-congrea-quiz ol.questions li.question {
+    margin: 18px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+.path-mod-congrea-quiz ul.answers {
+	margin: 7px;
+}
+.path-mod-congrea-quiz ol.questions li ul.answers li {
+	background: #fafafa none;
+    padding: 7px 10px;
+    border-radius: 4px;
+    margin: 3px 0 0;
+}
+.atto_image_button_text-bottom {
+    vertical-align: text-bottom;
+    margin: 0.6em 0 1em;
+    border-radius: 5px;
+}
+#virtualclassCont.congrea .modal .modal-header {
+	padding-bottom: 10px;
+	border-color: #ddd;
+}
+.path-mod-congrea-quiz ol.questions .quesname .path-mod-congrea-quiz ol.questions li ul.answers li label {padding-left: 0.3em;}
+
+.path-mod-congrea-quiz div.quesname {
+    margin: 0;
+    background: #f7f7f7;
+    padding: 15px 10px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #ddd;
+}
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody .modal-body {
+    padding: 15px 16px 24px 40px;
+    border: 1px solid #ddd;
+    border-top-width: 0;
+    border-radius: 0 0 5px 5px;
+}
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead {padding-left: 10px 0;}
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs > li > a:hover {border-color: #ddd !important;}
+#virtualclassCont.congrea .path-mod-congrea-quiz .qn_buttons .qnbutton {
+    color: #337ab7;
+}

@@ -164,8 +164,8 @@
             fromLocalStorage: function(state) {
 
                 if ( document.getElementById("iframecontainer") == null) {
-                     this.UI.createIframe();
-                 }
+                    this.UI.createIframe();
+                }
                 var iframeContainer = document.getElementById("iframecontainer");
                 iframeContainer.style.display = "block";
                 var iframe = document.getElementById("pptiframe");
@@ -189,7 +189,7 @@
                 this.order = order;
                 this.reArrangeElements(order);
                 // this.sendOrder(this.order);
-              virtualclass.vutil.sendOrder("presentation", order)
+                virtualclass.vutil.sendOrder("presentation", order)
 
             },
 
@@ -251,7 +251,7 @@
                     action : 'delete',
                     page : 0
                 }
-               // var videoid = id;
+                // var videoid = id;
                 var url =  virtualclass.api.UpdateDocumentStatus;
                 var that = this;
                 // virtualclass.xhrn.sendFormData({uuid:videoid}, url, function (msg) {
@@ -903,7 +903,7 @@
                         }else {
                             console.log('Order response is not available');
                         }
-                   })
+                    })
                     //virtualclass.sharePt.retrieveOrder();
                 }
 
@@ -940,7 +940,19 @@
                 var title= this.extractTitle(pptObj.URL);
 
                 if(titleCont){
-                    titleCont.innerHTML = title;
+                    if(title){
+                        titleCont.innerHTML = title;
+                    }
+                    else{
+                        var ul  = pptObj.URL ;
+                        ul = "https:"+ul;
+                        var urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d\.-]+)\.(?:[a-z\.]{2,10})(?:[/\w\.-]*)*/;
+                        var domainPattern = ul.match(urlPattern);
+                        var extractDomain = domainPattern[1];
+
+                        titleCont.innerHTML = extractDomain;
+                    }
+
                 }
                 titleCont.setAttribute("data-toogle", "tooltip");
                 titleCont.setAttribute("data-placement", "bottom");
@@ -974,20 +986,20 @@
                     title = url.split('/')[2];
                 }
 
-               return title;
+                return title;
 
             },
             pptClickHandler:function(pptObj){
                 var ppt = document.getElementById("mainpppt" + pptObj.fileuuid);
-                    if(ppt) {
-                        ppt.addEventListener('click', function () {
-                            virtualclass.sharePt.playPptUrl(pptObj.URL,pptObj.fileuuid);
-                            virtualclass.dashBoard.close();
-                            virtualclass.sharePt.currId=pptObj.fileuuid;
-                            virtualclass.sharePt.activePrs(pptObj.fileuuid);
-                        })
+                if(ppt) {
+                    ppt.addEventListener('click', function () {
+                        virtualclass.sharePt.playPptUrl(pptObj.URL,pptObj.fileuuid);
+                        virtualclass.dashBoard.close();
+                        virtualclass.sharePt.currId=pptObj.fileuuid;
+                        virtualclass.sharePt.activePrs(pptObj.fileuuid);
+                    })
 
-                    }
+                }
             },
             activePrs:function(id){
 
@@ -1087,7 +1099,7 @@
                             }
                             virtualclass.sharePt.afterPptSaved(pptObj);
                         }
-                       // virtualclass.sharePt.afterPptSaved(pptObj);
+                        // virtualclass.sharePt.afterPptSaved(pptObj);
                     });
                     virtualclass.vutil.sendOrder("presentation",virtualclass.sharePt.order);
 
@@ -1208,8 +1220,11 @@
              * @param str url to validate
              */
             validURLWithDomain: function(str) {
-                var regex = /((http|https)?:\/\/)?(slides.com)\/{1,255}\s*/;
-                return regex.test(str);
+                return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(str)
+                // var regex = /((http|https)?:\/\/)?(slides.com)\/{1,255}\s*/;
+                // return regex.test(str);
+
+
             },
             /*
              * adding embed and https if not present in the url

@@ -107,23 +107,31 @@ $latency = 'slow';
 $quality = 'low';
 ?>
 
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "codemirror/lib/codemirror.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "bundle/jquery/css/base/black_jquery-ui.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "poll/graphs/c3.css" ?> />
-<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "SlickQuiz/css/slickQuiz.css" ?> />
 <?php
 
 define('SCRIPT_ROOT', $whiteboardpath);
 ?>
 <style>
+/*
     @font-face {
         font-family: 'icomoon';
-        src:url('/virtualclass/fonts/icomoon.eot?-jjdyd0');
-        src:url('/virtualclass/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+        src:url('/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
+        src:url('/virtualclass//resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
         font-weight: normal;
         font-style: normal;
-    }
+    } */
+
+        @font-face {
+                font-family: 'icomoon';
+                src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0');
+                src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
+                url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
+                url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
+                url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+    
     .CodeMirror { height: auto; }
     .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
@@ -137,16 +145,6 @@ define('SCRIPT_ROOT', $whiteboardpath);
         padding : 0;
     }
 </style>
-
-<link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
-<script src="https://vjs.zencdn.net/5.8.8/video.js"></script>
-<!-- If you'd like to support IE8 -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
-<link href="<?php echo $whiteboardpath . 'fileuploader/js/fine-uploader-gallery.css'; ?>" rel="stylesheet">
-
-<!-- Fine Uploader JS file
-====================================================================== -->
-
 
 
 <?php
@@ -214,9 +212,17 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 // Checking moodle deugger is unable or disable.
 
 // File included if debugging on
-$info = 1;
+$info = 0;
 if($info) {
 ?>
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/poll-c3.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/slickQuiz.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/video-js.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/fine-uploader-gallery.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/codemirror.css" ?> />
+
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/black_jquery-ui.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/custom.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/styles.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/popup.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/vceditor.css" ?> />
@@ -239,19 +245,27 @@ if($info) {
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dashboard.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbPpt.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbVideo.css" ?> />
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+
+
+
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/right-sidebar.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/network.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/color.css" ?> />
-
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
 <?php
 } else {
 ?>
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/modules.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/external.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.min.css" ?> />
   <?php
 }
+
+?>
+
+<?php
 
 $sid = $uid;
 $role  = 'student';
@@ -303,7 +317,7 @@ if($audactive){
 // Output starts here.
 
 // Default image if webcam disable.
-$src = '/virtualclass/images/quality-support.png';
+$src = '/virtualclass/resources/images/quality-support.png';
 $cmid = 5;
 
 ?>
@@ -343,12 +357,6 @@ $cmid = 5;
 
     }
 </script>
-<link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
-<script src="https://vjs.zencdn.net/5.8.8/video.js"></script>
-
-<!-- If you'd like to support IE8 -->
-
-<link href="<?php echo $whiteboardpath.'fileuploader/js/fine-uploader-gallery.css'; ?>" rel="stylesheet">
 
 
 <?php
@@ -356,7 +364,7 @@ $cmid = 5;
 if ($info) {
     include('js.debug.php');
 } else {
-        include('js.php');
+    include('js.php');
 }
 ?>
 
@@ -364,11 +372,7 @@ if ($info) {
 ====================================================================== -->
 
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="<?php echo $whiteboardpath . "poll/graphs/d3.js" ?>"></script>
-<script src="<?php echo $whiteboardpath . "poll/graphs/c3.js" ?>"></script>
 
-<script src ="<?php echo $whiteboardpath.'s3/s3.fine-uploader.js'; ?>"></script>
 </head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>

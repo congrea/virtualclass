@@ -354,3 +354,17 @@ span.sch {
   font-size: medium;
 
 }
+
+#virtualclassCont.congrea #quizModalBody {
+  overflow-y: hidden;
+}
+
+#virtualclassCont.congrea #slickQuiz .quizArea {
+  overflow-y : auto;
+  height : 60vh;
+}
+
+
+#virtualclassCont.congrea #slickQuiz ol.questions > li {
+  maring-top : -18px;
+}

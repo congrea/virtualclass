@@ -64,6 +64,7 @@
                 if (storedData) {
                     this.storedDataHandle(storedData);
                 }
+                virtualclass.quiz.quizSt = storedData;
             },
 
             /**

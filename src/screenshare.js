@@ -1065,7 +1065,14 @@ var newCanvas;
 
                         // $('#virtualclassAppLeftPanel').append(mainConthtml);
                         virtualclass.vutil.insertAppLayout(mainConthtml);
-
+                        if(roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing){
+                            var ss = document.querySelector('#virtualclassCont  #stopScreenShare');
+                            if(ss){
+                                ss.addEventListener("click",function(){
+                                    virtualclass.vutil.initDefaultApp();
+                                })
+                            }
+                        }
 
                          if(viewcontrol){
                             this.html.initScreenController();
@@ -1106,7 +1113,7 @@ var newCanvas;
                             if(ss){
                                 ss.addEventListener("click",function(){
                                     virtualclass.vutil.initDefaultApp();
-                                    ioAdapter.mustSendUser({'cf' : 'stopSs'},  virtualclass.gObj.whoIsSharing);
+                                    // ioAdapter.mustSendUser({'cf' : 'stopSs'},  virtualclass.gObj.whoIsSharing);
                                     var cont = document.querySelector("#virtualclassCont.studentScreenSharing")
                                     if(cont){
                                         cont.classList.remove("studentScreenSharing");

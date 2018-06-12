@@ -3760,3 +3760,7 @@ opacity: 1;
 	color : #ff1934;
 	font-weight : bold;
 }
+
+#virtualclassCont.congrea #videoHostContainer.show #chat_div{
+  max-height: calc(100vh - 383px) !important;
+}

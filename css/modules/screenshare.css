@@ -153,7 +153,7 @@
 
 
 #virtualclassCont.congrea #screenController .share button{
-  left: 50px;
+  left: 137px;
   color: #fff;
   border:none;
   position: fixed;
@@ -162,7 +162,7 @@
   cursor: pointer;
   background-color: transparent;
   padding: 13.5px;
-  border-left: 1px solid black;
+  border-right: 1px solid black;
     -webkit-font-smoothing: antialiased;
     letter-spacing: .1px;
     border-radius: 0px;
@@ -199,7 +199,7 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare  button{
-  left: 180px;
+  left:0px;
   color: #fff;
   border: none;
   position: fixed;
@@ -209,7 +209,6 @@
   background-color: transparent;
   padding: 13.5px;
   border-right: 1px solid black;
-  border-left: 1px solid black;
     -webkit-font-smoothing: antialiased;
     letter-spacing: .1px;
     border-radius:0px;

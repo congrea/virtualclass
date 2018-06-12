@@ -451,13 +451,13 @@ display: none;
     position: absolute;
 }
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt {
-    padding: 15px 8px 15px 14px;
+    padding: 11.5px 8px 12.5px 14px;
 }
 #virtualclassCont.congrea.student #rightSubContainer #user_list a.inner_bt {
-    padding: 14px 8px 15px 14px;
+    padding: 11.5px 8px 12.5px 14px;
 }
 #virtualclassCont.congrea.student #rightSubContainer #chatroom_bt2 a.inner_bt {
-    padding: 17px 8px 12px 14px;
+    padding: 14.5px 8px 9.5px 14px;
 }
 #virtualclassCont.congrea #rightSubContainer a.inner_bt {
     padding: 12px 0;
@@ -630,4 +630,6 @@ pointer-events: none !important;
 #virtualclassCont.congrea.student #rightSubContainer #congreaChatMainCont {
     height : calc(100% - 44px);
 }
-
+#virtualclassCont.congrea #chatWidget.deactive {
+    height: 0;
+}

@@ -63,8 +63,8 @@
                 var storedData = JSON.parse(localStorage.getItem('quizSt'));
                 if (storedData) {
                     this.storedDataHandle(storedData);
+                    virtualclass.quiz.quizSt = storedData;
                 }
-                virtualclass.quiz.quizSt = storedData;
             },
 
             /**

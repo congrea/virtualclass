@@ -2846,7 +2846,7 @@
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
-	width: calc(100% - 6px);
+	width: calc(100% - 10px);
 	border-left: 1px solid #dcd6d6 !important;
 	border-top: 1px solid #dcd6d6 !important;
 	border-bottom: 1px solid #dcd6d6 !important;

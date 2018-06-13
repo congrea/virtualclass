@@ -2657,7 +2657,7 @@
                     console.log('add note display');
                 }
             }
-        }
+        },
 
         calcBrightness:function(color){
             var rgb = chroma(color).rgb();

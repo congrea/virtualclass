@@ -178,7 +178,7 @@
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt {
   position: fixed;
   left: 84%;
-  top: 63px;
+  top: 44px;
   color:#337ab7;
   padding:8px;
   border: 1px solid #337ab7;
@@ -366,10 +366,17 @@ span.sch {
 
 #virtualclassCont.congrea #slickQuiz .quizArea {
   overflow-y : auto;
-  height : 60vh;
+  height : 70vh;
 }
 
 
 #virtualclassCont.congrea #slickQuiz ol.questions > li {
-  maring-top : -18px;
+  margin-top : 0px;
+}
+
+#virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3, .path-mod-congrea-quiz span.questext h3  {
+    letter-spacing: .020em;
+font-size: 16px;
+margin: 0;
+display: inline;
 }

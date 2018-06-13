@@ -259,7 +259,7 @@ if($info) {
 ?>
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/modules.min.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/external.min.css" ?> />
-  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/slickQuiz.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/external/css/slickQuiz.min.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.min.css" ?> />
   <?php
 }

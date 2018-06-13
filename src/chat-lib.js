@@ -244,7 +244,15 @@ function memberUpdate(e, addType) {
 
 
     if(virtualclass.gObj.delayVid == "display"){
-        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid)
+
+        //Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause()
+        // By delaing 200 miliseconds we are ensuring that above error is not coming
+        setTimeout(
+            function (){
+                virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid)
+            },200
+        );
+
     }
     virtualclass.gObj.delayVid ="";
 }

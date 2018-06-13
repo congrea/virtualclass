@@ -1507,6 +1507,14 @@
                     cthis.audio._manuPulateStream();
                 }
                 virtualclass.user.control.videoEnable();
+
+                /**
+                 * Disable teacher video by default, when he/she will join first time
+                 */
+                if(roles.hasControls() && localStorage.getItem('prevApp') == null){
+                    virtualclass.vutil.videoHandler();
+                }
+
             },
 
 

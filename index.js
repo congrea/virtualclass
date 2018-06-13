@@ -1680,10 +1680,10 @@ $(document).ready(function () {
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                 }
             }
-            this.stopSs= function(e){
-                virtualclass.ss.unShareScreen()
-
-            }
+            // this.stopSs= function(e){
+            //     virtualclass.ss.unShareScreen();
+            // }
+            //
 
         };
 

@@ -332,6 +332,10 @@ pointer-events:none;
   border-top: 0px solid #ddddddad;
 }
 
+#virtualclassCont.congrea.teacher #layoutPollBody #resultLayoutBody .table-responsive{
+  max-height: 320px;
+}
+
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList{
   margin-bottom: 0px;
   color: #333;

@@ -2691,9 +2691,10 @@
 	pointer-events: visible;
 }
 
-#virtualclassCont.congrea .modal .modal-content, #virtualclassCont.congrea #contQzBody {
+/*#virtualclassCont.congrea .modal .modal-content, #virtualclassCont.congrea #contQzBody {*/
+#virtualclassCont.congrea .modal .modal-content{
 	max-height: calc(100vh - 88px);
-/*	overflow-y: auto;*/
+
 }
 #virtualclassCont.congrea .modal-body .qscolor {
 	background-color: #e8f4f5;
@@ -3770,5 +3771,9 @@ opacity: 1;
 #virtualclassCont.congrea .recordingError {
 	color : #ff1934;
 	font-weight : bold;
+}
+
+#virtualclassCont.congrea #videoHostContainer.show #chat_div{
+  max-height: calc(100vh - 383px) !important;
 }
 

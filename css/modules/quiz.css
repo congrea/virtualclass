@@ -166,6 +166,11 @@
   padding: 15px 16px 24px 40px;
 }
 
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody {
+  max-height:60vh;
+  overflow:auto;
+}
+
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #contQzBody.modal-body {
   border:0px;
 }
@@ -353,4 +358,18 @@ span.sch {
   right: 0;
   font-size: medium;
 
+}
+
+#virtualclassCont.congrea #quizModalBody {
+  overflow-y: hidden;
+}
+
+#virtualclassCont.congrea #slickQuiz .quizArea {
+  overflow-y : auto;
+  height : 60vh;
+}
+
+
+#virtualclassCont.congrea #slickQuiz ol.questions > li {
+  maring-top : -18px;
 }

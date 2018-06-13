@@ -32,10 +32,14 @@ $secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
 /*$licensekey = 'U8ZhqgxOuaQrmOfdtDVBpcKO0ZpuNdM85CYl6Mb41CLGnY3F';
 $secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK'; */
 
+
 $licensekey = 'U8ZhqgxOuaQrmOfdtDVBpcKO0ZpuNdM85CYl6Mb41CLGnY3F';
 $secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK'; 
 
-$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => 't', 'room' => $room);
+
+$r = isset($_GET['role'] ) ? $_GET['role'] : 's';
+
+$post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => $r, 'room' => $room);
 $post_data = json_encode($post_data);
 //echo $post_data;
 $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $licensekey, $secret);

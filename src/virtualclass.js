@@ -1348,7 +1348,7 @@
                     isPlay : virtualclass.isPlayMode,
                     hasControls : roles.hasControls(),
                     meetingMode : virtualclass.gObj.meetingMode,
-                    conglogo :  whiteboardPath +"resources/images/congrea-site-logo.png"
+                    conglogo :  whiteboardPath +"resources/images/congrea_logo.png"
                 }
 
                 var mainHtml = mainTemplate(mainCont);

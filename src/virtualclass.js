@@ -62,7 +62,8 @@
                 screenRh : 60,
                 isReadyForVideo : true,
                 defaultApp : 'Whiteboard',
-                tempQueue :{}
+                tempQueue :{},
+                chatIconColors:{}
             },
 
             enablePreCheck : true,

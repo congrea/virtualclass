@@ -60,7 +60,8 @@
                             title: lang.chatroom_header,
                             // offset: '20px',
                             messageSent: function (user, msg) {
-                                $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg);
+                                var userid = user.userid || virtualclass.gObj.uid
+                                $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg,userid);
                             }});
 
                         if (virtualclass.gObj.hasOwnProperty('chatEnable')) {

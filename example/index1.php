@@ -212,7 +212,11 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 // Checking moodle deugger is unable or disable.
 
 // File included if debugging on
+
 $info = 1;
+?>
+<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
+<?php
 if($info) {
 ?>
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/poll-c3.css" ?> />
@@ -257,10 +261,13 @@ if($info) {
 <?php
 } else {
 ?>
+
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/modules.min.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/build/css/external.min.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/external/css/slickQuiz.min.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "/external/css/fine-uploader-gallery.min.css" ?> />
   <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.min.css" ?> />
+
   <?php
 }
 

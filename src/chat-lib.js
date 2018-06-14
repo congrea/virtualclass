@@ -284,7 +284,8 @@ function messageUpdate(e) {
                     user: from,
                     title: lang.chatroom_header,
                     messageSent: function (user, msg) {
-                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg);
+                        var userid = user.userid || virtualclass.gObj.uid
+                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg,userid);
                     }});
             }
             $("#chat_room").chatroom("option").messageSent(from, msg);
@@ -444,7 +445,8 @@ function displaycomChatHistory() {
                     user: msgobj,
                     title: "Common chat",
                     messageSent: function (user, msg) {
-                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg);
+                        var userid = user.userid || virtualclass.gObj.uid;
+                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg,userid);
                     }});
             }
             if (typeof msgobj.msg == 'object') {

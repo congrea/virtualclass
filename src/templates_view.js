@@ -485,15 +485,17 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
 },"6":function(container,depth0,helpers,partials,data) {
     return "      <span class=\"nvgt prev\"></span>\n      <span class=\"nvgt next\"></span>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "\n<div id=\"virtualclassAppLeftPanel\" class=\"leftbar hideZoom\" data-surname=\""
-    + container.escapeExpression(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
     + "\">\n \n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  <div id=\"virtualclassAppContainer\">\n    <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\">\n      <div class=\"whiteboardContainer\"> </div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </div>\n  </div>\n</div>\n";
+    + "\n    </div>\n  </div>\n  <a href=\"https://www.congrea.com\" target=\"_blank\">\n  <img src=\""
+    + alias4(((helper = (helper = helpers.conglogo || (depth0 != null ? depth0.conglogo : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"conglogo","hash":{},"data":data}) : helper)))
+    + "\">\n  </a>\n</div>\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

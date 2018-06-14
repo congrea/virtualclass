@@ -1346,7 +1346,8 @@
                 var mainCont = {
                     isPlay : virtualclass.isPlayMode,
                     hasControls : roles.hasControls(),
-                    meetingMode : virtualclass.gObj.meetingMode
+                    meetingMode : virtualclass.gObj.meetingMode,
+                    conglogo :  whiteboardPath +"resources/images/congrea-site-logo.png"
                 }
 
                 var mainHtml = mainTemplate(mainCont);

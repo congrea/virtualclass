@@ -94,3 +94,12 @@
 #virtualclassCont.congrea #docScreenContainer .pageContainer {
   /*border:1px dotted #dddddd;*/
 }
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel img {
+  z-index: 1000;
+  position: absolute;
+  bottom: 50px;
+  right: 345px;
+  opacity: 0.5;
+  height: 17px;
+}

@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             },
 
             external_css : {
-                src : ["external/css/codemirror.css", "external/css/poll-c3.css", "external/css/video-js.css", "external/css/fine-uploader-gallery.css" ],
+                src : ["external/css/codemirror.css", "external/css/poll-c3.css", "external/css/video-js.css"],
                 dest : 'build/css/external.min.css'
             },
 
@@ -34,12 +34,16 @@ module.exports = function(grunt) {
             sliqquiz : {
                 src : 'external/css/slickQuiz.css',
                 dest : 'external/css/slickQuiz.min.css'
+            },
+
+            fineuploader : {
+                src :  'external/css/fine-uploader-gallery.css',
+                dest : 'external/css/fine-uploader-gallery.min.css'
             }
         },
 
         handlebars: {
             all: {
-
               files: {
 
                 // converting all .hbs(handlerbar template file ) into all.js file

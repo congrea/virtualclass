@@ -9,7 +9,6 @@
      *
      */
     var getString = function (string, words) {
-        console.log(string + ' searching for the world');
         var langString = window.virtualclass.lang.message[string];
         if (typeof words != 'undefined' && words.length > 0) {
             for (var i = 0; i < words.length; i++) {

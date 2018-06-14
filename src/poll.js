@@ -420,12 +420,7 @@
 
                 }
                 this.interfaceToFetchList(category);
-                if(storedData.pollClosed !="yes"){
-                    this.reloadTeacherPublish(storedData);
-                }
-
                 this.list = storedData.data.list;
-
                 var data = {
                     question: this.dataToStd.question,
                     options: this.dataToStd.options,
@@ -438,6 +433,15 @@
                     users: this.uniqueUsers,
                     pollType: pollType
                 };
+
+
+                if(storedData.pollClosed !="yes"){
+                    this.reloadTeacherPublish(storedData);
+                }
+
+
+
+
 
                 if (typeof storedData.data.pollClosed != 'undefined' && storedData.pollClosed !="yes") {
                     this.UI.pollClosedUI();
@@ -977,7 +981,6 @@
                     }
                     virtualclass.poll.interfaceToEdit(saveQn, category);
                 } else {
-
                     var flag = virtualclass.poll.newPollSave("undefined", pollType);
                     if (!flag) {
                         return 0;
@@ -1258,6 +1261,14 @@
                 $('#editPollModal').modal({
                     show: true
                 });
+                if(!type){
+                    if(item.category == "0"){
+                        type="site";
+
+                    }else{
+                        type="course";
+                    }
+                }
                 virtualclass.poll.pollPreview(type);
                 $("#editPollModal").on('hidden.bs.modal', function () {
                     $("#editPollModal").remove();

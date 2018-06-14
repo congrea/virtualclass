@@ -428,7 +428,6 @@
 
 
                 _disable: function (elem, control, userId, label) {
-
                     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Disable"));
                     //elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "On"));
                     elem.setAttribute('data-' + control + '-disable', 'true');
@@ -914,7 +913,7 @@
 
                         var muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
                         if(muteIcon && muteIcon.classList.contains("block")){
-                            muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('audioOn'));
+                            muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('audioEnable'));
                             muteIcon.setAttribute("data-audio-disable", "false");
                         }
 

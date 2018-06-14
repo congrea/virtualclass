@@ -2846,7 +2846,7 @@
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
-	width: calc(100% - 6px);
+	width: calc(100% - 10px);
 	border-left: 1px solid #dcd6d6 !important;
 	border-top: 1px solid #dcd6d6 !important;
 	border-bottom: 1px solid #dcd6d6 !important;
@@ -3264,11 +3264,6 @@
 
 #virtualclassCont.congrea .user-details.media-body.congtooltip{
 	z-index: 1104 !important;
-}
-
-#virtualclassCont.congrea .commonChatCon a:hover,#virwtualclassCont.congrea.student .commonChatCon a:hover{
-  color: #6cad9d !important;
-	text-decoration: none;
 }
 
 #alleditorCodeContainer [data-action="disable"]{
@@ -3752,14 +3747,14 @@ opacity: 1;
 }
 
 #virtualclassCont.congrea #chat_room li .chat-user-icon{
-	border: solid black 1px;
 	width: 40px;
 	height: 40px;
 	border-radius: 30px;
 	text-align: center;
-	padding-top: 12px;
-	margin-top: 5px;
-	font-size: large;
+	padding-top: 11px;
+	margin-top: 6px;
+	font-size: 14px;
+	opacity:.8;
 }
 
 

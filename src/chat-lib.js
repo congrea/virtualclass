@@ -25,6 +25,10 @@ function displayChatUserList(users){
         //
         // }
 
+        if(typeof virtualclass.gObj.chatIconColors[users[i].userid ] == 'undefined'){
+            groupChatImgColor(users[i].name , users[i].userid )
+        }
+
         if (document.getElementById('video' + users[i].userid) == null) {
             myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
         //    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
@@ -47,7 +51,7 @@ function displayChatUserList(users){
             }
             myDivResult = "";
             // to verify
-            if((virtualclass.gObj.uid != users[i].userid) && (virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher())){
+            if((virtualclass.gObj.uid != users[i].userid) && (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher())){
                 virtualclass.user.initControlHandler(users[i].userid);
             }
         }
@@ -159,6 +163,8 @@ function memberUpdate(e, addType) {
                     }
 
                 }
+
+
                 // var usr = document.querySelector("#ml"+userlist[i].userid)
                 // if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
                 //     usr.classList.remove("student");
@@ -611,3 +617,44 @@ function displayUserSinglePvtChatHistory(userid){
         });
     }
 }
+
+function groupChatImgColor(peer,userid){
+    var bgColor="green";
+    var textColor="white"
+    //if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
+    var initial = getInitials(peer)
+    var user = (userid.toString()) + peer;
+    bgColor = stringToHslColor(user , 60, 35)
+    var brightness = virtualclass.vutil.calcBrightness(bgColor);
+    if (brightness > 125) {
+        textColor="black";
+    } else {
+        textColor="white";
+    }
+    virtualclass.gObj.chatIconColors[userid] ={
+        bgColor:bgColor,
+        textColor:textColor,
+        initial:initial
+    }
+    // }
+
+}
+function stringToHslColor(str, s, l) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    var h = hash % 360;
+    return 'hsl('+h+', '+s+'%, '+l+'%)';
+}
+function getInitials (string) {
+    var names = string.split(' '),
+        initials = names[0].substring(0, 1).toUpperCase();
+
+    if (names.length > 1) {
+        initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+}
+

@@ -213,13 +213,17 @@ var videoHost = {
             isVideo.parentNode.removeChild(isVideo);
         }
         var imgCont = document.querySelector("#ml"+userid+" .user-details a")
-        var imgElem = document.querySelector("#ml"+userid+" .user-details a img");
+        var imgElem = document.querySelector("#ml"+userid+" .user-details a span");
         if(!imgElem){
-            var img = document.createElement('img');
-            img.classList.add('media-object');
-            img.setAttribute("src",whiteboardPath +"resources/images/quality-support.png")
+            var img = document.createElement('span');
+            img.classList.add('chat-img','media-object');
+            img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial
             imgCont.appendChild(img);
             console.log("set User icon");
+
+            img.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
+            img.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+
         }
     },
     removeUserIcon:function(userid){

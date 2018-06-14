@@ -3771,4 +3771,13 @@ opacity: 1;
 #virtualclassCont.congrea #videoHostContainer.show #chat_div{
   max-height: calc(100vh - 383px) !important;
 }
-
+#virtualclassCont.congrea #chat_div .chat-user-icon .chat-img{
+	width: 40px;
+	height: 40px;
+	border-radius: 30px;
+	text-align: center;
+	padding-top: 11px;
+	margin-top: 6px;
+	font-size: 14px;
+	opacity: .8;
+}

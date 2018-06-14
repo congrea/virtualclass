@@ -93,7 +93,7 @@
 
                     if(chatUser != null){
                         var childTag = chatUser.getElementsByTagName('a')[0];
-                        var imgTag = childTag.getElementsByTagName('img')[0];
+                        var imgTag = childTag.getElementsByTagName('span')[0];
                         if(!childTag.classList.contains("hasVideo")){
                             childTag.className += ' hasVideo';
                         }

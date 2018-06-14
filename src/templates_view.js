@@ -225,9 +225,13 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.rl : stack1), depth0))
     + "\">\n  <div class=\"user-details media-body\">\n    <a href=\"#"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" class=\"pull-left\">\n      <img class=\"media-object\" src=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.img : stack1), depth0))
-    + "\">\n    </a>\n    <div class=\"usern\">\n    <a href=\"#"
+    + "\" class=\"chat-user-icon pull-left\">\n      <span class=\"chat-img media-object \" style=\"background-color:"
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.bgColor : stack1), depth0))
+    + ";color:"
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.textColor : stack1), depth0))
+    + "\">"
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.initial : stack1), depth0))
+    + "</span>\n    </a>\n    <div class=\"usern\">\n    <a href=\"#"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "\" title=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.name : stack1), depth0))

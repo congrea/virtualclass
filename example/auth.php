@@ -33,8 +33,14 @@ $secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
 $secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK'; */
 
 
-$licensekey = 'U8ZhqgxOuaQrmOfdtDVBpcKO0ZpuNdM85CYl6Mb41CLGnY3F';
-$secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK'; 
+//$licensekey = 'mbld7oci1K94Atow7DSVZYyOsjOLkKol0II0hK782qdOoMAI';
+//$secret = 'RR2sWv0dXoBvqIq6IgHbLXylDh5J1WOTOQlLlmYjLzPbifi1v0chXKDB2Il3F9Wt';
+
+$licensekey = 'i8d1T08fAcvAZGTvJmj8hIFWQY5jSY851CTUn7DoyCkjJnvD';
+$secret = 'VsrArG07d6oKqINC4dnYEhn6lhDm3BNY3ezvVzC9G0T7JGKNT7Myo9EKri7uTUtX';
+
+
+
 
 
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';

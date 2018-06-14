@@ -2239,7 +2239,7 @@
                     vidType="small";
 
                 }
-                var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+                var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")
 
                 if(hasImg){
 

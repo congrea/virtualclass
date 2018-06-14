@@ -804,6 +804,10 @@ $(document).ready(function () {
             }
             console.log('member_added ' + virtualclass.joinUser.userid);
 
+            // if(typeof virtualclass.gObj.chatIconColors[virtualclass.joinUser.userid] == 'undefined'){
+            //     groupChatImgColor(virtualclass.joinUser.name, virtualclass.joinUser.userid)
+            // }
+
             // set the default value related about video quality, internet latency and frame rate
             if (virtualclass.jId == virtualclass.gObj.uid) {
                 // var speed = roles.hasAdmin() ? 1 :  0;

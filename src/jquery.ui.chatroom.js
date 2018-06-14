@@ -28,7 +28,7 @@
                 },
                 addMsg: function (peer, msgObj,userid) {
                     if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined") {
-                        this.groupChatImgColor(peer, userid)
+                        groupChatImgColor(peer, userid)
                     }
                     var time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
                     var msg = msgObj.msg;

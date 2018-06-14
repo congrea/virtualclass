@@ -376,9 +376,7 @@ pointer-events:none;
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
   font-size:18px;
-
 }
-
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success{
   padding:10px;
@@ -386,5 +384,4 @@ pointer-events:none;
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success button.close{
   right : 2px;
-
 }

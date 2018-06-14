@@ -2,101 +2,8 @@
 var colorSelector ={
     // to be made dynamic
     makeThemeReady:function(){
-         var color = virtualclassSetting.theme.selectedColor;
-         // temp..to be dynamic
-        // color="pink";
-        // color="green";
-        // color ="#F2D9F2";
-        // color ="#71D089";
-        // color ="#0E2A16";
-        //
-        // color ="#CBE7B6";
-        // color ="#140F2E";
-        // color ="#F2FAF0";
-        // color ="#9FDFC1";
-        // color ="#CAB3E6";
-        // color ="#361B50";
-        // color ="black";
-        // color ="#1C1F0A";
-        //  color ="#0B1B09";
-        // color ="#E8FF9E";
-        // color ="#FFFFF0"; // brightness 253
-        // color  ="#FFFEE0"; //251
-        // color ="#EFFFCC"; //244
-        // color ="#FFFDC7";//247
-        //
-        //  color ="#CDEEDE";
-        //
-        // color ="#E8FF9E";
-        //
-        // color ="#E8FF9E"; //237 fine
-        // color ="#B3FFFF"; //232 fine
-        //
-        // color ="#E8FFAD";//239 w
-        //
-        // color ="#D1E5FF"; //226 w
-        // color ="#F1D6FF";
-        // color ="#A8E6FF" //214 //perfect
-        //
-        //
-        // color ="#bfe9ff";//223 //th
-        // color ="#c0eaff";//224 //th as white
-        // color ="#bfe9ff";//223
-        // color ="#c7eeff";//228 // 228 -255 (w)
-        // color = "#D6F1FF";//235 //white
-        // color ="#D1FFED"; //239 w
-        // color ="#EBFFB8"; //241 near
-        // color ="#C2476A";
-        // color ="#FFE0EC";//235(white)
-        // color ="#FFE5F7";//239
-        // color ="#FFCCEC";//223
-        // color ="#FFBDD6";//212
-        // color ="#FFBDD6";//212
-        // color ="#FFBDD6";//212
-        //
-        // color ="#FFC7FC" //222
-        // color ="#FFCCEC";//223
-        // color ="#bfe9ff";//223
-        // color ="#bfe9ff";//223 //th
-        // color ="#c0eaff";//224 //th as white
-        //
-        //
-        // color ="#E4F6EE";//240
-        // color ="#EBFFB8";//241
-        // color ="#B1B83D";//168
-        // color="#9E2800";//71
-        // color ="#002D8F";//43 (main color to be kept)
-        // color ="#00802D";
-        // color ="#272900";//36
-        // color ="#9E003D"//54
-        // color ="#D69A00"
-        // color ="#280038"//18
-        // color ="#57002A"
-        // color ="#AD004B"
-        // color ="#5C9DFF"
-        // color="#143D39";
-        // color ="#fdfdff";//253
-        // color ="#ffe7f3";//240
-        // color ="#FFE6F0";//239
-        // color ="#ffe1dd";//234
-        // color ="#ffddd6";//230
-        // color ="#ffd5c9";//224
-        //
-        // color ="#ffc8d7";//218//lighter(218 -255)//////
-        //
-        // color ="#ACE5FF";//215
-        // color ="#b2e5ff";//217
-        // color ="#B7E5FF";//218
-        //
-        // color ="#D8E3AB";//217
-        // color ="white";
-        // color ="#D8E3AB";//217
-        // color ="#6F2569";
-        // color= "#473295";
-        //color ="#4778C2";
-
-
-        var brightness = this.calcBrightness(color);
+        var color = virtualclassSetting.theme.selectedColor;
+        var brightness = virtualclass.vutil.calcBrightness(color);
         var iconColor;
         if (brightness > 125) {
             iconColor="black";
@@ -170,8 +77,8 @@ var colorSelector ={
         var css =
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget" +
             "{border-top:"+border +" !important;}"+
-            "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
-            "{border:0 !important;}"+
+            // "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
+            // "{border:0 !important;}"+
             "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
             "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer, " +
@@ -303,6 +210,8 @@ var colorSelector ={
 
             "#virtualclassCont.congrea  .dbContainer .qq-cancel-button-selector"+
             "{color :"+frontColor +"!important} "+
+            " #virtualclassCont.congrea #virtualclassOptionsCont .appOptions "+
+            "{border : 1px solid"+allbg.fcolor +"!important} "+
 
             "#virtualclassCont.congrea  #playController button"+
             "{background-image:none !important;color:"+frontColor+"!important}" ;
@@ -426,7 +335,7 @@ var colorSelector ={
             "{color:"+iconColor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:"+hover.fcolor+"!important}" +
             "#virtualclassCont.congrea #virtualclassPoll #navigator #stdPollHeader"+
-            "{color:"+frontColor+";}"+
+            "{color:"+frontColor+"!important;}"+
             "#virtualclassCont.congrea #virtualclassPoll .modal button.close ," +
             "#virtualclassCont.congrea  .alert .close " +
             "{background-image: none !important ;background-color:none !important}";

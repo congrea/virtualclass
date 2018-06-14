@@ -420,12 +420,7 @@
 
                 }
                 this.interfaceToFetchList(category);
-                if(storedData.pollClosed !="yes"){
-                    this.reloadTeacherPublish(storedData);
-                }
-
                 this.list = storedData.data.list;
-
                 var data = {
                     question: this.dataToStd.question,
                     options: this.dataToStd.options,
@@ -438,6 +433,15 @@
                     users: this.uniqueUsers,
                     pollType: pollType
                 };
+
+
+                if(storedData.pollClosed !="yes"){
+                    this.reloadTeacherPublish(storedData);
+                }
+
+
+
+
 
                 if (typeof storedData.data.pollClosed != 'undefined' && storedData.pollClosed !="yes") {
                     this.UI.pollClosedUI();
@@ -977,7 +981,6 @@
                     }
                     virtualclass.poll.interfaceToEdit(saveQn, category);
                 } else {
-
                     var flag = virtualclass.poll.newPollSave("undefined", pollType);
                     if (!flag) {
                         return 0;
@@ -1258,6 +1261,14 @@
                 $('#editPollModal').modal({
                     show: true
                 });
+                if(!type){
+                    if(item.category == "0"){
+                        type="site";
+
+                    }else{
+                        type="course";
+                    }
+                }
                 virtualclass.poll.pollPreview(type);
                 $("#editPollModal").on('hidden.bs.modal', function () {
                     $("#editPollModal").remove();
@@ -1389,7 +1400,7 @@
                 }
 
             },
-            studentReportLayout: function (arr) {
+            studentReportLayout: function (obj) {
                 var report = "true"
                 var layout = document.getElementById("layoutPollBody");
                 while (layout.childElementCount > 1) {
@@ -1399,7 +1410,6 @@
                 var elem = document.createElement("div");
                 layout.appendChild(elem)
 
-                var obj = JSON.parse(arr.pop().pollResult);
                 var count = obj.result;
                 //elem.innerHTML="data fetched from indexed db";
                 virtualclass.poll.count = count;
@@ -2393,18 +2403,21 @@
                         resultNav.style.display="none";
 
 
-                        virtualclass.storage.getAllDataOfPoll(['pollStorage'], function (obj) {
+                        virtualclass.storage.getAllDataOfPoll(['pollStorage'], function (arr) {
 
-                            if(obj){
-                                virtualclass.poll.previousResult= obj
-                                var resultNav = document.querySelector("#virtualclassCont.congrea.student #navigator #pollResult");
-                                if(resultNav){
-                                    resultNav.style.display="block";
-                                }
+                            if(arr){
+                                var top = JSON.parse(arr.pop().pollResult) ;
+                                if(top.pollData.setting.showResult){
+                                    virtualclass.poll.previousResult= top
+                                    var resultNav = document.querySelector("#virtualclassCont.congrea.student #navigator #pollResult");
+                                    if(resultNav){
+                                        resultNav.style.display="block";
+                                    }
 
-                                var pollText =document.querySelector("#virtualclassCont.congrea.student #navigator #stdPollHeader");
-                                if(pollText){
-                                    pollText.style.display="none";
+                                    var pollText =document.querySelector("#virtualclassCont.congrea.student #navigator #stdPollHeader");
+                                    if(pollText){
+                                        pollText.style.display="none";
+                                    }
                                 }
 
                             }
@@ -2502,17 +2515,41 @@
                     this.resultLayoutBody();
                 },
                 resultNotShownUI: function (header) {
-                    var elem = document.createElement("div");
+                    var resultMain= document.querySelector("#resultLayoutBody");
+                    if(resultMain){
+                        resultMain.style.display ="none";
+                    }
+
                     var mszbox = document.getElementById("mszBoxPoll");
                     var i = 0;
                     if (mszbox) {
                         while (mszbox.childNodes.length > 0) {
                             mszbox.removeChild(mszbox.childNodes[i]);
                         }
+                    }else{
+                        var mszbox = document.createElement("div");
+                        mszbox.id =  "mszBoxPoll"
+                        resultMain.appendChild(mszbox)
                     }
-                    header.appendChild(elem);
+                  //  header.appendChild(elem);
                     var msg = virtualclass.lang.getString('noResultStd');
+
+                    var msgcont = document.querySelector("#mszBoxPoll");
+                    msgcont.style.display ="block";
+
+
+                    var head = document.querySelector("#resultLayoutHead");
+                    if(head){
+                        head.style.display ="none";
+                    }
+
                     virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
+                    // var pollResult = document.querySelector("#navigator #pollResult");
+                    // pollResult.style.display="none"
+                    //
+                    // var pollHeader = document.querySelector("#navigator #stdPollHeader");
+                    // pollHeader.style.display= "block";
+
                 },
 
                 resultLayoutBody: function (cont) {

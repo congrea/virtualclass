@@ -3266,11 +3266,6 @@
 	z-index: 1104 !important;
 }
 
-#virtualclassCont.congrea .commonChatCon a:hover,#virwtualclassCont.congrea.student .commonChatCon a:hover{
-  color: #6cad9d !important;
-	text-decoration: none;
-}
-
 #alleditorCodeContainer [data-action="disable"]{
 	padding:0px !important;
 	background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
@@ -3751,6 +3746,18 @@ opacity: 1;
     color:green !important;
 }
 
+#virtualclassCont.congrea #chat_room li .chat-user-icon{
+	width: 40px;
+	height: 40px;
+	border-radius: 30px;
+	text-align: center;
+	padding-top: 11px;
+	margin-top: 6px;
+	font-size: 14px;
+	opacity:.8;
+}
+
+
 #virtualclassCont.congrea.playMode #networkStatusContainer {
     display:none;
 }
@@ -3764,3 +3771,4 @@ opacity: 1;
 #virtualclassCont.congrea #videoHostContainer.show #chat_div{
   max-height: calc(100vh - 383px) !important;
 }
+

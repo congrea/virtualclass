@@ -24,7 +24,7 @@
 
 #virtualclassCont.congrea #congreaChatCont .ui-chatbox-content {
     border-width: 0;
-    width: 311px;
+    width: 315px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-log {
@@ -68,7 +68,7 @@
     font-size: 12px;
     padding: 3px;
     list-style: none;
-    line-height: 16px;
+    line-height: 18px;
 }
 
 #virtualclassCont.congrea.student .ui-chatbox-msg{
@@ -77,7 +77,7 @@
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
     font-size: 12px;
-    margin-top: 5px;
+    margin-top: 6px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon .text{
@@ -88,6 +88,7 @@
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
     text-align: right;
     float: right;
+    font-size:10px;
 }
 #virtualclassCont.congrea .ui-chatbox-msg .msgCont {
     text-indent: 8px;
@@ -599,7 +600,8 @@
 }
 
 #virtualclassCont.congrea .ui-chatroom {
-    top: 7px;
+    top: 5px;
+    left:5px;
     position:absolute !important;
 }
 
@@ -672,7 +674,7 @@
 }
 #virtualclassCont.congrea #chat_room .text-muted {
     color: #bbb;
-    margin-right: 5px;
+    margin-right: 7px;
 }
 #virtualclassCont.congrea .congtooltip{
     margin-right: 0px;
@@ -682,7 +684,8 @@
 #virtualclassCont.congrea .commonChatCon .primary-font {
     color: #3585d5;
     letter-spacing: 0.5px;
-    font-size:14px;
+    font-size:13px;
+    text-transform: capitalize;
 }
 #virtualclassCont.congrea .primary {
     border-radius: 20%;
@@ -692,7 +695,7 @@
     margin-bottom: 5px;
 }
 #virtualclassCont.congrea .commonChatCon {
-    margin-left: 62px;
+    margin-left: 55px;
 }
 #virtualclassCont.congrea .Search{
     font-style:normal;

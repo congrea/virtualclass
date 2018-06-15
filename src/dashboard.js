@@ -12,6 +12,7 @@ var dashBoard = {
     },
 
     close : function (){
+        console.log('Close dashboard');
         var closeButton = document.querySelector('#congdashboard .modal-content button.close');
         if(closeButton != null){
             closeButton.classList.remove('clicked');

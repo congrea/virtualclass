@@ -22,7 +22,8 @@
                     var note = virtualclass.dts.getNote(currNote);
                     this.url = note.pdf;
                 }else {
-                    this.url = whiteboardPath + 'resources/sample.pdf';
+                    //this.url = whiteboardPath + 'resources/sample.pdf';
+                    this.url = 'https://cdn.congrea.net/resources/sample.pdf';
                     // this.url = 'https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/0b5b11ce-7204-4771-a997-a0fb3f9ccc7d/pdf/001.pdf';
                 }
 

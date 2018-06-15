@@ -1261,7 +1261,7 @@
 //                                        videoWrapper.setAttribute("data-uname", "suman" + num);
                                 var videoSubWrapper = document.createElement('div');
                                 videoSubWrapper.className = "videoSubWrapper";
-                                videoSubWrapper.setAttribute("data-uname", "suman" + num);
+                                videoSubWrapper.setAttribute("data-uname", + num);
                                 videoWrapper.appendChild(videoSubWrapper);
                                 var prvContHeight = videoCont.offsetHeight;
                                 var video = document.createElement('video');

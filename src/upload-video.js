@@ -1457,6 +1457,7 @@
                 // nirmala aws
                 awsr:function(){
                     var data= "Demo";
+                    console.log('Request get document url 2');
                     this.postAjax(virtualclass.api.GetDocumentURLs,data)
                 },
 

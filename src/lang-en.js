@@ -283,8 +283,8 @@
         'unmuteAll' : 'Unmute all',
         'uploadsession' : 'Please wait until processing is complete',
         'uploadvideo' : 'Upload video',
-        'uploadedsession' : 'Your session has ended, you may now close the window.' +
-        'Or close this popup to start a new session.',
+        'uploadedsession' : 'Your session has ended. You may now close the window ' +
+        ' or close this popup to start a new session.',
         'usermissing' : 'User is missing',
         'userList':"User's list",
         'validateurlmsg' : 'Invalid URL',
@@ -353,7 +353,7 @@
         'Click on "Share Selected Device." option.' +
         '<div class="screenImages">' +
         '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" > <figcaption>Chrome</figcaption> </figure></div>',
-        'TypeError' : 'Your webcam is not initialised properly. Please reload the page.'
+        'TypeError' : 'Your webcam is not initialized properly. Please reload the page.'
     };
     window.message = message;
 })(window);

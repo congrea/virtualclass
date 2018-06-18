@@ -324,7 +324,9 @@
                         this.initDocs(this.allDocs[key].fileuuid);
                     }
                 }
-                this.requestOrder(this.executeOrder);
+                if(roles.hasAdmin()){
+                    this.requestOrder(this.executeOrder);
+                }
             },
 
             rawToProperData : function (docs, fromStorage){
@@ -368,7 +370,7 @@
                        TODO, this should be handle properly
                        As of now, use can see the diffrence
                       * */
-                    virtualclass.dashBoard.close();
+                    // virtualclass.dashBoard.close();
 
                 }
             },

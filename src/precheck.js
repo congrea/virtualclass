@@ -328,8 +328,12 @@ var precheck = {
             var preCheck = "#preCheckcontainer .precheck";
             virtualclass.precheck.display('#preCheckcontainer .precheck.'+this.curr);
 
-
+            var audioSrc =  document.querySelector('#vcSpeakerCheckAudio source');
             var testAudio = document.getElementById('vcSpeakerCheckAudio');
+                // if(!audioSrc.hasOwnProperty('src')){
+                //     audioSrc.src = "https://cdn.congrea.net/resources/audio/audio_music.mp3";
+                // }
+
                 testAudio.loop = true;
                 testAudio.play();
 

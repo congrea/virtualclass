@@ -551,9 +551,10 @@ function displayPvtChatHistory(data) {
  Dialog box to display error messages
  */
 function display_error(msg) {
-    $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
-    $("#dialog").html(msg);
-    $('#dialog').dialog();
+    // $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
+    // $("#dialog").html(msg);
+    // $('#dialog').dialog();
+    virtualclass.view.createErrorMsg(msg, 'errorContainer', 'chatWidget', {className : 'Unauthenticated'});
 }
 
 

@@ -162,7 +162,8 @@
              */
             arrowInit: function () {
                 this.arrImg = new Image();
-                this.arrImg.src = (typeof window.whiteboardPath != 'undefined') ? window.whiteboardPath + 'resources/images/arrow.png' : '/resources/images/arrow.png';
+                //this.arrImg.src = (typeof window.whiteboardPath != 'undefined') ? window.whiteboardPath + 'resources/images/arrow.png' : '/resources/images/arrow.png';
+                this.arrImg.src = 'https://cdn.congrea.net/resources/images/arrow.png';
                 this.arrImgDraw = false;
                 var wb = this;
                 this.arrImg.onload = function () {

@@ -754,6 +754,9 @@
             if (!this.hasOwnProperty('playTime')) {
 
                 this.playTime = this.items[0].playTime;
+                if(this.playTime > 3000){
+                    this.playTime = 3000;
+                }
                 e.data = JSON.parse(this.items[this.objn].recObjs);
                 io.cfg = e.data;
 

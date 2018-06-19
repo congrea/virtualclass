@@ -196,7 +196,7 @@
                     var getContent = JSON.parse(data);
                     if(getContent['status'] == 0) {
                         var cont = document.getElementById("bootstrapQzCont");
-                        cont.innerHTML = getContent['message'];
+                        cont.innerHTML = virtualclass.lang.getString("noQuiz");
                     } else {
                         for (var i = 0; i <= getContent.length - 1; i++) {
                             var options = getContent[i].options;

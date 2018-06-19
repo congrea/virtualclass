@@ -1333,7 +1333,7 @@ $(document).ready(function () {
                     console.log('Unshare the screen at student');
                     virtualclass[app].prevImageSlices = [];
                     virtualclass[app].removeStream();
-                    virtualclass.currApp = 'EditorRich';
+                    virtualclass.currApp = virtualclass.gObj.defaultApp;
                 }
             };
 

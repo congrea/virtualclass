@@ -511,7 +511,7 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  <div id=\"virtualclassAppContainer\">\n    <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\">\n      <div class=\"whiteboardContainer\"> </div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </div>\n  </div>\n</div>\n";
+    + "\n    </div>\n  </div>\n  <a href=\"https://www.congrea.com\" target=\"_blank\">\n  <img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\">\n  </a>\n</div>\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -1004,9 +1004,7 @@ this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
     + "</button>\n                </div>\n              </div>\n\n              <div id=\"vcBandWidthCheck\" class=\"precheck bandwidth\">\n                <div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testinginternetspeed",{"name":"getString","hash":{},"data":data}))
-    + " </div>\n                <!-- <div class=\"progress\"> Progressing....</div> -->\n                <div class=\"result\"><img src=\""
-    + alias3(((helper = (helper = helpers.whiteboardPath || (depth0 != null ? depth0.whiteboardPath : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"whiteboardPath","hash":{},"data":data}) : helper)))
-    + "resources/images/progressbar.gif\" /></div>\n                <div id=\"bandwidthButtons\" class=\"button clearfix\">\n                  <button type=\"button\" class=\"prev btn btn-default\">"
+    + " </div>\n                <!-- <div class=\"progress\"> Progressing....</div> -->\n                <div class=\"result\"><img src=\"https://cdn.congrea.net/resources/images/progressbar.gif\" /></div>\n                <div id=\"bandwidthButtons\" class=\"button clearfix\">\n                  <button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
     + "</button>\n                  <button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))

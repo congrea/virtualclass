@@ -252,6 +252,7 @@ var videoHost = {
                   cthis.video.tempVideoInit();
               }
              cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+             cthis.video.myVideo.muted = true;
              virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
              // cthis.video.myVideo.muted = true;
              // cthis.stream = cthis.video.tempStream;

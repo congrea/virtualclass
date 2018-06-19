@@ -885,8 +885,9 @@
                 chatroomTab.classList.remove("active");
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
-                virtualclass.serverData.fetchAllData();
-
+                if(roles.hasAdmin()){
+                    virtualclass.serverData.fetchAllData();
+                }
             }
         },
 
@@ -912,7 +913,7 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('alldocs')) {
-                        console.log('document share store suman');
+                        console.log('document share store');
                         dataStore = true;
                         virtualclass.gObj.docs = JSON.parse(cursor.value.alldocs);
                         // virtualclass.gObj.docs = 'init';
@@ -947,7 +948,7 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('dstalldocs')) {
-                        console.log('document share store suman');
+                        console.log('document share store');
                         dataAllStore = true;
                         // We are not getting the data from local storage for now
                         virtualclass.gObj.dstAll = JSON.parse(cursor.value.dstalldocs);

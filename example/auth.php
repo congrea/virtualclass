@@ -33,9 +33,11 @@ $secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
 $licensekey = 'noqOqApeSflBnQn9VSibPQ19CHFxRjLuEWdzojnHVMrVNlRa';
 $secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i';
 
+
 /*
 $licensekey = 'noqOqApeSflBnQn9VSibPQ19CHFxRjLuEWdzojnHVMrVNlRa';
 $secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
+
 
 
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';

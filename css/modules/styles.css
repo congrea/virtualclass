@@ -3772,3 +3772,16 @@ opacity: 1;
   max-height: calc(100vh - 383px) !important;
 }
 
+#virtualclassCont.congrea div.ui-memblist-usr .user-details  span.media-object {
+	text-align: center;
+	padding-top: 11px;
+	margin-top: 6px;
+	font-size: 14px;
+	opacity: .8;
+	border: solid 1px;
+	border-radius: 20%;
+	width: 52px;
+	height: 40px;
+	margin: 3px 0 0 2px;
+	object-fit: cover;
+}

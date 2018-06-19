@@ -25,6 +25,24 @@ function displayChatUserList(users){
         //
         // }
 
+        // if(users[i].img =="noimage") {
+        //     if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
+        //         debugger;
+        //         groupChatImgColor(users[i].name, users[i].userid)
+        //     }
+        // }else{
+        //     virtualclass.gObj.chatIconColors[users[i].userid]= false;
+        //     virtualclass.gObj.storedImg[users[i].userid]=users[i].img
+        // }
+        if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
+            groupChatImgColor(users[i].name, users[i].userid)
+        }
+        if(users[i].img =="noimage") {
+            virtualclass.gObj.chatIconColors[users[i].userid].savedImg=false
+        }else{
+            virtualclass.gObj.chatIconColors[users[i].userid].savedImg= users[i].img;
+        }
+
         if (document.getElementById('video' + users[i].userid) == null) {
             myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
         //    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
@@ -47,7 +65,7 @@ function displayChatUserList(users){
             }
             myDivResult = "";
             // to verify
-            if((virtualclass.gObj.uid != users[i].userid) && (virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher())){
+            if((virtualclass.gObj.uid != users[i].userid) && (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher())){
                 virtualclass.user.initControlHandler(users[i].userid);
             }
         }
@@ -159,11 +177,6 @@ function memberUpdate(e, addType) {
                     }
 
                 }
-                // var usr = document.querySelector("#ml"+userlist[i].userid)
-                // if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
-                //     usr.classList.remove("student");
-                //     usr.classList.add("teacher");
-                // }
 
             }
 
@@ -195,11 +208,12 @@ function memberUpdate(e, addType) {
         }
 
         var memList = document.querySelector('#memlist');
+        var chatrm = document.querySelector('#chatrm');
         if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
             memList.classList.add("enable");
             memList.classList.remove("disable");
 
-            var chatrm = document.querySelector('#chatrm');
+
             if(chatrm !=  null){
                 chatrm.classList.remove("enable");
                 chatrm.classList.add("disable")
@@ -207,6 +221,15 @@ function memberUpdate(e, addType) {
         }else {
             memList.classList.remove("enable");
             memList.classList.add("disable");
+            var listTab = document.querySelector("#user_list");
+            var chatroomTab = document.querySelector("#chatroom_bt2");
+
+            if(chatrm){
+                if(!chatroomTab.classList.contains("active")){
+                    chatroomTab.classList.add("active");
+                }
+                listTab.classList.remove("active")
+            }
         }
 
         var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
@@ -612,3 +635,44 @@ function displayUserSinglePvtChatHistory(userid){
         });
     }
 }
+
+function groupChatImgColor(peer,userid){
+    var bgColor="green";
+    var textColor="white"
+    //if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
+    var initial = getInitials(peer)
+    var user = (userid.toString()) + peer;
+    bgColor = stringToHslColor(user , 60, 35)
+    var brightness = virtualclass.vutil.calcBrightness(bgColor);
+    if (brightness > 125) {
+        textColor="black";
+    } else {
+        textColor="white";
+    }
+    virtualclass.gObj.chatIconColors[userid] ={
+        bgColor:bgColor,
+        textColor:textColor,
+        initial:initial
+    }
+    // }
+
+}
+function stringToHslColor(str, s, l) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    var h = hash % 360;
+    return 'hsl('+h+', '+s+'%, '+l+'%)';
+}
+function getInitials (string) {
+    var names = string.split(' '),
+        initials = names[0].substring(0, 1).toUpperCase();
+
+    if (names.length > 1) {
+        initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+}
+

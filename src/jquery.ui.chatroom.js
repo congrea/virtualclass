@@ -27,8 +27,8 @@
                     this.elem = elem;
                 },
                 addMsg: function (peer, msgObj,userid) {
-                    if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined") {
-                        this.groupChatImgColor(peer, userid)
+                    if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined" ) {
+                         groupChatImgColor(peer, userid)
                     }
                     var time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
                     var msg = msgObj.msg;
@@ -41,15 +41,16 @@
                     var chatCont = document.createElement("div");
                     chatCont.className = "chat-user-icon pull-left";
                     e.appendChild(chatCont);
-                    chatCont.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
-                    chatCont.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
 
-                    var Img = document.createElement("span");
-                    Img.className="chat-img ";
-                    Img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
+                    if( virtualclass.gObj.chatIconColors[userid]) {
+                        chatCont.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
+                        chatCont.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+                        var Img = document.createElement("span");
+                        Img.className="chat-img ";
+                        Img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
+                    }
+
                     chatCont.appendChild(Img);
-
-
                     var systemMessage = false;
                     // suman 25
                     var chatContainer = document.createElement("div");

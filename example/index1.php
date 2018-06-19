@@ -325,7 +325,7 @@ if($audactive){
 // Output starts here.
 
 // Default image if webcam disable.
-$src = '/virtualclass/resources/images/quality-support.png';
+//$src = '/virtualclass/resources/images/quality-support.png';
 $cmid = 5;
 
 ?>

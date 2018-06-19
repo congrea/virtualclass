@@ -93,7 +93,7 @@
 
                     if(chatUser != null){
                         var childTag = chatUser.getElementsByTagName('a')[0];
-                        var imgTag = childTag.getElementsByTagName('img')[0];
+                        var imgTag = childTag.getElementsByTagName('span')[0] ||  childTag.getElementsByTagName('img')[0];;
                         if(!childTag.classList.contains("hasVideo")){
                             childTag.className += ' hasVideo';
                         }
@@ -1261,7 +1261,7 @@
 //                                        videoWrapper.setAttribute("data-uname", "suman" + num);
                                 var videoSubWrapper = document.createElement('div');
                                 videoSubWrapper.className = "videoSubWrapper";
-                                videoSubWrapper.setAttribute("data-uname", "suman" + num);
+                                videoSubWrapper.setAttribute("data-uname", + num);
                                 videoWrapper.appendChild(videoSubWrapper);
                                 var prvContHeight = videoCont.offsetHeight;
                                 var video = document.createElement('video');

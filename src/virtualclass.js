@@ -63,7 +63,7 @@
                 isReadyForVideo : true,
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
-                chatIconColors:{}
+                chatIconColors:{},
             },
 
             enablePreCheck : true,
@@ -1347,8 +1347,7 @@
                 var mainCont = {
                     isPlay : virtualclass.isPlayMode,
                     hasControls : roles.hasControls(),
-                    meetingMode : virtualclass.gObj.meetingMode,
-                    whiteboardpath :  whiteboardPath
+                    meetingMode : virtualclass.gObj.meetingMode
                 }
 
                 var mainHtml = mainTemplate(mainCont);

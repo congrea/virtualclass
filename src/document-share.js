@@ -324,7 +324,9 @@
                         this.initDocs(this.allDocs[key].fileuuid);
                     }
                 }
-                this.requestOrder(this.executeOrder);
+                if(roles.hasAdmin()){
+                    this.requestOrder(this.executeOrder);
+                }
             },
 
             rawToProperData : function (docs, fromStorage){
@@ -363,8 +365,14 @@
                     this.setScreenByOrder(docId);
                     this.docs.currNote = this.order[0];
                     this.docs.displayScreen(docId, this.order[0]);
-                }
 
+                    /**
+                       TODO, this should be handle properly
+                       As of now, use can see the diffrence
+                      * */
+                    // virtualclass.dashBoard.close();
+
+                }
             },
 
             /**
@@ -381,6 +389,8 @@
                         if (response == "Failed" || response == "Error") {
                             console.log("page order retrieve failed");
                             $('#congdashboard').modal();
+                            console.log('dashboard length ' +  $('#congdashboard').length);
+
                             virtualclass.dashBoard.clickCloseButton();
                         } else if(response) {
                             if(roles.hasAdmin()){

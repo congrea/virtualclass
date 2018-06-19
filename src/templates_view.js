@@ -141,12 +141,32 @@ this["JST"]["templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,"
 },"useData":true});
 
 this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "      <a href=\"#"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "\" class=\"pull-left\">\n        <img class=\"media-object\" src=\""
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.savedImg : stack1), depth0))
+    + "\">\n      </a>\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "      <a href=\"#"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "\" class=\"chat-user-icon pull-left\">\n        <span class=\"chat-img media-object \" style=\"background-color:"
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.bgColor : stack1), depth0))
+    + ";color:"
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.textColor : stack1), depth0))
+    + "\">"
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.initial : stack1), depth0))
+    + "</span>\n      </a>\n\n";
+},"5":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
 
   return "    <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "ControlContainer\" class=\"controls\">\n"
-    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.isTeacher : stack1),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.isTeacher : stack1),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "        <div class=\"controleCont\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAudCont\">\n          <a class=\"congtooltip\" data-title=\""
@@ -164,9 +184,9 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + "contrChatAnch\">\n            <span class=\"icon-chatImg enable chatImg contImg\" data-chat-disable=\"false\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrChatImg\"></span></a>\n        </div>\n\n"
-    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.isTeacher : stack1),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.isTeacher : stack1),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n";
-},"2":function(container,depth0,helpers,partials,data) {
+},"6":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
 
   return "           <div id=\""
@@ -194,7 +214,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + "contrstdscreenAnch\">\n              <span class=\"icon-stdscreenImg enable stdscreenImg contImg\" data-chat-disable=\"false\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrstdscreenImg\"></span></a>\n          </div>\n\n\n";
-},"4":function(container,depth0,helpers,partials,data) {
+},"8":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
 
   return "        <div class=\"controleCont controllereditorRich\" id=\""
@@ -215,7 +235,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contreditorCodeImg\"></span></a>\n        </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<div class=\"userImg ui-memblist-usr online media "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.rl : stack1), depth0))
@@ -223,11 +243,9 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "\" data-role=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.rl : stack1), depth0))
-    + "\">\n  <div class=\"user-details media-body\">\n    <a href=\"#"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" class=\"pull-left\">\n      <img class=\"media-object\" src=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.img : stack1), depth0))
-    + "\">\n    </a>\n    <div class=\"usern\">\n    <a href=\"#"
+    + "\">\n  <div class=\"user-details media-body\">\n"
+    + ((stack1 = helpers["if"].call(alias3,((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.savedImg : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
+    + "    <div class=\"usern\">\n    <a href=\"#"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "\" title=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.name : stack1), depth0))
@@ -238,7 +256,7 @@ this["JST"]["templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(c
     + " "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.lname : stack1), depth0))
     + "</a>\n    </div>\n\n  </div>\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.notSelf : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.notSelf : stack1),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</div>";
 },"useData":true});
 
@@ -485,17 +503,15 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
 },"6":function(container,depth0,helpers,partials,data) {
     return "      <span class=\"nvgt prev\"></span>\n      <span class=\"nvgt next\"></span>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "\n<div id=\"virtualclassAppLeftPanel\" class=\"leftbar hideZoom\" data-surname=\""
-    + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
     + "\">\n \n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  <div id=\"virtualclassAppContainer\">\n    <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\">\n      <div class=\"whiteboardContainer\"> </div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </div>\n  </div>\n  <a href=\"https://www.congrea.com\" target=\"_blank\">\n  <img src=\""
-    + alias4(((helper = (helper = helpers.whiteboardpath || (depth0 != null ? depth0.whiteboardpath : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"whiteboardpath","hash":{},"data":data}) : helper)))
-    + "resources/images/congrea_logo.svg\">\n  </a>\n</div>\n";
+    + "\n    </div>\n  </div>\n  <a href=\"https://www.congrea.com\" target=\"_blank\">\n  <img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\">\n  </a>\n</div>\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -988,9 +1004,7 @@ this["JST"]["templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
     + "</button>\n                </div>\n              </div>\n\n              <div id=\"vcBandWidthCheck\" class=\"precheck bandwidth\">\n                <div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testinginternetspeed",{"name":"getString","hash":{},"data":data}))
-    + " </div>\n                <!-- <div class=\"progress\"> Progressing....</div> -->\n                <div class=\"result\"><img src=\""
-    + alias3(((helper = (helper = helpers.whiteboardPath || (depth0 != null ? depth0.whiteboardPath : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"whiteboardPath","hash":{},"data":data}) : helper)))
-    + "resources/images/progressbar.gif\" /></div>\n                <div id=\"bandwidthButtons\" class=\"button clearfix\">\n                  <button type=\"button\" class=\"prev btn btn-default\">"
+    + " </div>\n                <!-- <div class=\"progress\"> Progressing....</div> -->\n                <div class=\"result\"><img src=\"https://cdn.congrea.net/resources/images/progressbar.gif\" /></div>\n                <div id=\"bandwidthButtons\" class=\"button clearfix\">\n                  <button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
     + "</button>\n                  <button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))

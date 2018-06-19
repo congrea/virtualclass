@@ -70,11 +70,14 @@
                     }else if(peer.role == 's'){
                         usr.rl="student";
                     }
+                    usr.chatIconColors=virtualclass.gObj.chatIconColors[peer.userid ]
                     console.log('Chat add user ' + peer.userid)
                     var template=virtualclass.getTemplate("chatuser","chat");
                     // $(box).append(template({"peer": usr}));
                     // $(box).append(template({"peer": usr}));
                     var userHtml =  template({"peer": usr});
+
+
                     return userHtml;
                 },
 

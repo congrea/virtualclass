@@ -4801,7 +4801,7 @@
 
 
 
-                    } else if (navigator.webkitGetUserMedia && typeof suman != 'undefined') {
+                    } else if (navigator.webkitGetUserMedia) {
 //                            alert('this is for chrome');
                         console.log("This appears to be Chrome");
 

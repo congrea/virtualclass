@@ -4,6 +4,7 @@ var serverData = {
     fetchAllData : function (cb){
         console.log('Fetch all data');
         this.cb = cb;
+        console.log('Request get document url');
         this.requestData(virtualclass.api.GetDocumentURLs);
     },
 

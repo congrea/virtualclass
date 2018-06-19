@@ -212,17 +212,31 @@ var videoHost = {
         if(isVideo){
             isVideo.parentNode.removeChild(isVideo);
         }
+        // var imgTag = document.querySelector("#ml"+userid+" .user-details a img");
+        // if(imgTag){
+        //     imgTag.parentNode.removeChild(imgTag);
+        // }
+
+
         var imgCont = document.querySelector("#ml"+userid+" .user-details a")
-        var imgElem = document.querySelector("#ml"+userid+" .user-details a span");
+        var imgElem = document.querySelector("#ml"+userid+" .user-details a span") || document.querySelector("#ml"+userid+" .user-details a img");
         if(!imgElem){
-            var img = document.createElement('span');
+            if(virtualclass.gObj.chatIconColors[userid] && !virtualclass.gObj.chatIconColors[userid].savedImg ){
+                var img = document.createElement('span');
+                img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial;
+                img.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
+                img.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+            }else{
+
+                var img = document.createElement('img');
+                img.setAttribute("src",virtualclass.gObj.chatIconColors[userid].savedImg );
+
+            }
+
             img.classList.add('chat-img','media-object');
-            img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial
+            //img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial
             imgCont.appendChild(img);
             console.log("set User icon");
-
-            img.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
-            img.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
 
         }
     },

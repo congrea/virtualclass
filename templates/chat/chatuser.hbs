@@ -1,8 +1,15 @@
 <div class="userImg ui-memblist-usr online media {{peer.rl}} " id="ml{{peer.userid}}" data-role="{{peer.rl}}">
   <div class="user-details media-body">
-    <a href="#{{peer.userid}}" class="chat-user-icon pull-left">
-      <span class="chat-img media-object " style="background-color:{{peer.chatIconColors.bgColor}};color:{{peer.chatIconColors.textColor}}">{{peer.chatIconColors.initial}}</span>
-    </a>
+    {{#if peer.chatIconColors.savedImg}}
+      <a href="#{{peer.userid}}" class="pull-left">
+        <img class="media-object" src="{{peer.chatIconColors.savedImg}}">
+      </a>
+    {{else}}
+      <a href="#{{peer.userid}}" class="chat-user-icon pull-left">
+        <span class="chat-img media-object " style="background-color:{{peer.chatIconColors.bgColor}};color:{{peer.chatIconColors.textColor}}">{{peer.chatIconColors.initial}}</span>
+      </a>
+
+    {{/if}}
     <div class="usern">
     <a href="#{{peer.userid}}" title="{{peer.name}}  {{ peer.lname}}" class="media-heading">{{peer.name}} {{ peer.lname}}</a>
     </div>

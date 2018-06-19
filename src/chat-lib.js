@@ -25,8 +25,22 @@ function displayChatUserList(users){
         //
         // }
 
-        if(typeof virtualclass.gObj.chatIconColors[users[i].userid ] == 'undefined'){
-            groupChatImgColor(users[i].name , users[i].userid )
+        // if(users[i].img =="noimage") {
+        //     if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
+        //         debugger;
+        //         groupChatImgColor(users[i].name, users[i].userid)
+        //     }
+        // }else{
+        //     virtualclass.gObj.chatIconColors[users[i].userid]= false;
+        //     virtualclass.gObj.storedImg[users[i].userid]=users[i].img
+        // }
+        if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
+            groupChatImgColor(users[i].name, users[i].userid)
+        }
+        if(users[i].img =="noimage") {
+            virtualclass.gObj.chatIconColors[users[i].userid].savedImg=false
+        }else{
+            virtualclass.gObj.chatIconColors[users[i].userid].savedImg= users[i].img;
         }
 
         if (document.getElementById('video' + users[i].userid) == null) {
@@ -164,13 +178,6 @@ function memberUpdate(e, addType) {
 
                 }
 
-
-                // var usr = document.querySelector("#ml"+userlist[i].userid)
-                // if(userlist[i].userid ==virtualclass.vutil.whoIsTeacher() ){
-                //     usr.classList.remove("student");
-                //     usr.classList.add("teacher");
-                // }
-
             }
 
             if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
@@ -201,11 +208,12 @@ function memberUpdate(e, addType) {
         }
 
         var memList = document.querySelector('#memlist');
+        var chatrm = document.querySelector('#chatrm');
         if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
             memList.classList.add("enable");
             memList.classList.remove("disable");
 
-            var chatrm = document.querySelector('#chatrm');
+
             if(chatrm !=  null){
                 chatrm.classList.remove("enable");
                 chatrm.classList.add("disable")
@@ -213,6 +221,15 @@ function memberUpdate(e, addType) {
         }else {
             memList.classList.remove("enable");
             memList.classList.add("disable");
+            var listTab = document.querySelector("#user_list");
+            var chatroomTab = document.querySelector("#chatroom_bt2");
+
+            if(chatrm){
+                if(!chatroomTab.classList.contains("active")){
+                    chatroomTab.classList.add("active");
+                }
+                listTab.classList.remove("active")
+            }
         }
 
         var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");

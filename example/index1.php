@@ -213,7 +213,7 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 
 // File included if debugging on
 
-$info = 0;
+$info = 1;
 ?>
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
 <?php
@@ -325,7 +325,7 @@ if($audactive){
 // Output starts here.
 
 // Default image if webcam disable.
-$src = '/virtualclass/resources/images/quality-support.png';
+//$src = '/virtualclass/resources/images/quality-support.png';
 $cmid = 5;
 
 ?>

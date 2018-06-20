@@ -42,6 +42,8 @@
                  * @param e is event object
                  */
                 mousedown: function (e, cobj) {
+                    var clogo = document.getElementById("congrealogo");
+                    clogo.classList.add("disbaleOnmousedown");
                     var newpointer = vcan.utility.getReltivePoint(e);
                    // console.log('Whiteboard drag start x=' + newpointer.x + ' y=' + newpointer.y);
 
@@ -131,7 +133,7 @@
 
                         var foundTarget = vcan.events().findTarget(e);
 
-                        if (foundTarget && foundTarget.type == 'text' && virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == 't_text') {
+                        if (foundTarget && foundTarget.type == 'text' && virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == "t_text" + virtualclass.gObj.currWb) {
                             foundTarget.setupCurrentTransform(e);
                         }
                     }
@@ -271,6 +273,8 @@
                  *  it occures when the mouse rellease over the canvas
                  */
                 mouseup: function (e) {
+                    var removeclogo = document.getElementById("congrealogo");
+                    removeclogo.classList.remove("disbaleOnmousedown");
                     if (e.detail.hasOwnProperty('cevent')) {
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
                         e.clientY = vcan.main.offset.y + e.detail.cevent.y;

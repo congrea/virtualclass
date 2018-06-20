@@ -129,21 +129,22 @@
                 divNode.style.left = (obj.x - virtualclass.leftPosX) + "px";
                 divNode.style.top = (obj.y-virtualclass.topPosY) + "px";
 
-                var textNode = document.createElement('textarea');
+                if(obj.x != undefined) {
+                    var textNode = document.createElement('textarea');
 
-                textNode.id = divNode.id + 'textarea';
-                textNode.className = 'whiteBoardTextBox';
+                    textNode.id = divNode.id + 'textarea';
+                    textNode.className = 'whiteBoardTextBox';
 
-                textNode.rows = 8;
-                textNode.cols = 41;
-                if (obj.text != undefined && obj.text != '') {
-                    textNode.value = obj.text;
+                    textNode.rows = 8;
+                    textNode.cols = 41;
+                    if (obj.text != undefined && obj.text != '') {
+                        textNode.value = obj.text;
+                    }
+
+                    divNode.appendChild(textNode);
+
+                    document.getElementById(this.boxContainer).appendChild(divNode);
                 }
-
-                divNode.appendChild(textNode);
-
-                document.getElementById(this.boxContainer).appendChild(divNode);
-
                 this.prevTextObj = divNode;
                 this.currTextObjWrapper = obj;
                 this.prevTextObj.measure = obj;
@@ -280,7 +281,7 @@
                 var canvasWrapper = document.getElementById('canvasWrapper' + virtualclass.gObj.currWb);
                 if(canvasWrapper != null){
                     var textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
-                    if(textBox != null){
+                    if(textBox.length > 0){
                         textBox = textBox[0];
                         if(typeof midReclaim == 'undefined' || (typeof midReclaim != 'undefined') && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textWriteMode % 2 != 0 ){
                             virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textUtility();

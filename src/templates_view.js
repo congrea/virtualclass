@@ -493,7 +493,7 @@ this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(contain
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  <div id=\"virtualclassAppContainer\">\n    <div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\">\n      <div class=\"whiteboardContainer\"> </div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </div>\n  </div>\n  <a href=\"https://www.congrea.com\" target=\"_blank\">\n  <img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\">\n  </a>\n</div>\n";
+    + "\n    </div>\n  </div>\n  <a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\">\n  <img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\">\n  </a>\n</div>\n";
 },"usePartial":true,"useData":true});
 
 this["JST"]["templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

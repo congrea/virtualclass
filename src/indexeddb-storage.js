@@ -885,8 +885,9 @@
                 chatroomTab.classList.remove("active");
 
                 virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
-                virtualclass.serverData.fetchAllData();
-
+                if(roles.hasAdmin()){
+                    virtualclass.serverData.fetchAllData();
+                }
             }
         },
 

@@ -63,7 +63,7 @@
                 isReadyForVideo : true,
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
-                chatIconColors:{}
+                chatIconColors:{},
             },
 
             enablePreCheck : true,

@@ -325,14 +325,14 @@ if($audactive){
 // Output starts here.
 
 // Default image if webcam disable.
-$src = '/virtualclass/resources/images/quality-support.png';
+//$src = '/virtualclass/resources/images/quality-support.png';
 $cmid = 5;
 
 ?>
 <script type="text/javascript">
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
-    wbUser.imageurl =  '<?php echo $src; ?>';
+    wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';
     wbUser.socketOn =  '<?php echo $info; ?>';
     wbUser.dataInfo =  '0';

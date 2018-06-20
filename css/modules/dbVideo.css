@@ -16,7 +16,7 @@
   height: calc(100vh - 200px);
   overflow-y: auto;
   margin-bottom :0;
-  margin-top : 15px;
+  margin: 15px;
 }
 
 #virtualclassCont #listvideo .videoTitle{
@@ -261,16 +261,22 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 .playControllerMainCont #playControllerCont #playController #recPlay {
-    padding:4px 13.5px 4px 13.5px;
+    padding:17px 28.5px;
+    border-left: 1px solid black !important;
+    border-right: 1px solid black !important;
 }
+
 .playControllerMainCont #playControllerCont #playController #recPause {
-    padding:4px 11px 4px 13px;
+    padding:17px 27.5px;
+    border-right: 1px solid black !important;
 }
 .playControllerMainCont #playControllerCont #playController #ff8{
-    padding:4px 12px 4px 12px;
+    padding:16.5px 27px;
+    border-right:1px solid black !important;
 }
 .playControllerMainCont #playControllerCont #playController #ff2{
-    padding:4px 12.5px 4px 12.5px;
+    padding:16.5px 27.5px;
+    border-right:1px solid black !important;
 }
 .playControllerMainCont #playControllerCont #playController .icon-Replayfromstart {
     padding:0 8px;
@@ -516,7 +522,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #listvideo .linkvideo:nth-child(odd)
 {
-  background-color: #9ba1a71f;
+  background-color: #e9ecef;
 }
 #virtualclassCont.congrea #listvideo .linkvideo:hover
 {

@@ -385,20 +385,24 @@
 #virtualclassCont.congrea #playController .icon-pause:before{
   content:"\f04c";
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
 }
 
 #virtualclassCont.congrea #playController .icon-forward:before{
   content:"\f04e";
-  font-size: 14px;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
 }
 
 #virtualclassCont.congrea #playController .icon-fast-forward:before{
   content:"\f050";
-  font-size: 14px;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
 }
 #virtualclassCont.congrea .icon-play:before{
   content : "\f04b";
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
 }
 #virtualclassCont.congrea #replayContainer #replayButton , #virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before {
   font-size: 13px;
@@ -410,12 +414,13 @@
   left: -6px;
   top: 1px;
   color:#7fa617;
+    -webkit-font-smoothing: antialiased;
 }
 
 
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:before{
   content : "\e609";
-  font-size: 26px;
+  font-size: 20px;
   font-weight:bold;
 }
 

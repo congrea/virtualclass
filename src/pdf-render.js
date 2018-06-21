@@ -607,7 +607,7 @@
             },
 
             zoomOutWhiteboardObjects : function (wid){
-                if(typeof virtualclass.wb[wId] == 'object'){
+                if(typeof virtualclass.wb[wid] == 'object'){
                     var vcan = virtualclass.wb[wid].vcan;
                     var objects = vcan.main.children;
                     for (var i in objects) {

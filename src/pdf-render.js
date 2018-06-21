@@ -552,42 +552,44 @@
             },
 
             zoomwhiteboardObjects : function (wId){
-                var vcan = virtualclass.wb[wId].vcan;
-                var objects = vcan.main.children;
+                if(typeof virtualclass.wb[wId] == 'object'){
+                    var vcan = virtualclass.wb[wId].vcan;
+                    var objects = vcan.main.children;
 
-                if(objects.length == 0){
-                    if( virtualclass.wb[wId].scale != null){
-                        virtualclass.wb[wId].scale *=   SCALE_FACTOR;
-                    }else {
-                        virtualclass.wb[wId].scale = 1 * SCALE_FACTOR;
+                    if(objects.length == 0){
+                        if( virtualclass.wb[wId].scale != null){
+                            virtualclass.wb[wId].scale *=   SCALE_FACTOR;
+                        }else {
+                            virtualclass.wb[wId].scale = 1 * SCALE_FACTOR;
+                        }
+                    } else {
+                        for (var i in objects) {
+                            var scaleX = objects[i].scaleX;
+                            var scaleY = objects[i].scaleY;
+
+                            var left = objects[i].x;
+                            var top = objects[i].y;
+
+                            var tempScaleX = scaleX * SCALE_FACTOR;
+                            var tempScaleY = scaleY * SCALE_FACTOR;
+
+                            var tempLeft = left * SCALE_FACTOR;
+                            var tempTop = top * SCALE_FACTOR;
+
+                            objects[i].scaleX = tempScaleX;
+                            objects[i].scaleY = tempScaleY;
+
+                            objects[i].x = tempLeft;
+                            objects[i].y = tempTop;
+
+                            virtualclass.wb[wId].scale = tempScaleX;
+                            //virtualclass.wb[virtualclass.gObj.currWb].scale = 1;
+
+                            objects[i].setCoords();
+                        }
                     }
-                } else {
-                    for (var i in objects) {
-                        var scaleX = objects[i].scaleX;
-                        var scaleY = objects[i].scaleY;
-
-                        var left = objects[i].x;
-                        var top = objects[i].y;
-
-                        var tempScaleX = scaleX * SCALE_FACTOR;
-                        var tempScaleY = scaleY * SCALE_FACTOR;
-
-                        var tempLeft = left * SCALE_FACTOR;
-                        var tempTop = top * SCALE_FACTOR;
-
-                        objects[i].scaleX = tempScaleX;
-                        objects[i].scaleY = tempScaleY;
-
-                        objects[i].x = tempLeft;
-                        objects[i].y = tempTop;
-
-                        virtualclass.wb[wId].scale = tempScaleX;
-                        //virtualclass.wb[virtualclass.gObj.currWb].scale = 1;
-
-                        objects[i].setCoords();
-                    }
+                    vcan.renderAll();
                 }
-                vcan.renderAll();
             },
 
 
@@ -605,29 +607,31 @@
             },
 
             zoomOutWhiteboardObjects : function (wid){
-                var vcan = virtualclass.wb[wid].vcan;
-                var objects = vcan.main.children;
-                for (var i in objects) {
-                    var scaleX = objects[i].scaleX;
-                    var scaleY = objects[i].scaleY;
-                    var left = objects[i].x;
-                    var top = objects[i].y;
+                if(typeof virtualclass.wb[wId] == 'object'){
+                    var vcan = virtualclass.wb[wid].vcan;
+                    var objects = vcan.main.children;
+                    for (var i in objects) {
+                        var scaleX = objects[i].scaleX;
+                        var scaleY = objects[i].scaleY;
+                        var left = objects[i].x;
+                        var top = objects[i].y;
 
-                    var tempScaleX = scaleX * (1 / SCALE_FACTOR);
-                    var tempScaleY = scaleY * (1 / SCALE_FACTOR);
-                    var tempLeft = left * (1 / SCALE_FACTOR);
+                        var tempScaleX = scaleX * (1 / SCALE_FACTOR);
+                        var tempScaleY = scaleY * (1 / SCALE_FACTOR);
+                        var tempLeft = left * (1 / SCALE_FACTOR);
 
-                    var tempTop = top * (1 / SCALE_FACTOR);
+                        var tempTop = top * (1 / SCALE_FACTOR);
 
-                    objects[i].scaleX = tempScaleX;
-                    objects[i].scaleY = tempScaleY;
-                    objects[i].x = tempLeft;
-                    objects[i].y = tempTop;
+                        objects[i].scaleX = tempScaleX;
+                        objects[i].scaleY = tempScaleY;
+                        objects[i].x = tempLeft;
+                        objects[i].y = tempTop;
 
-                    objects[i].setCoords();
-                    virtualclass.wb[wid].scale = tempScaleX;
+                        objects[i].setCoords();
+                        virtualclass.wb[wid].scale = tempScaleX;
+                    }
+                    vcan.renderAll();
                 }
-                vcan.renderAll();
             },
 
 

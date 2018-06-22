@@ -198,7 +198,7 @@
         }
         if (orders.length > 0) {
             var result = orders.toString();
-            this.sendUpdate({'content_order': result, content_order_type: this.type});
+            // this.sendUpdate({'content_order': result, content_order_type: this.type});
             if (this.type == 'notes') {
                 virtualclass.dts.reArrangeNotes(orders);
             } else {

@@ -1236,7 +1236,7 @@
                                     if((+prevSlide.dataset.status) == 0){
                                         var activeSlide = this.getActiveSlide(cthis, currNodeId, 'prev');
                                         if(!activeSlide){
-                                            alert('Thre is no page');
+                                            alert('There is no page');
                                         }else{
                                             // by true, know the event is performed real user
                                             this.getScreen(activeSlide, true);

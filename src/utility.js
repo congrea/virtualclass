@@ -751,12 +751,17 @@
 
         /** TODO this function should be merged with above function **/
         getUserAllInfo: function(userId, users) {
-            for (var i = 0; i < users.length; i++) {
-                if (users[i].userid == userId) {
-                    return users[i];
-                }
-            }
-            return false;
+           if(typeof userId != 'undefined' && typeof users != 'undefined'){
+               for (var i = 0; i < users.length; i++) {
+                   if (users[i].userid == userId) {
+                       return users[i];
+                   }
+               }
+               return false;
+           }else  {
+               console.log('Error user is not found' );
+               return false;
+           }
         },
 
         smallizeFirstLetter: function(string) {

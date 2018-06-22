@@ -857,16 +857,8 @@
                             }
                         }
 
-                        if (this.previous == 'virtualclassScreenShare' && roles.hasControls()) {
-                            if (!virtualclass.vutil.dimensionMatch("virtualclassWhiteboard", "virtualclassScreenShare")) {
-                                virtualclass.wb[id].utility.lockvirtualclass();
-                            }
-                        }
-
                         this.previous = this.wbConfig.id;
-                        if(roles.hasControls() && virtualclass.gObj.resize){
-                            virtualclass.wb[id].utility.lockvirtualclass();
-                        }
+
                     }else{
                         alert('id is undefined');
                     }

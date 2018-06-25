@@ -772,7 +772,7 @@ margin-right:10px !important;
 }
 
 
-#virtualclassCont.congrea #chatWidget.chat_disabled .ui-memblist-usr.online {
+#virtualclassCont.congrea  #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr.online {
     pointer-events : none;
 }
 
@@ -794,4 +794,8 @@ margin-right:10px !important;
 
 #virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled #chatrm.enable{
     opacity :.4;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr{
+ pointer-events: none;
 }

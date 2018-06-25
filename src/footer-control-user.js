@@ -929,6 +929,7 @@
                             listTab.classList.add("active")
                         }
                         chatroomTab.classList.remove("active");
+                        virtualclass.chat.chatWindow="private";
                     }
                     // var supportTab = document.querySelector("#congreaSupport");
                     // if(supportTab.classList.contains("active")){
@@ -940,6 +941,7 @@
                             chatroomTab.classList.add("active");
                         }
                         listTab.classList.remove("active")
+                        virtualclass.chat.chatWindow="common";
                     }
 
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');

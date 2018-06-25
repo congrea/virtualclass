@@ -169,7 +169,7 @@
                 }else{
                     var obj={};
                     obj.init=id;
-                    virtualclass.yts.init(obj,startFrom);
+                   // virtualclass.yts.init(obj,startFrom);
                 }
 
             },

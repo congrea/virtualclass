@@ -79,7 +79,9 @@
                     var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
 
                     var chat = localStorage.getItem('chatWindow');
+
                     if (chat != null && chat == "common") {
+                        virtualclass.chat.chatWindow="common";
                         var chatroom = document.getElementById("chatrm");
                         if (chatroom) {
                             chatroom.classList.add("enable")
@@ -126,6 +128,7 @@
                             list.classList.add("enable");
                             var listBtn = document.getElementById("user_list");
                             listBtn.classList.add("active");
+                            virtualclass.chat.chatWindow="private";
                         }
 
                         if(chatInput){

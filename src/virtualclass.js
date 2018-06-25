@@ -933,7 +933,7 @@
 
                         }else if(videoObj.type == 'video_yts'){
                             virtualclass.videoUl.init();
-                            virtualclass.yts.init(videoObj, videoObj.startFrom);
+                            //virtualclass.yts.init(videoObj, videoObj.startFrom);
 
                         }else{
                             virtualclass.videoUl.init();

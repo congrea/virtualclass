@@ -701,12 +701,12 @@ $(document).ready(function () {
                     }
                 }
                 if (typeof sType !== 'undefined' && sType !== null) {
-                    initShareScreen(sType, 2000);
+                    initShareScreen(sType, 6000); //There might need some time to executing missed packets
                 }
             }else if (roles.isStudent() && virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.studentSSstatus.mesharing) {
                 sType = 'ss';
                 //There might need some time to executing missed packets
-                initShareScreen(sType, 5000);
+                initShareScreen(sType, 6000);
             }
         }
 

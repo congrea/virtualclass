@@ -1597,23 +1597,23 @@
             );
         },
 
-        calculateChatHeight : function (){
-            var topBarHeight = 100;
-            var videoHeight = 240;
-            //nirmala
-            var other = 0;
-            var chatHeight = 0;
-
-            var rightSidebarHeight = document.querySelector('#virtualclassCont');
-            if(rightSidebarHeight != null){
-                chatHeight = this.getVisibleHeightElem('#virtualclassCont') - (topBarHeight + videoHeight + other);
-                console.log('Chat height ' + chatHeight);
-                return chatHeight;
-            }else{
-                alert('There is no right side bar');
-            }
-
-        },
+        // calculateChatHeight : function (){
+        //     var topBarHeight = 100;
+        //     var videoHeight = 240;
+        //     //nirmala
+        //     var other = 0;
+        //     var chatHeight = 0;
+        //
+        //     var rightSidebarHeight = document.querySelector('#virtualclassCont');
+        //     if(rightSidebarHeight != null){
+        //         chatHeight = this.getVisibleHeightElem('#virtualclassCont') - (topBarHeight + videoHeight + other);
+        //         console.log('Chat height ' + chatHeight);
+        //         return chatHeight;
+        //     }else{
+        //         alert('There is no right side bar');
+        //     }
+        //
+        // },
 
         /** TODO should be written pure javascript
          * To get the height of visible element

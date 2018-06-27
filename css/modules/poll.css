@@ -385,3 +385,7 @@ pointer-events:none;
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success button.close{
   right : 2px;
 }
+
+#virtualclassCont.congrea #virtualclassPoll .modal-content {
+  overflow:auto;
+}

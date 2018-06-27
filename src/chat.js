@@ -189,15 +189,15 @@
                      * Chat height is calculated only when Chat div is created, Or, on Window re-size.
                      * It does not need to calculate on each _showChatUserList() invocation.
                      ***/
-                    if (my_calculateChatHeight == null) {
-                        var height = virtualclass.vutil.calculateChatHeight(); //12%
-                        my_calculateChatHeight = height;
-                        if (!roles.hasControls() && !virtualclass.videoHost.gObj.videoSwitch) {
-                            height = height + 230; // 230 is teacher's video height
-                        }
-                        virtualclass.vutil.setChatContHeight(height);
-                        virtualclass.chat.boxHeight = height;
-                    }
+                    // if (my_calculateChatHeight == null) {
+                    //     var height = virtualclass.vutil.calculateChatHeight(); //12%
+                    //     my_calculateChatHeight = height;
+                    //     if (!roles.hasControls() && !virtualclass.videoHost.gObj.videoSwitch) {
+                    //         height = height + 230; // 230 is teacher's video height
+                    //     }
+                    //     virtualclass.vutil.setChatContHeight(height);
+                    //     virtualclass.chat.boxHeight = height;
+                    // }
 
                     $("#chat_div").memberlist({
                         id: "chat_div",

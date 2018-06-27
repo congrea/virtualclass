@@ -727,7 +727,6 @@
             },
 
             defaultScroll : function (){
-                alert("hello guys");
                 var wb = virtualclass.gObj.currWb;
                 if(wb != null){
                     // Defualt scroll trigger

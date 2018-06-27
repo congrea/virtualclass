@@ -14,7 +14,6 @@
 //         timeSec++;
 //     }, 1000
 // );
-
 var io = {
     cfg: {},
     sock: null,
@@ -378,9 +377,13 @@ var io = {
             var data_pack = new Uint8Array(e.data);
             if (data_pack[1] == 0) { // All OK
 
+              // Saving in local storage required 2 packets for later play back
+              var msg1 = (data_pack[2] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
+              ioStorage.dataBinaryStore(msg1);
+
               data_pack = data_pack.subarray(2);
               var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
-              ioStorage.dataBinaryStore(msg);
+
               $.event.trigger({
                   type: "binrec",
                   message: msg.buffer
@@ -388,7 +391,7 @@ var io = {
 
             } else if (data_pack[1] == 1) { // Start of packet
               this.recBinMsgQueue = [];
-              this.recBinMsgQueue[0]=data_pack.subarray(2);
+                this.recBinMsgQueue[0]=data_pack.subarray(2);
             } else if (data_pack[1] == 2) { // Continue packet
               if (this.recBinMsgQueue.length > 0) {
                 this.recBinMsgQueue.push(data_pack.subarray(2));
@@ -400,12 +403,24 @@ var io = {
                 for (var i=0; i<this.recBinMsgQueue.length; i++) {
                   totalsize = totalsize + this.recBinMsgQueue[i].length;
                 }
+
                 var msg = (data_pack[0] == 101) ? new Int8Array(totalsize) : new Uint8ClampedArray(totalsize);
                 for (var i=0,s=0; i<this.recBinMsgQueue.length; i++) {
                   msg.set(this.recBinMsgQueue[i], s);
                   s = s + this.recBinMsgQueue[i].length;
                 }
-                ioStorage.dataBinaryStore(msg);
+
+
+                  if (msg.constructor === Int8Array) {
+                      var msg1 = new Int8Array(msg.length + 2);
+                  } else if (msg.constructor === Uint8ClampedArray) {
+                      var msg1 = new Uint8ClampedArray(msg.length + 2);
+                  }
+                  /** Appending the data for recording **/
+                  msg1[0] = msg[0];
+                  msg1[1] = 0;
+                  msg1.set(msg, 2);
+                  ioStorage.dataBinaryStore(msg1);
                 $.event.trigger({
                     type: "binrec",
                     message: msg.buffer

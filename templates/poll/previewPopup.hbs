@@ -8,7 +8,7 @@
           <label>{{getString 'Options'}} :</label>
           {{#each data.options}}
           <div class="viewOpt">
-            <input class="opt" name="option" value={{@key}} type="radio" id={{@key}}>
+            <input class="opt" name="option" value='{{@key}}' type="radio"  id='{{@key}}' disabled>
             <label>{{this}}</label>
           </div>
           {{/each}}

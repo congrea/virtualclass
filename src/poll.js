@@ -219,7 +219,7 @@
                     }
                     console.log(getContent);
                     var isAdmin = getContent.pop();
-                    if (category) {
+                    if (JSON.parse(category)) {
                         that.coursePoll = getContent;
                         that.displaycoursePollList()
 
@@ -438,11 +438,6 @@
                 if(storedData.pollClosed !="yes"){
                     this.reloadTeacherPublish(storedData);
                 }
-
-
-
-
-
                 if (typeof storedData.data.pollClosed != 'undefined' && storedData.pollClosed !="yes") {
                     this.UI.pollClosedUI();
                     var msg = virtualclass.lang.getString('Pclosed');
@@ -1785,6 +1780,11 @@
             resultDisplay: function (count) {
                 // var layout = document.getElementById("layoutPoll");
                 // layout.style.display = "none";
+
+                var cont = document.querySelector(".congrea #stdPollContainer");
+                if(cont){
+                    cont.style.display ="none";
+                }
                 var resultLayout = document.getElementById("resultLayout")
                 if (resultLayout) {
                     resultLayout.parentNode.removeChild(resultLayout);
@@ -2046,8 +2046,9 @@
 
             },
             updateResponse: function (response, fromUser) {
+
                 var chart = document.getElementById("chart");
-                if (chart) {
+                if (chart && virtualclass.poll.currResultView !="list") {
                     chart.style.display = "block";
                 }
 

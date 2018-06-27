@@ -323,25 +323,25 @@
     }
     //change by nirmala
     view._windowResizeFinished = function () {
-        var height = virtualclass.vutil.calculateChatHeight();
-        if (!roles.hasControls()) {
-            
-            if (!virtualclass.videoHost.gObj.videoSwitch) {
-                height = height+230;
-            }
-        } 
-        console.log("heightinview" + height);
-        virtualclass.vutil.setChatContHeight(height);
-        //$('#chatWidget').height(height);
-        
-        if(virtualclass.isPlayMode){
-               var height = height+64;
-        }
-        
-        $('#chat_div').css('max-height', height + 'px');
+        // var height = virtualclass.vutil.calculateChatHeight();
+        // if (!roles.hasControls()) {
+        //
+        //     if (!virtualclass.videoHost.gObj.videoSwitch) {
+        //         height = height+230;
+        //     }
+        // }
+        // console.log("heightinview" + height);
+        // virtualclass.vutil.setChatContHeight(height);
+        // //$('#chatWidget').height(height);
+        //
+        // if(virtualclass.isPlayMode){
+        //        var height = height+64;
+        // }
+        //
+        // $('#chat_div').css('max-height', height + 'px');
 
 
-        virtualclass.chat.boxHeight = height;
+        // virtualclass.chat.boxHeight = height;
         if((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
             && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb != 'undefined'
         ){

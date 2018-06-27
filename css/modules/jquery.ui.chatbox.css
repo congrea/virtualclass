@@ -799,3 +799,10 @@ margin-right:10px !important;
 #virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr{
  pointer-events: none;
 }
+
+#virtualclassCont.congrea #chat_div {
+    height: calc(100vh - 388px);
+}
+#virtualclassCont.congrea .vidHide #chat_div {
+    height: calc(100vh - 148px);
+}

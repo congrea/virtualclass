@@ -722,11 +722,11 @@ this["JST"]["templates/poll/preview-modal.hbs"] = Handlebars.template({"1":funct
 this["JST"]["templates/poll/previewPopup.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "          <div class=\"viewOpt\">\n            <input class=\"opt\" name=\"option\" value="
+  return "          <div class=\"viewOpt\">\n            <input class=\"opt\" name=\"option\" value='"
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + " type=\"radio\" id="
+    + "' type=\"radio\"  id='"
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + ">\n            <label>"
+    + "' disabled>\n            <label>"
     + alias4(container.lambda(depth0, depth0))
     + "</label>\n          </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1190,7 +1190,7 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"1":fu
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"clicktoplay",{"name":"getString","hash":{},"data":data}))
     + "\" data-rid=\""
     + alias4(alias5(((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.rid : stack1), depth0))
-    + "\"   style=\"opacity: 1; pointer-events: auto;\">"
+    + "\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"clicktoplay",{"name":"getString","hash":{},"data":data}))
     + "</div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.dataset : depth0)) != null ? stack1.status : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")

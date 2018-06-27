@@ -434,27 +434,28 @@
 
                             }
 
-                            var url =vidObj.urls.main_video;
+                            if(vidObj.urls){
+                                var url =vidObj.urls.main_video;
 
-                            virtualclass.videoUl.UI.displayVideo(vidObj.fileuuid, url);
-                            virtualclass.videoUl.activeVideoClass(vidObj.fileuuid);
-
-
-                             var toStd={};
-                             toStd.content_path=url;
-                             toStd.id=vidObj.fileuuid;
-                             toStd.title=vidObj.filename;
-                             toStd.type=vidObj.filetype;
-                            // to set status
-                            //toStd.status=vidObj.statu
+                                virtualclass.videoUl.UI.displayVideo(vidObj.fileuuid, url);
+                                virtualclass.videoUl.activeVideoClass(vidObj.fileuuid);
 
 
-                            virtualclass.videoUl.videoToStudent(toStd);
-                            virtualclass.videoUl.videoId = vidObj.fileuuid;
+                                var toStd={};
+                                toStd.content_path=url;
+                                toStd.id=vidObj.fileuuid;
+                                toStd.title=vidObj.filename;
+                                toStd.type=vidObj.filetype;
+                                // to set status
+                                //toStd.status=vidObj.statu
 
-                            virtualclass.vutil.showFinishBtn();
+                                virtualclass.videoUl.videoToStudent(toStd);
+                                virtualclass.videoUl.videoId = vidObj.fileuuid;
+                                virtualclass.vutil.showFinishBtn();
+                                virtualclass.dashBoard.close();
 
-                            virtualclass.dashBoard.close();
+                            }
+
                         });
 
                     }

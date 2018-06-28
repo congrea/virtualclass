@@ -384,6 +384,13 @@
 
                // virtualclass.vutil.removeFinishBtn();
                 virtualclass.vutil.makeElementActive('#listvideo');
+                var video = document.querySelector(".congrea #listvideo .linkvideo.singleVideo");
+                var link =  document.querySelector(".congrea #listvideo .linkvideo");
+                if(virtualclass.videoUl.videos.length == 1 && !video){
+                    link.classList.add("singleVideo");
+                }else if(virtualclass.videoUl.videos.length >1 && video){
+                    video.classList.remove("singleVideo");
+                }
 
             },
 
@@ -931,9 +938,13 @@
                             virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
                         }
                         if(!virtualclass.videoUl.videos.length){
-                            // if not being shown
                             virtualclass.vutil.removeFinishBtn();
 
+                        }else if(virtualclass.videoUl.videos.length ==1){
+                            var video = document.querySelector(".congrea #listvideo .linkvideo");
+                            if(video){
+                                video.classList.add("singleVideo");
+                            }
                         }
 
                     }
@@ -1023,7 +1034,15 @@
 
                 videojsPlayer: function (videoUrl, vidId, startFrom) {
                     if(!virtualclass.videoUl.player){
-                        var player = videojs("dispVideo"); //TODO, generating error need to handle
+                        try{
+                            var player = videojs("dispVideo"); //TODO, generating error need to handle
+                        }
+                        catch(err){
+
+                            console.log(err);
+                        }
+
+
                         if (roles.hasControls()) {
                             if (!($('.vjs-autoPlay-button').length)) {
                                 virtualclass.videoUl.UI.appendAutoPlayButton(player);
@@ -1149,14 +1168,26 @@
                    // if (startFrom) {
                         player.ready(function(){
                            var myPlayer = this;
+                           var pause = !virtualclass.videoUl.isPaused;
                            if(!virtualclass.videoUl.isPaused){
                                myPlayer.play();
                            }else{
                                myPlayer.paused();
                            }
+
                             if (startFrom) {
                                 myPlayer.currentTime(startFrom);
+                                if (virtualclass.videoUl.yts) {
+                                    if (pause) {
+                                        setTimeout(function () {
+                                            myPlayer.play();
+                                        }, 3000)
+                                    }
+
+                                }
+
                             }
+
                        });
 
                   //  }

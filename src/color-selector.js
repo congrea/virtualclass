@@ -212,7 +212,10 @@ var colorSelector ={
             "{color :"+frontColor +"!important} "+
             " #virtualclassCont.congrea #virtualclassOptionsCont .appOptions "+
             "{border : 1px solid"+allbg.fcolor +"!important} "+
-
+            "#virtualclassCont.congrea #playController .controlActive"+
+            "#virtualclassCont.congrea #screenController  button:hover"+
+            "#virtualclassCont.congrea #stopScreenShare  button:hover"+
+            "{background-image:linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100% ) !important ;color:"+frontColor+"!important} "+
             "#virtualclassCont.congrea  #playController button"+
             "{background-image:none !important;color:"+frontColor+"!important}" ;
             this.addCss(css);

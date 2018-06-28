@@ -220,7 +220,9 @@
                             }
                         },
 
-                        onSubmitted : function (){
+                        onSubmitted : function (id, name){
+                            this.setName(id, name.toLowerCase());
+
                             /**It handles the rendering the progressbar after done once **/
 
                             if(obj.cthis == 'video'){

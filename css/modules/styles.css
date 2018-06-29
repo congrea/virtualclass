@@ -2704,6 +2704,8 @@
         margin:10px auto;
     }
 }
+    
+}
 @media (min-width:1200px) and (max-width:1366px) {
     
     #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
@@ -3822,6 +3824,21 @@ background-color: #d6d6d6;
 
 ::-webkit-scrollbar-track-piece {
     width:11px;
+}
+
+#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar-track
+{
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.03);
+border-radius: 10px;
+background-color: #F5F5F5;
+    margin-top:20px !important;
+    margin-bottom:60px;
+}
+
+#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar{
+width: 10px;
+height:8px;
+background-color: #fff;
 }
 
 #virtualclassCont.congrea div.ui-memblist-usr .user-details  span.media-object {

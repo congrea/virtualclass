@@ -630,6 +630,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
     width:60%;
 }
 
+#virtualclassCont.congrea[data-currapp="Video"] #virtualclassAppLeftPanel #congrealogo img{
+display: none;
+}
+
 #virtualclassCont.congrea  .linkvideo.links.video.enable.playing .controls.delete,#virtualclassCont.congrea  .linkvideo.links.video_yts.enable.playing .controls.delete{
   pointer-events:none;
   opacity:.3;
@@ -640,3 +644,4 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   opacity:1!important;
   cursor:pointer!important;
 }
+

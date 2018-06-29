@@ -421,8 +421,9 @@
                 if(storedData && storedData.qtime != null){
                     var qzTime = storedData.qtime;
                     var res = qzTime.split(":");
-                    var qzTm = parseInt(res[2]) + parseInt(res[1]) + parseInt(res[0]);
-                    var lT = plugin.config.quizTime - qzTm;
+                    // var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600) ;
+                    // var lT = plugin.config.quizTime - qzTm;
+                    var lT = virtualclass.quiz.convertTimeToSec(qzTime);
                 }
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                     // Quiz timer

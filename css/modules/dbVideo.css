@@ -14,9 +14,9 @@
 
 #virtualclassCont #listvideo {
   height: calc(100vh - 200px);
-  overflow-y: auto;
-  margin-bottom :0;
-  margin: 15px;
+  /*overflow-y: auto;*/
+  /*margin-bottom :0;*/
+  /*margin: 15px;*/
 }
 
 #virtualclassCont #listvideo .videoTitle{
@@ -306,6 +306,22 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   width:98%;
   height : 85%;
 }
+
+#virtualclassCont #listvideo {
+  position : absolute;
+  top : 0;
+  width:98%;
+  margin:15px;
+  overflow-y: scroll;
+}
+#virtualclassCont  #videoPopup  #uploadMsz{
+  display: block;
+  z-index: 20;
+  position: absolute;
+  width: 85%;
+
+}
+
 /*#virtualclassCont.congrea #videoUrlContainer {*/
 /*width:100%;*/
 /*height:100%;*/
@@ -596,9 +612,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   top:7px;
 }
 
-#virtualclassCont.congrea  .linkvideo.links.video.enable.playing .controls.status{
+#virtualclassCont.congrea  .linkvideo.links.video.enable.playing .controls.status,#virtualclassCont.congrea  .linkvideo.links.video_yts.enable.playing .controls.status{
     pointer-events:none;
     opacity:.3;
+    cursor:auto;
 }
 #virtualclassCont.congrea #VideoDashboard #videoPopup #uploadMsz button.qq-upload-cancel-selector.qq-upload-cancel {
     display:none;
@@ -616,3 +633,15 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea[data-currapp="Video"] #virtualclassAppLeftPanel #congrealogo img{
 display: none;
 }
+
+#virtualclassCont.congrea  .linkvideo.links.video.enable.playing .controls.delete,#virtualclassCont.congrea  .linkvideo.links.video_yts.enable.playing .controls.delete{
+  pointer-events:none;
+  opacity:.3;
+  cursor:auto;
+}
+#virtualclassCont.congrea #listvideo .linkvideo.singleVideo .controls.delete{
+  pointer-events:visible!important;
+  opacity:1!important;
+  cursor:pointer!important;
+}
+

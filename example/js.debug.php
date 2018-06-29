@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/handlebars-v4.0.8.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/codemirror.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-continuelist.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-xml.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-markdown.js"></script>

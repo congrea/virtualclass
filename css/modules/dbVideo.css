@@ -613,3 +613,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
     width:60%;
 }
 
+#virtualclassCont.congrea[data-currapp="Video"] #virtualclassAppLeftPanel #congrealogo img{
+display: none;
+}

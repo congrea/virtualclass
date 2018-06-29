@@ -101,9 +101,15 @@
     padding-left:10px;
     padding-right:10px;
 }
+
 #virtualclassCont.congrea #presentationurl.form-control::placeholder {
     text-align:center;
 }
+
 embed-footer {
      display:none !important; 
+}
+
+#virtualclassCont.congrea[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #congrealogo img{
+display: none;
 }

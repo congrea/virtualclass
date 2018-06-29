@@ -57,7 +57,7 @@
                 uploadingFiles : [],
                 docOrder : {},
                 fetchedData : false,
-                wbNavtime : 0, // virtualclass.gObj.studentSSstatus.mesharing
+                wbNavtime : 50, // virtualclass.gObj.studentSSstatus.mesharing
                 studentSSstatus : studentSSstatus,
                 screenRh : 60,
                 isReadyForVideo : true,

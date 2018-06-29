@@ -488,39 +488,46 @@
                 });
             },
 
-            initWhiteboardData : function (wb){
+            initWhiteboardData : function (wb, wbInitcount){
                 /** Below condition is satisfied only if the whiteboard data is...
                  ..available in indexDB **/
                 console.log('Init whiteboard with timeout');
-                if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
-                    if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
-                        var that = this;
+
+                if(typeof wbInitcount != 'undefined' && wbInitcount > 9){ // after 4.5 seconds
+                    virtualclass.view.createErrorMsg(virtualclass.lang.getString('pdfnotrender'), 'errorContainer', 'chatWidget');
+                    wbInitcount = 0;
+                }else {
+                    if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
+                        if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
+                            var that = this;
+                            setTimeout(
+                                function (){
+                                    wbInitcount = (typeof  wbInitcount == 'undefined') ? 0 : ++wbInitcount;
+                                    that.initWhiteboardData(wb, wbInitcount);
+
+                                },500
+                            );
+                        } else {
+                            console.log('Pdf test, init whiteboard ');
+                            console.log('Start whiteboard replay from local storage');
+                            virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
+                            virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
+                        }
+                    } else {
+                        virtualclass.storage.getWbData(wb, function (){
+                            if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
+                                console.log('Start whiteboard replay from local storage');
+                                virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
+                            }
+
+                        });
+
                         setTimeout(
                             function (){
-                                that.initWhiteboardData(wb);
-
-                            },500
+                                virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
+                            }, 500
                         );
-                    } else {
-                        console.log('Pdf test, init whiteboard ');
-                        console.log('Start whiteboard replay from local storage');
-                        virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
-                        virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
                     }
-                } else {
-                    virtualclass.storage.getWbData(wb, function (){
-                        if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
-                            console.log('Start whiteboard replay from local storage');
-                            virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
-                        }
-
-                    });
-
-                    setTimeout(
-                        function (){
-                            virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
-                        }, 500
-                    );
                 }
             },
 

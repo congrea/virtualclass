@@ -19,11 +19,7 @@
                     if(virtualclass.currApp == 'Whiteboard'){
                         wbCommon.setNextWhiteboardTime = setTimeout(
                             function (){
-                                // var zoomControlerFitToScreen = document.querySelector('.zoomControler .fitScreen');
-                                // if(zoomControlerFitToScreen != null){
-                                //     zoomControlerFitToScreen.click();
-                                // }
-                                /** We can not run zoomControlerFitToScreen as we need to retain canva scale **/
+                                /** We can not run zoomControlerFitToScreen as we need to retain canvas scale **/
                                 virtualclass.zoom.normalRender();
                             }, 500
                         );
@@ -45,9 +41,8 @@
                                 virtualclass.zoom.normalRender();
                                 // system.setAppDimension(null, 'resize');
                                 // virtualclass.view.window.resize();
-                            },200
+                            },500
                         );
-
                     }
                 }
             }

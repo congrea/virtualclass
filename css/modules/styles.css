@@ -2691,6 +2691,32 @@
 	max-height: calc(100vh - 88px);
 
 }
+
+@media (min-width:1024px) and (max-width:1150px) {
+    
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
+	max-height: calc(100vh - 20px);
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog {
+        margin:10px auto;
+    }
+}
+@media (min-width:1200px) and (max-width:1366px) {
+    
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
+	max-height: calc(100vh - 20px);
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog {
+        margin:10px auto;
+    }
+}
+
 #virtualclassCont.congrea .modal-body .qscolor {
 	background-color: #e8f4f5;
 	padding: 10px;
@@ -3811,3 +3837,8 @@ background-color: #d6d6d6;
 	margin: 3px 0 0 2px;
 	object-fit: cover;
 }
+
+.pollList .miniTB a {
+    text-decoration:none !important;
+}
+

@@ -370,7 +370,7 @@ span.sch {
 }
 
 #virtualclassCont.congrea #slickQuiz ol.questions > li {
-  margin-top : 20px;
+ 
 }
 
 #virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3, .path-mod-congrea-quiz span.questext h3  {
@@ -383,6 +383,8 @@ display: inline;
 #virtualclassCont.congrea .path-mod-congrea-quiz .navblock {
     overflow:auto;
     margin-bottom:0 !important;
+    max-height:96px !important;
+    min-height: 70px !important;
 }
 #virtualclassCont.congrea .path-mod-congrea-quiz .qnbutton {
     width:auto;
@@ -398,11 +400,12 @@ display: inline;
 #virtualclassCont.student #virtualclassQuiz .quizArea {
     overflow:auto;
     height:65vh;
+    margin-top:20px;
 }
 
 @media (max-width: 1024px) {
     #virtualclassCont.student #virtualclassQuiz .quizArea {
     overflow:auto;
-    height:43vh;
+    height:50vh;
 }   
 }

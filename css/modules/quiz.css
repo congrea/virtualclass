@@ -380,11 +380,11 @@ margin: 0;
 display: inline;
 }
 
-.path-mod-congrea-quiz .navblock {
+#virtualclassCont.congrea .path-mod-congrea-quiz .navblock {
     overflow:auto;
-    margin-bottom:0;
+    margin-bottom:0 !important;
 }
-.path-mod-congrea-quiz .qnbutton {
+#virtualclassCont.congrea .path-mod-congrea-quiz .qnbutton {
     width:auto;
     min-width:1.5em;
 }

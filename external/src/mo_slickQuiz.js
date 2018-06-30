@@ -421,9 +421,9 @@
                 if(storedData && storedData.qtime != null){
                     var qzTime = storedData.qtime;
                     var res = qzTime.split(":");
-                    // var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600) ;
+                     var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600) ;
                     // var lT = plugin.config.quizTime - qzTm;
-                    var lT = virtualclass.quiz.convertTimeToSec(qzTime);
+                    var lT = qzTm;
                 }
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                     // Quiz timer
@@ -926,19 +926,32 @@
                     //preview mode
                     if(!roles.hasControls()) {
                     // Send score to teacher
+                    console.log('quiz submit init from ' + virtualclass.gObj.uid);
                     var grade = (parseInt(score) * 100 ) / parseInt(quizValues.info.results);
                     var teacherID = virtualclass.vutil.whoIsTeacher();
-                    ioAdapter.mustSendUser({
-                        'quiz': {
-                            quizMsg: 'quizsubmitted',
-                            timetaken : tt,
-                            quesattemptd: aAttempted,
-                            correctans : currectAns,
-                            score: grade,
-                            user: virtualclass.gObj.uid
-                        },
-                        'cf': 'quiz'
-                    }, teacherID);
+                        if(virtualclass.quiz.hasOwnProperty('timeQuizComplete')){
+                            clearTimeout(virtualclass.quiz.timeQuizComplete)
+                        }
+
+                        /* Don't send quiz data twice when user would join after end the session */
+                        virtualclass.quiz.timeQuizComplete = setTimeout(
+                            function (){
+                                console.log('quiz submit from ' + virtualclass.gObj.uid);
+                                ioAdapter.mustSendUser({
+                                    'quiz': {
+                                        quizMsg: 'quizsubmitted',
+                                        timetaken : tt,
+                                        quesattemptd: aAttempted,
+                                        correctans : currectAns,
+                                        score: grade,
+                                        user: virtualclass.gObj.uid
+                                    },
+                                    'cf': 'quiz'
+                                }, teacherID);
+                            }, 300
+                        );
+
+
                     // save data to storage
                     var resultData = {
                             noofqus: questionCount,

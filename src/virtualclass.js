@@ -472,7 +472,14 @@
                 virtualclass.dashBoard.close();
                 console.log('Application is ready' + app);
                 this.view = window.view;
-                this.currApp = virtualclass.vutil.capitalizeFirstLetter(app);
+                /**
+                    Screen share be applied to current app only when the screen share
+                    is being shared
+                **/
+                let tempApp  = virtualclass.vutil.capitalizeFirstLetter(app);
+                if(tempApp != 'ScreenShare'){
+                     this.currApp = tempApp;
+                }
                 console.log('Current App init ' + this.currApp);
                 if (app != virtualclass.apps.ss) {
                     if (virtualclass.hasOwnProperty('previrtualclass') && roles.hasControls()) {

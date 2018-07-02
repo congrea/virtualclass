@@ -384,3 +384,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #SharePresentationDashboard  .controlCont.col-md-2 {
   min-width: 140px;
 }
+#virtualclassCont.congrea #listppt .linkppt.playing .controls.status,#virtualclassCont.congrea #listppt .linkppt.playing .controls.delete{
+  pointer-events: none;
+  opacity:.3;
+  cursor:auto;
+}

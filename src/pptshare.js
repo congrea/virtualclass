@@ -72,9 +72,14 @@
                     if(urlCont){
                         urlCont.style.display = "block";
                     }
-
-                    // virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-
+                    virtualclass.vutil.requestOrder("presentation",function(response){
+                        console.log(response)
+                        if(virtualclass.vutil.isResponseAvailable(response)){
+                            virtualclass.sharePt.order= response;
+                        }else {
+                            console.log('Order response is not available');
+                        }
+                    })
                 }else if (roles.hasView()) {
                     var urlCont = document.getElementById('urlcontainer');
                     this.UI.messageDisplay();
@@ -85,20 +90,13 @@
                         urlCont.style.display = "none";
                     }
                 }
-
-                virtualclass.vutil.requestOrder("presentation",function(response){
-                    console.log(response)
-                    if(virtualclass.vutil.isResponseAvailable(response)){
-                        virtualclass.sharePt.order= response;
-                    }else {
-                        console.log('Order response is not available');
-                    }
-                })
-
                 this.findInStorage();
-                if(!pptfirst){
-                    this.getPptList();
-                    pptfirst = true;
+                if(roles.hasControls()){
+                    if(!pptfirst){
+                        this.getPptList();
+                        pptfirst = true;
+                    }
+
                 }
                 virtualclass.sharePt.attachMessageEvent("message", virtualclass.sharePt.pptMessageEventHandler);
 
@@ -1133,21 +1131,6 @@
                         }
                     }
                 })
-                // virtualclass.xhr.sendFormData(rdata, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=congrea_retrieve_page_order", function (msg) {
-                //     var content = JSON.parse(msg);
-                //     if (content.message == "Failed") {
-                //         console.log("page order retrieve failed");
-                //     } else {
-                //         if (content) {
-                //             virtualclass.sharePt.order = [];
-                //             virtualclass.sharePt.order = content.split(',');
-                //             console.log('From database ' + virtualclass.sharePt.order.join(','));
-                //         }
-                //         if (virtualclass.sharePt.order.length > 0) {
-                //             virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
-                //         }
-                //     }
-                // });
             },
 
             playPptUrl:function(vUrl){

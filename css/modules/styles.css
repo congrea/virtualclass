@@ -1834,7 +1834,7 @@
 	pointer-events:  none;
     background-image: radial-gradient(ellipse at center, #000000 0%,#000 100%) !important;
 }
-}
+
 
 #virtualclassCont.congrea.playMode #playController #replayFromStart.controlActive {
     box-shadow:none;
@@ -2705,7 +2705,7 @@
     }
 }
     
-}
+
 @media (min-width:1200px) and (max-width:1366px) {
     
     #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{

@@ -1834,7 +1834,7 @@
 	pointer-events:  none;
     background-image: radial-gradient(ellipse at center, #000000 0%,#000 100%) !important;
 }
-}
+
 
 #virtualclassCont.congrea.playMode #playController #replayFromStart.controlActive {
     box-shadow:none;
@@ -2691,6 +2691,34 @@
 	max-height: calc(100vh - 88px);
 
 }
+
+@media (min-width:1024px) and (max-width:1150px) {
+    
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
+	max-height: calc(100vh - 20px);
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog {
+        margin:10px auto;
+    }
+}
+    
+
+@media (min-width:1200px) and (max-width:1366px) {
+    
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
+	max-height: calc(100vh - 20px);
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+    #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog {
+        margin:10px auto;
+    }
+}
+
 #virtualclassCont.congrea .modal-body .qscolor {
 	background-color: #e8f4f5;
 	padding: 10px;
@@ -3798,6 +3826,19 @@ background-color: #d6d6d6;
     width:11px;
 }
 
+#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.03);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+    margin-top:20px !important;
+}
+
+#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar{
+	width: 10px;
+	height:8px;
+	background-color: #fff;
+}
+
 #virtualclassCont.congrea div.ui-memblist-usr .user-details  span.media-object {
 	text-align: center;
 	padding-top: 11px;
@@ -3810,4 +3851,8 @@ background-color: #d6d6d6;
 	height: 40px;
 	margin: 3px 0 0 2px;
 	object-fit: cover;
+}
+
+.pollList .miniTB a {
+    text-decoration:none !important;
 }

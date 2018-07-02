@@ -166,6 +166,7 @@
         'pclosetag' : '<span>Are you sure to close this poll?  </span>',
         'pclose' : 'Are you sure to close voting?',
         'Pclosed' : 'Poll closed',
+        'pdfnotrender' : "There is problem with loading window, please reload browser.",
         'Pdsuccess' : 'Poll deleted successfully',
         'PEdit' : 'Poll edit',
         'PermissionDeniedError': "Webcam access has been denied.",

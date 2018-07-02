@@ -175,10 +175,14 @@
   border:0px;
 }
 
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody {
+    overflow:auto;
+}
+
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt {
-  position: fixed;
+  position: absolute;
   left: 84%;
-  top: 44px;
+  top: 10px;
   color:#337ab7;
   padding:8px;
   border: 1px solid #337ab7;
@@ -191,6 +195,7 @@
 .bootstrap #rsQzHead.col-md-12,
 .bootstrap #rsQzHead .col-md-4 {
   padding-left:0px !important;
+    padding-right:0px !important;
   margin-top:15px;
   margin-bottom:15px;
 }
@@ -279,6 +284,10 @@ span.sch {
   color:#555;
 }
 
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav .active a {
+    font-weight:bold;
+}
+
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:hover,
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:focus{
   background:radial-gradient(ellipse at center, #f8f9fb 0%, #fbfbfb 100%);
@@ -360,18 +369,8 @@ span.sch {
 
 }
 
-#virtualclassCont.congrea #quizModalBody {
-  overflow-y: hidden;
-}
-
-#virtualclassCont.congrea #slickQuiz .quizArea {
-  overflow-y : auto;
-  height : 70vh;
-}
-
-
 #virtualclassCont.congrea #slickQuiz ol.questions > li {
-  margin-top : 0px;
+ 
 }
 
 #virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3, .path-mod-congrea-quiz span.questext h3  {
@@ -379,4 +378,34 @@ span.sch {
 font-size: 16px;
 margin: 0;
 display: inline;
+}
+
+#virtualclassCont.congrea .path-mod-congrea-quiz .navblock {
+    overflow:auto;
+    margin-bottom:0 !important;
+    max-height:96px !important;
+    min-height: 70px !important;
+}
+#virtualclassCont.congrea .path-mod-congrea-quiz .qnbutton {
+    width:auto;
+    min-width:1.5em;
+}
+
+@media (max-width:1200px) {
+    #virtualclassCont.student #virtualclassQuiz .quizArea {
+        max-height: 50vh;
+    }
+}
+
+#virtualclassCont.student #virtualclassQuiz .quizArea {
+    overflow:auto;
+    height:65vh;
+    margin-top:20px;
+}
+
+@media (max-width: 1024px) {
+    #virtualclassCont.student #virtualclassQuiz .quizArea {
+    overflow:auto;
+    height:50vh;
+}   
 }

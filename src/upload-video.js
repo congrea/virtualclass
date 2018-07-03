@@ -237,6 +237,12 @@
                     virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
                     virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
                     virtualclass.videoUl.showUploadMsz("Video uploaded successfully","alert-success");
+                    var popup = document.querySelector(".congrea #VideoDashboard #videoPopup")
+                    if(popup){
+                        if(!popup.classList.contains("uploadSuccess")){
+                            popup.classList.add("uploadSuccess");
+                        }
+                    }
 
                     for(var i=0; i<virtualclass.gObj.uploadingFiles.length; i++){
                         var fileObj = {};
@@ -283,6 +289,11 @@
                     if(msz){
                         msz.style.display="none";
                     }
+                    var popup = document.querySelector(".congrea #VideoDashboard #videoPopup");
+                    if(popup){
+                        popup.classList.remove("uploadSuccess");
+                    }
+
                 })
                 elem.appendChild(btn);
 
@@ -396,79 +407,48 @@
 
             videoDisplayHandler: function (vidObj) {
                 var video = document.getElementById("mainpvideo" + vidObj.fileuuid);
-                //if(vidObj.type =="online"){
-                //     video.addEventListener('click',function(){
-                //         virtualclass.videoUl.yts=false;
-                //         $('#virtualclassVideo iframe#player').remove();
-                //         $('#videoPlayerCont').css({"display":"block"});
-                //         virtualclass.videoUl.shareVideo(vidObj.content_path);
-                //         // video.setAttribute("data-dismiss","modal");
-                //         virtualclass.dashBoard.close();
-                //         // if(typeof virtualclass.yts.player == "object"){
-                //         //     virtualclass.yts.player.destroy();
-                //         // }
-                //         virtualclass.videoUl.activeVideoClass(vidObj.id);
-                //         virtualclass.videoUl.videoId = vidObj.id;
-                //     })
-
-               // } else{
-
-                    if (video && !vidObj.status) {
-                        if (!video.classList.contains("playDisable")) {
-                            video.classList.add("playDisable");
-                        }
-                    } else {
-                        if (video && video.classList.contains("playDisable")) {
+                if (video && !vidObj.status) {
+                    if (!video.classList.contains("playDisable")) {
+                        video.classList.add("playDisable");
+                    }
+                } else {
+                    if (video && video.classList.contains("playDisable")) {
                             video.classList.remove("playDisable");
+                    }
+                }
+                if(video){
+                    video.addEventListener("click", function () {
+                        virtualclass.videoUl.isPaused=false;
+                        if(vidObj.filetype == "video_yts"){
+                            virtualclass.videoUl.yts=true;
+                            virtualclass.videoUl.online=false
+                        }else if (vidObj.filetype == "video_online"){
+                            virtualclass.videoUl.yts=false;
+                            virtualclass.videoUl.online=true
+                        } else{
+                            virtualclass.videoUl.yts=false;
+                            virtualclass.videoUl.online=false
                         }
-                    }
-                    if(video){
-                        video.addEventListener("click", function () {
-                            virtualclass.videoUl.isPaused=false;
 
-                            if(vidObj.filetype == "video_yts"){
-                                virtualclass.videoUl.yts=true;
-                                virtualclass.videoUl.online=false
-                            }else if (vidObj.filetype == "video_online"){
+                        if(vidObj.urls){
+                            var url =vidObj.urls.main_video;
+                            virtualclass.videoUl.UI.displayVideo(vidObj.fileuuid, url);
+                            virtualclass.videoUl.activeVideoClass(vidObj.fileuuid);
 
-                                virtualclass.videoUl.yts=false;
+                            var toStd={};
+                            toStd.content_path=url;
+                            toStd.id=vidObj.fileuuid;
+                            toStd.title=vidObj.filename;
+                            toStd.type=vidObj.filetype;
 
-                                virtualclass.videoUl.online=true
-
-                            } else{
-                                virtualclass.videoUl.yts=false;
-                                virtualclass.videoUl.online=false
-
-                            }
-
-                            if(vidObj.urls){
-                                var url =vidObj.urls.main_video;
-
-                                virtualclass.videoUl.UI.displayVideo(vidObj.fileuuid, url);
-                                virtualclass.videoUl.activeVideoClass(vidObj.fileuuid);
-
-
-                                var toStd={};
-                                toStd.content_path=url;
-                                toStd.id=vidObj.fileuuid;
-                                toStd.title=vidObj.filename;
-                                toStd.type=vidObj.filetype;
-                                // to set status
-                                //toStd.status=vidObj.statu
-
-                                virtualclass.videoUl.videoToStudent(toStd);
-                                virtualclass.videoUl.videoId = vidObj.fileuuid;
-                                virtualclass.vutil.showFinishBtn();
-                                virtualclass.dashBoard.close();
+                            virtualclass.videoUl.videoToStudent(toStd);
+                            virtualclass.videoUl.videoId = vidObj.fileuuid;
+                            virtualclass.vutil.showFinishBtn();
+                            virtualclass.dashBoard.close();
 
                             }
-
                         });
-
                     }
-
-               // }
-
             },
 
             activeVideoClass: function (currId) {
@@ -479,7 +459,6 @@
                     }
 
                 }
-
                 var controlElem = document.getElementById("controlContvideo" + currId);
                 if ( controlElem && !controlElem.classList.contains("removeCtr")) {
                     controlElem.classList.add("removeCtr");
@@ -507,14 +486,12 @@
                 virtualclass.videoUl.videoToStudent(videoObj);
             },
 
-
             destroyPl: function () {
                 if (typeof virtualclass.videoUl.player == 'object') {
                     if (virtualclass.currApp == 'ScreenShare') {
                         ioAdapter.mustSend({'video': 'destroyPl', 'cf': 'video'});
                     }
                     virtualclass.videoUl.player.dispose();
-                    //virtualclass.videoUl.player = "";
                 }
             },
 
@@ -555,17 +532,12 @@
                     }
                 });
 
-
             },
 
 
             sendOrder: function (order, type) {
                 type = 'vid';
                 virtualclass.vutil.sendOrder(type,  order);
-
-                // var data = {order:order.toString(), data:'video'};
-                // var url = virtualclass.api.UpdateRoomMetaData;
-                // virtualclass.xhrn.sendData(data, url, function (){});
             },
 
             onNewUser: function (msg) {
@@ -1034,15 +1006,7 @@
 
                 videojsPlayer: function (videoUrl, vidId, startFrom) {
                     if(!virtualclass.videoUl.player){
-                        try{
-                            var player = videojs("dispVideo"); //TODO, generating error need to handle
-                        }
-                        catch(err){
-
-                            console.log(err);
-                        }
-
-
+                        var player = videojs("dispVideo"); //TODO, generating error need to handle
                         if (roles.hasControls()) {
                             if (!($('.vjs-autoPlay-button').length)) {
                                 virtualclass.videoUl.UI.appendAutoPlayButton(player);
@@ -1122,13 +1086,7 @@
                 },
                 //n
                 createVideoElem: function (videoCont,type) {
-                    var video ="";
-                    if(virtualclass.videoUl.yts){
-                        video = "<video id=dispVideo class=video-js controls  preload=auto data-setup='{ techOrder: [youtube], sources: [{ type: video/youtube}] }' >";
-                    }else{
-                        video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
-                    }
-
+                    var video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
                     $(videoCont).append(video);
                     var vn = document.createElement("p");
                     vn.setAttribute("class", "vjs-no-js")
@@ -1170,7 +1128,9 @@
                            var myPlayer = this;
                            var pause = !virtualclass.videoUl.isPaused;
                            if(!virtualclass.videoUl.isPaused){
-                               myPlayer.play();
+                               setTimeout(function () {
+                                   myPlayer.play();
+                               }, 1000)
                            }else{
                                myPlayer.paused();
                            }

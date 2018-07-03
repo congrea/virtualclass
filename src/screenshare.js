@@ -420,7 +420,7 @@ var newCanvas;
             _init: function () {
 
                 this.currApp = this.tempCurrApp;
-
+                virtualclass.currApp = virtualclass.apps.ss;
                 //add current app to main container
                 var vcContainer = document.getElementById('virtualclassCont');
                 vcContainer.dataset.currapp =  virtualclass.currApp;
@@ -522,9 +522,15 @@ var newCanvas;
                                         virtualclass.popup.chromeExtMissing();
                                     }
                                 }else{
-
-                                    virtualclass.vutil._inlineChomeExtensionStore();
-                                    //virtualclass.popup.chromeExtMissing();
+                                    if(window.location.hostname == "live.congrea.net"){
+                                       virtualclass.vutil._inlineChomeExtensionStore() 
+                                    }else {
+                                        /* 
+                                            User have to install screen share extension for chrome explicitly
+                                            incase of other host than "live.congrea.net"
+                                        */
+                                        virtualclass.popup.chromeExtMissing();
+                                    }
                                 }
                             }
                         );

@@ -1856,6 +1856,11 @@
             return formattedTime;
         },
 
+        UTCtoLocalTimeToSeconds : function (time){
+            var time = new Date(time).getTime();
+            return time;
+        },
+
         appIsForEducator : function (app){
             for(var i in virtualclass.apps){
                 if(virtualclass.apps[i] == app){

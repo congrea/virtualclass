@@ -409,3 +409,6 @@ display: inline;
     height:50vh;
 }   
 }
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover:active {
+    background-color:#fff;
+} 

@@ -105,9 +105,12 @@
                                 data.hasOwnProperty('qDetail')) {
 
                                 var quizDetial = JSON.parse(data['qDetail']);
-                                if (storedData.hasOwnProperty('qtime')) {
-                                    quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
-                                }
+                                /* On page refesh, we don't have to reset the time limit,
+                                 * if we do this, the quiz without timer would be closed on page refresh
+                                  * */
+                                //if (storedData.hasOwnProperty('qtime')) {
+                                    // quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
+                                //}
                                 that.quizJSON = data['qData'];
                                 that.openQuizPopup(that.quizJSON, quizDetial.id);
                                 that.UI.resultView(quizDetial);
@@ -1069,8 +1072,24 @@
                         var qtime = parseInt(qz.timelimit);
                         if(qtime > 0) {
                             var order = 'desc';
+                            var timeHeader = "Time remaining" ;
                         } else {
                             var order = 'asc';
+                            timeHeader = "Elasped time";
+                        }
+
+                        /**
+                         * Displays the timer in result view from local storage, with or without timer,
+                         * it was coming from timelimit earlier
+                         * **/
+                        let timerInfo = localStorage.getItem('quizSt');
+                        if(timerInfo != null){
+                            timerInfo = JSON.parse(timerInfo);
+                            if(Object.keys(timerInfo).length > 0){
+                                var elTime = timerInfo.qtime;
+                                var res = elTime.split(":");
+                                qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+                            }
                         }
                         var bodyHdCont = document.getElementById("resultQzLayout");
 
@@ -1092,7 +1111,7 @@
                         // elem.appendChild(rightdiv);
 
                         var elstimeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-4');
-                        elstimeInnerdiv.innerHTML = "Elapsed time : <span id=\"elsTime\">00:00</span>";
+                        elstimeInnerdiv.innerHTML = timeHeader + " : <span id=\"elsTime\">00:00</span>";
                         elem.appendChild(elstimeInnerdiv);
 
                         var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');

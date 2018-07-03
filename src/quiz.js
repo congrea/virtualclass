@@ -81,8 +81,12 @@
 
                     virtualclass.storage.getQuizData(
                         function (data) {
-                            var dataRc = JSON.parse(data['qData']);
-                            that.quizDisplay(dataRc);
+                            if(data.hasOwnProperty('qData')){
+                                var dataRc = JSON.parse(data['qData']);
+                                that.quizDisplay(dataRc);
+                            }else {
+                                console.log('Quiz data is not available');
+                            }
                         }
                     );
                 } else if(storedData.screen == "quizsubmitted") {
@@ -397,14 +401,18 @@
                     questionPerPage : quizDetail.questionsperpage,
                     questionMode : quizDetail.preferredbehaviour,
                     quizTime : quizDetail.timelimit,
-                    displayDetailResult : false
+                    displayDetailResult : false,
+                    ptm : new Date().getTime() // published time
                 };
+
+
                 //send data to student
                 ioAdapter.mustSend({
                     'quiz': {
                         quizMsg: 'stdPublish',
                         quizId: vthis.qzid,
-                        data: data
+                        data: data,
+
                     },
                     'cf': 'quiz'
                 });

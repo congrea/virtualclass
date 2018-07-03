@@ -250,7 +250,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #pptListContainer{
   /*height : 89%;*/
-  height: 80vh;
+  height: calc(100vh - 155px);
   overflow-y: auto;
 }
 
@@ -376,11 +376,9 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 
 @media (max-height:956px){
-  #virtualclassCont.congrea #pptListContainer {height: calc(100vh - 180px);}
+  #virtualclassCont.congrea #pptListContainer {height: calc(100vh - 155px);}
 }
-@media (max-height:768px){
-   #virtualclassCont.congrea #pptListContainer {height: calc(100vh - 188px);}
-}
+
 #virtualclassCont.congrea #SharePresentationDashboard  .controlCont.col-md-2 {
   min-width: 140px;
 }

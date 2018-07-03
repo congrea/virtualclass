@@ -13,13 +13,14 @@
 }
 
 #virtualclassCont #listvideo {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 180px);
   /*overflow-y: auto;*/
   /*margin-bottom :0;*/
   /*margin: 15px;*/
 }
 
 #virtualclassCont #listvideo .videoTitle{
+  text-transform: capitalize;
   display: inline;
   margin-left: 28px;
   top: 6px;
@@ -28,7 +29,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width:50%;
-  font-size: .91em
+  font-size: .9em
 }
 
 #virtualclassCont.congrea .dashboardview {
@@ -308,17 +309,20 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont #listvideo {
-  position : absolute;
-  top : 0;
-  width:98%;
   margin:15px;
-  overflow-y: scroll;
+  margin-right:0px;
+  overflow-y: auto;
 }
+
+#virtualclassCont .uploadSuccess #listvideo {
+    height: calc(100vh - 237px);
+} 
+
 #virtualclassCont  #videoPopup  #uploadMsz{
   display: block;
   z-index: 20;
-  position: absolute;
   width: 85%;
+  margin:0 auto;
 
 }
 
@@ -363,12 +367,16 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont{
   position: fixed;
-  bottom: 5%;
+  bottom: 14px;
   width: 90%;
   height: 42px;
   overflow: hidden;
   padding: 0px;
   margin: 0px 5%;
+}
+
+#virtualclassCont.congrea #VideoDashboard #uploadMsz .alert-success #congreaShareVideoUrlCont {
+    display:none;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview {
@@ -430,7 +438,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #videoUrlContainer .btn-default {
-/*  height: 48px;*/
+  height: 42px;
   width: 60px;
   float: right;
   box-shadow: none;

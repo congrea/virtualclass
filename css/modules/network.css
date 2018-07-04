@@ -129,3 +129,7 @@
 #virtualclassCont.congrea  #proposedSpeed #svgContainer {
         margin-top: -2px;
 }
+
+#virtualclassCont.congrea #virtualclassApp.try-to-connect #virtualclassAppLeftPanel #virtualclassAppContainer #virtualclassEditorRich #virtualclassEditorRichBody .vceditor .CodeMirror {
+   pointer-events: none;
+}

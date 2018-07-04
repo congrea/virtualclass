@@ -163,7 +163,9 @@ var PopUp = (function (window, undefined) {
 
             // remove connecting class
             var networkStatusContainer  = document.querySelector('#networkStatusContainer');
-            networkStatusContainer.classList.remove('connecting-room')
+            networkStatusContainer.classList.remove('connecting-room');
+            var connt = document.querySelector('#virtualclassApp');
+            connt.classList.remove('try-to-connect');
         }
     },
 

@@ -44,14 +44,21 @@
                 doc.url = this.url;
                 doc.withCredentials = true;
                 doc.disableAutoFetch = true;
+                if (virtualclass.gObj.myworker != null) {
+                    doc.worker = virtualclass.gObj.myworker;
+                }
 
                 if(virtualclass.gObj.hasOwnProperty('getDocumentTimeout')){
                     clearTimeout(virtualclass.gObj.getDocumentTimeout);
                 }
+
                 virtualclass.gObj.getDocumentTimeout = setTimeout(
                     function (){
                         console.log('PDF render initiate 1');
                         PDFJS.getDocument(doc).then(function (pdf) {
+                            if (virtualclass.gObj.myworker == null) {
+                                virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
+                            }
                             that.displayPage(pdf, 1, function (){
                                 //console.log('Pdf share : put in main children');
                                 },

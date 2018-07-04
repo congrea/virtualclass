@@ -2257,9 +2257,13 @@
                 }else{
                     virtualclass.gObj.delayVid="hide"
                 }
-                virtualclass.videoHost.UI.displayVideo(vidType)
-                // virtualclass.videoHost.gObj.stdStopSmallVid = false;
 
+                virtualclass.videoHost.UI.displayVideo(vidType)
+
+                var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
+                if(mysmallVideo != null){
+                    mysmallVideo.srcObject =  virtualclass.gObj.video.stream;
+                }
             }
 
             if(virtualclass.gObj.meetingMode){

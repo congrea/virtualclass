@@ -464,7 +464,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   /* border-right: none; */
   border-width: 0;
   border: 0;
-  border-radius: 4px 0 0px 4px;
+  border-radius: 4px;
   box-shadow: none;
 }
 

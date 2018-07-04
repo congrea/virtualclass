@@ -64,6 +64,7 @@
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
                 chatIconColors:{},
+                myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
             },
 
             enablePreCheck : true,

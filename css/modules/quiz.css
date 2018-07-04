@@ -409,6 +409,14 @@ display: inline;
     height:50vh;
 }   
 }
+
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover:active {
     background-color:#fff;
-} 
+}
+
+#virtualclassCont.congrea .path-mod-congrea-quiz .navblock::-webkit-scrollbar, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #d9dbdc;
+}
+

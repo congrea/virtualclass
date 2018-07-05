@@ -400,7 +400,7 @@
             });
         },
 
-        startNewSessionAfterFinish : function (notSend){
+        startNewSessionAfterFinish : function (){
             var recordingContainer = document.getElementById('recordingContainer');
             recordingContainer.classList.add('recordingFinished');
 

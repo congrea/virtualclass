@@ -217,12 +217,14 @@
         plugin.method = {
             // Sets up the questions and answers based on above array
             setupQuiz: function(options) { // use 'options' object to pass args
+                console.log('quiz data setup quiz');
             	var key, keyNotch, kN;
                 key = internal.method.getKey (3); // how many notches == how many jQ animations you will run
                 keyNotch = internal.method.getKeyNotch; // a function that returns a jQ animation callback function
                 kN = keyNotch; // you specify the notch, you get a callback function for your animation
                 
                 // Count down timer
+
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) { 
                     $('#timeText').html('Time remaining <span id="qztime">' + plugin.config.quizTime + '</span>');
                 } else {
@@ -421,10 +423,15 @@
                 if(storedData && storedData.qtime != null){
                     var qzTime = storedData.qtime;
                     var res = qzTime.split(":");
-                     var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600) ;
-                    // var lT = plugin.config.quizTime - qzTm;
-                    var lT = qzTm;
+                    var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+                    var lT = qzTm - 1;
+
+                }else {
+                    var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
+                    var currentTime = new Date().getTime();
+                    var lT = (plugin.config.quizTime - ((currentTime -  quizPublishTime) / 1000 )); // left timing for quiz
                 }
+
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                     // Quiz timer
                     var timeLeft = lT ? lT : plugin.config.quizTime ,
@@ -603,7 +610,7 @@
                 $('a#navquestion0.qnbutton').nextAll('.qnbutton').removeClass("thispage");//remove paging button highlighing
                 if (nextQuestion.length) {
                     currentQuestion.fadeOut(300, function(){
-                        //code for page(added by pinky)
+                    //code for page(added by pinky)
                         currentQuestion.prevAll(_question).hide();//hide all previous questions
                         if(currentQuestion.nextAll(_question).length > plugin.config.questionPerPage){
                             //index of last question of next page
@@ -885,7 +892,10 @@
                     $(_quizLevel).addClass('level' + levelRank);
                 }
 
-                $quizArea.fadeOut(300, function() {
+             //   $quizArea.fadeOut(300, function() { //
+                $quizArea.fadeOut(0, function() {
+
+                    console.log('quiz data complete quiz');
                     clearInterval(CDTimer);
 
                     // If response messaging is set to show upon quiz completion, show it now

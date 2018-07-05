@@ -64,12 +64,15 @@
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
                 chatIconColors:{},
+                myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
             },
 
             enablePreCheck : true,
-            clearSession: function () {
+            clearSession: function (notSend) {
                 window.pageEnter = new Date().getTime();
-                virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
+                if(typeof notSend == 'undefined'){
+                    virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
+                }
                 if (typeof virtualclass.videoUl == 'object') {
                     if (typeof virtualclass.videoUl.player == "object") {
                         if(typeof virtualclass.videoUl.player.dispose !='undefined'){

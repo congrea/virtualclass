@@ -1473,7 +1473,7 @@
 #virtualclassCont.congrea #errorContainer {
 	position: fixed;
 	bottom: 11%;
-	left: 29%;
+	right: 50%;
 	color : rgba(131, 14, 14, 0.93);
 	z-index : 10
 }
@@ -2003,7 +2003,7 @@
 	border-radius:5px;
 	text-align:center;
 	z-index : 1150;
-    max-width : 550px;
+    max-width : 377px;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
@@ -2407,7 +2407,7 @@
 	border-width: 0;
 	border-radius: 0;
 	margin-left : 53px;
-	/*height : 95vh;*/
+    height: calc(100vh - 44px);
 	background: none;
 }
 
@@ -3824,7 +3824,7 @@ background-color: #d6d6d6;
 }
 
 #virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar{
-	width: 10px;
+	width: 8px;
 	height:8px;
 	background-color: #fff;
 }

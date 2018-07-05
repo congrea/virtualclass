@@ -203,10 +203,11 @@
 	padding: 9px 30px;
 	border-radius: 5px;
 	border: none;
-	margin-left: 150px;
+	margin-left: 160px;
 	margin-top: 10px;
 	margin-bottom: 15px;
 	border:#ddd 1px solid;
+    cursor:pointer;
 }
 #virtualclassCont.congrea #playButton:hover {
 	background: #dddddd; /* Old browsers */
@@ -220,7 +221,7 @@
 	padding: 9px 30px;
 	border-radius: 5px;
 	border: none;
-	margin-left: 150px;
+	margin-left: 160px;
 	margin-top: 10px;
 	margin-bottom: 15px;
 	border:#ddd 1px solid;

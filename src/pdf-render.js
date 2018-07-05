@@ -55,6 +55,7 @@
                 virtualclass.gObj.getDocumentTimeout = setTimeout(
                     function (){
                         console.log('PDF render initiate 1');
+                        PDFJS.workerSrc = whiteboardPath + "build/src/pdf.worker.min.js";
                         PDFJS.getDocument(doc).then(function (pdf) {
                             if (virtualclass.gObj.myworker == null) {
                                 virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS

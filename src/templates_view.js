@@ -522,7 +522,7 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"1":function(container,
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.precheck,depth0,{"name":"precheck","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "<div id=\"virtualclassApp\" style=\"display: block;\">\n"
+    + "<div id=\"virtualclassApp\" style=\"display: block;\" class=\"try-to-connect\">\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.leftBar,depth0,{"name":"leftBar","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -660,17 +660,17 @@ this["JST"]["templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(c
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"addnew",{"name":"getString","hash":{},"data":data}))
     + "</button>\n          <button id=\"newPollBtncourse\" class=\"btn btn-default course\" data-toogle=\"modal\" data-target=\"#editPollModal\" style=\"display: block;\"><i class=\"icon-create-new\"></i>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"addnew",{"name":"getString","hash":{},"data":data}))
-    + "</button>\n        </div>\n\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n\n        </div>\n        <div class=\"table-responsive\" id=\"listQnContcourse\">\n        <table  class=\"pollList table table-bordered table-striped table-fixed\" >\n          <thead>\n          <tr class=\" headerContainer\" id=\"headerContainercourse\">\n            <th class=\"controlsHeader\">"
+    + "</button>\n        </div>\n\n        <div id=\"bootstrapCont\" class=\"modalCont\">\n\n        </div>\n        <div class=\"table-responsive\" id=\"listQnContcourse\">\n        <table  class=\"pollList table table-bordered table-striped table-fixed\" >\n          <thead>\n          <tr class=\" headerContainer\" id=\"headerContainercourse\">\n            <th class=\"controlsHeader col-sm-2\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Controls",{"name":"getString","hash":{},"data":data}))
-    + "<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader\">"
+    + "<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader col-sm-8\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"PQuestions",{"name":"getString","hash":{},"data":data}))
-    + "<i class=\"icon-help\"></i></th>\n            <th class=\"creatorHeader\">"
+    + "<i class=\"icon-help\"></i></th>\n            <th class=\"creatorHeader col-sm-2\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Creator",{"name":"getString","hash":{},"data":data}))
-    + "<i class=\"icon-creator\"></i></th>\n          </tr>\n          </thead>\n        </table>\n        </div>\n      <div class=\"table-responsive\"  id=\"listQnContsite\" style=\"display: none;\">\n        <table class=\"pollList table table-bordered table-striped\" >\n          <thead>\n          <tr class=\" headerContainer\" id=\"headerContainersite\">\n            <th class=\"controlsHeader\">"
+    + "<i class=\"icon-creator\"></i></th>\n          </tr>\n          </thead>\n        </table>\n        </div>\n      <div class=\"table-responsive\"  id=\"listQnContsite\" style=\"display: none;\">\n        <table class=\"pollList table table-bordered table-striped\" >\n          <thead>\n          <tr class=\" headerContainer\" id=\"headerContainersite\">\n            <th class=\"controlsHeader col-sm-2\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Controls",{"name":"getString","hash":{},"data":data}))
-    + "<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader\">"
+    + "<i class=\"icon-setting\"></i></th>\n            <th class=\"qnTextHeader col-sm-8\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"PQuestions",{"name":"getString","hash":{},"data":data}))
-    + "<i class=\"icon-help\"></i></th>\n            <th class=\"creatorHeader\">"
+    + "<i class=\"icon-help\"></i></th>\n            <th class=\"creatorHeader col-sm-2\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Creator",{"name":"getString","hash":{},"data":data}))
     + "<i class=\"icon-creator\"></i></th>\n          </tr>\n          </thead>\n        </table>\n      </div>\n";
 },"7":function(container,depth0,helpers,partials,data) {
@@ -752,7 +752,7 @@ this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.
     + "\" class=\"vcPollCont\">\n  <td id=\"ctrQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"pollCtrCont\">\n    <table class=\"miniTB\">\n      <tr>\n        <td>\n        <div id=\"contQn"
+    + "\" class=\"pollCtrCont col-sm-2\">\n    <table class=\"miniTB\">\n      <tr>\n        <td>\n        <div id=\"contQn"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
     + "E\" class=\"editCont pull-left\">\n          <a href=\"#\" data-target=\"#editPollModal\" id=\"editQn"
@@ -779,9 +779,9 @@ this["JST"]["templates/poll/qn.hbs"] = Handlebars.template({"compiler":[7,">= 4.
     + "></span>\n          </a>\n        </div>\n        </td>\n      </tr>\n    </table>\n\n  </td>\n  <td id=\"qnText"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.pollType : stack1), depth0))
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"qnText\" data-toggle=\"popover\" data-trigger=\"hover\"\n       >"
+    + "\" class=\"qnText col-sm-8\" data-toggle=\"popover\" data-trigger=\"hover\"\n       >"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.questiontext : stack1), depth0))
-    + "</td>\n  <td class=\"creator\">"
+    + "</td>\n  <td class=\"creator col-sm-2\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.pollQn : depth0)) != null ? stack1.creator : stack1), depth0))
     + "</td>\n</tr>";
 },"useData":true});

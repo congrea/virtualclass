@@ -134,8 +134,9 @@
   margin-left:7px;
 }
 #virtualclassCont.congrea #virtualclassPoll #layoutPoll .table > thead > tr > th {
-  padding-left:14px;
+  padding:12px;
   color:#3C3C3C;
+    border:none;
 }
 
 #virtualclassCont.congrea .miniTB  td {
@@ -326,9 +327,11 @@ pointer-events:none;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive{
-  height: 92%;
+  max-height: 90%;
   overflow: auto;
-  /*border-bottom: 1px solid lightgray;*/
+  overflow-x:hidden;
+  table-layout: fixed;
+  border-right:1px solid #f5f0f0;
   border-top: 0px solid #ddddddad;
 }
 
@@ -339,6 +342,20 @@ pointer-events:none;
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList{
   margin-bottom: 0px;
   color: #333;
+  margin-top: 39px;
+}
+
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList thead {
+    position: fixed;
+    top: 122px;
+    left: 73px;
+    right: 0;
+    width: calc(100% - 412px);
+    height: 41px;
+    background: #eee;
+    table-layout: fixed;
+    display: table;
+    z-index:8;
 }
 
 #virtualclassCont.congrea #addMoreCont #addMoreOption{
@@ -388,4 +405,18 @@ pointer-events:none;
 
 #virtualclassCont.congrea #virtualclassPoll .modal-content {
   overflow:auto;
+}
+
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+    background-color: #d9dbdc;
+} 
+
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    -webkit-border-radius: 7px;
+    background-color: rgba(0, 0, 0, 0.15);
 }

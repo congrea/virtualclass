@@ -169,3 +169,4 @@ Network.prototype.netWorkElementIsReady = function (){
         clearTimeout(virtualclass.gObj.connectingRoom);
     }
 }
+

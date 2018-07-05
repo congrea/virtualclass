@@ -263,23 +263,28 @@ var PopUp = (function (window, undefined) {
             });
     };
 
-    PopUp.prototype.validateurlPopup = function() {
+    PopUp.prototype.validateurlPopup = function(type) {
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
         this.hideAllPopups();
-        var endSessionMsg = document.getElementById("uploadvideourl");
-        endSessionMsg.style.display = 'block';
-        endSessionMsg.dataset.displaying = true;
+        var mszPopup, popupClose;
+        if(type == "video"){
+            mszPopup = document.querySelector("#virtualclassCont.congrea #popupContainer #uploadvideourl")
+            popupClose =  document.querySelector("#virtualclassCont.congrea #popupContainer #vidPopupClose");
+        }else if(type == "presentation"){
+            mszPopup = document.querySelector("#virtualclassCont.congrea #popupContainer #uploadppturl");
+            popupClose = document.querySelector("#virtualclassCont.congrea #popupContainer #pptPopupClose");
+        }else{
+            console.log("popup works for video and presentation");
+        }
+        mszPopup.style.display = 'block';
+        mszPopup.dataset.displaying = true;
 
-        var endSessionclose = document.getElementById("endSessionclose");
-        endSessionclose.addEventListener('click',
+        popupClose.addEventListener('click',
             function () {
-                //virtualclass.popup.closeElem();
-                //window.location.reload();
                 virtualclass.popup.closeElem();
             });
     };
-
     PopUp.prototype.replayWindowAction = function (action) {
         var replayContainer = document.getElementById("replayContainer");
         replayContainer.style.display = action;

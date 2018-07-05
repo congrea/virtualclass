@@ -2988,7 +2988,7 @@
 	float: right;
 }
 
-#virtualclassCont.congrea #popupContainer #uploadvideourl {
+#virtualclassCont.congrea #popupContainer .popupWindow.urlValidation {
 	width: 248px;
 	height: 60px;
 	text-align: center;
@@ -3001,7 +3001,7 @@
 	border-radius: 5px;
 }
 
-#virtualclassCont.congrea #popupContainer #uploadvideourl #endSessionclose {
+#virtualclassCont.congrea #popupContainer .urlValidation .urlMszClose{
 	top: 8px;
 	right: 8px;
 	position: absolute;
@@ -3009,7 +3009,7 @@
 	/* color: black; */
 }
 
-#virtualclassCont.congrea #popupContainer #uploadvideourl #endSessionMsg{
+#virtualclassCont.congrea #popupContainer .urlValidation  #endSessionMsg{
 	line-height: 57px;
 }
 

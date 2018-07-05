@@ -2262,7 +2262,13 @@
 
                 var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
                 if(mysmallVideo != null){
-                    mysmallVideo.srcObject =  virtualclass.gObj.video.stream;
+                   // mysmallVideo.srcObject.getVideoTracks()[0].stop();
+                    setTimeout(
+                        function (){
+                            mysmallVideo.srcObject =  virtualclass.gObj.video.stream;
+                        }, 100
+                    );
+
                 }
             }
 

@@ -405,7 +405,8 @@
             recordingContainer.classList.add('recordingFinished');
 
             console.log('Record :- after recording');
-            virtualclass.clearSession();
+            notSend = "nosend";
+            virtualclass.clearSession(notSend);
 
             virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
             virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue');

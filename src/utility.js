@@ -2257,9 +2257,19 @@
                 }else{
                     virtualclass.gObj.delayVid="hide"
                 }
-                virtualclass.videoHost.UI.displayVideo(vidType)
-                // virtualclass.videoHost.gObj.stdStopSmallVid = false;
 
+                virtualclass.videoHost.UI.displayVideo(vidType)
+
+                var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
+                if(mysmallVideo != null){
+                   // mysmallVideo.srcObject.getVideoTracks()[0].stop();
+                    setTimeout(
+                        function (){
+                            mysmallVideo.srcObject =  virtualclass.gObj.video.stream;
+                        }, 100
+                    );
+
+                }
             }
 
             if(virtualclass.gObj.meetingMode){

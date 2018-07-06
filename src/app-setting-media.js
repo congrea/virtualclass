@@ -15,6 +15,7 @@
                 this.audioOutputSelect = document.querySelector('#webRtcIoContainer select#audioOutput');
                 this.videoSelect = document.querySelector('#webRtcIoContainer select#videoSource');
                 this.mainVideoElement= document.querySelector('#videoHostSource');
+
                 this.selectors = [this.audioInputSelect, this.audioOutputSelect, this.videoSelect];
                 this.audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
                 navigator.mediaDevices.enumerateDevices().then(virtualclass.appSettingMedia.gotDevices).catch(virtualclass.appSettingMedia.handleError);
@@ -98,10 +99,14 @@
                 virtualclass.appSettingMedia.videoElement.srcObject = stream;
                 virtualclass.appSettingMedia.mainVideoElement.srcObject = stream;
 
-                //if(typeof virtualclass.appSettingMedia.type != 'undefined' && virtualclass.appSettingMedia.type == 'audio'){
-                    virtualclass.gObj.video.stream = stream;
-                    virtualclass.gObj.video.audio._manuPulateStream();
-                //}
+                var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
+                if(mysmallVideo != null){
+                    mysmallVideo.srcObject = stream;
+                }
+
+                virtualclass.gObj.video.stream = stream;
+                virtualclass.gObj.video.audio._manuPulateStream();
+
                 return navigator.mediaDevices.enumerateDevices();
             },
             start:function(type) {

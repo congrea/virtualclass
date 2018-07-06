@@ -166,7 +166,6 @@
                     that.updatePollList(getContent);
 
                 });
-
             },
 
             /*
